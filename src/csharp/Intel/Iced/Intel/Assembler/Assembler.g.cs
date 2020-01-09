@@ -56,7 +56,7 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		public void aad(int imm) {
+		public void aad(byte imm) {
 			Code op;
 			op = Code.Aad_imm8;
 			AddInstruction(Instruction.Create(op, imm));
@@ -72,7 +72,7 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32-bit</c></summary>
-		public void aam(int imm) {
+		public void aam(byte imm) {
 			Code op;
 			op = Code.Aam_imm8;
 			AddInstruction(Instruction.Create(op, imm));
@@ -265,26 +265,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>ADC AL, imm8</c><br/>
-		/// <br/>
-		/// <c>14 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADC r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /2 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>ADC r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /2 ib</c><br/>
@@ -374,17 +354,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void adc(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Adc_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Adc_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Adc_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Adc_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Adc_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Adc, dst, imm);
 				}
@@ -407,16 +383,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>adc instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADC r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /2 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -479,15 +445,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void adc(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Adc_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Adc_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Adc_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Adc_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Adc, dst, imm);
 				}
@@ -501,6 +465,54 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Adc, dst, imm);
 			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>adc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC AL, imm8</c><br/>
+		/// <br/>
+		/// <c>14 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /2 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void adc(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Adc_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Adc_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Adc, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>adc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /2 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void adc(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Adc_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>adcx instruction.<br/>
@@ -739,26 +751,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>ADD AL, imm8</c><br/>
-		/// <br/>
-		/// <c>04 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADD r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>ADD r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /0 ib</c><br/>
@@ -848,17 +840,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void add(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Add_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Add_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Add_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Add_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Add_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Add, dst, imm);
 				}
@@ -881,16 +869,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>add instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADD r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -953,15 +931,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void add(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Add_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Add_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Add_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Add_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Add, dst, imm);
 				}
@@ -977,6 +953,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>add instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD AL, imm8</c><br/>
+		/// <br/>
+		/// <c>04 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /0 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void add(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Add_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Add_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Add, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>add instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /0 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void add(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Add_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>addpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -990,11 +1014,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addpd, dst, src);
-			}
+			op = Code.Addpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addpd instruction.<br/>
@@ -1010,11 +1030,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addpd, dst, src);
-			}
+			op = Code.Addpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addps instruction.<br/>
@@ -1030,11 +1046,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addps, dst, src);
-			}
+			op = Code.Addps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addps instruction.<br/>
@@ -1050,11 +1062,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addps, dst, src);
-			}
+			op = Code.Addps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsd instruction.<br/>
@@ -1070,11 +1078,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsd, dst, src);
-			}
+			op = Code.Addsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsd instruction.<br/>
@@ -1090,11 +1094,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsd, dst, src);
-			}
+			op = Code.Addsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addss instruction.<br/>
@@ -1110,11 +1110,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addss, dst, src);
-			}
+			op = Code.Addss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addss instruction.<br/>
@@ -1130,11 +1126,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addss, dst, src);
-			}
+			op = Code.Addss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsubpd instruction.<br/>
@@ -1150,11 +1142,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsubpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsubpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsubpd, dst, src);
-			}
+			op = Code.Addsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsubpd instruction.<br/>
@@ -1170,11 +1158,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsubpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsubpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsubpd, dst, src);
-			}
+			op = Code.Addsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsubps instruction.<br/>
@@ -1190,11 +1174,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsubps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsubps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsubps, dst, src);
-			}
+			op = Code.Addsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>addsubps instruction.<br/>
@@ -1210,11 +1190,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void addsubps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Addsubps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Addsubps, dst, src);
-			}
+			op = Code.Addsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>adox instruction.<br/>
@@ -1294,11 +1270,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesdec(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesdec_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesdec, dst, src);
-			}
+			op = Code.Aesdec_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesdec instruction.<br/>
@@ -1314,11 +1286,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesdec(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesdec_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesdec, dst, src);
-			}
+			op = Code.Aesdec_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesdeclast instruction.<br/>
@@ -1334,11 +1302,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesdeclast(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesdeclast_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesdeclast, dst, src);
-			}
+			op = Code.Aesdeclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesdeclast instruction.<br/>
@@ -1354,11 +1318,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesdeclast(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesdeclast_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesdeclast, dst, src);
-			}
+			op = Code.Aesdeclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesenc instruction.<br/>
@@ -1374,11 +1334,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesenc(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesenc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesenc, dst, src);
-			}
+			op = Code.Aesenc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesenc instruction.<br/>
@@ -1394,11 +1350,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesenc(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesenc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesenc, dst, src);
-			}
+			op = Code.Aesenc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesenclast instruction.<br/>
@@ -1414,11 +1366,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesenclast(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesenclast_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesenclast, dst, src);
-			}
+			op = Code.Aesenclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesenclast instruction.<br/>
@@ -1434,11 +1382,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesenclast(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesenclast_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesenclast, dst, src);
-			}
+			op = Code.Aesenclast_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesimc instruction.<br/>
@@ -1454,11 +1398,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesimc(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesimc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesimc, dst, src);
-			}
+			op = Code.Aesimc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aesimc instruction.<br/>
@@ -1474,11 +1414,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void aesimc(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aesimc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aesimc, dst, src);
-			}
+			op = Code.Aesimc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>aeskeygenassist instruction.<br/>
@@ -1492,13 +1428,9 @@ namespace Iced.Intel {
 		/// <c>AES</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void aeskeygenassist(Register dst, Register src, int imm) {
+		public void aeskeygenassist(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aeskeygenassist, dst, src, imm);
-			}
+			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>aeskeygenassist instruction.<br/>
@@ -1512,13 +1444,9 @@ namespace Iced.Intel {
 		/// <c>AES</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void aeskeygenassist(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void aeskeygenassist(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Aeskeygenassist, dst, src, imm);
-			}
+			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>and instruction.<br/>
@@ -1693,26 +1621,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>AND AL, imm8</c><br/>
-		/// <br/>
-		/// <c>24 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>AND r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /4 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>AND r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /4 ib</c><br/>
@@ -1802,17 +1710,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void and(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.And_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.And_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.And_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.And_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.And_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.And, dst, imm);
 				}
@@ -1835,16 +1739,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>and instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>AND r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /4 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -1907,15 +1801,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void and(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.And_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.And_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.And_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.And_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.And, dst, imm);
 				}
@@ -1929,6 +1821,54 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.And, dst, imm);
 			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>and instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND AL, imm8</c><br/>
+		/// <br/>
+		/// <c>24 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /4 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void and(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.And_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.And_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.And, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>and instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /4 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void and(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.And_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>andn instruction.<br/>
@@ -2008,11 +1948,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andnpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andnpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andnpd, dst, src);
-			}
+			op = Code.Andnpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andnpd instruction.<br/>
@@ -2028,11 +1964,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andnpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andnpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andnpd, dst, src);
-			}
+			op = Code.Andnpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andnps instruction.<br/>
@@ -2048,11 +1980,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andnps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andnps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andnps, dst, src);
-			}
+			op = Code.Andnps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andnps instruction.<br/>
@@ -2068,11 +1996,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andnps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andnps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andnps, dst, src);
-			}
+			op = Code.Andnps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andpd instruction.<br/>
@@ -2088,11 +2012,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andpd, dst, src);
-			}
+			op = Code.Andpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andpd instruction.<br/>
@@ -2108,11 +2028,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andpd, dst, src);
-			}
+			op = Code.Andpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andps instruction.<br/>
@@ -2128,11 +2044,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andps, dst, src);
-			}
+			op = Code.Andps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>andps instruction.<br/>
@@ -2148,11 +2060,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void andps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Andps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Andps, dst, src);
-			}
+			op = Code.Andps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>arpl instruction.<br/>
@@ -2678,13 +2586,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void blendpd(Register dst, Register src, int imm) {
+		public void blendpd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendpd, dst, src, imm);
-			}
+			op = Code.Blendpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>blendpd instruction.<br/>
@@ -2698,13 +2602,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void blendpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void blendpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendpd, dst, src, imm);
-			}
+			op = Code.Blendpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>blendps instruction.<br/>
@@ -2718,13 +2618,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void blendps(Register dst, Register src, int imm) {
+		public void blendps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendps, dst, src, imm);
-			}
+			op = Code.Blendps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>blendps instruction.<br/>
@@ -2738,13 +2634,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void blendps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void blendps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendps, dst, src, imm);
-			}
+			op = Code.Blendps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>blendvpd instruction.<br/>
@@ -2760,11 +2652,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void blendvpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendvpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendvpd, dst, src);
-			}
+			op = Code.Blendvpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>blendvpd instruction.<br/>
@@ -2780,11 +2668,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void blendvpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendvpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendvpd, dst, src);
-			}
+			op = Code.Blendvpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>blendvps instruction.<br/>
@@ -2800,11 +2684,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void blendvps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendvps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendvps, dst, src);
-			}
+			op = Code.Blendvps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>blendvps instruction.<br/>
@@ -2820,11 +2700,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void blendvps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Blendvps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Blendvps, dst, src);
-			}
+			op = Code.Blendvps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>blsfill instruction.<br/>
@@ -3486,7 +3362,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void bt(Register dst, int imm) {
+		public void bt(Register dst, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Bt_rm64_imm8;
@@ -3530,7 +3406,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void bt(AssemblerMemoryOperand dst, int imm) {
+		public void bt(AssemblerMemoryOperand dst, byte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bt_rm64_imm8;
@@ -3662,7 +3538,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void btc(Register dst, int imm) {
+		public void btc(Register dst, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Btc_rm64_imm8;
@@ -3706,7 +3582,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void btc(AssemblerMemoryOperand dst, int imm) {
+		public void btc(AssemblerMemoryOperand dst, byte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Btc_rm64_imm8;
@@ -3838,7 +3714,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void btr(Register dst, int imm) {
+		public void btr(Register dst, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Btr_rm64_imm8;
@@ -3882,7 +3758,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void btr(AssemblerMemoryOperand dst, int imm) {
+		public void btr(AssemblerMemoryOperand dst, byte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Btr_rm64_imm8;
@@ -4014,7 +3890,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void bts(Register dst, int imm) {
+		public void bts(Register dst, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Bts_rm64_imm8;
@@ -4058,7 +3934,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void bts(AssemblerMemoryOperand dst, int imm) {
+		public void bts(AssemblerMemoryOperand dst, byte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bts_rm64_imm8;
@@ -4392,11 +4268,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cldemote(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Cldemote_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cldemote, dst);
-			}
+			op = Code.Cldemote_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clflush instruction.<br/>
@@ -4412,11 +4284,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clflush(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Clflush_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Clflush, dst);
-			}
+			op = Code.Clflush_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clflushopt instruction.<br/>
@@ -4432,11 +4300,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clflushopt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Clflushopt_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Clflushopt, dst);
-			}
+			op = Code.Clflushopt_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clgi instruction.<br/>
@@ -4484,11 +4348,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clrssbsy(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Clrssbsy_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Clrssbsy, dst);
-			}
+			op = Code.Clrssbsy_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clts instruction.<br/>
@@ -4520,11 +4380,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clwb(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Clwb_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Clwb, dst);
-			}
+			op = Code.Clwb_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clzero instruction.<br/>
@@ -6167,26 +6023,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>CMP AL, imm8</c><br/>
-		/// <br/>
-		/// <c>3C ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMP r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /7 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>CMP r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /7 ib</c><br/>
@@ -6276,17 +6112,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void cmp(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Cmp_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Cmp_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Cmp_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Cmp_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Cmp_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Cmp, dst, imm);
 				}
@@ -6309,16 +6141,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>cmp instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMP r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /7 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -6381,15 +6203,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void cmp(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Cmp_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Cmp_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Cmp_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Cmp_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Cmp, dst, imm);
 				}
@@ -6405,6 +6225,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>cmp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP AL, imm8</c><br/>
+		/// <br/>
+		/// <c>3C ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /7 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void cmp(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Cmp_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Cmp_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Cmp, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>cmp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /7 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void cmp(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Cmp_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>cmppd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -6416,13 +6284,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmppd(Register dst, Register src, int imm) {
+		public void cmppd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmppd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmppd, dst, src, imm);
-			}
+			op = Code.Cmppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmppd instruction.<br/>
@@ -6436,13 +6300,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmppd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void cmppd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmppd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmppd, dst, src, imm);
-			}
+			op = Code.Cmppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpps instruction.<br/>
@@ -6456,13 +6316,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpps(Register dst, Register src, int imm) {
+		public void cmpps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpps, dst, src, imm);
-			}
+			op = Code.Cmpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpps instruction.<br/>
@@ -6476,13 +6332,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void cmpps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpps, dst, src, imm);
-			}
+			op = Code.Cmpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpsb instruction.<br/>
@@ -6528,13 +6380,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpsd(Register dst, Register src, int imm) {
+		public void cmpsd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpsd_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpsd, dst, src, imm);
-			}
+			op = Code.Cmpsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpsd instruction.<br/>
@@ -6548,13 +6396,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpsd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void cmpsd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpsd_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpsd, dst, src, imm);
-			}
+			op = Code.Cmpsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpsq instruction.<br/>
@@ -6584,13 +6428,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpss(Register dst, Register src, int imm) {
+		public void cmpss(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpss_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpss, dst, src, imm);
-			}
+			op = Code.Cmpss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpss instruction.<br/>
@@ -6604,13 +6444,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpss(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void cmpss(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cmpss_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpss, dst, src, imm);
-			}
+			op = Code.Cmpss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>cmpsw instruction.<br/>
@@ -6754,11 +6590,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cmpxchg8b(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Cmpxchg8b_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cmpxchg8b, dst);
-			}
+			op = Code.Cmpxchg8b_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>comisd instruction.<br/>
@@ -6774,11 +6606,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void comisd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Comisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Comisd, dst, src);
-			}
+			op = Code.Comisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>comisd instruction.<br/>
@@ -6794,11 +6622,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void comisd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Comisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Comisd, dst, src);
-			}
+			op = Code.Comisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>comiss instruction.<br/>
@@ -6814,11 +6638,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void comiss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Comiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Comiss, dst, src);
-			}
+			op = Code.Comiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>comiss instruction.<br/>
@@ -6834,11 +6654,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void comiss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Comiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Comiss, dst, src);
-			}
+			op = Code.Comiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cpuid instruction.<br/>
@@ -7022,11 +6838,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtdq2pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtdq2pd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtdq2pd, dst, src);
-			}
+			op = Code.Cvtdq2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtdq2pd instruction.<br/>
@@ -7042,11 +6854,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtdq2pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtdq2pd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtdq2pd, dst, src);
-			}
+			op = Code.Cvtdq2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtdq2ps instruction.<br/>
@@ -7062,11 +6870,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtdq2ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtdq2ps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtdq2ps, dst, src);
-			}
+			op = Code.Cvtdq2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtdq2ps instruction.<br/>
@@ -7082,11 +6886,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtdq2ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtdq2ps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtdq2ps, dst, src);
-			}
+			op = Code.Cvtdq2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2dq instruction.<br/>
@@ -7102,11 +6902,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2dq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpd2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2dq, dst, src);
-			}
+			op = Code.Cvtpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2dq instruction.<br/>
@@ -7122,11 +6918,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2dq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpd2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2dq, dst, src);
-			}
+			op = Code.Cvtpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2pi instruction.<br/>
@@ -7142,11 +6934,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2pi(Register dst, Register src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvtpd2pi_mm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2pi, dst, src);
-			}
+			op = Code.Cvtpd2pi_mm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2pi instruction.<br/>
@@ -7162,11 +6950,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2pi(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvtpd2pi_mm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2pi, dst, src);
-			}
+			op = Code.Cvtpd2pi_mm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2ps instruction.<br/>
@@ -7182,11 +6966,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpd2ps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2ps, dst, src);
-			}
+			op = Code.Cvtpd2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpd2ps instruction.<br/>
@@ -7202,11 +6982,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpd2ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpd2ps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpd2ps, dst, src);
-			}
+			op = Code.Cvtpd2ps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpi2pd instruction.<br/>
@@ -7222,11 +6998,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpi2pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpi2pd_xmm_mmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpi2pd, dst, src);
-			}
+			op = Code.Cvtpi2pd_xmm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpi2pd instruction.<br/>
@@ -7242,11 +7014,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpi2pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpi2pd_xmm_mmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpi2pd, dst, src);
-			}
+			op = Code.Cvtpi2pd_xmm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpi2ps instruction.<br/>
@@ -7262,11 +7030,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpi2ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpi2ps_xmm_mmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpi2ps, dst, src);
-			}
+			op = Code.Cvtpi2ps_xmm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtpi2ps instruction.<br/>
@@ -7282,11 +7046,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtpi2ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtpi2ps_xmm_mmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtpi2ps, dst, src);
-			}
+			op = Code.Cvtpi2ps_xmm_mmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2dq instruction.<br/>
@@ -7302,11 +7062,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2dq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtps2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2dq, dst, src);
-			}
+			op = Code.Cvtps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2dq instruction.<br/>
@@ -7322,11 +7078,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2dq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtps2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2dq, dst, src);
-			}
+			op = Code.Cvtps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2pd instruction.<br/>
@@ -7342,11 +7094,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtps2pd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2pd, dst, src);
-			}
+			op = Code.Cvtps2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2pd instruction.<br/>
@@ -7362,11 +7110,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtps2pd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2pd, dst, src);
-			}
+			op = Code.Cvtps2pd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2pi instruction.<br/>
@@ -7382,11 +7126,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2pi(Register dst, Register src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvtps2pi_mm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2pi, dst, src);
-			}
+			op = Code.Cvtps2pi_mm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtps2pi instruction.<br/>
@@ -7402,11 +7142,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtps2pi(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvtps2pi_mm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtps2pi, dst, src);
-			}
+			op = Code.Cvtps2pi_mm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtsd2si instruction.<br/>
@@ -7486,11 +7222,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtsd2ss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtsd2ss_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtsd2ss, dst, src);
-			}
+			op = Code.Cvtsd2ss_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtsd2ss instruction.<br/>
@@ -7506,11 +7238,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtsd2ss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtsd2ss_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtsd2ss, dst, src);
-			}
+			op = Code.Cvtsd2ss_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtsi2sd instruction.<br/>
@@ -7654,11 +7382,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtss2sd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtss2sd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtss2sd, dst, src);
-			}
+			op = Code.Cvtss2sd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtss2sd instruction.<br/>
@@ -7674,11 +7398,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvtss2sd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvtss2sd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvtss2sd, dst, src);
-			}
+			op = Code.Cvtss2sd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvtss2si instruction.<br/>
@@ -7758,11 +7478,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttpd2dq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvttpd2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttpd2dq, dst, src);
-			}
+			op = Code.Cvttpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttpd2dq instruction.<br/>
@@ -7778,11 +7494,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttpd2dq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvttpd2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttpd2dq, dst, src);
-			}
+			op = Code.Cvttpd2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttpd2pi instruction.<br/>
@@ -7798,11 +7510,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttpd2pi(Register dst, Register src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvttpd2pi_mm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttpd2pi, dst, src);
-			}
+			op = Code.Cvttpd2pi_mm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttpd2pi instruction.<br/>
@@ -7818,11 +7526,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttpd2pi(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvttpd2pi_mm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttpd2pi, dst, src);
-			}
+			op = Code.Cvttpd2pi_mm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttps2dq instruction.<br/>
@@ -7838,11 +7542,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttps2dq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvttps2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttps2dq, dst, src);
-			}
+			op = Code.Cvttps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttps2dq instruction.<br/>
@@ -7858,11 +7558,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttps2dq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Cvttps2dq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttps2dq, dst, src);
-			}
+			op = Code.Cvttps2dq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttps2pi instruction.<br/>
@@ -7878,11 +7574,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttps2pi(Register dst, Register src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvttps2pi_mm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttps2pi, dst, src);
-			}
+			op = Code.Cvttps2pi_mm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttps2pi instruction.<br/>
@@ -7898,11 +7590,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cvttps2pi(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Cvttps2pi_mm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Cvttps2pi, dst, src);
-			}
+			op = Code.Cvttps2pi_mm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>cvttsd2si instruction.<br/>
@@ -8354,11 +8042,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divpd, dst, src);
-			}
+			op = Code.Divpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divpd instruction.<br/>
@@ -8374,11 +8058,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divpd, dst, src);
-			}
+			op = Code.Divpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divps instruction.<br/>
@@ -8394,11 +8074,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divps, dst, src);
-			}
+			op = Code.Divps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divps instruction.<br/>
@@ -8414,11 +8090,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divps, dst, src);
-			}
+			op = Code.Divps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divsd instruction.<br/>
@@ -8434,11 +8106,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divsd, dst, src);
-			}
+			op = Code.Divsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divsd instruction.<br/>
@@ -8454,11 +8122,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divsd, dst, src);
-			}
+			op = Code.Divsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divss instruction.<br/>
@@ -8474,11 +8138,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divss, dst, src);
-			}
+			op = Code.Divss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>divss instruction.<br/>
@@ -8494,11 +8154,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void divss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Divss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Divss, dst, src);
-			}
+			op = Code.Divss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>dppd instruction.<br/>
@@ -8512,13 +8168,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void dppd(Register dst, Register src, int imm) {
+		public void dppd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Dppd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Dppd, dst, src, imm);
-			}
+			op = Code.Dppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>dppd instruction.<br/>
@@ -8532,13 +8184,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void dppd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void dppd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Dppd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Dppd, dst, src, imm);
-			}
+			op = Code.Dppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>dpps instruction.<br/>
@@ -8552,13 +8200,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void dpps(Register dst, Register src, int imm) {
+		public void dpps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Dpps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Dpps, dst, src, imm);
-			}
+			op = Code.Dpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>dpps instruction.<br/>
@@ -8572,13 +8216,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void dpps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void dpps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Dpps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Dpps, dst, src, imm);
-			}
+			op = Code.Dpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>dq instruction.<br/>
@@ -8894,7 +8534,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void extractps(Register dst, Register src, int imm) {
+		public void extractps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Extractps_r64m32_xmm_imm8;
@@ -8926,7 +8566,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void extractps(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void extractps(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Extractps_r64m32_xmm_imm8;
@@ -8950,11 +8590,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void extrq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Extrq_xmm_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Extrq, dst, src);
-			}
+			op = Code.Extrq_xmm_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>f2xm1 instruction.<br/>
@@ -9034,11 +8670,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void faddp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Faddp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Faddp, dst, src);
-			}
+			op = Code.Faddp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fchs instruction.<br/>
@@ -9086,11 +8718,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovb(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovb_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovb, dst, src);
-			}
+			op = Code.Fcmovb_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovbe instruction.<br/>
@@ -9106,11 +8734,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovbe(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovbe_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovbe, dst, src);
-			}
+			op = Code.Fcmovbe_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmove instruction.<br/>
@@ -9126,11 +8750,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmove(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmove_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmove, dst, src);
-			}
+			op = Code.Fcmove_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovnb instruction.<br/>
@@ -9146,11 +8766,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovnb(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovnb_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovnb, dst, src);
-			}
+			op = Code.Fcmovnb_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovnbe instruction.<br/>
@@ -9166,11 +8782,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovnbe(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovnbe_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovnbe, dst, src);
-			}
+			op = Code.Fcmovnbe_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovne instruction.<br/>
@@ -9186,11 +8798,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovne(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovne_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovne, dst, src);
-			}
+			op = Code.Fcmovne_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovnu instruction.<br/>
@@ -9206,11 +8814,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovnu(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovnu_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovnu, dst, src);
-			}
+			op = Code.Fcmovnu_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcmovu instruction.<br/>
@@ -9226,11 +8830,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcmovu(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcmovu_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcmovu, dst, src);
-			}
+			op = Code.Fcmovu_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcom instruction.<br/>
@@ -9246,11 +8846,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcom(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcom_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcom, dst, src);
-			}
+			op = Code.Fcom_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcomi instruction.<br/>
@@ -9266,11 +8862,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcomi(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcomi_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcomi, dst, src);
-			}
+			op = Code.Fcomi_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcomip instruction.<br/>
@@ -9286,11 +8878,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcomip(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcomip_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcomip, dst, src);
-			}
+			op = Code.Fcomip_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcomp instruction.<br/>
@@ -9306,11 +8894,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fcomp(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fcomp_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fcomp, dst, src);
-			}
+			op = Code.Fcomp_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fcompp instruction.<br/>
@@ -9422,11 +9006,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fdivp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fdivp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fdivp, dst, src);
-			}
+			op = Code.Fdivp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fdivr instruction.<br/>
@@ -9474,11 +9054,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fdivrp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fdivrp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fdivrp, dst, src);
-			}
+			op = Code.Fdivrp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>femms instruction.<br/>
@@ -9526,11 +9102,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ffree(Register dst) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Ffree_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ffree, dst);
-			}
+			op = Code.Ffree_sti;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>ffreep instruction.<br/>
@@ -9546,11 +9118,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ffreep(Register dst) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Ffreep_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ffreep, dst);
-			}
+			op = Code.Ffreep_sti;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fincstp instruction.<br/>
@@ -9598,11 +9166,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fld(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fld_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fld, dst, src);
-			}
+			op = Code.Fld_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fld1 instruction.<br/>
@@ -9634,11 +9198,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fldcw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Fldcw_m2byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fldcw, dst);
-			}
+			op = Code.Fldcw_m2byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fldl2e instruction.<br/>
@@ -9782,11 +9342,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fmulp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fmulp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fmulp, dst, src);
-			}
+			op = Code.Fmulp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fnclex instruction.<br/>
@@ -9898,11 +9454,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstcw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Fnstcw_m2byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fnstcw, dst);
-			}
+			op = Code.Fnstcw_m2byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnstsw instruction.<br/>
@@ -9918,11 +9470,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstsw(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Fnstsw_AX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fnstsw, dst);
-			}
+			op = Code.Fnstsw_AX;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnstsw instruction.<br/>
@@ -9938,11 +9486,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Fnstsw_m2byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fnstsw, dst);
-			}
+			op = Code.Fnstsw_m2byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fpatan instruction.<br/>
@@ -10134,11 +9678,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fst(Register dst) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fst_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fst, dst);
-			}
+			op = Code.Fst_sti;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstcw instruction.<br/>
@@ -10154,11 +9694,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstcw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Fstcw_m2byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstcw, dst);
-			}
+			op = Code.Fstcw_m2byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstdw instruction.<br/>
@@ -10174,11 +9710,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void fstdw(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Fstdw_AX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstdw, dst);
-			}
+			op = Code.Fstdw_AX;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstp instruction.<br/>
@@ -10194,11 +9726,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstp(Register dst) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fstp_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstp, dst);
-			}
+			op = Code.Fstp_sti;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstpnce instruction.<br/>
@@ -10214,11 +9742,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstpnce(Register dst) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fstpnce_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstpnce, dst);
-			}
+			op = Code.Fstpnce_sti;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstsg instruction.<br/>
@@ -10234,11 +9758,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void fstsg(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Fstsg_AX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstsg, dst);
-			}
+			op = Code.Fstsg_AX;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstsw instruction.<br/>
@@ -10254,11 +9774,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstsw(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Fstsw_AX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstsw, dst);
-			}
+			op = Code.Fstsw_AX;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstsw instruction.<br/>
@@ -10274,11 +9790,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Fstsw_m2byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstsw, dst);
-			}
+			op = Code.Fstsw_m2byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fsub instruction.<br/>
@@ -10326,11 +9838,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fsubp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fsubp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fsubp, dst, src);
-			}
+			op = Code.Fsubp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fsubr instruction.<br/>
@@ -10378,11 +9886,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fsubrp(Register dst, Register src) {
 			Code op;
-			if (dst.IsST()) {
-				op = Code.Fsubrp_sti_st0;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fsubrp, dst, src);
-			}
+			op = Code.Fsubrp_sti_st0;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ftst instruction.<br/>
@@ -10414,11 +9918,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fucom(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fucom_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fucom, dst, src);
-			}
+			op = Code.Fucom_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fucomi instruction.<br/>
@@ -10434,11 +9934,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fucomi(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fucomi_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fucomi, dst, src);
-			}
+			op = Code.Fucomi_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fucomip instruction.<br/>
@@ -10454,11 +9950,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fucomip(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fucomip_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fucomip, dst, src);
-			}
+			op = Code.Fucomip_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fucomp instruction.<br/>
@@ -10474,11 +9966,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fucomp(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fucomp_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fucomp, dst, src);
-			}
+			op = Code.Fucomp_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fucompp instruction.<br/>
@@ -10526,11 +10014,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fxch(Register dst, Register src) {
 			Code op;
-			if (dst == Register.ST0) {
-				op = Code.Fxch_st0_sti;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxch, dst, src);
-			}
+			op = Code.Fxch_st0_sti;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>fxrstor instruction.<br/>
@@ -10546,11 +10030,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fxrstor(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Fxrstor_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxrstor, dst);
-			}
+			op = Code.Fxrstor_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxrstor instruction.<br/>
@@ -10566,11 +10046,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fxrstor(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Fxrstor_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxrstor, dst);
-			}
+			op = Code.Fxrstor_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxrstor64 instruction.<br/>
@@ -10586,11 +10062,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void fxrstor64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Fxrstor64_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxrstor64, dst);
-			}
+			op = Code.Fxrstor64_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxrstor64 instruction.<br/>
@@ -10606,11 +10078,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void fxrstor64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Fxrstor64_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxrstor64, dst);
-			}
+			op = Code.Fxrstor64_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxsave instruction.<br/>
@@ -10626,11 +10094,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fxsave(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Fxsave_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxsave, dst);
-			}
+			op = Code.Fxsave_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxsave instruction.<br/>
@@ -10646,11 +10110,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fxsave(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Fxsave_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxsave, dst);
-			}
+			op = Code.Fxsave_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxsave64 instruction.<br/>
@@ -10666,11 +10126,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void fxsave64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Fxsave64_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxsave64, dst);
-			}
+			op = Code.Fxsave64_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxsave64 instruction.<br/>
@@ -10686,11 +10142,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void fxsave64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Fxsave64_m512byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fxsave64, dst);
-			}
+			op = Code.Fxsave64_m512byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fxtract instruction.<br/>
@@ -10768,13 +10220,9 @@ namespace Iced.Intel {
 		/// <c>GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineinvqb(Register dst, Register src, int imm) {
+		public void gf2p8affineinvqb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8affineinvqb, dst, src, imm);
-			}
+			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>gf2p8affineinvqb instruction.<br/>
@@ -10788,13 +10236,9 @@ namespace Iced.Intel {
 		/// <c>GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineinvqb(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void gf2p8affineinvqb(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8affineinvqb, dst, src, imm);
-			}
+			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>gf2p8affineqb instruction.<br/>
@@ -10808,13 +10252,9 @@ namespace Iced.Intel {
 		/// <c>GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineqb(Register dst, Register src, int imm) {
+		public void gf2p8affineqb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8affineqb, dst, src, imm);
-			}
+			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>gf2p8affineqb instruction.<br/>
@@ -10828,13 +10268,9 @@ namespace Iced.Intel {
 		/// <c>GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineqb(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void gf2p8affineqb(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8affineqb, dst, src, imm);
-			}
+			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>gf2p8mulb instruction.<br/>
@@ -10850,11 +10286,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void gf2p8mulb(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8mulb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8mulb, dst, src);
-			}
+			op = Code.Gf2p8mulb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>gf2p8mulb instruction.<br/>
@@ -10870,11 +10302,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void gf2p8mulb(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Gf2p8mulb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Gf2p8mulb, dst, src);
-			}
+			op = Code.Gf2p8mulb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>haddpd instruction.<br/>
@@ -10890,11 +10318,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void haddpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Haddpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Haddpd, dst, src);
-			}
+			op = Code.Haddpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>haddpd instruction.<br/>
@@ -10910,11 +10334,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void haddpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Haddpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Haddpd, dst, src);
-			}
+			op = Code.Haddpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>haddps instruction.<br/>
@@ -10930,11 +10350,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void haddps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Haddps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Haddps, dst, src);
-			}
+			op = Code.Haddps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>haddps instruction.<br/>
@@ -10950,11 +10366,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void haddps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Haddps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Haddps, dst, src);
-			}
+			op = Code.Haddps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>hlt instruction.<br/>
@@ -10986,11 +10398,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void hsubpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Hsubpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Hsubpd, dst, src);
-			}
+			op = Code.Hsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>hsubpd instruction.<br/>
@@ -11006,11 +10414,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void hsubpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Hsubpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Hsubpd, dst, src);
-			}
+			op = Code.Hsubpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>hsubps instruction.<br/>
@@ -11026,11 +10430,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void hsubps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Hsubps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Hsubps, dst, src);
-			}
+			op = Code.Hsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>hsubps instruction.<br/>
@@ -11046,11 +10446,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void hsubps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Hsubps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Hsubps, dst, src);
-			}
+			op = Code.Hsubps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ibts instruction.<br/>
@@ -11492,7 +10888,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void imul(Register dst, Register src, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Imul_r64_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -11577,7 +10973,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void imul(Register dst, AssemblerMemoryOperand src, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Imul_r64_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -11674,7 +11070,7 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void @in(Register dst, int imm) {
+		public void @in(Register dst, byte imm) {
 			Code op;
 			if (dst == Register.EAX) {
 				op = Code.In_EAX_imm8;
@@ -11812,11 +11208,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void incsspd(Register dst) {
 			Code op;
-			if (dst.IsGPR32()) {
-				op = Code.Incsspd_r32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Incsspd, dst);
-			}
+			op = Code.Incsspd_r32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>incsspq instruction.<br/>
@@ -11832,11 +11224,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void incsspq(Register dst) {
 			Code op;
-			if (dst.IsGPR64()) {
-				op = Code.Incsspq_r64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Incsspq, dst);
-			}
+			op = Code.Incsspq_r64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>insb instruction.<br/>
@@ -11852,11 +11240,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void insb(Register src) {
 			Code op;
-			if (src == Register.DX) {
-				op = Code.Insb_m8_DX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insb, src);
-			}
+			op = Code.Insb_m8_DX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>insd instruction.<br/>
@@ -11872,11 +11256,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void insd(Register src) {
 			Code op;
-			if (src == Register.DX) {
-				op = Code.Insd_m32_DX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insd, src);
-			}
+			op = Code.Insd_m32_DX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>insertps instruction.<br/>
@@ -11890,13 +11270,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void insertps(Register dst, Register src, int imm) {
+		public void insertps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Insertps_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insertps, dst, src, imm);
-			}
+			op = Code.Insertps_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>insertps instruction.<br/>
@@ -11910,13 +11286,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void insertps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void insertps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Insertps_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insertps, dst, src, imm);
-			}
+			op = Code.Insertps_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>insertq instruction.<br/>
@@ -11932,11 +11304,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void insertq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Insertq_xmm_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insertq, dst, src);
-			}
+			op = Code.Insertq_xmm_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>insw instruction.<br/>
@@ -11952,11 +11320,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void insw(Register src) {
 			Code op;
-			if (src == Register.DX) {
-				op = Code.Insw_m16_DX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Insw, src);
-			}
+			op = Code.Insw_m16_DX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>int instruction.<br/>
@@ -11986,7 +11350,7 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void @int(int imm) {
+		public void @int(byte imm) {
 			Code op;
 			op = Code.Int_imm8;
 			AddInstruction(Instruction.Create(op, imm));
@@ -12116,11 +11480,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void invlpg(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Invlpg_m;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Invlpg, dst);
-			}
+			op = Code.Invlpg_m;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>invlpg instruction.<br/>
@@ -12136,11 +11496,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void invlpg(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Invlpg_m;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Invlpg, dst);
-			}
+			op = Code.Invlpg_m;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>invlpga instruction.<br/>
@@ -14077,11 +13433,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kaddb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kaddb, dst, src, arg2);
-			}
+			op = Code.VEX_Kaddb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kaddd instruction.<br/>
@@ -14097,11 +13449,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kaddd_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kaddd, dst, src, arg2);
-			}
+			op = Code.VEX_Kaddd_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kaddq instruction.<br/>
@@ -14117,11 +13465,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kaddq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kaddq, dst, src, arg2);
-			}
+			op = Code.VEX_Kaddq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kaddw instruction.<br/>
@@ -14137,11 +13481,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kaddw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kaddw, dst, src, arg2);
-			}
+			op = Code.VEX_Kaddw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandb instruction.<br/>
@@ -14157,11 +13497,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandb, dst, src, arg2);
-			}
+			op = Code.VEX_Kandb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandd instruction.<br/>
@@ -14177,11 +13513,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandd_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandd, dst, src, arg2);
-			}
+			op = Code.VEX_Kandd_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandnb instruction.<br/>
@@ -14197,11 +13529,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandnb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandnb, dst, src, arg2);
-			}
+			op = Code.VEX_Kandnb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandnd instruction.<br/>
@@ -14217,11 +13545,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandnd_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandnd, dst, src, arg2);
-			}
+			op = Code.VEX_Kandnd_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandnq instruction.<br/>
@@ -14237,11 +13561,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandnq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandnq, dst, src, arg2);
-			}
+			op = Code.VEX_Kandnq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandnw instruction.<br/>
@@ -14257,11 +13577,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandnw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandnw, dst, src, arg2);
-			}
+			op = Code.VEX_Kandnw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandq instruction.<br/>
@@ -14277,11 +13593,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandq, dst, src, arg2);
-			}
+			op = Code.VEX_Kandq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kandw instruction.<br/>
@@ -14297,11 +13609,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kandw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kandw, dst, src, arg2);
-			}
+			op = Code.VEX_Kandw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -14361,11 +13669,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsK()) {
-				op = Code.VEX_Kmovb_m8_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovb, dst, src);
-			}
+			op = Code.VEX_Kmovb_m8_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -14381,11 +13685,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kmovb_k_km8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovb, dst, src);
-			}
+			op = Code.VEX_Kmovb_k_km8;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -14445,11 +13745,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsK()) {
-				op = Code.VEX_Kmovd_m32_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovd, dst, src);
-			}
+			op = Code.VEX_Kmovd_m32_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -14465,11 +13761,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kmovd_k_km32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovd, dst, src);
-			}
+			op = Code.VEX_Kmovd_k_km32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -14529,11 +13821,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsK()) {
-				op = Code.VEX_Kmovq_m64_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovq, dst, src);
-			}
+			op = Code.VEX_Kmovq_m64_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -14549,11 +13837,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kmovq_k_km64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovq, dst, src);
-			}
+			op = Code.VEX_Kmovq_k_km64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -14613,11 +13897,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsK()) {
-				op = Code.VEX_Kmovw_m16_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovw, dst, src);
-			}
+			op = Code.VEX_Kmovw_m16_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -14633,11 +13913,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kmovw_k_km16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kmovw, dst, src);
-			}
+			op = Code.VEX_Kmovw_k_km16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotb instruction.<br/>
@@ -14653,11 +13929,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotb(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Knotb_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Knotb, dst, src);
-			}
+			op = Code.VEX_Knotb_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotd instruction.<br/>
@@ -14673,11 +13945,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotd(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Knotd_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Knotd, dst, src);
-			}
+			op = Code.VEX_Knotd_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotq instruction.<br/>
@@ -14693,11 +13961,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotq(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Knotq_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Knotq, dst, src);
-			}
+			op = Code.VEX_Knotq_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotw instruction.<br/>
@@ -14713,11 +13977,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotw(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Knotw_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Knotw, dst, src);
-			}
+			op = Code.VEX_Knotw_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>korb instruction.<br/>
@@ -14733,11 +13993,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Korb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Korb, dst, src, arg2);
-			}
+			op = Code.VEX_Korb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kord instruction.<br/>
@@ -14753,11 +14009,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kord(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kord_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kord, dst, src, arg2);
-			}
+			op = Code.VEX_Kord_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>korq instruction.<br/>
@@ -14773,11 +14025,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Korq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Korq, dst, src, arg2);
-			}
+			op = Code.VEX_Korq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kortestb instruction.<br/>
@@ -14793,11 +14041,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestb(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kortestb_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kortestb, dst, src);
-			}
+			op = Code.VEX_Kortestb_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestd instruction.<br/>
@@ -14813,11 +14057,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestd(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kortestd_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kortestd, dst, src);
-			}
+			op = Code.VEX_Kortestd_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestq instruction.<br/>
@@ -14833,11 +14073,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestq(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kortestq_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kortestq, dst, src);
-			}
+			op = Code.VEX_Kortestq_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestw instruction.<br/>
@@ -14853,11 +14089,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestw(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kortestw_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kortestw, dst, src);
-			}
+			op = Code.VEX_Kortestw_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>korw instruction.<br/>
@@ -14873,11 +14105,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Korw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Korw, dst, src, arg2);
-			}
+			op = Code.VEX_Korw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kshiftlb instruction.<br/>
@@ -14891,13 +14119,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftlb(Register dst, Register src, int imm) {
+		public void kshiftlb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftlb_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftlb, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftlb_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftld instruction.<br/>
@@ -14911,13 +14135,9 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftld(Register dst, Register src, int imm) {
+		public void kshiftld(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftld_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftld, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftld_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftlq instruction.<br/>
@@ -14931,13 +14151,9 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftlq(Register dst, Register src, int imm) {
+		public void kshiftlq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftlq_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftlq, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftlq_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftlw instruction.<br/>
@@ -14951,13 +14167,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftlw(Register dst, Register src, int imm) {
+		public void kshiftlw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftlw_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftlw, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftlw_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftrb instruction.<br/>
@@ -14971,13 +14183,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftrb(Register dst, Register src, int imm) {
+		public void kshiftrb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftrb_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftrb, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftrb_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftrd instruction.<br/>
@@ -14991,13 +14199,9 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftrd(Register dst, Register src, int imm) {
+		public void kshiftrd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftrd_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftrd, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftrd_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftrq instruction.<br/>
@@ -15011,13 +14215,9 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftrq(Register dst, Register src, int imm) {
+		public void kshiftrq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftrq_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftrq, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftrq_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>kshiftrw instruction.<br/>
@@ -15031,13 +14231,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void kshiftrw(Register dst, Register src, int imm) {
+		public void kshiftrw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kshiftrw_k_k_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kshiftrw, dst, src, imm);
-			}
+			op = Code.VEX_Kshiftrw_k_k_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>ktestb instruction.<br/>
@@ -15053,11 +14249,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestb(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Ktestb_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ktestb, dst, src);
-			}
+			op = Code.VEX_Ktestb_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestd instruction.<br/>
@@ -15073,11 +14265,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestd(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Ktestd_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ktestd, dst, src);
-			}
+			op = Code.VEX_Ktestd_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestq instruction.<br/>
@@ -15093,11 +14281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestq(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Ktestq_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ktestq, dst, src);
-			}
+			op = Code.VEX_Ktestq_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestw instruction.<br/>
@@ -15113,11 +14297,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestw(Register dst, Register src) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Ktestw_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ktestw, dst, src);
-			}
+			op = Code.VEX_Ktestw_k_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kunpckbw instruction.<br/>
@@ -15133,11 +14313,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckbw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kunpckbw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kunpckbw, dst, src, arg2);
-			}
+			op = Code.VEX_Kunpckbw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kunpckdq instruction.<br/>
@@ -15153,11 +14329,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckdq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kunpckdq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kunpckdq, dst, src, arg2);
-			}
+			op = Code.VEX_Kunpckdq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kunpckwd instruction.<br/>
@@ -15173,11 +14345,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckwd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kunpckwd_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kunpckwd, dst, src, arg2);
-			}
+			op = Code.VEX_Kunpckwd_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxnorb instruction.<br/>
@@ -15193,11 +14361,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxnorb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxnorb, dst, src, arg2);
-			}
+			op = Code.VEX_Kxnorb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxnord instruction.<br/>
@@ -15213,11 +14377,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnord(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxnord_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxnord, dst, src, arg2);
-			}
+			op = Code.VEX_Kxnord_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxnorq instruction.<br/>
@@ -15233,11 +14393,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxnorq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxnorq, dst, src, arg2);
-			}
+			op = Code.VEX_Kxnorq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxnorw instruction.<br/>
@@ -15253,11 +14409,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxnorw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxnorw, dst, src, arg2);
-			}
+			op = Code.VEX_Kxnorw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxorb instruction.<br/>
@@ -15273,11 +14425,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxorb_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxorb, dst, src, arg2);
-			}
+			op = Code.VEX_Kxorb_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxord instruction.<br/>
@@ -15293,11 +14441,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxord(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxord_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxord, dst, src, arg2);
-			}
+			op = Code.VEX_Kxord_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxorq instruction.<br/>
@@ -15313,11 +14457,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxorq_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxorq, dst, src, arg2);
-			}
+			op = Code.VEX_Kxorq_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>kxorw instruction.<br/>
@@ -15333,11 +14473,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.VEX_Kxorw_k_k_k;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Kxorw, dst, src, arg2);
-			}
+			op = Code.VEX_Kxorw_k_k_k;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>lahf instruction.<br/>
@@ -15457,11 +14593,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lddqu(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Lddqu_xmm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lddqu, dst, src);
-			}
+			op = Code.Lddqu_xmm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lddqu instruction.<br/>
@@ -15477,11 +14609,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lddqu(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Lddqu_xmm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lddqu, dst, src);
-			}
+			op = Code.Lddqu_xmm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ldmxcsr instruction.<br/>
@@ -15497,11 +14625,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ldmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Ldmxcsr_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ldmxcsr, dst);
-			}
+			op = Code.Ldmxcsr_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lds instruction.<br/>
@@ -15817,11 +14941,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lldt(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Lldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lldt, dst);
-			}
+			op = Code.Lldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lldt instruction.<br/>
@@ -15837,11 +14957,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Lldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lldt, dst);
-			}
+			op = Code.Lldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>llwpcb instruction.<br/>
@@ -15889,11 +15005,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lmsw(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Lmsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lmsw, dst);
-			}
+			op = Code.Lmsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lmsw instruction.<br/>
@@ -15909,11 +15021,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lmsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Lmsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lmsw, dst);
-			}
+			op = Code.Lmsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>loadall instruction.<br/>
@@ -15945,11 +15053,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lodsb(Register dst) {
 			Code op;
-			if (dst == Register.AL) {
-				op = Code.Lodsb_AL_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lodsb, dst);
-			}
+			op = Code.Lodsb_AL_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lodsd instruction.<br/>
@@ -15965,11 +15069,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lodsd(Register dst) {
 			Code op;
-			if (dst == Register.EAX) {
-				op = Code.Lodsd_EAX_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lodsd, dst);
-			}
+			op = Code.Lodsd_EAX_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lodsq instruction.<br/>
@@ -15985,11 +15085,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void lodsq(Register dst) {
 			Code op;
-			if (dst == Register.RAX) {
-				op = Code.Lodsq_RAX_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lodsq, dst);
-			}
+			op = Code.Lodsq_RAX_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lodsw instruction.<br/>
@@ -16005,11 +15101,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lodsw(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Lodsw_AX_m16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lodsw, dst);
-			}
+			op = Code.Lodsw_AX_m16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>loop instruction.<br/>
@@ -16433,11 +15525,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ltr(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Ltr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ltr, dst);
-			}
+			op = Code.Ltr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>ltr instruction.<br/>
@@ -16453,11 +15541,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ltr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Ltr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ltr, dst);
-			}
+			op = Code.Ltr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lwpins instruction.<br/>
@@ -16689,11 +15773,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxpd, dst, src);
-			}
+			op = Code.Maxpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxpd instruction.<br/>
@@ -16709,11 +15789,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxpd, dst, src);
-			}
+			op = Code.Maxpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxps instruction.<br/>
@@ -16729,11 +15805,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxps, dst, src);
-			}
+			op = Code.Maxps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxps instruction.<br/>
@@ -16749,11 +15821,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxps, dst, src);
-			}
+			op = Code.Maxps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxsd instruction.<br/>
@@ -16769,11 +15837,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxsd, dst, src);
-			}
+			op = Code.Maxsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxsd instruction.<br/>
@@ -16789,11 +15853,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxsd, dst, src);
-			}
+			op = Code.Maxsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxss instruction.<br/>
@@ -16809,11 +15869,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxss, dst, src);
-			}
+			op = Code.Maxss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>maxss instruction.<br/>
@@ -16829,11 +15885,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void maxss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Maxss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Maxss, dst, src);
-			}
+			op = Code.Maxss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mcommit instruction.<br/>
@@ -16881,11 +15933,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minpd, dst, src);
-			}
+			op = Code.Minpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minpd instruction.<br/>
@@ -16901,11 +15949,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minpd, dst, src);
-			}
+			op = Code.Minpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minps instruction.<br/>
@@ -16921,11 +15965,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minps, dst, src);
-			}
+			op = Code.Minps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minps instruction.<br/>
@@ -16941,11 +15981,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minps, dst, src);
-			}
+			op = Code.Minps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minsd instruction.<br/>
@@ -16961,11 +15997,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minsd, dst, src);
-			}
+			op = Code.Minsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minsd instruction.<br/>
@@ -16981,11 +16013,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minsd, dst, src);
-			}
+			op = Code.Minsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minss instruction.<br/>
@@ -17001,11 +16029,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minss, dst, src);
-			}
+			op = Code.Minss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>minss instruction.<br/>
@@ -17021,11 +16045,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void minss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Minss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Minss, dst, src);
-			}
+			op = Code.Minss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>monitor instruction.<br/>
@@ -17356,16 +16376,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOV r8, imm8</c><br/>
-		/// <br/>
-		/// <c>B0+rb ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOV r16, imm16</c><br/>
 		/// <br/>
 		/// <c>o16 B8+rw iw</c><br/>
@@ -17395,14 +16405,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(Register dst, long imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
-				if (dst.IsGPR8()) {
-					op = Code.Mov_r8_imm8;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
-				}
-			}
-			else if (dst.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Mov_r64_imm64;
 			} else if (dst.IsGPR32()) {
 				op = Code.Mov_r32_imm32;
@@ -17414,16 +16417,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>mov instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -17456,14 +16449,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
-				if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Mov_rm8_imm8;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
-				}
-			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Mov_rm64_imm32;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Mov_rm32_imm32;
@@ -17472,6 +16458,38 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
 			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>mov instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV r8, imm8</c><br/>
+		/// <br/>
+		/// <c>B0+rb ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void mov(Register dst, byte imm) {
+			Code op;
+			op = Code.Mov_r8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>mov instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C6 /0 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void mov(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Mov_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>movapd instruction.<br/>
@@ -17487,11 +16505,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movapd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movapd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movapd, dst, src);
-			}
+			op = Code.Movapd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movapd instruction.<br/>
@@ -17507,11 +16521,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movapd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movapd_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movapd, dst, src);
-			}
+			op = Code.Movapd_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movapd instruction.<br/>
@@ -17527,11 +16537,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movapd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movapd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movapd, dst, src);
-			}
+			op = Code.Movapd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movaps instruction.<br/>
@@ -17547,11 +16553,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movaps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movaps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movaps, dst, src);
-			}
+			op = Code.Movaps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movaps instruction.<br/>
@@ -17567,11 +16569,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movaps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movaps_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movaps, dst, src);
-			}
+			op = Code.Movaps_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movaps instruction.<br/>
@@ -17587,11 +16585,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movaps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movaps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movaps, dst, src);
-			}
+			op = Code.Movaps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movbe instruction.<br/>
@@ -17815,11 +16809,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movddup(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movddup_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movddup, dst, src);
-			}
+			op = Code.Movddup_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movddup instruction.<br/>
@@ -17835,11 +16825,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movddup(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movddup_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movddup, dst, src);
-			}
+			op = Code.Movddup_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdir64b instruction.<br/>
@@ -17975,11 +16961,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdq2q(Register dst, Register src) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Movdq2q_mm_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdq2q, dst, src);
-			}
+			op = Code.Movdq2q_mm_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqa instruction.<br/>
@@ -17995,11 +16977,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqa(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movdqa_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqa, dst, src);
-			}
+			op = Code.Movdqa_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqa instruction.<br/>
@@ -18015,11 +16993,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqa(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movdqa_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqa, dst, src);
-			}
+			op = Code.Movdqa_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqa instruction.<br/>
@@ -18035,11 +17009,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqa(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movdqa_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqa, dst, src);
-			}
+			op = Code.Movdqa_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqu instruction.<br/>
@@ -18055,11 +17025,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqu(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movdqu_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqu, dst, src);
-			}
+			op = Code.Movdqu_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqu instruction.<br/>
@@ -18075,11 +17041,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqu(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movdqu_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqu, dst, src);
-			}
+			op = Code.Movdqu_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movdqu instruction.<br/>
@@ -18095,11 +17057,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqu(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movdqu_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movdqu, dst, src);
-			}
+			op = Code.Movdqu_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhlps instruction.<br/>
@@ -18115,11 +17073,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhlps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movhlps_xmm_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhlps, dst, src);
-			}
+			op = Code.Movhlps_xmm_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhpd instruction.<br/>
@@ -18135,11 +17089,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movhpd_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhpd, dst, src);
-			}
+			op = Code.Movhpd_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhpd instruction.<br/>
@@ -18155,11 +17105,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movhpd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhpd, dst, src);
-			}
+			op = Code.Movhpd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhpd instruction.<br/>
@@ -18175,11 +17121,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movhpd_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhpd, dst, src);
-			}
+			op = Code.Movhpd_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhps instruction.<br/>
@@ -18195,11 +17137,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movhps_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhps, dst, src);
-			}
+			op = Code.Movhps_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhps instruction.<br/>
@@ -18215,11 +17153,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movhps_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhps, dst, src);
-			}
+			op = Code.Movhps_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movhps instruction.<br/>
@@ -18235,11 +17169,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movhps_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movhps, dst, src);
-			}
+			op = Code.Movhps_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlhps instruction.<br/>
@@ -18255,11 +17185,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlhps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movlhps_xmm_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlhps, dst, src);
-			}
+			op = Code.Movlhps_xmm_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlpd instruction.<br/>
@@ -18275,11 +17201,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movlpd_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlpd, dst, src);
-			}
+			op = Code.Movlpd_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlpd instruction.<br/>
@@ -18295,11 +17217,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movlpd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlpd, dst, src);
-			}
+			op = Code.Movlpd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlpd instruction.<br/>
@@ -18315,11 +17233,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movlpd_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlpd, dst, src);
-			}
+			op = Code.Movlpd_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlps instruction.<br/>
@@ -18335,11 +17249,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movlps_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlps, dst, src);
-			}
+			op = Code.Movlps_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlps instruction.<br/>
@@ -18355,11 +17265,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movlps_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlps, dst, src);
-			}
+			op = Code.Movlps_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movlps instruction.<br/>
@@ -18375,11 +17281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movlps_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movlps, dst, src);
-			}
+			op = Code.Movlps_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movmskpd instruction.<br/>
@@ -18459,11 +17361,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntdq_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntdq, dst, src);
-			}
+			op = Code.Movntdq_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntdq instruction.<br/>
@@ -18479,11 +17377,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntdq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movntdq_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntdq, dst, src);
-			}
+			op = Code.Movntdq_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntdqa instruction.<br/>
@@ -18499,11 +17393,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntdqa(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntdqa_xmm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntdqa, dst, src);
-			}
+			op = Code.Movntdqa_xmm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntdqa instruction.<br/>
@@ -18519,11 +17409,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntdqa(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntdqa_xmm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntdqa, dst, src);
-			}
+			op = Code.Movntdqa_xmm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movnti instruction.<br/>
@@ -18571,11 +17457,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntpd_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntpd, dst, src);
-			}
+			op = Code.Movntpd_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntpd instruction.<br/>
@@ -18591,11 +17473,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movntpd_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntpd, dst, src);
-			}
+			op = Code.Movntpd_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntps instruction.<br/>
@@ -18611,11 +17489,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntps_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntps, dst, src);
-			}
+			op = Code.Movntps_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntps instruction.<br/>
@@ -18631,11 +17505,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movntps_m128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntps, dst, src);
-			}
+			op = Code.Movntps_m128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntq instruction.<br/>
@@ -18651,11 +17521,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntq_m64_mm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntq, dst, src);
-			}
+			op = Code.Movntq_m64_mm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntq instruction.<br/>
@@ -18671,11 +17537,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsMM()) {
-				op = Code.Movntq_m64_mm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntq, dst, src);
-			}
+			op = Code.Movntq_m64_mm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntsd instruction.<br/>
@@ -18691,11 +17553,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntsd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntsd, dst, src);
-			}
+			op = Code.Movntsd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntsd instruction.<br/>
@@ -18711,11 +17569,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntsd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movntsd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntsd, dst, src);
-			}
+			op = Code.Movntsd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntss instruction.<br/>
@@ -18731,11 +17585,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movntss_m32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntss, dst, src);
-			}
+			op = Code.Movntss_m32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movntss instruction.<br/>
@@ -18751,11 +17601,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntss(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movntss_m32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movntss, dst, src);
-			}
+			op = Code.Movntss_m32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movq instruction.<br/>
@@ -18963,11 +17809,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movq2dq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movq2dq_xmm_mm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movq2dq, dst, src);
-			}
+			op = Code.Movq2dq_xmm_mm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsb instruction.<br/>
@@ -18999,11 +17841,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movsd, dst, src);
-			}
+			op = Code.Movsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsd instruction.<br/>
@@ -19019,11 +17857,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movsd_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movsd, dst, src);
-			}
+			op = Code.Movsd_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsd instruction.<br/>
@@ -19039,11 +17873,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movsd, dst, src);
-			}
+			op = Code.Movsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsd instruction.<br/>
@@ -19075,11 +17905,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movshdup(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movshdup_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movshdup, dst, src);
-			}
+			op = Code.Movshdup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movshdup instruction.<br/>
@@ -19095,11 +17921,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movshdup(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movshdup_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movshdup, dst, src);
-			}
+			op = Code.Movshdup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsldup instruction.<br/>
@@ -19115,11 +17937,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsldup(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movsldup_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movsldup, dst, src);
-			}
+			op = Code.Movsldup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsldup instruction.<br/>
@@ -19135,11 +17953,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsldup(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movsldup_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movsldup, dst, src);
-			}
+			op = Code.Movsldup_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsq instruction.<br/>
@@ -19171,11 +17985,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movss, dst, src);
-			}
+			op = Code.Movss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movss instruction.<br/>
@@ -19191,11 +18001,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movss(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movss_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movss, dst, src);
-			}
+			op = Code.Movss_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movss instruction.<br/>
@@ -19211,11 +18017,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movss, dst, src);
-			}
+			op = Code.Movss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movsw instruction.<br/>
@@ -19495,11 +18297,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movupd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movupd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movupd, dst, src);
-			}
+			op = Code.Movupd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movupd instruction.<br/>
@@ -19515,11 +18313,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movupd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movupd_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movupd, dst, src);
-			}
+			op = Code.Movupd_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movupd instruction.<br/>
@@ -19535,11 +18329,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movupd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movupd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movupd, dst, src);
-			}
+			op = Code.Movupd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movups instruction.<br/>
@@ -19555,11 +18345,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movups(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movups_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movups, dst, src);
-			}
+			op = Code.Movups_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movups instruction.<br/>
@@ -19575,11 +18361,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movups(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Movups_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movups, dst, src);
-			}
+			op = Code.Movups_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movups instruction.<br/>
@@ -19595,11 +18377,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movups(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Movups_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Movups, dst, src);
-			}
+			op = Code.Movups_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>movzx instruction.<br/>
@@ -19773,13 +18551,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void mpsadbw(Register dst, Register src, int imm) {
+		public void mpsadbw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mpsadbw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mpsadbw, dst, src, imm);
-			}
+			op = Code.Mpsadbw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>mpsadbw instruction.<br/>
@@ -19793,13 +18567,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void mpsadbw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void mpsadbw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mpsadbw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mpsadbw, dst, src, imm);
-			}
+			op = Code.Mpsadbw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>mul instruction.<br/>
@@ -19927,11 +18697,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulpd, dst, src);
-			}
+			op = Code.Mulpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulpd instruction.<br/>
@@ -19947,11 +18713,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulpd, dst, src);
-			}
+			op = Code.Mulpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulps instruction.<br/>
@@ -19967,11 +18729,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulps, dst, src);
-			}
+			op = Code.Mulps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulps instruction.<br/>
@@ -19987,11 +18745,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulps, dst, src);
-			}
+			op = Code.Mulps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulsd instruction.<br/>
@@ -20007,11 +18761,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulsd, dst, src);
-			}
+			op = Code.Mulsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulsd instruction.<br/>
@@ -20027,11 +18777,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulsd, dst, src);
-			}
+			op = Code.Mulsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulss instruction.<br/>
@@ -20047,11 +18793,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulss, dst, src);
-			}
+			op = Code.Mulss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulss instruction.<br/>
@@ -20067,11 +18809,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mulss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Mulss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mulss, dst, src);
-			}
+			op = Code.Mulss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mulx instruction.<br/>
@@ -20698,26 +19436,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>OR AL, imm8</c><br/>
-		/// <br/>
-		/// <c>0C ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>OR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /1 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>OR r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /1 ib</c><br/>
@@ -20807,17 +19525,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void or(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Or_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Or_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Or_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Or_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Or_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Or, dst, imm);
 				}
@@ -20840,16 +19554,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>or instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>OR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /1 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -20912,15 +19616,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void or(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Or_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Or_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Or_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Or_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Or, dst, imm);
 				}
@@ -20936,6 +19638,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>or instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR AL, imm8</c><br/>
+		/// <br/>
+		/// <c>0C ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /1 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void or(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Or_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Or_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Or, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>or instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /1 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void or(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Or_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>orpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -20949,11 +19699,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void orpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Orpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Orpd, dst, src);
-			}
+			op = Code.Orpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>orpd instruction.<br/>
@@ -20969,11 +19715,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void orpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Orpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Orpd, dst, src);
-			}
+			op = Code.Orpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>orps instruction.<br/>
@@ -20989,11 +19731,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void orps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Orps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Orps, dst, src);
-			}
+			op = Code.Orps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>orps instruction.<br/>
@@ -21009,11 +19747,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void orps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Orps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Orps, dst, src);
-			}
+			op = Code.Orps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>out instruction.<br/>
@@ -21091,7 +19825,7 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void @out(int imm, Register src) {
+		public void @out(byte imm, Register src) {
 			Code op;
 			if (src == Register.EAX) {
 				op = Code.Out_imm8_EAX;
@@ -21117,11 +19851,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void outsb(Register dst) {
 			Code op;
-			if (dst == Register.DX) {
-				op = Code.Outsb_DX_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Outsb, dst);
-			}
+			op = Code.Outsb_DX_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>outsd instruction.<br/>
@@ -21137,11 +19867,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void outsd(Register dst) {
 			Code op;
-			if (dst == Register.DX) {
-				op = Code.Outsd_DX_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Outsd, dst);
-			}
+			op = Code.Outsd_DX_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>outsw instruction.<br/>
@@ -21157,11 +19883,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void outsw(Register dst) {
 			Code op;
-			if (dst == Register.DX) {
-				op = Code.Outsw_DX_m16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Outsw, dst);
-			}
+			op = Code.Outsw_DX_m16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>pabsb instruction.<br/>
@@ -21497,11 +20219,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void packusdw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Packusdw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Packusdw, dst, src);
-			}
+			op = Code.Packusdw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>packusdw instruction.<br/>
@@ -21517,11 +20235,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void packusdw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Packusdw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Packusdw, dst, src);
-			}
+			op = Code.Packusdw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>packuswb instruction.<br/>
@@ -22121,7 +20835,7 @@ namespace Iced.Intel {
 		/// <c>SSSE3</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void palignr(Register dst, Register src, int imm) {
+		public void palignr(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Palignr_xmm_xmmm128_imm8;
@@ -22153,7 +20867,7 @@ namespace Iced.Intel {
 		/// <c>SSSE3</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void palignr(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void palignr(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Palignr_xmm_xmmm128_imm8;
@@ -22465,11 +21179,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pblendvb(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pblendvb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pblendvb, dst, src);
-			}
+			op = Code.Pblendvb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pblendvb instruction.<br/>
@@ -22485,11 +21195,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pblendvb(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pblendvb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pblendvb, dst, src);
-			}
+			op = Code.Pblendvb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pblendw instruction.<br/>
@@ -22503,13 +21209,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pblendw(Register dst, Register src, int imm) {
+		public void pblendw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pblendw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pblendw, dst, src, imm);
-			}
+			op = Code.Pblendw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pblendw instruction.<br/>
@@ -22523,13 +21225,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pblendw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pblendw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pblendw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pblendw, dst, src, imm);
-			}
+			op = Code.Pblendw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pclmulqdq instruction.<br/>
@@ -22543,13 +21241,9 @@ namespace Iced.Intel {
 		/// <c>PCLMULQDQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pclmulqdq(Register dst, Register src, int imm) {
+		public void pclmulqdq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pclmulqdq_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pclmulqdq, dst, src, imm);
-			}
+			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pclmulqdq instruction.<br/>
@@ -22563,13 +21257,9 @@ namespace Iced.Intel {
 		/// <c>PCLMULQDQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pclmulqdq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pclmulqdq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pclmulqdq_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pclmulqdq, dst, src, imm);
-			}
+			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpeqb instruction.<br/>
@@ -22713,11 +21403,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pcmpeqq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpeqq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpeqq, dst, src);
-			}
+			op = Code.Pcmpeqq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pcmpeqq instruction.<br/>
@@ -22733,11 +21419,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pcmpeqq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpeqq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpeqq, dst, src);
-			}
+			op = Code.Pcmpeqq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pcmpeqw instruction.<br/>
@@ -22815,13 +21497,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestri(Register dst, Register src, int imm) {
+		public void pcmpestri(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestri, dst, src, imm);
-			}
+			op = Code.Pcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestri instruction.<br/>
@@ -22835,13 +21513,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestri(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpestri(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestri, dst, src, imm);
-			}
+			op = Code.Pcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestri64 instruction.<br/>
@@ -22855,13 +21529,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pcmpestri64(Register dst, Register src, int imm) {
+		public void pcmpestri64(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestri64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestri64, dst, src, imm);
-			}
+			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestri64 instruction.<br/>
@@ -22875,13 +21545,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pcmpestri64(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpestri64(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestri64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestri64, dst, src, imm);
-			}
+			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestrm instruction.<br/>
@@ -22895,13 +21561,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestrm(Register dst, Register src, int imm) {
+		public void pcmpestrm(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestrm, dst, src, imm);
-			}
+			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestrm instruction.<br/>
@@ -22915,13 +21577,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestrm(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpestrm(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestrm, dst, src, imm);
-			}
+			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestrm64 instruction.<br/>
@@ -22935,13 +21593,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pcmpestrm64(Register dst, Register src, int imm) {
+		public void pcmpestrm64(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestrm64, dst, src, imm);
-			}
+			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpestrm64 instruction.<br/>
@@ -22955,13 +21609,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pcmpestrm64(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpestrm64(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpestrm64, dst, src, imm);
-			}
+			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpgtb instruction.<br/>
@@ -23105,11 +21755,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pcmpgtq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpgtq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpgtq, dst, src);
-			}
+			op = Code.Pcmpgtq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pcmpgtq instruction.<br/>
@@ -23125,11 +21771,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pcmpgtq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpgtq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpgtq, dst, src);
-			}
+			op = Code.Pcmpgtq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pcmpgtw instruction.<br/>
@@ -23207,13 +21849,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistri(Register dst, Register src, int imm) {
+		public void pcmpistri(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpistri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpistri, dst, src, imm);
-			}
+			op = Code.Pcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpistri instruction.<br/>
@@ -23227,13 +21865,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistri(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpistri(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpistri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpistri, dst, src, imm);
-			}
+			op = Code.Pcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpistrm instruction.<br/>
@@ -23247,13 +21881,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistrm(Register dst, Register src, int imm) {
+		public void pcmpistrm(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpistrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpistrm, dst, src, imm);
-			}
+			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcmpistrm instruction.<br/>
@@ -23267,13 +21897,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistrm(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pcmpistrm(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pcmpistrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pcmpistrm, dst, src, imm);
-			}
+			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pcommit instruction.<br/>
@@ -23447,13 +22073,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pextrb(Register dst, Register src, int imm) {
+		public void pextrb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Pextrb_r32m8_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrb, dst, src, imm);
-			}
+			op = Code.Pextrb_r32m8_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pextrb instruction.<br/>
@@ -23477,7 +22099,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pextrb(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void pextrb(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Pextrb_r32m8_xmm_imm8;
@@ -23499,13 +22121,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pextrd(Register dst, Register src, int imm) {
+		public void pextrd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR32()) {
-				op = Code.Pextrd_rm32_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrd, dst, src, imm);
-			}
+			op = Code.Pextrd_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pextrd instruction.<br/>
@@ -23519,13 +22137,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pextrd(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void pextrd(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Pextrd_rm32_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrd, dst, src, imm);
-			}
+			op = Code.Pextrd_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pextrq instruction.<br/>
@@ -23539,13 +22153,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pextrq(Register dst, Register src, int imm) {
+		public void pextrq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR64()) {
-				op = Code.Pextrq_rm64_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrq, dst, src, imm);
-			}
+			op = Code.Pextrq_rm64_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pextrq instruction.<br/>
@@ -23559,13 +22169,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pextrq(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void pextrq(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsXMM()) {
-				op = Code.Pextrq_rm64_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrq, dst, src, imm);
-			}
+			op = Code.Pextrq_rm64_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pextrw instruction.<br/>
@@ -23619,7 +22225,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pextrw(Register dst, Register src, int imm) {
+		public void pextrw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64() && src.IsXMM()) {
 				op = Code.Pextrw_r64_xmm_imm8;
@@ -23657,7 +22263,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pextrw(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void pextrw(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Pextrw_r32m16_xmm_imm8;
@@ -24209,11 +22815,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void phminposuw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Phminposuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Phminposuw, dst, src);
-			}
+			op = Code.Phminposuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>phminposuw instruction.<br/>
@@ -24229,11 +22831,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void phminposuw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Phminposuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Phminposuw, dst, src);
-			}
+			op = Code.Phminposuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>phsubd instruction.<br/>
@@ -24471,13 +23069,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pinsrb(Register dst, Register src, int imm) {
+		public void pinsrb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pinsrb_xmm_r32m8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrb, dst, src, imm);
-			}
+			op = Code.Pinsrb_xmm_r32m8_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pinsrb instruction.<br/>
@@ -24501,7 +23095,7 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pinsrb(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pinsrb(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Pinsrb_xmm_r32m8_imm8;
@@ -24523,13 +23117,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pinsrd(Register dst, Register src, int imm) {
+		public void pinsrd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pinsrd_xmm_rm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrd, dst, src, imm);
-			}
+			op = Code.Pinsrd_xmm_rm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pinsrd instruction.<br/>
@@ -24543,13 +23133,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pinsrd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pinsrd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pinsrd_xmm_rm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrd, dst, src, imm);
-			}
+			op = Code.Pinsrd_xmm_rm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pinsrq instruction.<br/>
@@ -24563,13 +23149,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pinsrq(Register dst, Register src, int imm) {
+		public void pinsrq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pinsrq_xmm_rm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrq, dst, src, imm);
-			}
+			op = Code.Pinsrq_xmm_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pinsrq instruction.<br/>
@@ -24583,13 +23165,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pinsrq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pinsrq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pinsrq_xmm_rm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrq, dst, src, imm);
-			}
+			op = Code.Pinsrq_xmm_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pinsrw instruction.<br/>
@@ -24613,7 +23191,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pinsrw(Register dst, Register src, int imm) {
+		public void pinsrw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Pinsrw_xmm_r32m16_imm8;
@@ -24665,7 +23243,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void pinsrw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pinsrw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Pinsrw_xmm_r32m16_imm8;
@@ -24821,11 +23399,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxsb(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxsb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxsb, dst, src);
-			}
+			op = Code.Pmaxsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxsb instruction.<br/>
@@ -24841,11 +23415,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxsb(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxsb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxsb, dst, src);
-			}
+			op = Code.Pmaxsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxsd instruction.<br/>
@@ -24861,11 +23431,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxsd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxsd, dst, src);
-			}
+			op = Code.Pmaxsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxsd instruction.<br/>
@@ -24881,11 +23447,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxsd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxsd, dst, src);
-			}
+			op = Code.Pmaxsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxsw instruction.<br/>
@@ -25029,11 +23591,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxud(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxud_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxud, dst, src);
-			}
+			op = Code.Pmaxud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxud instruction.<br/>
@@ -25049,11 +23607,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxud(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxud_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxud, dst, src);
-			}
+			op = Code.Pmaxud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxuw instruction.<br/>
@@ -25069,11 +23623,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxuw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxuw, dst, src);
-			}
+			op = Code.Pmaxuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmaxuw instruction.<br/>
@@ -25089,11 +23639,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmaxuw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmaxuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmaxuw, dst, src);
-			}
+			op = Code.Pmaxuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminsb instruction.<br/>
@@ -25109,11 +23655,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminsb(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminsb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminsb, dst, src);
-			}
+			op = Code.Pminsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminsb instruction.<br/>
@@ -25129,11 +23671,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminsb(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminsb_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminsb, dst, src);
-			}
+			op = Code.Pminsb_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminsd instruction.<br/>
@@ -25149,11 +23687,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminsd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminsd, dst, src);
-			}
+			op = Code.Pminsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminsd instruction.<br/>
@@ -25169,11 +23703,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminsd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminsd, dst, src);
-			}
+			op = Code.Pminsd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminsw instruction.<br/>
@@ -25317,11 +23847,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminud(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminud_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminud, dst, src);
-			}
+			op = Code.Pminud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminud instruction.<br/>
@@ -25337,11 +23863,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminud(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminud_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminud, dst, src);
-			}
+			op = Code.Pminud_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminuw instruction.<br/>
@@ -25357,11 +23879,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminuw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminuw, dst, src);
-			}
+			op = Code.Pminuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pminuw instruction.<br/>
@@ -25377,11 +23895,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pminuw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pminuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pminuw, dst, src);
-			}
+			op = Code.Pminuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovmskb instruction.<br/>
@@ -25453,11 +23967,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbd, dst, src);
-			}
+			op = Code.Pmovsxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxbd instruction.<br/>
@@ -25473,11 +23983,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbd, dst, src);
-			}
+			op = Code.Pmovsxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxbq instruction.<br/>
@@ -25493,11 +23999,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbq_xmm_xmmm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbq, dst, src);
-			}
+			op = Code.Pmovsxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxbq instruction.<br/>
@@ -25513,11 +24015,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbq_xmm_xmmm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbq, dst, src);
-			}
+			op = Code.Pmovsxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxbw instruction.<br/>
@@ -25533,11 +24031,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbw_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbw, dst, src);
-			}
+			op = Code.Pmovsxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxbw instruction.<br/>
@@ -25553,11 +24047,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxbw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxbw_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxbw, dst, src);
-			}
+			op = Code.Pmovsxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxdq instruction.<br/>
@@ -25573,11 +24063,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxdq_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxdq, dst, src);
-			}
+			op = Code.Pmovsxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxdq instruction.<br/>
@@ -25593,11 +24079,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxdq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxdq_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxdq, dst, src);
-			}
+			op = Code.Pmovsxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxwd instruction.<br/>
@@ -25613,11 +24095,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxwd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxwd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxwd, dst, src);
-			}
+			op = Code.Pmovsxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxwd instruction.<br/>
@@ -25633,11 +24111,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxwd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxwd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxwd, dst, src);
-			}
+			op = Code.Pmovsxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxwq instruction.<br/>
@@ -25653,11 +24127,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxwq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxwq_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxwq, dst, src);
-			}
+			op = Code.Pmovsxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovsxwq instruction.<br/>
@@ -25673,11 +24143,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovsxwq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovsxwq_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovsxwq, dst, src);
-			}
+			op = Code.Pmovsxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbd instruction.<br/>
@@ -25693,11 +24159,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbd, dst, src);
-			}
+			op = Code.Pmovzxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbd instruction.<br/>
@@ -25713,11 +24175,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbd_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbd, dst, src);
-			}
+			op = Code.Pmovzxbd_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbq instruction.<br/>
@@ -25733,11 +24191,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbq_xmm_xmmm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbq, dst, src);
-			}
+			op = Code.Pmovzxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbq instruction.<br/>
@@ -25753,11 +24207,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbq_xmm_xmmm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbq, dst, src);
-			}
+			op = Code.Pmovzxbq_xmm_xmmm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbw instruction.<br/>
@@ -25773,11 +24223,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbw_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbw, dst, src);
-			}
+			op = Code.Pmovzxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxbw instruction.<br/>
@@ -25793,11 +24239,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxbw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxbw_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxbw, dst, src);
-			}
+			op = Code.Pmovzxbw_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxdq instruction.<br/>
@@ -25813,11 +24255,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxdq_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxdq, dst, src);
-			}
+			op = Code.Pmovzxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxdq instruction.<br/>
@@ -25833,11 +24271,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxdq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxdq_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxdq, dst, src);
-			}
+			op = Code.Pmovzxdq_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxwd instruction.<br/>
@@ -25853,11 +24287,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxwd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxwd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxwd, dst, src);
-			}
+			op = Code.Pmovzxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxwd instruction.<br/>
@@ -25873,11 +24303,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxwd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxwd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxwd, dst, src);
-			}
+			op = Code.Pmovzxwd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxwq instruction.<br/>
@@ -25893,11 +24319,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxwq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxwq_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxwq, dst, src);
-			}
+			op = Code.Pmovzxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmovzxwq instruction.<br/>
@@ -25913,11 +24335,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmovzxwq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmovzxwq_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmovzxwq, dst, src);
-			}
+			op = Code.Pmovzxwq_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmuldq instruction.<br/>
@@ -25933,11 +24351,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmuldq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmuldq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmuldq, dst, src);
-			}
+			op = Code.Pmuldq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmuldq instruction.<br/>
@@ -25953,11 +24367,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmuldq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmuldq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmuldq, dst, src);
-			}
+			op = Code.Pmuldq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmulhrsw instruction.<br/>
@@ -26181,11 +24591,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmulld(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmulld_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmulld, dst, src);
-			}
+			op = Code.Pmulld_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmulld instruction.<br/>
@@ -26201,11 +24607,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pmulld(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pmulld_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pmulld, dst, src);
-			}
+			op = Code.Pmulld_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmullw instruction.<br/>
@@ -26737,11 +25139,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetch(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetch_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetch, dst);
-			}
+			op = Code.Prefetch_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchnta instruction.<br/>
@@ -26757,11 +25155,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchnta(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetchnta_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetchnta, dst);
-			}
+			op = Code.Prefetchnta_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht0 instruction.<br/>
@@ -26777,11 +25171,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht0(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetcht0_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetcht0, dst);
-			}
+			op = Code.Prefetcht0_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht1 instruction.<br/>
@@ -26797,11 +25187,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht1(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetcht1_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetcht1, dst);
-			}
+			op = Code.Prefetcht1_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht2 instruction.<br/>
@@ -26817,11 +25203,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht2(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetcht2_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetcht2, dst);
-			}
+			op = Code.Prefetcht2_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchw instruction.<br/>
@@ -26837,11 +25219,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetchw_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetchw, dst);
-			}
+			op = Code.Prefetchw_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchwt1 instruction.<br/>
@@ -26857,11 +25235,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchwt1(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Prefetchwt1_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Prefetchwt1, dst);
-			}
+			op = Code.Prefetchwt1_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>psadbw instruction.<br/>
@@ -27003,13 +25377,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufd(Register dst, Register src, int imm) {
+		public void pshufd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshufd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufd, dst, src, imm);
-			}
+			op = Code.Pshufd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshufd instruction.<br/>
@@ -27023,13 +25393,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pshufd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshufd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufd, dst, src, imm);
-			}
+			op = Code.Pshufd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshufhw instruction.<br/>
@@ -27043,13 +25409,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufhw(Register dst, Register src, int imm) {
+		public void pshufhw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshufhw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufhw, dst, src, imm);
-			}
+			op = Code.Pshufhw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshufhw instruction.<br/>
@@ -27063,13 +25425,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufhw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pshufhw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshufhw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufhw, dst, src, imm);
-			}
+			op = Code.Pshufhw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshuflw instruction.<br/>
@@ -27083,13 +25441,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshuflw(Register dst, Register src, int imm) {
+		public void pshuflw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshuflw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshuflw, dst, src, imm);
-			}
+			op = Code.Pshuflw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshuflw instruction.<br/>
@@ -27103,13 +25457,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshuflw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pshuflw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pshuflw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshuflw, dst, src, imm);
-			}
+			op = Code.Pshuflw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshufw instruction.<br/>
@@ -27123,13 +25473,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufw(Register dst, Register src, int imm) {
+		public void pshufw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Pshufw_mm_mmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufw, dst, src, imm);
-			}
+			op = Code.Pshufw_mm_mmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>pshufw instruction.<br/>
@@ -27143,13 +25489,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pshufw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void pshufw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsMM()) {
-				op = Code.Pshufw_mm_mmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pshufw, dst, src, imm);
-			}
+			op = Code.Pshufw_mm_mmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>psignb instruction.<br/>
@@ -27429,7 +25771,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pslld(Register dst, int imm) {
+		public void pslld(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Pslld_xmm_imm8;
@@ -27451,13 +25793,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pslldq(Register dst, int imm) {
+		public void pslldq(Register dst, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Pslldq_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pslldq, dst, imm);
-			}
+			op = Code.Pslldq_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>psllq instruction.<br/>
@@ -27545,7 +25883,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psllq(Register dst, int imm) {
+		public void psllq(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psllq_xmm_imm8;
@@ -27641,7 +25979,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psllw(Register dst, int imm) {
+		public void psllw(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psllw_xmm_imm8;
@@ -27737,7 +26075,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psrad(Register dst, int imm) {
+		public void psrad(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psrad_xmm_imm8;
@@ -27833,7 +26171,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psraw(Register dst, int imm) {
+		public void psraw(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psraw_xmm_imm8;
@@ -27929,7 +26267,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psrld(Register dst, int imm) {
+		public void psrld(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psrld_xmm_imm8;
@@ -27951,13 +26289,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psrldq(Register dst, int imm) {
+		public void psrldq(Register dst, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Psrldq_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Psrldq, dst, imm);
-			}
+			op = Code.Psrldq_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>psrlq instruction.<br/>
@@ -28045,7 +26379,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psrlq(Register dst, int imm) {
+		public void psrlq(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psrlq_xmm_imm8;
@@ -28141,7 +26475,7 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void psrlw(Register dst, int imm) {
+		public void psrlw(Register dst, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.Psrlw_xmm_imm8;
@@ -28693,11 +27027,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ptest(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ptest_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ptest, dst, src);
-			}
+			op = Code.Ptest_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ptest instruction.<br/>
@@ -28713,11 +27043,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ptest(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ptest_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ptest, dst, src);
-			}
+			op = Code.Ptest_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ptwrite instruction.<br/>
@@ -28925,11 +27251,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void punpckhqdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Punpckhqdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Punpckhqdq, dst, src);
-			}
+			op = Code.Punpckhqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>punpckhqdq instruction.<br/>
@@ -28945,11 +27267,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void punpckhqdq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Punpckhqdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Punpckhqdq, dst, src);
-			}
+			op = Code.Punpckhqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>punpckhwd instruction.<br/>
@@ -29157,11 +27475,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void punpcklqdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Punpcklqdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Punpcklqdq, dst, src);
-			}
+			op = Code.Punpcklqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>punpcklqdq instruction.<br/>
@@ -29177,11 +27491,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void punpcklqdq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Punpcklqdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Punpcklqdq, dst, src);
-			}
+			op = Code.Punpcklqdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>punpcklwd instruction.<br/>
@@ -29471,7 +27781,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void push(int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (Bitness == 64) {
 					op = Code.Pushq_imm8;
 				} else if (Bitness == 32) {
@@ -29785,46 +28095,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /2 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void rcl(Register dst, int imm) {
 			Code op;
@@ -29840,17 +28110,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Rcl_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Rcl_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Rcl_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Rcl_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -29894,7 +28153,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void rcl(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Rcl_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Rcl_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Rcl_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Rcl_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rcl instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -29935,22 +28212,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void rcl(AssemblerMemoryOperand dst, int imm) {
+		public void rcl(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rcl_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rcl_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rcl_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rcl_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Rcl_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Rcl_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Rcl_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Rcl_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rcl instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCL r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /2 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCL r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCL r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCL r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /2 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void rcl(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rcl_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rcl_rm32_imm8;
@@ -29976,11 +28296,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rcpps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rcpps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcpps, dst, src);
-			}
+			op = Code.Rcpps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rcpps instruction.<br/>
@@ -29996,11 +28312,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rcpps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rcpps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcpps, dst, src);
-			}
+			op = Code.Rcpps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rcpss instruction.<br/>
@@ -30016,11 +28328,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rcpss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rcpss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcpss, dst, src);
-			}
+			op = Code.Rcpss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rcpss instruction.<br/>
@@ -30036,11 +28344,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rcpss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rcpss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcpss, dst, src);
-			}
+			op = Code.Rcpss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rcr instruction.<br/>
@@ -30195,46 +28499,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /3 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void rcr(Register dst, int imm) {
 			Code op;
@@ -30250,17 +28514,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Rcr_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Rcr_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Rcr_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Rcr_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -30304,7 +28557,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void rcr(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Rcr_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Rcr_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Rcr_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Rcr_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rcr instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -30345,22 +28616,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void rcr(AssemblerMemoryOperand dst, int imm) {
+		public void rcr(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rcr_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rcr_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rcr_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rcr_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Rcr_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Rcr_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Rcr_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Rcr_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rcr instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /3 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCR r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RCR r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /3 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void rcr(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rcr_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rcr_rm32_imm8;
@@ -30610,11 +28924,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rdsspd(Register dst) {
 			Code op;
-			if (dst.IsGPR32()) {
-				op = Code.Rdsspd_r32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rdsspd, dst);
-			}
+			op = Code.Rdsspd_r32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>rdsspq instruction.<br/>
@@ -30630,11 +28940,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void rdsspq(Register dst) {
 			Code op;
-			if (dst.IsGPR64()) {
-				op = Code.Rdsspq_r64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rdsspq, dst);
-			}
+			op = Code.Rdsspq_r64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>rdtsc instruction.<br/>
@@ -30997,46 +29303,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /0 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void rol(Register dst, int imm) {
 			Code op;
@@ -31052,17 +29318,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Rol_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Rol_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Rol_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Rol_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -31106,7 +29361,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void rol(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Rol_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Rol_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Rol_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Rol_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rol instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -31147,22 +29420,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void rol(AssemblerMemoryOperand dst, int imm) {
+		public void rol(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rol_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rol_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rol_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rol_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Rol_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Rol_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Rol_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Rol_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>rol instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROL r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /0 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROL r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROL r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROL r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /0 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void rol(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rol_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rol_rm32_imm8;
@@ -31327,46 +29643,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /1 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void ror(Register dst, int imm) {
 			Code op;
@@ -31382,17 +29658,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Ror_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Ror_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Ror_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Ror_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -31436,7 +29701,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void ror(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Ror_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Ror_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Ror_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Ror_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>ror instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -31477,22 +29760,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void ror(AssemblerMemoryOperand dst, int imm) {
+		public void ror(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Ror_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Ror_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Ror_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Ror_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Ror_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Ror_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Ror_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Ror_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>ror instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /1 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROR r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ROR r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /1 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void ror(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Ror_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Ror_rm32_imm8;
@@ -31526,7 +29852,7 @@ namespace Iced.Intel {
 		/// <c>BMI2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void rorx(Register dst, Register src, int imm) {
+		public void rorx(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.VEX_Rorx_r64_rm64_imm8;
@@ -31558,7 +29884,7 @@ namespace Iced.Intel {
 		/// <c>BMI2</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void rorx(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void rorx(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.VEX_Rorx_r64_rm64_imm8;
@@ -31580,13 +29906,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundpd(Register dst, Register src, int imm) {
+		public void roundpd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundpd, dst, src, imm);
-			}
+			op = Code.Roundpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundpd instruction.<br/>
@@ -31600,13 +29922,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void roundpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundpd, dst, src, imm);
-			}
+			op = Code.Roundpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundps instruction.<br/>
@@ -31620,13 +29938,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundps(Register dst, Register src, int imm) {
+		public void roundps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundps, dst, src, imm);
-			}
+			op = Code.Roundps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundps instruction.<br/>
@@ -31640,13 +29954,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void roundps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundps, dst, src, imm);
-			}
+			op = Code.Roundps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundsd instruction.<br/>
@@ -31660,13 +29970,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundsd(Register dst, Register src, int imm) {
+		public void roundsd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundsd_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundsd, dst, src, imm);
-			}
+			op = Code.Roundsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundsd instruction.<br/>
@@ -31680,13 +29986,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundsd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void roundsd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundsd_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundsd, dst, src, imm);
-			}
+			op = Code.Roundsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundss instruction.<br/>
@@ -31700,13 +30002,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundss(Register dst, Register src, int imm) {
+		public void roundss(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundss_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundss, dst, src, imm);
-			}
+			op = Code.Roundss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>roundss instruction.<br/>
@@ -31720,13 +30018,9 @@ namespace Iced.Intel {
 		/// <c>SSE4.1</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void roundss(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void roundss(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Roundss_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Roundss, dst, src, imm);
-			}
+			op = Code.Roundss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>rsm instruction.<br/>
@@ -31758,11 +30052,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rsqrtps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rsqrtps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rsqrtps, dst, src);
-			}
+			op = Code.Rsqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rsqrtps instruction.<br/>
@@ -31778,11 +30068,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rsqrtps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rsqrtps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rsqrtps, dst, src);
-			}
+			op = Code.Rsqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rsqrtss instruction.<br/>
@@ -31798,11 +30084,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rsqrtss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rsqrtss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rsqrtss, dst, src);
-			}
+			op = Code.Rsqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rsqrtss instruction.<br/>
@@ -31818,11 +30100,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rsqrtss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Rsqrtss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rsqrtss, dst, src);
-			}
+			op = Code.Rsqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>rstorssp instruction.<br/>
@@ -31838,11 +30116,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rstorssp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Rstorssp_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rstorssp, dst);
-			}
+			op = Code.Rstorssp_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sahf instruction.<br/>
@@ -32013,46 +30287,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /6 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void sal(Register dst, int imm) {
 			Code op;
@@ -32068,17 +30302,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Sal_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Sal_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Sal_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Sal_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -32122,7 +30345,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void sal(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Sal_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Sal_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Sal_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Sal_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sal instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -32163,22 +30404,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void sal(AssemblerMemoryOperand dst, int imm) {
+		public void sal(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Sal_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Sal_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Sal_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sal_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Sal_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Sal_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Sal_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Sal_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sal instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAL r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /6 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAL r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAL r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAL r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /6 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void sal(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sal_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sal_rm32_imm8;
@@ -32359,46 +30643,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /7 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void sar(Register dst, int imm) {
 			Code op;
@@ -32414,17 +30658,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Sar_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Sar_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Sar_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Sar_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -32468,7 +30701,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void sar(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Sar_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Sar_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Sar_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Sar_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sar instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -32509,22 +30760,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void sar(AssemblerMemoryOperand dst, int imm) {
+		public void sar(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Sar_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Sar_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Sar_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sar_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Sar_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Sar_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Sar_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Sar_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sar instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /7 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAR r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SAR r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /7 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void sar(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sar_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sar_rm32_imm8;
@@ -32789,26 +31083,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SBB AL, imm8</c><br/>
-		/// <br/>
-		/// <c>1C ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SBB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /3 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SBB r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /3 ib</c><br/>
@@ -32898,17 +31172,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sbb(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Sbb_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Sbb_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Sbb_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Sbb_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Sbb_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sbb, dst, imm);
 				}
@@ -32931,16 +31201,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>sbb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SBB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /3 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -33003,15 +31263,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sbb(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Sbb_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Sbb_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Sbb_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sbb_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sbb, dst, imm);
 				}
@@ -33027,6 +31285,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>sbb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB AL, imm8</c><br/>
+		/// <br/>
+		/// <c>1C ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /3 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sbb(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Sbb_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Sbb_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Sbb, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sbb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /3 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sbb(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Sbb_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>scasb instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -33040,11 +31346,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void scasb(Register dst) {
 			Code op;
-			if (dst == Register.AL) {
-				op = Code.Scasb_AL_m8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Scasb, dst);
-			}
+			op = Code.Scasb_AL_m8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>scasd instruction.<br/>
@@ -33060,11 +31362,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void scasd(Register dst) {
 			Code op;
-			if (dst == Register.EAX) {
-				op = Code.Scasd_EAX_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Scasd, dst);
-			}
+			op = Code.Scasd_EAX_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>scasq instruction.<br/>
@@ -33080,11 +31378,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void scasq(Register dst) {
 			Code op;
-			if (dst == Register.RAX) {
-				op = Code.Scasq_RAX_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Scasq, dst);
-			}
+			op = Code.Scasq_RAX_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>scasw instruction.<br/>
@@ -33100,11 +31394,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void scasw(Register dst) {
 			Code op;
-			if (dst == Register.AX) {
-				op = Code.Scasw_AX_m16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Scasw, dst);
-			}
+			op = Code.Scasw_AX_m16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>seta instruction.<br/>
@@ -33120,11 +31410,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void seta(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Seta_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Seta, dst);
-			}
+			op = Code.Seta_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>seta instruction.<br/>
@@ -33140,11 +31426,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void seta(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Seta_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Seta, dst);
-			}
+			op = Code.Seta_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setae instruction.<br/>
@@ -33160,11 +31442,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setae(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setae_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setae, dst);
-			}
+			op = Code.Setae_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setae instruction.<br/>
@@ -33180,11 +31458,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setae(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setae_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setae, dst);
-			}
+			op = Code.Setae_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setb instruction.<br/>
@@ -33200,11 +31474,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setb(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setb_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setb, dst);
-			}
+			op = Code.Setb_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setb instruction.<br/>
@@ -33220,11 +31490,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setb(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setb_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setb, dst);
-			}
+			op = Code.Setb_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setbe instruction.<br/>
@@ -33240,11 +31506,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setbe(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setbe_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setbe, dst);
-			}
+			op = Code.Setbe_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setbe instruction.<br/>
@@ -33260,11 +31522,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setbe(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setbe_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setbe, dst);
-			}
+			op = Code.Setbe_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sete instruction.<br/>
@@ -33280,11 +31538,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sete(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Sete_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sete, dst);
-			}
+			op = Code.Sete_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sete instruction.<br/>
@@ -33300,11 +31554,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sete(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sete_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sete, dst);
-			}
+			op = Code.Sete_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setg instruction.<br/>
@@ -33320,11 +31570,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setg(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setg_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setg, dst);
-			}
+			op = Code.Setg_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setg instruction.<br/>
@@ -33340,11 +31586,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setg(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setg_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setg, dst);
-			}
+			op = Code.Setg_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setge instruction.<br/>
@@ -33360,11 +31602,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setge(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setge_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setge, dst);
-			}
+			op = Code.Setge_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setge instruction.<br/>
@@ -33380,11 +31618,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setge(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setge_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setge, dst);
-			}
+			op = Code.Setge_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setl instruction.<br/>
@@ -33400,11 +31634,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setl(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setl_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setl, dst);
-			}
+			op = Code.Setl_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setl instruction.<br/>
@@ -33420,11 +31650,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setl(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setl_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setl, dst);
-			}
+			op = Code.Setl_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setle instruction.<br/>
@@ -33440,11 +31666,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setle(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setle_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setle, dst);
-			}
+			op = Code.Setle_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setle instruction.<br/>
@@ -33460,11 +31682,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setle(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setle_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setle, dst);
-			}
+			op = Code.Setle_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setne instruction.<br/>
@@ -33480,11 +31698,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setne(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setne_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setne, dst);
-			}
+			op = Code.Setne_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setne instruction.<br/>
@@ -33500,11 +31714,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setne(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setne_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setne, dst);
-			}
+			op = Code.Setne_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setno instruction.<br/>
@@ -33520,11 +31730,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setno(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setno_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setno, dst);
-			}
+			op = Code.Setno_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setno instruction.<br/>
@@ -33540,11 +31746,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setno(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setno_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setno, dst);
-			}
+			op = Code.Setno_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setnp instruction.<br/>
@@ -33560,11 +31762,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setnp(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setnp_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setnp, dst);
-			}
+			op = Code.Setnp_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setnp instruction.<br/>
@@ -33580,11 +31778,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setnp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setnp_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setnp, dst);
-			}
+			op = Code.Setnp_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setns instruction.<br/>
@@ -33600,11 +31794,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setns(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setns_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setns, dst);
-			}
+			op = Code.Setns_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setns instruction.<br/>
@@ -33620,11 +31810,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setns(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setns_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setns, dst);
-			}
+			op = Code.Setns_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>seto instruction.<br/>
@@ -33640,11 +31826,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void seto(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Seto_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Seto, dst);
-			}
+			op = Code.Seto_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>seto instruction.<br/>
@@ -33660,11 +31842,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void seto(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Seto_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Seto, dst);
-			}
+			op = Code.Seto_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setp instruction.<br/>
@@ -33680,11 +31858,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setp(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Setp_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setp, dst);
-			}
+			op = Code.Setp_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setp instruction.<br/>
@@ -33700,11 +31874,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void setp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Setp_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Setp, dst);
-			}
+			op = Code.Setp_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sets instruction.<br/>
@@ -33720,11 +31890,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sets(Register dst) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.Sets_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sets, dst);
-			}
+			op = Code.Sets_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sets instruction.<br/>
@@ -33740,11 +31906,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sets(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sets_rm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sets, dst);
-			}
+			op = Code.Sets_rm8;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>setssbsy instruction.<br/>
@@ -33792,11 +31954,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1msg1(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1msg1_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1msg1, dst, src);
-			}
+			op = Code.Sha1msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1msg1 instruction.<br/>
@@ -33812,11 +31970,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1msg1(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1msg1_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1msg1, dst, src);
-			}
+			op = Code.Sha1msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1msg2 instruction.<br/>
@@ -33832,11 +31986,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1msg2(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1msg2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1msg2, dst, src);
-			}
+			op = Code.Sha1msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1msg2 instruction.<br/>
@@ -33852,11 +32002,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1msg2(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1msg2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1msg2, dst, src);
-			}
+			op = Code.Sha1msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1nexte instruction.<br/>
@@ -33872,11 +32018,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1nexte(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1nexte_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1nexte, dst, src);
-			}
+			op = Code.Sha1nexte_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1nexte instruction.<br/>
@@ -33892,11 +32034,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha1nexte(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1nexte_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1nexte, dst, src);
-			}
+			op = Code.Sha1nexte_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha1rnds4 instruction.<br/>
@@ -33910,13 +32048,9 @@ namespace Iced.Intel {
 		/// <c>SHA</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void sha1rnds4(Register dst, Register src, int imm) {
+		public void sha1rnds4(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1rnds4_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1rnds4, dst, src, imm);
-			}
+			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>sha1rnds4 instruction.<br/>
@@ -33930,13 +32064,9 @@ namespace Iced.Intel {
 		/// <c>SHA</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void sha1rnds4(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void sha1rnds4(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha1rnds4_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha1rnds4, dst, src, imm);
-			}
+			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>sha256msg1 instruction.<br/>
@@ -33952,11 +32082,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256msg1(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256msg1_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256msg1, dst, src);
-			}
+			op = Code.Sha256msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha256msg1 instruction.<br/>
@@ -33972,11 +32098,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256msg1(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256msg1_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256msg1, dst, src);
-			}
+			op = Code.Sha256msg1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha256msg2 instruction.<br/>
@@ -33992,11 +32114,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256msg2(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256msg2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256msg2, dst, src);
-			}
+			op = Code.Sha256msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha256msg2 instruction.<br/>
@@ -34012,11 +32130,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256msg2(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256msg2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256msg2, dst, src);
-			}
+			op = Code.Sha256msg2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha256rnds2 instruction.<br/>
@@ -34032,11 +32146,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256rnds2(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256rnds2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256rnds2, dst, src);
-			}
+			op = Code.Sha256rnds2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sha256rnds2 instruction.<br/>
@@ -34052,11 +32162,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sha256rnds2(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sha256rnds2_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sha256rnds2, dst, src);
-			}
+			op = Code.Sha256rnds2_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>shl instruction.<br/>
@@ -34211,46 +32317,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /4 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void shl(Register dst, int imm) {
 			Code op;
@@ -34266,17 +32332,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Shl_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Shl_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Shl_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Shl_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -34320,7 +32375,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void shl(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Shl_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Shl_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Shl_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Shl_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>shl instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -34361,22 +32434,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shl(AssemblerMemoryOperand dst, int imm) {
+		public void shl(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Shl_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Shl_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Shl_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Shl_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Shl_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Shl_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Shl_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Shl_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>shl instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHL r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /4 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHL r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHL r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHL r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /4 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void shl(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shl_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shl_rm32_imm8;
@@ -34508,7 +32624,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shld(Register dst, Register src, int imm) {
+		public void shld(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Shld_rm64_r64_imm8;
@@ -34552,7 +32668,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shld(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void shld(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsGPR64()) {
 				op = Code.Shld_rm64_r64_imm8;
@@ -34781,46 +32897,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /5 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void shr(Register dst, int imm) {
 			Code op;
@@ -34836,17 +32912,6 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
 				}
-			}
-			else if (dst.IsGPR64()) {
-				op = Code.Shr_rm64_imm8;
-			} else if (dst.IsGPR32()) {
-				op = Code.Shr_rm32_imm8;
-			} else if (dst.IsGPR16()) {
-				op = Code.Shr_rm16_imm8;
-			} else if (dst.IsGPR8()) {
-				op = Code.Shr_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
@@ -34890,7 +32955,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
+		/// <c>64-bit</c></summary>
+		public void shr(AssemblerMemoryOperand dst, int imm) {
+			Code op;
+			if (imm == 1) {
+				if (dst.Size == MemoryOperandSize.QwordPtr) {
+					op = Code.Shr_rm64_1;
+				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+					op = Code.Shr_rm32_1;
+				} else if (dst.Size == MemoryOperandSize.WordPtr) {
+					op = Code.Shr_rm16_1;
+				} else if (dst.Size == MemoryOperandSize.BytePtr) {
+					op = Code.Shr_rm8_1;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
+				}
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>shr instruction.<br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -34931,22 +33014,65 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shr(AssemblerMemoryOperand dst, int imm) {
+		public void shr(Register dst, byte imm) {
 			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Shr_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Shr_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Shr_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Shr_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
-				}
+			if (dst.IsGPR64()) {
+				op = Code.Shr_rm64_imm8;
+			} else if (dst.IsGPR32()) {
+				op = Code.Shr_rm32_imm8;
+			} else if (dst.IsGPR16()) {
+				op = Code.Shr_rm16_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Shr_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
 			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>shr instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>C0 /5 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHR r/m16, imm8</c><br/>
+		/// <br/>
+		/// <c>o16 C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>186+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SHR r/m64, imm8</c><br/>
+		/// <br/>
+		/// <c>REX.W C1 /5 ib</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void shr(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shr_rm64_imm8;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shr_rm32_imm8;
@@ -35078,7 +33204,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shrd(Register dst, Register src, int imm) {
+		public void shrd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.Shrd_rm64_r64_imm8;
@@ -35122,7 +33248,7 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void shrd(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void shrd(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsGPR64()) {
 				op = Code.Shrd_rm64_r64_imm8;
@@ -35210,13 +33336,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void shufpd(Register dst, Register src, int imm) {
+		public void shufpd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Shufpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shufpd, dst, src, imm);
-			}
+			op = Code.Shufpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>shufpd instruction.<br/>
@@ -35230,13 +33352,9 @@ namespace Iced.Intel {
 		/// <c>SSE2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void shufpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void shufpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Shufpd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shufpd, dst, src, imm);
-			}
+			op = Code.Shufpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>shufps instruction.<br/>
@@ -35250,13 +33368,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void shufps(Register dst, Register src, int imm) {
+		public void shufps(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Shufps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shufps, dst, src, imm);
-			}
+			op = Code.Shufps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>shufps instruction.<br/>
@@ -35270,13 +33384,9 @@ namespace Iced.Intel {
 		/// <c>SSE</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void shufps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void shufps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Shufps_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shufps, dst, src, imm);
-			}
+			op = Code.Shufps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>skinit instruction.<br/>
@@ -35308,11 +33418,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sldt(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Sldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sldt, dst);
-			}
+			op = Code.Sldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sldt instruction.<br/>
@@ -35328,11 +33434,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Sldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sldt, dst);
-			}
+			op = Code.Sldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>slwpcb instruction.<br/>
@@ -35380,11 +33482,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void smsw(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Smsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Smsw, dst);
-			}
+			op = Code.Smsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>smsw instruction.<br/>
@@ -35400,11 +33498,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void smsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Smsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Smsw, dst);
-			}
+			op = Code.Smsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sqrtpd instruction.<br/>
@@ -35420,11 +33514,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtpd, dst, src);
-			}
+			op = Code.Sqrtpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtpd instruction.<br/>
@@ -35440,11 +33530,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtpd, dst, src);
-			}
+			op = Code.Sqrtpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtps instruction.<br/>
@@ -35460,11 +33546,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtps, dst, src);
-			}
+			op = Code.Sqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtps instruction.<br/>
@@ -35480,11 +33562,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtps, dst, src);
-			}
+			op = Code.Sqrtps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtsd instruction.<br/>
@@ -35500,11 +33578,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtsd, dst, src);
-			}
+			op = Code.Sqrtsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtsd instruction.<br/>
@@ -35520,11 +33594,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtsd, dst, src);
-			}
+			op = Code.Sqrtsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtss instruction.<br/>
@@ -35540,11 +33610,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtss, dst, src);
-			}
+			op = Code.Sqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>sqrtss instruction.<br/>
@@ -35560,11 +33626,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sqrtss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Sqrtss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sqrtss, dst, src);
-			}
+			op = Code.Sqrtss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>stac instruction.<br/>
@@ -35660,11 +33722,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void stmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Stmxcsr_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Stmxcsr, dst);
-			}
+			op = Code.Stmxcsr_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>stosb instruction.<br/>
@@ -35680,11 +33738,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void stosb(Register src) {
 			Code op;
-			if (src == Register.AL) {
-				op = Code.Stosb_m8_AL;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Stosb, src);
-			}
+			op = Code.Stosb_m8_AL;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>stosd instruction.<br/>
@@ -35700,11 +33754,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void stosd(Register src) {
 			Code op;
-			if (src == Register.EAX) {
-				op = Code.Stosd_m32_EAX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Stosd, src);
-			}
+			op = Code.Stosd_m32_EAX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>stosq instruction.<br/>
@@ -35720,11 +33770,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void stosq(Register src) {
 			Code op;
-			if (src == Register.RAX) {
-				op = Code.Stosq_m64_RAX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Stosq, src);
-			}
+			op = Code.Stosq_m64_RAX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>stosw instruction.<br/>
@@ -35740,11 +33786,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void stosw(Register src) {
 			Code op;
-			if (src == Register.AX) {
-				op = Code.Stosw_m16_AX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Stosw, src);
-			}
+			op = Code.Stosw_m16_AX;
 			AddInstruction(Instruction.Create(op, src));
 		}
 		/// <summary>str instruction.<br/>
@@ -35760,11 +33802,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void str(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Str_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Str, dst);
-			}
+			op = Code.Str_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>str instruction.<br/>
@@ -35780,11 +33818,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void str(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Str_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Str, dst);
-			}
+			op = Code.Str_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sub instruction.<br/>
@@ -35959,26 +33993,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SUB AL, imm8</c><br/>
-		/// <br/>
-		/// <c>2C ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SUB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /5 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SUB r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /5 ib</c><br/>
@@ -36068,17 +34082,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sub(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Sub_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Sub_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Sub_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Sub_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Sub_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sub, dst, imm);
 				}
@@ -36101,16 +34111,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>sub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SUB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /5 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -36173,15 +34173,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sub(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Sub_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Sub_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Sub_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sub_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Sub, dst, imm);
 				}
@@ -36197,6 +34195,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>sub instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB AL, imm8</c><br/>
+		/// <br/>
+		/// <c>2C ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /5 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sub(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Sub_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Sub_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Sub, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>sub instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /5 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sub(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Sub_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>subpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -36210,11 +34256,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subpd, dst, src);
-			}
+			op = Code.Subpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subpd instruction.<br/>
@@ -36230,11 +34272,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subpd, dst, src);
-			}
+			op = Code.Subpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subps instruction.<br/>
@@ -36250,11 +34288,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subps, dst, src);
-			}
+			op = Code.Subps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subps instruction.<br/>
@@ -36270,11 +34304,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subps, dst, src);
-			}
+			op = Code.Subps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subsd instruction.<br/>
@@ -36290,11 +34320,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subsd, dst, src);
-			}
+			op = Code.Subsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subsd instruction.<br/>
@@ -36310,11 +34336,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subsd, dst, src);
-			}
+			op = Code.Subsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subss instruction.<br/>
@@ -36330,11 +34352,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subss, dst, src);
-			}
+			op = Code.Subss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>subss instruction.<br/>
@@ -36350,11 +34368,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void subss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Subss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Subss, dst, src);
-			}
+			op = Code.Subss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>swapgs instruction.<br/>
@@ -36649,26 +34663,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>TEST AL, imm8</c><br/>
-		/// <br/>
-		/// <c>A8 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>F6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>TEST AX, imm16</c><br/>
 		/// <br/>
 		/// <c>o16 A9 iw</c><br/>
@@ -36728,16 +34722,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void test(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
-				if (dst == Register.AL) {
-					op = Code.Test_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Test_rm8_imm8;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
-				}
-			}
-			else if (dst == Register.RAX) {
+			if (dst == Register.RAX) {
 				op = Code.Test_RAX_imm32;
 			} else if (dst.IsGPR64()) {
 				op = Code.Test_rm64_imm32;
@@ -36755,16 +34740,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>test instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>F6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -36797,14 +34772,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void test(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
-				if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Test_rm8_imm8;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
-				}
-			}
-			else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Test_rm64_imm32;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Test_rm32_imm32;
@@ -36813,6 +34781,54 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
 			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>test instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>TEST AL, imm8</c><br/>
+		/// <br/>
+		/// <c>A8 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>TEST r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>F6 /0 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void test(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Test_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Test_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>test instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>TEST r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>F6 /0 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void test(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Test_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>tpause instruction.<br/>
@@ -37012,11 +35028,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ucomisd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ucomisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ucomisd, dst, src);
-			}
+			op = Code.Ucomisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ucomisd instruction.<br/>
@@ -37032,11 +35044,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ucomisd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ucomisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ucomisd, dst, src);
-			}
+			op = Code.Ucomisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ucomiss instruction.<br/>
@@ -37052,11 +35060,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ucomiss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ucomiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ucomiss, dst, src);
-			}
+			op = Code.Ucomiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ucomiss instruction.<br/>
@@ -37072,11 +35076,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ucomiss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Ucomiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ucomiss, dst, src);
-			}
+			op = Code.Ucomiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ud0 instruction.<br/>
@@ -37480,11 +35480,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpckhpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpckhpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpckhpd, dst, src);
-			}
+			op = Code.Unpckhpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpckhpd instruction.<br/>
@@ -37500,11 +35496,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpckhpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpckhpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpckhpd, dst, src);
-			}
+			op = Code.Unpckhpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpckhps instruction.<br/>
@@ -37520,11 +35512,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpckhps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpckhps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpckhps, dst, src);
-			}
+			op = Code.Unpckhps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpckhps instruction.<br/>
@@ -37540,11 +35528,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpckhps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpckhps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpckhps, dst, src);
-			}
+			op = Code.Unpckhps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpcklpd instruction.<br/>
@@ -37560,11 +35544,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpcklpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpcklpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpcklpd, dst, src);
-			}
+			op = Code.Unpcklpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpcklpd instruction.<br/>
@@ -37580,11 +35560,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpcklpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpcklpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpcklpd, dst, src);
-			}
+			op = Code.Unpcklpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpcklps instruction.<br/>
@@ -37600,11 +35576,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpcklps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpcklps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpcklps, dst, src);
-			}
+			op = Code.Unpcklps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>unpcklps instruction.<br/>
@@ -37620,11 +35592,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void unpcklps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Unpcklps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Unpcklps, dst, src);
-			}
+			op = Code.Unpcklps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vaddpd instruction.<br/>
@@ -37864,11 +35832,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vaddsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaddsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaddsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vaddsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vaddsd instruction.<br/>
@@ -37916,11 +35880,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vaddss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaddss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaddss, dst, src, arg2);
-			}
+			op = Code.VEX_Vaddss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vaddss instruction.<br/>
@@ -38544,11 +36504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vaesimc(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaesimc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaesimc, dst, src);
-			}
+			op = Code.VEX_Vaesimc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vaesimc instruction.<br/>
@@ -38564,11 +36520,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vaesimc(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaesimc_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaesimc, dst, src);
-			}
+			op = Code.VEX_Vaesimc_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vaeskeygenassist instruction.<br/>
@@ -38582,13 +36534,9 @@ namespace Iced.Intel {
 		/// <c>AES and AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vaeskeygenassist(Register dst, Register src, int imm) {
+		public void vaeskeygenassist(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaeskeygenassist, dst, src, imm);
-			}
+			op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vaeskeygenassist instruction.<br/>
@@ -38602,13 +36550,9 @@ namespace Iced.Intel {
 		/// <c>AES and AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vaeskeygenassist(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vaeskeygenassist(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vaeskeygenassist, dst, src, imm);
-			}
+			op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>valignd instruction.<br/>
@@ -38642,7 +36586,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void valignd(Register dst, Register src, Register arg2, int imm) {
+		public void valignd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -38686,7 +36630,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void valignd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void valignd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -38730,7 +36674,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void valignq(Register dst, Register src, Register arg2, int imm) {
+		public void valignq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -38774,7 +36718,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void valignq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void valignq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -39432,7 +37376,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vblendpd(Register dst, Register src, Register arg2, int imm) {
+		public void vblendpd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vblendpd_ymm_ymm_ymmm256_imm8;
@@ -39464,7 +37408,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vblendpd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vblendpd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vblendpd_ymm_ymm_ymmm256_imm8;
@@ -39496,7 +37440,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vblendps(Register dst, Register src, Register arg2, int imm) {
+		public void vblendps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vblendps_ymm_ymm_ymmm256_imm8;
@@ -39528,7 +37472,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vblendps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vblendps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vblendps_ymm_ymm_ymmm256_imm8;
@@ -39680,11 +37624,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf128(Register dst, Register src) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vbroadcastf128_ymm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf128, dst, src);
-			}
+			op = Code.VEX_Vbroadcastf128_ymm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastf128 instruction.<br/>
@@ -39700,11 +37640,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf128(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vbroadcastf128_ymm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf128, dst, src);
-			}
+			op = Code.VEX_Vbroadcastf128_ymm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastf32x2 instruction.<br/>
@@ -39848,11 +37784,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf32x8(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf32x8, dst, src);
-			}
+			op = Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastf32x8 instruction.<br/>
@@ -39868,11 +37800,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf32x8(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf32x8, dst, src);
-			}
+			op = Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastf64x2 instruction.<br/>
@@ -39952,11 +37880,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf64x4(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf64x4, dst, src);
-			}
+			op = Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastf64x4 instruction.<br/>
@@ -39972,11 +37896,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcastf64x4(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf64x4, dst, src);
-			}
+			op = Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti128 instruction.<br/>
@@ -39992,11 +37912,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti128(Register dst, Register src) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vbroadcasti128_ymm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti128, dst, src);
-			}
+			op = Code.VEX_Vbroadcasti128_ymm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti128 instruction.<br/>
@@ -40012,11 +37928,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti128(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vbroadcasti128_ymm_m128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti128, dst, src);
-			}
+			op = Code.VEX_Vbroadcasti128_ymm_m128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti32x2 instruction.<br/>
@@ -40184,11 +38096,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti32x8(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti32x8, dst, src);
-			}
+			op = Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti32x8 instruction.<br/>
@@ -40204,11 +38112,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti32x8(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti32x8, dst, src);
-			}
+			op = Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti64x2 instruction.<br/>
@@ -40288,11 +38192,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti64x4(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti64x4, dst, src);
-			}
+			op = Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcasti64x4 instruction.<br/>
@@ -40308,11 +38208,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vbroadcasti64x4(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti64x4, dst, src);
-			}
+			op = Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
@@ -40554,7 +38450,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(Register dst, Register src, Register arg2, int imm) {
+		public void vcmppd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vcmppd_ymm_ymm_ymmm256_imm8;
@@ -40622,7 +38518,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vcmppd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vcmppd_ymm_ymm_ymmm256_imm8;
@@ -40690,7 +38586,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(Register dst, Register src, Register arg2, int imm) {
+		public void vcmpps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vcmpps_ymm_ymm_ymmm256_imm8;
@@ -40758,7 +38654,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vcmpps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vcmpps_ymm_ymm_ymmm256_imm8;
@@ -40796,7 +38692,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpsd(Register dst, Register src, Register arg2, int imm) {
+		public void vcmpsd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.VEX_Vcmpsd_xmm_xmm_xmmm64_imm8;
@@ -40828,7 +38724,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpsd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vcmpsd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.VEX_Vcmpsd_xmm_xmm_xmmm64_imm8;
@@ -40860,7 +38756,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpss(Register dst, Register src, Register arg2, int imm) {
+		public void vcmpss(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.VEX_Vcmpss_xmm_xmm_xmmm32_imm8;
@@ -40892,7 +38788,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcmpss(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vcmpss(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM()) {
 				op = Code.VEX_Vcmpss_xmm_xmm_xmmm32_imm8;
@@ -40916,11 +38812,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcomisd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vcomisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vcomisd, dst, src);
-			}
+			op = Code.VEX_Vcomisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vcomisd instruction.<br/>
@@ -40968,11 +38860,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcomiss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vcomiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vcomiss, dst, src);
-			}
+			op = Code.VEX_Vcomiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vcomiss instruction.<br/>
@@ -42438,7 +40326,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcvtps2ph(Register dst, Register src, int imm) {
+		public void vcvtps2ph(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
@@ -42502,7 +40390,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vcvtps2ph(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vcvtps2ph(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsZMM()) {
 				op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
@@ -43060,11 +40948,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtsd2ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vcvtsd2ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vcvtsd2ss instruction.<br/>
@@ -43352,11 +41236,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtss2sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vcvtss2sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vcvtss2sd instruction.<br/>
@@ -45110,7 +42990,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdbpsadbw(Register dst, Register src, Register arg2, int imm) {
+		public void vdbpsadbw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8;
@@ -45154,7 +43034,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdbpsadbw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vdbpsadbw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8;
@@ -45404,11 +43284,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vdivsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vdivsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vdivsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vdivsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vdivsd instruction.<br/>
@@ -45456,11 +43332,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vdivss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vdivss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vdivss, dst, src, arg2);
-			}
+			op = Code.VEX_Vdivss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vdivss instruction.<br/>
@@ -45594,13 +43466,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdppd(Register dst, Register src, Register arg2, int imm) {
+		public void vdppd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vdppd, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vdppd instruction.<br/>
@@ -45614,13 +43482,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdppd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vdppd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vdppd, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vdpps instruction.<br/>
@@ -45644,7 +43508,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdpps(Register dst, Register src, Register arg2, int imm) {
+		public void vdpps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vdpps_ymm_ymm_ymmm256_imm8;
@@ -45676,7 +43540,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vdpps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vdpps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vdpps_ymm_ymm_ymmm256_imm8;
@@ -45700,11 +43564,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verr(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Verr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verr, dst);
-			}
+			op = Code.Verr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>verr instruction.<br/>
@@ -45720,11 +43580,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Verr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verr, dst);
-			}
+			op = Code.Verr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>verw instruction.<br/>
@@ -45740,11 +43596,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verw(Register dst) {
 			Code op;
-			if (dst.IsGPR16()) {
-				op = Code.Verw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verw, dst);
-			}
+			op = Code.Verw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>verw instruction.<br/>
@@ -45760,11 +43612,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Verw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verw, dst);
-			}
+			op = Code.Verw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vexp2pd instruction.<br/>
@@ -45780,11 +43628,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vexp2pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vexp2pd, dst, src);
-			}
+			op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vexp2pd instruction.<br/>
@@ -45800,11 +43644,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vexp2pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vexp2pd, dst, src);
-			}
+			op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vexp2ps instruction.<br/>
@@ -45820,11 +43660,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vexp2ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vexp2ps, dst, src);
-			}
+			op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vexp2ps instruction.<br/>
@@ -45840,11 +43676,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vexp2ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vexp2ps, dst, src);
-			}
+			op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vexpandpd instruction.<br/>
@@ -46034,13 +43866,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf128(Register dst, Register src, int imm) {
+		public void vextractf128(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf128, dst, src, imm);
-			}
+			op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractf128 instruction.<br/>
@@ -46054,13 +43882,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf128(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractf128(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsYMM()) {
-				op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf128, dst, src, imm);
-			}
+			op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractf32x4 instruction.<br/>
@@ -46084,7 +43908,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x4(Register dst, Register src, int imm) {
+		public void vextractf32x4(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.IsZMM()) {
 				op = Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8;
@@ -46116,7 +43940,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x4(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractf32x4(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8;
@@ -46138,13 +43962,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x8(Register dst, Register src, int imm) {
+		public void vextractf32x8(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x8, dst, src, imm);
-			}
+			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractf32x8 instruction.<br/>
@@ -46158,13 +43978,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x8(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractf32x8(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsZMM()) {
-				op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x8, dst, src, imm);
-			}
+			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractf64x2 instruction.<br/>
@@ -46188,7 +44004,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x2(Register dst, Register src, int imm) {
+		public void vextractf64x2(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.IsZMM()) {
 				op = Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8;
@@ -46220,7 +44036,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x2(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractf64x2(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8;
@@ -46242,13 +44058,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x4(Register dst, Register src, int imm) {
+		public void vextractf64x4(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x4, dst, src, imm);
-			}
+			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractf64x4 instruction.<br/>
@@ -46262,13 +44074,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x4(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractf64x4(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsZMM()) {
-				op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x4, dst, src, imm);
-			}
+			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti128 instruction.<br/>
@@ -46282,13 +44090,9 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti128(Register dst, Register src, int imm) {
+		public void vextracti128(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti128, dst, src, imm);
-			}
+			op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti128 instruction.<br/>
@@ -46302,13 +44106,9 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti128(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextracti128(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsYMM()) {
-				op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti128, dst, src, imm);
-			}
+			op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti32x4 instruction.<br/>
@@ -46332,7 +44132,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x4(Register dst, Register src, int imm) {
+		public void vextracti32x4(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.IsZMM()) {
 				op = Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8;
@@ -46364,7 +44164,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x4(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextracti32x4(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8;
@@ -46386,13 +44186,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x8(Register dst, Register src, int imm) {
+		public void vextracti32x8(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x8, dst, src, imm);
-			}
+			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti32x8 instruction.<br/>
@@ -46406,13 +44202,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x8(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextracti32x8(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsZMM()) {
-				op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x8, dst, src, imm);
-			}
+			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti64x2 instruction.<br/>
@@ -46436,7 +44228,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x2(Register dst, Register src, int imm) {
+		public void vextracti64x2(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsXMM() && src.IsZMM()) {
 				op = Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8;
@@ -46468,7 +44260,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x2(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextracti64x2(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8;
@@ -46490,13 +44282,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x4(Register dst, Register src, int imm) {
+		public void vextracti64x4(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x4, dst, src, imm);
-			}
+			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextracti64x4 instruction.<br/>
@@ -46510,13 +44298,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x4(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextracti64x4(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
-			if (src.IsZMM()) {
-				op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x4, dst, src, imm);
-			}
+			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vextractps instruction.<br/>
@@ -46540,7 +44324,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vextractps(Register dst, Register src, int imm) {
+		public void vextractps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.VEX_Vextractps_r64m32_xmm_imm8;
@@ -46592,7 +44376,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vextractps(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vextractps(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vextractps_r64m32_xmm_imm8;
@@ -46638,7 +44422,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmpd(Register dst, Register src, Register arg2, int imm) {
+		public void vfixupimmpd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
@@ -46682,7 +44466,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmpd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vfixupimmpd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
@@ -46726,7 +44510,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmps(Register dst, Register src, Register arg2, int imm) {
+		public void vfixupimmps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
@@ -46770,7 +44554,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vfixupimmps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
@@ -46794,13 +44578,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmsd(Register dst, Register src, Register arg2, int imm) {
+		public void vfixupimmsd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmsd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vfixupimmsd instruction.<br/>
@@ -46814,13 +44594,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmsd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vfixupimmsd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmsd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vfixupimmss instruction.<br/>
@@ -46834,13 +44610,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmss(Register dst, Register src, Register arg2, int imm) {
+		public void vfixupimmss(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmss, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vfixupimmss instruction.<br/>
@@ -46854,13 +44626,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmss(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vfixupimmss(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmss, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vfmadd132pd instruction.<br/>
@@ -47100,11 +44868,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd132sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd132sd instruction.<br/>
@@ -47152,11 +44916,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd132ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd132ss instruction.<br/>
@@ -47428,11 +45188,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd213sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd213sd instruction.<br/>
@@ -47480,11 +45236,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd213ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd213ss instruction.<br/>
@@ -47756,11 +45508,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd231sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd231sd instruction.<br/>
@@ -47808,11 +45556,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd231ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmadd231ss instruction.<br/>
@@ -48052,11 +45796,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddsd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddsd instruction.<br/>
@@ -48072,11 +45812,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddsd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddsd instruction.<br/>
@@ -48092,11 +45828,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddsd(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddss instruction.<br/>
@@ -48112,11 +45844,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddss(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddss instruction.<br/>
@@ -48132,11 +45860,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddss(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddss instruction.<br/>
@@ -48152,11 +45876,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmaddss(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmaddss_xmm_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmaddss_xmm_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmaddsub132pd instruction.<br/>
@@ -49260,11 +46980,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub132sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub132sd instruction.<br/>
@@ -49312,11 +47028,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub132ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub132ss instruction.<br/>
@@ -49588,11 +47300,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub213sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub213sd instruction.<br/>
@@ -49640,11 +47348,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub213ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub213ss instruction.<br/>
@@ -49916,11 +47620,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub231sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub231sd instruction.<br/>
@@ -49968,11 +47668,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub231ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfmsub231ss instruction.<br/>
@@ -51076,11 +48772,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubsd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmsubsd instruction.<br/>
@@ -51096,11 +48788,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubsd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmsubsd instruction.<br/>
@@ -51116,11 +48804,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubsd(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmsubss instruction.<br/>
@@ -51136,11 +48820,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubss(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmsubss instruction.<br/>
@@ -51156,11 +48836,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubss(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfmsubss instruction.<br/>
@@ -51176,11 +48852,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsubss(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfmsubss_xmm_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfmsubss_xmm_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmadd132pd instruction.<br/>
@@ -51420,11 +49092,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd132sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd132sd instruction.<br/>
@@ -51472,11 +49140,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd132ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd132ss instruction.<br/>
@@ -51748,11 +49412,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd213sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd213sd instruction.<br/>
@@ -51800,11 +49460,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd213ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd213ss instruction.<br/>
@@ -52076,11 +49732,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd231sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd231sd instruction.<br/>
@@ -52128,11 +49780,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd231ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmadd231ss instruction.<br/>
@@ -52372,11 +50020,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddsd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmaddsd instruction.<br/>
@@ -52392,11 +50036,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddsd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmaddsd instruction.<br/>
@@ -52412,11 +50052,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddsd(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmaddss instruction.<br/>
@@ -52432,11 +50068,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddss(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmaddss instruction.<br/>
@@ -52452,11 +50084,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddss(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmaddss instruction.<br/>
@@ -52472,11 +50100,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmaddss(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmaddss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsub132pd instruction.<br/>
@@ -52716,11 +50340,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub132sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub132sd instruction.<br/>
@@ -52768,11 +50388,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub132ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub132ss instruction.<br/>
@@ -53044,11 +50660,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub213sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub213sd instruction.<br/>
@@ -53096,11 +50708,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub213ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub213ss instruction.<br/>
@@ -53372,11 +50980,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub231sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231sd, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub231sd instruction.<br/>
@@ -53424,11 +51028,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub231ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231ss, dst, src, arg2);
-			}
+			op = Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vfnmsub231ss instruction.<br/>
@@ -53668,11 +51268,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubsd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsubsd instruction.<br/>
@@ -53688,11 +51284,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubsd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsubsd instruction.<br/>
@@ -53708,11 +51300,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubsd(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubsd, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsubss instruction.<br/>
@@ -53728,11 +51316,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubss(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsubss instruction.<br/>
@@ -53748,11 +51332,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubss(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfnmsubss instruction.<br/>
@@ -53768,11 +51348,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsubss(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfnmsubss, dst, src, arg2, arg3);
-			}
+			op = Code.VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -53806,7 +51382,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasspd(Register dst, Register src, int imm) {
+		public void vfpclasspd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
@@ -53850,7 +51426,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasspd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vfpclasspd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsK() && src.Size == MemoryOperandSize.ZwordPtr) {
 				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
@@ -53894,7 +51470,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassps(Register dst, Register src, int imm) {
+		public void vfpclassps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
@@ -53938,7 +51514,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vfpclassps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsK() && src.Size == MemoryOperandSize.ZwordPtr) {
 				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
@@ -53962,13 +51538,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasssd(Register dst, Register src, int imm) {
+		public void vfpclasssd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclasssd, dst, src, imm);
-			}
+			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vfpclasssd instruction.<br/>
@@ -53982,13 +51554,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasssd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vfpclasssd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclasssd, dst, src, imm);
-			}
+			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -54002,13 +51570,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassss(Register dst, Register src, int imm) {
+		public void vfpclassss(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclassss, dst, src, imm);
-			}
+			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -54022,13 +51586,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassss(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vfpclassss(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsK()) {
-				op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclassss, dst, src, imm);
-			}
+			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vfrczpd instruction.<br/>
@@ -54172,11 +51732,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfrczsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vfrczsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfrczsd, dst, src);
-			}
+			op = Code.XOP_Vfrczsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vfrczsd instruction.<br/>
@@ -54192,11 +51748,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfrczsd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vfrczsd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfrczsd, dst, src);
-			}
+			op = Code.XOP_Vfrczsd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vfrczss instruction.<br/>
@@ -54212,11 +51764,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfrczss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vfrczss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfrczss, dst, src);
-			}
+			op = Code.XOP_Vfrczss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vfrczss instruction.<br/>
@@ -54232,11 +51780,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfrczss(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vfrczss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfrczss, dst, src);
-			}
+			op = Code.XOP_Vfrczss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vgatherdpd instruction.<br/>
@@ -54404,11 +51948,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vgatherpf0dpd_vm32y_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0dpd, dst);
-			}
+			op = Code.EVEX_Vgatherpf0dpd_vm32y_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0dps instruction.<br/>
@@ -54424,11 +51964,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf0dps_vm32z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0dps, dst);
-			}
+			op = Code.EVEX_Vgatherpf0dps_vm32z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0qpd instruction.<br/>
@@ -54444,11 +51980,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf0qpd_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0qpd, dst);
-			}
+			op = Code.EVEX_Vgatherpf0qpd_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0qps instruction.<br/>
@@ -54464,11 +51996,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf0qps_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0qps, dst);
-			}
+			op = Code.EVEX_Vgatherpf0qps_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1dpd instruction.<br/>
@@ -54484,11 +52012,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vgatherpf1dpd_vm32y_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1dpd, dst);
-			}
+			op = Code.EVEX_Vgatherpf1dpd_vm32y_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1dps instruction.<br/>
@@ -54504,11 +52028,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf1dps_vm32z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1dps, dst);
-			}
+			op = Code.EVEX_Vgatherpf1dps_vm32z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1qpd instruction.<br/>
@@ -54524,11 +52044,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf1qpd_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1qpd, dst);
-			}
+			op = Code.EVEX_Vgatherpf1qpd_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1qps instruction.<br/>
@@ -54544,11 +52060,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vgatherpf1qps_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1qps, dst);
-			}
+			op = Code.EVEX_Vgatherpf1qps_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherqpd instruction.<br/>
@@ -54892,11 +52404,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetexpsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetexpsd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vgetexpsd instruction.<br/>
@@ -54912,11 +52420,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetexpsd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetexpsd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vgetexpss instruction.<br/>
@@ -54932,11 +52436,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetexpss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetexpss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vgetexpss instruction.<br/>
@@ -54952,11 +52452,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetexpss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetexpss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vgetmantpd instruction.<br/>
@@ -54990,7 +52486,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantpd(Register dst, Register src, int imm) {
+		public void vgetmantpd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -55034,7 +52530,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vgetmantpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -55078,7 +52574,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantps(Register dst, Register src, int imm) {
+		public void vgetmantps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -55122,7 +52618,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vgetmantps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -55146,13 +52642,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantsd(Register dst, Register src, Register arg2, int imm) {
+		public void vgetmantsd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetmantsd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vgetmantsd instruction.<br/>
@@ -55166,13 +52658,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantsd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vgetmantsd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetmantsd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vgetmantss instruction.<br/>
@@ -55186,13 +52674,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantss(Register dst, Register src, Register arg2, int imm) {
+		public void vgetmantss(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetmantss, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vgetmantss instruction.<br/>
@@ -55206,13 +52690,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantss(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vgetmantss(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vgetmantss, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vgf2p8affineinvqb instruction.<br/>
@@ -55246,7 +52726,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineinvqb(Register dst, Register src, Register arg2, int imm) {
+		public void vgf2p8affineinvqb(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -55310,7 +52790,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineinvqb(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vgf2p8affineinvqb(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -55358,7 +52838,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineqb(Register dst, Register src, Register arg2, int imm) {
+		public void vgf2p8affineqb(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -55422,7 +52902,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and GFNI</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineqb(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vgf2p8affineqb(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -55818,13 +53298,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf128(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertf128(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertf128 instruction.<br/>
@@ -55838,13 +53314,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf128(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertf128(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertf32x4 instruction.<br/>
@@ -55868,7 +53340,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x4(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertf32x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8;
@@ -55900,7 +53372,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertf32x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8;
@@ -55922,13 +53394,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x8(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertf32x8(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf32x8, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertf32x8 instruction.<br/>
@@ -55942,13 +53410,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x8(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertf32x8(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf32x8, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertf64x2 instruction.<br/>
@@ -55972,7 +53436,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x2(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertf64x2(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8;
@@ -56004,7 +53468,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x2(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertf64x2(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8;
@@ -56026,13 +53490,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x4(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertf64x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf64x4, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertf64x4 instruction.<br/>
@@ -56046,13 +53506,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertf64x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertf64x4, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti128 instruction.<br/>
@@ -56066,13 +53522,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti128(Register dst, Register src, Register arg2, int imm) {
+		public void vinserti128(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti128 instruction.<br/>
@@ -56086,13 +53538,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti128(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinserti128(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti32x4 instruction.<br/>
@@ -56116,7 +53564,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x4(Register dst, Register src, Register arg2, int imm) {
+		public void vinserti32x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8;
@@ -56148,7 +53596,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinserti32x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8;
@@ -56170,13 +53618,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x8(Register dst, Register src, Register arg2, int imm) {
+		public void vinserti32x8(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti32x8, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti32x8 instruction.<br/>
@@ -56190,13 +53634,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x8(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinserti32x8(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti32x8, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti64x2 instruction.<br/>
@@ -56220,7 +53660,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x2(Register dst, Register src, Register arg2, int imm) {
+		public void vinserti64x2(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8;
@@ -56252,7 +53692,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x2(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinserti64x2(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8;
@@ -56274,13 +53714,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x4(Register dst, Register src, Register arg2, int imm) {
+		public void vinserti64x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti64x4, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinserti64x4 instruction.<br/>
@@ -56294,13 +53730,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinserti64x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinserti64x4, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertps instruction.<br/>
@@ -56314,13 +53746,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertps(Register dst, Register src, Register arg2, int imm) {
+		public void vinsertps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vinsertps_xmm_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vinsertps, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vinsertps_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vinsertps instruction.<br/>
@@ -56344,7 +53772,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vinsertps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vinsertps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM() && PreferVex) {
 				op = Code.VEX_Vinsertps_xmm_xmm_xmmm32_imm8;
@@ -56432,11 +53860,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vldmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.VEX_Vldmxcsr_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vldmxcsr, dst);
-			}
+			op = Code.VEX_Vldmxcsr_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmaskmovpd instruction.<br/>
@@ -56892,11 +54316,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaxsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmaxsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmaxsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vmaxsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmaxsd instruction.<br/>
@@ -56944,11 +54364,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaxss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmaxss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmaxss, dst, src, arg2);
-			}
+			op = Code.VEX_Vmaxss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmaxss instruction.<br/>
@@ -57012,11 +54428,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmclear(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Vmclear_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmclear, dst);
-			}
+			op = Code.Vmclear_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmclear instruction.<br/>
@@ -57032,11 +54444,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmclear(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Vmclear_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmclear, dst);
-			}
+			op = Code.Vmclear_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmfunc instruction.<br/>
@@ -57292,11 +54700,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vminsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vminsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vminsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vminsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vminsd instruction.<br/>
@@ -57344,11 +54748,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vminss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vminss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vminss, dst, src, arg2);
-			}
+			op = Code.VEX_Vminss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vminss instruction.<br/>
@@ -59056,11 +56456,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovhpd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovhpd, dst, src);
-			}
+			op = Code.VEX_Vmovhpd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovhpd instruction.<br/>
@@ -59108,11 +56504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhpd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovhpd_xmm_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovhpd, dst, src, arg2);
-			}
+			op = Code.VEX_Vmovhpd_xmm_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmovhpd instruction.<br/>
@@ -59160,11 +56552,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovhps_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovhps, dst, src);
-			}
+			op = Code.VEX_Vmovhps_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovhps instruction.<br/>
@@ -59212,11 +56600,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhps(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovhps_xmm_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovhps, dst, src, arg2);
-			}
+			op = Code.VEX_Vmovhps_xmm_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmovhps instruction.<br/>
@@ -59296,11 +56680,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovlpd_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovlpd, dst, src);
-			}
+			op = Code.VEX_Vmovlpd_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovlpd instruction.<br/>
@@ -59348,11 +56728,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlpd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovlpd_xmm_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovlpd, dst, src, arg2);
-			}
+			op = Code.VEX_Vmovlpd_xmm_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmovlpd instruction.<br/>
@@ -59400,11 +56776,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovlps_m64_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovlps, dst, src);
-			}
+			op = Code.VEX_Vmovlps_m64_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovlps instruction.<br/>
@@ -59452,11 +56824,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlps(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovlps_xmm_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovlps, dst, src, arg2);
-			}
+			op = Code.VEX_Vmovlps_xmm_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmovlps instruction.<br/>
@@ -60220,11 +57588,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovsd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovsd_xmm_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovsd, dst, src);
-			}
+			op = Code.VEX_Vmovsd_xmm_m64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovsd instruction.<br/>
@@ -60584,11 +57948,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmovss_xmm_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmovss, dst, src);
-			}
+			op = Code.VEX_Vmovss_xmm_m32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vmovss instruction.<br/>
@@ -61092,7 +58452,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vmpsadbw(Register dst, Register src, Register arg2, int imm) {
+		public void vmpsadbw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8;
@@ -61124,7 +58484,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vmpsadbw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vmpsadbw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8;
@@ -61148,11 +58508,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmptrld(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Vmptrld_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmptrld, dst);
-			}
+			op = Code.Vmptrld_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmptrld instruction.<br/>
@@ -61168,11 +58524,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmptrld(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Vmptrld_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmptrld, dst);
-			}
+			op = Code.Vmptrld_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmptrst instruction.<br/>
@@ -61188,11 +58540,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmptrst(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Vmptrst_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmptrst, dst);
-			}
+			op = Code.Vmptrst_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmptrst instruction.<br/>
@@ -61208,11 +58556,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmptrst(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Vmptrst_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmptrst, dst);
-			}
+			op = Code.Vmptrst_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmread instruction.<br/>
@@ -61620,11 +58964,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmulsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmulsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmulsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vmulsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmulsd instruction.<br/>
@@ -61672,11 +59012,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmulss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vmulss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmulss, dst, src, arg2);
-			}
+			op = Code.VEX_Vmulss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vmulss instruction.<br/>
@@ -61804,11 +59140,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmxon(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Vmxon_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmxon, dst);
-			}
+			op = Code.Vmxon_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmxon instruction.<br/>
@@ -61824,11 +59156,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmxon(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Vmxon_m64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmxon, dst);
-			}
+			op = Code.Vmxon_m64;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vorpd instruction.<br/>
@@ -63854,7 +61182,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpalignr(Register dst, Register src, Register arg2, int imm) {
+		public void vpalignr(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8;
@@ -63918,7 +61246,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpalignr(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpalignr(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8;
@@ -64660,7 +61988,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpblendd(Register dst, Register src, Register arg2, int imm) {
+		public void vpblendd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8;
@@ -64692,7 +62020,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpblendd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpblendd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8;
@@ -65140,7 +62468,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpblendw(Register dst, Register src, Register arg2, int imm) {
+		public void vpblendw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vpblendw_ymm_ymm_ymmm256_imm8;
@@ -65172,7 +62500,7 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpblendw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpblendw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vpblendw_ymm_ymm_ymmm256_imm8;
@@ -65894,7 +63222,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and VPCLMULQDQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpclmulqdq(Register dst, Register src, Register arg2, int imm) {
+		public void vpclmulqdq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8;
@@ -65958,7 +63286,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F and VPCLMULQDQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpclmulqdq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpclmulqdq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8;
@@ -66102,7 +63430,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpb(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpb(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
@@ -66146,7 +63474,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpb(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpb(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
@@ -66190,7 +63518,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpd(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
@@ -66234,7 +63562,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
@@ -66802,13 +64130,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestri(Register dst, Register src, int imm) {
+		public void vpcmpestri(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestri, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestri instruction.<br/>
@@ -66822,13 +64146,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestri(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpestri(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestri, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestri64 instruction.<br/>
@@ -66842,13 +64162,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpcmpestri64(Register dst, Register src, int imm) {
+		public void vpcmpestri64(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestri64, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestri64 instruction.<br/>
@@ -66862,13 +64178,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpcmpestri64(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpestri64(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestri64, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestrm instruction.<br/>
@@ -66882,13 +64194,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestrm(Register dst, Register src, int imm) {
+		public void vpcmpestrm(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestrm, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestrm instruction.<br/>
@@ -66902,13 +64210,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestrm(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpestrm(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestrm, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestrm64 instruction.<br/>
@@ -66922,13 +64226,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpcmpestrm64(Register dst, Register src, int imm) {
+		public void vpcmpestrm64(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestrm64, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpestrm64 instruction.<br/>
@@ -66942,13 +64242,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpcmpestrm64(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpestrm64(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpestrm64, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -67506,13 +64802,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistri(Register dst, Register src, int imm) {
+		public void vpcmpistri(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpistri, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpistri instruction.<br/>
@@ -67526,13 +64818,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistri(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpistri(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpistri, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpistrm instruction.<br/>
@@ -67546,13 +64834,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistrm(Register dst, Register src, int imm) {
+		public void vpcmpistrm(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpistrm, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpistrm instruction.<br/>
@@ -67566,13 +64850,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistrm(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpcmpistrm(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcmpistrm, dst, src, imm);
-			}
+			op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -67606,7 +64886,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpq(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
@@ -67650,7 +64930,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
@@ -67694,7 +64974,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpub(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpub(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
@@ -67738,7 +65018,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpub(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpub(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
@@ -67782,7 +65062,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpud(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpud(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
@@ -67826,7 +65106,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpud(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpud(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
@@ -67870,7 +65150,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuq(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpuq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
@@ -67914,7 +65194,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpuq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
@@ -67958,7 +65238,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuw(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpuw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
@@ -68002,7 +65282,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpuw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
@@ -68046,7 +65326,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpw(Register dst, Register src, Register arg2, int imm) {
+		public void vpcmpw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
@@ -68090,7 +65370,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcmpw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsK() && src.IsZMM()) {
 				op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
@@ -68114,13 +65394,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomb(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomb(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomb, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomb instruction.<br/>
@@ -68134,13 +65410,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomb(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomb(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomb, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomd instruction.<br/>
@@ -68154,13 +65426,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomd(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomd, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomd instruction.<br/>
@@ -68174,13 +65442,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomd, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcompressb instruction.<br/>
@@ -68546,13 +65810,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomq(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomq, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomq instruction.<br/>
@@ -68566,13 +65826,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomq, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomub instruction.<br/>
@@ -68586,13 +65842,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomub(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomub(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomub, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomub instruction.<br/>
@@ -68606,13 +65858,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomub(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomub(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomub, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomud instruction.<br/>
@@ -68626,13 +65874,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomud(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomud(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomud, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomud instruction.<br/>
@@ -68646,13 +65890,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomud(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomud(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomud, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomuq instruction.<br/>
@@ -68666,13 +65906,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuq(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomuq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomuq, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomuq instruction.<br/>
@@ -68686,13 +65922,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomuq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomuq, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomuw instruction.<br/>
@@ -68706,13 +65938,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuw(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomuw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomuw, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomuw instruction.<br/>
@@ -68726,13 +65954,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomuw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomuw, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomw instruction.<br/>
@@ -68746,13 +65970,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomw(Register dst, Register src, Register arg2, int imm) {
+		public void vpcomw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomw, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpcomw instruction.<br/>
@@ -68766,13 +65986,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpcomw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpcomw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpcomw, dst, src, arg2, imm);
-			}
+			op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpconflictd instruction.<br/>
@@ -69314,13 +66530,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vperm2f128(Register dst, Register src, Register arg2, int imm) {
+		public void vperm2f128(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vperm2f128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vperm2f128 instruction.<br/>
@@ -69334,13 +66546,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vperm2f128(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vperm2f128(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vperm2f128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vperm2i128 instruction.<br/>
@@ -69354,13 +66562,9 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vperm2i128(Register dst, Register src, Register arg2, int imm) {
+		public void vperm2i128(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vperm2i128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vperm2i128 instruction.<br/>
@@ -69374,13 +66578,9 @@ namespace Iced.Intel {
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vperm2i128(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vperm2i128(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsYMM()) {
-				op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vperm2i128, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpermb instruction.<br/>
@@ -70410,7 +67610,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermilpd(Register dst, Register src, int imm) {
+		public void vpermilpd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8;
@@ -70474,7 +67674,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermilpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpermilpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8;
@@ -70634,7 +67834,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermilps(Register dst, Register src, int imm) {
+		public void vpermilps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8;
@@ -70698,7 +67898,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermilps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpermilps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8;
@@ -70800,7 +68000,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermpd(Register dst, Register src, int imm) {
+		public void vpermpd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8;
@@ -70842,7 +68042,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpermpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8;
@@ -71016,7 +68216,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermq(Register dst, Register src, int imm) {
+		public void vpermq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8;
@@ -71058,7 +68258,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpermq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpermq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8;
@@ -72050,13 +69250,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpextrb(Register dst, Register src, int imm) {
+		public void vpextrb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR8()) {
-				op = Code.VEX_Vpextrb_r32m8_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpextrb, dst, src, imm);
-			}
+			op = Code.VEX_Vpextrb_r32m8_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpextrb instruction.<br/>
@@ -72100,7 +69296,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpextrb(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vpextrb(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.VEX_Vpextrb_r32m8_xmm_imm8;
@@ -72126,13 +69322,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpextrd(Register dst, Register src, int imm) {
+		public void vpextrd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR32()) {
-				op = Code.VEX_Vpextrd_rm32_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpextrd, dst, src, imm);
-			}
+			op = Code.VEX_Vpextrd_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpextrd instruction.<br/>
@@ -72156,7 +69348,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpextrd(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vpextrd(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpextrd_rm32_xmm_imm8;
@@ -72178,13 +69370,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpextrq(Register dst, Register src, int imm) {
+		public void vpextrq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsGPR64()) {
-				op = Code.VEX_Vpextrq_rm64_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpextrq, dst, src, imm);
-			}
+			op = Code.VEX_Vpextrq_rm64_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpextrq instruction.<br/>
@@ -72208,7 +69396,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpextrq(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vpextrq(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpextrq_rm64_xmm_imm8;
@@ -72250,7 +69438,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpextrw(Register dst, Register src, int imm) {
+		public void vpextrw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsGPR64()) {
 				op = Code.VEX_Vpextrw_r64_xmm_imm8;
@@ -72304,7 +69492,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpextrw(AssemblerMemoryOperand dst, Register src, int imm) {
+		public void vpextrw(AssemblerMemoryOperand dst, Register src, byte imm) {
 			Code op;
 			if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.VEX_Vpextrw_r32m16_xmm_imm8;
@@ -72636,11 +69824,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbd, dst, src);
-			}
+			op = Code.XOP_Vphaddbd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddbd instruction.<br/>
@@ -72656,11 +69840,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbd, dst, src);
-			}
+			op = Code.XOP_Vphaddbd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddbq instruction.<br/>
@@ -72676,11 +69856,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbq, dst, src);
-			}
+			op = Code.XOP_Vphaddbq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddbq instruction.<br/>
@@ -72696,11 +69872,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbq, dst, src);
-			}
+			op = Code.XOP_Vphaddbq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddbw instruction.<br/>
@@ -72716,11 +69888,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbw, dst, src);
-			}
+			op = Code.XOP_Vphaddbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddbw instruction.<br/>
@@ -72736,11 +69904,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddbw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddbw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddbw, dst, src);
-			}
+			op = Code.XOP_Vphaddbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddd instruction.<br/>
@@ -72820,11 +69984,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadddq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadddq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadddq, dst, src);
-			}
+			op = Code.XOP_Vphadddq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphadddq instruction.<br/>
@@ -72840,11 +70000,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadddq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadddq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadddq, dst, src);
-			}
+			op = Code.XOP_Vphadddq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddsw instruction.<br/>
@@ -72924,11 +70080,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubd, dst, src);
-			}
+			op = Code.XOP_Vphaddubd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddubd instruction.<br/>
@@ -72944,11 +70096,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubd, dst, src);
-			}
+			op = Code.XOP_Vphaddubd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddubq instruction.<br/>
@@ -72964,11 +70112,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubq, dst, src);
-			}
+			op = Code.XOP_Vphaddubq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddubq instruction.<br/>
@@ -72984,11 +70128,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubq, dst, src);
-			}
+			op = Code.XOP_Vphaddubq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddubw instruction.<br/>
@@ -73004,11 +70144,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubw, dst, src);
-			}
+			op = Code.XOP_Vphaddubw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddubw instruction.<br/>
@@ -73024,11 +70160,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddubw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddubw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddubw, dst, src);
-			}
+			op = Code.XOP_Vphaddubw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddudq instruction.<br/>
@@ -73044,11 +70176,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddudq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddudq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddudq, dst, src);
-			}
+			op = Code.XOP_Vphaddudq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddudq instruction.<br/>
@@ -73064,11 +70192,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddudq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddudq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddudq, dst, src);
-			}
+			op = Code.XOP_Vphaddudq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphadduwd instruction.<br/>
@@ -73084,11 +70208,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadduwd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadduwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadduwd, dst, src);
-			}
+			op = Code.XOP_Vphadduwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphadduwd instruction.<br/>
@@ -73104,11 +70224,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadduwd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadduwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadduwd, dst, src);
-			}
+			op = Code.XOP_Vphadduwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphadduwq instruction.<br/>
@@ -73124,11 +70240,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadduwq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadduwq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadduwq, dst, src);
-			}
+			op = Code.XOP_Vphadduwq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphadduwq instruction.<br/>
@@ -73144,11 +70256,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphadduwq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphadduwq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphadduwq, dst, src);
-			}
+			op = Code.XOP_Vphadduwq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddw instruction.<br/>
@@ -73228,11 +70336,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddwd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddwd, dst, src);
-			}
+			op = Code.XOP_Vphaddwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddwd instruction.<br/>
@@ -73248,11 +70352,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddwd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddwd, dst, src);
-			}
+			op = Code.XOP_Vphaddwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddwq instruction.<br/>
@@ -73268,11 +70368,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddwq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddwq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddwq, dst, src);
-			}
+			op = Code.XOP_Vphaddwq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphaddwq instruction.<br/>
@@ -73288,11 +70384,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphaddwq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphaddwq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphaddwq, dst, src);
-			}
+			op = Code.XOP_Vphaddwq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphminposuw instruction.<br/>
@@ -73308,11 +70400,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphminposuw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vphminposuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphminposuw, dst, src);
-			}
+			op = Code.VEX_Vphminposuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphminposuw instruction.<br/>
@@ -73328,11 +70416,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphminposuw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vphminposuw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphminposuw, dst, src);
-			}
+			op = Code.VEX_Vphminposuw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubbw instruction.<br/>
@@ -73348,11 +70432,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubbw(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubbw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubbw, dst, src);
-			}
+			op = Code.XOP_Vphsubbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubbw instruction.<br/>
@@ -73368,11 +70448,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubbw(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubbw_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubbw, dst, src);
-			}
+			op = Code.XOP_Vphsubbw_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubd instruction.<br/>
@@ -73452,11 +70528,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubdq(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubdq, dst, src);
-			}
+			op = Code.XOP_Vphsubdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubdq instruction.<br/>
@@ -73472,11 +70544,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubdq(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubdq_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubdq, dst, src);
-			}
+			op = Code.XOP_Vphsubdq_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubsw instruction.<br/>
@@ -73620,11 +70688,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubwd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubwd, dst, src);
-			}
+			op = Code.XOP_Vphsubwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vphsubwd instruction.<br/>
@@ -73640,11 +70704,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vphsubwd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vphsubwd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vphsubwd, dst, src);
-			}
+			op = Code.XOP_Vphsubwd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpinsrb instruction.<br/>
@@ -73658,13 +70718,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrb(Register dst, Register src, Register arg2, int imm) {
+		public void vpinsrb(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpinsrb, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpinsrb instruction.<br/>
@@ -73708,7 +70764,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpinsrb(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpinsrb(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8;
@@ -73734,13 +70790,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrd(Register dst, Register src, Register arg2, int imm) {
+		public void vpinsrd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpinsrd_xmm_xmm_rm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpinsrd, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vpinsrd_xmm_xmm_rm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpinsrd instruction.<br/>
@@ -73764,7 +70816,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpinsrd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpinsrd_xmm_xmm_rm32_imm8;
@@ -73786,13 +70838,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpinsrq(Register dst, Register src, Register arg2, int imm) {
+		public void vpinsrq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpinsrq_xmm_xmm_rm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpinsrq, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vpinsrq_xmm_xmm_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpinsrq instruction.<br/>
@@ -73816,7 +70864,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpinsrq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpinsrq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpinsrq_xmm_xmm_rm64_imm8;
@@ -73838,13 +70886,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrw(Register dst, Register src, Register arg2, int imm) {
+		public void vpinsrw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpinsrw, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vpinsrw instruction.<br/>
@@ -73888,7 +70932,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void vpinsrw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpinsrw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8;
@@ -74092,11 +71136,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsdd instruction.<br/>
@@ -74112,11 +71152,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsdqh instruction.<br/>
@@ -74132,11 +71168,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdqh(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdqh, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsdqh instruction.<br/>
@@ -74152,11 +71184,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdqh(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdqh, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsdql instruction.<br/>
@@ -74172,11 +71200,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdql(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdql, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsdql instruction.<br/>
@@ -74192,11 +71216,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsdql(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsdql, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdd instruction.<br/>
@@ -74212,11 +71232,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdd instruction.<br/>
@@ -74232,11 +71248,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdqh instruction.<br/>
@@ -74252,11 +71264,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdqh(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdqh, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdqh instruction.<br/>
@@ -74272,11 +71280,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdqh(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdqh, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdql instruction.<br/>
@@ -74292,11 +71296,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdql(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdql, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssdql instruction.<br/>
@@ -74312,11 +71312,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssdql(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssdql, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsswd instruction.<br/>
@@ -74332,11 +71328,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsswd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsswd instruction.<br/>
@@ -74352,11 +71344,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsswd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssww instruction.<br/>
@@ -74372,11 +71360,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssww(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssww_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssww, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssww_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacssww instruction.<br/>
@@ -74392,11 +71376,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacssww(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacssww_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacssww, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacssww_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacswd instruction.<br/>
@@ -74412,11 +71392,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacswd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacswd instruction.<br/>
@@ -74432,11 +71408,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacswd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsww instruction.<br/>
@@ -74452,11 +71424,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsww(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsww_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsww, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsww_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmacsww instruction.<br/>
@@ -74472,11 +71440,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmacsww(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmacsww_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmacsww, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmacsww_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmadcsswd instruction.<br/>
@@ -74492,11 +71456,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmadcsswd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmadcsswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmadcsswd instruction.<br/>
@@ -74512,11 +71472,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmadcsswd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmadcsswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmadcswd instruction.<br/>
@@ -74532,11 +71488,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmadcswd(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmadcswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmadcswd instruction.<br/>
@@ -74552,11 +71504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmadcswd(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpmadcswd, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpmadd52huq instruction.<br/>
@@ -81772,11 +78720,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpperm(Register dst, Register src, Register arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpperm_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpperm, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpperm_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpperm instruction.<br/>
@@ -81792,11 +78736,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpperm(Register dst, Register src, AssemblerMemoryOperand arg2, Register arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpperm_xmm_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpperm, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpperm_xmm_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vpperm instruction.<br/>
@@ -81812,11 +78752,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpperm(Register dst, Register src, Register arg2, AssemblerMemoryOperand arg3) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpperm_xmm_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpperm, dst, src, arg2, arg3);
-			}
+			op = Code.XOP_Vpperm_xmm_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, arg3));
 		}
 		/// <summary>vprold instruction.<br/>
@@ -81850,7 +78786,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprold(Register dst, Register src, int imm) {
+		public void vprold(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprold_zmm_k1z_zmmm512b32_imm8;
@@ -81894,7 +78830,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprold(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprold(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprold_zmm_k1z_zmmm512b32_imm8;
@@ -81938,7 +78874,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprolq(Register dst, Register src, int imm) {
+		public void vprolq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8;
@@ -81982,7 +78918,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprolq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprolq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8;
@@ -82202,7 +79138,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprord(Register dst, Register src, int imm) {
+		public void vprord(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprord_zmm_k1z_zmmm512b32_imm8;
@@ -82246,7 +79182,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprord(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprord(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprord_zmm_k1z_zmmm512b32_imm8;
@@ -82290,7 +79226,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprorq(Register dst, Register src, int imm) {
+		public void vprorq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8;
@@ -82334,7 +79270,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprorq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprorq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8;
@@ -82536,11 +79472,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotb_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotb, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotb_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotb instruction.<br/>
@@ -82556,11 +79488,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotb(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotb_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotb, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotb_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotb instruction.<br/>
@@ -82576,11 +79504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotb(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotb_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotb, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotb_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotb instruction.<br/>
@@ -82594,13 +79518,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotb(Register dst, Register src, int imm) {
+		public void vprotb(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotb, dst, src, imm);
-			}
+			op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotb instruction.<br/>
@@ -82614,13 +79534,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotb(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprotb(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotb, dst, src, imm);
-			}
+			op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotd instruction.<br/>
@@ -82636,11 +79552,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotd_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotd, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotd_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotd instruction.<br/>
@@ -82656,11 +79568,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotd(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotd_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotd, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotd_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotd instruction.<br/>
@@ -82676,11 +79584,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotd_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotd, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotd_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotd instruction.<br/>
@@ -82694,13 +79598,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotd(Register dst, Register src, int imm) {
+		public void vprotd(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotd, dst, src, imm);
-			}
+			op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotd instruction.<br/>
@@ -82714,13 +79614,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprotd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotd, dst, src, imm);
-			}
+			op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotq instruction.<br/>
@@ -82736,11 +79632,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotq, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotq instruction.<br/>
@@ -82756,11 +79648,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotq(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotq, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotq instruction.<br/>
@@ -82776,11 +79664,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotq(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotq_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotq, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotq_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotq instruction.<br/>
@@ -82794,13 +79678,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotq(Register dst, Register src, int imm) {
+		public void vprotq(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotq, dst, src, imm);
-			}
+			op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotq instruction.<br/>
@@ -82814,13 +79694,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprotq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotq, dst, src, imm);
-			}
+			op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotw instruction.<br/>
@@ -82836,11 +79712,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotw, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotw instruction.<br/>
@@ -82856,11 +79728,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotw(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotw, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotw instruction.<br/>
@@ -82876,11 +79744,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotw(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotw_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotw, dst, src, arg2);
-			}
+			op = Code.XOP_Vprotw_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vprotw instruction.<br/>
@@ -82894,13 +79758,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotw(Register dst, Register src, int imm) {
+		public void vprotw(Register dst, Register src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotw, dst, src, imm);
-			}
+			op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vprotw instruction.<br/>
@@ -82914,13 +79774,9 @@ namespace Iced.Intel {
 		/// <c>XOP</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vprotw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vprotw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vprotw, dst, src, imm);
-			}
+			op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, imm));
 		}
 		/// <summary>vpsadbw instruction.<br/>
@@ -83224,11 +80080,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshab(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshab_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshab, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshab_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshab instruction.<br/>
@@ -83244,11 +80096,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshab(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshab_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshab, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshab_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshab instruction.<br/>
@@ -83264,11 +80112,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshab(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshab_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshab, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshab_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshad instruction.<br/>
@@ -83284,11 +80128,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshad(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshad_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshad, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshad_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshad instruction.<br/>
@@ -83304,11 +80144,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshad(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshad_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshad, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshad_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshad instruction.<br/>
@@ -83324,11 +80160,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshad(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshad_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshad, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshad_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaq instruction.<br/>
@@ -83344,11 +80176,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaq instruction.<br/>
@@ -83364,11 +80192,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaq(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaq instruction.<br/>
@@ -83384,11 +80208,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaq(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaq_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaq_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaw instruction.<br/>
@@ -83404,11 +80224,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaw instruction.<br/>
@@ -83424,11 +80240,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaw(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshaw instruction.<br/>
@@ -83444,11 +80256,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshaw(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshaw_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshaw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshaw_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlb instruction.<br/>
@@ -83464,11 +80272,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlb(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlb_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlb, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlb_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlb instruction.<br/>
@@ -83484,11 +80288,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlb(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlb_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlb, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlb_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlb instruction.<br/>
@@ -83504,11 +80304,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlb(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlb_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlb, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlb_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshld instruction.<br/>
@@ -83524,11 +80320,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshld(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshld_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshld, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshld_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshld instruction.<br/>
@@ -83544,11 +80336,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshld(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshld_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshld, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshld_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshld instruction.<br/>
@@ -83564,11 +80352,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshld(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshld_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshld, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshld_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshldd instruction.<br/>
@@ -83602,7 +80386,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldd(Register dst, Register src, Register arg2, int imm) {
+		public void vpshldd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -83646,7 +80430,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshldd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -83690,7 +80474,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldq(Register dst, Register src, Register arg2, int imm) {
+		public void vpshldq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -83734,7 +80518,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshldq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -84042,7 +80826,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldw(Register dst, Register src, Register arg2, int imm) {
+		public void vpshldw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8;
@@ -84086,7 +80870,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshldw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshldw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8;
@@ -84112,11 +80896,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlq(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlq instruction.<br/>
@@ -84132,11 +80912,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlq(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlq_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlq_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlq instruction.<br/>
@@ -84152,11 +80928,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlq(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlq_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlq, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlq_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlw instruction.<br/>
@@ -84172,11 +80944,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlw(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlw instruction.<br/>
@@ -84192,11 +80960,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlw(Register dst, AssemblerMemoryOperand src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlw_xmm_xmmm128_xmm;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlw_xmm_xmmm128_xmm;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshlw instruction.<br/>
@@ -84212,11 +80976,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshlw(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.XOP_Vpshlw_xmm_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vpshlw, dst, src, arg2);
-			}
+			op = Code.XOP_Vpshlw_xmm_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vpshrdd instruction.<br/>
@@ -84250,7 +81010,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdd(Register dst, Register src, Register arg2, int imm) {
+		public void vpshrdd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -84294,7 +81054,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshrdd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -84338,7 +81098,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdq(Register dst, Register src, Register arg2, int imm) {
+		public void vpshrdq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -84382,7 +81142,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshrdq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -84690,7 +81450,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdw(Register dst, Register src, Register arg2, int imm) {
+		public void vpshrdw(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8;
@@ -84734,7 +81494,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_VBMI2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdw(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpshrdw(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8;
@@ -84978,7 +81738,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshufd(Register dst, Register src, int imm) {
+		public void vpshufd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8;
@@ -85042,7 +81802,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshufd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpshufd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8;
@@ -85090,7 +81850,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshufhw(Register dst, Register src, int imm) {
+		public void vpshufhw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8;
@@ -85154,7 +81914,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshufhw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpshufhw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8;
@@ -85202,7 +81962,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshuflw(Register dst, Register src, int imm) {
+		public void vpshuflw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8;
@@ -85266,7 +82026,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpshuflw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpshuflw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8;
@@ -85618,7 +82378,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpslld(Register dst, Register src, int imm) {
+		public void vpslld(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8;
@@ -85662,7 +82422,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpslld(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpslld(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8;
@@ -85706,7 +82466,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpslldq(Register dst, Register src, int imm) {
+		public void vpslldq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpslldq_zmm_zmmm512_imm8;
@@ -85750,7 +82510,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpslldq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpslldq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpslldq_zmm_zmmm512_imm8;
@@ -85906,7 +82666,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsllq(Register dst, Register src, int imm) {
+		public void vpsllq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8;
@@ -85950,7 +82710,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsllq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsllq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8;
@@ -86418,7 +83178,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsllw(Register dst, Register src, int imm) {
+		public void vpsllw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsllw_zmm_k1z_zmmm512_imm8;
@@ -86462,7 +83222,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsllw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsllw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsllw_zmm_k1z_zmmm512_imm8;
@@ -86618,7 +83378,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrad(Register dst, Register src, int imm) {
+		public void vpsrad(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8;
@@ -86662,7 +83422,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrad(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsrad(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8;
@@ -86794,7 +83554,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsraq(Register dst, Register src, int imm) {
+		public void vpsraq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8;
@@ -86838,7 +83598,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsraq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsraq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8;
@@ -87282,7 +84042,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsraw(Register dst, Register src, int imm) {
+		public void vpsraw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsraw_zmm_k1z_zmmm512_imm8;
@@ -87326,7 +84086,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsraw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsraw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsraw_zmm_k1z_zmmm512_imm8;
@@ -87482,7 +84242,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrld(Register dst, Register src, int imm) {
+		public void vpsrld(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8;
@@ -87526,7 +84286,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrld(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsrld(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8;
@@ -87570,7 +84330,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrldq(Register dst, Register src, int imm) {
+		public void vpsrldq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrldq_zmm_zmmm512_imm8;
@@ -87614,7 +84374,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrldq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsrldq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrldq_zmm_zmmm512_imm8;
@@ -87770,7 +84530,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlq(Register dst, Register src, int imm) {
+		public void vpsrlq(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8;
@@ -87814,7 +84574,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlq(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsrlq(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8;
@@ -88282,7 +85042,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlw(Register dst, Register src, int imm) {
+		public void vpsrlw(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8;
@@ -88326,7 +85086,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlw(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vpsrlw(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8;
@@ -89266,7 +86026,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogd(Register dst, Register src, Register arg2, int imm) {
+		public void vpternlogd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -89310,7 +86070,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpternlogd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -89354,7 +86114,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogq(Register dst, Register src, Register arg2, int imm) {
+		public void vpternlogq(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -89398,7 +86158,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogq(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vpternlogq(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -91346,7 +88106,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangepd(Register dst, Register src, Register arg2, int imm) {
+		public void vrangepd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
@@ -91390,7 +88150,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangepd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrangepd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
@@ -91434,7 +88194,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangeps(Register dst, Register src, Register arg2, int imm) {
+		public void vrangeps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
@@ -91478,7 +88238,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangeps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrangeps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
@@ -91502,13 +88262,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangesd(Register dst, Register src, Register arg2, int imm) {
+		public void vrangesd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrangesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrangesd instruction.<br/>
@@ -91522,13 +88278,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangesd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrangesd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrangesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrangess instruction.<br/>
@@ -91542,13 +88294,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangess(Register dst, Register src, Register arg2, int imm) {
+		public void vrangess(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrangess, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrangess instruction.<br/>
@@ -91562,13 +88310,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrangess(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrangess(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrangess, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrcp14pd instruction.<br/>
@@ -91760,11 +88504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp14sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp14sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp14sd instruction.<br/>
@@ -91780,11 +88520,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp14sd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp14sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp14ss instruction.<br/>
@@ -91800,11 +88536,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp14ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp14ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp14ss instruction.<br/>
@@ -91820,11 +88552,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp14ss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp14ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp28pd instruction.<br/>
@@ -91840,11 +88568,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28pd, dst, src);
-			}
+			op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrcp28pd instruction.<br/>
@@ -91860,11 +88584,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28pd, dst, src);
-			}
+			op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrcp28ps instruction.<br/>
@@ -91880,11 +88600,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28ps, dst, src);
-			}
+			op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrcp28ps instruction.<br/>
@@ -91900,11 +88616,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28ps, dst, src);
-			}
+			op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrcp28sd instruction.<br/>
@@ -91920,11 +88632,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp28sd instruction.<br/>
@@ -91940,11 +88648,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28sd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp28ss instruction.<br/>
@@ -91960,11 +88664,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcp28ss instruction.<br/>
@@ -91980,11 +88680,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcp28ss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcp28ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcpps instruction.<br/>
@@ -92064,11 +88760,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcpss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vrcpss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcpss, dst, src, arg2);
-			}
+			op = Code.VEX_Vrcpss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrcpss instruction.<br/>
@@ -92084,11 +88776,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrcpss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vrcpss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrcpss, dst, src, arg2);
-			}
+			op = Code.VEX_Vrcpss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vreducepd instruction.<br/>
@@ -92122,7 +88810,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducepd(Register dst, Register src, int imm) {
+		public void vreducepd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -92166,7 +88854,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducepd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vreducepd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -92210,7 +88898,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreduceps(Register dst, Register src, int imm) {
+		public void vreduceps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -92254,7 +88942,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreduceps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vreduceps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -92278,13 +88966,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducesd(Register dst, Register src, Register arg2, int imm) {
+		public void vreducesd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vreducesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vreducesd instruction.<br/>
@@ -92298,13 +88982,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducesd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vreducesd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vreducesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vreducess instruction.<br/>
@@ -92318,13 +88998,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducess(Register dst, Register src, Register arg2, int imm) {
+		public void vreducess(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vreducess, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vreducess instruction.<br/>
@@ -92338,13 +89014,9 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vreducess(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vreducess(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vreducess, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrndscalepd instruction.<br/>
@@ -92378,7 +89050,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalepd(Register dst, Register src, int imm) {
+		public void vrndscalepd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -92422,7 +89094,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalepd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vrndscalepd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae;
@@ -92466,7 +89138,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaleps(Register dst, Register src, int imm) {
+		public void vrndscaleps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -92510,7 +89182,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaleps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vrndscaleps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae;
@@ -92534,13 +89206,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalesd(Register dst, Register src, Register arg2, int imm) {
+		public void vrndscalesd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrndscalesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrndscalesd instruction.<br/>
@@ -92554,13 +89222,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalesd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrndscalesd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrndscalesd, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrndscaless instruction.<br/>
@@ -92574,13 +89238,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaless(Register dst, Register src, Register arg2, int imm) {
+		public void vrndscaless(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrndscaless, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrndscaless instruction.<br/>
@@ -92594,13 +89254,9 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaless(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vrndscaless(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrndscaless, dst, src, arg2, imm);
-			}
+			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vroundpd instruction.<br/>
@@ -92624,7 +89280,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundpd(Register dst, Register src, int imm) {
+		public void vroundpd(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vroundpd_ymm_ymmm256_imm8;
@@ -92656,7 +89312,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundpd(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vroundpd(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vroundpd_ymm_ymmm256_imm8;
@@ -92688,7 +89344,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundps(Register dst, Register src, int imm) {
+		public void vroundps(Register dst, Register src, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vroundps_ymm_ymmm256_imm8;
@@ -92720,7 +89376,7 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundps(Register dst, AssemblerMemoryOperand src, int imm) {
+		public void vroundps(Register dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			if (dst.IsYMM()) {
 				op = Code.VEX_Vroundps_ymm_ymmm256_imm8;
@@ -92742,13 +89398,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundsd(Register dst, Register src, Register arg2, int imm) {
+		public void vroundsd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vroundsd, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vroundsd instruction.<br/>
@@ -92762,13 +89414,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundsd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vroundsd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vroundsd, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vroundss instruction.<br/>
@@ -92782,13 +89430,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundss(Register dst, Register src, Register arg2, int imm) {
+		public void vroundss(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vroundss, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vroundss instruction.<br/>
@@ -92802,13 +89446,9 @@ namespace Iced.Intel {
 		/// <c>AVX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vroundss(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vroundss(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vroundss, dst, src, arg2, imm);
-			}
+			op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
 		}
 		/// <summary>vrsqrt14pd instruction.<br/>
@@ -93000,11 +89640,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt14sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt14sd instruction.<br/>
@@ -93020,11 +89656,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt14sd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt14ss instruction.<br/>
@@ -93040,11 +89672,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt14ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt14ss instruction.<br/>
@@ -93060,11 +89688,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt14ss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt28pd instruction.<br/>
@@ -93080,11 +89704,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28pd(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28pd, dst, src);
-			}
+			op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrsqrt28pd instruction.<br/>
@@ -93100,11 +89720,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28pd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28pd, dst, src);
-			}
+			op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrsqrt28ps instruction.<br/>
@@ -93120,11 +89736,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28ps(Register dst, Register src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28ps, dst, src);
-			}
+			op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrsqrt28ps instruction.<br/>
@@ -93140,11 +89752,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28ps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsZMM()) {
-				op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28ps, dst, src);
-			}
+			op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vrsqrt28sd instruction.<br/>
@@ -93160,11 +89768,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28sd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt28sd instruction.<br/>
@@ -93180,11 +89784,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28sd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28sd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt28ss instruction.<br/>
@@ -93200,11 +89800,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28ss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrt28ss instruction.<br/>
@@ -93220,11 +89816,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrt28ss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt28ss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrtps instruction.<br/>
@@ -93304,11 +89896,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrtss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vrsqrtss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrtss, dst, src, arg2);
-			}
+			op = Code.VEX_Vrsqrtss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vrsqrtss instruction.<br/>
@@ -93324,11 +89912,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vrsqrtss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vrsqrtss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vrsqrtss, dst, src, arg2);
-			}
+			op = Code.VEX_Vrsqrtss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vscalefpd instruction.<br/>
@@ -93520,11 +90104,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscalefsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscalefsd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vscalefsd instruction.<br/>
@@ -93540,11 +90120,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscalefsd(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscalefsd, dst, src, arg2);
-			}
+			op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vscalefss instruction.<br/>
@@ -93560,11 +90136,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscalefss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscalefss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vscalefss instruction.<br/>
@@ -93580,11 +90152,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscalefss(Register dst, Register src, AssemblerMemoryOperand arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscalefss, dst, src, arg2);
-			}
+			op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vscatterdpd instruction.<br/>
@@ -93688,11 +90256,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vscatterpf0dpd_vm32y_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0dpd, dst);
-			}
+			op = Code.EVEX_Vscatterpf0dpd_vm32y_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0dps instruction.<br/>
@@ -93708,11 +90272,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf0dps_vm32z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0dps, dst);
-			}
+			op = Code.EVEX_Vscatterpf0dps_vm32z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0qpd instruction.<br/>
@@ -93728,11 +90288,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf0qpd_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0qpd, dst);
-			}
+			op = Code.EVEX_Vscatterpf0qpd_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0qps instruction.<br/>
@@ -93748,11 +90304,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf0qps_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0qps, dst);
-			}
+			op = Code.EVEX_Vscatterpf0qps_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1dpd instruction.<br/>
@@ -93768,11 +90320,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vscatterpf1dpd_vm32y_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1dpd, dst);
-			}
+			op = Code.EVEX_Vscatterpf1dpd_vm32y_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1dps instruction.<br/>
@@ -93788,11 +90336,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf1dps_vm32z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1dps, dst);
-			}
+			op = Code.EVEX_Vscatterpf1dps_vm32z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1qpd instruction.<br/>
@@ -93808,11 +90352,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf1qpd_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1qpd, dst);
-			}
+			op = Code.EVEX_Vscatterpf1qpd_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1qps instruction.<br/>
@@ -93828,11 +90368,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vscatterpf1qps_vm64z_k1;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1qps, dst);
-			}
+			op = Code.EVEX_Vscatterpf1qps_vm64z_k1;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterqpd instruction.<br/>
@@ -93944,7 +90480,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshuff32x4(Register dst, Register src, Register arg2, int imm) {
+		public void vshuff32x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -93976,7 +90512,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshuff32x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshuff32x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -94008,7 +90544,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshuff64x2(Register dst, Register src, Register arg2, int imm) {
+		public void vshuff64x2(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94040,7 +90576,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshuff64x2(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshuff64x2(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94072,7 +90608,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufi32x4(Register dst, Register src, Register arg2, int imm) {
+		public void vshufi32x4(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -94104,7 +90640,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufi32x4(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshufi32x4(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -94136,7 +90672,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufi64x2(Register dst, Register src, Register arg2, int imm) {
+		public void vshufi64x2(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94168,7 +90704,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufi64x2(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshufi64x2(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94210,7 +90746,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufpd(Register dst, Register src, Register arg2, int imm) {
+		public void vshufpd(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94274,7 +90810,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufpd(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshufpd(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8;
@@ -94322,7 +90858,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufps(Register dst, Register src, Register arg2, int imm) {
+		public void vshufps(Register dst, Register src, Register arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -94386,7 +90922,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void vshufps(Register dst, Register src, AssemblerMemoryOperand arg2, int imm) {
+		public void vshufps(Register dst, Register src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			if (dst.IsZMM()) {
 				op = Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8;
@@ -94640,11 +91176,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vsqrtsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vsqrtsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vsqrtsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vsqrtsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vsqrtsd instruction.<br/>
@@ -94692,11 +91224,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vsqrtss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vsqrtss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vsqrtss, dst, src, arg2);
-			}
+			op = Code.VEX_Vsqrtss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vsqrtss instruction.<br/>
@@ -94744,11 +91272,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vstmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.VEX_Vstmxcsr_m32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vstmxcsr, dst);
-			}
+			op = Code.VEX_Vstmxcsr_m32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vsubpd instruction.<br/>
@@ -94988,11 +91512,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vsubsd(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vsubsd_xmm_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vsubsd, dst, src, arg2);
-			}
+			op = Code.VEX_Vsubsd_xmm_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vsubsd instruction.<br/>
@@ -95040,11 +91560,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vsubss(Register dst, Register src, Register arg2) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vsubss_xmm_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vsubss, dst, src, arg2);
-			}
+			op = Code.VEX_Vsubss_xmm_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src, arg2));
 		}
 		/// <summary>vsubss instruction.<br/>
@@ -95220,11 +91736,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vucomisd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vucomisd_xmm_xmmm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vucomisd, dst, src);
-			}
+			op = Code.VEX_Vucomisd_xmm_xmmm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vucomisd instruction.<br/>
@@ -95272,11 +91784,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vucomiss(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.VEX_Vucomiss_xmm_xmmm32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vucomiss, dst, src);
-			}
+			op = Code.VEX_Vucomiss_xmm_xmmm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vucomiss instruction.<br/>
@@ -96172,11 +92680,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void wrssd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
-				op = Code.Wrssd_m32_r32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Wrssd, dst, src);
-			}
+			op = Code.Wrssd_m32_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>wrssq instruction.<br/>
@@ -96192,11 +92696,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void wrssq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
-				op = Code.Wrssq_m64_r64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Wrssq, dst, src);
-			}
+			op = Code.Wrssq_m64_r64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>wrussd instruction.<br/>
@@ -96212,11 +92712,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void wrussd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR32()) {
-				op = Code.Wrussd_m32_r32;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Wrussd, dst, src);
-			}
+			op = Code.Wrussd_m32_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>wrussq instruction.<br/>
@@ -96232,11 +92728,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void wrussq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (src.IsGPR64()) {
-				op = Code.Wrussq_m64_r64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Wrussq, dst, src);
-			}
+			op = Code.Wrussq_m64_r64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>xabort instruction.<br/>
@@ -96250,7 +92742,7 @@ namespace Iced.Intel {
 		/// <c>RTM</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void xabort(int imm) {
+		public void xabort(byte imm) {
 			Code op;
 			op = Code.Xabort_imm8;
 			AddInstruction(Instruction.Create(op, imm));
@@ -97003,26 +93495,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>XOR AL, imm8</c><br/>
-		/// <br/>
-		/// <c>34 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>XOR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /6 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>XOR r/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>o16 83 /6 ib</c><br/>
@@ -97112,17 +93584,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xor(Register dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Xor_rm64_imm8;
 				} else if (dst.IsGPR32()) {
 					op = Code.Xor_rm32_imm8;
 				} else if (dst.IsGPR16()) {
 					op = Code.Xor_rm16_imm8;
-				} else if (dst == Register.AL) {
-					op = Code.Xor_AL_imm8;
-				} else if (dst.IsGPR8()) {
-					op = Code.Xor_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Xor, dst, imm);
 				}
@@ -97145,16 +93613,6 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>xor instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>XOR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /6 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -97217,15 +93675,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xor(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue && imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue && imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Xor_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 					op = Code.Xor_rm32_imm8;
 				} else if (dst.Size == MemoryOperandSize.WordPtr) {
 					op = Code.Xor_rm16_imm8;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Xor_rm8_imm8;
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Xor, dst, imm);
 				}
@@ -97241,6 +93697,54 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>xor instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR AL, imm8</c><br/>
+		/// <br/>
+		/// <c>34 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /6 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xor(Register dst, byte imm) {
+			Code op;
+			if (dst == Register.AL) {
+				op = Code.Xor_AL_imm8;
+			} else if (dst.IsGPR8()) {
+				op = Code.Xor_rm8_imm8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Xor, dst, imm);
+			}
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>xor instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR r/m8, imm8</c><br/>
+		/// <br/>
+		/// <c>80 /6 ib</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xor(AssemblerMemoryOperand dst, byte imm) {
+			Code op;
+			op = Code.Xor_rm8_imm8;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>xorpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -97254,11 +93758,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xorpd(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xorpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xorpd, dst, src);
-			}
+			op = Code.Xorpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>xorpd instruction.<br/>
@@ -97274,11 +93774,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xorpd(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xorpd_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xorpd, dst, src);
-			}
+			op = Code.Xorpd_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>xorps instruction.<br/>
@@ -97294,11 +93790,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xorps(Register dst, Register src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xorps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xorps, dst, src);
-			}
+			op = Code.Xorps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>xorps instruction.<br/>
@@ -97314,11 +93806,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xorps(Register dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xorps_xmm_xmmm128;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xorps, dst, src);
-			}
+			op = Code.Xorps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>xrstor instruction.<br/>
@@ -97334,11 +93822,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xrstor(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xrstor_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstor, dst);
-			}
+			op = Code.Xrstor_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstor instruction.<br/>
@@ -97354,11 +93838,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xrstor(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xrstor_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstor, dst);
-			}
+			op = Code.Xrstor_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstor64 instruction.<br/>
@@ -97374,11 +93854,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xrstor64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xrstor64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstor64, dst);
-			}
+			op = Code.Xrstor64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstor64 instruction.<br/>
@@ -97394,11 +93870,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xrstor64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xrstor64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstor64, dst);
-			}
+			op = Code.Xrstor64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstors instruction.<br/>
@@ -97414,11 +93886,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xrstors(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xrstors_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstors, dst);
-			}
+			op = Code.Xrstors_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstors instruction.<br/>
@@ -97434,11 +93902,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xrstors(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xrstors_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstors, dst);
-			}
+			op = Code.Xrstors_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstors64 instruction.<br/>
@@ -97454,11 +93918,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xrstors64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xrstors64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstors64, dst);
-			}
+			op = Code.Xrstors64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xrstors64 instruction.<br/>
@@ -97474,11 +93934,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xrstors64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xrstors64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xrstors64, dst);
-			}
+			op = Code.Xrstors64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsave instruction.<br/>
@@ -97494,11 +93950,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsave(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsave_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsave, dst);
-			}
+			op = Code.Xsave_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsave instruction.<br/>
@@ -97514,11 +93966,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsave(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsave_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsave, dst);
-			}
+			op = Code.Xsave_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsave64 instruction.<br/>
@@ -97534,11 +93982,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsave64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsave64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsave64, dst);
-			}
+			op = Code.Xsave64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsave64 instruction.<br/>
@@ -97554,11 +93998,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsave64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsave64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsave64, dst);
-			}
+			op = Code.Xsave64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsavec instruction.<br/>
@@ -97574,11 +94014,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsavec(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsavec_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsavec, dst);
-			}
+			op = Code.Xsavec_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsavec instruction.<br/>
@@ -97594,11 +94030,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsavec(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsavec_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsavec, dst);
-			}
+			op = Code.Xsavec_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsavec64 instruction.<br/>
@@ -97614,11 +94046,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsavec64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsavec64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsavec64, dst);
-			}
+			op = Code.Xsavec64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsavec64 instruction.<br/>
@@ -97634,11 +94062,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsavec64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsavec64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsavec64, dst);
-			}
+			op = Code.Xsavec64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaveopt instruction.<br/>
@@ -97654,11 +94078,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsaveopt(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsaveopt_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaveopt, dst);
-			}
+			op = Code.Xsaveopt_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaveopt instruction.<br/>
@@ -97674,11 +94094,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsaveopt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsaveopt_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaveopt, dst);
-			}
+			op = Code.Xsaveopt_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaveopt64 instruction.<br/>
@@ -97694,11 +94110,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsaveopt64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsaveopt64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaveopt64, dst);
-			}
+			op = Code.Xsaveopt64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaveopt64 instruction.<br/>
@@ -97714,11 +94126,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsaveopt64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsaveopt64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaveopt64, dst);
-			}
+			op = Code.Xsaveopt64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaves instruction.<br/>
@@ -97734,11 +94142,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsaves(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsaves_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaves, dst);
-			}
+			op = Code.Xsaves_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaves instruction.<br/>
@@ -97754,11 +94158,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xsaves(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsaves_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaves, dst);
-			}
+			op = Code.Xsaves_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaves64 instruction.<br/>
@@ -97774,11 +94174,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsaves64(Register dst) {
 			Code op;
-			if (dst.IsXMM()) {
-				op = Code.Xsaves64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaves64, dst);
-			}
+			op = Code.Xsaves64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsaves64 instruction.<br/>
@@ -97794,11 +94190,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xsaves64(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.Xsaves64_mem;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsaves64, dst);
-			}
+			op = Code.Xsaves64_mem;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>xsetbv instruction.<br/>

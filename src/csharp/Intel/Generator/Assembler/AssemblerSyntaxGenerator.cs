@@ -252,12 +252,18 @@ namespace Generator.Assembler {
 						break;
 
 					case CommonOpKind.Ib:			
+						Debug.Assert(maxImmediateSize == 0);
+						immediateArgIndex = i;
+						maxImmediateSize = 1;
+						argKind = ArgKind.ImmediateByte;
+						break;
+
 					case CommonOpKind.Ib16:
 					case CommonOpKind.Ib32:
 					case CommonOpKind.Ib64:
 						Debug.Assert(maxImmediateSize == 0);
 						immediateArgIndex = i;
-						groupKind = GroupKind.ImmediateByte;
+						groupKind = GroupKind.ImmediateByteSigned;
 						maxImmediateSize = 1;
 						argKind = ArgKind.Immediate;
 						break;
@@ -341,8 +347,8 @@ namespace Generator.Assembler {
 					ProcessOpCodes(group.ItemsWithImmediateBits2);
 				}
 
-				if (group.ItemsWithImmediateByte != null) {
-					ProcessOpCodes(group.ItemsWithImmediateByte);
+				if (group.ItemsWithImmediateByteSigned != null) {
+					ProcessOpCodes(group.ItemsWithImmediateByteSigned);
 				}
 			}
 			
@@ -354,7 +360,7 @@ namespace Generator.Assembler {
 			Standard,
 			ImmediateBit1,
 			ImmediateBits2,
-			ImmediateByte,
+			ImmediateByteSigned,
 			BranchShort,
 			BranchFar,
 		}
@@ -583,9 +589,9 @@ namespace Generator.Assembler {
 				if (group.ItemsWithImmediateBits2 == null) group.ItemsWithImmediateBits2 = new List<OpCodeInfo>();
 				group.ItemsWithImmediateBits2.Add(code);
 				break;
-			case GroupKind.ImmediateByte:
-				if (group.ItemsWithImmediateByte == null) group.ItemsWithImmediateByte = new List<OpCodeInfo>();
-				group.ItemsWithImmediateByte.Add(code);
+			case GroupKind.ImmediateByteSigned:
+				if (group.ItemsWithImmediateByteSigned == null) group.ItemsWithImmediateByteSigned = new List<OpCodeInfo>();
+				group.ItemsWithImmediateByteSigned.Add(code);
 				break;
 			case GroupKind.BranchShort:
 				group.IsBranch = true;
@@ -684,6 +690,7 @@ namespace Generator.Assembler {
 			Memory,
 			HiddenMemory,
 			Immediate,
+			ImmediateByte,
 			Branch,
 			
 			FilterRegisterCDTR,
@@ -744,7 +751,7 @@ namespace Generator.Assembler {
 
 			public List<OpCodeInfo> ItemsWithImmediateBits2 { get; set; }
 
-			public List<OpCodeInfo> ItemsWithImmediateByte { get; set; }
+			public List<OpCodeInfo> ItemsWithImmediateByteSigned { get; set; }
 
 			public List<OpCodeInfo> ItemsWithBranchNear { get; set; }
 
@@ -764,8 +771,8 @@ namespace Generator.Assembler {
 					if (ItemsWithImmediateBits2 != null) {
 						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateBits2, ItemsWithImmediateBits2);
 					}
-					if (ItemsWithImmediateByte != null) {
-						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateByte, ItemsWithImmediateByte);
+					if (ItemsWithImmediateByteSigned != null) {
+						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.ImmediateByteSigned, ItemsWithImmediateByteSigned);
 					}
 					if (ItemsWithBranchNear != null) {
 						yield return new KeyValuePair<GroupKind, List<OpCodeInfo>>(GroupKind.BranchShort, ItemsWithBranchNear);

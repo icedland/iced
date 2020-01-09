@@ -101,6 +101,12 @@ namespace Generator.Assembler.CSharp {
 									argName = $"imm";
 									argType = group.MaxImmediateSize < 8 ? "int" : "long";
 									break;
+								
+								case ArgKind.ImmediateByte:
+									argName = $"imm";
+									argType = "byte";
+									break;								
+								
 								case ArgKind.HiddenMemory:
 									argName = "<none>";
 									argType = "<none>";
@@ -233,10 +239,10 @@ namespace Generator.Assembler.CSharp {
 					}					
 				}
 					break;
-				case GroupKind.ImmediateByte: {
+				case GroupKind.ImmediateByteSigned: { 
 					if (i + 1 < listGroupedItems.Count) {
 						var immReg = args[@group.ImmediateArgIndex];
-						writer.WriteLine($"if ({immReg.Name} >= sbyte.MinValue && {immReg.Name} <= byte.MaxValue) {{");
+						writer.WriteLine($"if ({immReg.Name} >= sbyte.MinValue && {immReg.Name} <= sbyte.MaxValue) {{");
 						indenter = writer.Indent();
 						hasIf = true;
 					}
@@ -291,6 +297,11 @@ namespace Generator.Assembler.CSharp {
 			// Order by priority
 			opcodes.Sort(OrderOpCodesPerOpKindPriority);
 
+			if (opcodes.Count == 1) {
+				writer.WriteLine($"op = Code.{opcodes[0].Code.Name(Converter)};");
+				return;
+			}
+			
 			bool has64 = false;
 			bool needToThrowIfNotFound = false;
 			for (var i = 0; i < @opcodes.Count; i++) {
@@ -369,7 +380,8 @@ namespace Generator.Assembler.CSharp {
 						needToThrowIfNotFound = true;
 					}
 					else {
-						writer.WriteLine($"op = Code.{opCodeInfo.Code.Name(Converter)};");
+						Console.WriteLine($"unsupported_opcode_disambiguation_for_{opCodeInfo.Code.RawName};");
+						writer.WriteLine($"unsupported_opcode_disambiguation_for_{opCodeInfo.Code.RawName};");
 					}
 				}
 			}
