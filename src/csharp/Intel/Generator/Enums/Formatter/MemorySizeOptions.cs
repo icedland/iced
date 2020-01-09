@@ -21,18 +21,29 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
-		}
+using System.Linq;
+
+namespace Generator.Enums.Formatter {
+	enum MemorySizeOptions {
+		[Comment("Show memory size if the assembler requires it, else don't show anything")]
+		Default,
+
+		[Comment("Always show the memory size, even if the assembler doesn't need it")]
+		Always,
+
+		[Comment("Show memory size if a human can't figure out the size of the operand")]
+		Minimum,
+
+		[Comment("Never show memory size")]
+		Never,
+	}
+
+	static class MemorySizeOptionsEnum {
+		const string documentation = "Memory size options used by the formatters";
+
+		static EnumValue[] GetValues() =>
+			typeof(MemorySizeOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MemorySizeOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySizeOptions, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
-#endif

@@ -21,18 +21,21 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
+using Generator.Enums;
+
+namespace Generator.Formatters.Rust {
+	[Generator(TargetLanguage.Rust, GeneratorNames.FormatterMemSize)]
+	sealed class RustMemorySizeGen : MemorySizeGen {
+		readonly IdentifierConverter idConverter;
+		readonly GeneratorOptions generatorOptions;
+
+		public RustMemorySizeGen(GeneratorOptions generatorOptions) {
+			idConverter = RustIdentifierConverter.Create();
+			this.generatorOptions = generatorOptions;
+		}
+
+		protected override void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] memInfos) {
+			//TODO:
 		}
 	}
 }
-#endif

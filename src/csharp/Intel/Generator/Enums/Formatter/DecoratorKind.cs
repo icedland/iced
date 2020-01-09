@@ -21,18 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
-		}
+using System.Linq;
+
+namespace Generator.Enums.Formatter {
+	enum DecoratorKind {
+		Broadcast,
+		RoundingControl,
+		SuppressAllExceptions,
+		ZeroingMasking,
+	}
+
+	static class DecoratorKindEnum {
+		const string documentation = "Decorator";
+
+		static EnumValue[] GetValues() =>
+			typeof(DecoratorKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(DecoratorKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.DecoratorKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
-#endif

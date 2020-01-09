@@ -67,5 +67,8 @@ namespace Generator {
 
 		/// <summary>Generates instruction.Create*() methods</summary>
 		public const string InstrCreateGen = "instr/create";
+
+		/// <summary>Formatter MemorySize tables</summary>
+		public const string FormatterMemSize = "fmt/memsize";
 	}
 }

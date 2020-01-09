@@ -130,5 +130,17 @@ namespace Generator {
 		public static readonly TypeId OpSize = new TypeId(nameof(OpSize));
 		public static readonly TypeId RelocKind = new TypeId(nameof(RelocKind));
 		public static readonly TypeId BlockEncoderOptions = new TypeId(nameof(BlockEncoderOptions));
+		public static readonly TypeId NumberBase = new TypeId(nameof(NumberBase));
+		public static readonly TypeId MemorySizeOptions = new TypeId(nameof(MemorySizeOptions));
+		public static readonly TypeId FormatMnemonicOptions = new TypeId(nameof(FormatMnemonicOptions));
+		public static readonly TypeId PrefixKind = new TypeId(nameof(PrefixKind));
+		public static readonly TypeId DecoratorKind = new TypeId(nameof(DecoratorKind));
+		public static readonly TypeId NumberKind = new TypeId(nameof(NumberKind));
+		public static readonly TypeId FormatterOutputTextKind = new TypeId(nameof(FormatterOutputTextKind));
+		public static readonly TypeId SymbolFlags = new TypeId(nameof(SymbolFlags));
+		public static readonly TypeId GasInstrOpKind = new TypeId(nameof(GasInstrOpKind));
+		public static readonly TypeId IntelInstrOpKind = new TypeId(nameof(IntelInstrOpKind));
+		public static readonly TypeId MasmInstrOpKind = new TypeId(nameof(MasmInstrOpKind));
+		public static readonly TypeId NasmInstrOpKind = new TypeId(nameof(NasmInstrOpKind));
 	}
 }

@@ -33,6 +33,7 @@ namespace Generator.Constants {
 		public const int RegisterBits = 8;
 
 		public const string NumberOfCodeValuesName = "NumberOfCodeValues";
+		public const string FirstBroadcastMemorySizeName = "FirstBroadcastMemorySize";
 	}
 
 	static class IcedConstantsType {
@@ -63,7 +64,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Index, "MaxCpuidFeatureInternalValues", (uint)InstrInfoTypes.EnumCpuidFeatureInternal.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.MemorySize, "FirstBroadcastMemorySize", GetFirstBroadcastMemorySize(), ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.MemorySize, IcedConstants.FirstBroadcastMemorySizeName, GetFirstBroadcastMemorySize(), ConstantsTypeFlags.None, null),
 			};
 		}
 

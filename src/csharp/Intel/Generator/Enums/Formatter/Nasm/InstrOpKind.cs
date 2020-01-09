@@ -21,18 +21,27 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
+using System.Linq;
+
+namespace Generator.Enums.Formatter.Nasm {
+	static class InstrOpKindEnum {
+		const string? documentation = null;
+
+		static EnumValue[] GetValues() {
+			var list = OpKindEnum.Instance.Values.Select(a => new EnumValue(a.Value, a.RawName, null)).ToList();
+			// Extra opkinds
+			list.Add(new EnumValue((uint)list.Count, "Sae", null));
+			list.Add(new EnumValue((uint)list.Count, "RnSae", null));
+			list.Add(new EnumValue((uint)list.Count, "RdSae", null));
+			list.Add(new EnumValue((uint)list.Count, "RuSae", null));
+			list.Add(new EnumValue((uint)list.Count, "RzSae", null));
+			list.Add(new EnumValue((uint)list.Count, "DeclareByte", null));
+			list.Add(new EnumValue((uint)list.Count, "DeclareWord", null));
+			list.Add(new EnumValue((uint)list.Count, "DeclareDword", null));
+			list.Add(new EnumValue((uint)list.Count, "DeclareQword", null));
+			return list.ToArray();
 		}
+
+		public static readonly EnumType Instance = new EnumType("InstrOpKind", TypeIds.NasmInstrOpKind, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }
-#endif

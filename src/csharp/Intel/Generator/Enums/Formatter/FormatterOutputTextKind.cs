@@ -21,91 +21,50 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
-namespace Iced.Intel {
-	/// <summary>
-	/// Formatter text kind
-	/// </summary>
-	public enum FormatterOutputTextKind {
-		/// <summary>
-		/// Normal text
-		/// </summary>
+using System.Linq;
+
+namespace Generator.Enums.Formatter {
+	enum FormatterOutputTextKind {
+		[Comment("Normal text")]
 		Text,
-
-		/// <summary>
-		/// Assembler directive
-		/// </summary>
+		[Comment("Assembler directive")]
 		Directive,
-
-		/// <summary>
-		/// Any prefix
-		/// </summary>
+		[Comment("Any prefix")]
 		Prefix,
-
-		/// <summary>
-		/// Any mnemonic
-		/// </summary>
+		[Comment("Any mnemonic")]
 		Mnemonic,
-
-		/// <summary>
-		/// Any keyword
-		/// </summary>
+		[Comment("Any keyword")]
 		Keyword,
-
-		/// <summary>
-		/// Any operator
-		/// </summary>
+		[Comment("Any operator")]
 		Operator,
-
-		/// <summary>
-		/// Any punctuation
-		/// </summary>
+		[Comment("Any punctuation")]
 		Punctuation,
-
-		/// <summary>
-		/// Number
-		/// </summary>
+		[Comment("Number")]
 		Number,
-
-		/// <summary>
-		/// Any register
-		/// </summary>
+		[Comment("Any register")]
 		Register,
-
-		/// <summary>
-		/// A decorator, eg. 'sae' in '{sae}'
-		/// </summary>
+		[Comment("A decorator, eg. #(c:sae)# in #(c:{sae})#")]
 		Decorator,
-
-		/// <summary>
-		/// Selector value (eg. far jmp/call)
-		/// </summary>
+		[Comment("Selector value (eg. far #(c:JMP)#/#(c:CALL)#)")]
 		SelectorValue,
-
-		/// <summary>
-		/// Label address (eg. JE XXXXXX)
-		/// </summary>
+		[Comment("Label address (eg. #(c:JE XXXXXX)#)")]
 		LabelAddress,
-
-		/// <summary>
-		/// Function address (eg. CALL XXXXX)
-		/// </summary>
+		[Comment("Function address (eg. #(c:CALL XXXXXX)#)")]
 		FunctionAddress,
-
-		/// <summary>
-		/// Data symbol
-		/// </summary>
+		[Comment("Data symbol")]
 		Data,
-
-		/// <summary>
-		/// Label symbol
-		/// </summary>
+		[Comment("Label symbol")]
 		Label,
-
-		/// <summary>
-		/// Function symbol
-		/// </summary>
+		[Comment("Function symbol")]
 		Function,
 	}
+
+	static class FormatterOutputTextKindEnum {
+		const string documentation = "Formatter text kind";
+
+		static EnumValue[] GetValues() =>
+			typeof(FormatterOutputTextKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FormatterOutputTextKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.FormatterOutputTextKind, documentation, GetValues(), EnumTypeFlags.Public);
+	}
 }
-#endif

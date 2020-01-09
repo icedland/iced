@@ -25,25 +25,42 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_INSTR_INFO
-using System;
-
+#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 namespace Iced.Intel {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-	/// <summary><c>RFLAGS</c> bits supported by the instruction info code</summary>
-	[Flags]
-	public enum RflagsBits {
-		None = 0x00000000,
-		OF = 0x00000001,
-		SF = 0x00000002,
-		ZF = 0x00000004,
-		AF = 0x00000008,
-		CF = 0x00000010,
-		PF = 0x00000020,
-		DF = 0x00000040,
-		IF = 0x00000080,
-		AC = 0x00000100,
+	/// <summary>Formatter text kind</summary>
+	public enum FormatterOutputTextKind {
+		/// <summary>Normal text</summary>
+		Text,
+		/// <summary>Assembler directive</summary>
+		Directive,
+		/// <summary>Any prefix</summary>
+		Prefix,
+		/// <summary>Any mnemonic</summary>
+		Mnemonic,
+		/// <summary>Any keyword</summary>
+		Keyword,
+		/// <summary>Any operator</summary>
+		Operator,
+		/// <summary>Any punctuation</summary>
+		Punctuation,
+		/// <summary>Number</summary>
+		Number,
+		/// <summary>Any register</summary>
+		Register,
+		/// <summary>A decorator, eg. <c>sae</c> in <c>{sae}</c></summary>
+		Decorator,
+		/// <summary>Selector value (eg. far <c>JMP</c>/<c>CALL</c>)</summary>
+		SelectorValue,
+		/// <summary>Label address (eg. <c>JE XXXXXX</c>)</summary>
+		LabelAddress,
+		/// <summary>Function address (eg. <c>CALL XXXXXX</c>)</summary>
+		FunctionAddress,
+		/// <summary>Data symbol</summary>
+		Data,
+		/// <summary>Label symbol</summary>
+		Label,
+		/// <summary>Function symbol</summary>
+		Function,
 	}
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 #endif

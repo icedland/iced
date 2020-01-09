@@ -21,18 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
-		}
+using System;
+using System.Linq;
+
+namespace Generator.Enums.Formatter {
+	[Flags]
+	public enum FormatMnemonicOptions {
+		[Comment("No option is set")]
+		None				= 0,
+
+		[Comment("Don't add any prefixes")]
+		NoPrefixes			= 0x00000001,
+
+		[Comment("Don't add the mnemonic")]
+		NoMnemonic			= 0x00000002,
+	}
+
+	static class FormatMnemonicOptionsEnum {
+		const string documentation = "Format mnemonic options";
+
+		static EnumValue[] GetValues() =>
+			typeof(FormatMnemonicOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FormatMnemonicOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.FormatMnemonicOptions, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }
-#endif

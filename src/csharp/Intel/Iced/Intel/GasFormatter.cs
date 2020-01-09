@@ -33,17 +33,35 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed class GasFormatterOptions : FormatterOptions {
 		/// <summary>
-		/// If <see langword="true"/>, the formatter doesn't add '%' to registers, eg. %eax vs eax
+		/// If <see langword="true"/>, the formatter doesn't add <c>%</c> to registers
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov eax,ecx</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
 		/// </summary>
 		public bool NakedRegisters { get; set; }
 
 		/// <summary>
-		/// Shows the mnemonic size suffix, eg. 'mov %eax,%ecx' vs 'movl %eax,%ecx'
+		/// Shows the mnemonic size suffix even when not needed
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>movl %eax,%ecx</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
 		/// </summary>
 		public bool ShowMnemonicSizeSuffix { get; set; }
 
 		/// <summary>
-		/// Add a space after the comma if it's a memory operand, eg. '(%eax,%ecx,2)' vs '(%eax, %ecx, 2)'
+		/// Add a space after the comma if it's a memory operand
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>(%eax, %ecx, 2)</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>(%eax,%ecx,2)</c>
 		/// </summary>
 		public bool SpaceAfterMemoryOperandComma { get; set; }
 
@@ -765,7 +783,7 @@ namespace Iced.Intel {
 
 			if (operand + 1 == opInfo.OpCount && instruction.HasOpMask) {
 				output.Write("{", FormatterOutputTextKind.Punctuation);
-				FormatRegister(output, instruction, operand, instructionOperand, instruction.OpMask);
+				FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
 					FormatDecorator(output, instruction, operand, instructionOperand, "z", DecoratorKind.ZeroingMasking);
@@ -781,17 +799,19 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		string ToString(Register reg) {
-			Debug.Assert((uint)reg < (uint)AllRegisters.Length);
-			var regStr = AllRegisters[(int)reg];
+		string ToString(int regNum) {
+			Debug.Assert((uint)regNum < (uint)AllRegisters.Length);
+			var regStr = AllRegisters[(int)regNum];
 			if (options.UpperCaseRegisters || options.UpperCaseAll)
 				regStr = regStr.ToUpperInvariant();
 			return regStr;
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
-			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
+		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, int regNum) {
+			Static.Assert(Registers.ExtraRegisters == 1 ? 0 : -1);
+			output.WriteRegister(instruction, operand, instructionOperand, ToString(regNum), regNum == Registers.Register_ST ? Register.ST0 : (Register)regNum);
+		}
 
 		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
@@ -850,7 +870,7 @@ namespace Iced.Intel {
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instr.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix)) {
-				FormatRegister(output, instr, operand, instructionOperand, segReg);
+				FormatRegister(output, instr, operand, instructionOperand, (int)segReg);
 				output.Write(":", FormatterOutputTextKind.Punctuation);
 			}
 
@@ -925,17 +945,17 @@ namespace Iced.Intel {
 					output.Write(" ", FormatterOutputTextKind.Text);
 
 				if (baseReg != Register.None && indexReg == Register.None && !useScale)
-					FormatRegister(output, instr, operand, instructionOperand, baseReg);
+					FormatRegister(output, instr, operand, instructionOperand, (int)baseReg);
 				else {
 					if (baseReg != Register.None)
-						FormatRegister(output, instr, operand, instructionOperand, baseReg);
+						FormatRegister(output, instr, operand, instructionOperand, (int)baseReg);
 
 					output.Write(",", FormatterOutputTextKind.Punctuation);
 					if (options.SpaceAfterMemoryOperandComma)
 						output.Write(" ", FormatterOutputTextKind.Text);
 
 					if (indexReg != Register.None)
-						FormatRegister(output, instr, operand, instructionOperand, indexReg);
+						FormatRegister(output, instr, operand, instructionOperand, (int)indexReg);
 
 					if (useScale) {
 						output.Write(",", FormatterOutputTextKind.Punctuation);
@@ -962,7 +982,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public override string Format(Register register) => ToString(register);
+		public override string Format(Register register) => ToString((int)register);
 
 		/// <summary>
 		/// Formats a <see cref="sbyte"/>

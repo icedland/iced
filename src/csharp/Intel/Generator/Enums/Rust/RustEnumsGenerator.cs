@@ -93,6 +93,10 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.NasmSizeOverride, null);
 			toPartialFileInfo.Add(TypeIds.NasmBranchSizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.NasmInstrOpInfoFlags, null);
+			toPartialFileInfo.Add(TypeIds.GasInstrOpKind, null);
+			toPartialFileInfo.Add(TypeIds.IntelInstrOpKind, null);
+			toPartialFileInfo.Add(TypeIds.MasmInstrOpKind, null);
+			toPartialFileInfo.Add(TypeIds.NasmInstrOpKind, null);
 			toPartialFileInfo.Add(TypeIds.NasmMemorySizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.NasmFarMemorySizeInfo, null);
 			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, new PartialEnumFileInfo("MandatoryPrefix", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.FeatureEncoder }));
@@ -157,6 +161,14 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(generatorOptions.RustDir, "encoder", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 			toPartialFileInfo.Add(TypeIds.RelocKind, new PartialEnumFileInfo("RelocKind", Path.Combine(generatorOptions.RustDir, "block_enc", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
 			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("BlockEncoderOptions", Path.Combine(generatorOptions.RustDir, "block_enc", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.NumberBase, new PartialEnumFileInfo("NumberBase", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.MemorySizeOptions, new PartialEnumFileInfo("MemorySizeOptions", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.FormatMnemonicOptions, new PartialEnumFileInfo("FormatMnemonicOptions", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.PrefixKind, new PartialEnumFileInfo("PrefixKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.DecoratorKind, new PartialEnumFileInfo("DecoratorKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.NumberKind, new PartialEnumFileInfo("NumberKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.FormatterOutputTextKind, new PartialEnumFileInfo("FormatterOutputTextKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.SymbolFlags, new PartialEnumFileInfo("SymbolFlags", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 		}
 
 		public override void Generate(EnumType enumType) {

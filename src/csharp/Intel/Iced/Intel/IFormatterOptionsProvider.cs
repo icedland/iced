@@ -111,17 +111,17 @@ namespace Iced.Intel {
 	/// </summary>
 	public struct NumberFormattingOptions {
 		/// <summary>
-		/// Digit separator or null/empty string
+		/// Digit separator or <see langword="null"/>/empty string
 		/// </summary>
 		public string? DigitSeparator;
 
 		/// <summary>
-		/// Number prefix or null/empty string
+		/// Number prefix or <see langword="null"/>/empty string
 		/// </summary>
 		public string? Prefix;
 
 		/// <summary>
-		/// Number suffix or null/empty string
+		/// Number suffix or <see langword="null"/>/empty string
 		/// </summary>
 		public string? Suffix;
 
@@ -150,7 +150,7 @@ namespace Iced.Intel {
 		public bool SmallHexNumbersInDecimal;
 
 		/// <summary>
-		/// Add a leading zero to numbers if there's no prefix and the number begins with hex digits A-F, eg. Ah vs 0Ah
+		/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
 		/// </summary>
 		public bool AddLeadingZeroToHexNumbers;
 
@@ -165,14 +165,14 @@ namespace Iced.Intel {
 		public bool SignedNumber;
 
 		/// <summary>
-		/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'
+		/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c>
 		/// </summary>
 		public bool SignExtendImmediate;
 
 		/// <summary>
 		/// Creates options used when formatting immediate values
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
@@ -188,7 +188,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates options used when formatting displacements
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
@@ -204,7 +204,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates options used when formatting branch operands
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
@@ -220,10 +220,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="options">Options</param>
-		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. '1h' vs '00000001h'</param>
+		/// <param name="options">Formatter options to use</param>
+		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. <c>1h</c> vs <c>00000001h</c></param>
 		/// <param name="signedNumber">Signed numbers if <see langword="true"/>, and unsigned numbers if <see langword="false"/></param>
-		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
+		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c></param>
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();

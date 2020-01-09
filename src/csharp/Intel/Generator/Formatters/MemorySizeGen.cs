@@ -1,0 +1,235 @@
+/*
+Copyright (C) 2018-2019 de4dot@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+using Generator.Enums;
+
+namespace Generator.Formatters {
+	enum BroadcastToKind {
+		None,
+		b1to2,
+		b1to4,
+		b1to8,
+		b1to16,
+	}
+
+	enum NasmMemoryKeywords {
+		None,
+		@byte,
+		dword,
+		far,
+		fpuenv14,
+		fpuenv28,
+		fpustate108,
+		fpustate94,
+		oword,
+		qword,
+		tword,
+		word,
+		yword,
+		zword,
+	}
+
+	enum MasmMemoryKeywords {
+		None,
+		byte_ptr,
+		dword_bcst,
+		dword_ptr,
+		fpuenv14_ptr,
+		fpuenv28_ptr,
+		fpustate108_ptr,
+		fpustate94_ptr,
+		fword_ptr,
+		oword_ptr,
+		qword_bcst,
+		qword_ptr,
+		tbyte_ptr,
+		word_ptr,
+		xmmword_ptr,
+		ymmword_ptr,
+		zmmword_ptr,
+	}
+
+	enum IntelMemoryKeywords {
+		None,
+		byte_ptr,
+		dword_ptr,
+		fpuenv14_ptr,
+		fpuenv28_ptr,
+		fpustate108_ptr,
+		fpustate94_ptr,
+		fword_ptr,
+		qword_ptr,
+		tbyte_ptr,
+		word_ptr,
+		xmmword_ptr,
+		ymmword_ptr,
+		zmmword_ptr,
+	}
+
+	abstract class MemorySizeGen {
+		protected abstract void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] memInfos);
+
+		public void Generate() {
+			var memSize = MemorySizeEnum.Instance;
+			var memInfos = new (EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] {
+				(memSize["Unknown"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize["UInt8"], BroadcastToKind.None, IntelMemoryKeywords.byte_ptr, MasmMemoryKeywords.byte_ptr, NasmMemoryKeywords.@byte),
+				(memSize["UInt16"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["UInt32"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["UInt52"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["UInt64"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["UInt128"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["UInt256"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["UInt512"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Int8"], BroadcastToKind.None, IntelMemoryKeywords.byte_ptr, MasmMemoryKeywords.byte_ptr, NasmMemoryKeywords.@byte),
+				(memSize["Int16"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["Int32"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Int64"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Int128"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Int256"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Int512"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["SegPtr16"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.far),
+				(memSize["SegPtr32"], BroadcastToKind.None, IntelMemoryKeywords.fword_ptr, MasmMemoryKeywords.fword_ptr, NasmMemoryKeywords.far),
+				(memSize["SegPtr64"], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.far),
+				(memSize["WordOffset"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["DwordOffset"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["QwordOffset"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Bound16_WordWord"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.None),
+				(memSize["Bound32_DwordDword"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.None),
+				(memSize["Bnd32"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Bnd64"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.oword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Fword6"], BroadcastToKind.None, IntelMemoryKeywords.fword_ptr, MasmMemoryKeywords.fword_ptr, NasmMemoryKeywords.None),
+				(memSize["Fword10"], BroadcastToKind.None, IntelMemoryKeywords.fword_ptr, MasmMemoryKeywords.fword_ptr, NasmMemoryKeywords.None),
+				(memSize["Float16"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["Float32"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Float64"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Float80"], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.tword),
+				(memSize["Float128"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["BFloat16"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["FpuEnv14"], BroadcastToKind.None, IntelMemoryKeywords.fpuenv14_ptr, MasmMemoryKeywords.fpuenv14_ptr, NasmMemoryKeywords.fpuenv14),
+				(memSize["FpuEnv28"], BroadcastToKind.None, IntelMemoryKeywords.fpuenv28_ptr, MasmMemoryKeywords.fpuenv28_ptr, NasmMemoryKeywords.fpuenv28),
+				(memSize["FpuState94"], BroadcastToKind.None, IntelMemoryKeywords.fpustate94_ptr, MasmMemoryKeywords.fpustate94_ptr, NasmMemoryKeywords.fpustate94),
+				(memSize["FpuState108"], BroadcastToKind.None, IntelMemoryKeywords.fpustate108_ptr, MasmMemoryKeywords.fpustate108_ptr, NasmMemoryKeywords.fpustate108),
+				(memSize["Fxsave_512Byte"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize["Fxsave64_512Byte"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize["Xsave"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize["Xsave64"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
+				(memSize["Bcd"], BroadcastToKind.None, IntelMemoryKeywords.tbyte_ptr, MasmMemoryKeywords.tbyte_ptr, NasmMemoryKeywords.tword),
+				(memSize["Packed16_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["Packed16_Int8"], BroadcastToKind.None, IntelMemoryKeywords.word_ptr, MasmMemoryKeywords.word_ptr, NasmMemoryKeywords.word),
+				(memSize["Packed32_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Packed32_Int8"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Packed32_UInt16"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Packed32_Int16"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Packed32_BFloat16"], BroadcastToKind.None, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_ptr, NasmMemoryKeywords.dword),
+				(memSize["Packed64_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_Int8"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_UInt16"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_Int16"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_UInt32"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_Int32"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_Float16"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed64_Float32"], BroadcastToKind.None, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_ptr, NasmMemoryKeywords.qword),
+				(memSize["Packed128_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Int8"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_UInt16"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Int16"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_UInt32"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Int32"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_UInt52"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_UInt64"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Int64"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Float16"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Float32"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_Float64"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed128_2xBFloat16"], BroadcastToKind.None, IntelMemoryKeywords.xmmword_ptr, MasmMemoryKeywords.xmmword_ptr, NasmMemoryKeywords.oword),
+				(memSize["Packed256_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Int8"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_UInt16"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Int16"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_UInt32"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Int32"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_UInt52"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_UInt64"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Int64"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_UInt128"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Int128"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Float16"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Float32"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Float64"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_Float128"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed256_2xBFloat16"], BroadcastToKind.None, IntelMemoryKeywords.ymmword_ptr, MasmMemoryKeywords.ymmword_ptr, NasmMemoryKeywords.yword),
+				(memSize["Packed512_UInt8"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Int8"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_UInt16"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Int16"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_UInt32"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Int32"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_UInt52"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_UInt64"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Int64"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_UInt128"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Float32"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_Float64"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Packed512_2xBFloat16"], BroadcastToKind.None, IntelMemoryKeywords.zmmword_ptr, MasmMemoryKeywords.zmmword_ptr, NasmMemoryKeywords.zword),
+				(memSize["Broadcast64_UInt32"], BroadcastToKind.b1to2, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast64_Int32"], BroadcastToKind.b1to2, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast64_Float32"], BroadcastToKind.b1to2, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast128_UInt32"], BroadcastToKind.b1to4, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast128_Int32"], BroadcastToKind.b1to4, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast128_UInt52"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_UInt64"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_Int64"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_Float32"], BroadcastToKind.b1to4, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast128_Float64"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_UInt32"], BroadcastToKind.b1to8, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast256_Int32"], BroadcastToKind.b1to8, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast256_UInt52"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_UInt64"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_Int64"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_Float32"], BroadcastToKind.b1to8, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast256_Float64"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_UInt32"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast512_Int32"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast512_UInt52"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_UInt64"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_Int64"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_Float32"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast512_Float64"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_2xInt16"], BroadcastToKind.b1to4, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast256_2xInt16"], BroadcastToKind.b1to8, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast512_2xInt16"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast128_2xUInt32"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_2xUInt32"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_2xUInt32"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_2xInt32"], BroadcastToKind.b1to2, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast256_2xInt32"], BroadcastToKind.b1to4, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast512_2xInt32"], BroadcastToKind.b1to8, IntelMemoryKeywords.qword_ptr, MasmMemoryKeywords.qword_bcst, NasmMemoryKeywords.qword),
+				(memSize["Broadcast128_2xBFloat16"], BroadcastToKind.b1to4, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast256_2xBFloat16"], BroadcastToKind.b1to8, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+				(memSize["Broadcast512_2xBFloat16"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
+			};
+			Generate(memInfos);
+		}
+	}
+}

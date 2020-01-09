@@ -21,18 +21,26 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
-namespace Iced.Intel.IntelFormatterInternal {
-	static class Registers {
-		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
-		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
-			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
-			return registers;
-		}
+using System.Linq;
+
+namespace Generator.Enums.Formatter {
+	enum NumberKind {
+		Int8,
+		UInt8,
+		Int16,
+		UInt16,
+		Int32,
+		UInt32,
+		Int64,
+		UInt64,
+	}
+
+	static class NumberKindEnum {
+		const string documentation = "Number kind";
+
+		static EnumValue[] GetValues() =>
+			typeof(NumberKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(NumberKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.NumberKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
-#endif

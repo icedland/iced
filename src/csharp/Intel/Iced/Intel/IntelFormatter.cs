@@ -685,7 +685,7 @@ namespace Iced.Intel {
 
 			if (operand == 0 && instruction.HasOpMask && (opInfo.Flags & InstrOpInfoFlags.IgnoreOpMask) == 0) {
 				output.Write("{", FormatterOutputTextKind.Punctuation);
-				FormatRegister(output, instruction, operand, instructionOperand, instruction.OpMask);
+				FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
 				output.Write("}", FormatterOutputTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
 					FormatDecorator(output, instruction, operand, instructionOperand, "z", DecoratorKind.ZeroingMasking);
@@ -736,7 +736,7 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		string ToString(Register reg) {
+		string ToString(int reg) {
 			Debug.Assert((uint)reg < (uint)allRegisters.Length);
 			var regStr = allRegisters[(int)reg];
 			if (options.UpperCaseRegisters || options.UpperCaseAll)
@@ -745,8 +745,10 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
-		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, Register register) =>
-			output.WriteRegister(instruction, operand, instructionOperand, ToString(register), register);
+		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, int regNum) {
+			Static.Assert(Registers.ExtraRegisters == 1 ? 0 : -1);
+			output.WriteRegister(instruction, operand, instructionOperand, ToString(regNum), regNum == Registers.Register_ST ? Register.ST0 : (Register)regNum);
+		}
 
 		static readonly string[] s_scaleNumbers = new string[4] {
 			"1", "2", "4", "8",
@@ -810,7 +812,7 @@ namespace Iced.Intel {
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNoTrackPrefixBranch(instr.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix)) {
-				FormatRegister(output, instr, operand, instructionOperand, segReg);
+				FormatRegister(output, instr, operand, instructionOperand, (int)segReg);
 				output.Write(":", FormatterOutputTextKind.Punctuation);
 			}
 			output.Write("[", FormatterOutputTextKind.Punctuation);
@@ -819,7 +821,7 @@ namespace Iced.Intel {
 
 			bool needPlus = false;
 			if (baseReg != Register.None) {
-				FormatRegister(output, instr, operand, instructionOperand, baseReg);
+				FormatRegister(output, instr, operand, instructionOperand, (int)baseReg);
 				needPlus = true;
 			}
 
@@ -834,7 +836,7 @@ namespace Iced.Intel {
 				needPlus = true;
 
 				if (!useScale)
-					FormatRegister(output, instr, operand, instructionOperand, indexReg);
+					FormatRegister(output, instr, operand, instructionOperand, (int)indexReg);
 				else if (options.ScaleBeforeIndex) {
 					output.WriteNumber(instr, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterOutputTextKind.Number);
 					if (options.SpaceBetweenMemoryMulOperators)
@@ -842,10 +844,10 @@ namespace Iced.Intel {
 					output.Write("*", FormatterOutputTextKind.Operator);
 					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
-					FormatRegister(output, instr, operand, instructionOperand, indexReg);
+					FormatRegister(output, instr, operand, instructionOperand, (int)indexReg);
 				}
 				else {
-					FormatRegister(output, instr, operand, instructionOperand, indexReg);
+					FormatRegister(output, instr, operand, instructionOperand, (int)indexReg);
 					if (options.SpaceBetweenMemoryMulOperators)
 						output.Write(" ", FormatterOutputTextKind.Text);
 					output.Write("*", FormatterOutputTextKind.Operator);
@@ -1027,7 +1029,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public override string Format(Register register) => ToString(register);
+		public override string Format(Register register) => ToString((int)register);
 
 		/// <summary>
 		/// Formats a <see cref="sbyte"/>

@@ -108,6 +108,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.OpAccess, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.OpAccess) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.MandatoryPrefix, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.MandatoryPrefix) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderDefine));
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.OpCodeTableKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.EncoderDefine));
+			toFullFileInfo.Add(TypeIds.FormatterOutputTextKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), nameof(TypeIds.FormatterOutputTextKind) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.AnyFormatterDefine));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialEnumFileInfo>();
 			toPartialFileInfo.Add(TypeIds.Instruction_MemoryFlags, new PartialEnumFileInfo("MemoryFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.cs"), "ushort"));
@@ -138,8 +139,14 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.XopOpKind, new PartialEnumFileInfo("XopOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "Enums.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.EvexOpKind, new PartialEnumFileInfo("EvexOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "Enums.cs"), "byte"));
 
+			toPartialFileInfo.Add(TypeIds.GasInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.GasFormatterNamespace), "InstrInfo.cs"), "byte"));
+			toPartialFileInfo.Add(TypeIds.IntelInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IntelFormatterNamespace), "InstrInfo.cs"), "byte"));
+			toPartialFileInfo.Add(TypeIds.MasmInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.MasmFormatterNamespace), "InstrInfo.cs"), "byte"));
+			toPartialFileInfo.Add(TypeIds.NasmInstrOpKind, new PartialEnumFileInfo("InstrOpKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), "byte"));
 			toPartialFileInfo.Add(TypeIds.NasmMemorySizeInfo, new PartialEnumFileInfo("MemorySizeInfo", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), null));
 			toPartialFileInfo.Add(TypeIds.NasmFarMemorySizeInfo, new PartialEnumFileInfo("FarMemorySizeInfo", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.NasmFormatterNamespace), "InstrInfo.cs"), null));
+			toPartialFileInfo.Add(TypeIds.NumberBase, new PartialEnumFileInfo("NumberBase", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterOptions.cs"), null));
+			toPartialFileInfo.Add(TypeIds.MemorySizeOptions, new PartialEnumFileInfo("MemorySizeOptions", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterOptions.cs"), null));
 
 			toPartialFileInfo.Add(TypeIds.OperandSize, new PartialEnumFileInfo("OperandSize", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
 			toPartialFileInfo.Add(TypeIds.AddressSize, new PartialEnumFileInfo("AddressSize", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "Enums.cs"), null));
@@ -166,6 +173,11 @@ namespace Generator.Enums.CSharp {
 			toPartialFileInfo.Add(TypeIds.RepPrefixKind, new PartialEnumFileInfo("RepPrefixKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.Create.cs"), null));
 			toPartialFileInfo.Add(TypeIds.RelocKind, new PartialEnumFileInfo("RelocKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "BlockEncoder.cs"), null));
 			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("BlockEncoderOptions", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "BlockEncoder.cs"), null));
+			toPartialFileInfo.Add(TypeIds.FormatMnemonicOptions, new PartialEnumFileInfo("FormatMnemonicOptions", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Formatter.cs"), "uint"));
+			toPartialFileInfo.Add(TypeIds.PrefixKind, new PartialEnumFileInfo("PrefixKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterOutput.cs"), null));
+			toPartialFileInfo.Add(TypeIds.DecoratorKind, new PartialEnumFileInfo("DecoratorKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterOutput.cs"), null));
+			toPartialFileInfo.Add(TypeIds.NumberKind, new PartialEnumFileInfo("NumberKind", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterOutput.cs"), null));
+			toPartialFileInfo.Add(TypeIds.SymbolFlags, new PartialEnumFileInfo("SymbolFlags", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "ISymbolResolver.cs"), "uint"));
 		}
 
 		public override void Generate(EnumType enumType) {
@@ -180,6 +192,8 @@ namespace Generator.Enums.CSharp {
 		}
 
 		void WriteEnum(FileWriter writer, EnumType enumType, string? baseType) {
+			if (enumType.IsPublic && enumType.IsMissingDocs)
+				writer.WriteLineNoIndent(CSharpConstants.PragmaMissingDocsDisable);
 			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			if (enumType.IsFlags)
 				writer.WriteLine("[Flags]");
@@ -200,6 +214,8 @@ namespace Generator.Enums.CSharp {
 				}
 			}
 			writer.WriteLine("}");
+			if (enumType.IsPublic && enumType.IsMissingDocs)
+				writer.WriteLineNoIndent(CSharpConstants.PragmaMissingDocsRestore);
 		}
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
@@ -215,8 +231,6 @@ namespace Generator.Enums.CSharp {
 
 				writer.WriteLine($"namespace {info.Namespace} {{");
 
-				if (enumType.IsPublic && enumType.IsMissingDocs)
-					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				using (writer.Indent())
 					WriteEnum(writer, enumType, info.BaseType);
 
