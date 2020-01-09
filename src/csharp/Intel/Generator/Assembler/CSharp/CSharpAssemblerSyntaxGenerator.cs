@@ -75,7 +75,7 @@ namespace Generator.Assembler.CSharp {
 								
 								switch (argKind) {
 								case ArgKind.Register:
-									argType = "Register";
+									argType = "AssemblerRegister";
 									if (regArgIndex < 0) {
 										regArgIndex = i;
 									}
