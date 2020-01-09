@@ -240,7 +240,7 @@ namespace Generator.Assembler {
 						groupKind = GroupKind.ImmediateBit1;
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 1;
-						argKind = ArgKind.Immediate;
+						argKind = ArgKind.ImmediateByte;
 						break;
 						
 					case CommonOpKind.I2:
@@ -248,7 +248,7 @@ namespace Generator.Assembler {
 						groupKind = GroupKind.ImmediateBits2;
 						Debug.Assert(maxImmediateSize == 0);
 						maxImmediateSize = 1;
-						argKind = ArgKind.Immediate;
+						argKind = ArgKind.ImmediateByte;
 						break;
 
 					case CommonOpKind.Ib:			

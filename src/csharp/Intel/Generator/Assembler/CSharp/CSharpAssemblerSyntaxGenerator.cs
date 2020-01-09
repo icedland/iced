@@ -459,11 +459,6 @@ namespace Generator.Assembler.CSharp {
 				return isMemory ? $"{regName}.Size == MemoryOperandSize.QwordPtr" : $"{regName}.IsGPR64()";
 			case CommonOpKind.Imm1:
 				return $"{regName} == 1";			
-			case CommonOpKind.Ib:
-			case CommonOpKind.Ib16:
-			case CommonOpKind.Ib32:
-			case CommonOpKind.Ib64:
-				return $"{regName} >= sbyte.MinValue && {regName} <= byte.MaxValue";			
 			case CommonOpKind.VK:
 			case CommonOpKind.HK:
 			case CommonOpKind.RK:
@@ -515,7 +510,7 @@ namespace Generator.Assembler.CSharp {
 			case CommonOpKind.STi:
 				return $"{regName}.IsST()";
 			default:
-				return "true";
+				return $"error_unsupported_condition_for_{regName}";
 			}
 		}
 
