@@ -86,10 +86,6 @@ namespace Generator.Assembler.CSharp {
 									break;
 
 								case ArgKind.RegisterMemory:
-									if (regArgIndex < 0) {
-										regArgIndex = i;
-									}
-
 									if (rmArgIndex < 0) {
 										rmArgIndex = i;
 									}
@@ -116,6 +112,11 @@ namespace Generator.Assembler.CSharp {
 								renderArgs.Add(new RenderArg(argName, argType, argKind));
 							}
 
+							// Use the rm register if no regArg was found
+							if (regArgIndex < 0) {
+								regArgIndex = rmArgIndex;
+							}
+							
 							var methodName = Converter.Method(group.Name);
 
 							// Write documentation

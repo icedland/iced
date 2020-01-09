@@ -192,13 +192,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void adc(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Adc_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Adc_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Adc_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Adc_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Adc, dst, src);
@@ -666,13 +666,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void add(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Add_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Add_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Add_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Add_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Add, dst, src);
@@ -1620,13 +1620,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void and(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.And_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.And_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.And_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.And_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.And, dst, src);
@@ -2210,9 +2210,9 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void arpl(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
+			if (src.IsGPR32()) {
 				op = Code.Arpl_r32m16_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Arpl_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Arpl, dst, src);
@@ -3444,11 +3444,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void bt(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Bt_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Bt_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Bt_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Bt, dst, src);
@@ -3620,11 +3620,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void btc(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Btc_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Btc_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Btc_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Btc, dst, src);
@@ -3796,11 +3796,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void btr(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Btr_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Btr_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Btr_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Btr, dst, src);
@@ -3972,11 +3972,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void bts(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Bts_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Bts_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Bts_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Bts, dst, src);
@@ -4392,7 +4392,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cldemote(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Cldemote_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Cldemote_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Cldemote, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clflush instruction.<br/>
@@ -4408,7 +4412,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clflush(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Clflush_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Clflush_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Clflush, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clflushopt instruction.<br/>
@@ -4424,7 +4432,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clflushopt(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Clflushopt_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Clflushopt_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Clflushopt, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clgi instruction.<br/>
@@ -4472,7 +4484,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clrssbsy(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Clrssbsy_m64;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Clrssbsy_m64;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Clrssbsy, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clts instruction.<br/>
@@ -4504,7 +4520,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void clwb(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Clwb_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Clwb_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Clwb, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>clzero instruction.<br/>
@@ -6074,13 +6094,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void cmp(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Cmp_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Cmp_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Cmp_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Cmp_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Cmp, dst, src);
@@ -6708,13 +6728,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void cmpxchg(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Cmpxchg_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Cmpxchg_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Cmpxchg_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Cmpxchg_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Cmpxchg, dst, src);
@@ -6734,7 +6754,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cmpxchg8b(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Cmpxchg8b_m64;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Cmpxchg8b_m64;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Cmpxchg8b, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>comisd instruction.<br/>
@@ -8904,9 +8928,9 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void extractps(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Extractps_r64m32_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Extractps_rm32_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Extractps, dst, src, imm);
@@ -9610,7 +9634,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fldcw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Fldcw_m2byte;
+			if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Fldcw_m2byte;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Fldcw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fldl2e instruction.<br/>
@@ -9870,7 +9898,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstcw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Fnstcw_m2byte;
+			if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Fnstcw_m2byte;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Fnstcw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnstsw instruction.<br/>
@@ -9906,7 +9938,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstsw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Fnstsw_m2byte;
+			if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Fnstsw_m2byte;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Fnstsw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fpatan instruction.<br/>
@@ -10118,7 +10154,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstcw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Fstcw_m2byte;
+			if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Fstcw_m2byte;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Fstcw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstdw instruction.<br/>
@@ -10234,7 +10274,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstsw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Fstsw_m2byte;
+			if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Fstsw_m2byte;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Fstsw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fsub instruction.<br/>
@@ -11064,9 +11108,9 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void ibts(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
+			if (src.IsGPR32()) {
 				op = Code.Ibts_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Ibts_rm16_r16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Ibts, dst, src);
@@ -15453,7 +15497,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ldmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Ldmxcsr_m32;
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Code.Ldmxcsr_m32;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Ldmxcsr, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lds instruction.<br/>
@@ -17235,13 +17283,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Mov_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Mov_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Mov_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Mov_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
@@ -17459,7 +17507,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movapd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movapd_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movapd, dst, src);
@@ -17519,7 +17567,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movaps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movaps_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movaps, dst, src);
@@ -17713,9 +17761,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr && src.IsXMM()) {
+			if (src.IsXMM()) {
 				op = Code.Movd_rm32_xmm;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr && src.IsMM()) {
+			} else if (src.IsMM()) {
 				op = Code.Movd_rm32_mm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movd, dst, src);
@@ -17967,7 +18015,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqa(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movdqa_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movdqa, dst, src);
@@ -18027,7 +18075,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movdqu(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movdqu_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movdqu, dst, src);
@@ -18107,7 +18155,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movhpd_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movhpd, dst, src);
@@ -18167,7 +18215,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movhps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movhps_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movhps, dst, src);
@@ -18247,7 +18295,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movlpd_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movlpd, dst, src);
@@ -18307,7 +18355,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movlps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movlps_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movlps, dst, src);
@@ -18431,7 +18479,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntdq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movntdq_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntdq, dst, src);
@@ -18543,7 +18591,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movntpd_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntpd, dst, src);
@@ -18583,7 +18631,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movntps_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntps, dst, src);
@@ -18623,7 +18671,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsMM()) {
 				op = Code.Movntq_m64_mm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntq, dst, src);
@@ -18663,7 +18711,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntsd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movntsd_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntsd, dst, src);
@@ -18703,7 +18751,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movntss(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movntss_m32_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movntss, dst, src);
@@ -18833,13 +18881,13 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.OwordPtr) {
 				op = Code.Movq_xmmm64_xmm;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Movq_rm64_xmm;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && src.IsMM()) {
+			} else if (src.IsMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Movq_rm64_mm;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
+			} else if (src.IsMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Movq_mmm64_mm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
@@ -18971,7 +19019,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movsd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movsd_xmmm64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movsd, dst, src);
@@ -19143,7 +19191,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movss(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movss_xmmm32_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movss, dst, src);
@@ -19467,7 +19515,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movupd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movupd_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movupd, dst, src);
@@ -19527,7 +19575,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void movups(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Movups_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movups, dst, src);
@@ -20577,13 +20625,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void or(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Or_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Or_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Or_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Or_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Or, dst, src);
@@ -23431,9 +23479,9 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void pextrb(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Pextrb_r32m8_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Pextrb_r64m8_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Pextrb, dst, src, imm);
@@ -23473,7 +23521,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pextrd(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Pextrd_rm32_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Pextrd, dst, src, imm);
@@ -23513,7 +23561,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void pextrq(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsXMM()) {
 				op = Code.Pextrq_rm64_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Pextrq, dst, src, imm);
@@ -23611,9 +23659,9 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void pextrw(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Pextrw_r32m16_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Pextrw_r64m16_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Pextrw, dst, src, imm);
@@ -26689,7 +26737,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetch(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetch_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetch_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetch, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchnta instruction.<br/>
@@ -26705,7 +26757,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchnta(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetchnta_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetchnta_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetchnta, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht0 instruction.<br/>
@@ -26721,7 +26777,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht0(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetcht0_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetcht0_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetcht0, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht1 instruction.<br/>
@@ -26737,7 +26797,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht1(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetcht1_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetcht1_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetcht1, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetcht2 instruction.<br/>
@@ -26753,7 +26817,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetcht2(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetcht2_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetcht2_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetcht2, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchw instruction.<br/>
@@ -26769,7 +26837,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchw(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetchw_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetchw_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetchw, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>prefetchwt1 instruction.<br/>
@@ -26785,7 +26857,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void prefetchwt1(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Prefetchwt1_m8;
+			if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Prefetchwt1_m8;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Prefetchwt1, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>psadbw instruction.<br/>
@@ -29656,13 +29732,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void rcl(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rcl_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rcl_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Rcl_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Rcl_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, src);
@@ -30066,13 +30142,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void rcr(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rcr_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rcr_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Rcr_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Rcr_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, src);
@@ -30868,13 +30944,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void rol(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Rol_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Rol_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Rol_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Rol_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Rol, dst, src);
@@ -31198,13 +31274,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void ror(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Ror_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Ror_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Ror_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Ror_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Ror, dst, src);
@@ -31762,7 +31838,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void rstorssp(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Rstorssp_m64;
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Rstorssp_m64;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Rstorssp, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sahf instruction.<br/>
@@ -31880,13 +31960,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sal(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sal_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sal_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sal_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sal_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sal, dst, src);
@@ -32226,13 +32306,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sar(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sar_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Sar_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sar_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Sar_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sar, dst, src);
@@ -32636,13 +32716,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sbb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Sbb_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Sbb_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Sbb_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Sbb_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sbb, dst, src);
@@ -34078,13 +34158,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shl(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shl_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shl_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Shl_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Shl_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shl, dst, src);
@@ -34386,11 +34466,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shld(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Shld_rm64_r64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Shld_rm32_r32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Shld_rm16_r16_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shld, dst, src, arg2);
@@ -34474,11 +34554,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shld(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Shld_rm64_r64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Shld_rm32_r32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Shld_rm16_r16_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shld, dst, src, imm);
@@ -34648,13 +34728,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shr(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src == Register.CL && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Shr_rm64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Shr_rm32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Shr_rm16_CL;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src == Register.CL && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.Shr_rm8_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shr, dst, src);
@@ -34956,11 +35036,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shrd(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Shrd_rm64_r64_CL;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Shrd_rm32_r32_CL;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Shrd_rm16_r16_CL;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shrd, dst, src, arg2);
@@ -35044,11 +35124,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void shrd(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Shrd_rm64_r64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Shrd_rm32_r32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Shrd_rm16_r16_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Shrd, dst, src, imm);
@@ -35580,7 +35660,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void stmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.Stmxcsr_m32;
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Code.Stmxcsr_m32;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Stmxcsr, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>stosb instruction.<br/>
@@ -35802,13 +35886,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void sub(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Sub_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Sub_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Sub_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Sub_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sub, dst, src);
@@ -36548,13 +36632,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void test(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Test_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Test_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Test_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Test_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Test, dst, src);
@@ -37296,11 +37380,11 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void umov(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
+			if (src.IsGPR32()) {
 				op = Code.Umov_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Umov_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Umov_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Umov, dst, src);
@@ -41000,11 +41084,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcompresspd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vcompresspd_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vcompresspd_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vcompresspd_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompresspd, dst, src);
@@ -41088,11 +41172,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcompressps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vcompressps_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vcompressps_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vcompressps_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompressps, dst, src);
@@ -42420,15 +42504,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtps2ph(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vcvtps2ph_xmmm128_ymm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vcvtps2ph_xmmm64_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2ph, dst, src, imm);
@@ -45972,7 +46056,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf128(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf128, dst, src, imm);
@@ -46034,9 +46118,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf32x4(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x4, dst, src, imm);
@@ -46076,7 +46160,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf32x8(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x8, dst, src, imm);
@@ -46138,9 +46222,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf64x2(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x2, dst, src, imm);
@@ -46180,7 +46264,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf64x4(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x4, dst, src, imm);
@@ -46220,7 +46304,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti128(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti128, dst, src, imm);
@@ -46282,9 +46366,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti32x4(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x4, dst, src, imm);
@@ -46324,7 +46408,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti32x8(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x8, dst, src, imm);
@@ -46386,9 +46470,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti64x2(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x2, dst, src, imm);
@@ -46428,7 +46512,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti64x4(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x4, dst, src, imm);
@@ -46510,13 +46594,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void vextractps(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vextractps_r64m32_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vextractps_r64m32_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr && PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.VEX_Vextractps_rm32_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.EVEX_Vextractps_rm32_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractps, dst, src, imm);
@@ -54320,7 +54404,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf0dpd_vm32y_k1;
+			if (dst.Size == MemoryOperandSize.YwordPtr) {
+				op = Code.EVEX_Vgatherpf0dpd_vm32y_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0dpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0dps instruction.<br/>
@@ -54336,7 +54424,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf0dps_vm32z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf0dps_vm32z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0dps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0qpd instruction.<br/>
@@ -54352,7 +54444,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf0qpd_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf0qpd_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0qpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf0qps instruction.<br/>
@@ -54368,7 +54464,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf0qps_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf0qps_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf0qps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1dpd instruction.<br/>
@@ -54384,7 +54484,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf1dpd_vm32y_k1;
+			if (dst.Size == MemoryOperandSize.YwordPtr) {
+				op = Code.EVEX_Vgatherpf1dpd_vm32y_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1dpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1dps instruction.<br/>
@@ -54400,7 +54504,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf1dps_vm32z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf1dps_vm32z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1dps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1qpd instruction.<br/>
@@ -54416,7 +54524,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf1qpd_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf1qpd_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1qpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherpf1qps instruction.<br/>
@@ -54432,7 +54544,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vgatherpf1qps_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vgatherpf1qps_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vgatherpf1qps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vgatherqpd instruction.<br/>
@@ -56316,7 +56432,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vldmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.VEX_Vldmxcsr_m32;
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Code.VEX_Vldmxcsr_m32;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vldmxcsr, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vmaskmovpd instruction.<br/>
@@ -56386,9 +56506,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaskmovpd(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vmaskmovpd_m256_ymm_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vmaskmovpd_m128_xmm_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaskmovpd, dst, src, arg2);
@@ -56494,9 +56614,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaskmovps(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vmaskmovps_m256_ymm_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vmaskmovps_m128_xmm_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaskmovps, dst, src, arg2);
@@ -57436,15 +57556,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovapd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovapd_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && PreferVex) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovapd_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && !PreferVex) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovapd_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovapd_xmmm128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovapd_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovapd, dst, src);
@@ -57616,15 +57736,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovaps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovaps_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && PreferVex) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovaps_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && !PreferVex) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovaps_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovaps_xmmm128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovaps_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovaps, dst, src);
@@ -57754,9 +57874,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovd_rm32_xmm;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovd_rm32_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovd, dst, src);
@@ -57962,9 +58082,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqa(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vmovdqa_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vmovdqa_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa, dst, src);
@@ -58080,11 +58200,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqa32(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqa32_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqa32_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqa32_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa32, dst, src);
@@ -58212,11 +58332,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqa64(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqa64_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqa64_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqa64_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa64, dst, src);
@@ -58322,9 +58442,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqu(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vmovdqu_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vmovdqu_xmmm128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu, dst, src);
@@ -58440,11 +58560,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqu16(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqu16_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqu16_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqu16_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu16, dst, src);
@@ -58572,11 +58692,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqu32(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqu32_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqu32_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqu32_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu32, dst, src);
@@ -58704,11 +58824,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqu64(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqu64_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqu64_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqu64_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu64, dst, src);
@@ -58836,11 +58956,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovdqu8(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovdqu8_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vmovdqu8_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vmovdqu8_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu8, dst, src);
@@ -58966,9 +59086,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovhpd_m64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovhpd_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovhpd, dst, src);
@@ -59070,9 +59190,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovhps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovhps_m64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovhps_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovhps, dst, src);
@@ -59206,9 +59326,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovlpd_m64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovlpd_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovlpd, dst, src);
@@ -59310,9 +59430,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovlps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovlps_m64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovlps_m64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovlps, dst, src);
@@ -59580,15 +59700,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovntdq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovntdq_m512_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovntdq_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntdq_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovntdq_m128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntdq_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovntdq, dst, src);
@@ -59804,15 +59924,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovntpd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovntpd_m512_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovntpd_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntpd_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovntpd_m128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntpd_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovntpd, dst, src);
@@ -59916,15 +60036,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovntps(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovntps_m512_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovntps_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntps_m256_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovntps_m128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovntps_m128_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovntps, dst, src);
@@ -60018,13 +60138,13 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovq_xmmm64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovq_xmmm64_xmm;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.VEX_Vmovq_rm64_xmm;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.EVEX_Vmovq_rm64_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovq, dst, src);
@@ -60130,9 +60250,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovsd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovsd_m64_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovsd_m64_k1_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovsd, dst, src);
@@ -60494,9 +60614,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovss(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovss_m32_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovss_m32_k1_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovss, dst, src);
@@ -60688,15 +60808,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovupd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovupd_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && PreferVex) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovupd_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && !PreferVex) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovupd_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovupd_xmmm128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovupd_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovupd, dst, src);
@@ -60868,15 +60988,15 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vmovups(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vmovups_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && PreferVex) {
+			} else if (src.IsYMM() && PreferVex) {
 				op = Code.VEX_Vmovups_ymmm256_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr && !PreferVex) {
+			} else if (src.IsYMM() && !PreferVex) {
 				op = Code.EVEX_Vmovups_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && PreferVex) {
+			} else if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vmovups_xmmm128_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vmovups_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovups, dst, src);
@@ -61150,9 +61270,9 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void vmread(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Vmread_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Vmread_rm32_r32;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmread, dst, src);
@@ -68140,11 +68260,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcompressb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpcompressb_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpcompressb_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpcompressb_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressb, dst, src);
@@ -68228,11 +68348,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcompressd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpcompressd_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpcompressd_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpcompressd_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressd, dst, src);
@@ -68316,11 +68436,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcompressq(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpcompressq_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpcompressq_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpcompressq_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressq, dst, src);
@@ -68404,11 +68524,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcompressw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpcompressw_zmmm512_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpcompressw_ymmm256_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpcompressw_xmmm128_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressw, dst, src);
@@ -71982,13 +72102,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void vpextrb(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.BytePtr && PreferVex) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.VEX_Vpextrb_r32m8_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr && PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.VEX_Vpextrb_r64m8_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vpextrb_r32m8_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr && !PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.BytePtr) {
 				op = Code.EVEX_Vpextrb_r64m8_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpextrb, dst, src, imm);
@@ -72038,9 +72158,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpextrd(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpextrd_rm32_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vpextrd_rm32_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpextrd, dst, src, imm);
@@ -72090,9 +72210,9 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void vpextrq(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr && PreferVex) {
+			if (src.IsXMM() && PreferVex) {
 				op = Code.VEX_Vpextrq_rm64_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.QwordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vpextrq_rm64_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpextrq, dst, src, imm);
@@ -72186,13 +72306,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void vpextrw(AssemblerMemoryOperand dst, Register src, int imm) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.WordPtr && PreferVex) {
+			if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.VEX_Vpextrw_r32m16_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr && PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.VEX_Vpextrw_r64m16_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr && !PreferVex) {
+			} else if (src.IsXMM() && !PreferVex) {
 				op = Code.EVEX_Vpextrw_r32m16_xmm_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr && !PreferVex) {
+			} else if (src.IsXMM() && dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.EVEX_Vpextrw_r64m16_xmm_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpextrw, dst, src, imm);
@@ -74906,9 +75026,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmaskmovd(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vpmaskmovd_m256_ymm_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vpmaskmovd_m128_xmm_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaskmovd, dst, src, arg2);
@@ -75014,9 +75134,9 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmaskmovq(AssemblerMemoryOperand dst, Register src, Register arg2) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			if (src.IsYMM()) {
 				op = Code.VEX_Vpmaskmovq_m256_ymm_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.VEX_Vpmaskmovq_m128_xmm_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaskmovq, dst, src, arg2);
@@ -76916,11 +77036,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovdb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovdb_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovdb_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovdb_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdb, dst, src);
@@ -77004,11 +77124,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovdw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovdw_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovdw_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovdw_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdw, dst, src);
@@ -77368,11 +77488,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovqb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovqb_xmmm64_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovqb_xmmm32_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovqb_xmmm16_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqb, dst, src);
@@ -77456,11 +77576,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovqd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovqd_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovqd_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovqd_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqd, dst, src);
@@ -77544,11 +77664,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovqw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovqw_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovqw_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovqw_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqw, dst, src);
@@ -77632,11 +77752,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovsdb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovsdb_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovsdb_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovsdb_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdb, dst, src);
@@ -77720,11 +77840,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovsdw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovsdw_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovsdw_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovsdw_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdw, dst, src);
@@ -77808,11 +77928,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovsqb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovsqb_xmmm64_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovsqb_xmmm32_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovsqb_xmmm16_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqb, dst, src);
@@ -77896,11 +78016,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovsqd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovsqd_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovsqd_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovsqd_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqd, dst, src);
@@ -77984,11 +78104,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovsqw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovsqw_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovsqw_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovsqw_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqw, dst, src);
@@ -78072,11 +78192,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovswb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovswb_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovswb_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovswb_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovswb, dst, src);
@@ -78832,11 +78952,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovusdb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovusdb_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovusdb_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovusdb_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdb, dst, src);
@@ -78920,11 +79040,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovusdw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovusdw_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovusdw_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovusdw_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdw, dst, src);
@@ -79008,11 +79128,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovusqb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovusqb_xmmm64_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovusqb_xmmm32_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovusqb_xmmm16_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqb, dst, src);
@@ -79096,11 +79216,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovusqd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovusqd_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovusqd_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovusqd_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqd, dst, src);
@@ -79184,11 +79304,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovusqw(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.OwordPtr && src.IsZMM()) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovusqw_xmmm128_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovusqw_xmmm64_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovusqw_xmmm32_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqw, dst, src);
@@ -79272,11 +79392,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovuswb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovuswb_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovuswb_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovuswb_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovuswb, dst, src);
@@ -79404,11 +79524,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovwb(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.YwordPtr) {
+			if (src.IsZMM()) {
 				op = Code.EVEX_Vpmovwb_ymmm256_k1z_zmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsYMM()) {
+			} else if (src.IsYMM()) {
 				op = Code.EVEX_Vpmovwb_xmmm128_k1z_ymm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr && src.IsXMM()) {
+			} else if (src.IsXMM()) {
 				op = Code.EVEX_Vpmovwb_xmmm64_k1z_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovwb, dst, src);
@@ -93568,7 +93688,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf0dpd_vm32y_k1;
+			if (dst.Size == MemoryOperandSize.YwordPtr) {
+				op = Code.EVEX_Vscatterpf0dpd_vm32y_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0dpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0dps instruction.<br/>
@@ -93584,7 +93708,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf0dps_vm32z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf0dps_vm32z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0dps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0qpd instruction.<br/>
@@ -93600,7 +93728,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf0qpd_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf0qpd_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0qpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf0qps instruction.<br/>
@@ -93616,7 +93748,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf0qps_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf0qps_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf0qps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1dpd instruction.<br/>
@@ -93632,7 +93768,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf1dpd_vm32y_k1;
+			if (dst.Size == MemoryOperandSize.YwordPtr) {
+				op = Code.EVEX_Vscatterpf1dpd_vm32y_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1dpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1dps instruction.<br/>
@@ -93648,7 +93788,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf1dps_vm32z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf1dps_vm32z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1dps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1qpd instruction.<br/>
@@ -93664,7 +93808,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf1qpd_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf1qpd_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1qpd, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterpf1qps instruction.<br/>
@@ -93680,7 +93828,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.EVEX_Vscatterpf1qps_vm64z_k1;
+			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+				op = Code.EVEX_Vscatterpf1qps_vm64z_k1;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vscatterpf1qps, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vscatterqpd instruction.<br/>
@@ -94592,7 +94744,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vstmxcsr(AssemblerMemoryOperand dst) {
 			Code op;
-			op = Code.VEX_Vstmxcsr_m32;
+			if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Code.VEX_Vstmxcsr_m32;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Vstmxcsr, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vsubpd instruction.<br/>
@@ -96198,13 +96354,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xadd(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Xadd_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Xadd_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Xadd_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Xadd_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Xadd, dst, src);
@@ -96410,13 +96566,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xchg(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Xchg_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Xchg_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Xchg_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Xchg_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Xchg, dst, src);
@@ -96774,13 +96930,13 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void xor(AssemblerMemoryOperand dst, Register src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (src.IsGPR64()) {
 				op = Code.Xor_rm64_r64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+			} else if (src.IsGPR32()) {
 				op = Code.Xor_rm32_r32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+			} else if (src.IsGPR16()) {
 				op = Code.Xor_rm16_r16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+			} else if (src.IsGPR8()) {
 				op = Code.Xor_rm8_r8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Xor, dst, src);
