@@ -63,7 +63,7 @@ namespace Generator {
 	sealed class CSharpIdentifierConverter : IdentifierConverter {
 		public static IdentifierConverter Create() => new CSharpIdentifierConverter();
 		CSharpIdentifierConverter() { }
-		public override string Type(string name) => Escape(name);
+		public override string Type(string name) => name;
 		public override string Field(string name) => Escape(name);
 		public override string EnumField(string name) => Escape(name);
 		public override string PropertyDoc(string name) => name;
