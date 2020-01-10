@@ -5,15 +5,23 @@ using System.Text;
 using Iced.Intel.BlockEncoderInternal;
 
 namespace Iced.Intel {
+	/// <summary>
+	/// High-Level Assembler.
+	/// </summary>
 	public sealed partial class Assembler {
 
 		readonly CodeWriter _writer;
-		ulong _currentLabelId;
-		Label _label;
 		readonly List<Label> _labels;
 		readonly List<Instruction> _instructions;
+		ulong _currentLabelId;
+		Label _label;
 
-		private Assembler(CodeWriter writer, int bitness) {
+		/// <summary>
+		/// Creates a new instance of this assembler 
+		/// </summary>
+		/// <param name="writer">CodeWriter</param>
+		/// <param name="bitness">Bitness</param>
+		Assembler(CodeWriter writer, int bitness) {
 			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
@@ -26,14 +34,49 @@ namespace Iced.Intel {
 			PreferBranchShort = true;
 		}
 		
+		/// <summary>
+		/// Base RIP used when encoding.
+		/// </summary>
 		public ulong BaseRip { get; set; }
 
+		/// <summary>
+		/// Gets the bitness defined for this assembler.
+		/// </summary>
 		public int Bitness { get; }
 		
+		/// <summary>
+		/// <c>true</c> to prefer VEX encoding over EVEX. This is the default. 
+		/// </summary>
 		public bool PreferVex { get; set; }
 		
+		/// <summary>
+		/// <c>true</c> to prefer short branch encoding. This is the default. 
+		/// </summary>
 		public bool PreferBranchShort { get; set; }
 
+		/// <summary>
+		/// Gets the instructions.
+		/// </summary>
+		public IReadOnlyList<Instruction> Instructions => _instructions;
+
+		/// <summary>
+		/// Reset the current set of instructions and labels added to this instance. 
+		/// </summary>
+		public void Reset() {
+			_instructions.Clear();
+			_labels.Clear();
+			_currentLabelId = 0;
+			_label = default;
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="Assembler"/>.
+		/// </summary>
+		/// <param name="bitness">Bitness of the assembler</param>
+		/// <param name="writer">Code writer.</param>
+		/// <returns></returns>
+		/// <exception cref="ArgumentNullException"></exception>
+		/// <exception cref="ArgumentOutOfRangeException"></exception>
 		public static Assembler Create(int bitness, CodeWriter writer) {
 			if (writer == null) throw new ArgumentNullException(nameof(writer));
 			switch (bitness) {
@@ -46,26 +89,49 @@ namespace Iced.Intel {
 			}
 		}
 
-		public Label CreateLabel(string name = null) {
+		/// <summary>
+		/// Creates a label.
+		/// </summary>
+		/// <param name="name">Optional name of the label.</param>
+		/// <returns></returns>
+		public Label CreateLabel(string? name = null) {
 			_currentLabelId++;
 			var label = new Label(name, _currentLabelId);
 			_labels.Add(label);
 			return label;
 		}
 
+		/// <summary>
+		/// Gets the current label used by this instance.
+		/// </summary>
 		public Label CurrentLabel => _label;
 
+		/// <summary>
+		/// Use the specified label.
+		/// </summary>
+		/// <param name="label">Label to use</param>
+		/// <exception cref="ArgumentException"></exception>
 		public void Label(Label label) {
 			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}");
 			_label = label;
 		}
 
+		/// <summary>
+		/// Add an instruction directly to the flow of instructions.
+		/// </summary>
+		/// <param name="instruction"></param>
 		public void AddInstruction(Instruction instruction) {
 			instruction.IP = _label.Id;
 			_instructions.Add(instruction);
 			_label = default;
 		}
 
+		/// <summary>
+		/// Encode the instructions of this assembler with the specified options.
+		/// </summary>
+		/// <param name="options">Encoding options.</param>
+		/// <returns></returns>
+		/// <exception cref="InvalidOperationException"></exception>
 		public BlockEncoderResult Encode(BlockEncoderOptions options = BlockEncoderOptions.None) {
 			if (!TryEncode(out var errorMessage, out var blockResult, options)) {
 				throw new InvalidOperationException(errorMessage);
@@ -73,6 +139,13 @@ namespace Iced.Intel {
 			return blockResult;
 		}
 
+		/// <summary>
+		/// Tries to encode the instructions of this assembler with the specified options.
+		/// </summary>
+		/// <param name="errorMessage">Error messages.</param>
+		/// <param name="blockResult">Block result.</param>
+		/// <param name="options">Encoding options.</param>
+		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
 		public bool TryEncode(out string? errorMessage, out BlockEncoderResult blockResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
 			var blocks = new InstructionBlock[1];
 			var block = new InstructionBlock(this._writer, _instructions, BaseRip);
@@ -80,13 +153,19 @@ namespace Iced.Intel {
 
 			blockResult = default;
 			var result = BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options);
-			if (result) {
+			if (result && blockResults != null) {
 				blockResult = blockResults[0];
 			}
 
 			return result;
 		}
 
+		/// <summary>
+		/// Internal method used to throw an InvalidOperationException if it was not possible to encode an OpCode.
+		/// </summary>
+		/// <param name="mnemonic">The mnemonic of the instruction</param>
+		/// <param name="argNames">The argument values.</param>
+		/// <returns></returns>
 		InvalidOperationException NoOpCodeFoundFor(Mnemonic mnemonic, params object[] argNames) {
 			var builder = new StringBuilder();
 			builder.Append($"Unable to calculate an OpCode for `{mnemonic.ToString().ToLowerInvariant()}");

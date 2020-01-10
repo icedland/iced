@@ -30,6 +30,7 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
+				writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
 				using (writer.Indent()) {
 					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {

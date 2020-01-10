@@ -27,6 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 namespace Iced.Intel {
+#pragma warning disable 1591 // Missing XML comment for publicly visible type or member
 	public static partial class AssemblerRegisters {
 		public static readonly AssemblerRegister al = Register.AL;
 		public static readonly AssemblerRegister cl = Register.CL;
