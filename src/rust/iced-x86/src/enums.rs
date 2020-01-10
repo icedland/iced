@@ -615,17 +615,37 @@ pub enum OpCodeOperandKind {
 	farbr2_2,
 	/// Far branch 32-bit offset, 16-bit segment/selector
 	farbr4_2,
-	/// Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
-	mem_offs,
+	/// 8-bit Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
+	mem8_offs,
+	/// 16-bit Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
+	mem16_offs,
+	/// 32-bit Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
+	mem32_offs,
+	/// 64-bit Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
+	mem64_offs,
 	/// Memory (modrm)
 	mem,
-	/// Memory (modrm), MPX:
+	/// 8-bit Memory (modrm)
+	mem8,
+	/// 16-bit Memory (modrm)
+	mem16,
+	/// 32-bit Memory (modrm)
+	mem32,
+	/// 64-bit Memory (modrm)
+	mem64,
+	/// 128-bit Memory (modrm)
+	mem128,
+	/// 80-bit Memory (modrm)
+	mem80,
+	/// Memory for a K register (modrm)
+	memK,
+	/// 32-bit Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
 	/// 64-bit mode: 64-bit addressing is forced
 	mem_mpx,
-	/// Memory (modrm), MPX:
+	/// 8-bit Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
@@ -663,7 +683,7 @@ pub enum OpCodeOperandKind {
 	ymm_or_mem,
 	/// ZMM register or memory
 	zmm_or_mem,
-	/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+	/// BND register memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 	bnd_or_mem_mpx,
 	/// K register or memory
 	k_or_mem,
@@ -824,12 +844,22 @@ pub enum OpCodeOperandKind {
 }
 #[cfg(feature = "encoder")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 102] = [
+static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 112] = [
 	"None",
 	"farbr2_2",
 	"farbr4_2",
-	"mem_offs",
+	"mem8_offs",
+	"mem16_offs",
+	"mem32_offs",
+	"mem64_offs",
 	"mem",
+	"mem8",
+	"mem16",
+	"mem32",
+	"mem64",
+	"mem128",
+	"mem80",
+	"memK",
 	"mem_mpx",
 	"mem_mib",
 	"mem_vsib32x",

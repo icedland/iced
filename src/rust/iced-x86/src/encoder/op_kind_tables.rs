@@ -31,28 +31,28 @@ pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 118] = [
 	OpCodeOperandKind::farbr2_2,// Aww
 	OpCodeOperandKind::farbr4_2,// Adw
 	OpCodeOperandKind::mem,// M
-	OpCodeOperandKind::mem,// Mfbcd
-	OpCodeOperandKind::mem,// Mf32
-	OpCodeOperandKind::mem,// Mf64
-	OpCodeOperandKind::mem,// Mf80
-	OpCodeOperandKind::mem,// Mfi16
-	OpCodeOperandKind::mem,// Mfi32
-	OpCodeOperandKind::mem,// Mfi64
+	OpCodeOperandKind::mem80,// Mfbcd
+	OpCodeOperandKind::mem32,// Mf32
+	OpCodeOperandKind::mem64,// Mf64
+	OpCodeOperandKind::mem80,// Mf80
+	OpCodeOperandKind::mem16,// Mfi16
+	OpCodeOperandKind::mem32,// Mfi32
+	OpCodeOperandKind::mem64,// Mfi64
 	OpCodeOperandKind::mem,// M14
 	OpCodeOperandKind::mem,// M28
 	OpCodeOperandKind::mem,// M98
 	OpCodeOperandKind::mem,// M108
-	OpCodeOperandKind::mem,// Mp
-	OpCodeOperandKind::mem,// Ms
-	OpCodeOperandKind::mem,// Mo
-	OpCodeOperandKind::mem,// Mb
-	OpCodeOperandKind::mem,// Mw
-	OpCodeOperandKind::mem,// Md
+	OpCodeOperandKind::mem16,// Mp
+	OpCodeOperandKind::mem16,// Ms
+	OpCodeOperandKind::mem128,// Mo
+	OpCodeOperandKind::mem8,// Mb
+	OpCodeOperandKind::mem16,// Mw
+	OpCodeOperandKind::mem32,// Md
 	OpCodeOperandKind::mem_mpx,// Md_MPX
-	OpCodeOperandKind::mem,// Mq
+	OpCodeOperandKind::mem64,// Mq
 	OpCodeOperandKind::mem_mpx,// Mq_MPX
-	OpCodeOperandKind::mem,// Mw2
-	OpCodeOperandKind::mem,// Md2
+	OpCodeOperandKind::mem16,// Mw2
+	OpCodeOperandKind::mem32,// Md2
 	OpCodeOperandKind::r8_or_mem,// Eb
 	OpCodeOperandKind::r16_or_mem,// Ew
 	OpCodeOperandKind::r32_or_mem,// Ed
@@ -61,9 +61,9 @@ pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 118] = [
 	OpCodeOperandKind::r64_or_mem,// Ew_q
 	OpCodeOperandKind::r64_or_mem,// Eq
 	OpCodeOperandKind::r64_or_mem_mpx,// Eq_MPX
-	OpCodeOperandKind::mem,// Eww
-	OpCodeOperandKind::mem,// Edw
-	OpCodeOperandKind::mem,// Eqw
+	OpCodeOperandKind::mem16,// Eww
+	OpCodeOperandKind::mem32,// Edw
+	OpCodeOperandKind::mem64,// Eqw
 	OpCodeOperandKind::r32_or_mem,// RdMb
 	OpCodeOperandKind::r64_or_mem,// RqMb
 	OpCodeOperandKind::r32_or_mem,// RdMw
@@ -110,10 +110,10 @@ pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 118] = [
 	OpCodeOperandKind::xbegin_4,// Jxd
 	OpCodeOperandKind::brdisp_2,// Jdisp16
 	OpCodeOperandKind::brdisp_4,// Jdisp32
-	OpCodeOperandKind::mem_offs,// Ob
-	OpCodeOperandKind::mem_offs,// Ow
-	OpCodeOperandKind::mem_offs,// Od
-	OpCodeOperandKind::mem_offs,// Oq
+	OpCodeOperandKind::mem8_offs,// Ob
+	OpCodeOperandKind::mem16_offs,// Ow
+	OpCodeOperandKind::mem32_offs,// Od
+	OpCodeOperandKind::mem64_offs,// Oq
 	OpCodeOperandKind::imm8_const_1,// Imm1
 	OpCodeOperandKind::bnd_reg,// B
 	OpCodeOperandKind::bnd_or_mem_mpx,// BMq
@@ -172,8 +172,8 @@ pub(crate) static VEX_OP_KINDS: [OpCodeOperandKind; 39] = [
 	OpCodeOperandKind::xmm_is5,// Is5X
 	OpCodeOperandKind::ymm_is5,// Is5Y
 	OpCodeOperandKind::mem,// M
-	OpCodeOperandKind::mem,// Md
-	OpCodeOperandKind::mem,// MK
+	OpCodeOperandKind::mem32,// Md
+	OpCodeOperandKind::memK,// MK
 	OpCodeOperandKind::seg_rDI,// rDI
 	OpCodeOperandKind::k_rm,// RK
 	OpCodeOperandKind::xmm_rm,// RX

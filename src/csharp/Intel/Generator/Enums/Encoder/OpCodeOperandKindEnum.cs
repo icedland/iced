@@ -31,13 +31,33 @@ namespace Generator.Enums.Encoder {
 		farbr2_2,
 		[Comment("Far branch 32-bit offset, 16-bit segment/selector")]
 		farbr4_2,
-		[Comment("Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
-		mem_offs,
+		[Comment("8-bit Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
+		mem8_offs,
+		[Comment("16-bit Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
+		mem16_offs,
+		[Comment("32-bit Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
+		mem32_offs,
+		[Comment("64-bit Memory offset without a modrm byte (eg. #(c:MOV AL,[offset])#)")]
+		mem64_offs,
 		[Comment("Memory (modrm)")]
 		mem,
-		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced")]
+		[Comment("8-bit Memory (modrm)")]
+		mem8,
+		[Comment("16-bit Memory (modrm)")]
+		mem16,
+		[Comment("32-bit Memory (modrm)")]
+		mem32,
+		[Comment("64-bit Memory (modrm)")]
+		mem64,
+		[Comment("128-bit Memory (modrm)")]
+		mem128,
+		[Comment("80-bit Memory (modrm)")]
+		mem80,
+		[Comment("Memory for a K register (modrm)")]
+		memK,
+		[Comment("32-bit Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced")]
 		mem_mpx,
-		[Comment("Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced and must not be RIP relative")]
+		[Comment("8-bit Memory (modrm), MPX:#(p:)#16/32-bit mode: must be 32-bit addressing#(p:)#64-bit mode: 64-bit addressing is forced and must not be RIP relative")]
 		mem_mib,
 		[Comment("Memory (modrm), vsib32, xmm registers")]
 		mem_vsib32x,
@@ -71,7 +91,7 @@ namespace Generator.Enums.Encoder {
 		ymm_or_mem,
 		[Comment("ZMM register or memory")]
 		zmm_or_mem,
-		[Comment("BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced")]
+		[Comment("BND register memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced")]
 		bnd_or_mem_mpx,
 		[Comment("K register or memory")]
 		k_or_mem,

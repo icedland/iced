@@ -41,6 +41,8 @@ namespace Iced.Intel
 
 		public bool IsST() => Value.IsST();
 
+		public bool IsSegmentRegister() => Value.IsSegmentRegister();
+
 		public static implicit operator AssemblerRegister(Register value) {
 			return new AssemblerRegister(value);
 		}

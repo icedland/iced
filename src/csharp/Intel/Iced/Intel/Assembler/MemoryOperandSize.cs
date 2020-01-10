@@ -6,6 +6,7 @@ namespace Iced.Intel
 		WordPtr,
 		DwordPtr,
 		QwordPtr,
+		TwordPtr,
 		OwordPtr,
 		YwordPtr,
 		ZwordPtr,
