@@ -231,11 +231,14 @@ namespace Generator.Assembler {
 
 					// Because We encode only relative byte encoding by default 
 					case OpCodeOperandKind.br16_2: // SHORT
-					case OpCodeOperandKind.br32_4: // NEAR
-					case OpCodeOperandKind.br64_4: // NEAR
 						argKind = ArgKind.Unknown;
 						discard = true;
-						discardReason = $"Branch {opKind} not supported.";
+						discardReason = $"Branch near {opKind} not supported.";
+						break;
+
+					case OpCodeOperandKind.br32_4: // NEAR
+					case OpCodeOperandKind.br64_4: // NEAR
+						argKind = ArgKind.Branch;
 						break;
 
 					case OpCodeOperandKind.xbegin_2:
@@ -247,14 +250,22 @@ namespace Generator.Assembler {
 						opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
 
 						if (code is LegacyOpCodeInfo legacy) {
-							if (legacy.OperandSize != OperandSize.None || legacy.AddressSize != AddressSize.None) {
-								if (legacy.OperandSize != (OperandSize)legacy.AddressSize) {
-									argKind = ArgKind.Unknown;
-									discardReason = $"Duplicated";
+							switch (name) {
+							case "loopne":
+							case "loope":
+							case "loop":
+							case "jcxz":
+							case "jecxz":
+							case "jrcxz":
+								if (legacy.OperandSize != OperandSize.None || legacy.AddressSize != AddressSize.None) {
+									if (legacy.OperandSize != (OperandSize)legacy.AddressSize) {
+										argKind = ArgKind.Unknown;
+										discardReason = $"Duplicated";
+									}
 								}
+								break;
 							}
 						}
-
 						break;
 
 					case OpCodeOperandKind.imm8_const_1:
