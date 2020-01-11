@@ -4491,7 +4491,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
 			}
-			AddInstruction(Instruction.Create(op, dst.Id));
+			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>cbw instruction.<br/>
 		/// <br/>

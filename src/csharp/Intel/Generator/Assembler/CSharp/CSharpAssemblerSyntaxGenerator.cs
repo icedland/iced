@@ -80,7 +80,7 @@ namespace Generator.Assembler.CSharp {
 									argType = "AssemblerRegister";
 									break;
 								
-								case ArgKind.Branch:
+								case ArgKind.Label:
 									argType = "Label";
 									break;
 
@@ -142,7 +142,7 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("Code op;");
 								GenerateOpCodeSelector(writer, group, renderArgs);
 
-								if (group.IsBranch) {
+								if (group.HasLabel) {
 									writer.Write("AddInstruction(Instruction.CreateBranch(op");
 								}
 								else {
@@ -154,7 +154,7 @@ namespace Generator.Assembler.CSharp {
 									if (renderArg.Kind == ArgKind.HiddenMemory) continue;
 									writer.Write(", ");
 									writer.Write(renderArg.Name);
-									if (renderArg.Kind == ArgKind.Branch) {
+									if (renderArg.Kind == ArgKind.Label) {
 										writer.Write(".Id");
 									}
 								}
@@ -202,6 +202,7 @@ namespace Generator.Assembler.CSharp {
 			}
 			else {
 				var selector = node.Selector;
+				Debug.Assert(selector != null);
 				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind);
 				if (selector.IsConditionInlineable) {
 					writer.Write($"op = {condition} ? ");

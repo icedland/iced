@@ -225,8 +225,9 @@ namespace Generator.Assembler {
 
 					case OpCodeOperandKind.xbegin_4:
 					case OpCodeOperandKind.brdisp_4:
-						argKind = ArgKind.Branch;
-						opCodeArgFlags |= OpCodeArgFlags.HasBranchFar;
+						argKind = ArgKind.Label;
+						opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
+						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 						break;
 
 					// Because We encode only relative byte encoding by default 
@@ -238,7 +239,12 @@ namespace Generator.Assembler {
 
 					case OpCodeOperandKind.br32_4: // NEAR
 					case OpCodeOperandKind.br64_4: // NEAR
-						argKind = ArgKind.Branch;
+						argKind = ArgKind.Label;
+						if (name != "call")
+						{
+							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
+						}
+						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 						break;
 
 					case OpCodeOperandKind.xbegin_2:
@@ -246,8 +252,9 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.br16_1:
 					case OpCodeOperandKind.br32_1:
 					case OpCodeOperandKind.br64_1:
-						argKind = ArgKind.Branch;
+						argKind = ArgKind.Label;
 						opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
+						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
 
 						if (code is LegacyOpCodeInfo legacy) {
 							switch (name) {
@@ -396,7 +403,7 @@ namespace Generator.Assembler {
 				var branchShort = new List<OpCodeInfo>();
 				var branchFar = new List<OpCodeInfo>();
 				CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchFar);
-				var newFlags = group.Flags & ~(OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchFar);
+				var newFlags = group.Flags & ~(OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear);
 				return new OpCodeSelector(OpCodeSelectorKind.BranchShort) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, branchShort), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, branchFar)};
 			}
 			
@@ -832,11 +839,12 @@ namespace Generator.Assembler {
 			HasImmediateByteEqual1 = 1,
 			HasImmediateByteLessThanBits = 1 << 1,
 			HasImmediateByteSigned = 1 << 2,
-			HasBranchShort = 1 << 3,
-			HasBranchFar = 1 << 4,
-			HasVex = 1 << 5,
-			HasEvex = 1 << 6,
-			HasRegisterMemoryMappedToRegister = 1 << 7,
+			HasLabel = 1 << 3,
+			HasBranchShort = 1 << 4, 
+			HasBranchNear = 1 << 5,
+			HasVex = 1 << 6,
+			HasEvex = 1 << 7,
+			HasRegisterMemoryMappedToRegister = 1 << 8,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
@@ -1323,7 +1331,7 @@ namespace Generator.Assembler {
 			HiddenMemory,
 			Immediate,
 			ImmediateByte,
-			Branch,
+			Label,
 			
 			FilterRegisterCDTR,
 			
@@ -1379,7 +1387,9 @@ namespace Generator.Assembler {
 			
 			public OpCodeArgFlags Flags { get; set; }
 			
-			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchFar)) != 0;
+			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
+
+			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear)) != 0;
 
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
 			
