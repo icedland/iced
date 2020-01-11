@@ -103,11 +103,7 @@ namespace Generator.Assembler.CSharp {
 									immArg++;
 									argType = "byte";
 									break;								
-								
-								case ArgKind.HiddenMemory:
-									argName = "<none>";
-									argType = "<none>";
-									break;
+
 								default:
 									throw new ArgumentOutOfRangeException();
 								}
@@ -132,34 +128,44 @@ namespace Generator.Assembler.CSharp {
 							int realArgCount = 0;
 							for (var i = 0; i < renderArgs.Count; i++) {
 								var renderArg = renderArgs[i];
-								if (renderArg.Kind == ArgKind.HiddenMemory) continue;
 								if (realArgCount > 0) writer.Write(", ");
 								writer.Write($"{renderArg.Type} {renderArg.Name}");
 								realArgCount++;
 							}
 							writer.WriteLine(") {");
 							using (writer.Indent()) {
-								writer.WriteLine("Code op;");
-								GenerateOpCodeSelector(writer, group, renderArgs);
-
-								if (group.HasLabel) {
-									writer.Write("AddInstruction(Instruction.CreateBranch(op");
+								if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
+									writer.Write($"AddInstruction(Instruction.Create{group.MemoName}(Bitness");
+									for (var i = 0; i < renderArgs.Count; i++) {
+										var renderArg = renderArgs[i];
+										writer.Write(", ");
+										writer.Write(renderArg.Name);
+									}
+									writer.WriteLine("));");
 								}
 								else {
-									writer.Write("AddInstruction(Instruction.Create(op");
-								}
 
-								for (var i = 0; i < renderArgs.Count; i++) {
-									var renderArg = renderArgs[i];
-									if (renderArg.Kind == ArgKind.HiddenMemory) continue;
-									writer.Write(", ");
-									writer.Write(renderArg.Name);
-									if (renderArg.Kind == ArgKind.Label) {
-										writer.Write(".Id");
+									writer.WriteLine("Code op;");
+									GenerateOpCodeSelector(writer, group, renderArgs);
+
+									if (group.HasLabel) {
+										writer.Write("AddInstruction(Instruction.CreateBranch(op");
 									}
-								}
+									else {
+										writer.Write("AddInstruction(Instruction.Create(op");
+									}
 
-								writer.WriteLine("));");
+									for (var i = 0; i < renderArgs.Count; i++) {
+										var renderArg = renderArgs[i];
+										writer.Write(", ");
+										writer.Write(renderArg.Name);
+										if (renderArg.Kind == ArgKind.Label) {
+											writer.Write(".Id");
+										}
+									}
+
+									writer.WriteLine("));");
+								}
 							}
 							writer.WriteLine("}");
 						}
@@ -238,7 +244,6 @@ namespace Generator.Assembler.CSharp {
 							writer.Write($"throw NoOpCodeFoundFor(Mnemonic.{group.MemoName}");
 							for (var i = 0; i < args.Count; i++) {
 								var renderArg = args[i];
-								if (renderArg.Kind == ArgKind.HiddenMemory) continue;
 								writer.Write(", ");
 								writer.Write(renderArg.Name);
 							}

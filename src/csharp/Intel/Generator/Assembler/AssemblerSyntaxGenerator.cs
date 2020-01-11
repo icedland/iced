@@ -131,8 +131,14 @@ namespace Generator.Assembler {
 				var argSizes = new List<int>();
 				bool discard = false;
 				string discardReason = null;
+
+				// For certain instruction, we need to discard them
+				var numberLeadingArgToDiscard = GetSpecialArgEncodingInstruction(code);
+				if (numberLeadingArgToDiscard > 0) {
+					opCodeArgFlags |= OpCodeArgFlags.HasSpecialInstructionEncoding;
+				}
 				
-				for(int i = 0; i < code.OpKindsLength; i++) {
+				for(int i = numberLeadingArgToDiscard; i < code.OpKindsLength; i++) {
 					var opKind = GetOperandKind(code, i);
 					var argKind = ArgKind.Unknown;
 					int argSize = 0;
@@ -193,22 +199,6 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.seg_rSI:
 					case OpCodeOperandKind.es_rDI:
 						argKind = ArgKind.Memory;
-
-						// Discard 2nd argument of following instructions (m16_m16/m32_m32/m64_m64)
-						if (i == 1) {
-							switch (name) {
-							case "movsb":
-							case "movsw":
-							case "movsd":
-							case "movsq":
-							case "cmpsb":
-							case "cmpsw":
-							case "cmpsd":
-							case "cmpsq":
-								argKind = ArgKind.HiddenMemory;
-								break;
-							}
-						}
 						break;
 
 					case OpCodeOperandKind.k_or_mem:
@@ -381,10 +371,50 @@ namespace Generator.Assembler {
 				}
 				
 				// Update the selector graph for this group of opcodes
-				group.RootOpCodeNode = BuildSelectorGraph(group);
+				if (!group.HasSpecialInstructionEncoding) {
+					group.RootOpCodeNode = BuildSelectorGraph(group);
+				}
 			}
 			
 			Generate(_groups, orderedGroups);
+		}
+
+		static int GetSpecialArgEncodingInstruction(OpCodeInfo opCodeInfo) {
+			switch ((Code)opCodeInfo.Code.Value) {
+			case Code.Outsb_DX_m8:
+			case Code.Outsw_DX_m16:
+			case Code.Outsd_DX_m32:
+			case Code.Lodsb_AL_m8:
+			case Code.Lodsw_AX_m16:
+			case Code.Lodsd_EAX_m32:
+			case Code.Lodsq_RAX_m64:
+			case Code.Scasb_AL_m8:
+			case Code.Scasw_AX_m16:
+			case Code.Scasd_EAX_m32:
+			case Code.Scasq_RAX_m64:
+			case Code.Insb_m8_DX:
+			case Code.Insw_m16_DX:
+			case Code.Insd_m32_DX:
+			case Code.Stosb_m8_AL:
+			case Code.Stosw_m16_AX:
+			case Code.Stosd_m32_EAX:
+			case Code.Stosq_m64_RAX:
+			case Code.Cmpsb_m8_m8:
+			case Code.Cmpsw_m16_m16:
+			case Code.Cmpsd_m32_m32:
+			case Code.Cmpsq_m64_m64:
+			case Code.Movsb_m8_m8:
+			case Code.Movsw_m16_m16:
+			case Code.Movsd_m32_m32:
+			case Code.Movsq_m64_m64:
+				return 2;
+			case Code.Maskmovq_rDI_mm_mm:
+			case Code.Maskmovdqu_rDI_xmm_xmm:
+			case Code.VEX_Vmaskmovdqu_rDI_xmm_xmm:
+				return 1;
+			}
+
+			return 0;
 		}
 
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group) {
@@ -861,6 +891,7 @@ namespace Generator.Assembler {
 			HasVex = 1 << 6,
 			HasEvex = 1 << 7,
 			HasRegisterMemoryMappedToRegister = 1 << 8,
+			HasSpecialInstructionEncoding = 1 << 9,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
@@ -1344,7 +1375,6 @@ namespace Generator.Assembler {
 			Register,
 			RegisterMemory,
 			Memory,
-			HiddenMemory,
 			Immediate,
 			ImmediateByte,
 			Label,
@@ -1404,6 +1434,8 @@ namespace Generator.Assembler {
 			public OpCodeArgFlags Flags { get; set; }
 			
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
+
+			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
 
 			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear)) != 0;
 

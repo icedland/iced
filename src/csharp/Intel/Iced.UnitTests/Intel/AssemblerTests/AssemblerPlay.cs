@@ -14,7 +14,7 @@ namespace Iced.Intel
 			var label1 = c.CreateLabel();
 
 			var test = Instruction.Create(Code.Mov_RAX_moffs64, Register.RAX, 0x1234567890abcdf);
-						
+			
 			c.push(rax);
 			c.jne(label1);
 			for (int i = 0; i < 4; i++) {
@@ -25,7 +25,12 @@ namespace Iced.Intel
 			
 			c.Label(label1);
 			
-			//c.rep().stosd(__[edi], eax);
+			c.stosb();
+			c.stosw();
+			c.stosd();
+			c.rep().stosd();
+			c.repe().movsd();
+			c.repne().stosd();
 			
 			c.ret();
 
