@@ -88,10 +88,6 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerMemoryOperandFactory gs => new AssemblerMemoryOperandFactory(Size, Register.GS, Flags);
 		/// <summary>
-		/// Use broadcast.
-		/// </summary>
-		public AssemblerMemoryOperandFactory bcst => new AssemblerMemoryOperandFactory(Size, Prefix, Flags | AssemblerOperandFlags.Broadcast);
-		/// <summary>
 		/// Specify the content of the memory operand (Base + Index * Scale + Displacement).
 		/// </summary>
 		/// <param name="operand">Size of this memory operand.</param>

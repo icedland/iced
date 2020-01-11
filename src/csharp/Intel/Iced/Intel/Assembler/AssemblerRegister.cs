@@ -61,11 +61,6 @@ namespace Iced.Intel
 		public readonly AssemblerOperandFlags Flags;
 		
 		/// <summary>
-		/// Apply mask Register K0.
-		/// </summary>
-		public AssemblerRegister k0 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K0);
-		
-		/// <summary>
 		/// Apply mask Register K1.
 		/// </summary>
 		public AssemblerRegister k1 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);

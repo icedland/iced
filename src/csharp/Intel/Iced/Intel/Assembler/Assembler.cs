@@ -177,8 +177,8 @@ namespace Iced.Intel {
 					instruction.ZeroingMasking = true;
 				}
 				if ((flags & AssemblerOperandFlags.RegisterMask) != 0) {
-					// register mask is shift by 2 and index starts at 1
-					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 2) - 1);
+					// register mask is shift by 2 (starts at index 1 for K1)
+					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 2));
 				}
 			}
 			_instructions.Add(instruction);

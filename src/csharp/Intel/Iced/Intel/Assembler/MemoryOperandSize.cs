@@ -51,6 +51,10 @@ namespace Iced.Intel
 		/// </summary>
 		TwordPtr,
 		/// <summary>
+		/// A 16-bit segment + 32-bit address.
+		/// </summary>
+		FwordPtr,
+		/// <summary>
 		/// A 128-bit / xmm pointer.
 		/// </summary>
 		OwordPtr,

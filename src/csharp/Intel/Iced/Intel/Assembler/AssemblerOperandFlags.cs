@@ -42,40 +42,36 @@ namespace Iced.Intel
 		/// </summary>
 		Zeroing = 1 << 1,
 		/// <summary>
-		/// Mask register K0
-		/// </summary>
-		K0 = 1 << 2,
-		/// <summary>
 		/// Mask register K1.
 		/// </summary>
-		K1 = 2 << 2,
+		K1 = 1 << 2,
 		/// <summary>
 		/// Mask register K2.
 		/// </summary>
-		K2 = 3 << 2,
+		K2 = 2 << 2,
 		/// <summary>
 		/// Mask register K3.
 		/// </summary>
-		K3 = 4 << 2,
+		K3 = 3 << 2,
 		/// <summary>
 		/// Mask register K4.
 		/// </summary>
-		K4 = 5 << 2,
+		K4 = 4 << 2,
 		/// <summary>
 		/// Mask register K5.
 		/// </summary>
-		K5 = 6 << 2,
+		K5 = 5 << 2,
 		/// <summary>
 		/// Mask register K6.
 		/// </summary>
-		K6 = 7 << 2,
+		K6 = 6 << 2,
 		/// <summary>
 		/// Mask register K7.
 		/// </summary>
-		K7 = 8 << 2,
+		K7 = 7 << 2,
 		/// <summary>
 		/// Mask for K registers.
 		/// </summary>
-		RegisterMask = 0xF << 2,
+		RegisterMask = 0x3 << 2,
 	}
 }
