@@ -430,5 +430,11 @@ namespace Generator.Encoder.Rust {
 			GenerateCases(filename, "JmpInstr", jmpInstr);
 			GenerateCases(filename, "XbeginInstr", xbeginInstr);
 		}
+
+		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {
+			var filename = Path.Combine(generatorOptions.RustDir, "instruction.rs");
+			GenerateCases(filename, "Vsib32", vsib32);
+			GenerateCases(filename, "Vsib64", vsib64);
+		}
 	}
 }
