@@ -28,9 +28,9 @@ namespace Iced.Intel
 			c.stosb();
 			c.stosw();
 			c.stosd();
-			c.rep().stosd();
-			c.repe().movsd();
-			c.repne().stosd();
+			c.rep.stosd();
+			c.repe.movsd();
+			c.repne.stosd();
 
 			c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax + 4]);
 			

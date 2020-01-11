@@ -190,54 +190,72 @@ namespace Iced.Intel {
 		/// Add lock prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler @lock() {
-			_nextPrefixFlags = PrefixFlags.Lock;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler @lock {
+			get {
+				_nextPrefixFlags = PrefixFlags.Lock;
+				return this;
+			}
 		}
 		
 		/// <summary>
 		/// Add xacquire prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler xacquire() {
-			_nextPrefixFlags = PrefixFlags.Xacquire;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler xacquire {
+			get {
+				_nextPrefixFlags = PrefixFlags.Xacquire;
+				return this;
+			}
 		}
 
 		/// <summary>
 		/// Add xrelease prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler xrelease() {
-			_nextPrefixFlags = PrefixFlags.Xrelease;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler xrelease {
+			 get {
+				 _nextPrefixFlags = PrefixFlags.Xrelease;
+				 return this;
+			 }
 		}
 
 		/// <summary>
 		/// Add rep prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler rep() {
-			_nextPrefixFlags = PrefixFlags.Rep;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler rep {
+			get {
+				_nextPrefixFlags = PrefixFlags.Rep;
+				return this;
+			}
 		}
 
 		/// <summary>
 		/// Add repe prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler repe() {
-			_nextPrefixFlags = PrefixFlags.Repe;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler repe {
+			get {
+				_nextPrefixFlags = PrefixFlags.Repe;
+				return this;
+			}
 		}
 
 		/// <summary>
 		/// Add repne prefix before the next instruction.
 		/// </summary>
 		/// <returns></returns>
-		public Assembler repne() {
-			_nextPrefixFlags = PrefixFlags.Repne;
-			return this;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler repne {
+			get {
+				_nextPrefixFlags = PrefixFlags.Repne;
+				return this;
+			}
 		}
 		
 		/// <summary>
