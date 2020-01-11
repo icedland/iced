@@ -33,7 +33,6 @@ namespace Iced.Intel {
 	public sealed partial class Assembler {
 
 		readonly CodeWriter _writer;
-		readonly List<Label> _labels;
 		readonly List<Instruction> _instructions;
 		ulong _currentLabelId;
 		Label _label;
@@ -50,7 +49,6 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_writer();
 			Bitness = bitness;
 			_writer = writer;
-			_labels = new List<Label>();
 			_instructions = new List<Instruction>();
 			_label = CreateLabel();
 			PreferVex = true;
@@ -87,9 +85,9 @@ namespace Iced.Intel {
 		/// </summary>
 		public void Reset() {
 			_instructions.Clear();
-			_labels.Clear();
 			_currentLabelId = 0;
 			_label = default;
+			_nextPrefixFlags = PrefixFlags.None;
 		}
 
 		/// <summary>
@@ -120,7 +118,6 @@ namespace Iced.Intel {
 		public Label CreateLabel(string? name = null) {
 			_currentLabelId++;
 			var label = new Label(name, _currentLabelId);
-			_labels.Add(label);
 			return label;
 		}
 
