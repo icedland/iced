@@ -394,14 +394,23 @@ namespace Generator.Assembler {
 				var opCodesRAXMOffs = new List<OpCodeInfo>();
 				var newOpCodes = new List<OpCodeInfo>();
 
+				int argIndex = 0;
 				for (var i = 0; i < opcodes.Count; i++) {
 					var opCodeInfo = opcodes[i];
 					// Special case, we want to disambiguate on the register and moffs
 					switch ((Code)opCodeInfo.Code.Value) {
+					case Code.Mov_moffs64_RAX:
+					case Code.Mov_moffs32_EAX:
+					case Code.Mov_moffs16_AX:
+					case Code.Mov_moffs8_AL:
+						argIndex = 0;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_RAX_moffs64:
 					case Code.Mov_EAX_moffs32:
 					case Code.Mov_AX_moffs16:
 					case Code.Mov_AL_moffs8:
+						argIndex = 1;
 						opCodesRAXMOffs.Add(opCodeInfo);
 						break;
 					default:
@@ -411,7 +420,7 @@ namespace Generator.Assembler {
 				}
 
 				if (opCodesRAXMOffs.Count > 0) {
-					return new OpCodeSelector(1, OpCodeSelectorKind.MemOffs64) {IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), IfFalse = BuildSelectorGraph(group, group.Signature, group.Flags, newOpCodes)};
+					return new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs64) {IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), IfFalse = BuildSelectorGraph(group, group.Signature, group.Flags, newOpCodes)};
 				}
 			}
 			

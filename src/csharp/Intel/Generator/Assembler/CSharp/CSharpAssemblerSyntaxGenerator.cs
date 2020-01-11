@@ -214,6 +214,17 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine($"if ({condition}) {{");
 					using (writer.Indent()) {
 						GenerateOpCodeSelector(writer, group, true, selector.IfTrue, args);
+
+						if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
+							var argIndex = selector.ArgIndex;
+							if (argIndex == 1) {
+								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
+							}
+							else {
+								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, (ulong){args[0].Name}.Displacement, {args[1].Name}, {args[0].Name}.Prefix));");
+							}
+							writer.WriteLine("return;");
+						}
 					}
 
 					writer.Write("} else ");

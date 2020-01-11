@@ -16530,20 +16530,26 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
-			if (src == Register.RAX) {
-				op = Code.Mov_moffs64_RAX;
+			if (dst.IsDisplacement64BitOnly) {
+				if (src == Register.RAX) {
+					op = Code.Mov_moffs64_RAX;
+				} else if (src == Register.EAX) {
+					op = Code.Mov_moffs32_EAX;
+				} else if (src == Register.AX) {
+					op = Code.Mov_moffs16_AX;
+				} else if (src == Register.AL) {
+					op = Code.Mov_moffs8_AL;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
+				}
+				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
+				return;
 			} else if (src.IsGPR64()) {
 				op = Code.Mov_rm64_r64;
-			} else if (src == Register.EAX) {
-				op = Code.Mov_moffs32_EAX;
 			} else if (src.IsGPR32()) {
 				op = Code.Mov_rm32_r32;
-			} else if (src == Register.AX) {
-				op = Code.Mov_moffs16_AX;
 			} else if (src.IsGPR16()) {
 				op = Code.Mov_rm16_r16;
-			} else if (src == Register.AL) {
-				op = Code.Mov_moffs8_AL;
 			} else if (src.IsGPR8()) {
 				op = Code.Mov_rm8_r8;
 			} else if (src.IsSegmentRegister()) {
@@ -16686,6 +16692,8 @@ namespace Iced.Intel {
 				} else {
 					throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
 				}
+				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
+				return;
 			} else if (dst.IsGPR64()) {
 				op = Code.Mov_r64_rm64;
 			} else if (dst.IsGPR32()) {
