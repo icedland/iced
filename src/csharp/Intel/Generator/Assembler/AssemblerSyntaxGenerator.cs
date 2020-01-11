@@ -8,6 +8,7 @@ using Generator.Decoder;
 using Generator.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
+using Generator.Tables;
 
 namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
@@ -208,14 +209,7 @@ namespace Generator.Assembler {
 						argKind = ArgKind.RegisterMemory;
 						break;
 					
-					case OpCodeOperandKind.mem8_offs:
 					case OpCodeOperandKind.mem:
-					case OpCodeOperandKind.mem8:
-					case OpCodeOperandKind.mem16:
-					case OpCodeOperandKind.mem32:
-					case OpCodeOperandKind.mem64:
-					case OpCodeOperandKind.mem80:
-					case OpCodeOperandKind.mem128:
 					case OpCodeOperandKind.mem_mpx:
 					case OpCodeOperandKind.mem_mib:
 					case OpCodeOperandKind.mem_vsib32x:
@@ -234,9 +228,10 @@ namespace Generator.Assembler {
 						break;
 
 					// Because We encode only relative byte encoding by default 
+					case OpCodeOperandKind.br16_2: // SHORT
 					case OpCodeOperandKind.br32_4: // NEAR
 					case OpCodeOperandKind.br64_4: // NEAR
-					case OpCodeOperandKind.br16_2: // SHORT
+						argKind = ArgKind.Unknown;
 						isSkipOk = true;
 						break;
 
@@ -247,6 +242,15 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.br64_1:
 						argKind = ArgKind.Branch;
 						opCodeArgFlags |= OpCodeArgFlags.HasBranchShort;
+
+						if (code is LegacyOpCodeInfo legacy) {
+							if (legacy.OperandSize != OperandSize.None || legacy.AddressSize != AddressSize.None) {
+								if (legacy.OperandSize != (OperandSize)legacy.AddressSize) {
+									argKind = ArgKind.Unknown;
+									isSkipOk = true;
+								}
+							}
+						}
 						break;
 					
 					case OpCodeOperandKind.imm8_const_1:
@@ -289,6 +293,17 @@ namespace Generator.Assembler {
 						argKind = ArgKind.Immediate;
 						argSize = 8;
 						break;
+					
+					case OpCodeOperandKind.mem_offs:
+					
+						if (i == 0) {
+							argKind = ArgKind.Memory;
+						}
+						else {
+							argKind = ArgKind.Immediate;
+							argSize = 8;
+						}
+						break;
 					}
 					
 					if (argKind == ArgKind.Unknown) {
@@ -313,6 +328,9 @@ namespace Generator.Assembler {
 				else {
 					if (!isSkipOk) {
 						Console.WriteLine($"TODO: {code.GetType().Name} {memoName.ToLowerInvariant()} => {code.Code.RawName} not supported yet");
+					}
+					else {
+						Console.WriteLine($"Discarding OK: {code.GetType().Name} {memoName.ToLowerInvariant()} => {code.Code.RawName}");
 					}
 				}
 			}
@@ -580,7 +598,7 @@ namespace Generator.Assembler {
 				foreach (var opCodeInfo in opcodes)
 				{
 					var argOpKind = opCodeInfo.OpKind(argIndex);
-					var conditionKind = GetSelectorKindForRegisterOrMemory(argOpKind, (argFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0);
+					var conditionKind = GetSelectorKindForRegisterOrMemory(argOpKind, GetMemoryAddressSize(opCodeInfo), (argFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0);
 					selectors.Add(conditionKind, opCodeInfo);
 				}
 
@@ -597,6 +615,29 @@ namespace Generator.Assembler {
 
 			// Select the biggest selector
 			return selectorsList.First(x => x.Count == selectorsList.Max(x => x.Count));
+		}
+
+		static int GetMemoryAddressSize(OpCodeInfo opCodeInfo) {
+			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
+			switch (memSize) {
+			case MemorySize.SegPtr16:
+				memSize = MemorySize.UInt16;
+				break;
+			case MemorySize.SegPtr32:
+				memSize = MemorySize.UInt32;
+				break;
+			case MemorySize.SegPtr64:
+				memSize = MemorySize.UInt64;
+				break;
+			case MemorySize.Fword6:
+				memSize = MemorySize.UInt32;
+				break;
+			case MemorySize.Fword10:
+				memSize = MemorySize.UInt64;
+				break;
+			}
+			var addressSize = MemorySizeInfoTable.Data[(int)memSize].Size;
+			return addressSize * 8;
 		}
 
 		[DebuggerDisplay("Count = {Count}")]
@@ -619,7 +660,7 @@ namespace Generator.Assembler {
 		}
 		
 	
-		static int GetPriorityFromKind(OpCodeOperandKind kind) {
+		static int GetPriorityFromKind(OpCodeOperandKind kind, int addressSize) {
 			switch (kind) {
 
 			case OpCodeOperandKind.zmm_reg:
@@ -636,7 +677,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.ymm_vvvv:
 			case OpCodeOperandKind.ymm_rm:
 			case OpCodeOperandKind.ymm_or_mem:
-			case OpCodeOperandKind.mem128:
 			case OpCodeOperandKind.mem_vsib32y:
 			case OpCodeOperandKind.mem_vsib64y:
 				return -20;
@@ -663,7 +703,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.imm32sex64:							
 			case OpCodeOperandKind.imm64:
 			case OpCodeOperandKind.r64_rm:
-			case OpCodeOperandKind.mem64:
 				return 10;
 
 			case OpCodeOperandKind.eax:
@@ -677,7 +716,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r32_or_mem_mpx:
 			case OpCodeOperandKind.imm32:
 			case OpCodeOperandKind.r32_rm:
-			case OpCodeOperandKind.mem32:
 				return 20;
 
 			case OpCodeOperandKind.ax:
@@ -688,7 +726,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_or_mem:
 			case OpCodeOperandKind.imm16: 
-			case OpCodeOperandKind.mem16:
 				return 30;
 
 			case OpCodeOperandKind.imm8_const_1:
@@ -701,19 +738,34 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r8_opcode:
 			case OpCodeOperandKind.r8_reg:
 			case OpCodeOperandKind.r8_or_mem:
-			case OpCodeOperandKind.mem:
 			case OpCodeOperandKind.imm8:
 			case OpCodeOperandKind.imm8sex16:
 			case OpCodeOperandKind.imm8sex32:
 			case OpCodeOperandKind.imm8sex64:
-			case OpCodeOperandKind.mem8:
-			case OpCodeOperandKind.mem8_offs:
 				return 50;
+
+			case OpCodeOperandKind.mem:
+			case OpCodeOperandKind.mem_offs:
+			case OpCodeOperandKind.mem_mpx:
+			case OpCodeOperandKind.mem_mib:
+				switch (addressSize) {
+				case 64:
+					return 10;
+				case 32:
+					return 20;
+				case 16:
+					return 30;
+				case 8:
+					return 50;
+				}
+				return int.MaxValue;
 			
 			case OpCodeOperandKind.seg_reg:
 				return 60;
 			
 			default:
+				
+				
 				return int.MaxValue;
 			}
 		}
@@ -739,7 +791,7 @@ namespace Generator.Assembler {
 				bool isValid = true;
 				for (int i = 0; i < code.OpKindsLength; i++)
 				{
-					var argKind = GetFilterRegisterKindFromOpKind(code.OpKind(i), allowMemory);
+					var argKind = GetFilterRegisterKindFromOpKind(code.OpKind(i), GetMemoryAddressSize(code), allowMemory);
 					if (argKind == ArgKind.Unknown)
 					{
 						isValid = false;
@@ -756,7 +808,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		private ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKind opKind, bool allowMemory) {
+		private ArgKind GetFilterRegisterKindFromOpKind(OpCodeOperandKind opKind, int addressSize, bool allowMemory) {
 			switch (opKind) {
 			case OpCodeOperandKind.st0:
 			case OpCodeOperandKind.sti_opcode:
@@ -879,12 +931,26 @@ namespace Generator.Assembler {
 				case OpCodeOperandKind.k_or_mem:
 					return ArgKind.FilterRegisterK;
 				case OpCodeOperandKind.xmm_or_mem:
-				case OpCodeOperandKind.mem:
 					return ArgKind.FilterRegisterXmm;
 				case OpCodeOperandKind.ymm_or_mem:
 					return ArgKind.FilterRegisterYmm;
 				case OpCodeOperandKind.zmm_or_mem:
 					return ArgKind.FilterRegisterZmm;
+				case OpCodeOperandKind.mem:
+				case OpCodeOperandKind.mem_offs:
+				case OpCodeOperandKind.mem_mpx:
+				case OpCodeOperandKind.mem_mib:
+					switch (addressSize) {
+					case 64:
+						return ArgKind.FilterRegister64;
+					case 32:
+						return ArgKind.FilterRegister32;
+					case 16:
+						return ArgKind.FilterRegister16;
+					case 8:
+						return ArgKind.FilterRegister8;
+					}
+					break;
 				}
 			}
 			
@@ -905,30 +971,30 @@ namespace Generator.Assembler {
 			return false;
 		}
 		
-		protected static OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(OpCodeOperandKind opKind, bool returnMemoryAsRegister) {
+		protected static OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(OpCodeOperandKind opKind, int addressSize, bool returnMemoryAsRegister) {
 
 			switch (opKind) {
-		
+
 			case OpCodeOperandKind.mem:
+			case OpCodeOperandKind.mem_offs:
 			case OpCodeOperandKind.mem_mpx:
-				return OpCodeSelectorKind.Memory;
-			
-			case OpCodeOperandKind.mem8:
 			case OpCodeOperandKind.mem_mib:
-			case OpCodeOperandKind.mem8_offs:
-				return OpCodeSelectorKind.Memory8;
-			case OpCodeOperandKind.mem16:
-				return OpCodeSelectorKind.Memory16;
-			case OpCodeOperandKind.mem32:
-				return OpCodeSelectorKind.Memory32;
-			case OpCodeOperandKind.mem64:
-				return OpCodeSelectorKind.Memory64;
-			case OpCodeOperandKind.mem80:
-				return OpCodeSelectorKind.Memory80;
-			case OpCodeOperandKind.memK:
-				return OpCodeSelectorKind.MemoryK;
+			{
+				switch (addressSize) {
+				case 80:
+					return OpCodeSelectorKind.Memory80;
+				case 64:
+					return OpCodeSelectorKind.Memory64;
+				case 32:
+					return OpCodeSelectorKind.Memory32;
+				case 16:
+					return OpCodeSelectorKind.Memory16;
+				case 8:
+					return OpCodeSelectorKind.Memory8;
+				}
+				return OpCodeSelectorKind.Memory;
+			}
 			
-			case OpCodeOperandKind.mem128:
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
 				return OpCodeSelectorKind.MemoryXMM;
@@ -1293,13 +1359,13 @@ namespace Generator.Assembler {
 				Debug.Assert(x.OpKindsLength == y.OpKindsLength);
 				for (int i = 0; i < x.OpKindsLength; i++) {
 					if (Signature.GetArgKind(i) != ArgKind.Register) continue;  
-					var result = GetPriorityFromKind(x.OpKind(i)).CompareTo(GetPriorityFromKind(y.OpKind(i)));
+					var result = GetPriorityFromKind(x.OpKind(i), GetMemoryAddressSize(x)).CompareTo(GetPriorityFromKind(y.OpKind(i), GetMemoryAddressSize(y)));
 					if (result != 0) return result;
 				}
 
 				for (int i = 0; i < x.OpKindsLength; i++) {
 					if (Signature.GetArgKind(i) == ArgKind.Register) continue;  
-					var result = GetPriorityFromKind(x.OpKind(i)).CompareTo(GetPriorityFromKind(y.OpKind(i)));
+					var result = GetPriorityFromKind(x.OpKind(i), GetMemoryAddressSize(x)).CompareTo(GetPriorityFromKind(y.OpKind(i), GetMemoryAddressSize(y)));
 					if (result != 0) return result;
 				}
 				

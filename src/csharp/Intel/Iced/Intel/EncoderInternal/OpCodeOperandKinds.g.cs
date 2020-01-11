@@ -37,28 +37,28 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.farbr2_2,// Aww
 			(byte)OpCodeOperandKind.farbr4_2,// Adw
 			(byte)OpCodeOperandKind.mem,// M
-			(byte)OpCodeOperandKind.mem80,// Mfbcd
-			(byte)OpCodeOperandKind.mem32,// Mf32
-			(byte)OpCodeOperandKind.mem64,// Mf64
-			(byte)OpCodeOperandKind.mem80,// Mf80
-			(byte)OpCodeOperandKind.mem16,// Mfi16
-			(byte)OpCodeOperandKind.mem32,// Mfi32
-			(byte)OpCodeOperandKind.mem64,// Mfi64
+			(byte)OpCodeOperandKind.mem,// Mfbcd
+			(byte)OpCodeOperandKind.mem,// Mf32
+			(byte)OpCodeOperandKind.mem,// Mf64
+			(byte)OpCodeOperandKind.mem,// Mf80
+			(byte)OpCodeOperandKind.mem,// Mfi16
+			(byte)OpCodeOperandKind.mem,// Mfi32
+			(byte)OpCodeOperandKind.mem,// Mfi64
 			(byte)OpCodeOperandKind.mem,// M14
 			(byte)OpCodeOperandKind.mem,// M28
 			(byte)OpCodeOperandKind.mem,// M98
 			(byte)OpCodeOperandKind.mem,// M108
-			(byte)OpCodeOperandKind.mem16,// Mp
-			(byte)OpCodeOperandKind.mem16,// Ms
-			(byte)OpCodeOperandKind.mem128,// Mo
-			(byte)OpCodeOperandKind.mem8,// Mb
-			(byte)OpCodeOperandKind.mem16,// Mw
-			(byte)OpCodeOperandKind.mem32,// Md
+			(byte)OpCodeOperandKind.mem,// Mp
+			(byte)OpCodeOperandKind.mem,// Ms
+			(byte)OpCodeOperandKind.mem,// Mo
+			(byte)OpCodeOperandKind.mem,// Mb
+			(byte)OpCodeOperandKind.mem,// Mw
+			(byte)OpCodeOperandKind.mem,// Md
 			(byte)OpCodeOperandKind.mem_mpx,// Md_MPX
-			(byte)OpCodeOperandKind.mem64,// Mq
+			(byte)OpCodeOperandKind.mem,// Mq
 			(byte)OpCodeOperandKind.mem_mpx,// Mq_MPX
-			(byte)OpCodeOperandKind.mem16,// Mw2
-			(byte)OpCodeOperandKind.mem32,// Md2
+			(byte)OpCodeOperandKind.mem,// Mw2
+			(byte)OpCodeOperandKind.mem,// Md2
 			(byte)OpCodeOperandKind.r8_or_mem,// Eb
 			(byte)OpCodeOperandKind.r16_or_mem,// Ew
 			(byte)OpCodeOperandKind.r32_or_mem,// Ed
@@ -67,9 +67,9 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.r64_or_mem,// Ew_q
 			(byte)OpCodeOperandKind.r64_or_mem,// Eq
 			(byte)OpCodeOperandKind.r64_or_mem_mpx,// Eq_MPX
-			(byte)OpCodeOperandKind.mem16,// Eww
-			(byte)OpCodeOperandKind.mem32,// Edw
-			(byte)OpCodeOperandKind.mem64,// Eqw
+			(byte)OpCodeOperandKind.mem,// Eww
+			(byte)OpCodeOperandKind.mem,// Edw
+			(byte)OpCodeOperandKind.mem,// Eqw
 			(byte)OpCodeOperandKind.r32_or_mem,// RdMb
 			(byte)OpCodeOperandKind.r64_or_mem,// RqMb
 			(byte)OpCodeOperandKind.r32_or_mem,// RdMw
@@ -116,10 +116,10 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.xbegin_4,// Jxd
 			(byte)OpCodeOperandKind.brdisp_2,// Jdisp16
 			(byte)OpCodeOperandKind.brdisp_4,// Jdisp32
-			(byte)OpCodeOperandKind.mem8_offs,// Ob
-			(byte)OpCodeOperandKind.mem16_offs,// Ow
-			(byte)OpCodeOperandKind.mem32_offs,// Od
-			(byte)OpCodeOperandKind.mem64_offs,// Oq
+			(byte)OpCodeOperandKind.mem_offs,// Ob
+			(byte)OpCodeOperandKind.mem_offs,// Ow
+			(byte)OpCodeOperandKind.mem_offs,// Od
+			(byte)OpCodeOperandKind.mem_offs,// Oq
 			(byte)OpCodeOperandKind.imm8_const_1,// Imm1
 			(byte)OpCodeOperandKind.bnd_reg,// B
 			(byte)OpCodeOperandKind.bnd_or_mem_mpx,// BMq
@@ -180,8 +180,8 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.xmm_is5,// Is5X
 			(byte)OpCodeOperandKind.ymm_is5,// Is5Y
 			(byte)OpCodeOperandKind.mem,// M
-			(byte)OpCodeOperandKind.mem32,// Md
-			(byte)OpCodeOperandKind.memK,// MK
+			(byte)OpCodeOperandKind.mem,// Md
+			(byte)OpCodeOperandKind.mem,// MK
 			(byte)OpCodeOperandKind.seg_rDI,// rDI
 			(byte)OpCodeOperandKind.k_rm,// RK
 			(byte)OpCodeOperandKind.xmm_rm,// RX

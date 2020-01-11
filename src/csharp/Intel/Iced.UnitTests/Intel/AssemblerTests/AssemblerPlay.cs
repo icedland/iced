@@ -12,6 +12,8 @@ namespace Iced.Intel
 			var c = Assembler.Create(64, new MyCodeWriter());
 
 			var label1 = c.CreateLabel();
+
+			var test = Instruction.Create(Code.Mov_RAX_moffs64, Register.RAX, 0x1234567890abcdf);
 						
 			c.push(rax);
 			c.jne(label1);

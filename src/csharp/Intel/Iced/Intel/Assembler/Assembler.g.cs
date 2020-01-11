@@ -3229,29 +3229,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>BNDMK bnd, m32</c><br/>
-		/// <br/>
-		/// <c>F3 0F 1B /r</c><br/>
-		/// <br/>
-		/// <c>MPX</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>BNDMK bnd, m64</c><br/>
 		/// <br/>
 		/// <c>F3 0F 1B /r</c><br/>
 		/// <br/>
 		/// <c>MPX</c><br/>
 		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>BNDMK bnd, m32</c><br/>
+		/// <br/>
+		/// <c>F3 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>MPX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
 		public void bndmk(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness >= 16) {
-				op = Code.Bndmk_bnd_m32;
-			} else if (Bitness == 64) {
+			if (src.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bndmk_bnd_m64;
+			} else if (src.Size == MemoryOperandSize.DwordPtr) {
+				op = Code.Bndmk_bnd_m32;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Bndmk, dst, src);
 			}
@@ -12925,42 +12925,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JA rel8</c><br/>
-		/// <br/>
-		/// <c>o32 77 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JA rel8</c><br/>
-		/// <br/>
-		/// <c>o16 77 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void ja(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Ja_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Ja_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Ja_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
-			}
+			op = Code.Ja_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jae instruction.<br/>
@@ -12973,42 +12941,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JAE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 73 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JAE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 73 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jae(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jae_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jae_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jae_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
-			}
+			op = Code.Jae_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jb instruction.<br/>
@@ -13021,42 +12957,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JB rel8</c><br/>
-		/// <br/>
-		/// <c>o32 72 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JB rel8</c><br/>
-		/// <br/>
-		/// <c>o16 72 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jb(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jb_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jb_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jb_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
-			}
+			op = Code.Jb_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jbe instruction.<br/>
@@ -13069,55 +12973,13 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JBE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 76 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JBE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 76 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jbe(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jbe_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jbe_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jbe_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
-			}
+			op = Code.Jbe_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jcxz instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JCXZ rel8</c><br/>
-		/// <br/>
-		/// <c>a16 o32 E3 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -13130,17 +12992,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void jcxz(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness >= 32) {
-					op = Code.Jcxz_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jcxz_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jcxz, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jcxz, dst);
-			}
+			op = Code.Jcxz_rel8_16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>je instruction.<br/>
@@ -13153,55 +13005,13 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 74 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 74 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void je(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Je_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Je_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Je_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Je, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Je, dst);
-			}
+			op = Code.Je_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jecxz instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JECXZ rel8</c><br/>
-		/// <br/>
-		/// <c>a32 E3 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -13211,32 +13021,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>386+</c><br/>
 		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JECXZ rel8</c><br/>
-		/// <br/>
-		/// <c>a32 o16 E3 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>16/32-bit</c></summary>
 		public void jecxz(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jecxz_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jecxz_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jecxz_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jecxz, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jecxz, dst);
-			}
+			op = Code.Jecxz_rel8_32;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jg instruction.<br/>
@@ -13249,42 +13037,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JG rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7F cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JG rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7F cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jg(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jg_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jg_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jg_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
-			}
+			op = Code.Jg_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jge instruction.<br/>
@@ -13297,42 +13053,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JGE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7D cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JGE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7D cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jge(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jge_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jge_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jge_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
-			}
+			op = Code.Jge_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jl instruction.<br/>
@@ -13345,42 +13069,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JL rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7C cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JL rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7C cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jl(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jl_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jl_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jl_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
-			}
+			op = Code.Jl_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jle instruction.<br/>
@@ -13393,42 +13085,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JLE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7E cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JLE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7E cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jle(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jle_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jle_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jle_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
-			}
+			op = Code.Jle_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jmp instruction.<br/>
@@ -13559,42 +13219,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JMP rel8</c><br/>
-		/// <br/>
-		/// <c>o32 EB cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JMP rel8</c><br/>
-		/// <br/>
-		/// <c>o16 EB cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jmp(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jmp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jmp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jmp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
-			}
+			op = Code.Jmp_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jmpe instruction.<br/>
@@ -13671,20 +13299,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>IA-64</c><br/>
 		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JMPE disp16</c><br/>
-		/// <br/>
-		/// <c>o16 0F B8 cw</c><br/>
-		/// <br/>
-		/// <c>IA-64</c><br/>
-		/// <br/>
 		/// <c>16/32-bit</c></summary>
 		public void jmpe(Label dst) {
 			Code op;
-			op = PreferBranchShort ? Code.Jmpe_disp16 : Code.Jmpe_disp32;
+			op = Code.Jmpe_disp32;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jne instruction.<br/>
@@ -13697,42 +13315,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNE rel8</c><br/>
-		/// <br/>
-		/// <c>o32 75 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNE rel8</c><br/>
-		/// <br/>
-		/// <c>o16 75 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jne(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jne_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jne_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jne_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
-			}
+			op = Code.Jne_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jno instruction.<br/>
@@ -13745,42 +13331,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNO rel8</c><br/>
-		/// <br/>
-		/// <c>o32 71 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNO rel8</c><br/>
-		/// <br/>
-		/// <c>o16 71 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jno(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jno_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jno_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jno_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
-			}
+			op = Code.Jno_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jnp instruction.<br/>
@@ -13793,42 +13347,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNP rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7B cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNP rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7B cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jnp(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jnp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jnp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jnp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
-			}
+			op = Code.Jnp_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jns instruction.<br/>
@@ -13841,42 +13363,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNS rel8</c><br/>
-		/// <br/>
-		/// <c>o32 79 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JNS rel8</c><br/>
-		/// <br/>
-		/// <c>o16 79 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jns(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jns_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jns_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jns_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
-			}
+			op = Code.Jns_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jo instruction.<br/>
@@ -13889,42 +13379,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JO rel8</c><br/>
-		/// <br/>
-		/// <c>o32 70 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JO rel8</c><br/>
-		/// <br/>
-		/// <c>o16 70 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jo(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jo_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jo_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jo_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
-			}
+			op = Code.Jo_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jp instruction.<br/>
@@ -13937,42 +13395,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JP rel8</c><br/>
-		/// <br/>
-		/// <c>o32 7A cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JP rel8</c><br/>
-		/// <br/>
-		/// <c>o16 7A cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void jp(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
-			}
+			op = Code.Jp_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jrcxz instruction.<br/>
@@ -13985,30 +13411,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JRCXZ rel8</c><br/>
-		/// <br/>
-		/// <c>o16 E3 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void jrcxz(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Jrcxz_rel8_64;
-				} else if (Bitness >= 16) {
-					op = Code.Jrcxz_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jrcxz, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jrcxz, dst);
-			}
+			op = Code.Jrcxz_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>js instruction.<br/>
@@ -14021,42 +13427,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>X64</c><br/>
 		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JS rel8</c><br/>
-		/// <br/>
-		/// <c>o32 78 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JS rel8</c><br/>
-		/// <br/>
-		/// <c>o16 78 cb</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
+		/// <c>64-bit</c></summary>
 		public void js(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Js_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Js_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Js_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Js, dst);
-				}
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Js, dst);
-			}
+			op = Code.Js_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>kaddb instruction.<br/>
@@ -14303,6 +13677,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>KMOVB m8, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.66.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512DQ</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovb(AssemblerMemoryOperand dst, AssemblerRegister src) {
+			Code op;
+			op = Code.VEX_Kmovb_m8_k;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>KMOVB k1, k2/m8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 90 /r</c><br/>
@@ -14361,6 +13751,22 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Kmovd, dst, src);
 			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>KMOVD m32, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.66.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512BW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovd(AssemblerMemoryOperand dst, AssemblerRegister src) {
+			Code op;
+			op = Code.VEX_Kmovd_m32_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -14431,6 +13837,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>KMOVQ m64, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.0F.W1 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512BW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovq(AssemblerMemoryOperand dst, AssemblerRegister src) {
+			Code op;
+			op = Code.VEX_Kmovq_m64_k;
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>KMOVQ k1, k2/m64</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 90 /r</c><br/>
@@ -14489,6 +13911,22 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Kmovw, dst, src);
 			}
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>kmovw instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>KMOVW m16, k1</c><br/>
+		/// <br/>
+		/// <c>VEX.L0.0F.W0 91 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void kmovw(AssemblerMemoryOperand dst, AssemblerRegister src) {
+			Code op;
+			op = Code.VEX_Kmovw_m16_k;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -15448,12 +14886,16 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void lgdt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Lgdt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Lgdt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Lgdt_m1632_16;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				if (Bitness >= 32) {
+					op = Code.Lgdt_m1632;
+				} else if (Bitness >= 16) {
+					op = Code.Lgdt_m1632_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Lgdt, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Lgdt, dst);
 			}
@@ -15536,12 +14978,16 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void lidt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Lidt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Lidt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Lidt_m1632_16;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				if (Bitness >= 32) {
+					op = Code.Lidt_m1632;
+				} else if (Bitness >= 16) {
+					op = Code.Lidt_m1632_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Lidt, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Lidt, dst);
 			}
@@ -15851,47 +15297,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOP rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E2 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOP rel8</c><br/>
-		/// <br/>
-		/// <c>a32 E2 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOP rel8</c><br/>
-		/// <br/>
 		/// <c>a32 o32 E2 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOP rel8</c><br/>
-		/// <br/>
-		/// <c>a32 o16 E2 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOP rel8</c><br/>
-		/// <br/>
-		/// <c>a16 o32 E2 cb</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
 		/// <br/>
@@ -15909,7 +15315,15 @@ namespace Iced.Intel {
 		public void loop(Label dst) {
 			Code op;
 			if (PreferBranchShort) {
-				op = Code.Loop_rel8_64_RCX;
+				if (Bitness == 64) {
+					op = Code.Loop_rel8_64_RCX;
+				} else if (Bitness >= 32) {
+					op = Code.Loop_rel8_32_ECX;
+				} else if (Bitness >= 16) {
+					op = Code.Loop_rel8_16_CX;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
 			}
@@ -15931,47 +15345,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPE rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E1 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPE rel8</c><br/>
-		/// <br/>
-		/// <c>a32 E1 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPE rel8</c><br/>
-		/// <br/>
 		/// <c>a32 o32 E1 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPE rel8</c><br/>
-		/// <br/>
-		/// <c>a32 o16 E1 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPE rel8</c><br/>
-		/// <br/>
-		/// <c>a16 o32 E1 cb</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
 		/// <br/>
@@ -15989,7 +15363,15 @@ namespace Iced.Intel {
 		public void loope(Label dst) {
 			Code op;
 			if (PreferBranchShort) {
-				op = Code.Loope_rel8_64_RCX;
+				if (Bitness == 64) {
+					op = Code.Loope_rel8_64_RCX;
+				} else if (Bitness >= 32) {
+					op = Code.Loope_rel8_32_ECX;
+				} else if (Bitness >= 16) {
+					op = Code.Loope_rel8_16_CX;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
 			}
@@ -16011,47 +15393,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>LOOPNE rel8</c><br/>
 		/// <br/>
-		/// <c>o16 E0 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPNE rel8</c><br/>
-		/// <br/>
-		/// <c>a32 E0 cb</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPNE rel8</c><br/>
-		/// <br/>
 		/// <c>a32 o32 E0 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPNE rel8</c><br/>
-		/// <br/>
-		/// <c>a32 o16 E0 cb</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LOOPNE rel8</c><br/>
-		/// <br/>
-		/// <c>a16 o32 E0 cb</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
 		/// <br/>
@@ -16069,7 +15411,15 @@ namespace Iced.Intel {
 		public void loopne(Label dst) {
 			Code op;
 			if (PreferBranchShort) {
-				op = Code.Loopne_rel8_64_RCX;
+				if (Bitness == 64) {
+					op = Code.Loopne_rel8_64_RCX;
+				} else if (Bitness >= 32) {
+					op = Code.Loopne_rel8_32_ECX;
+				} else if (Bitness >= 16) {
+					op = Code.Loopne_rel8_16_CX;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
 			}
@@ -17131,6 +16481,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV moffs64, RAX</c><br/>
+		/// <br/>
+		/// <c>REX.W A3 mo</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r/m64, r64</c><br/>
 		/// <br/>
 		/// <c>REX.W 89 /r</c><br/>
@@ -17141,11 +16501,31 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV moffs32, EAX</c><br/>
+		/// <br/>
+		/// <c>o32 A3 mo</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r/m32, r32</c><br/>
 		/// <br/>
 		/// <c>o32 89 /r</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV moffs16, AX</c><br/>
+		/// <br/>
+		/// <c>o16 A3 mo</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -17210,10 +16590,16 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
-			if (src.IsGPR64()) {
+			if (src == Register.RAX) {
+				op = Code.Mov_moffs64_RAX;
+			} else if (src.IsGPR64()) {
 				op = Code.Mov_rm64_r64;
+			} else if (src == Register.EAX) {
+				op = Code.Mov_moffs32_EAX;
 			} else if (src.IsGPR32()) {
 				op = Code.Mov_rm32_r32;
+			} else if (src == Register.AX) {
+				op = Code.Mov_moffs16_AX;
 			} else if (src.IsGPR16()) {
 				op = Code.Mov_rm16_r16;
 			} else if (src == Register.AL) {
@@ -17269,16 +16655,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOV AL, moffs8</c><br/>
-		/// <br/>
-		/// <c>A0 mo</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOV r8, r/m8</c><br/>
 		/// <br/>
 		/// <c>8A /r</c><br/>
@@ -17324,8 +16700,6 @@ namespace Iced.Intel {
 				op = Code.Mov_r32_rm32;
 			} else if (dst.IsGPR16()) {
 				op = Code.Mov_r16_rm16;
-			} else if (dst == Register.AL) {
-				op = Code.Mov_AL_moffs8;
 			} else if (dst.IsGPR8()) {
 				op = Code.Mov_r8_rm8;
 			} else if (dst.IsSegmentRegister()) {
@@ -17347,6 +16721,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV RAX, moffs64</c><br/>
+		/// <br/>
+		/// <c>REX.W A1 mo</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r64, imm64</c><br/>
 		/// <br/>
 		/// <c>REX.W B8+ro io</c><br/>
@@ -17354,6 +16738,16 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV EAX, moffs32</c><br/>
+		/// <br/>
+		/// <c>o32 A1 mo</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -17367,21 +16761,49 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV AX, moffs16</c><br/>
+		/// <br/>
+		/// <c>o16 A1 mo</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r16, imm16</c><br/>
 		/// <br/>
 		/// <c>o16 B8+rw iw</c><br/>
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV AL, moffs8</c><br/>
+		/// <br/>
+		/// <c>A0 mo</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister dst, long imm) {
 			Code op;
-			if (dst.IsGPR64()) {
+			if (dst == Register.RAX) {
+				op = Code.Mov_RAX_moffs64;
+			} else if (dst.IsGPR64()) {
 				op = Code.Mov_r64_imm64;
+			} else if (dst == Register.EAX) {
+				op = Code.Mov_EAX_moffs32;
 			} else if (dst.IsGPR32()) {
 				op = Code.Mov_r32_imm32;
+			} else if (dst == Register.AX) {
+				op = Code.Mov_AX_moffs16;
 			} else if (dst.IsGPR16()) {
 				op = Code.Mov_r16_imm16;
+			} else if (dst == Register.AL) {
+				op = Code.Mov_AL_moffs8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
 			}
@@ -32796,12 +32218,16 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void sgdt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sgdt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Sgdt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Sgdt_m1632_16;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				if (Bitness >= 32) {
+					op = Code.Sgdt_m1632;
+				} else if (Bitness >= 16) {
+					op = Code.Sgdt_m1632_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Sgdt, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sgdt, dst);
 			}
@@ -34264,12 +33690,16 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void sidt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Sidt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Sidt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Sidt_m1632_16;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				if (Bitness >= 32) {
+					op = Code.Sidt_m1632;
+				} else if (Bitness >= 16) {
+					op = Code.Sidt_m1632_16;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Sidt, dst);
+				}
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sidt, dst);
 			}
@@ -92117,20 +91547,10 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>RTM</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>XBEGIN rel16</c><br/>
-		/// <br/>
-		/// <c>o16 C7 F8 cw</c><br/>
-		/// <br/>
-		/// <c>RTM</c><br/>
-		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void xbegin(Label dst) {
 			Code op;
-			op = PreferBranchShort ? Code.Xbegin_rel16 : Code.Xbegin_rel32;
+			op = Code.Xbegin_rel32;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>xbts instruction.<br/>

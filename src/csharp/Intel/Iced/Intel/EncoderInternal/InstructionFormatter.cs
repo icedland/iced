@@ -362,18 +362,8 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.None:
 				case OpCodeOperandKind.farbr2_2:
 				case OpCodeOperandKind.farbr4_2:
-				case OpCodeOperandKind.mem8_offs:
-				case OpCodeOperandKind.mem16_offs:
-				case OpCodeOperandKind.mem32_offs:
-				case OpCodeOperandKind.mem64_offs:
+				case OpCodeOperandKind.mem_offs:
 				case OpCodeOperandKind.mem:
-				case OpCodeOperandKind.memK:
-				case OpCodeOperandKind.mem8:
-				case OpCodeOperandKind.mem16:
-				case OpCodeOperandKind.mem32:
-				case OpCodeOperandKind.mem64:
-				case OpCodeOperandKind.mem80:
-				case OpCodeOperandKind.mem128:
 				case OpCodeOperandKind.mem_mpx:
 				case OpCodeOperandKind.mem_mib:
 				case OpCodeOperandKind.mem_vsib32x:
@@ -518,20 +508,12 @@ namespace Iced.Intel.EncoderInternal {
 						sb.Append("ptr16:32");
 						break;
 
-					case OpCodeOperandKind.mem32_offs:
-					case OpCodeOperandKind.mem64_offs:
+					case OpCodeOperandKind.mem_offs:
 						sb.Append("moffs");
 						WriteMemorySize(GetMemorySize(isBroadcast: false));
 						break;
 
 					case OpCodeOperandKind.mem:
-					case OpCodeOperandKind.memK:
-					case OpCodeOperandKind.mem8:
-					case OpCodeOperandKind.mem16:
-					case OpCodeOperandKind.mem32:
-					case OpCodeOperandKind.mem64:
-					case OpCodeOperandKind.mem80:
-					case OpCodeOperandKind.mem128:
 						WriteMemory();
 						break;
 

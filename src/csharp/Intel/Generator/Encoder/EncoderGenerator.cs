@@ -307,12 +307,6 @@ namespace Generator.Encoder {
 			var opCodeOperandKind = OpCodeOperandKindEnum.Instance;
 			var hasModRM = new EnumValue[] {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem8)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem16)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem32)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem64)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem128)],
-				opCodeOperandKind[nameof(OpCodeOperandKind.mem80)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_mpx)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_mib)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_vsib32x)],

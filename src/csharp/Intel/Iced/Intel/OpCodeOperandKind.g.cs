@@ -35,37 +35,17 @@ namespace Iced.Intel {
 		farbr2_2,
 		/// <summary>Far branch 32-bit offset, 16-bit segment/selector</summary>
 		farbr4_2,
-		/// <summary>8-bit Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
-		mem8_offs,
-		/// <summary>16-bit Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
-		mem16_offs,
-		/// <summary>32-bit Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
-		mem32_offs,
-		/// <summary>64-bit Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
-		mem64_offs,
+		/// <summary>Memory offset without a modrm byte (eg. <c>MOV AL,[offset]</c>)</summary>
+		mem_offs,
 		/// <summary>Memory (modrm)</summary>
 		mem,
-		/// <summary>8-bit Memory (modrm)</summary>
-		mem8,
-		/// <summary>16-bit Memory (modrm)</summary>
-		mem16,
-		/// <summary>32-bit Memory (modrm)</summary>
-		mem32,
-		/// <summary>64-bit Memory (modrm)</summary>
-		mem64,
-		/// <summary>128-bit Memory (modrm)</summary>
-		mem128,
-		/// <summary>80-bit Memory (modrm)</summary>
-		mem80,
-		/// <summary>Memory for a K register (modrm)</summary>
-		memK,
-		/// <summary>32-bit Memory (modrm), MPX:<br/>
+		/// <summary>Memory (modrm), MPX:<br/>
 		/// <br/>
 		/// 16/32-bit mode: must be 32-bit addressing<br/>
 		/// <br/>
 		/// 64-bit mode: 64-bit addressing is forced</summary>
 		mem_mpx,
-		/// <summary>8-bit Memory (modrm), MPX:<br/>
+		/// <summary>Memory (modrm), MPX:<br/>
 		/// <br/>
 		/// 16/32-bit mode: must be 32-bit addressing<br/>
 		/// <br/>
@@ -103,7 +83,7 @@ namespace Iced.Intel {
 		ymm_or_mem,
 		/// <summary>ZMM register or memory</summary>
 		zmm_or_mem,
-		/// <summary>BND register memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced</summary>
+		/// <summary>BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced</summary>
 		bnd_or_mem_mpx,
 		/// <summary>K register or memory</summary>
 		k_or_mem,
