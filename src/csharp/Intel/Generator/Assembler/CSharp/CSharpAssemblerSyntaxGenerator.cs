@@ -27,6 +27,7 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using Generator.Documentation.CSharp;
+using Generator.Encoder;
 using Generator.Enums;
 using Generator.IO;
 
@@ -116,6 +117,9 @@ namespace Generator.Assembler.CSharp {
 
 						writerTests.WriteLine($"public sealed class {testName} : AssemblerTests {{");
 						using (writerTests.Indent()) {
+							writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
+							writerTests.WriteLine();
+							
 							foreach (var group in groups) {
 								var renderArgs = GetRenderArgs(group);
 								var methodName = Converter.Method(group.Name);
@@ -298,8 +302,13 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodName}() {{");
 			using (writer.Indent()) {
-				
-				
+				// Generate simple test for one opcode
+				if (group.Items.Count == 1 && renderArgs.Count == 0 && !(group.Items[0] is D3nowOpCodeInfo)) {
+					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins.Code == Code.{group.Items[0].Code.Name(Converter)});");
+				}
+				else {
+					// TODO: We have more than one opcode to test in this method
+				}
 			}
 			writer.WriteLine("}");
 			writer.WriteLine();;

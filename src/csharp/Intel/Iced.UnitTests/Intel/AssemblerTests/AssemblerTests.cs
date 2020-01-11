@@ -21,10 +21,30 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using Iced.Intel.BlockEncoderInternal;
+using Xunit;
+
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	using Iced.Intel;
 	
 	public abstract class AssemblerTests {
-		// TODO
+		int _bitness;
+		protected AssemblerTests(int bitness) {
+			_bitness = bitness;
+		}
+		
+		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns) {
+			var assembler = Assembler.Create(_bitness, NullCodeWriter.Instance);
+			fAsm(assembler);
+			Assert.Equal(1, assembler.Instructions.Count);
+			Assert.True(fIns(assembler.Instructions[0]));
+		}
+		
+		sealed class NullCodeWriter : CodeWriter {
+			public static readonly NullCodeWriter Instance = new NullCodeWriter();
+			NullCodeWriter() { }
+			public override void WriteByte(byte value) { }
+		}
 	}
 }
