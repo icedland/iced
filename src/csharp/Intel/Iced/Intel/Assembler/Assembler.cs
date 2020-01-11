@@ -121,7 +121,8 @@ namespace Iced.Intel {
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
 		/// <param name="instruction"></param>
-		public void AddInstruction(Instruction instruction) {
+		/// <param name="flags">Operand flags passed.</param>
+		public void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
 			instruction.IP = _label.Id;
 			
 			// Setup prefixes
@@ -143,6 +144,19 @@ namespace Iced.Intel {
 				}
 				else if ((_nextPrefixFlags & PrefixFlags.Repne) != 0) {
 					instruction.HasRepnePrefix = true;
+				}
+			}
+
+			if (flags != AssemblerOperandFlags.None) {
+				if ((flags & AssemblerOperandFlags.Broadcast) != 0) {
+					instruction.IsBroadcast = true;
+				}
+				if ((flags & AssemblerOperandFlags.Zeroing) != 0) {
+					instruction.ZeroingMasking = true;
+				}
+				if ((flags & AssemblerOperandFlags.RegisterMask) != 0) {
+					// register mask is shift by 2 and index starts at 1
+					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 2) - 1);
 				}
 			}
 			_instructions.Add(instruction);

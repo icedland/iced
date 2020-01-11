@@ -18,13 +18,15 @@ namespace Iced.Intel
 		/// <param name="index">Index register.</param>
 		/// <param name="scale">Scale of the index.</param>
 		/// <param name="displacement">Displacement.</param>
-		public AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, long displacement) {
+		/// <param name="flags">Flags attached to this operand.</param>
+		public AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, long displacement, AssemblerOperandFlags flags) {
 			Size = size;
 			Prefix = prefix;
 			Base = @base;
 			Index = index;
 			Scale = scale;
 			Displacement = displacement;
+			Flags = flags;
 		}
 
 		/// <summary>
@@ -56,6 +58,11 @@ namespace Iced.Intel
 		/// Gets the displacement.
 		/// </summary>
 		public readonly long Displacement;
+		
+		/// <summary>
+		/// Gets the mask associated with this operand.
+		/// </summary>
+		public readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a memory access without a base/index and with a displacement bigger than 32-bit.
@@ -84,7 +91,7 @@ namespace Iced.Intel
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerMemoryOperand left, AssemblerRegister right) {
 			var hasBase = left.Base != Register.None;
-			return new AssemblerMemoryOperand(left.Size, Register.None, hasBase ? left.Base : right.Value, hasBase ? right.Value : left.Index, left.Scale, left.Displacement);
+			return new AssemblerMemoryOperand(left.Size, Register.None, hasBase ? left.Base : right.Value, hasBase ? right.Value : left.Index, left.Scale, left.Displacement, left.Flags);
 		}
 
 		/// <summary>
@@ -95,7 +102,7 @@ namespace Iced.Intel
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegister left, AssemblerMemoryOperand right) {
 			var hasBase = right.Base != Register.None;
-			return new AssemblerMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement);
+			return new AssemblerMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement, right.Flags);
 		}
 
 		/// <summary>
@@ -105,7 +112,7 @@ namespace Iced.Intel
 		/// <param name="displacement">displacement.</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerMemoryOperand left, int displacement) {
-			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, displacement);
+			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, displacement, left.Flags);
 		}
 
 		/// <summary>

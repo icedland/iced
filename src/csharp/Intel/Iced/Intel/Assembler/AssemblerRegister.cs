@@ -8,17 +8,80 @@ namespace Iced.Intel
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly struct AssemblerRegister : IEquatable<AssemblerRegister> {
-		
+
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		public AssemblerRegister(Register value) => Value = value;
+		public AssemblerRegister(Register value) {
+			Value = value;
+			Flags = AssemblerOperandFlags.None;
+		} 
+
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A register</param>
+		/// <param name="flags">The mask</param>
+		public AssemblerRegister(Register value, AssemblerOperandFlags flags) {
+			Value = value;
+			Flags = flags;
+		}
 
 		/// <summary>
 		/// The register value.
 		/// </summary>
 		public readonly Register Value;
+
+		/// <summary>
+		/// Gets the mask associated with this register.
+		/// </summary>
+		public readonly AssemblerOperandFlags Flags;
+		
+		/// <summary>
+		/// Apply mask Register K0.
+		/// </summary>
+		public AssemblerRegister k0 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K0);
+		
+		/// <summary>
+		/// Apply mask Register K1.
+		/// </summary>
+		public AssemblerRegister k1 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);
+
+		/// <summary>
+		/// Apply mask Register K2.
+		/// </summary>
+		public AssemblerRegister k2 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K2);
+
+		/// <summary>
+		/// Apply mask Register K3.
+		/// </summary>
+		public AssemblerRegister k3 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
+		
+		/// <summary>
+		/// Apply mask Register K4.
+		/// </summary>
+		public AssemblerRegister k4 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K4);
+
+		/// <summary>
+		/// Apply mask Register K5.
+		/// </summary>
+		public AssemblerRegister k5 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
+		
+		/// <summary>
+		/// Apply mask Register K6.
+		/// </summary>
+		public AssemblerRegister k6 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
+		
+		/// <summary>
+		/// Apply mask Register K7.
+		/// </summary>
+		public AssemblerRegister k7 => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
+		
+		/// <summary>
+		/// Apply mask Zeroing.
+		/// </summary>
+		public AssemblerRegister z => new AssemblerRegister(Value, Flags | AssemblerOperandFlags.Zeroing);
 
 		/// <summary>
 		/// Checks if it's a general purpose register (<c>AL</c>-<c>R15L</c>, <c>AX</c>-<c>R15W</c>, <c>EAX</c>-<c>R15D</c>, <c>RAX</c>-<c>R15</c>)
@@ -135,7 +198,7 @@ namespace Iced.Intel
 		/// <param name="right">The index register</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegister left, AssemblerRegister right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0);
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
 
 		/// <summary>
@@ -145,7 +208,7 @@ namespace Iced.Intel
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegister left, int displacement) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement);
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 		}
 
 		/// <summary>
@@ -155,7 +218,7 @@ namespace Iced.Intel
 		/// <param name="scale">The scale</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegister left, int scale) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0);
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 		}
 
 		/// <inheritdoc />

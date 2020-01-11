@@ -10,7 +10,7 @@ namespace Iced.Intel
 		public static void Play() {
 
 			var c = Assembler.Create(64, new MyCodeWriter());
-
+			c.PreferVex = false;
 			var label1 = c.CreateLabel();
 
 			var test = Instruction.Create(Code.Mov_RAX_moffs64, Register.RAX, 0x1234567890abcdf);
@@ -31,6 +31,8 @@ namespace Iced.Intel
 			c.rep().stosd();
 			c.repe().movsd();
 			c.repne().stosd();
+
+			c.vunpcklps(xmm2.k5.z, xmm6, __dword_ptr.bcst[rax + 4]);
 			
 			c.ret();
 

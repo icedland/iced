@@ -164,7 +164,29 @@ namespace Generator.Assembler.CSharp {
 										}
 									}
 
-									writer.WriteLine("));");
+									writer.Write(")");
+
+									bool hasFlags = false;
+									if ((group.Flags & (OpCodeArgFlags.HasKMask | OpCodeArgFlags.HasZeroingMask)) != 0) {
+										writer.Write($", {renderArgs[0].Name}.Flags");
+										hasFlags = true;
+									}
+									
+									if ((group.Flags & OpCodeArgFlags.HasBroadcast) != 0) {
+										for (int i = renderArgs.Count - 1; i >= 0; i--) {
+											if (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) {
+												if (hasFlags) {
+													writer.Write(" | ");
+												} else
+												{
+													writer.Write(", ");
+													hasFlags = true;
+												}
+												writer.Write($"{renderArgs[i].Name}.Flags");
+											} 
+										}
+									}
+									writer.WriteLine(");");
 								}
 							}
 							writer.WriteLine("}");

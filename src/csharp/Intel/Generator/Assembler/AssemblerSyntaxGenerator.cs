@@ -125,8 +125,12 @@ namespace Generator.Assembler {
 
 				var opCodeArgFlags = OpCodeArgFlags.Default;
 
-				if (code is VexOpCodeInfo) opCodeArgFlags |= OpCodeArgFlags.HasVex;
-				if (code is EvexOpCodeInfo) opCodeArgFlags |= OpCodeArgFlags.HasEvex;
+				if (code is VexOpCodeInfo) {  opCodeArgFlags |= OpCodeArgFlags.HasVex; }
+				if (code is EvexOpCodeInfo) {  opCodeArgFlags |= OpCodeArgFlags.HasEvex;  }
+
+				if ((code.Flags & OpCodeFlags.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
+				if ((code.Flags & OpCodeFlags.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
+				if ((code.Flags & OpCodeFlags.Broadcast) != 0) opCodeArgFlags |= OpCodeArgFlags.HasBroadcast;
 
 				var argSizes = new List<int>();
 				bool discard = false;
@@ -892,6 +896,9 @@ namespace Generator.Assembler {
 			HasEvex = 1 << 7,
 			HasRegisterMemoryMappedToRegister = 1 << 8,
 			HasSpecialInstructionEncoding = 1 << 9,
+			HasZeroingMask = 1 << 10,
+			HasKMask = 1 << 11,
+			HasBroadcast = 1 << 12,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)

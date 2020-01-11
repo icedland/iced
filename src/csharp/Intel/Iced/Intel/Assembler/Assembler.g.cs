@@ -37041,7 +37041,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vaddpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddpd instruction.<br/>
 		/// <br/>
@@ -37105,7 +37105,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vaddpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vaddps instruction.<br/>
 		/// <br/>
@@ -37149,7 +37149,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vaddps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddps instruction.<br/>
 		/// <br/>
@@ -37213,7 +37213,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vaddps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vaddsd instruction.<br/>
 		/// <br/>
@@ -37229,7 +37229,7 @@ namespace Iced.Intel {
 		public void vaddsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vaddsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddsd instruction.<br/>
 		/// <br/>
@@ -37255,7 +37255,7 @@ namespace Iced.Intel {
 		public void vaddsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vaddsd_xmm_xmm_xmmm64 : Code.EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddss instruction.<br/>
 		/// <br/>
@@ -37271,7 +37271,7 @@ namespace Iced.Intel {
 		public void vaddss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vaddss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddss instruction.<br/>
 		/// <br/>
@@ -37297,7 +37297,7 @@ namespace Iced.Intel {
 		public void vaddss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vaddss_xmm_xmm_xmmm32 : Code.EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vaddsubpd instruction.<br/>
 		/// <br/>
@@ -37965,7 +37965,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Valignd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>valignd instruction.<br/>
 		/// <br/>
@@ -38009,7 +38009,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Valignd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>valignq instruction.<br/>
 		/// <br/>
@@ -38053,7 +38053,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Valignq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>valignq instruction.<br/>
 		/// <br/>
@@ -38097,7 +38097,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Valignq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vandnpd instruction.<br/>
 		/// <br/>
@@ -38141,7 +38141,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandnpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vandnpd instruction.<br/>
 		/// <br/>
@@ -38205,7 +38205,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandnpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vandnps instruction.<br/>
 		/// <br/>
@@ -38249,7 +38249,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandnps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vandnps instruction.<br/>
 		/// <br/>
@@ -38313,7 +38313,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandnps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vandpd instruction.<br/>
 		/// <br/>
@@ -38357,7 +38357,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vandpd instruction.<br/>
 		/// <br/>
@@ -38421,7 +38421,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vandps instruction.<br/>
 		/// <br/>
@@ -38465,7 +38465,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vandps instruction.<br/>
 		/// <br/>
@@ -38529,7 +38529,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vandps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vblendmpd instruction.<br/>
 		/// <br/>
@@ -38573,7 +38573,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vblendmpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vblendmpd instruction.<br/>
 		/// <br/>
@@ -38617,7 +38617,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vblendmpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vblendmps instruction.<br/>
 		/// <br/>
@@ -38661,7 +38661,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vblendmps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vblendmps instruction.<br/>
 		/// <br/>
@@ -38705,7 +38705,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vblendmps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vblendpd instruction.<br/>
 		/// <br/>
@@ -39009,7 +39009,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf32x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastf32x2 instruction.<br/>
 		/// <br/>
@@ -39041,7 +39041,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf32x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastf32x4 instruction.<br/>
 		/// <br/>
@@ -39073,7 +39073,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf32x4, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastf32x8 instruction.<br/>
 		/// <br/>
@@ -39089,7 +39089,7 @@ namespace Iced.Intel {
 		public void vbroadcastf32x8(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vbroadcastf32x8_zmm_k1z_m256;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastf64x2 instruction.<br/>
 		/// <br/>
@@ -39121,7 +39121,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastf64x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastf64x4 instruction.<br/>
 		/// <br/>
@@ -39137,7 +39137,7 @@ namespace Iced.Intel {
 		public void vbroadcastf64x4(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vbroadcastf64x4_zmm_k1z_m256;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti128 instruction.<br/>
 		/// <br/>
@@ -39197,7 +39197,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti32x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti32x2 instruction.<br/>
 		/// <br/>
@@ -39241,7 +39241,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti32x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti32x4 instruction.<br/>
 		/// <br/>
@@ -39273,7 +39273,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti32x4, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti32x8 instruction.<br/>
 		/// <br/>
@@ -39289,7 +39289,7 @@ namespace Iced.Intel {
 		public void vbroadcasti32x8(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vbroadcasti32x8_zmm_k1z_m256;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti64x2 instruction.<br/>
 		/// <br/>
@@ -39321,7 +39321,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcasti64x2, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcasti64x4 instruction.<br/>
 		/// <br/>
@@ -39337,7 +39337,7 @@ namespace Iced.Intel {
 		public void vbroadcasti64x4(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vbroadcasti64x4_zmm_k1z_m256;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
 		/// <br/>
@@ -39369,7 +39369,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastsd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastsd instruction.<br/>
 		/// <br/>
@@ -39411,7 +39411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastsd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>
 		/// <br/>
@@ -39455,7 +39455,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastss, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vbroadcastss instruction.<br/>
 		/// <br/>
@@ -39519,7 +39519,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vbroadcastss, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
 		/// <br/>
@@ -39591,7 +39591,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmppd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
 		/// <br/>
@@ -39663,7 +39663,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmppd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
 		/// <br/>
@@ -39735,7 +39735,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
 		/// <br/>
@@ -39807,7 +39807,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
 		/// <br/>
@@ -39839,7 +39839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpsd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
 		/// <br/>
@@ -39871,7 +39871,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpsd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
 		/// <br/>
@@ -39903,7 +39903,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpss, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
 		/// <br/>
@@ -39935,7 +39935,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcmpss, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vcomisd instruction.<br/>
 		/// <br/>
@@ -40063,7 +40063,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompresspd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcompresspd instruction.<br/>
 		/// <br/>
@@ -40107,7 +40107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompresspd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcompressps instruction.<br/>
 		/// <br/>
@@ -40151,7 +40151,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompressps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcompressps instruction.<br/>
 		/// <br/>
@@ -40195,7 +40195,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcompressps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtdq2pd instruction.<br/>
 		/// <br/>
@@ -40239,7 +40239,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtdq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtdq2pd instruction.<br/>
 		/// <br/>
@@ -40303,7 +40303,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtdq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtdq2ps instruction.<br/>
 		/// <br/>
@@ -40347,7 +40347,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtdq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtdq2ps instruction.<br/>
 		/// <br/>
@@ -40411,7 +40411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtdq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtne2ps2bf16 instruction.<br/>
 		/// <br/>
@@ -40455,7 +40455,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtne2ps2bf16, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vcvtne2ps2bf16 instruction.<br/>
 		/// <br/>
@@ -40499,7 +40499,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtne2ps2bf16, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vcvtneps2bf16 instruction.<br/>
 		/// <br/>
@@ -40543,7 +40543,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtneps2bf16, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtneps2bf16 instruction.<br/>
 		/// <br/>
@@ -40587,7 +40587,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtneps2bf16, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2dq instruction.<br/>
 		/// <br/>
@@ -40631,7 +40631,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtpd2dq instruction.<br/>
 		/// <br/>
@@ -40695,7 +40695,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2ps instruction.<br/>
 		/// <br/>
@@ -40739,7 +40739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtpd2ps instruction.<br/>
 		/// <br/>
@@ -40803,7 +40803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2qq instruction.<br/>
 		/// <br/>
@@ -40847,7 +40847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtpd2qq instruction.<br/>
 		/// <br/>
@@ -40891,7 +40891,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2udq instruction.<br/>
 		/// <br/>
@@ -40935,7 +40935,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtpd2udq instruction.<br/>
 		/// <br/>
@@ -40979,7 +40979,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2uqq instruction.<br/>
 		/// <br/>
@@ -41023,7 +41023,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtpd2uqq instruction.<br/>
 		/// <br/>
@@ -41067,7 +41067,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtpd2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtph2ps instruction.<br/>
 		/// <br/>
@@ -41111,7 +41111,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtph2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtph2ps instruction.<br/>
 		/// <br/>
@@ -41175,7 +41175,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtph2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2dq instruction.<br/>
 		/// <br/>
@@ -41219,7 +41219,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2dq instruction.<br/>
 		/// <br/>
@@ -41283,7 +41283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2pd instruction.<br/>
 		/// <br/>
@@ -41327,7 +41327,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2pd instruction.<br/>
 		/// <br/>
@@ -41391,7 +41391,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2ph instruction.<br/>
 		/// <br/>
@@ -41435,7 +41435,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2ph, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vcvtps2ph instruction.<br/>
 		/// <br/>
@@ -41499,7 +41499,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2ph, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vcvtps2qq instruction.<br/>
 		/// <br/>
@@ -41543,7 +41543,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2qq instruction.<br/>
 		/// <br/>
@@ -41587,7 +41587,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2udq instruction.<br/>
 		/// <br/>
@@ -41631,7 +41631,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2udq instruction.<br/>
 		/// <br/>
@@ -41675,7 +41675,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2uqq instruction.<br/>
 		/// <br/>
@@ -41719,7 +41719,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtps2uqq instruction.<br/>
 		/// <br/>
@@ -41763,7 +41763,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtps2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtqq2pd instruction.<br/>
 		/// <br/>
@@ -41807,7 +41807,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtqq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtqq2pd instruction.<br/>
 		/// <br/>
@@ -41851,7 +41851,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtqq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtqq2ps instruction.<br/>
 		/// <br/>
@@ -41895,7 +41895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtqq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtqq2ps instruction.<br/>
 		/// <br/>
@@ -41939,7 +41939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtqq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtsd2si instruction.<br/>
 		/// <br/>
@@ -42039,7 +42039,7 @@ namespace Iced.Intel {
 		public void vcvtsd2ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vcvtsd2ss instruction.<br/>
 		/// <br/>
@@ -42065,7 +42065,7 @@ namespace Iced.Intel {
 		public void vcvtsd2ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64 : Code.EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vcvtsd2usi instruction.<br/>
 		/// <br/>
@@ -42313,7 +42313,7 @@ namespace Iced.Intel {
 		public void vcvtss2sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vcvtss2sd instruction.<br/>
 		/// <br/>
@@ -42339,7 +42339,7 @@ namespace Iced.Intel {
 		public void vcvtss2sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32 : Code.EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vcvtss2si instruction.<br/>
 		/// <br/>
@@ -42531,7 +42531,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttpd2dq instruction.<br/>
 		/// <br/>
@@ -42595,7 +42595,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2qq instruction.<br/>
 		/// <br/>
@@ -42639,7 +42639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttpd2qq instruction.<br/>
 		/// <br/>
@@ -42683,7 +42683,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2udq instruction.<br/>
 		/// <br/>
@@ -42727,7 +42727,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttpd2udq instruction.<br/>
 		/// <br/>
@@ -42771,7 +42771,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2uqq instruction.<br/>
 		/// <br/>
@@ -42815,7 +42815,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttpd2uqq instruction.<br/>
 		/// <br/>
@@ -42859,7 +42859,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttpd2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2dq instruction.<br/>
 		/// <br/>
@@ -42903,7 +42903,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttps2dq instruction.<br/>
 		/// <br/>
@@ -42967,7 +42967,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2dq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2qq instruction.<br/>
 		/// <br/>
@@ -43011,7 +43011,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttps2qq instruction.<br/>
 		/// <br/>
@@ -43055,7 +43055,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2qq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2udq instruction.<br/>
 		/// <br/>
@@ -43099,7 +43099,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttps2udq instruction.<br/>
 		/// <br/>
@@ -43143,7 +43143,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2udq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2uqq instruction.<br/>
 		/// <br/>
@@ -43187,7 +43187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvttps2uqq instruction.<br/>
 		/// <br/>
@@ -43231,7 +43231,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvttps2uqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttsd2si instruction.<br/>
 		/// <br/>
@@ -43571,7 +43571,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtudq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtudq2pd instruction.<br/>
 		/// <br/>
@@ -43615,7 +43615,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtudq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtudq2ps instruction.<br/>
 		/// <br/>
@@ -43659,7 +43659,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtudq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtudq2ps instruction.<br/>
 		/// <br/>
@@ -43703,7 +43703,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtudq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtuqq2pd instruction.<br/>
 		/// <br/>
@@ -43747,7 +43747,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtuqq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtuqq2pd instruction.<br/>
 		/// <br/>
@@ -43791,7 +43791,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtuqq2pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtuqq2ps instruction.<br/>
 		/// <br/>
@@ -43835,7 +43835,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtuqq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vcvtuqq2ps instruction.<br/>
 		/// <br/>
@@ -43879,7 +43879,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vcvtuqq2ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtusi2sd instruction.<br/>
 		/// <br/>
@@ -44051,7 +44051,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdbpsadbw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vdbpsadbw instruction.<br/>
 		/// <br/>
@@ -44095,7 +44095,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdbpsadbw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vdivpd instruction.<br/>
 		/// <br/>
@@ -44139,7 +44139,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdivpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdivpd instruction.<br/>
 		/// <br/>
@@ -44203,7 +44203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdivpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vdivps instruction.<br/>
 		/// <br/>
@@ -44247,7 +44247,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdivps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdivps instruction.<br/>
 		/// <br/>
@@ -44311,7 +44311,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdivps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vdivsd instruction.<br/>
 		/// <br/>
@@ -44327,7 +44327,7 @@ namespace Iced.Intel {
 		public void vdivsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vdivsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdivsd instruction.<br/>
 		/// <br/>
@@ -44353,7 +44353,7 @@ namespace Iced.Intel {
 		public void vdivsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vdivsd_xmm_xmm_xmmm64 : Code.EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdivss instruction.<br/>
 		/// <br/>
@@ -44369,7 +44369,7 @@ namespace Iced.Intel {
 		public void vdivss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vdivss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdivss instruction.<br/>
 		/// <br/>
@@ -44395,7 +44395,7 @@ namespace Iced.Intel {
 		public void vdivss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vdivss_xmm_xmm_xmmm32 : Code.EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdpbf16ps instruction.<br/>
 		/// <br/>
@@ -44439,7 +44439,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdpbf16ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vdpbf16ps instruction.<br/>
 		/// <br/>
@@ -44483,7 +44483,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vdpbf16ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vdppd instruction.<br/>
 		/// <br/>
@@ -44771,7 +44771,7 @@ namespace Iced.Intel {
 		public void vexp2pd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vexp2pd instruction.<br/>
 		/// <br/>
@@ -44787,7 +44787,7 @@ namespace Iced.Intel {
 		public void vexp2pd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vexp2ps instruction.<br/>
 		/// <br/>
@@ -44803,7 +44803,7 @@ namespace Iced.Intel {
 		public void vexp2ps(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vexp2ps instruction.<br/>
 		/// <br/>
@@ -44819,7 +44819,7 @@ namespace Iced.Intel {
 		public void vexp2ps(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vexpandpd instruction.<br/>
 		/// <br/>
@@ -44863,7 +44863,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vexpandpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vexpandpd instruction.<br/>
 		/// <br/>
@@ -44907,7 +44907,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vexpandpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vexpandps instruction.<br/>
 		/// <br/>
@@ -44951,7 +44951,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vexpandps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vexpandps instruction.<br/>
 		/// <br/>
@@ -44995,7 +44995,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vexpandps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vextractf128 instruction.<br/>
 		/// <br/>
@@ -45059,7 +45059,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x4, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf32x4 instruction.<br/>
 		/// <br/>
@@ -45091,7 +45091,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf32x4, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf32x8 instruction.<br/>
 		/// <br/>
@@ -45107,7 +45107,7 @@ namespace Iced.Intel {
 		public void vextractf32x8(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf32x8 instruction.<br/>
 		/// <br/>
@@ -45123,7 +45123,7 @@ namespace Iced.Intel {
 		public void vextractf32x8(AssemblerMemoryOperand dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf64x2 instruction.<br/>
 		/// <br/>
@@ -45155,7 +45155,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x2, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf64x2 instruction.<br/>
 		/// <br/>
@@ -45187,7 +45187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextractf64x2, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf64x4 instruction.<br/>
 		/// <br/>
@@ -45203,7 +45203,7 @@ namespace Iced.Intel {
 		public void vextractf64x4(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractf64x4 instruction.<br/>
 		/// <br/>
@@ -45219,7 +45219,7 @@ namespace Iced.Intel {
 		public void vextractf64x4(AssemblerMemoryOperand dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti128 instruction.<br/>
 		/// <br/>
@@ -45283,7 +45283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x4, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti32x4 instruction.<br/>
 		/// <br/>
@@ -45315,7 +45315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti32x4, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti32x8 instruction.<br/>
 		/// <br/>
@@ -45331,7 +45331,7 @@ namespace Iced.Intel {
 		public void vextracti32x8(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti32x8 instruction.<br/>
 		/// <br/>
@@ -45347,7 +45347,7 @@ namespace Iced.Intel {
 		public void vextracti32x8(AssemblerMemoryOperand dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti64x2 instruction.<br/>
 		/// <br/>
@@ -45379,7 +45379,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x2, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti64x2 instruction.<br/>
 		/// <br/>
@@ -45411,7 +45411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vextracti64x2, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti64x4 instruction.<br/>
 		/// <br/>
@@ -45427,7 +45427,7 @@ namespace Iced.Intel {
 		public void vextracti64x4(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextracti64x4 instruction.<br/>
 		/// <br/>
@@ -45443,7 +45443,7 @@ namespace Iced.Intel {
 		public void vextracti64x4(AssemblerMemoryOperand dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vextractps instruction.<br/>
 		/// <br/>
@@ -45571,7 +45571,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfixupimmpd instruction.<br/>
 		/// <br/>
@@ -45615,7 +45615,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfixupimmps instruction.<br/>
 		/// <br/>
@@ -45659,7 +45659,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfixupimmps instruction.<br/>
 		/// <br/>
@@ -45703,7 +45703,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfixupimmps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfixupimmsd instruction.<br/>
 		/// <br/>
@@ -45719,7 +45719,7 @@ namespace Iced.Intel {
 		public void vfixupimmsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfixupimmsd instruction.<br/>
 		/// <br/>
@@ -45735,7 +45735,7 @@ namespace Iced.Intel {
 		public void vfixupimmsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfixupimmss instruction.<br/>
 		/// <br/>
@@ -45751,7 +45751,7 @@ namespace Iced.Intel {
 		public void vfixupimmss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfixupimmss instruction.<br/>
 		/// <br/>
@@ -45767,7 +45767,7 @@ namespace Iced.Intel {
 		public void vfixupimmss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vfmadd132pd instruction.<br/>
 		/// <br/>
@@ -45811,7 +45811,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd132pd instruction.<br/>
 		/// <br/>
@@ -45875,7 +45875,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd132ps instruction.<br/>
 		/// <br/>
@@ -45919,7 +45919,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd132ps instruction.<br/>
 		/// <br/>
@@ -45983,7 +45983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd132sd instruction.<br/>
 		/// <br/>
@@ -45999,7 +45999,7 @@ namespace Iced.Intel {
 		public void vfmadd132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd132sd instruction.<br/>
 		/// <br/>
@@ -46025,7 +46025,7 @@ namespace Iced.Intel {
 		public void vfmadd132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd132ss instruction.<br/>
 		/// <br/>
@@ -46041,7 +46041,7 @@ namespace Iced.Intel {
 		public void vfmadd132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd132ss instruction.<br/>
 		/// <br/>
@@ -46067,7 +46067,7 @@ namespace Iced.Intel {
 		public void vfmadd132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213pd instruction.<br/>
 		/// <br/>
@@ -46111,7 +46111,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213pd instruction.<br/>
 		/// <br/>
@@ -46175,7 +46175,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd213ps instruction.<br/>
 		/// <br/>
@@ -46219,7 +46219,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213ps instruction.<br/>
 		/// <br/>
@@ -46283,7 +46283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd213sd instruction.<br/>
 		/// <br/>
@@ -46299,7 +46299,7 @@ namespace Iced.Intel {
 		public void vfmadd213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213sd instruction.<br/>
 		/// <br/>
@@ -46325,7 +46325,7 @@ namespace Iced.Intel {
 		public void vfmadd213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213ss instruction.<br/>
 		/// <br/>
@@ -46341,7 +46341,7 @@ namespace Iced.Intel {
 		public void vfmadd213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd213ss instruction.<br/>
 		/// <br/>
@@ -46367,7 +46367,7 @@ namespace Iced.Intel {
 		public void vfmadd213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231pd instruction.<br/>
 		/// <br/>
@@ -46411,7 +46411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231pd instruction.<br/>
 		/// <br/>
@@ -46475,7 +46475,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd231ps instruction.<br/>
 		/// <br/>
@@ -46519,7 +46519,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231ps instruction.<br/>
 		/// <br/>
@@ -46583,7 +46583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmadd231sd instruction.<br/>
 		/// <br/>
@@ -46599,7 +46599,7 @@ namespace Iced.Intel {
 		public void vfmadd231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231sd instruction.<br/>
 		/// <br/>
@@ -46625,7 +46625,7 @@ namespace Iced.Intel {
 		public void vfmadd231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231ss instruction.<br/>
 		/// <br/>
@@ -46641,7 +46641,7 @@ namespace Iced.Intel {
 		public void vfmadd231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmadd231ss instruction.<br/>
 		/// <br/>
@@ -46667,7 +46667,7 @@ namespace Iced.Intel {
 		public void vfmadd231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddpd instruction.<br/>
 		/// <br/>
@@ -46999,7 +46999,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub132pd instruction.<br/>
 		/// <br/>
@@ -47063,7 +47063,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsub132ps instruction.<br/>
 		/// <br/>
@@ -47107,7 +47107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub132ps instruction.<br/>
 		/// <br/>
@@ -47171,7 +47171,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsub213pd instruction.<br/>
 		/// <br/>
@@ -47215,7 +47215,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub213pd instruction.<br/>
 		/// <br/>
@@ -47279,7 +47279,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsub213ps instruction.<br/>
 		/// <br/>
@@ -47323,7 +47323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub213ps instruction.<br/>
 		/// <br/>
@@ -47387,7 +47387,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsub231pd instruction.<br/>
 		/// <br/>
@@ -47431,7 +47431,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub231pd instruction.<br/>
 		/// <br/>
@@ -47495,7 +47495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsub231ps instruction.<br/>
 		/// <br/>
@@ -47539,7 +47539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmaddsub231ps instruction.<br/>
 		/// <br/>
@@ -47603,7 +47603,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmaddsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmaddsubpd instruction.<br/>
 		/// <br/>
@@ -47839,7 +47839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub132pd instruction.<br/>
 		/// <br/>
@@ -47903,7 +47903,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub132ps instruction.<br/>
 		/// <br/>
@@ -47947,7 +47947,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub132ps instruction.<br/>
 		/// <br/>
@@ -48011,7 +48011,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub132sd instruction.<br/>
 		/// <br/>
@@ -48027,7 +48027,7 @@ namespace Iced.Intel {
 		public void vfmsub132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub132sd instruction.<br/>
 		/// <br/>
@@ -48053,7 +48053,7 @@ namespace Iced.Intel {
 		public void vfmsub132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub132ss instruction.<br/>
 		/// <br/>
@@ -48069,7 +48069,7 @@ namespace Iced.Intel {
 		public void vfmsub132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub132ss instruction.<br/>
 		/// <br/>
@@ -48095,7 +48095,7 @@ namespace Iced.Intel {
 		public void vfmsub132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213pd instruction.<br/>
 		/// <br/>
@@ -48139,7 +48139,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213pd instruction.<br/>
 		/// <br/>
@@ -48203,7 +48203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub213ps instruction.<br/>
 		/// <br/>
@@ -48247,7 +48247,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213ps instruction.<br/>
 		/// <br/>
@@ -48311,7 +48311,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub213sd instruction.<br/>
 		/// <br/>
@@ -48327,7 +48327,7 @@ namespace Iced.Intel {
 		public void vfmsub213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213sd instruction.<br/>
 		/// <br/>
@@ -48353,7 +48353,7 @@ namespace Iced.Intel {
 		public void vfmsub213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213ss instruction.<br/>
 		/// <br/>
@@ -48369,7 +48369,7 @@ namespace Iced.Intel {
 		public void vfmsub213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub213ss instruction.<br/>
 		/// <br/>
@@ -48395,7 +48395,7 @@ namespace Iced.Intel {
 		public void vfmsub213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231pd instruction.<br/>
 		/// <br/>
@@ -48439,7 +48439,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231pd instruction.<br/>
 		/// <br/>
@@ -48503,7 +48503,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub231ps instruction.<br/>
 		/// <br/>
@@ -48547,7 +48547,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231ps instruction.<br/>
 		/// <br/>
@@ -48611,7 +48611,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsub231sd instruction.<br/>
 		/// <br/>
@@ -48627,7 +48627,7 @@ namespace Iced.Intel {
 		public void vfmsub231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231sd instruction.<br/>
 		/// <br/>
@@ -48653,7 +48653,7 @@ namespace Iced.Intel {
 		public void vfmsub231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231ss instruction.<br/>
 		/// <br/>
@@ -48669,7 +48669,7 @@ namespace Iced.Intel {
 		public void vfmsub231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsub231ss instruction.<br/>
 		/// <br/>
@@ -48695,7 +48695,7 @@ namespace Iced.Intel {
 		public void vfmsub231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd132pd instruction.<br/>
 		/// <br/>
@@ -48739,7 +48739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd132pd instruction.<br/>
 		/// <br/>
@@ -48803,7 +48803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubadd132ps instruction.<br/>
 		/// <br/>
@@ -48847,7 +48847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd132ps instruction.<br/>
 		/// <br/>
@@ -48911,7 +48911,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubadd213pd instruction.<br/>
 		/// <br/>
@@ -48955,7 +48955,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd213pd instruction.<br/>
 		/// <br/>
@@ -49019,7 +49019,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubadd213ps instruction.<br/>
 		/// <br/>
@@ -49063,7 +49063,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd213ps instruction.<br/>
 		/// <br/>
@@ -49127,7 +49127,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubadd231pd instruction.<br/>
 		/// <br/>
@@ -49171,7 +49171,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd231pd instruction.<br/>
 		/// <br/>
@@ -49235,7 +49235,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubadd231ps instruction.<br/>
 		/// <br/>
@@ -49279,7 +49279,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfmsubadd231ps instruction.<br/>
 		/// <br/>
@@ -49343,7 +49343,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfmsubadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfmsubaddpd instruction.<br/>
 		/// <br/>
@@ -49867,7 +49867,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd132pd instruction.<br/>
 		/// <br/>
@@ -49931,7 +49931,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd132ps instruction.<br/>
 		/// <br/>
@@ -49975,7 +49975,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd132ps instruction.<br/>
 		/// <br/>
@@ -50039,7 +50039,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd132sd instruction.<br/>
 		/// <br/>
@@ -50055,7 +50055,7 @@ namespace Iced.Intel {
 		public void vfnmadd132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd132sd instruction.<br/>
 		/// <br/>
@@ -50081,7 +50081,7 @@ namespace Iced.Intel {
 		public void vfnmadd132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd132ss instruction.<br/>
 		/// <br/>
@@ -50097,7 +50097,7 @@ namespace Iced.Intel {
 		public void vfnmadd132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd132ss instruction.<br/>
 		/// <br/>
@@ -50123,7 +50123,7 @@ namespace Iced.Intel {
 		public void vfnmadd132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213pd instruction.<br/>
 		/// <br/>
@@ -50167,7 +50167,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213pd instruction.<br/>
 		/// <br/>
@@ -50231,7 +50231,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd213ps instruction.<br/>
 		/// <br/>
@@ -50275,7 +50275,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213ps instruction.<br/>
 		/// <br/>
@@ -50339,7 +50339,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd213sd instruction.<br/>
 		/// <br/>
@@ -50355,7 +50355,7 @@ namespace Iced.Intel {
 		public void vfnmadd213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213sd instruction.<br/>
 		/// <br/>
@@ -50381,7 +50381,7 @@ namespace Iced.Intel {
 		public void vfnmadd213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213ss instruction.<br/>
 		/// <br/>
@@ -50397,7 +50397,7 @@ namespace Iced.Intel {
 		public void vfnmadd213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd213ss instruction.<br/>
 		/// <br/>
@@ -50423,7 +50423,7 @@ namespace Iced.Intel {
 		public void vfnmadd213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231pd instruction.<br/>
 		/// <br/>
@@ -50467,7 +50467,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231pd instruction.<br/>
 		/// <br/>
@@ -50531,7 +50531,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd231ps instruction.<br/>
 		/// <br/>
@@ -50575,7 +50575,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231ps instruction.<br/>
 		/// <br/>
@@ -50639,7 +50639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmadd231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmadd231sd instruction.<br/>
 		/// <br/>
@@ -50655,7 +50655,7 @@ namespace Iced.Intel {
 		public void vfnmadd231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231sd instruction.<br/>
 		/// <br/>
@@ -50681,7 +50681,7 @@ namespace Iced.Intel {
 		public void vfnmadd231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231ss instruction.<br/>
 		/// <br/>
@@ -50697,7 +50697,7 @@ namespace Iced.Intel {
 		public void vfnmadd231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmadd231ss instruction.<br/>
 		/// <br/>
@@ -50723,7 +50723,7 @@ namespace Iced.Intel {
 		public void vfnmadd231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmaddpd instruction.<br/>
 		/// <br/>
@@ -51055,7 +51055,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub132pd instruction.<br/>
 		/// <br/>
@@ -51119,7 +51119,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub132ps instruction.<br/>
 		/// <br/>
@@ -51163,7 +51163,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub132ps instruction.<br/>
 		/// <br/>
@@ -51227,7 +51227,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub132ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub132sd instruction.<br/>
 		/// <br/>
@@ -51243,7 +51243,7 @@ namespace Iced.Intel {
 		public void vfnmsub132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub132sd instruction.<br/>
 		/// <br/>
@@ -51269,7 +51269,7 @@ namespace Iced.Intel {
 		public void vfnmsub132sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub132ss instruction.<br/>
 		/// <br/>
@@ -51285,7 +51285,7 @@ namespace Iced.Intel {
 		public void vfnmsub132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub132ss instruction.<br/>
 		/// <br/>
@@ -51311,7 +51311,7 @@ namespace Iced.Intel {
 		public void vfnmsub132ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213pd instruction.<br/>
 		/// <br/>
@@ -51355,7 +51355,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213pd instruction.<br/>
 		/// <br/>
@@ -51419,7 +51419,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub213ps instruction.<br/>
 		/// <br/>
@@ -51463,7 +51463,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213ps instruction.<br/>
 		/// <br/>
@@ -51527,7 +51527,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub213ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub213sd instruction.<br/>
 		/// <br/>
@@ -51543,7 +51543,7 @@ namespace Iced.Intel {
 		public void vfnmsub213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213sd instruction.<br/>
 		/// <br/>
@@ -51569,7 +51569,7 @@ namespace Iced.Intel {
 		public void vfnmsub213sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213ss instruction.<br/>
 		/// <br/>
@@ -51585,7 +51585,7 @@ namespace Iced.Intel {
 		public void vfnmsub213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub213ss instruction.<br/>
 		/// <br/>
@@ -51611,7 +51611,7 @@ namespace Iced.Intel {
 		public void vfnmsub213ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231pd instruction.<br/>
 		/// <br/>
@@ -51655,7 +51655,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231pd instruction.<br/>
 		/// <br/>
@@ -51719,7 +51719,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub231ps instruction.<br/>
 		/// <br/>
@@ -51763,7 +51763,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231ps instruction.<br/>
 		/// <br/>
@@ -51827,7 +51827,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfnmsub231ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vfnmsub231sd instruction.<br/>
 		/// <br/>
@@ -51843,7 +51843,7 @@ namespace Iced.Intel {
 		public void vfnmsub231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231sd instruction.<br/>
 		/// <br/>
@@ -51869,7 +51869,7 @@ namespace Iced.Intel {
 		public void vfnmsub231sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231ss instruction.<br/>
 		/// <br/>
@@ -51885,7 +51885,7 @@ namespace Iced.Intel {
 		public void vfnmsub231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsub231ss instruction.<br/>
 		/// <br/>
@@ -51911,7 +51911,7 @@ namespace Iced.Intel {
 		public void vfnmsub231ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vfnmsubpd instruction.<br/>
 		/// <br/>
@@ -52243,7 +52243,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclasspd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
 		/// <br/>
@@ -52287,7 +52287,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclasspd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
 		/// <br/>
@@ -52331,7 +52331,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclassps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
 		/// <br/>
@@ -52375,7 +52375,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclassps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
 		/// <br/>
@@ -52391,7 +52391,7 @@ namespace Iced.Intel {
 		public void vfpclasssd(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
 		/// <br/>
@@ -52407,7 +52407,7 @@ namespace Iced.Intel {
 		public void vfpclasssd(AssemblerRegister dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
 		/// <br/>
@@ -52423,7 +52423,7 @@ namespace Iced.Intel {
 		public void vfpclassss(AssemblerRegister dst, AssemblerRegister src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
 		/// <br/>
@@ -52439,7 +52439,7 @@ namespace Iced.Intel {
 		public void vfpclassss(AssemblerRegister dst, AssemblerMemoryOperand src, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vfrczpd instruction.<br/>
 		/// <br/>
@@ -52675,7 +52675,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherdpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgatherdpd instruction.<br/>
 		/// <br/>
@@ -52751,7 +52751,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherdps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgatherdps instruction.<br/>
 		/// <br/>
@@ -52799,7 +52799,7 @@ namespace Iced.Intel {
 		public void vgatherpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf0dpd_vm32y_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf0dps instruction.<br/>
 		/// <br/>
@@ -52815,7 +52815,7 @@ namespace Iced.Intel {
 		public void vgatherpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf0dps_vm32z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf0qpd instruction.<br/>
 		/// <br/>
@@ -52831,7 +52831,7 @@ namespace Iced.Intel {
 		public void vgatherpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf0qpd_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf0qps instruction.<br/>
 		/// <br/>
@@ -52847,7 +52847,7 @@ namespace Iced.Intel {
 		public void vgatherpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf0qps_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf1dpd instruction.<br/>
 		/// <br/>
@@ -52863,7 +52863,7 @@ namespace Iced.Intel {
 		public void vgatherpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf1dpd_vm32y_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf1dps instruction.<br/>
 		/// <br/>
@@ -52879,7 +52879,7 @@ namespace Iced.Intel {
 		public void vgatherpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf1dps_vm32z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf1qpd instruction.<br/>
 		/// <br/>
@@ -52895,7 +52895,7 @@ namespace Iced.Intel {
 		public void vgatherpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf1qpd_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherpf1qps instruction.<br/>
 		/// <br/>
@@ -52911,7 +52911,7 @@ namespace Iced.Intel {
 		public void vgatherpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vgatherpf1qps_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vgatherqpd instruction.<br/>
 		/// <br/>
@@ -52955,7 +52955,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherqpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgatherqpd instruction.<br/>
 		/// <br/>
@@ -53031,7 +53031,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherqps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgatherqps instruction.<br/>
 		/// <br/>
@@ -53107,7 +53107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetexppd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgetexppd instruction.<br/>
 		/// <br/>
@@ -53151,7 +53151,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetexppd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetexpps instruction.<br/>
 		/// <br/>
@@ -53195,7 +53195,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetexpps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vgetexpps instruction.<br/>
 		/// <br/>
@@ -53239,7 +53239,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetexpps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetexpsd instruction.<br/>
 		/// <br/>
@@ -53255,7 +53255,7 @@ namespace Iced.Intel {
 		public void vgetexpsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vgetexpsd instruction.<br/>
 		/// <br/>
@@ -53271,7 +53271,7 @@ namespace Iced.Intel {
 		public void vgetexpsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vgetexpss instruction.<br/>
 		/// <br/>
@@ -53287,7 +53287,7 @@ namespace Iced.Intel {
 		public void vgetexpss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vgetexpss instruction.<br/>
 		/// <br/>
@@ -53303,7 +53303,7 @@ namespace Iced.Intel {
 		public void vgetexpss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vgetmantpd instruction.<br/>
 		/// <br/>
@@ -53347,7 +53347,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetmantpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vgetmantpd instruction.<br/>
 		/// <br/>
@@ -53391,7 +53391,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetmantpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetmantps instruction.<br/>
 		/// <br/>
@@ -53435,7 +53435,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetmantps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vgetmantps instruction.<br/>
 		/// <br/>
@@ -53479,7 +53479,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgetmantps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetmantsd instruction.<br/>
 		/// <br/>
@@ -53495,7 +53495,7 @@ namespace Iced.Intel {
 		public void vgetmantsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgetmantsd instruction.<br/>
 		/// <br/>
@@ -53511,7 +53511,7 @@ namespace Iced.Intel {
 		public void vgetmantsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgetmantss instruction.<br/>
 		/// <br/>
@@ -53527,7 +53527,7 @@ namespace Iced.Intel {
 		public void vgetmantss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgetmantss instruction.<br/>
 		/// <br/>
@@ -53543,7 +53543,7 @@ namespace Iced.Intel {
 		public void vgetmantss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgf2p8affineinvqb instruction.<br/>
 		/// <br/>
@@ -53587,7 +53587,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8affineinvqb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgf2p8affineinvqb instruction.<br/>
 		/// <br/>
@@ -53651,7 +53651,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8affineinvqb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vgf2p8affineqb instruction.<br/>
 		/// <br/>
@@ -53695,7 +53695,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8affineqb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vgf2p8affineqb instruction.<br/>
 		/// <br/>
@@ -53759,7 +53759,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8affineqb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vgf2p8mulb instruction.<br/>
 		/// <br/>
@@ -53803,7 +53803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8mulb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vgf2p8mulb instruction.<br/>
 		/// <br/>
@@ -53867,7 +53867,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgf2p8mulb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vhaddpd instruction.<br/>
 		/// <br/>
@@ -54187,7 +54187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinsertf32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf32x4 instruction.<br/>
 		/// <br/>
@@ -54219,7 +54219,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinsertf32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf32x8 instruction.<br/>
 		/// <br/>
@@ -54235,7 +54235,7 @@ namespace Iced.Intel {
 		public void vinsertf32x8(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf32x8 instruction.<br/>
 		/// <br/>
@@ -54251,7 +54251,7 @@ namespace Iced.Intel {
 		public void vinsertf32x8(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf64x2 instruction.<br/>
 		/// <br/>
@@ -54283,7 +54283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinsertf64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf64x2 instruction.<br/>
 		/// <br/>
@@ -54315,7 +54315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinsertf64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf64x4 instruction.<br/>
 		/// <br/>
@@ -54331,7 +54331,7 @@ namespace Iced.Intel {
 		public void vinsertf64x4(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertf64x4 instruction.<br/>
 		/// <br/>
@@ -54347,7 +54347,7 @@ namespace Iced.Intel {
 		public void vinsertf64x4(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti128 instruction.<br/>
 		/// <br/>
@@ -54411,7 +54411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinserti32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti32x4 instruction.<br/>
 		/// <br/>
@@ -54443,7 +54443,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinserti32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti32x8 instruction.<br/>
 		/// <br/>
@@ -54459,7 +54459,7 @@ namespace Iced.Intel {
 		public void vinserti32x8(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti32x8 instruction.<br/>
 		/// <br/>
@@ -54475,7 +54475,7 @@ namespace Iced.Intel {
 		public void vinserti32x8(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti64x2 instruction.<br/>
 		/// <br/>
@@ -54507,7 +54507,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinserti64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti64x2 instruction.<br/>
 		/// <br/>
@@ -54539,7 +54539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vinserti64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti64x4 instruction.<br/>
 		/// <br/>
@@ -54555,7 +54555,7 @@ namespace Iced.Intel {
 		public void vinserti64x4(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinserti64x4 instruction.<br/>
 		/// <br/>
@@ -54571,7 +54571,7 @@ namespace Iced.Intel {
 		public void vinserti64x4(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vinsertps instruction.<br/>
 		/// <br/>
@@ -54847,7 +54847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaxpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmaxpd instruction.<br/>
 		/// <br/>
@@ -54911,7 +54911,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaxpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vmaxps instruction.<br/>
 		/// <br/>
@@ -54955,7 +54955,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaxps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmaxps instruction.<br/>
 		/// <br/>
@@ -55019,7 +55019,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmaxps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vmaxsd instruction.<br/>
 		/// <br/>
@@ -55035,7 +55035,7 @@ namespace Iced.Intel {
 		public void vmaxsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vmaxsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmaxsd instruction.<br/>
 		/// <br/>
@@ -55061,7 +55061,7 @@ namespace Iced.Intel {
 		public void vmaxsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmaxsd_xmm_xmm_xmmm64 : Code.EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmaxss instruction.<br/>
 		/// <br/>
@@ -55077,7 +55077,7 @@ namespace Iced.Intel {
 		public void vmaxss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vmaxss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmaxss instruction.<br/>
 		/// <br/>
@@ -55103,7 +55103,7 @@ namespace Iced.Intel {
 		public void vmaxss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmaxss_xmm_xmm_xmmm32 : Code.EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmcall instruction.<br/>
 		/// <br/>
@@ -55195,7 +55195,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vminpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vminpd instruction.<br/>
 		/// <br/>
@@ -55259,7 +55259,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vminpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vminps instruction.<br/>
 		/// <br/>
@@ -55303,7 +55303,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vminps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vminps instruction.<br/>
 		/// <br/>
@@ -55367,7 +55367,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vminps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vminsd instruction.<br/>
 		/// <br/>
@@ -55383,7 +55383,7 @@ namespace Iced.Intel {
 		public void vminsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vminsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vminsd instruction.<br/>
 		/// <br/>
@@ -55409,7 +55409,7 @@ namespace Iced.Intel {
 		public void vminsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vminsd_xmm_xmm_xmmm64 : Code.EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vminss instruction.<br/>
 		/// <br/>
@@ -55425,7 +55425,7 @@ namespace Iced.Intel {
 		public void vminss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vminss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vminss instruction.<br/>
 		/// <br/>
@@ -55451,7 +55451,7 @@ namespace Iced.Intel {
 		public void vminss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vminss_xmm_xmm_xmmm32 : Code.EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmlaunch instruction.<br/>
 		/// <br/>
@@ -55571,7 +55571,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovapd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovapd instruction.<br/>
 		/// <br/>
@@ -55635,7 +55635,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovapd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovapd instruction.<br/>
 		/// <br/>
@@ -55699,7 +55699,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovapd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovaps instruction.<br/>
 		/// <br/>
@@ -55743,7 +55743,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovaps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovaps instruction.<br/>
 		/// <br/>
@@ -55807,7 +55807,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovaps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovaps instruction.<br/>
 		/// <br/>
@@ -55871,7 +55871,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovaps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovd instruction.<br/>
 		/// <br/>
@@ -55999,7 +55999,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovddup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovddup instruction.<br/>
 		/// <br/>
@@ -56063,7 +56063,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovddup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa instruction.<br/>
 		/// <br/>
@@ -56203,7 +56203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa32 instruction.<br/>
 		/// <br/>
@@ -56247,7 +56247,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa32 instruction.<br/>
 		/// <br/>
@@ -56291,7 +56291,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa64 instruction.<br/>
 		/// <br/>
@@ -56335,7 +56335,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa64 instruction.<br/>
 		/// <br/>
@@ -56379,7 +56379,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqa64 instruction.<br/>
 		/// <br/>
@@ -56423,7 +56423,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqa64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu instruction.<br/>
 		/// <br/>
@@ -56563,7 +56563,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu16, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu16 instruction.<br/>
 		/// <br/>
@@ -56607,7 +56607,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu16, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu16 instruction.<br/>
 		/// <br/>
@@ -56651,7 +56651,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu16, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu32 instruction.<br/>
 		/// <br/>
@@ -56695,7 +56695,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu32 instruction.<br/>
 		/// <br/>
@@ -56739,7 +56739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu32 instruction.<br/>
 		/// <br/>
@@ -56783,7 +56783,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu32, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu64 instruction.<br/>
 		/// <br/>
@@ -56827,7 +56827,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu64 instruction.<br/>
 		/// <br/>
@@ -56871,7 +56871,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu64 instruction.<br/>
 		/// <br/>
@@ -56915,7 +56915,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu64, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu8 instruction.<br/>
 		/// <br/>
@@ -56959,7 +56959,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu8, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu8 instruction.<br/>
 		/// <br/>
@@ -57003,7 +57003,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu8, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovdqu8 instruction.<br/>
 		/// <br/>
@@ -57047,7 +57047,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovdqu8, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovhlps instruction.<br/>
 		/// <br/>
@@ -57869,7 +57869,7 @@ namespace Iced.Intel {
 		public void vmovsd(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovsd_m64_xmm : Code.EVEX_Vmovsd_m64_k1_xmm;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovsd instruction.<br/>
 		/// <br/>
@@ -57895,7 +57895,7 @@ namespace Iced.Intel {
 		public void vmovsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovsd_xmm_m64 : Code.EVEX_Vmovsd_xmm_k1z_m64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovsd instruction.<br/>
 		/// <br/>
@@ -57921,7 +57921,7 @@ namespace Iced.Intel {
 		public void vmovsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovsd_xmm_xmm_xmm : Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmovshdup instruction.<br/>
 		/// <br/>
@@ -57965,7 +57965,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovshdup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovshdup instruction.<br/>
 		/// <br/>
@@ -58029,7 +58029,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovshdup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovsldup instruction.<br/>
 		/// <br/>
@@ -58073,7 +58073,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovsldup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovsldup instruction.<br/>
 		/// <br/>
@@ -58137,7 +58137,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovsldup, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovss instruction.<br/>
 		/// <br/>
@@ -58163,7 +58163,7 @@ namespace Iced.Intel {
 		public void vmovss(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovss_m32_xmm : Code.EVEX_Vmovss_m32_k1_xmm;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovss instruction.<br/>
 		/// <br/>
@@ -58189,7 +58189,7 @@ namespace Iced.Intel {
 		public void vmovss(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovss_xmm_m32 : Code.EVEX_Vmovss_xmm_k1z_m32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovss instruction.<br/>
 		/// <br/>
@@ -58215,7 +58215,7 @@ namespace Iced.Intel {
 		public void vmovss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovss_xmm_xmm_xmm : Code.EVEX_Vmovss_xmm_k1z_xmm_xmm;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmovupd instruction.<br/>
 		/// <br/>
@@ -58259,7 +58259,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovupd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovupd instruction.<br/>
 		/// <br/>
@@ -58323,7 +58323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovupd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovupd instruction.<br/>
 		/// <br/>
@@ -58387,7 +58387,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovupd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovups instruction.<br/>
 		/// <br/>
@@ -58431,7 +58431,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovups, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovups instruction.<br/>
 		/// <br/>
@@ -58495,7 +58495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovups, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmovups instruction.<br/>
 		/// <br/>
@@ -58559,7 +58559,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmovups, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vmpsadbw instruction.<br/>
 		/// <br/>
@@ -58867,7 +58867,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmulpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmulpd instruction.<br/>
 		/// <br/>
@@ -58931,7 +58931,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmulpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vmulps instruction.<br/>
 		/// <br/>
@@ -58975,7 +58975,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmulps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmulps instruction.<br/>
 		/// <br/>
@@ -59039,7 +59039,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vmulps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vmulsd instruction.<br/>
 		/// <br/>
@@ -59055,7 +59055,7 @@ namespace Iced.Intel {
 		public void vmulsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vmulsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmulsd instruction.<br/>
 		/// <br/>
@@ -59081,7 +59081,7 @@ namespace Iced.Intel {
 		public void vmulsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmulsd_xmm_xmm_xmmm64 : Code.EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmulss instruction.<br/>
 		/// <br/>
@@ -59097,7 +59097,7 @@ namespace Iced.Intel {
 		public void vmulss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vmulss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmulss instruction.<br/>
 		/// <br/>
@@ -59123,7 +59123,7 @@ namespace Iced.Intel {
 		public void vmulss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmulss_xmm_xmm_xmmm32 : Code.EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vmwrite instruction.<br/>
 		/// <br/>
@@ -59263,7 +59263,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vorpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vorpd instruction.<br/>
 		/// <br/>
@@ -59327,7 +59327,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vorpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vorps instruction.<br/>
 		/// <br/>
@@ -59371,7 +59371,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vorps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vorps instruction.<br/>
 		/// <br/>
@@ -59435,7 +59435,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vorps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpabsb instruction.<br/>
 		/// <br/>
@@ -59479,7 +59479,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpabsb instruction.<br/>
 		/// <br/>
@@ -59543,7 +59543,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpabsd instruction.<br/>
 		/// <br/>
@@ -59587,7 +59587,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpabsd instruction.<br/>
 		/// <br/>
@@ -59651,7 +59651,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpabsq instruction.<br/>
 		/// <br/>
@@ -59695,7 +59695,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpabsq instruction.<br/>
 		/// <br/>
@@ -59739,7 +59739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpabsw instruction.<br/>
 		/// <br/>
@@ -59783,7 +59783,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpabsw instruction.<br/>
 		/// <br/>
@@ -59847,7 +59847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpabsw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpackssdw instruction.<br/>
 		/// <br/>
@@ -59891,7 +59891,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackssdw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpackssdw instruction.<br/>
 		/// <br/>
@@ -59955,7 +59955,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackssdw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpacksswb instruction.<br/>
 		/// <br/>
@@ -59999,7 +59999,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpacksswb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpacksswb instruction.<br/>
 		/// <br/>
@@ -60063,7 +60063,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpacksswb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpackusdw instruction.<br/>
 		/// <br/>
@@ -60107,7 +60107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackusdw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpackusdw instruction.<br/>
 		/// <br/>
@@ -60171,7 +60171,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackusdw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpackuswb instruction.<br/>
 		/// <br/>
@@ -60215,7 +60215,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackuswb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpackuswb instruction.<br/>
 		/// <br/>
@@ -60279,7 +60279,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpackuswb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddb instruction.<br/>
 		/// <br/>
@@ -60323,7 +60323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddb instruction.<br/>
 		/// <br/>
@@ -60387,7 +60387,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddd instruction.<br/>
 		/// <br/>
@@ -60431,7 +60431,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddd instruction.<br/>
 		/// <br/>
@@ -60495,7 +60495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpaddq instruction.<br/>
 		/// <br/>
@@ -60539,7 +60539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddq instruction.<br/>
 		/// <br/>
@@ -60603,7 +60603,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpaddsb instruction.<br/>
 		/// <br/>
@@ -60647,7 +60647,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddsb instruction.<br/>
 		/// <br/>
@@ -60711,7 +60711,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddsw instruction.<br/>
 		/// <br/>
@@ -60755,7 +60755,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddsw instruction.<br/>
 		/// <br/>
@@ -60819,7 +60819,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddusb instruction.<br/>
 		/// <br/>
@@ -60863,7 +60863,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddusb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddusb instruction.<br/>
 		/// <br/>
@@ -60927,7 +60927,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddusb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddusw instruction.<br/>
 		/// <br/>
@@ -60971,7 +60971,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddusw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddusw instruction.<br/>
 		/// <br/>
@@ -61035,7 +61035,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddusw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddw instruction.<br/>
 		/// <br/>
@@ -61079,7 +61079,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpaddw instruction.<br/>
 		/// <br/>
@@ -61143,7 +61143,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpaddw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpalignr instruction.<br/>
 		/// <br/>
@@ -61187,7 +61187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpalignr, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpalignr instruction.<br/>
 		/// <br/>
@@ -61251,7 +61251,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpalignr, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpand instruction.<br/>
 		/// <br/>
@@ -61359,7 +61359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpandd instruction.<br/>
 		/// <br/>
@@ -61403,7 +61403,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpandn instruction.<br/>
 		/// <br/>
@@ -61511,7 +61511,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandnd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpandnd instruction.<br/>
 		/// <br/>
@@ -61555,7 +61555,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandnd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpandnq instruction.<br/>
 		/// <br/>
@@ -61599,7 +61599,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandnq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpandnq instruction.<br/>
 		/// <br/>
@@ -61643,7 +61643,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandnq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpandq instruction.<br/>
 		/// <br/>
@@ -61687,7 +61687,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpandq instruction.<br/>
 		/// <br/>
@@ -61731,7 +61731,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpandq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpavgb instruction.<br/>
 		/// <br/>
@@ -61775,7 +61775,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpavgb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpavgb instruction.<br/>
 		/// <br/>
@@ -61839,7 +61839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpavgb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpavgw instruction.<br/>
 		/// <br/>
@@ -61883,7 +61883,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpavgw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpavgw instruction.<br/>
 		/// <br/>
@@ -61947,7 +61947,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpavgw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendd instruction.<br/>
 		/// <br/>
@@ -62055,7 +62055,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendmb instruction.<br/>
 		/// <br/>
@@ -62099,7 +62099,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendmd instruction.<br/>
 		/// <br/>
@@ -62143,7 +62143,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendmd instruction.<br/>
 		/// <br/>
@@ -62187,7 +62187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpblendmq instruction.<br/>
 		/// <br/>
@@ -62231,7 +62231,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendmq instruction.<br/>
 		/// <br/>
@@ -62275,7 +62275,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpblendmw instruction.<br/>
 		/// <br/>
@@ -62319,7 +62319,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendmw instruction.<br/>
 		/// <br/>
@@ -62363,7 +62363,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpblendmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpblendvb instruction.<br/>
 		/// <br/>
@@ -62583,7 +62583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastb instruction.<br/>
 		/// <br/>
@@ -62647,7 +62647,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastd instruction.<br/>
 		/// <br/>
@@ -62739,7 +62739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastd instruction.<br/>
 		/// <br/>
@@ -62803,7 +62803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastmb2q instruction.<br/>
 		/// <br/>
@@ -62983,7 +62983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastq instruction.<br/>
 		/// <br/>
@@ -63047,7 +63047,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastw instruction.<br/>
 		/// <br/>
@@ -63139,7 +63139,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpbroadcastw instruction.<br/>
 		/// <br/>
@@ -63203,7 +63203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpbroadcastw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpclmulqdq instruction.<br/>
 		/// <br/>
@@ -63451,7 +63451,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
 		/// <br/>
@@ -63495,7 +63495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpb, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
 		/// <br/>
@@ -63539,7 +63539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
 		/// <br/>
@@ -63583,7 +63583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
 		/// <br/>
@@ -63655,7 +63655,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
 		/// <br/>
@@ -63727,7 +63727,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
 		/// <br/>
@@ -63799,7 +63799,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
 		/// <br/>
@@ -63871,7 +63871,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
 		/// <br/>
@@ -63943,7 +63943,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
 		/// <br/>
@@ -64015,7 +64015,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
 		/// <br/>
@@ -64087,7 +64087,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
 		/// <br/>
@@ -64159,7 +64159,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpeqw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpestri instruction.<br/>
 		/// <br/>
@@ -64359,7 +64359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
 		/// <br/>
@@ -64431,7 +64431,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
 		/// <br/>
@@ -64503,7 +64503,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
 		/// <br/>
@@ -64575,7 +64575,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
 		/// <br/>
@@ -64647,7 +64647,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
 		/// <br/>
@@ -64719,7 +64719,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
 		/// <br/>
@@ -64791,7 +64791,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
 		/// <br/>
@@ -64863,7 +64863,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpgtw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpcmpistri instruction.<br/>
 		/// <br/>
@@ -64971,7 +64971,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
 		/// <br/>
@@ -65015,7 +65015,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
 		/// <br/>
@@ -65059,7 +65059,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpub, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
 		/// <br/>
@@ -65103,7 +65103,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpub, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
 		/// <br/>
@@ -65147,7 +65147,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpud, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
 		/// <br/>
@@ -65191,7 +65191,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpud, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
 		/// <br/>
@@ -65235,7 +65235,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpuq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
 		/// <br/>
@@ -65279,7 +65279,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpuq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
 		/// <br/>
@@ -65323,7 +65323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpuw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
 		/// <br/>
@@ -65367,7 +65367,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpuw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
 		/// <br/>
@@ -65411,7 +65411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
 		/// <br/>
@@ -65455,7 +65455,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcmpw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpcomb instruction.<br/>
 		/// <br/>
@@ -65563,7 +65563,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressb instruction.<br/>
 		/// <br/>
@@ -65607,7 +65607,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressd instruction.<br/>
 		/// <br/>
@@ -65651,7 +65651,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressd instruction.<br/>
 		/// <br/>
@@ -65695,7 +65695,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressq instruction.<br/>
 		/// <br/>
@@ -65739,7 +65739,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressq instruction.<br/>
 		/// <br/>
@@ -65783,7 +65783,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressw instruction.<br/>
 		/// <br/>
@@ -65827,7 +65827,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcompressw instruction.<br/>
 		/// <br/>
@@ -65871,7 +65871,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpcompressw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpcomq instruction.<br/>
 		/// <br/>
@@ -66107,7 +66107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpconflictd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpconflictd instruction.<br/>
 		/// <br/>
@@ -66151,7 +66151,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpconflictd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpconflictq instruction.<br/>
 		/// <br/>
@@ -66195,7 +66195,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpconflictq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpconflictq instruction.<br/>
 		/// <br/>
@@ -66239,7 +66239,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpconflictq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
 		/// <br/>
@@ -66283,7 +66283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpbusd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpdpbusd instruction.<br/>
 		/// <br/>
@@ -66327,7 +66327,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpbusd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
 		/// <br/>
@@ -66371,7 +66371,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpbusds, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpdpbusds instruction.<br/>
 		/// <br/>
@@ -66415,7 +66415,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpbusds, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
 		/// <br/>
@@ -66459,7 +66459,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpwssd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpdpwssd instruction.<br/>
 		/// <br/>
@@ -66503,7 +66503,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpwssd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>
 		/// <br/>
@@ -66547,7 +66547,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpwssds, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpdpwssds instruction.<br/>
 		/// <br/>
@@ -66591,7 +66591,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpdpwssds, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vperm2f128 instruction.<br/>
 		/// <br/>
@@ -66699,7 +66699,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermb instruction.<br/>
 		/// <br/>
@@ -66743,7 +66743,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermd instruction.<br/>
 		/// <br/>
@@ -66775,7 +66775,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermd instruction.<br/>
 		/// <br/>
@@ -66817,7 +66817,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermi2b instruction.<br/>
 		/// <br/>
@@ -66861,7 +66861,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2b, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2b instruction.<br/>
 		/// <br/>
@@ -66905,7 +66905,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2b, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2d instruction.<br/>
 		/// <br/>
@@ -66949,7 +66949,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2d, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2d instruction.<br/>
 		/// <br/>
@@ -66993,7 +66993,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2d, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermi2pd instruction.<br/>
 		/// <br/>
@@ -67037,7 +67037,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2pd instruction.<br/>
 		/// <br/>
@@ -67081,7 +67081,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermi2ps instruction.<br/>
 		/// <br/>
@@ -67125,7 +67125,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2ps instruction.<br/>
 		/// <br/>
@@ -67169,7 +67169,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermi2q instruction.<br/>
 		/// <br/>
@@ -67213,7 +67213,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2q, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2q instruction.<br/>
 		/// <br/>
@@ -67257,7 +67257,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2q, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermi2w instruction.<br/>
 		/// <br/>
@@ -67301,7 +67301,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2w, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermi2w instruction.<br/>
 		/// <br/>
@@ -67345,7 +67345,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermi2w, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermil2pd instruction.<br/>
 		/// <br/>
@@ -67581,7 +67581,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermilpd instruction.<br/>
 		/// <br/>
@@ -67645,7 +67645,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermilpd instruction.<br/>
 		/// <br/>
@@ -67689,7 +67689,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpermilpd instruction.<br/>
 		/// <br/>
@@ -67753,7 +67753,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpermilps instruction.<br/>
 		/// <br/>
@@ -67797,7 +67797,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermilps instruction.<br/>
 		/// <br/>
@@ -67861,7 +67861,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermilps instruction.<br/>
 		/// <br/>
@@ -67905,7 +67905,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpermilps instruction.<br/>
 		/// <br/>
@@ -67969,7 +67969,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermilps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpermpd instruction.<br/>
 		/// <br/>
@@ -68001,7 +68001,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermpd instruction.<br/>
 		/// <br/>
@@ -68033,7 +68033,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermpd instruction.<br/>
 		/// <br/>
@@ -68065,7 +68065,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpermpd instruction.<br/>
 		/// <br/>
@@ -68107,7 +68107,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermpd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpermps instruction.<br/>
 		/// <br/>
@@ -68139,7 +68139,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermps instruction.<br/>
 		/// <br/>
@@ -68181,7 +68181,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermq instruction.<br/>
 		/// <br/>
@@ -68213,7 +68213,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermq instruction.<br/>
 		/// <br/>
@@ -68245,7 +68245,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermq instruction.<br/>
 		/// <br/>
@@ -68277,7 +68277,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpermq instruction.<br/>
 		/// <br/>
@@ -68319,7 +68319,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpermt2b instruction.<br/>
 		/// <br/>
@@ -68363,7 +68363,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2b, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2b instruction.<br/>
 		/// <br/>
@@ -68407,7 +68407,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2b, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2d instruction.<br/>
 		/// <br/>
@@ -68451,7 +68451,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2d, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2d instruction.<br/>
 		/// <br/>
@@ -68495,7 +68495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2d, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermt2pd instruction.<br/>
 		/// <br/>
@@ -68539,7 +68539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2pd instruction.<br/>
 		/// <br/>
@@ -68583,7 +68583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2pd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermt2ps instruction.<br/>
 		/// <br/>
@@ -68627,7 +68627,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2ps instruction.<br/>
 		/// <br/>
@@ -68671,7 +68671,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2ps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermt2q instruction.<br/>
 		/// <br/>
@@ -68715,7 +68715,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2q, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2q instruction.<br/>
 		/// <br/>
@@ -68759,7 +68759,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2q, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpermt2w instruction.<br/>
 		/// <br/>
@@ -68803,7 +68803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2w, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermt2w instruction.<br/>
 		/// <br/>
@@ -68847,7 +68847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermt2w, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermw instruction.<br/>
 		/// <br/>
@@ -68891,7 +68891,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpermw instruction.<br/>
 		/// <br/>
@@ -68935,7 +68935,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpermw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpexpandb instruction.<br/>
 		/// <br/>
@@ -68979,7 +68979,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandb instruction.<br/>
 		/// <br/>
@@ -69023,7 +69023,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandd instruction.<br/>
 		/// <br/>
@@ -69067,7 +69067,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandd instruction.<br/>
 		/// <br/>
@@ -69111,7 +69111,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandq instruction.<br/>
 		/// <br/>
@@ -69155,7 +69155,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandq instruction.<br/>
 		/// <br/>
@@ -69199,7 +69199,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandw instruction.<br/>
 		/// <br/>
@@ -69243,7 +69243,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpexpandw instruction.<br/>
 		/// <br/>
@@ -69287,7 +69287,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpexpandw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpextrb instruction.<br/>
 		/// <br/>
@@ -69583,7 +69583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherdd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpgatherdd instruction.<br/>
 		/// <br/>
@@ -69659,7 +69659,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpgatherdq instruction.<br/>
 		/// <br/>
@@ -69735,7 +69735,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpgatherqd instruction.<br/>
 		/// <br/>
@@ -69811,7 +69811,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpgatherqq instruction.<br/>
 		/// <br/>
@@ -71035,7 +71035,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vplzcntd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vplzcntd instruction.<br/>
 		/// <br/>
@@ -71079,7 +71079,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vplzcntd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vplzcntq instruction.<br/>
 		/// <br/>
@@ -71123,7 +71123,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vplzcntq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vplzcntq instruction.<br/>
 		/// <br/>
@@ -71167,7 +71167,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vplzcntq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpmacsdd instruction.<br/>
 		/// <br/>
@@ -71595,7 +71595,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmadd52huq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmadd52huq instruction.<br/>
 		/// <br/>
@@ -71639,7 +71639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmadd52huq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmadd52luq instruction.<br/>
 		/// <br/>
@@ -71683,7 +71683,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmadd52luq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmadd52luq instruction.<br/>
 		/// <br/>
@@ -71727,7 +71727,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmadd52luq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmaddubsw instruction.<br/>
 		/// <br/>
@@ -71771,7 +71771,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaddubsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaddubsw instruction.<br/>
 		/// <br/>
@@ -71835,7 +71835,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaddubsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaddwd instruction.<br/>
 		/// <br/>
@@ -71879,7 +71879,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaddwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaddwd instruction.<br/>
 		/// <br/>
@@ -71943,7 +71943,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaddwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaskmovd instruction.<br/>
 		/// <br/>
@@ -72115,7 +72115,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxsb instruction.<br/>
 		/// <br/>
@@ -72179,7 +72179,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxsd instruction.<br/>
 		/// <br/>
@@ -72223,7 +72223,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxsd instruction.<br/>
 		/// <br/>
@@ -72287,7 +72287,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmaxsq instruction.<br/>
 		/// <br/>
@@ -72331,7 +72331,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxsq instruction.<br/>
 		/// <br/>
@@ -72375,7 +72375,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmaxsw instruction.<br/>
 		/// <br/>
@@ -72419,7 +72419,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxsw instruction.<br/>
 		/// <br/>
@@ -72483,7 +72483,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxub instruction.<br/>
 		/// <br/>
@@ -72527,7 +72527,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxub, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxub instruction.<br/>
 		/// <br/>
@@ -72591,7 +72591,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxub, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxud instruction.<br/>
 		/// <br/>
@@ -72635,7 +72635,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxud, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxud instruction.<br/>
 		/// <br/>
@@ -72699,7 +72699,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxud, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmaxuq instruction.<br/>
 		/// <br/>
@@ -72743,7 +72743,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxuq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxuq instruction.<br/>
 		/// <br/>
@@ -72787,7 +72787,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxuq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmaxuw instruction.<br/>
 		/// <br/>
@@ -72831,7 +72831,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmaxuw instruction.<br/>
 		/// <br/>
@@ -72895,7 +72895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmaxuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsb instruction.<br/>
 		/// <br/>
@@ -72939,7 +72939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsb instruction.<br/>
 		/// <br/>
@@ -73003,7 +73003,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsd instruction.<br/>
 		/// <br/>
@@ -73047,7 +73047,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsd instruction.<br/>
 		/// <br/>
@@ -73111,7 +73111,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpminsq instruction.<br/>
 		/// <br/>
@@ -73155,7 +73155,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsq instruction.<br/>
 		/// <br/>
@@ -73199,7 +73199,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpminsw instruction.<br/>
 		/// <br/>
@@ -73243,7 +73243,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminsw instruction.<br/>
 		/// <br/>
@@ -73307,7 +73307,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminub instruction.<br/>
 		/// <br/>
@@ -73351,7 +73351,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminub, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminub instruction.<br/>
 		/// <br/>
@@ -73415,7 +73415,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminub, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminud instruction.<br/>
 		/// <br/>
@@ -73459,7 +73459,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminud, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminud instruction.<br/>
 		/// <br/>
@@ -73523,7 +73523,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminud, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpminuq instruction.<br/>
 		/// <br/>
@@ -73567,7 +73567,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminuq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminuq instruction.<br/>
 		/// <br/>
@@ -73611,7 +73611,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminuq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpminuw instruction.<br/>
 		/// <br/>
@@ -73655,7 +73655,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpminuw instruction.<br/>
 		/// <br/>
@@ -73719,7 +73719,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpminuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmovb2m instruction.<br/>
 		/// <br/>
@@ -73851,7 +73851,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovdb instruction.<br/>
 		/// <br/>
@@ -73895,7 +73895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovdw instruction.<br/>
 		/// <br/>
@@ -73939,7 +73939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovdw instruction.<br/>
 		/// <br/>
@@ -73983,7 +73983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovm2b instruction.<br/>
 		/// <br/>
@@ -74311,7 +74311,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovqb instruction.<br/>
 		/// <br/>
@@ -74355,7 +74355,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovqd instruction.<br/>
 		/// <br/>
@@ -74399,7 +74399,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovqd instruction.<br/>
 		/// <br/>
@@ -74443,7 +74443,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovqw instruction.<br/>
 		/// <br/>
@@ -74487,7 +74487,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovqw instruction.<br/>
 		/// <br/>
@@ -74531,7 +74531,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsdb instruction.<br/>
 		/// <br/>
@@ -74575,7 +74575,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsdb instruction.<br/>
 		/// <br/>
@@ -74619,7 +74619,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsdw instruction.<br/>
 		/// <br/>
@@ -74663,7 +74663,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsdw instruction.<br/>
 		/// <br/>
@@ -74707,7 +74707,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqb instruction.<br/>
 		/// <br/>
@@ -74751,7 +74751,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqb instruction.<br/>
 		/// <br/>
@@ -74795,7 +74795,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqd instruction.<br/>
 		/// <br/>
@@ -74839,7 +74839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqd instruction.<br/>
 		/// <br/>
@@ -74883,7 +74883,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqw instruction.<br/>
 		/// <br/>
@@ -74927,7 +74927,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsqw instruction.<br/>
 		/// <br/>
@@ -74971,7 +74971,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovswb instruction.<br/>
 		/// <br/>
@@ -75015,7 +75015,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovswb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovswb instruction.<br/>
 		/// <br/>
@@ -75059,7 +75059,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovswb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbd instruction.<br/>
 		/// <br/>
@@ -75103,7 +75103,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbd instruction.<br/>
 		/// <br/>
@@ -75167,7 +75167,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbq instruction.<br/>
 		/// <br/>
@@ -75211,7 +75211,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbq instruction.<br/>
 		/// <br/>
@@ -75275,7 +75275,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbw instruction.<br/>
 		/// <br/>
@@ -75319,7 +75319,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxbw instruction.<br/>
 		/// <br/>
@@ -75383,7 +75383,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxbw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxdq instruction.<br/>
 		/// <br/>
@@ -75427,7 +75427,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxdq instruction.<br/>
 		/// <br/>
@@ -75491,7 +75491,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxwd instruction.<br/>
 		/// <br/>
@@ -75535,7 +75535,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxwd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxwd instruction.<br/>
 		/// <br/>
@@ -75599,7 +75599,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxwd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxwq instruction.<br/>
 		/// <br/>
@@ -75643,7 +75643,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxwq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovsxwq instruction.<br/>
 		/// <br/>
@@ -75707,7 +75707,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovsxwq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusdb instruction.<br/>
 		/// <br/>
@@ -75751,7 +75751,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusdb instruction.<br/>
 		/// <br/>
@@ -75795,7 +75795,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusdw instruction.<br/>
 		/// <br/>
@@ -75839,7 +75839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusdw instruction.<br/>
 		/// <br/>
@@ -75883,7 +75883,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusdw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqb instruction.<br/>
 		/// <br/>
@@ -75927,7 +75927,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqb instruction.<br/>
 		/// <br/>
@@ -75971,7 +75971,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqd instruction.<br/>
 		/// <br/>
@@ -76015,7 +76015,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqd instruction.<br/>
 		/// <br/>
@@ -76059,7 +76059,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqw instruction.<br/>
 		/// <br/>
@@ -76103,7 +76103,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovusqw instruction.<br/>
 		/// <br/>
@@ -76147,7 +76147,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovusqw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovuswb instruction.<br/>
 		/// <br/>
@@ -76191,7 +76191,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovuswb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovuswb instruction.<br/>
 		/// <br/>
@@ -76235,7 +76235,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovuswb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovw2m instruction.<br/>
 		/// <br/>
@@ -76323,7 +76323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovwb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovwb instruction.<br/>
 		/// <br/>
@@ -76367,7 +76367,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovwb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbd instruction.<br/>
 		/// <br/>
@@ -76411,7 +76411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbd instruction.<br/>
 		/// <br/>
@@ -76475,7 +76475,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbq instruction.<br/>
 		/// <br/>
@@ -76519,7 +76519,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbq instruction.<br/>
 		/// <br/>
@@ -76583,7 +76583,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbw instruction.<br/>
 		/// <br/>
@@ -76627,7 +76627,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxbw instruction.<br/>
 		/// <br/>
@@ -76691,7 +76691,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxbw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxdq instruction.<br/>
 		/// <br/>
@@ -76735,7 +76735,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxdq instruction.<br/>
 		/// <br/>
@@ -76799,7 +76799,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxwd instruction.<br/>
 		/// <br/>
@@ -76843,7 +76843,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxwd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxwd instruction.<br/>
 		/// <br/>
@@ -76907,7 +76907,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxwd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxwq instruction.<br/>
 		/// <br/>
@@ -76951,7 +76951,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxwq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmovzxwq instruction.<br/>
 		/// <br/>
@@ -77015,7 +77015,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmovzxwq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpmuldq instruction.<br/>
 		/// <br/>
@@ -77059,7 +77059,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmuldq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmuldq instruction.<br/>
 		/// <br/>
@@ -77123,7 +77123,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmuldq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmulhrsw instruction.<br/>
 		/// <br/>
@@ -77167,7 +77167,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhrsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulhrsw instruction.<br/>
 		/// <br/>
@@ -77231,7 +77231,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhrsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulhuw instruction.<br/>
 		/// <br/>
@@ -77275,7 +77275,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulhuw instruction.<br/>
 		/// <br/>
@@ -77339,7 +77339,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhuw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulhw instruction.<br/>
 		/// <br/>
@@ -77383,7 +77383,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulhw instruction.<br/>
 		/// <br/>
@@ -77447,7 +77447,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulhw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulld instruction.<br/>
 		/// <br/>
@@ -77491,7 +77491,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmulld instruction.<br/>
 		/// <br/>
@@ -77555,7 +77555,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmulld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmullq instruction.<br/>
 		/// <br/>
@@ -77599,7 +77599,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmullq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmullq instruction.<br/>
 		/// <br/>
@@ -77643,7 +77643,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmullq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmullw instruction.<br/>
 		/// <br/>
@@ -77687,7 +77687,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmullw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmullw instruction.<br/>
 		/// <br/>
@@ -77751,7 +77751,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmullw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmultishiftqb instruction.<br/>
 		/// <br/>
@@ -77795,7 +77795,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmultishiftqb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmultishiftqb instruction.<br/>
 		/// <br/>
@@ -77839,7 +77839,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmultishiftqb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpmuludq instruction.<br/>
 		/// <br/>
@@ -77883,7 +77883,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmuludq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpmuludq instruction.<br/>
 		/// <br/>
@@ -77947,7 +77947,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpmuludq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpopcntb instruction.<br/>
 		/// <br/>
@@ -77991,7 +77991,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpopcntb instruction.<br/>
 		/// <br/>
@@ -78035,7 +78035,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntb, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpopcntd instruction.<br/>
 		/// <br/>
@@ -78079,7 +78079,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpopcntd instruction.<br/>
 		/// <br/>
@@ -78123,7 +78123,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpopcntq instruction.<br/>
 		/// <br/>
@@ -78167,7 +78167,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpopcntq instruction.<br/>
 		/// <br/>
@@ -78211,7 +78211,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vpopcntw instruction.<br/>
 		/// <br/>
@@ -78255,7 +78255,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpopcntw instruction.<br/>
 		/// <br/>
@@ -78299,7 +78299,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpopcntw, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpor instruction.<br/>
 		/// <br/>
@@ -78407,7 +78407,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpord, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpord instruction.<br/>
 		/// <br/>
@@ -78451,7 +78451,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpord, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vporq instruction.<br/>
 		/// <br/>
@@ -78495,7 +78495,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vporq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vporq instruction.<br/>
 		/// <br/>
@@ -78539,7 +78539,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vporq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpperm instruction.<br/>
 		/// <br/>
@@ -78631,7 +78631,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprold, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vprold instruction.<br/>
 		/// <br/>
@@ -78675,7 +78675,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprold, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vprolq instruction.<br/>
 		/// <br/>
@@ -78719,7 +78719,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vprolq instruction.<br/>
 		/// <br/>
@@ -78763,7 +78763,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vprolvd instruction.<br/>
 		/// <br/>
@@ -78807,7 +78807,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vprolvd instruction.<br/>
 		/// <br/>
@@ -78851,7 +78851,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vprolvq instruction.<br/>
 		/// <br/>
@@ -78895,7 +78895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vprolvq instruction.<br/>
 		/// <br/>
@@ -78939,7 +78939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprolvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vprord instruction.<br/>
 		/// <br/>
@@ -78983,7 +78983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprord, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vprord instruction.<br/>
 		/// <br/>
@@ -79027,7 +79027,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprord, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vprorq instruction.<br/>
 		/// <br/>
@@ -79071,7 +79071,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vprorq instruction.<br/>
 		/// <br/>
@@ -79115,7 +79115,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vprorvd instruction.<br/>
 		/// <br/>
@@ -79159,7 +79159,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vprorvd instruction.<br/>
 		/// <br/>
@@ -79203,7 +79203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vprorvq instruction.<br/>
 		/// <br/>
@@ -79247,7 +79247,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vprorvq instruction.<br/>
 		/// <br/>
@@ -79291,7 +79291,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vprorvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vprotb instruction.<br/>
 		/// <br/>
@@ -79763,7 +79763,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpscatterdd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpscatterdq instruction.<br/>
 		/// <br/>
@@ -79807,7 +79807,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpscatterdq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpscatterqd instruction.<br/>
 		/// <br/>
@@ -79851,7 +79851,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpscatterqd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpscatterqq instruction.<br/>
 		/// <br/>
@@ -79895,7 +79895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpscatterqq, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vpshab instruction.<br/>
 		/// <br/>
@@ -80227,7 +80227,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshldd instruction.<br/>
 		/// <br/>
@@ -80271,7 +80271,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshldq instruction.<br/>
 		/// <br/>
@@ -80315,7 +80315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshldq instruction.<br/>
 		/// <br/>
@@ -80359,7 +80359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshldvd instruction.<br/>
 		/// <br/>
@@ -80403,7 +80403,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshldvd instruction.<br/>
 		/// <br/>
@@ -80447,7 +80447,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshldvq instruction.<br/>
 		/// <br/>
@@ -80491,7 +80491,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshldvq instruction.<br/>
 		/// <br/>
@@ -80535,7 +80535,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshldvw instruction.<br/>
 		/// <br/>
@@ -80579,7 +80579,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshldvw instruction.<br/>
 		/// <br/>
@@ -80623,7 +80623,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshldw instruction.<br/>
 		/// <br/>
@@ -80667,7 +80667,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshldw instruction.<br/>
 		/// <br/>
@@ -80711,7 +80711,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshldw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshlq instruction.<br/>
 		/// <br/>
@@ -80851,7 +80851,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshrdd instruction.<br/>
 		/// <br/>
@@ -80895,7 +80895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshrdq instruction.<br/>
 		/// <br/>
@@ -80939,7 +80939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshrdq instruction.<br/>
 		/// <br/>
@@ -80983,7 +80983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshrdvd instruction.<br/>
 		/// <br/>
@@ -81027,7 +81027,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshrdvd instruction.<br/>
 		/// <br/>
@@ -81071,7 +81071,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshrdvq instruction.<br/>
 		/// <br/>
@@ -81115,7 +81115,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshrdvq instruction.<br/>
 		/// <br/>
@@ -81159,7 +81159,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpshrdvw instruction.<br/>
 		/// <br/>
@@ -81203,7 +81203,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshrdvw instruction.<br/>
 		/// <br/>
@@ -81247,7 +81247,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshrdw instruction.<br/>
 		/// <br/>
@@ -81291,7 +81291,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshrdw instruction.<br/>
 		/// <br/>
@@ -81335,7 +81335,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshrdw, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpshufb instruction.<br/>
 		/// <br/>
@@ -81379,7 +81379,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshufb instruction.<br/>
 		/// <br/>
@@ -81443,7 +81443,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
 		/// <br/>
@@ -81487,7 +81487,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufbitqmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
 		/// <br/>
@@ -81531,7 +81531,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufbitqmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpshufd instruction.<br/>
 		/// <br/>
@@ -81575,7 +81575,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpshufd instruction.<br/>
 		/// <br/>
@@ -81639,7 +81639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpshufhw instruction.<br/>
 		/// <br/>
@@ -81683,7 +81683,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufhw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpshufhw instruction.<br/>
 		/// <br/>
@@ -81747,7 +81747,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshufhw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpshuflw instruction.<br/>
 		/// <br/>
@@ -81791,7 +81791,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshuflw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpshuflw instruction.<br/>
 		/// <br/>
@@ -81855,7 +81855,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpshuflw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsignb instruction.<br/>
 		/// <br/>
@@ -82091,7 +82091,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpslld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpslld instruction.<br/>
 		/// <br/>
@@ -82155,7 +82155,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpslld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpslld instruction.<br/>
 		/// <br/>
@@ -82199,7 +82199,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpslld, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpslld instruction.<br/>
 		/// <br/>
@@ -82243,7 +82243,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpslld, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpslldq instruction.<br/>
 		/// <br/>
@@ -82375,7 +82375,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllq instruction.<br/>
 		/// <br/>
@@ -82439,7 +82439,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllq instruction.<br/>
 		/// <br/>
@@ -82483,7 +82483,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsllq instruction.<br/>
 		/// <br/>
@@ -82527,7 +82527,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpsllvd instruction.<br/>
 		/// <br/>
@@ -82571,7 +82571,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllvd instruction.<br/>
 		/// <br/>
@@ -82635,7 +82635,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsllvq instruction.<br/>
 		/// <br/>
@@ -82679,7 +82679,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllvq instruction.<br/>
 		/// <br/>
@@ -82743,7 +82743,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsllvw instruction.<br/>
 		/// <br/>
@@ -82787,7 +82787,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllvw instruction.<br/>
 		/// <br/>
@@ -82831,7 +82831,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllw instruction.<br/>
 		/// <br/>
@@ -82875,7 +82875,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllw instruction.<br/>
 		/// <br/>
@@ -82939,7 +82939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsllw instruction.<br/>
 		/// <br/>
@@ -82983,7 +82983,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsllw instruction.<br/>
 		/// <br/>
@@ -83027,7 +83027,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsllw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrad instruction.<br/>
 		/// <br/>
@@ -83071,7 +83071,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrad, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrad instruction.<br/>
 		/// <br/>
@@ -83135,7 +83135,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrad, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrad instruction.<br/>
 		/// <br/>
@@ -83179,7 +83179,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrad, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrad instruction.<br/>
 		/// <br/>
@@ -83223,7 +83223,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrad, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpsraq instruction.<br/>
 		/// <br/>
@@ -83267,7 +83267,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsraq instruction.<br/>
 		/// <br/>
@@ -83311,7 +83311,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsraq instruction.<br/>
 		/// <br/>
@@ -83355,7 +83355,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsraq instruction.<br/>
 		/// <br/>
@@ -83399,7 +83399,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpsravd instruction.<br/>
 		/// <br/>
@@ -83443,7 +83443,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsravd instruction.<br/>
 		/// <br/>
@@ -83507,7 +83507,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsravq instruction.<br/>
 		/// <br/>
@@ -83551,7 +83551,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsravq instruction.<br/>
 		/// <br/>
@@ -83595,7 +83595,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsravw instruction.<br/>
 		/// <br/>
@@ -83639,7 +83639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsravw instruction.<br/>
 		/// <br/>
@@ -83683,7 +83683,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsravw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsraw instruction.<br/>
 		/// <br/>
@@ -83727,7 +83727,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsraw instruction.<br/>
 		/// <br/>
@@ -83791,7 +83791,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsraw instruction.<br/>
 		/// <br/>
@@ -83835,7 +83835,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsraw instruction.<br/>
 		/// <br/>
@@ -83879,7 +83879,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsraw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrld instruction.<br/>
 		/// <br/>
@@ -83923,7 +83923,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrld instruction.<br/>
 		/// <br/>
@@ -83987,7 +83987,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrld, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrld instruction.<br/>
 		/// <br/>
@@ -84031,7 +84031,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrld, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrld instruction.<br/>
 		/// <br/>
@@ -84075,7 +84075,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrld, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpsrldq instruction.<br/>
 		/// <br/>
@@ -84207,7 +84207,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlq instruction.<br/>
 		/// <br/>
@@ -84271,7 +84271,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlq instruction.<br/>
 		/// <br/>
@@ -84315,7 +84315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrlq instruction.<br/>
 		/// <br/>
@@ -84359,7 +84359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlq, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vpsrlvd instruction.<br/>
 		/// <br/>
@@ -84403,7 +84403,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlvd instruction.<br/>
 		/// <br/>
@@ -84467,7 +84467,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsrlvq instruction.<br/>
 		/// <br/>
@@ -84511,7 +84511,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlvq instruction.<br/>
 		/// <br/>
@@ -84575,7 +84575,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsrlvw instruction.<br/>
 		/// <br/>
@@ -84619,7 +84619,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlvw instruction.<br/>
 		/// <br/>
@@ -84663,7 +84663,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlvw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlw instruction.<br/>
 		/// <br/>
@@ -84707,7 +84707,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlw instruction.<br/>
 		/// <br/>
@@ -84771,7 +84771,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsrlw instruction.<br/>
 		/// <br/>
@@ -84815,7 +84815,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsrlw instruction.<br/>
 		/// <br/>
@@ -84859,7 +84859,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsrlw, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vpsubb instruction.<br/>
 		/// <br/>
@@ -84903,7 +84903,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubb instruction.<br/>
 		/// <br/>
@@ -84967,7 +84967,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubd instruction.<br/>
 		/// <br/>
@@ -85011,7 +85011,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubd instruction.<br/>
 		/// <br/>
@@ -85075,7 +85075,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsubq instruction.<br/>
 		/// <br/>
@@ -85119,7 +85119,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubq instruction.<br/>
 		/// <br/>
@@ -85183,7 +85183,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpsubsb instruction.<br/>
 		/// <br/>
@@ -85227,7 +85227,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubsb instruction.<br/>
 		/// <br/>
@@ -85291,7 +85291,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubsb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubsw instruction.<br/>
 		/// <br/>
@@ -85335,7 +85335,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubsw instruction.<br/>
 		/// <br/>
@@ -85399,7 +85399,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubsw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubusb instruction.<br/>
 		/// <br/>
@@ -85443,7 +85443,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubusb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubusb instruction.<br/>
 		/// <br/>
@@ -85507,7 +85507,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubusb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubusw instruction.<br/>
 		/// <br/>
@@ -85551,7 +85551,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubusw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubusw instruction.<br/>
 		/// <br/>
@@ -85615,7 +85615,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubusw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubw instruction.<br/>
 		/// <br/>
@@ -85659,7 +85659,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpsubw instruction.<br/>
 		/// <br/>
@@ -85723,7 +85723,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpsubw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpternlogd instruction.<br/>
 		/// <br/>
@@ -85767,7 +85767,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpternlogd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpternlogd instruction.<br/>
 		/// <br/>
@@ -85811,7 +85811,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpternlogd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpternlogq instruction.<br/>
 		/// <br/>
@@ -85855,7 +85855,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpternlogq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vpternlogq instruction.<br/>
 		/// <br/>
@@ -85899,7 +85899,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpternlogq, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vptest instruction.<br/>
 		/// <br/>
@@ -86007,7 +86007,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
 		/// <br/>
@@ -86051,7 +86051,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
 		/// <br/>
@@ -86095,7 +86095,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
 		/// <br/>
@@ -86139,7 +86139,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
 		/// <br/>
@@ -86183,7 +86183,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
 		/// <br/>
@@ -86227,7 +86227,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
 		/// <br/>
@@ -86271,7 +86271,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
 		/// <br/>
@@ -86315,7 +86315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
 		/// <br/>
@@ -86359,7 +86359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
 		/// <br/>
@@ -86403,7 +86403,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmb, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
 		/// <br/>
@@ -86447,7 +86447,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
 		/// <br/>
@@ -86491,7 +86491,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
 		/// <br/>
@@ -86535,7 +86535,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
 		/// <br/>
@@ -86579,7 +86579,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
 		/// <br/>
@@ -86623,7 +86623,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
 		/// <br/>
@@ -86667,7 +86667,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vptestnmw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhbw instruction.<br/>
 		/// <br/>
@@ -86711,7 +86711,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhbw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhbw instruction.<br/>
 		/// <br/>
@@ -86775,7 +86775,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhbw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhdq instruction.<br/>
 		/// <br/>
@@ -86819,7 +86819,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhdq instruction.<br/>
 		/// <br/>
@@ -86883,7 +86883,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpunpckhqdq instruction.<br/>
 		/// <br/>
@@ -86927,7 +86927,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhqdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhqdq instruction.<br/>
 		/// <br/>
@@ -86991,7 +86991,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhqdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpunpckhwd instruction.<br/>
 		/// <br/>
@@ -87035,7 +87035,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckhwd instruction.<br/>
 		/// <br/>
@@ -87099,7 +87099,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckhwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpcklbw instruction.<br/>
 		/// <br/>
@@ -87143,7 +87143,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklbw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpcklbw instruction.<br/>
 		/// <br/>
@@ -87207,7 +87207,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklbw, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckldq instruction.<br/>
 		/// <br/>
@@ -87251,7 +87251,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckldq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpckldq instruction.<br/>
 		/// <br/>
@@ -87315,7 +87315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpckldq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpunpcklqdq instruction.<br/>
 		/// <br/>
@@ -87359,7 +87359,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklqdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpcklqdq instruction.<br/>
 		/// <br/>
@@ -87423,7 +87423,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklqdq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpunpcklwd instruction.<br/>
 		/// <br/>
@@ -87467,7 +87467,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpunpcklwd instruction.<br/>
 		/// <br/>
@@ -87531,7 +87531,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpunpcklwd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpxor instruction.<br/>
 		/// <br/>
@@ -87639,7 +87639,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpxord, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpxord instruction.<br/>
 		/// <br/>
@@ -87683,7 +87683,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpxord, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vpxorq instruction.<br/>
 		/// <br/>
@@ -87727,7 +87727,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpxorq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vpxorq instruction.<br/>
 		/// <br/>
@@ -87771,7 +87771,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpxorq, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vrangepd instruction.<br/>
 		/// <br/>
@@ -87815,7 +87815,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrangepd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrangepd instruction.<br/>
 		/// <br/>
@@ -87859,7 +87859,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrangepd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vrangeps instruction.<br/>
 		/// <br/>
@@ -87903,7 +87903,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrangeps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrangeps instruction.<br/>
 		/// <br/>
@@ -87947,7 +87947,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrangeps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vrangesd instruction.<br/>
 		/// <br/>
@@ -87963,7 +87963,7 @@ namespace Iced.Intel {
 		public void vrangesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrangesd instruction.<br/>
 		/// <br/>
@@ -87979,7 +87979,7 @@ namespace Iced.Intel {
 		public void vrangesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrangess instruction.<br/>
 		/// <br/>
@@ -87995,7 +87995,7 @@ namespace Iced.Intel {
 		public void vrangess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrangess instruction.<br/>
 		/// <br/>
@@ -88011,7 +88011,7 @@ namespace Iced.Intel {
 		public void vrangess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrcp14pd instruction.<br/>
 		/// <br/>
@@ -88055,7 +88055,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrcp14pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrcp14pd instruction.<br/>
 		/// <br/>
@@ -88099,7 +88099,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrcp14pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp14ps instruction.<br/>
 		/// <br/>
@@ -88143,7 +88143,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrcp14ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrcp14ps instruction.<br/>
 		/// <br/>
@@ -88187,7 +88187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrcp14ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp14sd instruction.<br/>
 		/// <br/>
@@ -88203,7 +88203,7 @@ namespace Iced.Intel {
 		public void vrcp14sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp14sd instruction.<br/>
 		/// <br/>
@@ -88219,7 +88219,7 @@ namespace Iced.Intel {
 		public void vrcp14sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp14ss instruction.<br/>
 		/// <br/>
@@ -88235,7 +88235,7 @@ namespace Iced.Intel {
 		public void vrcp14ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp14ss instruction.<br/>
 		/// <br/>
@@ -88251,7 +88251,7 @@ namespace Iced.Intel {
 		public void vrcp14ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp28pd instruction.<br/>
 		/// <br/>
@@ -88267,7 +88267,7 @@ namespace Iced.Intel {
 		public void vrcp28pd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrcp28pd instruction.<br/>
 		/// <br/>
@@ -88283,7 +88283,7 @@ namespace Iced.Intel {
 		public void vrcp28pd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp28ps instruction.<br/>
 		/// <br/>
@@ -88299,7 +88299,7 @@ namespace Iced.Intel {
 		public void vrcp28ps(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrcp28ps instruction.<br/>
 		/// <br/>
@@ -88315,7 +88315,7 @@ namespace Iced.Intel {
 		public void vrcp28ps(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp28sd instruction.<br/>
 		/// <br/>
@@ -88331,7 +88331,7 @@ namespace Iced.Intel {
 		public void vrcp28sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp28sd instruction.<br/>
 		/// <br/>
@@ -88347,7 +88347,7 @@ namespace Iced.Intel {
 		public void vrcp28sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp28ss instruction.<br/>
 		/// <br/>
@@ -88363,7 +88363,7 @@ namespace Iced.Intel {
 		public void vrcp28ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcp28ss instruction.<br/>
 		/// <br/>
@@ -88379,7 +88379,7 @@ namespace Iced.Intel {
 		public void vrcp28ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrcpps instruction.<br/>
 		/// <br/>
@@ -88519,7 +88519,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vreducepd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vreducepd instruction.<br/>
 		/// <br/>
@@ -88563,7 +88563,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vreducepd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vreduceps instruction.<br/>
 		/// <br/>
@@ -88607,7 +88607,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vreduceps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vreduceps instruction.<br/>
 		/// <br/>
@@ -88651,7 +88651,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vreduceps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vreducesd instruction.<br/>
 		/// <br/>
@@ -88667,7 +88667,7 @@ namespace Iced.Intel {
 		public void vreducesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vreducesd instruction.<br/>
 		/// <br/>
@@ -88683,7 +88683,7 @@ namespace Iced.Intel {
 		public void vreducesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vreducess instruction.<br/>
 		/// <br/>
@@ -88699,7 +88699,7 @@ namespace Iced.Intel {
 		public void vreducess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vreducess instruction.<br/>
 		/// <br/>
@@ -88715,7 +88715,7 @@ namespace Iced.Intel {
 		public void vreducess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrndscalepd instruction.<br/>
 		/// <br/>
@@ -88759,7 +88759,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrndscalepd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vrndscalepd instruction.<br/>
 		/// <br/>
@@ -88803,7 +88803,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrndscalepd, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vrndscaleps instruction.<br/>
 		/// <br/>
@@ -88847,7 +88847,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrndscaleps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags);
 		}
 		/// <summary>vrndscaleps instruction.<br/>
 		/// <br/>
@@ -88891,7 +88891,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrndscaleps, dst, src, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, imm));
+			AddInstruction(Instruction.Create(op, dst, src, imm), dst.Flags | src.Flags);
 		}
 		/// <summary>vrndscalesd instruction.<br/>
 		/// <br/>
@@ -88907,7 +88907,7 @@ namespace Iced.Intel {
 		public void vrndscalesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrndscalesd instruction.<br/>
 		/// <br/>
@@ -88923,7 +88923,7 @@ namespace Iced.Intel {
 		public void vrndscalesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrndscaless instruction.<br/>
 		/// <br/>
@@ -88939,7 +88939,7 @@ namespace Iced.Intel {
 		public void vrndscaless(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vrndscaless instruction.<br/>
 		/// <br/>
@@ -88955,7 +88955,7 @@ namespace Iced.Intel {
 		public void vrndscaless(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vroundpd instruction.<br/>
 		/// <br/>
@@ -89191,7 +89191,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrsqrt14pd instruction.<br/>
 		/// <br/>
@@ -89235,7 +89235,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14pd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt14ps instruction.<br/>
 		/// <br/>
@@ -89279,7 +89279,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrsqrt14ps instruction.<br/>
 		/// <br/>
@@ -89323,7 +89323,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vrsqrt14ps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt14sd instruction.<br/>
 		/// <br/>
@@ -89339,7 +89339,7 @@ namespace Iced.Intel {
 		public void vrsqrt14sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt14sd instruction.<br/>
 		/// <br/>
@@ -89355,7 +89355,7 @@ namespace Iced.Intel {
 		public void vrsqrt14sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt14ss instruction.<br/>
 		/// <br/>
@@ -89371,7 +89371,7 @@ namespace Iced.Intel {
 		public void vrsqrt14ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt14ss instruction.<br/>
 		/// <br/>
@@ -89387,7 +89387,7 @@ namespace Iced.Intel {
 		public void vrsqrt14ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt28pd instruction.<br/>
 		/// <br/>
@@ -89403,7 +89403,7 @@ namespace Iced.Intel {
 		public void vrsqrt28pd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrsqrt28pd instruction.<br/>
 		/// <br/>
@@ -89419,7 +89419,7 @@ namespace Iced.Intel {
 		public void vrsqrt28pd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt28ps instruction.<br/>
 		/// <br/>
@@ -89435,7 +89435,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ps(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vrsqrt28ps instruction.<br/>
 		/// <br/>
@@ -89451,7 +89451,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ps(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt28sd instruction.<br/>
 		/// <br/>
@@ -89467,7 +89467,7 @@ namespace Iced.Intel {
 		public void vrsqrt28sd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt28sd instruction.<br/>
 		/// <br/>
@@ -89483,7 +89483,7 @@ namespace Iced.Intel {
 		public void vrsqrt28sd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt28ss instruction.<br/>
 		/// <br/>
@@ -89499,7 +89499,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrt28ss instruction.<br/>
 		/// <br/>
@@ -89515,7 +89515,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vrsqrtps instruction.<br/>
 		/// <br/>
@@ -89655,7 +89655,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscalefpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscalefpd instruction.<br/>
 		/// <br/>
@@ -89699,7 +89699,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscalefpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vscalefps instruction.<br/>
 		/// <br/>
@@ -89743,7 +89743,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscalefps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscalefps instruction.<br/>
 		/// <br/>
@@ -89787,7 +89787,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscalefps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vscalefsd instruction.<br/>
 		/// <br/>
@@ -89803,7 +89803,7 @@ namespace Iced.Intel {
 		public void vscalefsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscalefsd instruction.<br/>
 		/// <br/>
@@ -89819,7 +89819,7 @@ namespace Iced.Intel {
 		public void vscalefsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscalefss instruction.<br/>
 		/// <br/>
@@ -89835,7 +89835,7 @@ namespace Iced.Intel {
 		public void vscalefss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscalefss instruction.<br/>
 		/// <br/>
@@ -89851,7 +89851,7 @@ namespace Iced.Intel {
 		public void vscalefss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vscatterdpd instruction.<br/>
 		/// <br/>
@@ -89895,7 +89895,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscatterdpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vscatterdps instruction.<br/>
 		/// <br/>
@@ -89939,7 +89939,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscatterdps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vscatterpf0dpd instruction.<br/>
 		/// <br/>
@@ -89955,7 +89955,7 @@ namespace Iced.Intel {
 		public void vscatterpf0dpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf0dpd_vm32y_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf0dps instruction.<br/>
 		/// <br/>
@@ -89971,7 +89971,7 @@ namespace Iced.Intel {
 		public void vscatterpf0dps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf0dps_vm32z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf0qpd instruction.<br/>
 		/// <br/>
@@ -89987,7 +89987,7 @@ namespace Iced.Intel {
 		public void vscatterpf0qpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf0qpd_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf0qps instruction.<br/>
 		/// <br/>
@@ -90003,7 +90003,7 @@ namespace Iced.Intel {
 		public void vscatterpf0qps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf0qps_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf1dpd instruction.<br/>
 		/// <br/>
@@ -90019,7 +90019,7 @@ namespace Iced.Intel {
 		public void vscatterpf1dpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf1dpd_vm32y_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf1dps instruction.<br/>
 		/// <br/>
@@ -90035,7 +90035,7 @@ namespace Iced.Intel {
 		public void vscatterpf1dps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf1dps_vm32z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf1qpd instruction.<br/>
 		/// <br/>
@@ -90051,7 +90051,7 @@ namespace Iced.Intel {
 		public void vscatterpf1qpd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf1qpd_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterpf1qps instruction.<br/>
 		/// <br/>
@@ -90067,7 +90067,7 @@ namespace Iced.Intel {
 		public void vscatterpf1qps(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.EVEX_Vscatterpf1qps_vm64z_k1;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst), dst.Flags);
 		}
 		/// <summary>vscatterqpd instruction.<br/>
 		/// <br/>
@@ -90111,7 +90111,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscatterqpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vscatterqps instruction.<br/>
 		/// <br/>
@@ -90155,7 +90155,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscatterqps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vshuff32x4 instruction.<br/>
 		/// <br/>
@@ -90187,7 +90187,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshuff32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshuff32x4 instruction.<br/>
 		/// <br/>
@@ -90219,7 +90219,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshuff32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vshuff64x2 instruction.<br/>
 		/// <br/>
@@ -90251,7 +90251,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshuff64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshuff64x2 instruction.<br/>
 		/// <br/>
@@ -90283,7 +90283,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshuff64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vshufi32x4 instruction.<br/>
 		/// <br/>
@@ -90315,7 +90315,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufi32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshufi32x4 instruction.<br/>
 		/// <br/>
@@ -90347,7 +90347,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufi32x4, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vshufi64x2 instruction.<br/>
 		/// <br/>
@@ -90379,7 +90379,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufi64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshufi64x2 instruction.<br/>
 		/// <br/>
@@ -90411,7 +90411,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufi64x2, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vshufpd instruction.<br/>
 		/// <br/>
@@ -90455,7 +90455,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshufpd instruction.<br/>
 		/// <br/>
@@ -90519,7 +90519,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufpd, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vshufps instruction.<br/>
 		/// <br/>
@@ -90563,7 +90563,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags);
 		}
 		/// <summary>vshufps instruction.<br/>
 		/// <br/>
@@ -90627,7 +90627,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vshufps, dst, src, arg2, imm);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2, imm));
+			AddInstruction(Instruction.Create(op, dst, src, arg2, imm), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vsqrtpd instruction.<br/>
 		/// <br/>
@@ -90671,7 +90671,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsqrtpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vsqrtpd instruction.<br/>
 		/// <br/>
@@ -90735,7 +90735,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsqrtpd, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vsqrtps instruction.<br/>
 		/// <br/>
@@ -90779,7 +90779,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsqrtps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
 		}
 		/// <summary>vsqrtps instruction.<br/>
 		/// <br/>
@@ -90843,7 +90843,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsqrtps, dst, src);
 			}
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vsqrtsd instruction.<br/>
 		/// <br/>
@@ -90859,7 +90859,7 @@ namespace Iced.Intel {
 		public void vsqrtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vsqrtsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsqrtsd instruction.<br/>
 		/// <br/>
@@ -90885,7 +90885,7 @@ namespace Iced.Intel {
 		public void vsqrtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vsqrtsd_xmm_xmm_xmmm64 : Code.EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsqrtss instruction.<br/>
 		/// <br/>
@@ -90901,7 +90901,7 @@ namespace Iced.Intel {
 		public void vsqrtss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vsqrtss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsqrtss instruction.<br/>
 		/// <br/>
@@ -90927,7 +90927,7 @@ namespace Iced.Intel {
 		public void vsqrtss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vsqrtss_xmm_xmm_xmmm32 : Code.EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vstmxcsr instruction.<br/>
 		/// <br/>
@@ -90987,7 +90987,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsubpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsubpd instruction.<br/>
 		/// <br/>
@@ -91051,7 +91051,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsubpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vsubps instruction.<br/>
 		/// <br/>
@@ -91095,7 +91095,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsubps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsubps instruction.<br/>
 		/// <br/>
@@ -91159,7 +91159,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vsubps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vsubsd instruction.<br/>
 		/// <br/>
@@ -91175,7 +91175,7 @@ namespace Iced.Intel {
 		public void vsubsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vsubsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsubsd instruction.<br/>
 		/// <br/>
@@ -91201,7 +91201,7 @@ namespace Iced.Intel {
 		public void vsubsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vsubsd_xmm_xmm_xmmm64 : Code.EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsubss instruction.<br/>
 		/// <br/>
@@ -91217,7 +91217,7 @@ namespace Iced.Intel {
 		public void vsubss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
 			Code op;
 			op = Code.VEX_Vsubss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vsubss instruction.<br/>
 		/// <br/>
@@ -91243,7 +91243,7 @@ namespace Iced.Intel {
 		public void vsubss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vsubss_xmm_xmm_xmmm32 : Code.EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vtestpd instruction.<br/>
 		/// <br/>
@@ -91499,7 +91499,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpckhpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vunpckhpd instruction.<br/>
 		/// <br/>
@@ -91563,7 +91563,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpckhpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vunpckhps instruction.<br/>
 		/// <br/>
@@ -91607,7 +91607,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpckhps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vunpckhps instruction.<br/>
 		/// <br/>
@@ -91671,7 +91671,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpckhps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vunpcklpd instruction.<br/>
 		/// <br/>
@@ -91715,7 +91715,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpcklpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vunpcklpd instruction.<br/>
 		/// <br/>
@@ -91779,7 +91779,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpcklpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vunpcklps instruction.<br/>
 		/// <br/>
@@ -91823,7 +91823,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpcklps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vunpcklps instruction.<br/>
 		/// <br/>
@@ -91887,7 +91887,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vunpcklps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vxorpd instruction.<br/>
 		/// <br/>
@@ -91931,7 +91931,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vxorpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vxorpd instruction.<br/>
 		/// <br/>
@@ -91995,7 +91995,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vxorpd, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vxorps instruction.<br/>
 		/// <br/>
@@ -92039,7 +92039,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vxorps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags);
 		}
 		/// <summary>vxorps instruction.<br/>
 		/// <br/>
@@ -92103,7 +92103,7 @@ namespace Iced.Intel {
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vxorps, dst, src, arg2);
 			}
-			AddInstruction(Instruction.Create(op, dst, src, arg2));
+			AddInstruction(Instruction.Create(op, dst, src, arg2), dst.Flags | arg2.Flags);
 		}
 		/// <summary>vzeroall instruction.<br/>
 		/// <br/>
