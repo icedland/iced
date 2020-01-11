@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 
 namespace Iced.Intel
@@ -17,7 +18,7 @@ namespace Iced.Intel
 		/// <param name="index">Index register.</param>
 		/// <param name="scale">Scale of the index.</param>
 		/// <param name="displacement">Displacement.</param>
-		public AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, int displacement) {
+		public AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, long displacement) {
 			Size = size;
 			Prefix = prefix;
 			Base = @base;
@@ -54,8 +55,13 @@ namespace Iced.Intel
 		/// <summary>
 		/// Gets the displacement.
 		/// </summary>
-		public readonly int Displacement;
-		
+		public readonly long Displacement;
+
+		/// <summary>
+		/// Gets a boolean indicating if this memory operand is a memory access without a base/index and with a displacement bigger than 32-bit.
+		/// </summary>
+		public bool IsDisplacement64BitOnly => Base == Register.None && Index == Register.None && (Displacement < int.MinValue || Displacement > int.MaxValue);
+
 		/// <summary>
 		/// Gets the size of the displacement.
 		/// </summary>
@@ -107,7 +113,7 @@ namespace Iced.Intel
 		/// <param name="v">The memory operand.</param>
 		/// <returns></returns>
 		public static implicit operator MemoryOperand(AssemblerMemoryOperand v) {
-			return new MemoryOperand(v.Base, v.Index, v.Scale, v.Displacement, v.DisplacementSize);
+			return new MemoryOperand(v.Base, v.Index, v.Scale, (int)v.Displacement, v.DisplacementSize);
 		}
 	}
 }

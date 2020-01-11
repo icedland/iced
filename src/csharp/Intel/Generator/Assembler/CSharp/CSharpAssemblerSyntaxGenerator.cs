@@ -243,6 +243,8 @@ namespace Generator.Assembler.CSharp {
 		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind) {
 			var regName = arg.Name;
 			switch (selectorKind) {
+			case OpCodeSelectorKind.MemOffs64:
+				return $"{regName}.IsDisplacement64BitOnly";
 			case OpCodeSelectorKind.Bitness64:
 				return "Bitness == 64";
 			case OpCodeSelectorKind.Bitness32:

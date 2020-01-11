@@ -3277,29 +3277,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>BNDMOV bnd1/m64, bnd2</c><br/>
-		/// <br/>
-		/// <c>66 0F 1B /r</c><br/>
-		/// <br/>
-		/// <c>MPX</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>BNDMOV bnd1/m128, bnd2</c><br/>
 		/// <br/>
 		/// <c>66 0F 1B /r</c><br/>
 		/// <br/>
 		/// <c>MPX</c><br/>
 		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1/m64, bnd2</c><br/>
+		/// <br/>
+		/// <c>66 0F 1B /r</c><br/>
+		/// <br/>
+		/// <c>MPX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
 		public void bndmov(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
-			if (Bitness >= 16) {
-				op = Code.Bndmov_bndm64_bnd;
-			} else if (Bitness == 64) {
+			if (Bitness == 64) {
 				op = Code.Bndmov_bndm128_bnd;
+			} else if (Bitness >= 16) {
+				op = Code.Bndmov_bndm64_bnd;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Bndmov, dst, src);
 			}
@@ -3309,29 +3309,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>BNDMOV bnd1, bnd2/m64</c><br/>
-		/// <br/>
-		/// <c>66 0F 1A /r</c><br/>
-		/// <br/>
-		/// <c>MPX</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>BNDMOV bnd1, bnd2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 1A /r</c><br/>
 		/// <br/>
 		/// <c>MPX</c><br/>
 		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>BNDMOV bnd1, bnd2/m64</c><br/>
+		/// <br/>
+		/// <c>66 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>MPX</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
 		public void bndmov(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness >= 16) {
-				op = Code.Bndmov_bnd_bndm64;
-			} else if (Bitness == 64) {
+			if (Bitness == 64) {
 				op = Code.Bndmov_bnd_bndm128;
+			} else if (Bitness >= 16) {
+				op = Code.Bndmov_bnd_bndm64;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Bndmov, dst, src);
 			}
@@ -4421,16 +4421,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>CALL r/m64</c><br/>
-		/// <br/>
-		/// <c>FF /2</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>CALL m16:64</c><br/>
 		/// <br/>
 		/// <c>REX.W FF /3</c><br/>
@@ -4441,31 +4431,11 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>CALL r/m32</c><br/>
-		/// <br/>
-		/// <c>o32 FF /2</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>CALL m16:32</c><br/>
 		/// <br/>
 		/// <c>o32 FF /3</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CALL r/m16</c><br/>
-		/// <br/>
-		/// <c>o16 FF /2</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -4480,12 +4450,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void call(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Call_rm64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Call_rm32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Call_rm16;
+			if (Bitness == 64) {
+				op = Code.Call_m1664;
+			} else if (Bitness >= 32) {
+				op = Code.Call_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Call_m1616;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
 			}
@@ -13139,16 +13109,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>JMP r/m64</c><br/>
-		/// <br/>
-		/// <c>FF /4</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>JMP m16:64</c><br/>
 		/// <br/>
 		/// <c>REX.W FF /5</c><br/>
@@ -13159,31 +13119,11 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>JMP r/m32</c><br/>
-		/// <br/>
-		/// <c>o32 FF /4</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>JMP m16:32</c><br/>
 		/// <br/>
 		/// <c>o32 FF /5</c><br/>
 		/// <br/>
 		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>JMP r/m16</c><br/>
-		/// <br/>
-		/// <c>o16 FF /4</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
@@ -13198,12 +13138,12 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void jmp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Jmp_rm64;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Jmp_rm32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Jmp_rm16;
+			if (Bitness == 64) {
+				op = Code.Jmp_m1664;
+			} else if (Bitness >= 32) {
+				op = Code.Jmp_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Jmp_m1616;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
 			}
@@ -16625,6 +16565,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV RAX, moffs64</c><br/>
+		/// <br/>
+		/// <c>REX.W A1 mo</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r64, r/m64</c><br/>
 		/// <br/>
 		/// <c>REX.W 8B /r</c><br/>
@@ -16632,6 +16582,16 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV EAX, moffs32</c><br/>
+		/// <br/>
+		/// <c>o32 A1 mo</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -16645,9 +16605,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>MOV AX, moffs16</c><br/>
+		/// <br/>
+		/// <c>o16 A1 mo</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>MOV r16, r/m16</c><br/>
 		/// <br/>
 		/// <c>o16 8B /r</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>MOV AL, moffs8</c><br/>
+		/// <br/>
+		/// <c>A0 mo</c><br/>
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
@@ -16694,7 +16674,19 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (dst.IsGPR64()) {
+			if (src.IsDisplacement64BitOnly) {
+				if (dst == Register.RAX) {
+					op = Code.Mov_RAX_moffs64;
+				} else if (dst == Register.EAX) {
+					op = Code.Mov_EAX_moffs32;
+				} else if (dst == Register.AX) {
+					op = Code.Mov_AX_moffs16;
+				} else if (dst == Register.AL) {
+					op = Code.Mov_AL_moffs8;
+				} else {
+					throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
+				}
+			} else if (dst.IsGPR64()) {
 				op = Code.Mov_r64_rm64;
 			} else if (dst.IsGPR32()) {
 				op = Code.Mov_r32_rm32;
@@ -16721,16 +16713,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOV RAX, moffs64</c><br/>
-		/// <br/>
-		/// <c>REX.W A1 mo</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOV r64, imm64</c><br/>
 		/// <br/>
 		/// <c>REX.W B8+ro io</c><br/>
@@ -16738,16 +16720,6 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV EAX, moffs32</c><br/>
-		/// <br/>
-		/// <c>o32 A1 mo</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -16761,49 +16733,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOV AX, moffs16</c><br/>
-		/// <br/>
-		/// <c>o16 A1 mo</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOV r16, imm16</c><br/>
 		/// <br/>
 		/// <c>o16 B8+rw iw</c><br/>
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV AL, moffs8</c><br/>
-		/// <br/>
-		/// <c>A0 mo</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister dst, long imm) {
 			Code op;
-			if (dst == Register.RAX) {
-				op = Code.Mov_RAX_moffs64;
-			} else if (dst.IsGPR64()) {
+			if (dst.IsGPR64()) {
 				op = Code.Mov_r64_imm64;
-			} else if (dst == Register.EAX) {
-				op = Code.Mov_EAX_moffs32;
 			} else if (dst.IsGPR32()) {
 				op = Code.Mov_r32_imm32;
-			} else if (dst == Register.AX) {
-				op = Code.Mov_AX_moffs16;
 			} else if (dst.IsGPR16()) {
 				op = Code.Mov_r16_imm16;
-			} else if (dst == Register.AL) {
-				op = Code.Mov_AL_moffs8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
 			}
