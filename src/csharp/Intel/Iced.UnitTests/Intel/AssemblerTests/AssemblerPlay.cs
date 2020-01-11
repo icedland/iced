@@ -1,7 +1,8 @@
 using System;
+using Iced.Intel;
 using static Iced.Intel.AssemblerRegisters;
 
-namespace Iced.Intel
+namespace Iced.UnitTests.Intel.AssemblerTests
 {
 	/// <summary>
 	/// Example playground - will be replaced by proper tests

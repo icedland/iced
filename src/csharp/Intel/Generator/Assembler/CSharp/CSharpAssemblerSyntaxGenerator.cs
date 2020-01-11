@@ -69,7 +69,11 @@ namespace Generator.Assembler.CSharp {
 		}
 
 		protected override void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
-
+			GenerateCode(map, groups);
+			GenerateTests(map, groups);
+		}
+		
+		void GenerateCode(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -79,136 +83,10 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("using System;");
 					writer.WriteLine("public sealed partial class Assembler {");
 					using (writer.Indent()) {
-
-						var renderArgs = new List<RenderArg>();
-
 						foreach (var group in groups) {
-							renderArgs.Clear();
-
-							int immArg = 0;
-							
-							var signature = group.Signature;
-							for (int i = 0; i < signature.ArgCount; i++) {
-								string argName = i == 0 ? "dst" : i == 1 ? "src" : $"arg{i}";
-								string argType = $"arg{i}";
-								int maxArgSize = group.MaxArgSizes[i];
-								var argKind = signature.GetArgKind(i);
-								
-								switch (argKind) {
-								case ArgKind.Register:
-									argType = "AssemblerRegister";
-									break;
-								
-								case ArgKind.Label:
-									argType = "Label";
-									break;
-
-								case ArgKind.RegisterMemory:
-									argType = "AssemblerMemoryOperand";
-									break;
-								case ArgKind.Memory:
-									argType = "AssemblerMemoryOperand";
-									break;
-								
-								case ArgKind.Immediate:
-									argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
-									immArg++;
-									Debug.Assert(maxArgSize > 0 && maxArgSize <= 8);
-									argType = maxArgSize == 8 ? "long" : maxArgSize == 4 ? "int" : maxArgSize == 2 ? "short" : "byte";
-									break;
-								
-								case ArgKind.ImmediateByte:
-									argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
-									immArg++;
-									argType = "byte";
-									break;								
-
-								default:
-									throw new ArgumentOutOfRangeException();
-								}
-
-								renderArgs.Add(new RenderArg(argName, argType, argKind));
-							}
-
+							var renderArgs = GetRenderArgs(group);
 							var methodName = Converter.Method(group.Name);
-
-							// Write documentation
-							var methodDoc = new StringBuilder();
-							methodDoc.Append($"{group.Name} instruction.");
-							foreach (var code in group.Items) {
-								if (!string.IsNullOrEmpty(code.Code.Documentation)) {
-									methodDoc.Append("#(p:)##(p:)#");
-									methodDoc.Append(code.Code.Documentation);	
-								}
-							}
-							docWriter.WriteSummary(writer, methodDoc.ToString(), "");
-							
-							writer.Write($"public void {methodName}(");
-							int realArgCount = 0;
-							for (var i = 0; i < renderArgs.Count; i++) {
-								var renderArg = renderArgs[i];
-								if (realArgCount > 0) writer.Write(", ");
-								writer.Write($"{renderArg.Type} {renderArg.Name}");
-								realArgCount++;
-							}
-							writer.WriteLine(") {");
-							using (writer.Indent()) {
-								if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-									writer.Write($"AddInstruction(Instruction.Create{group.MemoName}(Bitness");
-									for (var i = 0; i < renderArgs.Count; i++) {
-										var renderArg = renderArgs[i];
-										writer.Write(", ");
-										writer.Write(renderArg.Name);
-									}
-									writer.WriteLine("));");
-								}
-								else {
-
-									writer.WriteLine("Code op;");
-									GenerateOpCodeSelector(writer, group, renderArgs);
-
-									if (group.HasLabel) {
-										writer.Write("AddInstruction(Instruction.CreateBranch(op");
-									}
-									else {
-										writer.Write("AddInstruction(Instruction.Create(op");
-									}
-
-									for (var i = 0; i < renderArgs.Count; i++) {
-										var renderArg = renderArgs[i];
-										writer.Write(", ");
-										writer.Write(renderArg.Name);
-										if (renderArg.Kind == ArgKind.Label) {
-											writer.Write(".Id");
-										}
-									}
-
-									writer.Write(")");
-
-									bool hasFlags = false;
-									if ((group.Flags & (OpCodeArgFlags.HasKMask | OpCodeArgFlags.HasZeroingMask)) != 0) {
-										writer.Write($", {renderArgs[0].Name}.Flags");
-										hasFlags = true;
-									}
-									
-									if ((group.Flags & OpCodeArgFlags.HasBroadcast) != 0) {
-										for (int i = renderArgs.Count - 1; i >= 0; i--) {
-											if (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) {
-												if (hasFlags) {
-													writer.Write(" | ");
-												} else
-												{
-													writer.Write(", ");
-													hasFlags = true;
-												}
-												writer.Write($"{renderArgs[i].Name}.Flags");
-											} 
-										}
-									}
-									writer.WriteLine(");");
-								}
-							}
-							writer.WriteLine("}");
+							RenderCode(writer, methodName, group, renderArgs);
 						}
 					}
 					writer.WriteLine("}");
@@ -217,20 +95,215 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLine("#endif");
 			}
 		}
+		
+		void GenerateTests(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
+			const string assemblerTestsNameBase = "AssemblerTests";
 
-		private struct RenderArg {
-			public RenderArg(string name, string type, ArgKind kind) {
-				Name = name;
-				Type = type;
-				Kind = kind;
+			foreach (var bitness in new int[] {64, 32, 16}) {
+				string testName = assemblerTestsNameBase + bitness;
+			
+				var filenameTests = Path.Combine(Path.Combine(_generatorOptions.CSharpTestsDir, "Intel", assemblerTestsNameBase, $"{testName}.g.cs"));
+				using (var writerTests = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filenameTests))) {
+					writerTests.WriteFileHeader();
+					writerTests.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+					writerTests.WriteLine($"namespace {CSharpConstants.IcedUnitTestsNamespace}.{assemblerTestsNameBase} {{");
+					using (writerTests.Indent()) {
+						writerTests.WriteLine("using System;");
+						writerTests.WriteLine("using System.Linq;");
+						writerTests.WriteLine("using System.Text;");
+						writerTests.WriteLine("using Iced.Intel;");
+						writerTests.WriteLine("using Xunit;");
+
+						writerTests.WriteLine($"public sealed class {testName} : AssemblerTests {{");
+						using (writerTests.Indent()) {
+							foreach (var group in groups) {
+								var renderArgs = GetRenderArgs(group);
+								var methodName = Converter.Method(group.Name);
+								RenderTests(writerTests, methodName, group, renderArgs);
+							}
+						}
+						writerTests.WriteLine("}");					
+					}
+					writerTests.WriteLine("}");
+					writerTests.WriteLine("#endif");
+				}
+			}
+		}
+
+		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group) {
+			var renderArgs = new List<RenderArg>();
+
+			int immArg = 0;
+							
+			var signature = group.Signature;
+			for (int i = 0; i < signature.ArgCount; i++) {
+				string argName = i == 0 ? "dst" : i == 1 ? "src" : $"arg{i}";
+				string argType = $"arg{i}";
+				int maxArgSize = group.MaxArgSizes[i];
+				var argKind = signature.GetArgKind(i);
+								
+				switch (argKind) {
+				case ArgKind.Register:
+					argType = "AssemblerRegister";
+					break;
+								
+				case ArgKind.Label:
+					argType = "Label";
+					break;
+
+				case ArgKind.RegisterMemory:
+					argType = "AssemblerMemoryOperand";
+					break;
+				case ArgKind.Memory:
+					argType = "AssemblerMemoryOperand";
+					break;
+								
+				case ArgKind.Immediate:
+					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
+					immArg++;
+					Debug.Assert(maxArgSize > 0 && maxArgSize <= 8);
+					argType = maxArgSize == 8 ? "long" : maxArgSize == 4 ? "int" : maxArgSize == 2 ? "short" : "byte";
+					break;
+								
+				case ArgKind.ImmediateByte:
+					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
+					immArg++;
+					argType = "byte";
+					break;								
+
+				default:
+					throw new ArgumentOutOfRangeException($"{argKind}");
+				}
+
+				renderArgs.Add(new RenderArg(argName, argType, argKind));
+			}
+			return renderArgs;
+		}
+
+		void RenderCode(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+			// Write documentation
+			var methodDoc = new StringBuilder();
+			methodDoc.Append($"{group.Name} instruction.");
+			foreach (var code in group.Items) {
+				if (!string.IsNullOrEmpty(code.Code.Documentation)) {
+					methodDoc.Append("#(p:)##(p:)#");
+					methodDoc.Append(code.Code.Documentation);
+				}
 			}
 
-			public string Name;
+			docWriter.WriteSummary(writer, methodDoc.ToString(), "");
 
-			public string Type;
+			writer.Write($"public void {methodName}(");
+			int realArgCount = 0;
+			for (var i = 0; i < renderArgs.Count; i++) {
+				var renderArg = renderArgs[i];
+				if (realArgCount > 0) writer.Write(", ");
+				writer.Write($"{renderArg.Type} {renderArg.Name}");
+				realArgCount++;
+			}
 
-			public ArgKind Kind;
+			writer.WriteLine(") {");
+			using (writer.Indent()) {
+				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
+					writer.Write($"AddInstruction(Instruction.Create{group.MemoName}(Bitness");
+					for (var i = 0; i < renderArgs.Count; i++) {
+						var renderArg = renderArgs[i];
+						writer.Write(", ");
+						writer.Write(renderArg.Name);
+					}
+
+					writer.WriteLine("));");
+				}
+				else {
+
+					writer.WriteLine("Code op;");
+					GenerateOpCodeSelector(writer, group, renderArgs);
+
+					if (group.HasLabel) {
+						writer.Write("AddInstruction(Instruction.CreateBranch(op");
+					}
+					else {
+						writer.Write("AddInstruction(Instruction.Create(op");
+					}
+
+					for (var i = 0; i < renderArgs.Count; i++) {
+						var renderArg = renderArgs[i];
+						writer.Write(", ");
+						writer.Write(renderArg.Name);
+						if (renderArg.Kind == ArgKind.Label) {
+							writer.Write(".Id");
+						}
+					}
+
+					writer.Write(")");
+
+					bool hasFlags = false;
+					if ((group.Flags & (OpCodeArgFlags.HasKMask | OpCodeArgFlags.HasZeroingMask)) != 0) {
+						writer.Write($", {renderArgs[0].Name}.Flags");
+						hasFlags = true;
+					}
+
+					if ((group.Flags & OpCodeArgFlags.HasBroadcast) != 0) {
+						for (int i = renderArgs.Count - 1; i >= 0; i--) {
+							if (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) {
+								if (hasFlags) {
+									writer.Write(" | ");
+								}
+								else {
+									writer.Write(", ");
+									hasFlags = true;
+								}
+
+								writer.Write($"{renderArgs[i].Name}.Flags");
+							}
+						}
+					}
+
+					writer.WriteLine(");");
+				}
+			}
+
+			writer.WriteLine("}");
 		}
+		
+		void RenderTests(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+			var fullMethodName = new StringBuilder();
+			fullMethodName.Append(methodName);
+			foreach (var renderArg in renderArgs) {
+				fullMethodName.Append('_');
+				switch (renderArg.Kind) {
+				case ArgKind.Register:
+					fullMethodName.Append("reg");
+					break;
+				case ArgKind.RegisterMemory:
+					fullMethodName.Append("rm");
+					break;
+				case ArgKind.Memory:
+					fullMethodName.Append("m");
+					break;
+				case ArgKind.Immediate:
+					fullMethodName.Append("i");
+					break;
+				case ArgKind.ImmediateByte:
+					fullMethodName.Append("ib");
+					break;
+				case ArgKind.Label:
+					fullMethodName.Append("l");
+					break;
+				default:
+					throw new ArgumentOutOfRangeException($"{renderArg.Kind}");
+				}
+			}
+
+			writer.WriteLine("[Fact]");
+			writer.WriteLine($"public void {fullMethodName}() {{");
+			using (writer.Indent()) {
+				
+				
+			}
+			writer.WriteLine("}");
+			writer.WriteLine();;
+		}		
 
 		void GenerateOpCodeSelector(FileWriter writer, OpCodeInfoGroup group, List<RenderArg> args) {
 			GenerateOpCodeSelector(writer, group, true, group.RootOpCodeNode, args);
@@ -393,6 +466,20 @@ namespace Generator.Assembler.CSharp {
 			default:
 				return $"invalid_selector_{selectorKind}_for_arg_{regName}";
 			}
+		}
+		
+		struct RenderArg {
+			public RenderArg(string name, string type, ArgKind kind) {
+				Name = name;
+				Type = type;
+				Kind = kind;
+			}
+
+			public string Name;
+
+			public string Type;
+
+			public ArgKind Kind;
 		}
 	}
 }
