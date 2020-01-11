@@ -15,6 +15,7 @@ namespace Iced.Intel {
 		readonly List<Instruction> _instructions;
 		ulong _currentLabelId;
 		Label _label;
+		PrefixFlags _nextPrefixFlags;
 
 		/// <summary>
 		/// Creates a new instance of this assembler 
@@ -122,10 +123,87 @@ namespace Iced.Intel {
 		/// <param name="instruction"></param>
 		public void AddInstruction(Instruction instruction) {
 			instruction.IP = _label.Id;
+			
+			// Setup prefixes
+			if (_nextPrefixFlags != PrefixFlags.None) {
+				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
+					instruction.HasLockPrefix = true;
+				}
+				if ((_nextPrefixFlags & PrefixFlags.Xacquire) != 0) {
+					instruction.HasXacquirePrefix = true;
+				}
+				if ((_nextPrefixFlags & PrefixFlags.Xrelease) != 0) {
+					instruction.HasXreleasePrefix = true;
+				}
+				if ((_nextPrefixFlags & PrefixFlags.Rep) != 0) {
+					instruction.HasRepPrefix = true;
+				}
+				else if ((_nextPrefixFlags & PrefixFlags.Repe) != 0) {
+					instruction.HasRepePrefix = true;
+				}
+				else if ((_nextPrefixFlags & PrefixFlags.Repne) != 0) {
+					instruction.HasRepnePrefix = true;
+				}
+			}
 			_instructions.Add(instruction);
 			_label = default;
+			_nextPrefixFlags = PrefixFlags.None;
 		}
 
+		/// <summary>
+		/// Add lock prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler @lock() {
+			_nextPrefixFlags = PrefixFlags.Lock;
+			return this;
+		}
+		
+		/// <summary>
+		/// Add xacquire prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler xacquire() {
+			_nextPrefixFlags = PrefixFlags.Xacquire;
+			return this;
+		}
+
+		/// <summary>
+		/// Add xrelease prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler xrelease() {
+			_nextPrefixFlags = PrefixFlags.Xrelease;
+			return this;
+		}
+
+		/// <summary>
+		/// Add rep prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler rep() {
+			_nextPrefixFlags = PrefixFlags.Rep;
+			return this;
+		}
+
+		/// <summary>
+		/// Add repe prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler repe() {
+			_nextPrefixFlags = PrefixFlags.Repe;
+			return this;
+		}
+
+		/// <summary>
+		/// Add repne prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		public Assembler repne() {
+			_nextPrefixFlags = PrefixFlags.Repne;
+			return this;
+		}
+		
 		/// <summary>
 		/// Encode the instructions of this assembler with the specified options.
 		/// </summary>
@@ -176,6 +254,17 @@ namespace Iced.Intel {
 
 			builder.Append($"`. Combination of arguments and/or current bitness {Bitness} is not compatible with any existing OpCode encoding.");
 			return new InvalidOperationException(builder.ToString());
+		}
+
+		[Flags]
+		enum PrefixFlags {
+			None = 0,
+			Xacquire = 1 << 0,
+			Xrelease = 1 << 1,
+			Lock = 1 << 2,
+			Rep = 1 << 3,
+			Repe = 1 << 4,
+			Repne = 1 << 5,
 		}
 	}
 }

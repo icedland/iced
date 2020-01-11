@@ -6696,10 +6696,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpsb() {
+		public void cmpsb(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Cmpsb_m8_m8;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>cmpsd instruction.<br/>
 		/// <br/>
@@ -6712,10 +6712,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpsd() {
+		public void cmpsd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Cmpsd_m32_m32;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>cmpsd instruction.<br/>
 		/// <br/>
@@ -6760,10 +6760,10 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void cmpsq() {
+		public void cmpsq(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Cmpsq_m64_m64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>cmpss instruction.<br/>
 		/// <br/>
@@ -6808,10 +6808,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void cmpsw() {
+		public void cmpsw(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Cmpsw_m16_m16;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>cmpxchg instruction.<br/>
 		/// <br/>
@@ -12536,10 +12536,10 @@ namespace Iced.Intel {
 		/// <c>186+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void insb(AssemblerRegister src) {
+		public void insb(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Insb_m8_DX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>insd instruction.<br/>
 		/// <br/>
@@ -12552,10 +12552,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void insd(AssemblerRegister src) {
+		public void insd(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Insd_m32_DX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>insertps instruction.<br/>
 		/// <br/>
@@ -12632,10 +12632,10 @@ namespace Iced.Intel {
 		/// <c>186+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void insw(AssemblerRegister src) {
+		public void insw(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Insw_m16_DX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>int instruction.<br/>
 		/// <br/>
@@ -16162,10 +16162,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void lodsb(AssemblerRegister dst) {
+		public void lodsb(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Lodsb_AL_m8;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lodsd instruction.<br/>
 		/// <br/>
@@ -16178,10 +16178,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void lodsd(AssemblerRegister dst) {
+		public void lodsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Lodsd_EAX_m32;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lodsq instruction.<br/>
 		/// <br/>
@@ -16194,10 +16194,10 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void lodsq(AssemblerRegister dst) {
+		public void lodsq(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Lodsq_RAX_m64;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>lodsw instruction.<br/>
 		/// <br/>
@@ -16210,10 +16210,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void lodsw(AssemblerRegister dst) {
+		public void lodsw(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Lodsw_AX_m16;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>loop instruction.<br/>
 		/// <br/>
@@ -18966,10 +18966,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void movsb() {
+		public void movsb(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Movsb_m8_m8;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>movsd instruction.<br/>
 		/// <br/>
@@ -19030,10 +19030,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void movsd() {
+		public void movsd(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Movsd_m32_m32;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>movshdup instruction.<br/>
 		/// <br/>
@@ -19110,10 +19110,10 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void movsq() {
+		public void movsq(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Movsq_m64_m64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>movss instruction.<br/>
 		/// <br/>
@@ -19174,10 +19174,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void movsw() {
+		public void movsw(AssemblerMemoryOperand dst) {
 			Code op;
 			op = Code.Movsw_m16_m16;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>movsx instruction.<br/>
 		/// <br/>
@@ -21038,10 +21038,10 @@ namespace Iced.Intel {
 		/// <c>186+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void outsb(AssemblerRegister dst) {
+		public void outsb(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Outsb_DX_m8;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>outsd instruction.<br/>
 		/// <br/>
@@ -21054,10 +21054,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void outsd(AssemblerRegister dst) {
+		public void outsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Outsd_DX_m32;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>outsw instruction.<br/>
 		/// <br/>
@@ -21070,10 +21070,10 @@ namespace Iced.Intel {
 		/// <c>186+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void outsw(AssemblerRegister dst) {
+		public void outsw(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Outsw_DX_m16;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pabsb instruction.<br/>
 		/// <br/>
@@ -32534,10 +32534,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void scasb(AssemblerRegister dst) {
+		public void scasb(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Scasb_AL_m8;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>scasd instruction.<br/>
 		/// <br/>
@@ -32550,10 +32550,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void scasd(AssemblerRegister dst) {
+		public void scasd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Scasd_EAX_m32;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>scasq instruction.<br/>
 		/// <br/>
@@ -32566,10 +32566,10 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void scasq(AssemblerRegister dst) {
+		public void scasq(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Scasq_RAX_m64;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>scasw instruction.<br/>
 		/// <br/>
@@ -32582,10 +32582,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void scasw(AssemblerRegister dst) {
+		public void scasw(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = Code.Scasw_AX_m16;
-			AddInstruction(Instruction.Create(op, dst));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>seta instruction.<br/>
 		/// <br/>
@@ -35110,10 +35110,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void stosb(AssemblerRegister src) {
+		public void stosb(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Stosb_m8_AL;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>stosd instruction.<br/>
 		/// <br/>
@@ -35126,10 +35126,10 @@ namespace Iced.Intel {
 		/// <c>386+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void stosd(AssemblerRegister src) {
+		public void stosd(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Stosd_m32_EAX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>stosq instruction.<br/>
 		/// <br/>
@@ -35142,10 +35142,10 @@ namespace Iced.Intel {
 		/// <c>X64</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		public void stosq(AssemblerRegister src) {
+		public void stosq(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Stosq_m64_RAX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>stosw instruction.<br/>
 		/// <br/>
@@ -35158,10 +35158,10 @@ namespace Iced.Intel {
 		/// <c>8086+</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void stosw(AssemblerRegister src) {
+		public void stosw(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = Code.Stosw_m16_AX;
-			AddInstruction(Instruction.Create(op, src));
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>str instruction.<br/>
 		/// <br/>

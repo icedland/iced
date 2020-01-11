@@ -71,7 +71,8 @@ namespace Iced.Intel
 
 				if (Displacement >= sbyte.MinValue && Displacement <= sbyte.MaxValue) return 1;
 				if (Displacement >= short.MinValue && Displacement <= short.MaxValue) return 2;
-				return 4;
+				if (Displacement >= int.MinValue && Displacement <= int.MaxValue) return 4;
+				return 8;
 			}
 		}
 

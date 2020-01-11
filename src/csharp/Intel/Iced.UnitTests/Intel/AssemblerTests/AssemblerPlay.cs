@@ -24,6 +24,9 @@ namespace Iced.Intel
 			c.syscall();
 			
 			c.Label(label1);
+			
+			//c.rep().stosd(__[edi], eax);
+			
 			c.ret();
 
 			var result = c.Encode();

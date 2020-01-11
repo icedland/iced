@@ -68,12 +68,12 @@ namespace Iced.Intel
 		/// Specify the base register used with this memory operand (Base + Index * Scale + Displacement)
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 0, 0);
+		public AssemblerMemoryOperand this[AssemblerRegister register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0);
 		
 		/// <summary>
 		/// Specify the offset displacement with this memory operand (Base + Index * Scale + Displacement)
 		/// </summary>
 		/// <param name="offset">Displacement of this memory operand.</param>
-		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 0, offset);
+		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, offset);
 	}
 }

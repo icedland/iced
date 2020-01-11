@@ -192,7 +192,23 @@ namespace Generator.Assembler {
 
 					case OpCodeOperandKind.seg_rSI:
 					case OpCodeOperandKind.es_rDI:
-						argKind = ArgKind.HiddenMemory;
+						argKind = ArgKind.Memory;
+
+						// Discard 2nd argument of following instructions (m16_m16/m32_m32/m64_m64)
+						if (i == 1) {
+							switch (name) {
+							case "movsb":
+							case "movsw":
+							case "movsd":
+							case "movsq":
+							case "cmpsb":
+							case "cmpsw":
+							case "cmpsd":
+							case "cmpsq":
+								argKind = ArgKind.HiddenMemory;
+								break;
+							}
+						}
 						break;
 
 					case OpCodeOperandKind.k_or_mem:
