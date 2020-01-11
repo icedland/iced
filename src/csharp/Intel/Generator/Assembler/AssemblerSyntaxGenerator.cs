@@ -1218,26 +1218,6 @@ namespace Generator.Assembler {
 				return OpCodeSelectorKind.RegisterST0;
 			case OpCodeOperandKind.sti_opcode:
 				return OpCodeSelectorKind.RegisterST;
-			//
-			// case OpCodeOperandKind.imm2_m2z:
-			// 	return OpCodeConditionKind.ImmediateByteWith2Bits;
-			//
-			// case OpCodeOperandKind.imm8:
-			// 	return OpCodeConditionKind.ImmediateByte;
-			//
-			// case OpCodeOperandKind.imm8_const_1:
-			// 	return OpCodeConditionKind.ImmediateByteEqual1;
-			//
-			// case OpCodeOperandKind.imm8sex16:
-			// case OpCodeOperandKind.imm8sex32:
-			// case OpCodeOperandKind.imm8sex64:
-			// 	return OpCodeConditionKind.ImmediateByteSigned;
-			//
-			// case OpCodeOperandKind.imm16:
-			// case OpCodeOperandKind.imm32:
-			// case OpCodeOperandKind.imm32sex64:
-			// case OpCodeOperandKind.imm64:
-			// 	return OpCodeConditionKind.ImmediateInt;
 			
 			case OpCodeOperandKind.seg_rSI:
 			case OpCodeOperandKind.es_rDI:
