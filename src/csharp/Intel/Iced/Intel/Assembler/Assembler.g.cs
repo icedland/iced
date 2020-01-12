@@ -94219,6 +94219,1862 @@ namespace Iced.Intel {
 			op = Code.Xtest;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>cmpeqpd instruction.</summary>
+		public void cmpeqpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 0);
+		}
+		/// <summary>cmpeqpd instruction.</summary>
+		public void cmpeqpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 0);
+		}
+		/// <summary>cmpeqps instruction.</summary>
+		public void cmpeqps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 0);
+		}
+		/// <summary>cmpeqps instruction.</summary>
+		public void cmpeqps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 0);
+		}
+		/// <summary>cmpeqsd instruction.</summary>
+		public void cmpeqsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 0);
+		}
+		/// <summary>cmpeqsd instruction.</summary>
+		public void cmpeqsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 0);
+		}
+		/// <summary>cmpeqss instruction.</summary>
+		public void cmpeqss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 0);
+		}
+		/// <summary>cmpeqss instruction.</summary>
+		public void cmpeqss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 0);
+		}
+		/// <summary>cmplepd instruction.</summary>
+		public void cmplepd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 2);
+		}
+		/// <summary>cmplepd instruction.</summary>
+		public void cmplepd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 2);
+		}
+		/// <summary>cmpleps instruction.</summary>
+		public void cmpleps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 2);
+		}
+		/// <summary>cmpleps instruction.</summary>
+		public void cmpleps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 2);
+		}
+		/// <summary>cmplesd instruction.</summary>
+		public void cmplesd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 2);
+		}
+		/// <summary>cmplesd instruction.</summary>
+		public void cmplesd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 2);
+		}
+		/// <summary>cmpless instruction.</summary>
+		public void cmpless(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 2);
+		}
+		/// <summary>cmpless instruction.</summary>
+		public void cmpless(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 2);
+		}
+		/// <summary>cmpltpd instruction.</summary>
+		public void cmpltpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 1);
+		}
+		/// <summary>cmpltpd instruction.</summary>
+		public void cmpltpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 1);
+		}
+		/// <summary>cmpltps instruction.</summary>
+		public void cmpltps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 1);
+		}
+		/// <summary>cmpltps instruction.</summary>
+		public void cmpltps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 1);
+		}
+		/// <summary>cmpltsd instruction.</summary>
+		public void cmpltsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 1);
+		}
+		/// <summary>cmpltsd instruction.</summary>
+		public void cmpltsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 1);
+		}
+		/// <summary>cmpltss instruction.</summary>
+		public void cmpltss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 1);
+		}
+		/// <summary>cmpltss instruction.</summary>
+		public void cmpltss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 1);
+		}
+		/// <summary>cmpneqpd instruction.</summary>
+		public void cmpneqpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 4);
+		}
+		/// <summary>cmpneqpd instruction.</summary>
+		public void cmpneqpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 4);
+		}
+		/// <summary>cmpneqps instruction.</summary>
+		public void cmpneqps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 4);
+		}
+		/// <summary>cmpneqps instruction.</summary>
+		public void cmpneqps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 4);
+		}
+		/// <summary>cmpneqsd instruction.</summary>
+		public void cmpneqsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 4);
+		}
+		/// <summary>cmpneqsd instruction.</summary>
+		public void cmpneqsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 4);
+		}
+		/// <summary>cmpneqss instruction.</summary>
+		public void cmpneqss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 4);
+		}
+		/// <summary>cmpneqss instruction.</summary>
+		public void cmpneqss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 4);
+		}
+		/// <summary>cmpnlepd instruction.</summary>
+		public void cmpnlepd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 6);
+		}
+		/// <summary>cmpnlepd instruction.</summary>
+		public void cmpnlepd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 6);
+		}
+		/// <summary>cmpnleps instruction.</summary>
+		public void cmpnleps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 6);
+		}
+		/// <summary>cmpnleps instruction.</summary>
+		public void cmpnleps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 6);
+		}
+		/// <summary>cmpnlesd instruction.</summary>
+		public void cmpnlesd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 6);
+		}
+		/// <summary>cmpnlesd instruction.</summary>
+		public void cmpnlesd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 6);
+		}
+		/// <summary>cmpnless instruction.</summary>
+		public void cmpnless(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 6);
+		}
+		/// <summary>cmpnless instruction.</summary>
+		public void cmpnless(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 6);
+		}
+		/// <summary>cmpnltpd instruction.</summary>
+		public void cmpnltpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 5);
+		}
+		/// <summary>cmpnltpd instruction.</summary>
+		public void cmpnltpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 5);
+		}
+		/// <summary>cmpnltps instruction.</summary>
+		public void cmpnltps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 5);
+		}
+		/// <summary>cmpnltps instruction.</summary>
+		public void cmpnltps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 5);
+		}
+		/// <summary>cmpnltsd instruction.</summary>
+		public void cmpnltsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 5);
+		}
+		/// <summary>cmpnltsd instruction.</summary>
+		public void cmpnltsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 5);
+		}
+		/// <summary>cmpnltss instruction.</summary>
+		public void cmpnltss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 5);
+		}
+		/// <summary>cmpnltss instruction.</summary>
+		public void cmpnltss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 5);
+		}
+		/// <summary>cmpordpd instruction.</summary>
+		public void cmpordpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 7);
+		}
+		/// <summary>cmpordpd instruction.</summary>
+		public void cmpordpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 7);
+		}
+		/// <summary>cmpordps instruction.</summary>
+		public void cmpordps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 7);
+		}
+		/// <summary>cmpordps instruction.</summary>
+		public void cmpordps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 7);
+		}
+		/// <summary>cmpordsd instruction.</summary>
+		public void cmpordsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 7);
+		}
+		/// <summary>cmpordsd instruction.</summary>
+		public void cmpordsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 7);
+		}
+		/// <summary>cmpordss instruction.</summary>
+		public void cmpordss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 7);
+		}
+		/// <summary>cmpordss instruction.</summary>
+		public void cmpordss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 7);
+		}
+		/// <summary>cmpunordpd instruction.</summary>
+		public void cmpunordpd(AssemblerRegister dst, AssemblerRegister src) {
+			cmppd(dst, src, 3);
+		}
+		/// <summary>cmpunordpd instruction.</summary>
+		public void cmpunordpd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmppd(dst, src, 3);
+		}
+		/// <summary>cmpunordps instruction.</summary>
+		public void cmpunordps(AssemblerRegister dst, AssemblerRegister src) {
+			cmpps(dst, src, 3);
+		}
+		/// <summary>cmpunordps instruction.</summary>
+		public void cmpunordps(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpps(dst, src, 3);
+		}
+		/// <summary>cmpunordsd instruction.</summary>
+		public void cmpunordsd(AssemblerRegister dst, AssemblerRegister src) {
+			cmpsd(dst, src, 3);
+		}
+		/// <summary>cmpunordsd instruction.</summary>
+		public void cmpunordsd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpsd(dst, src, 3);
+		}
+		/// <summary>cmpunordss instruction.</summary>
+		public void cmpunordss(AssemblerRegister dst, AssemblerRegister src) {
+			cmpss(dst, src, 3);
+		}
+		/// <summary>cmpunordss instruction.</summary>
+		public void cmpunordss(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			cmpss(dst, src, 3);
+		}
+		/// <summary>pclmulhqhqdq instruction.</summary>
+		public void pclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src) {
+			pclmulqdq(dst, src, 3);
+		}
+		/// <summary>pclmulhqhqdq instruction.</summary>
+		public void pclmulhqhqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			pclmulqdq(dst, src, 3);
+		}
+		/// <summary>pclmulhqlqdq instruction.</summary>
+		public void pclmulhqlqdq(AssemblerRegister dst, AssemblerRegister src) {
+			pclmulqdq(dst, src, 1);
+		}
+		/// <summary>pclmulhqlqdq instruction.</summary>
+		public void pclmulhqlqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			pclmulqdq(dst, src, 1);
+		}
+		/// <summary>pclmullqhqdq instruction.</summary>
+		public void pclmullqhqdq(AssemblerRegister dst, AssemblerRegister src) {
+			pclmulqdq(dst, src, 2);
+		}
+		/// <summary>pclmullqhqdq instruction.</summary>
+		public void pclmullqhqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			pclmulqdq(dst, src, 2);
+		}
+		/// <summary>pclmullqlqdq instruction.</summary>
+		public void pclmullqlqdq(AssemblerRegister dst, AssemblerRegister src) {
+			pclmulqdq(dst, src, 0);
+		}
+		/// <summary>pclmullqlqdq instruction.</summary>
+		public void pclmullqlqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			pclmulqdq(dst, src, 0);
+		}
+		/// <summary>vcmpeq_ospd instruction.</summary>
+		public void vcmpeq_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_ospd instruction.</summary>
+		public void vcmpeq_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_osps instruction.</summary>
+		public void vcmpeq_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_osps instruction.</summary>
+		public void vcmpeq_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_ossd instruction.</summary>
+		public void vcmpeq_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_ossd instruction.</summary>
+		public void vcmpeq_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_osss instruction.</summary>
+		public void vcmpeq_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_osss instruction.</summary>
+		public void vcmpeq_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 16);
+		}
+		/// <summary>vcmpeq_uqpd instruction.</summary>
+		public void vcmpeq_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqpd instruction.</summary>
+		public void vcmpeq_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqps instruction.</summary>
+		public void vcmpeq_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqps instruction.</summary>
+		public void vcmpeq_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqsd instruction.</summary>
+		public void vcmpeq_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqsd instruction.</summary>
+		public void vcmpeq_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqss instruction.</summary>
+		public void vcmpeq_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uqss instruction.</summary>
+		public void vcmpeq_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 8);
+		}
+		/// <summary>vcmpeq_uspd instruction.</summary>
+		public void vcmpeq_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_uspd instruction.</summary>
+		public void vcmpeq_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_usps instruction.</summary>
+		public void vcmpeq_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_usps instruction.</summary>
+		public void vcmpeq_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_ussd instruction.</summary>
+		public void vcmpeq_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_ussd instruction.</summary>
+		public void vcmpeq_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_usss instruction.</summary>
+		public void vcmpeq_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeq_usss instruction.</summary>
+		public void vcmpeq_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 24);
+		}
+		/// <summary>vcmpeqpd instruction.</summary>
+		public void vcmpeqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqpd instruction.</summary>
+		public void vcmpeqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqps instruction.</summary>
+		public void vcmpeqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqps instruction.</summary>
+		public void vcmpeqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqsd instruction.</summary>
+		public void vcmpeqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqsd instruction.</summary>
+		public void vcmpeqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqss instruction.</summary>
+		public void vcmpeqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpeqss instruction.</summary>
+		public void vcmpeqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 0);
+		}
+		/// <summary>vcmpfalse_ospd instruction.</summary>
+		public void vcmpfalse_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_ospd instruction.</summary>
+		public void vcmpfalse_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_osps instruction.</summary>
+		public void vcmpfalse_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_osps instruction.</summary>
+		public void vcmpfalse_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_ossd instruction.</summary>
+		public void vcmpfalse_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_ossd instruction.</summary>
+		public void vcmpfalse_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_osss instruction.</summary>
+		public void vcmpfalse_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalse_osss instruction.</summary>
+		public void vcmpfalse_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 27);
+		}
+		/// <summary>vcmpfalsepd instruction.</summary>
+		public void vcmpfalsepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalsepd instruction.</summary>
+		public void vcmpfalsepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalseps instruction.</summary>
+		public void vcmpfalseps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalseps instruction.</summary>
+		public void vcmpfalseps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalsesd instruction.</summary>
+		public void vcmpfalsesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalsesd instruction.</summary>
+		public void vcmpfalsesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalsess instruction.</summary>
+		public void vcmpfalsess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpfalsess instruction.</summary>
+		public void vcmpfalsess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 11);
+		}
+		/// <summary>vcmpge_oqpd instruction.</summary>
+		public void vcmpge_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqpd instruction.</summary>
+		public void vcmpge_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqps instruction.</summary>
+		public void vcmpge_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqps instruction.</summary>
+		public void vcmpge_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqsd instruction.</summary>
+		public void vcmpge_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqsd instruction.</summary>
+		public void vcmpge_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqss instruction.</summary>
+		public void vcmpge_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpge_oqss instruction.</summary>
+		public void vcmpge_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 29);
+		}
+		/// <summary>vcmpgepd instruction.</summary>
+		public void vcmpgepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgepd instruction.</summary>
+		public void vcmpgepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgeps instruction.</summary>
+		public void vcmpgeps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgeps instruction.</summary>
+		public void vcmpgeps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgesd instruction.</summary>
+		public void vcmpgesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgesd instruction.</summary>
+		public void vcmpgesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgess instruction.</summary>
+		public void vcmpgess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgess instruction.</summary>
+		public void vcmpgess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 13);
+		}
+		/// <summary>vcmpgt_oqpd instruction.</summary>
+		public void vcmpgt_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqpd instruction.</summary>
+		public void vcmpgt_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqps instruction.</summary>
+		public void vcmpgt_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqps instruction.</summary>
+		public void vcmpgt_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqsd instruction.</summary>
+		public void vcmpgt_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqsd instruction.</summary>
+		public void vcmpgt_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqss instruction.</summary>
+		public void vcmpgt_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgt_oqss instruction.</summary>
+		public void vcmpgt_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 30);
+		}
+		/// <summary>vcmpgtpd instruction.</summary>
+		public void vcmpgtpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtpd instruction.</summary>
+		public void vcmpgtpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtps instruction.</summary>
+		public void vcmpgtps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtps instruction.</summary>
+		public void vcmpgtps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtsd instruction.</summary>
+		public void vcmpgtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtsd instruction.</summary>
+		public void vcmpgtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtss instruction.</summary>
+		public void vcmpgtss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 14);
+		}
+		/// <summary>vcmpgtss instruction.</summary>
+		public void vcmpgtss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 14);
+		}
+		/// <summary>vcmple_oqpd instruction.</summary>
+		public void vcmple_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqpd instruction.</summary>
+		public void vcmple_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqps instruction.</summary>
+		public void vcmple_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqps instruction.</summary>
+		public void vcmple_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqsd instruction.</summary>
+		public void vcmple_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqsd instruction.</summary>
+		public void vcmple_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqss instruction.</summary>
+		public void vcmple_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 18);
+		}
+		/// <summary>vcmple_oqss instruction.</summary>
+		public void vcmple_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 18);
+		}
+		/// <summary>vcmplepd instruction.</summary>
+		public void vcmplepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 2);
+		}
+		/// <summary>vcmplepd instruction.</summary>
+		public void vcmplepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 2);
+		}
+		/// <summary>vcmpleps instruction.</summary>
+		public void vcmpleps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 2);
+		}
+		/// <summary>vcmpleps instruction.</summary>
+		public void vcmpleps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 2);
+		}
+		/// <summary>vcmplesd instruction.</summary>
+		public void vcmplesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 2);
+		}
+		/// <summary>vcmplesd instruction.</summary>
+		public void vcmplesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 2);
+		}
+		/// <summary>vcmpless instruction.</summary>
+		public void vcmpless(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 2);
+		}
+		/// <summary>vcmpless instruction.</summary>
+		public void vcmpless(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 2);
+		}
+		/// <summary>vcmplt_oqpd instruction.</summary>
+		public void vcmplt_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqpd instruction.</summary>
+		public void vcmplt_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqps instruction.</summary>
+		public void vcmplt_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqps instruction.</summary>
+		public void vcmplt_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqsd instruction.</summary>
+		public void vcmplt_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqsd instruction.</summary>
+		public void vcmplt_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqss instruction.</summary>
+		public void vcmplt_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 17);
+		}
+		/// <summary>vcmplt_oqss instruction.</summary>
+		public void vcmplt_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 17);
+		}
+		/// <summary>vcmpltpd instruction.</summary>
+		public void vcmpltpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltpd instruction.</summary>
+		public void vcmpltpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltps instruction.</summary>
+		public void vcmpltps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltps instruction.</summary>
+		public void vcmpltps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltsd instruction.</summary>
+		public void vcmpltsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltsd instruction.</summary>
+		public void vcmpltsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltss instruction.</summary>
+		public void vcmpltss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpltss instruction.</summary>
+		public void vcmpltss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 1);
+		}
+		/// <summary>vcmpneq_oqpd instruction.</summary>
+		public void vcmpneq_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqpd instruction.</summary>
+		public void vcmpneq_oqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqps instruction.</summary>
+		public void vcmpneq_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqps instruction.</summary>
+		public void vcmpneq_oqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqsd instruction.</summary>
+		public void vcmpneq_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqsd instruction.</summary>
+		public void vcmpneq_oqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqss instruction.</summary>
+		public void vcmpneq_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_oqss instruction.</summary>
+		public void vcmpneq_oqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 12);
+		}
+		/// <summary>vcmpneq_ospd instruction.</summary>
+		public void vcmpneq_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_ospd instruction.</summary>
+		public void vcmpneq_ospd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_osps instruction.</summary>
+		public void vcmpneq_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_osps instruction.</summary>
+		public void vcmpneq_osps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_ossd instruction.</summary>
+		public void vcmpneq_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_ossd instruction.</summary>
+		public void vcmpneq_ossd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_osss instruction.</summary>
+		public void vcmpneq_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_osss instruction.</summary>
+		public void vcmpneq_osss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 28);
+		}
+		/// <summary>vcmpneq_uspd instruction.</summary>
+		public void vcmpneq_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_uspd instruction.</summary>
+		public void vcmpneq_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_usps instruction.</summary>
+		public void vcmpneq_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_usps instruction.</summary>
+		public void vcmpneq_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_ussd instruction.</summary>
+		public void vcmpneq_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_ussd instruction.</summary>
+		public void vcmpneq_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_usss instruction.</summary>
+		public void vcmpneq_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneq_usss instruction.</summary>
+		public void vcmpneq_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 20);
+		}
+		/// <summary>vcmpneqpd instruction.</summary>
+		public void vcmpneqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqpd instruction.</summary>
+		public void vcmpneqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqps instruction.</summary>
+		public void vcmpneqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqps instruction.</summary>
+		public void vcmpneqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqsd instruction.</summary>
+		public void vcmpneqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqsd instruction.</summary>
+		public void vcmpneqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqss instruction.</summary>
+		public void vcmpneqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpneqss instruction.</summary>
+		public void vcmpneqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 4);
+		}
+		/// <summary>vcmpnge_uqpd instruction.</summary>
+		public void vcmpnge_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqpd instruction.</summary>
+		public void vcmpnge_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqps instruction.</summary>
+		public void vcmpnge_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqps instruction.</summary>
+		public void vcmpnge_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqsd instruction.</summary>
+		public void vcmpnge_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqsd instruction.</summary>
+		public void vcmpnge_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqss instruction.</summary>
+		public void vcmpnge_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpnge_uqss instruction.</summary>
+		public void vcmpnge_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 25);
+		}
+		/// <summary>vcmpngepd instruction.</summary>
+		public void vcmpngepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngepd instruction.</summary>
+		public void vcmpngepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngeps instruction.</summary>
+		public void vcmpngeps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngeps instruction.</summary>
+		public void vcmpngeps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngesd instruction.</summary>
+		public void vcmpngesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngesd instruction.</summary>
+		public void vcmpngesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngess instruction.</summary>
+		public void vcmpngess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngess instruction.</summary>
+		public void vcmpngess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 9);
+		}
+		/// <summary>vcmpngt_uqpd instruction.</summary>
+		public void vcmpngt_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqpd instruction.</summary>
+		public void vcmpngt_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqps instruction.</summary>
+		public void vcmpngt_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqps instruction.</summary>
+		public void vcmpngt_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqsd instruction.</summary>
+		public void vcmpngt_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqsd instruction.</summary>
+		public void vcmpngt_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqss instruction.</summary>
+		public void vcmpngt_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngt_uqss instruction.</summary>
+		public void vcmpngt_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 26);
+		}
+		/// <summary>vcmpngtpd instruction.</summary>
+		public void vcmpngtpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtpd instruction.</summary>
+		public void vcmpngtpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtps instruction.</summary>
+		public void vcmpngtps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtps instruction.</summary>
+		public void vcmpngtps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtsd instruction.</summary>
+		public void vcmpngtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtsd instruction.</summary>
+		public void vcmpngtsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtss instruction.</summary>
+		public void vcmpngtss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpngtss instruction.</summary>
+		public void vcmpngtss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 10);
+		}
+		/// <summary>vcmpnle_uqpd instruction.</summary>
+		public void vcmpnle_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqpd instruction.</summary>
+		public void vcmpnle_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqps instruction.</summary>
+		public void vcmpnle_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqps instruction.</summary>
+		public void vcmpnle_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqsd instruction.</summary>
+		public void vcmpnle_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqsd instruction.</summary>
+		public void vcmpnle_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqss instruction.</summary>
+		public void vcmpnle_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnle_uqss instruction.</summary>
+		public void vcmpnle_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 22);
+		}
+		/// <summary>vcmpnlepd instruction.</summary>
+		public void vcmpnlepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnlepd instruction.</summary>
+		public void vcmpnlepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnleps instruction.</summary>
+		public void vcmpnleps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnleps instruction.</summary>
+		public void vcmpnleps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnlesd instruction.</summary>
+		public void vcmpnlesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnlesd instruction.</summary>
+		public void vcmpnlesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnless instruction.</summary>
+		public void vcmpnless(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnless instruction.</summary>
+		public void vcmpnless(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 6);
+		}
+		/// <summary>vcmpnlt_uqpd instruction.</summary>
+		public void vcmpnlt_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqpd instruction.</summary>
+		public void vcmpnlt_uqpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqps instruction.</summary>
+		public void vcmpnlt_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqps instruction.</summary>
+		public void vcmpnlt_uqps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqsd instruction.</summary>
+		public void vcmpnlt_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqsd instruction.</summary>
+		public void vcmpnlt_uqsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqss instruction.</summary>
+		public void vcmpnlt_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnlt_uqss instruction.</summary>
+		public void vcmpnlt_uqss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 21);
+		}
+		/// <summary>vcmpnltpd instruction.</summary>
+		public void vcmpnltpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltpd instruction.</summary>
+		public void vcmpnltpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltps instruction.</summary>
+		public void vcmpnltps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltps instruction.</summary>
+		public void vcmpnltps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltsd instruction.</summary>
+		public void vcmpnltsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltsd instruction.</summary>
+		public void vcmpnltsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltss instruction.</summary>
+		public void vcmpnltss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpnltss instruction.</summary>
+		public void vcmpnltss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 5);
+		}
+		/// <summary>vcmpord_spd instruction.</summary>
+		public void vcmpord_spd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_spd instruction.</summary>
+		public void vcmpord_spd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_sps instruction.</summary>
+		public void vcmpord_sps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_sps instruction.</summary>
+		public void vcmpord_sps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_ssd instruction.</summary>
+		public void vcmpord_ssd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_ssd instruction.</summary>
+		public void vcmpord_ssd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_sss instruction.</summary>
+		public void vcmpord_sss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpord_sss instruction.</summary>
+		public void vcmpord_sss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 23);
+		}
+		/// <summary>vcmpordpd instruction.</summary>
+		public void vcmpordpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordpd instruction.</summary>
+		public void vcmpordpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordps instruction.</summary>
+		public void vcmpordps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordps instruction.</summary>
+		public void vcmpordps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordsd instruction.</summary>
+		public void vcmpordsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordsd instruction.</summary>
+		public void vcmpordsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordss instruction.</summary>
+		public void vcmpordss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 7);
+		}
+		/// <summary>vcmpordss instruction.</summary>
+		public void vcmpordss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 7);
+		}
+		/// <summary>vcmptrue_uspd instruction.</summary>
+		public void vcmptrue_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_uspd instruction.</summary>
+		public void vcmptrue_uspd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_usps instruction.</summary>
+		public void vcmptrue_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_usps instruction.</summary>
+		public void vcmptrue_usps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_ussd instruction.</summary>
+		public void vcmptrue_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_ussd instruction.</summary>
+		public void vcmptrue_ussd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_usss instruction.</summary>
+		public void vcmptrue_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptrue_usss instruction.</summary>
+		public void vcmptrue_usss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 31);
+		}
+		/// <summary>vcmptruepd instruction.</summary>
+		public void vcmptruepd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptruepd instruction.</summary>
+		public void vcmptruepd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptrueps instruction.</summary>
+		public void vcmptrueps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptrueps instruction.</summary>
+		public void vcmptrueps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptruesd instruction.</summary>
+		public void vcmptruesd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptruesd instruction.</summary>
+		public void vcmptruesd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptruess instruction.</summary>
+		public void vcmptruess(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 15);
+		}
+		/// <summary>vcmptruess instruction.</summary>
+		public void vcmptruess(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 15);
+		}
+		/// <summary>vcmpunord_spd instruction.</summary>
+		public void vcmpunord_spd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_spd instruction.</summary>
+		public void vcmpunord_spd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_sps instruction.</summary>
+		public void vcmpunord_sps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_sps instruction.</summary>
+		public void vcmpunord_sps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_ssd instruction.</summary>
+		public void vcmpunord_ssd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_ssd instruction.</summary>
+		public void vcmpunord_ssd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_sss instruction.</summary>
+		public void vcmpunord_sss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunord_sss instruction.</summary>
+		public void vcmpunord_sss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 19);
+		}
+		/// <summary>vcmpunordpd instruction.</summary>
+		public void vcmpunordpd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmppd(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordpd instruction.</summary>
+		public void vcmpunordpd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmppd(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordps instruction.</summary>
+		public void vcmpunordps(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpps(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordps instruction.</summary>
+		public void vcmpunordps(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpps(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordsd instruction.</summary>
+		public void vcmpunordsd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpsd(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordsd instruction.</summary>
+		public void vcmpunordsd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpsd(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordss instruction.</summary>
+		public void vcmpunordss(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vcmpss(dst, src, arg2, 3);
+		}
+		/// <summary>vcmpunordss instruction.</summary>
+		public void vcmpunordss(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vcmpss(dst, src, arg2, 3);
+		}
+		/// <summary>vpclmulhqhqdq instruction.</summary>
+		public void vpclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpclmulqdq(dst, src, arg2, 3);
+		}
+		/// <summary>vpclmulhqhqdq instruction.</summary>
+		public void vpclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpclmulqdq(dst, src, arg2, 3);
+		}
+		/// <summary>vpclmulhqlqdq instruction.</summary>
+		public void vpclmulhqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpclmulqdq(dst, src, arg2, 1);
+		}
+		/// <summary>vpclmulhqlqdq instruction.</summary>
+		public void vpclmulhqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpclmulqdq(dst, src, arg2, 1);
+		}
+		/// <summary>vpclmullqhqdq instruction.</summary>
+		public void vpclmullqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpclmulqdq(dst, src, arg2, 2);
+		}
+		/// <summary>vpclmullqhqdq instruction.</summary>
+		public void vpclmullqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpclmulqdq(dst, src, arg2, 2);
+		}
+		/// <summary>vpclmullqlqdq instruction.</summary>
+		public void vpclmullqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpclmulqdq(dst, src, arg2, 0);
+		}
+		/// <summary>vpclmullqlqdq instruction.</summary>
+		public void vpclmullqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpclmulqdq(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomeqb instruction.</summary>
+		public void vpcomeqb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqb instruction.</summary>
+		public void vpcomeqb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqd instruction.</summary>
+		public void vpcomeqd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqd instruction.</summary>
+		public void vpcomeqd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqq instruction.</summary>
+		public void vpcomeqq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqq instruction.</summary>
+		public void vpcomeqq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequb instruction.</summary>
+		public void vpcomequb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequb instruction.</summary>
+		public void vpcomequb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequd instruction.</summary>
+		public void vpcomequd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequd instruction.</summary>
+		public void vpcomequd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequq instruction.</summary>
+		public void vpcomequq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequq instruction.</summary>
+		public void vpcomequq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequw instruction.</summary>
+		public void vpcomequw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomequw instruction.</summary>
+		public void vpcomequw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqw instruction.</summary>
+		public void vpcomeqw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomeqw instruction.</summary>
+		public void vpcomeqw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 4);
+		}
+		/// <summary>vpcomfalseb instruction.</summary>
+		public void vpcomfalseb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseb instruction.</summary>
+		public void vpcomfalseb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalsed instruction.</summary>
+		public void vpcomfalsed(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalsed instruction.</summary>
+		public void vpcomfalsed(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseq instruction.</summary>
+		public void vpcomfalseq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseq instruction.</summary>
+		public void vpcomfalseq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseub instruction.</summary>
+		public void vpcomfalseub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseub instruction.</summary>
+		public void vpcomfalseub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseud instruction.</summary>
+		public void vpcomfalseud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseud instruction.</summary>
+		public void vpcomfalseud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseuq instruction.</summary>
+		public void vpcomfalseuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseuq instruction.</summary>
+		public void vpcomfalseuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseuw instruction.</summary>
+		public void vpcomfalseuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalseuw instruction.</summary>
+		public void vpcomfalseuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalsew instruction.</summary>
+		public void vpcomfalsew(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomfalsew instruction.</summary>
+		public void vpcomfalsew(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 6);
+		}
+		/// <summary>vpcomgeb instruction.</summary>
+		public void vpcomgeb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeb instruction.</summary>
+		public void vpcomgeb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomged instruction.</summary>
+		public void vpcomged(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomged instruction.</summary>
+		public void vpcomged(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeq instruction.</summary>
+		public void vpcomgeq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeq instruction.</summary>
+		public void vpcomgeq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeub instruction.</summary>
+		public void vpcomgeub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeub instruction.</summary>
+		public void vpcomgeub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeud instruction.</summary>
+		public void vpcomgeud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeud instruction.</summary>
+		public void vpcomgeud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeuq instruction.</summary>
+		public void vpcomgeuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeuq instruction.</summary>
+		public void vpcomgeuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeuw instruction.</summary>
+		public void vpcomgeuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgeuw instruction.</summary>
+		public void vpcomgeuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgew instruction.</summary>
+		public void vpcomgew(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgew instruction.</summary>
+		public void vpcomgew(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 3);
+		}
+		/// <summary>vpcomgtb instruction.</summary>
+		public void vpcomgtb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtb instruction.</summary>
+		public void vpcomgtb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtd instruction.</summary>
+		public void vpcomgtd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtd instruction.</summary>
+		public void vpcomgtd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtq instruction.</summary>
+		public void vpcomgtq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtq instruction.</summary>
+		public void vpcomgtq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtub instruction.</summary>
+		public void vpcomgtub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtub instruction.</summary>
+		public void vpcomgtub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtud instruction.</summary>
+		public void vpcomgtud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtud instruction.</summary>
+		public void vpcomgtud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtuq instruction.</summary>
+		public void vpcomgtuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtuq instruction.</summary>
+		public void vpcomgtuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtuw instruction.</summary>
+		public void vpcomgtuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtuw instruction.</summary>
+		public void vpcomgtuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtw instruction.</summary>
+		public void vpcomgtw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomgtw instruction.</summary>
+		public void vpcomgtw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 2);
+		}
+		/// <summary>vpcomleb instruction.</summary>
+		public void vpcomleb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleb instruction.</summary>
+		public void vpcomleb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomled instruction.</summary>
+		public void vpcomled(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomled instruction.</summary>
+		public void vpcomled(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleq instruction.</summary>
+		public void vpcomleq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleq instruction.</summary>
+		public void vpcomleq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleub instruction.</summary>
+		public void vpcomleub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleub instruction.</summary>
+		public void vpcomleub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleud instruction.</summary>
+		public void vpcomleud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleud instruction.</summary>
+		public void vpcomleud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleuq instruction.</summary>
+		public void vpcomleuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleuq instruction.</summary>
+		public void vpcomleuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleuw instruction.</summary>
+		public void vpcomleuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomleuw instruction.</summary>
+		public void vpcomleuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomlew instruction.</summary>
+		public void vpcomlew(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomlew instruction.</summary>
+		public void vpcomlew(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 1);
+		}
+		/// <summary>vpcomltb instruction.</summary>
+		public void vpcomltb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltb instruction.</summary>
+		public void vpcomltb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltd instruction.</summary>
+		public void vpcomltd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltd instruction.</summary>
+		public void vpcomltd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltq instruction.</summary>
+		public void vpcomltq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltq instruction.</summary>
+		public void vpcomltq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltub instruction.</summary>
+		public void vpcomltub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltub instruction.</summary>
+		public void vpcomltub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltud instruction.</summary>
+		public void vpcomltud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltud instruction.</summary>
+		public void vpcomltud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltuq instruction.</summary>
+		public void vpcomltuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltuq instruction.</summary>
+		public void vpcomltuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltuw instruction.</summary>
+		public void vpcomltuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltuw instruction.</summary>
+		public void vpcomltuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltw instruction.</summary>
+		public void vpcomltw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomltw instruction.</summary>
+		public void vpcomltw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 0);
+		}
+		/// <summary>vpcomneqb instruction.</summary>
+		public void vpcomneqb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqb instruction.</summary>
+		public void vpcomneqb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqd instruction.</summary>
+		public void vpcomneqd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqd instruction.</summary>
+		public void vpcomneqd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqq instruction.</summary>
+		public void vpcomneqq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqq instruction.</summary>
+		public void vpcomneqq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequb instruction.</summary>
+		public void vpcomnequb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequb instruction.</summary>
+		public void vpcomnequb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequd instruction.</summary>
+		public void vpcomnequd(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequd instruction.</summary>
+		public void vpcomnequd(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequq instruction.</summary>
+		public void vpcomnequq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequq instruction.</summary>
+		public void vpcomnequq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequw instruction.</summary>
+		public void vpcomnequw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomnequw instruction.</summary>
+		public void vpcomnequw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqw instruction.</summary>
+		public void vpcomneqw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomneqw instruction.</summary>
+		public void vpcomneqw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 5);
+		}
+		/// <summary>vpcomtrueb instruction.</summary>
+		public void vpcomtrueb(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomb(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueb instruction.</summary>
+		public void vpcomtrueb(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomb(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrued instruction.</summary>
+		public void vpcomtrued(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomd(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrued instruction.</summary>
+		public void vpcomtrued(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomd(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueq instruction.</summary>
+		public void vpcomtrueq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomq(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueq instruction.</summary>
+		public void vpcomtrueq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomq(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueub instruction.</summary>
+		public void vpcomtrueub(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomub(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueub instruction.</summary>
+		public void vpcomtrueub(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomub(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueud instruction.</summary>
+		public void vpcomtrueud(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomud(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueud instruction.</summary>
+		public void vpcomtrueud(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomud(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueuq instruction.</summary>
+		public void vpcomtrueuq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuq(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueuq instruction.</summary>
+		public void vpcomtrueuq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuq(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueuw instruction.</summary>
+		public void vpcomtrueuw(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomuw(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtrueuw instruction.</summary>
+		public void vpcomtrueuw(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomuw(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtruew instruction.</summary>
+		public void vpcomtruew(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
+			vpcomw(dst, src, arg2, 7);
+		}
+		/// <summary>vpcomtruew instruction.</summary>
+		public void vpcomtruew(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
+			vpcomw(dst, src, arg2, 7);
+		}
 	}
 }
 #endif

@@ -25,15 +25,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Generator.Decoder;
 using Generator.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
+using Generator.Enums.Formatter;
+using Generator.Formatters;
 using Generator.Tables;
 
 namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
 		Dictionary<GroupKey, OpCodeInfoGroup> _groups;
+		Dictionary<GroupKey, OpCodeInfoGroup> _groupsWithPseudo;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
 			Code.INVALID,
@@ -134,6 +138,7 @@ namespace Generator.Assembler {
 
 		void Generate(OpCodeInfo[] opCodes) {
 			_groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
+			_groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
 
 			foreach(var code in opCodes) {
 				if (DiscardOpCodes.Contains((Code)code.Code.Value)) continue;
@@ -143,6 +148,15 @@ namespace Generator.Assembler {
 				bool toAdd = true;
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
+				
+				PseudoOpsKind? pseudoOpsKind = null;
+				{
+					var ctorInfos = Generator.Formatters.Intel.CtorInfos.Infos[code.Code.Value];
+					var enumValue = ctorInfos[ctorInfos.Length - 1] as EnumValue;
+					if (enumValue != null && enumValue.DeclaringType.TypeId == TypeIds.PseudoOpsKind) {
+						pseudoOpsKind = (PseudoOpsKind)enumValue.Value;
+					}
+				}
 
 				var opCodeArgFlags = OpCodeArgFlags.Default;
 
@@ -360,10 +374,10 @@ namespace Generator.Assembler {
 				}
 
 				if (toAdd) {
-					var group = AddOpCodeToGroup(memoName, signature, code, opCodeArgFlags);
+					var group = AddOpCodeToGroup(memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
 					group.UpdateMaxArgSizes(argSizes);
 					if (signature != regOnlySignature) {
-						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister);
+						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
 						regOnlyGroup.UpdateMaxArgSizes(argSizes);
 					}
 				}
@@ -376,6 +390,8 @@ namespace Generator.Assembler {
 					}
 				}
 			}
+
+			CreatePseudoInstructions();
 
 			var orderedGroups = _groups.OrderBy(x => x.Key).Select(x => x.Value).ToArray();
 			var signatures = new HashSet<Signature>();
@@ -926,6 +942,7 @@ namespace Generator.Assembler {
 			HasZeroingMask = 1 << 10,
 			HasKMask = 1 << 11,
 			HasBroadcast = 1 << 12,
+			Pseudo = 1 << 13,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
@@ -1319,7 +1336,7 @@ namespace Generator.Assembler {
 			}
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags) {
+		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
@@ -1328,8 +1345,47 @@ namespace Generator.Assembler {
 			
 			group.Items.Add(code);
 			group.Flags |= opCodeArgFlags;
-
+			
+			// Handle pseudo ops
+			if (group.RootPseudoOpsKind != null) {
+				Debug.Assert(pseudoOpsKind != null);
+				Debug.Assert(group.RootPseudoOpsKind.Value == pseudoOpsKind.Value);
+				Debug.Assert(_groupsWithPseudo.ContainsKey(key));
+			}
+			else {
+				group.RootPseudoOpsKind = pseudoOpsKind;
+				if (pseudoOpsKind.HasValue) {
+					if (!_groupsWithPseudo.ContainsKey(key)) {
+						_groupsWithPseudo.Add(key, group);
+					}
+				}
+			}
 			return group;
+		}
+
+		void CreatePseudoInstructions() {
+			foreach (var group in _groupsWithPseudo.Values) {
+				var pseudo = group.RootPseudoOpsKind.Value;
+				var pseudoNames = FormatterConstants.GetPseudoOps(pseudo);
+				
+				// Create new signature with last imm argument
+				var signature = new Signature();
+				for (int i = 0; i < group.Signature.ArgCount - 1; i++) {
+					signature.AddArgKind(group.Signature.GetArgKind(i));
+				}
+				
+				for (int i = 0; i < pseudoNames.Length; i++) {
+					var name = pseudoNames[i];
+					var key = new GroupKey(name, signature);
+					var newGroup = new OpCodeInfoGroup(name, signature) {
+						Flags = OpCodeArgFlags.Pseudo, 
+						ParentPseudoOpsKind = @group, 
+						PseudoOpsKindImmediateValue = i
+					};
+					newGroup.UpdateMaxArgSizes(group.MaxArgSizes);
+					_groups.Add(key, newGroup);
+				}
+			}
 		}
 
 		[DebuggerDisplay("{Name} {Kind}")]
@@ -1467,6 +1523,12 @@ namespace Generator.Assembler {
 			
 			public OpCodeArgFlags Flags { get; set; }
 			
+			public PseudoOpsKind? RootPseudoOpsKind { get; set; }
+			
+			public OpCodeInfoGroup ParentPseudoOpsKind { get; set; }
+			
+			public int PseudoOpsKindImmediateValue { get; set; }
+			
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
 
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
@@ -1528,6 +1590,22 @@ namespace Generator.Assembler {
 				return -result;
 			}
 		}
+
+		protected PseudoOpsKind? GetPseudoOpsKind(OpCodeInfoGroup group) {
+			PseudoOpsKind? pseudoOpsKind = null;
+			foreach (var opCodeInfo in group.Items) {
+				var ctorInfos = Generator.Formatters.Intel.CtorInfos.Infos[opCodeInfo.Code.Value];
+				var enumValue = ctorInfos[ctorInfos.Length - 1] as EnumValue;
+				if (enumValue == null || enumValue.DeclaringType.TypeId != TypeIds.PseudoOpsKind)
+					break;
+
+				pseudoOpsKind = (PseudoOpsKind)enumValue.Value;
+			}
+
+			return pseudoOpsKind;
+		}
+		
+		
 
 		protected readonly struct OpCodeNode {
 			readonly object _value;

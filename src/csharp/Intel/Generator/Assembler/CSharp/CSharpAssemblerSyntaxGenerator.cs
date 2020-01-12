@@ -218,6 +218,17 @@ namespace Generator.Assembler.CSharp {
 
 					writer.WriteLine("));");
 				}
+				else if (group.Flags == OpCodeArgFlags.Pseudo) {
+					writer.Write($"{group.ParentPseudoOpsKind.Name}(");
+					for (var i = 0; i < renderArgs.Count; i++) {
+						var renderArg = renderArgs[i];
+						if (i > 0) writer.Write(", ");
+						writer.Write(renderArg.Name);
+					}
+					writer.Write(", ");
+					writer.Write($"{group.PseudoOpsKindImmediateValue}");
+					writer.WriteLine(");");
+				}
 				else {
 
 					writer.WriteLine("Code op;");

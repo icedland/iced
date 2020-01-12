@@ -23,10 +23,19 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
-using Iced.Intel.FormatterInternal;
 
+#if ICED_GENERATOR
+using Generator.Enums.Formatter;
+namespace Generator.Formatters {
+#else
+using Iced.Intel.FormatterInternal;
 namespace Iced.Intel {
+#endif	
 	static class FormatterConstants {
+#if ICED_GENERATOR		
+		public const string InvalidMnemonicName = "(bad)";
+#endif
+		
 		public static string[] GetPseudoOps(PseudoOpsKind kind) {
 			switch (kind) {
 			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
