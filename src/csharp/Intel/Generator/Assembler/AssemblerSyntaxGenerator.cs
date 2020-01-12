@@ -42,6 +42,8 @@ namespace Generator.Assembler {
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
 			Code.INVALID,
 			
+			Code.Nopq,
+			
 			Code.Add_rm8_imm8_82,
 			Code.Or_rm8_imm8_82,
 			Code.Adc_rm8_imm8_82,
@@ -125,6 +127,26 @@ namespace Generator.Assembler {
 			Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11
 		};
 		
+		static readonly Dictionary<Code, string> MapOpCodeToNewName = new Dictionary<Code, string>() {
+			{Code.Iretw, "iret"},
+			{Code.Iretd, "iretd"},
+			{Code.Iretq, "iretq"},
+			{Code.Pushaw, "pusha"},
+			{Code.Pushad, "pushad"},
+			{Code.Popaw, "popa"},
+			{Code.Popad, "popad"},
+			{Code.Pushfw, "pushf"},
+			{Code.Pushfd, "pushfd"},
+			{Code.Pushfq, "pushfq"},
+			{Code.Popfw, "popf"},
+			{Code.Popfd, "popfd"},
+			{Code.Popfq, "popfq"},
+			{Code.Sysexitd, "sysexit"},
+			{Code.Sysexitq, "sysexitq"},
+			{Code.Sysretd, "sysret"},
+			{Code.Sysretq, "sysretq"},
+		};
+		
 		protected abstract void GenerateRegisters(EnumType registers);
 
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
@@ -142,9 +164,13 @@ namespace Generator.Assembler {
 
 			foreach(var code in opCodes) {
 				if (DiscardOpCodes.Contains((Code)code.Code.Value)) continue;
+
+				string memoName = MnemonicsTable.Table[(int)code.Code.Value].mnemonicEnum.RawName;
+				string name;
+				if (!MapOpCodeToNewName.TryGetValue((Code)code.Code.Value, out name)) {
+					name = memoName.ToLowerInvariant();	
+				}
 				
-				var memoName = MnemonicsTable.Table[(int)code.Code.Value].mnemonicEnum.RawName;
-				var name = memoName.ToLowerInvariant();
 				bool toAdd = true;
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
@@ -374,10 +400,10 @@ namespace Generator.Assembler {
 				}
 
 				if (toAdd) {
-					var group = AddOpCodeToGroup(memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
+					var group = AddOpCodeToGroup(name, memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
 					group.UpdateMaxArgSizes(argSizes);
 					if (signature != regOnlySignature) {
-						var regOnlyGroup = AddOpCodeToGroup(memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
+						var regOnlyGroup = AddOpCodeToGroup(name, memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
 						regOnlyGroup.UpdateMaxArgSizes(argSizes);
 					}
 				}
@@ -1336,13 +1362,14 @@ namespace Generator.Assembler {
 			}
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind) {
+		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
+				group.MemoName = memoName;
 				_groups.Add(key, group);
 			}
-			
+
 			group.Items.Add(code);
 			group.Flags |= opCodeArgFlags;
 			
@@ -1391,7 +1418,8 @@ namespace Generator.Assembler {
 					}
 
 					var newGroup = new OpCodeInfoGroup(name, signature) {
-						Flags = OpCodeArgFlags.Pseudo, 
+						Flags = OpCodeArgFlags.Pseudo,
+						MemoName = group.MemoName,
 						ParentPseudoOpsKind = @group, 
 						PseudoOpsKindImmediateValue = imm
 					};
@@ -1523,14 +1551,13 @@ namespace Generator.Assembler {
 
 		protected class OpCodeInfoGroup {
 			public OpCodeInfoGroup(string name, Signature signature) {
-				MemoName = name;
-				Name = name.ToLowerInvariant();
+				Name = name;
 				Signature = signature;
 				Items = new List<OpCodeInfo>();
 				MaxArgSizes = new List<int>();
 			}
 			
-			public string MemoName { get; }
+			public string MemoName { get; set; }
 			
 			public string Name { get; }
 			
