@@ -70,6 +70,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // '_ requires rustc >= 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))] // Requires rustc >= 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]

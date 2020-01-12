@@ -20,3 +20,28 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+using System.Diagnostics;
+
+namespace Iced.Intel.FormatterInternal {
+	readonly struct FormatterString {
+		readonly string lower;
+		readonly string upper;
+
+		public bool IsDefault => lower is null;
+		public int Length => lower.Length;
+
+		public FormatterString(string lower) {
+			Debug.Assert(lower.ToLowerInvariant() == lower);
+			this.lower = lower;
+			upper = string.Intern(lower.ToUpperInvariant());
+		}
+
+		public string Get(bool upper) {
+			Debug.Assert(!IsDefault);
+			return upper ? this.upper : lower;
+		}
+	}
+}
+#endif

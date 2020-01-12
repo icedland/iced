@@ -34,19 +34,21 @@ pub trait SymbolResolver {
 	///
 	/// - `instruction`: Instruction
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
-	/// - `instruction_operand`: Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.
+	/// - `instruction_operand`: Instruction operand number, 0-based, or `None` if it's an operand created by the formatter.
 	/// - `address`: Address
 	/// - `address_size`: Size of `address` in bytes (eg. 1, 2, 4 or 8)
-	fn symbol(&self, instruction: &Instruction, operand: u32, instruction_operand: i32, address: u64, address_size: u32) -> Option<SymbolResult>;
+	fn symbol(
+		&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, address_size: u32,
+	) -> Option<SymbolResult>;
 }
 
 /// Contains text and colors
 #[derive(Debug, Default, Clone, Eq, PartialEq, Hash)]
 pub struct TextPart {
 	/// Text
-	text: String,
+	pub text: String,
 	/// Color
-	color: FormatterOutputTextKind,
+	pub color: FormatterOutputTextKind,
 }
 
 impl TextPart {

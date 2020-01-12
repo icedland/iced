@@ -90,12 +90,21 @@ namespace Iced.Intel {
 		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
 		/// <param name="address">Address</param>
 		/// <param name="symbol">Symbol</param>
-		public virtual void WriteSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, in SymbolResult symbol) => Write(symbol.Text);
+		public virtual void WriteSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, in SymbolResult symbol) {
+			var text = symbol.Text;
+			var array = text.TextArray;
+			if (!(array is null)) {
+				foreach (var part in array)
+					Write(part.Text, part.Color);
+			}
+			else if (text.Text.Text is string s)
+				Write(s, text.Text.Color);
+		}
 
-		internal void Write(in Instruction instruction, int operand, int instructionOperand, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress) =>
-			Write(instruction, operand, instructionOperand, numberFormatter, numberOptions, address, symbol, showSymbolAddress, true, false);
+		internal void Write(in Instruction instruction, int operand, int instructionOperand, FormatterOptions options, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress) =>
+			Write(instruction, operand, instructionOperand, options, numberFormatter, numberOptions, address, symbol, showSymbolAddress, true, false);
 
-		internal void Write(in Instruction instruction, int operand, int instructionOperand, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress, bool writeMinusIfSigned, bool spacesBetweenOp) {
+		internal void Write(in Instruction instruction, int operand, int instructionOperand, FormatterOptions options, in NumberFormatter numberFormatter, in NumberFormattingOptions numberOptions, ulong address, in SymbolResult symbol, bool showSymbolAddress, bool writeMinusIfSigned, bool spacesBetweenOp) {
 			long displ = (long)(address - symbol.Address);
 			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
 				if (writeMinusIfSigned)
@@ -133,7 +142,7 @@ namespace Iced.Intel {
 				}
 				if (spacesBetweenOp)
 					Write(" ", FormatterOutputTextKind.Text);
-				var s = numberFormatter.FormatUInt64(numberOptions, (ulong)displ, leadingZeroes: false);
+				var s = numberFormatter.FormatUInt64(options, numberOptions, (ulong)displ, leadingZeroes: false);
 				WriteNumber(instruction, operand, instructionOperand, s, origDispl, numberKind, FormatterOutputTextKind.Number);
 			}
 			if (showSymbolAddress) {
@@ -141,30 +150,20 @@ namespace Iced.Intel {
 				Write("(", FormatterOutputTextKind.Punctuation);
 				string s;
 				if (address <= ushort.MaxValue) {
-					s = numberFormatter.FormatUInt16(numberOptions, (ushort)address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt16(options, numberOptions, (ushort)address, leadingZeroes: true);
 					numberKind = NumberKind.UInt16;
 				}
 				else if (address <= uint.MaxValue) {
-					s = numberFormatter.FormatUInt32(numberOptions, (uint)address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt32(options, numberOptions, (uint)address, leadingZeroes: true);
 					numberKind = NumberKind.UInt32;
 				}
 				else {
-					s = numberFormatter.FormatUInt64(numberOptions, address, leadingZeroes: true);
+					s = numberFormatter.FormatUInt64(options, numberOptions, address, leadingZeroes: true);
 					numberKind = NumberKind.UInt64;
 				}
 				WriteNumber(instruction, operand, instructionOperand, s, address, numberKind, FormatterOutputTextKind.Number);
 				Write(")", FormatterOutputTextKind.Punctuation);
 			}
-		}
-
-		void Write(in TextInfo text) {
-			var array = text.TextArray;
-			if (!(array is null)) {
-				foreach (var part in array)
-					Write(part.Text, part.Color);
-			}
-			else if (text.Text.Text is string s)
-				Write(s, text.Text.Color);
 		}
 	}
 

@@ -20,3 +20,11 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
+use super::super::super::iced_constants::IcedConstants;
+
+pub(super) struct Registers;
+impl Registers {
+	pub(super) const REGISTER_ST: u32 = IcedConstants::NUMBER_OF_REGISTERS as u32;
+	pub(super) const EXTRA_REGISTERS: u32 = 1;
+}

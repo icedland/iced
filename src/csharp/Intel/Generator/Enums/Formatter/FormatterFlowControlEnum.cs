@@ -21,21 +21,25 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
+using System.Linq;
 
-namespace Generator.Formatters.Rust {
-	[Generator(TargetLanguage.Rust, GeneratorNames.FormatterMemSize)]
-	sealed class RustMemorySizeGen : MemorySizeGen {
-		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+namespace Generator.Enums.Formatter {
+	enum FormatterFlowControl {
+		AlwaysShortBranch,
+		ShortBranch,
+		NearBranch,
+		NearCall,
+		FarBranch,
+		FarCall,
+		Xbegin,
+	}
 
-		public RustMemorySizeGen(GeneratorOptions generatorOptions) {
-			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
-		}
+	static class FormatterFlowControlEnum {
+		const string? documentation = null;
 
-		protected override void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] memInfos) {
-			//TODO:
-		}
+		static EnumValue[] GetValues() =>
+			typeof(FormatterFlowControl).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FormatterFlowControl)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+
+		public static readonly EnumType Instance = new EnumType(TypeIds.FormatterFlowControl, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

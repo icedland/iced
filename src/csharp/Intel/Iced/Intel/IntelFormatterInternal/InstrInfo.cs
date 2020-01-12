@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
 using System;
 using System.Diagnostics;
+using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.IntelFormatterInternal {
 	// GENERATOR-BEGIN: InstrOpKind
@@ -65,7 +66,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 	struct InstrOpInfo {
 		internal const int TEST_RegisterBits = IcedConstants.RegisterBits;
 
-		public string Mnemonic;
+		public FormatterString Mnemonic;
 		public InstrOpInfoFlags Flags;
 		public byte OpCount;
 		public InstrOpKind Op0Kind;
@@ -162,26 +163,26 @@ namespace Iced.Intel.IntelFormatterInternal {
 			return index < OpCount ? index : -1;
 		}
 
-		public InstrOpInfo(string mnemonic, in Instruction instr, InstrOpInfoFlags flags) {
+		public InstrOpInfo(FormatterString mnemonic, in Instruction instruction, InstrOpInfoFlags flags) {
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 			Mnemonic = mnemonic;
 			Flags = flags;
-			Op0Kind = (InstrOpKind)instr.Op0Kind;
-			Op1Kind = (InstrOpKind)instr.Op1Kind;
-			Op2Kind = (InstrOpKind)instr.Op2Kind;
-			Op3Kind = (InstrOpKind)instr.Op3Kind;
-			Op4Kind = (InstrOpKind)instr.Op4Kind;
+			Op0Kind = (InstrOpKind)instruction.Op0Kind;
+			Op1Kind = (InstrOpKind)instruction.Op1Kind;
+			Op2Kind = (InstrOpKind)instruction.Op2Kind;
+			Op3Kind = (InstrOpKind)instruction.Op3Kind;
+			Op4Kind = (InstrOpKind)instruction.Op4Kind;
 			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
-			Op0Register = (byte)instr.Op0Register;
+			Op0Register = (byte)instruction.Op0Register;
 			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
-			Op1Register = (byte)instr.Op1Register;
+			Op1Register = (byte)instruction.Op1Register;
 			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
-			Op2Register = (byte)instr.Op2Register;
+			Op2Register = (byte)instruction.Op2Register;
 			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
-			Op3Register = (byte)instr.Op3Register;
+			Op3Register = (byte)instruction.Op3Register;
 			Static.Assert(TEST_RegisterBits == 8 ? 0 : -1);
-			Op4Register = (byte)instr.Op4Register;
-			int opCount = instr.OpCount;
+			Op4Register = (byte)instruction.Op4Register;
+			int opCount = instruction.OpCount;
 			OpCount = (byte)opCount;
 			switch (opCount) {
 			case 0:
@@ -260,9 +261,9 @@ namespace Iced.Intel.IntelFormatterInternal {
 		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
 #endif
 
-		public abstract void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info);
+		public abstract void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info);
 
-		protected static int GetCodeSize(CodeSize codeSize) => codeSize switch {
+		protected static int GetBitness(CodeSize codeSize) => codeSize switch {
 			CodeSize.Code16 => 16,
 			CodeSize.Code32 => 32,
 			CodeSize.Code64 => 64,
@@ -271,95 +272,97 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
 		public SimpleInstrInfo(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
 		public SimpleInstrInfo(string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) =>
-			info = new InstrOpInfo(mnemonic, instr, flags);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 	}
 
 	sealed class SimpleInstrInfo_memsize : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_memsize(int codeSize, string mnemonic) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_memsize(int bitness, string mnemonic) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			var flags = instrCodeSize == 0 || (instrCodeSize & codeSize) != 0 ? InstrOpInfoFlags.MemSize_Nothing : InstrOpInfoFlags.ShowNoMemSize_ForceSize;
-			info = new InstrOpInfo(mnemonic, instr, flags);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			int instrBitness = GetBitness(instruction.CodeSize);
+			var flags = instrBitness == 0 || (instrBitness & bitness) != 0 ? InstrOpInfoFlags.MemSize_Nothing : InstrOpInfoFlags.ShowNoMemSize_ForceSize;
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_YA : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_YA(string mnemonic) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_YA(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
-			info.Op0Kind = (InstrOpKind)instr.Op0Kind;
+			info.Op0Kind = (InstrOpKind)instruction.Op0Kind;
 		}
 	}
 
 	sealed class SimpleInstrInfo_AX : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_AX(string mnemonic) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AX(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
-			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op0Kind = (InstrOpKind)instruction.Op1Kind;
 			info.Op0Index = info.Op1Index;
 		}
 	}
 
 	sealed class SimpleInstrInfo_AY : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_AY(string mnemonic) => this.mnemonic = mnemonic;
+		public SimpleInstrInfo_AY(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
-			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op0Kind = (InstrOpKind)instruction.Op1Kind;
 			info.Op0Index = info.Op1Index;
 		}
 	}
 
 	sealed class SimpleInstrInfo_nop : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 		readonly Register register;
 
-		public SimpleInstrInfo_nop(int codeSize, string mnemonic, Register register) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_nop(int bitness, string mnemonic, Register register) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.register = register;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 0 || (instrCodeSize & codeSize) != 0)
-				info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
+		static readonly FormatterString str_xchg = new FormatterString("xchg");
+
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness == 0 || (instrBitness & bitness) != 0)
+				info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			else {
 				info = default;
-				info.Mnemonic = "xchg";
+				info.Mnemonic = str_xchg;
 				info.OpCount = 2;
 				info.Op0Kind = InstrOpKind.Register;
 				info.Op1Kind = InstrOpKind.Register;
@@ -367,34 +370,28 @@ namespace Iced.Intel.IntelFormatterInternal {
 				info.Op0Register = (byte)register;
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)register;
-				if (instr.Op0Register == instr.Op1Register) {
-					info.Op0Index = OpAccess_None;
-					info.Op1Index = OpAccess_None;
-				}
-				else {
-					info.Op0Index = OpAccess_ReadWrite;
-					info.Op1Index = OpAccess_ReadWrite;
-				}
+				info.Op0Index = OpAccess_None;
+				info.Op1Index = OpAccess_None;
 			}
 		}
 	}
 
 	sealed class SimpleInstrInfo_ST1 : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 		readonly int op0Access;
 
 		public SimpleInstrInfo_ST1(string mnemonic, InstrOpInfoFlags flags) : this(mnemonic, flags, false) { }
 
 		public SimpleInstrInfo_ST1(string mnemonic, InstrOpInfoFlags flags, bool isLoad) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 			op0Access = isLoad ? OpAccess_Write : OpAccess_ReadWrite;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, flags);
-			Debug.Assert(instr.OpCount == 1);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+			Debug.Assert(instruction.OpCount == 1);
 			info.OpCount = 2;
 			info.Op1Kind = info.Op0Kind;
 			info.Op1Register = info.Op0Register;
@@ -407,17 +404,17 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_ST2 : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
 		public SimpleInstrInfo_ST2(string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, flags);
-			Debug.Assert(instr.OpCount == 1);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+			Debug.Assert(instruction.OpCount == 1);
 			info.OpCount = 2;
 			info.Op1Kind = InstrOpKind.Register;
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
@@ -427,19 +424,19 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_maskmovq : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
 		public SimpleInstrInfo_maskmovq(string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags | InstrOpInfoFlags.IgnoreSegmentPrefix;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			Debug.Assert(instr.OpCount == 3);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			Debug.Assert(instruction.OpCount == 3);
 
-			var opKind = instr.Op0Kind;
-			var shortFormOpKind = instr.CodeSize switch {
+			var opKind = instruction.Op0Kind;
+			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => opKind,
 				CodeSize.Code16 => OpKind.MemorySegDI,
 				CodeSize.Code32 => OpKind.MemorySegEDI,
@@ -459,15 +456,15 @@ namespace Iced.Intel.IntelFormatterInternal {
 			info.Flags = flags;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 2;
-			info.Op0Kind = (InstrOpKind)instr.Op1Kind;
+			info.Op0Kind = (InstrOpKind)instruction.Op1Kind;
 			info.Op0Index = 1;
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-			info.Op0Register = (byte)instr.Op1Register;
-			info.Op1Kind = (InstrOpKind)instr.Op2Kind;
+			info.Op0Register = (byte)instruction.Op1Register;
+			info.Op1Kind = (InstrOpKind)instruction.Op2Kind;
 			info.Op1Index = 2;
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-			info.Op1Register = (byte)instr.Op2Register;
-			var segReg = instr.SegmentPrefix;
+			info.Op1Register = (byte)instruction.Op2Register;
+			var segReg = instruction.SegmentPrefix;
 			if (segReg != Register.None) {
 				info.OpCount = 3;
 				info.Op2Kind = InstrOpKind.Register;
@@ -479,208 +476,207 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_os : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os(int codeSize, string mnemonic) : this(codeSize, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os(int bitness, string mnemonic) : this(bitness, mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os(int codeSize, string mnemonic, InstrOpInfoFlags flags) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_os(int bitness, string mnemonic, InstrOpInfoFlags flags) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness != 0 && instrBitness != bitness) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.OpSize32;
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_bnd : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_os_bnd(int codeSize, string mnemonic) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_os_bnd(int bitness, string mnemonic) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			if (instr.HasRepnePrefix)
+			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness != 0 && instrBitness != bitness) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.OpSize32;
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_as : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_as(int codeSize, string mnemonic) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_as(int bitness, string mnemonic) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness != 0 && instrBitness != bitness) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.AddrSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.AddrSize32;
 				else
 					flags |= InstrOpInfoFlags.AddrSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_mem : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_os_mem(int codeSize, string mnemonic) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_os_mem(int bitness, string mnemonic) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			bool hasMemOp = instr.Op0Kind == OpKind.Memory || instr.Op1Kind == OpKind.Memory;
-			if (hasMemOp && !(instrCodeSize == 0 || (instrCodeSize != 64 && instrCodeSize == codeSize) || (instrCodeSize == 64 && codeSize == 32))) {
-				if (codeSize == 16)
+			int instrBitness = GetBitness(instruction.CodeSize);
+			bool hasMemOp = instruction.Op0Kind == OpKind.Memory || instruction.Op1Kind == OpKind.Memory;
+			if (hasMemOp && !(instrBitness == 0 || (instrBitness != 64 && instrBitness == bitness) || (instrBitness == 64 && bitness == 32))) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.OpSize32;
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_jcc : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os_jcc(int codeSize, string mnemonic) : this(codeSize, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic) : this(bitness, mnemonic, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os_jcc(int codeSize, string mnemonic, InstrOpInfoFlags flags) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic, InstrOpInfoFlags flags) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness != 0 && instrBitness != bitness) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.OpSize32;
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			var prefixSeg = instr.SegmentPrefix;
+			var prefixSeg = instruction.SegmentPrefix;
 			if (prefixSeg == Register.CS)
 				flags |= InstrOpInfoFlags.IgnoreSegmentPrefix | InstrOpInfoFlags.JccNotTaken;
 			else if (prefixSeg == Register.DS)
 				flags |= InstrOpInfoFlags.IgnoreSegmentPrefix | InstrOpInfoFlags.JccTaken;
-			if (instr.HasRepnePrefix)
+			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_loop : InstrInfo {
-		readonly int codeSize;
-		readonly Register reg;
-		readonly string mnemonic;
+		readonly int bitness;
+		readonly Register register;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_os_loop(int codeSize, Register reg, string mnemonic) {
-			this.codeSize = codeSize;
-			this.reg = reg;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_os_loop(int bitness, Register register, string mnemonic) {
+			this.bitness = bitness;
+			this.register = register;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			var expectedReg = instrCodeSize switch {
-				0 => reg,
+			int instrBitness = GetBitness(instruction.CodeSize);
+			var expectedReg = instrBitness switch {
+				0 => register,
 				16 => Register.CX,
 				32 => Register.ECX,
 				64 => Register.RCX,
 				_ => throw new InvalidOperationException(),
 			};
-			if (instrCodeSize != 0 && instrCodeSize != codeSize) {
-				if (codeSize == 16)
+			if (instrBitness != 0 && instrBitness != bitness) {
+				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (codeSize == 32)
+				else if (bitness == 32)
 					flags |= InstrOpInfoFlags.OpSize32;
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
-			if (expectedReg != reg) {
-				if (reg == Register.CX)
+			if (expectedReg != register) {
+				if (register == Register.CX)
 					flags |= InstrOpInfoFlags.AddrSize16;
-				else if (reg == Register.ECX)
+				else if (register == Register.ECX)
 					flags |= InstrOpInfoFlags.AddrSize32;
 				else
 					flags |= InstrOpInfoFlags.AddrSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_movabs : InstrInfo {
 		readonly int memOpNumber;
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_movabs(int memOpNumber, string mnemonic) {
 			this.memOpNumber = memOpNumber;
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			var opKind = instr.GetOpKind(memOpNumber);
+			int instrBitness = GetBitness(instruction.CodeSize);
+			var opKind = instruction.GetOpKind(memOpNumber);
 			int memSize;
 			if (opKind == OpKind.Memory64)
 				memSize = 64;
 			else {
 				Debug.Assert(opKind == OpKind.Memory);
-				int displSize = instr.MemoryDisplSize;
-				memSize = displSize == 2 ? 16 : 32;
+				memSize = instruction.MemoryDisplSize == 2 ? 16 : 32;
 			}
-			if (instrCodeSize == 0)
-				instrCodeSize = memSize;
-			if (instrCodeSize != memSize) {
+			if (instrBitness == 0)
+				instrBitness = memSize;
+			if (instrBitness != memSize) {
 				if (memSize == 16)
 					flags |= InstrOpInfoFlags.AddrSize16;
 				else if (memSize == 32)
@@ -688,72 +684,72 @@ namespace Iced.Intel.IntelFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.AddrSize64;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_xbegin : InstrInfo {
-		readonly int codeSize;
-		readonly string mnemonic;
+		readonly int bitnessFlags;
+		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_xbegin(int codeSize, string mnemonic) {
-			this.codeSize = codeSize;
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_xbegin(int bitnessFlags, string mnemonic) {
+			this.bitnessFlags = bitnessFlags;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
-			int instrCodeSize = GetCodeSize(instr.CodeSize);
-			if (instrCodeSize == 0) {
+			int instrBitness = GetBitness(instruction.CodeSize);
+			if (instrBitness == 0) {
 				// Nothing
 			}
-			else if (instrCodeSize == 64) {
-				if ((codeSize & 16) != 0)
+			else if (instrBitness == 64) {
+				if ((bitnessFlags & 16) != 0)
 					flags |= InstrOpInfoFlags.OpSize16;
 			}
-			else if ((instrCodeSize & codeSize) == 0) {
-				if ((codeSize & 16) != 0)
+			else if ((instrBitness & bitnessFlags) == 0) {
+				if ((bitnessFlags & 16) != 0)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if ((codeSize & 32) != 0)
+				else if ((bitnessFlags & 32) != 0)
 					flags |= InstrOpInfoFlags.OpSize32;
 			}
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_nop0F1F : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
-		readonly Register reg;
+		readonly Register register;
 
-		public SimpleInstrInfo_nop0F1F(Register reg, string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_nop0F1F(Register register, string mnemonic, InstrOpInfoFlags flags) {
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
-			this.reg = reg;
+			this.register = register;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			Debug.Assert(instr.OpCount == 1, "Instruction is fixed, remove this class");
-			info = new InstrOpInfo(mnemonic, instr, flags);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			Debug.Assert(instruction.OpCount == 1, "Instruction is fixed, remove this class");
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 			info.OpCount++;
 			info.Op1Kind = InstrOpKind.Register;
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-			info.Op1Register = (byte)reg;
+			info.Op1Register = (byte)register;
 			info.Op1Index = OpAccess_None;
 		}
 	}
 
 	sealed class SimpleInstrInfo_k1 : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_k1(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
-			Debug.Assert(instr.OpCount == 1);
-			var kreg = instr.OpMask;
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
+			Debug.Assert(instruction.OpCount == 1);
+			var kreg = instruction.OpMask;
 			if (kreg != Register.None) {
 				info.OpCount++;
 				info.Op1Kind = InstrOpKind.Register;
@@ -766,16 +762,16 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_k2 : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_k2(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
-			Debug.Assert(instr.OpCount == 2);
-			var kreg = instr.OpMask;
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
+			Debug.Assert(instruction.OpCount == 2);
+			var kreg = instruction.OpMask;
 			if (kreg != Register.None) {
 				info.OpCount++;
 				info.Op2Kind = info.Op1Kind;
@@ -791,39 +787,39 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_bnd : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
 
 		public SimpleInstrInfo_bnd(string mnemonic) : this(mnemonic, InstrOpInfoFlags.None) { }
 
 		public SimpleInstrInfo_bnd(string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
-			if (instr.HasRepnePrefix)
+			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_fpu_ST_STi : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_fpu_ST_STi(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
-			if (options.UsePseudoOps && (instr.Op0Register == Register.ST1 || instr.Op1Register == Register.ST1)) {
+			if (options.UsePseudoOps && (instruction.Op0Register == Register.ST1 || instruction.Op1Register == Register.ST1)) {
 				info = default;
 				info.Mnemonic = mnemonic;
 			}
 			else {
-				info = new InstrOpInfo(mnemonic, instr, flags);
+				info = new InstrOpInfo(mnemonic, instruction, flags);
 				Debug.Assert(info.Op0Register == (int)Register.ST0);
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)Registers.Register_ST;
@@ -832,20 +828,20 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_fpu_STi_ST : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_fpu_STi_ST(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
-			if (options.UsePseudoOps && (instr.Op0Register == Register.ST1 || instr.Op1Register == Register.ST1)) {
+			if (options.UsePseudoOps && (instruction.Op0Register == Register.ST1 || instruction.Op1Register == Register.ST1)) {
 				info = default;
 				info.Mnemonic = mnemonic;
 			}
 			else {
-				info = new InstrOpInfo(mnemonic, instr, flags);
+				info = new InstrOpInfo(mnemonic, instruction, flags);
 				Debug.Assert(info.Op1Register == (int)Register.ST0);
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op1Register = (byte)Registers.Register_ST;
@@ -854,14 +850,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_ST_STi : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_ST_STi(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)Registers.Register_ST;
@@ -869,14 +865,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_STi_ST : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_STi_ST(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)Registers.Register_ST;
@@ -884,17 +880,17 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_pops : InstrInfo {
-		readonly string mnemonic;
-		readonly string[] pseudo_ops;
+		readonly FormatterString mnemonic;
+		readonly FormatterString[] pseudo_ops;
 
-		public SimpleInstrInfo_pops(string mnemonic, string[] pseudo_ops) {
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_pops(string mnemonic, FormatterString[] pseudo_ops) {
+			this.mnemonic = new FormatterString(mnemonic);
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
-			int imm = instr.Immediate8;
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
+			int imm = instruction.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
 				info.Mnemonic = pseudo_ops[imm];
 				RemoveLastOp(ref info);
@@ -917,19 +913,19 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_pclmulqdq : InstrInfo {
-		readonly string mnemonic;
-		readonly string[] pseudo_ops;
+		readonly FormatterString mnemonic;
+		readonly FormatterString[] pseudo_ops;
 
-		public SimpleInstrInfo_pclmulqdq(string mnemonic, string[] pseudo_ops) {
-			this.mnemonic = mnemonic;
+		public SimpleInstrInfo_pclmulqdq(string mnemonic, FormatterString[] pseudo_ops) {
+			this.mnemonic = new FormatterString(mnemonic);
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			if (options.UsePseudoOps) {
 				int index;
-				int imm = instr.Immediate8;
+				int imm = instruction.Immediate8;
 				if (imm == 0)
 					index = 0;
 				else if (imm == 1)
@@ -949,14 +945,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_imul : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_imul(string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
 				info.OpCount--;
@@ -969,14 +965,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 
 		public SimpleInstrInfo_Reg16(string mnemonic) =>
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
-			info = new InstrOpInfo(mnemonic, instr, flags);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
@@ -989,22 +985,22 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_reg : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly Register register;
 
 		public SimpleInstrInfo_reg(string mnemonic, Register register) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.register = register;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.None);
-			Debug.Assert(instr.OpCount == 0);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
+			Debug.Assert(instruction.OpCount == 0);
 			info.OpCount = 1;
 			info.Op0Kind = InstrOpKind.Register;
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op0Register = (byte)register;
-			if (instr.Code == Code.Skinit)
+			if (instruction.Code == Code.Skinit)
 				info.Op0Index = OpAccess_ReadWrite;
 			else
 				info.Op0Index = OpAccess_Read;
@@ -1012,11 +1008,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_DeclareData : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpKind opKind;
 
 		public SimpleInstrInfo_DeclareData(Code code, string mnemonic) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			opKind = code switch {
 				Code.DeclareByte => InstrOpKind.DeclareByte,
 				Code.DeclareWord => InstrOpKind.DeclareWord,
@@ -1026,9 +1022,9 @@ namespace Iced.Intel.IntelFormatterInternal {
 			};
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			info = new InstrOpInfo(mnemonic, instr, InstrOpInfoFlags.MnemonicIsDirective);
-			info.OpCount = (byte)instr.DeclareDataCount;
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.MnemonicIsDirective);
+			info.OpCount = (byte)instruction.DeclareDataCount;
 			info.Op0Kind = opKind;
 			info.Op1Kind = opKind;
 			info.Op2Kind = opKind;
@@ -1043,20 +1039,20 @@ namespace Iced.Intel.IntelFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_bcst : InstrInfo {
-		readonly string mnemonic;
+		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flagsNoBroadcast;
 		readonly InstrOpInfoFlags flagsBroadcast;
 
 		public SimpleInstrInfo_bcst(string mnemonic, InstrOpInfoFlags flagsNoBroadcast, InstrOpInfoFlags flagsBroadcast) {
-			this.mnemonic = mnemonic;
+			this.mnemonic = new FormatterString(mnemonic);
 			this.flagsNoBroadcast = flagsNoBroadcast;
 			this.flagsBroadcast = flagsBroadcast;
 		}
 
-		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instr, out InstrOpInfo info) {
-			var memInfo = MemorySizes.AllMemorySizes[(int)instr.MemorySize];
-			var flags = memInfo.bcstTo != null ? flagsBroadcast : flagsNoBroadcast;
-			info = new InstrOpInfo(mnemonic, instr, flags);
+		public override void GetOpInfo(IntelFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			var memInfo = MemorySizes.AllMemorySizes[(int)instruction.MemorySize];
+			var flags = !memInfo.bcstTo.IsDefault ? flagsBroadcast : flagsNoBroadcast;
+			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 }

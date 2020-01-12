@@ -23,16 +23,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_NASM_FORMATTER && !NO_FORMATTER
 using System;
+using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.NasmFormatterInternal {
 	static class MemorySizes {
 		public readonly struct Info {
-			public readonly MemorySize memorySize;
 			public readonly int size;
-			public readonly string? keyword;
-			public readonly string? bcstTo;
-			public Info(MemorySize memorySize, int size, string? keyword, string? bcstTo) {
-				this.memorySize = memorySize;
+			public readonly FormatterString keyword;
+			public readonly FormatterString bcstTo;
+			public Info(int size, FormatterString keyword, FormatterString bcstTo) {
 				this.size = size;
 				this.keyword = keyword;
 				this.bcstTo = bcstTo;
@@ -292,42 +291,56 @@ namespace Iced.Intel.NasmFormatterInternal {
 			};
 
 			var infos = new Info[IcedConstants.NumberOfMemorySizes];
+			var b1to2 = new FormatterString("1to2");
+			var b1to4 = new FormatterString("1to4");
+			var b1to8 = new FormatterString("1to8");
+			var b1to16 = new FormatterString("1to16");
+			var str_byte = new FormatterString("byte");
+			var str_dword = new FormatterString("dword");
+			var str_far = new FormatterString("far");
+			var str_fpuenv14 = new FormatterString("fpuenv14");
+			var str_fpuenv28 = new FormatterString("fpuenv28");
+			var str_fpustate108 = new FormatterString("fpustate108");
+			var str_fpustate94 = new FormatterString("fpustate94");
+			var str_oword = new FormatterString("oword");
+			var str_qword = new FormatterString("qword");
+			var str_tword = new FormatterString("tword");
+			var str_word = new FormatterString("word");
+			var str_yword = new FormatterString("yword");
+			var str_zword = new FormatterString("zword");
 			for (int i = 0; i < infos.Length; i++) {
 				var d = data[i];
-
-				string? keyword;
-				switch ((MemoryKeywords)(d & MemoryKeywordsMask)) {
-				case MemoryKeywords.None:		keyword = null; break;
-				case MemoryKeywords.@byte:		keyword = "byte"; break;
-				case MemoryKeywords.dword:		keyword = "dword"; break;
-				case MemoryKeywords.far:		keyword = "far"; break;
-				case MemoryKeywords.fpuenv14:	keyword = "fpuenv14"; break;
-				case MemoryKeywords.fpuenv28:	keyword = "fpuenv28"; break;
-				case MemoryKeywords.fpustate108:keyword = "fpustate108"; break;
-				case MemoryKeywords.fpustate94:	keyword = "fpustate94"; break;
-				case MemoryKeywords.oword:		keyword = "oword"; break;
-				case MemoryKeywords.qword:		keyword = "qword"; break;
-				case MemoryKeywords.tword:		keyword = "tword"; break;
-				case MemoryKeywords.word:		keyword = "word"; break;
-				case MemoryKeywords.yword:		keyword = "yword"; break;
-				case MemoryKeywords.zword:		keyword = "zword"; break;
-				default:						throw new InvalidOperationException();
-				}
-
-				string? bcstTo;
+				var keyword = ((MemoryKeywords)(d & MemoryKeywordsMask)) switch {
+					MemoryKeywords.None => default,
+					MemoryKeywords.@byte => str_byte,
+					MemoryKeywords.dword => str_dword,
+					MemoryKeywords.far => str_far,
+					MemoryKeywords.fpuenv14 => str_fpuenv14,
+					MemoryKeywords.fpuenv28 => str_fpuenv28,
+					MemoryKeywords.fpustate108 => str_fpustate108,
+					MemoryKeywords.fpustate94 => str_fpustate94,
+					MemoryKeywords.oword => str_oword,
+					MemoryKeywords.qword => str_qword,
+					MemoryKeywords.tword => str_tword,
+					MemoryKeywords.word => str_word,
+					MemoryKeywords.yword => str_yword,
+					MemoryKeywords.zword => str_zword,
+					_ => throw new InvalidOperationException(),
+				};
+				FormatterString bcstTo;
 				if (i < (int)IcedConstants.FirstBroadcastMemorySize)
-					bcstTo = null;
+					bcstTo = default;
 				else {
-					switch ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) {
-					case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;
-					case BroadcastToKind.b1to4:		bcstTo = "1to4"; break;
-					case BroadcastToKind.b1to8:		bcstTo = "1to8"; break;
-					case BroadcastToKind.b1to16:	bcstTo = "1to16"; break;
-					default:						throw new InvalidOperationException();
-					}
+					bcstTo = ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) switch {
+						BroadcastToKind.b1to2 => b1to2,
+						BroadcastToKind.b1to4 => b1to4,
+						BroadcastToKind.b1to8 => b1to8,
+						BroadcastToKind.b1to16 => b1to16,
+						_ => throw new InvalidOperationException(),
+					};
 				}
 
-				infos[i] = new Info((MemorySize)i, sizes[d >> SizeKindShift], keyword, bcstTo);
+				infos[i] = new Info(sizes[d >> SizeKindShift], keyword, bcstTo);
 			}
 
 			return infos;

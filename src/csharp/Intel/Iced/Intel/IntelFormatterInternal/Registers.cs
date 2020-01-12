@@ -22,15 +22,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_INTEL_FORMATTER && !NO_FORMATTER
+using Iced.Intel.FormatterInternal;
+
 namespace Iced.Intel.IntelFormatterInternal {
 	static class Registers {
 		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
 		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = GetRegisters();
-		static string[] GetRegisters() {
-			var registers = FormatterInternal.Registers.GetRegisters();
+		public static readonly FormatterString[] AllRegisters = GetRegisters();
+		static FormatterString[] GetRegisters() {
+			var registers = RegistersTable.GetRegisters();
 			for (int i = 0; i < 8; i++)
-				registers[(int)Register.MM0 + i] = "mmx" + i.ToString();
+				registers[(int)Register.MM0 + i] = new FormatterString("mmx" + i.ToString());
 			return registers;
 		}
 	}

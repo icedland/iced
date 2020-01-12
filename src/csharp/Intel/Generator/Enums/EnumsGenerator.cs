@@ -40,6 +40,7 @@ namespace Generator.Enums {
 			TupleTypeEnum.Instance,
 			Decoder.VexOpCodeHandlerKindEnum.Instance,
 			MnemonicEnum.Instance,
+			Formatter.FormatterFlowControlEnum.Instance,
 			Formatter.Gas.CtorKindEnum.Instance,
 			Formatter.Gas.SizeOverrideEnum.Instance,
 			Formatter.Gas.InstrOpInfoFlagsEnum.Instance,

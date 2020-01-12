@@ -26,9 +26,9 @@ use super::*;
 use std::cell::RefCell;
 use std::rc::Rc;
 
-pub(crate) struct Block {
-	pub(crate) encoder: Encoder,
-	pub(crate) rip: u64,
+pub(super) struct Block {
+	pub(super) encoder: Encoder,
+	pub(super) rip: u64,
 	reloc_infos: Option<Vec<RelocInfo>>,
 	data_vec: Vec<Rc<RefCell<BlockData>>>,
 	alignment: u64,
@@ -38,7 +38,7 @@ pub(crate) struct Block {
 }
 
 impl Block {
-	pub(crate) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Self {
+	pub(super) fn new(block_encoder: &BlockEncoder, rip: u64, reloc_infos: Option<Vec<RelocInfo>>) -> Self {
 		Self {
 			encoder: Encoder::new(block_encoder.bitness()),
 			rip,
@@ -51,13 +51,13 @@ impl Block {
 		}
 	}
 
-	pub(crate) fn alloc_pointer_location(&mut self) -> Rc<RefCell<BlockData>> {
+	pub(super) fn alloc_pointer_location(&mut self) -> Rc<RefCell<BlockData>> {
 		let data = Rc::new(RefCell::new(BlockData { data: 0, address: 0, address_initd: false, is_valid: true }));
 		self.data_vec.push(data.clone());
 		data
 	}
 
-	pub(crate) fn initialize_data(&mut self, instructions: &[Rc<RefCell<Instr>>]) {
+	pub(super) fn initialize_data(&mut self, instructions: &[Rc<RefCell<Instr>>]) {
 		let base_addr = match instructions.last() {
 			Some(instr) => instr.borrow().ip().wrapping_add(instr.borrow().size() as u64),
 			None => self.rip,
@@ -77,7 +77,7 @@ impl Block {
 		}
 	}
 
-	pub(crate) fn write_data(&mut self) {
+	pub(super) fn write_data(&mut self) {
 		if self.valid_data.is_empty() {
 			return;
 		}
@@ -109,47 +109,47 @@ impl Block {
 		}
 	}
 
-	pub(crate) fn buffer_pos(&self) -> usize {
+	pub(super) fn buffer_pos(&self) -> usize {
 		self.encoder.position()
 	}
 
-	pub(crate) fn write_byte(&mut self, value: u32) {
+	pub(super) fn write_byte(&mut self, value: u32) {
 		self.encoder.write_byte_internal(value);
 	}
 
-	pub(crate) fn take_buffer(&mut self) -> Vec<u8> {
+	pub(super) fn take_buffer(&mut self) -> Vec<u8> {
 		self.encoder.take_buffer()
 	}
 
-	pub(crate) fn take_reloc_infos(&mut self) -> Vec<RelocInfo> {
+	pub(super) fn take_reloc_infos(&mut self) -> Vec<RelocInfo> {
 		self.reloc_infos.take().unwrap_or_default()
 	}
 
-	pub(crate) fn dispose(&mut self) {
+	pub(super) fn dispose(&mut self) {
 		self.data_vec.clear();
 		self.valid_data.clear();
 	}
 
-	pub(crate) fn can_add_reloc_infos(&self) -> bool {
+	pub(super) fn can_add_reloc_infos(&self) -> bool {
 		self.reloc_infos.is_some()
 	}
 
-	pub(crate) fn add_reloc_info(&mut self, reloc_info: RelocInfo) {
+	pub(super) fn add_reloc_info(&mut self, reloc_info: RelocInfo) {
 		if let Some(ref mut reloc_infos) = self.reloc_infos {
 			reloc_infos.push(reloc_info);
 		}
 	}
 }
 
-pub(crate) struct BlockData {
-	pub(crate) data: u64,
+pub(super) struct BlockData {
+	pub(super) data: u64,
 	address: u64,
 	address_initd: bool,
-	pub(crate) is_valid: bool,
+	pub(super) is_valid: bool,
 }
 
 impl BlockData {
-	pub(crate) fn address(&self) -> u64 {
+	pub(super) fn address(&self) -> u64 {
 		if !self.is_valid || !self.address_initd {
 			panic!()
 		}

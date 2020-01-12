@@ -22,12 +22,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using Generator.Enums;
+using Generator.IO;
 
-namespace Generator.Formatters.CSharp {
-	sealed class NasmCSharpFormatterTableSerializer : CSharpFormatterTableSerializer {
-		protected override object[][] Infos => Nasm.CtorInfos.Infos;
-		protected override string Define => CSharpConstants.NasmFormatterDefine;
-		protected override string Namespace => CSharpConstants.NasmFormatterNamespace;
-		protected override EnumType CtorKindEnum => Enums.Formatter.Nasm.CtorKindEnum.Instance;
+namespace Generator.Formatters.Rust {
+	sealed class RustFormatterTableSerializer : FormatterTableSerializer {
+		public string Filename { get; }
+
+		public RustFormatterTableSerializer(string filename, object[][] infos, EnumType ctorKindEnum)
+			: base(infos, RustIdentifierConverter.Create(), ctorKindEnum["Previous"]) {
+			Filename = filename;
+		}
+
+		public void Serialize(FileWriter writer, StringsTable stringsTable) {
+			writer.WriteFileHeader();
+			writer.WriteLine(RustConstants.AttributeNoRustFmt);
+			writer.WriteLine($"pub(super) static FORMATTER_TBL_DATA: &[u8] = &[");
+			using (writer.Indent())
+				SerializeTable(writer, stringsTable);
+			writer.WriteLine("];");
+		}
 	}
 }

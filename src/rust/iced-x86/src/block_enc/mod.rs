@@ -66,8 +66,8 @@ impl RelocInfo {
 /// [`BlockEncoder`]: struct.BlockEncoder.html
 #[derive(Debug)]
 pub struct InstructionBlock<'a> {
-	pub(crate) instructions: &'a [Instruction],
-	pub(crate) rip: u64,
+	instructions: &'a [Instruction],
+	rip: u64,
 }
 
 impl<'a> InstructionBlock<'a> {
@@ -132,11 +132,11 @@ pub struct BlockEncoder {
 }
 
 impl BlockEncoder {
-	pub(crate) fn bitness(&self) -> u32 {
+	fn bitness(&self) -> u32 {
 		self.bitness
 	}
 
-	pub(crate) fn fix_branches(&self) -> bool {
+	fn fix_branches(&self) -> bool {
 		(self.options & BlockEncoderOptions::DONT_FIX_BRANCHES) == 0
 	}
 
@@ -256,6 +256,7 @@ impl BlockEncoder {
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
+	#[inline]
 	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, String> {
 		match Self::encode_slice(bitness, &[block], options) {
 			Ok(ref mut result_vec) => {
@@ -319,6 +320,7 @@ impl BlockEncoder {
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
+	#[inline]
 	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock], options: u32) -> Result<Vec<BlockEncoderResult>, String> {
 		Self::new(bitness, blocks, options)?.encode2()
 	}
@@ -403,7 +405,7 @@ impl BlockEncoder {
 		Ok(result_vec)
 	}
 
-	pub(crate) fn get_target(&self, instr: &Instr, address: u64) -> TargetInstr {
+	fn get_target(&self, instr: &Instr, address: u64) -> TargetInstr {
 		if (address != 0 || !self.has_multiple_zero_ip_instrs) && instr.orig_ip() == address {
 			TargetInstr::new_owner()
 		} else {
@@ -414,7 +416,7 @@ impl BlockEncoder {
 		}
 	}
 
-	pub(crate) fn get_instruction_size(&mut self, instruction: &Instruction, ip: u64) -> u32 {
+	fn get_instruction_size(&mut self, instruction: &Instruction, ip: u64) -> u32 {
 		self.null_encoder.clear_buffer();
 		match self.null_encoder.encode(instruction, ip) {
 			Ok(len) => len as u32,

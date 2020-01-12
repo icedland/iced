@@ -25,36 +25,26 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Generator.IO;
 
-namespace Generator.Formatters.CSharp {
-	abstract class StringsTable {
-		public abstract void Add(string s, bool ignoreVPrefix);
-		public abstract uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix);
-	}
-
-	sealed class StringsTableImpl : StringsTable {
-		readonly string @namespace;
-		readonly string className;
-		readonly string preprocessorExpr;
+namespace Generator.Formatters {
+	sealed class StringsTable {
 		readonly Dictionary<string, Info> strings;
 		Info[]? sortedInfos;
 		bool isFrozen;
 
+		public bool IsFrozen => isFrozen;
+		public Info[] Infos => sortedInfos ?? throw new InvalidOperationException();
+
 		[DebuggerDisplay("{Count} {String}")]
-		sealed class Info {
+		public sealed class Info {
 			public readonly string String;
 			public int Count;
 			public uint Index;
 			public Info(string s) => String = s;
 		}
 
-		public StringsTableImpl(string @namespace, string className, string preprocessorExpr) {
-			this.@namespace = @namespace;
-			this.className = className;
-			this.preprocessorExpr = preprocessorExpr;
+		public StringsTable() =>
 			strings = new Dictionary<string, Info>(StringComparer.Ordinal);
-		}
 
 		public void Freeze() {
 			if (isFrozen)
@@ -75,7 +65,7 @@ namespace Generator.Formatters.CSharp {
 			return StringComparer.Ordinal.Compare(x.String, y.String);
 		}
 
-		public override void Add(string s, bool ignoreVPrefix) {
+		public void Add(string s, bool ignoreVPrefix) {
 			if (isFrozen)
 				throw new InvalidOperationException();
 			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal))
@@ -85,7 +75,7 @@ namespace Generator.Formatters.CSharp {
 			info.Count++;
 		}
 
-		public override uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix) {
+		public uint GetIndex(string s, bool ignoreVPrefix, out bool hasVPrefix) {
 			if (!isFrozen)
 				throw new InvalidOperationException();
 			if (ignoreVPrefix && s.StartsWith("v", StringComparison.Ordinal)) {
@@ -97,56 +87,6 @@ namespace Generator.Formatters.CSharp {
 			if (!strings.TryGetValue(s, out var info))
 				throw new ArgumentException();
 			return info.Index;
-		}
-
-		public void Serialize(FileWriter writer) {
-			if (!isFrozen)
-				throw new InvalidOperationException();
-			if (sortedInfos is null)
-				throw new InvalidOperationException();
-
-			int maxStringLength = 0;
-			foreach (var info in sortedInfos)
-				maxStringLength = Math.Max(maxStringLength, info.String.Length);
-
-			writer.WriteFileHeader();
-			if (!(preprocessorExpr is null))
-				writer.WriteLine($"#if {preprocessorExpr}");
-			writer.WriteLine($"namespace {@namespace} {{");
-			using (writer.Indent()) {
-				writer.WriteLine($"static partial class {className} {{");
-				using (writer.Indent()) {
-					writer.WriteLine($"const int MaxStringLength = {maxStringLength};");
-					writer.WriteLine($"const int StringsCount = {sortedInfos.Length};");
-					writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-					writer.WriteLine("static System.ReadOnlySpan<byte> GetSerializedStrings() =>");
-					writer.WriteLineNoIndent("#else");
-					writer.WriteLine("static byte[] GetSerializedStrings() =>");
-					writer.WriteLineNoIndent("#endif");
-					using (writer.Indent()) {
-						writer.WriteLine("new byte[] {");
-						using (writer.Indent()) {
-							foreach (var info in sortedInfos) {
-								var s = info.String;
-								if (s.Length > byte.MaxValue)
-									throw new InvalidOperationException();
-								writer.WriteByte((byte)s.Length);
-								foreach (var c in s) {
-									if ((ushort)c > byte.MaxValue)
-										throw new InvalidOperationException();
-									writer.WriteByte((byte)c);
-								}
-								writer.WriteCommentLine(s);
-							}
-						}
-						writer.WriteLine("};");
-					}
-				}
-				writer.WriteLine("}");
-			}
-			writer.WriteLine("}");
-			if (!(preprocessorExpr is null))
-				writer.WriteLine("#endif");
 		}
 	}
 }

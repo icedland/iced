@@ -42,7 +42,7 @@ use super::*;
 use std::cell::RefCell;
 use std::i32;
 
-pub(crate) trait Instr {
+pub(super) trait Instr {
 	fn block(&self) -> Rc<RefCell<Block>>;
 	fn size(&self) -> u32;
 	fn ip(&self) -> u64;
@@ -59,7 +59,7 @@ pub(crate) trait Instr {
 }
 
 #[derive(Default)]
-pub(crate) struct TargetInstr {
+pub(super) struct TargetInstr {
 	instruction: Option<Rc<RefCell<Instr>>>,
 	address: u64,
 	is_owner: bool,
@@ -67,17 +67,17 @@ pub(crate) struct TargetInstr {
 
 impl TargetInstr {
 	#[inline]
-	pub(crate) fn new_instr(instruction: Rc<RefCell<Instr>>) -> Self {
+	pub(super) fn new_instr(instruction: Rc<RefCell<Instr>>) -> Self {
 		Self { instruction: Some(instruction.clone()), address: 0, is_owner: false }
 	}
 
 	#[inline]
-	pub(crate) fn new_address(address: u64) -> Self {
+	pub(super) fn new_address(address: u64) -> Self {
 		Self { instruction: None, address, is_owner: false }
 	}
 
 	#[inline]
-	pub(crate) fn new_owner() -> Self {
+	pub(super) fn new_owner() -> Self {
 		Self { instruction: None, address: 0, is_owner: true }
 	}
 
@@ -104,7 +104,7 @@ impl TargetInstr {
 	}
 }
 
-pub(crate) struct InstrUtils;
+pub(super) struct InstrUtils;
 impl InstrUtils {
 	// 6 = FF 15 XXXXXXXX = call qword ptr [rip+mem_target]
 	pub(self) const CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64: u32 = 6;
@@ -292,7 +292,7 @@ impl InstrUtils {
 		Rc::new(RefCell::new(SimpleInstr::new(block_encoder, block, instruction)))
 	}
 
-	pub(crate) fn encode_branch_to_pointer_data(
+	fn encode_branch_to_pointer_data(
 		block: &mut Block, is_call: bool, ip: u64, pointer_data: Rc<RefCell<BlockData>>, min_size: u32,
 	) -> Result<u32, String> {
 		if min_size > i32::MAX as u32 {

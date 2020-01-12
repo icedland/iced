@@ -23,19 +23,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
 using System.Diagnostics;
+using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static class Registers {
 		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
 		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegistersNaked = FormatterInternal.Registers.GetRegisters();
-		public static readonly string[] AllRegisters = GetRegistersWithPrefix();
-		static string[] GetRegistersWithPrefix() {
+		public static readonly FormatterString[] AllRegistersNaked = RegistersTable.GetRegisters();
+		public static readonly FormatterString[] AllRegisters = GetRegistersWithPrefix();
+		static FormatterString[] GetRegistersWithPrefix() {
 			var registers = AllRegistersNaked;
 			Debug2.Assert(!(registers is null));
-			var result = new string[registers.Length];
+			var result = new FormatterString[registers.Length];
 			for (int i = 0; i < registers.Length; i++)
-				result[i] = "%" + registers[i];
+				result[i] = new FormatterString("%" + registers[i].Get(false));
 			return result;
 		}
 	}

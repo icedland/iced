@@ -36,15 +36,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		}
 
 		[Fact]
-		void Verify_MemorySizes_have_valid_MemorySize_values() {
-			var infos = MemorySizes.AllMemorySizes;
-			for (int i = 0; i < infos.Length; i++) {
-				var expectedCodeValue = (MemorySize)i;
-				Assert.Equal(expectedCodeValue, infos[i].memorySize);
-			}
-		}
-
-		[Fact]
 		void Verify_default_formatter_options() {
 			var options = new MasmFormatterOptions();
 			Assert.False(options.UpperCasePrefixes);

@@ -1777,7 +1777,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `db` value, see also [`declare_data_len()`].
+	/// Gets a `db` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareByte`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -1874,7 +1874,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dw` value, see also [`declare_data_len()`].
+	/// Gets a `dw` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareWord`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -1959,7 +1959,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dd` value, see also [`declare_data_len()`].
+	/// Gets a `dd` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareDword`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -2040,7 +2040,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dq` value, see also [`declare_data_len()`].
+	/// Gets a `dq` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareQword`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len

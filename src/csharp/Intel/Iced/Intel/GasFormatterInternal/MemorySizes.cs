@@ -23,26 +23,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_GAS_FORMATTER && !NO_FORMATTER
 using System;
+using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.GasFormatterInternal {
 	static class MemorySizes {
-		public readonly struct Info {
-			public readonly MemorySize memorySize;
-			public readonly string? bcstTo;
-			public Info(MemorySize memorySize, string? bcstTo) {
-				this.memorySize = memorySize;
-				this.bcstTo = bcstTo;
-			}
-		}
-
-		public static readonly Info[] AllMemorySizes = GetMemorySizes();
+		public static readonly FormatterString[] AllMemorySizes = GetMemorySizes();
 		enum BroadcastToKind {
 			b1to2,
 			b1to4,
 			b1to8,
 			b1to16,
 		}
-		static Info[] GetMemorySizes() {
+		static FormatterString[] GetMemorySizes() {
 #if HAS_SPAN
 			ReadOnlySpan<byte>
 #else
@@ -90,22 +82,26 @@ namespace Iced.Intel.GasFormatterInternal {
 				// GENERATOR-END: BcstTo
 			};
 
-			var infos = new Info[IcedConstants.NumberOfMemorySizes];
+			var infos = new FormatterString[IcedConstants.NumberOfMemorySizes];
+			var b1to2 = new FormatterString("1to2");
+			var b1to4 = new FormatterString("1to4");
+			var b1to8 = new FormatterString("1to8");
+			var b1to16 = new FormatterString("1to16");
 			for (int i = 0; i < infos.Length; i++) {
-				string? bcstTo;
+				FormatterString bcstTo;
 				if (i < (int)IcedConstants.FirstBroadcastMemorySize)
-					bcstTo = null;
+					bcstTo = default;
 				else {
 					switch ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) {
-					case BroadcastToKind.b1to2:		bcstTo = "1to2"; break;
-					case BroadcastToKind.b1to4:		bcstTo = "1to4"; break;
-					case BroadcastToKind.b1to8:		bcstTo = "1to8"; break;
-					case BroadcastToKind.b1to16:	bcstTo = "1to16"; break;
+					case BroadcastToKind.b1to2:		bcstTo = b1to2; break;
+					case BroadcastToKind.b1to4:		bcstTo = b1to4; break;
+					case BroadcastToKind.b1to8:		bcstTo = b1to8; break;
+					case BroadcastToKind.b1to16:	bcstTo = b1to16; break;
 					default:						throw new InvalidOperationException();
 					}
 				}
 
-				infos[i] = new Info((MemorySize)i, bcstTo);
+				infos[i] = bcstTo;
 			}
 
 			return infos;

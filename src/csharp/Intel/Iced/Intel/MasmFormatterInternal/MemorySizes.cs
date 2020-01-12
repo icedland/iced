@@ -23,24 +23,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
 using System;
+using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.MasmFormatterInternal {
 	static class MemorySizes {
 #pragma warning disable CS8618 // Non-nullable field 'dword_ptr' is uninitialized. Consider declaring the field as nullable.
-		internal static string[] dword_ptr;
-		internal static string[] qword_ptr;
-		internal static string[] mmword_ptr;
-		internal static string[] xmmword_ptr;
-		internal static string[] oword_ptr;
+		internal static FormatterString[] dword_ptr;
+		internal static FormatterString[] qword_ptr;
+		internal static FormatterString[] mmword_ptr;
+		internal static FormatterString[] xmmword_ptr;
+		internal static FormatterString[] oword_ptr;
 #pragma warning restore CS8618
 
 		public readonly struct Info {
-			public readonly MemorySize memorySize;
 			public readonly bool isBroadcast;
 			public readonly int size;
-			public readonly string[] keywords;
-			public Info(MemorySize memorySize, bool isBroadcast, int size, string[] keywords) {
-				this.memorySize = memorySize;
+			public readonly FormatterString[] keywords;
+			public Info(bool isBroadcast, int size, FormatterString[] keywords) {
 				this.isBroadcast = isBroadcast;
 				this.size = size;
 				this.keywords = keywords;
@@ -85,30 +84,30 @@ namespace Iced.Intel.MasmFormatterInternal {
 			zmmword_ptr,
 		}
 		static Info[] GetMemorySizes() {
-			var ptr = "ptr";
-			var dword_ptr = new string[] { "dword", ptr };
+			var ptr = new FormatterString("ptr");
+			var dword_ptr = new[] { new FormatterString("dword"), ptr };
 			MemorySizes.dword_ptr = dword_ptr;
-			var qword_ptr = new string[] { "qword", ptr };
+			var qword_ptr = new[] { new FormatterString("qword"), ptr };
 			MemorySizes.qword_ptr = qword_ptr;
-			var mmword_ptr = new string[] { "mmword", ptr };
+			var mmword_ptr = new[] { new FormatterString("mmword"), ptr };
 			MemorySizes.mmword_ptr = mmword_ptr;
-			var xmmword_ptr = new string[] { "xmmword", ptr };
+			var xmmword_ptr = new[] { new FormatterString("xmmword"), ptr };
 			MemorySizes.xmmword_ptr = xmmword_ptr;
-			var oword_ptr = new string[] { "oword", ptr };
+			var oword_ptr = new[] { new FormatterString("oword"), ptr };
 			MemorySizes.oword_ptr = oword_ptr;
 
-			var byte_ptr = new string[] { "byte", ptr };
-			var word_ptr = new string[] { "word", ptr };
-			var ymmword_ptr = new string[] { "ymmword", ptr };
-			var zmmword_ptr = new string[] { "zmmword", ptr };
-			var fword_ptr = new string[] { "fword", ptr };
-			var tbyte_ptr = new string[] { "tbyte", ptr };
-			var fpuenv14_ptr = new string[] { "fpuenv14", ptr };
-			var fpuenv28_ptr = new string[] { "fpuenv28", ptr };
-			var fpustate108_ptr = new string[] { "fpustate108", ptr };
-			var fpustate94_ptr = new string[] { "fpustate94", ptr };
-			var dword_bcst = new string[] { "dword", "bcst" };
-			var qword_bcst = new string[] { "qword", "bcst" };
+			var byte_ptr = new[] { new FormatterString("byte"), ptr };
+			var word_ptr = new[] { new FormatterString("word"), ptr };
+			var ymmword_ptr = new[] { new FormatterString("ymmword"), ptr };
+			var zmmword_ptr = new[] { new FormatterString("zmmword"), ptr };
+			var fword_ptr = new[] { new FormatterString("fword"), ptr };
+			var tbyte_ptr = new[] { new FormatterString("tbyte"), ptr };
+			var fpuenv14_ptr = new[] { new FormatterString("fpuenv14"), ptr };
+			var fpuenv28_ptr = new[] { new FormatterString("fpuenv28"), ptr };
+			var fpustate108_ptr = new[] { new FormatterString("fpustate108"), ptr };
+			var fpustate94_ptr = new[] { new FormatterString("fpustate94"), ptr };
+			var dword_bcst = new[] { new FormatterString("dword"), new FormatterString("bcst") };
+			var qword_bcst = new[] { new FormatterString("qword"), new FormatterString("bcst") };
 
 			var infos = new Info[IcedConstants.NumberOfMemorySizes];
 			const int SizeKindShift = 5;
@@ -274,30 +273,27 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 			for (int i = 0; i < infos.Length; i++) {
 				var d = data[i];
-
-				string[] keywords;
-				switch ((MemoryKeywords)(d & MemoryKeywordsMask)) {
-				case MemoryKeywords.None:				keywords = Array2.Empty<string>(); break;
-				case MemoryKeywords.byte_ptr:			keywords = byte_ptr; break;
-				case MemoryKeywords.dword_bcst:			keywords = dword_bcst; break;
-				case MemoryKeywords.dword_ptr:			keywords = dword_ptr; break;
-				case MemoryKeywords.fpuenv14_ptr:		keywords = fpuenv14_ptr; break;
-				case MemoryKeywords.fpuenv28_ptr:		keywords = fpuenv28_ptr; break;
-				case MemoryKeywords.fpustate108_ptr:	keywords = fpustate108_ptr; break;
-				case MemoryKeywords.fpustate94_ptr:		keywords = fpustate94_ptr; break;
-				case MemoryKeywords.fword_ptr:			keywords = fword_ptr; break;
-				case MemoryKeywords.oword_ptr:			keywords = oword_ptr; break;
-				case MemoryKeywords.qword_bcst:			keywords = qword_bcst; break;
-				case MemoryKeywords.qword_ptr:			keywords = qword_ptr; break;
-				case MemoryKeywords.tbyte_ptr:			keywords = tbyte_ptr; break;
-				case MemoryKeywords.word_ptr:			keywords = word_ptr; break;
-				case MemoryKeywords.xmmword_ptr:		keywords = xmmword_ptr; break;
-				case MemoryKeywords.ymmword_ptr:		keywords = ymmword_ptr; break;
-				case MemoryKeywords.zmmword_ptr:		keywords = zmmword_ptr; break;
-				default:								throw new InvalidOperationException();
-				}
-
-				infos[i] = new Info((MemorySize)i, i >= (int)IcedConstants.FirstBroadcastMemorySize, sizes[d >> SizeKindShift], keywords);
+				var keywords = ((MemoryKeywords)(d & MemoryKeywordsMask)) switch {
+					MemoryKeywords.None => Array2.Empty<FormatterString>(),
+					MemoryKeywords.byte_ptr => byte_ptr,
+					MemoryKeywords.dword_bcst => dword_bcst,
+					MemoryKeywords.dword_ptr => dword_ptr,
+					MemoryKeywords.fpuenv14_ptr => fpuenv14_ptr,
+					MemoryKeywords.fpuenv28_ptr => fpuenv28_ptr,
+					MemoryKeywords.fpustate108_ptr => fpustate108_ptr,
+					MemoryKeywords.fpustate94_ptr => fpustate94_ptr,
+					MemoryKeywords.fword_ptr => fword_ptr,
+					MemoryKeywords.oword_ptr => oword_ptr,
+					MemoryKeywords.qword_bcst => qword_bcst,
+					MemoryKeywords.qword_ptr => qword_ptr,
+					MemoryKeywords.tbyte_ptr => tbyte_ptr,
+					MemoryKeywords.word_ptr => word_ptr,
+					MemoryKeywords.xmmword_ptr => xmmword_ptr,
+					MemoryKeywords.ymmword_ptr => ymmword_ptr,
+					MemoryKeywords.zmmword_ptr => zmmword_ptr,
+					_ => throw new InvalidOperationException(),
+				};
+				infos[i] = new Info(i >= (int)IcedConstants.FirstBroadcastMemorySize, sizes[d >> SizeKindShift], keywords);
 			}
 
 			return infos;

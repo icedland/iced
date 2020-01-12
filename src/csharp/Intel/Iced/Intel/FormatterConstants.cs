@@ -27,7 +27,7 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel {
 	static class FormatterConstants {
-		public static string[] GetPseudoOps(PseudoOpsKind kind) {
+		public static FormatterString[] GetPseudoOps(PseudoOpsKind kind) {
 			switch (kind) {
 			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
 			case PseudoOpsKind.vcmpps:		return vcmpps_pseudo_ops;
@@ -115,44 +115,44 @@ namespace Iced.Intel {
 			vpcomuq_pseudo_ops = Create(xopcc, 8, "vpcom", "uq");
 		}
 
-		static string[] Create(string[] cc, int size, string prefix, string suffix) {
-			var strings = new string[size];
+		static FormatterString[] Create(string[] cc, int size, string prefix, string suffix) {
+			var strings = new FormatterString[size];
 			for (int i = 0; i < strings.Length; i++)
-				strings[i] = prefix + cc[i] + suffix;
+				strings[i] = new FormatterString(prefix + cc[i] + suffix);
 			return strings;
 		}
 
-		static readonly string[] cmpps_pseudo_ops;
-		static readonly string[] vcmpps_pseudo_ops;
-		static readonly string[] cmppd_pseudo_ops;
-		static readonly string[] vcmppd_pseudo_ops;
-		static readonly string[] cmpss_pseudo_ops;
-		static readonly string[] vcmpss_pseudo_ops;
-		static readonly string[] cmpsd_pseudo_ops;
-		static readonly string[] vcmpsd_pseudo_ops;
+		static readonly FormatterString[] cmpps_pseudo_ops;
+		static readonly FormatterString[] vcmpps_pseudo_ops;
+		static readonly FormatterString[] cmppd_pseudo_ops;
+		static readonly FormatterString[] vcmppd_pseudo_ops;
+		static readonly FormatterString[] cmpss_pseudo_ops;
+		static readonly FormatterString[] vcmpss_pseudo_ops;
+		static readonly FormatterString[] cmpsd_pseudo_ops;
+		static readonly FormatterString[] vcmpsd_pseudo_ops;
 
-		static readonly string[] pclmulqdq_pseudo_ops = new string[4] {
-			"pclmullqlqdq",
-			"pclmulhqlqdq",
-			"pclmullqhqdq",
-			"pclmulhqhqdq",
+		static readonly FormatterString[] pclmulqdq_pseudo_ops = new FormatterString[4] {
+			new FormatterString("pclmullqlqdq"),
+			new FormatterString("pclmulhqlqdq"),
+			new FormatterString("pclmullqhqdq"),
+			new FormatterString("pclmulhqhqdq"),
 		};
 
-		static readonly string[] vpclmulqdq_pseudo_ops = new string[4] {
-			"vpclmullqlqdq",
-			"vpclmulhqlqdq",
-			"vpclmullqhqdq",
-			"vpclmulhqhqdq",
+		static readonly FormatterString[] vpclmulqdq_pseudo_ops = new FormatterString[4] {
+			new FormatterString("vpclmullqlqdq"),
+			new FormatterString("vpclmulhqlqdq"),
+			new FormatterString("vpclmullqhqdq"),
+			new FormatterString("vpclmulhqhqdq"),
 		};
 
-		static readonly string[] vpcomb_pseudo_ops;
-		static readonly string[] vpcomw_pseudo_ops;
-		static readonly string[] vpcomd_pseudo_ops;
-		static readonly string[] vpcomq_pseudo_ops;
-		static readonly string[] vpcomub_pseudo_ops;
-		static readonly string[] vpcomuw_pseudo_ops;
-		static readonly string[] vpcomud_pseudo_ops;
-		static readonly string[] vpcomuq_pseudo_ops;
+		static readonly FormatterString[] vpcomb_pseudo_ops;
+		static readonly FormatterString[] vpcomw_pseudo_ops;
+		static readonly FormatterString[] vpcomd_pseudo_ops;
+		static readonly FormatterString[] vpcomq_pseudo_ops;
+		static readonly FormatterString[] vpcomub_pseudo_ops;
+		static readonly FormatterString[] vpcomuw_pseudo_ops;
+		static readonly FormatterString[] vpcomud_pseudo_ops;
+		static readonly FormatterString[] vpcomuq_pseudo_ops;
 	}
 }
 #endif

@@ -21,13 +21,18 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
+use super::data_reader::DataReader;
+use super::strings_data::*;
 
-namespace Generator.Formatters.CSharp {
-	sealed class IntelCSharpFormatterTableSerializer : CSharpFormatterTableSerializer {
-		protected override object[][] Infos => Intel.CtorInfos.Infos;
-		protected override string Define => CSharpConstants.IntelFormatterDefine;
-		protected override string Namespace => CSharpConstants.IntelFormatterNamespace;
-		protected override EnumType CtorKindEnum => Enums.Formatter.Intel.CtorKindEnum.Instance;
+// The returned array isn't cached since only one formatter is normally used
+pub(super) fn get_strings_table() -> Vec<String> {
+	let mut reader = DataReader::new(&STRINGS_TBL_DATA);
+	let mut strings = Vec::with_capacity(STRINGS_COUNT);
+	for _ in 0..STRINGS_COUNT {
+		strings.push(reader.read_ascii_string());
 	}
+	if reader.can_read() {
+		panic!();
+	}
+	strings
 }

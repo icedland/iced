@@ -21,19 +21,22 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.IO;
+using System.Text;
 using Generator.Constants;
 using Generator.Enums;
+using Generator.Enums.Formatter;
 using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Formatters.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.FormatterMemSize)]
-	sealed class CSharpMemorySizeGen : MemorySizeGen {
+	sealed class CSharpTableGen : TableGen {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 
-		public CSharpMemorySizeGen(GeneratorOptions generatorOptions) {
+		public CSharpTableGen(GeneratorOptions generatorOptions) {
 			idConverter = CSharpIdentifierConverter.Create();
 			this.generatorOptions = generatorOptions;
 		}
@@ -79,12 +82,54 @@ namespace Generator.Formatters.CSharp {
 					}
 				});
 				new FileUpdater(TargetLanguage.CSharp, "BcstTo", filename).Generate(writer => {
-					var sizeTbl = MemorySizeInfoTable.Data;
 					int first = (int)IcedConstantsType.Instance[IcedConstants.FirstBroadcastMemorySizeName].ValueUInt64;
 					for (int i = first; i < memInfos.Length; i++)
 						writer.WriteLine($"(byte)BroadcastToKind.{memInfos[i].bcst},");
 				});
 			}
+		}
+
+		protected override void GenerateRegisters(string[] registers) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.FormatterNamespace), "RegistersTable.cs");
+			new FileUpdater(TargetLanguage.CSharp, "Registers", filename).Generate(writer => {
+				writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
+				writer.WriteLine("static ReadOnlySpan<byte> GetRegistersData() =>");
+				writer.WriteLineNoIndent("#else");
+				writer.WriteLine("static byte[] GetRegistersData() =>");
+				writer.WriteLineNoIndent("#endif");
+				int maxLen = 0;
+				using (writer.Indent()) {
+					writer.WriteLine("new byte[] {");
+					using (writer.Indent()) {
+						foreach (var register in registers) {
+							maxLen = Math.Max(maxLen, register.Length);
+							var bytes = Encoding.UTF8.GetBytes(register);
+							writer.Write($"0x{bytes.Length:X2}");
+							foreach (var b in bytes)
+								writer.Write($", 0x{b:X2}");
+							writer.Write(",");
+							writer.WriteCommentLine(register);
+						}
+					}
+					writer.WriteLine("};");
+				}
+				writer.WriteLine($"const int MaxStringLength = {maxLen};");
+				writer.WriteLine($"const int StringsCount = {registers.Length};");
+			});
+		}
+
+		protected override void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos) {
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "FormatterUtils.cs");
+			new FileUpdater(TargetLanguage.CSharp, "FormatterFlowControlSwitch", filename).Generate(writer => {
+				var codeStr = CodeEnum.Instance.Name(idConverter);
+				var flowCtrlStr = FormatterFlowControlEnum.Instance.Name(idConverter);
+				foreach (var info in infos) {
+					foreach (var c in info.code)
+						writer.WriteLine($"case {codeStr}.{c.Name(idConverter)}:");
+					using (writer.Indent())
+						writer.WriteLine($"return {flowCtrlStr}.{info.flowCtrl.Name(idConverter)};");
+				}
+			});
 		}
 	}
 }

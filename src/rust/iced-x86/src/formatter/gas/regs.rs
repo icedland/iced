@@ -21,13 +21,27 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using Generator.Enums;
+use super::super::super::iced_constants::IcedConstants;
+use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
+use super::super::FormatterString;
 
-namespace Generator.Formatters.CSharp {
-	sealed class GasCSharpFormatterTableSerializer : CSharpFormatterTableSerializer {
-		protected override object[][] Infos => Gas.CtorInfos.Infos;
-		protected override string Define => CSharpConstants.GasFormatterDefine;
-		protected override string Namespace => CSharpConstants.GasFormatterNamespace;
-		protected override EnumType CtorKindEnum => Enums.Formatter.Gas.CtorKindEnum.Instance;
-	}
+pub(super) struct Registers;
+impl Registers {
+	pub(super) const REGISTER_ST: u32 = IcedConstants::NUMBER_OF_REGISTERS as u32;
+	pub(super) const EXTRA_REGISTERS: u32 = 1;
+}
+
+lazy_static! {
+	pub(super) static ref ALL_REGISTERS: Vec<FormatterString> = {
+		let regs_tbl = &*REGS_TBL;
+		let mut v = Vec::with_capacity(regs_tbl.len());
+		let mut s = String::with_capacity(MAX_STRING_LENGTH + 1);
+		for reg in regs_tbl.iter() {
+			s.push('%');
+			s.push_str(&reg.get(false));
+			v.push(FormatterString::new(s.to_owned()));
+			s.clear();
+		}
+		v
+	};
 }

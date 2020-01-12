@@ -44,66 +44,57 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Operand options
 	/// </summary>
-	[Flags]
-	public enum FormatterOperandOptions : uint {
-		/// <summary>
-		/// No option is enabled
-		/// </summary>
-		None					= 0,
+	public struct FormatterOperandOptions {
+		uint flags;
+
+		[Flags]
+		internal enum Flags : uint {
+			None					= 0,
+			NoBranchSize			= 0x00000001,
+			RipRelativeAddresses	= 0x00000002,
+			MemorySizeShift			= 30,
+			MemorySizeMask			= 3U << (int)MemorySizeShift,
+		}
 
 		/// <summary>
-		/// Don't show branch size (short, near ptr)
+		/// Show branch size (eg. <c>SHORT</c>, <c>NEAR PTR</c>)
 		/// </summary>
-		NoBranchSize			= 0x00000001,
+		public bool BranchSize {
+			readonly get => (flags & (uint)Flags.NoBranchSize) == 0;
+			set {
+				if (value)
+					flags &= ~(uint)Flags.NoBranchSize;
+				else
+					flags |= (uint)Flags.NoBranchSize;
+			}
+		}
 
 		/// <summary>
-		/// If set, show RIP relative addresses as '[rip+12345678h]', else show RIP relative addresses as '[1029384756AFBECDh]'
+		/// If <see langword="true"/>, show <c>RIP</c> relative addresses as <c>[rip+12345678h]</c>, else show the linear address eg. <c>[1029384756AFBECDh]</c>
 		/// </summary>
-		RipRelativeAddresses	= 0x00000002,
+		public bool RipRelativeAddresses {
+			readonly get => (flags & (uint)Flags.RipRelativeAddresses) != 0;
+			set {
+				if (value)
+					flags |= (uint)Flags.RipRelativeAddresses;
+				else
+					flags &= ~(uint)Flags.RipRelativeAddresses;
+			}
+		}
 
 		/// <summary>
-		/// Bit position of <see cref="MemorySizeOptions"/> bits
+		/// Memory size options
 		/// </summary>
-		MemorySizeShift			= 30,
+		public MemorySizeOptions MemorySizeOptions {
+			readonly get => (MemorySizeOptions)(flags >> (int)Flags.MemorySizeShift);
+			set => flags = (flags & ~(uint)Flags.MemorySizeMask) | ((uint)value << (int)Flags.MemorySizeShift);
+		}
 
-		/// <summary>
-		/// MemorySizeXXX mask, use <see cref="FormatterOperandOptionsExtensions.WithMemorySize(FormatterOperandOptions, MemorySizeOptions)"/> to change this value
-		/// </summary>
-		MemorySizeMask			= 3U << (int)MemorySizeShift,
+		internal FormatterOperandOptions(Flags flags) =>
+			this.flags = (uint)flags;
 
-		/// <summary>
-		/// Show memory size if the assembler requires it, else don't show any
-		/// </summary>
-		MemorySizeDefault		= MemorySizeOptions.Default << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Always show the memory size, even if the assembler doesn't need it
-		/// </summary>
-		MemorySizeAlways		= MemorySizeOptions.Always << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Show memory size if a human can't figure out the size of the operand
-		/// </summary>
-		MemorySizeMinimum		= (uint)MemorySizeOptions.Minimum << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Never show memory size
-		/// </summary>
-		MemorySizeNever			= (uint)MemorySizeOptions.Never << (int)MemorySizeShift,
-	}
-
-	/// <summary>
-	/// Extension methods
-	/// </summary>
-	public static class FormatterOperandOptionsExtensions {
-		/// <summary>
-		/// Returns new options with a new <see cref="MemorySizeOptions"/> value
-		/// </summary>
-		/// <param name="self">Operand options</param>
-		/// <param name="options">Memory size options</param>
-		/// <returns></returns>
-		public static FormatterOperandOptions WithMemorySize(this FormatterOperandOptions self, MemorySizeOptions options) =>
-			(self & ~FormatterOperandOptions.MemorySizeMask) | (FormatterOperandOptions)((uint)options << (int)FormatterOperandOptions.MemorySizeShift);
+		internal FormatterOperandOptions(MemorySizeOptions options) =>
+			flags = (uint)options << (int)Flags.MemorySizeShift;
 	}
 
 	/// <summary>

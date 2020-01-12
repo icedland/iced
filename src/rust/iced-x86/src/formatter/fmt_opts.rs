@@ -264,7 +264,7 @@ impl FormatterOptions {
 	}
 
 	/// Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
-	/// At least one space or tab is always added betewen the mnemonic and the first operand.
+	/// At least one space or tab is always added between the mnemonic and the first operand.
 	///
 	/// - Default: `0`
 	/// - `0`: `mov•rcx,rbp`
@@ -276,7 +276,7 @@ impl FormatterOptions {
 	}
 
 	/// Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
-	/// At least one space or tab is always added betewen the mnemonic and the first operand.
+	/// At least one space or tab is always added between the mnemonic and the first operand.
 	///
 	/// - Default: `0`
 	/// - `0`: `mov•rcx,rbp`

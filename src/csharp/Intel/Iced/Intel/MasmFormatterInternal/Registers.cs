@@ -22,11 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
+using Iced.Intel.FormatterInternal;
+
 namespace Iced.Intel.MasmFormatterInternal {
 	static class Registers {
 		public const int Register_ST = IcedConstants.NumberOfRegisters + 0;
 		public const int ExtraRegisters = 1;
-		public static readonly string[] AllRegisters = FormatterInternal.Registers.GetRegisters();
+		public static readonly FormatterString[] AllRegisters = RegistersTable.GetRegisters();
 	}
 }
 #endif
