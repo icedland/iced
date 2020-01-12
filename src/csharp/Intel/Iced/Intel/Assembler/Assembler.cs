@@ -164,6 +164,12 @@ namespace Iced.Intel {
 				else if ((_nextPrefixFlags & PrefixFlags.Repne) != 0) {
 					instruction.HasRepnePrefix = true;
 				}
+				if ((_nextPrefixFlags & PrefixFlags.Bnd) != 0) {
+					instruction.HasRepnePrefix = true;
+				}
+				if ((_nextPrefixFlags & PrefixFlags.Notrack) != 0) {
+					instruction.SegmentPrefix = Register.DS;
+				}
 			}
 
 			if (flags != AssemblerOperandFlags.None) {
@@ -190,7 +196,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler @lock {
 			get {
-				_nextPrefixFlags = PrefixFlags.Lock;
+				_nextPrefixFlags |= PrefixFlags.Lock;
 				return this;
 			}
 		}
@@ -202,7 +208,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xacquire {
 			get {
-				_nextPrefixFlags = PrefixFlags.Xacquire;
+				_nextPrefixFlags |= PrefixFlags.Xacquire;
 				return this;
 			}
 		}
@@ -214,7 +220,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xrelease {
 			 get {
-				 _nextPrefixFlags = PrefixFlags.Xrelease;
+				 _nextPrefixFlags |= PrefixFlags.Xrelease;
 				 return this;
 			 }
 		}
@@ -226,7 +232,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler rep {
 			get {
-				_nextPrefixFlags = PrefixFlags.Rep;
+				_nextPrefixFlags |= PrefixFlags.Rep;
 				return this;
 			}
 		}
@@ -238,7 +244,7 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler repe {
 			get {
-				_nextPrefixFlags = PrefixFlags.Repe;
+				_nextPrefixFlags |= PrefixFlags.Repe;
 				return this;
 			}
 		}
@@ -250,11 +256,35 @@ namespace Iced.Intel {
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler repne {
 			get {
-				_nextPrefixFlags = PrefixFlags.Repne;
+				_nextPrefixFlags |= PrefixFlags.Repne;
 				return this;
 			}
 		}
 		
+		/// <summary>
+		/// Add bnd prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler bnd {
+			get {
+				_nextPrefixFlags |= PrefixFlags.Bnd;
+				return this;
+			}
+		}
+		
+		/// <summary>
+		/// Add notrack prefix before the next instruction.
+		/// </summary>
+		/// <returns></returns>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Assembler notrack {
+			get {
+				_nextPrefixFlags |= PrefixFlags.Notrack;
+				return this;
+			}
+		}
+
 		/// <summary>
 		/// Encode the instructions of this assembler with the specified options.
 		/// </summary>
@@ -316,6 +346,8 @@ namespace Iced.Intel {
 			Rep = 1 << 3,
 			Repe = 1 << 4,
 			Repne = 1 << 5,
+			Bnd = 1 << 6,
+			Notrack = 1 << 7,
 		}
 	}
 }
