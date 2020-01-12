@@ -589,10 +589,12 @@ namespace Generator.Assembler {
 				// - bitness
 				if (selectors.Count <= 1) {
 					if ((argFlags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) {
-						Debug.Assert(opcodes.Count == 2);
-						var vex = (VexOpCodeInfo)opcodes.First(x => x is VexOpCodeInfo);
-						var evex = (EvexOpCodeInfo)opcodes.First(x => x is EvexOpCodeInfo);
-						return new OpCodeSelector(OpCodeSelectorKind.Vex) {IfTrue = vex, IfFalse = evex};
+						var vex = opcodes.Where(x => x is VexOpCodeInfo).ToList();
+						var evex = opcodes.Where(x => x is EvexOpCodeInfo).ToList();
+						return new OpCodeSelector(OpCodeSelectorKind.Vex) {
+							IfTrue = BuildSelectorGraph(group, group.Signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex), 
+							IfFalse = BuildSelectorGraph(group, group.Signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), evex),
+						};
 					}
 
 					// bitness
@@ -1170,37 +1172,8 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mem:
 			case OpCodeOperandKind.mem_offs:
 			case OpCodeOperandKind.mem_mpx:
-			case OpCodeOperandKind.mem_mib:
-			{
-				var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
-				switch (memSize) {
-				case MemorySize.SegPtr16:
-				case MemorySize.SegPtr32:
-				case MemorySize.SegPtr64:
-					// We want them to be detected by bitness
-					return OpCodeSelectorKind.Memory;
-				
-				case MemorySize.Fword6:
-					memSize = MemorySize.UInt32;
-					break;
-				case MemorySize.Fword10:
-					memSize = MemorySize.UInt64;
-					break;
-				}
-				var addressSize = 8 * MemorySizeInfoTable.Data[(int)memSize].Size;
-				switch (addressSize) {
-				case 80:
-					return OpCodeSelectorKind.Memory80;
-				case 64:
-					return OpCodeSelectorKind.Memory64;
-				case 32:
-					return OpCodeSelectorKind.Memory32;
-				case 16:
-					return OpCodeSelectorKind.Memory16;
-				case 8:
-					return OpCodeSelectorKind.Memory8;
-				}
-				return OpCodeSelectorKind.Memory;
+			case OpCodeOperandKind.mem_mib: {
+				return GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory);
 			}
 			
 			case OpCodeOperandKind.mem_vsib32x:
@@ -1216,36 +1189,36 @@ namespace Generator.Assembler {
 				return OpCodeSelectorKind.MemoryZMM;
 			
 			case OpCodeOperandKind.r8_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register8 : OpCodeSelectorKind.Memory8;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.Register8 : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory8);
 
 			case OpCodeOperandKind.r16_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register16 : OpCodeSelectorKind.Memory16;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.Register16 : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory16);
 
 			case OpCodeOperandKind.r32_or_mem:
 			case OpCodeOperandKind.r32_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register32 : OpCodeSelectorKind.Memory32;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.Register32 : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory32);
 
 			case OpCodeOperandKind.r64_or_mem:
 			case OpCodeOperandKind.r64_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.Register64 : OpCodeSelectorKind.Memory64;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.Register64 : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory64);
 
 			case OpCodeOperandKind.mm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterMM : OpCodeSelectorKind.MemoryMM;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryMM);
 			
 			case OpCodeOperandKind.xmm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterXMM : OpCodeSelectorKind.MemoryXMM;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterXMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryXMM);
 
 			case OpCodeOperandKind.ymm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterYMM : OpCodeSelectorKind.MemoryYMM;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterYMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryYMM);
 
 			case OpCodeOperandKind.zmm_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterZMM : OpCodeSelectorKind.MemoryZMM;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterZMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryZMM);
 
 			case OpCodeOperandKind.bnd_or_mem_mpx:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterBND : OpCodeSelectorKind.Memory64;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterBND : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory64);
 
 			case OpCodeOperandKind.k_or_mem:
-				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterK : OpCodeSelectorKind.Memory;
+				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterK : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory);
 			
 			case OpCodeOperandKind.r8_reg:
 			case OpCodeOperandKind.r8_opcode:
@@ -1364,6 +1337,49 @@ namespace Generator.Assembler {
 			default:
 				throw new ArgumentOutOfRangeException(nameof(opKind), opKind, null);
 			}
+		}
+
+		static OpCodeSelectorKind GetOpCodeSelectorKindForMemory(OpCodeInfo opCodeInfo, OpCodeSelectorKind defaultMemory)
+		{
+			var memSize = (MemorySize) InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
+			switch (memSize)
+			{
+			case MemorySize.SegPtr16:
+			case MemorySize.SegPtr32:
+			case MemorySize.SegPtr64:
+				// We want them to be detected by bitness
+				return OpCodeSelectorKind.Memory;
+
+			case MemorySize.Fword6:
+				memSize = MemorySize.UInt32;
+				break;
+			case MemorySize.Fword10:
+				memSize = MemorySize.UInt64;
+				break;
+			}
+
+			var addressSize = 8 * MemorySizeInfoTable.Data[(int) memSize].Size;
+			switch (addressSize)
+			{
+			case 512:
+				return OpCodeSelectorKind.MemoryZMM;
+			case 256:
+				return OpCodeSelectorKind.MemoryYMM;
+			case 128:
+				return OpCodeSelectorKind.MemoryXMM;
+			case 80:
+				return OpCodeSelectorKind.Memory80;
+			case 64:
+				return OpCodeSelectorKind.Memory64;
+			case 32:
+				return OpCodeSelectorKind.Memory32;
+			case 16:
+				return OpCodeSelectorKind.Memory16;
+			case 8:
+				return OpCodeSelectorKind.Memory8;
+			}
+
+			return defaultMemory;
 		}
 
 		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind) {
