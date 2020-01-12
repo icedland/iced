@@ -47217,26 +47217,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VEXTRACTPS r64/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTPS r64/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VEXTRACTPS r/m32, xmm1, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 17 /r ib</c><br/>
@@ -47256,7 +47236,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractps(AssemblerMemoryOperand dst, AssemblerRegister src1, byte imm) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vextractps_r64m32_xmm_imm8 : Code.EVEX_Vextractps_r64m32_xmm_imm8;
+			op = PreferVex ? Code.VEX_Vextractps_rm32_xmm_imm8 : Code.EVEX_Vextractps_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>vfixupimmpd instruction.<br/>
@@ -59491,27 +59471,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512F</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VMOVQ r/m64, xmm1</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.W1 7E /r</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VMOVQ r/m64, xmm1</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 7E /r</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>16/32/64-bit</c></summary>
 		public void vmovq(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovq_xmmm64_xmm : Code.EVEX_Vmovq_xmmm64_xmm;
@@ -59537,27 +59497,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX512F</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VMOVQ xmm1, r/m64</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.W1 6E /r</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VMOVQ xmm1, r/m64</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 6E /r</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>16/32/64-bit</c></summary>
 		public void vmovq(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vmovq_xmm_xmmm64 : Code.EVEX_Vmovq_xmm_xmmm64;
@@ -71587,26 +71527,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPEXTRB r64/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRB r64/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPEXTRB r32/m8, xmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 14 /r ib</c><br/>
@@ -71626,7 +71546,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpextrb(AssemblerMemoryOperand dst, AssemblerRegister src1, byte imm) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vpextrb_r64m8_xmm_imm8 : Code.EVEX_Vpextrb_r64m8_xmm_imm8;
+			op = PreferVex ? Code.VEX_Vpextrb_r32m8_xmm_imm8 : Code.EVEX_Vpextrb_r32m8_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>vpextrd instruction.<br/>
@@ -71749,26 +71669,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPEXTRW r64/m16, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRW r64/m16, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPEXTRW r32/m16, xmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 15 /r ib</c><br/>
@@ -71788,7 +71688,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpextrw(AssemblerMemoryOperand dst, AssemblerRegister src1, byte imm) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vpextrw_r64m16_xmm_imm8 : Code.EVEX_Vpextrw_r64m16_xmm_imm8;
+			op = PreferVex ? Code.VEX_Vpextrw_r32m16_xmm_imm8 : Code.EVEX_Vpextrw_r32m16_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>vpgatherdd instruction.<br/>
@@ -73027,26 +72927,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPINSRB xmm1, xmm2, r64/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRB xmm1, xmm2, r64/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPINSRB xmm1, xmm2, r32/m8, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 20 /r ib</c><br/>
@@ -73066,7 +72946,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpinsrb(AssemblerRegister dst, AssemblerRegister src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrb_xmm_xmm_r64m8_imm8 : Code.EVEX_Vpinsrb_xmm_xmm_r64m8_imm8;
+			op = PreferVex ? Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8 : Code.EVEX_Vpinsrb_xmm_xmm_r32m8_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm));
 		}
 		/// <summary>vpinsrd instruction.<br/>
@@ -73189,26 +73069,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPINSRW xmm1, xmm2, r64/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.W1 C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRW xmm1, xmm2, r64/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPINSRW xmm1, xmm2, r32/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F.W0 C4 /r ib</c><br/>
@@ -73228,7 +73088,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpinsrw(AssemblerRegister dst, AssemblerRegister src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrw_xmm_xmm_r64m16_imm8 : Code.EVEX_Vpinsrw_xmm_xmm_r64m16_imm8;
+			op = PreferVex ? Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8 : Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm));
 		}
 		/// <summary>vplzcntd instruction.<br/>
