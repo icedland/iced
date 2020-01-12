@@ -415,7 +415,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeSelectorKind.ImmediateByteEqual1:
 				return $"{regName} == 1";
 			case OpCodeSelectorKind.ImmediateByteSigned:
-				return $"{regName} >= sbyte.MinValue &&  {regName} <= byte.MaxValue";
+				return $"{regName} >= sbyte.MinValue &&  {regName} <= sbyte.MaxValue";
 			case OpCodeSelectorKind.Vex:
 				return "PreferVex";
 			case OpCodeSelectorKind.RegisterCL:

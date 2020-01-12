@@ -354,7 +354,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void adc(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Adc_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -444,7 +444,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void adc(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Adc_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -838,7 +838,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void add(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Add_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -928,7 +928,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void add(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Add_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -1706,7 +1706,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void and(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.And_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -1796,7 +1796,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void and(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.And_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -6462,7 +6462,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cmp(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Cmp_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -6552,7 +6552,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void cmp(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Cmp_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -12436,7 +12436,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void imul(AssemblerRegister dst, AssemblerRegister src1, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Imul_r64_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -12520,7 +12520,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void imul(AssemblerRegister dst, AssemblerMemoryOperand src1, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Imul_r64_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -20962,7 +20962,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void or(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Or_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -21052,7 +21052,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void or(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Or_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -29738,7 +29738,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void push(int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (Bitness == 64) {
 					op = Code.Pushq_imm8;
 				} else if (Bitness >= 32) {
@@ -33060,7 +33060,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sbb(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Sbb_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -33150,7 +33150,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sbb(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Sbb_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -36192,7 +36192,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sub(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Sub_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -36282,7 +36282,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sub(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Sub_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
@@ -95496,7 +95496,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xor(AssemblerRegister dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.IsGPR64()) {
 					op = Code.Xor_rm64_imm8;
 				} else if (dst.IsGPR32()) {
@@ -95586,7 +95586,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xor(AssemblerMemoryOperand dst, int imm) {
 			Code op;
-			if (imm >= sbyte.MinValue &&  imm <= byte.MaxValue) {
+			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
 					op = Code.Xor_rm64_imm8;
 				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
