@@ -181,7 +181,13 @@ namespace Iced.Intel {
 				}
 				if ((flags & AssemblerOperandFlags.RegisterMask) != 0) {
 					// register mask is shift by 2 (starts at index 1 for K1)
-					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 2));
+					instruction.OpMask = (Register)((int)Register.K0 + (((int)(flags & AssemblerOperandFlags.RegisterMask)) >> 6));
+				}
+				if ((flags & AssemblerOperandFlags.SuppressAllExceptions) != 0) {
+					instruction.SuppressAllExceptions = true;
+				}
+				if ((flags & AssemblerOperandFlags.RoundControlMask) != 0) {
+					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundControlMask)) >> 3));
 				}
 			}
 			_instructions.Add(instruction);

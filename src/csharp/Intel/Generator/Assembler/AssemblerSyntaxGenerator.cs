@@ -192,6 +192,8 @@ namespace Generator.Assembler {
 				if ((code.Flags & OpCodeFlags.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
 				if ((code.Flags & OpCodeFlags.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
 				if ((code.Flags & OpCodeFlags.Broadcast) != 0) opCodeArgFlags |= OpCodeArgFlags.HasBroadcast;
+				if ((code.Flags & OpCodeFlags.SuppressAllExceptions) != 0) opCodeArgFlags |= OpCodeArgFlags.SuppressAllExceptions;
+				if ((code.Flags & OpCodeFlags.RoundingControl) != 0) opCodeArgFlags |= OpCodeArgFlags.RoundingControl;
 
 				var argSizes = new List<int>();
 				bool discard = false;
@@ -969,6 +971,8 @@ namespace Generator.Assembler {
 			HasKMask = 1 << 11,
 			HasBroadcast = 1 << 12,
 			Pseudo = 1 << 13,
+			SuppressAllExceptions = 1 << 14,
+			RoundingControl = 1 << 15,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)

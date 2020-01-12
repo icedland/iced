@@ -99,6 +99,31 @@ namespace Iced.Intel
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegister z => new AssemblerRegister(Value, Flags | AssemblerOperandFlags.Zeroing);
+		
+		/// <summary>
+		/// Suppress all exceptions.
+		/// </summary>
+		public AssemblerRegister sae => new AssemblerRegister(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
+		
+		/// <summary>
+		/// Rounding to nearest.
+		/// </summary>
+		public AssemblerRegister rn_sae => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		
+		/// <summary>
+		/// Rounding down.
+		/// </summary>
+		public AssemblerRegister rd_sae => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+
+		/// <summary>
+		/// Rounding up.
+		/// </summary>
+		public AssemblerRegister ru_sae => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+
+		/// <summary>
+		/// Rounding toward zero.
+		/// </summary>
+		public AssemblerRegister rz_sae => new AssemblerRegister(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Checks if it's a general purpose register (<c>AL</c>-<c>R15L</c>, <c>AX</c>-<c>R15W</c>, <c>EAX</c>-<c>R15D</c>, <c>RAX</c>-<c>R15</c>)

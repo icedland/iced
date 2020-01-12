@@ -42,36 +42,60 @@ namespace Iced.Intel
 		/// </summary>
 		Zeroing = 1 << 1,
 		/// <summary>
+		/// Suppress all exceptions (.sae).
+		/// </summary>
+		SuppressAllExceptions = 1 << 2,
+		/// <summary>
+		/// Round to nearest (.rn_sae).
+		/// </summary>
+		RoundToNearest = RoundingControl.RoundToNearest << 3,
+		/// <summary>
+		/// Round to down (.rd_sae).
+		/// </summary>
+		RoundDown = RoundingControl.RoundDown << 3,
+		/// <summary>
+		/// Round to up (.ru_sae).
+		/// </summary>
+		RoundUp = RoundingControl.RoundUp << 3,
+		/// <summary>
+		/// Round towards zero (.rz_sae).
+		/// </summary>
+		RoundTowardZero = RoundingControl.RoundTowardZero << 3,
+		/// <summary>
+		/// RoundControl mask.
+		/// </summary>
+		RoundControlMask = 0x7 << 3,
+		/// <summary>
 		/// Mask register K1.
 		/// </summary>
-		K1 = 1 << 2,
+		K1 = 1 << 6,
 		/// <summary>
 		/// Mask register K2.
 		/// </summary>
-		K2 = 2 << 2,
+		K2 = 2 << 6,
 		/// <summary>
 		/// Mask register K3.
 		/// </summary>
-		K3 = 3 << 2,
+		K3 = 3 << 6,
 		/// <summary>
 		/// Mask register K4.
 		/// </summary>
-		K4 = 4 << 2,
+		K4 = 4 << 6,
 		/// <summary>
 		/// Mask register K5.
 		/// </summary>
-		K5 = 5 << 2,
+		K5 = 5 << 6,
 		/// <summary>
 		/// Mask register K6.
 		/// </summary>
-		K6 = 6 << 2,
+		K6 = 6 << 6,
 		/// <summary>
 		/// Mask register K7.
 		/// </summary>
-		K7 = 7 << 2,
+		K7 = 7 << 6,
 		/// <summary>
 		/// Mask for K registers.
 		/// </summary>
-		RegisterMask = 0x3 << 2,
+		RegisterMask = 0x7 << 6,
 	}
 }

@@ -104,6 +104,31 @@ namespace Iced.Intel
 				return 8;
 			}
 		}
+		
+		/// <summary>
+		/// Suppress all exceptions.
+		/// </summary>
+		public AssemblerMemoryOperand sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, Flags | AssemblerOperandFlags.SuppressAllExceptions);
+		
+		/// <summary>
+		/// Rounding to nearest.
+		/// </summary>
+		public AssemblerMemoryOperand rn_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		
+		/// <summary>
+		/// Rounding down.
+		/// </summary>
+		public AssemblerMemoryOperand rd_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+
+		/// <summary>
+		/// Rounding up.
+		/// </summary>
+		public AssemblerMemoryOperand ru_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+
+		/// <summary>
+		/// Rounding toward zero.
+		/// </summary>
+		public AssemblerMemoryOperand rz_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Adds a memory operand with an new base or index.

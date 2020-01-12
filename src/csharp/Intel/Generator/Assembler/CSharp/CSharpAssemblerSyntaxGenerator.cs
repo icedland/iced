@@ -140,11 +140,16 @@ namespace Generator.Assembler.CSharp {
 			int immArg = 0;
 							
 			var signature = group.Signature;
+			var lastArgKind = signature.ArgCount > 0 ? signature.GetArgKind(signature.ArgCount - 1) : ArgKind.Unknown;
 			for (int i = 0; i < signature.ArgCount; i++) {
-				string argName = i == 0 ? "dst" : i == 1 ? "src" : $"arg{i}";
-				string argType = $"arg{i}";
+				string argName = i == 0 ? "dst" : "src";
+				string argType = $"<unknown>";
 				int maxArgSize = group.MaxArgSizes[i];
 				var argKind = signature.GetArgKind(i);
+
+				if (signature.ArgCount > 2 && i >= 1) {
+					argName = $"src{i}";
+				}
 								
 				switch (argKind) {
 				case ArgKind.Register:
@@ -258,18 +263,21 @@ namespace Generator.Assembler.CSharp {
 						hasFlags = true;
 					}
 
-					if ((group.Flags & OpCodeArgFlags.HasBroadcast) != 0) {
+					bool hasBroadcast = (group.Flags & OpCodeArgFlags.HasBroadcast) != 0; 
+					bool hasSaeOrRoundingControl = (group.Flags & (OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl)) != 0; 
+					if (hasBroadcast || hasSaeOrRoundingControl) {
 						for (int i = renderArgs.Count - 1; i >= 0; i--) {
-							if (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) {
+							if (hasBroadcast && (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) ||
+							    hasSaeOrRoundingControl && (renderArgs[i].Kind != ArgKind.Immediate && renderArgs[i].Kind != ArgKind.ImmediateByte)) {
 								if (hasFlags) {
 									writer.Write(" | ");
 								}
 								else {
 									writer.Write(", ");
-									hasFlags = true;
 								}
 
 								writer.Write($"{renderArgs[i].Name}.Flags");
+								break;
 							}
 						}
 					}

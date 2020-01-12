@@ -34,6 +34,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests
 			c.repne.stosd();
 
 			c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax + 4]);
+			c.vfmadd132ps(zmm2.k5.z, zmm6, __dword_bcst[rax + 4].rd_sae);
 			
 			c.ret();
 
