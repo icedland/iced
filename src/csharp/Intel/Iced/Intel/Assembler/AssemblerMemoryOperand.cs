@@ -89,7 +89,7 @@ namespace Iced.Intel
 		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a memory access without a base/index and with a displacement bigger than 32-bit.
 		/// </summary>
-		public bool IsDisplacement64BitOnly => Base == Register.None && Index == Register.None && (Displacement < int.MinValue || Displacement > int.MaxValue);
+		internal bool IsDisplacement64BitOnly => Base == Register.None && Index == Register.None && (Displacement < int.MinValue || Displacement > int.MaxValue);
 
 		/// <summary>
 		/// Gets the size of the displacement.
