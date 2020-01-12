@@ -22278,10 +22278,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pavgusb() {
+		public void pavgusb(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pavgusb_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pavgusb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PAVGUSB mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r BF</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pavgusb(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pavgusb_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pavgw instruction.<br/>
 		/// <br/>
@@ -23478,10 +23494,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pf2id() {
+		public void pf2id(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pf2id_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pf2id instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PF2ID mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 1D</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pf2id(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pf2id_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pf2iw instruction.<br/>
 		/// <br/>
@@ -23494,10 +23526,26 @@ namespace Iced.Intel {
 		/// <c>3DNOWEXT</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pf2iw() {
+		public void pf2iw(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pf2iw_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pf2iw instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PF2IW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 1C</c><br/>
+		/// <br/>
+		/// <c>3DNOWEXT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pf2iw(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pf2iw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfacc instruction.<br/>
 		/// <br/>
@@ -23510,10 +23558,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfacc() {
+		public void pfacc(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfacc_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfacc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFACC mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r AE</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfacc(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfacc_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfadd instruction.<br/>
 		/// <br/>
@@ -23526,10 +23590,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfadd() {
+		public void pfadd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfadd_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfadd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFADD mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 9E</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfadd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfadd_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfcmpeq instruction.<br/>
 		/// <br/>
@@ -23542,10 +23622,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfcmpeq() {
+		public void pfcmpeq(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfcmpeq_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfcmpeq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFCMPEQ mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r B0</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfcmpeq(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfcmpeq_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfcmpge instruction.<br/>
 		/// <br/>
@@ -23558,10 +23654,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfcmpge() {
+		public void pfcmpge(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfcmpge_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfcmpge instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFCMPGE mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 90</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfcmpge(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfcmpge_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfcmpgt instruction.<br/>
 		/// <br/>
@@ -23574,10 +23686,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfcmpgt() {
+		public void pfcmpgt(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfcmpgt_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfcmpgt instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFCMPGT mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r A0</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfcmpgt(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfcmpgt_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfmax instruction.<br/>
 		/// <br/>
@@ -23590,10 +23718,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfmax() {
+		public void pfmax(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfmax_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfmax instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFMAX mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r A4</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfmax(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfmax_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfmin instruction.<br/>
 		/// <br/>
@@ -23606,10 +23750,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfmin() {
+		public void pfmin(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfmin_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfmin instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFMIN mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 94</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfmin(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfmin_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfmul instruction.<br/>
 		/// <br/>
@@ -23622,10 +23782,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfmul() {
+		public void pfmul(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfmul_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfmul instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFMUL mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r B4</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfmul(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfmul_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfnacc instruction.<br/>
 		/// <br/>
@@ -23638,10 +23814,26 @@ namespace Iced.Intel {
 		/// <c>3DNOWEXT</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfnacc() {
+		public void pfnacc(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfnacc_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfnacc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFNACC mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 8A</c><br/>
+		/// <br/>
+		/// <c>3DNOWEXT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfnacc(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfnacc_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfpnacc instruction.<br/>
 		/// <br/>
@@ -23654,10 +23846,26 @@ namespace Iced.Intel {
 		/// <c>3DNOWEXT</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfpnacc() {
+		public void pfpnacc(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfpnacc_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfpnacc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFPNACC mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 8E</c><br/>
+		/// <br/>
+		/// <c>3DNOWEXT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfpnacc(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfpnacc_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrcp instruction.<br/>
 		/// <br/>
@@ -23670,10 +23878,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrcp() {
+		public void pfrcp(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrcp_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrcp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRCP mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 96</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrcp(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrcp_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrcpit1 instruction.<br/>
 		/// <br/>
@@ -23686,10 +23910,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrcpit1() {
+		public void pfrcpit1(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrcpit1_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrcpit1 instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRCPIT1 mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r A6</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrcpit1(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrcpit1_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrcpit2 instruction.<br/>
 		/// <br/>
@@ -23702,10 +23942,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrcpit2() {
+		public void pfrcpit2(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrcpit2_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrcpit2 instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRCPIT2 mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r B6</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrcpit2(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrcpit2_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrcpv instruction.<br/>
 		/// <br/>
@@ -23718,10 +23974,26 @@ namespace Iced.Intel {
 		/// <c>AMD Geode LX/GX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrcpv() {
+		public void pfrcpv(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrcpv_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrcpv instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRCPV mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 86</c><br/>
+		/// <br/>
+		/// <c>AMD Geode LX/GX</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrcpv(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrcpv_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrsqit1 instruction.<br/>
 		/// <br/>
@@ -23734,10 +24006,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrsqit1() {
+		public void pfrsqit1(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrsqit1_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrsqit1 instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRSQIT1 mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r A7</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrsqit1(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrsqit1_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrsqrt instruction.<br/>
 		/// <br/>
@@ -23750,10 +24038,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrsqrt() {
+		public void pfrsqrt(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrsqrt_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrsqrt instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRSQRT mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 97</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrsqrt(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrsqrt_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfrsqrtv instruction.<br/>
 		/// <br/>
@@ -23766,10 +24070,26 @@ namespace Iced.Intel {
 		/// <c>AMD Geode LX/GX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfrsqrtv() {
+		public void pfrsqrtv(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfrsqrtv_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfrsqrtv instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFRSQRTV mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 87</c><br/>
+		/// <br/>
+		/// <c>AMD Geode LX/GX</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfrsqrtv(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfrsqrtv_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfsub instruction.<br/>
 		/// <br/>
@@ -23782,10 +24102,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfsub() {
+		public void pfsub(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfsub_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfsub instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFSUB mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 9A</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfsub(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfsub_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pfsubr instruction.<br/>
 		/// <br/>
@@ -23798,10 +24134,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pfsubr() {
+		public void pfsubr(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pfsubr_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pfsubr instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PFSUBR mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r AA</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pfsubr(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pfsubr_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>phaddd instruction.<br/>
 		/// <br/>
@@ -24230,10 +24582,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pi2fd() {
+		public void pi2fd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pi2fd_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pi2fd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PI2FD mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 0D</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pi2fd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pi2fd_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pi2fw instruction.<br/>
 		/// <br/>
@@ -24246,10 +24614,26 @@ namespace Iced.Intel {
 		/// <c>3DNOWEXT</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pi2fw() {
+		public void pi2fw(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pi2fw_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pi2fw instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PI2FW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r 0C</c><br/>
+		/// <br/>
+		/// <c>3DNOWEXT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pi2fw(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pi2fw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pinsrb instruction.<br/>
 		/// <br/>
@@ -25702,10 +26086,26 @@ namespace Iced.Intel {
 		/// <c>3DNOW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pmulhrw() {
+		public void pmulhrw(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pmulhrw_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pmulhrw instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PMULHRW mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r B7</c><br/>
+		/// <br/>
+		/// <c>3DNOW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pmulhrw(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pmulhrw_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>pmulhuw instruction.<br/>
 		/// <br/>
@@ -28266,10 +28666,26 @@ namespace Iced.Intel {
 		/// <c>3DNOWEXT</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		public void pswapd() {
+		public void pswapd(AssemblerRegister dst, AssemblerRegister src) {
 			Code op;
 			op = Code.D3NOW_Pswapd_mm_mmm64;
-			AddInstruction(Instruction.Create(op));
+			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>pswapd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>PSWAPD mm1, mm2/m64</c><br/>
+		/// <br/>
+		/// <c>0F 0F /r BB</c><br/>
+		/// <br/>
+		/// <c>3DNOWEXT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void pswapd(AssemblerRegister dst, AssemblerMemoryOperand src) {
+			Code op;
+			op = Code.D3NOW_Pswapd_mm_mmm64;
+			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ptest instruction.<br/>
 		/// <br/>

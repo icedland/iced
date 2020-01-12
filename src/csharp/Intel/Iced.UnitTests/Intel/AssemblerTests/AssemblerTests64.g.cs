@@ -3219,7 +3219,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pavgusb() {
+		public void pavgusb_reg_reg() {
+		}
+
+		[Fact]
+		public void pavgusb_reg_m() {
 		}
 
 		[Fact]
@@ -3425,87 +3429,171 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pf2id() {
+		public void pf2id_reg_reg() {
 		}
 
 		[Fact]
-		public void pf2iw() {
+		public void pf2id_reg_m() {
 		}
 
 		[Fact]
-		public void pfacc() {
+		public void pf2iw_reg_reg() {
 		}
 
 		[Fact]
-		public void pfadd() {
+		public void pf2iw_reg_m() {
 		}
 
 		[Fact]
-		public void pfcmpeq() {
+		public void pfacc_reg_reg() {
 		}
 
 		[Fact]
-		public void pfcmpge() {
+		public void pfacc_reg_m() {
 		}
 
 		[Fact]
-		public void pfcmpgt() {
+		public void pfadd_reg_reg() {
 		}
 
 		[Fact]
-		public void pfmax() {
+		public void pfadd_reg_m() {
 		}
 
 		[Fact]
-		public void pfmin() {
+		public void pfcmpeq_reg_reg() {
 		}
 
 		[Fact]
-		public void pfmul() {
+		public void pfcmpeq_reg_m() {
 		}
 
 		[Fact]
-		public void pfnacc() {
+		public void pfcmpge_reg_reg() {
 		}
 
 		[Fact]
-		public void pfpnacc() {
+		public void pfcmpge_reg_m() {
 		}
 
 		[Fact]
-		public void pfrcp() {
+		public void pfcmpgt_reg_reg() {
 		}
 
 		[Fact]
-		public void pfrcpit1() {
+		public void pfcmpgt_reg_m() {
 		}
 
 		[Fact]
-		public void pfrcpit2() {
+		public void pfmax_reg_reg() {
 		}
 
 		[Fact]
-		public void pfrcpv() {
+		public void pfmax_reg_m() {
 		}
 
 		[Fact]
-		public void pfrsqit1() {
+		public void pfmin_reg_reg() {
 		}
 
 		[Fact]
-		public void pfrsqrt() {
+		public void pfmin_reg_m() {
 		}
 
 		[Fact]
-		public void pfrsqrtv() {
+		public void pfmul_reg_reg() {
 		}
 
 		[Fact]
-		public void pfsub() {
+		public void pfmul_reg_m() {
 		}
 
 		[Fact]
-		public void pfsubr() {
+		public void pfnacc_reg_reg() {
+		}
+
+		[Fact]
+		public void pfnacc_reg_m() {
+		}
+
+		[Fact]
+		public void pfpnacc_reg_reg() {
+		}
+
+		[Fact]
+		public void pfpnacc_reg_m() {
+		}
+
+		[Fact]
+		public void pfrcp_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrcp_reg_m() {
+		}
+
+		[Fact]
+		public void pfrcpit1_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrcpit1_reg_m() {
+		}
+
+		[Fact]
+		public void pfrcpit2_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrcpit2_reg_m() {
+		}
+
+		[Fact]
+		public void pfrcpv_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrcpv_reg_m() {
+		}
+
+		[Fact]
+		public void pfrsqit1_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrsqit1_reg_m() {
+		}
+
+		[Fact]
+		public void pfrsqrt_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrsqrt_reg_m() {
+		}
+
+		[Fact]
+		public void pfrsqrtv_reg_reg() {
+		}
+
+		[Fact]
+		public void pfrsqrtv_reg_m() {
+		}
+
+		[Fact]
+		public void pfsub_reg_reg() {
+		}
+
+		[Fact]
+		public void pfsub_reg_m() {
+		}
+
+		[Fact]
+		public void pfsubr_reg_reg() {
+		}
+
+		[Fact]
+		public void pfsubr_reg_m() {
 		}
 
 		[Fact]
@@ -3565,11 +3653,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pi2fd() {
+		public void pi2fd_reg_reg() {
 		}
 
 		[Fact]
-		public void pi2fw() {
+		public void pi2fd_reg_m() {
+		}
+
+		[Fact]
+		public void pi2fw_reg_reg() {
+		}
+
+		[Fact]
+		public void pi2fw_reg_m() {
 		}
 
 		[Fact]
@@ -3833,7 +3929,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pmulhrw() {
+		public void pmulhrw_reg_reg() {
+		}
+
+		[Fact]
+		public void pmulhrw_reg_m() {
 		}
 
 		[Fact]
@@ -4177,7 +4277,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pswapd() {
+		public void pswapd_reg_reg() {
+		}
+
+		[Fact]
+		public void pswapd_reg_m() {
 		}
 
 		[Fact]

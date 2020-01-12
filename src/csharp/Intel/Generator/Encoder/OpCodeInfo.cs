@@ -177,9 +177,13 @@ namespace Generator.Encoder {
 		public override EncodingKind Encoding => EncodingKind.D3NOW;
 		public uint Immediate8 { get; }
 		
-		public override int OpKindsLength => 0;
+		public override int OpKindsLength => 2;
 
-		public override OpCodeOperandKind OpKind(int arg) => throw new ArgumentOutOfRangeException(); 
+		public override OpCodeOperandKind OpKind(int arg) {
+			if (arg == 0) return OpCodeOperandKind.mm_reg;
+			if (arg == 1) return OpCodeOperandKind.mm_or_mem;
+			throw new ArgumentOutOfRangeException($"{arg}");
+		} 
 		
 		public D3nowOpCodeInfo(EnumValue code, uint immediate8, OpCodeFlags flags) {
 			Code = code;
