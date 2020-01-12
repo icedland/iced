@@ -1377,10 +1377,23 @@ namespace Generator.Assembler {
 				for (int i = 0; i < pseudoNames.Length; i++) {
 					var name = pseudoNames[i];
 					var key = new GroupKey(name, signature);
+
+					var imm = i;
+					switch (name) {
+					case "pclmullqhqdq":
+					case "vpclmullqhqdq":
+						imm = 0x10;
+						break;
+					case "pclmulhqhqdq":
+					case "vpclmulhqhqdq":
+						imm = 0x11;
+						break;
+					}
+
 					var newGroup = new OpCodeInfoGroup(name, signature) {
 						Flags = OpCodeArgFlags.Pseudo, 
 						ParentPseudoOpsKind = @group, 
-						PseudoOpsKindImmediateValue = i
+						PseudoOpsKindImmediateValue = imm
 					};
 					newGroup.UpdateMaxArgSizes(group.MaxArgSizes);
 					_groups.Add(key, newGroup);

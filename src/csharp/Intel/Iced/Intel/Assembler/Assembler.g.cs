@@ -94477,11 +94477,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>pclmulhqhqdq instruction.</summary>
 		public void pclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src) {
-			pclmulqdq(dst, src, 3);
+			pclmulqdq(dst, src, 17);
 		}
 		/// <summary>pclmulhqhqdq instruction.</summary>
 		public void pclmulhqhqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
-			pclmulqdq(dst, src, 3);
+			pclmulqdq(dst, src, 17);
 		}
 		/// <summary>pclmulhqlqdq instruction.</summary>
 		public void pclmulhqlqdq(AssemblerRegister dst, AssemblerRegister src) {
@@ -94493,11 +94493,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>pclmullqhqdq instruction.</summary>
 		public void pclmullqhqdq(AssemblerRegister dst, AssemblerRegister src) {
-			pclmulqdq(dst, src, 2);
+			pclmulqdq(dst, src, 16);
 		}
 		/// <summary>pclmullqhqdq instruction.</summary>
 		public void pclmullqhqdq(AssemblerRegister dst, AssemblerMemoryOperand src) {
-			pclmulqdq(dst, src, 2);
+			pclmulqdq(dst, src, 16);
 		}
 		/// <summary>pclmullqlqdq instruction.</summary>
 		public void pclmullqlqdq(AssemblerRegister dst, AssemblerRegister src) {
@@ -95533,11 +95533,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>vpclmulhqhqdq instruction.</summary>
 		public void vpclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
-			vpclmulqdq(dst, src, arg2, 3);
+			vpclmulqdq(dst, src, arg2, 17);
 		}
 		/// <summary>vpclmulhqhqdq instruction.</summary>
 		public void vpclmulhqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
-			vpclmulqdq(dst, src, arg2, 3);
+			vpclmulqdq(dst, src, arg2, 17);
 		}
 		/// <summary>vpclmulhqlqdq instruction.</summary>
 		public void vpclmulhqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
@@ -95549,11 +95549,11 @@ namespace Iced.Intel {
 		}
 		/// <summary>vpclmullqhqdq instruction.</summary>
 		public void vpclmullqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
-			vpclmulqdq(dst, src, arg2, 2);
+			vpclmulqdq(dst, src, arg2, 16);
 		}
 		/// <summary>vpclmullqhqdq instruction.</summary>
 		public void vpclmullqhqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerMemoryOperand arg2) {
-			vpclmulqdq(dst, src, arg2, 2);
+			vpclmulqdq(dst, src, arg2, 16);
 		}
 		/// <summary>vpclmullqlqdq instruction.</summary>
 		public void vpclmullqlqdq(AssemblerRegister dst, AssemblerRegister src, AssemblerRegister arg2) {
