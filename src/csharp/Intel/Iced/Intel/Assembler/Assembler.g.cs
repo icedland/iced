@@ -35829,27 +35829,27 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>SYSEXIT</c><br/>
 		/// <br/>
-		/// <c>0F 35</c><br/>
+		/// <c>REX.W 0F 35</c><br/>
 		/// <br/>
 		/// <c>SEP</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
+		/// <c>64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// <c>SYSEXIT</c><br/>
 		/// <br/>
-		/// <c>REX.W 0F 35</c><br/>
+		/// <c>0F 35</c><br/>
 		/// <br/>
 		/// <c>SEP</c><br/>
 		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>16/32/64-bit</c></summary>
 		public void sysexit() {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Sysexitd;
-			} else if (Bitness == 64) {
+			if (Bitness == 64) {
 				op = Code.Sysexitq;
+			} else if (Bitness >= 32) {
+				op = Code.Sysexitd;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sysexit);
 			}
@@ -35861,27 +35861,27 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>SYSRET</c><br/>
 		/// <br/>
-		/// <c>0F 07</c><br/>
+		/// <c>REX.W 0F 07</c><br/>
 		/// <br/>
 		/// <c>SYSCALL</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
+		/// <c>64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
 		/// <c>SYSRET</c><br/>
 		/// <br/>
-		/// <c>REX.W 0F 07</c><br/>
+		/// <c>0F 07</c><br/>
 		/// <br/>
 		/// <c>SYSCALL</c><br/>
 		/// <br/>
-		/// <c>64-bit</c></summary>
+		/// <c>16/32/64-bit</c></summary>
 		public void sysret() {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Sysretd;
-			} else if (Bitness == 64) {
+			if (Bitness == 64) {
 				op = Code.Sysretq;
+			} else if (Bitness >= 32) {
+				op = Code.Sysretd;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sysret);
 			}

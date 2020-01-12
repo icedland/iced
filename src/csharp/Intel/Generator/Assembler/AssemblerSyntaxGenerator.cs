@@ -557,26 +557,7 @@ namespace Generator.Assembler {
 					bool has64 = false;
 					foreach (var opCodeInfo in opcodes) {
 						if (opCodeInfo is LegacyOpCodeInfo legacy) {
-							int bitness = 64;
-							var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
-							switch (sizeFlags) {
-							case OpCodeFlags.Mode16:
-								bitness = 16;
-								break;
-							case OpCodeFlags.Mode16 | OpCodeFlags.Mode32:
-								bitness = legacy.OperandSize == OperandSize.None || legacy.OperandSize == OperandSize.Size16 ? 16 : 32;
-								break;
-							case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
-								bitness = legacy.OperandSize == OperandSize.Size16 ? 16 : 32;
-								break;
-							
-							case OpCodeFlags.Mode64:
-								bitness = legacy.OperandSize == OperandSize.Size16 ? 16 : legacy.OperandSize == OperandSize.Size32 ? 32 :  64;
-								break;
-							default:
-								break;
-							}
-
+							int bitness = GetBitness(legacy);
 							if (bitness == 64) has64 = true;
 
 							OpCodeSelectorKind selectorKind;
@@ -637,6 +618,31 @@ namespace Generator.Assembler {
 				stackDepth--;
 			}
 		}
+
+		static int GetBitness(LegacyOpCodeInfo legacy) {
+			int bitness = 64;
+			var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
+			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize; 
+			switch (sizeFlags) {
+			case OpCodeFlags.Mode16:
+				bitness = 16;
+				break;
+			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32:
+				bitness = operandSize == OperandSize.None || operandSize == OperandSize.Size16 ? 16 : 32;
+				break;
+			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
+				bitness = operandSize == OperandSize.Size16 ? 16 : 32;
+				break;
+							
+			case OpCodeFlags.Mode64:
+				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 :  64;
+				break;
+			default:
+				break;
+			}
+			return bitness;
+		}
+		
 
 		static List<int> CollectByOperandKindPredicate(List<OpCodeInfo> opcodes, Func<OpCodeOperandKind, bool?> predicate, List<OpCodeInfo> opcodesMatchingPredicate, List<OpCodeInfo> opcodesNotMatchingPredicate) {
 			var argIndices = new List<int>();
@@ -1514,10 +1520,9 @@ namespace Generator.Assembler {
 				result = xmemSize.CompareTo(ymemSize);
 				if (result == 0) {
 					if (x is LegacyOpCodeInfo x1 && y is LegacyOpCodeInfo y1) {
-						result = (x1.AddressSize == AddressSize.None ? AddressSize.Size64 : x1.AddressSize).CompareTo((y1.AddressSize == AddressSize.None ? AddressSize.Size64 : y1.AddressSize));
-						if (result != 0) return -result;
-				
-						result = (x1.OperandSize == OperandSize.None ? OperandSize.Size64 : x1.OperandSize).CompareTo((y1.OperandSize == OperandSize.None ? OperandSize.Size64 : y1.OperandSize));
+						var xBitness = GetBitness(x1);
+						var yBitness = GetBitness(y1);
+						result = xBitness.CompareTo(yBitness);
 					}
 				}
 				return -result;
