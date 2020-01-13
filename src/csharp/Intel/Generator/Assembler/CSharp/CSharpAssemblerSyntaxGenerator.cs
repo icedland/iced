@@ -353,8 +353,14 @@ namespace Generator.Assembler.CSharp {
 					}
 
 					var optionalOpCodeFlags = flags.Length > 0 ? $", {flags}" : string.Empty;
+
+					string createInstruction = $"Instruction.Create(Code.{group.Items[0].Code.Name(Converter)})";
 					
-					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == Instruction.Create(Code.{group.Items[0].Code.Name(Converter)}){optionalOpCodeFlags});");
+					if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
+						createInstruction = $"Instruction.Create{group.MemoName}(Bitness)";
+					}
+
+					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == {createInstruction}{optionalOpCodeFlags});");
 				}
 				else {
 					// TODO: We have more than one opcode to test in this method

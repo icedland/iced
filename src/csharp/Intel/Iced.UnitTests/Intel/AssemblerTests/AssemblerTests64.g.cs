@@ -800,12 +800,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsb() {
-			TestAssembler(c => c.cmpsb(), ins => ins == Instruction.Create(Code.Cmpsb_m8_m8));
+			TestAssembler(c => c.cmpsb(), ins => ins == Instruction.CreateCmpsb(Bitness));
 		}
 
 		[Fact]
 		public void cmpsd() {
-			TestAssembler(c => c.cmpsd(), ins => ins == Instruction.Create(Code.Cmpsd_m32_m32));
+			TestAssembler(c => c.cmpsd(), ins => ins == Instruction.CreateCmpsd(Bitness));
 		}
 
 		[Fact]
@@ -818,7 +818,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsq() {
-			TestAssembler(c => c.cmpsq(), ins => ins == Instruction.Create(Code.Cmpsq_m64_m64));
+			TestAssembler(c => c.cmpsq(), ins => ins == Instruction.CreateCmpsq(Bitness));
 		}
 
 		[Fact]
@@ -831,7 +831,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsw() {
-			TestAssembler(c => c.cmpsw(), ins => ins == Instruction.Create(Code.Cmpsw_m16_m16));
+			TestAssembler(c => c.cmpsw(), ins => ins == Instruction.CreateCmpsw(Bitness));
 		}
 
 		[Fact]
@@ -1849,12 +1849,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void insb() {
-			TestAssembler(c => c.insb(), ins => ins == Instruction.Create(Code.Insb_m8_DX));
+			TestAssembler(c => c.insb(), ins => ins == Instruction.CreateInsb(Bitness));
 		}
 
 		[Fact]
 		public void insd() {
-			TestAssembler(c => c.insd(), ins => ins == Instruction.Create(Code.Insd_m32_DX));
+			TestAssembler(c => c.insd(), ins => ins == Instruction.CreateInsd(Bitness));
 		}
 
 		[Fact]
@@ -1875,7 +1875,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void insw() {
-			TestAssembler(c => c.insw(), ins => ins == Instruction.Create(Code.Insw_m16_DX));
+			TestAssembler(c => c.insw(), ins => ins == Instruction.CreateInsw(Bitness));
 		}
 
 		[Fact]
@@ -2320,22 +2320,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void lodsb() {
-			TestAssembler(c => c.lodsb(), ins => ins == Instruction.Create(Code.Lodsb_AL_m8));
+			TestAssembler(c => c.lodsb(), ins => ins == Instruction.CreateLodsb(Bitness));
 		}
 
 		[Fact]
 		public void lodsd() {
-			TestAssembler(c => c.lodsd(), ins => ins == Instruction.Create(Code.Lodsd_EAX_m32));
+			TestAssembler(c => c.lodsd(), ins => ins == Instruction.CreateLodsd(Bitness));
 		}
 
 		[Fact]
 		public void lodsq() {
-			TestAssembler(c => c.lodsq(), ins => ins == Instruction.Create(Code.Lodsq_RAX_m64));
+			TestAssembler(c => c.lodsq(), ins => ins == Instruction.CreateLodsq(Bitness));
 		}
 
 		[Fact]
 		public void lodsw() {
-			TestAssembler(c => c.lodsw(), ins => ins == Instruction.Create(Code.Lodsw_AX_m16));
+			TestAssembler(c => c.lodsw(), ins => ins == Instruction.CreateLodsw(Bitness));
 		}
 
 		[Fact]
@@ -2702,12 +2702,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsb() {
-			TestAssembler(c => c.movsb(), ins => ins == Instruction.Create(Code.Movsb_m8_m8));
+			TestAssembler(c => c.movsb(), ins => ins == Instruction.CreateMovsb(Bitness));
 		}
 
 		[Fact]
 		public void movsd() {
-			TestAssembler(c => c.movsd(), ins => ins == Instruction.Create(Code.Movsd_m32_m32));
+			TestAssembler(c => c.movsd(), ins => ins == Instruction.CreateMovsd(Bitness));
 		}
 
 		[Fact]
@@ -2740,7 +2740,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsq() {
-			TestAssembler(c => c.movsq(), ins => ins == Instruction.Create(Code.Movsq_m64_m64));
+			TestAssembler(c => c.movsq(), ins => ins == Instruction.CreateMovsq(Bitness));
 		}
 
 		[Fact]
@@ -2757,7 +2757,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsw() {
-			TestAssembler(c => c.movsw(), ins => ins == Instruction.Create(Code.Movsw_m16_m16));
+			TestAssembler(c => c.movsw(), ins => ins == Instruction.CreateMovsw(Bitness));
 		}
 
 		[Fact]
@@ -2956,17 +2956,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void outsb() {
-			TestAssembler(c => c.outsb(), ins => ins == Instruction.Create(Code.Outsb_DX_m8));
+			TestAssembler(c => c.outsb(), ins => ins == Instruction.CreateOutsb(Bitness));
 		}
 
 		[Fact]
 		public void outsd() {
-			TestAssembler(c => c.outsd(), ins => ins == Instruction.Create(Code.Outsd_DX_m32));
+			TestAssembler(c => c.outsd(), ins => ins == Instruction.CreateOutsd(Bitness));
 		}
 
 		[Fact]
 		public void outsw() {
-			TestAssembler(c => c.outsw(), ins => ins == Instruction.Create(Code.Outsw_DX_m16));
+			TestAssembler(c => c.outsw(), ins => ins == Instruction.CreateOutsw(Bitness));
 		}
 
 		[Fact]
@@ -4603,22 +4603,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void scasb() {
-			TestAssembler(c => c.scasb(), ins => ins == Instruction.Create(Code.Scasb_AL_m8));
+			TestAssembler(c => c.scasb(), ins => ins == Instruction.CreateScasb(Bitness));
 		}
 
 		[Fact]
 		public void scasd() {
-			TestAssembler(c => c.scasd(), ins => ins == Instruction.Create(Code.Scasd_EAX_m32));
+			TestAssembler(c => c.scasd(), ins => ins == Instruction.CreateScasd(Bitness));
 		}
 
 		[Fact]
 		public void scasq() {
-			TestAssembler(c => c.scasq(), ins => ins == Instruction.Create(Code.Scasq_RAX_m64));
+			TestAssembler(c => c.scasq(), ins => ins == Instruction.CreateScasq(Bitness));
 		}
 
 		[Fact]
 		public void scasw() {
-			TestAssembler(c => c.scasw(), ins => ins == Instruction.Create(Code.Scasw_AX_m16));
+			TestAssembler(c => c.scasw(), ins => ins == Instruction.CreateScasw(Bitness));
 		}
 
 		[Fact]
@@ -5007,22 +5007,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void stosb() {
-			TestAssembler(c => c.stosb(), ins => ins == Instruction.Create(Code.Stosb_m8_AL));
+			TestAssembler(c => c.stosb(), ins => ins == Instruction.CreateStosb(Bitness));
 		}
 
 		[Fact]
 		public void stosd() {
-			TestAssembler(c => c.stosd(), ins => ins == Instruction.Create(Code.Stosd_m32_EAX));
+			TestAssembler(c => c.stosd(), ins => ins == Instruction.CreateStosd(Bitness));
 		}
 
 		[Fact]
 		public void stosq() {
-			TestAssembler(c => c.stosq(), ins => ins == Instruction.Create(Code.Stosq_m64_RAX));
+			TestAssembler(c => c.stosq(), ins => ins == Instruction.CreateStosq(Bitness));
 		}
 
 		[Fact]
 		public void stosw() {
-			TestAssembler(c => c.stosw(), ins => ins == Instruction.Create(Code.Stosw_m16_AX));
+			TestAssembler(c => c.stosw(), ins => ins == Instruction.CreateStosw(Bitness));
 		}
 
 		[Fact]

@@ -34,6 +34,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			_bitness = bitness;
 		}
 		
+		public int Bitness => _bitness;
+		
 		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
 			var stream = new MemoryStream();
 			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
