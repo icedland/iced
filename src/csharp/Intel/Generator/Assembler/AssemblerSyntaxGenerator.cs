@@ -680,6 +680,10 @@ namespace Generator.Assembler {
 			if (testDiscard) {
 				switch ((Code)opCode.Code.Value) {
 				
+				case Code.Movq_rm64_xmm:                     // => Code.Movq_xmmm64_xmm
+				case Code.Movq_rm64_mm:                      // => Code.Movq_mmm64_mm
+				case Code.Movq_xmm_rm64:                     // => Code.Movq_xmm_rm64
+				case Code.Movq_mm_rm64:                      // => Code.Movq_mm_rm64					
 				case Code.EVEX_Vextractps_r64m32_xmm_imm8:   // => EVEX_Vextractps_rm32_xmm_imm8
 				case Code.EVEX_Vmovq_rm64_xmm:               // => EVEX_Vmovq_xmmm64_xmm
 				case Code.EVEX_Vmovq_xmm_rm64:               // => EVEX_Vmovq_xmm_xmmm64

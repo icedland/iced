@@ -19099,26 +19099,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOVQ r/m64, xmm</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 7E /r</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOVQ r/m64, mm</c><br/>
-		/// <br/>
-		/// <c>NP REX.W 0F 7E /r</c><br/>
-		/// <br/>
-		/// <c>MMX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOVQ mm/m64, mm</c><br/>
 		/// <br/>
 		/// <c>NP 0F 7F /r</c><br/>
@@ -19129,21 +19109,9 @@ namespace Iced.Intel {
 		public void movq(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
 			if (src.IsXMM()) {
-				if (Bitness >= 32) {
-					op = Code.Movq_xmmm64_xmm;
-				} else if (Bitness == 64) {
-					op = Code.Movq_rm64_xmm;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
-				}
+				op = Code.Movq_xmmm64_xmm;
 			} else if (src.IsMM()) {
-				if (Bitness == 64) {
-					op = Code.Movq_rm64_mm;
-				} else if (Bitness >= 32) {
-					op = Code.Movq_mmm64_mm;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
-				}
+				op = Code.Movq_mmm64_mm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
 			}
@@ -19163,26 +19131,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOVQ xmm, r/m64</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 6E /r</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOVQ mm, r/m64</c><br/>
-		/// <br/>
-		/// <c>NP REX.W 0F 6E /r</c><br/>
-		/// <br/>
-		/// <c>MMX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOVQ mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 6F /r</c><br/>
@@ -19193,21 +19141,9 @@ namespace Iced.Intel {
 		public void movq(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
 			if (dst.IsXMM()) {
-				if (Bitness >= 32) {
-					op = Code.Movq_xmm_xmmm64;
-				} else if (Bitness == 64) {
-					op = Code.Movq_xmm_rm64;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
-				}
+				op = Code.Movq_xmm_xmmm64;
 			} else if (dst.IsMM()) {
-				if (Bitness == 64) {
-					op = Code.Movq_mm_rm64;
-				} else if (Bitness >= 32) {
-					op = Code.Movq_mm_mmm64;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
-				}
+				op = Code.Movq_mm_mmm64;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Movq, dst, src);
 			}
