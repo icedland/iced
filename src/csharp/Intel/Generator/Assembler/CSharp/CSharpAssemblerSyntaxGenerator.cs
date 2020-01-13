@@ -347,7 +347,14 @@ namespace Generator.Assembler.CSharp {
 			using (writer.Indent()) {
 				// Generate simple test for one opcode
 				if (group.Items.Count == 1 && renderArgs.Count == 0) {
-					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == Instruction.Create(Code.{group.Items[0].Code.Name(Converter)}));");
+					var flags = new StringBuilder();
+					if ((group.Items[0].Flags & OpCodeFlags.Fwait) != 0) {
+						flags.Append("LocalOpCodeFlags.Fwait");
+					}
+
+					var optionalOpCodeFlags = flags.Length > 0 ? $", {flags}" : string.Empty;
+					
+					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == Instruction.Create(Code.{group.Items[0].Code.Name(Converter)}){optionalOpCodeFlags});");
 				}
 				else {
 					// TODO: We have more than one opcode to test in this method

@@ -34,7 +34,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			_bitness = bitness;
 		}
 		
-		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns) {
+		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
 			var stream = new MemoryStream();
 			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
 			
@@ -55,7 +55,58 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			stream.Position = 0;
 			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream));
 			var againstInst = decoder.Decode();
+			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
+				Assert.Equal(againstInst, Instruction.Create(Code.Wait));
+				againstInst = decoder.Decode();
+
+				switch (againstInst.Code)
+				{
+				case Code.Fnstenv_m14byte:
+					againstInst.Code = Code.Fstenv_m14byte;
+					break;
+                case Code.Fnstenv_m28byte:
+					againstInst.Code = Code.Fstenv_m28byte;
+					break;
+                case Code.Fnstcw_m2byte:
+					againstInst.Code = Code.Fstcw_m2byte;
+					break;
+                case Code.Fneni:
+					againstInst.Code = Code.Feni;
+					break;
+                case Code.Fndisi:
+					againstInst.Code = Code.Fdisi;
+					break;
+                case Code.Fnclex:
+					againstInst.Code = Code.Fclex;
+					break;
+                case Code.Fninit:
+					againstInst.Code = Code.Finit;
+					break;
+                case Code.Fnsetpm:
+					againstInst.Code = Code.Fsetpm;
+					break;
+                case Code.Fnsave_m94byte:
+					againstInst.Code = Code.Fsave_m94byte;
+					break;
+                case Code.Fnsave_m108byte:	
+					againstInst.Code = Code.Fsave_m108byte;
+					break;
+                case Code.Fnstsw_m2byte:
+					againstInst.Code = Code.Fstsw_m2byte;
+					break;
+                case Code.Fnstsw_AX:
+					againstInst.Code = Code.Fstsw_AX;
+					break;
+				}
+			}
+			
 			Assert.Equal(inst, againstInst);
+		}
+
+		[Flags]
+		protected enum LocalOpCodeFlags {
+			None = 0,
+			Fwait = 1 << 0,
 		}
 		
 		sealed class StreamCodeWriter : CodeWriter {

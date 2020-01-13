@@ -1274,7 +1274,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fclex() {
-			TestAssembler(c => c.fclex(), ins => ins == Instruction.Create(Code.Fclex));
+			TestAssembler(c => c.fclex(), ins => ins == Instruction.Create(Code.Fclex), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
@@ -1350,7 +1350,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fdisi() {
-			TestAssembler(c => c.fdisi(), ins => ins == Instruction.Create(Code.Fdisi));
+			TestAssembler(c => c.fdisi(), ins => ins == Instruction.Create(Code.Fdisi), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
@@ -1384,7 +1384,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void feni() {
-			TestAssembler(c => c.feni(), ins => ins == Instruction.Create(Code.Feni));
+			TestAssembler(c => c.feni(), ins => ins == Instruction.Create(Code.Feni), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
@@ -1430,7 +1430,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void finit() {
-			TestAssembler(c => c.finit(), ins => ins == Instruction.Create(Code.Finit));
+			TestAssembler(c => c.finit(), ins => ins == Instruction.Create(Code.Finit), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
@@ -1611,7 +1611,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fsetpm() {
-			TestAssembler(c => c.fsetpm(), ins => ins == Instruction.Create(Code.Fsetpm));
+			TestAssembler(c => c.fsetpm(), ins => ins == Instruction.Create(Code.Fsetpm), LocalOpCodeFlags.Fwait);
 		}
 
 		[Fact]
