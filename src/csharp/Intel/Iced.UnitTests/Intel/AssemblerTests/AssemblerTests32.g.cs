@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void aaa() {
-			TestAssembler(c => c.aaa(), ins => ins.Code == Code.Aaa);
+			TestAssembler(c => c.aaa(), ins => ins == Instruction.Create(Code.Aaa));
 		}
 
 		[Fact]
@@ -50,7 +50,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void aas() {
-			TestAssembler(c => c.aas(), ins => ins.Code == Code.Aas);
+			TestAssembler(c => c.aas(), ins => ins == Instruction.Create(Code.Aas));
 		}
 
 		[Fact]
@@ -583,37 +583,37 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cbw() {
-			TestAssembler(c => c.cbw(), ins => ins.Code == Code.Cbw);
+			TestAssembler(c => c.cbw(), ins => ins == Instruction.Create(Code.Cbw));
 		}
 
 		[Fact]
 		public void cdq() {
-			TestAssembler(c => c.cdq(), ins => ins.Code == Code.Cdq);
+			TestAssembler(c => c.cdq(), ins => ins == Instruction.Create(Code.Cdq));
 		}
 
 		[Fact]
 		public void cdqe() {
-			TestAssembler(c => c.cdqe(), ins => ins.Code == Code.Cdqe);
+			TestAssembler(c => c.cdqe(), ins => ins == Instruction.Create(Code.Cdqe));
 		}
 
 		[Fact]
 		public void cl1invmb() {
-			TestAssembler(c => c.cl1invmb(), ins => ins.Code == Code.Cl1invmb);
+			TestAssembler(c => c.cl1invmb(), ins => ins == Instruction.Create(Code.Cl1invmb));
 		}
 
 		[Fact]
 		public void clac() {
-			TestAssembler(c => c.clac(), ins => ins.Code == Code.Clac);
+			TestAssembler(c => c.clac(), ins => ins == Instruction.Create(Code.Clac));
 		}
 
 		[Fact]
 		public void clc() {
-			TestAssembler(c => c.clc(), ins => ins.Code == Code.Clc);
+			TestAssembler(c => c.clc(), ins => ins == Instruction.Create(Code.Clc));
 		}
 
 		[Fact]
 		public void cld() {
-			TestAssembler(c => c.cld(), ins => ins.Code == Code.Cld);
+			TestAssembler(c => c.cld(), ins => ins == Instruction.Create(Code.Cld));
 		}
 
 		[Fact]
@@ -630,12 +630,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void clgi() {
-			TestAssembler(c => c.clgi(), ins => ins.Code == Code.Clgi);
+			TestAssembler(c => c.clgi(), ins => ins == Instruction.Create(Code.Clgi));
 		}
 
 		[Fact]
 		public void cli() {
-			TestAssembler(c => c.cli(), ins => ins.Code == Code.Cli);
+			TestAssembler(c => c.cli(), ins => ins == Instruction.Create(Code.Cli));
 		}
 
 		[Fact]
@@ -644,7 +644,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void clts() {
-			TestAssembler(c => c.clts(), ins => ins.Code == Code.Clts);
+			TestAssembler(c => c.clts(), ins => ins == Instruction.Create(Code.Clts));
 		}
 
 		[Fact]
@@ -657,7 +657,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmc() {
-			TestAssembler(c => c.cmc(), ins => ins.Code == Code.Cmc);
+			TestAssembler(c => c.cmc(), ins => ins == Instruction.Create(Code.Cmc));
 		}
 
 		[Fact]
@@ -1058,12 +1058,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsb() {
-			TestAssembler(c => c.cmpsb(), ins => ins.Code == Code.Cmpsb_m8_m8);
+			TestAssembler(c => c.cmpsb(), ins => ins == Instruction.Create(Code.Cmpsb_m8_m8));
 		}
 
 		[Fact]
 		public void cmpsd() {
-			TestAssembler(c => c.cmpsd(), ins => ins.Code == Code.Cmpsd_m32_m32);
+			TestAssembler(c => c.cmpsd(), ins => ins == Instruction.Create(Code.Cmpsd_m32_m32));
 		}
 
 		[Fact]
@@ -1076,7 +1076,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsq() {
-			TestAssembler(c => c.cmpsq(), ins => ins.Code == Code.Cmpsq_m64_m64);
+			TestAssembler(c => c.cmpsq(), ins => ins == Instruction.Create(Code.Cmpsq_m64_m64));
 		}
 
 		[Fact]
@@ -1089,7 +1089,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpsw() {
-			TestAssembler(c => c.cmpsw(), ins => ins.Code == Code.Cmpsw_m16_m16);
+			TestAssembler(c => c.cmpsw(), ins => ins == Instruction.Create(Code.Cmpsw_m16_m16));
 		}
 
 		[Fact]
@@ -1158,12 +1158,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cpuid() {
-			TestAssembler(c => c.cpuid(), ins => ins.Code == Code.Cpuid);
+			TestAssembler(c => c.cpuid(), ins => ins == Instruction.Create(Code.Cpuid));
 		}
 
 		[Fact]
 		public void cqo() {
-			TestAssembler(c => c.cqo(), ins => ins.Code == Code.Cqo);
+			TestAssembler(c => c.cqo(), ins => ins == Instruction.Create(Code.Cqo));
 		}
 
 		[Fact]
@@ -1352,32 +1352,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cwd() {
-			TestAssembler(c => c.cwd(), ins => ins.Code == Code.Cwd);
+			TestAssembler(c => c.cwd(), ins => ins == Instruction.Create(Code.Cwd));
 		}
 
 		[Fact]
 		public void cwde() {
-			TestAssembler(c => c.cwde(), ins => ins.Code == Code.Cwde);
+			TestAssembler(c => c.cwde(), ins => ins == Instruction.Create(Code.Cwde));
 		}
 
 		[Fact]
 		public void daa() {
-			TestAssembler(c => c.daa(), ins => ins.Code == Code.Daa);
+			TestAssembler(c => c.daa(), ins => ins == Instruction.Create(Code.Daa));
 		}
 
 		[Fact]
 		public void das() {
-			TestAssembler(c => c.das(), ins => ins.Code == Code.Das);
+			TestAssembler(c => c.das(), ins => ins == Instruction.Create(Code.Das));
 		}
 
 		[Fact]
 		public void db() {
-			TestAssembler(c => c.db(), ins => ins.Code == Code.DeclareByte);
+			TestAssembler(c => c.db(), ins => ins == Instruction.Create(Code.DeclareByte));
 		}
 
 		[Fact]
 		public void dd() {
-			TestAssembler(c => c.dd(), ins => ins.Code == Code.DeclareDword);
+			TestAssembler(c => c.dd(), ins => ins == Instruction.Create(Code.DeclareDword));
 		}
 
 		[Fact]
@@ -1446,42 +1446,42 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void dq() {
-			TestAssembler(c => c.dq(), ins => ins.Code == Code.DeclareQword);
+			TestAssembler(c => c.dq(), ins => ins == Instruction.Create(Code.DeclareQword));
 		}
 
 		[Fact]
 		public void dw() {
-			TestAssembler(c => c.dw(), ins => ins.Code == Code.DeclareWord);
+			TestAssembler(c => c.dw(), ins => ins == Instruction.Create(Code.DeclareWord));
 		}
 
 		[Fact]
 		public void emms() {
-			TestAssembler(c => c.emms(), ins => ins.Code == Code.Emms);
+			TestAssembler(c => c.emms(), ins => ins == Instruction.Create(Code.Emms));
 		}
 
 		[Fact]
 		public void encls() {
-			TestAssembler(c => c.encls(), ins => ins.Code == Code.Encls);
+			TestAssembler(c => c.encls(), ins => ins == Instruction.Create(Code.Encls));
 		}
 
 		[Fact]
 		public void enclu() {
-			TestAssembler(c => c.enclu(), ins => ins.Code == Code.Enclu);
+			TestAssembler(c => c.enclu(), ins => ins == Instruction.Create(Code.Enclu));
 		}
 
 		[Fact]
 		public void enclv() {
-			TestAssembler(c => c.enclv(), ins => ins.Code == Code.Enclv);
+			TestAssembler(c => c.enclv(), ins => ins == Instruction.Create(Code.Enclv));
 		}
 
 		[Fact]
 		public void endbr32() {
-			TestAssembler(c => c.endbr32(), ins => ins.Code == Code.Endbr32);
+			TestAssembler(c => c.endbr32(), ins => ins == Instruction.Create(Code.Endbr32));
 		}
 
 		[Fact]
 		public void endbr64() {
-			TestAssembler(c => c.endbr64(), ins => ins.Code == Code.Endbr64);
+			TestAssembler(c => c.endbr64(), ins => ins == Instruction.Create(Code.Endbr64));
 		}
 
 		[Fact]
@@ -1514,12 +1514,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void f2xm1() {
-			TestAssembler(c => c.f2xm1(), ins => ins.Code == Code.F2xm1);
+			TestAssembler(c => c.f2xm1(), ins => ins == Instruction.Create(Code.F2xm1));
 		}
 
 		[Fact]
 		public void fabs() {
-			TestAssembler(c => c.fabs(), ins => ins.Code == Code.Fabs);
+			TestAssembler(c => c.fabs(), ins => ins == Instruction.Create(Code.Fabs));
 		}
 
 		[Fact]
@@ -1544,12 +1544,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fchs() {
-			TestAssembler(c => c.fchs(), ins => ins.Code == Code.Fchs);
+			TestAssembler(c => c.fchs(), ins => ins == Instruction.Create(Code.Fchs));
 		}
 
 		[Fact]
 		public void fclex() {
-			TestAssembler(c => c.fclex(), ins => ins.Code == Code.Fclex);
+			TestAssembler(c => c.fclex(), ins => ins == Instruction.Create(Code.Fclex));
 		}
 
 		[Fact]
@@ -1610,22 +1610,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fcompp() {
-			TestAssembler(c => c.fcompp(), ins => ins.Code == Code.Fcompp);
+			TestAssembler(c => c.fcompp(), ins => ins == Instruction.Create(Code.Fcompp));
 		}
 
 		[Fact]
 		public void fcos() {
-			TestAssembler(c => c.fcos(), ins => ins.Code == Code.Fcos);
+			TestAssembler(c => c.fcos(), ins => ins == Instruction.Create(Code.Fcos));
 		}
 
 		[Fact]
 		public void fdecstp() {
-			TestAssembler(c => c.fdecstp(), ins => ins.Code == Code.Fdecstp);
+			TestAssembler(c => c.fdecstp(), ins => ins == Instruction.Create(Code.Fdecstp));
 		}
 
 		[Fact]
 		public void fdisi() {
-			TestAssembler(c => c.fdisi(), ins => ins.Code == Code.Fdisi);
+			TestAssembler(c => c.fdisi(), ins => ins == Instruction.Create(Code.Fdisi));
 		}
 
 		[Fact]
@@ -1654,12 +1654,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void femms() {
-			TestAssembler(c => c.femms(), ins => ins.Code == Code.Femms);
+			TestAssembler(c => c.femms(), ins => ins == Instruction.Create(Code.Femms));
 		}
 
 		[Fact]
 		public void feni() {
-			TestAssembler(c => c.feni(), ins => ins.Code == Code.Feni);
+			TestAssembler(c => c.feni(), ins => ins == Instruction.Create(Code.Feni));
 		}
 
 		[Fact]
@@ -1700,12 +1700,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fincstp() {
-			TestAssembler(c => c.fincstp(), ins => ins.Code == Code.Fincstp);
+			TestAssembler(c => c.fincstp(), ins => ins == Instruction.Create(Code.Fincstp));
 		}
 
 		[Fact]
 		public void finit() {
-			TestAssembler(c => c.finit(), ins => ins.Code == Code.Finit);
+			TestAssembler(c => c.finit(), ins => ins == Instruction.Create(Code.Finit));
 		}
 
 		[Fact]
@@ -1738,7 +1738,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fld1() {
-			TestAssembler(c => c.fld1(), ins => ins.Code == Code.Fld1);
+			TestAssembler(c => c.fld1(), ins => ins == Instruction.Create(Code.Fld1));
 		}
 
 		[Fact]
@@ -1751,32 +1751,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fldl2e() {
-			TestAssembler(c => c.fldl2e(), ins => ins.Code == Code.Fldl2e);
+			TestAssembler(c => c.fldl2e(), ins => ins == Instruction.Create(Code.Fldl2e));
 		}
 
 		[Fact]
 		public void fldl2t() {
-			TestAssembler(c => c.fldl2t(), ins => ins.Code == Code.Fldl2t);
+			TestAssembler(c => c.fldl2t(), ins => ins == Instruction.Create(Code.Fldl2t));
 		}
 
 		[Fact]
 		public void fldlg2() {
-			TestAssembler(c => c.fldlg2(), ins => ins.Code == Code.Fldlg2);
+			TestAssembler(c => c.fldlg2(), ins => ins == Instruction.Create(Code.Fldlg2));
 		}
 
 		[Fact]
 		public void fldln2() {
-			TestAssembler(c => c.fldln2(), ins => ins.Code == Code.Fldln2);
+			TestAssembler(c => c.fldln2(), ins => ins == Instruction.Create(Code.Fldln2));
 		}
 
 		[Fact]
 		public void fldpi() {
-			TestAssembler(c => c.fldpi(), ins => ins.Code == Code.Fldpi);
+			TestAssembler(c => c.fldpi(), ins => ins == Instruction.Create(Code.Fldpi));
 		}
 
 		[Fact]
 		public void fldz() {
-			TestAssembler(c => c.fldz(), ins => ins.Code == Code.Fldz);
+			TestAssembler(c => c.fldz(), ins => ins == Instruction.Create(Code.Fldz));
 		}
 
 		[Fact]
@@ -1793,27 +1793,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fnclex() {
-			TestAssembler(c => c.fnclex(), ins => ins.Code == Code.Fnclex);
+			TestAssembler(c => c.fnclex(), ins => ins == Instruction.Create(Code.Fnclex));
 		}
 
 		[Fact]
 		public void fndisi() {
-			TestAssembler(c => c.fndisi(), ins => ins.Code == Code.Fndisi);
+			TestAssembler(c => c.fndisi(), ins => ins == Instruction.Create(Code.Fndisi));
 		}
 
 		[Fact]
 		public void fneni() {
-			TestAssembler(c => c.fneni(), ins => ins.Code == Code.Fneni);
+			TestAssembler(c => c.fneni(), ins => ins == Instruction.Create(Code.Fneni));
 		}
 
 		[Fact]
 		public void fninit() {
-			TestAssembler(c => c.fninit(), ins => ins.Code == Code.Fninit);
+			TestAssembler(c => c.fninit(), ins => ins == Instruction.Create(Code.Fninit));
 		}
 
 		[Fact]
 		public void fnop() {
-			TestAssembler(c => c.fnop(), ins => ins.Code == Code.Fnop);
+			TestAssembler(c => c.fnop(), ins => ins == Instruction.Create(Code.Fnop));
 		}
 
 		[Fact]
@@ -1822,7 +1822,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fnsetpm() {
-			TestAssembler(c => c.fnsetpm(), ins => ins.Code == Code.Fnsetpm);
+			TestAssembler(c => c.fnsetpm(), ins => ins == Instruction.Create(Code.Fnsetpm));
 		}
 
 		[Fact]
@@ -1843,27 +1843,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fpatan() {
-			TestAssembler(c => c.fpatan(), ins => ins.Code == Code.Fpatan);
+			TestAssembler(c => c.fpatan(), ins => ins == Instruction.Create(Code.Fpatan));
 		}
 
 		[Fact]
 		public void fprem() {
-			TestAssembler(c => c.fprem(), ins => ins.Code == Code.Fprem);
+			TestAssembler(c => c.fprem(), ins => ins == Instruction.Create(Code.Fprem));
 		}
 
 		[Fact]
 		public void fprem1() {
-			TestAssembler(c => c.fprem1(), ins => ins.Code == Code.Fprem1);
+			TestAssembler(c => c.fprem1(), ins => ins == Instruction.Create(Code.Fprem1));
 		}
 
 		[Fact]
 		public void fptan() {
-			TestAssembler(c => c.fptan(), ins => ins.Code == Code.Fptan);
+			TestAssembler(c => c.fptan(), ins => ins == Instruction.Create(Code.Fptan));
 		}
 
 		[Fact]
 		public void frndint() {
-			TestAssembler(c => c.frndint(), ins => ins.Code == Code.Frndint);
+			TestAssembler(c => c.frndint(), ins => ins == Instruction.Create(Code.Frndint));
 		}
 
 		[Fact]
@@ -1872,7 +1872,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void frstpm() {
-			TestAssembler(c => c.frstpm(), ins => ins.Code == Code.Frstpm);
+			TestAssembler(c => c.frstpm(), ins => ins == Instruction.Create(Code.Frstpm));
 		}
 
 		[Fact]
@@ -1881,27 +1881,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fscale() {
-			TestAssembler(c => c.fscale(), ins => ins.Code == Code.Fscale);
+			TestAssembler(c => c.fscale(), ins => ins == Instruction.Create(Code.Fscale));
 		}
 
 		[Fact]
 		public void fsetpm() {
-			TestAssembler(c => c.fsetpm(), ins => ins.Code == Code.Fsetpm);
+			TestAssembler(c => c.fsetpm(), ins => ins == Instruction.Create(Code.Fsetpm));
 		}
 
 		[Fact]
 		public void fsin() {
-			TestAssembler(c => c.fsin(), ins => ins.Code == Code.Fsin);
+			TestAssembler(c => c.fsin(), ins => ins == Instruction.Create(Code.Fsin));
 		}
 
 		[Fact]
 		public void fsincos() {
-			TestAssembler(c => c.fsincos(), ins => ins.Code == Code.Fsincos);
+			TestAssembler(c => c.fsincos(), ins => ins == Instruction.Create(Code.Fsincos));
 		}
 
 		[Fact]
 		public void fsqrt() {
-			TestAssembler(c => c.fsqrt(), ins => ins.Code == Code.Fsqrt);
+			TestAssembler(c => c.fsqrt(), ins => ins == Instruction.Create(Code.Fsqrt));
 		}
 
 		[Fact]
@@ -1974,7 +1974,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void ftst() {
-			TestAssembler(c => c.ftst(), ins => ins.Code == Code.Ftst);
+			TestAssembler(c => c.ftst(), ins => ins == Instruction.Create(Code.Ftst));
 		}
 
 		[Fact]
@@ -1995,12 +1995,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fucompp() {
-			TestAssembler(c => c.fucompp(), ins => ins.Code == Code.Fucompp);
+			TestAssembler(c => c.fucompp(), ins => ins == Instruction.Create(Code.Fucompp));
 		}
 
 		[Fact]
 		public void fxam() {
-			TestAssembler(c => c.fxam(), ins => ins.Code == Code.Fxam);
+			TestAssembler(c => c.fxam(), ins => ins == Instruction.Create(Code.Fxam));
 		}
 
 		[Fact]
@@ -2025,22 +2025,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fxtract() {
-			TestAssembler(c => c.fxtract(), ins => ins.Code == Code.Fxtract);
+			TestAssembler(c => c.fxtract(), ins => ins == Instruction.Create(Code.Fxtract));
 		}
 
 		[Fact]
 		public void fyl2x() {
-			TestAssembler(c => c.fyl2x(), ins => ins.Code == Code.Fyl2x);
+			TestAssembler(c => c.fyl2x(), ins => ins == Instruction.Create(Code.Fyl2x));
 		}
 
 		[Fact]
 		public void fyl2xp1() {
-			TestAssembler(c => c.fyl2xp1(), ins => ins.Code == Code.Fyl2xp1);
+			TestAssembler(c => c.fyl2xp1(), ins => ins == Instruction.Create(Code.Fyl2xp1));
 		}
 
 		[Fact]
 		public void getsec() {
-			TestAssembler(c => c.getsec(), ins => ins.Code == Code.Getsec);
+			TestAssembler(c => c.getsec(), ins => ins == Instruction.Create(Code.Getsec));
 		}
 
 		[Fact]
@@ -2085,7 +2085,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void hlt() {
-			TestAssembler(c => c.hlt(), ins => ins.Code == Code.Hlt);
+			TestAssembler(c => c.hlt(), ins => ins == Instruction.Create(Code.Hlt));
 		}
 
 		[Fact]
@@ -2170,12 +2170,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void insb() {
-			TestAssembler(c => c.insb(), ins => ins.Code == Code.Insb_m8_DX);
+			TestAssembler(c => c.insb(), ins => ins == Instruction.Create(Code.Insb_m8_DX));
 		}
 
 		[Fact]
 		public void insd() {
-			TestAssembler(c => c.insd(), ins => ins.Code == Code.Insd_m32_DX);
+			TestAssembler(c => c.insd(), ins => ins == Instruction.Create(Code.Insd_m32_DX));
 		}
 
 		[Fact]
@@ -2196,12 +2196,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void insw() {
-			TestAssembler(c => c.insw(), ins => ins.Code == Code.Insw_m16_DX);
+			TestAssembler(c => c.insw(), ins => ins == Instruction.Create(Code.Insw_m16_DX));
 		}
 
 		[Fact]
 		public void @int() {
-			TestAssembler(c => c.@int(), ins => ins.Code == Code.Int3);
+			TestAssembler(c => c.@int(), ins => ins == Instruction.Create(Code.Int3));
 		}
 
 		[Fact]
@@ -2210,17 +2210,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void int1() {
-			TestAssembler(c => c.int1(), ins => ins.Code == Code.Int1);
+			TestAssembler(c => c.int1(), ins => ins == Instruction.Create(Code.Int1));
 		}
 
 		[Fact]
 		public void into() {
-			TestAssembler(c => c.into(), ins => ins.Code == Code.Into);
+			TestAssembler(c => c.into(), ins => ins == Instruction.Create(Code.Into));
 		}
 
 		[Fact]
 		public void invd() {
-			TestAssembler(c => c.invd(), ins => ins.Code == Code.Invd);
+			TestAssembler(c => c.invd(), ins => ins == Instruction.Create(Code.Invd));
 		}
 
 		[Fact]
@@ -2245,17 +2245,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void iret() {
-			TestAssembler(c => c.iret(), ins => ins.Code == Code.Iretw);
+			TestAssembler(c => c.iret(), ins => ins == Instruction.Create(Code.Iretw));
 		}
 
 		[Fact]
 		public void iretd() {
-			TestAssembler(c => c.iretd(), ins => ins.Code == Code.Iretd);
+			TestAssembler(c => c.iretd(), ins => ins == Instruction.Create(Code.Iretd));
 		}
 
 		[Fact]
 		public void iretq() {
-			TestAssembler(c => c.iretq(), ins => ins.Code == Code.Iretq);
+			TestAssembler(c => c.iretq(), ins => ins == Instruction.Create(Code.Iretq));
 		}
 
 		[Fact]
@@ -2596,7 +2596,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void lahf() {
-			TestAssembler(c => c.lahf(), ins => ins.Code == Code.Lahf);
+			TestAssembler(c => c.lahf(), ins => ins == Instruction.Create(Code.Lahf));
 		}
 
 		[Fact]
@@ -2633,7 +2633,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void lfence() {
-			TestAssembler(c => c.lfence(), ins => ins.Code == Code.Lfence);
+			TestAssembler(c => c.lfence(), ins => ins == Instruction.Create(Code.Lfence));
 		}
 
 		[Fact]
@@ -2674,27 +2674,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void loadall() {
-			TestAssembler(c => c.loadall(), ins => ins.Code == Code.Loadall386);
+			TestAssembler(c => c.loadall(), ins => ins == Instruction.Create(Code.Loadall386));
 		}
 
 		[Fact]
 		public void lodsb() {
-			TestAssembler(c => c.lodsb(), ins => ins.Code == Code.Lodsb_AL_m8);
+			TestAssembler(c => c.lodsb(), ins => ins == Instruction.Create(Code.Lodsb_AL_m8));
 		}
 
 		[Fact]
 		public void lodsd() {
-			TestAssembler(c => c.lodsd(), ins => ins.Code == Code.Lodsd_EAX_m32);
+			TestAssembler(c => c.lodsd(), ins => ins == Instruction.Create(Code.Lodsd_EAX_m32));
 		}
 
 		[Fact]
 		public void lodsq() {
-			TestAssembler(c => c.lodsq(), ins => ins.Code == Code.Lodsq_RAX_m64);
+			TestAssembler(c => c.lodsq(), ins => ins == Instruction.Create(Code.Lodsq_RAX_m64));
 		}
 
 		[Fact]
 		public void lodsw() {
-			TestAssembler(c => c.lodsw(), ins => ins.Code == Code.Lodsw_AX_m16);
+			TestAssembler(c => c.lodsw(), ins => ins == Instruction.Create(Code.Lodsw_AX_m16));
 		}
 
 		[Fact]
@@ -2795,12 +2795,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mcommit() {
-			TestAssembler(c => c.mcommit(), ins => ins.Code == Code.Mcommit);
+			TestAssembler(c => c.mcommit(), ins => ins == Instruction.Create(Code.Mcommit));
 		}
 
 		[Fact]
 		public void mfence() {
-			TestAssembler(c => c.mfence(), ins => ins.Code == Code.Mfence);
+			TestAssembler(c => c.mfence(), ins => ins == Instruction.Create(Code.Mfence));
 		}
 
 		[Fact]
@@ -3061,12 +3061,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsb() {
-			TestAssembler(c => c.movsb(), ins => ins.Code == Code.Movsb_m8_m8);
+			TestAssembler(c => c.movsb(), ins => ins == Instruction.Create(Code.Movsb_m8_m8));
 		}
 
 		[Fact]
 		public void movsd() {
-			TestAssembler(c => c.movsd(), ins => ins.Code == Code.Movsd_m32_m32);
+			TestAssembler(c => c.movsd(), ins => ins == Instruction.Create(Code.Movsd_m32_m32));
 		}
 
 		[Fact]
@@ -3099,7 +3099,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsq() {
-			TestAssembler(c => c.movsq(), ins => ins.Code == Code.Movsq_m64_m64);
+			TestAssembler(c => c.movsq(), ins => ins == Instruction.Create(Code.Movsq_m64_m64));
 		}
 
 		[Fact]
@@ -3116,7 +3116,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsw() {
-			TestAssembler(c => c.movsw(), ins => ins.Code == Code.Movsw_m16_m16);
+			TestAssembler(c => c.movsw(), ins => ins == Instruction.Create(Code.Movsw_m16_m16));
 		}
 
 		[Fact]
@@ -3225,12 +3225,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mwait() {
-			TestAssembler(c => c.mwait(), ins => ins.Code == Code.Mwait);
+			TestAssembler(c => c.mwait(), ins => ins == Instruction.Create(Code.Mwait));
 		}
 
 		[Fact]
 		public void mwaitx() {
-			TestAssembler(c => c.mwaitx(), ins => ins.Code == Code.Mwaitx);
+			TestAssembler(c => c.mwaitx(), ins => ins == Instruction.Create(Code.Mwaitx));
 		}
 
 		[Fact]
@@ -3315,17 +3315,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void outsb() {
-			TestAssembler(c => c.outsb(), ins => ins.Code == Code.Outsb_DX_m8);
+			TestAssembler(c => c.outsb(), ins => ins == Instruction.Create(Code.Outsb_DX_m8));
 		}
 
 		[Fact]
 		public void outsd() {
-			TestAssembler(c => c.outsd(), ins => ins.Code == Code.Outsd_DX_m32);
+			TestAssembler(c => c.outsd(), ins => ins == Instruction.Create(Code.Outsd_DX_m32));
 		}
 
 		[Fact]
 		public void outsw() {
-			TestAssembler(c => c.outsw(), ins => ins.Code == Code.Outsw_DX_m16);
+			TestAssembler(c => c.outsw(), ins => ins == Instruction.Create(Code.Outsw_DX_m16));
 		}
 
 		[Fact]
@@ -3474,7 +3474,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pause() {
-			TestAssembler(c => c.pause(), ins => ins.Code == Code.Pause);
+			TestAssembler(c => c.pause(), ins => ins == Instruction.Create(Code.Pause));
 		}
 
 		[Fact]
@@ -3671,12 +3671,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pcommit() {
-			TestAssembler(c => c.pcommit(), ins => ins.Code == Code.Pcommit);
+			TestAssembler(c => c.pcommit(), ins => ins == Instruction.Create(Code.Pcommit));
 		}
 
 		[Fact]
 		public void pconfig() {
-			TestAssembler(c => c.pconfig(), ins => ins.Code == Code.Pconfig);
+			TestAssembler(c => c.pconfig(), ins => ins == Instruction.Create(Code.Pconfig));
 		}
 
 		[Fact]
@@ -4285,12 +4285,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void popa() {
-			TestAssembler(c => c.popa(), ins => ins.Code == Code.Popaw);
+			TestAssembler(c => c.popa(), ins => ins == Instruction.Create(Code.Popaw));
 		}
 
 		[Fact]
 		public void popad() {
-			TestAssembler(c => c.popad(), ins => ins.Code == Code.Popad);
+			TestAssembler(c => c.popad(), ins => ins == Instruction.Create(Code.Popad));
 		}
 
 		[Fact]
@@ -4303,17 +4303,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void popf() {
-			TestAssembler(c => c.popf(), ins => ins.Code == Code.Popfw);
+			TestAssembler(c => c.popf(), ins => ins == Instruction.Create(Code.Popfw));
 		}
 
 		[Fact]
 		public void popfd() {
-			TestAssembler(c => c.popfd(), ins => ins.Code == Code.Popfd);
+			TestAssembler(c => c.popfd(), ins => ins == Instruction.Create(Code.Popfd));
 		}
 
 		[Fact]
 		public void popfq() {
-			TestAssembler(c => c.popfq(), ins => ins.Code == Code.Popfq);
+			TestAssembler(c => c.popfq(), ins => ins == Instruction.Create(Code.Popfq));
 		}
 
 		[Fact]
@@ -4694,27 +4694,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pusha() {
-			TestAssembler(c => c.pusha(), ins => ins.Code == Code.Pushaw);
+			TestAssembler(c => c.pusha(), ins => ins == Instruction.Create(Code.Pushaw));
 		}
 
 		[Fact]
 		public void pushad() {
-			TestAssembler(c => c.pushad(), ins => ins.Code == Code.Pushad);
+			TestAssembler(c => c.pushad(), ins => ins == Instruction.Create(Code.Pushad));
 		}
 
 		[Fact]
 		public void pushf() {
-			TestAssembler(c => c.pushf(), ins => ins.Code == Code.Pushfw);
+			TestAssembler(c => c.pushf(), ins => ins == Instruction.Create(Code.Pushfw));
 		}
 
 		[Fact]
 		public void pushfd() {
-			TestAssembler(c => c.pushfd(), ins => ins.Code == Code.Pushfd);
+			TestAssembler(c => c.pushfd(), ins => ins == Instruction.Create(Code.Pushfd));
 		}
 
 		[Fact]
 		public void pushfq() {
-			TestAssembler(c => c.pushfq(), ins => ins.Code == Code.Pushfq);
+			TestAssembler(c => c.pushfq(), ins => ins == Instruction.Create(Code.Pushfq));
 		}
 
 		[Fact]
@@ -4783,7 +4783,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void rdmsr() {
-			TestAssembler(c => c.rdmsr(), ins => ins.Code == Code.Rdmsr);
+			TestAssembler(c => c.rdmsr(), ins => ins == Instruction.Create(Code.Rdmsr));
 		}
 
 		[Fact]
@@ -4792,17 +4792,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void rdpkru() {
-			TestAssembler(c => c.rdpkru(), ins => ins.Code == Code.Rdpkru);
+			TestAssembler(c => c.rdpkru(), ins => ins == Instruction.Create(Code.Rdpkru));
 		}
 
 		[Fact]
 		public void rdpmc() {
-			TestAssembler(c => c.rdpmc(), ins => ins.Code == Code.Rdpmc);
+			TestAssembler(c => c.rdpmc(), ins => ins == Instruction.Create(Code.Rdpmc));
 		}
 
 		[Fact]
 		public void rdpru() {
-			TestAssembler(c => c.rdpru(), ins => ins.Code == Code.Rdpru);
+			TestAssembler(c => c.rdpru(), ins => ins == Instruction.Create(Code.Rdpru));
 		}
 
 		[Fact]
@@ -4823,12 +4823,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void rdtsc() {
-			TestAssembler(c => c.rdtsc(), ins => ins.Code == Code.Rdtsc);
+			TestAssembler(c => c.rdtsc(), ins => ins == Instruction.Create(Code.Rdtsc));
 		}
 
 		[Fact]
 		public void rdtscp() {
-			TestAssembler(c => c.rdtscp(), ins => ins.Code == Code.Rdtscp);
+			TestAssembler(c => c.rdtscp(), ins => ins == Instruction.Create(Code.Rdtscp));
 		}
 
 		[Fact]
@@ -4921,7 +4921,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void rsm() {
-			TestAssembler(c => c.rsm(), ins => ins.Code == Code.Rsm);
+			TestAssembler(c => c.rsm(), ins => ins == Instruction.Create(Code.Rsm));
 		}
 
 		[Fact]
@@ -4946,7 +4946,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void sahf() {
-			TestAssembler(c => c.sahf(), ins => ins.Code == Code.Sahf);
+			TestAssembler(c => c.sahf(), ins => ins == Instruction.Create(Code.Sahf));
 		}
 
 		[Fact]
@@ -4967,7 +4967,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void salc() {
-			TestAssembler(c => c.salc(), ins => ins.Code == Code.Salc);
+			TestAssembler(c => c.salc(), ins => ins == Instruction.Create(Code.Salc));
 		}
 
 		[Fact]
@@ -4996,7 +4996,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void saveprevssp() {
-			TestAssembler(c => c.saveprevssp(), ins => ins.Code == Code.Saveprevssp);
+			TestAssembler(c => c.saveprevssp(), ins => ins == Instruction.Create(Code.Saveprevssp));
 		}
 
 		[Fact]
@@ -5029,22 +5029,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void scasb() {
-			TestAssembler(c => c.scasb(), ins => ins.Code == Code.Scasb_AL_m8);
+			TestAssembler(c => c.scasb(), ins => ins == Instruction.Create(Code.Scasb_AL_m8));
 		}
 
 		[Fact]
 		public void scasd() {
-			TestAssembler(c => c.scasd(), ins => ins.Code == Code.Scasd_EAX_m32);
+			TestAssembler(c => c.scasd(), ins => ins == Instruction.Create(Code.Scasd_EAX_m32));
 		}
 
 		[Fact]
 		public void scasq() {
-			TestAssembler(c => c.scasq(), ins => ins.Code == Code.Scasq_RAX_m64);
+			TestAssembler(c => c.scasq(), ins => ins == Instruction.Create(Code.Scasq_RAX_m64));
 		}
 
 		[Fact]
 		public void scasw() {
-			TestAssembler(c => c.scasw(), ins => ins.Code == Code.Scasw_AX_m16);
+			TestAssembler(c => c.scasw(), ins => ins == Instruction.Create(Code.Scasw_AX_m16));
 		}
 
 		[Fact]
@@ -5177,12 +5177,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void setssbsy() {
-			TestAssembler(c => c.setssbsy(), ins => ins.Code == Code.Setssbsy);
+			TestAssembler(c => c.setssbsy(), ins => ins == Instruction.Create(Code.Setssbsy));
 		}
 
 		[Fact]
 		public void sfence() {
-			TestAssembler(c => c.sfence(), ins => ins.Code == Code.Sfence);
+			TestAssembler(c => c.sfence(), ins => ins == Instruction.Create(Code.Sfence));
 		}
 
 		[Fact]
@@ -5347,7 +5347,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void skinit() {
-			TestAssembler(c => c.skinit(), ins => ins.Code == Code.Skinit);
+			TestAssembler(c => c.skinit(), ins => ins == Instruction.Create(Code.Skinit));
 		}
 
 		[Fact]
@@ -5404,27 +5404,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void stac() {
-			TestAssembler(c => c.stac(), ins => ins.Code == Code.Stac);
+			TestAssembler(c => c.stac(), ins => ins == Instruction.Create(Code.Stac));
 		}
 
 		[Fact]
 		public void stc() {
-			TestAssembler(c => c.stc(), ins => ins.Code == Code.Stc);
+			TestAssembler(c => c.stc(), ins => ins == Instruction.Create(Code.Stc));
 		}
 
 		[Fact]
 		public void std() {
-			TestAssembler(c => c.std(), ins => ins.Code == Code.Std);
+			TestAssembler(c => c.std(), ins => ins == Instruction.Create(Code.Std));
 		}
 
 		[Fact]
 		public void stgi() {
-			TestAssembler(c => c.stgi(), ins => ins.Code == Code.Stgi);
+			TestAssembler(c => c.stgi(), ins => ins == Instruction.Create(Code.Stgi));
 		}
 
 		[Fact]
 		public void sti() {
-			TestAssembler(c => c.sti(), ins => ins.Code == Code.Sti);
+			TestAssembler(c => c.sti(), ins => ins == Instruction.Create(Code.Sti));
 		}
 
 		[Fact]
@@ -5433,22 +5433,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void stosb() {
-			TestAssembler(c => c.stosb(), ins => ins.Code == Code.Stosb_m8_AL);
+			TestAssembler(c => c.stosb(), ins => ins == Instruction.Create(Code.Stosb_m8_AL));
 		}
 
 		[Fact]
 		public void stosd() {
-			TestAssembler(c => c.stosd(), ins => ins.Code == Code.Stosd_m32_EAX);
+			TestAssembler(c => c.stosd(), ins => ins == Instruction.Create(Code.Stosd_m32_EAX));
 		}
 
 		[Fact]
 		public void stosq() {
-			TestAssembler(c => c.stosq(), ins => ins.Code == Code.Stosq_m64_RAX);
+			TestAssembler(c => c.stosq(), ins => ins == Instruction.Create(Code.Stosq_m64_RAX));
 		}
 
 		[Fact]
 		public void stosw() {
-			TestAssembler(c => c.stosw(), ins => ins.Code == Code.Stosw_m16_AX);
+			TestAssembler(c => c.stosw(), ins => ins == Instruction.Create(Code.Stosw_m16_AX));
 		}
 
 		[Fact]
@@ -5521,37 +5521,37 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void swapgs() {
-			TestAssembler(c => c.swapgs(), ins => ins.Code == Code.Swapgs);
+			TestAssembler(c => c.swapgs(), ins => ins == Instruction.Create(Code.Swapgs));
 		}
 
 		[Fact]
 		public void syscall() {
-			TestAssembler(c => c.syscall(), ins => ins.Code == Code.Syscall);
+			TestAssembler(c => c.syscall(), ins => ins == Instruction.Create(Code.Syscall));
 		}
 
 		[Fact]
 		public void sysenter() {
-			TestAssembler(c => c.sysenter(), ins => ins.Code == Code.Sysenter);
+			TestAssembler(c => c.sysenter(), ins => ins == Instruction.Create(Code.Sysenter));
 		}
 
 		[Fact]
 		public void sysexit() {
-			TestAssembler(c => c.sysexit(), ins => ins.Code == Code.Sysexitd);
+			TestAssembler(c => c.sysexit(), ins => ins == Instruction.Create(Code.Sysexitd));
 		}
 
 		[Fact]
 		public void sysexitq() {
-			TestAssembler(c => c.sysexitq(), ins => ins.Code == Code.Sysexitq);
+			TestAssembler(c => c.sysexitq(), ins => ins == Instruction.Create(Code.Sysexitq));
 		}
 
 		[Fact]
 		public void sysret() {
-			TestAssembler(c => c.sysret(), ins => ins.Code == Code.Sysretd);
+			TestAssembler(c => c.sysret(), ins => ins == Instruction.Create(Code.Sysretd));
 		}
 
 		[Fact]
 		public void sysretq() {
-			TestAssembler(c => c.sysretq(), ins => ins.Code == Code.Sysretq);
+			TestAssembler(c => c.sysretq(), ins => ins == Instruction.Create(Code.Sysretq));
 		}
 
 		[Fact]
@@ -5640,7 +5640,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void ud2() {
-			TestAssembler(c => c.ud2(), ins => ins.Code == Code.Ud2);
+			TestAssembler(c => c.ud2(), ins => ins == Instruction.Create(Code.Ud2));
 		}
 
 		[Fact]
@@ -8749,7 +8749,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmcall() {
-			TestAssembler(c => c.vmcall(), ins => ins.Code == Code.Vmcall);
+			TestAssembler(c => c.vmcall(), ins => ins == Instruction.Create(Code.Vmcall));
 		}
 
 		[Fact]
@@ -8758,7 +8758,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmfunc() {
-			TestAssembler(c => c.vmfunc(), ins => ins.Code == Code.Vmfunc);
+			TestAssembler(c => c.vmfunc(), ins => ins == Instruction.Create(Code.Vmfunc));
 		}
 
 		[Fact]
@@ -8795,7 +8795,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmlaunch() {
-			TestAssembler(c => c.vmlaunch(), ins => ins.Code == Code.Vmlaunch);
+			TestAssembler(c => c.vmlaunch(), ins => ins == Instruction.Create(Code.Vmlaunch));
 		}
 
 		[Fact]
@@ -8804,7 +8804,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmmcall() {
-			TestAssembler(c => c.vmmcall(), ins => ins.Code == Code.Vmmcall);
+			TestAssembler(c => c.vmmcall(), ins => ins == Instruction.Create(Code.Vmmcall));
 		}
 
 		[Fact]
@@ -9113,7 +9113,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmresume() {
-			TestAssembler(c => c.vmresume(), ins => ins.Code == Code.Vmresume);
+			TestAssembler(c => c.vmresume(), ins => ins == Instruction.Create(Code.Vmresume));
 		}
 
 		[Fact]
@@ -9166,7 +9166,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmxoff() {
-			TestAssembler(c => c.vmxoff(), ins => ins.Code == Code.Vmxoff);
+			TestAssembler(c => c.vmxoff(), ins => ins == Instruction.Create(Code.Vmxoff));
 		}
 
 		[Fact]
@@ -13071,27 +13071,27 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vzeroall() {
-			TestAssembler(c => c.vzeroall(), ins => ins.Code == Code.VEX_Vzeroall);
+			TestAssembler(c => c.vzeroall(), ins => ins == Instruction.Create(Code.VEX_Vzeroall));
 		}
 
 		[Fact]
 		public void vzeroupper() {
-			TestAssembler(c => c.vzeroupper(), ins => ins.Code == Code.VEX_Vzeroupper);
+			TestAssembler(c => c.vzeroupper(), ins => ins == Instruction.Create(Code.VEX_Vzeroupper));
 		}
 
 		[Fact]
 		public void wait() {
-			TestAssembler(c => c.wait(), ins => ins.Code == Code.Wait);
+			TestAssembler(c => c.wait(), ins => ins == Instruction.Create(Code.Wait));
 		}
 
 		[Fact]
 		public void wbinvd() {
-			TestAssembler(c => c.wbinvd(), ins => ins.Code == Code.Wbinvd);
+			TestAssembler(c => c.wbinvd(), ins => ins == Instruction.Create(Code.Wbinvd));
 		}
 
 		[Fact]
 		public void wbnoinvd() {
-			TestAssembler(c => c.wbnoinvd(), ins => ins.Code == Code.Wbnoinvd);
+			TestAssembler(c => c.wbnoinvd(), ins => ins == Instruction.Create(Code.Wbnoinvd));
 		}
 
 		[Fact]
@@ -13104,12 +13104,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void wrmsr() {
-			TestAssembler(c => c.wrmsr(), ins => ins.Code == Code.Wrmsr);
+			TestAssembler(c => c.wrmsr(), ins => ins == Instruction.Create(Code.Wrmsr));
 		}
 
 		[Fact]
 		public void wrpkru() {
-			TestAssembler(c => c.wrpkru(), ins => ins.Code == Code.Wrpkru);
+			TestAssembler(c => c.wrpkru(), ins => ins == Instruction.Create(Code.Wrpkru));
 		}
 
 		[Fact]
@@ -13182,12 +13182,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xend() {
-			TestAssembler(c => c.xend(), ins => ins.Code == Code.Xend);
+			TestAssembler(c => c.xend(), ins => ins == Instruction.Create(Code.Xend));
 		}
 
 		[Fact]
 		public void xgetbv() {
-			TestAssembler(c => c.xgetbv(), ins => ins.Code == Code.Xgetbv);
+			TestAssembler(c => c.xgetbv(), ins => ins == Instruction.Create(Code.Xgetbv));
 		}
 
 		[Fact]
@@ -13284,7 +13284,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xsetbv() {
-			TestAssembler(c => c.xsetbv(), ins => ins.Code == Code.Xsetbv);
+			TestAssembler(c => c.xsetbv(), ins => ins == Instruction.Create(Code.Xsetbv));
 		}
 
 		[Fact]
@@ -13301,7 +13301,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xtest() {
-			TestAssembler(c => c.xtest(), ins => ins.Code == Code.Xtest);
+			TestAssembler(c => c.xtest(), ins => ins == Instruction.Create(Code.Xtest));
 		}
 
 	}

@@ -323,7 +323,7 @@ namespace Generator.Assembler.CSharp {
 			using (writer.Indent()) {
 				// Generate simple test for one opcode
 				if (group.Items.Count == 1 && renderArgs.Count == 0 && !(group.Items[0] is D3nowOpCodeInfo)) {
-					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins.Code == Code.{group.Items[0].Code.Name(Converter)});");
+					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == Instruction.Create(Code.{group.Items[0].Code.Name(Converter)}));");
 				}
 				else {
 					// TODO: We have more than one opcode to test in this method
