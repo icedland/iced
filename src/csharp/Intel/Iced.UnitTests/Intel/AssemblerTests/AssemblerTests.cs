@@ -53,9 +53,53 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			// Encode the instruction
 			assembler.Encode();
 
+			// Special for decoding options
+			DecoderOptions decoderOptions = DecoderOptions.None;
+			switch (inst.Code) {
+
+			case Code.Umov_rm8_r8:
+			case Code.Umov_rm16_r16:
+			case Code.Umov_rm32_r32:
+			case Code.Umov_r8_rm8:
+			case Code.Umov_r16_rm16:
+			case Code.Umov_r32_rm32:
+				decoderOptions = DecoderOptions.Umov;
+				break;
+			case Code.Xbts_r16_rm16:
+			case Code.Xbts_r32_rm32:
+			case Code.Ibts_rm16_r16:
+			case Code.Ibts_rm32_r32:
+				decoderOptions = DecoderOptions.Xbts;
+				break;
+			case Code.Frstpm:
+			case Code.Fstdw_AX:
+			case Code.Fstsg_AX:
+				decoderOptions = DecoderOptions.OldFpu;
+				break;
+			case Code.Pcommit:
+				decoderOptions = DecoderOptions.Pcommit;
+				break;
+			case Code.Loadall386:
+				decoderOptions = DecoderOptions.Loadall386;
+				break;
+			case Code.Cl1invmb:
+				decoderOptions = DecoderOptions.Cl1invmb;
+				break;
+			case Code.Mov_r32_tr:
+			case Code.Mov_tr_r32:
+				decoderOptions = DecoderOptions.MovTr;
+				break;
+			case Code.Jmpe_rm16:
+			case Code.Jmpe_rm32:
+			case Code.Jmpe_disp16:
+			case Code.Jmpe_disp32:
+				decoderOptions = DecoderOptions.Jmpe;
+				break;
+			}
+
 			// Check decoding back against the original instruction
 			stream.Position = 0;
-			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream));
+			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream), decoderOptions);
 			var againstInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(againstInst, Instruction.Create(Code.Wait));
