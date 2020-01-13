@@ -119,11 +119,26 @@ namespace Generator.Assembler.CSharp {
 						using (writerTests.Indent()) {
 							writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
 							writerTests.WriteLine();
-							
+
+							OpCodeFlags bitnessFlags;
+							switch (bitness) {
+							case 64:
+								bitnessFlags = OpCodeFlags.Mode64;
+								break;
+							case 32:
+								bitnessFlags = OpCodeFlags.Mode32;
+								break;
+							case 16:
+								bitnessFlags = OpCodeFlags.Mode16;
+								break;
+							default:
+								throw new ArgumentException($"{bitness}");
+							}
+
 							foreach (var group in groups) {
 								var renderArgs = GetRenderArgs(group);
 								var methodName = Converter.Method(group.Name);
-								RenderTests(writerTests, methodName, group, renderArgs);
+								RenderTests(bitnessFlags, writerTests, methodName, group, renderArgs);
 							}
 						}
 						writerTests.WriteLine("}");					
@@ -289,7 +304,16 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("}");
 		}
 		
-		void RenderTests(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void RenderTests(OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+			bool hasValidOpCodeForBitness = false;
+			foreach (var item in group.Items) {
+				if ((item.Flags & bitnessFlags) != 0) {
+					hasValidOpCodeForBitness = true;
+					break;
+				}
+			}
+			if (!hasValidOpCodeForBitness) return;
+			
 			var fullMethodName = new StringBuilder();
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
@@ -322,7 +346,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine($"public void {fullMethodName}() {{");
 			using (writer.Indent()) {
 				// Generate simple test for one opcode
-				if (group.Items.Count == 1 && renderArgs.Count == 0 && !(group.Items[0] is D3nowOpCodeInfo)) {
+				if (group.Items.Count == 1 && renderArgs.Count == 0) {
 					writer.WriteLine($"TestAssembler(c => c.{methodName}(), ins => ins == Instruction.Create(Code.{group.Items[0].Code.Name(Converter)}));");
 				}
 				else {

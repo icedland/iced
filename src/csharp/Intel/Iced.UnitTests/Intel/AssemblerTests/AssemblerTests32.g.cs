@@ -592,11 +592,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void cdqe() {
-			TestAssembler(c => c.cdqe(), ins => ins == Instruction.Create(Code.Cdqe));
-		}
-
-		[Fact]
 		public void cl1invmb() {
 			TestAssembler(c => c.cl1invmb(), ins => ins == Instruction.Create(Code.Cl1invmb));
 		}
@@ -817,230 +812,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void cmpeqpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpeqpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpeqps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpeqps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpeqsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpeqsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpeqss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpeqss_reg_m() {
-		}
-
-		[Fact]
-		public void cmplepd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmplepd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpleps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpleps_reg_m() {
-		}
-
-		[Fact]
-		public void cmplesd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmplesd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpless_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpless_reg_m() {
-		}
-
-		[Fact]
-		public void cmpltpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpltpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpltps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpltps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpltsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpltsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpltss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpltss_reg_m() {
-		}
-
-		[Fact]
-		public void cmpneqpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpneqpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpneqps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpneqps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpneqsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpneqsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpneqss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpneqss_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnlepd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnlepd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnleps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnleps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnlesd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnlesd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnless_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnless_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnltpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnltpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnltps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnltps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnltsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnltsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpnltss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpnltss_reg_m() {
-		}
-
-		[Fact]
-		public void cmpordpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpordpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpordps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpordps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpordsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpordsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpordss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpordss_reg_m() {
-		}
-
-		[Fact]
 		public void cmppd_reg_reg_ib() {
 		}
 
@@ -1075,11 +846,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void cmpsq() {
-			TestAssembler(c => c.cmpsq(), ins => ins == Instruction.Create(Code.Cmpsq_m64_m64));
-		}
-
-		[Fact]
 		public void cmpss_reg_reg_ib() {
 		}
 
@@ -1093,47 +859,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void cmpunordpd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpunordpd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpunordps_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpunordps_reg_m() {
-		}
-
-		[Fact]
-		public void cmpunordsd_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpunordsd_reg_m() {
-		}
-
-		[Fact]
-		public void cmpunordss_reg_reg() {
-		}
-
-		[Fact]
-		public void cmpunordss_reg_m() {
-		}
-
-		[Fact]
 		public void cmpxchg_reg_reg() {
 		}
 
 		[Fact]
 		public void cmpxchg_m_reg() {
-		}
-
-		[Fact]
-		public void cmpxchg16b_m() {
 		}
 
 		[Fact]
@@ -1159,11 +889,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void cpuid() {
 			TestAssembler(c => c.cpuid(), ins => ins == Instruction.Create(Code.Cpuid));
-		}
-
-		[Fact]
-		public void cqo() {
-			TestAssembler(c => c.cqo(), ins => ins == Instruction.Create(Code.Cqo));
 		}
 
 		[Fact]
@@ -2012,15 +1737,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void fxrstor64_m() {
-		}
-
-		[Fact]
 		public void fxsave_m() {
-		}
-
-		[Fact]
-		public void fxsave64_m() {
 		}
 
 		[Fact]
@@ -2165,10 +1882,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void incsspq_reg() {
-		}
-
-		[Fact]
 		public void insb() {
 			TestAssembler(c => c.insb(), ins => ins == Instruction.Create(Code.Insb_m8_DX));
 		}
@@ -2251,11 +1964,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void iretd() {
 			TestAssembler(c => c.iretd(), ins => ins == Instruction.Create(Code.Iretd));
-		}
-
-		[Fact]
-		public void iretq() {
-			TestAssembler(c => c.iretq(), ins => ins == Instruction.Create(Code.Iretq));
 		}
 
 		[Fact]
@@ -2348,10 +2056,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jp_l() {
-		}
-
-		[Fact]
-		public void jrcxz_l() {
 		}
 
 		[Fact]
@@ -2685,11 +2389,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void lodsd() {
 			TestAssembler(c => c.lodsd(), ins => ins == Instruction.Create(Code.Lodsd_EAX_m32));
-		}
-
-		[Fact]
-		public void lodsq() {
-			TestAssembler(c => c.lodsq(), ins => ins == Instruction.Create(Code.Lodsq_RAX_m64));
 		}
 
 		[Fact]
@@ -3098,11 +2797,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void movsq() {
-			TestAssembler(c => c.movsq(), ins => ins == Instruction.Create(Code.Movsq_m64_m64));
-		}
-
-		[Fact]
 		public void movss_reg_reg() {
 		}
 
@@ -3125,14 +2819,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movsx_reg_m() {
-		}
-
-		[Fact]
-		public void movsxd_reg_reg() {
-		}
-
-		[Fact]
-		public void movsxd_reg_m() {
 		}
 
 		[Fact]
@@ -3518,38 +3204,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pclmulhqhqdq_reg_reg() {
-		}
-
-		[Fact]
-		public void pclmulhqhqdq_reg_m() {
-		}
-
-		[Fact]
-		public void pclmulhqlqdq_reg_reg() {
-		}
-
-		[Fact]
-		public void pclmulhqlqdq_reg_m() {
-		}
-
-		[Fact]
-		public void pclmullqhqdq_reg_reg() {
-		}
-
-		[Fact]
-		public void pclmullqhqdq_reg_m() {
-		}
-
-		[Fact]
-		public void pclmullqlqdq_reg_reg() {
-		}
-
-		[Fact]
-		public void pclmullqlqdq_reg_m() {
-		}
-
-		[Fact]
 		public void pclmulqdq_reg_reg_ib() {
 		}
 
@@ -3598,27 +3252,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pcmpestri64_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void pcmpestri64_reg_m_ib() {
-		}
-
-		[Fact]
 		public void pcmpestrm_reg_reg_ib() {
 		}
 
 		[Fact]
 		public void pcmpestrm_reg_m_ib() {
-		}
-
-		[Fact]
-		public void pcmpestrm64_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void pcmpestrm64_reg_m_ib() {
 		}
 
 		[Fact]
@@ -3709,14 +3347,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pextrd_m_reg_ib() {
-		}
-
-		[Fact]
-		public void pextrq_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void pextrq_m_reg_ib() {
 		}
 
 		[Fact]
@@ -3981,14 +3611,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pinsrd_reg_m_ib() {
-		}
-
-		[Fact]
-		public void pinsrq_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void pinsrq_reg_m_ib() {
 		}
 
 		[Fact]
@@ -4309,11 +3931,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void popfd() {
 			TestAssembler(c => c.popfd(), ins => ins == Instruction.Create(Code.Popfd));
-		}
-
-		[Fact]
-		public void popfq() {
-			TestAssembler(c => c.popfq(), ins => ins == Instruction.Create(Code.Popfq));
 		}
 
 		[Fact]
@@ -4713,11 +4330,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void pushfq() {
-			TestAssembler(c => c.pushfq(), ins => ins == Instruction.Create(Code.Pushfq));
-		}
-
-		[Fact]
 		public void pxor_reg_reg() {
 		}
 
@@ -4774,14 +4386,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void rdfsbase_reg() {
-		}
-
-		[Fact]
-		public void rdgsbase_reg() {
-		}
-
-		[Fact]
 		public void rdmsr() {
 			TestAssembler(c => c.rdmsr(), ins => ins == Instruction.Create(Code.Rdmsr));
 		}
@@ -4815,10 +4419,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void rdsspd_reg() {
-		}
-
-		[Fact]
-		public void rdsspq_reg() {
 		}
 
 		[Fact]
@@ -5035,11 +4635,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void scasd() {
 			TestAssembler(c => c.scasd(), ins => ins == Instruction.Create(Code.Scasd_EAX_m32));
-		}
-
-		[Fact]
-		public void scasq() {
-			TestAssembler(c => c.scasq(), ins => ins == Instruction.Create(Code.Scasq_RAX_m64));
 		}
 
 		[Fact]
@@ -5442,11 +5037,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void stosq() {
-			TestAssembler(c => c.stosq(), ins => ins == Instruction.Create(Code.Stosq_m64_RAX));
-		}
-
-		[Fact]
 		public void stosw() {
 			TestAssembler(c => c.stosw(), ins => ins == Instruction.Create(Code.Stosw_m16_AX));
 		}
@@ -5520,11 +5110,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void swapgs() {
-			TestAssembler(c => c.swapgs(), ins => ins == Instruction.Create(Code.Swapgs));
-		}
-
-		[Fact]
 		public void syscall() {
 			TestAssembler(c => c.syscall(), ins => ins == Instruction.Create(Code.Syscall));
 		}
@@ -5540,18 +5125,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void sysexitq() {
-			TestAssembler(c => c.sysexitq(), ins => ins == Instruction.Create(Code.Sysexitq));
-		}
-
-		[Fact]
 		public void sysret() {
 			TestAssembler(c => c.sysret(), ins => ins == Instruction.Create(Code.Sysretd));
-		}
-
-		[Fact]
-		public void sysretq() {
-			TestAssembler(c => c.sysretq(), ins => ins == Instruction.Create(Code.Sysretq));
 		}
 
 		[Fact]
@@ -5960,902 +5535,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void vcmpeq_ospd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_ospd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_osps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_osps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_ossd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_ossd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_osss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_osss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_uqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_uspd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_uspd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_usps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_usps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_ussd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_ussd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeq_usss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeq_usss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpeqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpeqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalse_ospd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalse_ospd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalse_osps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalse_osps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalse_ossd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalse_ossd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalse_osss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalse_osss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalsepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalsepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalseps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalseps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalsesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalsesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpfalsess_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpfalsess_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpge_oqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpge_oqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpge_oqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpge_oqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpge_oqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpge_oqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpge_oqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpge_oqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgeps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgeps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgess_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgess_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgt_oqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgtpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgtpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgtps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgtps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgtsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgtsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpgtss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpgtss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmple_oqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmple_oqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmple_oqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmple_oqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmple_oqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmple_oqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmple_oqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmple_oqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpleps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpleps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpless_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpless_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplt_oqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplt_oqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplt_oqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplt_oqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplt_oqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplt_oqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmplt_oqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmplt_oqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpltpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpltpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpltps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpltps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpltsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpltsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpltss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpltss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_oqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_ospd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_ospd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_osps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_osps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_ossd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_ossd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_osss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_osss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_uspd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_uspd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_usps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_usps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_ussd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_ussd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneq_usss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneq_usss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpneqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpneqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnge_uqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngeps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngeps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngess_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngess_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngt_uqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngtpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngtpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngtps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngtps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngtsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngtsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpngtss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpngtss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnle_uqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnleps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnleps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnless_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnless_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnlt_uqss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnltpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnltpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnltps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnltps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnltsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnltsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpnltss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpnltss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpord_spd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpord_spd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpord_sps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpord_sps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpord_ssd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpord_ssd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpord_sss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpord_sss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpordpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpordpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpordps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpordps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpordsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpordsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpordss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpordss_reg_reg_m() {
-		}
-
-		[Fact]
 		public void vcmppd_reg_reg_reg_ib() {
 		}
 
@@ -6885,134 +5564,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcmpss_reg_reg_m_ib() {
-		}
-
-		[Fact]
-		public void vcmptrue_uspd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptrue_uspd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptrue_usps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptrue_usps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptrue_ussd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptrue_ussd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptrue_usss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptrue_usss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptruepd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptruepd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptrueps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptrueps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptruesd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptruesd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmptruess_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmptruess_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunord_spd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunord_spd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunord_sps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunord_sps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunord_ssd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunord_ssd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunord_sss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunord_sss_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunordpd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunordpd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunordps_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunordps_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunordsd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunordsd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vcmpunordss_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vcmpunordss_reg_reg_m() {
 		}
 
 		[Fact]
@@ -9486,38 +8037,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void vpclmulhqhqdq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpclmulhqhqdq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpclmulhqlqdq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpclmulhqlqdq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpclmullqhqdq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpclmullqhqdq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpclmullqlqdq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpclmullqlqdq_reg_reg_m() {
-		}
-
-		[Fact]
 		public void vpclmulqdq_reg_reg_reg_ib() {
 		}
 
@@ -9594,27 +8113,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void vpcmpestri64_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void vpcmpestri64_reg_m_ib() {
-		}
-
-		[Fact]
 		public void vpcmpestrm_reg_reg_ib() {
 		}
 
 		[Fact]
 		public void vpcmpestrm_reg_m_ib() {
-		}
-
-		[Fact]
-		public void vpcmpestrm64_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void vpcmpestrm64_reg_m_ib() {
 		}
 
 		[Fact]
@@ -9730,454 +8233,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void vpcomeqb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomeqb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomeqd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomeqd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomeqq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomeqq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomequb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomequb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomequd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomequd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomequq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomequq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomequw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomequw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomeqw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomeqw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalsed_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalsed_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalseuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalseuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomfalsew_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomfalsew_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomged_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomged_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgeuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgeuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgew_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgew_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomgtw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomgtw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomled_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomled_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomleuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomleuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomlew_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomlew_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomltw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomltw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomneqb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomneqb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomneqd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomneqd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomneqq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomneqq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomnequb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomnequb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomnequd_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomnequd_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomnequq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomnequq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomnequw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomnequw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomneqw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomneqw_reg_reg_m() {
-		}
-
-		[Fact]
 		public void vpcompressb_reg_reg() {
 		}
 
@@ -10215,70 +8270,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpcomq_reg_reg_m_ib() {
-		}
-
-		[Fact]
-		public void vpcomtrueb_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueb_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrued_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrued_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrueq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrueub_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueub_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrueud_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueud_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrueuq_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueuq_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtrueuw_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtrueuw_reg_reg_m() {
-		}
-
-		[Fact]
-		public void vpcomtruew_reg_reg_reg() {
-		}
-
-		[Fact]
-		public void vpcomtruew_reg_reg_m() {
 		}
 
 		[Fact]
@@ -10650,14 +8641,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void vpextrq_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void vpextrq_m_reg_ib() {
-		}
-
-		[Fact]
 		public void vpextrw_reg_reg_ib() {
 		}
 
@@ -10887,14 +8870,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpinsrd_reg_reg_m_ib() {
-		}
-
-		[Fact]
-		public void vpinsrq_reg_reg_reg_ib() {
-		}
-
-		[Fact]
-		public void vpinsrq_reg_reg_m_ib() {
 		}
 
 		[Fact]
@@ -13095,14 +11070,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void wrfsbase_reg() {
-		}
-
-		[Fact]
-		public void wrgsbase_reg() {
-		}
-
-		[Fact]
 		public void wrmsr() {
 			TestAssembler(c => c.wrmsr(), ins => ins == Instruction.Create(Code.Wrmsr));
 		}
@@ -13117,15 +11084,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void wrssq_m_reg() {
-		}
-
-		[Fact]
 		public void wrussd_m_reg() {
-		}
-
-		[Fact]
-		public void wrussq_m_reg() {
 		}
 
 		[Fact]
@@ -13239,15 +11198,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void xrstor64_m() {
-		}
-
-		[Fact]
 		public void xrstors_m() {
-		}
-
-		[Fact]
-		public void xrstors64_m() {
 		}
 
 		[Fact]
@@ -13255,15 +11206,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void xsave64_m() {
-		}
-
-		[Fact]
 		public void xsavec_m() {
-		}
-
-		[Fact]
-		public void xsavec64_m() {
 		}
 
 		[Fact]
@@ -13271,15 +11214,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void xsaveopt64_m() {
-		}
-
-		[Fact]
 		public void xsaves_m() {
-		}
-
-		[Fact]
-		public void xsaves64_m() {
 		}
 
 		[Fact]

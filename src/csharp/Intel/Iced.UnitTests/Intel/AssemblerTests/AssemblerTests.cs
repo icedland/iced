@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using Iced.Intel.BlockEncoderInternal;
+using System.IO;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
@@ -35,16 +35,51 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 		
 		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns) {
-			var assembler = Assembler.Create(_bitness, NullCodeWriter.Instance);
+			var stream = new MemoryStream();
+			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
+			
+			// Encode the instruction
 			fAsm(assembler);
+			
+			// Expecting only one instruction
 			Assert.Equal(1, assembler.Instructions.Count);
-			Assert.True(fIns(assembler.Instructions[0]));
+
+			// Check that the instruction is the one expected
+			var inst = assembler.Instructions[0];
+			Assert.True(fIns(inst));
+			
+			// Encode the instruction
+			assembler.Encode();
+
+			// Check decoding back against the original instruction
+			stream.Position = 0;
+			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream));
+			var againstInst = decoder.Decode();
+			Assert.Equal(inst, againstInst);
 		}
 		
-		sealed class NullCodeWriter : CodeWriter {
-			public static readonly NullCodeWriter Instance = new NullCodeWriter();
-			NullCodeWriter() { }
-			public override void WriteByte(byte value) { }
+		sealed class StreamCodeWriter : CodeWriter {
+			readonly Stream _stream;
+
+			public StreamCodeWriter(Stream stream) {
+				_stream = stream;
+			}
+
+			public override void WriteByte(byte value) {
+				_stream.WriteByte(value);
+			}
+		}
+		
+		sealed class StreamCodeReader : CodeReader {
+			readonly Stream _stream;
+
+			public StreamCodeReader(Stream stream) {
+				_stream = stream;
+			}
+
+			public override int ReadByte() {
+				return _stream.ReadByte();
+			}
 		}
 	}
 }
