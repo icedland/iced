@@ -8405,26 +8405,6 @@ namespace Iced.Intel {
 			op = Code.Das;
 			AddInstruction(Instruction.Create(op));
 		}
-		/// <summary>db instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// A <c>db</c>/<c>.byte</c> asm directive that can store 1-16 bytes</summary>
-		public void db() {
-			Code op;
-			op = Code.DeclareByte;
-			AddInstruction(Instruction.Create(op));
-		}
-		/// <summary>dd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// A <c>dd</c>/<c>.int</c> asm directive that can store 1-4 dwords</summary>
-		public void dd() {
-			Code op;
-			op = Code.DeclareDword;
-			AddInstruction(Instruction.Create(op));
-		}
 		/// <summary>dec instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -8840,26 +8820,6 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Dpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
-		}
-		/// <summary>dq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// A <c>dq</c>/<c>.quad</c> asm directive that can store 1-2 qwords</summary>
-		public void dq() {
-			Code op;
-			op = Code.DeclareQword;
-			AddInstruction(Instruction.Create(op));
-		}
-		/// <summary>dw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// A <c>dw</c>/<c>.word</c> asm directive that can store 1-8 words</summary>
-		public void dw() {
-			Code op;
-			op = Code.DeclareWord;
-			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>emms instruction.<br/>
 		/// <br/>

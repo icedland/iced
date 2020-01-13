@@ -1071,16 +1071,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void db() {
-			TestAssembler(c => c.db(), ins => ins == Instruction.Create(Code.DeclareByte));
-		}
-
-		[Fact]
-		public void dd() {
-			TestAssembler(c => c.dd(), ins => ins == Instruction.Create(Code.DeclareDword));
-		}
-
-		[Fact]
 		public void dec_reg() {
 		}
 
@@ -1142,16 +1132,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void dpps_reg_m_ib() {
-		}
-
-		[Fact]
-		public void dq() {
-			TestAssembler(c => c.dq(), ins => ins == Instruction.Create(Code.DeclareQword));
-		}
-
-		[Fact]
-		public void dw() {
-			TestAssembler(c => c.dw(), ins => ins == Instruction.Create(Code.DeclareWord));
 		}
 
 		[Fact]
