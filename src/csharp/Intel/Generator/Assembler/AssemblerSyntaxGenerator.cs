@@ -38,6 +38,8 @@ namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
 		Dictionary<GroupKey, OpCodeInfoGroup> _groups;
 		Dictionary<GroupKey, OpCodeInfoGroup> _groupsWithPseudo;
+		
+		protected const OpCodeFlags BitnessMaskFlags = OpCodeFlags.Mode64 | OpCodeFlags.Mode32 | OpCodeFlags.Mode16;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
 			Code.INVALID,
@@ -409,10 +411,12 @@ namespace Generator.Assembler {
 				if (toAdd) {
 					if (!ShouldDiscardDuplicatedOpCode(signature, code)) {
 						var group = AddOpCodeToGroup(name, memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
+						group.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 						group.UpdateMaxArgSizes(argSizes);
 					}
 					if (signature != regOnlySignature) {
 						var regOnlyGroup = AddOpCodeToGroup(name, memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
+						regOnlyGroup.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 						regOnlyGroup.UpdateMaxArgSizes(argSizes);
 					}
 				}
@@ -447,7 +451,11 @@ namespace Generator.Assembler {
 				}
 				
 				// Update the selector graph for this group of opcodes
-				if (!group.HasSpecialInstructionEncoding) {
+				if (group.HasSpecialInstructionEncoding) {
+					Debug.Assert(group.Items.Count == 1);
+					group.RootOpCodeNode = new OpCodeNode(group.Items[0]);
+				}
+				else {
 					group.RootOpCodeNode = BuildSelectorGraph(group);
 				}
 			}
@@ -606,6 +614,7 @@ namespace Generator.Assembler {
 
 					// bitness
 					selectors ??= new OrdererSelectorList();
+					selectors.ArgIndex = -1;
 					selectors.Clear();
 					bool has64 = false;
 					foreach (var opCodeInfo in opcodes) {
@@ -1438,6 +1447,7 @@ namespace Generator.Assembler {
 
 			group.Items.Add(code);
 			group.Flags |= opCodeArgFlags;
+			group.AllOpCodeFlags |= code.Flags;
 			
 			// Handle pseudo ops
 			if (group.RootPseudoOpsKind != null) {
@@ -1627,6 +1637,8 @@ namespace Generator.Assembler {
 			
 			public string Name { get; }
 			
+			public OpCodeFlags AllOpCodeFlags { get; set; }
+
 			public OpCodeArgFlags Flags { get; set; }
 			
 			public PseudoOpsKind? RootPseudoOpsKind { get; set; }
@@ -1654,6 +1666,8 @@ namespace Generator.Assembler {
 			public List<OpCodeInfo> Items { get; }
 			
 			public List<int> MaxArgSizes { get; }
+			
+			public int NumberOfLeadingArgToDiscard { get; set; }
 
 			public void UpdateMaxArgSizes(List<int> argSizes) {
 				if (MaxArgSizes.Count == 0) {
@@ -1711,7 +1725,32 @@ namespace Generator.Assembler {
 			return pseudoOpsKind;
 		}
 		
-		
+		protected static bool IsBitness(OpCodeSelectorKind kind, out int bitness) {
+			bitness = 0;
+			switch (kind) {
+			case OpCodeSelectorKind.Bitness64:
+				bitness = 64;
+				return true;
+			case OpCodeSelectorKind.Bitness32:
+				bitness = 32;
+				return true;
+			case OpCodeSelectorKind.Bitness16:
+				bitness = 16;
+				return true;
+			}
+			return false;
+		}
+
+		protected static (OpCodeArgFlags,OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
+			switch (kind) {
+			case OpCodeSelectorKind.Vex:
+				return (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex);
+			case OpCodeSelectorKind.BranchShort:
+				return (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear);
+			}
+
+			return (OpCodeArgFlags.Default, OpCodeArgFlags.Default);
+		}
 
 		protected readonly struct OpCodeNode {
 			readonly object _value;
@@ -1756,7 +1795,7 @@ namespace Generator.Assembler {
 
 			public bool IsConditionInlineable => IfTrue.OpCodeInfo != null && IfFalse.OpCodeInfo != null;
 		}
-		
+
 		protected enum OpCodeSelectorKind {
 			Invalid,
 			

@@ -28,9 +28,10 @@ using Xunit;
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	using Iced.Intel;
 	
-	public abstract class AssemblerTests {
+	public abstract class AssemblerTestsBase {
 		int _bitness;
-		protected AssemblerTests(int bitness) {
+		
+		protected AssemblerTestsBase(int bitness) {
 			_bitness = bitness;
 		}
 		
@@ -41,6 +42,18 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
 			
 			// Encode the instruction
+			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
+				assembler.PreferVex = true;
+			}
+			else if ((flags & LocalOpCodeFlags.PreferEvex) != 0) {
+				assembler.PreferVex = false;
+			}
+			if ((flags & LocalOpCodeFlags.PreferBranchShort) != 0) {
+				assembler.PreferBranchShort = true;
+			}
+			else if ((flags & LocalOpCodeFlags.PreferBranchNear) != 0) {
+				assembler.PreferBranchShort = false;
+			}
 			fAsm(assembler);
 			
 			// Expecting only one instruction
@@ -146,13 +159,23 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				}
 			}
 			
-			Assert.Equal(inst, againstInst);
+			Assert.Equal(inst , againstInst);
+		}
+
+		protected Label CreateAndEmitLabel(Assembler c) {
+			var label = c.CreateLabel();
+			c.Label(label);
+			return label;
 		}
 
 		[Flags]
 		protected enum LocalOpCodeFlags {
 			None = 0,
 			Fwait = 1 << 0,
+			PreferVex = 1 << 1,
+			PreferEvex = 1 << 2,			
+			PreferBranchShort = 1 << 3,
+			PreferBranchNear = 1 << 4,			
 		}
 		
 		sealed class StreamCodeWriter : CodeWriter {
