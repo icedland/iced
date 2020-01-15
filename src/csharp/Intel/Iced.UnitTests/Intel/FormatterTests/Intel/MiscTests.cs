@@ -120,7 +120,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
-			var formatter = IntelFormatterFactory.Create();
+			var formatter = FormatterFactory.Create();
 			var output = new StringBuilderFormatterOutput();
 			formatter.FormatMnemonic(instr, output, options);
 			var actualFormattedString = output.ToStringAndReset();

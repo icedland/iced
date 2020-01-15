@@ -112,11 +112,11 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		protected static IEnumerable<object[]> GetFormatData(int bitness, string formatterDir, string formattedStringsFile, bool isMisc = false) {
 			var infos = GetInstructionInfos(bitness, isMisc);
-			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
+			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, $"Test{bitness}_{formattedStringsFile}")).ToArray();
 			return GetFormatData(infos, formattedStrings);
 		}
 
-		protected static IEnumerable<object[]> GetFormatData(InstructionInfo[] infos, string[] formattedStrings) {
+		static IEnumerable<object[]> GetFormatData(InstructionInfo[] infos, string[] formattedStrings) {
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];
@@ -125,12 +125,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			return res;
 		}
 
-		protected static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string formatterDir, string formattedStringsFile) {
-			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
+		protected static IEnumerable<object[]> GetFormatData(int bitness, (string hexBytes, Instruction instruction)[] infos, string formatterDir, string formattedStringsFile) {
+			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, $"Test{bitness}_{formattedStringsFile}")).ToArray();
 			return GetFormatData(infos, formattedStrings);
 		}
 
-		protected static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string[] formattedStrings) {
+		static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string[] formattedStrings) {
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].hexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].hexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];
