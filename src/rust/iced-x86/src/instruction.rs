@@ -7079,7 +7079,10 @@ impl Hash for Instruction {
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		f.write_str("NYI")?; //TODO:
+		let mut output = StringOutput::new();
+		let mut formatter = MasmFormatter::new();
+		formatter.format(self, &mut output);
+		f.write_str(output.get())?;
 		Ok(())
 	}
 }
@@ -7087,32 +7090,32 @@ impl fmt::Display for Instruction {
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		f.write_str("NYI")?; //TODO:
+		let mut output = StringOutput::new();
+		let mut formatter = NasmFormatter::new();
+		formatter.format(self, &mut output);
+		f.write_str(output.get())?;
 		Ok(())
 	}
 }
-#[cfg(all(
-	not(feature = "masm_formatter"),
-	not(feature = "nasm_formatter"),
-	feature = "intel_formatter"
-))]
+#[cfg(all(not(feature = "masm_formatter"), not(feature = "nasm_formatter"), feature = "intel_formatter"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		f.write_str("NYI")?; //TODO:
+		let mut output = StringOutput::new();
+		let mut formatter = IntelFormatter::new();
+		formatter.format(self, &mut output);
+		f.write_str(output.get())?;
 		Ok(())
 	}
 }
-#[cfg(all(
-	not(feature = "masm_formatter"),
-	not(feature = "nasm_formatter"),
-	not(feature = "intel_formatter"),
-	feature = "gas_formatter"
-))]
+#[cfg(all(not(feature = "masm_formatter"), not(feature = "nasm_formatter"), not(feature = "intel_formatter"), feature = "gas_formatter"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		f.write_str("NYI")?; //TODO:
+		let mut output = StringOutput::new();
+		let mut formatter = GasFormatter::new();
+		formatter.format(self, &mut output);
+		f.write_str(output.get())?;
 		Ok(())
 	}
 }

@@ -581,8 +581,12 @@ pub trait Formatter: private::Sealed {
 
 mod private {
 	pub trait Sealed {}
+	#[cfg(feature = "gas_formatter")]
 	impl<'a> Sealed for super::gas::GasFormatter<'a> {}
+	#[cfg(feature = "intel_formatter")]
 	impl<'a> Sealed for super::intel::IntelFormatter<'a> {}
+	#[cfg(feature = "masm_formatter")]
 	impl<'a> Sealed for super::masm::MasmFormatter<'a> {}
+	#[cfg(feature = "nasm_formatter")]
 	impl<'a> Sealed for super::nasm::NasmFormatter<'a> {}
 }
