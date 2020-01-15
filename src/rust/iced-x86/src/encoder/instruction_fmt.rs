@@ -672,15 +672,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 
 					OpCodeOperandKind::st0 | OpCodeOperandKind::sti_opcode => {
 						self.write_register("ST");
-						if i == 0
-							&& (self.op_code.code() == Code::Fcomi_st0_sti
-								|| self.op_code.code() == Code::Fcomip_st0_sti
-								|| self.op_code.code() == Code::Fucomi_st0_sti
-								|| self.op_code.code() == Code::Fucomip_st0_sti)
-						{
-							// nothing, it should be ST and not ST(0)
-						} else if op_kind == OpCodeOperandKind::st0 {
-							self.sb.push_str("(0)");
+						if op_kind == OpCodeOperandKind::st0 {
+							match self.op_code.code() {
+								Code::Fcomi_st0_sti | Code::Fcomip_st0_sti | Code::Fucomi_st0_sti | Code::Fucomip_st0_sti => {}
+								_ => self.sb.push_str("(0)"),
+							}
 						} else {
 							debug_assert_eq!(OpCodeOperandKind::sti_opcode, op_kind);
 							self.sb.push_str("(i)");

@@ -739,11 +739,18 @@ namespace Iced.Intel.EncoderInternal {
 					case OpCodeOperandKind.st0:
 					case OpCodeOperandKind.sti_opcode:
 						WriteRegister("ST");
-						if (i == 0 && (opCode.Code == Code.Fcomi_st0_sti || opCode.Code == Code.Fcomip_st0_sti || opCode.Code == Code.Fucomi_st0_sti || opCode.Code == Code.Fucomip_st0_sti)) {
-							// nothing, it should be ST and not ST(0)
+						if (opKind == OpCodeOperandKind.st0) {
+							switch (opCode.Code) {
+							case Code.Fcomi_st0_sti:
+							case Code.Fcomip_st0_sti:
+							case Code.Fucomi_st0_sti:
+							case Code.Fucomip_st0_sti:
+								break;
+							default:
+								sb.Append("(0)");
+								break;
+							}
 						}
-						else if (opKind == OpCodeOperandKind.st0)
-							sb.Append("(0)");
 						else {
 							Debug.Assert(opKind == OpCodeOperandKind.sti_opcode);
 							sb.Append("(i)");
