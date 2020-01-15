@@ -364,6 +364,43 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("}");
 		}
 
+		protected override void GenCreateXbegin(FileWriter writer, CreateMethod method) {
+			if (method.Args.Count != 2)
+				throw new InvalidOperationException();
+			WriteDocs(writer, method);
+			WriteMethod(writer, method, "with_xbegin");
+			using (writer.Indent()) {
+				writer.WriteLine($"let mut instruction = Self::default();");
+				var bitnessName = idConverter.Argument(method.Args[0].Name);
+				var opKindName = OpKindEnum.Instance.Name(idConverter);
+				var codeName = CodeEnum.Instance.Name(idConverter);
+				writer.WriteLine();
+				writer.WriteLine($"match bitness {{");
+				writer.WriteLine($"	16 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_near_branch16(&mut instruction, {idConverter.Argument(method.Args[1].Name)} as u16 as u32);");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	32 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)});");
+				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	64 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch64)].Name(idConverter)});");
+				writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(method.Args[1].Name)});");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	_ => panic!(),");
+				writer.WriteLine($"}}");
+				WriteMethodFooter(writer, 1);
+			}
+			writer.WriteLine("}");
+		}
+
 		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 4)
 				throw new InvalidOperationException();

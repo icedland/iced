@@ -4743,6 +4743,44 @@ impl Instruction {
 		instruction
 	}
 
+	/// Creates a new xbegin instruction
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32, or 64
+	/// * `target`: Target address
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
+		let mut instruction = Self::default();
+
+		match bitness {
+			16 => {
+				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel16);
+				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch16);
+				super::instruction_internal::internal_set_near_branch16(&mut instruction, target as u16 as u32);
+			}
+
+			32 => {
+				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
+				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
+				instruction.set_near_branch32(target as u32);
+			}
+
+			64 => {
+				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel32);
+				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch64);
+				instruction.set_near_branch64(target);
+			}
+
+			_ => panic!(),
+		}
+
+		debug_assert_eq!(1, instruction.op_count());
+		instruction
+	}
+
 	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
 	///
 	/// # Arguments

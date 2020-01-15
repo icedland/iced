@@ -80,6 +80,7 @@ namespace Generator.Encoder {
 		protected abstract void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group);
 		protected abstract void GenCreateBranch(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateFarBranch(FileWriter writer, CreateMethod method);
+		protected abstract void GenCreateXbegin(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateMemory64(FileWriter writer, CreateMethod method);
 		protected abstract void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register);
 		protected abstract void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register);
@@ -100,6 +101,7 @@ namespace Generator.Encoder {
 				GenerateCreateMethods(writer);
 				GenerateCreateBranch(writer);
 				GenerateCreateFarBranch(writer);
+				GenerateCreateXbegin(writer);
 				GenCreateMemory64(writer);
 				GenCreateStringInstructions(writer);
 				GenCreateDeclareXxx(writer);
@@ -126,9 +128,11 @@ namespace Generator.Encoder {
 		}
 
 		static void AddCodeArg(CreateMethod method) => method.Args.Add(new MethodArg("Code value", MethodArgType.Code, "code"));
-		void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "addressSize"));
-		void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", RegisterEnum.Instance[nameof(Register.None)]));
-		void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", RepPrefixKindEnum.Instance[nameof(RepPrefixKind.None)]));
+		static void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "addressSize"));
+		static void AddTargetArg(CreateMethod method) => method.Args.Add(new MethodArg("Target address", MethodArgType.UInt64, "target"));
+		static void AddBitnessArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "bitness"));
+		static void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", RegisterEnum.Instance[nameof(Register.None)]));
+		static void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", RepPrefixKindEnum.Instance[nameof(RepPrefixKind.None)]));
 
 		CreateMethod GetMethod(InstructionGroup group, bool unsigned) {
 			var (regCount, immCount, memCount) = GetOpKindCount(group);
@@ -198,7 +202,7 @@ namespace Generator.Encoder {
 			writer.WriteLine();
 			var method = new CreateMethod("Creates a new near/short branch instruction");
 			AddCodeArg(method);
-			method.Args.Add(new MethodArg("Target address", MethodArgType.UInt64, "target"));
+			AddTargetArg(method);
 			GenCreateBranch(writer, method);
 		}
 
@@ -209,6 +213,14 @@ namespace Generator.Encoder {
 			method.Args.Add(new MethodArg("Selector/segment value", MethodArgType.UInt16, "selector"));
 			method.Args.Add(new MethodArg("Offset", MethodArgType.UInt32, "offset"));
 			GenCreateFarBranch(writer, method);
+		}
+
+		void GenerateCreateXbegin(FileWriter writer) {
+			writer.WriteLine();
+			var method = new CreateMethod("Creates a new xbegin instruction");
+			AddBitnessArg(method);
+			AddTargetArg(method);
+			GenCreateXbegin(writer, method);
 		}
 
 		void GenCreateMemory64(FileWriter writer) {

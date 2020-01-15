@@ -745,6 +745,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "705A", DecoderOptions.None, Instruction.CreateBranch(Code.Jo_rel8_64, 0x800000000000004C) };
 				yield return new object[] { 32, "669A12345678", DecoderOptions.None, Instruction.CreateBranch(Code.Call_ptr1616, 0x7856, 0x3412) };
 				yield return new object[] { 32, "9A123456789ABC", DecoderOptions.None, Instruction.CreateBranch(Code.Call_ptr1632, 0xBC9A, 0x78563412) };
+				yield return new object[] { 16, "C7F85AA5", DecoderOptions.None, Instruction.CreateXbegin(16, 0x254E) };
+				yield return new object[] { 32, "C7F85AA51234", DecoderOptions.None, Instruction.CreateXbegin(32, 0xB412A550) };
+				yield return new object[] { 64, "C7F85AA51234", DecoderOptions.None, Instruction.CreateXbegin(64, 0x800000003412A550) };
 				yield return new object[] { 64, "00D1", DecoderOptions.None, Instruction.Create(Code.Add_rm8_r8, Register.CL, Register.DL) };
 				yield return new object[] { 64, "64028C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.Add_r8_rm8, Register.CL, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS)) };
 				yield return new object[] { 64, "80C15A", DecoderOptions.None, Instruction.Create(Code.Add_rm8_imm8, Register.CL, 0x5A) };
