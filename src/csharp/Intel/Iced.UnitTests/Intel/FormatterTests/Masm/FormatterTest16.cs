@@ -40,6 +40,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		public static IEnumerable<object[]> Format_Data_MemDefault => GetFormatData(16, "Masm", "MemDefault");
 
 		[Theory]
+		[MemberData(nameof(Format_Data_MemMinimum))]
+		void Format_MemMinimum(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemMinimum());
+		public static IEnumerable<object[]> Format_Data_MemMinimum => GetFormatData(16, "Masm", "MemMinimum");
+
+		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_MemAlways))]
 		void Format_NonDec_MemAlways(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemAlways());
 		public static IEnumerable<object[]> Format_Data_NonDec_MemAlways => GetFormatData(16, NonDecodedInstructions.Infos16, "Masm", "NonDec_MemAlways");
@@ -48,6 +53,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		[MemberData(nameof(Format_Data_NonDec_MemDefault))]
 		void Format_NonDec_MemDefault(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemDefault());
 		public static IEnumerable<object[]> Format_Data_NonDec_MemDefault => GetFormatData(16, NonDecodedInstructions.Infos16, "Masm", "NonDec_MemDefault");
+
+		[Theory]
+		[MemberData(nameof(Format_Data_NonDec_MemMinimum))]
+		void Format_NonDec_MemMinimum(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemMinimum());
+		public static IEnumerable<object[]> Format_Data_NonDec_MemMinimum => GetFormatData(16, NonDecodedInstructions.Infos16, "Masm", "NonDec_MemMinimum");
 
 		[Theory]
 		[MemberData(nameof(Format_Data_Misc))]

@@ -35,6 +35,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
 			options.SpaceAfterOperandSeparator = false;
+			options.AddDsPrefix32 = true;
 			return new MasmFormatter(options);
 		}
 
@@ -45,6 +46,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
 			options.SpaceAfterOperandSeparator = true;
+			options.AddDsPrefix32 = true;
+			return new MasmFormatter(options);
+		}
+
+		public static MasmFormatter Create_MemMinimum() {
+			var options = CreateOptions();
+			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.ShowBranchSize = true;
+			options.RipRelativeAddresses = false;
+			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
+			options.AddDsPrefix32 = false;
 			return new MasmFormatter(options);
 		}
 

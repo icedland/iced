@@ -57,6 +57,16 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			return new IntelFormatter(options);
 		}
 
+		public static IntelFormatter Create_MemMinimum() {
+			var options = CreateOptions();
+			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.ShowBranchSize = true;
+			options.RipRelativeAddresses = false;
+			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
+			return new IntelFormatter(options);
+		}
+
 		public static IntelFormatter Create() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Always;

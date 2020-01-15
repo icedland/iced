@@ -58,6 +58,17 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			return new NasmFormatter(options);
 		}
 
+		public static NasmFormatter Create_MemMinimum() {
+			var options = CreateOptions();
+			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			options.ShowSignExtendedImmediateSize = true;
+			options.ShowBranchSize = true;
+			options.RipRelativeAddresses = false;
+			options.SignedImmediateOperands = true;
+			options.SpaceAfterOperandSeparator = true;
+			return new NasmFormatter(options);
+		}
+
 		public static NasmFormatter Create() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
