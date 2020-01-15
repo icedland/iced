@@ -273,8 +273,9 @@ namespace Generator.Encoder.Rust {
 						if (multipleInts) {
 							switch (intCount++) {
 							case 0:
-								writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind({codeName}, {op}));");
-								writer.WriteLine($"instruction.set_immediate32({idConverter.Argument(arg.Name)}{castType});");
+								writer.WriteLine($"let op_kind = super::instruction_internal::get_immediate_op_kind({codeName}, {op});");
+								writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, op_kind);");
+								writer.WriteLine($"instruction.set_immediate32(super::instruction_internal::mask_immediate32({idConverter.Argument(arg.Name)}{castType}, op_kind));");
 								break;
 							case 1:
 								writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate8_2ndStr});");
@@ -292,7 +293,7 @@ namespace Generator.Encoder.Rust {
 								writer.WriteLine($"instruction.set_immediate64({idConverter.Argument(arg.Name)} as u64);");
 							writer.WriteLine("} else {");
 							using (writer.Indent())
-								writer.WriteLine($"instruction.set_immediate32({idConverter.Argument(arg.Name)}{castType});");
+								writer.WriteLine($"instruction.set_immediate32(super::instruction_internal::mask_immediate32({idConverter.Argument(arg.Name)}{castType}, op_kind));");
 							writer.WriteLine("}");
 						}
 						break;
