@@ -7075,7 +7075,7 @@ impl Hash for Instruction {
 	}
 }
 
-#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "masm_formatter")]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -7083,7 +7083,7 @@ impl fmt::Display for Instruction {
 		Ok(())
 	}
 }
-#[cfg(all(not(any(feature = "masm_formatter", feature = "all_formatters")), any(feature = "nasm_formatter", feature = "all_formatters")))]
+#[cfg(all(not(feature = "masm_formatter"), feature = "nasm_formatter"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -7092,9 +7092,9 @@ impl fmt::Display for Instruction {
 	}
 }
 #[cfg(all(
-	not(any(feature = "masm_formatter", feature = "all_formatters")),
-	not(any(feature = "nasm_formatter", feature = "all_formatters")),
-	any(feature = "intel_formatter", feature = "all_formatters")
+	not(feature = "masm_formatter"),
+	not(feature = "nasm_formatter"),
+	feature = "intel_formatter"
 ))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
@@ -7104,10 +7104,10 @@ impl fmt::Display for Instruction {
 	}
 }
 #[cfg(all(
-	not(any(feature = "masm_formatter", feature = "all_formatters")),
-	not(any(feature = "nasm_formatter", feature = "all_formatters")),
-	not(any(feature = "intel_formatter", feature = "all_formatters")),
-	any(feature = "gas_formatter", feature = "all_formatters")
+	not(feature = "masm_formatter"),
+	not(feature = "nasm_formatter"),
+	not(feature = "intel_formatter"),
+	feature = "gas_formatter"
 ))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]

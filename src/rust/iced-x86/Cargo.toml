@@ -17,12 +17,11 @@ maintenance = { status = "actively-developed" }
 
 # These features are documented in the module docs (lib.rs)
 [features]
-default = ["std", "decoder", "encoder", "instr_info",
-			"all_formatters", "gas_formatter", "intel_formatter", "masm_formatter", "nasm_formatter"]
+default = ["std", "decoder", "encoder", "instr_info", "all_formatters"]
 decoder = []
 encoder = []
 instr_info = []
-all_formatters = []
+all_formatters = ["gas_formatter", "intel_formatter", "masm_formatter", "nasm_formatter"]
 gas_formatter = []
 intel_formatter = []
 masm_formatter = []

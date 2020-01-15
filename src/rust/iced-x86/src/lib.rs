@@ -115,13 +115,7 @@ mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
-#[cfg(any(
-	feature = "gas_formatter",
-	feature = "intel_formatter",
-	feature = "masm_formatter",
-	feature = "nasm_formatter",
-	feature = "all_formatters",
-))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
@@ -150,13 +144,7 @@ pub use self::decoder::*;
 #[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
-#[cfg(any(
-	feature = "gas_formatter",
-	feature = "intel_formatter",
-	feature = "masm_formatter",
-	feature = "nasm_formatter",
-	feature = "all_formatters",
-))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]

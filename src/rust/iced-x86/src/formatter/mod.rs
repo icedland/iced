@@ -27,13 +27,13 @@ mod fmt_consts;
 mod fmt_opt_provider;
 mod fmt_opts;
 mod fmt_utils;
-#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
+#[cfg(feature = "gas_formatter")]
 mod gas;
-#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
+#[cfg(feature = "intel_formatter")]
 mod intel;
-#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "masm_formatter")]
 mod masm;
-#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "nasm_formatter")]
 mod nasm;
 mod num_fmt;
 mod num_fmt_opts;
@@ -46,13 +46,13 @@ mod symres;
 pub use self::enums::*;
 pub use self::fmt_opt_provider::*;
 pub use self::fmt_opts::*;
-#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
+#[cfg(feature = "gas_formatter")]
 pub use self::gas::*;
-#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
+#[cfg(feature = "intel_formatter")]
 pub use self::intel::*;
-#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "masm_formatter")]
 pub use self::masm::*;
-#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "nasm_formatter")]
 pub use self::nasm::*;
 use self::num_fmt::NumberFormatter;
 pub use self::num_fmt_opts::*;

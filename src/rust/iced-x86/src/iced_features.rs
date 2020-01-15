@@ -32,7 +32,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_gas_formatter() -> bool {
-		cfg!(any(feature = "gas_formatter", feature = "all_formatters"))
+		cfg!(feature = "gas_formatter")
 	}
 
 	/// `true` if the Intel (xed) formatter is available
@@ -40,7 +40,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_intel_formatter() -> bool {
-		cfg!(any(feature = "intel_formatter", feature = "all_formatters"))
+		cfg!(feature = "intel_formatter")
 	}
 
 	/// `true` if the masm formatter is available
@@ -48,7 +48,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_masm_formatter() -> bool {
-		cfg!(any(feature = "masm_formatter", feature = "all_formatters"))
+		cfg!(feature = "masm_formatter")
 	}
 
 	/// `true` if the nasm formatter is available
@@ -56,7 +56,7 @@ impl IcedFeatures {
 	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_nasm_formatter() -> bool {
-		cfg!(any(feature = "nasm_formatter", feature = "all_formatters"))
+		cfg!(feature = "nasm_formatter")
 	}
 
 	/// `true` if the decoder is available
