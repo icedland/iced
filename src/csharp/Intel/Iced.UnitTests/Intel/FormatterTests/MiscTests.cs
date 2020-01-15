@@ -134,8 +134,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(instr, numOps));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, numInstrOps));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringBuilderFormatterOutput(), -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringBuilderFormatterOutput(), numOps));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringOutput(), numOps));
 			}
 
 			{
@@ -146,8 +146,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(invalid, 0));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(invalid, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(invalid, 0));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(invalid, new StringBuilderFormatterOutput(), -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(invalid, new StringBuilderFormatterOutput(), 0));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(invalid, new StringOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(invalid, new StringOutput(), 0));
 			}
 
 			{
@@ -155,17 +155,17 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(db, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(db, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(db, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(db, new StringBuilderFormatterOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(db, new StringOutput(), -1));
 				Assert.Equal(8, db.DeclareDataCount);
 				for (int i = 0; i < db.DeclareDataCount; i++) {
 					formatter.TryGetOpAccess(db, i, out _);
 					formatter.GetInstructionOperand(db, i);
-					formatter.FormatOperand(db, new StringBuilderFormatterOutput(), i);
+					formatter.FormatOperand(db, new StringOutput(), i);
 				}
 				for (int i = db.DeclareDataCount; i < 17; i++) {
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(db, i, out _));
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(db, i));
-					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(db, new StringBuilderFormatterOutput(), i));
+					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(db, new StringOutput(), i));
 				}
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(db, 0));
 			}
@@ -175,17 +175,17 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dw, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dw, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dw, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dw, new StringBuilderFormatterOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dw, new StringOutput(), -1));
 				Assert.Equal(4, dw.DeclareDataCount);
 				for (int i = 0; i < dw.DeclareDataCount; i++) {
 					formatter.TryGetOpAccess(dw, i, out _);
 					formatter.GetInstructionOperand(dw, i);
-					formatter.FormatOperand(dw, new StringBuilderFormatterOutput(), i);
+					formatter.FormatOperand(dw, new StringOutput(), i);
 				}
 				for (int i = dw.DeclareDataCount; i < 17; i++) {
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dw, i, out _));
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dw, i));
-					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dw, new StringBuilderFormatterOutput(), i));
+					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dw, new StringOutput(), i));
 				}
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dw, 0));
 			}
@@ -195,17 +195,17 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dd, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dd, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dd, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dd, new StringBuilderFormatterOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dd, new StringOutput(), -1));
 				Assert.Equal(2, dd.DeclareDataCount);
 				for (int i = 0; i < dd.DeclareDataCount; i++) {
 					formatter.TryGetOpAccess(dd, i, out _);
 					formatter.GetInstructionOperand(dd, i);
-					formatter.FormatOperand(dd, new StringBuilderFormatterOutput(), i);
+					formatter.FormatOperand(dd, new StringOutput(), i);
 				}
 				for (int i = dd.DeclareDataCount; i < 17; i++) {
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dd, i, out _));
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dd, i));
-					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dd, new StringBuilderFormatterOutput(), i));
+					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dd, new StringOutput(), i));
 				}
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dd, 0));
 			}
@@ -215,32 +215,32 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dq, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dq, -1));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dq, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dq, new StringBuilderFormatterOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dq, new StringOutput(), -1));
 				Assert.Equal(1, dq.DeclareDataCount);
 				for (int i = 0; i < dq.DeclareDataCount; i++) {
 					formatter.TryGetOpAccess(dq, i, out _);
 					formatter.GetInstructionOperand(dq, i);
-					formatter.FormatOperand(dq, new StringBuilderFormatterOutput(), i);
+					formatter.FormatOperand(dq, new StringOutput(), i);
 				}
 				for (int i = dq.DeclareDataCount; i < 17; i++) {
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dq, i, out _));
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dq, i));
-					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dq, new StringBuilderFormatterOutput(), i));
+					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dq, new StringOutput(), i));
 				}
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(dq, 0));
 			}
 		}
 
 		[Fact]
-		void StringBuilderFormatterOutput_throws_if_invalid_input() {
-			Assert.Throws<ArgumentNullException>(() => new StringBuilderFormatterOutput(null));
+		void StringOutput_throws_if_invalid_input() {
+			Assert.Throws<ArgumentNullException>(() => new StringOutput(null));
 		}
 
 		[Fact]
-		void StringBuilderFormatterOutput_uses_input_sb() {
+		void StringOutput_uses_input_sb() {
 			var sb = new StringBuilder();
 			sb.Append("Text");
-			var output = new StringBuilderFormatterOutput(sb);
+			var output = new StringOutput(sb);
 			output.Write("hello", FormatterOutputTextKind.Text);
 			Assert.Equal("Texthello", sb.ToString());
 			Assert.Equal("Texthello", output.ToString());

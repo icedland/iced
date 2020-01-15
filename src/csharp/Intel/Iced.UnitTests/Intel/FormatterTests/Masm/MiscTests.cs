@@ -124,7 +124,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var formatter = FormatterFactory.Create();
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			formatter.FormatMnemonic(instr, output, options);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check

@@ -42,7 +42,7 @@ Formatters:
 	- `GasFormatterOptions`
 	- `IntelFormatterOptions`
 - `FormatterOutput`
-	- `StringBuilderFormatterOutput`
+	- `StringOutput`
 - `ISymbolResolver`
 - `IFormatterOptionsProvider`
 
@@ -131,7 +131,7 @@ namespace Iced.Examples {
             var formatter = new NasmFormatter();
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
+            var output = new StringOutput();
             // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
             foreach (ref var instr in instructions) {
                 // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
@@ -222,7 +222,7 @@ Disassembled code:
             var formatter = new NasmFormatter();
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
+            var output = new StringOutput();
             var newDecoder = Decoder.Create(decoder.Bitness, new ByteArrayCodeReader(newCode));
             newDecoder.IP = block.RIP;
             endRip = newDecoder.IP + (uint)newCode.Length;
@@ -305,7 +305,7 @@ Disassembled code:
             var formatter = new NasmFormatter();
             formatter.Options.DigitSeparator = "`";
             formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
+            var output = new StringOutput();
             var newDecoder = Decoder.Create(bitness, new ByteArrayCodeReader(newCode));
             newDecoder.IP = block.RIP;
             ulong endRip = newDecoder.IP + (uint)newCode.Length;

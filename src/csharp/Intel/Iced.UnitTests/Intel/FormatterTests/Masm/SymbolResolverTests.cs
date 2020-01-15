@@ -275,7 +275,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			formatter.MasmOptions.ShowZeroDisplacements = (flags & Flags.ShowZeroDisplacements) != 0;
 			formatter.MasmOptions.AddDsPrefix32 = (flags & Flags.NoAddDsPrefix32) == 0;
 
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
