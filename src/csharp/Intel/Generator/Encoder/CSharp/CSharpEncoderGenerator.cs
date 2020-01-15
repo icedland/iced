@@ -213,7 +213,7 @@ namespace Generator.Encoder.CSharp {
 		void GenerateNotInstrCases(string filename, string id, (EnumValue code, string result)[] notInstrStrings) {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
 				foreach (var info in notInstrStrings)
-					writer.WriteLine($"case {info.code.DeclaringType.Name(idConverter)}.{info.code.Name(idConverter)}: return \"{info.result}\";");
+					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}.{info.code.Name(idConverter)} => \"{info.result}\",");
 			});
 		}
 

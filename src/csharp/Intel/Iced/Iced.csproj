@@ -12,7 +12,7 @@
     <PackageProjectUrl>https://github.com/0xd4d/iced</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageVersion>$(InformationalVersion)</PackageVersion>
-    <PackageTags>disassembler;x86;x64;encoder;decoder;formatter</PackageTags>
+    <PackageTags>disassembler;x86;x64;assembler;encoder;decoder;formatter</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>

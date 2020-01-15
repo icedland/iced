@@ -255,27 +255,15 @@ namespace Generator.Encoder {
 			};
 		}
 
-		OpCodeOperandKind[] GetOperands(OpCodeInfo info) {
-			switch (info.Encoding) {
-			case EncodingKind.Legacy:
-				return ((LegacyOpCodeInfo)info).OpKinds.Select(a => legacyToOpKind[a]).ToArray();
-
-			case EncodingKind.VEX:
-				return ((VexOpCodeInfo)info).OpKinds.Select(a => vexToOpKind[a]).ToArray();
-
-			case EncodingKind.EVEX:
-				return ((EvexOpCodeInfo)info).OpKinds.Select(a => evexToOpKind[a]).ToArray();
-
-			case EncodingKind.XOP:
-				return ((XopOpCodeInfo)info).OpKinds.Select(a => xopToOpKind[a]).ToArray();
-
-			case EncodingKind.D3NOW:
-				return d3nowOps;
-
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		OpCodeOperandKind[] GetOperands(OpCodeInfo info) =>
+			info.Encoding switch {
+				EncodingKind.Legacy => ((LegacyOpCodeInfo)info).OpKinds.Select(a => legacyToOpKind[a]).ToArray(),
+				EncodingKind.VEX => ((VexOpCodeInfo)info).OpKinds.Select(a => vexToOpKind[a]).ToArray(),
+				EncodingKind.EVEX => ((EvexOpCodeInfo)info).OpKinds.Select(a => evexToOpKind[a]).ToArray(),
+				EncodingKind.XOP => ((XopOpCodeInfo)info).OpKinds.Select(a => xopToOpKind[a]).ToArray(),
+				EncodingKind.D3NOW => d3nowOps,
+				_ => throw new InvalidOperationException(),
+			};
 
 		sealed class OpComparer : IEqualityComparer<InstructionOperand[]> {
 			public bool Equals(InstructionOperand[] x, InstructionOperand[] y) {

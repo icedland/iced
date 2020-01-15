@@ -42,7 +42,7 @@ use super::regs_tbl::REGS_TBL;
 use super::*;
 use std::{mem, u16, u32, u8};
 
-/// GNU assembler (AT&T) formatter options
+/// GNU assembler (AT&T) formatter
 #[allow(missing_debug_implementations)]
 pub struct GasFormatter<'a> {
 	options: FormatterOptions,
@@ -79,8 +79,8 @@ impl<'a> GasFormatter<'a> {
 	///
 	/// # Arguments
 	///
-	/// `symbol_resolver`: Symbol resolver or `None`
-	/// `options_provider`: Operand options provider or `None`
+	/// - `symbol_resolver`: Symbol resolver or `None`
+	/// - `options_provider`: Operand options provider or `None`
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
@@ -974,10 +974,15 @@ impl<'a> GasFormatter<'a> {
 
 		let mut operand_options = FormatterOperandOptions::with_memory_size_options(self.options.memory_size_options());
 		operand_options.set_rip_relative_addresses(self.options.rip_relative_addresses());
+		// We have to call this method twice because of borrowck
+		if let Some(ref mut options_provider) = self.options_provider {
+			let mut number_options = NumberFormattingOptions::with_displacement(&self.options);
+			options_provider.operand_options(instruction, operand, instruction_operand, &mut operand_options, &mut number_options);
+		}
 
 		let abs_addr;
 		if base_reg == Register::RIP {
-			abs_addr = (instruction.next_ip() as i64 + displ as i32 as i64) as u64;
+			abs_addr = (instruction.next_ip() as i64).wrapping_add(displ as i32 as i64) as u64;
 			if !operand_options.rip_relative_addresses() {
 				debug_assert_eq!(Register::None, index_reg);
 				base_reg = Register::None;
@@ -985,7 +990,7 @@ impl<'a> GasFormatter<'a> {
 				displ_size = 8;
 			}
 		} else if base_reg == Register::EIP {
-			abs_addr = (instruction.next_ip32() + displ as u32) as u64;
+			abs_addr = instruction.next_ip32().wrapping_add(displ as u32) as u64;
 			if !operand_options.rip_relative_addresses() {
 				debug_assert_eq!(Register::None, index_reg);
 				base_reg = Register::None;
@@ -1093,7 +1098,7 @@ impl<'a> GasFormatter<'a> {
 						if is_signed { NumberKind::Int64 } else { NumberKind::UInt64 },
 					)
 				} else {
-					panic!();
+					unreachable!();
 				};
 				output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterOutputTextKind::Number);
 			}

@@ -58,20 +58,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		public static InstructionInfo[] GetInstructionInfos(int bitness, bool isMisc) {
 			if (isMisc) {
-				switch (bitness) {
-				case 16: return GetInstructionInfos(ref instrInfos16_Misc, bitness, isMisc);
-				case 32: return GetInstructionInfos(ref instrInfos32_Misc, bitness, isMisc);
-				case 64: return GetInstructionInfos(ref instrInfos64_Misc, bitness, isMisc);
-				default: throw new ArgumentOutOfRangeException(nameof(bitness));
-				}
+				return bitness switch {
+					16 => GetInstructionInfos(ref instrInfos16_Misc, bitness, isMisc),
+					32 => GetInstructionInfos(ref instrInfos32_Misc, bitness, isMisc),
+					64 => GetInstructionInfos(ref instrInfos64_Misc, bitness, isMisc),
+					_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+				};
 			}
 			else {
-				switch (bitness) {
-				case 16: return GetInstructionInfos(ref instrInfos16, bitness, isMisc);
-				case 32: return GetInstructionInfos(ref instrInfos32, bitness, isMisc);
-				case 64: return GetInstructionInfos(ref instrInfos64, bitness, isMisc);
-				default: throw new ArgumentOutOfRangeException(nameof(bitness));
-				}
+				return bitness switch {
+					16 => GetInstructionInfos(ref instrInfos16, bitness, isMisc),
+					32 => GetInstructionInfos(ref instrInfos32, bitness, isMisc),
+					64 => GetInstructionInfos(ref instrInfos64, bitness, isMisc),
+					_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+				};
 			}
 		}
 

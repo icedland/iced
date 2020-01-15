@@ -587,26 +587,22 @@ namespace Iced.Intel {
 		/// Use this property if the operand has kind <see cref="OpKind.Memory"/>
 		/// </summary>
 		public int MemoryDisplSize {
-			readonly get {
-				switch (((uint)memoryFlags >> (int)MemoryFlags.DisplSizeShift) & (uint)MemoryFlags.DisplSizeMask) {
-				case 0: return 0;
-				case 1: return 1;
-				case 2: return 2;
-				case 3: return 4;
-				default:
-				case 4: return 8;
-				}
-			}
+			readonly get =>
+				(((uint)memoryFlags >> (int)MemoryFlags.DisplSizeShift) & (uint)MemoryFlags.DisplSizeMask) switch {
+					0 => 0,
+					1 => 1,
+					2 => 2,
+					3 => 4,
+					_ => 8,
+				};
 			set {
-				uint encValue;
-				switch (value) {
-				case 0: encValue = 0; break;
-				case 1: encValue = 1; break;
-				case 2: encValue = 2; break;
-				case 4: encValue = 3; break;
-				default:
-				case 8: encValue = 4; break;
-				}
+				uint encValue = value switch {
+					0 => 0,
+					1 => 1,
+					2 => 2,
+					4 => 3,
+					_ => 4,
+				};
 				memoryFlags = (ushort)((memoryFlags & ~((uint)MemoryFlags.DisplSizeMask << (int)MemoryFlags.DisplSizeShift)) |
 					(encValue << (int)MemoryFlags.DisplSizeShift));
 			}
@@ -694,21 +690,19 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
-		public readonly ulong GetImmediate(int operand) {
-			switch (GetOpKind(operand)) {
-			case OpKind.Immediate8:			return Immediate8;
-			case OpKind.Immediate8_2nd:		return Immediate8_2nd;
-			case OpKind.Immediate16:		return Immediate16;
-			case OpKind.Immediate32:		return Immediate32;
-			case OpKind.Immediate64:		return Immediate64;
-			case OpKind.Immediate8to16:		return (ulong)Immediate8to16;
-			case OpKind.Immediate8to32:		return (ulong)Immediate8to32;
-			case OpKind.Immediate8to64:		return (ulong)Immediate8to64;
-			case OpKind.Immediate32to64:	return (ulong)Immediate32to64;
-			default:
-				throw new ArgumentException($"Op{operand} isn't an immediate operand", nameof(operand));
-			}
-		}
+		public readonly ulong GetImmediate(int operand) =>
+			GetOpKind(operand) switch {
+				OpKind.Immediate8 => Immediate8,
+				OpKind.Immediate8_2nd => Immediate8_2nd,
+				OpKind.Immediate16 => Immediate16,
+				OpKind.Immediate32 => Immediate32,
+				OpKind.Immediate64 => Immediate64,
+				OpKind.Immediate8to16 => (ulong)Immediate8to16,
+				OpKind.Immediate8to32 => (ulong)Immediate8to32,
+				OpKind.Immediate8to64 => (ulong)Immediate8to64,
+				OpKind.Immediate32to64 => (ulong)Immediate32to64,
+				_ => throw new ArgumentException($"Op{operand} isn't an immediate operand", nameof(operand)),
+			};
 
 		/// <summary>
 		/// Sets an operand's immediate value
@@ -913,16 +907,13 @@ namespace Iced.Intel {
 		/// Gets the near branch target if it's a <c>CALL</c>/<c>JMP</c>/<c>Jcc</c> near branch instruction
 		/// (i.e., if <see cref="Op0Kind"/> is <see cref="OpKind.NearBranch16"/>, <see cref="OpKind.NearBranch32"/> or <see cref="OpKind.NearBranch64"/>)
 		/// </summary>
-		public readonly ulong NearBranchTarget {
-			get {
-				switch (Op0Kind) {
-				case OpKind.NearBranch16:	return NearBranch16;
-				case OpKind.NearBranch32:	return NearBranch32;
-				case OpKind.NearBranch64:	return NearBranch64;
-				default:					return 0;
-				}
-			}
-		}
+		public readonly ulong NearBranchTarget =>
+			Op0Kind switch {
+				OpKind.NearBranch16 => NearBranch16,
+				OpKind.NearBranch32 => NearBranch32,
+				OpKind.NearBranch64 => NearBranch64,
+				_ => 0,
+			};
 
 		/// <summary>
 		/// Gets the operand's branch target. Use this property if the operand has kind <see cref="OpKind.FarBranch16"/>

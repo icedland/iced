@@ -61,19 +61,18 @@ namespace Generator.IO {
 
 		void InitializeIndent() => indentString = GetIndentString(indentCount);
 
-		static string GetIndentString(int indentCount) {
-			switch (indentCount) {
-			case 1:			return "\t";
-			case 2:			return "\t\t";
-			case 3:			return "\t\t\t";
-			case 4:			return "\t\t\t\t";
-			case 5:			return "\t\t\t\t\t";
-			case 6:			return "\t\t\t\t\t\t";
-			case 7:			return "\t\t\t\t\t\t\t";
-			case 8:			return "\t\t\t\t\t\t\t\t";
-			default:		return new string('\t', indentCount);
-			}
-		}
+		static string GetIndentString(int indentCount) =>
+			indentCount switch {
+				1 => "\t",
+				2 => "\t\t",
+				3 => "\t\t\t",
+				4 => "\t\t\t\t",
+				5 => "\t\t\t\t\t",
+				6 => "\t\t\t\t\t\t",
+				7 => "\t\t\t\t\t\t\t",
+				8 => "\t\t\t\t\t\t\t\t",
+				_ => new string('\t', indentCount),
+			};
 
 		public readonly struct Indenter : IDisposable {
 			readonly FileWriter writer;

@@ -105,8 +105,8 @@ pub trait FormatterOutput {
 	///
 	/// # Arguments
 	///
-	/// - `text`: Text, can be an empty string
-	/// - `kind`: Text kind. This value can be identical to the previous value passed to this method. It's the responsibility of the implementer to merge any such strings if needed.
+	/// - `text`: Text
+	/// - `kind`: Text kind
 	fn write(&mut self, text: &str, kind: FormatterOutputTextKind);
 
 	/// Writes a prefix
@@ -347,6 +347,10 @@ pub trait Formatter: private::Sealed {
 	/// Returns the operand access but only if it's an operand added by the formatter. If it's an
 	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory::info()`].
 	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
+	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
@@ -360,6 +364,10 @@ pub trait Formatter: private::Sealed {
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `None` if it's an operand added by the formatter
 	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
+	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
@@ -371,6 +379,10 @@ pub trait Formatter: private::Sealed {
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `None` if the instruction operand isn't used by the formatter
 	///
+	/// # Panics
+	///
+	/// Panics if `instruction_operand` is invalid
+	///
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
@@ -380,6 +392,10 @@ pub trait Formatter: private::Sealed {
 
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
 	/// A formatter can add and remove operands.
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid
 	///
 	/// # Arguments
 	///

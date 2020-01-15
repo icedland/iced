@@ -703,12 +703,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void CreateTest(int bitness, string hexBytes, DecoderOptions options, Instruction createdInstr) {
 			var bytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(bytes), options);
-			switch (bitness) {
-			case 16: decoder.IP = DecoderConstants.DEFAULT_IP16; break;
-			case 32: decoder.IP = DecoderConstants.DEFAULT_IP32; break;
-			case 64: decoder.IP = DecoderConstants.DEFAULT_IP64; break;
-			default: throw new InvalidOperationException();
-			}
+			decoder.IP = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var origRip = decoder.IP;
 			decoder.Decode(out var decodedInstr);
 			decodedInstr.CodeSize = 0;

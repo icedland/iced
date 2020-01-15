@@ -180,11 +180,14 @@ impl Default for PrefixKind {
 /// Decorator
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
-#[allow(missing_docs)]
 pub enum DecoratorKind {
+	/// Broadcast decorator, eg. `{1to4}`
 	Broadcast,
+	/// Rounding control, eg. `{rd-sae}`
 	RoundingControl,
+	/// Suppress all exceptions: `{sae}`
 	SuppressAllExceptions,
+	/// Zeroing masking: `{z}`
 	ZeroingMasking,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]

@@ -92,13 +92,13 @@ namespace Iced.Intel.GasFormatterInternal {
 				if (i < (int)IcedConstants.FirstBroadcastMemorySize)
 					bcstTo = default;
 				else {
-					switch ((BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize]) {
-					case BroadcastToKind.b1to2:		bcstTo = b1to2; break;
-					case BroadcastToKind.b1to4:		bcstTo = b1to4; break;
-					case BroadcastToKind.b1to8:		bcstTo = b1to8; break;
-					case BroadcastToKind.b1to16:	bcstTo = b1to16; break;
-					default:						throw new InvalidOperationException();
-					}
+					bcstTo = (BroadcastToKind)bcstToData[i - (int)IcedConstants.FirstBroadcastMemorySize] switch {
+						BroadcastToKind.b1to2 => b1to2,
+						BroadcastToKind.b1to4 => b1to4,
+						BroadcastToKind.b1to8 => b1to8,
+						BroadcastToKind.b1to16 => b1to16,
+						_ => throw new InvalidOperationException(),
+					};
 				}
 
 				infos[i] = bcstTo;

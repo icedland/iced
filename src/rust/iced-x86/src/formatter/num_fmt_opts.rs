@@ -33,9 +33,9 @@ pub struct NumberFormattingOptions<'a> {
 	pub prefix: &'a str,
 	/// Number suffix or an empty string
 	pub suffix: &'a str,
-	/// Digit separator or an empty string
+	/// Digit separator or an empty string to not use a digit separator
 	pub digit_separator: &'a str,
-	/// Size of a digit group
+	/// Size of a digit group or 0 to not use a digit separator
 	pub digit_group_size: u8,
 	/// Number base
 	pub number_base: NumberBase,
@@ -43,7 +43,7 @@ pub struct NumberFormattingOptions<'a> {
 	pub upper_case_hex: bool,
 	/// Small hex numbers (-9 .. 9) are shown in decimal
 	pub small_hex_numbers_in_decimal: bool,
-	/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits `A-F`
+	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	pub add_leading_zero_to_hex_numbers: bool,
 	/// If `true`, add leading zeroes to numbers, eg. `1h` vs `00000001h`
 	pub leading_zeroes: bool,

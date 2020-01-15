@@ -66,22 +66,13 @@ namespace Iced.Intel.EncoderInternal {
 
 		public DeclareDataHandler(Code code)
 			: base(0, 0, OpCodeHandlerFlags.DeclareData, Encodable.Any, OperandSize.None, AddressSize.None, null, Array2.Empty<Op>()) {
-			switch (code) {
-			case Code.DeclareByte:
-				elemLength = 1;
-				break;
-			case Code.DeclareWord:
-				elemLength = 2;
-				break;
-			case Code.DeclareDword:
-				elemLength = 4;
-				break;
-			case Code.DeclareQword:
-				elemLength = 8;
-				break;
-			default:
-				throw new InvalidOperationException();
-			}
+			elemLength = code switch {
+				Code.DeclareByte => 1,
+				Code.DeclareWord => 2,
+				Code.DeclareDword => 4,
+				Code.DeclareQword => 8,
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
@@ -157,13 +148,13 @@ namespace Iced.Intel.EncoderInternal {
 				throw new InvalidOperationException();
 			}
 
-			switch ((MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask)) {
-			case MandatoryPrefixByte.None:	mandatoryPrefix = 0x00; break;
-			case MandatoryPrefixByte.P66:	mandatoryPrefix = 0x66; break;
-			case MandatoryPrefixByte.PF3:	mandatoryPrefix = 0xF3; break;
-			case MandatoryPrefixByte.PF2:	mandatoryPrefix = 0xF2; break;
-			default:					throw new InvalidOperationException();
-			}
+			mandatoryPrefix = (MandatoryPrefixByte)((dword2 >> (int)LegacyFlags.MandatoryPrefixByteShift) & (uint)LegacyFlags.MandatoryPrefixByteMask) switch {
+				MandatoryPrefixByte.None => 0x00,
+				MandatoryPrefixByte.P66 => 0x66,
+				MandatoryPrefixByte.PF3 => 0xF3,
+				MandatoryPrefixByte.PF2 => 0xF2,
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		public override void Encode(Encoder encoder, in Instruction instruction) {
@@ -198,7 +189,7 @@ namespace Iced.Intel.EncoderInternal {
 		readonly uint lastByte;
 		readonly uint mask_W_L;
 		readonly uint mask_L;
-		readonly bool W1;
+		readonly uint W1;
 
 		static int GetGroupIndex(uint dword2) {
 			if ((dword2 & (uint)VexFlags.HasGroupIndex) == 0)
@@ -237,7 +228,7 @@ namespace Iced.Intel.EncoderInternal {
 			: base(GetOpCode(dword1), GetGroupIndex(dword2), OpCodeHandlerFlags.None, (Encodable)((dword2 >> (int)VexFlags.EncodableShift) & (uint)VexFlags.EncodableMask), OperandSize.None, AddressSize.None, null, CreateOps(dword3)) {
 			table = ((dword2 >> (int)VexFlags.VexOpCodeTableShift) & (uint)VexFlags.VexOpCodeTableMask);
 			var wbit = (WBit)((dword2 >> (int)VexFlags.WBitShift) & (uint)VexFlags.WBitMask);
-			W1 = wbit == WBit.W1;
+			W1 = wbit == WBit.W1 ? uint.MaxValue : 0;
 			var vexFlags = (VexVectorLength)((dword2 >> (int)VexFlags.VexVectorLengthShift) & (int)VexFlags.VexVectorLengthMask);
 			switch (vexFlags) {
 			case VexVectorLength.LZ:
@@ -252,7 +243,7 @@ namespace Iced.Intel.EncoderInternal {
 			default:
 				throw new InvalidOperationException();
 			}
-			if (W1)
+			if (W1 != 0)
 				lastByte |= 0x80;
 			lastByte |= (dword2 >> (int)VexFlags.MandatoryPrefixByteShift) & (uint)VexFlags.MandatoryPrefixByteMask;
 			if (wbit == WBit.WIG)
@@ -273,7 +264,7 @@ namespace Iced.Intel.EncoderInternal {
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
-			if (encoder.PreventVEX2 || W1 || table != (uint)VexOpCodeTable.Table0F || (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W)) != 0) {
+			if (encoder.PreventVEX2 || (W1 | (table - (uint)VexOpCodeTable.Table0F) | (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
 				encoder.WriteByteInternal(0xC4);
 				Static.Assert((int)VexOpCodeTable.Table0F == 1 ? 0 : -1);
 				Static.Assert((int)VexOpCodeTable.Table0F38 == 2 ? 0 : -1);

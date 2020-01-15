@@ -102,7 +102,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public struct NumberFormattingOptions {
 		/// <summary>
-		/// Digit separator or <see langword="null"/>/empty string
+		/// Digit separator or <see langword="null"/>/empty string to not use a digit separator
 		/// </summary>
 		public string? DigitSeparator;
 
@@ -117,7 +117,7 @@ namespace Iced.Intel {
 		public string? Suffix;
 
 		/// <summary>
-		/// Size of a digit group
+		/// Size of a digit group or 0 to not use a digit separator
 		/// </summary>
 		public byte DigitGroupSize;
 
@@ -141,7 +141,7 @@ namespace Iced.Intel {
 		public bool SmallHexNumbersInDecimal;
 
 		/// <summary>
-		/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
+		/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
 		/// </summary>
 		public bool AddLeadingZeroToHexNumbers;
 

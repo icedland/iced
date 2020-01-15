@@ -112,14 +112,15 @@ namespace Generator.Formatters.Rust {
 			}
 		}
 
-		static string ToString(BroadcastToKind bcst) => bcst switch {
-			BroadcastToKind.None => "",
-			BroadcastToKind.b1to2 => "1to2",
-			BroadcastToKind.b1to4 => "1to4",
-			BroadcastToKind.b1to8 => "1to8",
-			BroadcastToKind.b1to16 => "1to16",
-			_ => throw new InvalidOperationException(),
-		};
+		static string ToString(BroadcastToKind bcst) =>
+			bcst switch {
+				BroadcastToKind.None => "",
+				BroadcastToKind.b1to2 => "1to2",
+				BroadcastToKind.b1to4 => "1to4",
+				BroadcastToKind.b1to8 => "1to8",
+				BroadcastToKind.b1to16 => "1to16",
+				_ => throw new InvalidOperationException(),
+			};
 
 		protected override void GenerateRegisters(string[] registers) {
 			var filename = Path.Combine(generatorOptions.RustDir, "formatter", "regs_tbl.rs");

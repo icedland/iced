@@ -457,17 +457,11 @@ namespace Generator.Decoder.CSharp {
 
 			case string name:
 				var info = GetInfo(name);
-				object kind2;
-				switch (info.Kind) {
-				case InfoKind.Handler:
-					kind2 = GetHandlerReferenceValue();
-					break;
-				case InfoKind.Handlers:
-					kind2 = GetArrayReferenceValue();
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
+				object kind2 = info.Kind switch {
+					InfoKind.Handler => GetHandlerReferenceValue(),
+					InfoKind.Handlers => GetArrayReferenceValue(),
+					_ => throw new InvalidOperationException(),
+				};
 				SerializeHandlers(writer, new object[] { kind2, new InfoIndex(info.Index, name) });
 				break;
 

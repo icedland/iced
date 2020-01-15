@@ -90,14 +90,15 @@ namespace Iced.Intel.GasFormatterInternal {
 		public sbyte Op3Index;
 		public sbyte Op4Index;
 
-		public readonly int GetOpRegister(int operand) => operand switch {
-			0 => Op0Register,
-			1 => Op1Register,
-			2 => Op2Register,
-			3 => Op3Register,
-			4 => Op4Register,
-			_ => throw new ArgumentOutOfRangeException(nameof(operand)),
-		};
+		public readonly int GetOpRegister(int operand) =>
+			operand switch {
+				0 => Op0Register,
+				1 => Op1Register,
+				2 => Op2Register,
+				3 => Op3Register,
+				4 => Op4Register,
+				_ => throw new ArgumentOutOfRangeException(nameof(operand)),
+			};
 
 		public readonly InstrOpKind GetOpKind(int operand) {
 			switch (operand) {
@@ -349,12 +350,13 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public abstract void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info);
 
-		protected static int GetBitness(CodeSize codeSize) => codeSize switch {
-			CodeSize.Code16 => 16,
-			CodeSize.Code32 => 32,
-			CodeSize.Code64 => 64,
-			_ => 0,
-		};
+		protected static int GetBitness(CodeSize codeSize) =>
+			codeSize switch {
+				CodeSize.Code16 => 16,
+				CodeSize.Code32 => 32,
+				CodeSize.Code64 => 64,
+				_ => 0,
+			};
 
 		protected static FormatterString GetMnemonic(GasFormatterOptions options, in Instruction instruction, FormatterString mnemonic, FormatterString mnemonic_suffix, InstrOpInfoFlags flags) {
 			if (options.ShowMnemonicSizeSuffix)

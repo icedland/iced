@@ -27,29 +27,28 @@ using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel {
 	static class FormatterConstants {
-		public static FormatterString[] GetPseudoOps(PseudoOpsKind kind) {
-			switch (kind) {
-			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
-			case PseudoOpsKind.vcmpps:		return vcmpps_pseudo_ops;
-			case PseudoOpsKind.cmppd:		return cmppd_pseudo_ops;
-			case PseudoOpsKind.vcmppd:		return vcmppd_pseudo_ops;
-			case PseudoOpsKind.cmpss:		return cmpss_pseudo_ops;
-			case PseudoOpsKind.vcmpss:		return vcmpss_pseudo_ops;
-			case PseudoOpsKind.cmpsd:		return cmpsd_pseudo_ops;
-			case PseudoOpsKind.vcmpsd:		return vcmpsd_pseudo_ops;
-			case PseudoOpsKind.pclmulqdq:	return pclmulqdq_pseudo_ops;
-			case PseudoOpsKind.vpclmulqdq:	return vpclmulqdq_pseudo_ops;
-			case PseudoOpsKind.vpcomb:		return vpcomb_pseudo_ops;
-			case PseudoOpsKind.vpcomw:		return vpcomw_pseudo_ops;
-			case PseudoOpsKind.vpcomd:		return vpcomd_pseudo_ops;
-			case PseudoOpsKind.vpcomq:		return vpcomq_pseudo_ops;
-			case PseudoOpsKind.vpcomub:		return vpcomub_pseudo_ops;
-			case PseudoOpsKind.vpcomuw:		return vpcomuw_pseudo_ops;
-			case PseudoOpsKind.vpcomud:		return vpcomud_pseudo_ops;
-			case PseudoOpsKind.vpcomuq:		return vpcomuq_pseudo_ops;
-			default:						throw new ArgumentOutOfRangeException(nameof(kind));
-			}
-		}
+		public static FormatterString[] GetPseudoOps(PseudoOpsKind kind) =>
+			kind switch {
+				PseudoOpsKind.cmpps => cmpps_pseudo_ops,
+				PseudoOpsKind.vcmpps => vcmpps_pseudo_ops,
+				PseudoOpsKind.cmppd => cmppd_pseudo_ops,
+				PseudoOpsKind.vcmppd => vcmppd_pseudo_ops,
+				PseudoOpsKind.cmpss => cmpss_pseudo_ops,
+				PseudoOpsKind.vcmpss => vcmpss_pseudo_ops,
+				PseudoOpsKind.cmpsd => cmpsd_pseudo_ops,
+				PseudoOpsKind.vcmpsd => vcmpsd_pseudo_ops,
+				PseudoOpsKind.pclmulqdq => pclmulqdq_pseudo_ops,
+				PseudoOpsKind.vpclmulqdq => vpclmulqdq_pseudo_ops,
+				PseudoOpsKind.vpcomb => vpcomb_pseudo_ops,
+				PseudoOpsKind.vpcomw => vpcomw_pseudo_ops,
+				PseudoOpsKind.vpcomd => vpcomd_pseudo_ops,
+				PseudoOpsKind.vpcomq => vpcomq_pseudo_ops,
+				PseudoOpsKind.vpcomub => vpcomub_pseudo_ops,
+				PseudoOpsKind.vpcomuw => vpcomuw_pseudo_ops,
+				PseudoOpsKind.vpcomud => vpcomud_pseudo_ops,
+				PseudoOpsKind.vpcomuq => vpcomuq_pseudo_ops,
+				_ => throw new ArgumentOutOfRangeException(nameof(kind)),
+			};
 
 		static FormatterConstants() {
 			var cc = new string[32] {

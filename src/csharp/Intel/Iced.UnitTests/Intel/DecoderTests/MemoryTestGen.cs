@@ -111,16 +111,13 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		readonly StringBuilder sb = new StringBuilder();
 		int length;
 
-		string GetCodeValue(int codeSize, bool isVsib) {
-			if (isVsib)
-				return EVEX_Code;
-			switch (codeSize) {
-			case 16: return Legacy_Code_16;
-			case 32: return Legacy_Code_32;
-			case 64: return Legacy_Code_64;
-			default: throw new InvalidOperationException();
-			}
-		}
+		string GetCodeValue(int codeSize, bool isVsib) =>
+			isVsib ? EVEX_Code : codeSize switch {
+				16 => Legacy_Code_16,
+				32 => Legacy_Code_32,
+				64 => Legacy_Code_64,
+				_ => throw new InvalidOperationException(),
+			};
 
 		string GetHexBytes(out int length) {
 			length = this.length;
@@ -246,14 +243,13 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			}
 		}
 
-		Register GetLegacyRegister(int codeSize) {
-			switch (codeSize) {
-			case 16: return Legacy_Register_16;
-			case 32: return Legacy_Register_32;
-			case 64: return Legacy_Register_64;
-			default: throw new InvalidOperationException();
-			}
-		}
+		Register GetLegacyRegister(int codeSize) =>
+			codeSize switch {
+				16 => Legacy_Register_16,
+				32 => Legacy_Register_32,
+				64 => Legacy_Register_64,
+				_ => throw new InvalidOperationException(),
+			};
 
 		uint GetDispl(int addrSize, int displSize, byte rand) {
 			bool b = ((rand & 8) != 0);

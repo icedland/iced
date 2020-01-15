@@ -1,7 +1,7 @@
 iced-x86
 [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](https://github.com/0xd4d/iced/tree/master/src/rust/iced-x86#rust-version-requirements)
+[![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](https://github.com/0xd4d/iced/tree/master/src/rust/iced-x86#minimum-supported-rustc-version)
 ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
 TODO:

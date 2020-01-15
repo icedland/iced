@@ -36,32 +36,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		public static readonly DecoderMemoryTestCase[] TestCasesMemory32 = ReadMemoryTestCases(32);
 		public static readonly DecoderMemoryTestCase[] TestCasesMemory64 = ReadMemoryTestCases(64);
 
-		public static DecoderTestCase[] GetTestCases(int bitness) {
-			switch (bitness) {
-			case 16: return TestCases16;
-			case 32: return TestCases32;
-			case 64: return TestCases64;
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
+		public static DecoderTestCase[] GetTestCases(int bitness) =>
+			bitness switch {
+				16 => TestCases16,
+				32 => TestCases32,
+				64 => TestCases64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 
-		public static DecoderTestCase[] GetMiscTestCases(int bitness) {
-			switch (bitness) {
-			case 16: return TestCasesMisc16;
-			case 32: return TestCasesMisc32;
-			case 64: return TestCasesMisc64;
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
+		public static DecoderTestCase[] GetMiscTestCases(int bitness) =>
+			bitness switch {
+				16 => TestCasesMisc16,
+				32 => TestCasesMisc32,
+				64 => TestCasesMisc64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 
-		public static DecoderMemoryTestCase[] GetMemoryTestCases(int bitness) {
-			switch (bitness) {
-			case 16: return TestCasesMemory16;
-			case 32: return TestCasesMemory32;
-			case 64: return TestCasesMemory64;
-			default: throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
-		}
+		public static DecoderMemoryTestCase[] GetMemoryTestCases(int bitness) =>
+			bitness switch {
+				16 => TestCasesMemory16,
+				32 => TestCasesMemory32,
+				64 => TestCasesMemory64,
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
+			};
 
 		static DecoderTestCase[] ReadTestCases(int bitness) {
 			var filename = PathUtils.GetTestTextFilename($"DecoderTest{bitness}.txt", "Decoder");
