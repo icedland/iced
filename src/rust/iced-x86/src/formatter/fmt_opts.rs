@@ -48,7 +48,7 @@ impl Flags1 {
 	pub(crate) const BRANCH_LEADING_ZEROES: u32 = 0x0004_0000;
 	pub(crate) const SIGNED_IMMEDIATE_OPERANDS: u32 = 0x0008_0000;
 	pub(crate) const SIGNED_MEMORY_DISPLACEMENTS: u32 = 0x0010_0000;
-	pub(crate) const SIGN_EXTEND_MEMORY_DISPLACEMENTS: u32 = 0x0020_0000;
+	pub(crate) const DISPLACEMENT_LEADING_ZEROES: u32 = 0x0020_0000;
 	pub(crate) const RIP_RELATIVE_ADDRESSES: u32 = 0x0040_0000;
 	pub(crate) const SHOW_BRANCH_SIZE: u32 = 0x0080_0000;
 	pub(crate) const USE_PSEUDO_OPS: u32 = 0x0100_0000;
@@ -915,7 +915,9 @@ impl FormatterOptions {
 		self.binary_digit_group_size = value
 	}
 
-	/// Digit separator or an empty string
+	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	///
+	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
 	///
 	/// - Default: `""`
 	/// - `""`: `0x12345678`
@@ -1033,7 +1035,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits `A-F`
+	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
 	/// - Default: `true`
 	/// - `true`: `0FFh`
@@ -1044,7 +1046,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS) != 0
 	}
 
-	/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits `A-F`
+	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
 	/// - Default: `true`
 	/// - `true`: `0FFh`
@@ -1174,18 +1176,18 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Sign extend memory displacements to the address size (16-bit, 32-bit, 64-bit)
+	/// Add leading zeroes to displacements
 	///
 	/// - Default: `false`
 	/// - `true`: `mov al,[eax+00000012h]`
 	/// - `false`: `mov al,[eax+12h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn sign_extend_memory_displacements(&self) -> bool {
-		(self.options1 & Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS) != 0
+	pub fn displacement_leading_zeroes(&self) -> bool {
+		(self.options1 & Flags1::DISPLACEMENT_LEADING_ZEROES) != 0
 	}
 
-	/// Sign extend memory displacements to the address size (16-bit, 32-bit, 64-bit)
+	/// Add leading zeroes to displacements
 	///
 	/// - Default: `false`
 	/// - `true`: `mov al,[eax+00000012h]`
@@ -1195,11 +1197,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_sign_extend_memory_displacements(&mut self, value: bool) {
+	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS;
+			self.options1 |= Flags1::DISPLACEMENT_LEADING_ZEROES;
 		} else {
-			self.options1 &= !Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS;
+			self.options1 &= !Flags1::DISPLACEMENT_LEADING_ZEROES;
 		}
 	}
 

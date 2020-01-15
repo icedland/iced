@@ -1049,7 +1049,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = (-(displ as i32)) as u32 as i64;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 4);
 							displ_size = 4;
 						}
@@ -1058,7 +1058,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = -displ;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 8);
 							displ_size = 8;
 						}
@@ -1068,7 +1068,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = (-(displ as i16)) as u16 as i64;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 2);
 							displ_size = 2;
 						}

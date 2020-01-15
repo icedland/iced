@@ -75,7 +75,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.BranchLeadingZeroes);
 			Assert.False(options.SignedImmediateOperands);
 			Assert.True(options.SignedMemoryDisplacements);
-			Assert.False(options.SignExtendMemoryDisplacements);
+			Assert.False(options.DisplacementLeadingZeroes);
 			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
 			Assert.False(options.RipRelativeAddresses);
 			Assert.True(options.ShowBranchSize);

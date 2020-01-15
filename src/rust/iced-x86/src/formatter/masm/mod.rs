@@ -1196,7 +1196,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 4);
 						displ_size = 4;
 					}
@@ -1209,7 +1209,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 8);
 						displ_size = 8;
 					}
@@ -1223,7 +1223,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 2);
 						displ_size = 2;
 					}
