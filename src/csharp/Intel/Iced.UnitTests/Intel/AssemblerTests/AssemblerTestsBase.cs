@@ -64,7 +64,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.True(fIns(inst));
 			
 			// Encode the instruction
-			assembler.Encode();
+			assembler.Encode(BlockEncoderOptions.DontFixBranches);
 
 			// Special for decoding options
 			DecoderOptions decoderOptions = DecoderOptions.None;

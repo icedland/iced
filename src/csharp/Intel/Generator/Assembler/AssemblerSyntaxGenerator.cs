@@ -908,8 +908,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmm_rm:
 			case OpCodeOperandKind.zmm_or_mem:
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64z:
 				return -30;
 
 			case OpCodeOperandKind.ymm_reg:
@@ -918,8 +916,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.ymm_vvvv:
 			case OpCodeOperandKind.ymm_rm:
 			case OpCodeOperandKind.ymm_or_mem:
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib64y:
 				return -20;
 			
 			case OpCodeOperandKind.xmm_is4:
@@ -928,8 +924,6 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.xmm_vvvv:
 			case OpCodeOperandKind.xmm_rm:
 			case OpCodeOperandKind.xmm_or_mem:
-			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib64x:
 				return -10;
 
 			case OpCodeOperandKind.rax:
@@ -989,6 +983,12 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mem_offs:
 			case OpCodeOperandKind.mem_mpx:
 			case OpCodeOperandKind.mem_mib:
+			case OpCodeOperandKind.mem_vsib32z:
+			case OpCodeOperandKind.mem_vsib64z:
+			case OpCodeOperandKind.mem_vsib32y:
+			case OpCodeOperandKind.mem_vsib64y:
+			case OpCodeOperandKind.mem_vsib32x:
+			case OpCodeOperandKind.mem_vsib64x:
 				switch (addressSize) {
 				case 64:
 					return 10;
@@ -1232,17 +1232,23 @@ namespace Generator.Assembler {
 			}
 			
 			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib64x:
-				return OpCodeSelectorKind.MemoryXMM;
-
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib64y:
-				return OpCodeSelectorKind.MemoryYMM;
-
-			case OpCodeOperandKind.mem_vsib32z:
-			case OpCodeOperandKind.mem_vsib64z:
-				return OpCodeSelectorKind.MemoryZMM;
+				return OpCodeSelectorKind.MemoryIndex32Xmm;
 			
+			case OpCodeOperandKind.mem_vsib32y:
+				return OpCodeSelectorKind.MemoryIndex32Ymm;
+			
+			case OpCodeOperandKind.mem_vsib32z:
+				return OpCodeSelectorKind.MemoryIndex32Zmm;
+			
+			case OpCodeOperandKind.mem_vsib64x:
+				return OpCodeSelectorKind.MemoryIndex64Xmm;
+			
+			case OpCodeOperandKind.mem_vsib64y:
+				return OpCodeSelectorKind.MemoryIndex64Ymm;
+			
+			case OpCodeOperandKind.mem_vsib64z:
+				return OpCodeSelectorKind.MemoryIndex64Zmm;
+
 			case OpCodeOperandKind.r8_or_mem:
 				return returnMemoryAsRegister ? OpCodeSelectorKind.Register8 : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory8);
 
@@ -1812,6 +1818,14 @@ namespace Generator.Assembler {
 			ImmediateByteWith2Bits,
 
 			Vex,
+			
+			MemoryIndex32Xmm,
+			MemoryIndex32Ymm,
+			MemoryIndex32Zmm,
+			
+			MemoryIndex64Xmm,
+			MemoryIndex64Ymm,
+			MemoryIndex64Zmm,
 			
 			RegisterCL,
 			RegisterAL,

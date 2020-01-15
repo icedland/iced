@@ -533,7 +533,7 @@ namespace Generator.Assembler.CSharp {
 					return "__[ecx]";
 				}
 				else if (bitness == 16) {
-					return "__[cx]";
+					return "__[si]";
 				}
 
 				break;
@@ -545,7 +545,7 @@ namespace Generator.Assembler.CSharp {
 					return "__byte_ptr[ecx]";
 				}
 				else if (bitness == 16) {
-					return "__byte_ptr[cx]";
+					return "__byte_ptr[si]";
 				}
 				break;
 			case OpCodeOperandKind.mem_vsib32x:
@@ -558,7 +558,7 @@ namespace Generator.Assembler.CSharp {
 					return "__dword_ptr[ecx]";
 				}
 				else if (bitness == 16) {
-					return "__dword_ptr[cx]";
+					return "__dword_ptr[si]";
 				}
 				break;
 			case OpCodeOperandKind.mem_vsib64x:
@@ -571,7 +571,7 @@ namespace Generator.Assembler.CSharp {
 					return "__qword_ptr[ecx]";
 				}
 				else if (bitness == 16) {
-					return "__qword_ptr[cx]";
+					return "__qword_ptr[si]";
 				}
 				break;
 			case OpCodeOperandKind.r8_or_mem:
@@ -583,7 +583,7 @@ namespace Generator.Assembler.CSharp {
 						return "__byte_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__byte_ptr[cx]";
+						return "__byte_ptr[si]";
 					}
 
 					break;
@@ -602,7 +602,7 @@ namespace Generator.Assembler.CSharp {
 						return "__word_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__word_ptr[cx]";
+						return "__word_ptr[si]";
 					}
 				}
 				else {
@@ -620,7 +620,7 @@ namespace Generator.Assembler.CSharp {
 						return "__dword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__dword_ptr[cx]";
+						return "__dword_ptr[si]";
 					}
 				}
 				else {
@@ -638,7 +638,7 @@ namespace Generator.Assembler.CSharp {
 						return "__qword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__qword_ptr[cx]";
+						return "__qword_ptr[si]";
 					}
 				}
 				else {
@@ -655,7 +655,7 @@ namespace Generator.Assembler.CSharp {
 						return "__qword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__qword_ptr[cx]";
+						return "__qword_ptr[si]";
 					}
 				}
 				else {
@@ -672,7 +672,7 @@ namespace Generator.Assembler.CSharp {
 						return "__xmmword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__xmmword_ptr[cx]";
+						return "__xmmword_ptr[si]";
 					}
 				}
 				else {
@@ -689,7 +689,7 @@ namespace Generator.Assembler.CSharp {
 						return "__ymmword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__ymmword_ptr[cx]";
+						return "__ymmword_ptr[si]";
 					}
 				}
 				else {
@@ -705,7 +705,7 @@ namespace Generator.Assembler.CSharp {
 						return "__zmmword_ptr[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__zmmword_ptr[cx]";
+						return "__zmmword_ptr[si]";
 					}
 				}
 				else {
@@ -722,7 +722,7 @@ namespace Generator.Assembler.CSharp {
 						return "__[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__[cx]";
+						return "__[si]";
 					}
 				}
 				else {
@@ -738,7 +738,7 @@ namespace Generator.Assembler.CSharp {
 						return "__[ecx]";
 					}
 					else if (bitness == 16) {
-						return "__[cx]";
+						return "__[si]";
 					}
 				}
 				else {
@@ -1031,6 +1031,15 @@ namespace Generator.Assembler.CSharp {
 				return $"{regName}.Size == MemoryOperandSize.YwordPtr";
 			case OpCodeSelectorKind.MemoryZMM:
 				return $"{regName}.Size == MemoryOperandSize.ZwordPtr";
+			case OpCodeSelectorKind.MemoryIndex32Xmm:
+			case OpCodeSelectorKind.MemoryIndex64Xmm:
+				return $"{regName}.Index.IsXMM()";
+			case OpCodeSelectorKind.MemoryIndex64Ymm:
+			case OpCodeSelectorKind.MemoryIndex32Ymm:
+				return $"{regName}.Index.IsYMM()";
+			case OpCodeSelectorKind.MemoryIndex64Zmm:
+			case OpCodeSelectorKind.MemoryIndex32Zmm:
+				return $"{regName}.Index.IsZMM()";
 			default:
 				return $"invalid_selector_{selectorKind}_for_arg_{regName}";
 			}
@@ -1307,7 +1316,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__byte_ptr[dx]";
+					yield return "__byte_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__byte_ptr[edx]";
@@ -1320,7 +1329,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__word_ptr[dx]";
+					yield return "__word_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__word_ptr[edx]";
@@ -1333,7 +1342,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__dword_ptr[dx]";
+					yield return "__dword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__dword_ptr[edx]";
@@ -1346,7 +1355,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__tword_ptr[dx]";
+					yield return "__tword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__tword_ptr[edx]";
@@ -1360,7 +1369,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__qword_ptr[dx]";
+					yield return "__qword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__qword_ptr[edx]";
@@ -1373,7 +1382,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__xmmword_ptr[dx]";
+					yield return "__xmmword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__xmmword_ptr[edx]";
@@ -1386,7 +1395,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__ymmword_ptr[dx]";
+					yield return "__ymmword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__ymmword_ptr[edx]";
@@ -1399,7 +1408,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__zmmword_ptr[dx]";
+					yield return "__zmmword_ptr[di]";
 				}
 				else if (bitness == 32) {
 					yield return "__zmmword_ptr[edx]";
@@ -1418,6 +1427,42 @@ namespace Generator.Assembler.CSharp {
 			// 	break;
 			// case OpCodeSelectorKind.MemoryK:
 			// 	break;
+			case OpCodeSelectorKind.MemoryIndex32Xmm:
+			case OpCodeSelectorKind.MemoryIndex64Xmm:
+				if (isElseBranch) {
+					yield return null;
+				} else if (bitness == 16) {
+					yield return "__[dx + xmm1]";
+				} else if (bitness == 32) {
+					yield return "__[edx + xmm1]";
+				} else if (bitness == 64) {
+					yield return "__[rdx + xmm1]";
+				}
+				break;
+			case OpCodeSelectorKind.MemoryIndex32Ymm:
+			case OpCodeSelectorKind.MemoryIndex64Ymm:
+				if (isElseBranch) {
+					yield return null;
+				} else if (bitness == 16) {
+					yield return "__[dx + ymm1]";
+				} else if (bitness == 32) {
+					yield return "__[edx + ymm1]";
+				} else if (bitness == 64) {
+					yield return "__[rdx + ymm1]";
+				}
+				break;
+			case OpCodeSelectorKind.MemoryIndex32Zmm:
+			case OpCodeSelectorKind.MemoryIndex64Zmm:
+				if (isElseBranch) {
+					yield return null;
+				} else if (bitness == 16) {
+					yield return "__[dx + zmm1]";
+				} else if (bitness == 32) {
+					yield return "__[edx + zmm1]";
+				} else if (bitness == 64) {
+					yield return "__[rdx + zmm1]";
+				}
+				break;
 			default:
 				throw new ArgumentOutOfRangeException(nameof(selectorKind), selectorKind, null);
 			}

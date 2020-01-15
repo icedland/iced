@@ -54628,11 +54628,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherqps(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (src.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.Index.IsZMM()) {
 				op = Code.EVEX_Vgatherqps_ymm_k1_vm64z;
-			} else if (src.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.Index.IsYMM()) {
 				op = Code.EVEX_Vgatherqps_xmm_k1_vm64y;
-			} else if (src.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.Index.IsXMM()) {
 				op = Code.EVEX_Vgatherqps_xmm_k1_vm64x;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherqps, dst, src);
@@ -54643,9 +54643,9 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGATHERQPS xmm1, vm64y, xmm2</c><br/>
+		/// <c>VGATHERQPS xmm1, vm64x, xmm2</c><br/>
 		/// <br/>
-		/// <c>VEX.256.66.0F38.W0 93 /r</c><br/>
+		/// <c>VEX.128.66.0F38.W0 93 /r</c><br/>
 		/// <br/>
 		/// <c>AVX2</c><br/>
 		/// <br/>
@@ -54653,19 +54653,19 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGATHERQPS xmm1, vm64x, xmm2</c><br/>
+		/// <c>VGATHERQPS xmm1, vm64y, xmm2</c><br/>
 		/// <br/>
-		/// <c>VEX.128.66.0F38.W0 93 /r</c><br/>
+		/// <c>VEX.256.66.0F38.W0 93 /r</c><br/>
 		/// <br/>
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgatherqps(AssemblerRegister dst, AssemblerMemoryOperand src1, AssemblerRegister src2) {
 			Code op;
-			if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.VEX_Vgatherqps_xmm_vm64y_xmm;
-			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
+			if (src1.Index.IsXMM()) {
 				op = Code.VEX_Vgatherqps_xmm_vm64x_xmm;
+			} else if (src1.Index.IsYMM()) {
+				op = Code.VEX_Vgatherqps_xmm_vm64y_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vgatherqps, dst, src1, src2);
 			}
@@ -71772,11 +71772,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpgatherqd(AssemblerRegister dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (src.Size == MemoryOperandSize.ZwordPtr) {
+			if (src.Index.IsZMM()) {
 				op = Code.EVEX_Vpgatherqd_ymm_k1_vm64z;
-			} else if (src.Size == MemoryOperandSize.YwordPtr) {
+			} else if (src.Index.IsYMM()) {
 				op = Code.EVEX_Vpgatherqd_xmm_k1_vm64y;
-			} else if (src.Size == MemoryOperandSize.OwordPtr) {
+			} else if (src.Index.IsXMM()) {
 				op = Code.EVEX_Vpgatherqd_xmm_k1_vm64x;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherqd, dst, src);
@@ -71787,9 +71787,9 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPGATHERQD xmm1, vm64y, xmm2</c><br/>
+		/// <c>VPGATHERQD xmm1, vm64x, xmm2</c><br/>
 		/// <br/>
-		/// <c>VEX.256.66.0F38.W0 91 /r</c><br/>
+		/// <c>VEX.128.66.0F38.W0 91 /r</c><br/>
 		/// <br/>
 		/// <c>AVX2</c><br/>
 		/// <br/>
@@ -71797,19 +71797,19 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPGATHERQD xmm1, vm64x, xmm2</c><br/>
+		/// <c>VPGATHERQD xmm1, vm64y, xmm2</c><br/>
 		/// <br/>
-		/// <c>VEX.128.66.0F38.W0 91 /r</c><br/>
+		/// <c>VEX.256.66.0F38.W0 91 /r</c><br/>
 		/// <br/>
 		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpgatherqd(AssemblerRegister dst, AssemblerMemoryOperand src1, AssemblerRegister src2) {
 			Code op;
-			if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.VEX_Vpgatherqd_xmm_vm64y_xmm;
-			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
+			if (src1.Index.IsXMM()) {
 				op = Code.VEX_Vpgatherqd_xmm_vm64x_xmm;
+			} else if (src1.Index.IsYMM()) {
+				op = Code.VEX_Vpgatherqd_xmm_vm64y_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpgatherqd, dst, src1, src2);
 			}
@@ -81836,11 +81836,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpscatterqd(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (dst.Index.IsZMM()) {
 				op = Code.EVEX_Vpscatterqd_vm64z_k1_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (dst.Index.IsYMM()) {
 				op = Code.EVEX_Vpscatterqd_vm64y_k1_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (dst.Index.IsXMM()) {
 				op = Code.EVEX_Vpscatterqd_vm64x_k1_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vpscatterqd, dst, src);
@@ -92140,11 +92140,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vscatterqps(AssemblerMemoryOperand dst, AssemblerRegister src) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.ZwordPtr) {
+			if (dst.Index.IsZMM()) {
 				op = Code.EVEX_Vscatterqps_vm64z_k1_ymm;
-			} else if (dst.Size == MemoryOperandSize.YwordPtr) {
+			} else if (dst.Index.IsYMM()) {
 				op = Code.EVEX_Vscatterqps_vm64y_k1_xmm;
-			} else if (dst.Size == MemoryOperandSize.OwordPtr) {
+			} else if (dst.Index.IsXMM()) {
 				op = Code.EVEX_Vscatterqps_vm64x_k1_xmm;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vscatterqps, dst, src);
