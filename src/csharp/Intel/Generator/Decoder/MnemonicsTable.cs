@@ -35,6 +35,10 @@ namespace Generator.Decoder {
 
 			var result = new (EnumValue codeEnum, EnumValue mnemonicEnum)[] {
 				(code[nameof(Code.INVALID)], mnemonic[nameof(Mnemonic.INVALID)]),
+				(code[nameof(Code.DeclareByte)], mnemonic[nameof(Mnemonic.Db)]),
+				(code[nameof(Code.DeclareWord)], mnemonic[nameof(Mnemonic.Dw)]),
+				(code[nameof(Code.DeclareDword)], mnemonic[nameof(Mnemonic.Dd)]),
+				(code[nameof(Code.DeclareQword)], mnemonic[nameof(Mnemonic.Dq)]),
 				(code[nameof(Code.Add_rm8_r8)], mnemonic[nameof(Mnemonic.Add)]),
 				(code[nameof(Code.Add_rm16_r16)], mnemonic[nameof(Mnemonic.Add)]),
 				(code[nameof(Code.Add_rm32_r32)], mnemonic[nameof(Mnemonic.Add)]),
@@ -4233,10 +4237,6 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], mnemonic[nameof(Mnemonic.Pmulhrw)]),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], mnemonic[nameof(Mnemonic.Pswapd)]),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], mnemonic[nameof(Mnemonic.Pavgusb)]),
-				(code[nameof(Code.DeclareByte)], mnemonic[nameof(Mnemonic.Db)]),
-				(code[nameof(Code.DeclareWord)], mnemonic[nameof(Mnemonic.Dw)]),
-				(code[nameof(Code.DeclareDword)], mnemonic[nameof(Mnemonic.Dd)]),
-				(code[nameof(Code.DeclareQword)], mnemonic[nameof(Mnemonic.Dq)]),
 			};
 
 			if (result.Length != code.Values.Length)

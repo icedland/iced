@@ -104,7 +104,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 			instr.set_op0_register(Register::CS);
 			instr.set_code_size(CodeSize::Code16);
 			instr.set_len(1);
-		} else if tc.code >= Code::DeclareByte {
+		} else if tc.code <= Code::DeclareQword {
 			instr = Instruction::default();
 			instr.set_code(tc.code);
 			instr.set_declare_data_len(1);

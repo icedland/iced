@@ -34,6 +34,10 @@ namespace Generator.Decoder {
 
 			var result = new (EnumValue codeEnum, int count)[] {
 				(code[nameof(Code.INVALID)], 0),
+				(code[nameof(Code.DeclareByte)], 0),
+				(code[nameof(Code.DeclareWord)], 0),
+				(code[nameof(Code.DeclareDword)], 0),
+				(code[nameof(Code.DeclareQword)], 0),
 				(code[nameof(Code.Add_rm8_r8)], 2),
 				(code[nameof(Code.Add_rm16_r16)], 2),
 				(code[nameof(Code.Add_rm32_r32)], 2),
@@ -4232,10 +4236,6 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], 2),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], 2),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], 2),
-				(code[nameof(Code.DeclareByte)], 0),
-				(code[nameof(Code.DeclareWord)], 0),
-				(code[nameof(Code.DeclareDword)], 0),
-				(code[nameof(Code.DeclareQword)], 0),
 			};
 
 			if (result.Length != code.Values.Length)

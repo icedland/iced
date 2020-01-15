@@ -29,6 +29,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// Normal_1
 	0xD9, 0x06,// 857 = "(bad)"
 
+	// DeclareByte
+	0x0A,// DeclareData
+	0xFB, 0x09,// 1275 = "db"
+
+	// DeclareWord
+	0x0A,// DeclareData
+	0xFE, 0x09,// 1278 = "dw"
+
+	// DeclareDword
+	0x0A,// DeclareData
+	0xFC, 0x09,// 1276 = "dd"
+
+	// DeclareQword
+	0x0A,// DeclareData
+	0xFD, 0x09,// 1277 = "dq"
+
 	// Add_rm8_r8
 	0x01,// Normal_1
 	0x04,// 4 = "add"
@@ -16023,20 +16039,4 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// D3NOW_Pavgusb_mm_mmm64
 	0x01,// Normal_1
 	0xC2, 0x08,// 1090 = "pavgusb"
-
-	// DeclareByte
-	0x0A,// DeclareData
-	0xFB, 0x09,// 1275 = "db"
-
-	// DeclareWord
-	0x0A,// DeclareData
-	0xFE, 0x09,// 1278 = "dw"
-
-	// DeclareDword
-	0x0A,// DeclareData
-	0xFC, 0x09,// 1276 = "dd"
-
-	// DeclareQword
-	0x0A,// DeclareData
-	0xFD, 0x09,// 1277 = "dq"
 ];

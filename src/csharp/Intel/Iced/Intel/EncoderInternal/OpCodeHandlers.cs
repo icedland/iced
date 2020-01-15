@@ -40,7 +40,7 @@ namespace Iced.Intel.EncoderInternal {
 					var code = (Code)j;
 					if (code == Code.INVALID)
 						handler = new InvalidHandler();
-					else if (code >= Code.DeclareByte)
+					else if (code <= Code.DeclareQword)
 						handler = new DeclareDataHandler(code);
 					else
 						handler = new LegacyHandler(dword1, info[i + 1], info[i + 2]);

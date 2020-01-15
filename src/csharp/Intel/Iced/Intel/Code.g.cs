@@ -30,6 +30,14 @@ namespace Iced.Intel {
 	public enum Code {
 		/// <summary>It&apos;s an invalid instruction, eg. it&apos;s a new unknown instruction, garbage or there&apos;s not enough bytes to decode the instruction etc.</summary>
 		INVALID,
+		/// <summary>A <c>db</c>/<c>.byte</c> asm directive that can store 1-16 bytes</summary>
+		DeclareByte,
+		/// <summary>A <c>dw</c>/<c>.word</c> asm directive that can store 1-8 words</summary>
+		DeclareWord,
+		/// <summary>A <c>dd</c>/<c>.int</c> asm directive that can store 1-4 dwords</summary>
+		DeclareDword,
+		/// <summary>A <c>dq</c>/<c>.quad</c> asm directive that can store 1-2 qwords</summary>
+		DeclareQword,
 		/// <summary><c>ADD r/m8, r8</c><br/>
 		/// <br/>
 		/// <c>00 /r</c><br/>
@@ -33614,13 +33622,5 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pavgusb_mm_mmm64,
-		/// <summary>A <c>db</c>/<c>.byte</c> asm directive that can store 1-16 bytes</summary>
-		DeclareByte,
-		/// <summary>A <c>dw</c>/<c>.word</c> asm directive that can store 1-8 words</summary>
-		DeclareWord,
-		/// <summary>A <c>dd</c>/<c>.int</c> asm directive that can store 1-4 dwords</summary>
-		DeclareDword,
-		/// <summary>A <c>dq</c>/<c>.quad</c> asm directive that can store 1-2 qwords</summary>
-		DeclareQword,
 	}
 }

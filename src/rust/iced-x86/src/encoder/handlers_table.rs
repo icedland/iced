@@ -44,7 +44,7 @@ lazy_static! {
 					let code: Code = unsafe { mem::transmute(i as u16) };
 					if code == Code::INVALID {
 						Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler
-					} else if code >= Code::DeclareByte {
+					} else if code <= Code::DeclareQword {
 						Box::into_raw(Box::new(DeclareDataHandler::new(code))) as *const OpCodeHandler
 					} else {
 						Box::into_raw(Box::new(LegacyHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler

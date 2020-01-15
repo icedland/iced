@@ -31,6 +31,10 @@ namespace Iced.Intel.EncoderInternal {
 		public static uint[] GetData() =>
 			new uint[4203 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
+				0x00000000, 0x00000000, 0x00000000,// DeclareByte
+				0x00000000, 0x00000000, 0x00000000,// DeclareWord
+				0x00000000, 0x00000000, 0x00000000,// DeclareDword
+				0x00000000, 0x00000000, 0x00000000,// DeclareQword
 				0x00000000, 0x00001C00, 0x0000149A,// Add_rm8_r8
 				0x00010000, 0x00011C00, 0x0000151B,// Add_rm16_r16
 				0x00010000, 0x00021C00, 0x0000159C,// Add_rm32_r32
@@ -4229,10 +4233,6 @@ namespace Iced.Intel.EncoderInternal {
 				0x00B70004, 0x00000000, 0x00000000,// D3NOW_Pmulhrw_mm_mmm64
 				0x00BB0004, 0x00000000, 0x00000000,// D3NOW_Pswapd_mm_mmm64
 				0x00BF0004, 0x00000000, 0x00000000,// D3NOW_Pavgusb_mm_mmm64
-				0x00000000, 0x00000000, 0x00000000,// DeclareByte
-				0x00000000, 0x00000000, 0x00000000,// DeclareWord
-				0x00000000, 0x00000000, 0x00000000,// DeclareDword
-				0x00000000, 0x00000000, 0x00000000,// DeclareQword
 			};
 	}
 }

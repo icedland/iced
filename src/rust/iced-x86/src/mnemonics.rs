@@ -29,6 +29,10 @@ use super::Mnemonic;
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static TO_MNEMONIC: [u16; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	Mnemonic::INVALID as u16,// INVALID
+	Mnemonic::Db as u16,// DeclareByte
+	Mnemonic::Dw as u16,// DeclareWord
+	Mnemonic::Dd as u16,// DeclareDword
+	Mnemonic::Dq as u16,// DeclareQword
 	Mnemonic::Add as u16,// Add_rm8_r8
 	Mnemonic::Add as u16,// Add_rm16_r16
 	Mnemonic::Add as u16,// Add_rm32_r32
@@ -4227,8 +4231,4 @@ pub(crate) static TO_MNEMONIC: [u16; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	Mnemonic::Pmulhrw as u16,// D3NOW_Pmulhrw_mm_mmm64
 	Mnemonic::Pswapd as u16,// D3NOW_Pswapd_mm_mmm64
 	Mnemonic::Pavgusb as u16,// D3NOW_Pavgusb_mm_mmm64
-	Mnemonic::Db as u16,// DeclareByte
-	Mnemonic::Dw as u16,// DeclareWord
-	Mnemonic::Dd as u16,// DeclareDword
-	Mnemonic::Dq as u16,// DeclareQword
 ];

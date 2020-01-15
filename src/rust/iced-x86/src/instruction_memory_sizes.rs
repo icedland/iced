@@ -31,6 +31,10 @@ use super::MemorySize;
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static SIZES: [u8; (IcedConstants::NUMBER_OF_CODE_VALUES * 2)] = [
 	0,// INVALID
+	0,// DeclareByte
+	0,// DeclareWord
+	0,// DeclareDword
+	0,// DeclareQword
 	MemorySize::UInt8 as u8,// Add_rm8_r8
 	MemorySize::UInt16 as u8,// Add_rm16_r16
 	MemorySize::UInt32 as u8,// Add_rm32_r32
@@ -4229,11 +4233,11 @@ pub(crate) static SIZES: [u8; (IcedConstants::NUMBER_OF_CODE_VALUES * 2)] = [
 	MemorySize::Packed64_Int16 as u8,// D3NOW_Pmulhrw_mm_mmm64
 	MemorySize::Packed64_UInt32 as u8,// D3NOW_Pswapd_mm_mmm64
 	MemorySize::Packed64_UInt8 as u8,// D3NOW_Pavgusb_mm_mmm64
+	0,// INVALID
 	0,// DeclareByte
 	0,// DeclareWord
 	0,// DeclareDword
 	0,// DeclareQword
-	0,// INVALID
 	0,// Add_rm8_r8
 	0,// Add_rm16_r16
 	0,// Add_rm32_r32
@@ -8432,8 +8436,4 @@ pub(crate) static SIZES: [u8; (IcedConstants::NUMBER_OF_CODE_VALUES * 2)] = [
 	0,// D3NOW_Pmulhrw_mm_mmm64
 	0,// D3NOW_Pswapd_mm_mmm64
 	0,// D3NOW_Pavgusb_mm_mmm64
-	0,// DeclareByte
-	0,// DeclareWord
-	0,// DeclareDword
-	0,// DeclareQword
 ];

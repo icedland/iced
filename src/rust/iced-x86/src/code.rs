@@ -37,6 +37,14 @@ use std::mem;
 pub enum Code {
 	/// It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
 	INVALID,
+	/// A `db`/`.byte` asm directive that can store 1-16 bytes
+	DeclareByte,
+	/// A `dw`/`.word` asm directive that can store 1-8 words
+	DeclareWord,
+	/// A `dd`/`.int` asm directive that can store 1-4 dwords
+	DeclareDword,
+	/// A `dq`/`.quad` asm directive that can store 1-2 qwords
+	DeclareQword,
 	/// `ADD r/m8, r8`
 	///
 	/// `00 /r`
@@ -33621,18 +33629,14 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pavgusb_mm_mmm64,
-	/// A `db`/`.byte` asm directive that can store 1-16 bytes
-	DeclareByte,
-	/// A `dw`/`.word` asm directive that can store 1-8 words
-	DeclareWord,
-	/// A `dd`/`.int` asm directive that can store 1-4 dwords
-	DeclareDword,
-	/// A `dq`/`.quad` asm directive that can store 1-2 qwords
-	DeclareQword,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_CODE: [&str; 4203] = [
 	"INVALID",
+	"DeclareByte",
+	"DeclareWord",
+	"DeclareDword",
+	"DeclareQword",
 	"Add_rm8_r8",
 	"Add_rm16_r16",
 	"Add_rm32_r32",
@@ -37831,10 +37835,6 @@ static GEN_DEBUG_CODE: [&str; 4203] = [
 	"D3NOW_Pmulhrw_mm_mmm64",
 	"D3NOW_Pswapd_mm_mmm64",
 	"D3NOW_Pavgusb_mm_mmm64",
-	"DeclareByte",
-	"DeclareWord",
-	"DeclareDword",
-	"DeclareQword",
 ];
 impl fmt::Debug for Code {
 	#[inline]

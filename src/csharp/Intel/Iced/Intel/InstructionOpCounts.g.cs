@@ -33,6 +33,10 @@ namespace Iced.Intel {
 		internal static readonly byte[] OpCount = new byte[IcedConstants.NumberOfCodeValues] {
 #endif
 			0,// INVALID
+			0,// DeclareByte
+			0,// DeclareWord
+			0,// DeclareDword
+			0,// DeclareQword
 			2,// Add_rm8_r8
 			2,// Add_rm16_r16
 			2,// Add_rm32_r32
@@ -4231,10 +4235,6 @@ namespace Iced.Intel {
 			2,// D3NOW_Pmulhrw_mm_mmm64
 			2,// D3NOW_Pswapd_mm_mmm64
 			2,// D3NOW_Pavgusb_mm_mmm64
-			0,// DeclareByte
-			0,// DeclareWord
-			0,// DeclareDword
-			0,// DeclareQword
 		};
 	}
 }

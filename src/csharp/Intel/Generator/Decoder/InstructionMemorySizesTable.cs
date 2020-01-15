@@ -34,6 +34,10 @@ namespace Generator.Decoder {
 			var code = CodeEnum.Instance;
 			var result = new (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] {
 				(code[nameof(Code.INVALID)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.DeclareByte)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.DeclareWord)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.DeclareDword)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.DeclareQword)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.Add_rm8_r8)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.Add_rm16_r16)], memSize[nameof(MemorySize.UInt16)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.Add_rm32_r32)], memSize[nameof(MemorySize.UInt32)], memSize[nameof(MemorySize.Unknown)]),
@@ -4232,10 +4236,6 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], memSize[nameof(MemorySize.Packed64_Int16)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], memSize[nameof(MemorySize.Packed64_UInt32)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], memSize[nameof(MemorySize.Packed64_UInt8)], memSize[nameof(MemorySize.Unknown)]),
-				(code[nameof(Code.DeclareByte)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
-				(code[nameof(Code.DeclareWord)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
-				(code[nameof(Code.DeclareDword)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
-				(code[nameof(Code.DeclareQword)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 			};
 			if (result.Length != code.Values.Length)
 				throw new InvalidOperationException();

@@ -89,7 +89,7 @@ pub struct OpCodeInfo {
 impl OpCodeInfo {
 	pub(crate) fn new(code: Code, dword1: u32, dword2: u32, dword3: u32, sb: &mut String) -> Self {
 		let mut flags = Flags::NONE;
-		if code == Code::INVALID || code >= Code::DeclareByte {
+		if code <= Code::DeclareQword {
 			flags |= Flags::NO_INSTRUCTION;
 		}
 		let op_code = (dword1 >> EncFlags1::OP_CODE_SHIFT) as u16;

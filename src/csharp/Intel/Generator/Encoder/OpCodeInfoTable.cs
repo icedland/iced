@@ -34,6 +34,10 @@ namespace Generator.Encoder {
 		static OpCodeInfo[] GetData() {
 			var data = new OpCodeInfo[] {
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.INVALID)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareByte)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareWord)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareDword)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareQword)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Add_rm8_r8)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.LockPrefix | OpCodeFlags.XacquirePrefix | OpCodeFlags.XreleasePrefix, new[] { LegacyOpKind.Eb, LegacyOpKind.Gb }),
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Add_rm16_r16)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x01, -1, OperandSize.Size16, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.LockPrefix | OpCodeFlags.XacquirePrefix | OpCodeFlags.XreleasePrefix, new[] { LegacyOpKind.Ew, LegacyOpKind.Gw }),
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Add_rm32_r32)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x01, -1, OperandSize.Size32, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.LockPrefix | OpCodeFlags.XacquirePrefix | OpCodeFlags.XreleasePrefix, new[] { LegacyOpKind.Ed, LegacyOpKind.Gd }),
@@ -4232,10 +4236,6 @@ namespace Generator.Encoder {
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], 0xB7, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], 0xBB, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], 0xBF, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
-				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareByte)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
-				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareWord)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
-				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareDword)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
-				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.DeclareQword)], MandatoryPrefix.None, OpCodeTableKind.Normal, 0x00, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64 | OpCodeFlags.NoInstruction, Array.Empty<LegacyOpKind>()),
 			};
 			if (data.Length != CodeEnum.Instance.Values.Length)
 				throw new InvalidOperationException();
