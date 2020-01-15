@@ -54,17 +54,11 @@ namespace Generator {
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
 			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
 			for (int i = 0; i < langDirs.Length; i++) {
-				string path;
-				switch ((TargetLanguage)i) {
-				case TargetLanguage.CSharp:
-					path = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced");
-					break;
-				case TargetLanguage.Rust:
-					path = GetAndVerifyPath(baseDir, "rust", "iced-x86", "src");
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
+				string path = (TargetLanguage)i switch {
+					TargetLanguage.CSharp => GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced"),
+					TargetLanguage.Rust => GetAndVerifyPath(baseDir, "rust", "iced-x86", "src"),
+					_ => throw new InvalidOperationException(),
+				};
 				langDirs[i] = path;
 			}
 			CSharpTestsDir = GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced.UnitTests");

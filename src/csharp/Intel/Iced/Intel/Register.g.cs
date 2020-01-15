@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #nullable enable
 
 namespace Iced.Intel {
-#pragma warning disable 1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary>A register</summary>
 	public enum Register {
 		None,
@@ -271,4 +271,5 @@ namespace Iced.Intel {
 		TR6,
 		TR7,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

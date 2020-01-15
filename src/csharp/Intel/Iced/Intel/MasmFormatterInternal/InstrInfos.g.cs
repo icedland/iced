@@ -497,7 +497,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Movsxd_r16_rm16
 				0x02,// Normal_2
 				0xA4, 0x05,// 676 = "movsxd"
-				0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+				0x08,// 0x8 = ShowNoMemSize_ForceSize
 
 				// Movsxd_r32_rm32
 				0x00,// Previous

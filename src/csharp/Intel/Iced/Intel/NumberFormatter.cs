@@ -23,48 +23,33 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
-using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Iced.Intel {
+	[Flags]
+	enum NumberFormatterFlags {
+		None						= 0,
+		AddMinusSign				= 0x00000001,
+		LeadingZeroes				= 0x00000002,
+		SmallHexNumbersInDecimal	= 0x00000004,
+	}
+
 	readonly struct NumberFormatter {
-		const int SmallPositiveNumber = 9;
+		const ulong SmallPositiveNumber = 9;
 
-		readonly FormatterOptions formatterOptions;
 		readonly StringBuilder sb;
-		readonly char[] numberCharArray;
 
-		public NumberFormatter(FormatterOptions formatterOptions) {
-			this.formatterOptions = formatterOptions;
-			sb = new StringBuilder();
-			// We need 64 chars to format the longest number, which is an unsigned 64-bit value in binary
-			numberCharArray = new char[64];
+		public NumberFormatter(bool dummy) {
+			const int CAP =
+				2 +// "0b"
+				64 +// 64 bin digits
+				(16 - 1);// # digit separators if group size == 4 and digit sep is one char
+			sb = new StringBuilder(CAP);
 		}
 
-		string AddDigitSeparators(string rawNumber, int digitGroupSize, string digitSeparator) {
-			Debug.Assert(digitGroupSize > 0);
-			Debug.Assert(!string.IsNullOrEmpty(digitSeparator));
-
-			if (rawNumber.Length <= digitGroupSize)
-				return rawNumber;
-
-			var sb = this.sb;
-
-			for (int i = 0; i < rawNumber.Length; i++) {
-				int d = rawNumber.Length - i;
-				if (i != 0 && (d % digitGroupSize) == 0 && rawNumber[i - 1] != '-')
-					sb.Append(digitSeparator);
-				sb.Append(rawNumber[i]);
-			}
-
-			var res = sb.ToString();
-			sb.Length = 0;
-			return res;
-		}
-
-		string ToHexadecimal(ulong value, int digits, bool upper, bool leadingZero) {
-			var array = numberCharArray;
-
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static void ToHexadecimal(StringBuilder sb, ulong value, int digitGroupSize, string? digitSeparator, int digits, bool upper, bool leadingZero) {
 			if (digits == 0) {
 				digits = 1;
 				for (ulong tmp = value; ;) {
@@ -74,26 +59,74 @@ namespace Iced.Intel {
 					digits++;
 				}
 			}
-			Debug.Assert((uint)digits <= (uint)array.Length);
 
-			char hexHigh = upper ? (char)('A' - 10) : (char)('a' - 10);
-			int bi = 0;
-			if (leadingZero && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
-				array[bi++] = '0';
+			int hexHigh = upper ? 'A' - 10 : 'a' - 10;
+			if (leadingZero && digits < 17 && (int)((value >> ((digits - 1) << 2)) & 0xF) > 9)
+				digits++;// Another 0
+			bool useDigitSep = digitGroupSize > 0 && !string.IsNullOrEmpty(digitSeparator);
 			for (int i = 0; i < digits; i++) {
-				int digit = (int)((value >> ((digits - i - 1) << 2)) & 0xF);
+				int index = digits - i - 1;
+				int digit = index >= 16 ? 0 : (int)((value >> (index << 2)) & 0xF);
 				if (digit > 9)
-					array[bi++] = (char)(digit + hexHigh);
+					sb.Append((char)(digit + hexHigh));
 				else
-					array[bi++] = (char)(digit + '0');
+					sb.Append((char)(digit + '0'));
+				if (useDigitSep && index > 0 && (index % digitGroupSize) == 0)
+					sb.Append(digitSeparator!);
 			}
-
-			return new string(array, 0, bi);
 		}
 
-		string ToOctal(ulong value, int digits) {
-			var array = numberCharArray;
+		static readonly ulong[] divs = new ulong[] {
+			1,
+			10,
+			100,
+			1000,
+			10000,
+			100000,
+			1000000,
+			10000000,
+			100000000,
+			1000000000,
+			10000000000,
+			100000000000,
+			1000000000000,
+			10000000000000,
+			100000000000000,
+			1000000000000000,
+			10000000000000000,
+			100000000000000000,
+			1000000000000000000,
+			10000000000000000000,
+		};
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static void ToDecimal(StringBuilder sb, ulong value, int digitGroupSize, string? digitSeparator, int digits) {
+			if (digits == 0) {
+				digits = 1;
+				for (ulong tmp = value; ;) {
+					tmp /= 10;
+					if (tmp == 0)
+						break;
+					digits++;
+				}
+			}
 
+			bool useDigitSep = digitGroupSize > 0 && !string2.IsNullOrEmpty(digitSeparator);
+			var divs = NumberFormatter.divs;
+			for (int i = 0; i < digits; i++) {
+				int index = digits - i - 1;
+				if ((uint)index < (uint)divs.Length) {
+					int digit = (int)(value / divs[index] % 10);
+					sb.Append((char)(digit + '0'));
+				}
+				else
+					sb.Append('0');
+				if (useDigitSep && index > 0 && (index % digitGroupSize) == 0)
+					sb.Append(digitSeparator!);
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static void ToOctal(StringBuilder sb, ulong value, int digitGroupSize, string? digitSeparator, int digits, string? prefix) {
 			if (digits == 0) {
 				digits = 1;
 				for (ulong tmp = value; ;) {
@@ -103,19 +136,32 @@ namespace Iced.Intel {
 					digits++;
 				}
 			}
-			Debug.Assert((uint)digits <= (uint)array.Length);
 
-			for (int i = 0; i < digits; i++) {
-				int digit = (int)((value >> (digits - i - 1) * 3) & 7);
-				array[i] = (char)(digit + '0');
+			if (!string.IsNullOrEmpty(prefix)) {
+				// The prefix is part of the number so that a digit separator can be placed
+				// between the "prefix" and the rest of the number, eg. "0" + "1234" with
+				// digit separator "`" and group size = 2 is "0`12`34" and not "012`34".
+				// Other prefixes, eg. "0o" prefix: 0o12`34 and never 0o`12`34.
+				if (prefix == "0") {
+					if (digits < 23 && (int)((value >> (digits - 1) * 3) & 7) != 0)
+						digits++;// Another 0
+				}
+				else
+					sb.Append(prefix);
 			}
 
-			return new string(array, 0, digits);
+			bool useDigitSep = digitGroupSize > 0 && !string2.IsNullOrEmpty(digitSeparator);
+			for (int i = 0; i < digits; i++) {
+				int index = digits - i - 1;
+				int digit = index >= 22 ? 0 : (int)((value >> index * 3) & 7);
+				sb.Append((char)(digit + '0'));
+				if (useDigitSep && index > 0 && (index % digitGroupSize) == 0)
+					sb.Append(digitSeparator!);
+			}
 		}
 
-		string ToBinary(ulong value, int digits) {
-			var array = numberCharArray;
-
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static void ToBinary(StringBuilder sb, ulong value, int digitGroupSize, string? digitSeparator, int digits) {
 			if (digits == 0) {
 				digits = 1;
 				for (ulong tmp = value; ;) {
@@ -125,101 +171,126 @@ namespace Iced.Intel {
 					digits++;
 				}
 			}
-			Debug.Assert((uint)digits <= (uint)array.Length);
 
+			bool useDigitSep = digitGroupSize > 0 && !string2.IsNullOrEmpty(digitSeparator);
 			for (int i = 0; i < digits; i++) {
-				int digit = (int)((value >> (digits - i - 1)) & 1);
-				array[i] = (char)(digit + '0');
+				int index = digits - i - 1;
+				int digit = index >= 64 ? 0 : (int)((value >> index) & 1);
+				sb.Append((char)(digit + '0'));
+				if (useDigitSep && index > 0 && (index % digitGroupSize) == 0)
+					sb.Append(digitSeparator!);
 			}
-
-			return new string(array, 0, digits);
 		}
 
-		public string FormatUInt8(in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(options, value, 8, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
-		public string FormatUInt16(in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(options, value, 16, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(options, value, 32, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(options, value, 64, options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		static NumberFormatterFlags GetFlags(bool leadingZeroes, bool smallHexNumbersInDecimal) {
+			var flags = NumberFormatterFlags.None;
+			if (leadingZeroes)
+				flags |= NumberFormatterFlags.LeadingZeroes;
+			if (smallHexNumbersInDecimal)
+				flags |= NumberFormatterFlags.SmallHexNumbersInDecimal;
+			return flags;
+		}
 
-		public string FormatUInt16(in NumberFormattingOptions options, ushort value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 16, leadingZeroes, options.SmallHexNumbersInDecimal);
-		public string FormatUInt32(in NumberFormattingOptions options, uint value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 32, leadingZeroes, options.SmallHexNumbersInDecimal);
-		public string FormatUInt64(in NumberFormattingOptions options, ulong value, bool leadingZeroes) => FormatUnsignedInteger(options, value, 64, leadingZeroes, options.SmallHexNumbersInDecimal);
+		public string FormatInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, sbyte value) {
+			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			if (value < 0) {
+				flags |= NumberFormatterFlags.AddMinusSign;
+				value = (sbyte)-value;
+			}
+			return FormatUnsignedInteger(formatterOptions, options, (byte)value, 8, flags);
+		}
 
-		static readonly string[] smallDecimalValues = new string[SmallPositiveNumber + 1] {
+		public string FormatInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, short value) {
+			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			if (value < 0) {
+				flags |= NumberFormatterFlags.AddMinusSign;
+				value = (short)-value;
+			}
+			return FormatUnsignedInteger(formatterOptions, options, (ushort)value, 16, flags);
+		}
+
+		public string FormatInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, int value) {
+			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			if (value < 0) {
+				flags |= NumberFormatterFlags.AddMinusSign;
+				value = -value;
+			}
+			return FormatUnsignedInteger(formatterOptions, options, (uint)value, 32, flags);
+		}
+
+		public string FormatInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, long value) {
+			var flags = GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal);
+			if (value < 0) {
+				flags |= NumberFormatterFlags.AddMinusSign;
+				value = -value;
+			}
+			return FormatUnsignedInteger(formatterOptions, options, (ulong)value, 64, flags);
+		}
+
+		public string FormatUInt8(FormatterOptions formatterOptions, in NumberFormattingOptions options, byte value) => FormatUnsignedInteger(formatterOptions, options, value, 8, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(options.LeadingZeroes, options.SmallHexNumbersInDecimal));
+
+		public string FormatUInt16(FormatterOptions formatterOptions, in NumberFormattingOptions options, ushort value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 16, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt32(FormatterOptions formatterOptions, in NumberFormattingOptions options, uint value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 32, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
+		public string FormatUInt64(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value, bool leadingZeroes) => FormatUnsignedInteger(formatterOptions, options, value, 64, GetFlags(leadingZeroes, options.SmallHexNumbersInDecimal));
+
+		static readonly string[] smallDecimalValues = new string[(int)SmallPositiveNumber + 1] {
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
 		};
 
-		string FormatUnsignedInteger(in NumberFormattingOptions options, ulong value, int valueSize, bool leadingZeroes, bool smallHexNumbersInDecimal) {
-			string rawNumber;
-			string? prefix, suffix;
-			int digitGroupSize;
-			string? digitSeparator;
+		string FormatUnsignedInteger(FormatterOptions formatterOptions, in NumberFormattingOptions options, ulong value, int valueSize, NumberFormatterFlags flags) {
+			sb.Clear();
+			if ((flags & NumberFormatterFlags.AddMinusSign) != 0)
+				sb.Append('-');
+			string? suffix;
 			switch (options.NumberBase) {
 			case NumberBase.Hexadecimal:
-				if (smallHexNumbersInDecimal && value <= SmallPositiveNumber) {
-					digitGroupSize = formatterOptions.DecimalDigitGroupSize;
-					digitSeparator = options.DigitSeparator;
-					prefix = formatterOptions.DecimalPrefix;
+				if ((flags & NumberFormatterFlags.SmallHexNumbersInDecimal) != 0 && value <= SmallPositiveNumber) {
+					if (string.IsNullOrEmpty(formatterOptions.DecimalPrefix) && string.IsNullOrEmpty(formatterOptions.DecimalSuffix))
+						return smallDecimalValues[(int)value];
+					if (!string.IsNullOrEmpty(formatterOptions.DecimalPrefix))
+						sb.Append(formatterOptions.DecimalPrefix);
+					sb.Append(smallDecimalValues[(int)value]);
 					suffix = formatterOptions.DecimalSuffix;
-					rawNumber = smallDecimalValues[(int)value];
 				}
 				else {
-					digitGroupSize = options.DigitGroupSize;
-					digitSeparator = options.DigitSeparator;
-					prefix = options.Prefix;
+					if (!string.IsNullOrEmpty(options.Prefix))
+						sb.Append(options.Prefix);
+					ToHexadecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 3) >> 2 : 0, options.UpperCaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(options.Prefix));
 					suffix = options.Suffix;
-					rawNumber = ToHexadecimal(value, leadingZeroes ? (valueSize + 3) >> 2 : 0, options.UpperCaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(prefix));
 				}
 				break;
 
 			case NumberBase.Decimal:
-				digitGroupSize = options.DigitGroupSize;
-				digitSeparator = options.DigitSeparator;
-				prefix = options.Prefix;
+				if (!string.IsNullOrEmpty(options.Prefix))
+					sb.Append(options.Prefix);
+				ToDecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, 0);
 				suffix = options.Suffix;
-				rawNumber = value.ToString();
 				break;
 
 			case NumberBase.Octal:
-				digitGroupSize = options.DigitGroupSize;
-				digitSeparator = options.DigitSeparator;
-				prefix = options.Prefix;
+				ToOctal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 2) / 3 : 0, options.Prefix);
 				suffix = options.Suffix;
-				rawNumber = ToOctal(value, leadingZeroes ? (valueSize + 2) / 3 : 0);
-				if (prefix == "0") {
-					// The prefix is part of the number so that a digit separator can be placed
-					// between the "prefix" and the rest of the number, eg. "0" + "1234" with
-					// digit separator "`" and group size = 2 is "0`12`34" and not "012`34".
-					// Other prefixes, eg. "0o" prefix: 0o12`34 and never 0o`12`34.
-					if (rawNumber[0] != '0')
-						rawNumber = prefix + rawNumber;
-					prefix = null;
-				}
 				break;
 
 			case NumberBase.Binary:
-				digitGroupSize = options.DigitGroupSize;
-				digitSeparator = options.DigitSeparator;
-				prefix = options.Prefix;
+				if (!string.IsNullOrEmpty(options.Prefix))
+					sb.Append(options.Prefix);
+				ToBinary(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? valueSize : 0);
 				suffix = options.Suffix;
-				rawNumber = ToBinary(value, leadingZeroes ? valueSize : 0);
 				break;
 
 			default:
 				throw new InvalidOperationException();
 			}
 
-			if (digitGroupSize > 0 && !string2.IsNullOrEmpty(digitSeparator))
-				rawNumber = AddDigitSeparators(rawNumber, digitGroupSize, digitSeparator);
+			if (!string.IsNullOrEmpty(suffix))
+				sb.Append(suffix);
 
-			if (!string.IsNullOrEmpty(prefix)) {
-				if (!string.IsNullOrEmpty(suffix))
-					return prefix + rawNumber + suffix;
-				return prefix + rawNumber;
-			}
-			else if (!string.IsNullOrEmpty(suffix))
-				return rawNumber + suffix;
-			else
-				return rawNumber;
+			return sb.ToString();
 		}
 	}
 }

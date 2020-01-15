@@ -219,8 +219,9 @@ namespace Generator.Encoder.CSharp {
 						if (multipleInts) {
 							switch (intCount++) {
 							case 0:
+								writer.WriteLine($"var opKind = GetImmediateOpKind({codeName}, {op});");
 								writer.WriteLine($"instruction.InternalOp{op}Kind = GetImmediateOpKind({codeName}, {op});");
-								writer.WriteLine($"instruction.Immediate32 = {castType}{idConverter.Argument(arg.Name)};");
+								writer.WriteLine($"instruction.Immediate32 = MaskImmediate32({castType}{idConverter.Argument(arg.Name)}, opKind);");
 								break;
 							case 1:
 								writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{immediate8_2ndStr};");
@@ -238,7 +239,7 @@ namespace Generator.Encoder.CSharp {
 								writer.WriteLine($"instruction.Immediate64 = {castType2}{idConverter.Argument(arg.Name)};");
 							writer.WriteLine("else");
 							using (writer.Indent())
-								writer.WriteLine($"instruction.Immediate32 = {castType}{idConverter.Argument(arg.Name)};");
+								writer.WriteLine($"instruction.Immediate32 = MaskImmediate32({castType}{idConverter.Argument(arg.Name)}, opKind);");
 						}
 						break;
 

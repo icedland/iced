@@ -67,20 +67,30 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		[Fact]
-		void Test_WithMemorySize_extension_method() {
-			var options = FormatterOperandOptions.None;
+		void Test_FormatterOperandOptions_properties() {
+			FormatterOperandOptions options = default;
 
-			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Always);
-			Assert.Equal(MemorySizeOptions.Always, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+			options.MemorySizeOptions = MemorySizeOptions.Always;
+			Assert.Equal(MemorySizeOptions.Always, options.MemorySizeOptions);
 
-			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Minimum);
-			Assert.Equal(MemorySizeOptions.Minimum, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+			options.MemorySizeOptions = MemorySizeOptions.Minimum;
+			Assert.Equal(MemorySizeOptions.Minimum, options.MemorySizeOptions);
 
-			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Never);
-			Assert.Equal(MemorySizeOptions.Never, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+			options.MemorySizeOptions = MemorySizeOptions.Never;
+			Assert.Equal(MemorySizeOptions.Never, options.MemorySizeOptions);
 
-			options = FormatterOperandOptions.None.WithMemorySize(MemorySizeOptions.Default);
-			Assert.Equal(MemorySizeOptions.Default, (MemorySizeOptions)((uint)(options & FormatterOperandOptions.MemorySizeMask) >> (int)FormatterOperandOptions.MemorySizeShift));
+			options.MemorySizeOptions = MemorySizeOptions.Default;
+			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
+
+			options.BranchSize = true;
+			Assert.True(options.BranchSize);
+			options.BranchSize = false;
+			Assert.False(options.BranchSize);
+
+			options.RipRelativeAddresses = true;
+			Assert.True(options.RipRelativeAddresses);
+			options.RipRelativeAddresses = false;
+			Assert.False(options.RipRelativeAddresses);
 		}
 
 		[Fact]

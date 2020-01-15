@@ -453,33 +453,15 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				}
 			}
 		}
-		static IEnumerable<Instruction> Convert(InsertRangeKind kind, Instruction[] array) {
-			switch (kind) {
-			case InsertRangeKind.IEnumerable:
-				// IEnumerable<Instruction> code path
-				return AsEnumerable(array);
-
-			case InsertRangeKind.Array:
-				// Instruction[] code path (none at the moment)
-				return array;
-
-			case InsertRangeKind.IList:
-				// IList<Instruction> code path
-				return new IListImpl<Instruction>(array);
-
-			case InsertRangeKind.ReadOnlyList:
-				// IReadOnlyList<Instruction> code path
-				return new IReadOnlyListImpl<Instruction>(array);
-
-			case InsertRangeKind.InstructionList:
-				// InstructionList code path
-				return new InstructionList(array);
-
-			case InsertRangeKind.Last:
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		static IEnumerable<Instruction> Convert(InsertRangeKind kind, Instruction[] array) =>
+			kind switch {
+				InsertRangeKind.IEnumerable => AsEnumerable(array),// IEnumerable<Instruction> code path
+				InsertRangeKind.Array => array,// Instruction[] code path (none at the moment)
+				InsertRangeKind.IList => new IListImpl<Instruction>(array),// IList<Instruction> code path
+				InsertRangeKind.ReadOnlyList => new IReadOnlyListImpl<Instruction>(array),// IReadOnlyList<Instruction> code path
+				InsertRangeKind.InstructionList => new InstructionList(array),// InstructionList code path
+				_ => throw new InvalidOperationException(),
+			};
 
 		static IEnumerable<T> AsEnumerable<T>(IEnumerable<T> collection) {
 			// Don't return the input, always create a new enumerable

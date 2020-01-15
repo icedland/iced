@@ -21,6 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Collections.Generic;
+using System.IO;
+using Generator.IO;
+
 namespace Generator.Formatters.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Formatter_Table)]
 	sealed class RustFormatterTableGenerator {
@@ -30,7 +34,33 @@ namespace Generator.Formatters.Rust {
 			this.generatorOptions = generatorOptions;
 
 		public void Generate() {
-			//TODO:
+			var serializers = new List<RustFormatterTableSerializer>();
+			var basePath = Path.Combine(generatorOptions.RustDir, "formatter");
+			if (generatorOptions.HasGasFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "gas", "fmt_data.rs"), Gas.CtorInfos.Infos, Enums.Formatter.Gas.CtorKindEnum.Instance));
+			if (generatorOptions.HasIntelFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "intel", "fmt_data.rs"), Intel.CtorInfos.Infos, Enums.Formatter.Intel.CtorKindEnum.Instance));
+			if (generatorOptions.HasMasmFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "masm", "fmt_data.rs"), Masm.CtorInfos.Infos, Enums.Formatter.Masm.CtorKindEnum.Instance));
+			if (generatorOptions.HasNasmFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "nasm", "fmt_data.rs"), Nasm.CtorInfos.Infos, Enums.Formatter.Nasm.CtorKindEnum.Instance));
+
+			var stringsTable = new StringsTable();
+
+			foreach (var serializer in serializers)
+				serializer.Initialize(stringsTable);
+
+			stringsTable.Freeze();
+
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(basePath, "strings_data.rs")))) {
+				var serializer = new RustStringsTableSerializer(stringsTable);
+				serializer.Serialize(writer);
+			}
+
+			foreach (var serializer in serializers) {
+				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(serializer.Filename)))
+					serializer.Serialize(writer, stringsTable);
+			}
 		}
 	}
 }

@@ -110,21 +110,21 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					instr = decoder.Decode();
 					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instr.Length == 1) {
 						instr = decoder.Decode();
-						switch (instr.Code) {
-						case Code.Fnstenv_m14byte: instr.Code = Code.Fstenv_m14byte; break;
-						case Code.Fnstenv_m28byte: instr.Code = Code.Fstenv_m28byte; break;
-						case Code.Fnstcw_m2byte: instr.Code = Code.Fstcw_m2byte; break;
-						case Code.Fneni: instr.Code = Code.Feni; break;
-						case Code.Fndisi: instr.Code = Code.Fdisi; break;
-						case Code.Fnclex: instr.Code = Code.Fclex; break;
-						case Code.Fninit: instr.Code = Code.Finit; break;
-						case Code.Fnsetpm: instr.Code = Code.Fsetpm; break;
-						case Code.Fnsave_m94byte: instr.Code = Code.Fsave_m94byte; break;
-						case Code.Fnsave_m108byte: instr.Code = Code.Fsave_m108byte; break;
-						case Code.Fnstsw_m2byte: instr.Code = Code.Fstsw_m2byte; break;
-						case Code.Fnstsw_AX: instr.Code = Code.Fstsw_AX; break;
-						default: throw new InvalidOperationException();
-						}
+						instr.Code = instr.Code switch {
+							Code.Fnstenv_m14byte => Code.Fstenv_m14byte,
+							Code.Fnstenv_m28byte => Code.Fstenv_m28byte,
+							Code.Fnstcw_m2byte => Code.Fstcw_m2byte,
+							Code.Fneni => Code.Feni,
+							Code.Fndisi => Code.Fdisi,
+							Code.Fnclex => Code.Fclex,
+							Code.Fninit => Code.Finit,
+							Code.Fnsetpm => Code.Fsetpm,
+							Code.Fnsave_m94byte => Code.Fsave_m94byte,
+							Code.Fnsave_m108byte => Code.Fsave_m108byte,
+							Code.Fnstsw_m2byte => Code.Fstsw_m2byte,
+							Code.Fnstsw_AX => Code.Fstsw_AX,
+							_ => throw new InvalidOperationException(),
+						};
 					}
 					else
 						throw new InvalidOperationException();
@@ -413,23 +413,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var codeReader = new ByteArrayCodeReader(codeBytes);
 			var decoder = Decoder.Create(codeSize, codeReader, options);
 
-			switch (codeSize) {
-			case 16:
-				decoder.IP = DecoderConstants.DEFAULT_IP16;
-				break;
-
-			case 32:
-				decoder.IP = DecoderConstants.DEFAULT_IP32;
-				break;
-
-			case 64:
-				decoder.IP = DecoderConstants.DEFAULT_IP64;
-				break;
-
-			default:
-				throw new ArgumentOutOfRangeException(nameof(codeSize));
-			}
-
+			decoder.IP = codeSize switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new ArgumentOutOfRangeException(nameof(codeSize)),
+			};
 			Assert.Equal(codeSize, decoder.Bitness);
 			return decoder;
 		}

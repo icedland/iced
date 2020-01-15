@@ -33,6 +33,7 @@ namespace Generator.Documentation {
 			PrimitiveType,
 			Type,
 			EnumFieldReference,
+			FieldReference,
 			Property,
 			Method,
 		}
@@ -47,6 +48,7 @@ namespace Generator.Documentation {
 				const char primitiveTypeChar = 't';
 				const char typeChar = 'r';
 				const char enumFieldReferenceChar = 'e';
+				const char fieldReferenceChar = 'f';
 				const char propertyChar = 'P';
 				const char methodChar = 'M';
 				// char (eg. 'c') + ':'
@@ -95,6 +97,11 @@ namespace Generator.Documentation {
 				case enumFieldReferenceChar:
 					(typeName, memberName) = SplitMember(data, defaultTypeName);
 					yield return (TokenKind.EnumFieldReference, typeName, memberName);
+					break;
+
+				case fieldReferenceChar:
+					(typeName, memberName) = SplitMember(data, defaultTypeName);
+					yield return (TokenKind.FieldReference, typeName, memberName);
 					break;
 
 				case propertyChar:

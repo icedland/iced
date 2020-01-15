@@ -1,0 +1,703 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+data16 push es
+push es
+data16 pop es
+pop es
+data16 push cs
+push cs
+data16 push ss
+push ss
+data16 pop ss
+pop ss
+data16 push ds
+push ds
+data16 pop ds
+pop ds
+daa
+das
+aaa
+aas
+inc ax
+inc eax
+inc cx
+inc ecx
+inc dx
+inc edx
+inc bx
+inc ebx
+inc sp
+inc esp
+inc bp
+inc ebp
+inc si
+inc esi
+inc di
+inc edi
+dec ax
+dec eax
+dec cx
+dec ecx
+dec dx
+dec edx
+dec bx
+dec ebx
+dec sp
+dec esp
+dec bp
+dec ebp
+dec si
+dec esi
+dec di
+dec edi
+push eax
+push ecx
+push edx
+push ebx
+push esp
+push ebp
+push esi
+push edi
+pop eax
+pop ecx
+pop edx
+pop ebx
+pop esp
+pop ebp
+pop esi
+pop edi
+pusha
+pushad
+popa
+popad
+bound bx, [eax]
+bound ebx, [eax]
+arpl dx, si
+arpl [eax], bx
+push 0x3412a55a
+push -0x5b
+data16 jo short 0x004d
+jo short 0x8000004c
+data16 jno short 0x004d
+jno short 0x8000004c
+data16 jb short 0x004d
+jb short 0x8000004c
+data16 jae short 0x004d
+jae short 0x8000004c
+data16 je short 0x004d
+je short 0x8000004c
+data16 jne short 0x004d
+jne short 0x8000004c
+data16 jbe short 0x004d
+jbe short 0x8000004c
+data16 ja short 0x004d
+ja short 0x8000004c
+data16 js short 0x004d
+js short 0x8000004c
+data16 jns short 0x004d
+jns short 0x8000004c
+data16 jp short 0x004d
+jp short 0x8000004c
+data16 jnp short 0x004d
+jnp short 0x8000004c
+data16 jl short 0x004d
+jl short 0x8000004c
+data16 jge short 0x004d
+jge short 0x8000004c
+data16 jle short 0x004d
+jle short 0x8000004c
+data16 jg short 0x004d
+jg short 0x8000004c
+pop esi
+pop dword ptr [eax]
+data16 call far 0x3412, 0x7856
+call far 0x78563412, 0xbc9a
+pushfd
+popfd
+data16 ret -0x5aa6
+ret -0x5aa6
+data16 ret
+ret
+data16 rep ret -0x5aa6
+rep ret -0x5aa6
+data16 rep ret
+rep ret
+les bx, [eax]
+les ebx, [eax]
+lds bx, [eax]
+lds ebx, [eax]
+enter -0x5aa6, -0x5a
+leave
+into
+aam 0xa
+aad 0xa
+data16 addr16 loopne 0x004e
+addr16 loopne 0x8000004d
+data16 loopne 0x004d
+loopne 0x8000004c
+data16 addr16 loope 0x004e
+addr16 loope 0x8000004d
+data16 loope 0x004d
+loope 0x8000004c
+data16 addr16 loop 0x004e
+addr16 loop 0x8000004d
+data16 loop 0x004d
+loop 0x8000004c
+data16 jcxz 0x004e
+jcxz 0x8000004d
+data16 jecxz 0x004d
+jecxz 0x8000004c
+data16 call 0xa54e
+call 0x255a3407
+data16 jmp 0xa54e
+jmp 0x255a3407
+data16 jmp far 0x3412, 0x7856
+jmp far 0x78563412, 0xbcea
+data16 jmp short 0x004d
+jmp short 0x8000004c
+call cx
+call word ptr [eax]
+call ecx
+call dword ptr [eax]
+jmp dx
+jmp word ptr [eax]
+jmp edx
+jmp dword ptr [eax]
+push esi
+push dword ptr [eax]
+bndmov bnd1, bnd2
+bndmov bnd1, [eax]
+bndcl bnd1, edx
+bndcl bnd1, [eax]
+bndcu bnd1, edx
+bndcu bnd1, [eax]
+bndmov bnd2, bnd1
+bndmov [eax], bnd1
+bndmk bnd1, [eax]
+bndcn bnd1, edx
+bndcn bnd1, [eax]
+mov esi, cr3
+mov esi, dr3
+mov cr3, esi
+mov dr3, esi
+vmread esi, ecx
+vmread [eax], ebx
+vmwrite ecx, esi
+vmwrite ebx, [eax]
+data16 jo 0xa54f
+jo 0xb412a550
+data16 jno 0xa54f
+jno 0xb412a550
+data16 jb 0xa54f
+jb 0xb412a550
+data16 jae 0xa54f
+jae 0xb412a550
+data16 je 0xa54f
+je 0xb412a550
+data16 jne 0xa54f
+jne 0xb412a550
+data16 jbe 0xa54f
+jbe 0xb412a550
+data16 ja 0xa54f
+ja 0xb412a550
+data16 js 0xa54f
+js 0xb412a550
+data16 jns 0xa54f
+jns 0xb412a550
+data16 jp 0xa54f
+jp 0xb412a550
+data16 jnp 0xa54f
+jnp 0xb412a550
+data16 jl 0xa54f
+jl 0xb412a550
+data16 jge 0xa54f
+jge 0xb412a550
+data16 jle 0xa54f
+jle 0xb412a550
+data16 jg 0xa54f
+jg 0xb412a550
+push fs
+pop fs
+push gs
+pop gs
+rdpid edx
+invept edx, [eax]
+invvpid edx, [eax]
+invpcid edx, [eax]
+salc
+data16 push -0x5aa6
+data16 push -0x5b
+insb [di], dx
+insb [edi], dx
+insw [di], dx
+insw [edi], dx
+insd [di], dx
+insd [edi], dx
+outsb dx, [si]
+outsb dx, [esi]
+outsw dx, [si]
+outsw dx, [esi]
+outsd dx, [si]
+outsd dx, [esi]
+mov fs, si
+data16 mov ds, [eax]
+mov fs, esi
+mov ds, [eax]
+pop si
+pop word ptr [eax]
+xchg ax, ax
+nop
+pushf
+popf
+mov al, [0xf0debc9a]
+addr16 mov al, [0xf0de]
+mov ax, [0xf0debc9a]
+addr16 mov ax, [0xf0de]
+mov eax, [0xf0debc9a]
+addr16 mov eax, [0xf0de]
+mov [0xf0debc9a], al
+addr16 mov [0xf0de], al
+mov [0xf0debc9a], ax
+addr16 mov [0xf0de], ax
+mov [0xf0debc9a], eax
+addr16 mov [0xf0de], eax
+movsb [di], [si]
+movsb [edi], [esi]
+movsw [di], [si]
+movsw [edi], [esi]
+movsd [di], [si]
+movsd [edi], [esi]
+cmpsb [si], [di]
+cmpsb [esi], [edi]
+cmpsw [si], [di]
+cmpsw [esi], [edi]
+cmpsd [si], [di]
+cmpsd [esi], [edi]
+stosb [di]
+stosb [edi]
+stosw [di]
+stosw [edi]
+stosd [di]
+stosd [edi]
+lodsb [si]
+lodsb [esi]
+lodsw [si]
+lodsw [esi]
+lodsd [si]
+lodsd [esi]
+scasb [di]
+scasb [edi]
+scasw [di]
+scasw [edi]
+scasd [di]
+scasd [edi]
+data16 xbegin 0x7fffa54f
+xbegin 0xb412a550
+data16 enter -0x5aa6, -0x5a
+data16 leave
+data16 ret far -0x5aa6
+ret far -0x5aa6
+data16 ret far
+ret far
+iret
+iretd
+rol cl, cl
+rol byte ptr [eax], cl
+ror dl, cl
+ror byte ptr [eax], cl
+rcl bl, cl
+rcl byte ptr [eax], cl
+rcr ah, cl
+rcr byte ptr [eax], cl
+shl ch, cl
+shl byte ptr [eax], cl
+shr dh, cl
+shr byte ptr [eax], cl
+sar al, cl
+sar byte ptr [eax], cl
+rol cx, cl
+rol word ptr [eax], cl
+rol ecx, cl
+rol dword ptr [eax], cl
+ror dx, cl
+ror word ptr [eax], cl
+ror edx, cl
+ror dword ptr [eax], cl
+rcl bx, cl
+rcl word ptr [eax], cl
+rcl ebx, cl
+rcl dword ptr [eax], cl
+rcr sp, cl
+rcr word ptr [eax], cl
+rcr esp, cl
+rcr dword ptr [eax], cl
+shl bp, cl
+shl word ptr [eax], cl
+shl ebp, cl
+shl dword ptr [eax], cl
+shr si, cl
+shr word ptr [eax], cl
+shr esi, cl
+shr dword ptr [eax], cl
+sar ax, cl
+sar word ptr [eax], cl
+sar eax, cl
+sar dword ptr [eax], cl
+fldcw [eax]
+fnstcw [eax]
+fnstsw [eax]
+call far dword ptr [eax]
+call far fword ptr [eax]
+jmp far dword ptr [eax]
+jmp far fword ptr [eax]
+push si
+push word ptr [eax]
+sgdt [eax]
+sgdt [eax]
+sidt [eax]
+sidt [eax]
+lgdt [eax]
+lgdt [eax]
+lidt [eax]
+lidt [eax]
+lar cx, si
+lar bx, [eax]
+lar ecx, esi
+lar ebx, [eax]
+lsl cx, si
+lsl bx, [eax]
+lsl ecx, esi
+lsl ebx, [eax]
+bndldx bnd1, [eax]
+bndstx [eax], bnd1
+kmovw k2, k3
+kmovw k1, [eax]
+kmovb k2, k3
+kmovb k1, [eax]
+kmovd k2, k3
+kmovd k1, [eax]
+kmovw [eax], k1
+kmovb [eax], k1
+kmovd [eax], k1
+kmovw k2, ebx
+kmovb k2, ebx
+kmovd k2, ebx
+kmovw edx, k3
+kmovb edx, k3
+kmovd edx, k3
+kortestw k2, k3
+kortestq k2, k3
+kortestb k2, k3
+kortestd k2, k3
+ktestw k2, k3
+ktestq k2, k3
+ktestb k2, k3
+ktestd k2, k3
+data16 push fs
+data16 pop fs
+shld si, cx, cl
+shld [eax], bx, cl
+shld esi, ecx, cl
+shld [eax], ebx, cl
+data16 push gs
+data16 pop gs
+shrd si, cx, cl
+shrd [eax], bx, cl
+shrd esi, ecx, cl
+shrd [eax], ebx, cl
+lss bx, [eax]
+lss ebx, [eax]
+lfs bx, [eax]
+lfs ebx, [eax]
+lgs bx, [eax]
+lgs ebx, [eax]
+movzx cx, dh
+movzx bx, byte ptr [eax]
+movzx ecx, dh
+movzx ebx, byte ptr [eax]
+movzx cx, si
+movzx bx, word ptr [eax]
+movzx ecx, si
+movzx ebx, word ptr [eax]
+movsx cx, dh
+movsx bx, byte ptr [eax]
+movsx ecx, dh
+movsx ebx, byte ptr [eax]
+movsx cx, si
+movsx bx, word ptr [eax]
+movsx ecx, si
+movsx ebx, word ptr [eax]
+cmpxchg8b [eax]
+crc32 ecx, dh
+crc32 ebx, byte ptr [eax]
+crc32 ecx, si
+crc32 ebx, word ptr [eax]
+crc32 ecx, esi
+crc32 ebx, dword ptr [eax]
+addr16 maskmovq mmx2, mmx3
+maskmovq mmx2, mmx3
+addr16 maskmovdqu xmm2, xmm3
+maskmovdqu xmm2, xmm3
+addr16 vmaskmovdqu xmm2, xmm3
+vmaskmovdqu xmm2, xmm3
+outsb dx, fs:[esi]
+outsw dx, fs:[esi]
+outsd dx, fs:[esi]
+movsb es:[edi], fs:[esi]
+movsw es:[edi], fs:[esi]
+movsd es:[edi], fs:[esi]
+cmpsb fs:[esi], es:[edi]
+cmpsw fs:[esi], es:[edi]
+cmpsd fs:[esi], es:[edi]
+lodsb fs:[esi]
+lodsw fs:[esi]
+lodsd fs:[esi]
+xlat [bx]
+xlat fs:[ebx]
+maskmovq mmx2, mmx3, fs
+maskmovdqu xmm2, xmm3, fs
+vmaskmovdqu xmm2, xmm3, fs
+xlat [ebx]
+aam -6
+aad -6
+fldenv [eax]
+fldenv [eax]
+fnstenv [eax]
+fnstenv [eax]
+frstor [eax]
+frstor [eax]
+fnsave [eax]
+fnsave [eax]
+addr16 monitor
+monitor
+mwait
+mov al, fs:[0xf0debc9a]
+addr16 mov al, fs:[0xf0de]
+mov ax, fs:[0xf0debc9a]
+addr16 mov ax, fs:[0xf0de]
+mov eax, fs:[0xf0debc9a]
+addr16 mov eax, fs:[0xf0de]
+mov fs:[0xf0debc9a], al
+addr16 mov fs:[0xf0de], al
+mov fs:[0xf0debc9a], ax
+addr16 mov fs:[0xf0de], ax
+mov fs:[0xf0debc9a], eax
+addr16 mov fs:[0xf0de], eax
+mov cl, [eax]
+mov cl, [eax-0x12]
+mov cl, [eax-0x12345678]
+mov cl, [0xedcba988]
+mov cl, [eax+0x12]
+mov cl, [eax+0x12345678]
+mov cl, [0x12345678]
+mov cl, [eax+ecx]
+mov cl, [eax+ecx*2]
+mov cl, [eax+ecx*4]
+mov cl, [eax+ecx*8]
+mov cl, [eax+ecx-0x12]
+mov cl, [eax+ecx*2-0x12]
+mov cl, [eax+ecx*4-0x12]
+mov cl, [eax+ecx*8-0x12]
+mov cl, [eax+ecx+0x12]
+mov cl, [eax+ecx*2+0x12]
+mov cl, [eax+ecx*4+0x12]
+mov cl, [eax+ecx*8+0x12]
+mov cl, [eax+ecx-0x12345678]
+mov cl, [eax+ecx*2-0x12345678]
+mov cl, [eax+ecx*4-0x12345678]
+mov cl, [eax+ecx*8-0x12345678]
+mov cl, [eax+ecx+0x12345678]
+mov cl, [eax+ecx*2+0x12345678]
+mov cl, [eax+ecx*4+0x12345678]
+mov cl, [eax+ecx*8+0x12345678]
+mov cl, [ecx*1-0x12345678]
+mov cl, [ebp+ecx*2-0x12]
+mov cl, [ebp+ecx*4-0x12345678]
+mov cl, [ecx*8-0x12345678]
+mov cl, [ecx*1+0x12345678]
+mov cl, [ebp+ecx*2+0x12]
+mov cl, [ebp+ecx*4+0x12345678]
+mov cl, [ecx*8+0x12345678]
+mov cl, fs:[eax]
+mov cl, fs:[eax-0x12]
+mov cl, fs:[eax-0x12345678]
+mov cl, fs:[0xedcba988]
+mov cl, fs:[eax+0x12]
+mov cl, fs:[eax+0x12345678]
+mov cl, fs:[0x12345678]
+mov cl, fs:[eax+ecx]
+mov cl, fs:[eax+ecx*2]
+mov cl, fs:[eax+ecx*4]
+mov cl, fs:[eax+ecx*8]
+mov cl, fs:[eax+ecx-0x12]
+mov cl, fs:[eax+ecx*2-0x12]
+mov cl, fs:[eax+ecx*4-0x12]
+mov cl, fs:[eax+ecx*8-0x12]
+mov cl, fs:[eax+ecx+0x12]
+mov cl, fs:[eax+ecx*2+0x12]
+mov cl, fs:[eax+ecx*4+0x12]
+mov cl, fs:[eax+ecx*8+0x12]
+mov cl, fs:[eax+ecx-0x12345678]
+mov cl, fs:[eax+ecx*2-0x12345678]
+mov cl, fs:[eax+ecx*4-0x12345678]
+mov cl, fs:[eax+ecx*8-0x12345678]
+mov cl, fs:[eax+ecx+0x12345678]
+mov cl, fs:[eax+ecx*2+0x12345678]
+mov cl, fs:[eax+ecx*4+0x12345678]
+mov cl, fs:[eax+ecx*8+0x12345678]
+mov cl, fs:[ecx*1-0x12345678]
+mov cl, fs:[ebp+ecx*2-0x12]
+mov cl, fs:[ebp+ecx*4-0x12345678]
+mov cl, fs:[ecx*8-0x12345678]
+mov cl, fs:[ecx*1+0x12345678]
+mov cl, fs:[ebp+ecx*2+0x12]
+mov cl, fs:[ebp+ecx*4+0x12345678]
+mov cl, fs:[ecx*8+0x12345678]
+addr16 vmrun
+vmrun
+addr16 vmload
+vmload
+addr16 vmsave
+vmsave
+addr16 invlpga
+invlpga
+addr16 monitorx
+monitorx
+clzero ax
+clzero eax
+rdpru
+add cl, 0x5a
+add byte ptr [eax], 0x5a
+or dl, -0x5b
+or byte ptr [eax], -0x5b
+adc bl, 0x5a
+adc byte ptr [eax], 0x5a
+sbb ah, -0x5b
+sbb byte ptr [eax], -0x5b
+and ch, 0x5a
+and byte ptr [eax], 0x5a
+sub dh, -0x5b
+sub byte ptr [eax], -0x5b
+xor bh, 0x5a
+xor byte ptr [eax], 0x5a
+cmp al, -0x5b
+cmp byte ptr [eax], -0x5b
+frstpm
+fstdw ax
+fstsg ax
+jmpe cx
+jmpe word ptr [eax]
+jmpe edx
+jmpe dword ptr [eax]
+loadallreset286
+loadall286
+loadall386
+umov dh, cl
+umov [eax], bl
+umov si, cx
+umov [eax], bx
+umov esi, ecx
+umov [eax], ebx
+umov cl, dh
+umov bl, [eax]
+umov cx, si
+umov bx, [eax]
+umov ecx, esi
+umov ebx, [eax]
+mov esi, tr3
+mov tr3, esi
+xbts cx, si
+xbts bx, [eax]
+xbts ecx, esi
+xbts ebx, [eax]
+ibts si, cx
+ibts [eax], bx
+ibts esi, ecx
+ibts [eax], ebx
+cmpxchg486 dh, cl
+cmpxchg486 [eax], bl
+cmpxchg486 si, cx
+cmpxchg486 [eax], bx
+cmpxchg486 esi, ecx
+cmpxchg486 [eax], ebx
+umonitor bp
+umonitor ebp
+jmpe 0xa55a
+jmpe 0xa55a3412
+movdir64b bx, [bx+si]
+movdir64b ebx, [eax]
+enqcmds bx, [bx+si]
+enqcmds ebx, [eax]
+enqcmd bx, [bx+si]
+enqcmd ebx, [eax]
+mov eax, tr0
+mov eax, tr1
+mov eax, tr2
+mov eax, tr3
+mov eax, tr4
+mov eax, tr5
+mov eax, tr6
+mov eax, tr7
+syscall
+sysret
+addr16 fs monitor
+addr16 fs monitorx
+fs clzero ax
+fs umonitor bp
+rep montmul
+addr16 rep montmul
+montmul
+addr16 montmul
+rep xsha1
+addr16 rep xsha1
+xsha1
+addr16 xsha1
+rep xsha256
+addr16 rep xsha256
+xsha256
+addr16 xsha256
+rep xstore
+addr16 rep xstore
+xstore
+addr16 xstore
+rep xcryptecb
+addr16 rep xcryptecb
+xcryptecb
+addr16 xcryptecb
+rep xcryptcbc
+addr16 rep xcryptcbc
+xcryptcbc
+addr16 xcryptcbc
+rep xcryptctr
+addr16 rep xcryptctr
+xcryptctr
+addr16 xcryptctr
+rep xcryptcfb
+addr16 rep xcryptcfb
+xcryptcfb
+addr16 xcryptcfb
+rep xcryptofb
+addr16 rep xcryptofb
+xcryptofb
+addr16 xcryptofb

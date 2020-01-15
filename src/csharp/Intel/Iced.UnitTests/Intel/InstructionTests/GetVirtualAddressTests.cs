@@ -55,19 +55,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		private protected void TestBase(int bitness, string hexBytes, int operand, int elementIndex, ulong expectedValue, VARegisterValueProviderImpl getRegValue) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
-			switch (bitness) {
-			case 16:
-				decoder.IP = DecoderConstants.DEFAULT_IP16;
-				break;
-			case 32:
-				decoder.IP = DecoderConstants.DEFAULT_IP32;
-				break;
-			case 64:
-				decoder.IP = DecoderConstants.DEFAULT_IP64;
-				break;
-			default:
-				throw new InvalidOperationException();
-			}
+			decoder.IP = bitness switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new InvalidOperationException(),
+			};
 			var instr = decoder.Decode();
 			ulong value1 = instr.GetVirtualAddress(operand, elementIndex, getRegValue);
 			Assert.Equal(expectedValue, value1);

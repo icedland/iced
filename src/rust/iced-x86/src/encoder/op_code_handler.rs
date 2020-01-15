@@ -26,7 +26,7 @@ use super::enums::*;
 use super::ops::*;
 use super::ops_tables::*;
 use super::*;
-use std::{i8, mem};
+use std::{i8, mem, u32};
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #[repr(C)]
@@ -241,18 +241,18 @@ pub(crate) struct VexHandler {
 	last_byte: u32,
 	mask_w_l: u32,
 	mask_l: u32,
-	w1: bool,
+	w1: u32,
 }
 
 impl VexHandler {
 	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
-		let w1 = wbit == WBit::W1;
+		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
 		let vex_flags: VexVectorLength =
 			unsafe { mem::transmute(((dword2 >> VexFlags::VEX_VECTOR_LENGTH_SHIFT) & VexFlags::VEX_VECTOR_LENGTH_MASK) as u8) };
 		let mut last_byte = if vex_flags == VexVectorLength::L1 || vex_flags == VexVectorLength::L256 { 4 } else { 0 };
-		if w1 {
+		if w1 != 0 {
 			last_byte |= 0x80;
 		}
 		last_byte |= (dword2 >> VexFlags::MANDATORY_PREFIX_BYTE_SHIFT) & VexFlags::MANDATORY_PREFIX_BYTE_MASK;
@@ -346,8 +346,10 @@ impl VexHandler {
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 
 		if encoder.prevent_vex2()
-			|| this.w1 || this.table != VexOpCodeTable::Table0F as u32
-			|| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)) != 0
+			|| (this.w1
+				| this.table.wrapping_sub(VexOpCodeTable::Table0F as u32)
+				| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)))
+				!= 0
 		{
 			encoder.write_byte_internal(0xC4);
 			const_assert_eq!(1, VexOpCodeTable::Table0F as u32);

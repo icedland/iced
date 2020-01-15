@@ -687,16 +687,15 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="operand">Operand number, 0-4</param>
 		/// <returns></returns>
-		public OpCodeOperandKind GetOpKind(int operand) {
-			switch (operand) {
-			case 0: return Op0Kind;
-			case 1: return Op1Kind;
-			case 2: return Op2Kind;
-			case 3: return Op3Kind;
-			case 4: return Op4Kind;
-			default: throw new ArgumentOutOfRangeException(nameof(operand));
-			}
-		}
+		public OpCodeOperandKind GetOpKind(int operand) =>
+			operand switch {
+				0 => Op0Kind,
+				1 => Op1Kind,
+				2 => Op2Kind,
+				3 => Op3Kind,
+				4 => Op4Kind,
+				_ => throw new ArgumentOutOfRangeException(nameof(operand)),
+			};
 
 		/// <summary>
 		/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode

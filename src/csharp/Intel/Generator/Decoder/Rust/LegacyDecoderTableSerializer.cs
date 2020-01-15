@@ -48,209 +48,203 @@ namespace Generator.Decoder.Rust {
 			if (handlerType.DeclaringType.TypeId != TypeIds.OpCodeHandlerKind)
 				throw new InvalidOperationException();
 
-			switch ((OpCodeHandlerKind)handlerType.Value) {
-			case OpCodeHandlerKind.Bitness: return ("OpCodeHandler_Bitness", false);
-			case OpCodeHandlerKind.Bitness_DontReadModRM: return ("OpCodeHandler_Bitness_DontReadModRM", true);
-			case OpCodeHandlerKind.Invalid: return ("OpCodeHandler_Invalid", true);
-			case OpCodeHandlerKind.Invalid_NoModRM: return ("OpCodeHandler_Invalid", false);
-			case OpCodeHandlerKind.RM: return ("OpCodeHandler_RM", true);
-			case OpCodeHandlerKind.Options3: return ("OpCodeHandler_Options", false);
-			case OpCodeHandlerKind.Options5: return ("OpCodeHandler_Options", false);
-			case OpCodeHandlerKind.Options_DontReadModRM: return ("OpCodeHandler_Options_DontReadModRM", true);
-			case OpCodeHandlerKind.AnotherTable: return ("OpCodeHandler_AnotherTable", false);
-			case OpCodeHandlerKind.Group: return ("OpCodeHandler_Group", true);
-			case OpCodeHandlerKind.Group8x64: return ("OpCodeHandler_Group8x64", true);
-			case OpCodeHandlerKind.Group8x8: return ("OpCodeHandler_Group8x8", true);
-			case OpCodeHandlerKind.LegacyMandatoryPrefix_F3_F2: return ("OpCodeHandler_MandatoryPrefix_F3_F2", false);
-			case OpCodeHandlerKind.D3NOW: return ("OpCodeHandler_D3NOW", true);
-			case OpCodeHandlerKind.EVEX: return ("OpCodeHandler_EVEX", true);
-			case OpCodeHandlerKind.VEX2: return ("OpCodeHandler_VEX2", true);
-			case OpCodeHandlerKind.VEX3: return ("OpCodeHandler_VEX3", true);
-			case OpCodeHandlerKind.XOP: return ("OpCodeHandler_XOP", true);
-			case OpCodeHandlerKind.Mf_1: return ("OpCodeHandler_Mf", true);
-			case OpCodeHandlerKind.Mf_2a: return ("OpCodeHandler_Mf", true);
-			case OpCodeHandlerKind.Mf_2b: return ("OpCodeHandler_Mf", true);
-			case OpCodeHandlerKind.Simple: return ("OpCodeHandler_Simple", false);
-			case OpCodeHandlerKind.Simple_ModRM: return ("OpCodeHandler_Simple", true);
-			case OpCodeHandlerKind.ST_STi: return ("OpCodeHandler_ST_STi", true);
-			case OpCodeHandlerKind.STi: return ("OpCodeHandler_STi", true);
-			case OpCodeHandlerKind.STi_ST: return ("OpCodeHandler_STi_ST", true);
-			case OpCodeHandlerKind.Reg: return ("OpCodeHandler_Reg", false);
-			case OpCodeHandlerKind.RegIb: return ("OpCodeHandler_RegIb", false);
-			case OpCodeHandlerKind.IbReg: return ("OpCodeHandler_IbReg", false);
-			case OpCodeHandlerKind.AL_DX: return ("OpCodeHandler_AL_DX", false);
-			case OpCodeHandlerKind.DX_AL: return ("OpCodeHandler_DX_AL", false);
-			case OpCodeHandlerKind.Ib: return ("OpCodeHandler_Ib", false);
-			case OpCodeHandlerKind.Ib3: return ("OpCodeHandler_Ib3", true);
-			case OpCodeHandlerKind.MandatoryPrefix: return ("OpCodeHandler_MandatoryPrefix", true);
-			case OpCodeHandlerKind.MandatoryPrefix3: return ("OpCodeHandler_MandatoryPrefix3", true);
-			case OpCodeHandlerKind.MandatoryPrefix_F3_F2: return ("OpCodeHandler_MandatoryPrefix_F3_F2", false);
-			case OpCodeHandlerKind.MandatoryPrefix_NoModRM: return ("OpCodeHandler_MandatoryPrefix", false);
-			case OpCodeHandlerKind.NIb: return ("OpCodeHandler_NIb", true);
-			case OpCodeHandlerKind.ReservedNop: return ("OpCodeHandler_ReservedNop", true);
-			case OpCodeHandlerKind.Ev_Iz_3: return ("OpCodeHandler_Ev_Iz", true);
-			case OpCodeHandlerKind.Ev_Iz_4: return ("OpCodeHandler_Ev_Iz", true);
-			case OpCodeHandlerKind.Ev_Ib_3: return ("OpCodeHandler_Ev_Ib", true);
-			case OpCodeHandlerKind.Ev_Ib_4: return ("OpCodeHandler_Ev_Ib", true);
-			case OpCodeHandlerKind.Ev_Ib2_3: return ("OpCodeHandler_Ev_Ib2", true);
-			case OpCodeHandlerKind.Ev_Ib2_4: return ("OpCodeHandler_Ev_Ib2", true);
-			case OpCodeHandlerKind.Ev1: return ("OpCodeHandler_Ev_1", true);
-			case OpCodeHandlerKind.Ev_CL: return ("OpCodeHandler_Ev_CL", true);
-			case OpCodeHandlerKind.Ev_3a: return ("OpCodeHandler_Ev", true);
-			case OpCodeHandlerKind.Ev_3b: return ("OpCodeHandler_Ev", true);
-			case OpCodeHandlerKind.Ev_4: return ("OpCodeHandler_Ev", true);
-			case OpCodeHandlerKind.Rv: return ("OpCodeHandler_Rv", true);
-			case OpCodeHandlerKind.Rv_32_64: return ("OpCodeHandler_Rv_32_64", true);
-			case OpCodeHandlerKind.Ev_REXW: return ("OpCodeHandler_Ev_REXW", true);
-			case OpCodeHandlerKind.Evj: return ("OpCodeHandler_Evj", true);
-			case OpCodeHandlerKind.Ep: return ("OpCodeHandler_Ep", true);
-			case OpCodeHandlerKind.Evw: return ("OpCodeHandler_Evw", true);
-			case OpCodeHandlerKind.Ew: return ("OpCodeHandler_Ew", true);
-			case OpCodeHandlerKind.Ms: return ("OpCodeHandler_Ms", true);
-			case OpCodeHandlerKind.Gv_Ev_3a: return ("OpCodeHandler_Gv_Ev", true);
-			case OpCodeHandlerKind.Gv_Ev_3b: return ("OpCodeHandler_Gv_Ev", true);
-			case OpCodeHandlerKind.Gv_M_as: return ("OpCodeHandler_Gv_M_as", true);
-			case OpCodeHandlerKind.Gdq_Ev: return ("OpCodeHandler_Gdq_Ev", true);
-			case OpCodeHandlerKind.Gv_Ev3: return ("OpCodeHandler_Gv_Ev3", true);
-			case OpCodeHandlerKind.Gv_Ev2: return ("OpCodeHandler_Gv_Ev2", true);
-			case OpCodeHandlerKind.R_C_3a: return ("OpCodeHandler_R_C", true);
-			case OpCodeHandlerKind.R_C_3b: return ("OpCodeHandler_R_C", true);
-			case OpCodeHandlerKind.C_R_3a: return ("OpCodeHandler_C_R", true);
-			case OpCodeHandlerKind.C_R_3b: return ("OpCodeHandler_C_R", true);
-			case OpCodeHandlerKind.Jb: return ("OpCodeHandler_Jb", false);
-			case OpCodeHandlerKind.Jx: return ("OpCodeHandler_Jx", false);
-			case OpCodeHandlerKind.Jz: return ("OpCodeHandler_Jz", false);
-			case OpCodeHandlerKind.Jb2: return ("OpCodeHandler_Jb2", false);
-			case OpCodeHandlerKind.Jdisp: return ("OpCodeHandler_Jdisp", false);
-			case OpCodeHandlerKind.PushOpSizeReg_4a: return ("OpCodeHandler_PushOpSizeReg", false);
-			case OpCodeHandlerKind.PushOpSizeReg_4b: return ("OpCodeHandler_PushOpSizeReg", false);
-			case OpCodeHandlerKind.PushEv: return ("OpCodeHandler_PushEv", true);
-			case OpCodeHandlerKind.Ev_Gv_3a: return ("OpCodeHandler_Ev_Gv", true);
-			case OpCodeHandlerKind.Ev_Gv_3b: return ("OpCodeHandler_Ev_Gv", true);
-			case OpCodeHandlerKind.Ev_Gv_4: return ("OpCodeHandler_Ev_Gv", true);
-			case OpCodeHandlerKind.Ev_Gv_32_64: return ("OpCodeHandler_Ev_Gv_32_64", true);
-			case OpCodeHandlerKind.Ev_Gv_Ib: return ("OpCodeHandler_Ev_Gv_Ib", true);
-			case OpCodeHandlerKind.Ev_Gv_CL: return ("OpCodeHandler_Ev_Gv_CL", true);
-			case OpCodeHandlerKind.Gv_Mp_2: return ("OpCodeHandler_Gv_Mp", true);
-			case OpCodeHandlerKind.Gv_Mp_3: return ("OpCodeHandler_Gv_Mp", true);
-			case OpCodeHandlerKind.Gv_Eb: return ("OpCodeHandler_Gv_Eb", true);
-			case OpCodeHandlerKind.Gv_Ew: return ("OpCodeHandler_Gv_Ew", true);
-			case OpCodeHandlerKind.PushSimple2: return ("OpCodeHandler_PushSimple2", false);
-			case OpCodeHandlerKind.Simple2_3a: return ("OpCodeHandler_Simple2", false);
-			case OpCodeHandlerKind.Simple2_3b: return ("OpCodeHandler_Simple2", false);
-			case OpCodeHandlerKind.Simple2Iw: return ("OpCodeHandler_Simple2Iw", false);
-			case OpCodeHandlerKind.Simple3: return ("OpCodeHandler_Simple3", false);
-			case OpCodeHandlerKind.Simple5: return ("OpCodeHandler_Simple5", false);
-			case OpCodeHandlerKind.Simple5_ModRM_as: return ("OpCodeHandler_Simple5_ModRM_as", true);
-			case OpCodeHandlerKind.Simple4: return ("OpCodeHandler_Simple4", false);
-			case OpCodeHandlerKind.PushSimpleReg: return ("OpCodeHandler_PushSimpleReg", false);
-			case OpCodeHandlerKind.SimpleReg: return ("OpCodeHandler_SimpleReg", false);
-			case OpCodeHandlerKind.Xchg_Reg_rAX: return ("OpCodeHandler_Xchg_Reg_rAX", false);
-			case OpCodeHandlerKind.Reg_Iz: return ("OpCodeHandler_Reg_Iz", false);
-			case OpCodeHandlerKind.RegIb3: return ("OpCodeHandler_RegIb3", false);
-			case OpCodeHandlerKind.RegIz2: return ("OpCodeHandler_RegIz2", false);
-			case OpCodeHandlerKind.PushIb2: return ("OpCodeHandler_PushIb2", false);
-			case OpCodeHandlerKind.PushIz: return ("OpCodeHandler_PushIz", false);
-			case OpCodeHandlerKind.Gv_Ma: return ("OpCodeHandler_Gv_Ma", true);
-			case OpCodeHandlerKind.RvMw_Gw: return ("OpCodeHandler_RvMw_Gw", true);
-			case OpCodeHandlerKind.Gv_Ev_Ib: return ("OpCodeHandler_Gv_Ev_Ib", true);
-			case OpCodeHandlerKind.Gv_Ev_Ib_REX: return ("OpCodeHandler_Gv_Ev_Ib_REX", true);
-			case OpCodeHandlerKind.Gv_Ev_32_64: return ("OpCodeHandler_Gv_Ev_32_64", true);
-			case OpCodeHandlerKind.Gv_Ev_Iz: return ("OpCodeHandler_Gv_Ev_Iz", true);
-			case OpCodeHandlerKind.Yb_Reg: return ("OpCodeHandler_Yb_Reg", false);
-			case OpCodeHandlerKind.Yv_Reg: return ("OpCodeHandler_Yv_Reg", false);
-			case OpCodeHandlerKind.Yv_Reg2: return ("OpCodeHandler_Yv_Reg2", false);
-			case OpCodeHandlerKind.Reg_Xb: return ("OpCodeHandler_Reg_Xb", false);
-			case OpCodeHandlerKind.Reg_Xv: return ("OpCodeHandler_Reg_Xv", false);
-			case OpCodeHandlerKind.Reg_Xv2: return ("OpCodeHandler_Reg_Xv2", false);
-			case OpCodeHandlerKind.Reg_Yb: return ("OpCodeHandler_Reg_Yb", false);
-			case OpCodeHandlerKind.Reg_Yv: return ("OpCodeHandler_Reg_Yv", false);
-			case OpCodeHandlerKind.Yb_Xb: return ("OpCodeHandler_Yb_Xb", false);
-			case OpCodeHandlerKind.Yv_Xv: return ("OpCodeHandler_Yv_Xv", false);
-			case OpCodeHandlerKind.Xb_Yb: return ("OpCodeHandler_Xb_Yb", false);
-			case OpCodeHandlerKind.Xv_Yv: return ("OpCodeHandler_Xv_Yv", false);
-			case OpCodeHandlerKind.Ev_Sw: return ("OpCodeHandler_Ev_Sw", true);
-			case OpCodeHandlerKind.Gv_M: return ("OpCodeHandler_Gv_M", true);
-			case OpCodeHandlerKind.Sw_Ev: return ("OpCodeHandler_Sw_Ev", true);
-			case OpCodeHandlerKind.Ap: return ("OpCodeHandler_Ap", false);
-			case OpCodeHandlerKind.Reg_Ob: return ("OpCodeHandler_Reg_Ob", false);
-			case OpCodeHandlerKind.Ob_Reg: return ("OpCodeHandler_Ob_Reg", false);
-			case OpCodeHandlerKind.Reg_Ov: return ("OpCodeHandler_Reg_Ov", false);
-			case OpCodeHandlerKind.Ov_Reg: return ("OpCodeHandler_Ov_Reg", false);
-			case OpCodeHandlerKind.BranchIw: return ("OpCodeHandler_BranchIw", false);
-			case OpCodeHandlerKind.BranchSimple: return ("OpCodeHandler_BranchSimple", false);
-			case OpCodeHandlerKind.Iw_Ib: return ("OpCodeHandler_Iw_Ib", false);
-			case OpCodeHandlerKind.Reg_Ib2: return ("OpCodeHandler_Reg_Ib2", false);
-			case OpCodeHandlerKind.IbReg2: return ("OpCodeHandler_IbReg2", false);
-			case OpCodeHandlerKind.eAX_DX: return ("OpCodeHandler_eAX_DX", false);
-			case OpCodeHandlerKind.DX_eAX: return ("OpCodeHandler_DX_eAX", false);
-			case OpCodeHandlerKind.Eb_Ib_1: return ("OpCodeHandler_Eb_Ib", true);
-			case OpCodeHandlerKind.Eb_Ib_2: return ("OpCodeHandler_Eb_Ib", true);
-			case OpCodeHandlerKind.Eb1: return ("OpCodeHandler_Eb_1", true);
-			case OpCodeHandlerKind.Eb_CL: return ("OpCodeHandler_Eb_CL", true);
-			case OpCodeHandlerKind.Eb_1: return ("OpCodeHandler_Eb", true);
-			case OpCodeHandlerKind.Eb_2: return ("OpCodeHandler_Eb", true);
-			case OpCodeHandlerKind.Eb_Gb_1: return ("OpCodeHandler_Eb_Gb", true);
-			case OpCodeHandlerKind.Eb_Gb_2: return ("OpCodeHandler_Eb_Gb", true);
-			case OpCodeHandlerKind.Gb_Eb: return ("OpCodeHandler_Gb_Eb", true);
-			case OpCodeHandlerKind.M_1: return ("OpCodeHandler_M", true);
-			case OpCodeHandlerKind.M_2: return ("OpCodeHandler_M", true);
-			case OpCodeHandlerKind.M_REXW_2: return ("OpCodeHandler_M_REXW", true);
-			case OpCodeHandlerKind.M_REXW_4: return ("OpCodeHandler_M_REXW", true);
-			case OpCodeHandlerKind.MemBx: return ("OpCodeHandler_MemBx", false);
-			case OpCodeHandlerKind.VW_2: return ("OpCodeHandler_VW", true);
-			case OpCodeHandlerKind.VW_3: return ("OpCodeHandler_VW", true);
-			case OpCodeHandlerKind.WV: return ("OpCodeHandler_WV", true);
-			case OpCodeHandlerKind.rDI_VX_RX: return ("OpCodeHandler_rDI_VX_RX", true);
-			case OpCodeHandlerKind.rDI_P_N: return ("OpCodeHandler_rDI_P_N", true);
-			case OpCodeHandlerKind.VM: return ("OpCodeHandler_VM", true);
-			case OpCodeHandlerKind.MV: return ("OpCodeHandler_MV", true);
-			case OpCodeHandlerKind.VQ: return ("OpCodeHandler_VQ", true);
-			case OpCodeHandlerKind.P_Q: return ("OpCodeHandler_P_Q", true);
-			case OpCodeHandlerKind.Q_P: return ("OpCodeHandler_Q_P", true);
-			case OpCodeHandlerKind.MP: return ("OpCodeHandler_MP", true);
-			case OpCodeHandlerKind.P_Q_Ib: return ("OpCodeHandler_P_Q_Ib", true);
-			case OpCodeHandlerKind.P_W: return ("OpCodeHandler_P_W", true);
-			case OpCodeHandlerKind.P_R: return ("OpCodeHandler_P_R", true);
-			case OpCodeHandlerKind.P_Ev: return ("OpCodeHandler_P_Ev", true);
-			case OpCodeHandlerKind.P_Ev_Ib: return ("OpCodeHandler_P_Ev_Ib", true);
-			case OpCodeHandlerKind.Ev_P: return ("OpCodeHandler_Ev_P", true);
-			case OpCodeHandlerKind.Gv_W: return ("OpCodeHandler_Gv_W", true);
-			case OpCodeHandlerKind.V_Ev: return ("OpCodeHandler_V_Ev", true);
-			case OpCodeHandlerKind.VWIb_2: return ("OpCodeHandler_VWIb", true);
-			case OpCodeHandlerKind.VWIb_3: return ("OpCodeHandler_VWIb", true);
-			case OpCodeHandlerKind.VRIbIb: return ("OpCodeHandler_VRIbIb", true);
-			case OpCodeHandlerKind.RIbIb: return ("OpCodeHandler_RIbIb", true);
-			case OpCodeHandlerKind.RIb: return ("OpCodeHandler_RIb", true);
-			case OpCodeHandlerKind.Ed_V_Ib: return ("OpCodeHandler_Ed_V_Ib", true);
-			case OpCodeHandlerKind.VX_Ev: return ("OpCodeHandler_VX_Ev", true);
-			case OpCodeHandlerKind.Ev_VX: return ("OpCodeHandler_Ev_VX", true);
-			case OpCodeHandlerKind.VX_E_Ib: return ("OpCodeHandler_VX_E_Ib", true);
-			case OpCodeHandlerKind.Gv_RX: return ("OpCodeHandler_Gv_RX", true);
-			case OpCodeHandlerKind.B_MIB: return ("OpCodeHandler_B_MIB", true);
-			case OpCodeHandlerKind.MIB_B: return ("OpCodeHandler_MIB_B", true);
-			case OpCodeHandlerKind.B_BM: return ("OpCodeHandler_B_BM", true);
-			case OpCodeHandlerKind.BM_B: return ("OpCodeHandler_BM_B", true);
-			case OpCodeHandlerKind.B_Ev: return ("OpCodeHandler_B_Ev", true);
-			case OpCodeHandlerKind.Mv_Gv_REXW: return ("OpCodeHandler_Mv_Gv_REXW", true);
-			case OpCodeHandlerKind.Gv_N_Ib_REX: return ("OpCodeHandler_Gv_N_Ib_REX", true);
-			case OpCodeHandlerKind.Gv_N: return ("OpCodeHandler_Gv_N", true);
-			case OpCodeHandlerKind.VN: return ("OpCodeHandler_VN", true);
-			case OpCodeHandlerKind.Gv_Mv: return ("OpCodeHandler_Gv_Mv", true);
-			case OpCodeHandlerKind.Mv_Gv: return ("OpCodeHandler_Mv_Gv", true);
-			case OpCodeHandlerKind.Gv_Eb_REX: return ("OpCodeHandler_Gv_Eb_REX", true);
-			case OpCodeHandlerKind.Gv_Ev_REX: return ("OpCodeHandler_Gv_Ev_REX", true);
-			case OpCodeHandlerKind.Ev_Gv_REX: return ("OpCodeHandler_Ev_Gv_REX", true);
-			case OpCodeHandlerKind.GvM_VX_Ib: return ("OpCodeHandler_GvM_VX_Ib", true);
-			case OpCodeHandlerKind.Wbinvd: return ("OpCodeHandler_Wbinvd", false);
-
-			case OpCodeHandlerKind.Invalid2:
-			case OpCodeHandlerKind.Dup:
-			case OpCodeHandlerKind.Null:
-			case OpCodeHandlerKind.HandlerReference:
-			case OpCodeHandlerKind.ArrayReference:
-			default: throw new InvalidOperationException();
-			}
+			return (OpCodeHandlerKind)handlerType.Value switch {
+				OpCodeHandlerKind.Bitness => ("OpCodeHandler_Bitness", false),
+				OpCodeHandlerKind.Bitness_DontReadModRM => ("OpCodeHandler_Bitness_DontReadModRM", true),
+				OpCodeHandlerKind.Invalid => ("OpCodeHandler_Invalid", true),
+				OpCodeHandlerKind.Invalid_NoModRM => ("OpCodeHandler_Invalid", false),
+				OpCodeHandlerKind.RM => ("OpCodeHandler_RM", true),
+				OpCodeHandlerKind.Options3 => ("OpCodeHandler_Options", false),
+				OpCodeHandlerKind.Options5 => ("OpCodeHandler_Options", false),
+				OpCodeHandlerKind.Options_DontReadModRM => ("OpCodeHandler_Options_DontReadModRM", true),
+				OpCodeHandlerKind.AnotherTable => ("OpCodeHandler_AnotherTable", false),
+				OpCodeHandlerKind.Group => ("OpCodeHandler_Group", true),
+				OpCodeHandlerKind.Group8x64 => ("OpCodeHandler_Group8x64", true),
+				OpCodeHandlerKind.Group8x8 => ("OpCodeHandler_Group8x8", true),
+				OpCodeHandlerKind.LegacyMandatoryPrefix_F3_F2 => ("OpCodeHandler_MandatoryPrefix_F3_F2", false),
+				OpCodeHandlerKind.D3NOW => ("OpCodeHandler_D3NOW", true),
+				OpCodeHandlerKind.EVEX => ("OpCodeHandler_EVEX", true),
+				OpCodeHandlerKind.VEX2 => ("OpCodeHandler_VEX2", true),
+				OpCodeHandlerKind.VEX3 => ("OpCodeHandler_VEX3", true),
+				OpCodeHandlerKind.XOP => ("OpCodeHandler_XOP", true),
+				OpCodeHandlerKind.Mf_1 => ("OpCodeHandler_Mf", true),
+				OpCodeHandlerKind.Mf_2a => ("OpCodeHandler_Mf", true),
+				OpCodeHandlerKind.Mf_2b => ("OpCodeHandler_Mf", true),
+				OpCodeHandlerKind.Simple => ("OpCodeHandler_Simple", false),
+				OpCodeHandlerKind.Simple_ModRM => ("OpCodeHandler_Simple", true),
+				OpCodeHandlerKind.ST_STi => ("OpCodeHandler_ST_STi", true),
+				OpCodeHandlerKind.STi => ("OpCodeHandler_STi", true),
+				OpCodeHandlerKind.STi_ST => ("OpCodeHandler_STi_ST", true),
+				OpCodeHandlerKind.Reg => ("OpCodeHandler_Reg", false),
+				OpCodeHandlerKind.RegIb => ("OpCodeHandler_RegIb", false),
+				OpCodeHandlerKind.IbReg => ("OpCodeHandler_IbReg", false),
+				OpCodeHandlerKind.AL_DX => ("OpCodeHandler_AL_DX", false),
+				OpCodeHandlerKind.DX_AL => ("OpCodeHandler_DX_AL", false),
+				OpCodeHandlerKind.Ib => ("OpCodeHandler_Ib", false),
+				OpCodeHandlerKind.Ib3 => ("OpCodeHandler_Ib3", true),
+				OpCodeHandlerKind.MandatoryPrefix => ("OpCodeHandler_MandatoryPrefix", true),
+				OpCodeHandlerKind.MandatoryPrefix3 => ("OpCodeHandler_MandatoryPrefix3", true),
+				OpCodeHandlerKind.MandatoryPrefix_F3_F2 => ("OpCodeHandler_MandatoryPrefix_F3_F2", false),
+				OpCodeHandlerKind.MandatoryPrefix_NoModRM => ("OpCodeHandler_MandatoryPrefix", false),
+				OpCodeHandlerKind.NIb => ("OpCodeHandler_NIb", true),
+				OpCodeHandlerKind.ReservedNop => ("OpCodeHandler_ReservedNop", true),
+				OpCodeHandlerKind.Ev_Iz_3 => ("OpCodeHandler_Ev_Iz", true),
+				OpCodeHandlerKind.Ev_Iz_4 => ("OpCodeHandler_Ev_Iz", true),
+				OpCodeHandlerKind.Ev_Ib_3 => ("OpCodeHandler_Ev_Ib", true),
+				OpCodeHandlerKind.Ev_Ib_4 => ("OpCodeHandler_Ev_Ib", true),
+				OpCodeHandlerKind.Ev_Ib2_3 => ("OpCodeHandler_Ev_Ib2", true),
+				OpCodeHandlerKind.Ev_Ib2_4 => ("OpCodeHandler_Ev_Ib2", true),
+				OpCodeHandlerKind.Ev1 => ("OpCodeHandler_Ev_1", true),
+				OpCodeHandlerKind.Ev_CL => ("OpCodeHandler_Ev_CL", true),
+				OpCodeHandlerKind.Ev_3a => ("OpCodeHandler_Ev", true),
+				OpCodeHandlerKind.Ev_3b => ("OpCodeHandler_Ev", true),
+				OpCodeHandlerKind.Ev_4 => ("OpCodeHandler_Ev", true),
+				OpCodeHandlerKind.Rv => ("OpCodeHandler_Rv", true),
+				OpCodeHandlerKind.Rv_32_64 => ("OpCodeHandler_Rv_32_64", true),
+				OpCodeHandlerKind.Ev_REXW => ("OpCodeHandler_Ev_REXW", true),
+				OpCodeHandlerKind.Evj => ("OpCodeHandler_Evj", true),
+				OpCodeHandlerKind.Ep => ("OpCodeHandler_Ep", true),
+				OpCodeHandlerKind.Evw => ("OpCodeHandler_Evw", true),
+				OpCodeHandlerKind.Ew => ("OpCodeHandler_Ew", true),
+				OpCodeHandlerKind.Ms => ("OpCodeHandler_Ms", true),
+				OpCodeHandlerKind.Gv_Ev_3a => ("OpCodeHandler_Gv_Ev", true),
+				OpCodeHandlerKind.Gv_Ev_3b => ("OpCodeHandler_Gv_Ev", true),
+				OpCodeHandlerKind.Gv_M_as => ("OpCodeHandler_Gv_M_as", true),
+				OpCodeHandlerKind.Gdq_Ev => ("OpCodeHandler_Gdq_Ev", true),
+				OpCodeHandlerKind.Gv_Ev3 => ("OpCodeHandler_Gv_Ev3", true),
+				OpCodeHandlerKind.Gv_Ev2 => ("OpCodeHandler_Gv_Ev2", true),
+				OpCodeHandlerKind.R_C_3a => ("OpCodeHandler_R_C", true),
+				OpCodeHandlerKind.R_C_3b => ("OpCodeHandler_R_C", true),
+				OpCodeHandlerKind.C_R_3a => ("OpCodeHandler_C_R", true),
+				OpCodeHandlerKind.C_R_3b => ("OpCodeHandler_C_R", true),
+				OpCodeHandlerKind.Jb => ("OpCodeHandler_Jb", false),
+				OpCodeHandlerKind.Jx => ("OpCodeHandler_Jx", false),
+				OpCodeHandlerKind.Jz => ("OpCodeHandler_Jz", false),
+				OpCodeHandlerKind.Jb2 => ("OpCodeHandler_Jb2", false),
+				OpCodeHandlerKind.Jdisp => ("OpCodeHandler_Jdisp", false),
+				OpCodeHandlerKind.PushOpSizeReg_4a => ("OpCodeHandler_PushOpSizeReg", false),
+				OpCodeHandlerKind.PushOpSizeReg_4b => ("OpCodeHandler_PushOpSizeReg", false),
+				OpCodeHandlerKind.PushEv => ("OpCodeHandler_PushEv", true),
+				OpCodeHandlerKind.Ev_Gv_3a => ("OpCodeHandler_Ev_Gv", true),
+				OpCodeHandlerKind.Ev_Gv_3b => ("OpCodeHandler_Ev_Gv", true),
+				OpCodeHandlerKind.Ev_Gv_4 => ("OpCodeHandler_Ev_Gv", true),
+				OpCodeHandlerKind.Ev_Gv_32_64 => ("OpCodeHandler_Ev_Gv_32_64", true),
+				OpCodeHandlerKind.Ev_Gv_Ib => ("OpCodeHandler_Ev_Gv_Ib", true),
+				OpCodeHandlerKind.Ev_Gv_CL => ("OpCodeHandler_Ev_Gv_CL", true),
+				OpCodeHandlerKind.Gv_Mp_2 => ("OpCodeHandler_Gv_Mp", true),
+				OpCodeHandlerKind.Gv_Mp_3 => ("OpCodeHandler_Gv_Mp", true),
+				OpCodeHandlerKind.Gv_Eb => ("OpCodeHandler_Gv_Eb", true),
+				OpCodeHandlerKind.Gv_Ew => ("OpCodeHandler_Gv_Ew", true),
+				OpCodeHandlerKind.PushSimple2 => ("OpCodeHandler_PushSimple2", false),
+				OpCodeHandlerKind.Simple2_3a => ("OpCodeHandler_Simple2", false),
+				OpCodeHandlerKind.Simple2_3b => ("OpCodeHandler_Simple2", false),
+				OpCodeHandlerKind.Simple2Iw => ("OpCodeHandler_Simple2Iw", false),
+				OpCodeHandlerKind.Simple3 => ("OpCodeHandler_Simple3", false),
+				OpCodeHandlerKind.Simple5 => ("OpCodeHandler_Simple5", false),
+				OpCodeHandlerKind.Simple5_ModRM_as => ("OpCodeHandler_Simple5_ModRM_as", true),
+				OpCodeHandlerKind.Simple4 => ("OpCodeHandler_Simple4", false),
+				OpCodeHandlerKind.PushSimpleReg => ("OpCodeHandler_PushSimpleReg", false),
+				OpCodeHandlerKind.SimpleReg => ("OpCodeHandler_SimpleReg", false),
+				OpCodeHandlerKind.Xchg_Reg_rAX => ("OpCodeHandler_Xchg_Reg_rAX", false),
+				OpCodeHandlerKind.Reg_Iz => ("OpCodeHandler_Reg_Iz", false),
+				OpCodeHandlerKind.RegIb3 => ("OpCodeHandler_RegIb3", false),
+				OpCodeHandlerKind.RegIz2 => ("OpCodeHandler_RegIz2", false),
+				OpCodeHandlerKind.PushIb2 => ("OpCodeHandler_PushIb2", false),
+				OpCodeHandlerKind.PushIz => ("OpCodeHandler_PushIz", false),
+				OpCodeHandlerKind.Gv_Ma => ("OpCodeHandler_Gv_Ma", true),
+				OpCodeHandlerKind.RvMw_Gw => ("OpCodeHandler_RvMw_Gw", true),
+				OpCodeHandlerKind.Gv_Ev_Ib => ("OpCodeHandler_Gv_Ev_Ib", true),
+				OpCodeHandlerKind.Gv_Ev_Ib_REX => ("OpCodeHandler_Gv_Ev_Ib_REX", true),
+				OpCodeHandlerKind.Gv_Ev_32_64 => ("OpCodeHandler_Gv_Ev_32_64", true),
+				OpCodeHandlerKind.Gv_Ev_Iz => ("OpCodeHandler_Gv_Ev_Iz", true),
+				OpCodeHandlerKind.Yb_Reg => ("OpCodeHandler_Yb_Reg", false),
+				OpCodeHandlerKind.Yv_Reg => ("OpCodeHandler_Yv_Reg", false),
+				OpCodeHandlerKind.Yv_Reg2 => ("OpCodeHandler_Yv_Reg2", false),
+				OpCodeHandlerKind.Reg_Xb => ("OpCodeHandler_Reg_Xb", false),
+				OpCodeHandlerKind.Reg_Xv => ("OpCodeHandler_Reg_Xv", false),
+				OpCodeHandlerKind.Reg_Xv2 => ("OpCodeHandler_Reg_Xv2", false),
+				OpCodeHandlerKind.Reg_Yb => ("OpCodeHandler_Reg_Yb", false),
+				OpCodeHandlerKind.Reg_Yv => ("OpCodeHandler_Reg_Yv", false),
+				OpCodeHandlerKind.Yb_Xb => ("OpCodeHandler_Yb_Xb", false),
+				OpCodeHandlerKind.Yv_Xv => ("OpCodeHandler_Yv_Xv", false),
+				OpCodeHandlerKind.Xb_Yb => ("OpCodeHandler_Xb_Yb", false),
+				OpCodeHandlerKind.Xv_Yv => ("OpCodeHandler_Xv_Yv", false),
+				OpCodeHandlerKind.Ev_Sw => ("OpCodeHandler_Ev_Sw", true),
+				OpCodeHandlerKind.Gv_M => ("OpCodeHandler_Gv_M", true),
+				OpCodeHandlerKind.Sw_Ev => ("OpCodeHandler_Sw_Ev", true),
+				OpCodeHandlerKind.Ap => ("OpCodeHandler_Ap", false),
+				OpCodeHandlerKind.Reg_Ob => ("OpCodeHandler_Reg_Ob", false),
+				OpCodeHandlerKind.Ob_Reg => ("OpCodeHandler_Ob_Reg", false),
+				OpCodeHandlerKind.Reg_Ov => ("OpCodeHandler_Reg_Ov", false),
+				OpCodeHandlerKind.Ov_Reg => ("OpCodeHandler_Ov_Reg", false),
+				OpCodeHandlerKind.BranchIw => ("OpCodeHandler_BranchIw", false),
+				OpCodeHandlerKind.BranchSimple => ("OpCodeHandler_BranchSimple", false),
+				OpCodeHandlerKind.Iw_Ib => ("OpCodeHandler_Iw_Ib", false),
+				OpCodeHandlerKind.Reg_Ib2 => ("OpCodeHandler_Reg_Ib2", false),
+				OpCodeHandlerKind.IbReg2 => ("OpCodeHandler_IbReg2", false),
+				OpCodeHandlerKind.eAX_DX => ("OpCodeHandler_eAX_DX", false),
+				OpCodeHandlerKind.DX_eAX => ("OpCodeHandler_DX_eAX", false),
+				OpCodeHandlerKind.Eb_Ib_1 => ("OpCodeHandler_Eb_Ib", true),
+				OpCodeHandlerKind.Eb_Ib_2 => ("OpCodeHandler_Eb_Ib", true),
+				OpCodeHandlerKind.Eb1 => ("OpCodeHandler_Eb_1", true),
+				OpCodeHandlerKind.Eb_CL => ("OpCodeHandler_Eb_CL", true),
+				OpCodeHandlerKind.Eb_1 => ("OpCodeHandler_Eb", true),
+				OpCodeHandlerKind.Eb_2 => ("OpCodeHandler_Eb", true),
+				OpCodeHandlerKind.Eb_Gb_1 => ("OpCodeHandler_Eb_Gb", true),
+				OpCodeHandlerKind.Eb_Gb_2 => ("OpCodeHandler_Eb_Gb", true),
+				OpCodeHandlerKind.Gb_Eb => ("OpCodeHandler_Gb_Eb", true),
+				OpCodeHandlerKind.M_1 => ("OpCodeHandler_M", true),
+				OpCodeHandlerKind.M_2 => ("OpCodeHandler_M", true),
+				OpCodeHandlerKind.M_REXW_2 => ("OpCodeHandler_M_REXW", true),
+				OpCodeHandlerKind.M_REXW_4 => ("OpCodeHandler_M_REXW", true),
+				OpCodeHandlerKind.MemBx => ("OpCodeHandler_MemBx", false),
+				OpCodeHandlerKind.VW_2 => ("OpCodeHandler_VW", true),
+				OpCodeHandlerKind.VW_3 => ("OpCodeHandler_VW", true),
+				OpCodeHandlerKind.WV => ("OpCodeHandler_WV", true),
+				OpCodeHandlerKind.rDI_VX_RX => ("OpCodeHandler_rDI_VX_RX", true),
+				OpCodeHandlerKind.rDI_P_N => ("OpCodeHandler_rDI_P_N", true),
+				OpCodeHandlerKind.VM => ("OpCodeHandler_VM", true),
+				OpCodeHandlerKind.MV => ("OpCodeHandler_MV", true),
+				OpCodeHandlerKind.VQ => ("OpCodeHandler_VQ", true),
+				OpCodeHandlerKind.P_Q => ("OpCodeHandler_P_Q", true),
+				OpCodeHandlerKind.Q_P => ("OpCodeHandler_Q_P", true),
+				OpCodeHandlerKind.MP => ("OpCodeHandler_MP", true),
+				OpCodeHandlerKind.P_Q_Ib => ("OpCodeHandler_P_Q_Ib", true),
+				OpCodeHandlerKind.P_W => ("OpCodeHandler_P_W", true),
+				OpCodeHandlerKind.P_R => ("OpCodeHandler_P_R", true),
+				OpCodeHandlerKind.P_Ev => ("OpCodeHandler_P_Ev", true),
+				OpCodeHandlerKind.P_Ev_Ib => ("OpCodeHandler_P_Ev_Ib", true),
+				OpCodeHandlerKind.Ev_P => ("OpCodeHandler_Ev_P", true),
+				OpCodeHandlerKind.Gv_W => ("OpCodeHandler_Gv_W", true),
+				OpCodeHandlerKind.V_Ev => ("OpCodeHandler_V_Ev", true),
+				OpCodeHandlerKind.VWIb_2 => ("OpCodeHandler_VWIb", true),
+				OpCodeHandlerKind.VWIb_3 => ("OpCodeHandler_VWIb", true),
+				OpCodeHandlerKind.VRIbIb => ("OpCodeHandler_VRIbIb", true),
+				OpCodeHandlerKind.RIbIb => ("OpCodeHandler_RIbIb", true),
+				OpCodeHandlerKind.RIb => ("OpCodeHandler_RIb", true),
+				OpCodeHandlerKind.Ed_V_Ib => ("OpCodeHandler_Ed_V_Ib", true),
+				OpCodeHandlerKind.VX_Ev => ("OpCodeHandler_VX_Ev", true),
+				OpCodeHandlerKind.Ev_VX => ("OpCodeHandler_Ev_VX", true),
+				OpCodeHandlerKind.VX_E_Ib => ("OpCodeHandler_VX_E_Ib", true),
+				OpCodeHandlerKind.Gv_RX => ("OpCodeHandler_Gv_RX", true),
+				OpCodeHandlerKind.B_MIB => ("OpCodeHandler_B_MIB", true),
+				OpCodeHandlerKind.MIB_B => ("OpCodeHandler_MIB_B", true),
+				OpCodeHandlerKind.B_BM => ("OpCodeHandler_B_BM", true),
+				OpCodeHandlerKind.BM_B => ("OpCodeHandler_BM_B", true),
+				OpCodeHandlerKind.B_Ev => ("OpCodeHandler_B_Ev", true),
+				OpCodeHandlerKind.Mv_Gv_REXW => ("OpCodeHandler_Mv_Gv_REXW", true),
+				OpCodeHandlerKind.Gv_N_Ib_REX => ("OpCodeHandler_Gv_N_Ib_REX", true),
+				OpCodeHandlerKind.Gv_N => ("OpCodeHandler_Gv_N", true),
+				OpCodeHandlerKind.VN => ("OpCodeHandler_VN", true),
+				OpCodeHandlerKind.Gv_Mv => ("OpCodeHandler_Gv_Mv", true),
+				OpCodeHandlerKind.Mv_Gv => ("OpCodeHandler_Mv_Gv", true),
+				OpCodeHandlerKind.Gv_Eb_REX => ("OpCodeHandler_Gv_Eb_REX", true),
+				OpCodeHandlerKind.Gv_Ev_REX => ("OpCodeHandler_Gv_Ev_REX", true),
+				OpCodeHandlerKind.Ev_Gv_REX => ("OpCodeHandler_Ev_Gv_REX", true),
+				OpCodeHandlerKind.GvM_VX_Ib => ("OpCodeHandler_GvM_VX_Ib", true),
+				OpCodeHandlerKind.Wbinvd => ("OpCodeHandler_Wbinvd", false),
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		protected override void WriteFieldsCore(FileWriter writer, object?[] handler) {

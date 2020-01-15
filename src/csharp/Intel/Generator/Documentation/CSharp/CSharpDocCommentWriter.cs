@@ -155,6 +155,7 @@ namespace Generator.Documentation.CSharp {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.EnumFieldReference:
+				case TokenKind.FieldReference:
 					sb.Append("<see cref=\"");
 					if (info.value != typeName) {
 						sb.Append(Escape(idConverter.Type(info.value)));

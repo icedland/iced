@@ -4318,42 +4318,38 @@ namespace Generator.Enums {
 			return string.Join(" and ", info.Cpuid.Select(a => GetCpuid(a)));
 		}
 
-		static string GetCpuid(EnumValue c) {
-			switch ((CpuidFeature)c.Value) {
-			case CpuidFeature.INTEL8086:		return "8086+";
-			case CpuidFeature.INTEL8086_ONLY:	return "8086";
-			case CpuidFeature.INTEL186:			return "186+";
-			case CpuidFeature.INTEL286:			return "286+";
-			case CpuidFeature.INTEL286_ONLY:	return "286";
-			case CpuidFeature.INTEL386:			return "386+";
-			case CpuidFeature.INTEL386_ONLY:	return "386";
-			case CpuidFeature.INTEL386_A0_ONLY:	return "386 A0";
-			case CpuidFeature.INTEL486:			return "486+";
-			case CpuidFeature.INTEL486_A_ONLY:	return "486 A";
-			case CpuidFeature.INTEL386_486_ONLY:return "386/486";
-			case CpuidFeature.IA64:				return "IA-64";
-			case CpuidFeature.FPU:				return "8087+";
-			case CpuidFeature.FPU287:			return "287+";
-			case CpuidFeature.FPU287XL_ONLY:	return "287 XL";
-			case CpuidFeature.FPU387:			return "387+";
-			case CpuidFeature.FPU387SL_ONLY:	return "387 SL";
-			case CpuidFeature.GEODE:			return "AMD Geode LX/GX";
-			case CpuidFeature.HLE_or_RTM:		return "HLE or RTM";
-			case CpuidFeature.SKINIT_or_SVML:	return "SKINIT or SVML";
-			case CpuidFeature.INVEPT:			return "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]";
-			case CpuidFeature.INVVPID:			return "VMX and IA32_VMX_EPT_VPID_CAP[bit 32]";
-			case CpuidFeature.MULTIBYTENOP:		return "CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B";
-			case CpuidFeature.PAUSE:			return "Pentium 4 or later";
-			case CpuidFeature.RDPMC:			return "Pentium MMX or later, or Pentium Pro or later";
-			case CpuidFeature.D3NOW:			return "3DNOW";
-			case CpuidFeature.D3NOWEXT:			return "3DNOWEXT";
-			case CpuidFeature.SSE4_1:			return "SSE4.1";
-			case CpuidFeature.SSE4_2:			return "SSE4.2";
-
-			case CpuidFeature.CPUID:
-			default:
-				return c.RawName;
-			}
-		}
+		static string GetCpuid(EnumValue c) =>
+			(CpuidFeature)c.Value switch {
+				CpuidFeature.INTEL8086 => "8086+",
+				CpuidFeature.INTEL8086_ONLY => "8086",
+				CpuidFeature.INTEL186 => "186+",
+				CpuidFeature.INTEL286 => "286+",
+				CpuidFeature.INTEL286_ONLY => "286",
+				CpuidFeature.INTEL386 => "386+",
+				CpuidFeature.INTEL386_ONLY => "386",
+				CpuidFeature.INTEL386_A0_ONLY => "386 A0",
+				CpuidFeature.INTEL486 => "486+",
+				CpuidFeature.INTEL486_A_ONLY => "486 A",
+				CpuidFeature.INTEL386_486_ONLY => "386/486",
+				CpuidFeature.IA64 => "IA-64",
+				CpuidFeature.FPU => "8087+",
+				CpuidFeature.FPU287 => "287+",
+				CpuidFeature.FPU287XL_ONLY => "287 XL",
+				CpuidFeature.FPU387 => "387+",
+				CpuidFeature.FPU387SL_ONLY => "387 SL",
+				CpuidFeature.GEODE => "AMD Geode LX/GX",
+				CpuidFeature.HLE_or_RTM => "HLE or RTM",
+				CpuidFeature.SKINIT_or_SVML => "SKINIT or SVML",
+				CpuidFeature.INVEPT => "VMX and IA32_VMX_EPT_VPID_CAP[bit 20]",
+				CpuidFeature.INVVPID => "VMX and IA32_VMX_EPT_VPID_CAP[bit 32]",
+				CpuidFeature.MULTIBYTENOP => "CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B",
+				CpuidFeature.PAUSE => "Pentium 4 or later",
+				CpuidFeature.RDPMC => "Pentium MMX or later, or Pentium Pro or later",
+				CpuidFeature.D3NOW => "3DNOW",
+				CpuidFeature.D3NOWEXT => "3DNOWEXT",
+				CpuidFeature.SSE4_1 => "SSE4.1",
+				CpuidFeature.SSE4_2 => "SSE4.2",
+				_ => c.RawName,
+			};
 	}
 }

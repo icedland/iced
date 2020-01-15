@@ -107,23 +107,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		static Decoder CreateDecoder(int codeSize, string hexBytes, DecoderOptions options, out ulong rip) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(codeSize, codeReader, options);
-			switch (codeSize) {
-			case 16:
-				rip = DecoderConstants.DEFAULT_IP16;
-				break;
-
-			case 32:
-				rip = DecoderConstants.DEFAULT_IP32;
-				break;
-
-			case 64:
-				rip = DecoderConstants.DEFAULT_IP64;
-				break;
-
-			default:
-				throw new ArgumentOutOfRangeException(nameof(codeSize));
-			}
-
+			rip = codeSize switch {
+				16 => DecoderConstants.DEFAULT_IP16,
+				32 => DecoderConstants.DEFAULT_IP32,
+				64 => DecoderConstants.DEFAULT_IP64,
+				_ => throw new ArgumentOutOfRangeException(nameof(codeSize)),
+			};
 			Assert.Equal(codeSize, decoder.Bitness);
 			decoder.IP = rip;
 			return decoder;

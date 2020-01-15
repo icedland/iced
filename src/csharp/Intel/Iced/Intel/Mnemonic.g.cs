@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #nullable enable
 
 namespace Iced.Intel {
-#pragma warning disable 1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary>Mnemonic</summary>
 	public enum Mnemonic {
 		INVALID,
@@ -1568,4 +1568,5 @@ namespace Iced.Intel {
 		Xstore,
 		Xtest,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

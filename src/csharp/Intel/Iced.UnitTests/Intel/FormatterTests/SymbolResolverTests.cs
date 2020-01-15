@@ -70,12 +70,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		static int GetSymDispl(int i) {
 			const int DISPL = 0x123;
-			switch (i % 3) {
-			case 0: return 0;
-			case 1: return -DISPL;
-			case 2: return DISPL;
-			default: throw new InvalidOperationException();
-			}
+			return (i % 3) switch {
+				0 => 0,
+				1 => -DISPL,
+				2 => DISPL,
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		protected void FormatBase(int index, int resultDispl, in SymbolInstructionInfo info, string formattedString, (Formatter formatter, ISymbolResolver symbolResolver) formatterInfo) {

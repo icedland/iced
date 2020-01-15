@@ -402,6 +402,16 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 }
 
 #[cfg(feature = "encoder")]
+pub(crate) fn mask_immediate32(imm: u32, op_kind: OpKind) -> u32 {
+	match op_kind {
+		OpKind::Immediate8 | OpKind::Immediate8_2nd | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => imm & 0xFF,
+		OpKind::Immediate16 => imm & 0xFFFF,
+		OpKind::Immediate32 | OpKind::Immediate32to64 => imm,
+		_ => unreachable!(),
+	}
+}
+
+#[cfg(feature = "encoder")]
 pub(crate) fn with_string_reg_segrsi(
 	code: Code, address_size: u32, register: Register, segment_prefix: Register, rep_prefix: RepPrefixKind,
 ) -> Instruction {

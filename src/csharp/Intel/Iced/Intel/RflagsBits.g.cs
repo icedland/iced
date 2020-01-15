@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 
 namespace Iced.Intel {
-#pragma warning disable 1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary><c>RFLAGS</c> bits supported by the instruction info code</summary>
 	[Flags]
 	public enum RflagsBits {
@@ -44,5 +44,6 @@ namespace Iced.Intel {
 		IF = 0x00000080,
 		AC = 0x00000100,
 	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
 #endif

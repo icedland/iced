@@ -33,74 +33,69 @@ namespace Generator.Decoder.Rust {
 		(string name, bool hasModRM) GetHandlerTypeInfo(EnumValue handlerType) {
 			if (handlerType.DeclaringType.TypeId != TypeIds.VexOpCodeHandlerKind)
 				throw new InvalidOperationException();
-			switch ((VexOpCodeHandlerKind)handlerType.Value) {
-			case VexOpCodeHandlerKind.Invalid: return ("OpCodeHandler_Invalid", true);
-			case VexOpCodeHandlerKind.Invalid_NoModRM: return ("OpCodeHandler_Invalid", false);
-			case VexOpCodeHandlerKind.Bitness_DontReadModRM: return ("OpCodeHandler_Bitness_DontReadModRM", true);
-			case VexOpCodeHandlerKind.RM: return ("OpCodeHandler_RM", true);
-			case VexOpCodeHandlerKind.Group: return ("OpCodeHandler_Group", true);
-			case VexOpCodeHandlerKind.W: return ("OpCodeHandler_W", true);
-			case VexOpCodeHandlerKind.MandatoryPrefix2_1: return ("OpCodeHandler_MandatoryPrefix2", true);
-			case VexOpCodeHandlerKind.MandatoryPrefix2_4: return ("OpCodeHandler_MandatoryPrefix2", true);
-			case VexOpCodeHandlerKind.MandatoryPrefix2_NoModRM: return ("OpCodeHandler_MandatoryPrefix2", false);
-			case VexOpCodeHandlerKind.VectorLength_NoModRM: return ("OpCodeHandler_VectorLength_VEX", false);
-			case VexOpCodeHandlerKind.VectorLength: return ("OpCodeHandler_VectorLength_VEX", true);
-			case VexOpCodeHandlerKind.Simple: return ("OpCodeHandler_VEX_Simple", false);
-			case VexOpCodeHandlerKind.VHEv: return ("OpCodeHandler_VEX_VHEv", true);
-			case VexOpCodeHandlerKind.VHEvIb: return ("OpCodeHandler_VEX_VHEvIb", true);
-			case VexOpCodeHandlerKind.VW_2: return ("OpCodeHandler_VEX_VW", true);
-			case VexOpCodeHandlerKind.VW_3: return ("OpCodeHandler_VEX_VW", true);
-			case VexOpCodeHandlerKind.VX_Ev: return ("OpCodeHandler_VEX_VX_Ev", true);
-			case VexOpCodeHandlerKind.Ev_VX: return ("OpCodeHandler_VEX_Ev_VX", true);
-			case VexOpCodeHandlerKind.WV: return ("OpCodeHandler_VEX_WV", true);
-			case VexOpCodeHandlerKind.VM: return ("OpCodeHandler_VEX_VM", true);
-			case VexOpCodeHandlerKind.MV: return ("OpCodeHandler_VEX_MV", true);
-			case VexOpCodeHandlerKind.M: return ("OpCodeHandler_VEX_M", true);
-			case VexOpCodeHandlerKind.RdRq: return ("OpCodeHandler_VEX_RdRq", true);
-			case VexOpCodeHandlerKind.rDI_VX_RX: return ("OpCodeHandler_VEX_rDI_VX_RX", true);
-			case VexOpCodeHandlerKind.VWIb_2: return ("OpCodeHandler_VEX_VWIb", true);
-			case VexOpCodeHandlerKind.VWIb_3: return ("OpCodeHandler_VEX_VWIb", true);
-			case VexOpCodeHandlerKind.WVIb: return ("OpCodeHandler_VEX_WVIb", true);
-			case VexOpCodeHandlerKind.Ed_V_Ib: return ("OpCodeHandler_VEX_Ed_V_Ib", true);
-			case VexOpCodeHandlerKind.VHW_2: return ("OpCodeHandler_VEX_VHW", true);
-			case VexOpCodeHandlerKind.VHW_3: return ("OpCodeHandler_VEX_VHW", true);
-			case VexOpCodeHandlerKind.VHW_4: return ("OpCodeHandler_VEX_VHW", true);
-			case VexOpCodeHandlerKind.VWH: return ("OpCodeHandler_VEX_VWH", true);
-			case VexOpCodeHandlerKind.WHV: return ("OpCodeHandler_VEX_WHV", true);
-			case VexOpCodeHandlerKind.VHM: return ("OpCodeHandler_VEX_VHM", true);
-			case VexOpCodeHandlerKind.MHV: return ("OpCodeHandler_VEX_MHV", true);
-			case VexOpCodeHandlerKind.VHWIb_2: return ("OpCodeHandler_VEX_VHWIb", true);
-			case VexOpCodeHandlerKind.VHWIb_4: return ("OpCodeHandler_VEX_VHWIb", true);
-			case VexOpCodeHandlerKind.HRIb: return ("OpCodeHandler_VEX_HRIb", true);
-			case VexOpCodeHandlerKind.VHWIs4: return ("OpCodeHandler_VEX_VHWIs4", true);
-			case VexOpCodeHandlerKind.VHIs4W: return ("OpCodeHandler_VEX_VHIs4W", true);
-			case VexOpCodeHandlerKind.VHWIs5: return ("OpCodeHandler_VEX_VHWIs5", true);
-			case VexOpCodeHandlerKind.VHIs5W: return ("OpCodeHandler_VEX_VHIs5W", true);
-			case VexOpCodeHandlerKind.VK_HK_RK: return ("OpCodeHandler_VEX_VK_HK_RK", true);
-			case VexOpCodeHandlerKind.VK_RK: return ("OpCodeHandler_VEX_VK_RK", true);
-			case VexOpCodeHandlerKind.VK_RK_Ib: return ("OpCodeHandler_VEX_VK_RK_Ib", true);
-			case VexOpCodeHandlerKind.VK_WK: return ("OpCodeHandler_VEX_VK_WK", true);
-			case VexOpCodeHandlerKind.M_VK: return ("OpCodeHandler_VEX_M_VK", true);
-			case VexOpCodeHandlerKind.VK_R: return ("OpCodeHandler_VEX_VK_R", true);
-			case VexOpCodeHandlerKind.G_VK: return ("OpCodeHandler_VEX_G_VK", true);
-			case VexOpCodeHandlerKind.Gv_W: return ("OpCodeHandler_VEX_Gv_W", true);
-			case VexOpCodeHandlerKind.Gv_RX: return ("OpCodeHandler_VEX_Gv_RX", true);
-			case VexOpCodeHandlerKind.Gv_GPR_Ib: return ("OpCodeHandler_VEX_Gv_GPR_Ib", true);
-			case VexOpCodeHandlerKind.VX_VSIB_HX: return ("OpCodeHandler_VEX_VX_VSIB_HX", true);
-			case VexOpCodeHandlerKind.Gv_Gv_Ev: return ("OpCodeHandler_VEX_Gv_Gv_Ev", true);
-			case VexOpCodeHandlerKind.Gv_Ev_Gv: return ("OpCodeHandler_VEX_Gv_Ev_Gv", true);
-			case VexOpCodeHandlerKind.Hv_Ev: return ("OpCodeHandler_VEX_Hv_Ev", true);
-			case VexOpCodeHandlerKind.Hv_Ed_Id: return ("OpCodeHandler_VEX_Hv_Ed_Id", true);
-			case VexOpCodeHandlerKind.GvM_VX_Ib: return ("OpCodeHandler_VEX_GvM_VX_Ib", true);
-			case VexOpCodeHandlerKind.Gv_Ev_Ib: return ("OpCodeHandler_VEX_Gv_Ev_Ib", true);
-			case VexOpCodeHandlerKind.Gv_Ev_Id: return ("OpCodeHandler_VEX_Gv_Ev_Id", true);
-
-			case VexOpCodeHandlerKind.Invalid2:
-			case VexOpCodeHandlerKind.Dup:
-			case VexOpCodeHandlerKind.HandlerReference:
-			case VexOpCodeHandlerKind.ArrayReference:
-			default: throw new InvalidOperationException();
-			}
+			return (VexOpCodeHandlerKind)handlerType.Value switch {
+				VexOpCodeHandlerKind.Invalid => ("OpCodeHandler_Invalid", true),
+				VexOpCodeHandlerKind.Invalid_NoModRM => ("OpCodeHandler_Invalid", false),
+				VexOpCodeHandlerKind.Bitness_DontReadModRM => ("OpCodeHandler_Bitness_DontReadModRM", true),
+				VexOpCodeHandlerKind.RM => ("OpCodeHandler_RM", true),
+				VexOpCodeHandlerKind.Group => ("OpCodeHandler_Group", true),
+				VexOpCodeHandlerKind.W => ("OpCodeHandler_W", true),
+				VexOpCodeHandlerKind.MandatoryPrefix2_1 => ("OpCodeHandler_MandatoryPrefix2", true),
+				VexOpCodeHandlerKind.MandatoryPrefix2_4 => ("OpCodeHandler_MandatoryPrefix2", true),
+				VexOpCodeHandlerKind.MandatoryPrefix2_NoModRM => ("OpCodeHandler_MandatoryPrefix2", false),
+				VexOpCodeHandlerKind.VectorLength_NoModRM => ("OpCodeHandler_VectorLength_VEX", false),
+				VexOpCodeHandlerKind.VectorLength => ("OpCodeHandler_VectorLength_VEX", true),
+				VexOpCodeHandlerKind.Simple => ("OpCodeHandler_VEX_Simple", false),
+				VexOpCodeHandlerKind.VHEv => ("OpCodeHandler_VEX_VHEv", true),
+				VexOpCodeHandlerKind.VHEvIb => ("OpCodeHandler_VEX_VHEvIb", true),
+				VexOpCodeHandlerKind.VW_2 => ("OpCodeHandler_VEX_VW", true),
+				VexOpCodeHandlerKind.VW_3 => ("OpCodeHandler_VEX_VW", true),
+				VexOpCodeHandlerKind.VX_Ev => ("OpCodeHandler_VEX_VX_Ev", true),
+				VexOpCodeHandlerKind.Ev_VX => ("OpCodeHandler_VEX_Ev_VX", true),
+				VexOpCodeHandlerKind.WV => ("OpCodeHandler_VEX_WV", true),
+				VexOpCodeHandlerKind.VM => ("OpCodeHandler_VEX_VM", true),
+				VexOpCodeHandlerKind.MV => ("OpCodeHandler_VEX_MV", true),
+				VexOpCodeHandlerKind.M => ("OpCodeHandler_VEX_M", true),
+				VexOpCodeHandlerKind.RdRq => ("OpCodeHandler_VEX_RdRq", true),
+				VexOpCodeHandlerKind.rDI_VX_RX => ("OpCodeHandler_VEX_rDI_VX_RX", true),
+				VexOpCodeHandlerKind.VWIb_2 => ("OpCodeHandler_VEX_VWIb", true),
+				VexOpCodeHandlerKind.VWIb_3 => ("OpCodeHandler_VEX_VWIb", true),
+				VexOpCodeHandlerKind.WVIb => ("OpCodeHandler_VEX_WVIb", true),
+				VexOpCodeHandlerKind.Ed_V_Ib => ("OpCodeHandler_VEX_Ed_V_Ib", true),
+				VexOpCodeHandlerKind.VHW_2 => ("OpCodeHandler_VEX_VHW", true),
+				VexOpCodeHandlerKind.VHW_3 => ("OpCodeHandler_VEX_VHW", true),
+				VexOpCodeHandlerKind.VHW_4 => ("OpCodeHandler_VEX_VHW", true),
+				VexOpCodeHandlerKind.VWH => ("OpCodeHandler_VEX_VWH", true),
+				VexOpCodeHandlerKind.WHV => ("OpCodeHandler_VEX_WHV", true),
+				VexOpCodeHandlerKind.VHM => ("OpCodeHandler_VEX_VHM", true),
+				VexOpCodeHandlerKind.MHV => ("OpCodeHandler_VEX_MHV", true),
+				VexOpCodeHandlerKind.VHWIb_2 => ("OpCodeHandler_VEX_VHWIb", true),
+				VexOpCodeHandlerKind.VHWIb_4 => ("OpCodeHandler_VEX_VHWIb", true),
+				VexOpCodeHandlerKind.HRIb => ("OpCodeHandler_VEX_HRIb", true),
+				VexOpCodeHandlerKind.VHWIs4 => ("OpCodeHandler_VEX_VHWIs4", true),
+				VexOpCodeHandlerKind.VHIs4W => ("OpCodeHandler_VEX_VHIs4W", true),
+				VexOpCodeHandlerKind.VHWIs5 => ("OpCodeHandler_VEX_VHWIs5", true),
+				VexOpCodeHandlerKind.VHIs5W => ("OpCodeHandler_VEX_VHIs5W", true),
+				VexOpCodeHandlerKind.VK_HK_RK => ("OpCodeHandler_VEX_VK_HK_RK", true),
+				VexOpCodeHandlerKind.VK_RK => ("OpCodeHandler_VEX_VK_RK", true),
+				VexOpCodeHandlerKind.VK_RK_Ib => ("OpCodeHandler_VEX_VK_RK_Ib", true),
+				VexOpCodeHandlerKind.VK_WK => ("OpCodeHandler_VEX_VK_WK", true),
+				VexOpCodeHandlerKind.M_VK => ("OpCodeHandler_VEX_M_VK", true),
+				VexOpCodeHandlerKind.VK_R => ("OpCodeHandler_VEX_VK_R", true),
+				VexOpCodeHandlerKind.G_VK => ("OpCodeHandler_VEX_G_VK", true),
+				VexOpCodeHandlerKind.Gv_W => ("OpCodeHandler_VEX_Gv_W", true),
+				VexOpCodeHandlerKind.Gv_RX => ("OpCodeHandler_VEX_Gv_RX", true),
+				VexOpCodeHandlerKind.Gv_GPR_Ib => ("OpCodeHandler_VEX_Gv_GPR_Ib", true),
+				VexOpCodeHandlerKind.VX_VSIB_HX => ("OpCodeHandler_VEX_VX_VSIB_HX", true),
+				VexOpCodeHandlerKind.Gv_Gv_Ev => ("OpCodeHandler_VEX_Gv_Gv_Ev", true),
+				VexOpCodeHandlerKind.Gv_Ev_Gv => ("OpCodeHandler_VEX_Gv_Ev_Gv", true),
+				VexOpCodeHandlerKind.Hv_Ev => ("OpCodeHandler_VEX_Hv_Ev", true),
+				VexOpCodeHandlerKind.Hv_Ed_Id => ("OpCodeHandler_VEX_Hv_Ed_Id", true),
+				VexOpCodeHandlerKind.GvM_VX_Ib => ("OpCodeHandler_VEX_GvM_VX_Ib", true),
+				VexOpCodeHandlerKind.Gv_Ev_Ib => ("OpCodeHandler_VEX_Gv_Ev_Ib", true),
+				VexOpCodeHandlerKind.Gv_Ev_Id => ("OpCodeHandler_VEX_Gv_Ev_Id", true),
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		protected sealed override void WriteFieldsCore(FileWriter writer, object?[] handler) {

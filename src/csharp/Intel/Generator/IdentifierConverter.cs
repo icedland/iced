@@ -173,24 +173,22 @@ namespace Generator {
 		public override string MethodDoc(string name) => ToSnakeCase(name) + "()";
 		public override string Method(string name) => ToSnakeCase(name);
 
-		public override string Constant(string name) {
-			switch (name) {
-			case "Cmpxchg486A": return "CMPXCHG486A";
-			case "NoMPFX_0FBC": return "NO_MPFX_0FBC";
-			case "NoMPFX_0FBD": return "NO_MPFX_0FBD";
-			case "NoLahfSahf64": return "NO_LAHF_SAHF_64";
-			case "DecoderOptions_Cmpxchg486A": return "DECODER_OPTIONS_CMPXCHG486A";
-			case "DecoderOptions_NoMPFX_0FBC": return "DECODER_OPTIONS_NO_MPFX_0FBC";
-			case "DecoderOptions_NoMPFX_0FBD": return "DECODER_OPTIONS_NO_MPFX_0FBD";
-			case "DecoderOptions_NoLahfSahf64": return "DECODER_OPTIONS_NO_LAHF_SAHF_64";
-			case "OpKind_MemoryESDI": return "OP_KIND_MEMORY_ES_DI";
-			case "OpKind_MemoryESEDI": return "OP_KIND_MEMORY_ES_EDI";
-			case "OpKind_MemoryESRDI": return "OP_KIND_MEMORY_ES_RDI";
-			case "HighLegacy8BitRegs": return "HIGH_LEGACY_8_BIT_REGS";
-			default:
-				return ToScreamingSnakeCase(name);
-			}
-		}
+		public override string Constant(string name) =>
+			name switch {
+				"Cmpxchg486A" => "CMPXCHG486A",
+				"NoMPFX_0FBC" => "NO_MPFX_0FBC",
+				"NoMPFX_0FBD" => "NO_MPFX_0FBD",
+				"NoLahfSahf64" => "NO_LAHF_SAHF_64",
+				"DecoderOptions_Cmpxchg486A" => "DECODER_OPTIONS_CMPXCHG486A",
+				"DecoderOptions_NoMPFX_0FBC" => "DECODER_OPTIONS_NO_MPFX_0FBC",
+				"DecoderOptions_NoMPFX_0FBD" => "DECODER_OPTIONS_NO_MPFX_0FBD",
+				"DecoderOptions_NoLahfSahf64" => "DECODER_OPTIONS_NO_LAHF_SAHF_64",
+				"OpKind_MemoryESDI" => "OP_KIND_MEMORY_ES_DI",
+				"OpKind_MemoryESEDI" => "OP_KIND_MEMORY_ES_EDI",
+				"OpKind_MemoryESRDI" => "OP_KIND_MEMORY_ES_RDI",
+				"HighLegacy8BitRegs" => "HIGH_LEGACY_8_BIT_REGS",
+				_ => ToScreamingSnakeCase(name),
+			};
 
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);

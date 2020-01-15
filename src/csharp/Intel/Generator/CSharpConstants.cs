@@ -51,6 +51,9 @@ namespace Generator {
 		public const string MasmFormatterDefine = "!NO_MASM_FORMATTER && !NO_FORMATTER";
 		public const string NasmFormatterDefine = "!NO_NASM_FORMATTER && !NO_FORMATTER";
 
+		public const string PragmaMissingDocsDisable = "#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member";
+		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";
+
 		public static string GetDirectory(GeneratorOptions generatorOptions, string @namespace) =>
 			Path.Combine(new[] { generatorOptions.CSharpDir }.Concat(@namespace.Split('.').Skip(1)).ToArray());
 	}

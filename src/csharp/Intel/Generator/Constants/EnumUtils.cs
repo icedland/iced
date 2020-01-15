@@ -26,15 +26,11 @@ using Generator.Enums;
 
 namespace Generator.Constants {
 	static class EnumUtils {
-		public static EnumType GetEnumType(ConstantKind kind) {
-			switch (kind) {
-			case ConstantKind.Register:
-				return RegisterEnum.Instance;
-			case ConstantKind.MemorySize:
-				return MemorySizeEnum.Instance;
-			default:
-				throw new InvalidOperationException();
-			}
-		}
+		public static EnumType GetEnumType(ConstantKind kind) =>
+			kind switch {
+				ConstantKind.Register => RegisterEnum.Instance,
+				ConstantKind.MemorySize => MemorySizeEnum.Instance,
+				_ => throw new InvalidOperationException(),
+			};
 	}
 }

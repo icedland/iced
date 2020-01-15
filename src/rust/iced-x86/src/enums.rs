@@ -1583,6 +1583,7 @@ impl Default for MandatoryPrefix {
 /// Opcode table
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg(feature = "encoder")]
+#[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum OpCodeTableKind {
 	/// Legacy encoding table
 	Normal,

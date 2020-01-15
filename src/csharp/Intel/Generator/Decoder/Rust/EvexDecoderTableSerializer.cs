@@ -41,84 +41,80 @@ namespace Generator.Decoder.Rust {
 		(string name, bool hasModRM) GetHandlerTypeInfo(EnumValue handlerType) {
 			if (handlerType.DeclaringType.TypeId != TypeIds.EvexOpCodeHandlerKind)
 				throw new InvalidOperationException();
-			switch ((EvexOpCodeHandlerKind)handlerType.Value) {
-			case EvexOpCodeHandlerKind.Invalid: return ("OpCodeHandler_Invalid", true);
-			case EvexOpCodeHandlerKind.RM: return ("OpCodeHandler_RM", true);
-			case EvexOpCodeHandlerKind.Group: return ("OpCodeHandler_Group", true);
-			case EvexOpCodeHandlerKind.W: return ("OpCodeHandler_W", true);
-			case EvexOpCodeHandlerKind.MandatoryPrefix2: return ("OpCodeHandler_MandatoryPrefix2", true);
-			case EvexOpCodeHandlerKind.VectorLength: return ("OpCodeHandler_VectorLength_EVEX", true);
-			case EvexOpCodeHandlerKind.VectorLength_er: return ("OpCodeHandler_VectorLength_EVEX_er", true);
-			case EvexOpCodeHandlerKind.V_H_Ev_er: return ("OpCodeHandler_EVEX_V_H_Ev_er", true);
-			case EvexOpCodeHandlerKind.V_H_Ev_Ib: return ("OpCodeHandler_EVEX_V_H_Ev_Ib", true);
-			case EvexOpCodeHandlerKind.Ed_V_Ib: return ("OpCodeHandler_EVEX_Ed_V_Ib", true);
-			case EvexOpCodeHandlerKind.VkHW_er_4: return ("OpCodeHandler_EVEX_VkHW_er", true);
-			case EvexOpCodeHandlerKind.VkHW_er_4b: return ("OpCodeHandler_EVEX_VkHW_er", true);
-			case EvexOpCodeHandlerKind.VkW_er_4: return ("OpCodeHandler_EVEX_VkW_er", true);
-			case EvexOpCodeHandlerKind.VkW_er_5: return ("OpCodeHandler_EVEX_VkW_er", true);
-			case EvexOpCodeHandlerKind.VkW_er_6: return ("OpCodeHandler_EVEX_VkW_er", true);
-			case EvexOpCodeHandlerKind.VkWIb_er: return ("OpCodeHandler_EVEX_VkWIb_er", true);
-			case EvexOpCodeHandlerKind.VkW_3: return ("OpCodeHandler_EVEX_VkW", true);
-			case EvexOpCodeHandlerKind.VkW_3b: return ("OpCodeHandler_EVEX_VkW", true);
-			case EvexOpCodeHandlerKind.VkW_4: return ("OpCodeHandler_EVEX_VkW", true);
-			case EvexOpCodeHandlerKind.VkW_4b: return ("OpCodeHandler_EVEX_VkW", true);
-			case EvexOpCodeHandlerKind.WkV_3: return ("OpCodeHandler_EVEX_WkV", true);
-			case EvexOpCodeHandlerKind.WkV_4a: return ("OpCodeHandler_EVEX_WkV", true);
-			case EvexOpCodeHandlerKind.WkV_4b: return ("OpCodeHandler_EVEX_WkV", true);
-			case EvexOpCodeHandlerKind.VkM: return ("OpCodeHandler_EVEX_VkM", true);
-			case EvexOpCodeHandlerKind.VkWIb_3: return ("OpCodeHandler_EVEX_VkWIb", true);
-			case EvexOpCodeHandlerKind.VkWIb_3b: return ("OpCodeHandler_EVEX_VkWIb", true);
-			case EvexOpCodeHandlerKind.WkVIb: return ("OpCodeHandler_EVEX_WkVIb", true);
-			case EvexOpCodeHandlerKind.HkWIb_3: return ("OpCodeHandler_EVEX_HkWIb", true);
-			case EvexOpCodeHandlerKind.HkWIb_3b: return ("OpCodeHandler_EVEX_HkWIb", true);
-			case EvexOpCodeHandlerKind.HWIb: return ("OpCodeHandler_EVEX_HWIb", true);
-			case EvexOpCodeHandlerKind.WkVIb_er: return ("OpCodeHandler_EVEX_WkVIb_er", true);
-			case EvexOpCodeHandlerKind.VW_er: return ("OpCodeHandler_EVEX_VW_er", true);
-			case EvexOpCodeHandlerKind.VW: return ("OpCodeHandler_EVEX_VW", true);
-			case EvexOpCodeHandlerKind.WV: return ("OpCodeHandler_EVEX_WV", true);
-			case EvexOpCodeHandlerKind.VM: return ("OpCodeHandler_EVEX_VM", true);
-			case EvexOpCodeHandlerKind.VK: return ("OpCodeHandler_EVEX_VK", true);
-			case EvexOpCodeHandlerKind.KR: return ("OpCodeHandler_EVEX_KR", true);
-			case EvexOpCodeHandlerKind.KkHWIb_sae_3: return ("OpCodeHandler_EVEX_KkHWIb_sae", true);
-			case EvexOpCodeHandlerKind.KkHWIb_sae_3b: return ("OpCodeHandler_EVEX_KkHWIb_sae", true);
-			case EvexOpCodeHandlerKind.VkHW_3: return ("OpCodeHandler_EVEX_VkHW", true);
-			case EvexOpCodeHandlerKind.VkHW_3b: return ("OpCodeHandler_EVEX_VkHW", true);
-			case EvexOpCodeHandlerKind.VkHW_5: return ("OpCodeHandler_EVEX_VkHW", true);
-			case EvexOpCodeHandlerKind.VkHM: return ("OpCodeHandler_EVEX_VkHM", true);
-			case EvexOpCodeHandlerKind.VkHWIb_3: return ("OpCodeHandler_EVEX_VkHWIb", true);
-			case EvexOpCodeHandlerKind.VkHWIb_3b: return ("OpCodeHandler_EVEX_VkHWIb", true);
-			case EvexOpCodeHandlerKind.VkHWIb_5: return ("OpCodeHandler_EVEX_VkHWIb", true);
-			case EvexOpCodeHandlerKind.VkHWIb_er_4: return ("OpCodeHandler_EVEX_VkHWIb_er", true);
-			case EvexOpCodeHandlerKind.VkHWIb_er_4b: return ("OpCodeHandler_EVEX_VkHWIb_er", true);
-			case EvexOpCodeHandlerKind.KkHW_3: return ("OpCodeHandler_EVEX_KkHW", true);
-			case EvexOpCodeHandlerKind.KkHW_3b: return ("OpCodeHandler_EVEX_KkHW", true);
-			case EvexOpCodeHandlerKind.KP1HW: return ("OpCodeHandler_EVEX_KP1HW", true);
-			case EvexOpCodeHandlerKind.KkHWIb_3: return ("OpCodeHandler_EVEX_KkHWIb", true);
-			case EvexOpCodeHandlerKind.KkHWIb_3b: return ("OpCodeHandler_EVEX_KkHWIb", true);
-			case EvexOpCodeHandlerKind.WkHV: return ("OpCodeHandler_EVEX_WkHV", true);
-			case EvexOpCodeHandlerKind.VHWIb: return ("OpCodeHandler_EVEX_VHWIb", true);
-			case EvexOpCodeHandlerKind.VHW_3: return ("OpCodeHandler_EVEX_VHW", true);
-			case EvexOpCodeHandlerKind.VHW_4: return ("OpCodeHandler_EVEX_VHW", true);
-			case EvexOpCodeHandlerKind.VHM: return ("OpCodeHandler_EVEX_VHM", true);
-			case EvexOpCodeHandlerKind.Gv_W_er: return ("OpCodeHandler_EVEX_Gv_W_er", true);
-			case EvexOpCodeHandlerKind.VX_Ev: return ("OpCodeHandler_EVEX_VX_Ev", true);
-			case EvexOpCodeHandlerKind.Ev_VX: return ("OpCodeHandler_EVEX_Ev_VX", true);
-			case EvexOpCodeHandlerKind.Ev_VX_Ib: return ("OpCodeHandler_EVEX_Ev_VX_Ib", true);
-			case EvexOpCodeHandlerKind.MV: return ("OpCodeHandler_EVEX_MV", true);
-			case EvexOpCodeHandlerKind.VkEv_REXW_2: return ("OpCodeHandler_EVEX_VkEv_REXW", true);
-			case EvexOpCodeHandlerKind.VkEv_REXW_3: return ("OpCodeHandler_EVEX_VkEv_REXW", true);
-			case EvexOpCodeHandlerKind.Vk_VSIB: return ("OpCodeHandler_EVEX_Vk_VSIB", true);
-			case EvexOpCodeHandlerKind.VSIB_k1_VX: return ("OpCodeHandler_EVEX_VSIB_k1_VX", true);
-			case EvexOpCodeHandlerKind.VSIB_k1: return ("OpCodeHandler_EVEX_VSIB_k1", true);
-			case EvexOpCodeHandlerKind.GvM_VX_Ib: return ("OpCodeHandler_EVEX_GvM_VX_Ib", true);
-			case EvexOpCodeHandlerKind.KkWIb_3: return ("OpCodeHandler_EVEX_KkWIb", true);
-			case EvexOpCodeHandlerKind.KkWIb_3b: return ("OpCodeHandler_EVEX_KkWIb", true);
-			case EvexOpCodeHandlerKind.Invalid2:
-			case EvexOpCodeHandlerKind.Dup:
-			case EvexOpCodeHandlerKind.HandlerReference:
-			case EvexOpCodeHandlerKind.ArrayReference:
-			default: throw new InvalidOperationException();
-			}
+			return (EvexOpCodeHandlerKind)handlerType.Value switch {
+				EvexOpCodeHandlerKind.Invalid => ("OpCodeHandler_Invalid", true),
+				EvexOpCodeHandlerKind.RM => ("OpCodeHandler_RM", true),
+				EvexOpCodeHandlerKind.Group => ("OpCodeHandler_Group", true),
+				EvexOpCodeHandlerKind.W => ("OpCodeHandler_W", true),
+				EvexOpCodeHandlerKind.MandatoryPrefix2 => ("OpCodeHandler_MandatoryPrefix2", true),
+				EvexOpCodeHandlerKind.VectorLength => ("OpCodeHandler_VectorLength_EVEX", true),
+				EvexOpCodeHandlerKind.VectorLength_er => ("OpCodeHandler_VectorLength_EVEX_er", true),
+				EvexOpCodeHandlerKind.V_H_Ev_er => ("OpCodeHandler_EVEX_V_H_Ev_er", true),
+				EvexOpCodeHandlerKind.V_H_Ev_Ib => ("OpCodeHandler_EVEX_V_H_Ev_Ib", true),
+				EvexOpCodeHandlerKind.Ed_V_Ib => ("OpCodeHandler_EVEX_Ed_V_Ib", true),
+				EvexOpCodeHandlerKind.VkHW_er_4 => ("OpCodeHandler_EVEX_VkHW_er", true),
+				EvexOpCodeHandlerKind.VkHW_er_4b => ("OpCodeHandler_EVEX_VkHW_er", true),
+				EvexOpCodeHandlerKind.VkW_er_4 => ("OpCodeHandler_EVEX_VkW_er", true),
+				EvexOpCodeHandlerKind.VkW_er_5 => ("OpCodeHandler_EVEX_VkW_er", true),
+				EvexOpCodeHandlerKind.VkW_er_6 => ("OpCodeHandler_EVEX_VkW_er", true),
+				EvexOpCodeHandlerKind.VkWIb_er => ("OpCodeHandler_EVEX_VkWIb_er", true),
+				EvexOpCodeHandlerKind.VkW_3 => ("OpCodeHandler_EVEX_VkW", true),
+				EvexOpCodeHandlerKind.VkW_3b => ("OpCodeHandler_EVEX_VkW", true),
+				EvexOpCodeHandlerKind.VkW_4 => ("OpCodeHandler_EVEX_VkW", true),
+				EvexOpCodeHandlerKind.VkW_4b => ("OpCodeHandler_EVEX_VkW", true),
+				EvexOpCodeHandlerKind.WkV_3 => ("OpCodeHandler_EVEX_WkV", true),
+				EvexOpCodeHandlerKind.WkV_4a => ("OpCodeHandler_EVEX_WkV", true),
+				EvexOpCodeHandlerKind.WkV_4b => ("OpCodeHandler_EVEX_WkV", true),
+				EvexOpCodeHandlerKind.VkM => ("OpCodeHandler_EVEX_VkM", true),
+				EvexOpCodeHandlerKind.VkWIb_3 => ("OpCodeHandler_EVEX_VkWIb", true),
+				EvexOpCodeHandlerKind.VkWIb_3b => ("OpCodeHandler_EVEX_VkWIb", true),
+				EvexOpCodeHandlerKind.WkVIb => ("OpCodeHandler_EVEX_WkVIb", true),
+				EvexOpCodeHandlerKind.HkWIb_3 => ("OpCodeHandler_EVEX_HkWIb", true),
+				EvexOpCodeHandlerKind.HkWIb_3b => ("OpCodeHandler_EVEX_HkWIb", true),
+				EvexOpCodeHandlerKind.HWIb => ("OpCodeHandler_EVEX_HWIb", true),
+				EvexOpCodeHandlerKind.WkVIb_er => ("OpCodeHandler_EVEX_WkVIb_er", true),
+				EvexOpCodeHandlerKind.VW_er => ("OpCodeHandler_EVEX_VW_er", true),
+				EvexOpCodeHandlerKind.VW => ("OpCodeHandler_EVEX_VW", true),
+				EvexOpCodeHandlerKind.WV => ("OpCodeHandler_EVEX_WV", true),
+				EvexOpCodeHandlerKind.VM => ("OpCodeHandler_EVEX_VM", true),
+				EvexOpCodeHandlerKind.VK => ("OpCodeHandler_EVEX_VK", true),
+				EvexOpCodeHandlerKind.KR => ("OpCodeHandler_EVEX_KR", true),
+				EvexOpCodeHandlerKind.KkHWIb_sae_3 => ("OpCodeHandler_EVEX_KkHWIb_sae", true),
+				EvexOpCodeHandlerKind.KkHWIb_sae_3b => ("OpCodeHandler_EVEX_KkHWIb_sae", true),
+				EvexOpCodeHandlerKind.VkHW_3 => ("OpCodeHandler_EVEX_VkHW", true),
+				EvexOpCodeHandlerKind.VkHW_3b => ("OpCodeHandler_EVEX_VkHW", true),
+				EvexOpCodeHandlerKind.VkHW_5 => ("OpCodeHandler_EVEX_VkHW", true),
+				EvexOpCodeHandlerKind.VkHM => ("OpCodeHandler_EVEX_VkHM", true),
+				EvexOpCodeHandlerKind.VkHWIb_3 => ("OpCodeHandler_EVEX_VkHWIb", true),
+				EvexOpCodeHandlerKind.VkHWIb_3b => ("OpCodeHandler_EVEX_VkHWIb", true),
+				EvexOpCodeHandlerKind.VkHWIb_5 => ("OpCodeHandler_EVEX_VkHWIb", true),
+				EvexOpCodeHandlerKind.VkHWIb_er_4 => ("OpCodeHandler_EVEX_VkHWIb_er", true),
+				EvexOpCodeHandlerKind.VkHWIb_er_4b => ("OpCodeHandler_EVEX_VkHWIb_er", true),
+				EvexOpCodeHandlerKind.KkHW_3 => ("OpCodeHandler_EVEX_KkHW", true),
+				EvexOpCodeHandlerKind.KkHW_3b => ("OpCodeHandler_EVEX_KkHW", true),
+				EvexOpCodeHandlerKind.KP1HW => ("OpCodeHandler_EVEX_KP1HW", true),
+				EvexOpCodeHandlerKind.KkHWIb_3 => ("OpCodeHandler_EVEX_KkHWIb", true),
+				EvexOpCodeHandlerKind.KkHWIb_3b => ("OpCodeHandler_EVEX_KkHWIb", true),
+				EvexOpCodeHandlerKind.WkHV => ("OpCodeHandler_EVEX_WkHV", true),
+				EvexOpCodeHandlerKind.VHWIb => ("OpCodeHandler_EVEX_VHWIb", true),
+				EvexOpCodeHandlerKind.VHW_3 => ("OpCodeHandler_EVEX_VHW", true),
+				EvexOpCodeHandlerKind.VHW_4 => ("OpCodeHandler_EVEX_VHW", true),
+				EvexOpCodeHandlerKind.VHM => ("OpCodeHandler_EVEX_VHM", true),
+				EvexOpCodeHandlerKind.Gv_W_er => ("OpCodeHandler_EVEX_Gv_W_er", true),
+				EvexOpCodeHandlerKind.VX_Ev => ("OpCodeHandler_EVEX_VX_Ev", true),
+				EvexOpCodeHandlerKind.Ev_VX => ("OpCodeHandler_EVEX_Ev_VX", true),
+				EvexOpCodeHandlerKind.Ev_VX_Ib => ("OpCodeHandler_EVEX_Ev_VX_Ib", true),
+				EvexOpCodeHandlerKind.MV => ("OpCodeHandler_EVEX_MV", true),
+				EvexOpCodeHandlerKind.VkEv_REXW_2 => ("OpCodeHandler_EVEX_VkEv_REXW", true),
+				EvexOpCodeHandlerKind.VkEv_REXW_3 => ("OpCodeHandler_EVEX_VkEv_REXW", true),
+				EvexOpCodeHandlerKind.Vk_VSIB => ("OpCodeHandler_EVEX_Vk_VSIB", true),
+				EvexOpCodeHandlerKind.VSIB_k1_VX => ("OpCodeHandler_EVEX_VSIB_k1_VX", true),
+				EvexOpCodeHandlerKind.VSIB_k1 => ("OpCodeHandler_EVEX_VSIB_k1", true),
+				EvexOpCodeHandlerKind.GvM_VX_Ib => ("OpCodeHandler_EVEX_GvM_VX_Ib", true),
+				EvexOpCodeHandlerKind.KkWIb_3 => ("OpCodeHandler_EVEX_KkWIb", true),
+				EvexOpCodeHandlerKind.KkWIb_3b => ("OpCodeHandler_EVEX_KkWIb", true),
+				_ => throw new InvalidOperationException(),
+			};
 		}
 
 		protected sealed override void WriteFieldsCore(FileWriter writer, object?[] handler) {

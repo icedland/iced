@@ -44,66 +44,57 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Operand options
 	/// </summary>
-	[Flags]
-	public enum FormatterOperandOptions : uint {
-		/// <summary>
-		/// No option is enabled
-		/// </summary>
-		None					= 0,
+	public struct FormatterOperandOptions {
+		uint flags;
+
+		[Flags]
+		internal enum Flags : uint {
+			None					= 0,
+			NoBranchSize			= 0x00000001,
+			RipRelativeAddresses	= 0x00000002,
+			MemorySizeShift			= 30,
+			MemorySizeMask			= 3U << (int)MemorySizeShift,
+		}
 
 		/// <summary>
-		/// Don't show branch size (short, near ptr)
+		/// Show branch size (eg. <c>SHORT</c>, <c>NEAR PTR</c>)
 		/// </summary>
-		NoBranchSize			= 0x00000001,
+		public bool BranchSize {
+			readonly get => (flags & (uint)Flags.NoBranchSize) == 0;
+			set {
+				if (value)
+					flags &= ~(uint)Flags.NoBranchSize;
+				else
+					flags |= (uint)Flags.NoBranchSize;
+			}
+		}
 
 		/// <summary>
-		/// If set, show RIP relative addresses as '[rip+12345678h]', else show RIP relative addresses as '[1029384756AFBECDh]'
+		/// If <see langword="true"/>, show <c>RIP</c> relative addresses as <c>[rip+12345678h]</c>, else show the linear address eg. <c>[1029384756AFBECDh]</c>
 		/// </summary>
-		RipRelativeAddresses	= 0x00000002,
+		public bool RipRelativeAddresses {
+			readonly get => (flags & (uint)Flags.RipRelativeAddresses) != 0;
+			set {
+				if (value)
+					flags |= (uint)Flags.RipRelativeAddresses;
+				else
+					flags &= ~(uint)Flags.RipRelativeAddresses;
+			}
+		}
 
 		/// <summary>
-		/// Bit position of <see cref="MemorySizeOptions"/> bits
+		/// Memory size options
 		/// </summary>
-		MemorySizeShift			= 30,
+		public MemorySizeOptions MemorySizeOptions {
+			readonly get => (MemorySizeOptions)(flags >> (int)Flags.MemorySizeShift);
+			set => flags = (flags & ~(uint)Flags.MemorySizeMask) | ((uint)value << (int)Flags.MemorySizeShift);
+		}
 
-		/// <summary>
-		/// MemorySizeXXX mask, use <see cref="FormatterOperandOptionsExtensions.WithMemorySize(FormatterOperandOptions, MemorySizeOptions)"/> to change this value
-		/// </summary>
-		MemorySizeMask			= 3U << (int)MemorySizeShift,
+		internal FormatterOperandOptions(Flags flags) =>
+			this.flags = (uint)flags;
 
-		/// <summary>
-		/// Show memory size if the assembler requires it, else don't show any
-		/// </summary>
-		MemorySizeDefault		= MemorySizeOptions.Default << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Always show the memory size, even if the assembler doesn't need it
-		/// </summary>
-		MemorySizeAlways		= MemorySizeOptions.Always << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Show memory size if a human can't figure out the size of the operand
-		/// </summary>
-		MemorySizeMinimum		= (uint)MemorySizeOptions.Minimum << (int)MemorySizeShift,
-
-		/// <summary>
-		/// Never show memory size
-		/// </summary>
-		MemorySizeNever			= (uint)MemorySizeOptions.Never << (int)MemorySizeShift,
-	}
-
-	/// <summary>
-	/// Extension methods
-	/// </summary>
-	public static class FormatterOperandOptionsExtensions {
-		/// <summary>
-		/// Returns new options with a new <see cref="MemorySizeOptions"/> value
-		/// </summary>
-		/// <param name="self">Operand options</param>
-		/// <param name="options">Memory size options</param>
-		/// <returns></returns>
-		public static FormatterOperandOptions WithMemorySize(this FormatterOperandOptions self, MemorySizeOptions options) =>
-			(self & ~FormatterOperandOptions.MemorySizeMask) | (FormatterOperandOptions)((uint)options << (int)FormatterOperandOptions.MemorySizeShift);
+		internal FormatterOperandOptions(MemorySizeOptions options) =>
+			flags = (uint)options << (int)Flags.MemorySizeShift;
 	}
 
 	/// <summary>
@@ -111,22 +102,22 @@ namespace Iced.Intel {
 	/// </summary>
 	public struct NumberFormattingOptions {
 		/// <summary>
-		/// Digit separator or null/empty string
+		/// Digit separator or <see langword="null"/>/empty string to not use a digit separator
 		/// </summary>
 		public string? DigitSeparator;
 
 		/// <summary>
-		/// Number prefix or null/empty string
+		/// Number prefix or <see langword="null"/>/empty string
 		/// </summary>
 		public string? Prefix;
 
 		/// <summary>
-		/// Number suffix or null/empty string
+		/// Number suffix or <see langword="null"/>/empty string
 		/// </summary>
 		public string? Suffix;
 
 		/// <summary>
-		/// Size of a digit group
+		/// Size of a digit group or 0 to not use a digit separator
 		/// </summary>
 		public byte DigitGroupSize;
 
@@ -150,7 +141,7 @@ namespace Iced.Intel {
 		public bool SmallHexNumbersInDecimal;
 
 		/// <summary>
-		/// Add a leading zero to numbers if there's no prefix and the number begins with hex digits A-F, eg. Ah vs 0Ah
+		/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
 		/// </summary>
 		public bool AddLeadingZeroToHexNumbers;
 
@@ -165,14 +156,14 @@ namespace Iced.Intel {
 		public bool SignedNumber;
 
 		/// <summary>
-		/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'
+		/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c>
 		/// </summary>
 		public bool SignExtendImmediate;
 
 		/// <summary>
 		/// Creates options used when formatting immediate values
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateImmediate(FormatterOptions options) {
@@ -188,7 +179,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates options used when formatting displacements
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateDisplacement(FormatterOptions options) {
@@ -204,7 +195,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates options used when formatting branch operands
 		/// </summary>
-		/// <param name="options">Options</param>
+		/// <param name="options">Formatter options to use</param>
 		/// <returns></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static NumberFormattingOptions CreateBranch(FormatterOptions options) {
@@ -220,10 +211,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="options">Options</param>
-		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. '1h' vs '00000001h'</param>
+		/// <param name="options">Formatter options to use</param>
+		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. <c>1h</c> vs <c>00000001h</c></param>
 		/// <param name="signedNumber">Signed numbers if <see langword="true"/>, and unsigned numbers if <see langword="false"/></param>
-		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. 'mov al,[eax+12h]' vs 'mov al,[eax+00000012h]'</param>
+		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c></param>
 		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
 			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();

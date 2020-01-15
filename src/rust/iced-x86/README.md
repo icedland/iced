@@ -1,22 +1,10 @@
 iced-x86
 [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](https://github.com/0xd4d/iced/tree/master/src/rust/iced-x86#rust-version-requirements)
+[![Minimum rustc version](https://img.shields.io/badge/rustc-1.20.0+-yellow.svg)](https://github.com/0xd4d/iced/tree/master/src/rust/iced-x86#minimum-supported-rustc-version)
 ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
 TODO:
-
-## Crate features
-
-- `decoder`: (Enabled by default) Enables the decoder
-- `encoder`: (Enabled by default) Enables the encoder
-- `instr_info`: (Enabled by default) Enables the instruction info code
-- `all_formatters`: (Enabled by default) Enables all formatters
-- `gas_formatter`: (Enabled by default) Enables the gas (AT&T) formatter
-- `intel_formatter`: (Enabled by default) Enables the Intel (XED) formatter
-- `masm_formatter`: (Enabled by default) Enables the masm formatter
-- `nasm_formatter`: (Enabled by default) Enables the nasm formatter
-- `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 ## Minimum supported `rustc` version
 

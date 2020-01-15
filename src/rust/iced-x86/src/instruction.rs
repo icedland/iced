@@ -1777,7 +1777,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `db` value, see also [`declare_data_len()`].
+	/// Gets a `db` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareByte`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -1874,7 +1874,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dw` value, see also [`declare_data_len()`].
+	/// Gets a `dw` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareWord`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -1959,7 +1959,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dd` value, see also [`declare_data_len()`].
+	/// Gets a `dd` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareDword`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -2040,7 +2040,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets a new `dq` value, see also [`declare_data_len()`].
+	/// Gets a `dq` value, see also [`declare_data_len()`].
 	/// Can only be called if [`code()`] is [`Code::DeclareQword`]
 	///
 	/// [`declare_data_len()`]: #method.declare_data_len
@@ -3188,7 +3188,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(1, instruction.op_count());
@@ -3213,7 +3213,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(1, instruction.op_count());
@@ -3295,7 +3295,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3325,7 +3325,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3432,7 +3432,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -3462,7 +3462,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -3487,8 +3487,9 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 0));
-		instruction.set_immediate32(immediate1 as u32);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -3511,8 +3512,9 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 0));
-		instruction.set_immediate32(immediate1);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
+		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
 
 		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -3580,7 +3582,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3615,7 +3617,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(2, instruction.op_count());
@@ -3681,7 +3683,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -3716,7 +3718,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -3778,8 +3780,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 1));
-		instruction.set_immediate32(immediate1 as u32);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -3807,8 +3810,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 1));
-		instruction.set_immediate32(immediate1);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
+		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
 
 		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -3886,7 +3890,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -3926,7 +3930,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -4002,7 +4006,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -4042,7 +4046,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(3, instruction.op_count());
@@ -4118,7 +4122,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4158,7 +4162,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4230,8 +4234,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 2));
-		instruction.set_immediate32(immediate1 as u32);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -4264,8 +4269,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, super::instruction_internal::get_immediate_op_kind(code, 2));
-		instruction.set_immediate32(immediate1);
+		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
+		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
+		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
 
 		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
 		instruction.set_immediate8_2nd(immediate2 as u8);
@@ -4353,7 +4359,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4398,7 +4404,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(4, instruction.op_count());
@@ -4443,7 +4449,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());
@@ -4488,7 +4494,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());
@@ -4538,7 +4544,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());
@@ -4588,7 +4594,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());
@@ -4638,7 +4644,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate as u32);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());
@@ -4688,7 +4694,7 @@ impl Instruction {
 		if op_kind == OpKind::Immediate64 {
 			instruction.set_immediate64(immediate as u64);
 		} else {
-			instruction.set_immediate32(immediate);
+			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
 		}
 
 		debug_assert_eq!(5, instruction.op_count());

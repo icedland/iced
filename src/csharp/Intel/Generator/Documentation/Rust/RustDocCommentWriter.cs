@@ -176,13 +176,14 @@ namespace Generator.Documentation.Rust {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.EnumFieldReference:
+				case TokenKind.FieldReference:
 					sb2.Append("[`");
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
 						sb2.Append("::");
 					}
-					m = idConverter.EnumField(info.value2);
+					m = info.kind == TokenKind.EnumFieldReference ? idConverter.EnumField(info.value2) : idConverter.Field(info.value2);
 					sb2.Append(m);
 					sb2.Append("`]");
 					sb.Append(sb2);
@@ -232,6 +233,7 @@ namespace Generator.Documentation.Rust {
 			case "ConstantOffsets":
 			case "Instruction":
 			case "RelocInfo":
+			case "SymbolResult":
 				return "struct";
 			default:
 				throw new InvalidOperationException();

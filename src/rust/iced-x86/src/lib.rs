@@ -22,6 +22,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 //! iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust
+//!
+//! TODO:
+//!
+//! ## Minimum supported `rustc` version
+//!
+//! iced-x86 supports `rustc` `1.20.0` or later.
+//!
+//! ## Crate feature flags
+//!
+//! You can enable/disable these in your `Cargo.toml` file.
+//!
+//! - `decoder`: (Enabled by default) Enables the decoder
+//! - `encoder`: (Enabled by default) Enables the encoder
+//! - `instr_info`: (Enabled by default) Enables the instruction info code
+//! - `all_formatters`: (Enabled by default) Enables all formatters
+//! - `gas_formatter`: (Enabled by default) Enables the gas (AT&T) formatter
+//! - `intel_formatter`: (Enabled by default) Enables the Intel (XED) formatter
+//! - `masm_formatter`: (Enabled by default) Enables the masm formatter
+//! - `nasm_formatter`: (Enabled by default) Enables the nasm formatter
+//! - `std`: (Enabled by default) Must be enabled or an error is generated
+//! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/0.0.0")]
@@ -49,6 +70,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cast_lossless))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // '_ requires rustc >= 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))] // Requires rustc >= 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
@@ -62,6 +84,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
+
+#[cfg(not(feature = "std"))]
+compile_error!("`std` feature must be enabled");
 
 #[macro_use]
 extern crate lazy_static;
