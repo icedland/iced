@@ -35,9 +35,9 @@ lazy_static! {
 		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES * 3, OP_CODE_DATA.len());
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 			let j = i * 3;
-			let dword1 = unsafe { *OP_CODE_DATA.get_unchecked(j) };
-			let dword2 = unsafe { *OP_CODE_DATA.get_unchecked(j + 1) };
-			let dword3 = unsafe { *OP_CODE_DATA.get_unchecked(j + 2) };
+			let dword1 = OP_CODE_DATA[j];
+			let dword2 = OP_CODE_DATA[j + 1];
+			let dword3 = OP_CODE_DATA[j + 2];
 			let encoding: EncodingKind = unsafe { mem::transmute(((dword1 >> EncFlags1::ENCODING_SHIFT) & EncFlags1::ENCODING_MASK) as u8) };
 			let handler = match encoding {
 				EncodingKind::Legacy => {

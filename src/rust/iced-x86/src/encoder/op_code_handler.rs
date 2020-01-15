@@ -151,25 +151,25 @@ impl LegacyHandler {
 		let op3: LegacyOpKind = unsafe { mem::transmute(((dword3 >> LegacyFlags3::OP3_SHIFT) & LegacyFlags3::OP_MASK) as u8) };
 		if op3 != LegacyOpKind::None {
 			operands = Vec::with_capacity(4);
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op2 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op3 as usize) });
+			operands.push(LEGACY_TABLE[op0 as usize]);
+			operands.push(LEGACY_TABLE[op1 as usize]);
+			operands.push(LEGACY_TABLE[op2 as usize]);
+			operands.push(LEGACY_TABLE[op3 as usize]);
 		} else if op2 != LegacyOpKind::None {
 			operands = Vec::with_capacity(3);
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op2 as usize) });
+			operands.push(LEGACY_TABLE[op0 as usize]);
+			operands.push(LEGACY_TABLE[op1 as usize]);
+			operands.push(LEGACY_TABLE[op2 as usize]);
 			debug_assert_eq!(LegacyOpKind::None, op3);
 		} else if op1 != LegacyOpKind::None {
 			operands = Vec::with_capacity(2);
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op1 as usize) });
+			operands.push(LEGACY_TABLE[op0 as usize]);
+			operands.push(LEGACY_TABLE[op1 as usize]);
 			debug_assert_eq!(LegacyOpKind::None, op2);
 			debug_assert_eq!(LegacyOpKind::None, op3);
 		} else if op0 != LegacyOpKind::None {
 			operands = Vec::with_capacity(1);
-			operands.push(unsafe { *LEGACY_TABLE.get_unchecked(op0 as usize) });
+			operands.push(LEGACY_TABLE[op0 as usize]);
 			debug_assert_eq!(LegacyOpKind::None, op1);
 			debug_assert_eq!(LegacyOpKind::None, op2);
 			debug_assert_eq!(LegacyOpKind::None, op3);
@@ -272,35 +272,35 @@ impl VexHandler {
 		let op4: VexOpKind = unsafe { mem::transmute(((dword3 >> VexFlags3::OP4_SHIFT) & VexFlags3::OP_MASK) as u8) };
 		if op4 != VexOpKind::None {
 			operands = Vec::with_capacity(5);
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op2 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op3 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op4 as usize) });
+			operands.push(VEX_TABLE[op0 as usize]);
+			operands.push(VEX_TABLE[op1 as usize]);
+			operands.push(VEX_TABLE[op2 as usize]);
+			operands.push(VEX_TABLE[op3 as usize]);
+			operands.push(VEX_TABLE[op4 as usize]);
 		} else if op3 != VexOpKind::None {
 			operands = Vec::with_capacity(4);
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op2 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op3 as usize) });
+			operands.push(VEX_TABLE[op0 as usize]);
+			operands.push(VEX_TABLE[op1 as usize]);
+			operands.push(VEX_TABLE[op2 as usize]);
+			operands.push(VEX_TABLE[op3 as usize]);
 			debug_assert_eq!(VexOpKind::None, op4);
 		} else if op2 != VexOpKind::None {
 			operands = Vec::with_capacity(3);
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op2 as usize) });
+			operands.push(VEX_TABLE[op0 as usize]);
+			operands.push(VEX_TABLE[op1 as usize]);
+			operands.push(VEX_TABLE[op2 as usize]);
 			debug_assert_eq!(VexOpKind::None, op3);
 			debug_assert_eq!(VexOpKind::None, op4);
 		} else if op1 != VexOpKind::None {
 			operands = Vec::with_capacity(2);
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op1 as usize) });
+			operands.push(VEX_TABLE[op0 as usize]);
+			operands.push(VEX_TABLE[op1 as usize]);
 			debug_assert_eq!(VexOpKind::None, op2);
 			debug_assert_eq!(VexOpKind::None, op3);
 			debug_assert_eq!(VexOpKind::None, op4);
 		} else if op0 != VexOpKind::None {
 			operands = Vec::with_capacity(1);
-			operands.push(unsafe { *VEX_TABLE.get_unchecked(op0 as usize) });
+			operands.push(VEX_TABLE[op0 as usize]);
 			debug_assert_eq!(VexOpKind::None, op1);
 			debug_assert_eq!(VexOpKind::None, op2);
 			debug_assert_eq!(VexOpKind::None, op3);
@@ -399,25 +399,25 @@ impl XopHandler {
 		let op3: XopOpKind = unsafe { mem::transmute(((dword3 >> XopFlags3::OP3_SHIFT) & XopFlags3::OP_MASK) as u8) };
 		if op3 != XopOpKind::None {
 			operands = Vec::with_capacity(4);
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op2 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op3 as usize) });
+			operands.push(XOP_TABLE[op0 as usize]);
+			operands.push(XOP_TABLE[op1 as usize]);
+			operands.push(XOP_TABLE[op2 as usize]);
+			operands.push(XOP_TABLE[op3 as usize]);
 		} else if op2 != XopOpKind::None {
 			operands = Vec::with_capacity(3);
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op2 as usize) });
+			operands.push(XOP_TABLE[op0 as usize]);
+			operands.push(XOP_TABLE[op1 as usize]);
+			operands.push(XOP_TABLE[op2 as usize]);
 			debug_assert_eq!(XopOpKind::None, op3);
 		} else if op1 != XopOpKind::None {
 			operands = Vec::with_capacity(2);
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op1 as usize) });
+			operands.push(XOP_TABLE[op0 as usize]);
+			operands.push(XOP_TABLE[op1 as usize]);
 			debug_assert_eq!(XopOpKind::None, op2);
 			debug_assert_eq!(XopOpKind::None, op3);
 		} else if op0 != XopOpKind::None {
 			operands = Vec::with_capacity(1);
-			operands.push(unsafe { *XOP_TABLE.get_unchecked(op0 as usize) });
+			operands.push(XOP_TABLE[op0 as usize]);
 			debug_assert_eq!(XopOpKind::None, op1);
 			debug_assert_eq!(XopOpKind::None, op2);
 			debug_assert_eq!(XopOpKind::None, op3);
@@ -505,25 +505,25 @@ impl EvexHandler {
 		let op3: EvexOpKind = unsafe { mem::transmute(((dword3 >> EvexFlags3::OP3_SHIFT) & EvexFlags3::OP_MASK) as u8) };
 		if op3 != EvexOpKind::None {
 			operands = Vec::with_capacity(4);
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op2 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op3 as usize) });
+			operands.push(EVEX_TABLE[op0 as usize]);
+			operands.push(EVEX_TABLE[op1 as usize]);
+			operands.push(EVEX_TABLE[op2 as usize]);
+			operands.push(EVEX_TABLE[op3 as usize]);
 		} else if op2 != EvexOpKind::None {
 			operands = Vec::with_capacity(3);
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op1 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op2 as usize) });
+			operands.push(EVEX_TABLE[op0 as usize]);
+			operands.push(EVEX_TABLE[op1 as usize]);
+			operands.push(EVEX_TABLE[op2 as usize]);
 			debug_assert_eq!(EvexOpKind::None, op3);
 		} else if op1 != EvexOpKind::None {
 			operands = Vec::with_capacity(2);
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op0 as usize) });
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op1 as usize) });
+			operands.push(EVEX_TABLE[op0 as usize]);
+			operands.push(EVEX_TABLE[op1 as usize]);
 			debug_assert_eq!(EvexOpKind::None, op2);
 			debug_assert_eq!(EvexOpKind::None, op3);
 		} else if op0 != EvexOpKind::None {
 			operands = Vec::with_capacity(1);
-			operands.push(unsafe { *EVEX_TABLE.get_unchecked(op0 as usize) });
+			operands.push(EVEX_TABLE[op0 as usize]);
 			debug_assert_eq!(EvexOpKind::None, op1);
 			debug_assert_eq!(EvexOpKind::None, op2);
 			debug_assert_eq!(EvexOpKind::None, op3);

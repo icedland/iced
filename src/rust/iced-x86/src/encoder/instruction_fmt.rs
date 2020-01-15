@@ -482,7 +482,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		if is_broadcast {
 			index += IcedConstants::NUMBER_OF_CODE_VALUES;
 		}
-		unsafe { mem::transmute(*instruction_memory_sizes::SIZES.get_unchecked(index)) }
+		unsafe { mem::transmute(instruction_memory_sizes::SIZES[index]) }
 	}
 
 	pub(crate) fn format(&mut self) -> String {
