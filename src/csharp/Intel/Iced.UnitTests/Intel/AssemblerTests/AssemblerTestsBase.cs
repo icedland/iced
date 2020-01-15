@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
+using System.Text;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
@@ -59,12 +60,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			// Expecting only one instruction
 			Assert.Equal(1, assembler.Instructions.Count);
 
+			// Encode the instruction first to get any errors
+			assembler.Encode(BlockEncoderOptions.DontFixBranches);
+			
 			// Check that the instruction is the one expected
 			var inst = assembler.Instructions[0];
 			Assert.True(fIns(inst));
-			
-			// Encode the instruction
-			assembler.Encode(BlockEncoderOptions.DontFixBranches);
 
 			// Special for decoding options
 			DecoderOptions decoderOptions = DecoderOptions.None;
@@ -112,6 +113,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Check decoding back against the original instruction
 			stream.Position = 0;
+			var instructionAsBytes = new StringBuilder();
+			while (stream.Position < stream.Length)
+			{
+				instructionAsBytes.Append($"{stream.ReadByte():x2} ");
+			}
+			stream.Position = 0;
+			
 			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream), decoderOptions);
 			var againstInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
@@ -164,7 +172,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				inst.NearBranch32 = 0;
 			}
 
-			Assert.Equal(inst , againstInst);
+			Assert.True(inst == againstInst, $"Expected: {inst} ({instructionAsBytes})\nActual: {againstInst}\n");
 		}
 
 		protected Label CreateAndEmitLabel(Assembler c) {
@@ -175,6 +183,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		protected Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;
+			return instruction;
+		}
+
+		protected Instruction ApplyK1(Instruction instruction) {
+			instruction.OpMask = Register.K1;
 			return instruction;
 		}
 

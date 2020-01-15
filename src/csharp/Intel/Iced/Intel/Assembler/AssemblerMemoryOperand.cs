@@ -104,6 +104,40 @@ namespace Iced.Intel
 				return 8;
 			}
 		}
+		/// <summary>
+		/// Apply mask Register K1.
+		/// </summary>
+		public AssemblerMemoryOperand k1 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);
+
+		/// <summary>
+		/// Apply mask Register K2.
+		/// </summary>
+		public AssemblerMemoryOperand k2 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K2);
+
+		/// <summary>
+		/// Apply mask Register K3.
+		/// </summary>
+		public AssemblerMemoryOperand k3 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
+		
+		/// <summary>
+		/// Apply mask Register K4.
+		/// </summary>
+		public AssemblerMemoryOperand k4 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K4);
+
+		/// <summary>
+		/// Apply mask Register K5.
+		/// </summary>
+		public AssemblerMemoryOperand k5 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
+		
+		/// <summary>
+		/// Apply mask Register K6.
+		/// </summary>
+		public AssemblerMemoryOperand k6 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
+		
+		/// <summary>
+		/// Apply mask Register K7.
+		/// </summary>
+		public AssemblerMemoryOperand k7 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
 		
 		/// <summary>
 		/// Suppress all exceptions.

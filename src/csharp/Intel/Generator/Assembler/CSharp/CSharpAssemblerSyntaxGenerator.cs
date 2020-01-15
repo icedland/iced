@@ -393,23 +393,25 @@ namespace Generator.Assembler.CSharp {
 				for (var i = 0; i < argValues.Count; i++) {
 					var renderArg = args[i];
 					var isMemory = renderArg.Kind == ArgKind.RegisterMemory || renderArg.Kind == ArgKind.Memory;
-					var argValue = argValues[i];
+					var argValueForAssembler = argValues[i];
+					var argValueForInstructionCreate = argValueForAssembler;
+
+					if (argValueForAssembler == null) {
+						argValueForAssembler = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard +  i), isMemory, true);
+						argValueForInstructionCreate = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false);
+					}
+
+					if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
+						argValueForAssembler += ".k1";
+						argValueForInstructionCreate += ".k1";
+					}
+
 					if (i > 0) {
 						assemblerArgs.Append(", ");
 					}
 					instructionCreateArgs.Append(", ");
-
-					if (argValue == null) {
-						argValue = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard +  i), isMemory, true);
-						assemblerArgs.Append(argValue);
-
-						argValue = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false);
-						instructionCreateArgs.Append(argValue);
-					}
-					else {
-						assemblerArgs.Append(argValue);
-						instructionCreateArgs.Append(argValue);
-					}
+					assemblerArgs.Append(argValueForAssembler);
+					instructionCreateArgs.Append(argValueForInstructionCreate);
 				}
 				
 				// TODO: support memoff64
@@ -456,6 +458,11 @@ namespace Generator.Assembler.CSharp {
 					optionalOpCodeFlagsStr.Length = 0;
 					optionalOpCodeFlagsStr.Append($"{instructionCreateArgs}){trailingOptional}");
 					createInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}";
+				}
+				
+				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
+					createInstruction = $"ApplyK1({createInstruction}";
+					instructionCreateArgs.Append(")");
 				}
 				
 				writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgs}), ins => ins == {createInstruction}{instructionCreateArgs}){optionalOpCodeFlagsStr});");
@@ -549,30 +556,34 @@ namespace Generator.Assembler.CSharp {
 				}
 				break;
 			case OpCodeOperandKind.mem_vsib32x:
-			case OpCodeOperandKind.mem_vsib32y:
-			case OpCodeOperandKind.mem_vsib32z:
-				if (bitness == 64) {
-					return "__dword_ptr[rcx]";
-				}
-				else if (bitness == 32) {
-					return "__dword_ptr[ecx]";
-				}
-				else if (bitness == 16) {
-					return "__dword_ptr[si]";
-				}
-				break;
 			case OpCodeOperandKind.mem_vsib64x:
+				if (bitness == 16) {
+					return "__[si + xmm1]";
+				} else if (bitness == 32) {
+					return "__[edx + xmm1]";
+				} else if (bitness == 64) {
+					return "__[rdx + xmm1]";
+				}			
+				break;
+			case OpCodeOperandKind.mem_vsib32y:
 			case OpCodeOperandKind.mem_vsib64y:
+				if (bitness == 16) {
+					return "__[si + ymm1]";
+				} else if (bitness == 32) {
+					return "__[edx + ymm1]";
+				} else if (bitness == 64) {
+					return "__[rdx + ymm1]";
+				}			
+				break;
+			case OpCodeOperandKind.mem_vsib32z:
 			case OpCodeOperandKind.mem_vsib64z:
-				if (bitness == 64) {
-					return "__qword_ptr[rcx]";
-				}
-				else if (bitness == 32) {
-					return "__qword_ptr[ecx]";
-				}
-				else if (bitness == 16) {
-					return "__qword_ptr[si]";
-				}
+				if (bitness == 16) {
+					return "__[si + zmm1]";
+				} else if (bitness == 32) {
+					return "__[edx + zmm1]";
+				} else if (bitness == 64) {
+					return "__[rdx + zmm1]";
+				}			
 				break;
 			case OpCodeOperandKind.r8_or_mem:
 				if (asMemory) {
@@ -1432,7 +1443,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[dx + xmm1]";
+					yield return "__[di + xmm1]";
 				} else if (bitness == 32) {
 					yield return "__[edx + xmm1]";
 				} else if (bitness == 64) {
@@ -1444,7 +1455,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[dx + ymm1]";
+					yield return "__[di + ymm1]";
 				} else if (bitness == 32) {
 					yield return "__[edx + ymm1]";
 				} else if (bitness == 64) {
@@ -1456,7 +1467,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[dx + zmm1]";
+					yield return "__[di + zmm1]";
 				} else if (bitness == 32) {
 					yield return "__[edx + zmm1]";
 				} else if (bitness == 64) {
