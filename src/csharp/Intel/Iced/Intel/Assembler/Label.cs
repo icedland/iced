@@ -41,7 +41,7 @@ namespace Iced.Intel
 		/// <summary>
 		/// Id of this label.
 		/// </summary>
-		internal readonly ulong Id;
+		public readonly ulong Id;
 
 		/// <summary>
 		/// <c>true</c> if this label is empty and was not created by <see cref="Assembler.CreateLabel"/>.
