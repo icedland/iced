@@ -158,7 +158,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 					break;
 				}
 			}
-			
+
+			// Reset IP to 0 when matching against decode
+			if ((flags & LocalOpCodeFlags.Branch) != 0) {
+				inst.NearBranch32 = 0;
+			}
+
 			Assert.Equal(inst , againstInst);
 		}
 
@@ -168,6 +173,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return label;
 		}
 
+		protected Instruction AssignLabel(Instruction instruction, ulong value) {
+			instruction.IP = value;
+			return instruction;
+		}
+
 		[Flags]
 		protected enum LocalOpCodeFlags {
 			None = 0,
@@ -175,7 +185,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			PreferVex = 1 << 1,
 			PreferEvex = 1 << 2,			
 			PreferBranchShort = 1 << 3,
-			PreferBranchNear = 1 << 4,			
+			PreferBranchNear = 1 << 4,
+			Branch = 1 << 5,
 		}
 		
 		sealed class StreamCodeWriter : CodeWriter {

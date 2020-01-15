@@ -1102,7 +1102,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.IsGPR64()) */
 				TestAssembler(c => c.bndcl(bnd1, rbx), ins => ins == Instruction.Create(Code.Bndcl_bnd_rm64, bnd1, rbx));
 			} /* else */ { /* if (src.IsGPR32()) */
-				TestAssembler(c => c.bndcl(bnd1, ebx), ins => ins == Instruction.Create(Code.Bndcl_bnd_rm32, bnd1, ebx));
+				// Skipping Bndcl_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1114,7 +1114,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.bndcl(bnd1, __qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcl_bnd_rm64, bnd1, __qword_ptr[rdx]));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.bndcl(bnd1, __dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcl_bnd_rm32, bnd1, __dword_ptr[rdx]));
+				// Skipping Bndcl_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1126,7 +1126,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.IsGPR64()) */
 				TestAssembler(c => c.bndcn(bnd1, rbx), ins => ins == Instruction.Create(Code.Bndcn_bnd_rm64, bnd1, rbx));
 			} /* else */ { /* if (src.IsGPR32()) */
-				TestAssembler(c => c.bndcn(bnd1, ebx), ins => ins == Instruction.Create(Code.Bndcn_bnd_rm32, bnd1, ebx));
+				// Skipping Bndcn_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1138,7 +1138,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.bndcn(bnd1, __qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcn_bnd_rm64, bnd1, __qword_ptr[rdx]));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.bndcn(bnd1, __dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcn_bnd_rm32, bnd1, __dword_ptr[rdx]));
+				// Skipping Bndcn_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1150,7 +1150,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.IsGPR64()) */
 				TestAssembler(c => c.bndcu(bnd1, rbx), ins => ins == Instruction.Create(Code.Bndcu_bnd_rm64, bnd1, rbx));
 			} /* else */ { /* if (src.IsGPR32()) */
-				TestAssembler(c => c.bndcu(bnd1, ebx), ins => ins == Instruction.Create(Code.Bndcu_bnd_rm32, bnd1, ebx));
+				// Skipping Bndcu_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1162,7 +1162,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.bndcu(bnd1, __qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcu_bnd_rm64, bnd1, __qword_ptr[rdx]));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.bndcu(bnd1, __dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndcu_bnd_rm32, bnd1, __dword_ptr[rdx]));
+				// Skipping Bndcu_bnd_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1179,7 +1179,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.bndmk(bnd1, __qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndmk_bnd_m64, bnd1, __qword_ptr[rdx]));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.bndmk(bnd1, __dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndmk_bnd_m32, bnd1, __dword_ptr[rdx]));
+				// Skipping Bndmk_bnd_m32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1188,7 +1188,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bndmov_reg_reg() {
-			TestAssembler(c => c.bndmov(bnd1, bnd2), ins => ins == Instruction.Create(Code.Bndmov_bnd_bndm64, bnd1, bnd2));
+			// Skipping Bndmov_bnd_bndm64 - Not supported for Mode64
 		}
 
 		[Fact]
@@ -1196,7 +1196,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.Size == MemoryOperandSize.OwordPtr) */
 				TestAssembler(c => c.bndmov(__xmmword_ptr[rdx], bnd1), ins => ins == Instruction.Create(Code.Bndmov_bndm128_bnd, __xmmword_ptr[rdx], bnd1));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.QwordPtr) */
-				TestAssembler(c => c.bndmov(__qword_ptr[rdx], bnd1), ins => ins == Instruction.Create(Code.Bndmov_bndm64_bnd, __qword_ptr[rdx], bnd1));
+				// Skipping Bndmov_bndm64_bnd - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1208,7 +1208,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.Size == MemoryOperandSize.OwordPtr) */
 				TestAssembler(c => c.bndmov(bnd1, __xmmword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndmov_bnd_bndm128, bnd1, __xmmword_ptr[rdx]));
 			} /* else */ { /* if (src.Size == MemoryOperandSize.QwordPtr) */
-				TestAssembler(c => c.bndmov(bnd1, __qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Bndmov_bnd_bndm64, bnd1, __qword_ptr[rdx]));
+				// Skipping Bndmov_bnd_bndm64 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1543,7 +1543,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.call(rbx), ins => ins == Instruction.Create(Code.Call_rm64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.call(ebx), ins => ins == Instruction.Create(Code.Call_rm32, ebx));
+				// Skipping Call_rm32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
 				TestAssembler(c => c.call(bx), ins => ins == Instruction.Create(Code.Call_rm16, bx));
 			}
@@ -1569,9 +1569,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void call_l() {
 			if (Bitness == 64) {
-				TestAssembler(c => c.call(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Call_rel32_64, 1));
+				TestAssembler(c => c.call(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Call_rel32_64, 2), 2), LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.call(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Call_rel32_32, 1));
+				// Skipping Call_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -1660,7 +1660,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.clzero(), ins => ins == Instruction.Create(Code.Clzerod));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.clzero(), ins => ins == Instruction.Create(Code.Clzerow));
+				// Skipping Clzerow - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -2784,9 +2784,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.dec(rbx), ins => ins == Instruction.Create(Code.Dec_rm64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.dec(ebx), ins => ins == Instruction.Create(Code.Dec_r32, ebx));
+				// Skipping Dec_r32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
-				TestAssembler(c => c.dec(bx), ins => ins == Instruction.Create(Code.Dec_r16, bx));
+				// Skipping Dec_r16 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR8()) */
 				TestAssembler(c => c.dec(bl), ins => ins == Instruction.Create(Code.Dec_rm8, bl));
 			}
@@ -2940,7 +2940,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst.IsGPR32()) */
 				TestAssembler(c => c.enqcmd(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Enqcmd_r32_m512, ebx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR16()) */
-				TestAssembler(c => c.enqcmd(bx, __[rcx]), ins => ins == Instruction.Create(Code.Enqcmd_r16_m512, bx, __[rcx]));
+				// Skipping Enqcmd_r16_m512 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -2954,7 +2954,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst.IsGPR32()) */
 				TestAssembler(c => c.enqcmds(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Enqcmds_r32_m512, ebx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR16()) */
-				TestAssembler(c => c.enqcmds(bx, __[rcx]), ins => ins == Instruction.Create(Code.Enqcmds_r16_m512, bx, __[rcx]));
+				// Skipping Enqcmds_r16_m512 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -2966,7 +2966,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (Bitness == 64) {
 				TestAssembler(c => c.enter(16567, (byte)127), ins => ins == Instruction.Create(Code.Enterq_imm16_imm8, 16567, (byte)127));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.enter(16567, (byte)127), ins => ins == Instruction.Create(Code.Enterd_imm16_imm8, 16567, (byte)127));
+				// Skipping Enterd_imm16_imm8 - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.enter(16567, (byte)127), ins => ins == Instruction.Create(Code.Enterw_imm16_imm8, 16567, (byte)127));
 			}
@@ -4149,9 +4149,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.inc(rbx), ins => ins == Instruction.Create(Code.Inc_rm64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.inc(ebx), ins => ins == Instruction.Create(Code.Inc_r32, ebx));
+				// Skipping Inc_r32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
-				TestAssembler(c => c.inc(bx), ins => ins == Instruction.Create(Code.Inc_r16, bx));
+				// Skipping Inc_r16 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR8()) */
 				TestAssembler(c => c.inc(bl), ins => ins == Instruction.Create(Code.Inc_rm8, bl));
 			}
@@ -4246,7 +4246,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.invept(rbx, __[rcx]), ins => ins == Instruction.Create(Code.Invept_r64_m128, rbx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.invept(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Invept_r32_m128, ebx, __[rcx]));
+				// Skipping Invept_r32_m128 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4265,7 +4265,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.invlpga(), ins => ins == Instruction.Create(Code.Invlpgad));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.invlpga(), ins => ins == Instruction.Create(Code.Invlpgaw));
+				// Skipping Invlpgaw - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4277,7 +4277,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.invpcid(rbx, __[rcx]), ins => ins == Instruction.Create(Code.Invpcid_r64_m128, rbx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.invpcid(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Invpcid_r32_m128, ebx, __[rcx]));
+				// Skipping Invpcid_r32_m128 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4289,7 +4289,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.invvpid(rbx, __[rcx]), ins => ins == Instruction.Create(Code.Invvpid_r64_m128, rbx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.invvpid(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Invvpid_r32_m128, ebx, __[rcx]));
+				// Skipping Invvpid_r32_m128 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4315,19 +4315,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void ja_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Ja_rel8_64, 1));
+					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Ja_rel8_32, 1));
+					// Skipping Ja_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Ja_rel8_16, 1));
+					TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Ja_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Ja_rel32_64, 1));
+				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Ja_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.ja(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Ja_rel32_32, 1));
+				// Skipping Ja_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4338,19 +4338,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jae_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jae_rel8_64, 1));
+					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jae_rel8_32, 1));
+					// Skipping Jae_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jae_rel8_16, 1));
+					TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jae_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jae_rel32_64, 1));
+				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jae_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jae(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jae_rel32_32, 1));
+				// Skipping Jae_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4361,19 +4361,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jb_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jb_rel8_64, 1));
+					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jb_rel8_32, 1));
+					// Skipping Jb_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jb_rel8_16, 1));
+					TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jb_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jb_rel32_64, 1));
+				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jb_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jb(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jb_rel32_32, 1));
+				// Skipping Jb_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4384,19 +4384,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jbe_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jbe_rel8_64, 1));
+					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jbe_rel8_32, 1));
+					// Skipping Jbe_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jbe_rel8_16, 1));
+					TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jbe_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jbe_rel32_64, 1));
+				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jbe_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jbe(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jbe_rel32_32, 1));
+				// Skipping Jbe_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4407,19 +4407,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void je_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Je_rel8_64, 1));
+					TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Je_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Je_rel8_32, 1));
+					// Skipping Je_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Je_rel8_16, 1));
+					TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Je_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Je_rel32_64, 1));
+				TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Je_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.je(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Je_rel32_32, 1));
+				// Skipping Je_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4430,19 +4430,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jg_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jg_rel8_64, 1));
+					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jg_rel8_32, 1));
+					// Skipping Jg_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jg_rel8_16, 1));
+					TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jg_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jg_rel32_64, 1));
+				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jg_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jg(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jg_rel32_32, 1));
+				// Skipping Jg_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4453,19 +4453,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jge_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jge_rel8_64, 1));
+					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jge_rel8_32, 1));
+					// Skipping Jge_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jge_rel8_16, 1));
+					TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jge_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jge_rel32_64, 1));
+				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jge_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jge(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jge_rel32_32, 1));
+				// Skipping Jge_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4476,19 +4476,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jl_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jl_rel8_64, 1));
+					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jl_rel8_32, 1));
+					// Skipping Jl_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jl_rel8_16, 1));
+					TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jl_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jl_rel32_64, 1));
+				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jl_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jl(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jl_rel32_32, 1));
+				// Skipping Jl_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4499,19 +4499,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jle_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jle_rel8_64, 1));
+					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jle_rel8_32, 1));
+					// Skipping Jle_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jle_rel8_16, 1));
+					TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jle_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jle_rel32_64, 1));
+				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jle_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jle(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jle_rel32_32, 1));
+				// Skipping Jle_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4523,7 +4523,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.jmp(rbx), ins => ins == Instruction.Create(Code.Jmp_rm64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.jmp(ebx), ins => ins == Instruction.Create(Code.Jmp_rm32, ebx));
+				// Skipping Jmp_rm32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
 				TestAssembler(c => c.jmp(bx), ins => ins == Instruction.Create(Code.Jmp_rm16, bx));
 			}
@@ -4550,19 +4550,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jmp_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jmp_rel8_64, 1));
+					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jmp_rel8_32, 1));
+					// Skipping Jmp_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jmp_rel8_16, 1));
+					TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jmp_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jmp_rel32_64, 1));
+				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jmp_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jmp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jmp_rel32_32, 1));
+				// Skipping Jmp_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4573,19 +4573,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jne_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jne_rel8_64, 1));
+					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jne_rel8_32, 1));
+					// Skipping Jne_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jne_rel8_16, 1));
+					TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jne_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jne_rel32_64, 1));
+				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jne_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jne_rel32_32, 1));
+				// Skipping Jne_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4596,19 +4596,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jno_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jno_rel8_64, 1));
+					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jno_rel8_32, 1));
+					// Skipping Jno_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jno_rel8_16, 1));
+					TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jno_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jno_rel32_64, 1));
+				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jno_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jno(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jno_rel32_32, 1));
+				// Skipping Jno_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4619,19 +4619,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jnp_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jnp_rel8_64, 1));
+					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jnp_rel8_32, 1));
+					// Skipping Jnp_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jnp_rel8_16, 1));
+					TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jnp_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jnp_rel32_64, 1));
+				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jnp_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jnp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jnp_rel32_32, 1));
+				// Skipping Jnp_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4642,19 +4642,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jns_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jns_rel8_64, 1));
+					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jns_rel8_32, 1));
+					// Skipping Jns_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jns_rel8_16, 1));
+					TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jns_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jns_rel32_64, 1));
+				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jns_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jns(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jns_rel32_32, 1));
+				// Skipping Jns_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4665,19 +4665,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jo_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jo_rel8_64, 1));
+					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jo_rel8_32, 1));
+					// Skipping Jo_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jo_rel8_16, 1));
+					TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jo_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jo_rel32_64, 1));
+				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jo_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jo(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jo_rel32_32, 1));
+				// Skipping Jo_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4688,19 +4688,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void jp_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jp_rel8_64, 1));
+					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jp_rel8_32, 1));
+					// Skipping Jp_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jp_rel8_16, 1));
+					TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jp_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jp_rel32_64, 1));
+				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jp_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jp(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jp_rel32_32, 1));
+				// Skipping Jp_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -4709,26 +4709,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jrcxz_l() {
-			TestAssembler(c => c.jrcxz(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Jrcxz_rel8_64, 1));
+			TestAssembler(c => c.jrcxz(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Jrcxz_rel8_64, 2), 2), LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]
 		public void js_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Js_rel8_64, 1));
+					TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Js_rel8_64, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Js_rel8_32, 1));
+					// Skipping Js_rel8_32 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Js_rel8_16, 1));
+					TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Js_rel8_16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}
 				{
 					// TODO: test notfound
 				}
 			} /* else */ if (Bitness == 64) {
-				TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Js_rel32_64, 1));
+				TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Js_rel32_64, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.js(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Js_rel32_32, 1));
+				// Skipping Js_rel32_32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -5148,7 +5148,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (Bitness == 64) {
 				TestAssembler(c => c.leave(), ins => ins == Instruction.Create(Code.Leaveq));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.leave(), ins => ins == Instruction.Create(Code.Leaved));
+				// Skipping Leaved - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.leave(), ins => ins == Instruction.Create(Code.Leavew));
 			}
@@ -5182,9 +5182,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.lgdt(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lgdt_m1664, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				if (Bitness >= 32) {
-					TestAssembler(c => c.lgdt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lgdt_m1632, __dword_ptr[rdx]));
+					// Skipping Lgdt_m1632 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.lgdt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lgdt_m1632_16, __dword_ptr[rdx]));
+					// Skipping Lgdt_m1632_16 - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5215,9 +5215,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.lidt(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lidt_m1664, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				if (Bitness >= 32) {
-					TestAssembler(c => c.lidt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lidt_m1632, __dword_ptr[rdx]));
+					// Skipping Lidt_m1632 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.lidt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Lidt_m1632_16, __dword_ptr[rdx]));
+					// Skipping Lidt_m1632_16 - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5320,11 +5320,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void loop_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.loop(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loop_rel8_64_RCX, 1));
+					TestAssembler(c => c.loop(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Loop_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.loop(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loop_rel8_32_ECX, 1));
+					// Skipping Loop_rel8_32_ECX - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.loop(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loop_rel8_16_CX, 1));
+					// Skipping Loop_rel8_16_CX - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5339,11 +5339,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void loope_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.loope(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loope_rel8_64_RCX, 1));
+					TestAssembler(c => c.loope(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Loope_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.loope(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loope_rel8_32_ECX, 1));
+					// Skipping Loope_rel8_32_ECX - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.loope(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loope_rel8_16_CX, 1));
+					// Skipping Loope_rel8_16_CX - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5358,11 +5358,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void loopne_l() {
 			{ /* if (PreferBranchShort) */
 				if (Bitness == 64) {
-					TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loopne_rel8_64_RCX, 1));
+					TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Loopne_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loopne_rel8_32_ECX, 1));
+					// Skipping Loopne_rel8_32_ECX - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Loopne_rel8_16_CX, 1));
+					// Skipping Loopne_rel8_16_CX - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5626,7 +5626,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.monitor(), ins => ins == Instruction.Create(Code.Monitord));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.monitor(), ins => ins == Instruction.Create(Code.Monitorw));
+				// Skipping Monitorw - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -5640,7 +5640,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.monitorx(), ins => ins == Instruction.Create(Code.Monitorxd));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.monitorx(), ins => ins == Instruction.Create(Code.Monitorxw));
+				// Skipping Monitorxw - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -5654,7 +5654,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.montmul(), ins => ins == Instruction.Create(Code.Montmul_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.montmul(), ins => ins == Instruction.Create(Code.Montmul_16));
+				// Skipping Montmul_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -5680,7 +5680,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				} /* else */ { /* if (src.IsSegmentRegister()) */
 					TestAssembler(c => c.mov(ebx, fs), ins => ins == Instruction.Create(Code.Mov_r32m16_Sreg, ebx, fs));
 				} /* else */ { /* if (src.IsCR()) */
-					TestAssembler(c => c.mov(ebx, cr3), ins => ins == Instruction.Create(Code.Mov_r32_cr, ebx, cr3));
+					// Skipping Mov_r32_cr - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5711,7 +5711,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				{ /* if (src.IsGPR64()) */
 					TestAssembler(c => c.mov(cr3, rbx), ins => ins == Instruction.Create(Code.Mov_cr_r64, cr3, rbx));
 				} /* else */ { /* if (src.IsGPR32()) */
-					TestAssembler(c => c.mov(cr3, ebx), ins => ins == Instruction.Create(Code.Mov_cr_r32, cr3, ebx));
+					// Skipping Mov_cr_r32 - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -5960,7 +5960,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ { /* if (dst.IsGPR32()) */
 				TestAssembler(c => c.movdir64b(ebx, __[rcx]), ins => ins == Instruction.Create(Code.Movdir64b_r32_m512, ebx, __[rcx]));
 			} /* else */ { /* if (dst.IsGPR16()) */
-				TestAssembler(c => c.movdir64b(bx, __[rcx]), ins => ins == Instruction.Create(Code.Movdir64b_r16_m512, bx, __[rcx]));
+				// Skipping Movdir64b_r16_m512 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -8797,17 +8797,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.pop(rbx), ins => ins == Instruction.Create(Code.Pop_r64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.pop(ebx), ins => ins == Instruction.Create(Code.Pop_r32, ebx));
+				// Skipping Pop_r32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
 				TestAssembler(c => c.pop(bx), ins => ins == Instruction.Create(Code.Pop_r16, bx));
 			} /* else */ { /* if (dst == Register.ES) */
-				TestAssembler(c => c.pop(es), ins => ins == Instruction.Create(Code.Popw_ES, es));
+				// Skipping Popw_ES - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.CS) */
-				TestAssembler(c => c.pop(cs), ins => ins == Instruction.Create(Code.Popw_CS, cs));
+				// Skipping Popw_CS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.SS) */
-				TestAssembler(c => c.pop(ss), ins => ins == Instruction.Create(Code.Popw_SS, ss));
+				// Skipping Popw_SS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.DS) */
-				TestAssembler(c => c.pop(ds), ins => ins == Instruction.Create(Code.Popw_DS, ds));
+				// Skipping Popw_DS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.FS) */
 				TestAssembler(c => c.pop(fs), ins => ins == Instruction.Create(Code.Popw_FS, fs));
 			} /* else */ { /* if (dst == Register.GS) */
@@ -8823,7 +8823,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.pop(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Pop_rm64, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.pop(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Pop_rm32, __dword_ptr[rdx]));
+				// Skipping Pop_rm32 - Not supported for Mode64
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
 				TestAssembler(c => c.pop(__word_ptr[rdx]), ins => ins == Instruction.Create(Code.Pop_rm16, __word_ptr[rdx]));
 			}
@@ -9792,17 +9792,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.push(rbx), ins => ins == Instruction.Create(Code.Push_r64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.push(ebx), ins => ins == Instruction.Create(Code.Push_r32, ebx));
+				// Skipping Push_r32 - Not supported for Mode64
 			} /* else */ { /* if (dst.IsGPR16()) */
 				TestAssembler(c => c.push(bx), ins => ins == Instruction.Create(Code.Push_r16, bx));
 			} /* else */ { /* if (dst == Register.ES) */
-				TestAssembler(c => c.push(es), ins => ins == Instruction.Create(Code.Pushw_ES, es));
+				// Skipping Pushw_ES - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.CS) */
-				TestAssembler(c => c.push(cs), ins => ins == Instruction.Create(Code.Pushw_CS, cs));
+				// Skipping Pushw_CS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.SS) */
-				TestAssembler(c => c.push(ss), ins => ins == Instruction.Create(Code.Pushw_SS, ss));
+				// Skipping Pushw_SS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.DS) */
-				TestAssembler(c => c.push(ds), ins => ins == Instruction.Create(Code.Pushw_DS, ds));
+				// Skipping Pushw_DS - Not supported for Mode64
 			} /* else */ { /* if (dst == Register.FS) */
 				TestAssembler(c => c.push(fs), ins => ins == Instruction.Create(Code.Pushw_FS, fs));
 			} /* else */ { /* if (dst == Register.GS) */
@@ -9818,7 +9818,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.push(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Push_rm64, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.push(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Push_rm32, __dword_ptr[rdx]));
+				// Skipping Push_rm32 - Not supported for Mode64
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
 				TestAssembler(c => c.push(__word_ptr[rdx]), ins => ins == Instruction.Create(Code.Push_rm16, __word_ptr[rdx]));
 			}
@@ -9833,7 +9833,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				if (Bitness == 64) {
 					TestAssembler(c => c.push(sbyte.MinValue), ins => ins == Instruction.Create(Code.Pushq_imm8, sbyte.MinValue));
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.push(sbyte.MinValue), ins => ins == Instruction.Create(Code.Pushd_imm8, sbyte.MinValue));
+					// Skipping Pushd_imm8 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
 					TestAssembler(c => c.push(sbyte.MinValue), ins => ins == Instruction.Create(Code.Pushw_imm8, sbyte.MinValue));
 				}
@@ -9843,7 +9843,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				if (Bitness == 64) {
 					TestAssembler(c => c.push(sbyte.MaxValue), ins => ins == Instruction.Create(Code.Pushq_imm8, sbyte.MaxValue));
 				}  else if (Bitness >= 32) {
-					TestAssembler(c => c.push(sbyte.MaxValue), ins => ins == Instruction.Create(Code.Pushd_imm8, sbyte.MaxValue));
+					// Skipping Pushd_imm8 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
 					TestAssembler(c => c.push(sbyte.MaxValue), ins => ins == Instruction.Create(Code.Pushw_imm8, sbyte.MaxValue));
 				}
@@ -9853,7 +9853,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			} /* else */ if (Bitness == 64) {
 				TestAssembler(c => c.push(sbyte.MinValue - 1), ins => ins == Instruction.Create(Code.Pushq_imm32, sbyte.MinValue - 1));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.push(sbyte.MinValue - 1), ins => ins == Instruction.Create(Code.Pushd_imm32, sbyte.MinValue - 1));
+				// Skipping Pushd_imm32 - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.push(sbyte.MinValue - 1), ins => ins == Instruction.Create(Code.Push_imm16, sbyte.MinValue - 1));
 			}
@@ -9863,7 +9863,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (Bitness == 64) {
 				TestAssembler(c => c.push(sbyte.MaxValue + 1), ins => ins == Instruction.Create(Code.Pushq_imm32, sbyte.MaxValue + 1));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.push(sbyte.MaxValue + 1), ins => ins == Instruction.Create(Code.Pushd_imm32, sbyte.MaxValue + 1));
+				// Skipping Pushd_imm32 - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.push(sbyte.MaxValue + 1), ins => ins == Instruction.Create(Code.Push_imm16, sbyte.MaxValue + 1));
 			}
@@ -10140,7 +10140,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.rdpid(rbx), ins => ins == Instruction.Create(Code.Rdpid_r64, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.rdpid(ebx), ins => ins == Instruction.Create(Code.Rdpid_r32, ebx));
+				// Skipping Rdpid_r32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -10211,7 +10211,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (Bitness == 64) {
 				TestAssembler(c => c.ret(), ins => ins == Instruction.Create(Code.Retnq));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.ret(), ins => ins == Instruction.Create(Code.Retnd));
+				// Skipping Retnd - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.ret(), ins => ins == Instruction.Create(Code.Retnw));
 			}
@@ -10225,7 +10225,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			if (Bitness == 64) {
 				TestAssembler(c => c.ret(16567), ins => ins == Instruction.Create(Code.Retnq_imm16, 16567));
 			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.ret(16567), ins => ins == Instruction.Create(Code.Retnd_imm16, 16567));
+				// Skipping Retnd_imm16 - Not supported for Mode64
 			}  else if (Bitness >= 16) {
 				TestAssembler(c => c.ret(16567), ins => ins == Instruction.Create(Code.Retnw_imm16, 16567));
 			}
@@ -11113,9 +11113,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sgdt(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sgdt_m1664, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				if (Bitness >= 32) {
-					TestAssembler(c => c.sgdt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sgdt_m1632, __dword_ptr[rdx]));
+					// Skipping Sgdt_m1632 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.sgdt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sgdt_m1632_16, __dword_ptr[rdx]));
+					// Skipping Sgdt_m1632_16 - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -11562,9 +11562,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.sidt(__qword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sidt_m1664, __qword_ptr[rdx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				if (Bitness >= 32) {
-					TestAssembler(c => c.sidt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sidt_m1632, __dword_ptr[rdx]));
+					// Skipping Sidt_m1632 - Not supported for Mode64
 				}  else if (Bitness >= 16) {
-					TestAssembler(c => c.sidt(__dword_ptr[rdx]), ins => ins == Instruction.Create(Code.Sidt_m1632_16, __dword_ptr[rdx]));
+					// Skipping Sidt_m1632_16 - Not supported for Mode64
 				}
 				{
 					// TODO: test notfound
@@ -18194,7 +18194,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.vmload(), ins => ins == Instruction.Create(Code.Vmloadd));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.vmload(), ins => ins == Instruction.Create(Code.Vmloadw));
+				// Skipping Vmloadw - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19160,7 +19160,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.vmread(rbx, rcx), ins => ins == Instruction.Create(Code.Vmread_rm64_r64, rbx, rcx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.vmread(ebx, ecx), ins => ins == Instruction.Create(Code.Vmread_rm32_r32, ebx, ecx));
+				// Skipping Vmread_rm32_r32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19172,7 +19172,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (src.IsGPR64()) */
 				TestAssembler(c => c.vmread(__qword_ptr[rcx], rbx), ins => ins == Instruction.Create(Code.Vmread_rm64_r64, __qword_ptr[rcx], rbx));
 			} /* else */ { /* if (src.IsGPR32()) */
-				TestAssembler(c => c.vmread(__dword_ptr[rcx], ebx), ins => ins == Instruction.Create(Code.Vmread_rm32_r32, __dword_ptr[rcx], ebx));
+				// Skipping Vmread_rm32_r32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19191,7 +19191,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.vmrun(), ins => ins == Instruction.Create(Code.Vmrund));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.vmrun(), ins => ins == Instruction.Create(Code.Vmrunw));
+				// Skipping Vmrunw - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19205,7 +19205,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.vmsave(), ins => ins == Instruction.Create(Code.Vmsaved));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.vmsave(), ins => ins == Instruction.Create(Code.Vmsavew));
+				// Skipping Vmsavew - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19305,7 +19305,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.vmwrite(rbx, rbx), ins => ins == Instruction.Create(Code.Vmwrite_r64_rm64, rbx, rbx));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.vmwrite(ebx, ebx), ins => ins == Instruction.Create(Code.Vmwrite_r32_rm32, ebx, ebx));
+				// Skipping Vmwrite_r32_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -19317,7 +19317,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst.IsGPR64()) */
 				TestAssembler(c => c.vmwrite(rbx, __qword_ptr[rcx]), ins => ins == Instruction.Create(Code.Vmwrite_r64_rm64, rbx, __qword_ptr[rcx]));
 			} /* else */ { /* if (dst.IsGPR32()) */
-				TestAssembler(c => c.vmwrite(ebx, __dword_ptr[rcx]), ins => ins == Instruction.Create(Code.Vmwrite_r32_rm32, ebx, __dword_ptr[rcx]));
+				// Skipping Vmwrite_r32_rm32 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -29775,8 +29775,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void xbegin_l() {
 			{ /* if (PreferBranchShort) */
-				TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Xbegin_rel16, 1), LocalOpCodeFlags.PreferBranchShort);
-			} /* else */ TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), ins => ins == Instruction.Create(Code.Xbegin_rel32, 1), LocalOpCodeFlags.PreferBranchNear);
+				TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Xbegin_rel16, 2), 2), LocalOpCodeFlags.PreferBranchShort|LocalOpCodeFlags.Branch);
+			} /* else */ TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), ins => ins == AssignLabel(Instruction.CreateBranch(Code.Xbegin_rel32, 2), 2), LocalOpCodeFlags.PreferBranchNear|LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]
@@ -29824,7 +29824,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xcryptcbc(), ins => ins == Instruction.Create(Code.XcryptCbc_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xcryptcbc(), ins => ins == Instruction.Create(Code.XcryptCbc_16));
+				// Skipping XcryptCbc_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -29838,7 +29838,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xcryptcfb(), ins => ins == Instruction.Create(Code.XcryptCfb_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xcryptcfb(), ins => ins == Instruction.Create(Code.XcryptCfb_16));
+				// Skipping XcryptCfb_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -29852,7 +29852,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xcryptctr(), ins => ins == Instruction.Create(Code.XcryptCtr_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xcryptctr(), ins => ins == Instruction.Create(Code.XcryptCtr_16));
+				// Skipping XcryptCtr_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -29866,7 +29866,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xcryptecb(), ins => ins == Instruction.Create(Code.XcryptEcb_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xcryptecb(), ins => ins == Instruction.Create(Code.XcryptEcb_16));
+				// Skipping XcryptEcb_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -29880,7 +29880,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xcryptofb(), ins => ins == Instruction.Create(Code.XcryptOfb_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xcryptofb(), ins => ins == Instruction.Create(Code.XcryptOfb_16));
+				// Skipping XcryptOfb_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -30156,7 +30156,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xsha1(), ins => ins == Instruction.Create(Code.Xsha1_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xsha1(), ins => ins == Instruction.Create(Code.Xsha1_16));
+				// Skipping Xsha1_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -30170,7 +30170,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xsha256(), ins => ins == Instruction.Create(Code.Xsha256_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xsha256(), ins => ins == Instruction.Create(Code.Xsha256_16));
+				// Skipping Xsha256_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound
@@ -30184,7 +30184,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}  else if (Bitness >= 32) {
 				TestAssembler(c => c.xstore(), ins => ins == Instruction.Create(Code.Xstore_32));
 			}  else if (Bitness >= 16) {
-				TestAssembler(c => c.xstore(), ins => ins == Instruction.Create(Code.Xstore_16));
+				// Skipping Xstore_16 - Not supported for Mode64
 			}
 			{
 				// TODO: test notfound

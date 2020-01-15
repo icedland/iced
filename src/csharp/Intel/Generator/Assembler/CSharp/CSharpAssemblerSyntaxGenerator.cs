@@ -373,16 +373,21 @@ namespace Generator.Assembler.CSharp {
 						argValues.Add(null);
 					}
 
-					GenerateOpCodeTest(writer, bitness, group, methodName, group.RootOpCodeNode, renderArgs, argValues, OpCodeArgFlags.Default);
+					GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, group.RootOpCodeNode, renderArgs, argValues, OpCodeArgFlags.Default);
 				}
 			}
 			writer.WriteLine("}");
 			writer.WriteLine();;
 		}
 		
-		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object> argValues, OpCodeArgFlags contextFlags) {
+		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo != null) {
+				if ((opCodeInfo.Flags & bitnessFlags) == 0) {
+					writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
+					return;
+				}
+
 				var assemblerArgs = new StringBuilder(); 
 				var instructionCreateArgs = new StringBuilder(); 
 				for (var i = 0; i < argValues.Count; i++) {
@@ -443,6 +448,15 @@ namespace Generator.Assembler.CSharp {
 				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
 					createInstruction = $"Instruction.Create{group.MemoName}(Bitness";
 				}
+				else if (group.HasLabel) {
+					optionalOpCodeFlagsStr.Append(optionalOpCodeFlagsStr.Length > 0 ? "|" : ", ");
+					optionalOpCodeFlagsStr.Append("LocalOpCodeFlags.Branch");
+
+					var trailingOptional = optionalOpCodeFlagsStr.ToString();
+					optionalOpCodeFlagsStr.Length = 0;
+					optionalOpCodeFlagsStr.Append($"{instructionCreateArgs}){trailingOptional}");
+					createInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}";
+				}
 				
 				writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgs}), ins => ins == {createInstruction}{instructionCreateArgs}){optionalOpCodeFlagsStr});");
 			}
@@ -465,7 +479,7 @@ namespace Generator.Assembler.CSharp {
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
 						}
-						GenerateOpCodeTest(writer, bitness, group, methodName, selector.IfTrue, args, newArgValues, contextIfFlags);
+						GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
 					}
 				}
 
@@ -481,7 +495,7 @@ namespace Generator.Assembler.CSharp {
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
 						}
-						GenerateOpCodeTest(writer, bitness, group, methodName, selector.IfFalse, args, newArgValues, contextElseFlags);
+						GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfFalse, args, newArgValues, contextFlags | contextElseFlags);
 					}
 				}
 				else {
@@ -850,7 +864,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.xbegin_4:
 			case OpCodeOperandKind.brdisp_2:
 			case OpCodeOperandKind.brdisp_4:
-				return isAssembler ? "CreateAndEmitLabel(c)" : "1";
+				return isAssembler ? "CreateAndEmitLabel(c)" : "2"; // labels starts at 2 because label 1 is for first instruction
 			
 			default:
 				throw new ArgumentOutOfRangeException(nameof(kind), kind, null);
