@@ -62,7 +62,11 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 		/// </summary>
-		public bool PreventVEX2 { get; set; }
+		public bool PreventVEX2 {
+			get => Internal_PreventVEX2 != 0;
+			set => Internal_PreventVEX2 = value ? uint.MaxValue : 0;
+		}
+		internal uint Internal_PreventVEX2;
 
 		/// <summary>
 		/// Value of the <c>VEX.W</c> bit to use if it's an instruction that ignores the bit. Default is 0.

@@ -345,11 +345,10 @@ impl VexHandler {
 		let mut b = this.last_byte;
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 
-		if encoder.prevent_vex2()
-			|| (this.w1
-				| this.table.wrapping_sub(VexOpCodeTable::Table0F as u32)
-				| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)))
-				!= 0
+		if (encoder.prevent_vex2
+			| this.w1 | this.table.wrapping_sub(VexOpCodeTable::Table0F as u32)
+			| (encoder_flags & (EncoderFlags::X | EncoderFlags::B | EncoderFlags::W)))
+			!= 0
 		{
 			encoder.write_byte_internal(0xC4);
 			const_assert_eq!(1, VexOpCodeTable::Table0F as u32);
