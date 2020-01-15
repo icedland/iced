@@ -54,7 +54,6 @@ impl StringOutput {
 	}
 
 	/// Clears the internal string so this instance can be re-used for the next instruction
-	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn clear(&mut self) {
 		self.sb.clear()
