@@ -89,6 +89,90 @@ pub struct FormatterOptions {
 }
 
 impl FormatterOptions {
+	/// Creates default formatter options
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn new() -> Self {
+		Self {
+			hex_prefix: String::default(),
+			hex_suffix: String::default(),
+			decimal_prefix: String::default(),
+			decimal_suffix: String::default(),
+			octal_prefix: String::default(),
+			octal_suffix: String::default(),
+			binary_prefix: String::default(),
+			binary_suffix: String::default(),
+			digit_separator: String::default(),
+			hex_digit_group_size: 4,
+			decimal_digit_group_size: 3,
+			octal_digit_group_size: 4,
+			binary_digit_group_size: 4,
+			options1: Flags1::UPPER_CASE_HEX
+				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
+				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
+				| Flags1::BRANCH_LEADING_ZEROES
+				| Flags1::SIGNED_MEMORY_DISPLACEMENTS
+				| Flags1::SHOW_BRANCH_SIZE
+				| Flags1::USE_PSEUDO_OPS
+				| Flags1::MASM_ADD_DS_PREFIX32
+				| Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS
+				| Flags1::MASM_DISPL_IN_BRACKETS,
+			options2: 0,
+			first_operand_char_index: 0,
+			tab_size: 0,
+			number_base: NumberBase::Hexadecimal,
+			memory_size_options: MemorySizeOptions::Default,
+		}
+	}
+
+	/// Creates default gas (AT&T) formatter options
+	#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_gas() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_prefix("0x".to_owned());
+		options.set_octal_prefix("0".to_owned());
+		options.set_binary_prefix("0b".to_owned());
+		options
+	}
+
+	/// Creates default Intel (XED) formatter options
+	#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_intel() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix("h".to_owned());
+		options.set_octal_suffix("o".to_owned());
+		options.set_binary_suffix("b".to_owned());
+		options
+	}
+
+	/// Creates default masm formatter options
+	#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_masm() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix("h".to_owned());
+		options.set_octal_suffix("o".to_owned());
+		options.set_binary_suffix("b".to_owned());
+		options
+	}
+
+	/// Creates default nasm formatter options
+	#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_nasm() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix("h".to_owned());
+		options.set_octal_suffix("o".to_owned());
+		options.set_binary_suffix("b".to_owned());
+		options
+	}
+
 	/// Prefixes are upper cased
 	///
 	/// - Default: `false`
@@ -1466,37 +1550,8 @@ impl FormatterOptions {
 
 impl Default for FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn default() -> Self {
-		Self {
-			hex_prefix: String::default(),
-			hex_suffix: String::default(),
-			decimal_prefix: String::default(),
-			decimal_suffix: String::default(),
-			octal_prefix: String::default(),
-			octal_suffix: String::default(),
-			binary_prefix: String::default(),
-			binary_suffix: String::default(),
-			digit_separator: String::default(),
-			hex_digit_group_size: 4,
-			decimal_digit_group_size: 3,
-			octal_digit_group_size: 4,
-			binary_digit_group_size: 4,
-			options1: Flags1::UPPER_CASE_HEX
-				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
-				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
-				| Flags1::BRANCH_LEADING_ZEROES
-				| Flags1::SIGNED_MEMORY_DISPLACEMENTS
-				| Flags1::SHOW_BRANCH_SIZE
-				| Flags1::USE_PSEUDO_OPS
-				| Flags1::MASM_ADD_DS_PREFIX32
-				| Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS
-				| Flags1::MASM_DISPL_IN_BRACKETS,
-			options2: 0,
-			first_operand_char_index: 0,
-			tab_size: 0,
-			number_base: NumberBase::Hexadecimal,
-			memory_size_options: MemorySizeOptions::Default,
-		}
+		FormatterOptions::new()
 	}
 }

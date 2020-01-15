@@ -82,12 +82,8 @@ impl<'a> MasmFormatter<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
-		let mut options = FormatterOptions::default();
-		options.set_hex_suffix("h".to_owned());
-		options.set_octal_suffix("o".to_owned());
-		options.set_binary_suffix("b".to_owned());
 		Self {
-			options,
+			options: FormatterOptions::with_masm(),
 			symbol_resolver,
 			options_provider,
 			all_registers: &*REGS_TBL,
