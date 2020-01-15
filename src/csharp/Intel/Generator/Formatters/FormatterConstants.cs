@@ -21,12 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
 using System;
-using Iced.Intel.FormatterInternal;
 
-namespace Iced.Intel {
+using Generator.Enums.Formatter;
+namespace Generator.Formatters {
 	static class FormatterConstants {
+		public const string InvalidMnemonicName = "(bad)";
+		
 		public static string[] GetPseudoOps(PseudoOpsKind kind) {
 			switch (kind) {
 			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
@@ -155,4 +156,3 @@ namespace Iced.Intel {
 		static readonly string[] vpcomuq_pseudo_ops;
 	}
 }
-#endif
