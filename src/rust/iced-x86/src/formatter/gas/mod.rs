@@ -47,6 +47,22 @@ use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
 
 /// GNU assembler (AT&T) formatter
+///
+/// # Examples
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// let mut output = StringOutput::new();
+/// let mut formatter = GasFormatter::new();
+/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("VCVTNE2PS2BF16 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}", output.get());
+/// ```
 #[allow(missing_debug_implementations)]
 pub struct GasFormatter<'a> {
 	options: FormatterOptions,

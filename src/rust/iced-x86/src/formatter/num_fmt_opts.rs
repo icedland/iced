@@ -73,12 +73,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	#[inline]
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn with_displacement(options: &'a FormatterOptions) -> Self {
-		NumberFormattingOptions::new(
-			options,
-			options.leading_zeroes(),
-			options.signed_memory_displacements(),
-			options.displacement_leading_zeroes(),
-		)
+		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_memory_displacements(), options.displacement_leading_zeroes())
 	}
 
 	/// Creates options used when formatting branch operands

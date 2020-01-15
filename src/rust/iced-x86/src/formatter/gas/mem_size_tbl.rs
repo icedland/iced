@@ -83,7 +83,7 @@ lazy_static! {
 	pub(super) static ref MEM_SIZE_TBL: Vec<&'static FormatterString> = {
 		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_MEMORY_SIZES);
 		let c = &*FORMATTER_CONSTANTS;
-		for _ in 0..IcedConstants::NUMBER_OF_MEMORY_SIZES - IcedConstants::FIRST_BROADCAST_MEMORY_SIZE as usize {
+		for _ in 0..IcedConstants::FIRST_BROADCAST_MEMORY_SIZE as usize {
 			v.push(&c.empty);
 		}
 		for &d in BCST_TO_DATA.iter() {

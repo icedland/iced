@@ -40,12 +40,12 @@ use super::block::{Block, BlockData};
 use super::*;
 #[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 use core::cell::RefCell;
 use core::i32;
 #[cfg(all(not(has_alloc), feature = "std"))]
 use std::rc::Rc;
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
 
 pub(super) trait Instr {
 	fn block(&self) -> Rc<RefCell<Block>>;

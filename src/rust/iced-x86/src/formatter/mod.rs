@@ -39,6 +39,7 @@ mod num_fmt;
 mod num_fmt_opts;
 mod pseudo_ops;
 mod regs_tbl;
+mod string_output;
 mod strings_data;
 mod strings_tbl;
 mod symres;
@@ -56,6 +57,7 @@ pub use self::masm::*;
 pub use self::nasm::*;
 use self::num_fmt::NumberFormatter;
 pub use self::num_fmt_opts::*;
+pub use self::string_output::*;
 pub use self::symres::*;
 use super::*;
 #[cfg(not(feature = "std"))]

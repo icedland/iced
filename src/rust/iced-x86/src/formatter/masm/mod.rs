@@ -48,6 +48,22 @@ use alloc::vec::Vec;
 use core::{mem, u16, u32, u8};
 
 /// Masm formatter
+///
+/// # Examples
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// let mut output = StringOutput::new();
+/// let mut formatter = MasmFormatter::new();
+/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output.get());
+/// ```
 #[allow(missing_debug_implementations)]
 pub struct MasmFormatter<'a> {
 	options: FormatterOptions,

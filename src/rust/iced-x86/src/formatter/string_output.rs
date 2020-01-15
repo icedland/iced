@@ -21,63 +21,56 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::*;
-use super::*;
+use super::enums::FormatterOutputTextKind;
+use super::FormatterOutput;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-use core::cell::RefCell;
 
-pub(super) struct SimpleInstr {
-	orig_ip: u64,
-	ip: u64,
-	block: Rc<RefCell<Block>>,
-	size: u32,
-	instruction: Instruction,
+/// Implements [`FormatterOutput`] and writes all output to a string
+///
+/// [`FormatterOutput`]: trait.FormatterOutput.html
+#[derive(Debug, Default, Clone, Eq, PartialEq, Hash)]
+pub struct StringOutput {
+	sb: String,
 }
 
-impl SimpleInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
-		Self {
-			orig_ip: instruction.ip(),
-			ip: 0,
-			block,
-			size: block_encoder.get_instruction_size(&instruction, instruction.ip()),
-			instruction: *instruction,
-		}
+impl StringOutput {
+	/// Constructor
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn new() -> Self {
+		Self { sb: String::new() }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// `capacity`: Initial capacity
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_capacity(capacity: usize) -> Self {
+		Self { sb: String::with_capacity(capacity) }
+	}
+
+	/// Clears the internal string so this instance can be re-used for the next instruction
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn clear(&mut self) {
+		self.sb.clear()
+	}
+
+	/// Gets the current string
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn get(&self) -> &str {
+		&self.sb
 	}
 }
 
-impl Instr for SimpleInstr {
-	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
-	}
-
-	fn size(&self) -> u32 {
-		self.size
-	}
-
-	fn ip(&self) -> u64 {
-		self.ip
-	}
-
-	fn set_ip(&mut self, new_ip: u64) {
-		self.ip = new_ip
-	}
-
-	fn orig_ip(&self) -> u64 {
-		self.orig_ip
-	}
-
-	fn initialize(&mut self, _block_encoder: &BlockEncoder) {}
-
-	fn optimize(&mut self) -> bool {
-		false
-	}
-
-	fn encode(&mut self, block: &mut Block) -> Result<(ConstantOffsets, bool), String> {
-		match block.encoder.encode(&self.instruction, self.ip) {
-			Err(err) => Err(InstrUtils::create_error_message(&err, &self.instruction)),
-			Ok(_) => Ok((block.encoder.get_constant_offsets(), true)),
-		}
+impl FormatterOutput for StringOutput {
+	#[inline]
+	fn write(&mut self, text: &str, _kind: FormatterOutputTextKind) {
+		self.sb.push_str(text);
 	}
 }
