@@ -23,7 +23,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::*;
 use super::*;
-use std::cell::RefCell;
+use core::cell::RefCell;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 pub(super) struct SimpleInstr {
 	orig_ip: u64,

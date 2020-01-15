@@ -25,13 +25,13 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::op_code_test_case::*;
+use core::iter::IntoIterator;
+use core::u32;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};
-use std::iter::IntoIterator;
 use std::path::Path;
-use std::u32;
 
 pub(crate) struct OpCodeInfoTestParser {
 	filename: String,
@@ -249,7 +249,7 @@ impl IntoIter {
 		tc.mandatory_prefix = self.to_mandatory_prefix(elems[2].trim())?;
 		tc.table = self.to_table(elems[3].trim())?;
 		tc.op_code = Self::to_op_code(elems[4].trim())?;
-		tc.op_code_string = elems[5].trim().to_owned();
+		tc.op_code_string = String::from(elems[5].trim());
 		tc.instruction_string = elems[6].trim().replace('|', ",");
 
 		let mut got_vector_length = false;
@@ -394,10 +394,10 @@ impl IntoIter {
 			EncodingKind::Legacy | EncodingKind::D3NOW => {}
 			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {
 				if !got_vector_length {
-					return Err("Missing vector length: L0/L1/L128/L256/L512/LIG".to_owned());
+					return Err(String::from("Missing vector length: L0/L1/L128/L256/L512/LIG"));
 				}
 				if !got_w {
-					return Err("Missing W bit: W0/W1/WIG/WIG32".to_owned());
+					return Err(String::from("Missing W bit: W0/W1/WIG/WIG32"));
 				}
 			}
 		}

@@ -26,7 +26,11 @@ use super::enums::*;
 use super::ops::*;
 use super::ops_tables::*;
 use super::*;
-use std::{i8, mem, u32};
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{i8, mem, u32};
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #[repr(C)]

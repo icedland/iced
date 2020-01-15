@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::FormatterString;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 pub(super) struct FormatterConstants {
 	pub(super) empty: FormatterString,

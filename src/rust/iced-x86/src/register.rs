@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
-use std::fmt;
-use std::mem;
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use core::fmt;
+use core::mem;
+use core::ops::{Add, AddAssign, Sub, SubAssign};
 
 #[cfg(feature = "instr_info")]
 pub use self::info::*;
@@ -33,7 +33,7 @@ pub use self::info::*;
 mod info {
 	use super::super::iced_constants::IcedConstants;
 	use super::Register;
-	use std::mem;
+	use core::mem;
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub(crate) static REGISTER_INFOS: &[RegisterInfo; IcedConstants::NUMBER_OF_REGISTERS] = &[

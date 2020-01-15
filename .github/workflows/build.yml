@@ -104,6 +104,17 @@ jobs:
           rustup toolchain install nightly --no-self-update
           rustup update --no-self-update
 
+      - name: Build no_std
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
+          cd src/rust/iced-x86
+          git clean -xdf
+          echo ==== BUILD DEBUG ====
+          cargo build --color always --lib --no-default-features --features "no_std decoder encoder instr_info all_formatters"
+          git clean -xdf
+
       - name: Build, test (default)
         shell: bash
         run: |

@@ -40,7 +40,11 @@ use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
 use super::regs_tbl::REGS_TBL;
 use super::*;
-use std::{mem, u16, u32, u8};
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{mem, u16, u32, u8};
 
 /// GNU assembler (AT&T) formatter
 #[allow(missing_debug_implementations)]
@@ -50,7 +54,7 @@ pub struct GasFormatter<'a> {
 	options_provider: Option<&'a mut FormatterOptionsProvider>,
 	all_registers: &'static Vec<FormatterString>,
 	all_registers_naked: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<InstrInfo + Sync>>,
+	instr_infos: &'static Vec<Box<InstrInfo + Sync + Send>>,
 	all_memory_sizes: &'static Vec<&'static FormatterString>,
 	number_formatter: NumberFormatter,
 	str_: &'static FormatterConstants,

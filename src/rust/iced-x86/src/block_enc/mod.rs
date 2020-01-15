@@ -32,10 +32,20 @@ pub use self::enums::*;
 use self::instr::*;
 use super::iced_constants::IcedConstants;
 use super::*;
-use std::cell::RefCell;
+#[cfg(any(has_alloc, not(feature = "std")))]
+use alloc::rc::Rc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::cell::RefCell;
+use core::{mem, u32};
+#[cfg(not(feature = "std"))]
+use hashbrown::HashMap;
+#[cfg(feature = "std")]
 use std::collections::HashMap;
+#[cfg(all(not(has_alloc), feature = "std"))]
 use std::rc::Rc;
-use std::u32;
 
 /// Relocation info
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
@@ -195,7 +205,7 @@ impl BlockEncoder {
 			let _ = this.to_instr.remove(&0);
 		}
 
-		let mut tmp_blocks = std::mem::replace(&mut this.blocks, Vec::new());
+		let mut tmp_blocks = mem::replace(&mut this.blocks, Vec::new());
 		for info in tmp_blocks.iter_mut() {
 			let mut ip = info.0.borrow().rip;
 			for instr in info.1.iter_mut() {
@@ -337,13 +347,13 @@ impl BlockEncoder {
 					if instr.optimize() {
 						let instr_size = instr.size();
 						if instr_size > old_size {
-							return Err("Internal error: new size > old size".to_owned());
+							return Err(String::from("Internal error: new size > old size"));
 						}
 						if instr_size < old_size {
 							updated = true;
 						}
 					} else if instr.size() != old_size {
-						return Err("Internal error: new size != old size".to_owned());
+						return Err(String::from("Internal error: new size != old size"));
 					}
 					ip = ip.wrapping_add(instr.size() as u64);
 				}
@@ -377,7 +387,7 @@ impl BlockEncoder {
 				};
 				let size = block.buffer_pos() - buffer_pos;
 				if size != instr.size() as usize {
-					return Err("Internal error: didn't write all bytes".to_owned());
+					return Err(String::from("Internal error: didn't write all bytes"));
 				}
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
 					new_instruction_offsets.push(if is_original_instruction { ip.wrapping_sub(block.rip) as u32 } else { u32::MAX });

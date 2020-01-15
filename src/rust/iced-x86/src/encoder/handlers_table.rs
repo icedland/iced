@@ -27,7 +27,11 @@ use super::super::*;
 use super::enums::*;
 use super::op_code_data::OP_CODE_DATA;
 use super::op_code_handler::*;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::mem;
 
 lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {

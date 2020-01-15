@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::*;
-use std::{cmp, u32};
+use core::{cmp, u32};
 
 /// Gets initialized with the default options and can be overridden by a [`FormatterOptionsProvider`]
 ///

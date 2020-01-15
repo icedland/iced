@@ -24,10 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
+use core::iter::IntoIterator;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};
-use std::iter::IntoIterator;
 use std::path::Path;
 
 pub(crate) struct DecoderMemoryTestParser {

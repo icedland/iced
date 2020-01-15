@@ -41,10 +41,10 @@ use super::super::test_utils::from_str_conv::*;
 use super::super::test_utils::*;
 use super::super::*;
 use super::factory::*;
-use std::cmp::Ordering;
+use core::cmp::Ordering;
+use core::fmt::Write;
+use core::mem;
 use std::collections::{HashMap, HashSet};
-use std::fmt::Write;
-use std::mem;
 
 lazy_static! {
 	pub(super) static ref INSTR_INFO_16: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(16) };
@@ -729,6 +729,6 @@ fn make_sure_all_code_values_are_tested() {
 
 #[test]
 fn verify_used_memory_size() {
-	// std::mem::size_of() is a const func since rustc 1.24.0
+	// core::mem::size_of() is a const func since rustc 1.24.0
 	assert_eq!(16, mem::size_of::<UsedMemory>());
 }

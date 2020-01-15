@@ -23,8 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::*;
 use super::*;
-use std::cell::RefCell;
-use std::{i32, u32};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::cell::RefCell;
+use core::{i32, u32};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {
@@ -170,9 +172,10 @@ impl Instr for IpRelMemOpInstr {
 				}
 			}
 
-			InstrKind::Long => Err("IP relative memory operand is too far away and isn't currently supported. \
-			                        Try to allocate memory close to the original instruction (+/-2GB)."
-				.to_owned()),
+			InstrKind::Long => Err(String::from(
+				"IP relative memory operand is too far away and isn't currently supported. \
+				 Try to allocate memory close to the original instruction (+/-2GB).",
+			)),
 
 			InstrKind::Uninitialized => unreachable!(),
 		}

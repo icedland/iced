@@ -24,7 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
-use std::{panic, u32};
+use core::u32;
+use std::panic;
 
 #[test]
 fn encoder_ignores_prefixes_if_declare_data() {

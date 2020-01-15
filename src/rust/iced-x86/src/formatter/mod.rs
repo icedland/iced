@@ -58,7 +58,9 @@ use self::num_fmt::NumberFormatter;
 pub use self::num_fmt_opts::*;
 pub use self::symres::*;
 use super::*;
-use std::{i16, i32, i8, u16, u32, u8};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::{i16, i32, i8, u16, u32, u8};
 
 #[derive(Debug, Default, Clone)]
 struct FormatterString {
@@ -74,7 +76,7 @@ impl FormatterString {
 
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
-		Self { upper: lower.to_uppercase(), lower: lower.to_owned() }
+		Self { lower: String::from(lower), upper: lower.to_uppercase() }
 	}
 
 	fn len(&self) -> usize {

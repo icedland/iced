@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::enums::*;
 use super::fmt_opts::*;
 use super::num_fmt_opts::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 struct NumberFormatterFlags;
 impl NumberFormatterFlags {

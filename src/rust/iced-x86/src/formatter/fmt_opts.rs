@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::enums::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 struct Flags1;
 impl Flags1 {
@@ -131,9 +133,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_gas() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_prefix("0x".to_owned());
-		options.set_octal_prefix("0".to_owned());
-		options.set_binary_prefix("0b".to_owned());
+		options.set_hex_prefix(String::from("0x"));
+		options.set_octal_prefix(String::from("0"));
+		options.set_binary_prefix(String::from("0b"));
 		options
 	}
 
@@ -143,9 +145,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_intel() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix("h".to_owned());
-		options.set_octal_suffix("o".to_owned());
-		options.set_binary_suffix("b".to_owned());
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
 		options
 	}
 
@@ -155,9 +157,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_masm() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix("h".to_owned());
-		options.set_octal_suffix("o".to_owned());
-		options.set_binary_suffix("b".to_owned());
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
 		options
 	}
 
@@ -167,9 +169,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_nasm() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix("h".to_owned());
-		options.set_octal_suffix("o".to_owned());
-		options.set_binary_suffix("b".to_owned());
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
 		options
 	}
 

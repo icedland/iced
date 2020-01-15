@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::handlers::*;
 use super::*;
+use core::mem;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -2425,7 +2426,7 @@ impl OpCodeHandler_RegIb3 {
 		if (decoder.state.flags & StateFlags::HAS_REX) != 0 {
 			register = unsafe { *WITH_REX_PREFIX_MOV_REGISTERS.get_unchecked((this.index + decoder.state.extra_base_register_base) as usize) };
 		} else {
-			register = unsafe { std::mem::transmute((this.index + Register::AL as u32) as u8) };
+			register = unsafe { mem::transmute((this.index + Register::AL as u32) as u8) };
 		}
 		super::instruction_internal::internal_set_code(instruction, Code::Mov_r8_imm8);
 		const_assert_eq!(0, OpKind::Register as u32);

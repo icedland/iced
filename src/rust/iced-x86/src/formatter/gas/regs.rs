@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::iced_constants::IcedConstants;
 use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 pub(super) struct Registers;
 impl Registers {
@@ -39,7 +43,7 @@ lazy_static! {
 		for reg in regs_tbl.iter() {
 			s.push('%');
 			s.push_str(&reg.get(false));
-			v.push(FormatterString::new(s.to_owned()));
+			v.push(FormatterString::new(s.clone()));
 			s.clear();
 		}
 		v

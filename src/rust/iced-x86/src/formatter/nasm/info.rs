@@ -26,7 +26,9 @@ use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
 use super::mem_size_tbl::MEM_SIZE_TBL;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::mem;
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {

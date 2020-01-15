@@ -23,6 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::data_reader::DataReader;
 use super::strings_data::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 // The returned array isn't cached since only one formatter is normally used
 pub(super) fn get_strings_table() -> Vec<String> {

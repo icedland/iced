@@ -38,8 +38,8 @@ use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
-use std::fmt::Write;
-use std::mem;
+use core::fmt::Write;
+use core::mem;
 
 #[test]
 fn decode_16() {

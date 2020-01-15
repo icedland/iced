@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::iced_constants::IcedConstants;
 use super::enums::*;
 use super::*;
-use std::{mem, u16, u32, u64};
+use core::{mem, u16, u32, u64};
 
 /// Instruction info options used by [`InstructionInfoFactory`]
 ///

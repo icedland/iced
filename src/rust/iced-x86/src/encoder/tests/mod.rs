@@ -34,8 +34,11 @@ use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;
-use std::fmt::Write;
-use std::mem;
+#[cfg(any(has_alloc, not(feature = "std")))]
+use alloc::rc::Rc;
+use core::fmt::Write;
+use core::mem;
+#[cfg(all(not(has_alloc), feature = "std"))]
 use std::rc::Rc;
 
 #[test]

@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::*;
 use super::enums::*;
 use super::Encoder;
-use std::mem;
+use core::mem;
 
 pub(crate) trait Op {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32);

@@ -24,7 +24,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::iced_constants::IcedConstants;
 use super::super::fmt_consts::*;
 use super::FormatterString;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::mem;
 
 pub(super) struct Info {
 	pub(super) keywords: &'static [&'static FormatterString],

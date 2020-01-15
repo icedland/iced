@@ -36,6 +36,7 @@ fn main() {
 	}
 	if version >= Version::new(1, 36, 0) {
 		println!("cargo:rustc-cfg=has_maybe_uninit");
+		println!("cargo:rustc-cfg=has_alloc");
 	}
 	if version >= Version::new(1, 40, 0) {
 		println!("cargo:rustc-cfg=has_non_exhaustive");

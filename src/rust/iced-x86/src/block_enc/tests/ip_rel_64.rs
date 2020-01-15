@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::*;
-use std::u32;
+use core::u32;
 
 const BITNESS: u32 = 64;
 const ORIG_RIP: u64 = 0x8000;

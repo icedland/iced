@@ -25,7 +25,11 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::Register;
 use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
-use std::fmt::Write;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::fmt::Write;
 
 pub(super) struct Registers;
 impl Registers {
@@ -39,7 +43,7 @@ lazy_static! {
 		let mut s = String::with_capacity(MAX_STRING_LENGTH);
 		for i in 0..8usize {
 			write!(s, "mmx{}", i).unwrap();
-			v[Register::MM0 as usize + i] = FormatterString::new(s.to_owned());
+			v[Register::MM0 as usize + i] = FormatterString::new(s.clone());
 			s.clear();
 		}
 		v

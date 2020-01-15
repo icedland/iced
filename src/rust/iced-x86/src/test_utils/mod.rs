@@ -28,8 +28,9 @@ pub(crate) mod section_file_reader;
 use self::decoder_constants::*;
 use super::iced_constants::IcedConstants;
 use super::Decoder;
+use core::cmp;
+use std::env;
 use std::path::PathBuf;
-use std::{cmp, env};
 
 fn get_unit_tests_base_dir() -> PathBuf {
 	let mut path = env::current_exe().expect("Couldn't get the path of the current executable");

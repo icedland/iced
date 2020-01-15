@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::iced_constants::IcedConstants;
 use super::super::fmt_consts::*;
 use super::FormatterString;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]

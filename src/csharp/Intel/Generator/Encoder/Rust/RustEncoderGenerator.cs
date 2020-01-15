@@ -382,7 +382,7 @@ namespace Generator.Encoder.Rust {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				string @return = useReturn ? "return " : string.Empty;
 				foreach (var info in notInstrStrings)
-					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}\"{info.result}\".to_owned(),");
+					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}String::from(\"{info.result}\"),");
 			});
 		}
 

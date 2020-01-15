@@ -24,7 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::iced_constants::IcedConstants;
 use super::super::{Code, OpCodeInfo};
 use super::op_code_data::OP_CODE_DATA;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::mem;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {
