@@ -26,50 +26,9 @@ use super::FormatterOutput;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
-/// Implements [`FormatterOutput`] and writes all output to a string
-///
-/// [`FormatterOutput`]: trait.FormatterOutput.html
-#[derive(Debug, Default, Clone, Eq, PartialEq, Hash)]
-pub struct StringOutput {
-	sb: String,
-}
-
-impl StringOutput {
-	/// Constructor
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn new() -> Self {
-		Self { sb: String::new() }
-	}
-
-	/// Constructor
-	///
-	/// # Arguments
-	///
-	/// `capacity`: Initial capacity
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn with_capacity(capacity: usize) -> Self {
-		Self { sb: String::with_capacity(capacity) }
-	}
-
-	/// Clears the internal string so this instance can be re-used for the next instruction
-	#[inline]
-	pub fn clear(&mut self) {
-		self.sb.clear()
-	}
-
-	/// Gets the current string
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn get(&self) -> &str {
-		&self.sb
-	}
-}
-
-impl FormatterOutput for StringOutput {
+impl FormatterOutput for String {
 	#[inline]
 	fn write(&mut self, text: &str, _kind: FormatterOutputTextKind) {
-		self.sb.push_str(text);
+		self.push_str(text);
 	}
 }

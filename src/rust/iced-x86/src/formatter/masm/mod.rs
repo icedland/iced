@@ -58,11 +58,11 @@ use core::{mem, u16, u32, u8};
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// let instr = decoder.decode();
 ///
-/// let mut output = StringOutput::new();
+/// let mut output = String::new();
 /// let mut formatter = MasmFormatter::new();
 /// formatter.options_mut().set_upper_case_mnemonics(true);
 /// formatter.format(&instr, &mut output);
-/// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output.get());
+/// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output);
 /// ```
 #[allow(missing_debug_implementations)]
 pub struct MasmFormatter<'a> {

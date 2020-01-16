@@ -98,7 +98,7 @@ impl FormatterString {
 	}
 }
 
-/// Used by a [`Formatter`] to write all text
+/// Used by a [`Formatter`] to write all text. `String` also implements this trait.
 ///
 /// The only method that must be implemented is [`write()`], all other methods call it if they're not overridden.
 ///
