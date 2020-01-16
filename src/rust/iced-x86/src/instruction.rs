@@ -25,6 +25,8 @@ use super::iced_constants::IcedConstants;
 #[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 use core::hash::{Hash, Hasher};
 use core::{fmt, mem, ptr, slice, u16, u32, u64};
 
