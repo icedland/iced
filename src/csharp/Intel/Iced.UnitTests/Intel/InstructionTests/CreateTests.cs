@@ -1216,6 +1216,17 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		}
 
 		[Fact]
+		void Encoding_instruction_requiring_opmask_fails_if_no_opmask() {
+			var instr = Instruction.Create(Code.EVEX_Vpgatherdd_xmm_k1_vm32x, Register.XMM1, new MemoryOperand(Register.RDX, Register.XMM3));
+			Assert.False(instr.HasOpMask);
+			var writer = new CodeWriterImpl();
+			var encoder = Encoder.Create(64, writer);
+			bool result = encoder.TryEncode(instr, 0, out _, out var errorMessage);
+			Assert.False(result);
+			Assert.Equal("The instruction must use an opmask register", errorMessage);
+		}
+
+		[Fact]
 		void CreateDeclareXXX_throws_if_null_array() {
 			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareByte(null));
 			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareByte(null, 0, 0));

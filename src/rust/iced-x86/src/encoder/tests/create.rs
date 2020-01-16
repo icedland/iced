@@ -1311,3 +1311,16 @@ fn create_panics_if_invalid_bitness() {
 		assert!(result.is_err());
 	}
 }
+
+#[test]
+fn encoding_instruction_requiring_opmask_fails_if_no_opmask() {
+	let instr = Instruction::with_reg_mem(
+		Code::EVEX_Vpgatherdd_xmm_k1_vm32x,
+		Register::XMM1,
+		&MemoryOperand::with_base_index_scale(Register::RDX, Register::XMM3, 4),
+	);
+	assert!(!instr.has_op_mask());
+	let mut encoder = Encoder::new(64);
+	let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
+	assert_eq!("The instruction must use an opmask register", error_message);
+}

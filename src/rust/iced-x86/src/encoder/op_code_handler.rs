@@ -702,8 +702,14 @@ impl EvexHandler {
 		encoder.write_byte_internal(b);
 
 		b = super::super::instruction_internal::internal_op_mask(instruction);
-		if b != 0 && (this.flags & EvexFlags::K1) == 0 {
-			encoder.set_error_message_str("The instruction doesn't support opmask registers");
+		if b != 0 {
+			if (this.flags & EvexFlags::K1) == 0 {
+				encoder.set_error_message_str("The instruction doesn't support opmask registers");
+			}
+		} else {
+			if (this.flags & EvexFlags::NON_ZERO_OP_MASK_REGISTER) != 0 {
+				encoder.set_error_message_str("The instruction must use an opmask register");
+			}
 		}
 		b |= (encoder_flags >> (EncoderFlags::VVVVV_SHIFT + 4 - 3)) & 8;
 		if instruction.suppress_all_exceptions() {

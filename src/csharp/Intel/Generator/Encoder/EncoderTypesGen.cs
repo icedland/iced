@@ -310,6 +310,7 @@ namespace Generator.Encoder {
 			AddFlag(values, ref bit, "sae");
 			AddFlag(values, ref bit, "k1");
 			AddFlag(values, ref bit, "z");
+			AddFlag(values, ref bit, "NonZeroOpMaskRegister");
 
 			VerifyBit(bit);
 			EvexFlags = new EnumType(TypeIds.EvexFlags, null, values.ToArray(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
