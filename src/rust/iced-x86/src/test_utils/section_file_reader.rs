@@ -21,11 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use core::u32;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::path::Path;
-use std::u32;
 
 pub(crate) trait SectionFileLineHandler {
 	fn line(&mut self, id: u32, line: &str) -> Result<(), String>;

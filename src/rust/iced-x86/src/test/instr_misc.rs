@@ -23,7 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::iced_constants::IcedConstants;
 use super::super::*;
-use std::{i32, i8, mem, panic, u16, u32, u64, u8};
+use core::{i32, i8, mem, u16, u32, u64, u8};
+use std::panic;
 
 #[test]
 fn invalid_code_value_is_zero() {
@@ -39,8 +40,8 @@ fn invalid_code_value_is_zero() {
 #[test]
 #[cfg(feature = "encoder")]
 fn eq_and_hash_ignore_some_fields() {
+	use core::hash::{Hash, Hasher};
 	use std::collections::hash_map::DefaultHasher;
-	use std::hash::{Hash, Hasher};
 	let mut instr1 = Instruction::with_reg_reg_mem_reg_u32(
 		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2,
 		Register::XMM1,

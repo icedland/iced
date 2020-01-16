@@ -29,6 +29,10 @@ namespace Generator.Formatters.Gas {
 	static class CtorInfos {
 		public static readonly object[][] Infos = Utils.Sort(new object[][] {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.INVALID)], FormatterConstants.InvalidMnemonicName },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareByte)], ".byte" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareWord)], ".word" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareDword)], ".int" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareQword)], ".quad" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2a)], CodeEnum.Instance[nameof(Code.Add_rm8_r8)], "add", 'b' },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2a)], CodeEnum.Instance[nameof(Code.Add_rm16_r16)], "add", 'w' },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2a)], CodeEnum.Instance[nameof(Code.Add_rm32_r32)], "add", 'l' },
@@ -4227,10 +4231,6 @@ namespace Generator.Formatters.Gas {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], "pmulhrw" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], "pswapd" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], "pavgusb" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareByte)], ".byte" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareWord)], ".word" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareDword)], ".int" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareQword)], ".quad" },
 		});
 	}
 }

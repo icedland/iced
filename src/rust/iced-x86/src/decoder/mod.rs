@@ -38,7 +38,9 @@ use self::handlers::OpCodeHandler;
 use self::tables_legacy::HANDLERS_XX;
 use super::iced_constants::IcedConstants;
 use super::*;
-use std::{fmt, ptr};
+#[cfg(has_fused_iterator)]
+use core::iter::FusedIterator;
+use core::{cmp, fmt, mem, ptr, u32};
 
 // Ugly hack to convert the 'class' to its 'base class'
 union HandlerTransmuter<F: 'static> {
@@ -233,7 +235,7 @@ impl State {
 	#[inline(always)]
 	#[cfg(debug_assertions)]
 	fn encoding(&self) -> EncodingKind {
-		unsafe { std::mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
+		unsafe { mem::transmute((self.flags & StateFlags::ENCODING_MASK) as u8) }
 	}
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
@@ -386,7 +388,7 @@ impl<'a> Decoder<'a> {
 			instr_start_data_ptr: data.as_ptr(),
 			state: State::default(),
 			options,
-			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { std::u32::MAX } else { 0 },
+			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { u32::MAX } else { 0 },
 			is64_mode_and_w: if is64_mode { StateFlags::W } else { 0 },
 			default_code_size,
 			default_operand_size,
@@ -623,7 +625,7 @@ impl<'a> Decoder<'a> {
 		// but the compiler generates worse code when '<=' is used instead of '<'.
 		// Instead of jumping to the error code at the end of the method, it now
 		// jumps to the likely path.
-		// std::intrinsics::likely() can only be used with nightly rustc builds.
+		// core::intrinsics::likely() can only be used with nightly rustc builds.
 		// https://github.com/rust-lang/rust/issues/26179
 
 		unsafe {
@@ -680,7 +682,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
-		let mut instruction = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+		let mut instruction = unsafe { mem::MaybeUninit::uninit().assume_init() };
 		self.decode_out(&mut instruction);
 		instruction
 	}
@@ -727,7 +729,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
-		let mut instruction = unsafe { std::mem::uninitialized() };
+		let mut instruction = unsafe { mem::uninitialized() };
 		self.decode_out(&mut instruction);
 		instruction
 	}
@@ -750,8 +752,8 @@ impl<'a> Decoder<'a> {
 	/// let bytes = b"\xF0\xF3\x01\x18";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	/// decoder.set_ip(0x1234_5678);
-	/// // or use std::mem::MaybeUninit:
-	/// //    let mut instr = unsafe { std::mem::MaybeUninit::uninit().assume_init() };
+	/// // or use core::mem::MaybeUninit:
+	/// //    let mut instr = unsafe { core::mem::MaybeUninit::uninit().assume_init() };
 	/// // to not clear `instr` more than once (`decode_out()` initializes all its fields).
 	/// let mut instr = Instruction::default();
 	/// decoder.decode_out(&mut instr);
@@ -793,7 +795,7 @@ impl<'a> Decoder<'a> {
 
 		let data_ptr = self.data_ptr;
 		self.instr_start_data_ptr = data_ptr;
-		self.max_data_ptr = unsafe { std::cmp::min(data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end) };
+		self.max_data_ptr = unsafe { cmp::min(data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end) };
 
 		let mut default_ds_segment = Register::DS;
 		let mut rex_prefix: usize = 0;
@@ -1174,7 +1176,7 @@ impl<'a> Decoder<'a> {
 				super::instruction_internal::internal_set_op_mask(instruction, aaa);
 				if (p2 & 0x80) != 0 {
 					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
-					if (aaa ^ self.invalid_check_mask) == std::u32::MAX {
+					if (aaa ^ self.invalid_check_mask) == u32::MAX {
 						self.set_invalid_instruction();
 					}
 					self.state.flags |= StateFlags::Z;
@@ -1732,7 +1734,7 @@ impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 }
 
 #[cfg(has_fused_iterator)]
-impl<'a, 'b> std::iter::FusedIterator for DecoderIter<'a, 'b> {}
+impl<'a, 'b> FusedIterator for DecoderIter<'a, 'b> {}
 
 /// An iterator that consumes a [`Decoder`] and decodes instructions until there's
 /// no more data available.
@@ -1757,7 +1759,7 @@ impl<'a> Iterator for DecoderIntoIter<'a> {
 }
 
 #[cfg(has_fused_iterator)]
-impl<'a> std::iter::FusedIterator for DecoderIntoIter<'a> {}
+impl<'a> FusedIterator for DecoderIntoIter<'a> {}
 
 impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;

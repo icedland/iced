@@ -196,7 +196,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				foreach (var prefix in prefixes) {
 					Instruction origInstr;
 					{
-						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
+						var bytes = HexUtils.ToByteArray(info.HexBytes);
+						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out origInstr);
 						Assert.Equal(info.Code, origInstr.Code);
 						// Mandatory prefix must be right before the opcode. If it has a seg override, there's also
@@ -207,6 +208,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						// 67h prefix
 						if (memRegSize != 0 && memRegSize != info.Bitness)
 							continue;
+						int nonPrefixIndex = SkipPrefixes(bytes, info.Bitness, out _);
+						if (nonPrefixIndex > 0) {
+							bool has67 = false;
+							for (int i = 0; i < nonPrefixIndex; i++) {
+								if (bytes[i] == 0x67) {
+									has67 = true;
+									break;
+								}
+							}
+							if (has67)
+								continue;
+						}
 					}
 					var hexBytes = prefix + info.HexBytes;
 					{

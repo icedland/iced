@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::*;
-use std::{cmp, u32};
+use core::{cmp, u32};
 
 /// Gets initialized with the default options and can be overridden by a [`FormatterOptionsProvider`]
 ///
@@ -49,8 +49,8 @@ pub struct NumberFormattingOptions<'a> {
 	pub leading_zeroes: bool,
 	/// If `true`, the number is signed, and if `false` it's an unsigned number
 	pub signed_number: bool,
-	/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. `mov al,[eax+12h]` vs `mov al,[eax+00000012h]`
-	pub sign_extend_immediate: bool,
+	/// Add leading zeroes to displacements
+	pub displacement_leading_zeroes: bool,
 }
 
 impl<'a> NumberFormattingOptions<'a> {
@@ -73,12 +73,7 @@ impl<'a> NumberFormattingOptions<'a> {
 	#[inline]
 	#[cfg_attr(has_must_use, must_use)]
 	pub fn with_displacement(options: &'a FormatterOptions) -> Self {
-		NumberFormattingOptions::new(
-			options,
-			options.leading_zeroes(),
-			options.signed_memory_displacements(),
-			options.sign_extend_memory_displacements(),
-		)
+		NumberFormattingOptions::new(options, options.leading_zeroes(), options.signed_memory_displacements(), options.displacement_leading_zeroes())
 	}
 
 	/// Creates options used when formatting branch operands
@@ -99,11 +94,11 @@ impl<'a> NumberFormattingOptions<'a> {
 	/// * `options`: Formatter options to use
 	/// * `leading_zeroes`: Add leading zeroes to numbers, eg. `1h` vs `00000001h`
 	/// * `signed_number`: Signed numbers if `true`, and unsigned numbers if `false`
-	/// * `sign_extend_immediate`: Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. `mov al,[eax+12h]` vs `mov al,[eax+00000012h]`
+	/// * `displacement_leading_zeroes`: Add leading zeroes to displacements
 	#[inline]
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn new(options: &'a FormatterOptions, leading_zeroes: bool, signed_number: bool, sign_extend_immediate: bool) -> Self {
+	pub fn new(options: &'a FormatterOptions, leading_zeroes: bool, signed_number: bool, displacement_leading_zeroes: bool) -> Self {
 		let (digit_group_size, prefix, suffix) = match options.number_base() {
 			NumberBase::Hexadecimal => (options.hex_digit_group_size(), options.hex_prefix(), options.hex_suffix()),
 			NumberBase::Decimal => (options.decimal_digit_group_size(), options.decimal_prefix(), options.decimal_suffix()),
@@ -121,7 +116,7 @@ impl<'a> NumberFormattingOptions<'a> {
 			add_leading_zero_to_hex_numbers: options.add_leading_zero_to_hex_numbers(),
 			leading_zeroes,
 			signed_number,
-			sign_extend_immediate,
+			displacement_leading_zeroes,
 		}
 	}
 }

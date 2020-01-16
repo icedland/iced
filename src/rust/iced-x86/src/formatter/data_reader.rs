@@ -21,7 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use std::str;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::str;
 
 pub(super) struct DataReader<'a> {
 	data: &'a [u8],
@@ -73,6 +75,6 @@ impl<'a> DataReader<'a> {
 		let len = self.read_u8();
 		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();
 		self.index += len;
-		s.to_owned()
+		String::from(s)
 	}
 }

@@ -45,6 +45,7 @@ namespace Generator.Enums.Encoder {
 		HighLegacy8BitRegs	= 0x00000800,
 		Displ				= 0x00001000,
 		PF0					= 0x00002000,
+		RegIsMemory			= 0x00004000,
 
 		VvvvvShift			= 27,// 5 bits
 		VvvvvMask			= 0x1F,

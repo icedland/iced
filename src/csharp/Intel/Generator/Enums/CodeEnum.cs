@@ -34,6 +34,14 @@ namespace Generator.Enums {
 	enum Code {
 		[Comment("It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.")]
 		INVALID,
+		[Comment("A #(c:db)#/#(c:.byte)# asm directive that can store 1-16 bytes")]
+		DeclareByte,
+		[Comment("A #(c:dw)#/#(c:.word)# asm directive that can store 1-8 words")]
+		DeclareWord,
+		[Comment("A #(c:dd)#/#(c:.int)# asm directive that can store 1-4 dwords")]
+		DeclareDword,
+		[Comment("A #(c:dq)#/#(c:.quad)# asm directive that can store 1-2 qwords")]
+		DeclareQword,
 		Add_rm8_r8,
 		Add_rm16_r16,
 		Add_rm32_r32,
@@ -4232,14 +4240,6 @@ namespace Generator.Enums {
 		D3NOW_Pmulhrw_mm_mmm64,
 		D3NOW_Pswapd_mm_mmm64,
 		D3NOW_Pavgusb_mm_mmm64,
-		[Comment("A #(c:db)#/#(c:.byte)# asm directive that can store 1-16 bytes")]
-		DeclareByte,
-		[Comment("A #(c:dw)#/#(c:.word)# asm directive that can store 1-8 words")]
-		DeclareWord,
-		[Comment("A #(c:dd)#/#(c:.int)# asm directive that can store 1-4 dwords")]
-		DeclareDword,
-		[Comment("A #(c:dq)#/#(c:.quad)# asm directive that can store 1-2 qwords")]
-		DeclareQword,
 	}
 
 	static class CodeEnum {

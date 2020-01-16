@@ -35,6 +35,10 @@ namespace Iced.Intel {
 		internal static readonly byte[] Sizes = new byte[IcedConstants.NumberOfCodeValues * 2] {
 #endif
 			0,// INVALID
+			0,// DeclareByte
+			0,// DeclareWord
+			0,// DeclareDword
+			0,// DeclareQword
 			(byte)MemorySize.UInt8,// Add_rm8_r8
 			(byte)MemorySize.UInt16,// Add_rm16_r16
 			(byte)MemorySize.UInt32,// Add_rm32_r32
@@ -4233,11 +4237,11 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed64_Int16,// D3NOW_Pmulhrw_mm_mmm64
 			(byte)MemorySize.Packed64_UInt32,// D3NOW_Pswapd_mm_mmm64
 			(byte)MemorySize.Packed64_UInt8,// D3NOW_Pavgusb_mm_mmm64
+			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
 			0,// DeclareDword
 			0,// DeclareQword
-			0,// INVALID
 			0,// Add_rm8_r8
 			0,// Add_rm16_r16
 			0,// Add_rm32_r32
@@ -8436,10 +8440,6 @@ namespace Iced.Intel {
 			0,// D3NOW_Pmulhrw_mm_mmm64
 			0,// D3NOW_Pswapd_mm_mmm64
 			0,// D3NOW_Pavgusb_mm_mmm64
-			0,// DeclareByte
-			0,// DeclareWord
-			0,// DeclareDword
-			0,// DeclareQword
 		};
 	}
 }

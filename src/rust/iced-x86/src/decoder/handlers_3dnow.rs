@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::*;
 use super::handlers::*;
 use super::*;
+use core::mem;
 
 static CODE_VALUES: [u16; 0x100] = [
 	// GENERATOR-BEGIN: D3nowCodeValues
@@ -311,7 +312,7 @@ impl OpCodeHandler_D3NOW {
 			decoder.read_u8()
 		};
 		debug_assert_eq!(0x100, CODE_VALUES.len());
-		let code = unsafe { std::mem::transmute(*CODE_VALUES.get_unchecked(ib)) };
+		let code = unsafe { mem::transmute(*CODE_VALUES.get_unchecked(ib)) };
 		super::instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {
 			decoder.set_invalid_instruction();

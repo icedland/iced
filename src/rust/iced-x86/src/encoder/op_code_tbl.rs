@@ -24,7 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::iced_constants::IcedConstants;
 use super::super::{Code, OpCodeInfo};
 use super::op_code_data::OP_CODE_DATA;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::mem;
 
 lazy_static! {
 	pub(crate) static ref OP_CODE_INFO_TBL: Vec<OpCodeInfo> = {
@@ -33,9 +37,9 @@ lazy_static! {
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let j = i * 3;
-			let dword1 = unsafe { *OP_CODE_DATA.get_unchecked(j) };
-			let dword2 = unsafe { *OP_CODE_DATA.get_unchecked(j + 1) };
-			let dword3 = unsafe { *OP_CODE_DATA.get_unchecked(j + 2) };
+			let dword1 = OP_CODE_DATA[j];
+			let dword2 = OP_CODE_DATA[j + 1];
+			let dword3 = OP_CODE_DATA[j + 2];
 			result.push(OpCodeInfo::new(code, dword1, dword2, dword3, &mut sb));
 		}
 		result

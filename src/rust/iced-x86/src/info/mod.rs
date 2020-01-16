@@ -32,7 +32,9 @@ mod tests;
 pub use self::factory::*;
 use super::iced_constants::IcedConstants;
 use super::*;
-use std::fmt;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::fmt;
 
 /// A register used by an instruction
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]

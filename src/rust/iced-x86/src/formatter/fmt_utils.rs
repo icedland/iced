@@ -24,7 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::{Code, Instruction, Register};
 use super::enums::{FormatterFlowControl, FormatterOutputTextKind, PrefixKind};
 use super::FormatterOutput;
-use std::{cmp, mem};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{cmp, mem};
 
 lazy_static! {
 	static ref SPACES_TABLE: Vec<String> = { create_strings(' ', 20) };
@@ -38,7 +42,7 @@ fn create_strings(c: char, cap: usize) -> Vec<String> {
 	let mut s = String::with_capacity(cap);
 	for _ in 0..cap - 1 {
 		s.push(c);
-		v.push(s.to_owned());
+		v.push(s.clone());
 	}
 	s.push(c);
 	assert_eq!(cap, s.len());

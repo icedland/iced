@@ -40,9 +40,29 @@ use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
 use super::regs_tbl::REGS_TBL;
 use super::*;
-use std::{mem, u16, u32, u8};
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{mem, u16, u32, u8};
 
 /// GNU assembler (AT&T) formatter
+///
+/// # Examples
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// let mut output = StringOutput::new();
+/// let mut formatter = GasFormatter::new();
+/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("VCVTNE2PS2BF16 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}", output.get());
+/// ```
 #[allow(missing_debug_implementations)]
 pub struct GasFormatter<'a> {
 	options: FormatterOptions,
@@ -50,7 +70,7 @@ pub struct GasFormatter<'a> {
 	options_provider: Option<&'a mut FormatterOptionsProvider>,
 	all_registers: &'static Vec<FormatterString>,
 	all_registers_naked: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<InstrInfo + Sync>>,
+	instr_infos: &'static Vec<Box<InstrInfo + Sync + Send>>,
 	all_memory_sizes: &'static Vec<&'static FormatterString>,
 	number_formatter: NumberFormatter,
 	str_: &'static FormatterConstants,
@@ -84,12 +104,8 @@ impl<'a> GasFormatter<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
-		let mut options = FormatterOptions::default();
-		options.set_hex_prefix("0x".to_owned());
-		options.set_octal_prefix("0".to_owned());
-		options.set_binary_prefix("0b".to_owned());
 		Self {
-			options,
+			options: FormatterOptions::with_gas(),
 			symbol_resolver,
 			options_provider,
 			all_registers: &*ALL_REGISTERS,
@@ -1049,7 +1065,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = (-(displ as i32)) as u32 as i64;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 4);
 							displ_size = 4;
 						}
@@ -1058,7 +1074,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = -displ;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 8);
 							displ_size = 8;
 						}
@@ -1068,7 +1084,7 @@ impl<'a> GasFormatter<'a> {
 							output.write("-", FormatterOutputTextKind::Operator);
 							displ = (-(displ as i16)) as u16 as i64;
 						}
-						if number_options.sign_extend_immediate {
+						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 2);
 							displ_size = 2;
 						}

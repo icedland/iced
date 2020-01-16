@@ -35,12 +35,17 @@ use self::jcc_instr::JccInstr;
 use self::jmp_instr::JmpInstr;
 use self::simple_br_instr::SimpleBranchInstr;
 use self::simple_instr::SimpleInstr;
-use self::std::rc::Rc;
 use self::xbegin_instr::XbeginInstr;
 use super::block::{Block, BlockData};
 use super::*;
-use std::cell::RefCell;
-use std::i32;
+#[cfg(any(has_alloc, not(feature = "std")))]
+use alloc::rc::Rc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::cell::RefCell;
+use core::i32;
+#[cfg(all(not(has_alloc), feature = "std"))]
+use std::rc::Rc;
 
 pub(super) trait Instr {
 	fn block(&self) -> Rc<RefCell<Block>>;
@@ -296,7 +301,7 @@ impl InstrUtils {
 		block: &mut Block, is_call: bool, ip: u64, pointer_data: Rc<RefCell<BlockData>>, min_size: u32,
 	) -> Result<u32, String> {
 		if min_size > i32::MAX as u32 {
-			return Err("Internal error: min_size > i32::MAX".to_owned());
+			return Err(String::from("Internal error: min_size > i32::MAX"));
 		}
 
 		let mut instr = Instruction::default();
@@ -312,7 +317,7 @@ impl InstrUtils {
 				let diff = pointer_data.borrow().address().wrapping_sub(next_rip) as i64;
 				instr.set_memory_displacement(diff as u32);
 				if !(i32::MIN as i64 <= diff && diff <= i32::MAX as i64) {
-					return Err("Block is too big".to_owned());
+					return Err(String::from("Block is too big"));
 				}
 				reloc_kind = RelocKind::Offset64;
 			}
@@ -327,7 +332,7 @@ impl InstrUtils {
 		if block.can_add_reloc_infos() && reloc_kind != RelocKind::Offset64 {
 			let co = block.encoder.get_constant_offsets();
 			if !co.has_displacement() {
-				return Err("Internal error: no displ".to_owned());
+				return Err(String::from("Internal error: no displ"));
 			}
 			block.add_reloc_info(RelocInfo::new(reloc_kind, ip.wrapping_add(co.displacement_offset() as u64)));
 		}

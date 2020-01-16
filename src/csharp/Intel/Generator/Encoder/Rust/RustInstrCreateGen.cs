@@ -364,6 +364,43 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("}");
 		}
 
+		protected override void GenCreateXbegin(FileWriter writer, CreateMethod method) {
+			if (method.Args.Count != 2)
+				throw new InvalidOperationException();
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
+			WriteMethod(writer, method, "with_xbegin");
+			using (writer.Indent()) {
+				writer.WriteLine($"let mut instruction = Self::default();");
+				var bitnessName = idConverter.Argument(method.Args[0].Name);
+				var opKindName = OpKindEnum.Instance.Name(idConverter);
+				var codeName = CodeEnum.Instance.Name(idConverter);
+				writer.WriteLine();
+				writer.WriteLine($"match bitness {{");
+				writer.WriteLine($"	16 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_near_branch16(&mut instruction, {idConverter.Argument(method.Args[1].Name)} as u16 as u32);");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	32 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)});");
+				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	64 => {{");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch64)].Name(idConverter)});");
+				writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(method.Args[1].Name)});");
+				writer.WriteLine($"	}}");
+				writer.WriteLine();
+				writer.WriteLine($"	_ => panic!(),");
+				writer.WriteLine($"}}");
+				WriteMethodFooter(writer, 1);
+			}
+			writer.WriteLine("}");
+		}
+
 		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 4)
 				throw new InvalidOperationException();
@@ -409,15 +446,15 @@ namespace Generator.Encoder.Rust {
 		void Write(FileWriter writer, EnumValue value) => writer.Write($"{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
 
-		void WriteAddrSizePanic(FileWriter writer, CreateMethod method) {
+		void WriteAddrSizeOrBitnessPanic(FileWriter writer, CreateMethod method) {
 			var arg = method.Args[0];
-			if (arg.Name != "addressSize")
+			if (arg.Name != "addressSize" && arg.Name != "bitness")
 				throw new InvalidOperationException();
 			docWriter.WriteLine(writer, $"Panics if `{idConverter.Argument(arg.Name)}` is not one of 16, 32, 64.");
 		}
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
@@ -463,7 +500,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreateString_Reg_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
@@ -505,7 +542,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreateString_ESRDI_Reg(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
@@ -547,7 +584,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreateString_SegRSI_ESRDI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
@@ -589,7 +626,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreateString_ESRDI_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
@@ -631,7 +668,7 @@ namespace Generator.Encoder.Rust {
 		}
 
 		protected override void GenCreateMaskmov(FileWriter writer, CreateMethod method, string methodBaseName, EnumValue code) {
-			WriteDocs(writer, method, () => WriteAddrSizePanic(writer, method));
+			WriteDocs(writer, method, () => WriteAddrSizeOrBitnessPanic(writer, method));
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");

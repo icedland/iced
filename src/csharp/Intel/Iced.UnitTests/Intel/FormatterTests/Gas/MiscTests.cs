@@ -75,7 +75,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.True(options.BranchLeadingZeroes);
 			Assert.False(options.SignedImmediateOperands);
 			Assert.True(options.SignedMemoryDisplacements);
-			Assert.False(options.SignExtendMemoryDisplacements);
+			Assert.False(options.DisplacementLeadingZeroes);
 			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
 			Assert.False(options.RipRelativeAddresses);
 			Assert.True(options.ShowBranchSize);
@@ -124,7 +124,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			decoder.Decode(out var instr);
 			Assert.Equal(code, instr.Code);
 			var formatter = FormatterFactory.Create();
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			formatter.FormatMnemonic(instr, output, options);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check

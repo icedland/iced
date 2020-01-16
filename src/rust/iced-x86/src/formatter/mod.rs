@@ -27,18 +27,19 @@ mod fmt_consts;
 mod fmt_opt_provider;
 mod fmt_opts;
 mod fmt_utils;
-#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
+#[cfg(feature = "gas_formatter")]
 mod gas;
-#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
+#[cfg(feature = "intel_formatter")]
 mod intel;
-#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "masm_formatter")]
 mod masm;
-#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "nasm_formatter")]
 mod nasm;
 mod num_fmt;
 mod num_fmt_opts;
 mod pseudo_ops;
 mod regs_tbl;
+mod string_output;
 mod strings_data;
 mod strings_tbl;
 mod symres;
@@ -46,19 +47,22 @@ mod symres;
 pub use self::enums::*;
 pub use self::fmt_opt_provider::*;
 pub use self::fmt_opts::*;
-#[cfg(any(feature = "gas_formatter", feature = "all_formatters"))]
+#[cfg(feature = "gas_formatter")]
 pub use self::gas::*;
-#[cfg(any(feature = "intel_formatter", feature = "all_formatters"))]
+#[cfg(feature = "intel_formatter")]
 pub use self::intel::*;
-#[cfg(any(feature = "masm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "masm_formatter")]
 pub use self::masm::*;
-#[cfg(any(feature = "nasm_formatter", feature = "all_formatters"))]
+#[cfg(feature = "nasm_formatter")]
 pub use self::nasm::*;
 use self::num_fmt::NumberFormatter;
 pub use self::num_fmt_opts::*;
+pub use self::string_output::*;
 pub use self::symres::*;
 use super::*;
-use std::{i16, i32, i8, u16, u32, u8};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::{i16, i32, i8, u16, u32, u8};
 
 #[derive(Debug, Default, Clone)]
 struct FormatterString {
@@ -74,7 +78,7 @@ impl FormatterString {
 
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
-		Self { upper: lower.to_uppercase(), lower: lower.to_owned() }
+		Self { lower: String::from(lower), upper: lower.to_uppercase() }
 	}
 
 	fn len(&self) -> usize {
@@ -577,8 +581,12 @@ pub trait Formatter: private::Sealed {
 
 mod private {
 	pub trait Sealed {}
+	#[cfg(feature = "gas_formatter")]
 	impl<'a> Sealed for super::gas::GasFormatter<'a> {}
+	#[cfg(feature = "intel_formatter")]
 	impl<'a> Sealed for super::intel::IntelFormatter<'a> {}
+	#[cfg(feature = "masm_formatter")]
 	impl<'a> Sealed for super::masm::MasmFormatter<'a> {}
+	#[cfg(feature = "nasm_formatter")]
 	impl<'a> Sealed for super::nasm::NasmFormatter<'a> {}
 }

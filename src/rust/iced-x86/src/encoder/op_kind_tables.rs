@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::OpCodeOperandKind;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 118] = [
+pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 121] = [
 	OpCodeOperandKind::None,// None
 	OpCodeOperandKind::farbr2_2,// Aww
 	OpCodeOperandKind::farbr4_2,// Adw
@@ -72,6 +72,9 @@ pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 118] = [
 	OpCodeOperandKind::r16_reg,// Gw
 	OpCodeOperandKind::r32_reg,// Gd
 	OpCodeOperandKind::r64_reg,// Gq
+	OpCodeOperandKind::r16_reg_mem,// Gw_mem
+	OpCodeOperandKind::r32_reg_mem,// Gd_mem
+	OpCodeOperandKind::r64_reg_mem,// Gq_mem
 	OpCodeOperandKind::r16_rm,// Rw
 	OpCodeOperandKind::r32_rm,// Rd
 	OpCodeOperandKind::r64_rm,// Rq

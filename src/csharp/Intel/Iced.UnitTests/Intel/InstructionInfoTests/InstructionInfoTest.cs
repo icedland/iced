@@ -79,7 +79,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					instr.CodeSize = CodeSize.Code16;
 					instr.Length = 1;
 				}
-				else if (code >= Code.DeclareByte) {
+				else if (code <= Code.DeclareQword) {
 					instr = default;
 					instr.Code = code;
 					instr.DeclareDataCount = 1;

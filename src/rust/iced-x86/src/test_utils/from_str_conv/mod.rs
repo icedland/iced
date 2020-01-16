@@ -59,8 +59,8 @@ use self::register_table::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 use self::tuple_type_table::*;
 use super::super::*;
+use core::{i32, u16, u32, u8};
 use std::collections::HashMap;
-use std::{i32, u16, u32, u8};
 
 pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
 	let mut bytes = Vec::with_capacity(hex_data.len() / 2);

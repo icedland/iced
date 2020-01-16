@@ -26,6 +26,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static TABLE: [u32; 8406] = [
 	0x0000_0000, 0x5290_0000,// INVALID
+	0x0000_0000, 0x5290_0000,// DeclareByte
+	0x0000_0000, 0x5290_0000,// DeclareWord
+	0x0000_0000, 0x5290_0000,// DeclareDword
+	0x0000_0000, 0x5290_0000,// DeclareQword
 	0x0007_8036, 0x5200_0000,// Add_rm8_r8
 	0x0007_8036, 0x5200_0000,// Add_rm16_r16
 	0x0007_8036, 0x4C00_0000,// Add_rm32_r32
@@ -4224,8 +4228,4 @@ pub(crate) static TABLE: [u32; 8406] = [
 	0x0000_0036, 0x3500_0004,// D3NOW_Pmulhrw_mm_mmm64
 	0x0000_0037, 0x3600_0004,// D3NOW_Pswapd_mm_mmm64
 	0x0000_0036, 0x3500_0004,// D3NOW_Pavgusb_mm_mmm64
-	0x0000_0000, 0x5290_0000,// DeclareByte
-	0x0000_0000, 0x5290_0000,// DeclareWord
-	0x0000_0000, 0x5290_0000,// DeclareDword
-	0x0000_0000, 0x5290_0000,// DeclareQword
 ];

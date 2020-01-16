@@ -1678,6 +1678,40 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Creates a new xbegin instruction
+		/// </summary>
+		/// <param name="bitness">16, 32, or 64</param>
+		/// <param name="target">Target address</param>
+		public static Instruction CreateXbegin(int bitness, ulong target) {
+			Instruction instruction = default;
+			switch (bitness) {
+			case 16:
+				instruction.InternalCode = Code.Xbegin_rel16;
+				instruction.InternalOp0Kind = OpKind.NearBranch16;
+				instruction.InternalNearBranch16 = (ushort)target;
+				break;
+
+			case 32:
+				instruction.InternalCode = Code.Xbegin_rel32;
+				instruction.InternalOp0Kind = OpKind.NearBranch32;
+				instruction.NearBranch32 = (uint)target;
+				break;
+
+			case 64:
+				instruction.InternalCode = Code.Xbegin_rel32;
+				instruction.InternalOp0Kind = OpKind.NearBranch64;
+				instruction.NearBranch64 = target;
+				break;
+
+			default:
+				throw new ArgumentOutOfRangeException(nameof(bitness));
+			}
+
+			Debug.Assert(instruction.OpCount == 1);
+			return instruction;
+		}
+
+		/// <summary>
 		/// Creates an instruction with a 64-bit memory offset as the second operand, eg. <c>mov al,[123456789ABCDEF0]</c>
 		/// </summary>
 		/// <param name="code">Code value</param>

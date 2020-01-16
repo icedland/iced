@@ -151,6 +151,7 @@ namespace Generator.Encoder.Rust {
 					case OpHandlerKind.OpHx:
 					case OpHandlerKind.OpIs4x:
 					case OpHandlerKind.OpModRM_reg:
+					case OpHandlerKind.OpModRM_reg_mem:
 					case OpHandlerKind.OpModRM_regF0:
 					case OpHandlerKind.OpModRM_rm:
 					case OpHandlerKind.OpModRM_rm_reg_only:
@@ -382,7 +383,7 @@ namespace Generator.Encoder.Rust {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
 				string @return = useReturn ? "return " : string.Empty;
 				foreach (var info in notInstrStrings)
-					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}\"{info.result}\".to_owned(),");
+					writer.WriteLine($"{info.code.DeclaringType.Name(idConverter)}::{info.code.Name(idConverter)} => {@return}String::from(\"{info.result}\"),");
 			});
 		}
 

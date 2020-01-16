@@ -156,9 +156,9 @@ namespace Iced.Intel {
 		public bool SignedNumber;
 
 		/// <summary>
-		/// Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c>
+		/// Add leading zeroes to displacements
 		/// </summary>
-		public bool SignExtendImmediate;
+		public bool DisplacementLeadingZeroes;
 
 		/// <summary>
 		/// Creates options used when formatting immediate values
@@ -190,7 +190,7 @@ namespace Iced.Intel {
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal static NumberFormattingOptions CreateDisplacementInternal(FormatterOptions options) =>
-			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.SignExtendMemoryDisplacements);
+			new NumberFormattingOptions(options, options.LeadingZeroes, options.SignedMemoryDisplacements, options.DisplacementLeadingZeroes);
 
 		/// <summary>
 		/// Creates options used when formatting branch operands
@@ -214,13 +214,13 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options to use</param>
 		/// <param name="leadingZeroes">Add leading zeroes to numbers, eg. <c>1h</c> vs <c>00000001h</c></param>
 		/// <param name="signedNumber">Signed numbers if <see langword="true"/>, and unsigned numbers if <see langword="false"/></param>
-		/// <param name="signExtendImmediate">Sign extend the number to the real size (16-bit, 32-bit, 64-bit), eg. <c>mov al,[eax+12h]</c> vs <c>mov al,[eax+00000012h]</c></param>
-		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool signExtendImmediate) {
+		/// <param name="displacementLeadingZeroes">Add leading zeroes to displacements</param>
+		public NumberFormattingOptions(FormatterOptions options, bool leadingZeroes, bool signedNumber, bool displacementLeadingZeroes) {
 			if (options is null)
 				ThrowHelper.ThrowArgumentNullException_options();
 			LeadingZeroes = leadingZeroes;
 			SignedNumber = signedNumber;
-			SignExtendImmediate = signExtendImmediate;
+			DisplacementLeadingZeroes = displacementLeadingZeroes;
 			numberBaseByteValue = (byte)options.NumberBase;
 			DigitSeparator = options.DigitSeparator;
 			UpperCaseHex = options.UpperCaseHex;

@@ -24,7 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::Register;
 use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
 use super::super::FormatterString;
-use std::fmt::Write;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::fmt::Write;
 
 pub(super) struct Registers;
 impl Registers {
@@ -37,7 +41,7 @@ lazy_static! {
 		let mut s = String::with_capacity(MAX_STRING_LENGTH);
 		for i in 0..8usize {
 			write!(s, "st{}", i).unwrap();
-			v[Register::ST0 as usize + i] = FormatterString::new(s.to_owned());
+			v[Register::ST0 as usize + i] = FormatterString::new(s.clone());
 			s.clear();
 		}
 		v

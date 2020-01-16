@@ -23,8 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::test_utils::*;
 use super::super::*;
-use std::cmp::Ordering;
-use std::u32;
+use core::cmp::Ordering;
+use core::u32;
 
 mod br8_16;
 mod br8_32;

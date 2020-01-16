@@ -24,13 +24,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::test_utils::from_str_conv::*;
 use super::constants::*;
 use super::mem_size_test_case::*;
+use core::iter::IntoIterator;
+use core::u32;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};
-use std::iter::IntoIterator;
 use std::path::Path;
-use std::u32;
 
 pub(crate) struct MemorySizeInfoTestParser {
 	filename: String,

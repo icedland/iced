@@ -23,8 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::*;
 use super::*;
-use std::cell::RefCell;
-use std::{cmp, i32, i8, u32};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::cell::RefCell;
+use core::{cmp, i32, i8, u32};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd)]
 enum InstrKind {

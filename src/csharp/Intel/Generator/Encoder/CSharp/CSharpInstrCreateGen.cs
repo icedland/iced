@@ -313,6 +313,52 @@ namespace Generator.Encoder.CSharp {
 			writer.WriteLine("}");
 		}
 
+		protected override void GenCreateXbegin(FileWriter writer, CreateMethod method) {
+			if (method.Args.Count != 2)
+				throw new InvalidOperationException();
+			WriteDocs(writer, method);
+			writer.Write("public static Instruction CreateXbegin(");
+			WriteMethodDeclArgs(writer, method);
+			writer.WriteLine(") {");
+			using (writer.Indent()) {
+				writer.WriteLine("Instruction instruction = default;");
+				var bitnessName = idConverter.Argument(method.Args[0].Name);
+				var opKindName = OpKindEnum.Instance.Name(idConverter);
+				var codeName = CodeEnum.Instance.Name(idConverter);
+				writer.WriteLine($"switch ({bitnessName}) {{");
+				writer.WriteLine($"case 16:");
+				using (writer.Indent()) {
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch16)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalNearBranch16 = (ushort){idConverter.Argument(method.Args[1].Name)};");
+					writer.WriteLine($"break;");
+				}
+				writer.WriteLine();
+				writer.WriteLine($"case 32:");
+				using (writer.Indent()) {
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
+					writer.WriteLine($"break;");
+				}
+				writer.WriteLine();
+				writer.WriteLine($"case 64:");
+				using (writer.Indent()) {
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch64)].Name(idConverter)};");
+					writer.WriteLine($"instruction.NearBranch64 = {idConverter.Argument(method.Args[1].Name)};");
+					writer.WriteLine($"break;");
+				}
+				writer.WriteLine();
+				writer.WriteLine($"default:");
+				using (writer.Indent())
+					writer.WriteLine($"throw new ArgumentOutOfRangeException(nameof({bitnessName}));");
+				writer.WriteLine($"}}");
+				WriteMethodFooter(writer, 1);
+			}
+			writer.WriteLine("}");
+		}
+
 		protected override void GenCreateMemory64(FileWriter writer, CreateMethod method) {
 			if (method.Args.Count != 4)
 				throw new InvalidOperationException();

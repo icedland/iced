@@ -23,6 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::enums::PseudoOpsKind;
 use super::FormatterString;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FormatterString> {
 	let pseudo_ops = &*PSEUDO_OPS;
@@ -188,7 +192,7 @@ fn create(sb: &mut String, cc: &[&str], size: usize, prefix: &str, suffix: &str)
 		sb.push_str(prefix);
 		sb.push_str(cc_s);
 		sb.push_str(suffix);
-		strings.push(FormatterString::new(sb.to_owned()));
+		strings.push(FormatterString::new(sb.clone()));
 	}
 	strings
 }

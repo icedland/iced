@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::enums::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 struct Flags1;
 impl Flags1 {
@@ -46,7 +48,7 @@ impl Flags1 {
 	pub(crate) const BRANCH_LEADING_ZEROES: u32 = 0x0004_0000;
 	pub(crate) const SIGNED_IMMEDIATE_OPERANDS: u32 = 0x0008_0000;
 	pub(crate) const SIGNED_MEMORY_DISPLACEMENTS: u32 = 0x0010_0000;
-	pub(crate) const SIGN_EXTEND_MEMORY_DISPLACEMENTS: u32 = 0x0020_0000;
+	pub(crate) const DISPLACEMENT_LEADING_ZEROES: u32 = 0x0020_0000;
 	pub(crate) const RIP_RELATIVE_ADDRESSES: u32 = 0x0040_0000;
 	pub(crate) const SHOW_BRANCH_SIZE: u32 = 0x0080_0000;
 	pub(crate) const USE_PSEUDO_OPS: u32 = 0x0100_0000;
@@ -89,6 +91,90 @@ pub struct FormatterOptions {
 }
 
 impl FormatterOptions {
+	/// Creates default formatter options
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn new() -> Self {
+		Self {
+			hex_prefix: String::default(),
+			hex_suffix: String::default(),
+			decimal_prefix: String::default(),
+			decimal_suffix: String::default(),
+			octal_prefix: String::default(),
+			octal_suffix: String::default(),
+			binary_prefix: String::default(),
+			binary_suffix: String::default(),
+			digit_separator: String::default(),
+			hex_digit_group_size: 4,
+			decimal_digit_group_size: 3,
+			octal_digit_group_size: 4,
+			binary_digit_group_size: 4,
+			options1: Flags1::UPPER_CASE_HEX
+				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
+				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
+				| Flags1::BRANCH_LEADING_ZEROES
+				| Flags1::SIGNED_MEMORY_DISPLACEMENTS
+				| Flags1::SHOW_BRANCH_SIZE
+				| Flags1::USE_PSEUDO_OPS
+				| Flags1::MASM_ADD_DS_PREFIX32
+				| Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS
+				| Flags1::MASM_DISPL_IN_BRACKETS,
+			options2: 0,
+			first_operand_char_index: 0,
+			tab_size: 0,
+			number_base: NumberBase::Hexadecimal,
+			memory_size_options: MemorySizeOptions::Default,
+		}
+	}
+
+	/// Creates default gas (AT&T) formatter options
+	#[cfg(feature = "gas_formatter")]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_gas() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_prefix(String::from("0x"));
+		options.set_octal_prefix(String::from("0"));
+		options.set_binary_prefix(String::from("0b"));
+		options
+	}
+
+	/// Creates default Intel (XED) formatter options
+	#[cfg(feature = "intel_formatter")]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_intel() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
+		options
+	}
+
+	/// Creates default masm formatter options
+	#[cfg(feature = "masm_formatter")]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_masm() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
+		options
+	}
+
+	/// Creates default nasm formatter options
+	#[cfg(feature = "nasm_formatter")]
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_nasm() -> Self {
+		let mut options = FormatterOptions::new();
+		options.set_hex_suffix(String::from("h"));
+		options.set_octal_suffix(String::from("o"));
+		options.set_binary_suffix(String::from("b"));
+		options
+	}
+
 	/// Prefixes are upper cased
 	///
 	/// - Default: `false`
@@ -829,7 +915,9 @@ impl FormatterOptions {
 		self.binary_digit_group_size = value
 	}
 
-	/// Digit separator or an empty string
+	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	///
+	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
 	///
 	/// - Default: `""`
 	/// - `""`: `0x12345678`
@@ -947,7 +1035,7 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits `A-F`
+	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
 	/// - Default: `true`
 	/// - `true`: `0FFh`
@@ -958,7 +1046,7 @@ impl FormatterOptions {
 		(self.options1 & Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS) != 0
 	}
 
-	/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits `A-F`
+	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
 	/// - Default: `true`
 	/// - `true`: `0FFh`
@@ -1088,18 +1176,18 @@ impl FormatterOptions {
 		}
 	}
 
-	/// Sign extend memory displacements to the address size (16-bit, 32-bit, 64-bit)
+	/// Add leading zeroes to displacements
 	///
 	/// - Default: `false`
 	/// - `true`: `mov al,[eax+00000012h]`
 	/// - `false`: `mov al,[eax+12h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn sign_extend_memory_displacements(&self) -> bool {
-		(self.options1 & Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS) != 0
+	pub fn displacement_leading_zeroes(&self) -> bool {
+		(self.options1 & Flags1::DISPLACEMENT_LEADING_ZEROES) != 0
 	}
 
-	/// Sign extend memory displacements to the address size (16-bit, 32-bit, 64-bit)
+	/// Add leading zeroes to displacements
 	///
 	/// - Default: `false`
 	/// - `true`: `mov al,[eax+00000012h]`
@@ -1109,11 +1197,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_sign_extend_memory_displacements(&mut self, value: bool) {
+	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS;
+			self.options1 |= Flags1::DISPLACEMENT_LEADING_ZEROES;
 		} else {
-			self.options1 &= !Flags1::SIGN_EXTEND_MEMORY_DISPLACEMENTS;
+			self.options1 &= !Flags1::DISPLACEMENT_LEADING_ZEROES;
 		}
 	}
 
@@ -1466,37 +1554,8 @@ impl FormatterOptions {
 
 impl Default for FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[inline]
 	fn default() -> Self {
-		Self {
-			hex_prefix: String::default(),
-			hex_suffix: String::default(),
-			decimal_prefix: String::default(),
-			decimal_suffix: String::default(),
-			octal_prefix: String::default(),
-			octal_suffix: String::default(),
-			binary_prefix: String::default(),
-			binary_suffix: String::default(),
-			digit_separator: String::default(),
-			hex_digit_group_size: 4,
-			decimal_digit_group_size: 3,
-			octal_digit_group_size: 4,
-			binary_digit_group_size: 4,
-			options1: Flags1::UPPER_CASE_HEX
-				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
-				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
-				| Flags1::BRANCH_LEADING_ZEROES
-				| Flags1::SIGNED_MEMORY_DISPLACEMENTS
-				| Flags1::SHOW_BRANCH_SIZE
-				| Flags1::USE_PSEUDO_OPS
-				| Flags1::MASM_ADD_DS_PREFIX32
-				| Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS
-				| Flags1::MASM_DISPL_IN_BRACKETS,
-			options2: 0,
-			first_operand_char_index: 0,
-			tab_size: 0,
-			number_base: NumberBase::Hexadecimal,
-			memory_size_options: MemorySizeOptions::Default,
-		}
+		FormatterOptions::new()
 	}
 }

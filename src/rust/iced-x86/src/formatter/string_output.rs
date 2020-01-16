@@ -21,31 +21,55 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::super::iced_constants::IcedConstants;
-use super::super::regs_tbl::{MAX_STRING_LENGTH, REGS_TBL};
-use super::super::FormatterString;
+use super::enums::FormatterOutputTextKind;
+use super::FormatterOutput;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(not(feature = "std"))]
-use alloc::vec::Vec;
 
-pub(super) struct Registers;
-impl Registers {
-	pub(super) const REGISTER_ST: u32 = IcedConstants::NUMBER_OF_REGISTERS as u32;
-	pub(super) const EXTRA_REGISTERS: u32 = 1;
+/// Implements [`FormatterOutput`] and writes all output to a string
+///
+/// [`FormatterOutput`]: trait.FormatterOutput.html
+#[derive(Debug, Default, Clone, Eq, PartialEq, Hash)]
+pub struct StringOutput {
+	sb: String,
 }
 
-lazy_static! {
-	pub(super) static ref ALL_REGISTERS: Vec<FormatterString> = {
-		let regs_tbl = &*REGS_TBL;
-		let mut v = Vec::with_capacity(regs_tbl.len());
-		let mut s = String::with_capacity(MAX_STRING_LENGTH + 1);
-		for reg in regs_tbl.iter() {
-			s.push('%');
-			s.push_str(&reg.get(false));
-			v.push(FormatterString::new(s.clone()));
-			s.clear();
-		}
-		v
-	};
+impl StringOutput {
+	/// Constructor
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn new() -> Self {
+		Self { sb: String::new() }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// `capacity`: Initial capacity
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_capacity(capacity: usize) -> Self {
+		Self { sb: String::with_capacity(capacity) }
+	}
+
+	/// Clears the internal string so this instance can be re-used for the next instruction
+	#[inline]
+	pub fn clear(&mut self) {
+		self.sb.clear()
+	}
+
+	/// Gets the current string
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn get(&self) -> &str {
+		&self.sb
+	}
+}
+
+impl FormatterOutput for StringOutput {
+	#[inline]
+	fn write(&mut self, text: &str, _kind: FormatterOutputTextKind) {
+		self.sb.push_str(text);
+	}
 }

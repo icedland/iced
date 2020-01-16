@@ -303,7 +303,7 @@ namespace Iced.Intel {
 		public int BinaryDigitGroupSize { get; set; } = 4;
 
 		/// <summary>
-		/// Digit separator or <see langword="null"/>/empty string
+		/// Digit separator or <see langword="null"/>/empty string. See also eg. <see cref="HexDigitGroupSize"/>.
 		/// <br/>
 		/// Default: <see langword="null"/>
 		/// <br/>
@@ -348,7 +348,7 @@ namespace Iced.Intel {
 		public bool SmallHexNumbersInDecimal { get; set; } = true;
 
 		/// <summary>
-		/// Add a leading zero to numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
+		/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits <c>A-F</c>
 		/// <br/>
 		/// Default: <see langword="true"/>
 		/// <br/>
@@ -407,7 +407,7 @@ namespace Iced.Intel {
 		public bool SignedMemoryDisplacements { get; set; } = true;
 
 		/// <summary>
-		/// Sign extend memory displacements to the address size (16-bit, 32-bit, 64-bit)
+		/// Add leading zeroes to displacements
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>
@@ -415,7 +415,23 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov al,[eax+12h]</c>
 		/// </summary>
-		public bool SignExtendMemoryDisplacements { get; set; }
+		public bool DisplacementLeadingZeroes { get; set; }
+
+		/// <summary>
+		/// Add leading zeroes to displacements
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov al,[eax+00000012h]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov al,[eax+12h]</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool SignExtendMemoryDisplacements {
+			get => DisplacementLeadingZeroes;
+			set => DisplacementLeadingZeroes = value;
+		}
 
 		/// <summary>
 		/// Options that control if the memory size (eg. <c>DWORD PTR</c>) is shown or not.

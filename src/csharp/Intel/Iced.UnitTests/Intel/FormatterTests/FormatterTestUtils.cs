@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		public static void FormatTest(in Instruction instr, string formattedString, Formatter formatter) {
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 
 			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
@@ -94,7 +94,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal((uint)nextRip, instr.NextIP32);
 			Assert.Equal(nextRip, instr.NextIP);
 
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 
 			formatter.Format(instr, output);
 			var actualFormattedString = output.ToStringAndReset();
@@ -119,7 +119,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		public static void TestFormatterDoesNotThrow(Formatter formatter) {
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
 				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.Options, out _);
 				decoder.Decode(out var instr);

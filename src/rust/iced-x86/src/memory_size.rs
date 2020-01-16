@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::iced_constants::IcedConstants;
-use std::fmt;
+use core::fmt;
 
 #[cfg(feature = "instr_info")]
 pub use self::info::*;
@@ -31,7 +31,7 @@ pub use self::info::*;
 mod info {
 	use super::super::iced_constants::IcedConstants;
 	use super::MemorySize;
-	use std::mem;
+	use core::mem;
 
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub(crate) static MEMORY_SIZE_INFOS: &[MemorySizeInfo; IcedConstants::NUMBER_OF_MEMORY_SIZES] = &[

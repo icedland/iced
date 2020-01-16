@@ -28,10 +28,16 @@ use super::super::strings_tbl::get_strings_table;
 use super::enums::*;
 use super::fmt_data::FORMATTER_TBL_DATA;
 use super::info::*;
-use std::mem;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::mem;
 
 lazy_static! {
-	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync>> = { read() };
+	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync + Send>> = { read() };
 }
 
 fn add_suffix(s: &str, c: char) -> String {
@@ -48,8 +54,8 @@ fn add_prefix(s: &str, c: char) -> String {
 	res
 }
 
-fn read() -> Vec<Box<InstrInfo + Sync>> {
-	let mut infos = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
+fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
+	let mut infos: Vec<Box<InstrInfo + Sync + Send>> = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 	let mut reader = DataReader::new(FORMATTER_TBL_DATA);
 	let strings = get_strings_table();
 	let mut prev_index = -1isize;
@@ -76,7 +82,7 @@ fn read() -> Vec<Box<InstrInfo + Sync>> {
 		let v2;
 		let v3;
 		let v4;
-		let info: Box<InstrInfo + Sync> = match ctor_kind {
+		let info: Box<InstrInfo + Sync + Send> = match ctor_kind {
 			CtorKind::Previous => unreachable!(),
 			CtorKind::Normal_1 => Box::new(SimpleInstrInfo::with_mnemonic(s)),
 

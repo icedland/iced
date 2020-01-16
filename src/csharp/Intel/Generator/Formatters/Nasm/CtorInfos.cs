@@ -29,6 +29,10 @@ namespace Generator.Formatters.Nasm {
 	static class CtorInfos {
 		public static readonly object[][] Infos = Utils.Sort(new object[][] {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.INVALID)], FormatterConstants.InvalidMnemonicName },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareByte)], "db" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareWord)], "dw" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareDword)], "dd" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareQword)], "dq" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Add_rm8_r8)], "add" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Add_rm16_r16)], "add" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Add_rm32_r32)], "add" },
@@ -4227,10 +4231,6 @@ namespace Generator.Formatters.Nasm {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], "pmulhrwa" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], "pswapd" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], "pavgusb" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareByte)], "db" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareWord)], "dw" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareDword)], "dd" },
-			new object[] { CtorKindEnum.Instance[nameof(CtorKind.DeclareData)], CodeEnum.Instance[nameof(Code.DeclareQword)], "dq" },
 		});
 	}
 }

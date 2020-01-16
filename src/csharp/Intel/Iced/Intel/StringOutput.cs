@@ -28,21 +28,19 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Formatter output that stores the formatted text in a <see cref="StringBuilder"/>
 	/// </summary>
-	[System.Obsolete("Use " + nameof(StringOutput) + " instead of this class", true)]
-	[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-	public sealed class StringBuilderFormatterOutput : FormatterOutput {
+	public sealed class StringOutput : FormatterOutput {
 		readonly StringBuilder sb;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public StringBuilderFormatterOutput() => sb = new StringBuilder();
+		public StringOutput() => sb = new StringBuilder();
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="sb">String builder</param>
-		public StringBuilderFormatterOutput(StringBuilder sb) {
+		public StringOutput(StringBuilder sb) {
 			if (sb is null)
 				ThrowHelper.ThrowArgumentNullException_sb();
 			this.sb = sb;

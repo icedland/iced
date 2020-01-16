@@ -899,7 +899,7 @@ namespace Iced.Intel {
 							output.Write("-", FormatterOutputTextKind.Operator);
 							displ = (uint)-(int)displ;
 						}
-						if (numberOptions.SignExtendImmediate) {
+						if (numberOptions.DisplacementLeadingZeroes) {
 							Debug.Assert(displSize <= 4);
 							displSize = 4;
 						}
@@ -909,7 +909,7 @@ namespace Iced.Intel {
 							output.Write("-", FormatterOutputTextKind.Operator);
 							displ = -displ;
 						}
-						if (numberOptions.SignExtendImmediate) {
+						if (numberOptions.DisplacementLeadingZeroes) {
 							Debug.Assert(displSize <= 8);
 							displSize = 8;
 						}
@@ -920,7 +920,7 @@ namespace Iced.Intel {
 							output.Write("-", FormatterOutputTextKind.Operator);
 							displ = (ushort)-(short)displ;
 						}
-						if (numberOptions.SignExtendImmediate) {
+						if (numberOptions.DisplacementLeadingZeroes) {
 							Debug.Assert(displSize <= 2);
 							displSize = 2;
 						}

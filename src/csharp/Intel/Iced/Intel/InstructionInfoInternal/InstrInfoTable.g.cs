@@ -30,6 +30,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
 		internal static readonly uint[] Data = new uint[8406] {
 			0x00000000, 0x52900000,// INVALID
+			0x00000000, 0x52900000,// DeclareByte
+			0x00000000, 0x52900000,// DeclareWord
+			0x00000000, 0x52900000,// DeclareDword
+			0x00000000, 0x52900000,// DeclareQword
 			0x00078036, 0x52000000,// Add_rm8_r8
 			0x00078036, 0x52000000,// Add_rm16_r16
 			0x00078036, 0x4C000000,// Add_rm32_r32
@@ -4228,10 +4232,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000036, 0x35000004,// D3NOW_Pmulhrw_mm_mmm64
 			0x00000037, 0x36000004,// D3NOW_Pswapd_mm_mmm64
 			0x00000036, 0x35000004,// D3NOW_Pavgusb_mm_mmm64
-			0x00000000, 0x52900000,// DeclareByte
-			0x00000000, 0x52900000,// DeclareWord
-			0x00000000, 0x52900000,// DeclareDword
-			0x00000000, 0x52900000,// DeclareQword
 		};
 	}
 }

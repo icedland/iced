@@ -23,7 +23,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::instr::*;
 use super::*;
-use std::cell::RefCell;
+#[cfg(any(has_alloc, not(feature = "std")))]
+use alloc::rc::Rc;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::cell::RefCell;
+#[cfg(all(not(has_alloc), feature = "std"))]
 use std::rc::Rc;
 
 pub(super) struct Block {

@@ -41,16 +41,36 @@ use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
 use super::regs_tbl::REGS_TBL;
 use super::*;
-use std::{mem, u16, u32, u8};
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{mem, u16, u32, u8};
 
 /// Masm formatter
+///
+/// # Examples
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// let mut output = StringOutput::new();
+/// let mut formatter = MasmFormatter::new();
+/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output.get());
+/// ```
 #[allow(missing_debug_implementations)]
 pub struct MasmFormatter<'a> {
 	options: FormatterOptions,
 	symbol_resolver: Option<&'a mut SymbolResolver>,
 	options_provider: Option<&'a mut FormatterOptionsProvider>,
 	all_registers: &'static Vec<FormatterString>,
-	instr_infos: &'static Vec<Box<InstrInfo + Sync>>,
+	instr_infos: &'static Vec<Box<InstrInfo + Sync + Send>>,
 	all_memory_sizes: &'static Vec<Info>,
 	number_formatter: NumberFormatter,
 	str_: &'static FormatterConstants,
@@ -82,12 +102,8 @@ impl<'a> MasmFormatter<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
-		let mut options = FormatterOptions::default();
-		options.set_hex_suffix("h".to_owned());
-		options.set_octal_suffix("o".to_owned());
-		options.set_binary_suffix("b".to_owned());
 		Self {
-			options,
+			options: FormatterOptions::with_masm(),
 			symbol_resolver,
 			options_provider,
 			all_registers: &*REGS_TBL,
@@ -1196,7 +1212,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 4);
 						displ_size = 4;
 					}
@@ -1209,7 +1225,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 8);
 						displ_size = 8;
 					}
@@ -1223,7 +1239,7 @@ impl<'a> MasmFormatter<'a> {
 					} else {
 						output.write("+", FormatterOutputTextKind::Operator);
 					}
-					if number_options.sign_extend_immediate {
+					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 2);
 						displ_size = 2;
 					}

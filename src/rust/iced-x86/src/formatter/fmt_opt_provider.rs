@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
-use std::mem;
+use core::mem;
 
 /// Can override options used by a [`Formatter`]
 ///

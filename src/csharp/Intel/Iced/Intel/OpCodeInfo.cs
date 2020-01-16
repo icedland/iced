@@ -87,7 +87,7 @@ namespace Iced.Intel {
 			Debug.Assert((uint)code < (uint)IcedConstants.NumberOfCodeValues);
 			Debug.Assert((uint)code <= ushort.MaxValue);
 			this.code = (ushort)code;
-			if (code == Code.INVALID || code >= Code.DeclareByte)
+			if (code <= Code.DeclareQword)
 				flags |= Flags.NoInstruction;
 			opCode = (ushort)(dword1 >> (int)EncFlags1.OpCodeShift);
 

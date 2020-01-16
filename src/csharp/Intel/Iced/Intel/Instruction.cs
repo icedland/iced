@@ -1609,19 +1609,19 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public override readonly string ToString() {
 #if !NO_MASM_FORMATTER && !NO_FORMATTER
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			new MasmFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_NASM_FORMATTER && !NO_FORMATTER
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			new NasmFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_INTEL_FORMATTER && !NO_FORMATTER
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			new IntelFormatter().Format(this, output);
 			return output.ToString();
 #elif !NO_GAS_FORMATTER && !NO_FORMATTER
-			var output = new StringBuilderFormatterOutput();
+			var output = new StringOutput();
 			new GasFormatter().Format(this, output);
 			return output.ToString();
 #else

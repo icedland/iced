@@ -41,7 +41,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - `intel_formatter`: (Enabled by default) Enables the Intel (XED) formatter
 //! - `masm_formatter`: (Enabled by default) Enables the masm formatter
 //! - `nasm_formatter`: (Enabled by default) Enables the nasm formatter
-//! - `std`: (Enabled by default) Must be enabled or an error is generated
+//! - `std`: (Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
+//! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (rustc `1.36.0+`).
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
@@ -84,14 +85,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
+#![cfg_attr(not(feature = "std"), no_std)]
 
-#[cfg(not(feature = "std"))]
-compile_error!("`std` feature must be enabled");
+// This should be the only place in the source code that uses no_std
+#[cfg(all(feature = "std", feature = "no_std"))]
+compile_error!("`std` and `no_std` features can't be used at the same time");
+#[cfg(all(not(feature = "std"), not(feature = "no_std")))]
+compile_error!("`std` or `no_std` feature must be defined");
 
+#[cfg(has_alloc)]
+#[macro_use]
+extern crate alloc;
+#[cfg(feature = "std")]
+extern crate core;
 #[macro_use]
 extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
+#[cfg(not(feature = "std"))]
+extern crate hashbrown;
 
 #[cfg(feature = "encoder")]
 mod block_enc;
@@ -103,13 +115,7 @@ mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
-#[cfg(any(
-	feature = "gas_formatter",
-	feature = "intel_formatter",
-	feature = "masm_formatter",
-	feature = "nasm_formatter",
-	feature = "all_formatters",
-))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
@@ -138,13 +144,7 @@ pub use self::decoder::*;
 #[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
-#[cfg(any(
-	feature = "gas_formatter",
-	feature = "intel_formatter",
-	feature = "masm_formatter",
-	feature = "nasm_formatter",
-	feature = "all_formatters",
-))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]

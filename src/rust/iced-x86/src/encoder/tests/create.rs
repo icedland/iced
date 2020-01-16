@@ -24,7 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
-use std::{panic, u32};
+use core::u32;
+use std::panic;
 
 #[test]
 fn encoder_ignores_prefixes_if_declare_data() {
@@ -512,6 +513,9 @@ fn with_test() {
 		(64, "705A", DecoderOptions::NONE, Instruction::with_branch(Code::Jo_rel8_64, 0x8000_0000_0000_004C)),
 		(32, "669A12345678", DecoderOptions::NONE, Instruction::with_far_branch(Code::Call_ptr1616, 0x7856, 0x3412)),
 		(32, "9A123456789ABC", DecoderOptions::NONE, Instruction::with_far_branch(Code::Call_ptr1632, 0xBC9A, 0x7856_3412)),
+		(16, "C7F85AA5", DecoderOptions::NONE, Instruction::with_xbegin(16, 0x254E)),
+		(32, "C7F85AA51234", DecoderOptions::NONE, Instruction::with_xbegin(32, 0xB412_A550)),
+		(64, "C7F85AA51234", DecoderOptions::NONE, Instruction::with_xbegin(64, 0x8000_0000_3412_A550)),
 		(64, "00D1", DecoderOptions::NONE, Instruction::with_reg_reg(Code::Add_rm8_r8, Register::CL, Register::DL)),
 		(64, "64028C7501EFCDAB", DecoderOptions::NONE, Instruction::with_reg_mem(Code::Add_r8_rm8, Register::CL, &MemoryOperand::new(Register::RBP, Register::RSI, 2, -0x5432_10FF, 8, false, Register::FS))),
 		(64, "80C15A", DecoderOptions::NONE, Instruction::with_reg_i32(Code::Add_rm8_imm8, Register::CL, 0x5A)),
@@ -1192,5 +1196,43 @@ fn get_declare_xxx_value_panics_if_invalid_input() {
 		for i in 0..2 {
 			let _ = instr.get_declare_qword_value(i);
 		}
+	}
+}
+
+#[test]
+fn encode_invalid_reg_op_size() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let tests: Vec<(u32, Instruction)> = vec![
+		(16, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Movdir64b_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Enqcmds_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Enqcmd_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+	];
+	for (bitness, instr) in tests {
+		let mut encoder = Encoder::new(bitness);
+		let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
+		assert!(error_message.contains("Register operand size must equal memory addressing mode (16/32/64)"));
 	}
 }

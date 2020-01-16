@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 namespace Iced.Intel.EncoderInternal {
 	static class OpHandlerData {
-		public static readonly Op[] LegacyOps = new Op[117] {
+		public static readonly Op[] LegacyOps = new Op[120] {
 			new OpA(2),
 			new OpA(4),
 			new OpModRM_rm_mem_only(),
@@ -73,6 +73,9 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_reg(Register.AX, Register.R15W),
 			new OpModRM_reg(Register.EAX, Register.R15D),
 			new OpModRM_reg(Register.RAX, Register.R15),
+			new OpModRM_reg_mem(Register.AX, Register.R15W),
+			new OpModRM_reg_mem(Register.EAX, Register.R15D),
+			new OpModRM_reg_mem(Register.RAX, Register.R15),
 			new OpModRM_rm_reg_only(Register.AX, Register.R15W),
 			new OpModRM_rm_reg_only(Register.EAX, Register.R15D),
 			new OpModRM_rm_reg_only(Register.RAX, Register.R15),

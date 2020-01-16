@@ -26,14 +26,13 @@ use super::super::super::test_utils::from_str_conv::*;
 use super::super::super::*;
 use super::constants::*;
 use super::info_test_case::*;
+use core::iter::IntoIterator;
+use core::{i16, i32, mem, u16, u32};
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{BufReader, Lines};
-use std::iter::IntoIterator;
-use std::mem;
 use std::path::Path;
-use std::{i16, i32, u16, u32};
 
 pub(crate) struct InstrInfoTestParser {
 	filename: String,

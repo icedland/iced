@@ -264,7 +264,7 @@ namespace Iced.Intel.EncoderInternal {
 			uint b = lastByte;
 			b |= (~encoderFlags >> ((int)EncoderFlags.VvvvvShift - 3)) & 0x78;
 
-			if (encoder.PreventVEX2 || (W1 | (table - (uint)VexOpCodeTable.Table0F) | (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
+			if ((encoder.Internal_PreventVEX2 | W1 | (table - (uint)VexOpCodeTable.Table0F) | (encoderFlags & (uint)(EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
 				encoder.WriteByteInternal(0xC4);
 				Static.Assert((int)VexOpCodeTable.Table0F == 1 ? 0 : -1);
 				Static.Assert((int)VexOpCodeTable.Table0F38 == 2 ? 0 : -1);

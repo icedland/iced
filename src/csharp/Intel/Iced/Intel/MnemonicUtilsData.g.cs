@@ -29,6 +29,10 @@ namespace Iced.Intel {
 	static class MnemonicUtilsData {
 		internal static readonly ushort[] toMnemonic = new ushort[IcedConstants.NumberOfCodeValues] {
 			(ushort)Mnemonic.INVALID,// INVALID
+			(ushort)Mnemonic.Db,// DeclareByte
+			(ushort)Mnemonic.Dw,// DeclareWord
+			(ushort)Mnemonic.Dd,// DeclareDword
+			(ushort)Mnemonic.Dq,// DeclareQword
 			(ushort)Mnemonic.Add,// Add_rm8_r8
 			(ushort)Mnemonic.Add,// Add_rm16_r16
 			(ushort)Mnemonic.Add,// Add_rm32_r32
@@ -4227,10 +4231,6 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pmulhrw,// D3NOW_Pmulhrw_mm_mmm64
 			(ushort)Mnemonic.Pswapd,// D3NOW_Pswapd_mm_mmm64
 			(ushort)Mnemonic.Pavgusb,// D3NOW_Pavgusb_mm_mmm64
-			(ushort)Mnemonic.Db,// DeclareByte
-			(ushort)Mnemonic.Dw,// DeclareWord
-			(ushort)Mnemonic.Dd,// DeclareDword
-			(ushort)Mnemonic.Dq,// DeclareQword
 		};
 	}
 }
