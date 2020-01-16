@@ -1688,7 +1688,7 @@ namespace Iced.Intel {
 			case 16:
 				instruction.InternalCode = Code.Xbegin_rel16;
 				instruction.InternalOp0Kind = OpKind.NearBranch16;
-				instruction.NearBranch16 = (ushort)target;
+				instruction.InternalNearBranch16 = (ushort)target;
 				break;
 
 			case 32:

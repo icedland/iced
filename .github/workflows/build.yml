@@ -109,10 +109,11 @@ jobs:
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
           export RUSTFLAGS="-D warnings"
-          cd src/rust/iced-x86
           git clean -xdf
+          cd src/rust/iced-x86
           echo ==== BUILD DEBUG ====
           cargo build --color always --lib --no-default-features --features "no_std decoder encoder instr_info all_formatters"
+          cd ../../..
           git clean -xdf
 
       - name: Build, test (default)

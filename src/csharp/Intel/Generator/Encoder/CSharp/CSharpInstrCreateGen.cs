@@ -330,7 +330,7 @@ namespace Generator.Encoder.CSharp {
 				using (writer.Indent()) {
 					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
 					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch16)].Name(idConverter)};");
-					writer.WriteLine($"instruction.NearBranch16 = (ushort){idConverter.Argument(method.Args[1].Name)};");
+					writer.WriteLine($"instruction.InternalNearBranch16 = (ushort){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
