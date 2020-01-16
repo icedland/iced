@@ -447,6 +447,16 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Equal(Register.None, op.SegmentPrefix);
 			}
 			{
+				var op = new MemoryOperand(Register.RCX, Register.RSI);
+				Assert.Equal(Register.RCX, op.Base);
+				Assert.Equal(Register.RSI, op.Index);
+				Assert.Equal(1, op.Scale);
+				Assert.Equal(0, op.Displacement);
+				Assert.Equal(0, op.DisplSize);
+				Assert.False(op.IsBroadcast);
+				Assert.Equal(Register.None, op.SegmentPrefix);
+			}
+			{
 				var op = new MemoryOperand(Register.RCX, 0x12345678, 8);
 				Assert.Equal(Register.RCX, op.Base);
 				Assert.Equal(Register.None, op.Index);

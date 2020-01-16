@@ -192,6 +192,21 @@ namespace Iced.Intel {
 		/// Constructor
 		/// </summary>
 		/// <param name="base">Base register or <see cref="Register.None"/></param>
+		/// <param name="index">Index register or <see cref="Register.None"/></param>
+		public MemoryOperand(Register @base, Register index) {
+			SegmentPrefix = Register.None;
+			Base = @base;
+			Index = index;
+			Scale = 1;
+			Displacement = 0;
+			DisplSize = 0;
+			IsBroadcast = false;
+		}
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="base">Base register or <see cref="Register.None"/></param>
 		/// <param name="displacement">Memory displacement</param>
 		/// <param name="displSize">0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <see cref="sbyte"/>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)</param>
 		public MemoryOperand(Register @base, int displacement, int displSize) {
