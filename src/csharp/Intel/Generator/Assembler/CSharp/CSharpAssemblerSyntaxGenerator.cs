@@ -61,7 +61,8 @@ namespace Generator.Assembler.CSharp {
 								continue;
 							}
 							var name = register.Name(Converter);
-							writer.WriteLine($"public static readonly AssemblerRegister {name.ToLowerInvariant()} = Register.{name};");
+							var registerTypeName = $"AssemblerRegister{GetRegisterPostfix((Register)register.Value)}";
+							writer.WriteLine($"public static readonly {registerTypeName} {name.ToLowerInvariant()} = new {registerTypeName}(Register.{name});");
 						}
 					}
 					writer.WriteLine("}");
@@ -186,17 +187,56 @@ namespace Generator.Assembler.CSharp {
 				}
 								
 				switch (argKind) {
-				case ArgKind.Register:
-					argType = "AssemblerRegister";
+				case ArgKind.Register8:
+					argType = "AssemblerRegister8";
+					break;
+				case ArgKind.Register16:
+					argType = "AssemblerRegister16";
+					break;
+				case ArgKind.Register32:
+					argType = "AssemblerRegister32";
+					break;
+				case ArgKind.Register64:
+					argType = "AssemblerRegister64";
+					break;
+				case ArgKind.RegisterMM:
+					argType = "AssemblerRegisterMM";
+					break;
+				case ArgKind.RegisterXMM:
+					argType = "AssemblerRegisterXMM";
+					break;
+				case ArgKind.RegisterYMM:
+					argType = "AssemblerRegisterYMM";
+					break;
+				case ArgKind.RegisterZMM:
+					argType = "AssemblerRegisterZMM";
+					break;
+				case ArgKind.RegisterK:
+					argType = "AssemblerRegisterK";
+					break;
+				case ArgKind.RegisterCR:
+					argType = "AssemblerRegisterCR";
+					break;
+				case ArgKind.RegisterTR:
+					argType = "AssemblerRegisterTR";
+					break;
+				case ArgKind.RegisterDR:
+					argType = "AssemblerRegisterDR";
+					break;
+				case ArgKind.RegisterST:
+					argType = "AssemblerRegisterST";
+					break;
+				case ArgKind.RegisterBND:
+					argType = "AssemblerRegisterBND";
+					break;
+				case ArgKind.RegisterSegment:
+					argType = "AssemblerRegisterSegment";
 					break;
 								
 				case ArgKind.Label:
 					argType = "Label";
 					break;
 
-				case ArgKind.RegisterMemory:
-					argType = "AssemblerMemoryOperand";
-					break;
 				case ArgKind.Memory:
 					argType = "AssemblerMemoryOperand";
 					break;
@@ -253,6 +293,9 @@ namespace Generator.Assembler.CSharp {
 						var renderArg = renderArgs[i];
 						writer.Write(", ");
 						writer.Write(renderArg.Name);
+						if (renderArg.Kind == ArgKind.Label) {
+							writer.Write(".Id");
+						}
 					}
 
 					writer.WriteLine("));");
@@ -302,7 +345,7 @@ namespace Generator.Assembler.CSharp {
 					bool hasSaeOrRoundingControl = (group.Flags & (OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl)) != 0; 
 					if (hasBroadcast || hasSaeOrRoundingControl) {
 						for (int i = renderArgs.Count - 1; i >= 0; i--) {
-							if (hasBroadcast && (renderArgs[i].Kind == ArgKind.RegisterMemory || renderArgs[i].Kind == ArgKind.Memory) ||
+							if (hasBroadcast && renderArgs[i].Kind == ArgKind.Memory ||
 							    hasSaeOrRoundingControl && (renderArgs[i].Kind != ArgKind.Immediate && renderArgs[i].Kind != ArgKind.ImmediateByte)) {
 								if (hasFlags) {
 									writer.Write(" | ");
@@ -330,11 +373,22 @@ namespace Generator.Assembler.CSharp {
 			foreach (var renderArg in renderArgs) {
 				fullMethodName.Append('_');
 				switch (renderArg.Kind) {
-				case ArgKind.Register:
-					fullMethodName.Append("reg");
-					break;
-				case ArgKind.RegisterMemory:
-					fullMethodName.Append("rm");
+				case ArgKind.Register8:
+				case ArgKind.Register16:
+				case ArgKind.Register32:
+				case ArgKind.Register64:
+				case ArgKind.RegisterK:
+				case ArgKind.RegisterST:
+				case ArgKind.RegisterSegment:
+				case ArgKind.RegisterBND:
+				case ArgKind.RegisterMM:
+				case ArgKind.RegisterXMM:
+				case ArgKind.RegisterYMM:
+				case ArgKind.RegisterZMM:
+				case ArgKind.RegisterCR:
+				case ArgKind.RegisterDR:
+				case ArgKind.RegisterTR:
+					fullMethodName.Append(renderArg.Kind.ToString().Replace("Register", "reg"));
 					break;
 				case ArgKind.Memory:
 					fullMethodName.Append("m");
@@ -393,7 +447,7 @@ namespace Generator.Assembler.CSharp {
 				var instructionCreateArgs = new List<string>();
 				for (var i = 0; i < argValues.Count; i++) {
 					var renderArg = args[i];
-					var isMemory = renderArg.Kind == ArgKind.RegisterMemory || renderArg.Kind == ArgKind.Memory;
+					var isMemory = renderArg.Kind == ArgKind.Memory;
 					var argValueForAssembler = argValues[i]?.ToString();
 					var argValueForInstructionCreate = argValueForAssembler;
 
@@ -796,16 +850,19 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_rm:
 			case OpCodeOperandKind.r16_opcode:
+			case OpCodeOperandKind.r16_reg_mem:
 				return "cx";
 			case OpCodeOperandKind.r32_reg:
 			case OpCodeOperandKind.r32_rm:
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
+			case OpCodeOperandKind.r32_reg_mem:
 				return "ecx";
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_rm:
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
+			case OpCodeOperandKind.r64_reg_mem:
 				return "rcx";
 			case OpCodeOperandKind.seg_reg:
 				return "ds";

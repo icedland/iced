@@ -182,14 +182,37 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return label;
 		}
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister src) {
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) {
 			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 		}
 		
-		protected Instruction CreateMemory64(Code code, AssemblerRegister dst, AssemblerMemoryOperand src) {
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) {
+			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
+		}
+		
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) {
+			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
+		}
+
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) {
+			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
+		}
+		
+		protected Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) {
 			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 		}
 
+		protected Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) {
+			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
+		}
+		protected Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) {
+			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
+		}
+		
+		protected Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) {
+			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
+		}
+		
 		protected Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;
 			return instruction;

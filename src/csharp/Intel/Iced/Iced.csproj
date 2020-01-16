@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;netstandard2.0;net45</TargetFrameworks>
@@ -41,11 +41,21 @@ License: MIT
   <ItemGroup>
     <None Include="..\..\..\..\LICENSE.txt" Pack="true" PackagePath="" />
     <None Include="..\..\..\..\logo.png" Pack="true" PackagePath="" />
+    <None Update="Intel\Assembler\AssemblerRegister.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblerRegister.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Intel\Assembler\AssemblerRegister.cs">
+      <DependentUpon>AssemblerRegister.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <PropertyGroup>

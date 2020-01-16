@@ -1,0 +1,263 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+/*
+Copyright (C) 2018-2019 de4dot@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+using System;
+using System.Diagnostics;
+
+namespace Iced.Intel
+{
+<#
+    foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "Segment", "BND" }) {
+	    bool is16_32_64 = r == "16" || r == "32" || r == "64";
+	    bool isXYZMM = r == "XMM" || r == "YMM" || r == "ZMM";
+	    bool hasFlags = isXYZMM || r == "K"; 
+#>
+     /// <summary>
+	/// An assembler register used with <see cref="Assembler"/>.
+	/// </summary>
+	[DebuggerDisplay("{" + nameof(Value) + "}")]
+	public readonly partial struct AssemblerRegister<#= r #> : IEquatable<AssemblerRegister<#= r #>> {
+
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A Register</param>
+		public AssemblerRegister<#= r #>(Register value) {
+			Value = value;
+<# if (hasFlags) { #>
+			Flags = AssemblerOperandFlags.None;
+<#      }#>
+		} 
+
+		/// <summary>
+		/// The register value.
+		/// </summary>
+		public readonly Register Value;
+
+<#
+	    if (hasFlags)
+	    {
+#>
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A register</param>
+		/// <param name="flags">The mask</param>
+		public AssemblerRegister<#= r #>(Register value, AssemblerOperandFlags flags) {
+			Value = value;
+			Flags = flags;
+		}
+
+		/// <summary>
+		/// Gets the mask associated with this register.
+		/// </summary>
+		public readonly AssemblerOperandFlags Flags;
+
+		/// <summary>
+		/// Apply mask Register K1.
+		/// </summary>
+		public AssemblerRegister<#= r #> k1 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);
+
+		/// <summary>
+		/// Apply mask Register K2.
+		/// </summary>
+		public AssemblerRegister<#= r #> k2 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K2);
+
+		/// <summary>
+		/// Apply mask Register K3.
+		/// </summary>
+		public AssemblerRegister<#= r #> k3 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
+		
+		/// <summary>
+		/// Apply mask Register K4.
+		/// </summary>
+		public AssemblerRegister<#= r #> k4 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K4);
+
+		/// <summary>
+		/// Apply mask Register K5.
+		/// </summary>
+		public AssemblerRegister<#= r #> k5 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
+		
+		/// <summary>
+		/// Apply mask Register K6.
+		/// </summary>
+		public AssemblerRegister<#= r #> k6 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
+		
+		/// <summary>
+		/// Apply mask Register K7.
+		/// </summary>
+		public AssemblerRegister<#= r #> k7 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
+		
+		/// <summary>
+		/// Apply mask Zeroing.
+		/// </summary>
+		public AssemblerRegister<#= r #> z => new AssemblerRegister<#= r #>(Value, Flags | AssemblerOperandFlags.Zeroing);
+		
+		/// <summary>
+		/// Suppress all exceptions.
+		/// </summary>
+		public AssemblerRegister<#= r #> sae => new AssemblerRegister<#= r #>(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
+		
+		/// <summary>
+		/// Rounding to nearest.
+		/// </summary>
+		public AssemblerRegister<#= r #> rn_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		
+		/// <summary>
+		/// Rounding down.
+		/// </summary>
+		public AssemblerRegister<#= r #> rd_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+
+		/// <summary>
+		/// Rounding up.
+		/// </summary>
+		public AssemblerRegister<#= r #> ru_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+
+		/// <summary>
+		/// Rounding toward zero.
+		/// </summary>
+		public AssemblerRegister<#= r #> rz_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+<#
+	    }
+#>
+		/// <summary>
+		/// Converts a <see cref="AssemblerRegister<#= r #>"/> to a <see cref="Register"/>.
+		/// </summary>
+		/// <param name="reg">AssemblerRegister<#= r #></param>
+		/// <returns></returns>
+		public static implicit operator Register(AssemblerRegister<#= r #> reg) {
+			return reg.Value;
+		}
+
+<#
+	    if (is16_32_64)
+	    {
+#>
+		/// <summary>
+		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// </summary>
+		/// <param name="left">The base register.</param>
+		/// <param name="right">The index register</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister<#= r #> left, AssemblerRegister<#= r #> right) {
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
+		}
+<#
+		    foreach (var mm in new string[] {"XMM", "YMM", "ZMM"})
+		    {
+#>
+    	/// <summary>
+		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// </summary>
+		/// <param name="left">The base register.</param>
+		/// <param name="right">The index register</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister<#= r #> left, AssemblerRegister<#= mm #> right) {
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
+		}
+<#			    
+			    
+		    }
+	    }
+	    
+	    if (is16_32_64 || isXYZMM) {
+#>
+		/// <summary>
+		/// Adds a register (base) with a displacement and return a memory operand.
+		/// </summary>
+		/// <param name="left">The base register</param>
+		/// <param name="displacement">The displacement</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister<#= r #> left, int displacement) {
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
+		}
+
+		/// <summary>
+		/// Multiplies an index register by a scale and return a memory operand.
+		/// </summary>
+		/// <param name="left">The base register</param>
+		/// <param name="scale">The scale</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator *(AssemblerRegister<#= r #> left, int scale) {
+			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
+		}
+<#
+	    }
+#>
+		/// <inheritdoc />
+<#
+	    if (hasFlags)
+	    {
+#>
+		public bool Equals(AssemblerRegister<#= r #> other) => Value == other.Value && Flags == other.Flags;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
+<#
+	    } else {
+#>
+		public bool Equals(AssemblerRegister<#= r #> other) => Value == other.Value;
+
+		/// <inheritdoc />
+		public override int GetHashCode() => (int) Value;
+<#
+	    }
+#>
+		/// <inheritdoc />
+		public override bool Equals(object? obj) => obj is AssemblerRegister<#= r #> other && Equals(other);
+
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerRegister<#= r #>"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator ==(AssemblerRegister<#= r #> left, AssemblerRegister<#= r #> right) => left.Equals(right);
+
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerRegister<#= r #>"/>
+		/// </summary>
+		/// <param name="left">Register</param>
+		/// <param name="right">Register</param>
+		/// <returns></returns>
+		public static bool operator !=(AssemblerRegister<#= r #> left, AssemblerRegister<#= r #> right) => !left.Equals(right);
+	}
+
+<#
+	    if (is16_32_64)
+	    {
+#>
+	public readonly partial struct AssemblerMemoryOperandFactory {
+		/// <summary>
+		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
+		/// </summary>
+		/// <param name="register">Size of this memory operand.</param>
+		public AssemblerMemoryOperand this[AssemblerRegister<#= r #> register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
+    }
+<#
+	    }
+    }
+#>
+}

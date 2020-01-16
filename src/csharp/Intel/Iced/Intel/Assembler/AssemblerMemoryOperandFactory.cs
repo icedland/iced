@@ -25,7 +25,7 @@ namespace Iced.Intel
 	/// <summary>
 	/// Memory operand factory.
 	/// </summary>
-	public readonly struct AssemblerMemoryOperandFactory {
+	public readonly partial struct AssemblerMemoryOperandFactory {
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
@@ -92,12 +92,6 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="operand">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerMemoryOperand operand] => new AssemblerMemoryOperand(Size, Prefix, operand.Base, operand.Index, operand.Scale, operand.Displacement, Flags);
-
-		/// <summary>
-		/// Specify the base register used with this memory operand (Base + Index * Scale + Displacement)
-		/// </summary>
-		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
 		
 		/// <summary>
 		/// Specify the offset displacement with this memory operand (Base + Index * Scale + Displacement)

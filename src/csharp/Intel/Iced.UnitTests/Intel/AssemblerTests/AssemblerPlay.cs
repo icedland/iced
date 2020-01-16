@@ -19,7 +19,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests
 			c.push(rax);
 			c.jne(label1);
 			for (int i = 0; i < 4; i++) {
-				c.mov(__dword_ptr[rax * 8 + rdx + i], eax);
+				c.mov(__dword_ptr[rdx + rax * 8 + i], eax);
 			}
 			c.mov(rax, rdx);
 			c.syscall();

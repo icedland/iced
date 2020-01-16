@@ -207,8 +207,10 @@ namespace Generator.Assembler {
 				string discardReason = null;
 
 				// For certain instruction, we need to discard them
-				var numberLeadingArgToDiscard = GetSpecialArgEncodingInstruction(code);
-				if (numberLeadingArgToDiscard > 0) {
+				int numberLeadingArgToDiscard = 0;
+				var numberLeadingArgToDiscardOpt = GetSpecialArgEncodingInstruction(code);
+				if (numberLeadingArgToDiscardOpt.HasValue) {
+					numberLeadingArgToDiscard = numberLeadingArgToDiscardOpt.Value; 
 					opCodeArgFlags |= OpCodeArgFlags.HasSpecialInstructionEncoding;
 				}
 				
@@ -218,59 +220,97 @@ namespace Generator.Assembler {
 					int argSize = 0;
 					bool skipArg = false;
 					switch (opKind) {
-					case OpCodeOperandKind.dx:
 					case OpCodeOperandKind.cl:
 					case OpCodeOperandKind.al:
-					case OpCodeOperandKind.ax:
-					case OpCodeOperandKind.eax:
-					case OpCodeOperandKind.rax:
 					case OpCodeOperandKind.r8_opcode:
-					case OpCodeOperandKind.r16_opcode:
-					case OpCodeOperandKind.r32_opcode:
-					case OpCodeOperandKind.r64_opcode:
 					case OpCodeOperandKind.r8_reg:
+						argKind = ArgKind.Register8;
+						break;
+						
+					case OpCodeOperandKind.ax:
+					case OpCodeOperandKind.dx:
+					case OpCodeOperandKind.r16_opcode:
 					case OpCodeOperandKind.r16_reg:
-					case OpCodeOperandKind.r32_vvvv:
-					case OpCodeOperandKind.r64_vvvv:
+					case OpCodeOperandKind.r16_reg_mem:
+						argKind = ArgKind.Register16;
+						break;
+
+					case OpCodeOperandKind.eax:
+					case OpCodeOperandKind.r32_opcode:
 					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r32_vvvv:
+					case OpCodeOperandKind.r32_rm:
+					case OpCodeOperandKind.r32_reg_mem:
+						argKind = ArgKind.Register32;
+						break;
+
+					case OpCodeOperandKind.rax:
 					case OpCodeOperandKind.r64_reg:
+					case OpCodeOperandKind.r64_opcode:
+					case OpCodeOperandKind.r64_vvvv:
+					case OpCodeOperandKind.r64_rm:
+					case OpCodeOperandKind.r64_reg_mem:
+						argKind = ArgKind.Register64;
+						break;
+					
 					case OpCodeOperandKind.es:
 					case OpCodeOperandKind.cs:
 					case OpCodeOperandKind.ss:
 					case OpCodeOperandKind.ds:
 					case OpCodeOperandKind.fs:
 					case OpCodeOperandKind.gs:
-					case OpCodeOperandKind.xmm_is4:
-					case OpCodeOperandKind.xmm_is5:
-					case OpCodeOperandKind.ymm_is4:
-					case OpCodeOperandKind.ymm_is5:
-					case OpCodeOperandKind.xmm_reg:
-					case OpCodeOperandKind.ymm_reg:
-					case OpCodeOperandKind.zmm_reg:
-					case OpCodeOperandKind.xmm_vvvv:
-					case OpCodeOperandKind.ymm_vvvv:
-					case OpCodeOperandKind.zmm_vvvv:
-					case OpCodeOperandKind.xmm_rm:
-					case OpCodeOperandKind.ymm_rm:
-					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.seg_reg:
+						argKind = ArgKind.RegisterSegment;
+						break;
+					
 					case OpCodeOperandKind.mm_reg:
 					case OpCodeOperandKind.mm_rm:
-					case OpCodeOperandKind.r32_rm:
-					case OpCodeOperandKind.r64_rm:
+						argKind = ArgKind.RegisterMM;
+						break;
+
+					case OpCodeOperandKind.xmm_is4:
+					case OpCodeOperandKind.xmm_is5:
+					case OpCodeOperandKind.xmm_reg:
+					case OpCodeOperandKind.xmm_vvvv:
+					case OpCodeOperandKind.xmm_rm:
+						argKind = ArgKind.RegisterXMM;
+						break;
+						
+					case OpCodeOperandKind.ymm_is4:
+					case OpCodeOperandKind.ymm_is5:
+					case OpCodeOperandKind.ymm_reg:
+					case OpCodeOperandKind.ymm_vvvv:
+					case OpCodeOperandKind.ymm_rm:
+						argKind = ArgKind.RegisterYMM;
+						break;
+
+					case OpCodeOperandKind.zmm_reg:
+					case OpCodeOperandKind.zmm_vvvv:
+					case OpCodeOperandKind.zmm_rm:
+						argKind = ArgKind.RegisterZMM;
+						break;
+
 					case OpCodeOperandKind.k_reg:
 					case OpCodeOperandKind.k_vvvv:
 					case OpCodeOperandKind.k_rm:
+						argKind = ArgKind.RegisterK;
+						break;
+
 					case OpCodeOperandKind.cr_reg:
+						argKind = ArgKind.RegisterCR;
+						break;
 					case OpCodeOperandKind.dr_reg:
+						argKind = ArgKind.RegisterDR;
+						break;
 					case OpCodeOperandKind.tr_reg:
+						argKind = ArgKind.RegisterTR;
+						break;
 					case OpCodeOperandKind.st0:
 					case OpCodeOperandKind.sti_opcode:
+						argKind = ArgKind.RegisterST;
+						break;
 					case OpCodeOperandKind.bnd_reg:
-					case OpCodeOperandKind.seg_reg:
-					case OpCodeOperandKind.r16_reg_mem:
-					case OpCodeOperandKind.r32_reg_mem:
-					case OpCodeOperandKind.r64_reg_mem:
-						argKind = ArgKind.Register;
+						argKind = ArgKind.RegisterBND;
 						break;
 
 					case OpCodeOperandKind.seg_rSI:
@@ -279,18 +319,36 @@ namespace Generator.Assembler {
 						break;
 
 					case OpCodeOperandKind.k_or_mem:
+						argKind = ArgKind.RegisterKMemory;
+						break;
 					case OpCodeOperandKind.mm_or_mem:
+						argKind = ArgKind.RegisterMMMemory;
+						break;
 					case OpCodeOperandKind.xmm_or_mem:
+						argKind = ArgKind.RegisterXMMMemory;
+						break;
 					case OpCodeOperandKind.ymm_or_mem:
+						argKind = ArgKind.RegisterYMMMemory;
+						break;
 					case OpCodeOperandKind.zmm_or_mem:
+						argKind = ArgKind.RegisterZMMMemory;
+						break;
 					case OpCodeOperandKind.r8_or_mem:
+						argKind = ArgKind.Register8Memory;
+						break;
 					case OpCodeOperandKind.r16_or_mem:
+						argKind = ArgKind.Register16Memory;
+						break;
 					case OpCodeOperandKind.r32_or_mem:
+					case OpCodeOperandKind.r32_or_mem_mpx:
+						argKind = ArgKind.Register32Memory;
+						break;
 					case OpCodeOperandKind.r64_or_mem:
 					case OpCodeOperandKind.r64_or_mem_mpx:
-					case OpCodeOperandKind.r32_or_mem_mpx:
+						argKind = ArgKind.Register64Memory;
+						break;
 					case OpCodeOperandKind.bnd_or_mem_mpx:
-						argKind = ArgKind.RegisterMemory;
+						argKind = ArgKind.RegisterBNDMemory;
 						break;
 
 					case OpCodeOperandKind.mem:
@@ -406,8 +464,8 @@ namespace Generator.Assembler {
 					}
 					else {
 						argSizes.Add(argSize);
-						signature.AddArgKind(argKind == ArgKind.RegisterMemory ? ArgKind.Memory : argKind);
-						regOnlySignature.AddArgKind(argKind == ArgKind.RegisterMemory ? ArgKind.Register : argKind);
+						signature.AddArgKind(GetArgKindForSignature(argKind, true));
+						regOnlySignature.AddArgKind(GetArgKindForSignature(argKind, false));
 					}
 				}
 
@@ -418,6 +476,8 @@ namespace Generator.Assembler {
 						group.UpdateMaxArgSizes(argSizes);
 					}
 					if (signature != regOnlySignature) {
+						// Remove these flags from the register version
+						opCodeArgFlags = opCodeArgFlags & ~(OpCodeArgFlags.HasBroadcast | OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl);
 						var regOnlyGroup = AddOpCodeToGroup(name, memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
 						regOnlyGroup.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 						regOnlyGroup.UpdateMaxArgSizes(argSizes);
@@ -465,7 +525,33 @@ namespace Generator.Assembler {
 			Generate(_groups, orderedGroups);
 		}
 
-		static int GetSpecialArgEncodingInstruction(OpCodeInfo opCodeInfo) {
+		static ArgKind GetArgKindForSignature(ArgKind kind, bool memory) {
+			switch (kind) {
+			case ArgKind.Register8Memory:
+				return memory ? ArgKind.Memory : ArgKind.Register8;
+			case ArgKind.Register16Memory:
+				return memory ? ArgKind.Memory : ArgKind.Register16;
+			case ArgKind.Register32Memory:
+				return memory ? ArgKind.Memory : ArgKind.Register32;
+			case ArgKind.Register64Memory:
+				return memory ? ArgKind.Memory : ArgKind.Register64;
+			case ArgKind.RegisterKMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterK;
+			case ArgKind.RegisterBNDMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterBND;
+			case ArgKind.RegisterMMMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterMM;
+			case ArgKind.RegisterXMMMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterXMM;
+			case ArgKind.RegisterYMMMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterYMM;
+			case ArgKind.RegisterZMMMemory:
+				return memory ? ArgKind.Memory : ArgKind.RegisterZMM;
+			}
+			return kind;
+		}
+
+		static int? GetSpecialArgEncodingInstruction(OpCodeInfo opCodeInfo) {
 			switch ((Code)opCodeInfo.Code.Value) {
 			case Code.Outsb_DX_m8:
 			case Code.Outsw_DX_m16:
@@ -503,7 +589,7 @@ namespace Generator.Assembler {
 				return 0;
 			}
 
-			return 0;
+			return null;
 		}
 
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group) {
@@ -664,13 +750,32 @@ namespace Generator.Assembler {
 				OpCodeSelector previousSelector = null;
 				OpCodeNode rootNode = default;
 				foreach (var (kind, list) in selectors) {
-					var newSelector = selectors.ArgIndex >= 0 ? new OpCodeSelector(selectors.ArgIndex, kind) : new OpCodeSelector(kind);
-					var node = new OpCodeNode(newSelector);
+					OpCodeNode node;
+					OpCodeSelector newSelector = null;
+					
+					switch (kind) {
+					case OpCodeSelectorKind.Register8:
+					case OpCodeSelectorKind.Register16:
+					case OpCodeSelectorKind.Register32:
+					case OpCodeSelectorKind.Register64:
+					case OpCodeSelectorKind.RegisterST:
+						if (list.Count == 1) {
+							node = new OpCodeNode(list[0]);
+						}
+						else {
+							goto default;
+						}
+						break;
+					default:
+						newSelector = selectors.ArgIndex >= 0 ? new OpCodeSelector(selectors.ArgIndex, kind) : new OpCodeSelector(kind);
+						node = new OpCodeNode(newSelector);
+						newSelector.IfTrue = list.Count == 1 ? new OpCodeNode(list[0]) : BuildSelectorGraph(group, signature, argFlags, list);
+						break;
+					}
+					
 					if (rootNode.IsEmpty) {
 						rootNode = node;
 					}
-
-					newSelector.IfTrue = list.Count == 1 ? new OpCodeNode(list[0]) : BuildSelectorGraph(group, signature, argFlags, list);
 
 					if (previousSelector != null) {
 						previousSelector.IfFalse = node;
@@ -690,7 +795,7 @@ namespace Generator.Assembler {
 			bool testDiscard = false;
 			for (int i = 0; i < signature.ArgCount; i++) {
 				var kind = signature.GetArgKind(i);
-				if (kind == ArgKind.Memory || kind == ArgKind.RegisterMemory) {
+				if (kind == ArgKind.Memory) {
 					testDiscard = true;
 					break;
 				}
@@ -819,7 +924,7 @@ namespace Generator.Assembler {
 			for (int argIndex = 0; argIndex < signature.ArgCount; argIndex++)
 			{
 				var argKind = signature.GetArgKind(argIndex);
-				if (isRegister && (argKind != ArgKind.Register) || !isRegister && (argKind != ArgKind.RegisterMemory && argKind != ArgKind.Memory)) {
+				if (isRegister && !IsRegister(argKind) || !isRegister && (argKind != ArgKind.Memory)) {
 					continue;
 				}
 
@@ -863,6 +968,29 @@ namespace Generator.Assembler {
 			return opCodeInfo.OpKind(index);
 		}
 
+
+		static bool IsRegister(ArgKind kind) {
+			switch (kind) {
+			case ArgKind.Register8:
+			case ArgKind.Register16:
+			case ArgKind.Register32:
+			case ArgKind.Register64:
+			case ArgKind.RegisterK:
+			case ArgKind.RegisterST:
+			case ArgKind.RegisterSegment:
+			case ArgKind.RegisterBND:
+			case ArgKind.RegisterMM:
+			case ArgKind.RegisterXMM:
+			case ArgKind.RegisterYMM:
+			case ArgKind.RegisterZMM:
+			case ArgKind.RegisterCR:
+			case ArgKind.RegisterDR:
+			case ArgKind.RegisterTR:
+				return true;
+			}
+			return false;
+		}
+		
 		static int GetMemoryAddressSize(OpCodeInfo opCodeInfo) {
 			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
 			switch (memSize) {
@@ -1069,27 +1197,27 @@ namespace Generator.Assembler {
 			switch (opKind) {
 			case OpCodeOperandKind.st0:
 			case OpCodeOperandKind.sti_opcode:
-				return ArgKind.FilterRegisterST;
+				return ArgKind.RegisterST;
 			
 			case OpCodeOperandKind.r8_opcode:
 			case OpCodeOperandKind.r8_reg:
-				return ArgKind.FilterRegister8;
+				return ArgKind.Register8;
 			case OpCodeOperandKind.r16_opcode:
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_reg_mem:
-				return ArgKind.FilterRegister16;
+				return ArgKind.Register16;
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
 			case OpCodeOperandKind.r32_reg:
 			case OpCodeOperandKind.r32_rm:
 			case OpCodeOperandKind.r32_reg_mem:
-				return ArgKind.FilterRegister32;
+				return ArgKind.Register32;
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_rm:
 			case OpCodeOperandKind.r64_reg_mem:
-				return ArgKind.FilterRegister64;
+				return ArgKind.Register64;
 
 			case OpCodeOperandKind.imm8_const_1:
 				return ArgKind.FilterImmediate1;
@@ -1110,7 +1238,7 @@ namespace Generator.Assembler {
 				return ArgKind.Immediate;
 			
 			case OpCodeOperandKind.seg_reg:
-				return ArgKind.FilterRegisterSegment;
+				return ArgKind.RegisterSegment;
 				break;
 			
 			case OpCodeOperandKind.dx:
@@ -1140,75 +1268,77 @@ namespace Generator.Assembler {
 				return ArgKind.FilterRegisterGS;
 			
 			case OpCodeOperandKind.bnd_reg:
-				return ArgKind.FilterRegisterBND;
+				return ArgKind.RegisterBND;
 			
 			case OpCodeOperandKind.cr_reg:
-			case OpCodeOperandKind.dr_reg:
+				return ArgKind.RegisterCR;
 			case OpCodeOperandKind.tr_reg:
-				return ArgKind.FilterRegisterCDTR;
+				return ArgKind.RegisterTR;
+			case OpCodeOperandKind.dr_reg:
+				return ArgKind.RegisterDR;
 			
 			case OpCodeOperandKind.k_reg:
 			case OpCodeOperandKind.k_rm:
 			case OpCodeOperandKind.k_vvvv:
-				return ArgKind.FilterRegisterK;
+				return ArgKind.RegisterK;
 			case OpCodeOperandKind.xmm_is4:
 			case OpCodeOperandKind.xmm_is5:
 			case OpCodeOperandKind.xmm_reg:
 			case OpCodeOperandKind.xmm_vvvv:
 			case OpCodeOperandKind.xmm_rm:
-				return ArgKind.FilterRegisterXmm;
+				return ArgKind.RegisterXMM;
 			case OpCodeOperandKind.ymm_is4:
 			case OpCodeOperandKind.ymm_is5:
 			case OpCodeOperandKind.ymm_reg:
 			case OpCodeOperandKind.ymm_vvvv:
 			case OpCodeOperandKind.ymm_rm:
-				return ArgKind.FilterRegisterYmm;
+				return ArgKind.RegisterYMM;
 			case OpCodeOperandKind.zmm_reg:
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmm_rm:
-				return ArgKind.FilterRegisterZmm;
+				return ArgKind.RegisterZMM;
 			case OpCodeOperandKind.mm_reg:
 			case OpCodeOperandKind.mm_rm:
-				return ArgKind.FilterRegistermm;
+				return ArgKind.RegisterMM;
 			}
 
 			if (allowMemory) {
 				switch (opKind) {
 				case OpCodeOperandKind.bnd_or_mem_mpx:
-					return ArgKind.FilterRegisterBND;
+					return ArgKind.RegisterBND;
 				case OpCodeOperandKind.r8_or_mem:
-					return ArgKind.FilterRegister8;
+					return ArgKind.Register8;
 				case OpCodeOperandKind.r16_or_mem:
-					return ArgKind.FilterRegister16;
+					return ArgKind.Register16;
 				case OpCodeOperandKind.r32_or_mem:
 				case OpCodeOperandKind.r32_or_mem_mpx:
-					return ArgKind.FilterRegister32;
+					return ArgKind.Register32;
 				case OpCodeOperandKind.r64_or_mem:
 				case OpCodeOperandKind.r64_or_mem_mpx:
-					return ArgKind.FilterRegister64;
+					return ArgKind.Register64;
 			    case OpCodeOperandKind.mm_or_mem:
-				    return ArgKind.FilterRegistermm;
+				    return ArgKind.RegisterMM;
 				case OpCodeOperandKind.k_or_mem:
-					return ArgKind.FilterRegisterK;
+					return ArgKind.RegisterK;
 				case OpCodeOperandKind.xmm_or_mem:
-					return ArgKind.FilterRegisterXmm;
+					return ArgKind.RegisterXMM;
 				case OpCodeOperandKind.ymm_or_mem:
-					return ArgKind.FilterRegisterYmm;
+					return ArgKind.RegisterYMM;
 				case OpCodeOperandKind.zmm_or_mem:
-					return ArgKind.FilterRegisterZmm;
+					return ArgKind.RegisterZMM;
 				case OpCodeOperandKind.mem:
 				case OpCodeOperandKind.mem_offs:
 				case OpCodeOperandKind.mem_mpx:
 				case OpCodeOperandKind.mem_mib:
 					switch (addressSize) {
 					case 64:
-						return ArgKind.FilterRegister64;
+						return ArgKind.Register64;
 					case 32:
-						return ArgKind.FilterRegister32;
+						return ArgKind.Register32;
 					case 16:
-						return ArgKind.FilterRegister16;
+						return ArgKind.Register16;
 					case 8:
-						return ArgKind.FilterRegister8;
+						return ArgKind.Register8;
 					}
 					break;
 				}
@@ -1599,26 +1729,38 @@ namespace Generator.Assembler {
 
 		protected enum ArgKind : byte {
 			Unknown,
-			Register,
-			RegisterMemory,
+			Register8,
+			Register16,
+			Register32,
+			Register64,
+			RegisterK,
+			RegisterST,
+			RegisterSegment,
+			RegisterBND,
+			RegisterMM,
+			RegisterXMM,
+			RegisterYMM,
+			RegisterZMM,
+			RegisterCR,
+			RegisterDR,
+			RegisterTR,
+			
+			Register8Memory,
+			Register16Memory,
+			Register32Memory,
+			Register64Memory,
+			RegisterKMemory,
+			RegisterBNDMemory,
+			RegisterMMMemory,
+			RegisterXMMMemory,
+			RegisterYMMMemory,
+			RegisterZMMMemory,
+			
 			Memory,
 			Immediate,
 			ImmediateByte,
 			Label,
 			
-			FilterRegisterCDTR,
-			
-			FilterRegisterK,
-			
-			FilterRegisterST,
-
-			FilterRegister8,
-			FilterRegister16,
-			FilterRegister32,
-			FilterRegister64,
-		
-			FilterRegisterSegment,
-
 			FilterRegisterDX,
 			FilterRegisterCL,
 			FilterRegisterAL,
@@ -1631,14 +1773,6 @@ namespace Generator.Assembler {
 			FilterRegisterSS,
 			FilterRegisterFS,
 			FilterRegisterGS,
-			
-			FilterRegisterBND,
-
-			FilterRegistermm,
-
-			FilterRegisterXmm,
-			FilterRegisterYmm,
-			FilterRegisterZmm,
 
 			FilterImmediate1,
 			FilterImmediate2,
@@ -1705,13 +1839,13 @@ namespace Generator.Assembler {
 				Debug.Assert(x.OpKindsLength == y.OpKindsLength);
 				int result;
 				for (int i = 0; i < x.OpKindsLength; i++) {
-					if (Signature.GetArgKind(i) != ArgKind.Register) continue;  
+					if (!IsRegister(Signature.GetArgKind(i))) continue;  
 					result = GetPriorityFromKind(GetOperandKind(x, i), GetMemoryAddressSize(x)).CompareTo(GetPriorityFromKind(GetOperandKind(y, i), GetMemoryAddressSize(y)));
 					if (result != 0) return result;
 				}
 
 				for (int i = 0; i < x.OpKindsLength; i++) {
-					if (Signature.GetArgKind(i) == ArgKind.Register) continue;  
+					if (IsRegister(Signature.GetArgKind(i))) continue;  
 					result = GetPriorityFromKind(GetOperandKind(x, i), GetMemoryAddressSize(x)).CompareTo(GetPriorityFromKind(GetOperandKind(y, i), GetMemoryAddressSize(y)));
 					if (result != 0) return result;
 				}
@@ -1770,6 +1904,268 @@ namespace Generator.Assembler {
 			}
 
 			return (OpCodeArgFlags.Default, OpCodeArgFlags.Default);
+		}
+
+		protected string GetRegisterPostfix(Register register) {
+			switch (register) {
+			case Register.AL:
+			case Register.CL:
+			case Register.DL:
+			case Register.BL:
+			case Register.AH:
+			case Register.CH:
+			case Register.DH:
+			case Register.BH:
+			case Register.SPL:
+			case Register.BPL:
+			case Register.SIL:
+			case Register.DIL:
+			case Register.R8L:
+			case Register.R9L:
+			case Register.R10L:
+			case Register.R11L:
+			case Register.R12L:
+			case Register.R13L:
+			case Register.R14L:
+			case Register.R15L:
+				return "8";
+			case Register.AX:
+			case Register.CX:
+			case Register.DX:
+			case Register.BX:
+			case Register.SP:
+			case Register.BP:
+			case Register.SI:
+			case Register.DI:
+			case Register.R8W:
+			case Register.R9W:
+			case Register.R10W:
+			case Register.R11W:
+			case Register.R12W:
+			case Register.R13W:
+			case Register.R14W:
+			case Register.R15W:
+				return "16";
+			case Register.EAX:
+			case Register.ECX:
+			case Register.EDX:
+			case Register.EBX:
+			case Register.ESP:
+			case Register.EBP:
+			case Register.ESI:
+			case Register.EDI:
+			case Register.R8D:
+			case Register.R9D:
+			case Register.R10D:
+			case Register.R11D:
+			case Register.R12D:
+			case Register.R13D:
+			case Register.R14D:
+			case Register.R15D:
+				return "32";
+			case Register.RAX:
+			case Register.RCX:
+			case Register.RDX:
+			case Register.RBX:
+			case Register.RSP:
+			case Register.RBP:
+			case Register.RSI:
+			case Register.RDI:
+			case Register.R8:
+			case Register.R9:
+			case Register.R10:
+			case Register.R11:
+			case Register.R12:
+			case Register.R13:
+			case Register.R14:
+			case Register.R15:
+			case Register.EIP:
+			case Register.RIP:
+				return "64";
+			case Register.ES:
+			case Register.CS:
+			case Register.SS:
+			case Register.DS:
+			case Register.FS:
+			case Register.GS:
+				return "Segment";
+			case Register.XMM0:
+			case Register.XMM1:
+			case Register.XMM2:
+			case Register.XMM3:
+			case Register.XMM4:
+			case Register.XMM5:
+			case Register.XMM6:
+			case Register.XMM7:
+			case Register.XMM8:
+			case Register.XMM9:
+			case Register.XMM10:
+			case Register.XMM11:
+			case Register.XMM12:
+			case Register.XMM13:
+			case Register.XMM14:
+			case Register.XMM15:
+			case Register.XMM16:
+			case Register.XMM17:
+			case Register.XMM18:
+			case Register.XMM19:
+			case Register.XMM20:
+			case Register.XMM21:
+			case Register.XMM22:
+			case Register.XMM23:
+			case Register.XMM24:
+			case Register.XMM25:
+			case Register.XMM26:
+			case Register.XMM27:
+			case Register.XMM28:
+			case Register.XMM29:
+			case Register.XMM30:
+			case Register.XMM31:
+				return "XMM";
+			case Register.YMM0:
+			case Register.YMM1:
+			case Register.YMM2:
+			case Register.YMM3:
+			case Register.YMM4:
+			case Register.YMM5:
+			case Register.YMM6:
+			case Register.YMM7:
+			case Register.YMM8:
+			case Register.YMM9:
+			case Register.YMM10:
+			case Register.YMM11:
+			case Register.YMM12:
+			case Register.YMM13:
+			case Register.YMM14:
+			case Register.YMM15:
+			case Register.YMM16:
+			case Register.YMM17:
+			case Register.YMM18:
+			case Register.YMM19:
+			case Register.YMM20:
+			case Register.YMM21:
+			case Register.YMM22:
+			case Register.YMM23:
+			case Register.YMM24:
+			case Register.YMM25:
+			case Register.YMM26:
+			case Register.YMM27:
+			case Register.YMM28:
+			case Register.YMM29:
+			case Register.YMM30:
+			case Register.YMM31:
+				return "YMM";
+			case Register.ZMM0:
+			case Register.ZMM1:
+			case Register.ZMM2:
+			case Register.ZMM3:
+			case Register.ZMM4:
+			case Register.ZMM5:
+			case Register.ZMM6:
+			case Register.ZMM7:
+			case Register.ZMM8:
+			case Register.ZMM9:
+			case Register.ZMM10:
+			case Register.ZMM11:
+			case Register.ZMM12:
+			case Register.ZMM13:
+			case Register.ZMM14:
+			case Register.ZMM15:
+			case Register.ZMM16:
+			case Register.ZMM17:
+			case Register.ZMM18:
+			case Register.ZMM19:
+			case Register.ZMM20:
+			case Register.ZMM21:
+			case Register.ZMM22:
+			case Register.ZMM23:
+			case Register.ZMM24:
+			case Register.ZMM25:
+			case Register.ZMM26:
+			case Register.ZMM27:
+			case Register.ZMM28:
+			case Register.ZMM29:
+			case Register.ZMM30:
+			case Register.ZMM31:
+				return "ZMM";
+			case Register.K0:
+			case Register.K1:
+			case Register.K2:
+			case Register.K3:
+			case Register.K4:
+			case Register.K5:
+			case Register.K6:
+			case Register.K7:
+				return "K";
+			case Register.BND0:
+			case Register.BND1:
+			case Register.BND2:
+			case Register.BND3:
+				return "BND";
+			case Register.CR0:
+			case Register.CR1:
+			case Register.CR2:
+			case Register.CR3:
+			case Register.CR4:
+			case Register.CR5:
+			case Register.CR6:
+			case Register.CR7:
+			case Register.CR8:
+			case Register.CR9:
+			case Register.CR10:
+			case Register.CR11:
+			case Register.CR12:
+			case Register.CR13:
+			case Register.CR14:
+			case Register.CR15:
+				return "CR";
+			case Register.DR0:
+			case Register.DR1:
+			case Register.DR2:
+			case Register.DR3:
+			case Register.DR4:
+			case Register.DR5:
+			case Register.DR6:
+			case Register.DR7:
+			case Register.DR8:
+			case Register.DR9:
+			case Register.DR10:
+			case Register.DR11:
+			case Register.DR12:
+			case Register.DR13:
+			case Register.DR14:
+			case Register.DR15:
+				return "DR";
+			case Register.ST0:
+			case Register.ST1:
+			case Register.ST2:
+			case Register.ST3:
+			case Register.ST4:
+			case Register.ST5:
+			case Register.ST6:
+			case Register.ST7:
+				return "ST";
+			case Register.MM0:
+			case Register.MM1:
+			case Register.MM2:
+			case Register.MM3:
+			case Register.MM4:
+			case Register.MM5:
+			case Register.MM6:
+			case Register.MM7:
+				return "MM";
+			case Register.TR0:
+			case Register.TR1:
+			case Register.TR2:
+			case Register.TR3:
+			case Register.TR4:
+			case Register.TR5:
+			case Register.TR6:
+			case Register.TR7:
+				return "TR";
+			default:
+				throw new ArgumentOutOfRangeException(nameof(register), register, null);
+			}
 		}
 
 		protected readonly struct OpCodeNode {

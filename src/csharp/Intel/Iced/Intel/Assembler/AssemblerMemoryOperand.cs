@@ -165,23 +165,34 @@ namespace Iced.Intel
 		public AssemblerMemoryOperand rz_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
-		/// Adds a memory operand with an new base or index.
-		/// </summary>
-		/// <param name="left">The memory operand.</param>
-		/// <param name="right">The base or index.</param>
-		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerMemoryOperand left, AssemblerRegister right) {
-			var hasBase = left.Base != Register.None;
-			return new AssemblerMemoryOperand(left.Size, Register.None, hasBase ? left.Base : right.Value, hasBase ? right.Value : left.Index, left.Scale, left.Displacement, left.Flags);
-		}
-
-		/// <summary>
-		/// Adds a memory operand with an new base or index.
+		/// Adds a 16-bit memory operand with an new base or index.
 		/// </summary>
 		/// <param name="left">The base or index.</param>
 		/// <param name="right">The memory operand.</param>
 		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister left, AssemblerMemoryOperand right) {
+		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerMemoryOperand right) {
+			var hasBase = right.Base != Register.None;
+			return new AssemblerMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement, right.Flags);
+		}
+
+		/// <summary>
+		/// Adds a 32-bit memory operand with an new base or index.
+		/// </summary>
+		/// <param name="left">The base or index.</param>
+		/// <param name="right">The memory operand.</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerMemoryOperand right) {
+			var hasBase = right.Base != Register.None;
+			return new AssemblerMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement, right.Flags);
+		}
+
+		/// <summary>
+		/// Adds a 64-bit memory operand with an new base or index.
+		/// </summary>
+		/// <param name="left">The base or index.</param>
+		/// <param name="right">The memory operand.</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerMemoryOperand right) {
 			var hasBase = right.Base != Register.None;
 			return new AssemblerMemoryOperand(right.Size, Register.None, hasBase ? right.Base : left.Value, hasBase ? left.Value : right.Index, right.Scale, right.Displacement, right.Flags);
 		}
