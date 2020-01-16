@@ -267,6 +267,9 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.sti_opcode:
 					case OpCodeOperandKind.bnd_reg:
 					case OpCodeOperandKind.seg_reg:
+					case OpCodeOperandKind.r16_reg_mem:
+					case OpCodeOperandKind.r32_reg_mem:
+					case OpCodeOperandKind.r64_reg_mem:
 						argKind = ArgKind.Register;
 						break;
 
@@ -396,7 +399,7 @@ namespace Generator.Assembler {
 						argSize = 8;
 						break;
 					}
-
+					
 					if (argKind == ArgKind.Unknown) {
 						toAdd = false;
 						break;
@@ -452,7 +455,6 @@ namespace Generator.Assembler {
 				
 				// Update the selector graph for this group of opcodes
 				if (group.HasSpecialInstructionEncoding) {
-					Debug.Assert(group.Items.Count == 1);
 					group.RootOpCodeNode = new OpCodeNode(group.Items[0]);
 				}
 				else {
@@ -496,6 +498,9 @@ namespace Generator.Assembler {
 			case Code.Maskmovdqu_rDI_xmm_xmm:
 			case Code.VEX_Vmaskmovdqu_rDI_xmm_xmm:
 				return 1;
+			case Code.Xbegin_rel16:
+			case Code.Xbegin_rel32:
+				return 0;
 			}
 
 			return 0;
@@ -938,6 +943,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.imm32sex64:							
 			case OpCodeOperandKind.imm64:
 			case OpCodeOperandKind.r64_rm:
+			case OpCodeOperandKind.r64_reg_mem:
 				return 10;
 
 			case OpCodeOperandKind.eax:
@@ -951,6 +957,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r32_or_mem_mpx:
 			case OpCodeOperandKind.imm32:
 			case OpCodeOperandKind.r32_rm:
+			case OpCodeOperandKind.r32_reg_mem:
 				return 20;
 
 			case OpCodeOperandKind.ax:
@@ -960,6 +967,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r16_opcode:
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_or_mem:
+			case OpCodeOperandKind.r16_reg_mem:
 			case OpCodeOperandKind.imm16: 
 				return 30;
 
@@ -1068,16 +1076,19 @@ namespace Generator.Assembler {
 				return ArgKind.FilterRegister8;
 			case OpCodeOperandKind.r16_opcode:
 			case OpCodeOperandKind.r16_reg:
+			case OpCodeOperandKind.r16_reg_mem:
 				return ArgKind.FilterRegister16;
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
 			case OpCodeOperandKind.r32_reg:
 			case OpCodeOperandKind.r32_rm:
+			case OpCodeOperandKind.r32_reg_mem:
 				return ArgKind.FilterRegister32;
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_rm:
+			case OpCodeOperandKind.r64_reg_mem:
 				return ArgKind.FilterRegister64;
 
 			case OpCodeOperandKind.imm8_const_1:
@@ -1288,18 +1299,21 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_rm:
 			case OpCodeOperandKind.r16_opcode:
+			case OpCodeOperandKind.r16_reg_mem:
 				return OpCodeSelectorKind.Register16;
 
 			case OpCodeOperandKind.r32_reg:
 			case OpCodeOperandKind.r32_rm:
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
+			case OpCodeOperandKind.r32_reg_mem:
 				return OpCodeSelectorKind.Register32;
 
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_rm:
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
+			case OpCodeOperandKind.r64_reg_mem:
 				return OpCodeSelectorKind.Register64;
 			
 			case OpCodeOperandKind.seg_reg:

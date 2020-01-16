@@ -269,9 +269,10 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine(");");
 				}
 				else {
-
-					writer.WriteLine("Code op;");
-					GenerateOpCodeSelector(writer, group, renderArgs);
+					if (!group.RootOpCodeNode.IsEmpty) {
+						writer.WriteLine("Code op;");
+						GenerateOpCodeSelector(writer, group, renderArgs);
+					}
 
 					if (group.HasLabel) {
 						writer.Write("AddInstruction(Instruction.CreateBranch(op");
@@ -388,17 +389,39 @@ namespace Generator.Assembler.CSharp {
 					return;
 				}
 
-				var assemblerArgs = new StringBuilder(); 
-				var instructionCreateArgs = new StringBuilder(); 
+				var assemblerArgs = new List<string>();
+				var instructionCreateArgs = new List<string>();
 				for (var i = 0; i < argValues.Count; i++) {
 					var renderArg = args[i];
 					var isMemory = renderArg.Kind == ArgKind.RegisterMemory || renderArg.Kind == ArgKind.Memory;
-					var argValueForAssembler = argValues[i];
+					var argValueForAssembler = argValues[i]?.ToString();
 					var argValueForInstructionCreate = argValueForAssembler;
 
 					if (argValueForAssembler == null) {
-						argValueForAssembler = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard +  i), isMemory, true, i);
-						argValueForInstructionCreate = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
+						var localBitness = bitness;
+
+						// Special case for movdir64b, the memory operand should match the register size
+						// TODO: Ideally this should be handled in the base class
+						switch ((Code)opCodeInfo.Code.Value) {
+						case Code.Movdir64b_r16_m512:
+						case Code.Enqcmds_r16_m512:
+						case Code.Enqcmd_r16_m512:
+							localBitness = 16;
+							break;
+						case Code.Movdir64b_r32_m512:
+						case Code.Enqcmds_r32_m512:
+						case Code.Enqcmd_r32_m512:
+							localBitness = 32;
+							break;
+						case Code.Movdir64b_r64_m512:
+						case Code.Enqcmds_r64_m512:
+						case Code.Enqcmd_r64_m512:
+							localBitness = 64;
+							break;
+						}
+
+						argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, true, i);
+						argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
 					}
 
 					if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
@@ -406,16 +429,12 @@ namespace Generator.Assembler.CSharp {
 						argValueForInstructionCreate += ".k1";
 					}
 
-					if (i > 0) {
-						assemblerArgs.Append(", ");
-					}
-					instructionCreateArgs.Append(", ");
-					assemblerArgs.Append(argValueForAssembler);
-					instructionCreateArgs.Append(argValueForInstructionCreate);
+					assemblerArgs.Add(argValueForAssembler);
+					instructionCreateArgs.Add(argValueForInstructionCreate);
 				}
-				
+
 				// TODO: support memoff64
-				
+
 				// if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
 				// 	var argIndex = selector.ArgIndex;
 				// 	if (argIndex == 1) {
@@ -427,45 +446,60 @@ namespace Generator.Assembler.CSharp {
 				// 	writer.WriteLine("return;");
 				// }
 
-				var optionalOpCodeFlagsStr = new StringBuilder();
+				var optionalOpCodeFlags = new List<string>();
 				switch (contextFlags) {
 				case OpCodeArgFlags.HasVex:
-					optionalOpCodeFlagsStr.Append(", LocalOpCodeFlags.PreferVex");
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferVex");
 					break;
 				case OpCodeArgFlags.HasEvex:
-					optionalOpCodeFlagsStr.Append(", LocalOpCodeFlags.PreferEvex");
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
 					break;
 				case OpCodeArgFlags.HasBranchShort:
-					optionalOpCodeFlagsStr.Append(", LocalOpCodeFlags.PreferBranchShort");
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchShort");
 					break;
 				case OpCodeArgFlags.HasBranchNear:
-					optionalOpCodeFlagsStr.Append(", LocalOpCodeFlags.PreferBranchNear");
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
 					break;
 				}
+
 				if ((opCodeInfo.Flags & OpCodeFlags.Fwait) != 0) {
-					optionalOpCodeFlagsStr.Append(optionalOpCodeFlagsStr.Length > 0 ? "|" : ", ");
-					optionalOpCodeFlagsStr.Append("LocalOpCodeFlags.Fwait");
-				}		
-				string createInstruction = $"Instruction.Create(Code.{opCodeInfo.Code.Name(Converter)}";
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
+				}
+
+				string beginInstruction = $"Instruction.Create(Code.{opCodeInfo.Code.Name(Converter)}";
+				string endInstruction = ")";
 				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-					createInstruction = $"Instruction.Create{group.MemoName}(Bitness";
+					beginInstruction = $"Instruction.Create{group.MemoName}(Bitness";
 				}
 				else if (group.HasLabel) {
-					optionalOpCodeFlagsStr.Append(optionalOpCodeFlagsStr.Length > 0 ? "|" : ", ");
-					optionalOpCodeFlagsStr.Append("LocalOpCodeFlags.Branch");
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
+					beginInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}, {instructionCreateArgs[0]})";
+				}
 
-					var trailingOptional = optionalOpCodeFlagsStr.ToString();
-					optionalOpCodeFlagsStr.Length = 0;
-					optionalOpCodeFlagsStr.Append($"{instructionCreateArgs}){trailingOptional}");
-					createInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}";
-				}
-				
 				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
-					createInstruction = $"ApplyK1({createInstruction}";
-					instructionCreateArgs.Append(")");
+					beginInstruction = $"ApplyK1({beginInstruction}";
+					endInstruction = "))";
 				}
-				
-				writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgs}), ins => ins == {createInstruction}{instructionCreateArgs}){optionalOpCodeFlagsStr});");
+
+				// Special case for moffs
+				switch ((Code)opCodeInfo.Code.Value) {
+				case Code.Mov_AL_moffs8:
+				case Code.Mov_AX_moffs16:
+				case Code.Mov_EAX_moffs32:
+				case Code.Mov_RAX_moffs64:
+				case Code.Mov_moffs8_AL:
+				case Code.Mov_moffs16_AX:
+				case Code.Mov_moffs32_EAX:
+				case Code.Mov_moffs64_RAX:
+					beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
+					break;
+				}
+
+				var assemblerArgsStr = string.Join(", ", assemblerArgs);
+				var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
+				var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
+
+				writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr});");
 			}
 			else {
 				var selector = node.Selector;

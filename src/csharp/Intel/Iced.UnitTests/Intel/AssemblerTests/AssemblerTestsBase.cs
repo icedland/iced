@@ -38,7 +38,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		
 		public int Bitness => _bitness;
 		
-		protected void TestAssembler(Action<Assembler> fAsm, Func<Instruction, bool> fIns, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
+		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
 			var stream = new MemoryStream();
 			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
 			
@@ -65,7 +65,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			
 			// Check that the instruction is the one expected
 			var inst = assembler.Instructions[0];
-			Assert.True(fIns(inst));
+			Assert.Equal(expectedInst, inst);
 
 			// Special for decoding options
 			DecoderOptions decoderOptions = DecoderOptions.None;
@@ -110,6 +110,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				decoderOptions = DecoderOptions.Jmpe;
 				break;
 			}
+			decoderOptions |= DecoderOptions.AmdBranches;
 
 			// Check decoding back against the original instruction
 			stream.Position = 0;
@@ -179,6 +180,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			var label = c.CreateLabel();
 			c.Label(label);
 			return label;
+		}
+
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister src) {
+			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
+		}
+		
+		protected Instruction CreateMemory64(Code code, AssemblerRegister dst, AssemblerMemoryOperand src) {
+			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 		}
 
 		protected Instruction AssignLabel(Instruction instruction, ulong value) {
