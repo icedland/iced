@@ -397,8 +397,8 @@ namespace Generator.Assembler.CSharp {
 					var argValueForInstructionCreate = argValueForAssembler;
 
 					if (argValueForAssembler == null) {
-						argValueForAssembler = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard +  i), isMemory, true);
-						argValueForInstructionCreate = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false);
+						argValueForAssembler = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard +  i), isMemory, true, i);
+						argValueForInstructionCreate = GetDefaultArgument(bitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
 					}
 
 					if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
@@ -481,7 +481,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine($"{{ /* if ({condition}) */");
 				} 
 				using (writer.Indent()) {
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, false)) {
+					foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex)) {
 						var newArgValues = new List<object>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
@@ -497,7 +497,7 @@ namespace Generator.Assembler.CSharp {
 					else {
 						writer.Write("} /* else */ ");
 					}					
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, true)) {
+					foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex)) {
 						var newArgValues = new List<object>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
@@ -516,7 +516,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler) {
+		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index) {
 			switch (kind) {
 			case OpCodeOperandKind.farbr2_2:
 				break;
@@ -558,31 +558,31 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
 				if (bitness == 16) {
-					return "__[si + xmm1]";
+					return $"__[si + xmm{index}]";
 				} else if (bitness == 32) {
-					return "__[edx + xmm1]";
+					return $"__[edx + xmm{index}]";
 				} else if (bitness == 64) {
-					return "__[rdx + xmm1]";
+					return $"__[rdx + xmm{index}]";
 				}			
 				break;
 			case OpCodeOperandKind.mem_vsib32y:
 			case OpCodeOperandKind.mem_vsib64y:
 				if (bitness == 16) {
-					return "__[si + ymm1]";
+					return $"__[si + ymm{index}]";
 				} else if (bitness == 32) {
-					return "__[edx + ymm1]";
+					return $"__[edx + ymm{index}]";
 				} else if (bitness == 64) {
-					return "__[rdx + ymm1]";
+					return $"__[rdx + ymm{index}]";
 				}			
 				break;
 			case OpCodeOperandKind.mem_vsib32z:
 			case OpCodeOperandKind.mem_vsib64z:
 				if (bitness == 16) {
-					return "__[si + zmm1]";
+					return $"__[si + zmm{index}]";
 				} else if (bitness == 32) {
-					return "__[edx + zmm1]";
+					return $"__[edx + zmm{index}]";
 				} else if (bitness == 64) {
-					return "__[rdx + zmm1]";
+					return $"__[rdx + zmm{index}]";
 				}			
 				break;
 			case OpCodeOperandKind.r8_or_mem:
@@ -704,7 +704,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 				else {
-					return bitness <= 32 ? "ymm2" : "ymm9";
+					return $"ymm{index}";
 				}
 				break;
 			case OpCodeOperandKind.zmm_or_mem:
@@ -720,7 +720,7 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 				else {
-					return bitness <= 32 ? "zmm0" : "zmm11";
+					return $"zmm{index}";
 				}
 
 				break;
@@ -789,18 +789,18 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.xmmp3_vvvv:
 			case OpCodeOperandKind.xmm_is4:
 			case OpCodeOperandKind.xmm_is5:
-				return bitness <= 32 ? "xmm3" : "xmm12";
+				return $"xmm{index}";
 			case OpCodeOperandKind.ymm_reg:
 			case OpCodeOperandKind.ymm_rm:
 			case OpCodeOperandKind.ymm_vvvv:
 			case OpCodeOperandKind.ymm_is4:
 			case OpCodeOperandKind.ymm_is5:
-				return bitness <= 32 ? "ymm4" : "ymm13";
+				return $"ymm{index}";
 			case OpCodeOperandKind.zmm_reg:
 			case OpCodeOperandKind.zmm_rm:
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmmp3_vvvv:
-				return bitness <= 32 ? "zmm1" : "zmm14";
+				return $"zmm{index}";
 			case OpCodeOperandKind.cr_reg:
 				return "cr1";
 			case OpCodeOperandKind.dr_reg:
@@ -1056,7 +1056,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 		
-		static IEnumerable<string> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch) {
+		static IEnumerable<string> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
 				if (isElseBranch) {
@@ -1294,7 +1294,7 @@ namespace Generator.Assembler.CSharp {
 				break;			
 			case OpCodeSelectorKind.RegisterMM:
 				if (!isElseBranch) {
-					yield return "mm1";
+					yield return $"mm{index}";
 				}
 				else {
 					yield return null;
@@ -1302,7 +1302,7 @@ namespace Generator.Assembler.CSharp {
 				break;			
 			case OpCodeSelectorKind.RegisterXMM:
 				if (!isElseBranch) {
-					yield return "xmm2";
+					yield return $"xmm{index}";
 				}
 				else {
 					yield return null;
@@ -1310,7 +1310,7 @@ namespace Generator.Assembler.CSharp {
 				break;			
 			case OpCodeSelectorKind.RegisterYMM:
 				if (!isElseBranch) {
-					yield return "ymm4";
+					yield return $"ymm{index}";
 				}
 				else {
 					yield return null;
@@ -1318,7 +1318,7 @@ namespace Generator.Assembler.CSharp {
 				break;			
 			case OpCodeSelectorKind.RegisterZMM:
 				if (!isElseBranch) {
-					yield return "zmm6";
+					yield return $"zmm{index}";
 				} else {
 					yield return null;
 				}
@@ -1443,11 +1443,11 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[di + xmm1]";
+					yield return $"__[di + xmm{index}]";
 				} else if (bitness == 32) {
-					yield return "__[edx + xmm1]";
+					yield return $"__[edx + xmm{index}]";
 				} else if (bitness == 64) {
-					yield return "__[rdx + xmm1]";
+					yield return $"__[rdx + xmm{index}]";
 				}
 				break;
 			case OpCodeSelectorKind.MemoryIndex32Ymm:
@@ -1455,11 +1455,11 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[di + ymm1]";
+					yield return $"__[di + ymm{index}]";
 				} else if (bitness == 32) {
-					yield return "__[edx + ymm1]";
+					yield return $"__[edx + ymm{index}]";
 				} else if (bitness == 64) {
-					yield return "__[rdx + ymm1]";
+					yield return $"__[rdx + ymm{index}]";
 				}
 				break;
 			case OpCodeSelectorKind.MemoryIndex32Zmm:
@@ -1467,11 +1467,11 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__[di + zmm1]";
+					yield return $"__[di + zmm{index}]";
 				} else if (bitness == 32) {
-					yield return "__[edx + zmm1]";
+					yield return $"__[edx + zmm{index}]";
 				} else if (bitness == 64) {
-					yield return "__[rdx + zmm1]";
+					yield return $"__[rdx + zmm{index}]";
 				}
 				break;
 			default:
