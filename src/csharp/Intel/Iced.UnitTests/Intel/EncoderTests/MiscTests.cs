@@ -504,6 +504,46 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			encoder.WriteByte(0xCC);
 			Assert.Equal(new byte[] { 0x90, 0x4C, 0x03, 0xC5, 0xCC }, codeWriter.ToArray());
 		}
+
+		[Theory]
+		[MemberData(nameof(EncodeInvalidRegOpSize_Data))]
+		void EncodeInvalidRegOpSize(int bitness, Instruction instr) {
+			var encoder = Encoder.Create(bitness, new CodeWriterImpl());
+			bool b = encoder.TryEncode(instr, 0, out _, out var errorMessage);
+			Assert.False(b);
+			Assert.NotNull(errorMessage);
+			Assert.Contains("Register operand size must equal memory addressing mode (16/32/64)", errorMessage);
+		}
+		public static IEnumerable<object[]> EncodeInvalidRegOpSize_Data {
+			get {
+				yield return new object[] { 16, Instruction.Create(Code.Movdir64b_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Movdir64b_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+
+				yield return new object[] { 16, Instruction.Create(Code.Movdir64b_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Movdir64b_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 64, Instruction.Create(Code.Movdir64b_r32_m512, Register.ECX, new MemoryOperand(Register.RBX)) };
+
+				yield return new object[] { 64, Instruction.Create(Code.Movdir64b_r64_m512, Register.RCX, new MemoryOperand(Register.EBX)) };
+
+				yield return new object[] { 16, Instruction.Create(Code.Enqcmds_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Enqcmds_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+
+				yield return new object[] { 16, Instruction.Create(Code.Enqcmds_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Enqcmds_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 64, Instruction.Create(Code.Enqcmds_r32_m512, Register.ECX, new MemoryOperand(Register.RBX)) };
+
+				yield return new object[] { 64, Instruction.Create(Code.Enqcmds_r64_m512, Register.RCX, new MemoryOperand(Register.EBX)) };
+
+				yield return new object[] { 16, Instruction.Create(Code.Enqcmd_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Enqcmd_r16_m512, Register.CX, new MemoryOperand(Register.EBX)) };
+
+				yield return new object[] { 16, Instruction.Create(Code.Enqcmd_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 32, Instruction.Create(Code.Enqcmd_r32_m512, Register.ECX, new MemoryOperand(Register.BX)) };
+				yield return new object[] { 64, Instruction.Create(Code.Enqcmd_r32_m512, Register.ECX, new MemoryOperand(Register.RBX)) };
+
+				yield return new object[] { 64, Instruction.Create(Code.Enqcmd_r64_m512, Register.RCX, new MemoryOperand(Register.EBX)) };
+			}
+		}
 	}
 }
 #endif

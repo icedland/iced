@@ -104,6 +104,21 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.AddModRMRegister(instruction, operand, regLo, regHi);
 	}
 
+	sealed class OpModRM_reg_mem : Op {
+		readonly Register regLo;
+		readonly Register regHi;
+
+		public OpModRM_reg_mem(Register regLo, Register regHi) {
+			this.regLo = regLo;
+			this.regHi = regHi;
+		}
+
+		public override void Encode(Encoder encoder, in Instruction instruction, int operand) {
+			encoder.AddModRMRegister(instruction, operand, regLo, regHi);
+			encoder.EncoderFlags |= EncoderFlags.RegIsMemory;
+		}
+	}
+
 	sealed class OpModRM_regF0 : Op {
 		readonly Register regLo;
 		readonly Register regHi;
@@ -377,7 +392,9 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.AddBranchX(immSize, instruction, operand);
 
 		public override OpKind GetNearBranchOpKind() {
-			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
+			// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value.
+			// Instruction.CreateXbegin() should be used to create the instruction and this method should never be called.
+			Debug.Fail("Call Instruction.CreateXbegin()");
 			return base.GetNearBranchOpKind();
 		}
 	}

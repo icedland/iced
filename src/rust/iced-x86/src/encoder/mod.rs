@@ -790,6 +790,13 @@ impl Encoder {
 			if addr_size != self.bitness {
 				self.encoder_flags |= EncoderFlags::P67;
 			}
+			if (self.encoder_flags & EncoderFlags::REG_IS_MEMORY) != 0 {
+				let reg_size = Encoder::get_register_op_size(instruction);
+				if reg_size != addr_size {
+					self.set_error_message(format!("Operand {}: Register operand size must equal memory addressing mode (16/32/64)", operand));
+					return;
+				}
+			}
 			if addr_size == 16 {
 				if vsib_index_reg_lo != Register::None {
 					self.set_error_message(format!(
@@ -808,6 +815,25 @@ impl Encoder {
 			} else {
 				self.set_error_message(format!("Operand {}: Expected a register or memory operand, but op_kind is {}", operand, op_kind as u32));
 			}
+		}
+	}
+
+	#[cfg_attr(has_must_use, must_use)]
+	fn get_register_op_size(instruction: &Instruction) -> u32 {
+		debug_assert_eq!(OpKind::Register, instruction.op0_kind());
+		if instruction.op0_kind() == OpKind::Register {
+			let reg = instruction.op0_register();
+			if reg.is_gpr64() {
+				64
+			} else if reg.is_gpr32() {
+				32
+			} else if reg.is_gpr16() {
+				16
+			} else {
+				0
+			}
+		} else {
+			0
 		}
 	}
 

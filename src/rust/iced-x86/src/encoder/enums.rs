@@ -149,6 +149,7 @@ impl EncoderFlags {
 	pub(crate) const HIGH_LEGACY_8_BIT_REGS: u32 = 0x0000_0800;
 	pub(crate) const DISPL: u32 = 0x0000_1000;
 	pub(crate) const PF0: u32 = 0x0000_2000;
+	pub(crate) const REG_IS_MEMORY: u32 = 0x0000_4000;
 	pub(crate) const VVVVV_SHIFT: u32 = 0x0000_001B;
 	pub(crate) const VVVVV_MASK: u32 = 0x0000_001F;
 }
@@ -772,6 +773,9 @@ pub(crate) enum LegacyOpKind {
 	Gw,
 	Gd,
 	Gq,
+	Gw_mem,
+	Gd_mem,
+	Gq_mem,
 	Rw,
 	Rd,
 	Rq,
@@ -847,7 +851,7 @@ pub(crate) enum LegacyOpKind {
 	r64_ro,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_LEGACY_OP_KIND: [&str; 118] = [
+static GEN_DEBUG_LEGACY_OP_KIND: [&str; 121] = [
 	"None",
 	"Aww",
 	"Adw",
@@ -893,6 +897,9 @@ static GEN_DEBUG_LEGACY_OP_KIND: [&str; 118] = [
 	"Gw",
 	"Gd",
 	"Gq",
+	"Gw_mem",
+	"Gd_mem",
+	"Gq_mem",
 	"Rw",
 	"Rd",
 	"Rq",

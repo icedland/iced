@@ -174,6 +174,18 @@ static OP_MOD_RM_REG_K0_K7: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::K0,
 	reg_hi: Register::K7,
 };
+static OP_MOD_RM_REG_MEM_AX_R15_W: OpModRM_reg_mem = OpModRM_reg_mem {
+	reg_lo: Register::AX,
+	reg_hi: Register::R15W,
+};
+static OP_MOD_RM_REG_MEM_EAX_R15_D: OpModRM_reg_mem = OpModRM_reg_mem {
+	reg_lo: Register::EAX,
+	reg_hi: Register::R15D,
+};
+static OP_MOD_RM_REG_MEM_RAX_R15: OpModRM_reg_mem = OpModRM_reg_mem {
+	reg_lo: Register::RAX,
+	reg_hi: Register::R15,
+};
 static OP_MOD_RM_REG_MM0_MM7: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::MM0,
 	reg_hi: Register::MM7,
@@ -376,7 +388,7 @@ static OP_VMX_ZMM0_ZMM31: OpVMx = OpVMx {
 static OP_X: OpX = OpX;
 static OP_Y: OpY = OpY;
 
-pub(crate) static LEGACY_TABLE: [&(Op + Sync); 118] = [
+pub(crate) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&NONE,// None
 	&OP_A_2,// Aww
 	&OP_A_4,// Adw
@@ -422,6 +434,9 @@ pub(crate) static LEGACY_TABLE: [&(Op + Sync); 118] = [
 	&OP_MOD_RM_REG_AX_R15_W,// Gw
 	&OP_MOD_RM_REG_EAX_R15_D,// Gd
 	&OP_MOD_RM_REG_RAX_R15,// Gq
+	&OP_MOD_RM_REG_MEM_AX_R15_W,// Gw_mem
+	&OP_MOD_RM_REG_MEM_EAX_R15_D,// Gd_mem
+	&OP_MOD_RM_REG_MEM_RAX_R15,// Gq_mem
 	&OP_MOD_RM_RM_REG_ONLY_AX_R15_W,// Rw
 	&OP_MOD_RM_RM_REG_ONLY_EAX_R15_D,// Rd
 	&OP_MOD_RM_RM_REG_ONLY_RAX_R15,// Rq

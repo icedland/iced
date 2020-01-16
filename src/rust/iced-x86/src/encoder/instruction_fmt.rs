@@ -293,13 +293,17 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 		for i in 0..op_code.op_count() {
 			match op_code.op_kind(i) {
-				OpCodeOperandKind::r32_reg | OpCodeOperandKind::r32_rm | OpCodeOperandKind::r32_opcode | OpCodeOperandKind::r32_vvvv => {
-					r32_count += 1
-				}
+				OpCodeOperandKind::r32_reg
+				| OpCodeOperandKind::r32_reg_mem
+				| OpCodeOperandKind::r32_rm
+				| OpCodeOperandKind::r32_opcode
+				| OpCodeOperandKind::r32_vvvv => r32_count += 1,
 
-				OpCodeOperandKind::r64_reg | OpCodeOperandKind::r64_rm | OpCodeOperandKind::r64_opcode | OpCodeOperandKind::r64_vvvv => {
-					r64_count += 1
-				}
+				OpCodeOperandKind::r64_reg
+				| OpCodeOperandKind::r64_reg_mem
+				| OpCodeOperandKind::r64_rm
+				| OpCodeOperandKind::r64_opcode
+				| OpCodeOperandKind::r64_vvvv => r64_count += 1,
 
 				OpCodeOperandKind::bnd_or_mem_mpx | OpCodeOperandKind::bnd_reg => bnd_count += 1,
 
@@ -353,6 +357,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 				| OpCodeOperandKind::r8_reg
 				| OpCodeOperandKind::r8_opcode
 				| OpCodeOperandKind::r16_reg
+				| OpCodeOperandKind::r16_reg_mem
 				| OpCodeOperandKind::r16_rm
 				| OpCodeOperandKind::r16_opcode
 				| OpCodeOperandKind::seg_reg
@@ -581,9 +586,15 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 					}
 
 					OpCodeOperandKind::r8_reg | OpCodeOperandKind::r8_opcode => self.write_reg_op1("r8"),
-					OpCodeOperandKind::r16_reg | OpCodeOperandKind::r16_rm | OpCodeOperandKind::r16_opcode => self.write_reg_op1("r16"),
+					OpCodeOperandKind::r16_reg | OpCodeOperandKind::r16_reg_mem | OpCodeOperandKind::r16_rm | OpCodeOperandKind::r16_opcode => {
+						self.write_reg_op1("r16")
+					}
 
-					OpCodeOperandKind::r32_reg | OpCodeOperandKind::r32_rm | OpCodeOperandKind::r32_opcode | OpCodeOperandKind::r32_vvvv => {
+					OpCodeOperandKind::r32_reg
+					| OpCodeOperandKind::r32_reg_mem
+					| OpCodeOperandKind::r32_rm
+					| OpCodeOperandKind::r32_opcode
+					| OpCodeOperandKind::r32_vvvv => {
 						self.write_reg_op1("r32");
 						tmp2 = self.r32_count;
 						tmp = self.r32_index;
@@ -591,7 +602,11 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 						self.r32_index = tmp;
 					}
 
-					OpCodeOperandKind::r64_reg | OpCodeOperandKind::r64_rm | OpCodeOperandKind::r64_opcode | OpCodeOperandKind::r64_vvvv => {
+					OpCodeOperandKind::r64_reg
+					| OpCodeOperandKind::r64_reg_mem
+					| OpCodeOperandKind::r64_rm
+					| OpCodeOperandKind::r64_opcode
+					| OpCodeOperandKind::r64_vvvv => {
 						self.write_reg_op1("r64");
 						tmp2 = self.r64_count;
 						tmp = self.r64_index;

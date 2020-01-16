@@ -167,10 +167,13 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				| OpCodeOperandKind::k_or_mem
 				| OpCodeOperandKind::r8_reg
 				| OpCodeOperandKind::r16_reg
+				| OpCodeOperandKind::r16_reg_mem
 				| OpCodeOperandKind::r16_rm
 				| OpCodeOperandKind::r32_reg
+				| OpCodeOperandKind::r32_reg_mem
 				| OpCodeOperandKind::r32_rm
 				| OpCodeOperandKind::r64_reg
+				| OpCodeOperandKind::r64_reg_mem
 				| OpCodeOperandKind::r64_rm
 				| OpCodeOperandKind::seg_reg
 				| OpCodeOperandKind::k_reg

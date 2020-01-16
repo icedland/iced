@@ -105,6 +105,18 @@ impl Op for OpModRM_reg {
 }
 
 #[allow(non_camel_case_types)]
+pub(crate) struct OpModRM_reg_mem {
+	pub(crate) reg_lo: Register,
+	pub(crate) reg_hi: Register,
+}
+impl Op for OpModRM_reg_mem {
+	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
+		encoder.add_mod_rm_register(instruction, operand, self.reg_lo, self.reg_hi);
+		encoder.encoder_flags |= EncoderFlags::REG_IS_MEMORY;
+	}
+}
+
+#[allow(non_camel_case_types)]
 pub(crate) struct OpModRM_regF0 {
 	pub(crate) reg_lo: Register,
 	pub(crate) reg_hi: Register,
@@ -435,7 +447,9 @@ impl Op for OpJx {
 	}
 
 	fn near_branch_op_kind(&self) -> Option<OpKind> {
-		// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value
+		// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value.
+		// Instruction::with_xbegin() should be used to create the instruction and this method should never be called.
+		debug_assert!(false, "Call Instruction::with_xbegin()");
 		None
 	}
 }

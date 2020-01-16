@@ -703,6 +703,13 @@ namespace Iced.Intel {
 				int addrSize = InstructionUtils.GetAddressSizeInBytes(instruction.MemoryBase, instruction.MemoryIndex, instruction.MemoryDisplSize, codeSize) * 8;
 				if (addrSize != bitness)
 					EncoderFlags |= EncoderFlags.P67;
+				if ((EncoderFlags & EncoderFlags.RegIsMemory) != 0) {
+					var regSize = GetRegisterOpSize(instruction);
+					if (regSize != addrSize) {
+						ErrorMessage = $"Operand {operand}: Register operand size must equal memory addressing mode (16/32/64)";
+						return;
+					}
+				}
 				if (addrSize == 16) {
 					if (vsibIndexRegLo != Register.None) {
 						ErrorMessage = $"Operand {operand}: VSIB operands can't use 16-bit addressing. It must be 32-bit or 64-bit addressing";
@@ -715,6 +722,20 @@ namespace Iced.Intel {
 			}
 			else
 				ErrorMessage = $"Operand {operand}: Expected a register or memory operand, but opKind is {opKind}";
+		}
+
+		static int GetRegisterOpSize(in Instruction instruction) {
+			Debug.Assert(instruction.Op0Kind == OpKind.Register);
+			if (instruction.Op0Kind == OpKind.Register) {
+				var reg = instruction.Op0Register;
+				if (reg.IsGPR64())
+					return 64;
+				if (reg.IsGPR32())
+					return 32;
+				if (reg.IsGPR16())
+					return 16;
+			}
+			return 0;
 		}
 
 		bool TryConvertToDisp8N(in Instruction instruction, int displ, out sbyte compressedValue) {

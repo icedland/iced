@@ -151,6 +151,7 @@ namespace Generator.Encoder.Rust {
 					case OpHandlerKind.OpHx:
 					case OpHandlerKind.OpIs4x:
 					case OpHandlerKind.OpModRM_reg:
+					case OpHandlerKind.OpModRM_reg_mem:
 					case OpHandlerKind.OpModRM_regF0:
 					case OpHandlerKind.OpModRM_rm:
 					case OpHandlerKind.OpModRM_rm_reg_only:

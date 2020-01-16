@@ -81,12 +81,16 @@ namespace Generator.Enums.Encoder {
 		r8_opcode,
 		[Comment("16-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r16_reg,
+		[Comment("16-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		r16_reg_mem,
 		[Comment("16-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r16_rm,
 		[Comment("16-bit GPR encoded in the low 3 bits of the opcode")]
 		r16_opcode,
 		[Comment("32-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r32_reg,
+		[Comment("32-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		r32_reg_mem,
 		[Comment("32-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r32_rm,
 		[Comment("32-bit GPR encoded in the low 3 bits of the opcode")]
@@ -95,6 +99,8 @@ namespace Generator.Enums.Encoder {
 		r32_vvvv,
 		[Comment("64-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r64_reg,
+		[Comment("64-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		r64_reg_mem,
 		[Comment("64-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r64_rm,
 		[Comment("64-bit GPR encoded in the low 3 bits of the opcode")]

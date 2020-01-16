@@ -20663,6 +20663,7 @@ C4C37B F0 10 5A, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=m;ds;eax;;1;0;0;
 8FE978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx
 8FE9F8 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
 8FC978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
+67 8FE978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
 
 8FE978 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;ebx
 8FE9F8 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;ebx enc=8FE97812CB

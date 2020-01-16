@@ -31147,11 +31147,13 @@ C4A3FB F0 10 A5, VEX_Rorx_r64_rm64_imm8, Rorx, 3, op0=r;rdx op1=m;ds;rax;;1;0;0;
 8FC978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;r11d
 8F6978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
 8FA978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
+67 8FE978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
 
 8FE9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx
 8FC9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;r11
 8F69F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
 8FA9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
+67 8FE9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
 
 8FE978 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;ebx
 8FC978 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;r11d

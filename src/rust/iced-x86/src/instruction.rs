@@ -4745,6 +4745,10 @@ impl Instruction {
 
 	/// Creates a new xbegin instruction
 	///
+	/// # Panics
+	///
+	/// Panics if `bitness` is not one of 16, 32, 64.
+	///
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32, or 64

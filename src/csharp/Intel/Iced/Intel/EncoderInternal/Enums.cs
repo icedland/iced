@@ -87,6 +87,7 @@ namespace Iced.Intel.EncoderInternal {
 		HighLegacy8BitRegs = 0x00000800,
 		Displ = 0x00001000,
 		PF0 = 0x00002000,
+		RegIsMemory = 0x00004000,
 		VvvvvShift = 0x0000001B,
 		VvvvvMask = 0x0000001F,
 	}
@@ -428,6 +429,9 @@ namespace Iced.Intel.EncoderInternal {
 		Gw,
 		Gd,
 		Gq,
+		Gw_mem,
+		Gd_mem,
+		Gq_mem,
 		Rw,
 		Rd,
 		Rq,

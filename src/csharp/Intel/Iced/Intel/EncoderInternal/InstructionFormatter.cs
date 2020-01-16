@@ -318,6 +318,7 @@ namespace Iced.Intel.EncoderInternal {
 			for (int i = 0; i < opCode.OpCount; i++) {
 				switch (opCode.GetOpKind(i)) {
 				case OpCodeOperandKind.r32_reg:
+				case OpCodeOperandKind.r32_reg_mem:
 				case OpCodeOperandKind.r32_rm:
 				case OpCodeOperandKind.r32_opcode:
 				case OpCodeOperandKind.r32_vvvv:
@@ -325,6 +326,7 @@ namespace Iced.Intel.EncoderInternal {
 					break;
 
 				case OpCodeOperandKind.r64_reg:
+				case OpCodeOperandKind.r64_reg_mem:
 				case OpCodeOperandKind.r64_rm:
 				case OpCodeOperandKind.r64_opcode:
 				case OpCodeOperandKind.r64_vvvv:
@@ -386,6 +388,7 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.r8_reg:
 				case OpCodeOperandKind.r8_opcode:
 				case OpCodeOperandKind.r16_reg:
+				case OpCodeOperandKind.r16_reg_mem:
 				case OpCodeOperandKind.r16_rm:
 				case OpCodeOperandKind.r16_opcode:
 				case OpCodeOperandKind.seg_reg:
@@ -599,12 +602,14 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.r16_reg:
+					case OpCodeOperandKind.r16_reg_mem:
 					case OpCodeOperandKind.r16_rm:
 					case OpCodeOperandKind.r16_opcode:
 						WriteRegOp("r16");
 						break;
 
 					case OpCodeOperandKind.r32_reg:
+					case OpCodeOperandKind.r32_reg_mem:
 					case OpCodeOperandKind.r32_rm:
 					case OpCodeOperandKind.r32_opcode:
 					case OpCodeOperandKind.r32_vvvv:
@@ -613,6 +618,7 @@ namespace Iced.Intel.EncoderInternal {
 						break;
 
 					case OpCodeOperandKind.r64_reg:
+					case OpCodeOperandKind.r64_reg_mem:
 					case OpCodeOperandKind.r64_rm:
 					case OpCodeOperandKind.r64_opcode:
 					case OpCodeOperandKind.r64_vvvv:

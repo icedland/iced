@@ -39,6 +39,7 @@ namespace Generator.Encoder {
 		OpJdisp,
 		OpJx,
 		OpModRM_reg,
+		OpModRM_reg_mem,
 		OpModRM_regF0,
 		OpModRM_rm,
 		OpModRM_rm_mem_only,

@@ -168,10 +168,13 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.k_or_mem:
 				case OpCodeOperandKind.r8_reg:
 				case OpCodeOperandKind.r16_reg:
+				case OpCodeOperandKind.r16_reg_mem:
 				case OpCodeOperandKind.r16_rm:
 				case OpCodeOperandKind.r32_reg:
+				case OpCodeOperandKind.r32_reg_mem:
 				case OpCodeOperandKind.r32_rm:
 				case OpCodeOperandKind.r64_reg:
+				case OpCodeOperandKind.r64_reg_mem:
 				case OpCodeOperandKind.r64_rm:
 				case OpCodeOperandKind.seg_reg:
 				case OpCodeOperandKind.k_reg:

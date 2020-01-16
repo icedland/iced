@@ -29,9 +29,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static class OpCodeOperandKinds {
 #if HAS_SPAN
-		public static System.ReadOnlySpan<byte> LegacyOpKinds => new byte[118] {
+		public static System.ReadOnlySpan<byte> LegacyOpKinds => new byte[121] {
 #else
-		public static readonly byte[] LegacyOpKinds = new byte[118] {
+		public static readonly byte[] LegacyOpKinds = new byte[121] {
 #endif
 			(byte)OpCodeOperandKind.None,// None
 			(byte)OpCodeOperandKind.farbr2_2,// Aww
@@ -78,6 +78,9 @@ namespace Iced.Intel.EncoderInternal {
 			(byte)OpCodeOperandKind.r16_reg,// Gw
 			(byte)OpCodeOperandKind.r32_reg,// Gd
 			(byte)OpCodeOperandKind.r64_reg,// Gq
+			(byte)OpCodeOperandKind.r16_reg_mem,// Gw_mem
+			(byte)OpCodeOperandKind.r32_reg_mem,// Gd_mem
+			(byte)OpCodeOperandKind.r64_reg_mem,// Gq_mem
 			(byte)OpCodeOperandKind.r16_rm,// Rw
 			(byte)OpCodeOperandKind.r32_rm,// Rd
 			(byte)OpCodeOperandKind.r64_rm,// Rq

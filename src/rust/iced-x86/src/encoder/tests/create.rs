@@ -1198,3 +1198,41 @@ fn get_declare_xxx_value_panics_if_invalid_input() {
 		}
 	}
 }
+
+#[test]
+fn encode_invalid_reg_op_size() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let tests: Vec<(u32, Instruction)> = vec![
+		(16, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Movdir64b_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Movdir64b_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Movdir64b_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmds_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Enqcmds_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Enqcmds_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmd_r16_m512, Register::CX, &MemoryOperand::with_base(Register::EBX))),
+
+		(16, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(32, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::BX))),
+		(64, Instruction::with_reg_mem(Code::Enqcmd_r32_m512, Register::ECX, &MemoryOperand::with_base(Register::RBX))),
+
+		(64, Instruction::with_reg_mem(Code::Enqcmd_r64_m512, Register::RCX, &MemoryOperand::with_base(Register::EBX))),
+	];
+	for (bitness, instr) in tests {
+		let mut encoder = Encoder::new(bitness);
+		let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
+		assert!(error_message.contains("Register operand size must equal memory addressing mode (16/32/64)"));
+	}
+}
