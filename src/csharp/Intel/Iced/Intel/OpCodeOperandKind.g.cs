@@ -93,7 +93,7 @@ namespace Iced.Intel {
 		r8_opcode,
 		/// <summary>16-bit GPR encoded in the <c>reg</c> field of the modrm byte</summary>
 		r16_reg,
-		/// <summary>16-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand.</summary>
+		/// <summary>16-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand and it uses the address size prefix (<c>67h</c>) not the operand size prefix (<c>66h</c>).</summary>
 		r16_reg_mem,
 		/// <summary>16-bit GPR encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		r16_rm,
@@ -101,7 +101,7 @@ namespace Iced.Intel {
 		r16_opcode,
 		/// <summary>32-bit GPR encoded in the <c>reg</c> field of the modrm byte</summary>
 		r32_reg,
-		/// <summary>32-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand.</summary>
+		/// <summary>32-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand and it uses the address size prefix (<c>67h</c>) not the operand size prefix (<c>66h</c>).</summary>
 		r32_reg_mem,
 		/// <summary>32-bit GPR encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		r32_rm,
@@ -111,7 +111,7 @@ namespace Iced.Intel {
 		r32_vvvv,
 		/// <summary>64-bit GPR encoded in the <c>reg</c> field of the modrm byte</summary>
 		r64_reg,
-		/// <summary>64-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand.</summary>
+		/// <summary>64-bit GPR encoded in the <c>reg</c> field of the modrm byte. This is a memory operand and it uses the address size prefix (<c>67h</c>) not the operand size prefix (<c>66h</c>).</summary>
 		r64_reg_mem,
 		/// <summary>64-bit GPR encoded in the <c>mod + r/m</c> fields of the modrm byte</summary>
 		r64_rm,

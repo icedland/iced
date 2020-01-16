@@ -1236,3 +1236,78 @@ fn encode_invalid_reg_op_size() {
 		assert!(error_message.contains("Register operand size must equal memory addressing mode (16/32/64)"));
 	}
 }
+
+#[test]
+fn create_panics_if_invalid_bitness() {
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	let tests: Vec<fn(u32) -> Instruction> = vec![
+		|bitness| Instruction::with_xbegin(bitness, 0x8000_0000_3412_A550),
+		|bitness| Instruction::with_outsb(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_outsw(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_outsd(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_scasb(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_scasw(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_scasd(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_scasq(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_lodsb(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_lodsw(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_lodsd(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_lodsq(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_insb(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_insw(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_insd(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_stosb(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_stosw(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_stosd(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_stosq(bitness, RepPrefixKind::None),
+		|bitness| Instruction::with_cmpsb(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_cmpsw(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_cmpsd(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_cmpsq(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_movsb(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_movsw(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_movsd(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_movsq(bitness, Register::FS, RepPrefixKind::None),
+		|bitness| Instruction::with_maskmovq(bitness, Register::MM2, Register::MM3, Register::FS),
+		|bitness| Instruction::with_maskmovdqu(bitness, Register::XMM2, Register::XMM3, Register::FS),
+		|bitness| Instruction::with_vmaskmovdqu(bitness, Register::XMM2, Register::XMM3, Register::FS),
+		|bitness| Instruction::with_rep_outsb(bitness),
+		|bitness| Instruction::with_rep_outsw(bitness),
+		|bitness| Instruction::with_rep_outsd(bitness),
+		|bitness| Instruction::with_repe_scasb(bitness),
+		|bitness| Instruction::with_repe_scasw(bitness),
+		|bitness| Instruction::with_repe_scasd(bitness),
+		|bitness| Instruction::with_repe_scasq(bitness),
+		|bitness| Instruction::with_repne_scasb(bitness),
+		|bitness| Instruction::with_repne_scasw(bitness),
+		|bitness| Instruction::with_repne_scasd(bitness),
+		|bitness| Instruction::with_repne_scasq(bitness),
+		|bitness| Instruction::with_rep_lodsb(bitness),
+		|bitness| Instruction::with_rep_lodsw(bitness),
+		|bitness| Instruction::with_rep_lodsd(bitness),
+		|bitness| Instruction::with_rep_lodsq(bitness),
+		|bitness| Instruction::with_rep_insb(bitness),
+		|bitness| Instruction::with_rep_insw(bitness),
+		|bitness| Instruction::with_rep_insd(bitness),
+		|bitness| Instruction::with_rep_stosb(bitness),
+		|bitness| Instruction::with_rep_stosw(bitness),
+		|bitness| Instruction::with_rep_stosd(bitness),
+		|bitness| Instruction::with_rep_stosq(bitness),
+		|bitness| Instruction::with_repe_cmpsb(bitness),
+		|bitness| Instruction::with_repe_cmpsw(bitness),
+		|bitness| Instruction::with_repe_cmpsd(bitness),
+		|bitness| Instruction::with_repe_cmpsq(bitness),
+		|bitness| Instruction::with_repne_cmpsb(bitness),
+		|bitness| Instruction::with_repne_cmpsw(bitness),
+		|bitness| Instruction::with_repne_cmpsd(bitness),
+		|bitness| Instruction::with_repne_cmpsq(bitness),
+		|bitness| Instruction::with_rep_movsb(bitness),
+		|bitness| Instruction::with_rep_movsw(bitness),
+		|bitness| Instruction::with_rep_movsd(bitness),
+		|bitness| Instruction::with_rep_movsq(bitness),
+	];
+	for f in tests {
+		let result = panic::catch_unwind(|| f(128));
+		assert!(result.is_err());
+	}
+}

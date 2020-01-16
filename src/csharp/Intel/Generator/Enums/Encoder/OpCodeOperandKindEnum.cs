@@ -81,7 +81,7 @@ namespace Generator.Enums.Encoder {
 		r8_opcode,
 		[Comment("16-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r16_reg,
-		[Comment("16-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		[Comment("16-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand and it uses the address size prefix (#(c:67h)#) not the operand size prefix (#(c:66h)#).")]
 		r16_reg_mem,
 		[Comment("16-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r16_rm,
@@ -89,7 +89,7 @@ namespace Generator.Enums.Encoder {
 		r16_opcode,
 		[Comment("32-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r32_reg,
-		[Comment("32-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		[Comment("32-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand and it uses the address size prefix (#(c:67h)#) not the operand size prefix (#(c:66h)#).")]
 		r32_reg_mem,
 		[Comment("32-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r32_rm,
@@ -99,7 +99,7 @@ namespace Generator.Enums.Encoder {
 		r32_vvvv,
 		[Comment("64-bit GPR encoded in the #(c:reg)# field of the modrm byte")]
 		r64_reg,
-		[Comment("64-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand.")]
+		[Comment("64-bit GPR encoded in the #(c:reg)# field of the modrm byte. This is a memory operand and it uses the address size prefix (#(c:67h)#) not the operand size prefix (#(c:66h)#).")]
 		r64_reg_mem,
 		[Comment("64-bit GPR encoded in the #(c:mod + r/m)# fields of the modrm byte")]
 		r64_rm,

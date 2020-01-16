@@ -1140,6 +1140,81 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 		}
 
+		[Theory]
+		[MemberData(nameof(CreateThrowsIfInvalidBitness_Data))]
+		void CreateThrowsIfInvalidBitness(Action<int> create) {
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
+				Assert.Throws<ArgumentOutOfRangeException>(() => create(bitness));
+		}
+		public static IEnumerable<object[]> CreateThrowsIfInvalidBitness_Data {
+			get {
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateXbegin(bitness, 0x800000003412A550)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateOutsb(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateOutsw(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateOutsd(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateScasb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateScasw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateScasd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateScasq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateLodsb(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateLodsw(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateLodsd(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateLodsq(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateInsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateInsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateInsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateStosb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateStosw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateStosd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateStosq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateCmpsb(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateCmpsw(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateCmpsd(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateCmpsq(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMovsb(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMovsw(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMovsd(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMovsq(bitness, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMaskmovq(bitness, Register.MM2, Register.MM3, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateMaskmovdqu(bitness, Register.XMM2, Register.XMM3, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateVmaskmovdqu(bitness, Register.XMM2, Register.XMM3, Register.FS)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeScasb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeScasw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeScasd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeScasq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneScasb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneScasw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneScasd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneScasq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepLodsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepLodsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepLodsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepLodsq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepInsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepInsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepInsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepStosb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepStosw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepStosd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepStosq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeCmpsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeCmpsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeCmpsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepeCmpsq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneCmpsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneCmpsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneCmpsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepneCmpsq(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepMovsb(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepMovsw(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepMovsd(bitness)) };
+				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepMovsq(bitness)) };
+			}
+		}
+
 		[Fact]
 		void CreateDeclareXXX_throws_if_null_array() {
 			Assert.Throws<ArgumentNullException>(() => Instruction.CreateDeclareByte(null));

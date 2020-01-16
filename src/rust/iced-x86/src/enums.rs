@@ -673,7 +673,7 @@ pub enum OpCodeOperandKind {
 	r8_opcode,
 	/// 16-bit GPR encoded in the `reg` field of the modrm byte
 	r16_reg,
-	/// 16-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand.
+	/// 16-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
 	r16_reg_mem,
 	/// 16-bit GPR encoded in the `mod + r/m` fields of the modrm byte
 	r16_rm,
@@ -681,7 +681,7 @@ pub enum OpCodeOperandKind {
 	r16_opcode,
 	/// 32-bit GPR encoded in the `reg` field of the modrm byte
 	r32_reg,
-	/// 32-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand.
+	/// 32-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
 	r32_reg_mem,
 	/// 32-bit GPR encoded in the `mod + r/m` fields of the modrm byte
 	r32_rm,
@@ -691,7 +691,7 @@ pub enum OpCodeOperandKind {
 	r32_vvvv,
 	/// 64-bit GPR encoded in the `reg` field of the modrm byte
 	r64_reg,
-	/// 64-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand.
+	/// 64-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
 	r64_reg_mem,
 	/// 64-bit GPR encoded in the `mod + r/m` fields of the modrm byte
 	r64_rm,
