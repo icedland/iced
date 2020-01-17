@@ -29,7 +29,7 @@ namespace Iced.Intel
 	/// Defines an assembly memory operand used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{Base} + {Index} * {Scale} + {Displacement}")]
-	public readonly struct AssemblerMemoryOperand {
+	public readonly struct AssemblerMemoryOperand : IEquatable<AssemblerMemoryOperand> {
 		
 		/// <summary>
 		/// Creates a new instance.
@@ -215,5 +215,28 @@ namespace Iced.Intel
 		public static implicit operator MemoryOperand(AssemblerMemoryOperand v) {
 			return new MemoryOperand(v.Base, v.Index, v.Scale, (int)v.Displacement, v.DisplacementSize);
 		}
+
+		public bool Equals(AssemblerMemoryOperand other) => Size == other.Size && Prefix == other.Prefix && Base == other.Base && Index == other.Index && Scale == other.Scale && Displacement == other.Displacement && Flags == other.Flags;
+
+		public override bool Equals(object? obj) => obj is AssemblerMemoryOperand other && Equals(other);
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				var hashCode = (int) Size;
+				hashCode = (hashCode * 397) ^ (int) Prefix;
+				hashCode = (hashCode * 397) ^ (int) Base;
+				hashCode = (hashCode * 397) ^ (int) Index;
+				hashCode = (hashCode * 397) ^ Scale;
+				hashCode = (hashCode * 397) ^ Displacement.GetHashCode();
+				hashCode = (hashCode * 397) ^ (int) Flags;
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(AssemblerMemoryOperand left, AssemblerMemoryOperand right) => left.Equals(right);
+
+		public static bool operator !=(AssemblerMemoryOperand left, AssemblerMemoryOperand right) => !left.Equals(right);
 	}
 }
