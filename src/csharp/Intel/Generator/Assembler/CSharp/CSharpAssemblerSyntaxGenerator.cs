@@ -524,6 +524,9 @@ namespace Generator.Assembler.CSharp {
 				string endInstruction = ")";
 				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
 					beginInstruction = $"Instruction.Create{group.MemoName}(Bitness";
+					if (group.HasLabel) {
+						beginInstruction = $"AssignLabel({beginInstruction}, {instructionCreateArgs[0]})";
+					}
 				}
 				else if (group.HasLabel) {
 					optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
@@ -994,7 +997,7 @@ namespace Generator.Assembler.CSharp {
 				var selector = node.Selector;
 				Debug.Assert(selector != null);
 				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind);
-				if (selector.IsConditionInlineable) {
+				if (selector.IsConditionInlineable && selector.Kind != OpCodeSelectorKind.MemOffs64) {
 					writer.Write($"op = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
 					writer.Write(" : ");

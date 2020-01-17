@@ -4589,13 +4589,25 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>386+</c><br/>
 		/// <br/>
-		/// <c>16/32-bit</c></summary>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CALL rel16</c><br/>
+		/// <br/>
+		/// <c>o16 E8 cw</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
 		public void call(Label dst) {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Call_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Call_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Call_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
 			}
@@ -13465,6 +13477,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 87 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void ja(Label dst) {
 			Code op;
@@ -13482,6 +13504,8 @@ namespace Iced.Intel {
 				op = Code.Ja_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Ja_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Ja_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
 			}
@@ -13537,6 +13561,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 83 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jae(Label dst) {
 			Code op;
@@ -13554,6 +13588,8 @@ namespace Iced.Intel {
 				op = Code.Jae_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jae_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jae_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
 			}
@@ -13609,6 +13645,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 82 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jb(Label dst) {
 			Code op;
@@ -13626,6 +13672,8 @@ namespace Iced.Intel {
 				op = Code.Jb_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jb_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jb_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
 			}
@@ -13681,6 +13729,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 86 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jbe(Label dst) {
 			Code op;
@@ -13698,6 +13756,8 @@ namespace Iced.Intel {
 				op = Code.Jbe_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jbe_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jbe_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
 			}
@@ -13769,6 +13829,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 84 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void je(Label dst) {
 			Code op;
@@ -13786,6 +13856,8 @@ namespace Iced.Intel {
 				op = Code.Je_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Je_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Je_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Je, dst);
 			}
@@ -13857,6 +13929,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8F cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jg(Label dst) {
 			Code op;
@@ -13874,6 +13956,8 @@ namespace Iced.Intel {
 				op = Code.Jg_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jg_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jg_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
 			}
@@ -13929,6 +14013,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8D cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jge(Label dst) {
 			Code op;
@@ -13946,6 +14040,8 @@ namespace Iced.Intel {
 				op = Code.Jge_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jge_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jge_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
 			}
@@ -14001,6 +14097,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8C cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jl(Label dst) {
 			Code op;
@@ -14018,6 +14124,8 @@ namespace Iced.Intel {
 				op = Code.Jl_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jl_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jl_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
 			}
@@ -14073,6 +14181,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8E cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jle(Label dst) {
 			Code op;
@@ -14090,6 +14208,8 @@ namespace Iced.Intel {
 				op = Code.Jle_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jle_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jle_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
 			}
@@ -14231,6 +14351,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>JMP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 E9 cw</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>JMP rel8</c><br/>
 		/// <br/>
 		/// <c>o16 EB cb</c><br/>
@@ -14254,6 +14384,8 @@ namespace Iced.Intel {
 				op = Code.Jmp_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jmp_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jmp_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
 			}
@@ -14399,6 +14531,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 85 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jne(Label dst) {
 			Code op;
@@ -14416,6 +14558,8 @@ namespace Iced.Intel {
 				op = Code.Jne_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jne_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jne_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
 			}
@@ -14471,6 +14615,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 81 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jno(Label dst) {
 			Code op;
@@ -14488,6 +14642,8 @@ namespace Iced.Intel {
 				op = Code.Jno_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jno_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jno_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
 			}
@@ -14543,6 +14699,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8B cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jnp(Label dst) {
 			Code op;
@@ -14560,6 +14726,8 @@ namespace Iced.Intel {
 				op = Code.Jnp_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jnp_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jnp_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
 			}
@@ -14615,6 +14783,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 89 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jns(Label dst) {
 			Code op;
@@ -14632,6 +14810,8 @@ namespace Iced.Intel {
 				op = Code.Jns_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jns_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jns_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
 			}
@@ -14687,6 +14867,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 80 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jo(Label dst) {
 			Code op;
@@ -14704,6 +14894,8 @@ namespace Iced.Intel {
 				op = Code.Jo_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jo_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jo_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
 			}
@@ -14759,6 +14951,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8A cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jp(Label dst) {
 			Code op;
@@ -14776,6 +14978,8 @@ namespace Iced.Intel {
 				op = Code.Jp_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Jp_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Jp_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
 			}
@@ -14847,6 +15051,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 88 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void js(Label dst) {
 			Code op;
@@ -14864,6 +15078,8 @@ namespace Iced.Intel {
 				op = Code.Js_rel32_64;
 			} else if (Bitness >= 32) {
 				op = Code.Js_rel32_32;
+			} else if (Bitness >= 16) {
+				op = Code.Js_rel16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Js, dst);
 			}
@@ -16037,22 +16253,6 @@ namespace Iced.Intel {
 			op = Code.Lar_r32_r32m16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>lar instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LAR r64, r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 02 /r</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void lar(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
-			Code op;
-			op = Code.Lar_r64_r64m16;
-			AddInstruction(Instruction.Create(op, dst, src));
-		}
 		/// <summary>lddqu instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -16338,16 +16538,12 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void lgdt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (Bitness == 64) {
 				op = Code.Lgdt_m1664;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				if (Bitness >= 32) {
-					op = Code.Lgdt_m1632;
-				} else if (Bitness >= 16) {
-					op = Code.Lgdt_m1632_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Lgdt, dst);
-				}
+			} else if (Bitness >= 32) {
+				op = Code.Lgdt_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Lgdt_m1632_16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Lgdt, dst);
 			}
@@ -16434,16 +16630,12 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void lidt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (Bitness == 64) {
 				op = Code.Lidt_m1664;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				if (Bitness >= 32) {
-					op = Code.Lidt_m1632;
-				} else if (Bitness >= 16) {
-					op = Code.Lidt_m1632_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Lidt, dst);
-				}
+			} else if (Bitness >= 32) {
+				op = Code.Lidt_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Lidt_m1632_16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Lidt, dst);
 			}
@@ -16501,16 +16693,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>LLDT r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /2</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>LLDT r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /2</c><br/>
@@ -16530,9 +16712,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Lldt_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Lldt_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Lldt_rm16;
@@ -16625,16 +16805,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>LMSW r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 01 /6</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>LMSW r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 01 /6</c><br/>
@@ -16654,9 +16824,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lmsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Lmsw_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Lmsw_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Lmsw_rm16;
@@ -16961,22 +17129,6 @@ namespace Iced.Intel {
 			op = Code.Lsl_r32_r32m16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
-		/// <summary>lsl instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>LSL r64, r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 03 /r</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void lsl(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
-			Code op;
-			op = Code.Lsl_r64_r64m16;
-			AddInstruction(Instruction.Create(op, dst, src));
-		}
 		/// <summary>lss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -17077,16 +17229,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>LTR r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /3</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>LTR r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /3</c><br/>
@@ -17106,9 +17248,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ltr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Ltr_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Ltr_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Ltr_rm16;
@@ -17828,7 +17968,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister8 src) {
 			Code op;
-			op = dst.IsDisplacement64BitOnly ? Code.Mov_moffs8_AL : Code.Mov_rm8_r8;
+			if (dst.IsDisplacement64BitOnly) {
+				op = Code.Mov_moffs8_AL;
+				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
+				return;
+			} else op = Code.Mov_rm8_r8;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -17886,7 +18030,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			op = dst.IsDisplacement64BitOnly ? Code.Mov_moffs16_AX : Code.Mov_rm16_r16;
+			if (dst.IsDisplacement64BitOnly) {
+				op = Code.Mov_moffs16_AX;
+				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
+				return;
+			} else op = Code.Mov_rm16_r16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -17992,7 +18140,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			op = dst.IsDisplacement64BitOnly ? Code.Mov_moffs32_EAX : Code.Mov_rm32_r32;
+			if (dst.IsDisplacement64BitOnly) {
+				op = Code.Mov_moffs32_EAX;
+				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
+				return;
+			} else op = Code.Mov_rm32_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18082,7 +18234,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			op = dst.IsDisplacement64BitOnly ? Code.Mov_moffs64_RAX : Code.Mov_rm64_r64;
+			if (dst.IsDisplacement64BitOnly) {
+				op = Code.Mov_moffs64_RAX;
+				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
+				return;
+			} else op = Code.Mov_rm64_r64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18137,16 +18293,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>MOV r64/m16, Sreg</c><br/>
-		/// <br/>
-		/// <c>REX.W 8C /r</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>MOV r32/m16, Sreg</c><br/>
 		/// <br/>
 		/// <c>o32 8C /r</c><br/>
@@ -18166,9 +18312,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegisterSegment src) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Mov_r64m16_Sreg;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Mov_r32m16_Sreg;
 			} else if (Bitness >= 16) {
 				op = Code.Mov_rm16_Sreg;
@@ -18280,7 +18424,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister8 dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = src.IsDisplacement64BitOnly ? Code.Mov_AL_moffs8 : Code.Mov_r8_rm8;
+			if (src.IsDisplacement64BitOnly) {
+				op = Code.Mov_AL_moffs8;
+				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
+				return;
+			} else op = Code.Mov_r8_rm8;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18306,7 +18454,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister16 dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = src.IsDisplacement64BitOnly ? Code.Mov_AX_moffs16 : Code.Mov_r16_rm16;
+			if (src.IsDisplacement64BitOnly) {
+				op = Code.Mov_AX_moffs16;
+				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
+				return;
+			} else op = Code.Mov_r16_rm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18332,7 +18484,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister32 dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = src.IsDisplacement64BitOnly ? Code.Mov_EAX_moffs32 : Code.Mov_r32_rm32;
+			if (src.IsDisplacement64BitOnly) {
+				op = Code.Mov_EAX_moffs32;
+				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
+				return;
+			} else op = Code.Mov_r32_rm32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18358,20 +18514,14 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = src.IsDisplacement64BitOnly ? Code.Mov_RAX_moffs64 : Code.Mov_r64_rm64;
+			if (src.IsDisplacement64BitOnly) {
+				op = Code.Mov_RAX_moffs64;
+				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
+				return;
+			} else op = Code.Mov_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV Sreg, r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 8E /r</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -18394,9 +18544,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegisterSegment dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Mov_Sreg_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Mov_Sreg_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Mov_Sreg_rm16;
@@ -24203,16 +24351,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>PEXTRW r64/m16, xmm, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>PEXTRW r32/m16, xmm, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F 3A 15 /r ib</c><br/>
@@ -24222,13 +24360,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pextrw(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Pextrw_r64m16_xmm_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pextrw_r32m16_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrw, dst, src1, imm);
-			}
+			op = Code.Pextrw_r32m16_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>pf2id instruction.<br/>
@@ -25579,16 +25711,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>PINSRW mm, r64/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>NP REX.W 0F C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>PINSRW mm, r32/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>NP 0F C4 /r ib</c><br/>
@@ -25598,26 +25720,10 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pinsrw(AssemblerRegisterMM dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Pinsrw_mm_r64m16_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pinsrw_mm_r32m16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrw, dst, src1, imm);
-			}
+			op = Code.Pinsrw_mm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>pinsrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRW xmm, r64/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -25630,13 +25736,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pinsrw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Pinsrw_xmm_r64m16_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pinsrw_xmm_r32m16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrw, dst, src1, imm);
-			}
+			op = Code.Pinsrw_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>pmaddubsw instruction.<br/>
@@ -31519,6 +31619,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>RDRAND r16</c><br/>
+		/// <br/>
+		/// <c>o16 0F C7 /6</c><br/>
+		/// <br/>
+		/// <c>RDRAND</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void rdrand(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Rdrand_r16;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>rdrand instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>RDRAND r32</c><br/>
 		/// <br/>
 		/// <c>o32 0F C7 /6</c><br/>
@@ -31545,6 +31661,22 @@ namespace Iced.Intel {
 		public void rdrand(AssemblerRegister64 dst) {
 			Code op;
 			op = Code.Rdrand_r64;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>rdseed instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>RDSEED r16</c><br/>
+		/// <br/>
+		/// <c>o16 0F C7 /7</c><br/>
+		/// <br/>
+		/// <c>RDSEED</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void rdseed(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Rdseed_r16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>rdseed instruction.<br/>
@@ -34612,16 +34744,12 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void sgdt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (Bitness == 64) {
 				op = Code.Sgdt_m1664;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				if (Bitness >= 32) {
-					op = Code.Sgdt_m1632;
-				} else if (Bitness >= 16) {
-					op = Code.Sgdt_m1632_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sgdt, dst);
-				}
+			} else if (Bitness >= 32) {
+				op = Code.Sgdt_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Sgdt_m1632_16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sgdt, dst);
 			}
@@ -36124,16 +36252,12 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void sidt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (Bitness == 64) {
 				op = Code.Sidt_m1664;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				if (Bitness >= 32) {
-					op = Code.Sidt_m1632;
-				} else if (Bitness >= 16) {
-					op = Code.Sidt_m1632_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sidt, dst);
-				}
+			} else if (Bitness >= 32) {
+				op = Code.Sidt_m1632;
+			} else if (Bitness >= 16) {
+				op = Code.Sidt_m1632_16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sidt, dst);
 			}
@@ -36207,16 +36331,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SLDT r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /0</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SLDT r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /0</c><br/>
@@ -36236,9 +36350,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Sldt_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Sldt_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Sldt_rm16;
@@ -36331,16 +36443,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SMSW r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 01 /4</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SMSW r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 01 /4</c><br/>
@@ -36360,9 +36462,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void smsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Smsw_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Smsw_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Smsw_rm16;
@@ -36703,16 +36803,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>STR r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /1</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>STR r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /1</c><br/>
@@ -36732,9 +36822,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void str(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Str_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Str_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Str_rm16;
@@ -38239,6 +38327,22 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>UMONITOR r16</c><br/>
+		/// <br/>
+		/// <c>a16 F3 0F AE /6</c><br/>
+		/// <br/>
+		/// <c>WAITPKG</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void umonitor(AssemblerRegister16 dst) {
+			Code op;
+			op = Code.Umonitor_r16;
+			AddInstruction(Instruction.Create(op, dst));
+		}
+		/// <summary>umonitor instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>UMONITOR r32</c><br/>
 		/// <br/>
 		/// <c>a32 F3 0F AE /6</c><br/>
@@ -38570,6 +38674,70 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Unpcklps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src));
+		}
+		/// <summary>v4fmaddps instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>V4FMADDPS zmm1 {k1}{z}, zmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 9A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4FMAPS</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void v4fmaddps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_V4fmaddps_zmm_k1z_zmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+		}
+		/// <summary>v4fmaddss instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>V4FMADDSS xmm1 {k1}{z}, xmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F38.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4FMAPS</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void v4fmaddss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_V4fmaddss_xmm_k1z_xmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+		}
+		/// <summary>v4fnmaddps instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>V4FNMADDPS zmm1 {k1}{z}, zmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 AA /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4FMAPS</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void v4fnmaddps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+		}
+		/// <summary>v4fnmaddss instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>V4FNMADDSS xmm1 {k1}{z}, xmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F38.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4FMAPS</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void v4fnmaddss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vaddpd instruction.<br/>
 		/// <br/>
@@ -50237,16 +50405,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VERR r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /4</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VERR r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /4</c><br/>
@@ -50266,9 +50424,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Verr_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Verr_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Verr_rm16;
@@ -50329,16 +50485,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VERW r64/m16</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F 00 /5</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VERW r32/m16</c><br/>
 		/// <br/>
 		/// <c>o32 0F 00 /5</c><br/>
@@ -50358,9 +50504,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Verw_r64m16;
-			} else if (Bitness >= 32) {
+			if (Bitness >= 32) {
 				op = Code.Verw_r32m16;
 			} else if (Bitness >= 16) {
 				op = Code.Verw_rm16;
@@ -65594,6 +65738,230 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.EVEX_Vorps_zmm_k1z_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_xmm_xmmm128b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_ymm_ymmm256b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, zmm2, zmm3/m512/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_zmm_zmmm512b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, xmm2, xmm3/m128/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_xmm_xmmm128b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, ymm2, ymm3/m256/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_ymm_ymmm256b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp2intersectd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTD k1+1, zmm2, zmm3/m512/m32bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectd_kp1_zmm_zmmm512b32;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, xmm2, xmm3/m128/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_xmm_xmmm128b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, ymm2, ymm3/m256/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_ymm_ymmm256b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, zmm2, zmm3/m512/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_zmm_zmmm512b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2));
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, xmm2, xmm3/m128/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.128.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_xmm_xmmm128b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, ymm2, ymm3/m256/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.256.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512VL and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_ymm_ymmm256b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp2intersectq instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP2INTERSECTQ k1+1, zmm2, zmm3/m512/m64bcst</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W1 68 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F and AVX512_VP2INTERSECT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp2intersectq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp2intersectq_kp1_zmm_zmmm512b64;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
+		}
+		/// <summary>vp4dpwssd instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP4DPWSSD zmm1 {k1}{z}, zmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 52 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4VNNIW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp4dpwssd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+		}
+		/// <summary>vp4dpwssds instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VP4DPWSSDS zmm1 {k1}{z}, zmm2+3, m128</c><br/>
+		/// <br/>
+		/// <c>EVEX.512.F2.0F38.W0 53 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512_4VNNIW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vp4dpwssds(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
+			Code op;
+			op = Code.EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpabsb instruction.<br/>
 		/// <br/>
