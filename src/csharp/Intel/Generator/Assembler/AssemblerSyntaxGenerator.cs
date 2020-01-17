@@ -149,6 +149,15 @@ namespace Generator.Assembler {
 			Code.Jecxz_rel8_16,
 			Code.Jecxz_rel8_64,
 			Code.Jrcxz_rel8_16,
+			
+			Code.Popw_CS,
+			
+			// The following are implemented manually
+			Code.Call_ptr1616,
+			Code.Call_ptr1632,
+			Code.Xlat_m8,
+			Code.Jmp_ptr1616,
+			Code.Jmp_ptr1632,
 		};
 		
 		static readonly Dictionary<Code, string> MapOpCodeToNewName = new Dictionary<Code, string>() {
@@ -489,7 +498,8 @@ namespace Generator.Assembler {
 						// discard r16m16
 						bool hasR64M16 = IsR64M16(code);
 						if (!hasR64M16) {
-							var group = AddOpCodeToGroup(name, memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
+							var localName = RenameBroadcasts(name, code);
+							var group = AddOpCodeToGroup(localName, memoName, signature, code, opCodeArgFlags, pseudoOpsKind);
 							group.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 							group.UpdateMaxArgSizes(argSizes);
 						}
@@ -706,6 +716,7 @@ namespace Generator.Assembler {
 				case "lidt":
 				case "sgdt":
 				case "sidt":
+				case "bndmov":
 					selectors = new OrderedSelectorList();
 					break;
 				default:
@@ -2233,6 +2244,54 @@ namespace Generator.Assembler {
 
 			return false;
 		}
+
+		static string RenameBroadcasts(string name, OpCodeInfo opCodeInfo) {
+			OpCodeOperandKind? kind = null;
+			switch ((Code)opCodeInfo.Code.Value) {
+			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64:
+			case Code.EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64:
+			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32:
+			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32:
+				kind = GetOperandKind(opCodeInfo, 1);
+				break;
+			case Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8:
+			case Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8:
+			case Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8:
+			case Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8:
+			case Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8:
+			case Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8:
+				kind = GetOperandKind(opCodeInfo, 0);
+				break;
+			}
+
+			if (kind != null) {
+				switch (kind) {
+					case OpCodeOperandKind.xmm_or_mem:
+						return $"{name}x";
+					case OpCodeOperandKind.ymm_or_mem:
+						return $"{name}y";
+					case OpCodeOperandKind.zmm_or_mem:
+						return $"{name}z";
+				}
+			}
+
+			return name;
+		}
+		
+		
+		
 
 		protected readonly struct OpCodeNode {
 			readonly object _value;

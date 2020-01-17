@@ -291,6 +291,28 @@ namespace Iced.Intel {
 			}
 		}
 
+		/// <summary>call ptr1632/ptr1616 instruction.</summary>
+		public void call(ushort basePtr, uint address) {
+			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, basePtr, address));
+		}
+		
+		/// <summary>jmp ptr1632/ptr1616 instruction.</summary>
+		public void jmp(ushort basePtr, uint address) {
+			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, basePtr, address));
+		}
+		
+		/// <summary>xlatb instruction.</summary>
+		public void xlatb() {
+			if (Bitness == 64) {
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1)));
+			} else if (Bitness == 32) {
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1)));
+			}
+			else {
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.BX, Register.AL, 1)));
+			}
+		}
+
 		/// <summary>
 		/// Encode the instructions of this assembler with the specified options.
 		/// </summary>

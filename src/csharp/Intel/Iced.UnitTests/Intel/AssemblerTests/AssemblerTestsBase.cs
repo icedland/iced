@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.IO;
 using System.Text;
+using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
@@ -39,8 +40,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public int Bitness => _bitness;
 		
 		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
-			var stream = new MemoryStream();
-			var assembler = Assembler.Create(_bitness, new StreamCodeWriter(stream));
+			var writer = new CodeWriterImpl();
+			var assembler = Assembler.Create(_bitness, writer);
 			
 			// Encode the instruction
 			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
@@ -113,15 +114,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			decoderOptions |= DecoderOptions.AmdBranches;
 
 			// Check decoding back against the original instruction
-			stream.Position = 0;
 			var instructionAsBytes = new StringBuilder();
-			while (stream.Position < stream.Length)
+			foreach(var b in writer.ToArray())
 			{
-				instructionAsBytes.Append($"{stream.ReadByte():x2} ");
+				instructionAsBytes.Append($"{b:x2} ");
 			}
-			stream.Position = 0;
 			
-			var decoder = Decoder.Create(_bitness, new StreamCodeReader(stream), decoderOptions);
+			var decoder = Decoder.Create(_bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
 			var againstInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(againstInst, Instruction.Create(Code.Wait));
@@ -169,14 +168,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 
 			// Reset IP to 0 when matching against decode
-			if ((flags & LocalOpCodeFlags.Branch) != 0) {
-				inst.NearBranch32 = 0;
+			if (inst.Code != Code.Jmpe_disp16 && inst.Code != Code.Jmpe_disp32 && (flags & LocalOpCodeFlags.Branch) != 0) {
+			 	inst.NearBranch32 = 0;
 			}
 
 			// TODO: check why decoding doesn't return the same
-			if (againstInst.Code == Code.Xbegin_rel16 || againstInst.Code == Code.Xbegin_rel32) return;
+			//if (againstInst.Code == Code.Xbegin_rel16 || againstInst.Code == Code.Xbegin_rel32) return;
 			
-			Assert.True(inst == againstInst, $"Expected: {inst} ({instructionAsBytes})\nActual: {againstInst}\n");
+			Assert.True(inst == againstInst, $"Decoding failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {againstInst}\n");
 		}
 
 		protected Label CreateAndEmitLabel(Assembler c) {
@@ -235,30 +234,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			PreferBranchShort = 1 << 3,
 			PreferBranchNear = 1 << 4,
 			Branch = 1 << 5,
-		}
-		
-		sealed class StreamCodeWriter : CodeWriter {
-			readonly Stream _stream;
-
-			public StreamCodeWriter(Stream stream) {
-				_stream = stream;
-			}
-
-			public override void WriteByte(byte value) {
-				_stream.WriteByte(value);
-			}
-		}
-		
-		sealed class StreamCodeReader : CodeReader {
-			readonly Stream _stream;
-
-			public StreamCodeReader(Stream stream) {
-				_stream = stream;
-			}
-
-			public override int ReadByte() {
-				return _stream.ReadByte();
-			}
 		}
 	}
 }

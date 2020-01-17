@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -127,7 +126,7 @@ namespace Generator.Assembler.CSharp {
 					writerTests.WriteLine("using Xunit;");
 					writerTests.WriteLine("using static Iced.Intel.AssemblerRegisters;");
 
-					writerTests.WriteLine($"public sealed class {testName} : AssemblerTestsBase {{");
+					writerTests.WriteLine($"public sealed partial class {testName} : AssemblerTestsBase {{");
 					using (writerTests.Indent())
 					{
 						writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
@@ -438,7 +437,7 @@ namespace Generator.Assembler.CSharp {
 		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo != null) {
-				if ((opCodeInfo.Flags & bitnessFlags) == 0) {
+				if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx"))) {
 					writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
 					return;
 				}
@@ -520,6 +519,10 @@ namespace Generator.Assembler.CSharp {
 					optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
 				}
 
+				if (group.HasLabel) {
+					optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
+				}
+
 				string beginInstruction = $"Instruction.Create(Code.{opCodeInfo.Code.Name(Converter)}";
 				string endInstruction = ")";
 				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
@@ -529,7 +532,6 @@ namespace Generator.Assembler.CSharp {
 					}
 				}
 				else if (group.HasLabel) {
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
 					beginInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}, {instructionCreateArgs[0]})";
 				}
 
@@ -548,7 +550,13 @@ namespace Generator.Assembler.CSharp {
 				case Code.Mov_moffs16_AX:
 				case Code.Mov_moffs32_EAX:
 				case Code.Mov_moffs64_RAX:
-					beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
+					if (bitness == 64) {
+						beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
+					}
+					else {
+						writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
+						return;
+					}
 					break;
 				}
 
@@ -572,7 +580,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine($"{{ /* if ({condition}) */");
 				} 
 				using (writer.Indent()) {
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex)) {
+					foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex, args)) {
 						var newArgValues = new List<object>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
@@ -588,7 +596,7 @@ namespace Generator.Assembler.CSharp {
 					else {
 						writer.Write("} /* else */ ");
 					}					
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex)) {
+					foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex, args)) {
 						var newArgValues = new List<object>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
@@ -649,7 +657,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
 				if (bitness == 16) {
-					return $"__[si + xmm{index}]";
+					return $"__[esi + xmm{index}]";
 				} else if (bitness == 32) {
 					return $"__[edx + xmm{index}]";
 				} else if (bitness == 64) {
@@ -659,7 +667,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.mem_vsib32y:
 			case OpCodeOperandKind.mem_vsib64y:
 				if (bitness == 16) {
-					return $"__[si + ymm{index}]";
+					return $"__[esi + ymm{index}]";
 				} else if (bitness == 32) {
 					return $"__[edx + ymm{index}]";
 				} else if (bitness == 64) {
@@ -669,7 +677,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.mem_vsib32z:
 			case OpCodeOperandKind.mem_vsib64z:
 				if (bitness == 16) {
-					return $"__[si + zmm{index}]";
+					return $"__[esi + zmm{index}]";
 				} else if (bitness == 32) {
 					return $"__[edx + zmm{index}]";
 				} else if (bitness == 64) {
@@ -1048,7 +1056,7 @@ namespace Generator.Assembler.CSharp {
 			var regName = arg.Name;
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
-				return $"{regName}.IsDisplacement64BitOnly";
+				return $"Bitness == 64 && {regName}.IsDisplacement64BitOnly";
 			case OpCodeSelectorKind.Bitness64:
 				return "Bitness == 64";
 			case OpCodeSelectorKind.Bitness32:
@@ -1150,18 +1158,18 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 		
-		static IEnumerable<string> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index) {
+		static IEnumerable<string> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
 				if (isElseBranch) {
 					if (bitness == 64) {
-						yield return $"__qword_ptr[rcx]";
+						yield return index == 0 ? $"__[rdi]" : $"__[rsi]";
 					}
 					else if (bitness == 32) {
-						yield return $"__dword_ptr[rcx]";
+						yield return index == 0 ? $"__[edi]" : $"__[esi]";
 					}
 					else if (bitness == 16) {
-						yield return $"__word_ptr[rcx]";
+						yield return index == 0 ? $"__[di]" : $"__[si]";
 					}
 				}
 				else {
@@ -1447,7 +1455,12 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return "__dword_ptr[di]";
+					if (args.Count == 2 && (args[0].Kind == ArgKind.RegisterBND || args[1].Kind == ArgKind.RegisterBND)) {
+						yield return "__dword_ptr[edi]";
+					}
+					else {
+						yield return "__dword_ptr[di]";
+					}
 				}
 				else if (bitness == 32) {
 					yield return "__dword_ptr[edx]";
@@ -1537,7 +1550,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return $"__[di + xmm{index}]";
+					yield return $"__[edi + xmm{index}]";
 				} else if (bitness == 32) {
 					yield return $"__[edx + xmm{index}]";
 				} else if (bitness == 64) {
@@ -1549,7 +1562,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return $"__[di + ymm{index}]";
+					yield return $"__[edi + ymm{index}]";
 				} else if (bitness == 32) {
 					yield return $"__[edx + ymm{index}]";
 				} else if (bitness == 64) {
@@ -1561,7 +1574,7 @@ namespace Generator.Assembler.CSharp {
 				if (isElseBranch) {
 					yield return null;
 				} else if (bitness == 16) {
-					yield return $"__[di + zmm{index}]";
+					yield return $"__[edi + zmm{index}]";
 				} else if (bitness == 32) {
 					yield return $"__[edx + zmm{index}]";
 				} else if (bitness == 64) {
