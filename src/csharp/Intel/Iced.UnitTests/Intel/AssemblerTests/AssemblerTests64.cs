@@ -1,3 +1,4 @@
+using System;
 using Iced.Intel;
 using Xunit;
 
@@ -5,6 +6,35 @@ using static Iced.Intel.AssemblerRegisters;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	public sealed partial class AssemblerTests64 {
+
+		[Fact]
+		public void TestManualInvalid() {
+			// loop_l
+			AssertInvalid(() => {
+				TestAssembler(c => c.loop(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+			});
+
+			// loope_l
+			AssertInvalid(() => {
+				TestAssembler(c => c.loope(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+			});
+
+			// loopne_l
+			AssertInvalid(() => {
+				TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+			});
+			
+			// pop_regSegment
+			AssertInvalid(() => {
+				TestAssembler(c => c.pop(cs), default);
+			});
+
+			// push_regSegment
+			// create a none register which won't match with any entries
+			AssertInvalid(() => {
+				TestAssembler(c => c.push(new AssemblerRegisterSegment()), default);
+			});
+		}
 
 		[Fact]
 		public void TestInstructionPrefixes() {

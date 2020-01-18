@@ -225,6 +225,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return instruction;
 		}
 
+		protected void AssertInvalid(Action action) {
+			var exception = Assert.Throws<InvalidOperationException>(action);
+			Assert.Contains("Unable to calculate an OpCode", exception.Message);
+		}
+
 		[Flags]
 		protected enum LocalOpCodeFlags {
 			None = 0,

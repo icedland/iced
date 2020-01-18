@@ -506,14 +506,43 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("}");
 					writer.WriteLine("{");
 					using (writer.Indent()) {
-						writer.WriteLine($"// TODO: test notfound");
+
+						bool isGenerated = false;
+						if (isSelectorSupportedByBitness && selector.ArgIndex >= 0) {
+							var newArg = GetInvalidArgValue(bitness, selector.Kind, selector.ArgIndex);
+							if (newArg != null) {
+
+								// Force fake bitness support to allow to generate a throw for the last selector
+								if (bitness == 64 && (group.Name == "bndcn" ||
+								                      group.Name == "bndmk" || 
+								                      group.Name == "bndcu" || 
+								                      group.Name == "bndcl")) {
+									bitness = bitness == 64 ? 32 : 16;
+									bitnessFlags = bitness == 64 ? OpCodeFlags.Mode32:  OpCodeFlags.Mode16;
+								}								
+								
+								writer.WriteLine("AssertInvalid( () => {");
+								using (writer.Indent()) {
+
+									var newArgValues = new List<object?>(argValues);
+									newArgValues[selector.ArgIndex] = newArg;
+									GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
+									isGenerated = true;
+								}
+								writer.WriteLine("});");
+							}
+						}
+
+						if (!isGenerated) {
+							writer.WriteLine($"// See manual test for this case {methodName}");
+						}
 					}
 					writer.WriteLine("}");
 				}
 			}
 		}
 
-		void GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo)
+		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo)
 		{
 			if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx")))
 			{
@@ -524,7 +553,7 @@ namespace Generator.Assembler.CSharp {
 				}
 
 				writer.WriteLine("}");
-				return;
+				return false;
 			}
 
 			bool isMoffs = IsMoffs(opCodeInfo);
@@ -661,6 +690,7 @@ namespace Generator.Assembler.CSharp {
 			var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
 
 			writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr});");
+			return true;
 		}
 
 		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index) {
@@ -1207,7 +1237,55 @@ namespace Generator.Assembler.CSharp {
 				return $"invalid_selector_{selectorKind}_for_arg_{regName}";
 			}
 		}
-		
+
+		static string GetInvalidArgValue(int bitness, OpCodeSelectorKind selectorKind, int argIndex) {
+			switch (selectorKind) {
+			case OpCodeSelectorKind.Memory8:
+			case OpCodeSelectorKind.Memory16:
+			case OpCodeSelectorKind.Memory32:
+			case OpCodeSelectorKind.Memory48:
+			case OpCodeSelectorKind.Memory80:
+			case OpCodeSelectorKind.Memory64:
+				if (bitness == 16) {
+					return "__zmmword_ptr[di]";
+				}
+				else if (bitness == 32) {
+					return "__zmmword_ptr[edx]";
+				}
+				else if (bitness == 64) {
+					return "__zmmword_ptr[rdx]";
+				}
+				break;
+			case OpCodeSelectorKind.MemoryMM:
+			case OpCodeSelectorKind.MemoryXMM:
+			case OpCodeSelectorKind.MemoryYMM:
+			case OpCodeSelectorKind.MemoryZMM:
+				if (bitness == 16) {
+					return "__byte_ptr[di]";
+				}
+				else if (bitness == 32) {
+					return "__byte_ptr[edx]";
+				}
+				else {
+					return "__byte_ptr[rdx]";
+				}
+			case OpCodeSelectorKind.MemoryIndex32Xmm:
+			case OpCodeSelectorKind.MemoryIndex64Xmm:
+			case OpCodeSelectorKind.MemoryIndex64Ymm:
+			case OpCodeSelectorKind.MemoryIndex32Ymm:
+				if (bitness == 16) {
+					return $"__[edi + zmm{argIndex}]";
+				} else if (bitness == 32) {
+					return $"__[edx + zmm{argIndex}]";
+				} else {
+					return $"__[rdx + zmm{argIndex}]";
+				}
+			}
+	
+			// Not supported
+			return null;
+		}
+	
 		static IEnumerable<string?> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
