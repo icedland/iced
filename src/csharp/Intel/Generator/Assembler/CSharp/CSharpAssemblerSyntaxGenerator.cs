@@ -91,9 +91,13 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("public sealed partial class Assembler {");
 					using (writer.Indent()) {
 						foreach (var group in groups) {
-							var renderArgs = GetRenderArgs(group);
+							var renderArgs = GetRenderArgs(group, out var hasImm8);
 							var methodName = Converter.Method(group.Name);
 							RenderCode(writer, methodName, group, renderArgs);
+							if (hasImm8) {
+								var renderArgsWithSbyte = ChangeByteToSignedByteArguments(renderArgs);
+								RenderCode(writer, methodName, group, renderArgsWithSbyte);
+							}
 						}
 					}
 					writer.WriteLine("}");
@@ -158,7 +162,7 @@ namespace Generator.Assembler.CSharp {
 								continue;
 							}
 							
-							var renderArgs = GetRenderArgs(@group);
+							var renderArgs = GetRenderArgs(@group, out _);
 							var methodName = Converter.Method(@group.Name);
 							RenderTests(bitness, bitnessFlags, writerTests, methodName, @group, renderArgs);
 						}
@@ -172,8 +176,21 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group) {
+		List<RenderArg> ChangeByteToSignedByteArguments(List<RenderArg> args) {
+			var newArgs = new List<RenderArg>(args.Count);
+			for (var i = 0; i < args.Count; i++) {
+				var arg = args[i];
+				if (arg.Kind == ArgKind.ImmediateByte) {
+					arg.Type = "sbyte";
+				}
+				newArgs.Add(arg);
+			}
+			return newArgs;
+		}
+
+		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group, out bool hasImm8) {
 			var renderArgs = new List<RenderArg>();
+			hasImm8 = false;
 
 			int immArg = 0;
 							
@@ -255,6 +272,7 @@ namespace Generator.Assembler.CSharp {
 					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
 					immArg++;
 					argType = "byte";
+					hasImm8 = true;
 					break;								
 
 				default:
