@@ -2360,8 +2360,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void extractps_m_regXMM_ib() {
-			{ // skip (Bitness == 64) not supported by this Assembler bitness
-			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+			TestAssembler(c => c.extractps(__dword_ptr[si], xmm1, (byte)127), Instruction.Create(Code.Extractps_rm32_xmm_imm8, __dword_ptr[si].ToMemoryOperand(Bitness), xmm1, (byte)127));
 		}
 
 		[Fact]
@@ -6181,8 +6180,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pextrb_m_regXMM_ib() {
-			{ // skip (Bitness == 64) not supported by this Assembler bitness
-			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+			TestAssembler(c => c.pextrb(__dword_ptr[si], xmm1, (byte)127), Instruction.Create(Code.Pextrb_r32m8_xmm_imm8, __dword_ptr[si].ToMemoryOperand(Bitness), xmm1, (byte)127));
 		}
 
 		[Fact]
@@ -6577,8 +6575,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pinsrb_regXMM_m_ib() {
-			{ // skip (Bitness == 64) not supported by this Assembler bitness
-			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+			TestAssembler(c => c.pinsrb(xmm0, __dword_ptr[si], (byte)127), Instruction.Create(Code.Pinsrb_xmm_r32m8_imm8, xmm0, __dword_ptr[si].ToMemoryOperand(Bitness), (byte)127));
 		}
 
 		[Fact]

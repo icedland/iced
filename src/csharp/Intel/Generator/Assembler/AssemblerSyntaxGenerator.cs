@@ -889,6 +889,9 @@ namespace Generator.Assembler {
 			if (testDiscard) {
 				switch ((Code)opCode.Code.Value) {
 				
+				case Code.Pextrb_r64m8_xmm_imm8:             // => Code.Pextrb_r32m8_xmm_imm8
+				case Code.Extractps_r64m32_xmm_imm8:         // => Code.Extractps_rm32_xmm_imm8	
+				case Code.Pinsrb_xmm_r64m8_imm8:             // => Code.Pinsrb_xmm_r32m8_imm8
 				case Code.Movq_rm64_xmm:                     // => Code.Movq_xmmm64_xmm
 				case Code.Movq_rm64_mm:                      // => Code.Movq_mmm64_mm
 				case Code.Movq_xmm_rm64:                     // => Code.Movq_xmm_rm64
