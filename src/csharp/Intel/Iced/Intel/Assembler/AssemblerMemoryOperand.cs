@@ -89,23 +89,16 @@ namespace Iced.Intel
 		public readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
-		/// Gets a boolean indicating if this memory operand is a memory access without a base/index and with a displacement bigger than 32-bit.
+		/// Gets a boolean indicating if this memory operand is a memory access using displacement only (no base and index registers are used).
 		/// </summary>
-		internal bool IsDisplacement64BitOnly => Base == Register.None && Index == Register.None && (Displacement < int.MinValue || Displacement > int.MaxValue);
-
+		internal bool IsDisplacementOnly => Base == Register.None && Index == Register.None;
+		
+		
 		/// <summary>
-		/// Gets the size of the displacement.
+		/// Gets a boolean indicating if this memory operand is a memory access using displacement only and with a displacement bigger than 32-bit.
 		/// </summary>
-		public int DisplacementSize {
-			get {
-				if (Displacement == 0) return 0;
+		internal bool IsDisplacement64BitOnly => IsDisplacementOnly && (Displacement < int.MinValue || Displacement > int.MaxValue);
 
-				if (Displacement >= sbyte.MinValue && Displacement <= sbyte.MaxValue) return 1;
-				if (Displacement >= short.MinValue && Displacement <= short.MaxValue) return 2;
-				if (Displacement >= int.MinValue && Displacement <= int.MaxValue) return 4;
-				return 8;
-			}
-		}
 		/// <summary>
 		/// Apply mask Register K1.
 		/// </summary>
@@ -185,12 +178,18 @@ namespace Iced.Intel
 		}
 
 		/// <summary>
-		/// Converts implicitly an <see cref="AssemblerMemoryOperand"/> to a <see cref="MemoryOperand"/>.
+		/// Gets a memory operand for the specified bitness.
 		/// </summary>
-		/// <param name="v">The memory operand.</param>
-		/// <returns></returns>
-		public static implicit operator MemoryOperand(AssemblerMemoryOperand v) {
-			return new MemoryOperand(v.Base, v.Index, v.Scale, (int)v.Displacement, v.DisplacementSize);
+		/// <param name="bitness">The bitness</param>
+		public MemoryOperand ToMemoryOperand(int bitness) {
+			int dispSize = 1;
+			if (IsDisplacementOnly) {
+				dispSize = bitness / 8;
+			}
+			else if (Displacement == 0) {
+				dispSize = 0;
+			}
+			return new MemoryOperand(Base, Index, Scale, (int)Displacement, dispSize);
 		}
 
 		/// <inheritdoc />

@@ -317,6 +317,9 @@ namespace Generator.Assembler.CSharp {
 						if (renderArg.Kind == ArgKind.Label) {
 							writer.Write(".Id");
 						}
+						else if (renderArg.Kind == ArgKind.Memory) {
+							writer.Write(".ToMemoryOperand(Bitness)");
+						}
 					}
 
 					writer.WriteLine("));");
@@ -352,6 +355,9 @@ namespace Generator.Assembler.CSharp {
 						writer.Write(renderArg.Name);
 						if (renderArg.Kind == ArgKind.Label) {
 							writer.Write(".Id");
+						}
+						else if (renderArg.Kind == ArgKind.Memory) {
+							writer.Write(".ToMemoryOperand(Bitness)");
 						}
 					}
 
@@ -470,6 +476,8 @@ namespace Generator.Assembler.CSharp {
 					return;
 				}
 
+				bool isMoffs = IsMoffs(opCodeInfo);
+
 				var assemblerArgs = new List<string>();
 				var instructionCreateArgs = new List<string>();
 				for (var i = 0; i < argValues.Count; i++) {
@@ -513,6 +521,9 @@ namespace Generator.Assembler.CSharp {
 					Debug.Assert(argValueForAssembler != null);
 					assemblerArgs.Add(argValueForAssembler);
 					Debug.Assert(argValueForInstructionCreate != null);
+					if (renderArg.Kind == ArgKind.Memory && (!isMoffs || bitness != 64)) {
+						argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
+					}
 					instructionCreateArgs.Add(argValueForInstructionCreate);
 				}
 
@@ -571,23 +582,8 @@ namespace Generator.Assembler.CSharp {
 				}
 
 				// Special case for moffs
-				switch ((Code)opCodeInfo.Code.Value) {
-				case Code.Mov_AL_moffs8:
-				case Code.Mov_AX_moffs16:
-				case Code.Mov_EAX_moffs32:
-				case Code.Mov_RAX_moffs64:
-				case Code.Mov_moffs8_AL:
-				case Code.Mov_moffs16_AX:
-				case Code.Mov_moffs32_EAX:
-				case Code.Mov_moffs64_RAX:
-					if (bitness == 64) {
-						beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
-					}
-					else {
-						writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
-						return;
-					}
-					break;
+				if (isMoffs && bitness == 64)  {
+					beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
 				}
 
 				var assemblerArgsStr = string.Join(", ", assemblerArgs);

@@ -1022,6 +1022,23 @@ namespace Generator.Assembler {
 			}
 			return false;
 		}
+
+		protected static bool IsMoffs(OpCodeInfo opCodeInfo) {
+			// Special case for moffs
+			switch ((Code)opCodeInfo.Code.Value) {
+			case Code.Mov_AL_moffs8:
+			case Code.Mov_AX_moffs16:
+			case Code.Mov_EAX_moffs32:
+			case Code.Mov_RAX_moffs64:
+			case Code.Mov_moffs8_AL:
+			case Code.Mov_moffs16_AX:
+			case Code.Mov_moffs32_EAX:
+			case Code.Mov_moffs64_RAX:
+				return true;
+			}
+
+			return false;
+		}
 		
 		static int GetMemoryAddressSize(OpCodeInfo opCodeInfo) {
 			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;

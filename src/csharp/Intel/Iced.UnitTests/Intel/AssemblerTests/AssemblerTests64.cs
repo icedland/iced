@@ -27,31 +27,31 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 
 			{
-				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx], rax);
+				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx].ToMemoryOperand(64), rax);
 				inst.HasXacquirePrefix = true;
 				TestAssembler( c=> c.xacquire.xchg(__[rdx], rax), inst);
 			}
 			
 			{
-				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx], rax);
+				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx].ToMemoryOperand(64), rax);
 				inst.HasLockPrefix = true;
 				TestAssembler( c=> c.@lock.xchg(__[rdx], rax), inst);
 			}
 			
 			{
-				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx], rax);
+				var inst = Instruction.Create(Code.Xchg_rm64_r64, __[rdx].ToMemoryOperand(64), rax);
 				inst.HasXreleasePrefix = true;
 				TestAssembler( c=> c.xrelease.xchg(__[rdx], rax), inst);
 			}
 
 			{
-				var inst = Instruction.Create(Code.Call_m1664, __[rax]);
+				var inst = Instruction.Create(Code.Call_m1664, __[rax].ToMemoryOperand(64));
 				inst.SegmentPrefix = Register.DS;
 				TestAssembler( c=> c.notrack.call(__[rax]), inst);
 			}
 
 			{
-				var inst = Instruction.Create(Code.Call_m1664, __[rax]);
+				var inst = Instruction.Create(Code.Call_m1664, __[rax].ToMemoryOperand(64));
 				inst.SegmentPrefix = Register.DS;
 				inst.HasRepnePrefix = true;
 				TestAssembler( c=> c.bnd.notrack.call(__[rax]), inst);
@@ -61,49 +61,49 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void TestOperandModifiers() {
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K1;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k1.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K2;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k2.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K3;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k3.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K4;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k4.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K5;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K6;
 				inst.IsBroadcast = true;
 				TestAssembler(c => c.vunpcklps(xmm2.k6.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			{
-				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax]);
+				var inst = Instruction.Create(Code.EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32, xmm2, xmm6, __[rax].ToMemoryOperand(64));
 				inst.ZeroingMasking = true;
 				inst.OpMask = Register.K7;
 				inst.IsBroadcast = true;
