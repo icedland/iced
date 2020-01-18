@@ -49,42 +49,42 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			
 			{
 				var m = __[sbyte.MinValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, sbyte.MinValue, 1), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, sbyte.MinValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 			
 			{
 				var m = __[sbyte.MaxValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, sbyte.MaxValue, 1), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, sbyte.MaxValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 			
 			{
 				var m = __[short.MinValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, short.MinValue, 2), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, short.MinValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __[short.MaxValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, short.MaxValue, 2), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, short.MaxValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __[int.MinValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, int.MinValue, 4), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, int.MinValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 
 			{
 				var m = __[int.MaxValue];
-				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, int.MaxValue, 4), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, int.MaxValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
@@ -174,8 +174,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 
 			{
-				var m = __[rsi + rdi * 2 + 512];
-				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 512, 2), m.ToMemoryOperand(64));
+				var m = __[rsi + rdi * 2 + 124];
+				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 124, 1), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
@@ -189,21 +189,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			
 			{
 				var m = __[rsi + rdi * 2 + 124];
-				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 512, 1), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 124, 1), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 			
 			{
 				var m = __dword_bcst[rsi + rdi * 2 + 124];
-				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 512, 1), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 124, 1, true, Register.None), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
 				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
 			{
-				var m1 = __qword_bcst[rsi + rdi * 2 + 512];
-				var m2 = __dword_bcst[rsi + rdi * 2 + 512];
+				var m1 = __qword_bcst[rsi + rdi * 2 + 124];
+				var m2 = __dword_bcst[rsi + rdi * 2 + 124];
 				Assert.NotEqual(m1, m2);
 				Assert.Equal(m1.ToMemoryOperand(64), m2.ToMemoryOperand(64));
 				Assert.NotEqual(m1.GetHashCode(), m2.GetHashCode());

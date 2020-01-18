@@ -684,7 +684,13 @@ namespace Generator.Assembler {
 				}
 
 				if (opCodesRAXMOffs.Count > 0) {
-					return new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs64) {IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), IfFalse = BuildSelectorGraph(group, group.Signature, group.Flags, newOpCodes)};
+					return new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs64) {
+						IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), 
+						IfFalse = new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs) {
+							IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), 
+							IfFalse = BuildSelectorGraph(group, group.Signature, group.Flags, newOpCodes)
+						}
+					};
 				}
 			}
 			
@@ -1926,20 +1932,26 @@ namespace Generator.Assembler {
 			return pseudoOpsKind;
 		}
 		
-		protected static bool IsBitness(OpCodeSelectorKind kind, out int bitness) {
-			bitness = 0;
+		protected static bool IsSelectorSupportedByBitness(int bitness, OpCodeSelectorKind kind, out bool continueElse) {
+			continueElse = true;
 			switch (kind) {
 			case OpCodeSelectorKind.Bitness64:
-				bitness = 64;
-				return true;
+				continueElse = false;
+				return bitness == 64;
+			case OpCodeSelectorKind.MemOffs64:
+				continueElse = true;
+				return bitness == 64;
 			case OpCodeSelectorKind.Bitness32:
-				bitness = 32;
-				return true;
+				continueElse = false;
+				return bitness >= 32;
 			case OpCodeSelectorKind.Bitness16:
-				bitness = 16;
-				return true;
+				continueElse = false;
+				return bitness >= 16;
+			case OpCodeSelectorKind.MemOffs:
+				continueElse = true;
+				return bitness < 64;
 			}
-			return false;
+			return true;
 		}
 
 		protected static (OpCodeArgFlags,OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
@@ -2413,6 +2425,7 @@ namespace Generator.Assembler {
 			MemoryZMM,
 			
 			MemOffs64,
+			MemOffs,
 		}
 	}
 }

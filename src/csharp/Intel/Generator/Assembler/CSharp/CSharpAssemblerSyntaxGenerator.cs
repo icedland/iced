@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Generator.Documentation.CSharp;
 using Generator.Encoder;
@@ -191,6 +192,7 @@ namespace Generator.Assembler.CSharp {
 		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group, out bool hasImm8) {
 			var renderArgs = new List<RenderArg>();
 			hasImm8 = false;
+			bool hasMemory = false;
 
 			int immArg = 0;
 							
@@ -258,6 +260,7 @@ namespace Generator.Assembler.CSharp {
 					break;
 
 				case ArgKind.Memory:
+					hasMemory = true;
 					argType = "AssemblerMemoryOperand";
 					break;
 								
@@ -281,6 +284,8 @@ namespace Generator.Assembler.CSharp {
 
 				renderArgs.Add(new RenderArg(argName, argType, argKind));
 			}
+
+			hasImm8 = hasImm8 && !hasMemory;
 			return renderArgs;
 		}
 
@@ -597,37 +602,37 @@ namespace Generator.Assembler.CSharp {
 				Debug.Assert(selector != null);
 				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
 				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind);
-				var isBitness = IsBitness(selector.Kind, out _);
+				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
 				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
-				if (isBitness) {
-					writer.WriteLine($"if ({condition}) {{");
+				if (isSelectorSupportedByBitness) {
+					writer.WriteLine($"{{ /* if ({condition}) */");
+					using (writer.Indent()) {
+						foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex, args)) {
+							var newArgValues = new List<object?>(argValues);
+							if (selector.ArgIndex >= 0) {
+								newArgValues[selector.ArgIndex] = argValue;
+							}
+							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
+						}
+					}
 				}
 				else {
-					writer.WriteLine($"{{ /* if ({condition}) */");
-				} 
-				using (writer.Indent()) {
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex, args)) {
-						var newArgValues = new List<object?>(argValues);
-						if (selector.ArgIndex >= 0) {
-							newArgValues[selector.ArgIndex] = argValue;
-						}
-						GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfTrue, args, newArgValues, contextFlags | contextIfFlags);
-					}
+					writer.WriteLine($"{{ // skip ({condition}) not supported by this Assembler bitness");
 				}
 
 				if (!selector.IfFalse.IsEmpty) {
-					if (isBitness) {
-						writer.Write("}  else ");
+					if (continueElse) {
+						writer.Write("} /* else */ ");
+						foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex, args)) {
+							var newArgValues = new List<object?>(argValues);
+							if (selector.ArgIndex >= 0) {
+								newArgValues[selector.ArgIndex] = argValue;
+							}
+							GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfFalse, args, newArgValues, contextFlags | contextElseFlags);
+						}
 					}
 					else {
-						writer.Write("} /* else */ ");
-					}					
-					foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex, args)) {
-						var newArgValues = new List<object?>(argValues);
-						if (selector.ArgIndex >= 0) {
-							newArgValues[selector.ArgIndex] = argValue;
-						}
-						GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, selector.IfFalse, args, newArgValues, contextFlags | contextElseFlags);
+						writer.WriteLine($"}} /* else skip ({condition}) not supported by this Assembler bitness */");
 					}
 				}
 				else {
@@ -1080,7 +1085,9 @@ namespace Generator.Assembler.CSharp {
 			var regName = arg.Name;
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
-				return $"Bitness == 64 && {regName}.IsDisplacement64BitOnly";
+				return $"Bitness == 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs:
+				return $"Bitness < 64 && {regName}.IsDisplacementOnly";
 			case OpCodeSelectorKind.Bitness64:
 				return "Bitness == 64";
 			case OpCodeSelectorKind.Bitness32:
@@ -1200,6 +1207,22 @@ namespace Generator.Assembler.CSharp {
 				}
 				else {
 					yield return $"__[0x0123456789abcdef]";
+				}
+				break;			
+			case OpCodeSelectorKind.MemOffs:
+				if (isElseBranch) {
+					if (bitness == 64) {
+						yield return index == 0 ? $"__[rdi]" : $"__[rsi]";
+					}
+					else if (bitness == 32) {
+						yield return index == 0 ? $"__[edi]" : $"__[esi]";
+					}
+					else if (bitness == 16) {
+						yield return index == 0 ? $"__[di]" : $"__[si]";
+					}
+				}
+				else {
+					yield return (bitness >= 32 ? $"__[0x01234567]" : $"__[0x01234]");
 				}
 				break;			
 			case OpCodeSelectorKind.Bitness64:

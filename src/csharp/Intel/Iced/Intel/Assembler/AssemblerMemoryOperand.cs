@@ -92,12 +92,6 @@ namespace Iced.Intel
 		/// Gets a boolean indicating if this memory operand is a memory access using displacement only (no base and index registers are used).
 		/// </summary>
 		internal bool IsDisplacementOnly => Base == Register.None && Index == Register.None;
-		
-		
-		/// <summary>
-		/// Gets a boolean indicating if this memory operand is a memory access using displacement only and with a displacement bigger than 32-bit.
-		/// </summary>
-		internal bool IsDisplacement64BitOnly => IsDisplacementOnly && (Displacement < int.MinValue || Displacement > int.MaxValue);
 
 		/// <summary>
 		/// Apply mask Register K1.
@@ -189,7 +183,7 @@ namespace Iced.Intel
 			else if (Displacement == 0) {
 				dispSize = 0;
 			}
-			return new MemoryOperand(Base, Index, Scale, (int)Displacement, dispSize);
+			return new MemoryOperand(Base, Index, Scale, (int)Displacement, dispSize, (Flags & AssemblerOperandFlags.Broadcast) != 0, Prefix);
 		}
 
 		/// <inheritdoc />

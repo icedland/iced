@@ -583,22 +583,6 @@ namespace Iced.Intel {
 			op = Code.Adc_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>adc instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADC r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /2 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void adc(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			op = Code.Adc_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>adcx instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -1121,22 +1105,6 @@ namespace Iced.Intel {
 			op = Code.Add_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>add instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ADD r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void add(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			op = Code.Add_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>addpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -1601,22 +1569,6 @@ namespace Iced.Intel {
 			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>aeskeygenassist instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>AESKEYGENASSIST xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A DF /r ib</c><br/>
-		/// <br/>
-		/// <c>AES</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void aeskeygenassist(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Aeskeygenassist_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>and instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -2071,22 +2023,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void and(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.And_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>and instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>AND r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /4 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void and(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.And_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
@@ -2843,22 +2779,6 @@ namespace Iced.Intel {
 			op = Code.Blendpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>blendpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BLENDPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0D /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void blendpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Blendpd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>blendps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -2903,22 +2823,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void blendps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Blendps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>blendps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BLENDPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0C /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void blendps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Blendps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -4139,50 +4043,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>bt instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BT r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F BA /4 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BT r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F BA /4 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BT r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F BA /4 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void bt(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Bt_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Bt_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Bt_rm16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Bt, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>btc instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -4407,50 +4267,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void btc(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Btc_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Btc_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Btc_rm16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Btc, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>btc instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTC r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F BA /7 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTC r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F BA /7 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTC r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F BA /7 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void btc(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Btc_rm64_imm8;
@@ -4699,50 +4515,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>btr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F BA /6 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F BA /6 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F BA /6 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void btr(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Btr_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Btr_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Btr_rm16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Btr, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>bts instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -4967,50 +4739,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void bts(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Bts_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Bts_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Bts_rm16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Bts, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>bts instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTS r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F BA /5 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTS r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F BA /5 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>BTS r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F BA /5 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void bts(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Bts_rm64_imm8;
@@ -7539,22 +7267,6 @@ namespace Iced.Intel {
 			op = Code.Cmp_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>cmp instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMP r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /7 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void cmp(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			op = Code.Cmp_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>cmpeqpd instruction.</summary>
 		public void cmpeqpd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			cmppd(dst, src, 0);
@@ -7827,22 +7539,6 @@ namespace Iced.Intel {
 			op = Code.Cmppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>cmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMPPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void cmppd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Cmppd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>cmpps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -7887,22 +7583,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void cmpps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Cmpps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>cmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMPPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void cmpps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Cmpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -7983,22 +7663,6 @@ namespace Iced.Intel {
 			op = Code.Cmpsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>cmpsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMPSD xmm1, xmm2/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>F2 0F C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void cmpsd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Cmpsd_xmm_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>cmpsq instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -8057,22 +7721,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void cmpss(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Cmpss_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>cmpss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>CMPSS xmm1, xmm2/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>F3 0F C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void cmpss(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Cmpss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -9911,22 +9559,6 @@ namespace Iced.Intel {
 			op = Code.Dppd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>dppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>DPPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 41 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void dppd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Dppd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>dpps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -9971,22 +9603,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void dpps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Dpps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>dpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>DPPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 40 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void dpps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Dpps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -10345,38 +9961,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void extractps(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			if (Bitness == 64) {
-				op = Code.Extractps_r64m32_xmm_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Extractps_rm32_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Extractps, dst, src1, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>extractps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>EXTRACTPS r64/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>EXTRACTPS r/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void extractps(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Extractps_r64m32_xmm_imm8;
@@ -12983,22 +12567,6 @@ namespace Iced.Intel {
 			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>gf2p8affineinvqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>GF2P8AFFINEINVQB xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A CF /r ib</c><br/>
-		/// <br/>
-		/// <c>GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineinvqb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Gf2p8affineinvqb_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>gf2p8affineqb instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -13043,22 +12611,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void gf2p8affineqb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>gf2p8affineqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>GF2P8AFFINEQB xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A CE /r ib</c><br/>
-		/// <br/>
-		/// <c>GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void gf2p8affineqb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Gf2p8affineqb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -14163,22 +13715,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void insertps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Insertps_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>insertps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>INSERTPS xmm1, xmm2/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 21 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void insertps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Insertps_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -18966,11 +18502,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister8 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs8_AL;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Code.Mov_rm8_r8;
+			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs8_AL : Code.Mov_rm8_r8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19028,11 +18564,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs16_AX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Code.Mov_rm16_r16;
+			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs16_AX : Code.Mov_rm16_r16;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19138,11 +18674,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs32_EAX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Code.Mov_rm32_r32;
+			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs32_EAX : Code.Mov_rm32_r32;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19232,11 +18768,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs64_RAX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Code.Mov_rm64_r64;
+			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs64_RAX : Code.Mov_rm64_r64;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19416,11 +18952,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister8 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_AL_moffs8;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Code.Mov_r8_rm8;
+			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AL_moffs8 : Code.Mov_r8_rm8;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19446,11 +18982,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister16 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_AX_moffs16;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Code.Mov_r16_rm16;
+			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AX_moffs16 : Code.Mov_r16_rm16;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19476,11 +19012,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister32 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_EAX_moffs32;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Code.Mov_r32_rm32;
+			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_EAX_moffs32 : Code.Mov_r32_rm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19506,11 +19042,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacement64BitOnly) {
+			if (Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_RAX_moffs64;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Code.Mov_r64_rm64;
+			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_RAX_moffs64 : Code.Mov_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19675,22 +19211,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.Mov_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>mov instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void mov(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.Mov_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
@@ -21623,22 +21143,6 @@ namespace Iced.Intel {
 			op = Code.Mpsadbw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>mpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MPSADBW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void mpsadbw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Mpsadbw_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>mul instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -22795,22 +22299,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void or(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.Or_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>or instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>OR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /1 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void or(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.Or_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
@@ -24077,22 +23565,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>PALIGNR mm1, mm2/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F 3A 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>SSSE3</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void palignr(AssemblerRegisterMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Palignr_mm_mmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>palignr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>PALIGNR xmm1, xmm2/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F 3A 0F /r ib</c><br/>
@@ -24101,22 +23573,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void palignr(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Palignr_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>palignr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PALIGNR xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>SSSE3</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void palignr(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Palignr_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -24505,22 +23961,6 @@ namespace Iced.Intel {
 			op = Code.Pblendw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pblendw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PBLENDW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0E /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pblendw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pblendw_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pclmulhqhqdq instruction.</summary>
 		public void pclmulhqhqdq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			pclmulqdq(dst, src, 17);
@@ -24597,22 +24037,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pclmulqdq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pclmulqdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCLMULQDQ xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>PCLMULQDQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pclmulqdq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pclmulqdq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -24889,22 +24313,6 @@ namespace Iced.Intel {
 			op = Code.Pcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pcmpestri instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPESTRI xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 61 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestri(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pcmpestri_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pcmpestri64 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -24949,22 +24357,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void pcmpestri64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pcmpestri64 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPESTRI64 xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 61 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void pcmpestri64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -25017,22 +24409,6 @@ namespace Iced.Intel {
 			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pcmpestrm instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPESTRM xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 60 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pcmpestrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pcmpestrm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pcmpestrm64 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -25077,22 +24453,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void pcmpestrm64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pcmpestrm64 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPESTRM64 xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 60 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void pcmpestrm64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -25369,22 +24729,6 @@ namespace Iced.Intel {
 			op = Code.Pcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pcmpistri instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPISTRI xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 63 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistri(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pcmpistri_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pcmpistrm instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -25429,22 +24773,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pcmpistrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pcmpistrm instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PCMPISTRM xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 62 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pcmpistrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -25705,38 +25033,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
-		/// <summary>pextrb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PEXTRB r64/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PEXTRB r32/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pextrb(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
-			Code op;
-			if (Bitness == 64) {
-				op = Code.Pextrb_r64m8_xmm_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pextrb_r32m8_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrb, dst, src1, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
 		/// <summary>pextrd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -25785,22 +25081,6 @@ namespace Iced.Intel {
 			op = Code.Pextrd_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
-		/// <summary>pextrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PEXTRD r/m32, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pextrd(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
-			Code op;
-			op = Code.Pextrd_rm32_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
 		/// <summary>pextrq instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -25845,22 +25125,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void pextrq(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			op = Code.Pextrq_rm64_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>pextrq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PEXTRQ r/m64, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void pextrq(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			op = Code.Pextrq_rm64_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -26005,22 +25269,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pextrw(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			op = Code.Pextrw_r32m16_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>pextrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PEXTRW r32/m16, xmm, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pextrw(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			op = Code.Pextrw_r32m16_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -27273,38 +26521,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pinsrb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRB xmm1, r64/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRB xmm1, r32/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pinsrb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			if (Bitness == 64) {
-				op = Code.Pinsrb_xmm_r64m8_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pinsrb_xmm_r32m8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrb, dst, src1, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pinsrd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -27353,22 +26569,6 @@ namespace Iced.Intel {
 			op = Code.Pinsrd_xmm_rm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pinsrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRD xmm1, r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pinsrd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pinsrd_xmm_rm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pinsrq instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -27413,22 +26613,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void pinsrq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pinsrq_xmm_rm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pinsrq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRQ xmm1, r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>66 REX.W 0F 3A 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void pinsrq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pinsrq_xmm_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -27581,22 +26765,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>PINSRW mm, r32/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pinsrw(AssemblerRegisterMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pinsrw_mm_r32m16_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pinsrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>PINSRW xmm, r32/m16, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F C4 /r ib</c><br/>
@@ -27605,22 +26773,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pinsrw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pinsrw_xmm_r32m16_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pinsrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PINSRW xmm, r32/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pinsrw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pinsrw_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -29891,22 +29043,6 @@ namespace Iced.Intel {
 			op = Code.Pshufd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pshufd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PSHUFD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pshufd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pshufd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pshufhw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -29951,22 +29087,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pshufhw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pshufhw_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pshufhw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PSHUFHW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>F3 0F 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pshufhw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pshufhw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -30019,22 +29139,6 @@ namespace Iced.Intel {
 			op = Code.Pshuflw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>pshuflw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PSHUFLW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>F2 0F 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pshuflw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Pshuflw_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>pshufw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -30079,22 +29183,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void pshufw(AssemblerRegisterMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Pshufw_mm_mmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>pshufw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>PSHUFW mm1, mm2/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void pshufw(AssemblerRegisterMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Pshufw_mm_mmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -33375,114 +32463,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>rcl instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /2</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /2</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /2</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /2 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /2</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /2 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void rcl(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rcl_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rcl_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rcl_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rcl_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Rcl_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Rcl_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Rcl_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Rcl_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcl, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>rcpps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -33957,114 +32937,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void rcr(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rcr_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rcr_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rcr_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rcr_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Rcr_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Rcr_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Rcr_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Rcr_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rcr, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>rcr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /3</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /3</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /3</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /3 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /3</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RCR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /3 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void rcr(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			if (imm == 1) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
@@ -34999,114 +33871,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>rol instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /0</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /0</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /0</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /0 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /0</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /0 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void rol(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Rol_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Rol_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Rol_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Rol_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Rol_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Rol_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Rol_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Rol_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Rol, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>ror instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -35543,114 +34307,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>ror instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /1</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /1</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /1</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /1 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /1</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /1 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void ror(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Ror_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Ror_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Ror_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Ror_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Ror_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Ror_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Ror_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Ror_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ror, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>rorx instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -35735,22 +34391,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>RORX r32, r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LZ.F2.0F3A.W0 F0 /r ib</c><br/>
-		/// <br/>
-		/// <c>BMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void rorx(AssemblerRegister32 dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Rorx_r32_rm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>rorx instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>RORX r64, r/m64, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.LZ.F2.0F3A.W1 F0 /r ib</c><br/>
@@ -35759,22 +34399,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void rorx(AssemblerRegister64 dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Rorx_r64_rm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>rorx instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>RORX r64, r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LZ.F2.0F3A.W1 F0 /r ib</c><br/>
-		/// <br/>
-		/// <c>BMI2</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void rorx(AssemblerRegister64 dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Rorx_r64_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -35827,22 +34451,6 @@ namespace Iced.Intel {
 			op = Code.Roundpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>roundpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROUNDPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void roundpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Roundpd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>roundps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -35887,22 +34495,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void roundps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Roundps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>roundps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROUNDPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void roundps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Roundps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -35955,22 +34547,6 @@ namespace Iced.Intel {
 			op = Code.Roundsd_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>roundsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROUNDSD xmm1, xmm2/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0B /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void roundsd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Roundsd_xmm_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>roundss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -36015,22 +34591,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void roundss(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Roundss_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>roundss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>ROUNDSS xmm1, xmm2/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F 3A 0A /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE4.1</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void roundss(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Roundss_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -36583,114 +35143,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>sal instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /6</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /6</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /6</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /6 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /6</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /6 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void sal(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Sal_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Sal_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Sal_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sal_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Sal_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Sal_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Sal_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sal_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sal, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>salc instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -37117,114 +35569,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void sar(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Sar_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Sar_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Sar_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Sar_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Sar_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Sar_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Sar_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Sar_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sar, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>sar instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /7</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /7</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /7</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /7 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /7</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SAR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /7 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void sar(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			if (imm == 1) {
 				if (dst.Size == MemoryOperandSize.QwordPtr) {
@@ -37785,22 +36129,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void sbb(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.Sbb_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>sbb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SBB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /3 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void sbb(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.Sbb_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
@@ -38587,22 +36915,6 @@ namespace Iced.Intel {
 			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>sha1rnds4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHA1RNDS4 xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F 3A CC /r ib</c><br/>
-		/// <br/>
-		/// <c>SHA</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void sha1rnds4(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Sha1rnds4_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>sha256msg1 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -39135,114 +37447,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>shl instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /4</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /4</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /4</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /4 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /4</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHL r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /4 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shl(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Shl_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Shl_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Shl_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Shl_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Shl_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Shl_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Shl_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Shl_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shl, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>shld instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -39391,22 +37595,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SHLD r/m16, r16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F A4 /r ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shld(AssemblerMemoryOperand dst, AssemblerRegister16 src1, sbyte imm) {
-			Code op;
-			op = Code.Shld_rm16_r16_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SHLD r/m32, r32, imm8</c><br/>
 		/// <br/>
 		/// <c>o32 0F A4 /r ib</c><br/>
@@ -39455,22 +37643,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SHLD r/m32, r32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F A4 /r ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shld(AssemblerMemoryOperand dst, AssemblerRegister32 src1, sbyte imm) {
-			Code op;
-			op = Code.Shld_rm32_r32_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SHLD r/m64, r64, imm8</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F A4 /r ib</c><br/>
@@ -39511,22 +37683,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void shld(AssemblerMemoryOperand dst, AssemblerRegister64 src1, byte imm) {
-			Code op;
-			op = Code.Shld_rm64_r64_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHLD r/m64, r64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F A4 /r ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void shld(AssemblerMemoryOperand dst, AssemblerRegister64 src1, sbyte imm) {
 			Code op;
 			op = Code.Shld_rm64_r64_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -40031,114 +38187,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>shr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m64, 1</c><br/>
-		/// <br/>
-		/// <c>REX.W D1 /5</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m32, 1</c><br/>
-		/// <br/>
-		/// <c>o32 D1 /5</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m16, 1</c><br/>
-		/// <br/>
-		/// <c>o16 D1 /5</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 C1 /5 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m8, 1</c><br/>
-		/// <br/>
-		/// <c>D0 /5</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C0 /5 ib</c><br/>
-		/// <br/>
-		/// <c>186+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shr(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			if (imm == 1) {
-				if (dst.Size == MemoryOperandSize.QwordPtr) {
-					op = Code.Shr_rm64_1;
-				} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-					op = Code.Shr_rm32_1;
-				} else if (dst.Size == MemoryOperandSize.WordPtr) {
-					op = Code.Shr_rm16_1;
-				} else if (dst.Size == MemoryOperandSize.BytePtr) {
-					op = Code.Shr_rm8_1;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
-				}
-			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Shr_rm64_imm8;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Shr_rm32_imm8;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Shr_rm16_imm8;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Shr_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Shr, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>shrd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -40287,22 +38335,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SHRD r/m16, r16, imm8</c><br/>
-		/// <br/>
-		/// <c>o16 0F AC /r ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shrd(AssemblerMemoryOperand dst, AssemblerRegister16 src1, sbyte imm) {
-			Code op;
-			op = Code.Shrd_rm16_r16_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SHRD r/m32, r32, imm8</c><br/>
 		/// <br/>
 		/// <c>o32 0F AC /r ib</c><br/>
@@ -40351,22 +38383,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>SHRD r/m32, r32, imm8</c><br/>
-		/// <br/>
-		/// <c>o32 0F AC /r ib</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shrd(AssemblerMemoryOperand dst, AssemblerRegister32 src1, sbyte imm) {
-			Code op;
-			op = Code.Shrd_rm32_r32_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>SHRD r/m64, r64, imm8</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F AC /r ib</c><br/>
@@ -40407,22 +38423,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void shrd(AssemblerMemoryOperand dst, AssemblerRegister64 src1, byte imm) {
-			Code op;
-			op = Code.Shrd_rm64_r64_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>shrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHRD r/m64, r64, imm8</c><br/>
-		/// <br/>
-		/// <c>REX.W 0F AC /r ib</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void shrd(AssemblerMemoryOperand dst, AssemblerRegister64 src1, sbyte imm) {
 			Code op;
 			op = Code.Shrd_rm64_r64_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -40539,22 +38539,6 @@ namespace Iced.Intel {
 			op = Code.Shufpd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>shufpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHUFPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>66 0F C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shufpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.Shufpd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>shufps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -40599,22 +38583,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void shufps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.Shufps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>shufps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SHUFPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>NP 0F C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>SSE</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void shufps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.Shufps_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -41665,22 +39633,6 @@ namespace Iced.Intel {
 			op = Code.Sub_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>sub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>SUB r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /5 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void sub(AssemblerMemoryOperand dst, sbyte imm) {
-			Code op;
-			op = Code.Sub_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>subpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -42299,22 +40251,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void test(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.Test_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>test instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>F6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void test(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.Test_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
@@ -44207,22 +42143,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vaeskeygenassist instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VAESKEYGENASSIST xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG DF /r ib</c><br/>
-		/// <br/>
-		/// <c>AES and AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vaeskeygenassist(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vaeskeygenassist_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>valignd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -44339,22 +42259,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VALIGND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VALIGND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 03 /r ib</c><br/>
@@ -44371,22 +42275,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VALIGND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VALIGND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 03 /r ib</c><br/>
@@ -44395,22 +42283,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void valignd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VALIGND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -44531,22 +42403,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VALIGNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VALIGNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 03 /r ib</c><br/>
@@ -44563,22 +42419,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VALIGNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignq(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VALIGNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 03 /r ib</c><br/>
@@ -44587,22 +42427,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void valignq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>valignq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VALIGNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 03 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void valignq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -45347,22 +43171,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VBLENDPD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 0D /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vblendpd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vblendpd_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vblendpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VBLENDPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 0D /r ib</c><br/>
@@ -45371,22 +43179,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vblendpd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vblendpd_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vblendpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VBLENDPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 0D /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vblendpd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vblendpd_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -45475,22 +43267,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VBLENDPS xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 0C /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vblendps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vblendps_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vblendps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VBLENDPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 0C /r ib</c><br/>
@@ -45499,22 +43275,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vblendps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vblendps_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vblendps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VBLENDPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 0C /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vblendps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vblendps_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -49537,22 +47297,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPD k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPD xmm1, xmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F.WIG C2 /r ib</c><br/>
@@ -49561,22 +47305,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vcmppd_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPPD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vcmppd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -49601,22 +47329,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F.WIG C2 /r ib</c><br/>
@@ -49633,22 +47345,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vcmppd_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 C2 /r ib</c><br/>
@@ -49657,22 +47353,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -49857,22 +47537,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPS k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.0F.W0 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPS xmm1, xmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.128.0F.WIG C2 /r ib</c><br/>
@@ -49881,22 +47545,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vcmpps_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPPS xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vcmpps_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -49921,22 +47569,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.0F.W0 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.0F.WIG C2 /r ib</c><br/>
@@ -49953,22 +47585,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vcmpps_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.0F.W0 C2 /r ib</c><br/>
@@ -49977,22 +47593,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.0F.W0 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -50081,22 +47681,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPSD k1 {k2}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.F2.0F.W1 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmpsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPSD xmm1, xmm2, xmm3/m64, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.LIG.F2.0F.WIG C2 /r ib</c><br/>
@@ -50105,22 +47689,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vcmpsd_xmm_xmm_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmpsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPSD xmm1, xmm2, xmm3/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LIG.F2.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vcmpsd_xmm_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -50209,22 +47777,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCMPSS k1 {k2}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.F3.0F.W0 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vcmpss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCMPSS xmm1, xmm2, xmm3/m32, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.LIG.F3.0F.WIG C2 /r ib</c><br/>
@@ -50233,22 +47785,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vcmpss_xmm_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vcmpss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCMPSS xmm1, xmm2, xmm3/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LIG.F3.0F.WIG C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcmpss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vcmpss_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -52375,32 +49911,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCVTPS2PH xmm1/m64, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 1D /r ib</c><br/>
-		/// <br/>
-		/// <c>F16C</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCVTPS2PH xmm1/m64 {k1}{z}, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 1D /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcvtps2ph(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vcvtps2ph_xmmm64_xmm_imm8 : Code.EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vcvtps2ph instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCVTPS2PH xmm1/m128, ymm2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 1D /r ib</c><br/>
@@ -52459,32 +49969,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VCVTPS2PH xmm1/m128, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 1D /r ib</c><br/>
-		/// <br/>
-		/// <c>F16C</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCVTPS2PH xmm1/m128 {k1}{z}, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 1D /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcvtps2ph(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vcvtps2ph_xmmm128_ymm_imm8 : Code.EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vcvtps2ph instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VCVTPS2PH ymm1/m256 {k1}{z}, zmm2{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 1D /r ib</c><br/>
@@ -52525,22 +50009,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtps2ph(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vcvtps2ph instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VCVTPS2PH ymm1/m256 {k1}{z}, zmm2{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 1D /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vcvtps2ph(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags | src1.Flags);
@@ -55457,22 +52925,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VDBPSADBW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdbpsadbw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vdbpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VDBPSADBW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 42 /r ib</c><br/>
@@ -55489,22 +52941,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VDBPSADBW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdbpsadbw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vdbpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VDBPSADBW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 42 /r ib</c><br/>
@@ -55513,22 +52949,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdbpsadbw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vdbpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VDBPSADBW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdbpsadbw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -56013,22 +53433,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vdppd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VDPPD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 41 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdppd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vdppd_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vdpps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -56113,22 +53517,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VDPPS xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 40 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdpps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vdpps_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vdpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VDPPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 40 /r ib</c><br/>
@@ -56137,22 +53525,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdpps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vdpps_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vdpps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VDPPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 40 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vdpps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vdpps_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -56609,22 +53981,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
-		/// <summary>vextractf128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTF128 xmm1/m128, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 19 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf128(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vextractf128_xmmm128_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
 		/// <summary>vextractf32x4 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -56677,22 +54033,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VEXTRACTF32X4 xmm1/m128 {k1}{z}, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 19 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x4(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextractf32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VEXTRACTF32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 19 /r ib</c><br/>
@@ -56733,22 +54073,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf32x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextractf32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTF32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 19 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -56797,22 +54121,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf32x8(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextractf32x8 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTF32X8 ymm1/m256 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 1B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf32x8(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -56869,22 +54177,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VEXTRACTF64X2 xmm1/m128 {k1}{z}, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 19 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x2(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextractf64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VEXTRACTF64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 19 /r ib</c><br/>
@@ -56925,22 +54217,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractf64x2(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextractf64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTF64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 19 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x2(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -56993,22 +54269,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
 		}
-		/// <summary>vextractf64x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTF64X4 ymm1/m256 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 1B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractf64x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
 		/// <summary>vextracti128 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -57053,22 +54313,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti128(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>vextracti128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTI128 xmm1/m128, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 39 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti128(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vextracti128_xmmm128_ymm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -57125,22 +54369,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VEXTRACTI32X4 xmm1/m128 {k1}{z}, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 39 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x4(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VEXTRACTI32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 39 /r ib</c><br/>
@@ -57181,22 +54409,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti32x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTI32X4 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 39 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -57245,22 +54457,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti32x8(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti32x8 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTI32X8 ymm1/m256 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 3B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti32x8(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -57317,22 +54513,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VEXTRACTI64X2 xmm1/m128 {k1}{z}, ymm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 39 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x2(AssemblerMemoryOperand dst, AssemblerRegisterYMM src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VEXTRACTI64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 39 /r ib</c><br/>
@@ -57373,22 +54553,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti64x2(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTI64X2 xmm1/m128 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 39 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x2(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -57437,22 +54601,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextracti64x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
-		}
-		/// <summary>vextracti64x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTI64X4 ymm1/m256 {k1}{z}, zmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 3B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextracti64x4(AssemblerMemoryOperand dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm), dst.Flags);
@@ -57543,32 +54691,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vextractps(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vextractps_rm32_xmm_imm8 : Code.EVEX_Vextractps_rm32_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>vextractps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTPS r/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VEXTRACTPS r/m32, xmm1, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 17 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vextractps(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vextractps_rm32_xmm_imm8 : Code.EVEX_Vextractps_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -57689,22 +54811,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VFIXUPIMMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmpd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VFIXUPIMMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 54 /r ib</c><br/>
@@ -57721,22 +54827,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VFIXUPIMMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmpd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VFIXUPIMMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 54 /r ib</c><br/>
@@ -57745,22 +54835,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfixupimmpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFIXUPIMMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -57881,22 +54955,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VFIXUPIMMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VFIXUPIMMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 54 /r ib</c><br/>
@@ -57913,22 +54971,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VFIXUPIMMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VFIXUPIMMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 54 /r ib</c><br/>
@@ -57937,22 +54979,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfixupimmps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFIXUPIMMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 54 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -58005,22 +55031,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
-		/// <summary>vfixupimmsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 55 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
 		/// <summary>vfixupimmss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -58065,22 +55075,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfixupimmss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vfixupimmss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFIXUPIMMSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 55 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfixupimmss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -65185,50 +62179,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
-		/// <summary>vfpclasspd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasspd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
-			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
-			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclasspd, dst, src1, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
 		/// <summary>vfpclassps instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -65369,50 +62319,6 @@ namespace Iced.Intel {
 			}
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
-		/// <summary>vfpclassps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSPS k2 {k1}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 66 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassps(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
-			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
-			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vfpclassps, dst, src1, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
 		/// <summary>vfpclasssd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -65461,22 +62367,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
-		/// <summary>vfpclasssd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSSD k2 {k1}, xmm2/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 67 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfpclasssd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
 		/// <summary>vfpclassss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -65521,22 +62411,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassss(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vfpclassss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VFPCLASSSS k2 {k1}, xmm2/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 67 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vfpclassss(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -66553,22 +63427,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGETMANTPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGETMANTPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 26 /r ib</c><br/>
@@ -66585,22 +63443,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGETMANTPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantpd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGETMANTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 26 /r ib</c><br/>
@@ -66609,22 +63451,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetmantpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGETMANTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -66745,22 +63571,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGETMANTPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 26 /r ib</c><br/>
@@ -66777,22 +63587,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 26 /r ib</c><br/>
@@ -66801,22 +63595,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetmantps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vgetmantps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 26 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -66869,22 +63647,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
-		/// <summary>vgetmantsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGETMANTSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 27 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
 		/// <summary>vgetmantss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -66929,22 +63691,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgetmantss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgetmantss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGETMANTSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 27 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgetmantss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -67075,32 +63821,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGF2P8AFFINEINVQB xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEINVQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineinvqb(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineinvqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGF2P8AFFINEINVQB ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 CF /r ib</c><br/>
@@ -67127,32 +63847,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGF2P8AFFINEINVQB ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEINVQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineinvqb(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineinvqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGF2P8AFFINEINVQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 CF /r ib</c><br/>
@@ -67161,22 +63855,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgf2p8affineinvqb(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineinvqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEINVQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineinvqb(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -67307,32 +63985,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGF2P8AFFINEQB xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineqb(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 CE /r ib</c><br/>
@@ -67359,32 +64011,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineqb(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VGF2P8AFFINEQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 CE /r ib</c><br/>
@@ -67393,22 +64019,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vgf2p8affineqb(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vgf2p8affineqb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VGF2P8AFFINEQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F and GFNI</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vgf2p8affineqb(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -67833,22 +64443,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vinsertf128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTF128 ymm1, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 18 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vinsertf128_ymm_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vinsertf32x4 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -67933,22 +64527,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VINSERTF32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 18 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x4(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinsertf32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 18 /r ib</c><br/>
@@ -67957,22 +64535,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinsertf32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinsertf32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 18 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68021,22 +64583,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinsertf32x8(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinsertf32x8 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTF32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 1A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf32x8(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68125,22 +64671,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VINSERTF64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 18 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x2(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinsertf64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 18 /r ib</c><br/>
@@ -68149,22 +64679,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinsertf64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinsertf64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 18 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68217,22 +64731,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
-		/// <summary>vinsertf64x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTF64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 1A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertf64x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
 		/// <summary>vinserti128 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -68277,22 +64775,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vinserti128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTI128 ymm1, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vinserti128_ymm_ymm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -68381,22 +64863,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VINSERTI32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 38 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x4(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VINSERTI32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 38 /r ib</c><br/>
@@ -68405,22 +64871,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTI32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 38 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68469,22 +64919,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti32x8(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti32x8 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTI32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 3A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti32x8(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68573,22 +65007,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VINSERTI64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 38 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x2(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VINSERTI64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 38 /r ib</c><br/>
@@ -68597,22 +65015,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTI64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 38 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68661,22 +65063,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti64x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vinserti64x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTI64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 3A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinserti64x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -68735,32 +65121,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinsertps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vinsertps_xmm_xmm_xmmm32_imm8 : Code.EVEX_Vinsertps_xmm_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vinsertps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTPS xmm1, xmm2, xmm3/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 21 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VINSERTPS xmm1, xmm2, xmm3/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 21 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vinsertps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vinsertps_xmm_xmm_xmmm32_imm8 : Code.EVEX_Vinsertps_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -72969,22 +69329,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VMPSADBW xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vmpsadbw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vmpsadbw_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vmpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VMPSADBW ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 42 /r ib</c><br/>
@@ -72993,22 +69337,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vmpsadbw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vmpsadbw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VMPSADBW ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 42 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vmpsadbw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -76051,32 +72379,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPALIGNR xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPALIGNR xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.WIG 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpalignr(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpalignr_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpalignr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPALIGNR ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 0F /r ib</c><br/>
@@ -76103,32 +72405,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPALIGNR ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPALIGNR ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.WIG 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpalignr(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpalignr_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpalignr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.WIG 0F /r ib</c><br/>
@@ -76137,22 +72413,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpalignr(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpalignr instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.WIG 0F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpalignr(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -76985,22 +73245,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPBLENDD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 02 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpblendd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpblendd_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpblendd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPBLENDD ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 02 /r ib</c><br/>
@@ -77009,22 +73253,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpblendd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpblendd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPBLENDD ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 02 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpblendd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpblendd_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -77561,22 +73789,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPBLENDW xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 0E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpblendw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpblendw_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpblendw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPBLENDW ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 0E /r ib</c><br/>
@@ -77585,22 +73797,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpblendw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vpblendw_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpblendw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPBLENDW ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 0E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpblendw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpblendw_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -78579,32 +74775,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>PCLMULQDQ and AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.WIG 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and VPCLMULQDQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpclmulqdq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpclmulqdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 44 /r ib</c><br/>
@@ -78631,32 +74801,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>VPCLMULQDQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.WIG 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and VPCLMULQDQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpclmulqdq(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpclmulqdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.WIG 44 /r ib</c><br/>
@@ -78665,22 +74809,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpclmulqdq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpclmulqdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.WIG 44 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F and VPCLMULQDQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpclmulqdq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -78897,22 +75025,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 3F /r ib</c><br/>
@@ -78929,22 +75041,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 3F /r ib</c><br/>
@@ -78953,22 +75049,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -79089,22 +75169,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 1F /r ib</c><br/>
@@ -79121,22 +75185,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 1F /r ib</c><br/>
@@ -79145,22 +75193,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -79853,22 +75885,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcmpestri instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPESTRI xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 61 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestri(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpestri_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcmpestri64 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -79913,22 +75929,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vpcmpestri64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcmpestri64 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPESTRI64 xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 61 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void vpcmpestri64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -79981,22 +75981,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcmpestrm instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPESTRM xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 60 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpestrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcmpestrm64 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -80041,22 +76025,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vpcmpestrm64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcmpestrm64 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPESTRM64 xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 60 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void vpcmpestrm64(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -80749,22 +76717,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcmpistri instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPISTRI xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 63 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistri(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpistri_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcmpistrm instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -80809,22 +76761,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpistrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcmpistrm instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPISTRM xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 62 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpistrm(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -80945,22 +76881,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 1F /r ib</c><br/>
@@ -80977,22 +76897,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 1F /r ib</c><br/>
@@ -81001,22 +76905,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 1F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -81137,22 +77025,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUB k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 3E /r ib</c><br/>
@@ -81169,22 +77041,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 3E /r ib</c><br/>
@@ -81193,22 +77049,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -81329,22 +77169,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpud instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 1E /r ib</c><br/>
@@ -81361,22 +77185,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpud instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 1E /r ib</c><br/>
@@ -81385,22 +77193,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpud instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -81521,22 +77313,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpuq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 1E /r ib</c><br/>
@@ -81553,22 +77329,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpuq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 1E /r ib</c><br/>
@@ -81577,22 +77337,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpcmpuq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 1E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -81713,22 +77457,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpuw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 3E /r ib</c><br/>
@@ -81745,22 +77473,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpuw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 3E /r ib</c><br/>
@@ -81769,22 +77481,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpuw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 3E /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -81905,22 +77601,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 3F /r ib</c><br/>
@@ -81937,22 +77617,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 3F /r ib</c><br/>
@@ -81961,22 +77625,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpcmpw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 3F /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -82029,22 +77677,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcomb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMB xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 CC /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomb(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vpcomb_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcomd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -82089,22 +77721,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcomd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcomd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 CE /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.XOP_Vpcomd_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -82989,22 +78605,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcomq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMQ xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 CF /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vpcomq_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcomtrueb instruction.</summary>
 		public void vpcomtrueb(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			vpcomb(dst, src1, src2, 7);
@@ -83117,22 +78717,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcomub instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMUB xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 EC /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomub(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vpcomub_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcomud instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -83177,22 +78761,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcomud(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcomud instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMUD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 EE /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomud(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.XOP_Vpcomud_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -83245,22 +78813,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcomuq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMUQ xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 EF /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vpcomuq_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcomuw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -83309,22 +78861,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpcomuw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMUW xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 ED /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomuw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vpcomuw_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpcomw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -83369,22 +78905,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcomw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpcomw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPCOMW xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 CD /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpcomw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.XOP_Vpcomw_xmm_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -84013,22 +79533,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vperm2f128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERM2F128 ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 06 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vperm2f128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vperm2i128 instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -84073,22 +79577,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vperm2i128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vperm2i128 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERM2I128 ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 46 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vperm2i128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vperm2i128_ymm_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -84891,22 +80379,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 49 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
-		}
-		/// <summary>vpermil2pd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
@@ -84955,22 +80427,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 49 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
-		}
-		/// <summary>vpermil2pd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
@@ -84987,22 +80443,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 49 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2pd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpermil2pd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
@@ -85011,22 +80451,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, byte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpermil2pd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 49 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2pd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
@@ -85083,22 +80507,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 48 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, AssemblerRegisterXMM src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
-		}
-		/// <summary>vpermil2ps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
@@ -85147,22 +80555,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 48 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, AssemblerRegisterYMM src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), src3, imm));
-		}
-		/// <summary>vpermil2ps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
@@ -85179,22 +80571,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 48 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2ps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, AssemblerMemoryOperand src3, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpermil2ps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
@@ -85203,22 +80579,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, byte imm) {
-			Code op;
-			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpermil2ps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 48 /r /is5</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermil2ps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, AssemblerMemoryOperand src3, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, src3.ToMemoryOperand(Bitness), imm));
@@ -85465,32 +80825,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMILPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 05 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 05 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermilpd_xmm_xmmm128_imm8 : Code.EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMILPD ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 05 /r ib</c><br/>
@@ -85517,32 +80851,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMILPD ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 05 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 05 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilpd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermilpd_ymm_ymmm256_imm8 : Code.EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMILPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 05 /r ib</c><br/>
@@ -85551,22 +80859,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermilpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 05 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -85813,32 +81105,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMILPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 04 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 04 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermilps_xmm_xmmm128_imm8 : Code.EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMILPS ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 04 /r ib</c><br/>
@@ -85865,32 +81131,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMILPS ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W0 04 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 04 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermilps_ymm_ymmm256_imm8 : Code.EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMILPS zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 04 /r ib</c><br/>
@@ -85899,22 +81139,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermilps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermilps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMILPS zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 04 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermilps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -86077,32 +81301,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMPD ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 01 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 01 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermpd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermpd_ymm_ymmm256_imm8 : Code.EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 01 /r ib</c><br/>
@@ -86111,22 +81309,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 01 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermpd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -86363,32 +81545,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPERMQ ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.W1 00 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 00 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpermq_ymm_ymmm256_imm8 : Code.EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPERMQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 00 /r ib</c><br/>
@@ -86397,22 +81553,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpermq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpermq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPERMQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 00 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpermq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -87563,32 +82703,6 @@ namespace Iced.Intel {
 			op = PreferVex ? Code.VEX_Vpextrb_r32m8_xmm_imm8 : Code.EVEX_Vpextrb_r32m8_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
-		/// <summary>vpextrb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRB r32/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRB r32/m8, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 14 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpextrb(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpextrb_r32m8_xmm_imm8 : Code.EVEX_Vpextrb_r32m8_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
 		/// <summary>vpextrd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -87647,32 +82761,6 @@ namespace Iced.Intel {
 			op = PreferVex ? Code.VEX_Vpextrd_rm32_xmm_imm8 : Code.EVEX_Vpextrd_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
-		/// <summary>vpextrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRD r/m32, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRD r/m32, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpextrd(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpextrd_rm32_xmm_imm8 : Code.EVEX_Vpextrd_rm32_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
 		/// <summary>vpextrq instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -87727,32 +82815,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vpextrq(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpextrq_rm64_xmm_imm8 : Code.EVEX_Vpextrq_rm64_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>vpextrq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRQ r/m64, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRQ r/m64, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 16 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void vpextrq(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vpextrq_rm64_xmm_imm8 : Code.EVEX_Vpextrq_rm64_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -87843,32 +82905,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpextrw(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpextrw_r32m16_xmm_imm8 : Code.EVEX_Vpextrw_r32m16_xmm_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
-		}
-		/// <summary>vpextrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRW r32/m16, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPEXTRW r32/m16, xmm2, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 15 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpextrw(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vpextrw_r32m16_xmm_imm8 : Code.EVEX_Vpextrw_r32m16_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
@@ -89179,32 +84215,6 @@ namespace Iced.Intel {
 			op = PreferVex ? Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8 : Code.EVEX_Vpinsrb_xmm_xmm_r32m8_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpinsrb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRB xmm1, xmm2, r32/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRB xmm1, xmm2, r32/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 20 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrb(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrb_xmm_xmm_r32m8_imm8 : Code.EVEX_Vpinsrb_xmm_xmm_r32m8_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpinsrd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -89263,32 +84273,6 @@ namespace Iced.Intel {
 			op = PreferVex ? Code.VEX_Vpinsrd_xmm_xmm_rm32_imm8 : Code.EVEX_Vpinsrd_xmm_xmm_rm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vpinsrd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRD xmm1, xmm2, r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W0 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRD xmm1, xmm2, r/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrd_xmm_xmm_rm32_imm8 : Code.EVEX_Vpinsrd_xmm_xmm_rm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vpinsrq instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -89343,32 +84327,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vpinsrq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrq_xmm_xmm_rm64_imm8 : Code.EVEX_Vpinsrq_xmm_xmm_rm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpinsrq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRQ xmm1, xmm2, r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.W1 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRQ xmm1, xmm2, r/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 22 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void vpinsrq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vpinsrq_xmm_xmm_rm64_imm8 : Code.EVEX_Vpinsrq_xmm_xmm_rm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -89459,32 +84417,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpinsrw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8 : Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpinsrw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRW xmm1, xmm2, r32/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.W0 C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPINSRW xmm1, xmm2, r32/m16, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 C4 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpinsrw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = PreferVex ? Code.VEX_Vpinsrw_xmm_xmm_r32m16_imm8 : Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -97769,22 +92701,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPROLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprold(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprold_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprold instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPROLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 72 /1 ib</c><br/>
@@ -97801,22 +92717,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPROLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprold(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprold_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprold instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPROLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 72 /1 ib</c><br/>
@@ -97825,22 +92725,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprold(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vprold_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprold instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprold(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vprold_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -97961,22 +92845,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPROLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprolq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprolq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPROLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 72 /1 ib</c><br/>
@@ -97993,22 +92861,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPROLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprolq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprolq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPROLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 72 /1 ib</c><br/>
@@ -98017,22 +92869,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprolq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprolq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 72 /1 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprolq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -98345,22 +93181,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprord(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprord_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprord instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 72 /0 ib</c><br/>
@@ -98377,22 +93197,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprord(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprord_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprord instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 72 /0 ib</c><br/>
@@ -98401,22 +93205,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprord(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vprord_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprord instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprord(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vprord_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -98537,22 +93325,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprorq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprorq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 72 /0 ib</c><br/>
@@ -98569,22 +93341,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprorq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprorq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 72 /0 ib</c><br/>
@@ -98593,22 +93349,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprorq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vprorq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 72 /0 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprorq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -98901,22 +93641,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vprotb instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROTB xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 C0 /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprotb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vprotb_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vprotd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -99009,22 +93733,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vprotd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROTD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 C2 /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprotd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.XOP_Vprotd_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -99125,22 +93833,6 @@ namespace Iced.Intel {
 			op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vprotq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROTQ xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 C3 /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprotq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.XOP_Vprotq_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vprotw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -99233,22 +93925,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vprotw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vprotw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPROTW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>XOP.128.X8.W0 C1 /r ib</c><br/>
-		/// <br/>
-		/// <c>XOP</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vprotw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.XOP_Vprotw_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -99965,22 +94641,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 71 /r ib</c><br/>
@@ -99997,22 +94657,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 71 /r ib</c><br/>
@@ -100021,22 +94665,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshldd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHLDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -100157,22 +94785,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 71 /r ib</c><br/>
@@ -100189,22 +94801,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldq(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 71 /r ib</c><br/>
@@ -100213,22 +94809,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshldq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 71 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -100637,22 +95217,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshldw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 70 /r ib</c><br/>
@@ -100669,22 +95233,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHLDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshldw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHLDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 70 /r ib</c><br/>
@@ -100693,22 +95241,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshldw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshldw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHLDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshldw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -100925,22 +95457,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 73 /r ib</c><br/>
@@ -100957,22 +95473,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 73 /r ib</c><br/>
@@ -100981,22 +95481,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshrdd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHRDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -101117,22 +95601,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 73 /r ib</c><br/>
@@ -101149,22 +95617,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdq(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 73 /r ib</c><br/>
@@ -101173,22 +95625,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshrdq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpshrdq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHRDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 73 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -101597,22 +96033,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 72 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdw(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshrdw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 72 /r ib</c><br/>
@@ -101629,22 +96049,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHRDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 72 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdw(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshrdw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHRDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 72 /r ib</c><br/>
@@ -101653,22 +96057,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshrdw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshrdw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHRDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 72 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512_VBMI2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshrdw(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -102011,32 +96399,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshufd_xmm_xmmm128_imm8 : Code.EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpshufd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFD ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F.WIG 70 /r ib</c><br/>
@@ -102063,32 +96425,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFD ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshufd_ymm_ymmm256_imm8 : Code.EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpshufd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 70 /r ib</c><br/>
@@ -102097,22 +96433,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpshufd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -102243,32 +96563,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFHW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.F3.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFHW xmm1 {k1}{z}, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.F3.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufhw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshufhw_xmm_xmmm128_imm8 : Code.EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshufhw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFHW ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.F3.0F.WIG 70 /r ib</c><br/>
@@ -102295,32 +96589,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFHW ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.F3.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFHW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.F3.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufhw(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshufhw_ymm_ymmm256_imm8 : Code.EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshufhw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFHW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F.WIG 70 /r ib</c><br/>
@@ -102329,22 +96597,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufhw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshufhw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFHW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.F3.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshufhw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -102475,32 +96727,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFLW xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.F2.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFLW xmm1 {k1}{z}, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.F2.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshuflw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshuflw_xmm_xmmm128_imm8 : Code.EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshuflw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFLW ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.F2.0F.WIG 70 /r ib</c><br/>
@@ -102527,32 +96753,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSHUFLW ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.F2.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX2</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFLW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.F2.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshuflw(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vpshuflw_ymm_ymmm256_imm8 : Code.EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshuflw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSHUFLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F2.0F.WIG 70 /r ib</c><br/>
@@ -102561,22 +96761,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshuflw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpshuflw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSHUFLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.F2.0F.WIG 70 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpshuflw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -103005,22 +97189,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 72 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslld(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpslld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 72 /6 ib</c><br/>
@@ -103037,22 +97205,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 72 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslld(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpslld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 72 /6 ib</c><br/>
@@ -103061,22 +97213,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpslld(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpslld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSLLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 72 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslld(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -103197,22 +97333,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLDQ xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.WIG 73 /7 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslldq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpslldq_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpslldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLDQ ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 73 /7 ib</c><br/>
@@ -103229,22 +97349,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLDQ ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.WIG 73 /7 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslldq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpslldq_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpslldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLDQ zmm1, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 73 /7 ib</c><br/>
@@ -103253,22 +97357,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpslldq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpslldq_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpslldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSLLDQ zmm1, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.WIG 73 /7 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpslldq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpslldq_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -103505,22 +97593,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 73 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsllq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 73 /6 ib</c><br/>
@@ -103537,22 +97609,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 73 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsllq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 73 /6 ib</c><br/>
@@ -103561,22 +97617,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsllq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsllq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSLLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 73 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -104141,22 +98181,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLW xmm1 {k1}{z}, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.WIG 71 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllw_xmm_k1z_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsllw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 71 /6 ib</c><br/>
@@ -104173,22 +98197,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSLLW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.WIG 71 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllw(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllw_ymm_k1z_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsllw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSLLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 71 /6 ib</c><br/>
@@ -104197,22 +98205,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsllw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsllw_zmm_k1z_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsllw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSLLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.WIG 71 /6 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsllw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsllw_zmm_k1z_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -104449,22 +98441,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrad(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrad instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 72 /4 ib</c><br/>
@@ -104481,22 +98457,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrad(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrad instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 72 /4 ib</c><br/>
@@ -104505,22 +98465,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsrad(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrad instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrad(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -104737,22 +98681,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsraq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 72 /4 ib</c><br/>
@@ -104769,22 +98697,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsraq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 72 /4 ib</c><br/>
@@ -104793,22 +98705,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsraq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsraq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 72 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -105353,22 +99249,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.WIG 71 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraw_xmm_k1z_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsraw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 71 /4 ib</c><br/>
@@ -105385,22 +99265,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.WIG 71 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraw(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraw_ymm_k1z_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsraw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 71 /4 ib</c><br/>
@@ -105409,22 +99273,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsraw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsraw_zmm_k1z_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsraw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.WIG 71 /4 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsraw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsraw_zmm_k1z_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -105661,22 +99509,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W0 72 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrld(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 72 /2 ib</c><br/>
@@ -105693,22 +99525,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W0 72 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrld(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 72 /2 ib</c><br/>
@@ -105717,22 +99533,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsrld(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrld instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W0 72 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrld(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -105853,22 +99653,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLDQ xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.WIG 73 /3 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrldq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrldq_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpsrldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLDQ ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 73 /3 ib</c><br/>
@@ -105885,22 +99669,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLDQ ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.WIG 73 /3 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrldq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrldq_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpsrldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLDQ zmm1, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 73 /3 ib</c><br/>
@@ -105909,22 +99677,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsrldq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrldq_zmm_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vpsrldq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRLDQ zmm1, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.WIG 73 /3 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrldq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsrldq_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -106161,22 +99913,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 73 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlq(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrlq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 73 /2 ib</c><br/>
@@ -106193,22 +99929,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 73 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlq(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrlq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 73 /2 ib</c><br/>
@@ -106217,22 +99937,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsrlq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vpsrlq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 73 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlq(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -106797,22 +100501,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLW xmm1 {k1}{z}, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.WIG 71 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlw(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsrlw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 71 /2 ib</c><br/>
@@ -106829,22 +100517,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPSRLW ymm1 {k1}{z}, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.WIG 71 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlw(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsrlw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPSRLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 71 /2 ib</c><br/>
@@ -106853,22 +100525,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpsrlw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
-		}
-		/// <summary>vpsrlw instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPSRLW zmm1 {k1}{z}, zmm2/m512, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.WIG 71 /2 ib</c><br/>
-		/// <br/>
-		/// <c>AVX512BW</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpsrlw(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
@@ -107917,22 +101573,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPTERNLOGD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPTERNLOGD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 25 /r ib</c><br/>
@@ -107949,22 +101589,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPTERNLOGD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPTERNLOGD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 25 /r ib</c><br/>
@@ -107973,22 +101597,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpternlogd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPTERNLOGD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -108109,22 +101717,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPTERNLOGQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogq(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPTERNLOGQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 25 /r ib</c><br/>
@@ -108141,22 +101733,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VPTERNLOGQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogq(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VPTERNLOGQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 25 /r ib</c><br/>
@@ -108165,22 +101741,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpternlogq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vpternlogq instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VPTERNLOGQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 25 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vpternlogq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -110317,22 +103877,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangepd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 50 /r ib</c><br/>
@@ -110349,22 +103893,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangepd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 50 /r ib</c><br/>
@@ -110373,22 +103901,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrangepd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangepd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -110509,22 +104021,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRANGEPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangeps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangeps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRANGEPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 50 /r ib</c><br/>
@@ -110541,22 +104037,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRANGEPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangeps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangeps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRANGEPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 50 /r ib</c><br/>
@@ -110565,22 +104045,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrangeps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangeps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRANGEPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 50 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangeps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -110633,22 +104097,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
-		/// <summary>vrangesd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRANGESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 51 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
 		/// <summary>vrangess instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -110693,22 +104141,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrangess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrangess instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRANGESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 51 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrangess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -111309,22 +104741,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VREDUCEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreducepd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreducepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 56 /r ib</c><br/>
@@ -111341,22 +104757,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreducepd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreducepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 56 /r ib</c><br/>
@@ -111365,22 +104765,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vreducepd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreducepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreducepd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -111501,22 +104885,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VREDUCEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreduceps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreduceps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VREDUCEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 56 /r ib</c><br/>
@@ -111533,22 +104901,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VREDUCEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreduceps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreduceps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VREDUCEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 56 /r ib</c><br/>
@@ -111557,22 +104909,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vreduceps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vreduceps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VREDUCEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 56 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreduceps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -111625,22 +104961,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
-		/// <summary>vreducesd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VREDUCESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 57 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreducesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
 		/// <summary>vreducess instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -111685,22 +105005,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vreducess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vreducess instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VREDUCESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 57 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512DQ</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vreducess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -111821,22 +105125,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRNDSCALEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W1 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalepd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscalepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRNDSCALEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 09 /r ib</c><br/>
@@ -111853,22 +105141,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRNDSCALEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalepd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscalepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRNDSCALEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 09 /r ib</c><br/>
@@ -111877,22 +105149,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrndscalepd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscalepd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRNDSCALEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalepd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -112013,22 +105269,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRNDSCALEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F3A.W0 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaleps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscaleps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRNDSCALEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 08 /r ib</c><br/>
@@ -112045,22 +105285,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VRNDSCALEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaleps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscaleps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VRNDSCALEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 08 /r ib</c><br/>
@@ -112069,22 +105293,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrndscaleps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
-		}
-		/// <summary>vrndscaleps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRNDSCALEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaleps(AssemblerRegisterZMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
@@ -112137,22 +105345,6 @@ namespace Iced.Intel {
 			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
-		/// <summary>vrndscalesd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRNDSCALESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W1 0B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscalesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
 		/// <summary>vrndscaless instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -112197,22 +105389,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vrndscaless(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vrndscaless instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VRNDSCALESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.LIG.66.0F3A.W0 0A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vrndscaless(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -112301,22 +105477,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VROUNDPD xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundpd(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vroundpd_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vroundpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VROUNDPD ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 09 /r ib</c><br/>
@@ -112325,22 +105485,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vroundpd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vroundpd_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vroundpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VROUNDPD ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 09 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundpd(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vroundpd_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -112429,22 +105573,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VROUNDPS xmm1, xmm2/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F3A.WIG 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundps(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vroundps_xmm_xmmm128_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vroundps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VROUNDPS ymm1, ymm2/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.WIG 08 /r ib</c><br/>
@@ -112453,22 +105581,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vroundps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, byte imm) {
-			Code op;
-			op = Code.VEX_Vroundps_ymm_ymmm256_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vroundps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VROUNDPS ymm1, ymm2/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F3A.WIG 08 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundps(AssemblerRegisterYMM dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vroundps_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
@@ -112521,22 +105633,6 @@ namespace Iced.Intel {
 			op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
 		}
-		/// <summary>vroundsd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VROUNDSD xmm1, xmm2, xmm3/m64, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LIG.66.0F3A.WIG 0B /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.VEX_Vroundsd_xmm_xmm_xmmm64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>vroundss instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -112581,22 +105677,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vroundss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>vroundss instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VROUNDSS xmm1, xmm2, xmm3/m32, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.LIG.66.0F3A.WIG 0A /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vroundss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.VEX_Vroundss_xmm_xmm_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm));
@@ -113741,22 +106821,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFF32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 23 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshuff32x4(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshuff32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFF32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 23 /r ib</c><br/>
@@ -113765,22 +106829,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshuff32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshuff32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFF32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 23 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshuff32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -113869,22 +106917,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFF64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 23 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshuff64x2(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshuff64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFF64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 23 /r ib</c><br/>
@@ -113893,22 +106925,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshuff64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshuff64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFF64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 23 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshuff64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -113997,22 +107013,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFI32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W0 43 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufi32x4(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufi32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFI32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 43 /r ib</c><br/>
@@ -114021,22 +107021,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshufi32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufi32x4 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFI32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W0 43 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufi32x4(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -114125,22 +107109,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFI64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F3A.W1 43 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufi64x2(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = Code.EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufi64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFI64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 43 /r ib</c><br/>
@@ -114149,22 +107117,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshufi64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufi64x2 instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFI64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F3A.W1 43 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufi64x2(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -114295,32 +107247,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFPD xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.66.0F.WIG C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.66.0F.W1 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufpd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vshufpd_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F.WIG C6 /r ib</c><br/>
@@ -114347,32 +107273,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFPD ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.66.0F.WIG C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.66.0F.W1 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufpd(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vshufpd_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 C6 /r ib</c><br/>
@@ -114381,22 +107281,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshufpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufpd instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.66.0F.W1 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -114527,32 +107411,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFPS xmm1, xmm2, xmm3/m128, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.128.0F.WIG C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.128.0F.W0 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufps(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vshufps_xmm_xmm_xmmm128_imm8 : Code.EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.0F.WIG C6 /r ib</c><br/>
@@ -114579,32 +107437,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>VSHUFPS ymm1, ymm2, ymm3/m256, imm8</c><br/>
-		/// <br/>
-		/// <c>VEX.256.0F.WIG C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.256.0F.W0 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512VL and AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufps(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
-			Code op;
-			op = PreferVex ? Code.VEX_Vshufps_ymm_ymm_ymmm256_imm8 : Code.EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>VSHUFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.0F.W0 C6 /r ib</c><br/>
@@ -114613,22 +107445,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vshufps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
-			Code op;
-			op = Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8;
-			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
-		}
-		/// <summary>vshufps instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>VSHUFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
-		/// <br/>
-		/// <c>EVEX.512.0F.W0 C6 /r ib</c><br/>
-		/// <br/>
-		/// <c>AVX512F</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void vshufps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
 			op = Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
@@ -117571,22 +110387,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void xor(AssemblerMemoryOperand dst, byte imm) {
-			Code op;
-			op = Code.Xor_rm8_imm8;
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
-		/// <summary>xor instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>XOR r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>80 /6 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void xor(AssemblerMemoryOperand dst, sbyte imm) {
 			Code op;
 			op = Code.Xor_rm8_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));

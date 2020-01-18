@@ -45,16 +45,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 
 			{
-				var inst = Instruction.Create(Code.Call_m1664, __[rax].ToMemoryOperand(64));
+				var inst = Instruction.Create(Code.Call_rm64, __[rax].ToMemoryOperand(64));
 				inst.SegmentPrefix = Register.DS;
-				TestAssembler( c=> c.notrack.call(__[rax]), inst);
+				TestAssembler( c=> c.notrack.call(__qword_ptr[rax]), inst);
 			}
 
 			{
-				var inst = Instruction.Create(Code.Call_m1664, __[rax].ToMemoryOperand(64));
+				var inst = Instruction.Create(Code.Call_rm64, __[rax].ToMemoryOperand(64));
 				inst.SegmentPrefix = Register.DS;
 				inst.HasRepnePrefix = true;
-				TestAssembler( c=> c.bnd.notrack.call(__[rax]), inst);
+				TestAssembler( c=> c.bnd.notrack.call(__qword_ptr[rax]), inst);
 			}
 		}
 		
