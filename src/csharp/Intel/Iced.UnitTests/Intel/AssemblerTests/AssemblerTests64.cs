@@ -111,6 +111,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 			
 			{
+				var inst = Instruction.Create(Code.EVEX_Vcvttss2si_r64_xmmm32_sae, rax, xmm1);
+				inst.SuppressAllExceptions = true;
+				TestAssembler(c => c.vcvttss2si(rax, xmm1.sae), inst, LocalOpCodeFlags.PreferEvex);
+			}			
+			{
 				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, zmm3);
 				inst.OpMask = Register.K1;
 				inst.RoundingControl = RoundingControl.RoundDown;

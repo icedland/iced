@@ -48,6 +48,42 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 			
 			{
+				var m = __.cs[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.CS), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
+				var m = __.ds[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.DS), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
+				var m = __.es[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.ES), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
+				var m = __.fs[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.FS), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
+				var m = __.gs[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.GS), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
+				var m = __.ss[13];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, 13, 8, false, Register.SS), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
+			{
 				var m = __[sbyte.MinValue];
 				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, sbyte.MinValue, 8), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
