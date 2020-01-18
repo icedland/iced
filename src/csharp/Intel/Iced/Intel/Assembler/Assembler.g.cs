@@ -5149,6 +5149,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>CALL r/m64</c><br/>
+		/// <br/>
+		/// <c>FF /2</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>CALL m16:32</c><br/>
 		/// <br/>
 		/// <c>o32 FF /3</c><br/>
@@ -5159,18 +5169,48 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>CALL r/m32</c><br/>
+		/// <br/>
+		/// <c>o32 FF /2</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>CALL m16:16</c><br/>
 		/// <br/>
 		/// <c>o16 FF /3</c><br/>
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CALL r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 FF /2</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void call(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.TwordPtr) {
 				op = Code.Call_m1664;
-			} else op = Bitness >= 32 ? Code.Call_m1632 : Code.Call_m1616;
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Call_rm64;
+			} else if (dst.Size == MemoryOperandSize.FwordPtr) {
+				op = Code.Call_m1632;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Bitness >= 32 ? Code.Call_rm32 : Code.Call_m1616;
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Call_rm16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>call instruction.<br/>
@@ -11553,6 +11593,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>FLD m80fp</c><br/>
+		/// <br/>
+		/// <c>DB /5</c><br/>
+		/// <br/>
+		/// <c>8087+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>FLD m64fp</c><br/>
 		/// <br/>
 		/// <c>DD /0</c><br/>
@@ -11569,25 +11619,15 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8087+</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>FLD m80fp</c><br/>
-		/// <br/>
-		/// <c>DB /5</c><br/>
-		/// <br/>
-		/// <c>8087+</c><br/>
-		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void fld(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.Size == MemoryOperandSize.TwordPtr) {
+				op = Code.Fld_m80fp;
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Fld_m64fp;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Fld_m32fp;
-			} else if (dst.Size == MemoryOperandSize.TwordPtr) {
-				op = Code.Fld_m80fp;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Fld, dst);
 			}
@@ -12387,6 +12427,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>FSTP m80fp</c><br/>
+		/// <br/>
+		/// <c>DB /7</c><br/>
+		/// <br/>
+		/// <c>8087+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>FSTP m64fp</c><br/>
 		/// <br/>
 		/// <c>DD /3</c><br/>
@@ -12403,25 +12453,15 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>8087+</c><br/>
 		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>FSTP m80fp</c><br/>
-		/// <br/>
-		/// <c>DB /7</c><br/>
-		/// <br/>
-		/// <c>8087+</c><br/>
-		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void fstp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
+			if (dst.Size == MemoryOperandSize.TwordPtr) {
+				op = Code.Fstp_m80fp;
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
 				op = Code.Fstp_m64fp;
 			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
 				op = Code.Fstp_m32fp;
-			} else if (dst.Size == MemoryOperandSize.TwordPtr) {
-				op = Code.Fstp_m80fp;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Fstp, dst);
 			}
@@ -15241,6 +15281,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>JMP r/m64</c><br/>
+		/// <br/>
+		/// <c>FF /4</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>JMP m16:32</c><br/>
 		/// <br/>
 		/// <c>o32 FF /5</c><br/>
@@ -15251,18 +15301,48 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>JMP r/m32</c><br/>
+		/// <br/>
+		/// <c>o32 FF /4</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>JMP m16:16</c><br/>
 		/// <br/>
 		/// <c>o16 FF /5</c><br/>
 		/// <br/>
 		/// <c>8086+</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 FF /4</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void jmp(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness == 64) {
+			if (dst.Size == MemoryOperandSize.TwordPtr) {
 				op = Code.Jmp_m1664;
-			} else op = Bitness >= 32 ? Code.Jmp_m1632 : Code.Jmp_m1616;
+			} else if (dst.Size == MemoryOperandSize.QwordPtr) {
+				op = Code.Jmp_rm64;
+			} else if (dst.Size == MemoryOperandSize.FwordPtr) {
+				op = Code.Jmp_m1632;
+			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
+				op = Bitness >= 32 ? Code.Jmp_rm32 : Code.Jmp_m1616;
+			} else if (dst.Size == MemoryOperandSize.WordPtr) {
+				op = Code.Jmp_rm16;
+			} else {
+				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
+			}
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>jmp instruction.<br/>

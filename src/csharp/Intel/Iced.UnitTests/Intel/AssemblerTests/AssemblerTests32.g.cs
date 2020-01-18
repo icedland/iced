@@ -1204,13 +1204,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void call_m() {
-			if (Bitness == 64) {
+			{ /* if (dst.Size == MemoryOperandSize.TwordPtr) */
 				{
 					// Skipping Call_m1664 - Not supported for Mode32
 				}
-			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.call(__[ecx]), Instruction.Create(Code.Call_m1632, __[ecx]));
-			}  else TestAssembler(c => c.call(__[ecx]), Instruction.Create(Code.Call_m1616, __[ecx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.QwordPtr) */
+				{
+					// Skipping Call_rm64 - Not supported for Mode32
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.FwordPtr) */
+				TestAssembler(c => c.call(__fword_ptr[edx]), Instruction.Create(Code.Call_m1632, __fword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				if (Bitness >= 32) {
+					TestAssembler(c => c.call(__dword_ptr[edx]), Instruction.Create(Code.Call_rm32, __dword_ptr[edx]));
+				}  else TestAssembler(c => c.call(__dword_ptr[edx]), Instruction.Create(Code.Call_m1616, __dword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.call(__word_ptr[edx]), Instruction.Create(Code.Call_rm16, __word_ptr[edx]));
+			}
+			{
+				// TODO: test notfound
+			}
 		}
 
 		[Fact]
@@ -2772,12 +2785,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fld_m() {
-			{ /* if (dst.Size == MemoryOperandSize.QwordPtr) */
+			{ /* if (dst.Size == MemoryOperandSize.TwordPtr) */
+				TestAssembler(c => c.fld(__tword_ptr[edx]), Instruction.Create(Code.Fld_m80fp, __tword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.fld(__qword_ptr[edx]), Instruction.Create(Code.Fld_m64fp, __qword_ptr[edx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				TestAssembler(c => c.fld(__dword_ptr[edx]), Instruction.Create(Code.Fld_m32fp, __dword_ptr[edx]));
-			} /* else */ { /* if (dst.Size == MemoryOperandSize.TwordPtr) */
-				TestAssembler(c => c.fld(__tword_ptr[edx]), Instruction.Create(Code.Fld_m80fp, __tword_ptr[edx]));
 			}
 			{
 				// TODO: test notfound
@@ -3029,12 +3042,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void fstp_m() {
-			{ /* if (dst.Size == MemoryOperandSize.QwordPtr) */
+			{ /* if (dst.Size == MemoryOperandSize.TwordPtr) */
+				TestAssembler(c => c.fstp(__tword_ptr[edx]), Instruction.Create(Code.Fstp_m80fp, __tword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.QwordPtr) */
 				TestAssembler(c => c.fstp(__qword_ptr[edx]), Instruction.Create(Code.Fstp_m64fp, __qword_ptr[edx]));
 			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
 				TestAssembler(c => c.fstp(__dword_ptr[edx]), Instruction.Create(Code.Fstp_m32fp, __dword_ptr[edx]));
-			} /* else */ { /* if (dst.Size == MemoryOperandSize.TwordPtr) */
-				TestAssembler(c => c.fstp(__tword_ptr[edx]), Instruction.Create(Code.Fstp_m80fp, __tword_ptr[edx]));
 			}
 			{
 				// TODO: test notfound
@@ -3758,13 +3771,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmp_m() {
-			if (Bitness == 64) {
+			{ /* if (dst.Size == MemoryOperandSize.TwordPtr) */
 				{
 					// Skipping Jmp_m1664 - Not supported for Mode32
 				}
-			}  else if (Bitness >= 32) {
-				TestAssembler(c => c.jmp(__[ecx]), Instruction.Create(Code.Jmp_m1632, __[ecx]));
-			}  else TestAssembler(c => c.jmp(__[ecx]), Instruction.Create(Code.Jmp_m1616, __[ecx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.QwordPtr) */
+				{
+					// Skipping Jmp_rm64 - Not supported for Mode32
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.FwordPtr) */
+				TestAssembler(c => c.jmp(__fword_ptr[edx]), Instruction.Create(Code.Jmp_m1632, __fword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				if (Bitness >= 32) {
+					TestAssembler(c => c.jmp(__dword_ptr[edx]), Instruction.Create(Code.Jmp_rm32, __dword_ptr[edx]));
+				}  else TestAssembler(c => c.jmp(__dword_ptr[edx]), Instruction.Create(Code.Jmp_m1616, __dword_ptr[edx]));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.jmp(__word_ptr[edx]), Instruction.Create(Code.Jmp_rm16, __word_ptr[edx]));
+			}
+			{
+				// TODO: test notfound
+			}
 		}
 
 		[Fact]

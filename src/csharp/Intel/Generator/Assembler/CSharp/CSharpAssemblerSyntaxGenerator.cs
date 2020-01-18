@@ -1161,6 +1161,8 @@ namespace Generator.Assembler.CSharp {
 				return $"{regName}.Size == MemoryOperandSize.WordPtr";
 			case OpCodeSelectorKind.Memory32:
 				return $"{regName}.Size == MemoryOperandSize.DwordPtr";
+			case OpCodeSelectorKind.Memory48:
+				return $"{regName}.Size == MemoryOperandSize.FwordPtr";
 			case OpCodeSelectorKind.Memory80:
 				return $"{regName}.Size == MemoryOperandSize.TwordPtr";
 			case OpCodeSelectorKind.Memory64:
@@ -1509,7 +1511,20 @@ namespace Generator.Assembler.CSharp {
 				else if (bitness == 64) {
 					yield return "__tword_ptr[rdx]";
 				}
-				break;			
+				break;	
+			case OpCodeSelectorKind.Memory48:
+				if (isElseBranch) {
+					yield return null;
+				} else if (bitness == 16) {
+					yield return "__fword_ptr[di]";
+				}
+				else if (bitness == 32) {
+					yield return "__fword_ptr[edx]";
+				}
+				else if (bitness == 64) {
+					yield return "__fword_ptr[rdx]";
+				}
+				break;
 			case OpCodeSelectorKind.Memory64:
 			case OpCodeSelectorKind.MemoryMM:
 				if (isElseBranch) {

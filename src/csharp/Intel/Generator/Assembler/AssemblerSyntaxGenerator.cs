@@ -998,22 +998,8 @@ namespace Generator.Assembler {
 		}
 
 		static OpCodeOperandKind GetOperandKind(OpCodeInfo opCodeInfo, int index) {
-			// For the following instruction, we don't report that their argument is a reg_mem
-			// but only a reg (to make sure codegen will then pickup m1616/m1632/m1664)
-			switch ((Code)opCodeInfo.Code.Value) {
-				case Code.Call_rm16:
-				case Code.Jmp_rm16:
-					return OpCodeOperandKind.r16_reg;
-				case Code.Call_rm32:
-				case Code.Jmp_rm32:
-					return OpCodeOperandKind.r32_reg;
-				case Code.Call_rm64:
-				case Code.Jmp_rm64:
-					return OpCodeOperandKind.r64_reg;
-			}
 			return opCodeInfo.OpKind(index);
 		}
-
 
 		static bool IsRegister(ArgKind kind) {
 			switch (kind) {
@@ -1040,15 +1026,6 @@ namespace Generator.Assembler {
 		static int GetMemoryAddressSize(OpCodeInfo opCodeInfo) {
 			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
 			switch (memSize) {
-			case MemorySize.SegPtr16:
-				memSize = MemorySize.UInt16;
-				break;
-			case MemorySize.SegPtr32:
-				memSize = MemorySize.UInt32;
-				break;
-			case MemorySize.SegPtr64:
-				memSize = MemorySize.UInt64;
-				break;
 			case MemorySize.Fword6:
 				memSize = MemorySize.UInt32;
 				break;
@@ -1175,8 +1152,12 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mem_vsib32x:
 			case OpCodeOperandKind.mem_vsib64x:
 				switch (addressSize) {
+				case 80:
+					return 05;
 				case 64:
 					return 10;
+				case 48:
+					return 15;
 				case 32:
 					return 20;
 				case 16:
@@ -1601,12 +1582,6 @@ namespace Generator.Assembler {
 			var memSize = (MemorySize) InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
 			switch (memSize)
 			{
-			case MemorySize.SegPtr16:
-			case MemorySize.SegPtr32:
-			case MemorySize.SegPtr64:
-				// We want them to be detected by bitness
-				return OpCodeSelectorKind.Memory;
-
 			case MemorySize.Fword6:
 				memSize = MemorySize.UInt32;
 				break;
@@ -1628,6 +1603,8 @@ namespace Generator.Assembler {
 				return OpCodeSelectorKind.Memory80;
 			case 64:
 				return OpCodeSelectorKind.Memory64;
+			case 48:
+				return OpCodeSelectorKind.Memory48;
 			case 32:
 				return OpCodeSelectorKind.Memory32;
 			case 16:
@@ -2407,6 +2384,7 @@ namespace Generator.Assembler {
 			Memory8,
 			Memory16,
 			Memory32,
+			Memory48,
 			Memory64,
 			Memory80,
 		
