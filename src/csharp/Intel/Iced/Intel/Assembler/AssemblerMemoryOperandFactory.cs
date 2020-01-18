@@ -20,6 +20,8 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+#if !NO_ENCODER
+#nullable enable
 namespace Iced.Intel
 {
 	/// <summary>
@@ -100,3 +102,4 @@ namespace Iced.Intel
 		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, offset, Flags);
 	}
 }
+#endif
