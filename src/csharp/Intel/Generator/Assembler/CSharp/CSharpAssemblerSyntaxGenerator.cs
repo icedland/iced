@@ -62,6 +62,8 @@ namespace Generator.Assembler.CSharp {
 								continue;
 							}
 							var name = register.Name(Converter);
+							// Discard EIP/RIP from assembler registers
+							if (name == "EIP" || name == "RIP") continue;
 							var registerTypeName = $"AssemblerRegister{GetRegisterPostfix((Register)register.Value)}";
 							writer.WriteLine($"public static readonly {registerTypeName} {name.ToLowerInvariant()} = new {registerTypeName}(Register.{name});");
 						}

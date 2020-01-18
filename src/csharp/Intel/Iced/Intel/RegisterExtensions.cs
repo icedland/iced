@@ -234,6 +234,13 @@ namespace Iced.Intel {
 		public static bool IsST(this Register register) => (Register.ST0 <= register && register <= Register.ST7);
 		
 		/// <summary>
+		/// Check if it is a BND0-BND3 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsBND(this Register register) => (Register.BND0 <= register && register <= Register.BND3);
+		
+		/// <summary>
 		/// Checks if it's an <c>XMM</c>, <c>YMM</c> or <c>ZMM</c> register
 		/// </summary>
 		/// <param name="register">Register</param>

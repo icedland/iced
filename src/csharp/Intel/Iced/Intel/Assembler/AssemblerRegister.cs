@@ -38,6 +38,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister8(Register value) {
+            if (!value.IsGPR8()) throw new ArgumentException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
 			Value = value;
 		} 
 
@@ -91,6 +92,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister16(Register value) {
+            if (!value.IsGPR16()) throw new ArgumentException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
 			Value = value;
 		} 
 
@@ -206,6 +208,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister32(Register value) {
+            if (!value.IsGPR32()) throw new ArgumentException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -402,6 +405,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister64(Register value) {
+            if (!value.IsGPR64()) throw new ArgumentException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -598,6 +602,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterMM(Register value) {
+            if (!value.IsMM()) throw new ArgumentException($"Invalid register {value}. Must be a MM register", nameof(value));
 			Value = value;
 		} 
 
@@ -651,6 +656,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterXMM(Register value) {
+            if (!value.IsXMM()) throw new ArgumentException($"Invalid register {value}. Must be a XMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -804,6 +810,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterYMM(Register value) {
+            if (!value.IsYMM()) throw new ArgumentException($"Invalid register {value}. Must be a YMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -957,6 +964,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterZMM(Register value) {
+            if (!value.IsZMM()) throw new ArgumentException($"Invalid register {value}. Must be a ZMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -1110,6 +1118,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterK(Register value) {
+            if (!value.IsK()) throw new ArgumentException($"Invalid register {value}. Must be a K register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -1219,6 +1228,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterCR(Register value) {
+            if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1272,6 +1282,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterTR(Register value) {
+            if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1325,6 +1336,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterDR(Register value) {
+            if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1378,6 +1390,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterST(Register value) {
+            if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
 			Value = value;
 		} 
 
@@ -1431,6 +1444,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterSegment(Register value) {
+            if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
 			Value = value;
 		} 
 
@@ -1484,6 +1498,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterBND(Register value) {
+            if (!value.IsBND()) throw new ArgumentException($"Invalid register {value}. Must be a BND register", nameof(value));
 			Value = value;
 		} 
 

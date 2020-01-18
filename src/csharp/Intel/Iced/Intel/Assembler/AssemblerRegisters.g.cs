@@ -97,8 +97,6 @@ namespace Iced.Intel {
 		public static readonly AssemblerRegister64 r13 = new AssemblerRegister64(Register.R13);
 		public static readonly AssemblerRegister64 r14 = new AssemblerRegister64(Register.R14);
 		public static readonly AssemblerRegister64 r15 = new AssemblerRegister64(Register.R15);
-		public static readonly AssemblerRegister64 eip = new AssemblerRegister64(Register.EIP);
-		public static readonly AssemblerRegister64 rip = new AssemblerRegister64(Register.RIP);
 		public static readonly AssemblerRegisterSegment es = new AssemblerRegisterSegment(Register.ES);
 		public static readonly AssemblerRegisterSegment cs = new AssemblerRegisterSegment(Register.CS);
 		public static readonly AssemblerRegisterSegment ss = new AssemblerRegisterSegment(Register.SS);
