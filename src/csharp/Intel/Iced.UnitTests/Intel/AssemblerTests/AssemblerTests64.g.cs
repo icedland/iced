@@ -48,32 +48,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void adc_reg16_reg16() {
-			TestAssembler(c => c.adc(bx, cx), Instruction.Create(Code.Adc_rm16_r16, bx, cx));
+			TestAssembler(c => c.adc(bx, dx), Instruction.Create(Code.Adc_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void adc_m_reg16() {
-			TestAssembler(c => c.adc(__word_ptr[rcx], cx), Instruction.Create(Code.Adc_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.adc(__word_ptr[rcx], dx), Instruction.Create(Code.Adc_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void adc_reg32_reg32() {
-			TestAssembler(c => c.adc(ebx, ecx), Instruction.Create(Code.Adc_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.adc(ebx, edx), Instruction.Create(Code.Adc_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void adc_m_reg32() {
-			TestAssembler(c => c.adc(__dword_ptr[rcx], ecx), Instruction.Create(Code.Adc_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.adc(__dword_ptr[rcx], edx), Instruction.Create(Code.Adc_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void adc_reg64_reg64() {
-			TestAssembler(c => c.adc(rbx, rcx), Instruction.Create(Code.Adc_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.adc(rbx, rdx), Instruction.Create(Code.Adc_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void adc_m_reg64() {
-			TestAssembler(c => c.adc(__qword_ptr[rcx], rcx), Instruction.Create(Code.Adc_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.adc(__qword_ptr[rcx], rdx), Instruction.Create(Code.Adc_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -224,32 +224,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void add_reg16_reg16() {
-			TestAssembler(c => c.add(bx, cx), Instruction.Create(Code.Add_rm16_r16, bx, cx));
+			TestAssembler(c => c.add(bx, dx), Instruction.Create(Code.Add_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void add_m_reg16() {
-			TestAssembler(c => c.add(__word_ptr[rcx], cx), Instruction.Create(Code.Add_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.add(__word_ptr[rcx], dx), Instruction.Create(Code.Add_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void add_reg32_reg32() {
-			TestAssembler(c => c.add(ebx, ecx), Instruction.Create(Code.Add_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.add(ebx, edx), Instruction.Create(Code.Add_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void add_m_reg32() {
-			TestAssembler(c => c.add(__dword_ptr[rcx], ecx), Instruction.Create(Code.Add_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.add(__dword_ptr[rcx], edx), Instruction.Create(Code.Add_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void add_reg64_reg64() {
-			TestAssembler(c => c.add(rbx, rcx), Instruction.Create(Code.Add_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.add(rbx, rdx), Instruction.Create(Code.Add_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void add_m_reg64() {
-			TestAssembler(c => c.add(__qword_ptr[rcx], rcx), Instruction.Create(Code.Add_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.add(__qword_ptr[rcx], rdx), Instruction.Create(Code.Add_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -520,32 +520,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void and_reg16_reg16() {
-			TestAssembler(c => c.and(bx, cx), Instruction.Create(Code.And_rm16_r16, bx, cx));
+			TestAssembler(c => c.and(bx, dx), Instruction.Create(Code.And_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void and_m_reg16() {
-			TestAssembler(c => c.and(__word_ptr[rcx], cx), Instruction.Create(Code.And_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.and(__word_ptr[rcx], dx), Instruction.Create(Code.And_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void and_reg32_reg32() {
-			TestAssembler(c => c.and(ebx, ecx), Instruction.Create(Code.And_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.and(ebx, edx), Instruction.Create(Code.And_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void and_m_reg32() {
-			TestAssembler(c => c.and(__dword_ptr[rcx], ecx), Instruction.Create(Code.And_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.and(__dword_ptr[rcx], edx), Instruction.Create(Code.And_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void and_reg64_reg64() {
-			TestAssembler(c => c.and(rbx, rcx), Instruction.Create(Code.And_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.and(rbx, rdx), Instruction.Create(Code.And_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void and_m_reg64() {
-			TestAssembler(c => c.and(__qword_ptr[rcx], rcx), Instruction.Create(Code.And_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.and(__qword_ptr[rcx], rdx), Instruction.Create(Code.And_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -666,22 +666,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void andn_reg32_reg32_reg32() {
-			TestAssembler(c => c.andn(ecx, ecx, ebx), Instruction.Create(Code.VEX_Andn_r32_r32_rm32, ecx, ecx, ebx));
+			TestAssembler(c => c.andn(ecx, edx, ebx), Instruction.Create(Code.VEX_Andn_r32_r32_rm32, ecx, edx, ebx));
 		}
 
 		[Fact]
 		public void andn_reg64_reg64_reg64() {
-			TestAssembler(c => c.andn(rcx, rcx, rbx), Instruction.Create(Code.VEX_Andn_r64_r64_rm64, rcx, rcx, rbx));
+			TestAssembler(c => c.andn(rcx, rdx, rbx), Instruction.Create(Code.VEX_Andn_r64_r64_rm64, rcx, rdx, rbx));
 		}
 
 		[Fact]
 		public void andn_reg32_reg32_m() {
-			TestAssembler(c => c.andn(ecx, ecx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Andn_r32_r32_rm32, ecx, ecx, __dword_ptr[rcx]));
+			TestAssembler(c => c.andn(ecx, edx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Andn_r32_r32_rm32, ecx, edx, __dword_ptr[rcx]));
 		}
 
 		[Fact]
 		public void andn_reg64_reg64_m() {
-			TestAssembler(c => c.andn(rcx, rcx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Andn_r64_r64_rm64, rcx, rcx, __qword_ptr[rcx]));
+			TestAssembler(c => c.andn(rcx, rdx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Andn_r64_r64_rm64, rcx, rdx, __qword_ptr[rcx]));
 		}
 
 		[Fact]
@@ -726,22 +726,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bextr_reg32_reg32_reg32() {
-			TestAssembler(c => c.bextr(ecx, ebx, ecx), Instruction.Create(Code.VEX_Bextr_r32_rm32_r32, ecx, ebx, ecx));
+			TestAssembler(c => c.bextr(ecx, ebx, edx), Instruction.Create(Code.VEX_Bextr_r32_rm32_r32, ecx, ebx, edx));
 		}
 
 		[Fact]
 		public void bextr_reg32_m_reg32() {
-			TestAssembler(c => c.bextr(ecx, __dword_ptr[rcx], ecx), Instruction.Create(Code.VEX_Bextr_r32_rm32_r32, ecx, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.bextr(ecx, __dword_ptr[rcx], edx), Instruction.Create(Code.VEX_Bextr_r32_rm32_r32, ecx, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void bextr_reg64_reg64_reg64() {
-			TestAssembler(c => c.bextr(rcx, rbx, rcx), Instruction.Create(Code.VEX_Bextr_r64_rm64_r64, rcx, rbx, rcx));
+			TestAssembler(c => c.bextr(rcx, rbx, rdx), Instruction.Create(Code.VEX_Bextr_r64_rm64_r64, rcx, rbx, rdx));
 		}
 
 		[Fact]
 		public void bextr_reg64_m_reg64() {
-			TestAssembler(c => c.bextr(rcx, __qword_ptr[rcx], rcx), Instruction.Create(Code.VEX_Bextr_r64_rm64_r64, rcx, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.bextr(rcx, __qword_ptr[rcx], rdx), Instruction.Create(Code.VEX_Bextr_r64_rm64_r64, rcx, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -1187,32 +1187,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bt_reg16_reg16() {
-			TestAssembler(c => c.bt(bx, cx), Instruction.Create(Code.Bt_rm16_r16, bx, cx));
+			TestAssembler(c => c.bt(bx, dx), Instruction.Create(Code.Bt_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void bt_m_reg16() {
-			TestAssembler(c => c.bt(__word_ptr[rcx], cx), Instruction.Create(Code.Bt_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.bt(__word_ptr[rcx], dx), Instruction.Create(Code.Bt_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void bt_reg32_reg32() {
-			TestAssembler(c => c.bt(ebx, ecx), Instruction.Create(Code.Bt_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.bt(ebx, edx), Instruction.Create(Code.Bt_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void bt_m_reg32() {
-			TestAssembler(c => c.bt(__dword_ptr[rcx], ecx), Instruction.Create(Code.Bt_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.bt(__dword_ptr[rcx], edx), Instruction.Create(Code.Bt_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void bt_reg64_reg64() {
-			TestAssembler(c => c.bt(rbx, rcx), Instruction.Create(Code.Bt_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.bt(rbx, rdx), Instruction.Create(Code.Bt_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void bt_m_reg64() {
-			TestAssembler(c => c.bt(__qword_ptr[rcx], rcx), Instruction.Create(Code.Bt_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.bt(__qword_ptr[rcx], rdx), Instruction.Create(Code.Bt_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -1246,32 +1246,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void btc_reg16_reg16() {
-			TestAssembler(c => c.btc(bx, cx), Instruction.Create(Code.Btc_rm16_r16, bx, cx));
+			TestAssembler(c => c.btc(bx, dx), Instruction.Create(Code.Btc_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void btc_m_reg16() {
-			TestAssembler(c => c.btc(__word_ptr[rcx], cx), Instruction.Create(Code.Btc_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.btc(__word_ptr[rcx], dx), Instruction.Create(Code.Btc_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void btc_reg32_reg32() {
-			TestAssembler(c => c.btc(ebx, ecx), Instruction.Create(Code.Btc_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.btc(ebx, edx), Instruction.Create(Code.Btc_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void btc_m_reg32() {
-			TestAssembler(c => c.btc(__dword_ptr[rcx], ecx), Instruction.Create(Code.Btc_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.btc(__dword_ptr[rcx], edx), Instruction.Create(Code.Btc_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void btc_reg64_reg64() {
-			TestAssembler(c => c.btc(rbx, rcx), Instruction.Create(Code.Btc_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.btc(rbx, rdx), Instruction.Create(Code.Btc_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void btc_m_reg64() {
-			TestAssembler(c => c.btc(__qword_ptr[rcx], rcx), Instruction.Create(Code.Btc_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.btc(__qword_ptr[rcx], rdx), Instruction.Create(Code.Btc_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -1305,32 +1305,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void btr_reg16_reg16() {
-			TestAssembler(c => c.btr(bx, cx), Instruction.Create(Code.Btr_rm16_r16, bx, cx));
+			TestAssembler(c => c.btr(bx, dx), Instruction.Create(Code.Btr_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void btr_m_reg16() {
-			TestAssembler(c => c.btr(__word_ptr[rcx], cx), Instruction.Create(Code.Btr_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.btr(__word_ptr[rcx], dx), Instruction.Create(Code.Btr_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void btr_reg32_reg32() {
-			TestAssembler(c => c.btr(ebx, ecx), Instruction.Create(Code.Btr_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.btr(ebx, edx), Instruction.Create(Code.Btr_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void btr_m_reg32() {
-			TestAssembler(c => c.btr(__dword_ptr[rcx], ecx), Instruction.Create(Code.Btr_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.btr(__dword_ptr[rcx], edx), Instruction.Create(Code.Btr_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void btr_reg64_reg64() {
-			TestAssembler(c => c.btr(rbx, rcx), Instruction.Create(Code.Btr_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.btr(rbx, rdx), Instruction.Create(Code.Btr_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void btr_m_reg64() {
-			TestAssembler(c => c.btr(__qword_ptr[rcx], rcx), Instruction.Create(Code.Btr_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.btr(__qword_ptr[rcx], rdx), Instruction.Create(Code.Btr_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -1364,32 +1364,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bts_reg16_reg16() {
-			TestAssembler(c => c.bts(bx, cx), Instruction.Create(Code.Bts_rm16_r16, bx, cx));
+			TestAssembler(c => c.bts(bx, dx), Instruction.Create(Code.Bts_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void bts_m_reg16() {
-			TestAssembler(c => c.bts(__word_ptr[rcx], cx), Instruction.Create(Code.Bts_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.bts(__word_ptr[rcx], dx), Instruction.Create(Code.Bts_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void bts_reg32_reg32() {
-			TestAssembler(c => c.bts(ebx, ecx), Instruction.Create(Code.Bts_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.bts(ebx, edx), Instruction.Create(Code.Bts_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void bts_m_reg32() {
-			TestAssembler(c => c.bts(__dword_ptr[rcx], ecx), Instruction.Create(Code.Bts_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.bts(__dword_ptr[rcx], edx), Instruction.Create(Code.Bts_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void bts_reg64_reg64() {
-			TestAssembler(c => c.bts(rbx, rcx), Instruction.Create(Code.Bts_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.bts(rbx, rdx), Instruction.Create(Code.Bts_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void bts_m_reg64() {
-			TestAssembler(c => c.bts(__qword_ptr[rcx], rcx), Instruction.Create(Code.Bts_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.bts(__qword_ptr[rcx], rdx), Instruction.Create(Code.Bts_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -1423,22 +1423,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bzhi_reg32_reg32_reg32() {
-			TestAssembler(c => c.bzhi(ecx, ebx, ecx), Instruction.Create(Code.VEX_Bzhi_r32_rm32_r32, ecx, ebx, ecx));
+			TestAssembler(c => c.bzhi(ecx, ebx, edx), Instruction.Create(Code.VEX_Bzhi_r32_rm32_r32, ecx, ebx, edx));
 		}
 
 		[Fact]
 		public void bzhi_reg32_m_reg32() {
-			TestAssembler(c => c.bzhi(ecx, __dword_ptr[rcx], ecx), Instruction.Create(Code.VEX_Bzhi_r32_rm32_r32, ecx, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.bzhi(ecx, __dword_ptr[rcx], edx), Instruction.Create(Code.VEX_Bzhi_r32_rm32_r32, ecx, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void bzhi_reg64_reg64_reg64() {
-			TestAssembler(c => c.bzhi(rcx, rbx, rcx), Instruction.Create(Code.VEX_Bzhi_r64_rm64_r64, rcx, rbx, rcx));
+			TestAssembler(c => c.bzhi(rcx, rbx, rdx), Instruction.Create(Code.VEX_Bzhi_r64_rm64_r64, rcx, rbx, rdx));
 		}
 
 		[Fact]
 		public void bzhi_reg64_m_reg64() {
-			TestAssembler(c => c.bzhi(rcx, __qword_ptr[rcx], rcx), Instruction.Create(Code.VEX_Bzhi_r64_rm64_r64, rcx, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.bzhi(rcx, __qword_ptr[rcx], rdx), Instruction.Create(Code.VEX_Bzhi_r64_rm64_r64, rcx, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -2054,32 +2054,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmp_reg16_reg16() {
-			TestAssembler(c => c.cmp(bx, cx), Instruction.Create(Code.Cmp_rm16_r16, bx, cx));
+			TestAssembler(c => c.cmp(bx, dx), Instruction.Create(Code.Cmp_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void cmp_m_reg16() {
-			TestAssembler(c => c.cmp(__word_ptr[rcx], cx), Instruction.Create(Code.Cmp_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.cmp(__word_ptr[rcx], dx), Instruction.Create(Code.Cmp_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void cmp_reg32_reg32() {
-			TestAssembler(c => c.cmp(ebx, ecx), Instruction.Create(Code.Cmp_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.cmp(ebx, edx), Instruction.Create(Code.Cmp_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void cmp_m_reg32() {
-			TestAssembler(c => c.cmp(__dword_ptr[rcx], ecx), Instruction.Create(Code.Cmp_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.cmp(__dword_ptr[rcx], edx), Instruction.Create(Code.Cmp_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void cmp_reg64_reg64() {
-			TestAssembler(c => c.cmp(rbx, rcx), Instruction.Create(Code.Cmp_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.cmp(rbx, rdx), Instruction.Create(Code.Cmp_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void cmp_m_reg64() {
-			TestAssembler(c => c.cmp(__qword_ptr[rcx], rcx), Instruction.Create(Code.Cmp_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.cmp(__qword_ptr[rcx], rdx), Instruction.Create(Code.Cmp_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -2270,32 +2270,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void cmpxchg_reg16_reg16() {
-			TestAssembler(c => c.cmpxchg(bx, cx), Instruction.Create(Code.Cmpxchg_rm16_r16, bx, cx));
+			TestAssembler(c => c.cmpxchg(bx, dx), Instruction.Create(Code.Cmpxchg_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void cmpxchg_m_reg16() {
-			TestAssembler(c => c.cmpxchg(__word_ptr[rcx], cx), Instruction.Create(Code.Cmpxchg_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.cmpxchg(__word_ptr[rcx], dx), Instruction.Create(Code.Cmpxchg_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void cmpxchg_reg32_reg32() {
-			TestAssembler(c => c.cmpxchg(ebx, ecx), Instruction.Create(Code.Cmpxchg_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.cmpxchg(ebx, edx), Instruction.Create(Code.Cmpxchg_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void cmpxchg_m_reg32() {
-			TestAssembler(c => c.cmpxchg(__dword_ptr[rcx], ecx), Instruction.Create(Code.Cmpxchg_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.cmpxchg(__dword_ptr[rcx], edx), Instruction.Create(Code.Cmpxchg_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void cmpxchg_reg64_reg64() {
-			TestAssembler(c => c.cmpxchg(rbx, rcx), Instruction.Create(Code.Cmpxchg_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.cmpxchg(rbx, rdx), Instruction.Create(Code.Cmpxchg_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void cmpxchg_m_reg64() {
-			TestAssembler(c => c.cmpxchg(__qword_ptr[rcx], rcx), Instruction.Create(Code.Cmpxchg_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.cmpxchg(__qword_ptr[rcx], rdx), Instruction.Create(Code.Cmpxchg_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -4523,7 +4523,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void kmovb_regK_reg32() {
-			TestAssembler(c => c.kmovb(k1, ecx), Instruction.Create(Code.VEX_Kmovb_k_r32, k1, ecx));
+			TestAssembler(c => c.kmovb(k1, edx), Instruction.Create(Code.VEX_Kmovb_k_r32, k1, edx));
 		}
 
 		[Fact]
@@ -4548,7 +4548,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void kmovd_regK_reg32() {
-			TestAssembler(c => c.kmovd(k1, ecx), Instruction.Create(Code.VEX_Kmovd_k_r32, k1, ecx));
+			TestAssembler(c => c.kmovd(k1, edx), Instruction.Create(Code.VEX_Kmovd_k_r32, k1, edx));
 		}
 
 		[Fact]
@@ -4573,7 +4573,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void kmovq_regK_reg64() {
-			TestAssembler(c => c.kmovq(k1, rcx), Instruction.Create(Code.VEX_Kmovq_k_r64, k1, rcx));
+			TestAssembler(c => c.kmovq(k1, rdx), Instruction.Create(Code.VEX_Kmovq_k_r64, k1, rdx));
 		}
 
 		[Fact]
@@ -4598,7 +4598,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void kmovw_regK_reg32() {
-			TestAssembler(c => c.kmovw(k1, ecx), Instruction.Create(Code.VEX_Kmovw_k_r32, k1, ecx));
+			TestAssembler(c => c.kmovw(k1, edx), Instruction.Create(Code.VEX_Kmovw_k_r32, k1, edx));
 		}
 
 		[Fact]
@@ -5330,7 +5330,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mov_reg16_reg16() {
-			TestAssembler(c => c.mov(bx, cx), Instruction.Create(Code.Mov_rm16_r16, bx, cx));
+			TestAssembler(c => c.mov(bx, dx), Instruction.Create(Code.Mov_rm16_r16, bx, dx));
 		}
 
 		[Fact]
@@ -5342,12 +5342,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void mov_m_reg16() {
 			{ /* if (Bitness == 64 && dst.IsDisplacement64BitOnly) */
 				TestAssembler(c => c.mov(__[0x0123456789abcdef], ax), CreateMemory64(Code.Mov_moffs16_AX, __[0x0123456789abcdef], ax));
-			} /* else */ TestAssembler(c => c.mov(__[rdi], cx), Instruction.Create(Code.Mov_rm16_r16, __[rdi], cx));
+			} /* else */ TestAssembler(c => c.mov(__[rdi], dx), Instruction.Create(Code.Mov_rm16_r16, __[rdi], dx));
 		}
 
 		[Fact]
 		public void mov_reg32_reg32() {
-			TestAssembler(c => c.mov(ebx, ecx), Instruction.Create(Code.Mov_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.mov(ebx, edx), Instruction.Create(Code.Mov_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
@@ -5359,12 +5359,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void mov_m_reg32() {
 			{ /* if (Bitness == 64 && dst.IsDisplacement64BitOnly) */
 				TestAssembler(c => c.mov(__[0x0123456789abcdef], eax), CreateMemory64(Code.Mov_moffs32_EAX, __[0x0123456789abcdef], eax));
-			} /* else */ TestAssembler(c => c.mov(__[rdi], ecx), Instruction.Create(Code.Mov_rm32_r32, __[rdi], ecx));
+			} /* else */ TestAssembler(c => c.mov(__[rdi], edx), Instruction.Create(Code.Mov_rm32_r32, __[rdi], edx));
 		}
 
 		[Fact]
 		public void mov_reg64_reg64() {
-			TestAssembler(c => c.mov(rbx, rcx), Instruction.Create(Code.Mov_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.mov(rbx, rdx), Instruction.Create(Code.Mov_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
@@ -5374,19 +5374,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mov_regCR_reg64() {
-			TestAssembler(c => c.mov(cr1, rcx), Instruction.Create(Code.Mov_cr_r64, cr1, rcx));
+			TestAssembler(c => c.mov(cr1, rdx), Instruction.Create(Code.Mov_cr_r64, cr1, rdx));
 		}
 
 		[Fact]
 		public void mov_regDR_reg64() {
-			TestAssembler(c => c.mov(dr1, rcx), Instruction.Create(Code.Mov_dr_r64, dr1, rcx));
+			TestAssembler(c => c.mov(dr1, rdx), Instruction.Create(Code.Mov_dr_r64, dr1, rdx));
 		}
 
 		[Fact]
 		public void mov_m_reg64() {
 			{ /* if (Bitness == 64 && dst.IsDisplacement64BitOnly) */
 				TestAssembler(c => c.mov(__[0x0123456789abcdef], rax), CreateMemory64(Code.Mov_moffs64_RAX, __[0x0123456789abcdef], rax));
-			} /* else */ TestAssembler(c => c.mov(__[rdi], rcx), Instruction.Create(Code.Mov_rm64_r64, __[rdi], rcx));
+			} /* else */ TestAssembler(c => c.mov(__[rdi], rdx), Instruction.Create(Code.Mov_rm64_r64, __[rdi], rdx));
 		}
 
 		[Fact]
@@ -5527,17 +5527,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movbe_m_reg16() {
-			TestAssembler(c => c.movbe(__[rcx], cx), Instruction.Create(Code.Movbe_m16_r16, __[rcx], cx));
+			TestAssembler(c => c.movbe(__[rcx], dx), Instruction.Create(Code.Movbe_m16_r16, __[rcx], dx));
 		}
 
 		[Fact]
 		public void movbe_m_reg32() {
-			TestAssembler(c => c.movbe(__[rcx], ecx), Instruction.Create(Code.Movbe_m32_r32, __[rcx], ecx));
+			TestAssembler(c => c.movbe(__[rcx], edx), Instruction.Create(Code.Movbe_m32_r32, __[rcx], edx));
 		}
 
 		[Fact]
 		public void movbe_m_reg64() {
-			TestAssembler(c => c.movbe(__[rcx], rcx), Instruction.Create(Code.Movbe_m64_r64, __[rcx], rcx));
+			TestAssembler(c => c.movbe(__[rcx], rdx), Instruction.Create(Code.Movbe_m64_r64, __[rcx], rdx));
 		}
 
 		[Fact]
@@ -5617,12 +5617,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movdiri_m_reg32() {
-			TestAssembler(c => c.movdiri(__[rcx], ecx), Instruction.Create(Code.Movdiri_m32_r32, __[rcx], ecx));
+			TestAssembler(c => c.movdiri(__[rcx], edx), Instruction.Create(Code.Movdiri_m32_r32, __[rcx], edx));
 		}
 
 		[Fact]
 		public void movdiri_m_reg64() {
-			TestAssembler(c => c.movdiri(__[rcx], rcx), Instruction.Create(Code.Movdiri_m64_r64, __[rcx], rcx));
+			TestAssembler(c => c.movdiri(__[rcx], rdx), Instruction.Create(Code.Movdiri_m64_r64, __[rcx], rdx));
 		}
 
 		[Fact]
@@ -5742,12 +5742,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void movnti_m_reg32() {
-			TestAssembler(c => c.movnti(__[rcx], ecx), Instruction.Create(Code.Movnti_m32_r32, __[rcx], ecx));
+			TestAssembler(c => c.movnti(__[rcx], edx), Instruction.Create(Code.Movnti_m32_r32, __[rcx], edx));
 		}
 
 		[Fact]
 		public void movnti_m_reg64() {
-			TestAssembler(c => c.movnti(__[rcx], rcx), Instruction.Create(Code.Movnti_m64_r64, __[rcx], rcx));
+			TestAssembler(c => c.movnti(__[rcx], rdx), Instruction.Create(Code.Movnti_m64_r64, __[rcx], rdx));
 		}
 
 		[Fact]
@@ -6180,22 +6180,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mulx_reg32_reg32_reg32() {
-			TestAssembler(c => c.mulx(ecx, ecx, ebx), Instruction.Create(Code.VEX_Mulx_r32_r32_rm32, ecx, ecx, ebx));
+			TestAssembler(c => c.mulx(ecx, edx, ebx), Instruction.Create(Code.VEX_Mulx_r32_r32_rm32, ecx, edx, ebx));
 		}
 
 		[Fact]
 		public void mulx_reg64_reg64_reg64() {
-			TestAssembler(c => c.mulx(rcx, rcx, rbx), Instruction.Create(Code.VEX_Mulx_r64_r64_rm64, rcx, rcx, rbx));
+			TestAssembler(c => c.mulx(rcx, rdx, rbx), Instruction.Create(Code.VEX_Mulx_r64_r64_rm64, rcx, rdx, rbx));
 		}
 
 		[Fact]
 		public void mulx_reg32_reg32_m() {
-			TestAssembler(c => c.mulx(ecx, ecx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Mulx_r32_r32_rm32, ecx, ecx, __dword_ptr[rcx]));
+			TestAssembler(c => c.mulx(ecx, edx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Mulx_r32_r32_rm32, ecx, edx, __dword_ptr[rcx]));
 		}
 
 		[Fact]
 		public void mulx_reg64_reg64_m() {
-			TestAssembler(c => c.mulx(rcx, rcx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Mulx_r64_r64_rm64, rcx, rcx, __qword_ptr[rcx]));
+			TestAssembler(c => c.mulx(rcx, rdx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Mulx_r64_r64_rm64, rcx, rdx, __qword_ptr[rcx]));
 		}
 
 		[Fact]
@@ -6328,32 +6328,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void or_reg16_reg16() {
-			TestAssembler(c => c.or(bx, cx), Instruction.Create(Code.Or_rm16_r16, bx, cx));
+			TestAssembler(c => c.or(bx, dx), Instruction.Create(Code.Or_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void or_m_reg16() {
-			TestAssembler(c => c.or(__word_ptr[rcx], cx), Instruction.Create(Code.Or_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.or(__word_ptr[rcx], dx), Instruction.Create(Code.Or_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void or_reg32_reg32() {
-			TestAssembler(c => c.or(ebx, ecx), Instruction.Create(Code.Or_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.or(ebx, edx), Instruction.Create(Code.Or_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void or_m_reg32() {
-			TestAssembler(c => c.or(__dword_ptr[rcx], ecx), Instruction.Create(Code.Or_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.or(__dword_ptr[rcx], edx), Instruction.Create(Code.Or_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void or_reg64_reg64() {
-			TestAssembler(c => c.or(rbx, rcx), Instruction.Create(Code.Or_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.or(rbx, rdx), Instruction.Create(Code.Or_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void or_m_reg64() {
-			TestAssembler(c => c.or(__qword_ptr[rcx], rcx), Instruction.Create(Code.Or_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.or(__qword_ptr[rcx], rdx), Instruction.Create(Code.Or_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -7184,42 +7184,42 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void pdep_reg32_reg32_reg32() {
-			TestAssembler(c => c.pdep(ecx, ecx, ebx), Instruction.Create(Code.VEX_Pdep_r32_r32_rm32, ecx, ecx, ebx));
+			TestAssembler(c => c.pdep(ecx, edx, ebx), Instruction.Create(Code.VEX_Pdep_r32_r32_rm32, ecx, edx, ebx));
 		}
 
 		[Fact]
 		public void pdep_reg64_reg64_reg64() {
-			TestAssembler(c => c.pdep(rcx, rcx, rbx), Instruction.Create(Code.VEX_Pdep_r64_r64_rm64, rcx, rcx, rbx));
+			TestAssembler(c => c.pdep(rcx, rdx, rbx), Instruction.Create(Code.VEX_Pdep_r64_r64_rm64, rcx, rdx, rbx));
 		}
 
 		[Fact]
 		public void pdep_reg32_reg32_m() {
-			TestAssembler(c => c.pdep(ecx, ecx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Pdep_r32_r32_rm32, ecx, ecx, __dword_ptr[rcx]));
+			TestAssembler(c => c.pdep(ecx, edx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Pdep_r32_r32_rm32, ecx, edx, __dword_ptr[rcx]));
 		}
 
 		[Fact]
 		public void pdep_reg64_reg64_m() {
-			TestAssembler(c => c.pdep(rcx, rcx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Pdep_r64_r64_rm64, rcx, rcx, __qword_ptr[rcx]));
+			TestAssembler(c => c.pdep(rcx, rdx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Pdep_r64_r64_rm64, rcx, rdx, __qword_ptr[rcx]));
 		}
 
 		[Fact]
 		public void pext_reg32_reg32_reg32() {
-			TestAssembler(c => c.pext(ecx, ecx, ebx), Instruction.Create(Code.VEX_Pext_r32_r32_rm32, ecx, ecx, ebx));
+			TestAssembler(c => c.pext(ecx, edx, ebx), Instruction.Create(Code.VEX_Pext_r32_r32_rm32, ecx, edx, ebx));
 		}
 
 		[Fact]
 		public void pext_reg64_reg64_reg64() {
-			TestAssembler(c => c.pext(rcx, rcx, rbx), Instruction.Create(Code.VEX_Pext_r64_r64_rm64, rcx, rcx, rbx));
+			TestAssembler(c => c.pext(rcx, rdx, rbx), Instruction.Create(Code.VEX_Pext_r64_r64_rm64, rcx, rdx, rbx));
 		}
 
 		[Fact]
 		public void pext_reg32_reg32_m() {
-			TestAssembler(c => c.pext(ecx, ecx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Pext_r32_r32_rm32, ecx, ecx, __dword_ptr[rcx]));
+			TestAssembler(c => c.pext(ecx, edx, __dword_ptr[rcx]), Instruction.Create(Code.VEX_Pext_r32_r32_rm32, ecx, edx, __dword_ptr[rcx]));
 		}
 
 		[Fact]
 		public void pext_reg64_reg64_m() {
-			TestAssembler(c => c.pext(rcx, rcx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Pext_r64_r64_rm64, rcx, rcx, __qword_ptr[rcx]));
+			TestAssembler(c => c.pext(rcx, rdx, __qword_ptr[rcx]), Instruction.Create(Code.VEX_Pext_r64_r64_rm64, rcx, rdx, __qword_ptr[rcx]));
 		}
 
 		[Fact]
@@ -10047,22 +10047,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void sarx_reg32_reg32_reg32() {
-			TestAssembler(c => c.sarx(ecx, ebx, ecx), Instruction.Create(Code.VEX_Sarx_r32_rm32_r32, ecx, ebx, ecx));
+			TestAssembler(c => c.sarx(ecx, ebx, edx), Instruction.Create(Code.VEX_Sarx_r32_rm32_r32, ecx, ebx, edx));
 		}
 
 		[Fact]
 		public void sarx_reg32_m_reg32() {
-			TestAssembler(c => c.sarx(ecx, __dword_ptr[rcx], ecx), Instruction.Create(Code.VEX_Sarx_r32_rm32_r32, ecx, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.sarx(ecx, __dword_ptr[rcx], edx), Instruction.Create(Code.VEX_Sarx_r32_rm32_r32, ecx, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void sarx_reg64_reg64_reg64() {
-			TestAssembler(c => c.sarx(rcx, rbx, rcx), Instruction.Create(Code.VEX_Sarx_r64_rm64_r64, rcx, rbx, rcx));
+			TestAssembler(c => c.sarx(rcx, rbx, rdx), Instruction.Create(Code.VEX_Sarx_r64_rm64_r64, rcx, rbx, rdx));
 		}
 
 		[Fact]
 		public void sarx_reg64_m_reg64() {
-			TestAssembler(c => c.sarx(rcx, __qword_ptr[rcx], rcx), Instruction.Create(Code.VEX_Sarx_r64_rm64_r64, rcx, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.sarx(rcx, __qword_ptr[rcx], rdx), Instruction.Create(Code.VEX_Sarx_r64_rm64_r64, rcx, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -10082,32 +10082,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void sbb_reg16_reg16() {
-			TestAssembler(c => c.sbb(bx, cx), Instruction.Create(Code.Sbb_rm16_r16, bx, cx));
+			TestAssembler(c => c.sbb(bx, dx), Instruction.Create(Code.Sbb_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void sbb_m_reg16() {
-			TestAssembler(c => c.sbb(__word_ptr[rcx], cx), Instruction.Create(Code.Sbb_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.sbb(__word_ptr[rcx], dx), Instruction.Create(Code.Sbb_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void sbb_reg32_reg32() {
-			TestAssembler(c => c.sbb(ebx, ecx), Instruction.Create(Code.Sbb_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.sbb(ebx, edx), Instruction.Create(Code.Sbb_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void sbb_m_reg32() {
-			TestAssembler(c => c.sbb(__dword_ptr[rcx], ecx), Instruction.Create(Code.Sbb_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.sbb(__dword_ptr[rcx], edx), Instruction.Create(Code.Sbb_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void sbb_reg64_reg64() {
-			TestAssembler(c => c.sbb(rbx, rcx), Instruction.Create(Code.Sbb_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.sbb(rbx, rdx), Instruction.Create(Code.Sbb_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void sbb_m_reg64() {
-			TestAssembler(c => c.sbb(__qword_ptr[rcx], rcx), Instruction.Create(Code.Sbb_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.sbb(__qword_ptr[rcx], rdx), Instruction.Create(Code.Sbb_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -10594,82 +10594,82 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void shld_reg16_reg16_reg8() {
-			TestAssembler(c => c.shld(bx, cx, cl), Instruction.Create(Code.Shld_rm16_r16_CL, bx, cx, cl));
+			TestAssembler(c => c.shld(bx, dx, cl), Instruction.Create(Code.Shld_rm16_r16_CL, bx, dx, cl));
 		}
 
 		[Fact]
 		public void shld_m_reg16_reg8() {
-			TestAssembler(c => c.shld(__word_ptr[rcx], cx, cl), Instruction.Create(Code.Shld_rm16_r16_CL, __word_ptr[rcx], cx, cl));
+			TestAssembler(c => c.shld(__word_ptr[rcx], dx, cl), Instruction.Create(Code.Shld_rm16_r16_CL, __word_ptr[rcx], dx, cl));
 		}
 
 		[Fact]
 		public void shld_reg32_reg32_reg8() {
-			TestAssembler(c => c.shld(ebx, ecx, cl), Instruction.Create(Code.Shld_rm32_r32_CL, ebx, ecx, cl));
+			TestAssembler(c => c.shld(ebx, edx, cl), Instruction.Create(Code.Shld_rm32_r32_CL, ebx, edx, cl));
 		}
 
 		[Fact]
 		public void shld_m_reg32_reg8() {
-			TestAssembler(c => c.shld(__dword_ptr[rcx], ecx, cl), Instruction.Create(Code.Shld_rm32_r32_CL, __dword_ptr[rcx], ecx, cl));
+			TestAssembler(c => c.shld(__dword_ptr[rcx], edx, cl), Instruction.Create(Code.Shld_rm32_r32_CL, __dword_ptr[rcx], edx, cl));
 		}
 
 		[Fact]
 		public void shld_reg64_reg64_reg8() {
-			TestAssembler(c => c.shld(rbx, rcx, cl), Instruction.Create(Code.Shld_rm64_r64_CL, rbx, rcx, cl));
+			TestAssembler(c => c.shld(rbx, rdx, cl), Instruction.Create(Code.Shld_rm64_r64_CL, rbx, rdx, cl));
 		}
 
 		[Fact]
 		public void shld_m_reg64_reg8() {
-			TestAssembler(c => c.shld(__qword_ptr[rcx], rcx, cl), Instruction.Create(Code.Shld_rm64_r64_CL, __qword_ptr[rcx], rcx, cl));
+			TestAssembler(c => c.shld(__qword_ptr[rcx], rdx, cl), Instruction.Create(Code.Shld_rm64_r64_CL, __qword_ptr[rcx], rdx, cl));
 		}
 
 		[Fact]
 		public void shld_reg16_reg16_ib() {
-			TestAssembler(c => c.shld(bx, cx, (byte)127), Instruction.Create(Code.Shld_rm16_r16_imm8, bx, cx, (byte)127));
+			TestAssembler(c => c.shld(bx, dx, (byte)127), Instruction.Create(Code.Shld_rm16_r16_imm8, bx, dx, (byte)127));
 		}
 
 		[Fact]
 		public void shld_m_reg16_ib() {
-			TestAssembler(c => c.shld(__word_ptr[rcx], cx, (byte)127), Instruction.Create(Code.Shld_rm16_r16_imm8, __word_ptr[rcx], cx, (byte)127));
+			TestAssembler(c => c.shld(__word_ptr[rcx], dx, (byte)127), Instruction.Create(Code.Shld_rm16_r16_imm8, __word_ptr[rcx], dx, (byte)127));
 		}
 
 		[Fact]
 		public void shld_reg32_reg32_ib() {
-			TestAssembler(c => c.shld(ebx, ecx, (byte)127), Instruction.Create(Code.Shld_rm32_r32_imm8, ebx, ecx, (byte)127));
+			TestAssembler(c => c.shld(ebx, edx, (byte)127), Instruction.Create(Code.Shld_rm32_r32_imm8, ebx, edx, (byte)127));
 		}
 
 		[Fact]
 		public void shld_m_reg32_ib() {
-			TestAssembler(c => c.shld(__dword_ptr[rcx], ecx, (byte)127), Instruction.Create(Code.Shld_rm32_r32_imm8, __dword_ptr[rcx], ecx, (byte)127));
+			TestAssembler(c => c.shld(__dword_ptr[rcx], edx, (byte)127), Instruction.Create(Code.Shld_rm32_r32_imm8, __dword_ptr[rcx], edx, (byte)127));
 		}
 
 		[Fact]
 		public void shld_reg64_reg64_ib() {
-			TestAssembler(c => c.shld(rbx, rcx, (byte)127), Instruction.Create(Code.Shld_rm64_r64_imm8, rbx, rcx, (byte)127));
+			TestAssembler(c => c.shld(rbx, rdx, (byte)127), Instruction.Create(Code.Shld_rm64_r64_imm8, rbx, rdx, (byte)127));
 		}
 
 		[Fact]
 		public void shld_m_reg64_ib() {
-			TestAssembler(c => c.shld(__qword_ptr[rcx], rcx, (byte)127), Instruction.Create(Code.Shld_rm64_r64_imm8, __qword_ptr[rcx], rcx, (byte)127));
+			TestAssembler(c => c.shld(__qword_ptr[rcx], rdx, (byte)127), Instruction.Create(Code.Shld_rm64_r64_imm8, __qword_ptr[rcx], rdx, (byte)127));
 		}
 
 		[Fact]
 		public void shlx_reg32_reg32_reg32() {
-			TestAssembler(c => c.shlx(ecx, ebx, ecx), Instruction.Create(Code.VEX_Shlx_r32_rm32_r32, ecx, ebx, ecx));
+			TestAssembler(c => c.shlx(ecx, ebx, edx), Instruction.Create(Code.VEX_Shlx_r32_rm32_r32, ecx, ebx, edx));
 		}
 
 		[Fact]
 		public void shlx_reg32_m_reg32() {
-			TestAssembler(c => c.shlx(ecx, __dword_ptr[rcx], ecx), Instruction.Create(Code.VEX_Shlx_r32_rm32_r32, ecx, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.shlx(ecx, __dword_ptr[rcx], edx), Instruction.Create(Code.VEX_Shlx_r32_rm32_r32, ecx, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void shlx_reg64_reg64_reg64() {
-			TestAssembler(c => c.shlx(rcx, rbx, rcx), Instruction.Create(Code.VEX_Shlx_r64_rm64_r64, rcx, rbx, rcx));
+			TestAssembler(c => c.shlx(rcx, rbx, rdx), Instruction.Create(Code.VEX_Shlx_r64_rm64_r64, rcx, rbx, rdx));
 		}
 
 		[Fact]
 		public void shlx_reg64_m_reg64() {
-			TestAssembler(c => c.shlx(rcx, __qword_ptr[rcx], rcx), Instruction.Create(Code.VEX_Shlx_r64_rm64_r64, rcx, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.shlx(rcx, __qword_ptr[rcx], rdx), Instruction.Create(Code.VEX_Shlx_r64_rm64_r64, rcx, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -10767,82 +10767,82 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void shrd_reg16_reg16_reg8() {
-			TestAssembler(c => c.shrd(bx, cx, cl), Instruction.Create(Code.Shrd_rm16_r16_CL, bx, cx, cl));
+			TestAssembler(c => c.shrd(bx, dx, cl), Instruction.Create(Code.Shrd_rm16_r16_CL, bx, dx, cl));
 		}
 
 		[Fact]
 		public void shrd_m_reg16_reg8() {
-			TestAssembler(c => c.shrd(__word_ptr[rcx], cx, cl), Instruction.Create(Code.Shrd_rm16_r16_CL, __word_ptr[rcx], cx, cl));
+			TestAssembler(c => c.shrd(__word_ptr[rcx], dx, cl), Instruction.Create(Code.Shrd_rm16_r16_CL, __word_ptr[rcx], dx, cl));
 		}
 
 		[Fact]
 		public void shrd_reg32_reg32_reg8() {
-			TestAssembler(c => c.shrd(ebx, ecx, cl), Instruction.Create(Code.Shrd_rm32_r32_CL, ebx, ecx, cl));
+			TestAssembler(c => c.shrd(ebx, edx, cl), Instruction.Create(Code.Shrd_rm32_r32_CL, ebx, edx, cl));
 		}
 
 		[Fact]
 		public void shrd_m_reg32_reg8() {
-			TestAssembler(c => c.shrd(__dword_ptr[rcx], ecx, cl), Instruction.Create(Code.Shrd_rm32_r32_CL, __dword_ptr[rcx], ecx, cl));
+			TestAssembler(c => c.shrd(__dword_ptr[rcx], edx, cl), Instruction.Create(Code.Shrd_rm32_r32_CL, __dword_ptr[rcx], edx, cl));
 		}
 
 		[Fact]
 		public void shrd_reg64_reg64_reg8() {
-			TestAssembler(c => c.shrd(rbx, rcx, cl), Instruction.Create(Code.Shrd_rm64_r64_CL, rbx, rcx, cl));
+			TestAssembler(c => c.shrd(rbx, rdx, cl), Instruction.Create(Code.Shrd_rm64_r64_CL, rbx, rdx, cl));
 		}
 
 		[Fact]
 		public void shrd_m_reg64_reg8() {
-			TestAssembler(c => c.shrd(__qword_ptr[rcx], rcx, cl), Instruction.Create(Code.Shrd_rm64_r64_CL, __qword_ptr[rcx], rcx, cl));
+			TestAssembler(c => c.shrd(__qword_ptr[rcx], rdx, cl), Instruction.Create(Code.Shrd_rm64_r64_CL, __qword_ptr[rcx], rdx, cl));
 		}
 
 		[Fact]
 		public void shrd_reg16_reg16_ib() {
-			TestAssembler(c => c.shrd(bx, cx, (byte)127), Instruction.Create(Code.Shrd_rm16_r16_imm8, bx, cx, (byte)127));
+			TestAssembler(c => c.shrd(bx, dx, (byte)127), Instruction.Create(Code.Shrd_rm16_r16_imm8, bx, dx, (byte)127));
 		}
 
 		[Fact]
 		public void shrd_m_reg16_ib() {
-			TestAssembler(c => c.shrd(__word_ptr[rcx], cx, (byte)127), Instruction.Create(Code.Shrd_rm16_r16_imm8, __word_ptr[rcx], cx, (byte)127));
+			TestAssembler(c => c.shrd(__word_ptr[rcx], dx, (byte)127), Instruction.Create(Code.Shrd_rm16_r16_imm8, __word_ptr[rcx], dx, (byte)127));
 		}
 
 		[Fact]
 		public void shrd_reg32_reg32_ib() {
-			TestAssembler(c => c.shrd(ebx, ecx, (byte)127), Instruction.Create(Code.Shrd_rm32_r32_imm8, ebx, ecx, (byte)127));
+			TestAssembler(c => c.shrd(ebx, edx, (byte)127), Instruction.Create(Code.Shrd_rm32_r32_imm8, ebx, edx, (byte)127));
 		}
 
 		[Fact]
 		public void shrd_m_reg32_ib() {
-			TestAssembler(c => c.shrd(__dword_ptr[rcx], ecx, (byte)127), Instruction.Create(Code.Shrd_rm32_r32_imm8, __dword_ptr[rcx], ecx, (byte)127));
+			TestAssembler(c => c.shrd(__dword_ptr[rcx], edx, (byte)127), Instruction.Create(Code.Shrd_rm32_r32_imm8, __dword_ptr[rcx], edx, (byte)127));
 		}
 
 		[Fact]
 		public void shrd_reg64_reg64_ib() {
-			TestAssembler(c => c.shrd(rbx, rcx, (byte)127), Instruction.Create(Code.Shrd_rm64_r64_imm8, rbx, rcx, (byte)127));
+			TestAssembler(c => c.shrd(rbx, rdx, (byte)127), Instruction.Create(Code.Shrd_rm64_r64_imm8, rbx, rdx, (byte)127));
 		}
 
 		[Fact]
 		public void shrd_m_reg64_ib() {
-			TestAssembler(c => c.shrd(__qword_ptr[rcx], rcx, (byte)127), Instruction.Create(Code.Shrd_rm64_r64_imm8, __qword_ptr[rcx], rcx, (byte)127));
+			TestAssembler(c => c.shrd(__qword_ptr[rcx], rdx, (byte)127), Instruction.Create(Code.Shrd_rm64_r64_imm8, __qword_ptr[rcx], rdx, (byte)127));
 		}
 
 		[Fact]
 		public void shrx_reg32_reg32_reg32() {
-			TestAssembler(c => c.shrx(ecx, ebx, ecx), Instruction.Create(Code.VEX_Shrx_r32_rm32_r32, ecx, ebx, ecx));
+			TestAssembler(c => c.shrx(ecx, ebx, edx), Instruction.Create(Code.VEX_Shrx_r32_rm32_r32, ecx, ebx, edx));
 		}
 
 		[Fact]
 		public void shrx_reg32_m_reg32() {
-			TestAssembler(c => c.shrx(ecx, __dword_ptr[rcx], ecx), Instruction.Create(Code.VEX_Shrx_r32_rm32_r32, ecx, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.shrx(ecx, __dword_ptr[rcx], edx), Instruction.Create(Code.VEX_Shrx_r32_rm32_r32, ecx, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void shrx_reg64_reg64_reg64() {
-			TestAssembler(c => c.shrx(rcx, rbx, rcx), Instruction.Create(Code.VEX_Shrx_r64_rm64_r64, rcx, rbx, rcx));
+			TestAssembler(c => c.shrx(rcx, rbx, rdx), Instruction.Create(Code.VEX_Shrx_r64_rm64_r64, rcx, rbx, rdx));
 		}
 
 		[Fact]
 		public void shrx_reg64_m_reg64() {
-			TestAssembler(c => c.shrx(rcx, __qword_ptr[rcx], rcx), Instruction.Create(Code.VEX_Shrx_r64_rm64_r64, rcx, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.shrx(rcx, __qword_ptr[rcx], rdx), Instruction.Create(Code.VEX_Shrx_r64_rm64_r64, rcx, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -11061,32 +11061,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void sub_reg16_reg16() {
-			TestAssembler(c => c.sub(bx, cx), Instruction.Create(Code.Sub_rm16_r16, bx, cx));
+			TestAssembler(c => c.sub(bx, dx), Instruction.Create(Code.Sub_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void sub_m_reg16() {
-			TestAssembler(c => c.sub(__word_ptr[rcx], cx), Instruction.Create(Code.Sub_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.sub(__word_ptr[rcx], dx), Instruction.Create(Code.Sub_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void sub_reg32_reg32() {
-			TestAssembler(c => c.sub(ebx, ecx), Instruction.Create(Code.Sub_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.sub(ebx, edx), Instruction.Create(Code.Sub_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void sub_m_reg32() {
-			TestAssembler(c => c.sub(__dword_ptr[rcx], ecx), Instruction.Create(Code.Sub_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.sub(__dword_ptr[rcx], edx), Instruction.Create(Code.Sub_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void sub_reg64_reg64() {
-			TestAssembler(c => c.sub(rbx, rcx), Instruction.Create(Code.Sub_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.sub(rbx, rdx), Instruction.Create(Code.Sub_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void sub_m_reg64() {
-			TestAssembler(c => c.sub(__qword_ptr[rcx], rcx), Instruction.Create(Code.Sub_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.sub(__qword_ptr[rcx], rdx), Instruction.Create(Code.Sub_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -11312,32 +11312,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void test_reg16_reg16() {
-			TestAssembler(c => c.test(bx, cx), Instruction.Create(Code.Test_rm16_r16, bx, cx));
+			TestAssembler(c => c.test(bx, dx), Instruction.Create(Code.Test_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void test_m_reg16() {
-			TestAssembler(c => c.test(__word_ptr[rcx], cx), Instruction.Create(Code.Test_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.test(__word_ptr[rcx], dx), Instruction.Create(Code.Test_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void test_reg32_reg32() {
-			TestAssembler(c => c.test(ebx, ecx), Instruction.Create(Code.Test_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.test(ebx, edx), Instruction.Create(Code.Test_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void test_m_reg32() {
-			TestAssembler(c => c.test(__dword_ptr[rcx], ecx), Instruction.Create(Code.Test_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.test(__dword_ptr[rcx], edx), Instruction.Create(Code.Test_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void test_reg64_reg64() {
-			TestAssembler(c => c.test(rbx, rcx), Instruction.Create(Code.Test_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.test(rbx, rdx), Instruction.Create(Code.Test_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void test_m_reg64() {
-			TestAssembler(c => c.test(__qword_ptr[rcx], rcx), Instruction.Create(Code.Test_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.test(__qword_ptr[rcx], rdx), Instruction.Create(Code.Test_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -18540,12 +18540,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmread_reg64_reg64() {
-			TestAssembler(c => c.vmread(rbx, rcx), Instruction.Create(Code.Vmread_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.vmread(rbx, rdx), Instruction.Create(Code.Vmread_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void vmread_m_reg64() {
-			TestAssembler(c => c.vmread(__qword_ptr[rcx], rcx), Instruction.Create(Code.Vmread_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.vmread(__qword_ptr[rcx], rdx), Instruction.Create(Code.Vmread_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -19813,17 +19813,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpbroadcastb_regXMM_reg32() {
-			TestAssembler(c => c.vpbroadcastb(xmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_xmm_k1z_r32, xmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastb(xmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_xmm_k1z_r32, xmm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastb_regYMM_reg32() {
-			TestAssembler(c => c.vpbroadcastb(ymm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_ymm_k1z_r32, ymm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastb(ymm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_ymm_k1z_r32, ymm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastb_regZMM_reg32() {
-			TestAssembler(c => c.vpbroadcastb(zmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_zmm_k1z_r32, zmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastb(zmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastb_zmm_k1z_r32, zmm0.k1, edx)));
 		}
 
 		[Fact]
@@ -19862,17 +19862,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpbroadcastd_regXMM_reg32() {
-			TestAssembler(c => c.vpbroadcastd(xmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_xmm_k1z_r32, xmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastd(xmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_xmm_k1z_r32, xmm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastd_regYMM_reg32() {
-			TestAssembler(c => c.vpbroadcastd(ymm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_ymm_k1z_r32, ymm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastd(ymm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_ymm_k1z_r32, ymm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastd_regZMM_reg32() {
-			TestAssembler(c => c.vpbroadcastd(zmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_zmm_k1z_r32, zmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastd(zmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastd_zmm_k1z_r32, zmm0.k1, edx)));
 		}
 
 		[Fact]
@@ -19941,17 +19941,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpbroadcastq_regXMM_reg64() {
-			TestAssembler(c => c.vpbroadcastq(xmm0.k1, rcx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_xmm_k1z_r64, xmm0.k1, rcx)));
+			TestAssembler(c => c.vpbroadcastq(xmm0.k1, rdx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_xmm_k1z_r64, xmm0.k1, rdx)));
 		}
 
 		[Fact]
 		public void vpbroadcastq_regYMM_reg64() {
-			TestAssembler(c => c.vpbroadcastq(ymm0.k1, rcx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_ymm_k1z_r64, ymm0.k1, rcx)));
+			TestAssembler(c => c.vpbroadcastq(ymm0.k1, rdx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_ymm_k1z_r64, ymm0.k1, rdx)));
 		}
 
 		[Fact]
 		public void vpbroadcastq_regZMM_reg64() {
-			TestAssembler(c => c.vpbroadcastq(zmm0.k1, rcx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_zmm_k1z_r64, zmm0.k1, rcx)));
+			TestAssembler(c => c.vpbroadcastq(zmm0.k1, rdx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastq_zmm_k1z_r64, zmm0.k1, rdx)));
 		}
 
 		[Fact]
@@ -19990,17 +19990,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vpbroadcastw_regXMM_reg32() {
-			TestAssembler(c => c.vpbroadcastw(xmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_xmm_k1z_r32, xmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastw(xmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_xmm_k1z_r32, xmm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastw_regYMM_reg32() {
-			TestAssembler(c => c.vpbroadcastw(ymm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_ymm_k1z_r32, ymm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastw(ymm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_ymm_k1z_r32, ymm0.k1, edx)));
 		}
 
 		[Fact]
 		public void vpbroadcastw_regZMM_reg32() {
-			TestAssembler(c => c.vpbroadcastw(zmm0.k1, ecx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_zmm_k1z_r32, zmm0.k1, ecx)));
+			TestAssembler(c => c.vpbroadcastw(zmm0.k1, edx), ApplyK1(Instruction.Create(Code.EVEX_Vpbroadcastw_zmm_k1z_r32, zmm0.k1, edx)));
 		}
 
 		[Fact]
@@ -29506,22 +29506,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void wrssd_m_reg32() {
-			TestAssembler(c => c.wrssd(__[rcx], ecx), Instruction.Create(Code.Wrssd_m32_r32, __[rcx], ecx));
+			TestAssembler(c => c.wrssd(__[rcx], edx), Instruction.Create(Code.Wrssd_m32_r32, __[rcx], edx));
 		}
 
 		[Fact]
 		public void wrssq_m_reg64() {
-			TestAssembler(c => c.wrssq(__[rcx], rcx), Instruction.Create(Code.Wrssq_m64_r64, __[rcx], rcx));
+			TestAssembler(c => c.wrssq(__[rcx], rdx), Instruction.Create(Code.Wrssq_m64_r64, __[rcx], rdx));
 		}
 
 		[Fact]
 		public void wrussd_m_reg32() {
-			TestAssembler(c => c.wrussd(__[rcx], ecx), Instruction.Create(Code.Wrussd_m32_r32, __[rcx], ecx));
+			TestAssembler(c => c.wrussd(__[rcx], edx), Instruction.Create(Code.Wrussd_m32_r32, __[rcx], edx));
 		}
 
 		[Fact]
 		public void wrussq_m_reg64() {
-			TestAssembler(c => c.wrussq(__[rcx], rcx), Instruction.Create(Code.Wrussq_m64_r64, __[rcx], rcx));
+			TestAssembler(c => c.wrussq(__[rcx], rdx), Instruction.Create(Code.Wrussq_m64_r64, __[rcx], rdx));
 		}
 
 		[Fact]
@@ -29541,32 +29541,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xadd_reg16_reg16() {
-			TestAssembler(c => c.xadd(bx, cx), Instruction.Create(Code.Xadd_rm16_r16, bx, cx));
+			TestAssembler(c => c.xadd(bx, dx), Instruction.Create(Code.Xadd_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void xadd_m_reg16() {
-			TestAssembler(c => c.xadd(__word_ptr[rcx], cx), Instruction.Create(Code.Xadd_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.xadd(__word_ptr[rcx], dx), Instruction.Create(Code.Xadd_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void xadd_reg32_reg32() {
-			TestAssembler(c => c.xadd(ebx, ecx), Instruction.Create(Code.Xadd_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.xadd(ebx, edx), Instruction.Create(Code.Xadd_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void xadd_m_reg32() {
-			TestAssembler(c => c.xadd(__dword_ptr[rcx], ecx), Instruction.Create(Code.Xadd_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.xadd(__dword_ptr[rcx], edx), Instruction.Create(Code.Xadd_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void xadd_reg64_reg64() {
-			TestAssembler(c => c.xadd(rbx, rcx), Instruction.Create(Code.Xadd_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.xadd(rbx, rdx), Instruction.Create(Code.Xadd_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void xadd_m_reg64() {
-			TestAssembler(c => c.xadd(__qword_ptr[rcx], rcx), Instruction.Create(Code.Xadd_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.xadd(__qword_ptr[rcx], rdx), Instruction.Create(Code.Xadd_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -29588,36 +29588,36 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void xchg_reg16_reg16() {
 			{ /* if (src == Register.AX) */
 				TestAssembler(c => c.xchg(cx, ax), Instruction.Create(Code.Xchg_r16_AX, cx, ax));
-			} /* else */ TestAssembler(c => c.xchg(bx, cx), Instruction.Create(Code.Xchg_rm16_r16, bx, cx));
+			} /* else */ TestAssembler(c => c.xchg(bx, dx), Instruction.Create(Code.Xchg_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void xchg_m_reg16() {
-			TestAssembler(c => c.xchg(__word_ptr[rcx], cx), Instruction.Create(Code.Xchg_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.xchg(__word_ptr[rcx], dx), Instruction.Create(Code.Xchg_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void xchg_reg32_reg32() {
 			{ /* if (src == Register.EAX) */
 				TestAssembler(c => c.xchg(ecx, eax), Instruction.Create(Code.Xchg_r32_EAX, ecx, eax));
-			} /* else */ TestAssembler(c => c.xchg(ebx, ecx), Instruction.Create(Code.Xchg_rm32_r32, ebx, ecx));
+			} /* else */ TestAssembler(c => c.xchg(ebx, edx), Instruction.Create(Code.Xchg_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void xchg_m_reg32() {
-			TestAssembler(c => c.xchg(__dword_ptr[rcx], ecx), Instruction.Create(Code.Xchg_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.xchg(__dword_ptr[rcx], edx), Instruction.Create(Code.Xchg_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void xchg_reg64_reg64() {
 			{ /* if (src == Register.RAX) */
 				TestAssembler(c => c.xchg(rcx, rax), Instruction.Create(Code.Xchg_r64_RAX, rcx, rax));
-			} /* else */ TestAssembler(c => c.xchg(rbx, rcx), Instruction.Create(Code.Xchg_rm64_r64, rbx, rcx));
+			} /* else */ TestAssembler(c => c.xchg(rbx, rdx), Instruction.Create(Code.Xchg_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void xchg_m_reg64() {
-			TestAssembler(c => c.xchg(__qword_ptr[rcx], rcx), Instruction.Create(Code.Xchg_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.xchg(__qword_ptr[rcx], rdx), Instruction.Create(Code.Xchg_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]
@@ -29697,32 +29697,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xor_reg16_reg16() {
-			TestAssembler(c => c.xor(bx, cx), Instruction.Create(Code.Xor_rm16_r16, bx, cx));
+			TestAssembler(c => c.xor(bx, dx), Instruction.Create(Code.Xor_rm16_r16, bx, dx));
 		}
 
 		[Fact]
 		public void xor_m_reg16() {
-			TestAssembler(c => c.xor(__word_ptr[rcx], cx), Instruction.Create(Code.Xor_rm16_r16, __word_ptr[rcx], cx));
+			TestAssembler(c => c.xor(__word_ptr[rcx], dx), Instruction.Create(Code.Xor_rm16_r16, __word_ptr[rcx], dx));
 		}
 
 		[Fact]
 		public void xor_reg32_reg32() {
-			TestAssembler(c => c.xor(ebx, ecx), Instruction.Create(Code.Xor_rm32_r32, ebx, ecx));
+			TestAssembler(c => c.xor(ebx, edx), Instruction.Create(Code.Xor_rm32_r32, ebx, edx));
 		}
 
 		[Fact]
 		public void xor_m_reg32() {
-			TestAssembler(c => c.xor(__dword_ptr[rcx], ecx), Instruction.Create(Code.Xor_rm32_r32, __dword_ptr[rcx], ecx));
+			TestAssembler(c => c.xor(__dword_ptr[rcx], edx), Instruction.Create(Code.Xor_rm32_r32, __dword_ptr[rcx], edx));
 		}
 
 		[Fact]
 		public void xor_reg64_reg64() {
-			TestAssembler(c => c.xor(rbx, rcx), Instruction.Create(Code.Xor_rm64_r64, rbx, rcx));
+			TestAssembler(c => c.xor(rbx, rdx), Instruction.Create(Code.Xor_rm64_r64, rbx, rdx));
 		}
 
 		[Fact]
 		public void xor_m_reg64() {
-			TestAssembler(c => c.xor(__qword_ptr[rcx], rcx), Instruction.Create(Code.Xor_rm64_r64, __qword_ptr[rcx], rcx));
+			TestAssembler(c => c.xor(__qword_ptr[rcx], rdx), Instruction.Create(Code.Xor_rm64_r64, __qword_ptr[rcx], rdx));
 		}
 
 		[Fact]

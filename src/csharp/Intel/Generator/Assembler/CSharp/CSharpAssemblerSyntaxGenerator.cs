@@ -890,19 +890,19 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.r16_rm:
 			case OpCodeOperandKind.r16_opcode:
 			case OpCodeOperandKind.r16_reg_mem:
-				return "cx";
+				return index == 0 ? "cx" : "dx"; 
 			case OpCodeOperandKind.r32_reg:
 			case OpCodeOperandKind.r32_rm:
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
 			case OpCodeOperandKind.r32_reg_mem:
-				return "ecx";
+				return index == 0 ? "ecx" : "edx";
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_rm:
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
 			case OpCodeOperandKind.r64_reg_mem:
-				return "rcx";
+				return index == 0 ? "rcx" : "rdx";
 			case OpCodeOperandKind.seg_reg:
 				return "ds";
 			case OpCodeOperandKind.k_reg:
