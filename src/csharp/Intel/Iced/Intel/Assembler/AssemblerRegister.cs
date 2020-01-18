@@ -205,6 +205,7 @@ namespace Iced.Intel
 		/// <param name="value">A Register</param>
 		public AssemblerRegister32(Register value) {
 			Value = value;
+			Flags = AssemblerOperandFlags.None;
 		} 
 
 		/// <summary>
@@ -212,6 +213,86 @@ namespace Iced.Intel
 		/// </summary>
 		public readonly Register Value;
 
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A register</param>
+		/// <param name="flags">The mask</param>
+		public AssemblerRegister32(Register value, AssemblerOperandFlags flags) {
+			Value = value;
+			Flags = flags;
+		}
+
+		/// <summary>
+		/// Gets the mask associated with this register.
+		/// </summary>
+		public readonly AssemblerOperandFlags Flags;
+
+		/// <summary>
+		/// Apply mask Register K1.
+		/// </summary>
+		public AssemblerRegister32 k1 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);
+
+		/// <summary>
+		/// Apply mask Register K2.
+		/// </summary>
+		public AssemblerRegister32 k2 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K2);
+
+		/// <summary>
+		/// Apply mask Register K3.
+		/// </summary>
+		public AssemblerRegister32 k3 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
+		
+		/// <summary>
+		/// Apply mask Register K4.
+		/// </summary>
+		public AssemblerRegister32 k4 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K4);
+
+		/// <summary>
+		/// Apply mask Register K5.
+		/// </summary>
+		public AssemblerRegister32 k5 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
+		
+		/// <summary>
+		/// Apply mask Register K6.
+		/// </summary>
+		public AssemblerRegister32 k6 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
+		
+		/// <summary>
+		/// Apply mask Register K7.
+		/// </summary>
+		public AssemblerRegister32 k7 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
+		
+		/// <summary>
+		/// Apply mask Zeroing.
+		/// </summary>
+		public AssemblerRegister32 z => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.Zeroing);
+		
+
+		/// <summary>
+		/// Suppress all exceptions.
+		/// </summary>
+		public AssemblerRegister32 sae => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
+		
+		/// <summary>
+		/// Rounding to nearest.
+		/// </summary>
+		public AssemblerRegister32 rn_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		
+		/// <summary>
+		/// Rounding down.
+		/// </summary>
+		public AssemblerRegister32 rd_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+
+		/// <summary>
+		/// Rounding up.
+		/// </summary>
+		public AssemblerRegister32 ru_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+
+		/// <summary>
+		/// Rounding toward zero.
+		/// </summary>
+		public AssemblerRegister32 rz_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegister32"/> to a <see cref="Register"/>.
 		/// </summary>
@@ -277,10 +358,10 @@ namespace Iced.Intel
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 		}
 		/// <inheritdoc />
-		public bool Equals(AssemblerRegister32 other) => Value == other.Value;
+		public bool Equals(AssemblerRegister32 other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister32 other && Equals(other);
 
@@ -320,6 +401,7 @@ namespace Iced.Intel
 		/// <param name="value">A Register</param>
 		public AssemblerRegister64(Register value) {
 			Value = value;
+			Flags = AssemblerOperandFlags.None;
 		} 
 
 		/// <summary>
@@ -327,6 +409,86 @@ namespace Iced.Intel
 		/// </summary>
 		public readonly Register Value;
 
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="value">A register</param>
+		/// <param name="flags">The mask</param>
+		public AssemblerRegister64(Register value, AssemblerOperandFlags flags) {
+			Value = value;
+			Flags = flags;
+		}
+
+		/// <summary>
+		/// Gets the mask associated with this register.
+		/// </summary>
+		public readonly AssemblerOperandFlags Flags;
+
+		/// <summary>
+		/// Apply mask Register K1.
+		/// </summary>
+		public AssemblerRegister64 k1 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K1);
+
+		/// <summary>
+		/// Apply mask Register K2.
+		/// </summary>
+		public AssemblerRegister64 k2 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K2);
+
+		/// <summary>
+		/// Apply mask Register K3.
+		/// </summary>
+		public AssemblerRegister64 k3 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
+		
+		/// <summary>
+		/// Apply mask Register K4.
+		/// </summary>
+		public AssemblerRegister64 k4 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K4);
+
+		/// <summary>
+		/// Apply mask Register K5.
+		/// </summary>
+		public AssemblerRegister64 k5 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
+		
+		/// <summary>
+		/// Apply mask Register K6.
+		/// </summary>
+		public AssemblerRegister64 k6 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
+		
+		/// <summary>
+		/// Apply mask Register K7.
+		/// </summary>
+		public AssemblerRegister64 k7 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
+		
+		/// <summary>
+		/// Apply mask Zeroing.
+		/// </summary>
+		public AssemblerRegister64 z => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.Zeroing);
+		
+
+		/// <summary>
+		/// Suppress all exceptions.
+		/// </summary>
+		public AssemblerRegister64 sae => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
+		
+		/// <summary>
+		/// Rounding to nearest.
+		/// </summary>
+		public AssemblerRegister64 rn_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		
+		/// <summary>
+		/// Rounding down.
+		/// </summary>
+		public AssemblerRegister64 rd_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+
+		/// <summary>
+		/// Rounding up.
+		/// </summary>
+		public AssemblerRegister64 ru_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+
+		/// <summary>
+		/// Rounding toward zero.
+		/// </summary>
+		public AssemblerRegister64 rz_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegister64"/> to a <see cref="Register"/>.
 		/// </summary>
@@ -392,10 +554,10 @@ namespace Iced.Intel
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 		}
 		/// <inheritdoc />
-		public bool Equals(AssemblerRegister64 other) => Value == other.Value;
+		public bool Equals(AssemblerRegister64 other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
-		public override int GetHashCode() => (int) Value;
+		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister64 other && Equals(other);
 
@@ -551,6 +713,7 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerRegisterXMM z => new AssemblerRegisterXMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 		
+
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
@@ -703,6 +866,7 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerRegisterYMM z => new AssemblerRegisterYMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 		
+
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
@@ -855,6 +1019,7 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerRegisterZMM z => new AssemblerRegisterZMM(Value, Flags | AssemblerOperandFlags.Zeroing);
 		
+
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
@@ -1007,30 +1172,6 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerRegisterK z => new AssemblerRegisterK(Value, Flags | AssemblerOperandFlags.Zeroing);
 		
-		/// <summary>
-		/// Suppress all exceptions.
-		/// </summary>
-		public AssemblerRegisterK sae => new AssemblerRegisterK(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
-		/// <summary>
-		/// Rounding to nearest.
-		/// </summary>
-		public AssemblerRegisterK rn_sae => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
-		/// <summary>
-		/// Rounding down.
-		/// </summary>
-		public AssemblerRegisterK rd_sae => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
-
-		/// <summary>
-		/// Rounding up.
-		/// </summary>
-		public AssemblerRegisterK ru_sae => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
-
-		/// <summary>
-		/// Rounding toward zero.
-		/// </summary>
-		public AssemblerRegisterK rz_sae => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegisterK"/> to a <see cref="Register"/>.
 		/// </summary>

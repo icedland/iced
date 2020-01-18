@@ -505,8 +505,7 @@ namespace Generator.Assembler {
 						}
 					}
 					if (signature != regOnlySignature) {
-						// Remove these flags from the register version
-						opCodeArgFlags = opCodeArgFlags & ~(OpCodeArgFlags.HasBroadcast | OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl);
+						opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
 						var regOnlyGroup = AddOpCodeToGroup(name, memoName, regOnlySignature, code, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
 						regOnlyGroup.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 						regOnlyGroup.UpdateMaxArgSizes(argSizes);
@@ -1232,7 +1231,7 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				if (isValid && signatures.Add(registerSignature))
+				if (isValid && (signatures.Add(registerSignature) || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0))
 				{
 					opcodes.Add(code);
 				}

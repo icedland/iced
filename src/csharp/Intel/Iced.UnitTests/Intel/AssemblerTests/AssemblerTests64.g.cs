@@ -11931,7 +11931,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vaddsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vaddsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vaddsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vaddsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vaddsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vaddsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -11943,7 +11945,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vaddss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vaddss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vaddss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vaddss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vaddss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vaddss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -12803,7 +12807,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcomisd_regXMM_regXMM() {
-			TestAssembler(c => c.vcomisd(xmm0, xmm9), Instruction.Create(Code.VEX_Vcomisd_xmm_xmmm64, xmm0, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcomisd(xmm0, xmm9), Instruction.Create(Code.VEX_Vcomisd_xmm_xmmm64, xmm0, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcomisd(xmm0, xmm9), Instruction.Create(Code.EVEX_Vcomisd_xmm_xmmm64_sae, xmm0, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -12815,7 +12821,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcomiss_regXMM_regXMM() {
-			TestAssembler(c => c.vcomiss(xmm0, xmm9), Instruction.Create(Code.VEX_Vcomiss_xmm_xmmm32, xmm0, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcomiss(xmm0, xmm9), Instruction.Create(Code.VEX_Vcomiss_xmm_xmmm32, xmm0, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcomiss(xmm0, xmm9), Instruction.Create(Code.EVEX_Vcomiss_xmm_xmmm32_sae, xmm0, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13475,12 +13483,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtsd2si_reg32_regXMM() {
-			TestAssembler(c => c.vcvtsd2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvtsd2si_r32_xmmm64, ecx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsd2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvtsd2si_r32_xmmm64, ecx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsd2si(ecx, xmm9), Instruction.Create(Code.EVEX_Vcvtsd2si_r32_xmmm64_er, ecx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvtsd2si_reg64_regXMM() {
-			TestAssembler(c => c.vcvtsd2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvtsd2si_r64_xmmm64, rcx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsd2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvtsd2si_r64_xmmm64, rcx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsd2si(rcx, xmm9), Instruction.Create(Code.EVEX_Vcvtsd2si_r64_xmmm64_er, rcx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13499,7 +13511,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtsd2ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vcvtsd2ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsd2ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsd2ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13531,12 +13545,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtsi2sd_regXMM_regXMM_reg32() {
-			TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, ebx), Instruction.Create(Code.VEX_Vcvtsi2sd_xmm_xmm_rm32, xmm0, xmm1, ebx));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, ebx), Instruction.Create(Code.VEX_Vcvtsi2sd_xmm_xmm_rm32, xmm0, xmm1, ebx), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, ebx), Instruction.Create(Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, xmm0, xmm1, ebx), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvtsi2sd_regXMM_regXMM_reg64() {
-			TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, rbx), Instruction.Create(Code.VEX_Vcvtsi2sd_xmm_xmm_rm64, xmm0, xmm1, rbx));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, rbx), Instruction.Create(Code.VEX_Vcvtsi2sd_xmm_xmm_rm64, xmm0, xmm1, rbx), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsi2sd(xmm0, xmm1, rbx), Instruction.Create(Code.EVEX_Vcvtsi2sd_xmm_xmm_rm64_er, xmm0, xmm1, rbx), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13557,12 +13575,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtsi2ss_regXMM_regXMM_reg32() {
-			TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, ebx), Instruction.Create(Code.VEX_Vcvtsi2ss_xmm_xmm_rm32, xmm0, xmm1, ebx));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, ebx), Instruction.Create(Code.VEX_Vcvtsi2ss_xmm_xmm_rm32, xmm0, xmm1, ebx), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, ebx), Instruction.Create(Code.EVEX_Vcvtsi2ss_xmm_xmm_rm32_er, xmm0, xmm1, ebx), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvtsi2ss_regXMM_regXMM_reg64() {
-			TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, rbx), Instruction.Create(Code.VEX_Vcvtsi2ss_xmm_xmm_rm64, xmm0, xmm1, rbx));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, rbx), Instruction.Create(Code.VEX_Vcvtsi2ss_xmm_xmm_rm64, xmm0, xmm1, rbx), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtsi2ss(xmm0, xmm1, rbx), Instruction.Create(Code.EVEX_Vcvtsi2ss_xmm_xmm_rm64_er, xmm0, xmm1, rbx), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13583,7 +13605,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtss2sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vcvtss2sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtss2sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtss2sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13595,12 +13619,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvtss2si_reg32_regXMM() {
-			TestAssembler(c => c.vcvtss2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvtss2si_r32_xmmm32, ecx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtss2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvtss2si_r32_xmmm32, ecx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtss2si(ecx, xmm9), Instruction.Create(Code.EVEX_Vcvtss2si_r32_xmmm32_er, ecx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvtss2si_reg64_regXMM() {
-			TestAssembler(c => c.vcvtss2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvtss2si_r64_xmmm32, rcx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvtss2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvtss2si_r64_xmmm32, rcx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvtss2si(rcx, xmm9), Instruction.Create(Code.EVEX_Vcvtss2si_r64_xmmm32_er, rcx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13895,12 +13923,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvttsd2si_reg32_regXMM() {
-			TestAssembler(c => c.vcvttsd2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvttsd2si_r32_xmmm64, ecx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvttsd2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvttsd2si_r32_xmmm64, ecx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvttsd2si(ecx, xmm9), Instruction.Create(Code.EVEX_Vcvttsd2si_r32_xmmm64_sae, ecx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvttsd2si_reg64_regXMM() {
-			TestAssembler(c => c.vcvttsd2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvttsd2si_r64_xmmm64, rcx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvttsd2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvttsd2si_r64_xmmm64, rcx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvttsd2si(rcx, xmm9), Instruction.Create(Code.EVEX_Vcvttsd2si_r64_xmmm64_sae, rcx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -13939,12 +13971,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vcvttss2si_reg32_regXMM() {
-			TestAssembler(c => c.vcvttss2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvttss2si_r32_xmmm32, ecx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvttss2si(ecx, xmm9), Instruction.Create(Code.VEX_Vcvttss2si_r32_xmmm32, ecx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvttss2si(ecx, xmm9), Instruction.Create(Code.EVEX_Vcvttss2si_r32_xmmm32_sae, ecx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
 		public void vcvttss2si_reg64_regXMM() {
-			TestAssembler(c => c.vcvttss2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvttss2si_r64_xmmm32, rcx, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vcvttss2si(rcx, xmm9), Instruction.Create(Code.VEX_Vcvttss2si_r64_xmmm32, rcx, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vcvttss2si(rcx, xmm9), Instruction.Create(Code.EVEX_Vcvttss2si_r64_xmmm32_sae, rcx, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14245,7 +14281,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vdivsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vdivsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vdivsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vdivsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vdivsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vdivsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14257,7 +14295,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vdivss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vdivss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vdivss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vdivss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vdivss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vdivss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14768,7 +14808,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd132sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd132sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14780,7 +14822,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd132ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd132ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14860,7 +14904,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd213sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd213sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14872,7 +14918,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd213ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd213ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14952,7 +15000,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd231sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd231sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -14964,7 +15014,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmadd231ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmadd231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmadd231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmadd231ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15398,7 +15450,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub132sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub132sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15410,7 +15464,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub132ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub132ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15490,7 +15546,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub213sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub213sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15502,7 +15560,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub213ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub213ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15582,7 +15642,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub231sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub231sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -15594,7 +15656,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfmsub231ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfmsub231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfmsub231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfmsub231ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16028,7 +16092,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd132sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd132sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16040,7 +16106,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd132ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd132ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16120,7 +16188,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd213sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd213sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16132,7 +16202,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd213ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd213ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16212,7 +16284,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd231sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd231sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16224,7 +16298,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmadd231ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmadd231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmadd231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmadd231ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16394,7 +16470,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub132sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub132sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub132sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16406,7 +16484,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub132ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub132ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub132ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16486,7 +16566,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub213sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub213sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub213sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16498,7 +16580,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub213ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub213ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub213ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16578,7 +16662,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub231sd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub231sd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub231sd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -16590,7 +16676,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vfnmsub231ss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vfnmsub231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vfnmsub231ss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vfnmsub231ss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -17596,7 +17684,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmaxsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vmaxsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmaxsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vmaxsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmaxsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vmaxsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -17608,7 +17698,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmaxss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vmaxss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmaxss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vmaxss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmaxss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vmaxss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -17703,7 +17795,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vminsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vminsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vminsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vminsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vminsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vminsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -17715,7 +17809,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vminss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vminss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vminss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vminss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vminss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vminss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -18817,7 +18913,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmulsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vmulsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmulsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vmulsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmulsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vmulsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -18829,7 +18927,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vmulss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vmulss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmulss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vmulss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vmulss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vmulss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29218,7 +29318,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vsqrtsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vsqrtsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsqrtsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vsqrtsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsqrtsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vsqrtsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29230,7 +29332,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vsqrtss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vsqrtss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsqrtss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vsqrtss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsqrtss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vsqrtss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29315,7 +29419,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vsubsd_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vsubsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsubsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vsubsd(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsubsd_xmm_xmm_xmmm64, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vsubsd(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29327,7 +29433,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vsubss_regXMM_regXMM_regXMM() {
-			TestAssembler(c => c.vsubss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsubss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vsubss(xmm0, xmm1, xmm9), Instruction.Create(Code.VEX_Vsubss_xmm_xmm_xmmm32, xmm0, xmm1, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vsubss(xmm0.k1, xmm1, xmm9), ApplyK1(Instruction.Create(Code.EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er, xmm0.k1, xmm1, xmm9)), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29379,7 +29487,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vucomisd_regXMM_regXMM() {
-			TestAssembler(c => c.vucomisd(xmm0, xmm9), Instruction.Create(Code.VEX_Vucomisd_xmm_xmmm64, xmm0, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vucomisd(xmm0, xmm9), Instruction.Create(Code.VEX_Vucomisd_xmm_xmmm64, xmm0, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vucomisd(xmm0, xmm9), Instruction.Create(Code.EVEX_Vucomisd_xmm_xmmm64_sae, xmm0, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]
@@ -29391,7 +29501,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void vucomiss_regXMM_regXMM() {
-			TestAssembler(c => c.vucomiss(xmm0, xmm9), Instruction.Create(Code.VEX_Vucomiss_xmm_xmmm32, xmm0, xmm9));
+			{ /* if (PreferVex) */
+				TestAssembler(c => c.vucomiss(xmm0, xmm9), Instruction.Create(Code.VEX_Vucomiss_xmm_xmmm32, xmm0, xmm9), LocalOpCodeFlags.PreferVex);
+			} /* else */ TestAssembler(c => c.vucomiss(xmm0, xmm9), Instruction.Create(Code.EVEX_Vucomiss_xmm_xmmm32_sae, xmm0, xmm9), LocalOpCodeFlags.PreferEvex);
 		}
 
 		[Fact]

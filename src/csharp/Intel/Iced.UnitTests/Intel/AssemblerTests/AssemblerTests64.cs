@@ -110,32 +110,32 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vunpcklps(xmm2.k7.z, xmm6, __dword_bcst[rax]), inst, LocalOpCodeFlags.PreferEvex);
 			}
 			
-			/* // TODO
 			{
-				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, __[rax]);
-				inst.IsBroadcast = true;
+				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, zmm3);
+				inst.OpMask = Register.K1;
 				inst.RoundingControl = RoundingControl.RoundDown;
-				TestAssembler(c => c.vaddpd(zmm1, zmm2, __dword_bcst[rax].rd_sae), inst);
+				TestAssembler(c => c.vaddpd(zmm1.k1, zmm2, zmm3.rd_sae), inst);
 			}			
 			{
-				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, __[rax]);
-				inst.IsBroadcast = true;
+				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, zmm3);
+				inst.OpMask = Register.K1;
+				inst.ZeroingMasking = true;
 				inst.RoundingControl = RoundingControl.RoundUp;
-				TestAssembler(c => c.vaddpd(zmm1, zmm2, __dword_bcst[rax].ru_sae), inst);
+				TestAssembler(c => c.vaddpd(zmm1.k1.z, zmm2, zmm3.ru_sae), inst);
 			}			
 			{
-				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, __[rax]);
-				inst.IsBroadcast = true;
+				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, zmm3);
+				inst.OpMask = Register.K2;
 				inst.RoundingControl = RoundingControl.RoundToNearest;
-				TestAssembler(c => c.vaddpd(zmm1, zmm2, __dword_bcst[rax].rn_sae), inst);
+				TestAssembler(c => c.vaddpd(zmm1.k2, zmm2, zmm3.rn_sae), inst);
 			}			
 			{
-				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, __[rax]);
-				inst.IsBroadcast = true;
+				var inst = Instruction.Create(Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er, zmm1, zmm2, zmm3);
+				inst.OpMask = Register.K3;
+				inst.ZeroingMasking = true;
 				inst.RoundingControl = RoundingControl.RoundTowardZero;
-				TestAssembler(c => c.vaddpd(zmm1, zmm2, __dword_bcst[rax].rz_sae), inst);
+				TestAssembler(c => c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae), inst);
 			}			
-			*/
 		}
 	}
 }

@@ -344,8 +344,8 @@ namespace Generator.Assembler.CSharp {
 					bool hasSaeOrRoundingControl = (group.Flags & (OpCodeArgFlags.SuppressAllExceptions | OpCodeArgFlags.RoundingControl)) != 0; 
 					if (hasBroadcast || hasSaeOrRoundingControl) {
 						for (int i = renderArgs.Count - 1; i >= 0; i--) {
-							if (hasBroadcast && renderArgs[i].Kind == ArgKind.Memory ||
-							    hasSaeOrRoundingControl && (renderArgs[i].Kind != ArgKind.Immediate && renderArgs[i].Kind != ArgKind.ImmediateByte)) {
+							var argKind = renderArgs[i].Kind;
+							if (hasBroadcast && argKind == ArgKind.Memory ||  hasSaeOrRoundingControl && argKind != ArgKind.Immediate && argKind != ArgKind.ImmediateByte) {
 								if (hasFlags) {
 									writer.Write(" | ");
 								}

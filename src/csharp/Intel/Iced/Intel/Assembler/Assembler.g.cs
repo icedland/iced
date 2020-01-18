@@ -38773,7 +38773,7 @@ namespace Iced.Intel {
 		public void vaddpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vaddpd instruction.<br/>
 		/// <br/>
@@ -38889,7 +38889,7 @@ namespace Iced.Intel {
 		public void vaddps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vaddps instruction.<br/>
 		/// <br/>
@@ -38969,11 +38969,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vaddsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vaddsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vaddsd_xmm_xmm_xmmm64 : Code.EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vaddsd instruction.<br/>
 		/// <br/>
@@ -39011,11 +39021,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VADDSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 58 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vaddss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vaddss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vaddss_xmm_xmm_xmmm32 : Code.EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vaddss instruction.<br/>
 		/// <br/>
@@ -44591,7 +44611,7 @@ namespace Iced.Intel {
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
 		/// <br/>
@@ -44751,7 +44771,7 @@ namespace Iced.Intel {
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
 		/// <br/>
@@ -44847,7 +44867,7 @@ namespace Iced.Intel {
 		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
 		/// <br/>
@@ -44911,7 +44931,7 @@ namespace Iced.Intel {
 		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
 		/// <br/>
@@ -45419,11 +45439,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCOMISD xmm1, xmm2/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F.W1 2F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcomisd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcomisd_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcomisd_xmm_xmmm64 : Code.EVEX_Vcomisd_xmm_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcomisd instruction.<br/>
 		/// <br/>
@@ -45461,11 +45491,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCOMISS xmm1, xmm2/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F.W0 2F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcomiss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcomiss_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcomiss_xmm_xmmm32 : Code.EVEX_Vcomiss_xmm_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcomiss instruction.<br/>
 		/// <br/>
@@ -45847,7 +45887,7 @@ namespace Iced.Intel {
 		public void vcvtdq2ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtdq2ps instruction.<br/>
 		/// <br/>
@@ -46155,7 +46195,7 @@ namespace Iced.Intel {
 		public void vcvtpd2dq(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2dq instruction.<br/>
 		/// <br/>
@@ -46283,7 +46323,7 @@ namespace Iced.Intel {
 		public void vcvtpd2ps(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2ps instruction.<br/>
 		/// <br/>
@@ -46411,7 +46451,7 @@ namespace Iced.Intel {
 		public void vcvtpd2qq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2qq instruction.<br/>
 		/// <br/>
@@ -46507,7 +46547,7 @@ namespace Iced.Intel {
 		public void vcvtpd2udq(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2udq instruction.<br/>
 		/// <br/>
@@ -46603,7 +46643,7 @@ namespace Iced.Intel {
 		public void vcvtpd2uqq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtpd2uqq instruction.<br/>
 		/// <br/>
@@ -46699,7 +46739,7 @@ namespace Iced.Intel {
 		public void vcvtph2ps(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtph2ps instruction.<br/>
 		/// <br/>
@@ -46815,7 +46855,7 @@ namespace Iced.Intel {
 		public void vcvtps2dq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2dq instruction.<br/>
 		/// <br/>
@@ -46931,7 +46971,7 @@ namespace Iced.Intel {
 		public void vcvtps2pd(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2pd instruction.<br/>
 		/// <br/>
@@ -47099,7 +47139,7 @@ namespace Iced.Intel {
 		public void vcvtps2ph(AssemblerRegisterYMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vcvtps2ph instruction.<br/>
 		/// <br/>
@@ -47163,7 +47203,7 @@ namespace Iced.Intel {
 		public void vcvtps2qq(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2qq instruction.<br/>
 		/// <br/>
@@ -47259,7 +47299,7 @@ namespace Iced.Intel {
 		public void vcvtps2udq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2udq instruction.<br/>
 		/// <br/>
@@ -47355,7 +47395,7 @@ namespace Iced.Intel {
 		public void vcvtps2uqq(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtps2uqq instruction.<br/>
 		/// <br/>
@@ -47451,7 +47491,7 @@ namespace Iced.Intel {
 		public void vcvtqq2pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtqq2pd instruction.<br/>
 		/// <br/>
@@ -47547,7 +47587,7 @@ namespace Iced.Intel {
 		public void vcvtqq2ps(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtqq2ps instruction.<br/>
 		/// <br/>
@@ -47607,11 +47647,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r32, xmm1/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtsd2si(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvtsd2si_r32_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvtsd2si_r32_xmmm64 : Code.EVEX_Vcvtsd2si_r32_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtsd2si instruction.<br/>
 		/// <br/>
@@ -47623,11 +47673,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSD2SI r64, xmm1/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvtsd2si(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvtsd2si_r64_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvtsd2si_r64_xmmm64 : Code.EVEX_Vcvtsd2si_r64_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtsd2si instruction.<br/>
 		/// <br/>
@@ -47691,11 +47751,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSD2SS xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtsd2ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vcvtsd2ss_xmm_xmm_xmmm64 : Code.EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcvtsd2ss instruction.<br/>
 		/// <br/>
@@ -47737,7 +47807,7 @@ namespace Iced.Intel {
 		public void vcvtsd2usi(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtsd2usi_r32_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtsd2usi instruction.<br/>
 		/// <br/>
@@ -47753,7 +47823,7 @@ namespace Iced.Intel {
 		public void vcvtsd2usi(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtsd2usi_r64_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtsd2usi instruction.<br/>
 		/// <br/>
@@ -47797,11 +47867,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m32</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtsi2sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister32 src2) {
 			Code op;
-			op = Code.VEX_Vcvtsi2sd_xmm_xmm_rm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			op = PreferVex ? Code.VEX_Vcvtsi2sd_xmm_xmm_rm32 : Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtsi2sd instruction.<br/>
 		/// <br/>
@@ -47813,11 +47893,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSI2SD xmm1, xmm2, r/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvtsi2sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister64 src2) {
 			Code op;
-			op = Code.VEX_Vcvtsi2sd_xmm_xmm_rm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			op = PreferVex ? Code.VEX_Vcvtsi2sd_xmm_xmm_rm64 : Code.EVEX_Vcvtsi2sd_xmm_xmm_rm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtsi2sd instruction.<br/>
 		/// <br/>
@@ -47881,11 +47971,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtsi2ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister32 src2) {
 			Code op;
-			op = Code.VEX_Vcvtsi2ss_xmm_xmm_rm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			op = PreferVex ? Code.VEX_Vcvtsi2ss_xmm_xmm_rm32 : Code.EVEX_Vcvtsi2ss_xmm_xmm_rm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtsi2ss instruction.<br/>
 		/// <br/>
@@ -47897,11 +47997,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSI2SS xmm1, xmm2, r/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W1 2A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvtsi2ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister64 src2) {
 			Code op;
-			op = Code.VEX_Vcvtsi2ss_xmm_xmm_rm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			op = PreferVex ? Code.VEX_Vcvtsi2ss_xmm_xmm_rm64 : Code.EVEX_Vcvtsi2ss_xmm_xmm_rm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtsi2ss instruction.<br/>
 		/// <br/>
@@ -47965,11 +48075,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 5A /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtss2sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vcvtss2sd_xmm_xmm_xmmm32 : Code.EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcvtss2sd instruction.<br/>
 		/// <br/>
@@ -48007,11 +48127,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r32, xmm1/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtss2si(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvtss2si_r32_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvtss2si_r32_xmmm32 : Code.EVEX_Vcvtss2si_r32_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtss2si instruction.<br/>
 		/// <br/>
@@ -48023,11 +48153,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTSS2SI r64, xmm1/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W1 2D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvtss2si(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvtss2si_r64_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvtss2si_r64_xmmm32 : Code.EVEX_Vcvtss2si_r64_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtss2si instruction.<br/>
 		/// <br/>
@@ -48095,7 +48235,7 @@ namespace Iced.Intel {
 		public void vcvtss2usi(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtss2usi_r32_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtss2usi instruction.<br/>
 		/// <br/>
@@ -48111,7 +48251,7 @@ namespace Iced.Intel {
 		public void vcvtss2usi(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtss2usi_r64_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvtss2usi instruction.<br/>
 		/// <br/>
@@ -48191,7 +48331,7 @@ namespace Iced.Intel {
 		public void vcvttpd2dq(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2dq instruction.<br/>
 		/// <br/>
@@ -48319,7 +48459,7 @@ namespace Iced.Intel {
 		public void vcvttpd2qq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2qq instruction.<br/>
 		/// <br/>
@@ -48415,7 +48555,7 @@ namespace Iced.Intel {
 		public void vcvttpd2udq(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2udq instruction.<br/>
 		/// <br/>
@@ -48511,7 +48651,7 @@ namespace Iced.Intel {
 		public void vcvttpd2uqq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttpd2uqq instruction.<br/>
 		/// <br/>
@@ -48607,7 +48747,7 @@ namespace Iced.Intel {
 		public void vcvttps2dq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2dq instruction.<br/>
 		/// <br/>
@@ -48723,7 +48863,7 @@ namespace Iced.Intel {
 		public void vcvttps2qq(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2qq instruction.<br/>
 		/// <br/>
@@ -48819,7 +48959,7 @@ namespace Iced.Intel {
 		public void vcvttps2udq(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2udq instruction.<br/>
 		/// <br/>
@@ -48915,7 +49055,7 @@ namespace Iced.Intel {
 		public void vcvttps2uqq(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvttps2uqq instruction.<br/>
 		/// <br/>
@@ -48975,11 +49115,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r32, xmm1/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvttsd2si(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvttsd2si_r32_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvttsd2si_r32_xmmm64 : Code.EVEX_Vcvttsd2si_r32_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttsd2si instruction.<br/>
 		/// <br/>
@@ -48991,11 +49141,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTTSD2SI r64, xmm1/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvttsd2si(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvttsd2si_r64_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvttsd2si_r64_xmmm64 : Code.EVEX_Vcvttsd2si_r64_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttsd2si instruction.<br/>
 		/// <br/>
@@ -49063,7 +49223,7 @@ namespace Iced.Intel {
 		public void vcvttsd2usi(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttsd2usi_r32_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttsd2usi instruction.<br/>
 		/// <br/>
@@ -49079,7 +49239,7 @@ namespace Iced.Intel {
 		public void vcvttsd2usi(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttsd2usi_r64_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttsd2usi instruction.<br/>
 		/// <br/>
@@ -49123,11 +49283,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r32, xmm1/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvttss2si(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvttss2si_r32_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvttss2si_r32_xmmm32 : Code.EVEX_Vcvttss2si_r32_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttss2si instruction.<br/>
 		/// <br/>
@@ -49139,11 +49309,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VCVTTSS2SI r64, xmm1/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W1 2C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>64-bit</c></summary>
 		public void vcvttss2si(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vcvttss2si_r64_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vcvttss2si_r64_xmmm32 : Code.EVEX_Vcvttss2si_r64_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttss2si instruction.<br/>
 		/// <br/>
@@ -49211,7 +49391,7 @@ namespace Iced.Intel {
 		public void vcvttss2usi(AssemblerRegister32 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttss2usi_r32_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttss2usi instruction.<br/>
 		/// <br/>
@@ -49227,7 +49407,7 @@ namespace Iced.Intel {
 		public void vcvttss2usi(AssemblerRegister64 dst, AssemblerRegisterXMM src) {
 			Code op;
 			op = Code.EVEX_Vcvttss2usi_r64_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src));
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vcvttss2usi instruction.<br/>
 		/// <br/>
@@ -49403,7 +49583,7 @@ namespace Iced.Intel {
 		public void vcvtudq2ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtudq2ps instruction.<br/>
 		/// <br/>
@@ -49499,7 +49679,7 @@ namespace Iced.Intel {
 		public void vcvtuqq2pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtuqq2pd instruction.<br/>
 		/// <br/>
@@ -49595,7 +49775,7 @@ namespace Iced.Intel {
 		public void vcvtuqq2ps(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtuqq2ps instruction.<br/>
 		/// <br/>
@@ -49659,7 +49839,7 @@ namespace Iced.Intel {
 		public void vcvtusi2sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister32 src2) {
 			Code op;
 			op = Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtusi2sd instruction.<br/>
 		/// <br/>
@@ -49675,7 +49855,7 @@ namespace Iced.Intel {
 		public void vcvtusi2sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister64 src2) {
 			Code op;
 			op = Code.EVEX_Vcvtusi2sd_xmm_xmm_rm64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtusi2sd instruction.<br/>
 		/// <br/>
@@ -49723,7 +49903,7 @@ namespace Iced.Intel {
 		public void vcvtusi2ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister32 src2) {
 			Code op;
 			op = Code.EVEX_Vcvtusi2ss_xmm_xmm_rm32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtusi2ss instruction.<br/>
 		/// <br/>
@@ -49739,7 +49919,7 @@ namespace Iced.Intel {
 		public void vcvtusi2ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegister64 src2) {
 			Code op;
 			op = Code.EVEX_Vcvtusi2ss_xmm_xmm_rm64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2));
+			AddInstruction(Instruction.Create(op, dst, src1, src2), src2.Flags);
 		}
 		/// <summary>vcvtusi2ss instruction.<br/>
 		/// <br/>
@@ -49915,7 +50095,7 @@ namespace Iced.Intel {
 		public void vdivpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vdivpd instruction.<br/>
 		/// <br/>
@@ -50031,7 +50211,7 @@ namespace Iced.Intel {
 		public void vdivps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vdivps instruction.<br/>
 		/// <br/>
@@ -50111,11 +50291,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VDIVSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdivsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vdivsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vdivsd_xmm_xmm_xmmm64 : Code.EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vdivsd instruction.<br/>
 		/// <br/>
@@ -50153,11 +50343,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VDIVSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 5E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdivss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vdivss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vdivss_xmm_xmm_xmmm32 : Code.EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vdivss instruction.<br/>
 		/// <br/>
@@ -50551,7 +50751,7 @@ namespace Iced.Intel {
 		public void vexp2pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vexp2pd instruction.<br/>
 		/// <br/>
@@ -50583,7 +50783,7 @@ namespace Iced.Intel {
 		public void vexp2ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vexp2ps instruction.<br/>
 		/// <br/>
@@ -51345,7 +51545,7 @@ namespace Iced.Intel {
 		public void vfixupimmpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfixupimmpd instruction.<br/>
 		/// <br/>
@@ -51441,7 +51641,7 @@ namespace Iced.Intel {
 		public void vfixupimmps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfixupimmps instruction.<br/>
 		/// <br/>
@@ -51505,7 +51705,7 @@ namespace Iced.Intel {
 		public void vfixupimmsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfixupimmsd instruction.<br/>
 		/// <br/>
@@ -51537,7 +51737,7 @@ namespace Iced.Intel {
 		public void vfixupimmss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfixupimmss instruction.<br/>
 		/// <br/>
@@ -51601,7 +51801,7 @@ namespace Iced.Intel {
 		public void vfmadd132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd132pd instruction.<br/>
 		/// <br/>
@@ -51717,7 +51917,7 @@ namespace Iced.Intel {
 		public void vfmadd132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd132ps instruction.<br/>
 		/// <br/>
@@ -51797,11 +51997,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 99 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd132sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd132sd instruction.<br/>
 		/// <br/>
@@ -51839,11 +52049,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 99 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd132ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd132ss instruction.<br/>
 		/// <br/>
@@ -51917,7 +52137,7 @@ namespace Iced.Intel {
 		public void vfmadd213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd213pd instruction.<br/>
 		/// <br/>
@@ -52033,7 +52253,7 @@ namespace Iced.Intel {
 		public void vfmadd213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd213ps instruction.<br/>
 		/// <br/>
@@ -52113,11 +52333,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 A9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd213sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd213sd instruction.<br/>
 		/// <br/>
@@ -52155,11 +52385,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 A9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd213ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd213ss instruction.<br/>
 		/// <br/>
@@ -52233,7 +52473,7 @@ namespace Iced.Intel {
 		public void vfmadd231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd231pd instruction.<br/>
 		/// <br/>
@@ -52349,7 +52589,7 @@ namespace Iced.Intel {
 		public void vfmadd231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd231ps instruction.<br/>
 		/// <br/>
@@ -52429,11 +52669,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 B9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd231sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd231sd instruction.<br/>
 		/// <br/>
@@ -52471,11 +52721,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 B9 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmadd231ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmadd231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmadd231ss instruction.<br/>
 		/// <br/>
@@ -52837,7 +53097,7 @@ namespace Iced.Intel {
 		public void vfmaddsub132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub132pd instruction.<br/>
 		/// <br/>
@@ -52953,7 +53213,7 @@ namespace Iced.Intel {
 		public void vfmaddsub132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub132ps instruction.<br/>
 		/// <br/>
@@ -53069,7 +53329,7 @@ namespace Iced.Intel {
 		public void vfmaddsub213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub213pd instruction.<br/>
 		/// <br/>
@@ -53185,7 +53445,7 @@ namespace Iced.Intel {
 		public void vfmaddsub213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub213ps instruction.<br/>
 		/// <br/>
@@ -53301,7 +53561,7 @@ namespace Iced.Intel {
 		public void vfmaddsub231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub231pd instruction.<br/>
 		/// <br/>
@@ -53417,7 +53677,7 @@ namespace Iced.Intel {
 		public void vfmaddsub231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmaddsub231ps instruction.<br/>
 		/// <br/>
@@ -53725,7 +53985,7 @@ namespace Iced.Intel {
 		public void vfmsub132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub132pd instruction.<br/>
 		/// <br/>
@@ -53841,7 +54101,7 @@ namespace Iced.Intel {
 		public void vfmsub132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub132ps instruction.<br/>
 		/// <br/>
@@ -53921,11 +54181,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 9B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub132sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub132sd instruction.<br/>
 		/// <br/>
@@ -53963,11 +54233,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 9B /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub132ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub132ss instruction.<br/>
 		/// <br/>
@@ -54041,7 +54321,7 @@ namespace Iced.Intel {
 		public void vfmsub213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub213pd instruction.<br/>
 		/// <br/>
@@ -54157,7 +54437,7 @@ namespace Iced.Intel {
 		public void vfmsub213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub213ps instruction.<br/>
 		/// <br/>
@@ -54237,11 +54517,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 AB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub213sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub213sd instruction.<br/>
 		/// <br/>
@@ -54279,11 +54569,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 AB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub213ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub213ss instruction.<br/>
 		/// <br/>
@@ -54357,7 +54657,7 @@ namespace Iced.Intel {
 		public void vfmsub231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub231pd instruction.<br/>
 		/// <br/>
@@ -54473,7 +54773,7 @@ namespace Iced.Intel {
 		public void vfmsub231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub231ps instruction.<br/>
 		/// <br/>
@@ -54553,11 +54853,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 BB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub231sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub231sd instruction.<br/>
 		/// <br/>
@@ -54595,11 +54905,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 BB /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfmsub231ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfmsub231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsub231ss instruction.<br/>
 		/// <br/>
@@ -54673,7 +54993,7 @@ namespace Iced.Intel {
 		public void vfmsubadd132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd132pd instruction.<br/>
 		/// <br/>
@@ -54789,7 +55109,7 @@ namespace Iced.Intel {
 		public void vfmsubadd132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd132ps instruction.<br/>
 		/// <br/>
@@ -54905,7 +55225,7 @@ namespace Iced.Intel {
 		public void vfmsubadd213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd213pd instruction.<br/>
 		/// <br/>
@@ -55021,7 +55341,7 @@ namespace Iced.Intel {
 		public void vfmsubadd213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd213ps instruction.<br/>
 		/// <br/>
@@ -55137,7 +55457,7 @@ namespace Iced.Intel {
 		public void vfmsubadd231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd231pd instruction.<br/>
 		/// <br/>
@@ -55253,7 +55573,7 @@ namespace Iced.Intel {
 		public void vfmsubadd231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfmsubadd231ps instruction.<br/>
 		/// <br/>
@@ -55849,7 +56169,7 @@ namespace Iced.Intel {
 		public void vfnmadd132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd132pd instruction.<br/>
 		/// <br/>
@@ -55965,7 +56285,7 @@ namespace Iced.Intel {
 		public void vfnmadd132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd132ps instruction.<br/>
 		/// <br/>
@@ -56045,11 +56365,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 9D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd132sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd132sd instruction.<br/>
 		/// <br/>
@@ -56087,11 +56417,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 9D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd132ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd132ss instruction.<br/>
 		/// <br/>
@@ -56165,7 +56505,7 @@ namespace Iced.Intel {
 		public void vfnmadd213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd213pd instruction.<br/>
 		/// <br/>
@@ -56281,7 +56621,7 @@ namespace Iced.Intel {
 		public void vfnmadd213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd213ps instruction.<br/>
 		/// <br/>
@@ -56361,11 +56701,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 AD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd213sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd213sd instruction.<br/>
 		/// <br/>
@@ -56403,11 +56753,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 AD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd213ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd213ss instruction.<br/>
 		/// <br/>
@@ -56481,7 +56841,7 @@ namespace Iced.Intel {
 		public void vfnmadd231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd231pd instruction.<br/>
 		/// <br/>
@@ -56597,7 +56957,7 @@ namespace Iced.Intel {
 		public void vfnmadd231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd231ps instruction.<br/>
 		/// <br/>
@@ -56677,11 +57037,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 BD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd231sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd231sd instruction.<br/>
 		/// <br/>
@@ -56719,11 +57089,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 BD /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmadd231ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmadd231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmadd231ss instruction.<br/>
 		/// <br/>
@@ -57085,7 +57465,7 @@ namespace Iced.Intel {
 		public void vfnmsub132pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub132pd instruction.<br/>
 		/// <br/>
@@ -57201,7 +57581,7 @@ namespace Iced.Intel {
 		public void vfnmsub132ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub132ps instruction.<br/>
 		/// <br/>
@@ -57281,11 +57661,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 9F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub132sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub132sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub132sd instruction.<br/>
 		/// <br/>
@@ -57323,11 +57713,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 9F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub132ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub132ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub132ss instruction.<br/>
 		/// <br/>
@@ -57401,7 +57801,7 @@ namespace Iced.Intel {
 		public void vfnmsub213pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub213pd instruction.<br/>
 		/// <br/>
@@ -57517,7 +57917,7 @@ namespace Iced.Intel {
 		public void vfnmsub213ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub213ps instruction.<br/>
 		/// <br/>
@@ -57597,11 +57997,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 AF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub213sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub213sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub213sd instruction.<br/>
 		/// <br/>
@@ -57639,11 +58049,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 AF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub213ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub213ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub213ss instruction.<br/>
 		/// <br/>
@@ -57717,7 +58137,7 @@ namespace Iced.Intel {
 		public void vfnmsub231pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub231pd instruction.<br/>
 		/// <br/>
@@ -57833,7 +58253,7 @@ namespace Iced.Intel {
 		public void vfnmsub231ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub231ps instruction.<br/>
 		/// <br/>
@@ -57913,11 +58333,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W1 BF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub231sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub231sd_xmm_xmm_xmmm64 : Code.EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub231sd instruction.<br/>
 		/// <br/>
@@ -57955,11 +58385,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>FMA</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VFNMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F38.W0 BF /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vfnmsub231ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vfnmsub231ss_xmm_xmm_xmmm32 : Code.EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vfnmsub231ss instruction.<br/>
 		/// <br/>
@@ -59209,7 +59649,7 @@ namespace Iced.Intel {
 		public void vgetexppd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetexppd instruction.<br/>
 		/// <br/>
@@ -59305,7 +59745,7 @@ namespace Iced.Intel {
 		public void vgetexpps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vgetexpps instruction.<br/>
 		/// <br/>
@@ -59369,7 +59809,7 @@ namespace Iced.Intel {
 		public void vgetexpsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vgetexpsd instruction.<br/>
 		/// <br/>
@@ -59401,7 +59841,7 @@ namespace Iced.Intel {
 		public void vgetexpss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vgetexpss instruction.<br/>
 		/// <br/>
@@ -59465,7 +59905,7 @@ namespace Iced.Intel {
 		public void vgetmantpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vgetmantpd instruction.<br/>
 		/// <br/>
@@ -59561,7 +60001,7 @@ namespace Iced.Intel {
 		public void vgetmantps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vgetmantps instruction.<br/>
 		/// <br/>
@@ -59625,7 +60065,7 @@ namespace Iced.Intel {
 		public void vgetmantsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vgetmantsd instruction.<br/>
 		/// <br/>
@@ -59657,7 +60097,7 @@ namespace Iced.Intel {
 		public void vgetmantss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vgetmantss instruction.<br/>
 		/// <br/>
@@ -61005,7 +61445,7 @@ namespace Iced.Intel {
 		public void vmaxpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmaxpd instruction.<br/>
 		/// <br/>
@@ -61121,7 +61561,7 @@ namespace Iced.Intel {
 		public void vmaxps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmaxps instruction.<br/>
 		/// <br/>
@@ -61201,11 +61641,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMAXSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaxsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vmaxsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vmaxsd_xmm_xmm_xmmm64 : Code.EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmaxsd instruction.<br/>
 		/// <br/>
@@ -61243,11 +61693,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMAXSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 5F /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vmaxss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vmaxss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vmaxss_xmm_xmm_xmmm32 : Code.EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmaxss instruction.<br/>
 		/// <br/>
@@ -61369,7 +61829,7 @@ namespace Iced.Intel {
 		public void vminpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vminpd instruction.<br/>
 		/// <br/>
@@ -61485,7 +61945,7 @@ namespace Iced.Intel {
 		public void vminps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vminps instruction.<br/>
 		/// <br/>
@@ -61565,11 +62025,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMINSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vminsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vminsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vminsd_xmm_xmm_xmmm64 : Code.EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vminsd instruction.<br/>
 		/// <br/>
@@ -61607,11 +62077,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMINSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 5D /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vminss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vminss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vminss_xmm_xmm_xmmm32 : Code.EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vminss instruction.<br/>
 		/// <br/>
@@ -65165,7 +65645,7 @@ namespace Iced.Intel {
 		public void vmulpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmulpd instruction.<br/>
 		/// <br/>
@@ -65281,7 +65761,7 @@ namespace Iced.Intel {
 		public void vmulps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmulps instruction.<br/>
 		/// <br/>
@@ -65361,11 +65841,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMULSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vmulsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vmulsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vmulsd_xmm_xmm_xmmm64 : Code.EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmulsd instruction.<br/>
 		/// <br/>
@@ -65403,11 +65893,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VMULSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 59 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vmulss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vmulss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vmulss_xmm_xmm_xmmm32 : Code.EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vmulss instruction.<br/>
 		/// <br/>
@@ -96849,7 +97349,7 @@ namespace Iced.Intel {
 		public void vrangepd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrangepd instruction.<br/>
 		/// <br/>
@@ -96945,7 +97445,7 @@ namespace Iced.Intel {
 		public void vrangeps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrangeps instruction.<br/>
 		/// <br/>
@@ -97009,7 +97509,7 @@ namespace Iced.Intel {
 		public void vrangesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrangesd instruction.<br/>
 		/// <br/>
@@ -97041,7 +97541,7 @@ namespace Iced.Intel {
 		public void vrangess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrangess instruction.<br/>
 		/// <br/>
@@ -97329,7 +97829,7 @@ namespace Iced.Intel {
 		public void vrcp28pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp28pd instruction.<br/>
 		/// <br/>
@@ -97361,7 +97861,7 @@ namespace Iced.Intel {
 		public void vrcp28ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrcp28ps instruction.<br/>
 		/// <br/>
@@ -97393,7 +97893,7 @@ namespace Iced.Intel {
 		public void vrcp28sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrcp28sd instruction.<br/>
 		/// <br/>
@@ -97425,7 +97925,7 @@ namespace Iced.Intel {
 		public void vrcp28ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrcp28ss instruction.<br/>
 		/// <br/>
@@ -97585,7 +98085,7 @@ namespace Iced.Intel {
 		public void vreducepd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vreducepd instruction.<br/>
 		/// <br/>
@@ -97681,7 +98181,7 @@ namespace Iced.Intel {
 		public void vreduceps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vreduceps instruction.<br/>
 		/// <br/>
@@ -97745,7 +98245,7 @@ namespace Iced.Intel {
 		public void vreducesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vreducesd instruction.<br/>
 		/// <br/>
@@ -97777,7 +98277,7 @@ namespace Iced.Intel {
 		public void vreducess(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vreducess instruction.<br/>
 		/// <br/>
@@ -97841,7 +98341,7 @@ namespace Iced.Intel {
 		public void vrndscalepd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vrndscalepd instruction.<br/>
 		/// <br/>
@@ -97937,7 +98437,7 @@ namespace Iced.Intel {
 		public void vrndscaleps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vrndscaleps instruction.<br/>
 		/// <br/>
@@ -98001,7 +98501,7 @@ namespace Iced.Intel {
 		public void vrndscalesd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrndscalesd instruction.<br/>
 		/// <br/>
@@ -98033,7 +98533,7 @@ namespace Iced.Intel {
 		public void vrndscaless(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
 			op = Code.EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrndscaless instruction.<br/>
 		/// <br/>
@@ -98513,7 +99013,7 @@ namespace Iced.Intel {
 		public void vrsqrt28pd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt28pd instruction.<br/>
 		/// <br/>
@@ -98545,7 +99045,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vrsqrt28ps instruction.<br/>
 		/// <br/>
@@ -98577,7 +99077,7 @@ namespace Iced.Intel {
 		public void vrsqrt28sd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrsqrt28sd instruction.<br/>
 		/// <br/>
@@ -98609,7 +99109,7 @@ namespace Iced.Intel {
 		public void vrsqrt28ss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vrsqrt28ss instruction.<br/>
 		/// <br/>
@@ -98769,7 +99269,7 @@ namespace Iced.Intel {
 		public void vscalefpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vscalefpd instruction.<br/>
 		/// <br/>
@@ -98865,7 +99365,7 @@ namespace Iced.Intel {
 		public void vscalefps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vscalefps instruction.<br/>
 		/// <br/>
@@ -98929,7 +99429,7 @@ namespace Iced.Intel {
 		public void vscalefsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vscalefsd instruction.<br/>
 		/// <br/>
@@ -98961,7 +99461,7 @@ namespace Iced.Intel {
 		public void vscalefss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
 			op = Code.EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vscalefss instruction.<br/>
 		/// <br/>
@@ -99833,7 +100333,7 @@ namespace Iced.Intel {
 		public void vsqrtpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vsqrtpd instruction.<br/>
 		/// <br/>
@@ -99949,7 +100449,7 @@ namespace Iced.Intel {
 		public void vsqrtps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src) {
 			Code op;
 			op = Code.EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vsqrtps instruction.<br/>
 		/// <br/>
@@ -100029,11 +100529,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vsqrtsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vsqrtsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vsqrtsd_xmm_xmm_xmmm64 : Code.EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsqrtsd instruction.<br/>
 		/// <br/>
@@ -100071,11 +100581,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VSQRTSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vsqrtss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vsqrtss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vsqrtss_xmm_xmm_xmmm32 : Code.EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsqrtss instruction.<br/>
 		/// <br/>
@@ -100165,7 +100685,7 @@ namespace Iced.Intel {
 		public void vsubpd(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsubpd instruction.<br/>
 		/// <br/>
@@ -100281,7 +100801,7 @@ namespace Iced.Intel {
 		public void vsubps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
 			op = Code.EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsubps instruction.<br/>
 		/// <br/>
@@ -100361,11 +100881,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VSUBSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F2.0F.W1 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vsubsd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vsubsd_xmm_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vsubsd_xmm_xmm_xmmm64 : Code.EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsubsd instruction.<br/>
 		/// <br/>
@@ -100403,11 +100933,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VSUBSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.F3.0F.W0 5C /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vsubss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.VEX_Vsubss_xmm_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
+			op = PreferVex ? Code.VEX_Vsubss_xmm_xmm_xmmm32 : Code.EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er;
+			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags | src2.Flags);
 		}
 		/// <summary>vsubss instruction.<br/>
 		/// <br/>
@@ -100573,11 +101113,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VUCOMISD xmm1, xmm2/m64{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.66.0F.W1 2E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vucomisd(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vucomisd_xmm_xmmm64;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vucomisd_xmm_xmmm64 : Code.EVEX_Vucomisd_xmm_xmmm64_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vucomisd instruction.<br/>
 		/// <br/>
@@ -100615,11 +101165,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>AVX</c><br/>
 		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>VUCOMISS xmm1, xmm2/m32{sae}</c><br/>
+		/// <br/>
+		/// <c>EVEX.LIG.0F.W0 2E /r</c><br/>
+		/// <br/>
+		/// <c>AVX512F</c><br/>
+		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vucomiss(AssemblerRegisterXMM dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.VEX_Vucomiss_xmm_xmmm32;
-			AddInstruction(Instruction.Create(op, dst, src));
+			op = PreferVex ? Code.VEX_Vucomiss_xmm_xmmm32 : Code.EVEX_Vucomiss_xmm_xmmm32_sae;
+			AddInstruction(Instruction.Create(op, dst, src), src.Flags);
 		}
 		/// <summary>vucomiss instruction.<br/>
 		/// <br/>

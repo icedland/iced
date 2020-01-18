@@ -138,31 +138,6 @@ namespace Iced.Intel
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerMemoryOperand k7 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
-		/// <summary>
-		/// Suppress all exceptions.
-		/// </summary>
-		public AssemblerMemoryOperand sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
-		/// <summary>
-		/// Rounding to nearest.
-		/// </summary>
-		public AssemblerMemoryOperand rn_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
-		/// <summary>
-		/// Rounding down.
-		/// </summary>
-		public AssemblerMemoryOperand rd_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
-
-		/// <summary>
-		/// Rounding up.
-		/// </summary>
-		public AssemblerMemoryOperand ru_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
-
-		/// <summary>
-		/// Rounding toward zero.
-		/// </summary>
-		public AssemblerMemoryOperand rz_sae => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Adds a 16-bit memory operand with an new base or index.
@@ -216,10 +191,13 @@ namespace Iced.Intel
 			return new MemoryOperand(v.Base, v.Index, v.Scale, (int)v.Displacement, v.DisplacementSize);
 		}
 
+		/// <inheritdoc />
 		public bool Equals(AssemblerMemoryOperand other) => Size == other.Size && Prefix == other.Prefix && Base == other.Base && Index == other.Index && Scale == other.Scale && Displacement == other.Displacement && Flags == other.Flags;
 
+		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerMemoryOperand other && Equals(other);
 
+		/// <inheritdoc />
 		public override int GetHashCode()
 		{
 			unchecked
@@ -235,8 +213,20 @@ namespace Iced.Intel
 			}
 		}
 
+		/// <summary>
+		/// Equality operator for <see cref="AssemblerMemoryOperand"/>.
+		/// </summary>
+		/// <param name="left">Left operand</param>
+		/// <param name="right">Right operand</param>
+		/// <returns><c>true</c> if equal; otherwise <c>false</c></returns>
 		public static bool operator ==(AssemblerMemoryOperand left, AssemblerMemoryOperand right) => left.Equals(right);
 
+		/// <summary>
+		/// Inequality operator for <see cref="AssemblerMemoryOperand"/>.
+		/// </summary>
+		/// <param name="left">Left operand</param>
+		/// <param name="right">Right operand</param>
+		/// <returns><c>true</c> if not equal; otherwise <c>false</c></returns>
 		public static bool operator !=(AssemblerMemoryOperand left, AssemblerMemoryOperand right) => !left.Equals(right);
 	}
 }

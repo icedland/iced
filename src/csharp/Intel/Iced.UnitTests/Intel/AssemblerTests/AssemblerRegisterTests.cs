@@ -195,15 +195,15 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 			
 			{
-				var m = __dword_bcst[rsi + rdi * 2 + 512].sae;
+				var m = __dword_bcst[rsi + rdi * 2 + 512];
 				Assert.Equal(new MemoryOperand(Register.RSI, Register.RDI, 2, 512, 2), (MemoryOperand)m);
 				Assert.Equal(MemoryOperandSize.DwordPtr, m.Size);
-				Assert.Equal(AssemblerOperandFlags.SuppressAllExceptions | AssemblerOperandFlags.Broadcast, m.Flags);
+				Assert.Equal(AssemblerOperandFlags.Broadcast, m.Flags);
 			}
 
 			{
-				var m1 = __dword_bcst[rsi + rdi * 2 + 512].sae;
-				var m2 = __dword_bcst[rsi + rdi * 2 + 512].rn_sae;
+				var m1 = __qword_bcst[rsi + rdi * 2 + 512];
+				var m2 = __dword_bcst[rsi + rdi * 2 + 512];
 				Assert.NotEqual(m1, m2);
 				Assert.Equal((MemoryOperand)m1, (MemoryOperand)m2);
 				Assert.NotEqual(m1.GetHashCode(), m2.GetHashCode());
