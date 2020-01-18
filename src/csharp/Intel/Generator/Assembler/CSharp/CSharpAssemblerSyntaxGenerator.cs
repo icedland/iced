@@ -36,13 +36,15 @@ namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly GeneratorOptions _generatorOptions;
-		readonly CSharpDocCommentWriter docWriter;
+		readonly CSharpDocCommentWriter _docWriter;
 
 		public CSharpAssemblerSyntaxGenerator(GeneratorOptions generatorOptions) {
 			Converter = CSharpIdentifierConverter.Create();
-			docWriter = new CSharpDocCommentWriter(Converter);
+			_docWriter = new CSharpDocCommentWriter(Converter);
 			_generatorOptions = generatorOptions;
 		}
+
+		IdentifierConverter Converter { get; }
 
 		protected override void GenerateRegisters(EnumType registers) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
@@ -273,7 +275,7 @@ namespace Generator.Assembler.CSharp {
 				}
 			}
 
-			docWriter.WriteSummary(writer, methodDoc.ToString(), "");
+			_docWriter.WriteSummary(writer, methodDoc.ToString(), "");
 
 			writer.Write($"public void {methodName}(");
 			int realArgCount = 0;
@@ -300,6 +302,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("));");
 				}
 				else if (group.Flags == OpCodeArgFlags.Pseudo) {
+					Debug.Assert(group.ParentPseudoOpsKind != null);
 					writer.Write($"{group.ParentPseudoOpsKind.Name}(");
 					for (var i = 0; i < renderArgs.Count; i++) {
 						var renderArg = renderArgs[i];
@@ -410,6 +413,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine($"public void {fullMethodName}() {{");
 			using (writer.Indent()) {
 				if (group.Flags == OpCodeArgFlags.Pseudo) {
+					Debug.Assert(group.ParentPseudoOpsKind != null);
 					writer.Write($"// TODO {group.ParentPseudoOpsKind.Name}(");
 					for (var i = 0; i < renderArgs.Count; i++) {
 						var renderArg = renderArgs[i];
@@ -422,7 +426,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine(");");
 				}
 				else {
-					var argValues = new List<object>(renderArgs.Count);
+					var argValues = new List<object?>(renderArgs.Count);
 					for (int i = 0; i < renderArgs.Count; i++) {
 						argValues.Add(null);
 					}
@@ -434,7 +438,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine();;
 		}
 		
-		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object> argValues, OpCodeArgFlags contextFlags) {
+		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo != null) {
 				if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx"))) {
@@ -486,7 +490,9 @@ namespace Generator.Assembler.CSharp {
 						argValueForInstructionCreate += ".k1";
 					}
 
+					Debug.Assert(argValueForAssembler != null);
 					assemblerArgs.Add(argValueForAssembler);
+					Debug.Assert(argValueForInstructionCreate != null);
 					instructionCreateArgs.Add(argValueForInstructionCreate);
 				}
 
@@ -585,7 +591,7 @@ namespace Generator.Assembler.CSharp {
 				} 
 				using (writer.Indent()) {
 					foreach (var argValue in GetArgValue(bitness, selector.Kind, false, selector.ArgIndex, args)) {
-						var newArgValues = new List<object>(argValues);
+						var newArgValues = new List<object?>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
 						}
@@ -601,7 +607,7 @@ namespace Generator.Assembler.CSharp {
 						writer.Write("} /* else */ ");
 					}					
 					foreach (var argValue in GetArgValue(bitness, selector.Kind, true, selector.ArgIndex, args)) {
-						var newArgValues = new List<object>(argValues);
+						var newArgValues = new List<object?>(argValues);
 						if (selector.ArgIndex >= 0) {
 							newArgValues[selector.ArgIndex] = argValue;
 						}
@@ -705,8 +711,6 @@ namespace Generator.Assembler.CSharp {
 				else {
 					return "bl";
 				}
-
-				break;
 			case OpCodeOperandKind.r16_or_mem:
 				if (asMemory) {
 					if (bitness == 64) {
@@ -1162,7 +1166,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 		
-		static IEnumerable<string> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
+		static IEnumerable<string?> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.MemOffs64:
 				if (isElseBranch) {
