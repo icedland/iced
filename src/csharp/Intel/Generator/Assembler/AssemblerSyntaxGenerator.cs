@@ -1744,6 +1744,7 @@ namespace Generator.Assembler {
 
 					var newGroup = new OpCodeInfoGroup(name, signature) {
 						Flags = OpCodeArgFlags.Pseudo,
+						AllOpCodeFlags = group.AllOpCodeFlags,
 						MemoName = group.MemoName,
 						ParentPseudoOpsKind = @group, 
 						PseudoOpsKindImmediateValue = imm

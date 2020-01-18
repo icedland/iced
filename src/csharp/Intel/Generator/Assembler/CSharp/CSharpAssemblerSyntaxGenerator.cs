@@ -443,25 +443,15 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodName}() {{");
 			using (writer.Indent()) {
+				var argValues = new List<object?>(renderArgs.Count);
+				for (int i = 0; i < renderArgs.Count; i++) {
+					argValues.Add(null);
+				}
+				
 				if (group.Flags == OpCodeArgFlags.Pseudo) {
-					Debug.Assert(group.ParentPseudoOpsKind != null);
-					writer.Write($"// TODO {group.ParentPseudoOpsKind.Name}(");
-					for (var i = 0; i < renderArgs.Count; i++) {
-						var renderArg = renderArgs[i];
-						if (i > 0) writer.Write(", ");
-						writer.Write(renderArg.Name);
-					}
-
-					writer.Write(", ");
-					writer.Write($"{group.PseudoOpsKindImmediateValue}");
-					writer.WriteLine(");");
+					GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, renderArgs, argValues, OpCodeArgFlags.Default, group.ParentPseudoOpsKind.Items[0]);
 				}
 				else {
-					var argValues = new List<object?>(renderArgs.Count);
-					for (int i = 0; i < renderArgs.Count; i++) {
-						argValues.Add(null);
-					}
-
 					GenerateOpCodeTest(writer, bitness, bitnessFlags, group, methodName, group.RootOpCodeNode, renderArgs, argValues, OpCodeArgFlags.Default);
 				}
 			}
@@ -472,130 +462,7 @@ namespace Generator.Assembler.CSharp {
 		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo != null) {
-				if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx"))) {
-					writer.WriteLine("{");
-					using (writer.Indent()) {
-						writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
-					}
-					writer.WriteLine("}");
-					return;
-				}
-
-				bool isMoffs = IsMoffs(opCodeInfo);
-
-				var assemblerArgs = new List<string>();
-				var instructionCreateArgs = new List<string>();
-				for (var i = 0; i < argValues.Count; i++) {
-					var renderArg = args[i];
-					var isMemory = renderArg.Kind == ArgKind.Memory;
-					var argValueForAssembler = argValues[i]?.ToString();
-					var argValueForInstructionCreate = argValueForAssembler;
-
-					if (argValueForAssembler == null) {
-						var localBitness = bitness;
-
-						// Special case for movdir64b, the memory operand should match the register size
-						// TODO: Ideally this should be handled in the base class
-						switch ((Code)opCodeInfo.Code.Value) {
-						case Code.Movdir64b_r16_m512:
-						case Code.Enqcmds_r16_m512:
-						case Code.Enqcmd_r16_m512:
-							localBitness = 16;
-							break;
-						case Code.Movdir64b_r32_m512:
-						case Code.Enqcmds_r32_m512:
-						case Code.Enqcmd_r32_m512:
-							localBitness = 32;
-							break;
-						case Code.Movdir64b_r64_m512:
-						case Code.Enqcmds_r64_m512:
-						case Code.Enqcmd_r64_m512:
-							localBitness = 64;
-							break;
-						}
-
-						argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, true, i);
-						argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
-					}
-
-					if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
-						argValueForAssembler += ".k1";
-						argValueForInstructionCreate += ".k1";
-					}
-
-					Debug.Assert(argValueForAssembler != null);
-					assemblerArgs.Add(argValueForAssembler);
-					Debug.Assert(argValueForInstructionCreate != null);
-					if (renderArg.Kind == ArgKind.Memory && (!isMoffs || bitness != 64)) {
-						argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
-					}
-					instructionCreateArgs.Add(argValueForInstructionCreate);
-				}
-
-				// TODO: support memoff64
-
-				// if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
-				// 	var argIndex = selector.ArgIndex;
-				// 	if (argIndex == 1) {
-				// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
-				// 	}
-				// 	else {
-				// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, (ulong){args[0].Name}.Displacement, {args[1].Name}, {args[0].Name}.Prefix));");
-				// 	}
-				// 	writer.WriteLine("return;");
-				// }
-
-				var optionalOpCodeFlags = new List<string>();
-				switch (contextFlags) {
-				case OpCodeArgFlags.HasVex:
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferVex");
-					break;
-				case OpCodeArgFlags.HasEvex:
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
-					break;
-				case OpCodeArgFlags.HasBranchShort:
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchShort");
-					break;
-				case OpCodeArgFlags.HasBranchNear:
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
-					break;
-				}
-
-				if ((opCodeInfo.Flags & OpCodeFlags.Fwait) != 0) {
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
-				}
-
-				if (group.HasLabel) {
-					optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
-				}
-
-				string beginInstruction = $"Instruction.Create(Code.{opCodeInfo.Code.Name(Converter)}";
-				string endInstruction = ")";
-				if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0) {
-					beginInstruction = $"Instruction.Create{group.MemoName}(Bitness";
-					if (group.HasLabel) {
-						beginInstruction = $"AssignLabel({beginInstruction}, {instructionCreateArgs[0]})";
-					}
-				}
-				else if (group.HasLabel) {
-					beginInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}, {instructionCreateArgs[0]})";
-				}
-
-				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
-					beginInstruction = $"ApplyK1({beginInstruction}";
-					endInstruction = "))";
-				}
-
-				// Special case for moffs
-				if (isMoffs && bitness == 64)  {
-					beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
-				}
-
-				var assemblerArgsStr = string.Join(", ", assemblerArgs);
-				var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
-				var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
-
-				writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr});");
+				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, args, argValues, contextFlags, opCodeInfo);
 			}
 			else {
 				var selector = node.Selector;
@@ -644,6 +511,156 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("}");
 				}
 			}
+		}
+
+		void GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo)
+		{
+			if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx")))
+			{
+				writer.WriteLine("{");
+				using (writer.Indent())
+				{
+					writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
+				}
+
+				writer.WriteLine("}");
+				return;
+			}
+
+			bool isMoffs = IsMoffs(opCodeInfo);
+
+			var assemblerArgs = new List<string>();
+			var instructionCreateArgs = new List<string>();
+			for (var i = 0; i < argValues.Count; i++)
+			{
+				var renderArg = args[i];
+				var isMemory = renderArg.Kind == ArgKind.Memory;
+				var argValueForAssembler = argValues[i]?.ToString();
+				var argValueForInstructionCreate = argValueForAssembler;
+
+				if (argValueForAssembler == null)
+				{
+					var localBitness = bitness;
+
+					// Special case for movdir64b, the memory operand should match the register size
+					// TODO: Ideally this should be handled in the base class
+					switch ((Code) opCodeInfo.Code.Value)
+					{
+					case Code.Movdir64b_r16_m512:
+					case Code.Enqcmds_r16_m512:
+					case Code.Enqcmd_r16_m512:
+						localBitness = 16;
+						break;
+					case Code.Movdir64b_r32_m512:
+					case Code.Enqcmds_r32_m512:
+					case Code.Enqcmd_r32_m512:
+						localBitness = 32;
+						break;
+					case Code.Movdir64b_r64_m512:
+					case Code.Enqcmds_r64_m512:
+					case Code.Enqcmd_r64_m512:
+						localBitness = 64;
+						break;
+					}
+
+					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, true, i);
+					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
+				}
+
+				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0)
+				{
+					argValueForAssembler += ".k1";
+					argValueForInstructionCreate += ".k1";
+				}
+
+				Debug.Assert(argValueForAssembler != null);
+				assemblerArgs.Add(argValueForAssembler);
+				Debug.Assert(argValueForInstructionCreate != null);
+				if (renderArg.Kind == ArgKind.Memory && (!isMoffs || bitness != 64))
+				{
+					argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
+				}
+
+				instructionCreateArgs.Add(argValueForInstructionCreate);
+			}
+			
+			if (group.Flags == OpCodeArgFlags.Pseudo)
+			{
+				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");			
+			}
+
+			// TODO: support memoff64
+
+			// if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
+			// 	var argIndex = selector.ArgIndex;
+			// 	if (argIndex == 1) {
+			// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
+			// 	}
+			// 	else {
+			// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, (ulong){args[0].Name}.Displacement, {args[1].Name}, {args[0].Name}.Prefix));");
+			// 	}
+			// 	writer.WriteLine("return;");
+			// }
+
+			var optionalOpCodeFlags = new List<string>();
+			switch (contextFlags)
+			{
+			case OpCodeArgFlags.HasVex:
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferVex");
+				break;
+			case OpCodeArgFlags.HasEvex:
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
+				break;
+			case OpCodeArgFlags.HasBranchShort:
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchShort");
+				break;
+			case OpCodeArgFlags.HasBranchNear:
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
+				break;
+			}
+
+			if ((opCodeInfo.Flags & OpCodeFlags.Fwait) != 0)
+			{
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
+			}
+
+			if (@group.HasLabel)
+			{
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.Branch");
+			}
+
+			string beginInstruction = $"Instruction.Create(Code.{opCodeInfo.Code.Name(Converter)}";
+			string endInstruction = ")";
+			if ((@group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
+			{
+				beginInstruction = $"Instruction.Create{@group.MemoName}(Bitness";
+				if (@group.HasLabel)
+				{
+					beginInstruction = $"AssignLabel({beginInstruction}, {instructionCreateArgs[0]})";
+				}
+			}
+			else if (@group.HasLabel)
+			{
+				beginInstruction = $"AssignLabel(Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}, {instructionCreateArgs[0]})";
+			}
+
+			if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0)
+			{
+				beginInstruction = $"ApplyK1({beginInstruction}";
+				endInstruction = "))";
+			}
+
+			// Special case for moffs
+			if (isMoffs && bitness == 64)
+			{
+				beginInstruction = $"CreateMemory64(Code.{opCodeInfo.Code.Name(Converter)}";
+			}
+
+			var assemblerArgsStr = string.Join(", ", assemblerArgs);
+			var instructionCreateArgsStr = instructionCreateArgs.Count > 0 ? $", {string.Join(", ", instructionCreateArgs)}" : string.Empty;
+			var optionalOpCodeFlagsStr = optionalOpCodeFlags.Count > 0 ? $", {string.Join(" | ", optionalOpCodeFlags)}" : string.Empty;
+
+			writer.WriteLine($"TestAssembler(c => c.{methodName}({assemblerArgsStr}), {beginInstruction}{instructionCreateArgsStr}{endInstruction}{optionalOpCodeFlagsStr});");
 		}
 
 		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index) {
