@@ -1262,6 +1262,7 @@ namespace Generator.Assembler {
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
 			
 			var bitnessFlags = OpCodeFlags.None;
+			var vexOrEvexFlags = OpCodeArgFlags.Default;
 			
 			foreach (var code in inputOpCodes)
 			{
@@ -1279,10 +1280,12 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				var codeBitness = code.Flags & BitnessMaskFlags;
+				var codeBitnessFlags = code.Flags & BitnessMaskFlags;
+				var codeEvexFlags = code is VexOpCodeInfo ? OpCodeArgFlags.HasVex : code is EvexOpCodeInfo ? OpCodeArgFlags.HasEvex : OpCodeArgFlags.Default;
 
-				if (isValid && (signatures.Add(registerSignature) || ((bitnessFlags & codeBitness) != codeBitness)  || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
-					bitnessFlags |= codeBitness;
+				if (isValid && (signatures.Add(registerSignature) || ((bitnessFlags & codeBitnessFlags) != codeBitnessFlags) || (codeEvexFlags != OpCodeArgFlags.Default && (vexOrEvexFlags & codeEvexFlags) == 0)  || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
+					bitnessFlags |= codeBitnessFlags;
+					vexOrEvexFlags |= codeEvexFlags;
 					if (!opcodes.Contains(code)) {
 						opcodes.Add(code);
 					}
