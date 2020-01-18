@@ -912,7 +912,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void bndmov_regBND_regBND() {
-			TestAssembler(c => c.bndmov(bnd1, bnd2), Instruction.Create(Code.Bndmov_bnd_bndm64, bnd1, bnd2));
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
@@ -2172,12 +2173,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void dec_reg16() {
-			TestAssembler(c => c.dec(cx), Instruction.Create(Code.Dec_r16, cx));
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void dec_reg32() {
-			TestAssembler(c => c.dec(ecx), Instruction.Create(Code.Dec_r32, ecx));
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
@@ -3417,12 +3420,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void inc_reg16() {
-			TestAssembler(c => c.inc(cx), Instruction.Create(Code.Inc_r16, cx));
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void inc_reg32() {
-			TestAssembler(c => c.inc(ecx), Instruction.Create(Code.Inc_r32, ecx));
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]

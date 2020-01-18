@@ -752,13 +752,13 @@ namespace Generator.Assembler {
 					selectors ??= new OrderedSelectorList();
 					selectors.ArgIndex = -1;
 					selectors.Clear();
+
 					foreach (var opCodeInfo in opcodes) {
 						if (opCodeInfo is LegacyOpCodeInfo legacy) {
 							int bitness = GetBitness(legacy);
 
 							OpCodeSelectorKind selectorKind;
 							switch (bitness) {
-
 							case 16:
 								selectorKind = OpCodeSelectorKind.Bitness16;
 								break;
@@ -770,12 +770,41 @@ namespace Generator.Assembler {
 								selectorKind = OpCodeSelectorKind.Bitness64;
 								break;
 							}
-
 							selectors.Add(selectorKind, opCodeInfo);
 						}
 						else {
 							Console.WriteLine($"Unable to detect bitness for opcode {opCodeInfo.Code.RawName}");
 							//selectors.Add(OpCodeSelectorKind.Invalid, opCodeInfo);
+						}
+					}
+
+					// Try to detect bitness differently (for dec_rm16/dec_r16)
+					if (selectors.Count != opcodes.Count) {
+						selectors.Clear();
+						var added = new HashSet<OpCodeInfo>();
+						foreach (var bitnessMask in new OpCodeFlags[] {OpCodeFlags.Mode64, OpCodeFlags.Mode32, OpCodeFlags.Mode16}) {
+							foreach (var opCodeInfo in opcodes) {
+								if ((opCodeInfo.Flags & bitnessMask) == 0) continue;
+								if (added.Contains(opCodeInfo)) continue;
+
+								OpCodeSelectorKind selectorKind;
+								switch (bitnessMask) {
+								case OpCodeFlags.Mode16:
+									selectorKind = OpCodeSelectorKind.Bitness16;
+									break;
+								case OpCodeFlags.Mode32:
+									selectorKind = OpCodeSelectorKind.Bitness32;
+									break;
+								case OpCodeFlags.Mode64:
+									selectorKind = OpCodeSelectorKind.Bitness64;
+									break;
+								default:
+									throw new ArgumentException($"Invalid {bitnessMask}");
+								}
+
+								added.Add(opCodeInfo);
+								selectors.Add(selectorKind, opCodeInfo);
+							}
 						}
 					}
 
@@ -792,14 +821,16 @@ namespace Generator.Assembler {
 
 				OpCodeSelector? previousSelector = null;
 				OpCodeNode rootNode = default;
+				int selectorIndex = 0;
 				foreach (var (kind, list) in selectors) {
 					OpCodeNode node;
 					OpCodeSelector? newSelector = null;
 					
 					switch (kind) {
+					case OpCodeSelectorKind.Bitness32:
 					case OpCodeSelectorKind.Bitness16:
-						// Bitness16 can be last without a condition
-						if (list.Count == 1 && selectors.Count > 1) {
+						// Bitness32/Bitness16 can be last without a condition
+						if (list.Count == 1 && selectorIndex + 1  == selectors.Count) {
 							node = new OpCodeNode(list[0]);
 						}
 						else {
@@ -834,6 +865,8 @@ namespace Generator.Assembler {
 					}
 
 					previousSelector = newSelector;
+
+					selectorIndex++;
 				}
 
 				return rootNode;
@@ -1071,7 +1104,9 @@ namespace Generator.Assembler {
 			public void Add(OpCodeSelectorKind kindToAdd, OpCodeInfo opCodeInfo) {
 				foreach (var (kind, list) in this) {
 					if (kind == kindToAdd) {
-						list.Add(opCodeInfo);
+						if (!list.Contains(opCodeInfo)) {
+							list.Add(opCodeInfo);
+						}
 						return;
 					}
 				}
@@ -1221,8 +1256,10 @@ namespace Generator.Assembler {
 			RoundingControl = 1 << 15,
 		}
 
-		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory)
-		{
+		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
+			
+			var bitnessFlags = OpCodeFlags.None;
+			
 			foreach (var code in inputOpCodes)
 			{
 				var registerSignature = new Signature();
@@ -1239,9 +1276,13 @@ namespace Generator.Assembler {
 					registerSignature.AddArgKind(argKind);
 				}
 
-				if (isValid && (signatures.Add(registerSignature) || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0))
-				{
-					opcodes.Add(code);
+				var codeBitness = code.Flags & BitnessMaskFlags;
+
+				if (isValid && (signatures.Add(registerSignature) || ((bitnessFlags & codeBitness) != codeBitness)  || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
+					bitnessFlags |= codeBitness;
+					if (!opcodes.Contains(code)) {
+						opcodes.Add(code);
+					}
 				}
 			}
 		}

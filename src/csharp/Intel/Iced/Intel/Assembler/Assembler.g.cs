@@ -3455,6 +3455,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>BNDMOV bnd1, bnd2/m128</c><br/>
+		/// <br/>
+		/// <c>66 0F 1A /r</c><br/>
+		/// <br/>
+		/// <c>MPX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>BNDMOV bnd1, bnd2/m64</c><br/>
 		/// <br/>
 		/// <c>66 0F 1A /r</c><br/>
@@ -3464,7 +3474,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void bndmov(AssemblerRegisterBND dst, AssemblerRegisterBND src) {
 			Code op;
-			op = Code.Bndmov_bnd_bndm64;
+			op = Bitness == 64 ? Code.Bndmov_bnd_bndm128 : Code.Bndmov_bnd_bndm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>bndmov instruction.<br/>
@@ -9163,6 +9173,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>DEC r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 FF /1</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>DEC r16</c><br/>
 		/// <br/>
 		/// <c>o16 48+rw</c><br/>
@@ -9172,10 +9192,20 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void dec(AssemblerRegister16 dst) {
 			Code op;
-			op = Code.Dec_r16;
+			op = Bitness == 64 ? Code.Dec_rm16 : Code.Dec_r16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>dec instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>DEC r/m32</c><br/>
+		/// <br/>
+		/// <c>o32 FF /1</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -9188,7 +9218,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void dec(AssemblerRegister32 dst) {
 			Code op;
-			op = Code.Dec_r32;
+			op = Bitness == 64 ? Code.Dec_rm32 : Code.Dec_r32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>dec instruction.<br/>
@@ -9962,13 +9992,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void extractps(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Extractps_r64m32_xmm_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Extractps_rm32_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Extractps, dst, src1, imm);
-			}
+			op = Bitness == 64 ? Code.Extractps_r64m32_xmm_imm8 : Code.Extractps_rm32_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
 		/// <summary>extrq instruction.<br/>
@@ -13511,6 +13535,16 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>INC r/m16</c><br/>
+		/// <br/>
+		/// <c>o16 FF /0</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>INC r16</c><br/>
 		/// <br/>
 		/// <c>o16 40+rw</c><br/>
@@ -13520,10 +13554,20 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void inc(AssemblerRegister16 dst) {
 			Code op;
-			op = Code.Inc_r16;
+			op = Bitness == 64 ? Code.Inc_rm16 : Code.Inc_r16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>inc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>INC r/m32</c><br/>
+		/// <br/>
+		/// <c>o32 FF /0</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
 		/// <br/>
 		/// <br/>
 		/// <br/>
@@ -13536,7 +13580,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void inc(AssemblerRegister32 dst) {
 			Code op;
-			op = Code.Inc_r32;
+			op = Bitness == 64 ? Code.Inc_rm32 : Code.Inc_r32;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>inc instruction.<br/>
@@ -25024,13 +25068,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pextrb(AssemblerMemoryOperand dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Pextrb_r64m8_xmm_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pextrb_r32m8_xmm_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pextrb, dst, src1, imm);
-			}
+			op = Bitness == 64 ? Code.Pextrb_r64m8_xmm_imm8 : Code.Pextrb_r32m8_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src1, imm));
 		}
 		/// <summary>pextrd instruction.<br/>
@@ -26512,13 +26550,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void pinsrb(AssemblerRegisterXMM dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Pinsrb_xmm_r64m8_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Pinsrb_xmm_r32m8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Pinsrb, dst, src1, imm);
-			}
+			op = Bitness == 64 ? Code.Pinsrb_xmm_r64m8_imm8 : Code.Pinsrb_xmm_r32m8_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>pinsrd instruction.<br/>
