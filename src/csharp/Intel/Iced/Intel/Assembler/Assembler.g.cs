@@ -3332,13 +3332,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void bndmov(AssemblerMemoryOperand dst, AssemblerRegisterBND src) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Bndmov_bndm128_bnd;
-			} else if (Bitness >= 16) {
-				op = Code.Bndmov_bndm64_bnd;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Bndmov, dst, src);
-			}
+			op = Bitness == 64 ? Code.Bndmov_bndm128_bnd : Code.Bndmov_bndm64_bnd;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>bndmov instruction.<br/>
@@ -3364,13 +3358,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void bndmov(AssemblerRegisterBND dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64) {
-				op = Code.Bndmov_bnd_bndm128;
-			} else if (Bitness >= 16) {
-				op = Code.Bndmov_bnd_bndm64;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Bndmov, dst, src);
-			}
+			op = Bitness == 64 ? Code.Bndmov_bnd_bndm128 : Code.Bndmov_bnd_bndm64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>bndstx instruction.<br/>
@@ -4560,13 +4548,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Call_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Call_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Call_m1616;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Call_m1632 : Code.Call_m1616;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>call instruction.<br/>
@@ -4604,13 +4586,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Call_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Call_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Call_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Call, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Call_rel32_32 : Code.Call_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>cbw instruction.<br/>
@@ -4888,13 +4864,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Clzeroq;
-			} else if (Bitness >= 32) {
-				op = Code.Clzerod;
-			} else if (Bitness >= 16) {
-				op = Code.Clzerow;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Clzero);
-			}
+			} else op = Bitness >= 32 ? Code.Clzerod : Code.Clzerow;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>cmc instruction.<br/>
@@ -9352,13 +9322,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Enterq_imm16_imm8;
-			} else if (Bitness >= 32) {
-				op = Code.Enterd_imm16_imm8;
-			} else if (Bitness >= 16) {
-				op = Code.Enterw_imm16_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Enter, imm, imm1);
-			}
+			} else op = Bitness >= 32 ? Code.Enterd_imm16_imm8 : Code.Enterw_imm16_imm8;
 			AddInstruction(Instruction.Create(op, imm, imm1));
 		}
 		/// <summary>extractps instruction.<br/>
@@ -10726,13 +10690,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fldenv(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Fldenv_m28byte;
-			} else if (Bitness >= 16) {
-				op = Code.Fldenv_m14byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fldenv, dst);
-			}
+			op = Bitness >= 32 ? Code.Fldenv_m28byte : Code.Fldenv_m14byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fldl2e instruction.<br/>
@@ -11008,13 +10966,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnsave(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Fnsave_m108byte;
-			} else if (Bitness >= 16) {
-				op = Code.Fnsave_m94byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fnsave, dst);
-			}
+			op = Bitness >= 32 ? Code.Fnsave_m108byte : Code.Fnsave_m94byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnsetpm instruction.<br/>
@@ -11072,13 +11024,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fnstenv(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Fnstenv_m28byte;
-			} else if (Bitness >= 16) {
-				op = Code.Fnstenv_m14byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fnstenv, dst);
-			}
+			op = Bitness >= 32 ? Code.Fnstenv_m28byte : Code.Fnstenv_m14byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fnstsw instruction.<br/>
@@ -11216,13 +11162,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void frstor(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Frstor_m108byte;
-			} else if (Bitness >= 16) {
-				op = Code.Frstor_m94byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Frstor, dst);
-			}
+			op = Bitness >= 32 ? Code.Frstor_m108byte : Code.Frstor_m94byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>frstpm instruction.<br/>
@@ -11264,13 +11204,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fsave(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Fsave_m108byte;
-			} else if (Bitness >= 16) {
-				op = Code.Fsave_m94byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fsave, dst);
-			}
+			op = Bitness >= 32 ? Code.Fsave_m108byte : Code.Fsave_m94byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fscale instruction.<br/>
@@ -11456,13 +11390,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void fstenv(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Fstenv_m28byte;
-			} else if (Bitness >= 16) {
-				op = Code.Fstenv_m14byte;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Fstenv, dst);
-			}
+			op = Bitness >= 32 ? Code.Fstenv_m28byte : Code.Fstenv_m14byte;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>fstp instruction.<br/>
@@ -13306,13 +13234,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Invlpgaq;
-			} else if (Bitness >= 32) {
-				op = Code.Invlpgad;
-			} else if (Bitness >= 16) {
-				op = Code.Invlpgaw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Invlpga);
-			}
+			} else op = Bitness >= 32 ? Code.Invlpgad : Code.Invlpgaw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>invpcid instruction.<br/>
@@ -13493,22 +13415,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Ja_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Ja_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Ja_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Ja_rel8_32 : Code.Ja_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Ja_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Ja_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Ja_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ja, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Ja_rel32_32 : Code.Ja_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jae instruction.<br/>
@@ -13577,22 +13487,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jae_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jae_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jae_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jae_rel8_32 : Code.Jae_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jae_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jae_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jae_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jae, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jae_rel32_32 : Code.Jae_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jb instruction.<br/>
@@ -13661,22 +13559,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jb_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jb_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jb_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jb_rel8_32 : Code.Jb_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jb_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jb_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jb_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jb, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jb_rel32_32 : Code.Jb_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jbe instruction.<br/>
@@ -13745,22 +13631,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jbe_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jbe_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jbe_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jbe_rel8_32 : Code.Jbe_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jbe_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jbe_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jbe_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jbe, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jbe_rel32_32 : Code.Jbe_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jcxz instruction.<br/>
@@ -13845,22 +13719,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Je_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Je_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Je_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Je, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Je_rel8_32 : Code.Je_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Je_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Je_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Je_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Je, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Je_rel32_32 : Code.Je_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jecxz instruction.<br/>
@@ -13945,22 +13807,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jg_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jg_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jg_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jg_rel8_32 : Code.Jg_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jg_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jg_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jg_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jg, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jg_rel32_32 : Code.Jg_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jge instruction.<br/>
@@ -14029,22 +13879,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jge_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jge_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jge_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jge_rel8_32 : Code.Jge_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jge_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jge_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jge_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jge, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jge_rel32_32 : Code.Jge_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jl instruction.<br/>
@@ -14113,22 +13951,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jl_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jl_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jl_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jl_rel8_32 : Code.Jl_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jl_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jl_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jl_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jl, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jl_rel32_32 : Code.Jl_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jle instruction.<br/>
@@ -14197,22 +14023,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jle_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jle_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jle_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jle_rel8_32 : Code.Jle_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jle_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jle_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jle_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jle, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jle_rel32_32 : Code.Jle_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jmp instruction.<br/>
@@ -14298,13 +14112,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Jmp_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Jmp_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Jmp_m1616;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jmp_m1632 : Code.Jmp_m1616;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>jmp instruction.<br/>
@@ -14373,22 +14181,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jmp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jmp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jmp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jmp_rel8_32 : Code.Jmp_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jmp_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jmp_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jmp_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jmp, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jmp_rel32_32 : Code.Jmp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jmpe instruction.<br/>
@@ -14547,22 +14343,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jne_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jne_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jne_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jne_rel8_32 : Code.Jne_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jne_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jne_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jne_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jne, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jne_rel32_32 : Code.Jne_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jno instruction.<br/>
@@ -14631,22 +14415,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jno_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jno_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jno_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jno_rel8_32 : Code.Jno_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jno_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jno_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jno_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jno, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jno_rel32_32 : Code.Jno_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jnp instruction.<br/>
@@ -14715,22 +14487,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jnp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jnp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jnp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jnp_rel8_32 : Code.Jnp_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jnp_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jnp_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jnp_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jnp, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jnp_rel32_32 : Code.Jnp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jns instruction.<br/>
@@ -14799,22 +14559,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jns_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jns_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jns_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jns_rel8_32 : Code.Jns_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jns_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jns_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jns_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jns, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jns_rel32_32 : Code.Jns_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jo instruction.<br/>
@@ -14883,22 +14631,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jo_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jo_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jo_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jo_rel8_32 : Code.Jo_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jo_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jo_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jo_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jo, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jo_rel32_32 : Code.Jo_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jp instruction.<br/>
@@ -14967,22 +14703,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Jp_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Jp_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Jp_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Jp_rel8_32 : Code.Jp_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Jp_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Jp_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Jp_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jp, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Jp_rel32_32 : Code.Jp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jrcxz instruction.<br/>
@@ -15067,22 +14791,10 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Js_rel8_64;
-				} else if (Bitness >= 32) {
-					op = Code.Js_rel8_32;
-				} else if (Bitness >= 16) {
-					op = Code.Js_rel8_16;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Js, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Js_rel8_32 : Code.Js_rel8_16;
 			} else if (Bitness == 64) {
 				op = Code.Js_rel32_64;
-			} else if (Bitness >= 32) {
-				op = Code.Js_rel32_32;
-			} else if (Bitness >= 16) {
-				op = Code.Js_rel16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Js, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Js_rel32_32 : Code.Js_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>kaddb instruction.<br/>
@@ -16400,13 +16112,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Leaveq;
-			} else if (Bitness >= 32) {
-				op = Code.Leaved;
-			} else if (Bitness >= 16) {
-				op = Code.Leavew;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Leave);
-			}
+			} else op = Bitness >= 32 ? Code.Leaved : Code.Leavew;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>les instruction.<br/>
@@ -16540,13 +16246,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Lgdt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Lgdt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Lgdt_m1632_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lgdt, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Lgdt_m1632 : Code.Lgdt_m1632_16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lgs instruction.<br/>
@@ -16632,13 +16332,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Lidt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Lidt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Lidt_m1632_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lidt, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Lidt_m1632 : Code.Lidt_m1632_16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lldt instruction.<br/>
@@ -16712,13 +16406,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Lldt_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Lldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lldt, dst);
-			}
+			op = Bitness >= 32 ? Code.Lldt_r32m16 : Code.Lldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>llwpcb instruction.<br/>
@@ -16824,13 +16512,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void lmsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Lmsw_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Lmsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Lmsw, dst);
-			}
+			op = Bitness >= 32 ? Code.Lmsw_r32m16 : Code.Lmsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>loadall instruction.<br/>
@@ -16941,13 +16623,7 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Loop_rel8_64_RCX;
-				} else if (Bitness >= 32) {
-					op = Code.Loop_rel8_32_ECX;
-				} else if (Bitness >= 16) {
-					op = Code.Loop_rel8_16_CX;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Loop_rel8_32_ECX : Code.Loop_rel8_16_CX;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
 			}
@@ -16989,13 +16665,7 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Loope_rel8_64_RCX;
-				} else if (Bitness >= 32) {
-					op = Code.Loope_rel8_32_ECX;
-				} else if (Bitness >= 16) {
-					op = Code.Loope_rel8_16_CX;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Loope_rel8_32_ECX : Code.Loope_rel8_16_CX;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
 			}
@@ -17037,13 +16707,7 @@ namespace Iced.Intel {
 			if (PreferBranchShort) {
 				if (Bitness == 64) {
 					op = Code.Loopne_rel8_64_RCX;
-				} else if (Bitness >= 32) {
-					op = Code.Loopne_rel8_32_ECX;
-				} else if (Bitness >= 16) {
-					op = Code.Loopne_rel8_16_CX;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Loopne_rel8_32_ECX : Code.Loopne_rel8_16_CX;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
 			}
@@ -17248,13 +16912,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ltr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Ltr_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Ltr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ltr, dst);
-			}
+			op = Bitness >= 32 ? Code.Ltr_r32m16 : Code.Ltr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>lwpins instruction.<br/>
@@ -17832,13 +17490,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Monitorq;
-			} else if (Bitness >= 32) {
-				op = Code.Monitord;
-			} else if (Bitness >= 16) {
-				op = Code.Monitorw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Monitor);
-			}
+			} else op = Bitness >= 32 ? Code.Monitord : Code.Monitorw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>monitorx instruction.<br/>
@@ -17876,13 +17528,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Monitorxq;
-			} else if (Bitness >= 32) {
-				op = Code.Monitorxd;
-			} else if (Bitness >= 16) {
-				op = Code.Monitorxw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Monitorx);
-			}
+			} else op = Bitness >= 32 ? Code.Monitorxd : Code.Monitorxw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>montmul instruction.<br/>
@@ -17920,13 +17566,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Montmul_64;
-			} else if (Bitness >= 32) {
-				op = Code.Montmul_32;
-			} else if (Bitness >= 16) {
-				op = Code.Montmul_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Montmul);
-			}
+			} else op = Bitness >= 32 ? Code.Montmul_32 : Code.Montmul_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18312,13 +17952,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegisterSegment src) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Mov_r32m16_Sreg;
-			} else if (Bitness >= 16) {
-				op = Code.Mov_rm16_Sreg;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
-			}
+			op = Bitness >= 32 ? Code.Mov_r32m16_Sreg : Code.Mov_rm16_Sreg;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18544,13 +18178,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegisterSegment dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Mov_Sreg_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Mov_Sreg_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, src);
-			}
+			op = Bitness >= 32 ? Code.Mov_Sreg_r32m16 : Code.Mov_Sreg_rm16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -21076,13 +20704,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void nop() {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Nopd;
-			} else if (Bitness >= 16) {
-				op = Code.Nopw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Nop);
-			}
+			op = Bitness >= 32 ? Code.Nopd : Code.Nopw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>nop instruction.<br/>
@@ -27417,47 +27039,17 @@ namespace Iced.Intel {
 			if (dst == Register.FS) {
 				if (Bitness == 64) {
 					op = Code.Popq_FS;
-				} else if (Bitness >= 32) {
-					op = Code.Popd_FS;
-				} else if (Bitness >= 16) {
-					op = Code.Popw_FS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Popd_FS : Code.Popw_FS;
 			} else if (dst == Register.GS) {
 				if (Bitness == 64) {
 					op = Code.Popq_GS;
-				} else if (Bitness >= 32) {
-					op = Code.Popd_GS;
-				} else if (Bitness >= 16) {
-					op = Code.Popw_GS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Popd_GS : Code.Popw_GS;
 			} else if (dst == Register.ES) {
-				if (Bitness >= 32) {
-					op = Code.Popd_ES;
-				} else if (Bitness >= 16) {
-					op = Code.Popw_ES;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
-				}
+				op = Bitness >= 32 ? Code.Popd_ES : Code.Popw_ES;
 			} else if (dst == Register.SS) {
-				if (Bitness >= 32) {
-					op = Code.Popd_SS;
-				} else if (Bitness >= 16) {
-					op = Code.Popw_SS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
-				}
+				op = Bitness >= 32 ? Code.Popd_SS : Code.Popw_SS;
 			} else if (dst == Register.DS) {
-				if (Bitness >= 32) {
-					op = Code.Popd_DS;
-				} else if (Bitness >= 16) {
-					op = Code.Popw_DS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
-				}
+				op = Bitness >= 32 ? Code.Popd_DS : Code.Popw_DS;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Pop, dst);
 			}
@@ -30389,55 +29981,19 @@ namespace Iced.Intel {
 			if (dst == Register.FS) {
 				if (Bitness == 64) {
 					op = Code.Pushq_FS;
-				} else if (Bitness >= 32) {
-					op = Code.Pushd_FS;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_FS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Pushd_FS : Code.Pushw_FS;
 			} else if (dst == Register.GS) {
 				if (Bitness == 64) {
 					op = Code.Pushq_GS;
-				} else if (Bitness >= 32) {
-					op = Code.Pushd_GS;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_GS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				} else op = Bitness >= 32 ? Code.Pushd_GS : Code.Pushw_GS;
 			} else if (dst == Register.ES) {
-				if (Bitness >= 32) {
-					op = Code.Pushd_ES;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_ES;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				op = Bitness >= 32 ? Code.Pushd_ES : Code.Pushw_ES;
 			} else if (dst == Register.CS) {
-				if (Bitness >= 32) {
-					op = Code.Pushd_CS;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_CS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				op = Bitness >= 32 ? Code.Pushd_CS : Code.Pushw_CS;
 			} else if (dst == Register.SS) {
-				if (Bitness >= 32) {
-					op = Code.Pushd_SS;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_SS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				op = Bitness >= 32 ? Code.Pushd_SS : Code.Pushw_SS;
 			} else if (dst == Register.DS) {
-				if (Bitness >= 32) {
-					op = Code.Pushd_DS;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_DS;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, dst);
-				}
+				op = Bitness >= 32 ? Code.Pushd_DS : Code.Pushw_DS;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Push, dst);
 			}
@@ -30553,22 +30109,10 @@ namespace Iced.Intel {
 			if (imm >= sbyte.MinValue &&  imm <= sbyte.MaxValue) {
 				if (Bitness == 64) {
 					op = Code.Pushq_imm8;
-				} else if (Bitness >= 32) {
-					op = Code.Pushd_imm8;
-				} else if (Bitness >= 16) {
-					op = Code.Pushw_imm8;
-				} else {
-					throw NoOpCodeFoundFor(Mnemonic.Push, imm);
-				}
+				} else op = Bitness >= 32 ? Code.Pushd_imm8 : Code.Pushw_imm8;
 			} else if (Bitness == 64) {
 				op = Code.Pushq_imm32;
-			} else if (Bitness >= 32) {
-				op = Code.Pushd_imm32;
-			} else if (Bitness >= 16) {
-				op = Code.Push_imm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Push, imm);
-			}
+			} else op = Bitness >= 32 ? Code.Pushd_imm32 : Code.Push_imm16;
 			AddInstruction(Instruction.Create(op, imm));
 		}
 		/// <summary>pusha instruction.<br/>
@@ -31798,13 +31342,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Retnq;
-			} else if (Bitness >= 32) {
-				op = Code.Retnd;
-			} else if (Bitness >= 16) {
-				op = Code.Retnw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ret);
-			}
+			} else op = Bitness >= 32 ? Code.Retnd : Code.Retnw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>ret instruction.<br/>
@@ -31842,13 +31380,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Retnq_imm16;
-			} else if (Bitness >= 32) {
-				op = Code.Retnd_imm16;
-			} else if (Bitness >= 16) {
-				op = Code.Retnw_imm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Ret, imm);
-			}
+			} else op = Bitness >= 32 ? Code.Retnd_imm16 : Code.Retnw_imm16;
 			AddInstruction(Instruction.Create(op, imm));
 		}
 		/// <summary>retf instruction.<br/>
@@ -31886,13 +31418,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Retfq;
-			} else if (Bitness >= 32) {
-				op = Code.Retfd;
-			} else if (Bitness >= 16) {
-				op = Code.Retfw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Retf);
-			}
+			} else op = Bitness >= 32 ? Code.Retfd : Code.Retfw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>retf instruction.<br/>
@@ -31930,13 +31456,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Retfq_imm16;
-			} else if (Bitness >= 32) {
-				op = Code.Retfd_imm16;
-			} else if (Bitness >= 16) {
-				op = Code.Retfw_imm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Retf, imm);
-			}
+			} else op = Bitness >= 32 ? Code.Retfd_imm16 : Code.Retfw_imm16;
 			AddInstruction(Instruction.Create(op, imm));
 		}
 		/// <summary>rol instruction.<br/>
@@ -34734,13 +34254,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Sgdt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Sgdt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Sgdt_m1632_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sgdt, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Sgdt_m1632 : Code.Sgdt_m1632_16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sha1msg1 instruction.<br/>
@@ -36242,13 +35756,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Sidt_m1664;
-			} else if (Bitness >= 32) {
-				op = Code.Sidt_m1632;
-			} else if (Bitness >= 16) {
-				op = Code.Sidt_m1632_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sidt, dst);
-			}
+			} else op = Bitness >= 32 ? Code.Sidt_m1632 : Code.Sidt_m1632_16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>skinit instruction.<br/>
@@ -36338,13 +35846,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void sldt(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Sldt_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Sldt_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Sldt, dst);
-			}
+			op = Bitness >= 32 ? Code.Sldt_r32m16 : Code.Sldt_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>slwpcb instruction.<br/>
@@ -36450,13 +35952,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void smsw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Smsw_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Smsw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Smsw, dst);
-			}
+			op = Bitness >= 32 ? Code.Smsw_r32m16 : Code.Smsw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sqrtpd instruction.<br/>
@@ -36810,13 +36306,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void str(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Str_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Str_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Str, dst);
-			}
+			op = Bitness >= 32 ? Code.Str_r32m16 : Code.Str_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>sub instruction.<br/>
@@ -50648,13 +50138,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verr(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Verr_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Verr_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verr, dst);
-			}
+			op = Bitness >= 32 ? Code.Verr_r32m16 : Code.Verr_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>verw instruction.<br/>
@@ -50728,13 +50212,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void verw(AssemblerMemoryOperand dst) {
 			Code op;
-			if (Bitness >= 32) {
-				op = Code.Verw_r32m16;
-			} else if (Bitness >= 16) {
-				op = Code.Verw_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Verw, dst);
-			}
+			op = Bitness >= 32 ? Code.Verw_r32m16 : Code.Verw_rm16;
 			AddInstruction(Instruction.Create(op, dst));
 		}
 		/// <summary>vexp2pd instruction.<br/>
@@ -62170,13 +61648,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Vmloadq;
-			} else if (Bitness >= 32) {
-				op = Code.Vmloadd;
-			} else if (Bitness >= 16) {
-				op = Code.Vmloadw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmload);
-			}
+			} else op = Bitness >= 32 ? Code.Vmloadd : Code.Vmloadw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>vmmcall instruction.<br/>
@@ -65546,13 +65018,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Vmrunq;
-			} else if (Bitness >= 32) {
-				op = Code.Vmrund;
-			} else if (Bitness >= 16) {
-				op = Code.Vmrunw;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmrun);
-			}
+			} else op = Bitness >= 32 ? Code.Vmrund : Code.Vmrunw;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>vmsave instruction.<br/>
@@ -65590,13 +65056,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Vmsaveq;
-			} else if (Bitness >= 32) {
-				op = Code.Vmsaved;
-			} else if (Bitness >= 16) {
-				op = Code.Vmsavew;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Vmsave);
-			}
+			} else op = Bitness >= 32 ? Code.Vmsaved : Code.Vmsavew;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>vmulpd instruction.<br/>
@@ -102568,13 +102028,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.XcryptCbc_64;
-			} else if (Bitness >= 32) {
-				op = Code.XcryptCbc_32;
-			} else if (Bitness >= 16) {
-				op = Code.XcryptCbc_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xcryptcbc);
-			}
+			} else op = Bitness >= 32 ? Code.XcryptCbc_32 : Code.XcryptCbc_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptcfb instruction.<br/>
@@ -102612,13 +102066,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.XcryptCfb_64;
-			} else if (Bitness >= 32) {
-				op = Code.XcryptCfb_32;
-			} else if (Bitness >= 16) {
-				op = Code.XcryptCfb_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xcryptcfb);
-			}
+			} else op = Bitness >= 32 ? Code.XcryptCfb_32 : Code.XcryptCfb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptctr instruction.<br/>
@@ -102656,13 +102104,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.XcryptCtr_64;
-			} else if (Bitness >= 32) {
-				op = Code.XcryptCtr_32;
-			} else if (Bitness >= 16) {
-				op = Code.XcryptCtr_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xcryptctr);
-			}
+			} else op = Bitness >= 32 ? Code.XcryptCtr_32 : Code.XcryptCtr_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptecb instruction.<br/>
@@ -102700,13 +102142,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.XcryptEcb_64;
-			} else if (Bitness >= 32) {
-				op = Code.XcryptEcb_32;
-			} else if (Bitness >= 16) {
-				op = Code.XcryptEcb_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xcryptecb);
-			}
+			} else op = Bitness >= 32 ? Code.XcryptEcb_32 : Code.XcryptEcb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xcryptofb instruction.<br/>
@@ -102744,13 +102180,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.XcryptOfb_64;
-			} else if (Bitness >= 32) {
-				op = Code.XcryptOfb_32;
-			} else if (Bitness >= 16) {
-				op = Code.XcryptOfb_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xcryptofb);
-			}
+			} else op = Bitness >= 32 ? Code.XcryptOfb_32 : Code.XcryptOfb_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xend instruction.<br/>
@@ -103524,13 +102954,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Xsha1_64;
-			} else if (Bitness >= 32) {
-				op = Code.Xsha1_32;
-			} else if (Bitness >= 16) {
-				op = Code.Xsha1_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsha1);
-			}
+			} else op = Bitness >= 32 ? Code.Xsha1_32 : Code.Xsha1_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xsha256 instruction.<br/>
@@ -103568,13 +102992,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Xsha256_64;
-			} else if (Bitness >= 32) {
-				op = Code.Xsha256_32;
-			} else if (Bitness >= 16) {
-				op = Code.Xsha256_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xsha256);
-			}
+			} else op = Bitness >= 32 ? Code.Xsha256_32 : Code.Xsha256_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xstore instruction.<br/>
@@ -103612,13 +103030,7 @@ namespace Iced.Intel {
 			Code op;
 			if (Bitness == 64) {
 				op = Code.Xstore_64;
-			} else if (Bitness >= 32) {
-				op = Code.Xstore_32;
-			} else if (Bitness >= 16) {
-				op = Code.Xstore_16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Xstore);
-			}
+			} else op = Bitness >= 32 ? Code.Xstore_32 : Code.Xstore_16;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xtest instruction.<br/>

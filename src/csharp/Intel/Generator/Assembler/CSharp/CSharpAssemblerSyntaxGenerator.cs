@@ -438,7 +438,11 @@ namespace Generator.Assembler.CSharp {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo != null) {
 				if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx"))) {
-					writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
+					writer.WriteLine("{");
+					using (writer.Indent()) {
+						writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
+					}
+					writer.WriteLine("}");
 					return;
 				}
 
