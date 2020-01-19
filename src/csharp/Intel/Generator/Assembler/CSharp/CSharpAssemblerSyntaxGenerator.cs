@@ -92,13 +92,9 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("public sealed partial class Assembler {");
 					using (writer.Indent()) {
 						foreach (var group in groups) {
-							var renderArgs = GetRenderArgs(group, out var hasImm8);
+							var renderArgs = GetRenderArgs(group);
 							var methodName = Converter.Method(group.Name);
 							RenderCode(writer, methodName, group, renderArgs);
-							if (hasImm8) {
-								var renderArgsWithSbyte = ChangeByteToSignedByteArguments(renderArgs);
-								RenderCode(writer, methodName, group, renderArgsWithSbyte);
-							}
 						}
 					}
 					writer.WriteLine("}");
@@ -163,7 +159,7 @@ namespace Generator.Assembler.CSharp {
 								continue;
 							}
 							
-							var renderArgs = GetRenderArgs(@group, out _);
+							var renderArgs = GetRenderArgs(@group);
 							var methodName = Converter.Method(@group.Name);
 							RenderTests(bitness, bitnessFlags, writerTests, methodName, @group, renderArgs);
 						}
@@ -177,22 +173,8 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		List<RenderArg> ChangeByteToSignedByteArguments(List<RenderArg> args) {
-			var newArgs = new List<RenderArg>(args.Count);
-			for (var i = 0; i < args.Count; i++) {
-				var arg = args[i];
-				if (arg.Kind == ArgKind.ImmediateByte) {
-					arg.Type = "sbyte";
-				}
-				newArgs.Add(arg);
-			}
-			return newArgs;
-		}
-
-		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group, out bool hasImm8) {
+		List<RenderArg> GetRenderArgs(OpCodeInfoGroup group) {
 			var renderArgs = new List<RenderArg>();
-			hasImm8 = false;
-			bool hasMemory = false;
 
 			int immArg = 0;
 							
@@ -260,32 +242,27 @@ namespace Generator.Assembler.CSharp {
 					break;
 
 				case ArgKind.Memory:
-					hasMemory = true;
 					argType = "AssemblerMemoryOperand";
 					break;
 								
 				case ArgKind.Immediate:
+				case ArgKind.ImmediateUnsigned:
 					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
 					immArg++;
 					Debug.Assert(maxArgSize > 0 && maxArgSize <= 8);
-					argType = maxArgSize == 8 ? "long" : maxArgSize == 4 ? "int" : maxArgSize == 2 ? "short" : "byte";
+					bool isSigned = argKind == ArgKind.Immediate;
+					argType = maxArgSize == 8 ? (isSigned ? "long" : "ulong") :
+						maxArgSize == 4 ? (isSigned ? "int" : "uint") :
+						maxArgSize == 2 ? (isSigned ? "short" : "ushort") :
+						(isSigned ? "sbyte" : "byte");
 					break;
-								
-				case ArgKind.ImmediateByte:
-					argName = $"imm{(immArg == 0 ? "" : immArg.ToString(CultureInfo.InvariantCulture))}";
-					immArg++;
-					argType = "byte";
-					hasImm8 = true;
-					break;								
-
+				
 				default:
 					throw new ArgumentOutOfRangeException($"{argKind}");
 				}
 
 				renderArgs.Add(new RenderArg(argName, argType, argKind));
 			}
-
-			hasImm8 = hasImm8 && !hasMemory;
 			return renderArgs;
 		}
 
@@ -379,7 +356,7 @@ namespace Generator.Assembler.CSharp {
 					if (hasBroadcast || hasSaeOrRoundingControl) {
 						for (int i = renderArgs.Count - 1; i >= 0; i--) {
 							var argKind = renderArgs[i].Kind;
-							if (hasBroadcast && argKind == ArgKind.Memory ||  hasSaeOrRoundingControl && argKind != ArgKind.Immediate && argKind != ArgKind.ImmediateByte) {
+							if (hasBroadcast && argKind == ArgKind.Memory || hasSaeOrRoundingControl && !IsArgKindImmediate(argKind)) {
 								if (hasFlags) {
 									writer.Write(" | ");
 								}
@@ -429,8 +406,8 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.Immediate:
 					fullMethodName.Append("i");
 					break;
-				case ArgKind.ImmediateByte:
-					fullMethodName.Append("ib");
+				case ArgKind.ImmediateUnsigned:
+					fullMethodName.Append("u");
 					break;
 				case ArgKind.Label:
 					fullMethodName.Append("l");
@@ -449,6 +426,7 @@ namespace Generator.Assembler.CSharp {
 				}
 				
 				if (group.Flags == OpCodeArgFlags.Pseudo) {
+					Debug.Assert(group.ParentPseudoOpsKind != null);
 					GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, renderArgs, argValues, OpCodeArgFlags.Default, group.ParentPseudoOpsKind.Items[0]);
 				}
 				else {
@@ -592,8 +570,8 @@ namespace Generator.Assembler.CSharp {
 						break;
 					}
 
-					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, true, i);
-					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, false, i);
+					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, true, i, renderArg);
+					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, false, i, renderArg);
 				}
 
 				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0)
@@ -680,7 +658,7 @@ namespace Generator.Assembler.CSharp {
 			return true;
 		}
 
-		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index) {
+		string GetDefaultArgument(int bitness, OpCodeOperandKind kind, bool asMemory, bool isAssembler, int index, RenderArg arg) {
 			switch (kind) {
 			case OpCodeOperandKind.farbr2_2:
 				break;
@@ -1005,7 +983,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.imm2_m2z:
 				return "3";
 			case OpCodeOperandKind.imm8:
-				return "(byte)127";
+				return arg.IsTypeSigned() ? "(sbyte)-5" : "(byte)127";
 			case OpCodeOperandKind.imm8_const_1:
 				return "1";
 			case OpCodeOperandKind.imm8sex16:
@@ -1145,8 +1123,9 @@ namespace Generator.Assembler.CSharp {
 				return "PreferBranchShort";
 			case OpCodeSelectorKind.ImmediateByteEqual1:
 				return $"{regName} == 1";
-			case OpCodeSelectorKind.ImmediateByteSigned:
-				return $"{regName} >= sbyte.MinValue &&  {regName} <= sbyte.MaxValue";
+			case OpCodeSelectorKind.ImmediateByteSigned: {
+				return arg.IsTypeSigned() ? $"{regName} >= sbyte.MinValue &&  {regName} <= sbyte.MaxValue" : $"{regName} <= byte.MaxValue";
+			}
 			case OpCodeSelectorKind.Vex:
 				return "PreferVex";
 			case OpCodeSelectorKind.RegisterCL:
@@ -1238,7 +1217,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		static string GetInvalidArgValue(int bitness, OpCodeSelectorKind selectorKind, int argIndex) {
+		static string? GetInvalidArgValue(int bitness, OpCodeSelectorKind selectorKind, int argIndex) {
 			switch (selectorKind) {
 			case OpCodeSelectorKind.Memory8:
 			case OpCodeSelectorKind.Memory16:
@@ -1352,13 +1331,24 @@ namespace Generator.Assembler.CSharp {
 				}
 				break;			
 			case OpCodeSelectorKind.ImmediateByteSigned:
+				var arg = args[index];
 				if (isElseBranch) {
-					yield return $"sbyte.MinValue - 1";
-					yield return $"sbyte.MaxValue + 1";
+					if (args[index].IsTypeSigned()) {
+						yield return $"({arg.Type})(sbyte.MinValue - 1)";
+						yield return $"({arg.Type})(sbyte.MaxValue + 1)";
+					}
+					else {
+						yield return $"({arg.Type})(byte.MaxValue + 1)";
+					}
 				}
 				else {
-					yield return $"sbyte.MinValue";
-					yield return $"sbyte.MaxValue";
+					if (args[index].IsTypeSigned()) {
+						yield return $"({arg.Type})sbyte.MinValue";
+						yield return $"({arg.Type})sbyte.MaxValue";
+					}
+					else {
+						yield return $"({arg.Type})byte.MaxValue";
+					}
 				}
 				break;			
 			case OpCodeSelectorKind.Vex:
@@ -1761,6 +1751,17 @@ namespace Generator.Assembler.CSharp {
 			public string Type;
 
 			public ArgKind Kind;
+
+			public bool IsTypeSigned() {
+				switch (Type) {
+				case "sbyte":
+				case "short":
+				case "int":
+				case "long":
+					return true;
+				}
+				return false;
+			}
 		}
 	}
 }

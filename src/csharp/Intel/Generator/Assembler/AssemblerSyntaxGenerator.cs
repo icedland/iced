@@ -440,17 +440,17 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.imm8_const_1:
 						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteEqual1;
 						argSize = 1;
-						argKind = ArgKind.ImmediateByte;
+						argKind = ArgKind.Immediate;
 						break;
 
 					case OpCodeOperandKind.imm2_m2z:
 						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteLessThanBits;
-						argKind = ArgKind.ImmediateByte;
+						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
 
 					case OpCodeOperandKind.imm8:
-						argKind = ArgKind.ImmediateByte;
+						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
 
@@ -496,16 +496,12 @@ namespace Generator.Assembler {
 						bool hasR64M16 = IsR64M16(opCodeInfo);
 						if (!hasR64M16) {
 							var localName = RenameBroadcasts(name, opCodeInfo);
-							var group = AddOpCodeToGroup(localName, memoName, signature, opCodeInfo, opCodeArgFlags, pseudoOpsKind);
-							group.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
-							group.UpdateMaxArgSizes(argSizes);
+							AddOpCodeToGroup(localName, memoName, signature, opCodeInfo, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes);
 						}
 					}
 					if (signature != regOnlySignature) {
 						opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
-						var regOnlyGroup = AddOpCodeToGroup(name, memoName, regOnlySignature, opCodeInfo, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind);
-						regOnlyGroup.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
-						regOnlyGroup.UpdateMaxArgSizes(argSizes);
+						AddOpCodeToGroup(name, memoName, regOnlySignature, opCodeInfo, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes);
 					}
 				}
 				else {
@@ -1026,6 +1022,7 @@ namespace Generator.Assembler {
 
 		static bool? IsImmediateByteSigned(OpCodeOperandKind kind) {
 			switch (kind) {
+			case OpCodeOperandKind.imm8:
 			case OpCodeOperandKind.imm8sex16:
 			case OpCodeOperandKind.imm8sex32:
 			case OpCodeOperandKind.imm8sex64:
@@ -1723,7 +1720,7 @@ namespace Generator.Assembler {
 			return defaultMemory;
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind) {
+		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind, int numberLeadingArgToDiscard, List<int> argSizes, bool isOtherImmediate = false) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
@@ -1749,7 +1746,40 @@ namespace Generator.Assembler {
 					}
 				}
 			}
+			
+			group.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
+			group.UpdateMaxArgSizes(argSizes);
+
+			// Duplicate immediate signatures with opposite unsigned/signed version
+			if (!pseudoOpsKind.HasValue && !isOtherImmediate) {
+				var signatureWithOtherImmediates = new Signature();
+				for (int i = 0; i < signature.ArgCount; i++) {
+					var argKind = signature.GetArgKind(i);
+					switch (argKind) {
+					case ArgKind.Immediate:
+						argKind = ArgKind.ImmediateUnsigned;
+						break;
+					}
+
+					signatureWithOtherImmediates.AddArgKind(argKind);
+				}
+
+				if (signature != signatureWithOtherImmediates) {
+					AddOpCodeToGroup(name, memoName, signatureWithOtherImmediates, code, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, true);
+				}
+			}
+
 			return group;
+		}
+
+		protected static bool IsArgKindImmediate(ArgKind argKind) {
+			switch (argKind) {
+			case ArgKind.Immediate:
+			case ArgKind.ImmediateUnsigned:
+				return true;
+			}
+
+			return false;
 		}
 
 		void CreatePseudoInstructions() {
@@ -1895,7 +1925,7 @@ namespace Generator.Assembler {
 			
 			Memory,
 			Immediate,
-			ImmediateByte,
+			ImmediateUnsigned,
 			Label,
 			
 			FilterRegisterDX,
