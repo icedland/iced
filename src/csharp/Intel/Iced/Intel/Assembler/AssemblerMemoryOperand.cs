@@ -168,9 +168,19 @@ namespace Iced.Intel
 		/// <param name="displacement">displacement.</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerMemoryOperand left, int displacement) {
-			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, displacement, left.Flags);
+			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, left.Displacement + displacement, left.Flags);
 		}
 
+		/// <summary>
+		/// Subtracts a displacement to a memory operand.
+		/// </summary>
+		/// <param name="left">The memory operand.</param>
+		/// <param name="displacement">displacement.</param>
+		/// <returns></returns>
+		public static AssemblerMemoryOperand operator -(AssemblerMemoryOperand left, int displacement) {
+			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, left.Displacement - displacement, left.Flags);
+		}		
+		
 		/// <summary>
 		/// Gets a memory operand for the specified bitness.
 		/// </summary>
