@@ -1,4 +1,5 @@
 using Iced.Intel;
+using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 using static Iced.Intel.AssemblerRegisters;
 
@@ -285,6 +286,15 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				Assert.NotEqual(m1, m2);
 				Assert.Equal(m1.ToMemoryOperand(64), m2.ToMemoryOperand(64));
 				Assert.NotEqual(m1.GetHashCode(), m2.GetHashCode());
+			}
+
+			{
+				var assembler = Assembler.Create(64, new CodeWriterImpl());
+				var label = assembler.CreateLabel("Check");
+				var m = __[label];
+				Assert.Equal(new MemoryOperand(Register.RIP, Register.None, 1, 2, 1), m.ToMemoryOperand(64));
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
 		}
 	}
