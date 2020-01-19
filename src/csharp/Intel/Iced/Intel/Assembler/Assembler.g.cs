@@ -15119,22 +15119,6 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
-		/// <c>INT3</c><br/>
-		/// <br/>
-		/// <c>CC</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void @int() {
-			Code op;
-			op = Code.Int3;
-			AddInstruction(Instruction.Create(op));
-		}
-		/// <summary>int instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
 		/// <c>INT imm8</c><br/>
 		/// <br/>
 		/// <c>CD ib</c><br/>
@@ -15177,6 +15161,22 @@ namespace Iced.Intel {
 		public void int1() {
 			Code op;
 			op = Code.Int1;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>int3 instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>INT3</c><br/>
+		/// <br/>
+		/// <c>CC</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void int3() {
+			Code op;
+			op = Code.Int3;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>into instruction.<br/>

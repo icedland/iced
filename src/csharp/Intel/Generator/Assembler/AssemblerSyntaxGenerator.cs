@@ -201,6 +201,7 @@ namespace Generator.Assembler {
 
 				string memoName = MnemonicsTable.Table[(int)opCodeInfo.Code.Value].mnemonicEnum.RawName;
 				var name = MapOpCodeToNewName.TryGetValue(code, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
+				if (code == Code.Int3) name = "int3";
 				
 				bool toAdd = true;
 				var signature = new Signature();

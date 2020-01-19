@@ -4437,11 +4437,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
-		public void @int() {
-			TestAssembler(c => c.@int(), Instruction.Create(Code.Int3));
-		}
-
-		[Fact]
 		public void @int_i() {
 			TestAssembler(c => c.@int((sbyte)-5), Instruction.Create(Code.Int_imm8, (sbyte)-5));
 		}
@@ -4454,6 +4449,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void int1() {
 			TestAssembler(c => c.int1(), Instruction.Create(Code.Int1));
+		}
+
+		[Fact]
+		public void int3() {
+			TestAssembler(c => c.int3(), Instruction.Create(Code.Int3));
 		}
 
 		[Fact]
