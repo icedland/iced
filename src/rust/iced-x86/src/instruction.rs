@@ -3174,6 +3174,10 @@ impl Instruction {
 
 	/// Creates an instruction with 1 operand
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3185,19 +3189,17 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 1 operand
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3210,13 +3212,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
@@ -3276,6 +3272,10 @@ impl Instruction {
 
 	/// Creates an instruction with 2 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3292,19 +3292,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3322,19 +3320,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3360,6 +3356,10 @@ impl Instruction {
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3417,6 +3417,10 @@ impl Instruction {
 
 	/// Creates an instruction with 2 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3429,13 +3433,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -3446,6 +3444,10 @@ impl Instruction {
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3459,13 +3461,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -3476,6 +3472,10 @@ impl Instruction {
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3489,18 +3489,19 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate1);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3514,12 +3515,9 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 0);
-		super::instruction_internal::internal_set_op0_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate1);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3558,6 +3556,10 @@ impl Instruction {
 
 	/// Creates an instruction with 2 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3579,19 +3581,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3614,13 +3614,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3659,6 +3653,10 @@ impl Instruction {
 
 	/// Creates an instruction with 3 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3680,19 +3678,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3715,13 +3711,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3765,6 +3755,10 @@ impl Instruction {
 
 	/// Creates an instruction with 3 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3782,18 +3776,19 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate1);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3812,12 +3807,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 1);
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate1);
 
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3861,6 +3853,10 @@ impl Instruction {
 
 	/// Creates an instruction with 3 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -3887,19 +3883,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3927,13 +3921,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3977,6 +3965,10 @@ impl Instruction {
 
 	/// Creates an instruction with 3 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -4003,19 +3995,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 3 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4043,13 +4033,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -4093,6 +4077,10 @@ impl Instruction {
 
 	/// Creates an instruction with 4 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -4119,19 +4107,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4159,13 +4145,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4214,6 +4194,10 @@ impl Instruction {
 
 	/// Creates an instruction with 4 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -4236,18 +4220,19 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1 as u32, op_kind));
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate1);
 
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4271,12 +4256,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 2);
-		super::instruction_internal::internal_set_op2_kind(&mut instruction, op_kind);
-		instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate1, op_kind));
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate1);
 
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Immediate8_2nd);
-		instruction.set_immediate8_2nd(immediate2 as u8);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4325,6 +4307,10 @@ impl Instruction {
 
 	/// Creates an instruction with 4 operands
 	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
+	///
 	/// # Arguments
 	///
 	/// * `code`: Code value
@@ -4356,19 +4342,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 4 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4401,19 +4385,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 3);
-		super::instruction_internal::internal_set_op3_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4446,19 +4428,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4491,19 +4471,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4541,19 +4519,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4591,19 +4567,17 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4641,19 +4615,17 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate as u32, op_kind));
-		}
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 5 operands
+	///
+	/// # Panics
+	///
+	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -4691,13 +4663,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		let op_kind = super::instruction_internal::get_immediate_op_kind(code, 4);
-		super::instruction_internal::internal_set_op4_kind(&mut instruction, op_kind);
-		if op_kind == OpKind::Immediate64 {
-			instruction.set_immediate64(immediate as u64);
-		} else {
-			instruction.set_immediate32(super::instruction_internal::mask_immediate32(immediate, op_kind));
-		}
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
