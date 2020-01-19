@@ -64,6 +64,34 @@ use core::{mem, u16, u32, u8};
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output);
 /// ```
+///
+/// Using a symbol resolver:
+///
+/// ```
+/// use iced_x86::*;
+///
+/// let bytes = b"\x48\x8B\x8A\xA5\x5A\xA5\x5A";
+/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+/// let instr = decoder.decode();
+///
+/// struct MySymbolResolver {/*...*/}
+/// impl SymbolResolver for MySymbolResolver {
+///     fn symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
+///          address: u64, address_size: u32) -> Option<SymbolResult> {
+///         if address == 0x5AA55AA5 {
+///             Some(SymbolResult::with_string(address, String::from("my_data")))
+///         } else {
+///             None
+///         }
+///     }
+/// }
+///
+/// let mut output = String::new();
+/// let mut resolver = MySymbolResolver{};
+/// let mut formatter = MasmFormatter::with_options(Some(&mut resolver), None);
+/// formatter.format(&instr, &mut output);
+/// assert_eq!("mov rcx,[rdx+my_data]", output);
+/// ```
 #[allow(missing_debug_implementations)]
 pub struct MasmFormatter<'a> {
 	options: FormatterOptions,
