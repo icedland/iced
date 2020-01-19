@@ -41490,6 +41490,336 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.xtest(), Instruction.Create(Code.Xtest));
 		}
 
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_1() {
+		TestAssemblerDeclareData(c => c.db((byte)1), new byte[] {(byte)1});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_2() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2), new byte[] {(byte)1, (byte)2});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_3() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3), new byte[] {(byte)1, (byte)2, (byte)3});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_4() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_5() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_6() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_7() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_8() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_9() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_10() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_11() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_12() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_13() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_14() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_15() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15});
+	}
+	/// <summary>Creates a db asm directive with the type byte.</summary>
+	[Fact]
+	public void TestDeclareData_db_byte_16() {
+		TestAssemblerDeclareData(c => c.db((byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15, (byte)16), new byte[] {(byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7, (byte)8, (byte)9, (byte)10, (byte)11, (byte)12, (byte)13, (byte)14, (byte)15, (byte)16});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_1() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1), new sbyte[] {(sbyte)1});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_2() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2), new sbyte[] {(sbyte)1, (sbyte)2});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_3() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_4() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_5() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_6() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_7() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_8() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_9() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_10() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_11() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_12() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_13() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_14() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_15() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14, (sbyte)15), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14, (sbyte)15});
+	}
+	/// <summary>Creates a db asm directive with the type sbyte.</summary>
+	[Fact]
+	public void TestDeclareData_db_sbyte_16() {
+		TestAssemblerDeclareData(c => c.db((sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14, (sbyte)15, (sbyte)16), new sbyte[] {(sbyte)1, (sbyte)2, (sbyte)3, (sbyte)4, (sbyte)5, (sbyte)6, (sbyte)7, (sbyte)8, (sbyte)9, (sbyte)10, (sbyte)11, (sbyte)12, (sbyte)13, (sbyte)14, (sbyte)15, (sbyte)16});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_1() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1), new ushort[] {(ushort)1});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_2() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2), new ushort[] {(ushort)1, (ushort)2});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_3() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3), new ushort[] {(ushort)1, (ushort)2, (ushort)3});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_4() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3, (ushort)4), new ushort[] {(ushort)1, (ushort)2, (ushort)3, (ushort)4});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_5() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5), new ushort[] {(ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_6() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6), new ushort[] {(ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_7() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6, (ushort)7), new ushort[] {(ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6, (ushort)7});
+	}
+	/// <summary>Creates a dw asm directive with the type ushort.</summary>
+	[Fact]
+	public void TestDeclareData_dw_ushort_8() {
+		TestAssemblerDeclareData(c => c.dw((ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6, (ushort)7, (ushort)8), new ushort[] {(ushort)1, (ushort)2, (ushort)3, (ushort)4, (ushort)5, (ushort)6, (ushort)7, (ushort)8});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_1() {
+		TestAssemblerDeclareData(c => c.dw((short)1), new short[] {(short)1});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_2() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2), new short[] {(short)1, (short)2});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_3() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3), new short[] {(short)1, (short)2, (short)3});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_4() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3, (short)4), new short[] {(short)1, (short)2, (short)3, (short)4});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_5() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3, (short)4, (short)5), new short[] {(short)1, (short)2, (short)3, (short)4, (short)5});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_6() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3, (short)4, (short)5, (short)6), new short[] {(short)1, (short)2, (short)3, (short)4, (short)5, (short)6});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_7() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3, (short)4, (short)5, (short)6, (short)7), new short[] {(short)1, (short)2, (short)3, (short)4, (short)5, (short)6, (short)7});
+	}
+	/// <summary>Creates a dw asm directive with the type short.</summary>
+	[Fact]
+	public void TestDeclareData_dw_short_8() {
+		TestAssemblerDeclareData(c => c.dw((short)1, (short)2, (short)3, (short)4, (short)5, (short)6, (short)7, (short)8), new short[] {(short)1, (short)2, (short)3, (short)4, (short)5, (short)6, (short)7, (short)8});
+	}
+	/// <summary>Creates a dd asm directive with the type uint.</summary>
+	[Fact]
+	public void TestDeclareData_dd_uint_1() {
+		TestAssemblerDeclareData(c => c.dd((uint)1), new uint[] {(uint)1});
+	}
+	/// <summary>Creates a dd asm directive with the type uint.</summary>
+	[Fact]
+	public void TestDeclareData_dd_uint_2() {
+		TestAssemblerDeclareData(c => c.dd((uint)1, (uint)2), new uint[] {(uint)1, (uint)2});
+	}
+	/// <summary>Creates a dd asm directive with the type uint.</summary>
+	[Fact]
+	public void TestDeclareData_dd_uint_3() {
+		TestAssemblerDeclareData(c => c.dd((uint)1, (uint)2, (uint)3), new uint[] {(uint)1, (uint)2, (uint)3});
+	}
+	/// <summary>Creates a dd asm directive with the type uint.</summary>
+	[Fact]
+	public void TestDeclareData_dd_uint_4() {
+		TestAssemblerDeclareData(c => c.dd((uint)1, (uint)2, (uint)3, (uint)4), new uint[] {(uint)1, (uint)2, (uint)3, (uint)4});
+	}
+	/// <summary>Creates a dd asm directive with the type int.</summary>
+	[Fact]
+	public void TestDeclareData_dd_int_1() {
+		TestAssemblerDeclareData(c => c.dd((int)1), new int[] {(int)1});
+	}
+	/// <summary>Creates a dd asm directive with the type int.</summary>
+	[Fact]
+	public void TestDeclareData_dd_int_2() {
+		TestAssemblerDeclareData(c => c.dd((int)1, (int)2), new int[] {(int)1, (int)2});
+	}
+	/// <summary>Creates a dd asm directive with the type int.</summary>
+	[Fact]
+	public void TestDeclareData_dd_int_3() {
+		TestAssemblerDeclareData(c => c.dd((int)1, (int)2, (int)3), new int[] {(int)1, (int)2, (int)3});
+	}
+	/// <summary>Creates a dd asm directive with the type int.</summary>
+	[Fact]
+	public void TestDeclareData_dd_int_4() {
+		TestAssemblerDeclareData(c => c.dd((int)1, (int)2, (int)3, (int)4), new int[] {(int)1, (int)2, (int)3, (int)4});
+	}
+	/// <summary>Creates a dd asm directive with the type float.</summary>
+	[Fact]
+	public void TestDeclareData_dd_float_1() {
+		TestAssemblerDeclareData(c => c.dd((float)1), new float[] {(float)1});
+	}
+	/// <summary>Creates a dd asm directive with the type float.</summary>
+	[Fact]
+	public void TestDeclareData_dd_float_2() {
+		TestAssemblerDeclareData(c => c.dd((float)1, (float)2), new float[] {(float)1, (float)2});
+	}
+	/// <summary>Creates a dd asm directive with the type float.</summary>
+	[Fact]
+	public void TestDeclareData_dd_float_3() {
+		TestAssemblerDeclareData(c => c.dd((float)1, (float)2, (float)3), new float[] {(float)1, (float)2, (float)3});
+	}
+	/// <summary>Creates a dd asm directive with the type float.</summary>
+	[Fact]
+	public void TestDeclareData_dd_float_4() {
+		TestAssemblerDeclareData(c => c.dd((float)1, (float)2, (float)3, (float)4), new float[] {(float)1, (float)2, (float)3, (float)4});
+	}
+	/// <summary>Creates a dq asm directive with the type ulong.</summary>
+	[Fact]
+	public void TestDeclareData_dq_ulong_1() {
+		TestAssemblerDeclareData(c => c.dq((ulong)1), new ulong[] {(ulong)1});
+	}
+	/// <summary>Creates a dq asm directive with the type ulong.</summary>
+	[Fact]
+	public void TestDeclareData_dq_ulong_2() {
+		TestAssemblerDeclareData(c => c.dq((ulong)1, (ulong)2), new ulong[] {(ulong)1, (ulong)2});
+	}
+	/// <summary>Creates a dq asm directive with the type long.</summary>
+	[Fact]
+	public void TestDeclareData_dq_long_1() {
+		TestAssemblerDeclareData(c => c.dq((long)1), new long[] {(long)1});
+	}
+	/// <summary>Creates a dq asm directive with the type long.</summary>
+	[Fact]
+	public void TestDeclareData_dq_long_2() {
+		TestAssemblerDeclareData(c => c.dq((long)1, (long)2), new long[] {(long)1, (long)2});
+	}
+	/// <summary>Creates a dq asm directive with the type double.</summary>
+	[Fact]
+	public void TestDeclareData_dq_double_1() {
+		TestAssemblerDeclareData(c => c.dq((double)1), new double[] {(double)1});
+	}
+	/// <summary>Creates a dq asm directive with the type double.</summary>
+	[Fact]
+	public void TestDeclareData_dq_double_2() {
+		TestAssemblerDeclareData(c => c.dq((double)1, (double)2), new double[] {(double)1, (double)2});
+	}
 	}
 }
 #endif

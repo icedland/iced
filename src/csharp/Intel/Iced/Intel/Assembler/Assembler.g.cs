@@ -123183,6 +123183,270 @@ namespace Iced.Intel {
 			op = Code.Xtest;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10, byte imm11) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10, imm11));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10, byte imm11, byte imm12) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10, imm11, imm12));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10, byte imm11, byte imm12, byte imm13) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10, imm11, imm12, imm13));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10, byte imm11, byte imm12, byte imm13, byte imm14) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10, imm11, imm12, imm13, imm14));
+		}
+		/// <summary>Creates a db asm directive with the type byte.</summary>
+		public void db(byte imm0, byte imm1, byte imm2, byte imm3, byte imm4, byte imm5, byte imm6, byte imm7, byte imm8, byte imm9, byte imm10, byte imm11, byte imm12, byte imm13, byte imm14, byte imm15) {
+			AddInstruction(Instruction.CreateDeclareByte(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7, imm8, imm9, imm10, imm11, imm12, imm13, imm14, imm15));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10, sbyte imm11) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10, (byte)imm11));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10, sbyte imm11, sbyte imm12) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10, (byte)imm11, (byte)imm12));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10, sbyte imm11, sbyte imm12, sbyte imm13) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10, (byte)imm11, (byte)imm12, (byte)imm13));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10, sbyte imm11, sbyte imm12, sbyte imm13, sbyte imm14) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10, (byte)imm11, (byte)imm12, (byte)imm13, (byte)imm14));
+		}
+		/// <summary>Creates a db asm directive with the type sbyte.</summary>
+		public void db(sbyte imm0, sbyte imm1, sbyte imm2, sbyte imm3, sbyte imm4, sbyte imm5, sbyte imm6, sbyte imm7, sbyte imm8, sbyte imm9, sbyte imm10, sbyte imm11, sbyte imm12, sbyte imm13, sbyte imm14, sbyte imm15) {
+			AddInstruction(Instruction.CreateDeclareByte((byte)imm0, (byte)imm1, (byte)imm2, (byte)imm3, (byte)imm4, (byte)imm5, (byte)imm6, (byte)imm7, (byte)imm8, (byte)imm9, (byte)imm10, (byte)imm11, (byte)imm12, (byte)imm13, (byte)imm14, (byte)imm15));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2, ushort imm3) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2, imm3));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2, ushort imm3, ushort imm4) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2, imm3, imm4));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2, ushort imm3, ushort imm4, ushort imm5) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2, imm3, imm4, imm5));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2, ushort imm3, ushort imm4, ushort imm5, ushort imm6) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2, imm3, imm4, imm5, imm6));
+		}
+		/// <summary>Creates a dw asm directive with the type ushort.</summary>
+		public void dw(ushort imm0, ushort imm1, ushort imm2, ushort imm3, ushort imm4, ushort imm5, ushort imm6, ushort imm7) {
+			AddInstruction(Instruction.CreateDeclareWord(imm0, imm1, imm2, imm3, imm4, imm5, imm6, imm7));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2, short imm3) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2, (ushort)imm3));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2, short imm3, short imm4) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2, (ushort)imm3, (ushort)imm4));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2, short imm3, short imm4, short imm5) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2, (ushort)imm3, (ushort)imm4, (ushort)imm5));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2, short imm3, short imm4, short imm5, short imm6) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2, (ushort)imm3, (ushort)imm4, (ushort)imm5, (ushort)imm6));
+		}
+		/// <summary>Creates a dw asm directive with the type short.</summary>
+		public void dw(short imm0, short imm1, short imm2, short imm3, short imm4, short imm5, short imm6, short imm7) {
+			AddInstruction(Instruction.CreateDeclareWord((ushort)imm0, (ushort)imm1, (ushort)imm2, (ushort)imm3, (ushort)imm4, (ushort)imm5, (ushort)imm6, (ushort)imm7));
+		}
+		/// <summary>Creates a dd asm directive with the type uint.</summary>
+		public void dd(uint imm0) {
+			AddInstruction(Instruction.CreateDeclareDword(imm0));
+		}
+		/// <summary>Creates a dd asm directive with the type uint.</summary>
+		public void dd(uint imm0, uint imm1) {
+			AddInstruction(Instruction.CreateDeclareDword(imm0, imm1));
+		}
+		/// <summary>Creates a dd asm directive with the type uint.</summary>
+		public void dd(uint imm0, uint imm1, uint imm2) {
+			AddInstruction(Instruction.CreateDeclareDword(imm0, imm1, imm2));
+		}
+		/// <summary>Creates a dd asm directive with the type uint.</summary>
+		public void dd(uint imm0, uint imm1, uint imm2, uint imm3) {
+			AddInstruction(Instruction.CreateDeclareDword(imm0, imm1, imm2, imm3));
+		}
+		/// <summary>Creates a dd asm directive with the type int.</summary>
+		public void dd(int imm0) {
+			AddInstruction(Instruction.CreateDeclareDword((uint)imm0));
+		}
+		/// <summary>Creates a dd asm directive with the type int.</summary>
+		public void dd(int imm0, int imm1) {
+			AddInstruction(Instruction.CreateDeclareDword((uint)imm0, (uint)imm1));
+		}
+		/// <summary>Creates a dd asm directive with the type int.</summary>
+		public void dd(int imm0, int imm1, int imm2) {
+			AddInstruction(Instruction.CreateDeclareDword((uint)imm0, (uint)imm1, (uint)imm2));
+		}
+		/// <summary>Creates a dd asm directive with the type int.</summary>
+		public void dd(int imm0, int imm1, int imm2, int imm3) {
+			AddInstruction(Instruction.CreateDeclareDword((uint)imm0, (uint)imm1, (uint)imm2, (uint)imm3));
+		}
+		/// <summary>Creates a dd asm directive with the type float.</summary>
+		public unsafe void dd(float imm0) {
+			AddInstruction(Instruction.CreateDeclareDword(*(uint*)&imm0));
+		}
+		/// <summary>Creates a dd asm directive with the type float.</summary>
+		public unsafe void dd(float imm0, float imm1) {
+			AddInstruction(Instruction.CreateDeclareDword(*(uint*)&imm0, *(uint*)&imm1));
+		}
+		/// <summary>Creates a dd asm directive with the type float.</summary>
+		public unsafe void dd(float imm0, float imm1, float imm2) {
+			AddInstruction(Instruction.CreateDeclareDword(*(uint*)&imm0, *(uint*)&imm1, *(uint*)&imm2));
+		}
+		/// <summary>Creates a dd asm directive with the type float.</summary>
+		public unsafe void dd(float imm0, float imm1, float imm2, float imm3) {
+			AddInstruction(Instruction.CreateDeclareDword(*(uint*)&imm0, *(uint*)&imm1, *(uint*)&imm2, *(uint*)&imm3));
+		}
+		/// <summary>Creates a dq asm directive with the type ulong.</summary>
+		public void dq(ulong imm0) {
+			AddInstruction(Instruction.CreateDeclareQword(imm0));
+		}
+		/// <summary>Creates a dq asm directive with the type ulong.</summary>
+		public void dq(ulong imm0, ulong imm1) {
+			AddInstruction(Instruction.CreateDeclareQword(imm0, imm1));
+		}
+		/// <summary>Creates a dq asm directive with the type long.</summary>
+		public void dq(long imm0) {
+			AddInstruction(Instruction.CreateDeclareQword((ulong)imm0));
+		}
+		/// <summary>Creates a dq asm directive with the type long.</summary>
+		public void dq(long imm0, long imm1) {
+			AddInstruction(Instruction.CreateDeclareQword((ulong)imm0, (ulong)imm1));
+		}
+		/// <summary>Creates a dq asm directive with the type double.</summary>
+		public unsafe void dq(double imm0) {
+			AddInstruction(Instruction.CreateDeclareQword(*(ulong*)&imm0));
+		}
+		/// <summary>Creates a dq asm directive with the type double.</summary>
+		public unsafe void dq(double imm0, double imm1) {
+			AddInstruction(Instruction.CreateDeclareQword(*(ulong*)&imm0, *(ulong*)&imm1));
+		}
 	}
 }
 #endif

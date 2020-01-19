@@ -38,7 +38,15 @@ namespace Generator.Assembler.CSharp {
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly GeneratorOptions _generatorOptions;
 		readonly CSharpDocCommentWriter _docWriter;
-
+		
+		static readonly List<(string, int, string[], string)> _declareDataList = new List<(string, int, string[], string)>()
+		{
+			("db", 1, new [] {"byte", "sbyte"}, "CreateDeclareByte"),
+			("dw", 2, new [] {"ushort", "short"}, "CreateDeclareWord"),
+			("dd", 4, new [] {"uint", "int", "float"}, "CreateDeclareDword"),
+			("dq", 8, new [] {"ulong", "long", "double"}, "CreateDeclareQword"),
+		};
+		
 		public CSharpAssemblerSyntaxGenerator(GeneratorOptions generatorOptions) {
 			Converter = CSharpIdentifierConverter.Create();
 			_docWriter = new CSharpDocCommentWriter(Converter);
@@ -94,8 +102,10 @@ namespace Generator.Assembler.CSharp {
 						foreach (var group in groups) {
 							var renderArgs = GetRenderArgs(group);
 							var methodName = Converter.Method(group.Name);
-							RenderCode(writer, methodName, group, renderArgs);
+							GenerateAssemblerCode(writer, methodName, group, renderArgs);
 						}
+
+						GenerateDeclareDataCode(writer);
 					}
 					writer.WriteLine("}");
 				}
@@ -103,15 +113,52 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLine("#endif");
 			}
 		}
+
+		void GenerateDeclareDataCode(FileWriter writer) {
+			foreach (var (name, size, types, methodName) in _declareDataList) {
+				int maxSize = 16;
+				int argCount = maxSize / size;
+
+				for (var typeIndex = 0; typeIndex < types.Length; typeIndex++) {
+					var type = types[typeIndex];
+					bool isUnsafe = type == "float" || type == "double";
+					for (int i = 1; i <= argCount; i++) {
+			            _docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
+						writer.Write($"public {(isUnsafe ? "unsafe " : "")}void {name}(");
+						for (int j = 0; j < i; j++) {
+							if (j > 0) writer.Write(", ");
+							writer.Write($"{type} imm{j}");
+						}
+
+						writer.WriteLine(") {");
+						using (writer.Indent()) {
+							writer.Write($"AddInstruction(Instruction.{methodName}(");
+							for (int j = 0; j < i; j++) {
+								if (j > 0) writer.Write(", ");
+								if (typeIndex == 0) {
+									writer.Write($"imm{j}");
+								}
+								else {
+									writer.Write(isUnsafe ? $"*({types[0]}*)&imm{j}" : $"({types[0]})imm{j}");
+								}
+							}
+
+							writer.WriteLine("));");
+						}
+
+						writer.WriteLine("}");
+					}
+				}
+			}
+		}
 		
 		void GenerateTests(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
-
 			foreach (var bitness in new int[] {16, 32, 64}) {
-				GenerateTests(bitness, groups);
+				GenerateAssemblerTests(bitness, groups);
 			}
 		}
 
-		void GenerateTests(int bitness, OpCodeInfoGroup[] groups)
+		void GenerateAssemblerTests(int bitness, OpCodeInfoGroup[] groups)
 		{
 			const string assemblerTestsNameBase = "AssemblerTests";
 			string testName = assemblerTestsNameBase + bitness;
@@ -165,11 +212,46 @@ namespace Generator.Assembler.CSharp {
 						}
 					}
 
+					if (bitness == 64) {
+						GenerateDeclareDataTests(writerTests);
+					}
+
 					writerTests.WriteLine("}");
 				}
 
 				writerTests.WriteLine("}");
 				writerTests.WriteLine("#endif");
+			}
+		}
+		
+		void GenerateDeclareDataTests(FileWriter writer) {
+			foreach (var (name, size, types, methodName) in _declareDataList) {
+				int maxSize = 16;
+				int argCount = maxSize / size;
+
+				for (var typeIndex = 0; typeIndex < types.Length; typeIndex++) {
+					var type = types[typeIndex];
+					for (int i = 1; i <= argCount; i++) {
+						_docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
+						writer.WriteLine("[Fact]");
+						writer.WriteLine($"public void TestDeclareData_{name}_{type}_{i}() {{");
+						using (writer.Indent()) {
+							writer.Write($"TestAssemblerDeclareData(c => c.{name}(");
+							for (int j = 0; j < i; j++) {
+								if (j > 0) writer.Write(", ");
+								writer.Write($"({type}){j + 1}");
+							}
+							writer.Write($"), new {type}[] {{");
+							for (int j = 0; j < i; j++) {
+								if (j > 0) writer.Write(", ");
+								writer.Write($"({type}){j + 1}");
+							}
+							writer.WriteLine("});");
+						}
+
+						writer.WriteLine("}");
+					}
+				}
 			}
 		}
 
@@ -266,7 +348,7 @@ namespace Generator.Assembler.CSharp {
 			return renderArgs;
 		}
 
-		void RenderCode(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void GenerateAssemblerCode(FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
 			// Write documentation
 			var methodDoc = new StringBuilder();
 			methodDoc.Append($"{group.Name} instruction.");

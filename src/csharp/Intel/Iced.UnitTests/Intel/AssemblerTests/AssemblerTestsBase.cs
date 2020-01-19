@@ -181,6 +181,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.True(inst == againstInst, $"Decoding failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {againstInst}\n");
 		}
 
+		protected unsafe void TestAssemblerDeclareData<T>(Action<Assembler> fAsm, T[] data) where T : unmanaged {
+			var writer = new CodeWriterImpl();
+			var assembler = Assembler.Create(Bitness, writer);
+			var sizeOfT = sizeof(T);
+			fAsm(assembler);
+			assembler.Encode();
+			var buffer = writer.ToArray();
+			Assert.Equal(sizeOfT * data.Length, buffer.Length);
+			fixed (void* pData = data) {
+				for (int i = 0; i < buffer.Length; i++) {
+					var expectedData = ((byte*)pData)[i]; 
+					Assert.True(expectedData == buffer[i], $"Invalid data at offset {i}. Expecting {expectedData:x2}. Actual: {buffer[i]}");
+				}
+			}
+		}
+
 		protected Label CreateAndEmitLabel(Assembler c) {
 			var label = c.CreateLabel();
 			c.Label(label);
