@@ -65,6 +65,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			assembler.Encode(BlockEncoderOptions.DontFixBranches);
 			
 			// Check that the instruction is the one expected
+			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
+				expectedInst.IsBroadcast = true;
+			}
 			var inst = assembler.Instructions[0];
 			Assert.Equal(expectedInst, inst);
 
@@ -239,6 +242,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			PreferBranchShort = 1 << 3,
 			PreferBranchNear = 1 << 4,
 			Branch = 1 << 5,
+			Broadcast = 1 << 6,
 		}
 	}
 }

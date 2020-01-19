@@ -496,16 +496,13 @@ namespace Generator.Assembler {
 						// discard r16m16
 						bool hasR64M16 = IsR64M16(opCodeInfo);
 						if (!hasR64M16) {
-							AddOpCodeToGroup(name, memoName, signature, opCodeInfo, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes);
-							var broadcastName = RenameBroadcasts(name, opCodeInfo);
-							if (broadcastName != name) {
-								AddOpCodeToGroup(broadcastName, memoName, signature, opCodeInfo, opCodeArgFlags, null, numberLeadingArgToDiscard, argSizes);
-							}
+							AddOpCodeToGroup(name, memoName, signature, opCodeInfo, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
 						}
 					}
+					
 					if (signature != regOnlySignature) {
 						opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
-						AddOpCodeToGroup(name, memoName, regOnlySignature, opCodeInfo, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes);
+						AddOpCodeToGroup(name, memoName, regOnlySignature, opCodeInfo, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
 					}
 				}
 				else {
@@ -748,6 +745,17 @@ namespace Generator.Assembler {
 			}
 			try {
 				OrderedSelectorList selectors;
+				
+				// Handle disambiguation for auto-broadcast select
+				if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
+					int memoryIndex = GetBroadcastMemory(argFlags, opcodes, signature, out var broadcastSelectorKind, out var evexBroadcastOpCode);
+					if (memoryIndex >= 0) {
+						return new OpCodeSelector(memoryIndex, broadcastSelectorKind) {
+							IfTrue = evexBroadcastOpCode, 
+							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~OpCodeArgFlags.HasBroadcast, opcodes)
+						};
+					}
+				}
 
 				// For the following instructions, we prefer bitness other memory operand
 				switch (group.Name) {
@@ -779,9 +787,10 @@ namespace Generator.Assembler {
 					if ((argFlags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) {
 						var vex = opcodes.Where(x => x is VexOpCodeInfo).ToList();
 						var evex = opcodes.Where(x => x is EvexOpCodeInfo).ToList();
+
 						return new OpCodeSelector(OpCodeSelectorKind.Vex) {
-							IfTrue = BuildSelectorGraph(group, group.Signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex), 
-							IfFalse = BuildSelectorGraph(group, group.Signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), evex),
+							IfTrue = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex), 
+							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), evex),
 						};
 					}
 
@@ -810,7 +819,7 @@ namespace Generator.Assembler {
 							selectors.Add(selectorKind, opCodeInfo);
 						}
 						else {
-							Console.WriteLine($"Unable to detect bitness for opcode {opCodeInfo.Code.RawName}");
+							Console.WriteLine($"Unable to detect bitness for opcode {opCodeInfo.Code.RawName} for group {group.Name} / {group.Flags}");
 							//selectors.Add(OpCodeSelectorKind.Invalid, opCodeInfo);
 						}
 					}
@@ -913,6 +922,42 @@ namespace Generator.Assembler {
 			}
 		}
 
+
+		static int GetBroadcastMemory(OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes, Signature signature, out OpCodeSelectorKind selctorKind, out OpCodeInfo broadcastOpCodeInfo) {
+			broadcastOpCodeInfo = null;
+			selctorKind = OpCodeSelectorKind.Invalid;
+			int memoryIndex = -1;
+			if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
+				for (int i = 0; i < signature.ArgCount; i++) {
+					if (signature.GetArgKind(i) == ArgKind.Memory) {
+						memoryIndex = i;
+						var evex = @opcodes.First(x => x is EvexOpCodeInfo);
+						var opKind = evex.OpKind(i);
+						broadcastOpCodeInfo = evex;
+						switch (opKind) {
+							case OpCodeOperandKind.xmm_or_mem:
+								selctorKind = OpCodeSelectorKind.EvexBroadcastX;
+								break;
+							case OpCodeOperandKind.ymm_or_mem:
+								selctorKind = OpCodeSelectorKind.EvexBroadcastY;
+								break;
+							case OpCodeOperandKind.zmm_or_mem:
+								selctorKind = OpCodeSelectorKind.EvexBroadcastZ;
+								break;
+							default:
+								throw new ArgumentException($"invalud {opKind}"); 
+						}
+						break;
+					}
+				}
+				Debug.Assert(memoryIndex >= 0);
+			}
+
+
+			return memoryIndex;
+		}
+		
+		
 		static bool ShouldDiscardDuplicatedOpCode(Signature signature, OpCodeInfo opCode) {
 			bool testDiscard = false;
 			for (int i = 0; i < signature.ArgCount; i++) {
@@ -1295,6 +1340,8 @@ namespace Generator.Assembler {
 			Pseudo = 1 << 13,
 			SuppressAllExceptions = 1 << 14,
 			RoundingControl = 1 << 15,
+			HasAmbiguousBroadcast = 1 << 16,
+			IsBroadcastXYZ = 1 << 16,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
@@ -1724,7 +1771,7 @@ namespace Generator.Assembler {
 			return defaultMemory;
 		}
 
-		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind, int numberLeadingArgToDiscard, List<int> argSizes, bool isOtherImmediate = false) {
+		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind, int numberLeadingArgToDiscard, List<int> argSizes, bool isOtherImmediate) {
 			var key = new GroupKey(name, signature);
 			if (!_groups.TryGetValue(key, out var group)) {
 				group = new OpCodeInfoGroup(name, signature);
@@ -1732,7 +1779,9 @@ namespace Generator.Assembler {
 				_groups.Add(key, group);
 			}
 
-			group.Items.Add(code);
+			if (!group.Items.Contains(code)) {
+				group.Items.Add(code);
+			}
 			group.Flags |= opCodeArgFlags;
 			group.AllOpCodeFlags |= code.Flags;
 			
@@ -1770,6 +1819,14 @@ namespace Generator.Assembler {
 
 				if (signature != signatureWithOtherImmediates) {
 					AddOpCodeToGroup(name, memoName, signatureWithOtherImmediates, code, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, true);
+				}
+			}
+
+			if ((opCodeArgFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) == 0) {
+				var broadcastName = RenameAmbiguousBroadcasts(name, code);
+				if (!pseudoOpsKind.HasValue && (opCodeArgFlags & OpCodeArgFlags.IsBroadcastXYZ) == 0  && broadcastName != name) {
+					group.Flags |= OpCodeArgFlags.HasAmbiguousBroadcast;
+					AddOpCodeToGroup(broadcastName, memoName, signature, code, opCodeArgFlags | OpCodeArgFlags.IsBroadcastXYZ, null, numberLeadingArgToDiscard, argSizes, isOtherImmediate);
 				}
 			}
 
@@ -2095,6 +2152,10 @@ namespace Generator.Assembler {
 			switch (kind) {
 			case OpCodeSelectorKind.Vex:
 				return (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex);
+			case OpCodeSelectorKind.EvexBroadcastX:
+			case OpCodeSelectorKind.EvexBroadcastY:
+			case OpCodeSelectorKind.EvexBroadcastZ:
+				return (OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast, OpCodeArgFlags.Default);
 			case OpCodeSelectorKind.BranchShort:
 				return (OpCodeArgFlags.HasBranchShort, OpCodeArgFlags.HasBranchNear);
 			}
@@ -2390,10 +2451,8 @@ namespace Generator.Assembler {
 
 			return false;
 		}
-
-		static string RenameBroadcasts(string name, OpCodeInfo opCodeInfo) {
-			if ((opCodeInfo.Flags & OpCodeFlags.Broadcast) == 0) return name;
-
+		
+		protected static bool IsAmbiguousBroadcast(OpCodeInfo opCodeInfo) {
 			switch ((Code)opCodeInfo.Code.Value) {
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64:
@@ -2417,6 +2476,16 @@ namespace Generator.Assembler {
 			case Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8:
 			case Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8:
 			case Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8:
+				return true;
+			}
+			return false;
+		}
+
+		static string RenameAmbiguousBroadcasts(string name, OpCodeInfo opCodeInfo) {
+			if ((opCodeInfo.Flags & OpCodeFlags.Broadcast) == 0) return name;
+
+			if (IsAmbiguousBroadcast(opCodeInfo))
+			{
 				for (int i = 0; i < opCodeInfo.OpKindsLength; i++) {
 					var kind = GetOperandKind(opCodeInfo, i);
 					switch (kind) {
@@ -2428,9 +2497,8 @@ namespace Generator.Assembler {
 						return $"{name}z";
 					}
 				}
-				break;
 			}
-
+			
 			return name;
 		}
 		
@@ -2494,7 +2562,10 @@ namespace Generator.Assembler {
 			ImmediateByteWith2Bits,
 
 			Vex,
-			
+			EvexBroadcastX,
+			EvexBroadcastY,
+			EvexBroadcastZ,
+						
 			MemoryIndex32Xmm,
 			MemoryIndex32Ymm,
 			MemoryIndex32Zmm,

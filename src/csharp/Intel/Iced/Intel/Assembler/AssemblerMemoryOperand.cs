@@ -89,6 +89,11 @@ namespace Iced.Intel
 		public readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
+		/// Gets a boolean indicating if this memory operand is a broadcast.
+		/// </summary>
+		public bool IsBroadcast => (Flags & AssemblerOperandFlags.Broadcast) != 0; 
+
+		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a memory access using displacement only (no base and index registers are used).
 		/// </summary>
 		internal bool IsDisplacementOnly => Base == Register.None && Index == Register.None;

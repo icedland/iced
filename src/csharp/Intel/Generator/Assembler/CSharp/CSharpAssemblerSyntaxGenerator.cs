@@ -446,7 +446,7 @@ namespace Generator.Assembler.CSharp {
 				var selector = node.Selector;
 				Debug.Assert(selector != null);
 				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
-				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind, selector.ArgIndex);
+				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind, selector.ArgIndex, group.Flags);
 				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
 				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
 				if (isSelectorSupportedByBitness) {
@@ -604,6 +604,10 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeArgFlags.HasEvex:
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
+				break;
+			case OpCodeArgFlags.HasEvex | OpCodeArgFlags.HasBroadcast:
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferEvex");
+				optionalOpCodeFlags.Add("LocalOpCodeFlags.Broadcast");
 				break;
 			case OpCodeArgFlags.HasBranchShort:
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchShort");
@@ -1045,7 +1049,7 @@ namespace Generator.Assembler.CSharp {
 			else {
 				var selector = node.Selector;
 				Debug.Assert(selector != null);
-				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex);
+				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex, group.Flags);
 				if (selector.IsConditionInlineable && !IsMemOffs46Selector(selector.Kind)) {
 					writer.Write($"op = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
@@ -1093,7 +1097,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index) {
+		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index, OpCodeArgFlags groupFlags) {
 			var regName = arg.Name;
 			var otherRegName = arg.Name == "src" ? "dst" : "src";
 			switch (selectorKind) {
@@ -1128,6 +1132,12 @@ namespace Generator.Assembler.CSharp {
 			}
 			case OpCodeSelectorKind.Vex:
 				return "PreferVex";
+			
+			case OpCodeSelectorKind.EvexBroadcastX:
+			case OpCodeSelectorKind.EvexBroadcastY:
+			case OpCodeSelectorKind.EvexBroadcastZ:
+				return $"{regName}.IsBroadcast";
+			
 			case OpCodeSelectorKind.RegisterCL:
 				return $"{regName} == Register.CL";
 			case OpCodeSelectorKind.RegisterAL:
@@ -1357,6 +1367,24 @@ namespace Generator.Assembler.CSharp {
 				}
 				else {
 					yield return "c.PreferVex = true;";
+				}
+				break;			
+			case OpCodeSelectorKind.EvexBroadcastX:
+			case OpCodeSelectorKind.EvexBroadcastY:
+			case OpCodeSelectorKind.EvexBroadcastZ:
+				if (isElseBranch) {
+					yield return null;
+				}
+				else {
+					if (bitness == 16) {
+						yield return "__dword_bcst[di]";
+					}
+					else if (bitness == 32) {
+						yield return "__dword_bcst[edx]";
+					}
+					else if (bitness == 64) {
+						yield return "__dword_bcst[rdx]";
+					}
 				}
 				break;			
 			case OpCodeSelectorKind.RegisterCL:

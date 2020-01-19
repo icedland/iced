@@ -106,6 +106,11 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="offset">Offset of this memory operand.</param>
 		public AssemblerMemoryOperand this[ulong offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, (long)offset, Flags);
+		
+		/// <summary>
+		/// Specify a memory operand with a label.
+		/// </summary>
+		public AssemblerMemoryOperand this[Label label] => new AssemblerMemoryOperand(Size, Prefix, Register.RIP, Register.None, 1, (long)label.Id, Flags);
 	}
 }
 #endif
