@@ -236,7 +236,7 @@ namespace Generator.Assembler.CSharp {
 				case ArgKind.RegisterSegment:
 					argType = "AssemblerRegisterSegment";
 					break;
-								
+				
 				case ArgKind.Label:
 					argType = "Label";
 					break;

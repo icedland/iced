@@ -517,12 +517,31 @@ namespace Generator.Assembler {
 
 			CreatePseudoInstructions();
 
-			var orderedGroups = _groups.OrderBy(x => x.Key).Select(x => x.Value).ToArray();
+			var orderedGroups = _groups.OrderBy(x => x.Key).Select(x => x.Value).ToList();
 			var signatures = new HashSet<Signature>();
 			var opcodes = new List<OpCodeInfo>();
-			foreach (var group in orderedGroups) {
-				if (group.HasRegisterMemoryMappedToRegister) {
-					var inputOpCodes = group.Items; 
+			for (var i = 0; i < orderedGroups.Count; i++) {
+				var @group = orderedGroups[i];
+
+				// Skip immediate with uint if we have signed-extended
+				if ((group.Flags & OpCodeArgFlags.HasImmediateByteSigned) != 0) {
+					bool skipGroup = false;
+					for (int argIndex = 0; argIndex < group.Signature.ArgCount; argIndex++) {
+						if (group.Signature.GetArgKind(argIndex) == ArgKind.ImmediateUnsigned && group.MaxArgSizes[argIndex] == 4) {
+							orderedGroups.RemoveAt(i);
+							i--;
+							skipGroup = true;
+							break;
+						}
+					}
+
+					if (skipGroup) {
+						continue;
+					}
+				}
+				
+				if (@group.HasRegisterMemoryMappedToRegister) {
+					var inputOpCodes = @group.Items;
 					opcodes.Clear();
 					signatures.Clear();
 					// First-pass to select only register versions
@@ -534,17 +553,17 @@ namespace Generator.Assembler {
 					inputOpCodes.Clear();
 					inputOpCodes.AddRange(opcodes);
 				}
-				
+
 				// Update the selector graph for this group of opcodes
-				if (group.HasSpecialInstructionEncoding) {
-					group.RootOpCodeNode = new OpCodeNode(group.Items[0]);
+				if (@group.HasSpecialInstructionEncoding) {
+					@group.RootOpCodeNode = new OpCodeNode(@group.Items[0]);
 				}
 				else {
-					group.RootOpCodeNode = BuildSelectorGraph(group);
+					@group.RootOpCodeNode = BuildSelectorGraph(@group);
 				}
 			}
-			
-			Generate(_groups, orderedGroups);
+
+			Generate(_groups, orderedGroups.ToArray());
 		}
 
 		static ArgKind GetArgKindForSignature(ArgKind kind, bool memory) {
@@ -753,6 +772,7 @@ namespace Generator.Assembler {
 				if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
 					int memoryIndex = GetBroadcastMemory(argFlags, opcodes, signature, out var broadcastSelectorKind, out var evexBroadcastOpCode);
 					if (memoryIndex >= 0) {
+						Debug.Assert(evexBroadcastOpCode != null);
 						return new OpCodeSelector(memoryIndex, broadcastSelectorKind) {
 							IfTrue = evexBroadcastOpCode, 
 							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~OpCodeArgFlags.HasBroadcast, opcodes)
@@ -927,7 +947,7 @@ namespace Generator.Assembler {
 		}
 
 
-		static int GetBroadcastMemory(OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes, Signature signature, out OpCodeSelectorKind selctorKind, out OpCodeInfo broadcastOpCodeInfo) {
+		static int GetBroadcastMemory(OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes, Signature signature, out OpCodeSelectorKind selctorKind, out OpCodeInfo? broadcastOpCodeInfo) {
 			broadcastOpCodeInfo = null;
 			selctorKind = OpCodeSelectorKind.Invalid;
 			int memoryIndex = -1;
