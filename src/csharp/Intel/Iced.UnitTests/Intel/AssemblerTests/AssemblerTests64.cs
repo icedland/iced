@@ -1,5 +1,6 @@
 using System;
 using Iced.Intel;
+using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 
 using static Iced.Intel.AssemblerRegisters;
@@ -19,6 +20,24 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			AssertInvalid(() => {
 				TestAssembler(c => c.push(new AssemblerRegisterSegment()), default);
 			});
+		}
+
+		[Fact]
+		public void TestInvalidStateAssembler() {
+			{
+				var writer = new CodeWriterImpl();
+				var assembler = Assembler.Create(Bitness, writer);
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Encode());
+				Assert.Contains("Unused prefixes", ex.Message);
+			}
+			{
+				var writer = new CodeWriterImpl();
+				var assembler = Assembler.Create(Bitness, writer);
+				var label = assembler.CreateLabel(("BadLabel"));
+				assembler.Label(label);
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Encode());
+				Assert.Contains("Unused label", ex.Message);
+			}
 		}
 
 		[Fact]

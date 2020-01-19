@@ -335,6 +335,20 @@ namespace Iced.Intel {
 		/// <param name="options">Encoding options.</param>
 		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
 		public bool TryEncode(out string? errorMessage, out BlockEncoderResult blockResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			blockResult = default;
+
+			// Protect against using a prefix without actually using it
+			if (_nextPrefixFlags != PrefixFlags.None) {
+				errorMessage = $"Unused prefixes {_nextPrefixFlags}. You must emit an instruction after using an instruction prefix.";
+				return false;
+			}
+			
+			// Protect against a label emitted without being attached to an instruction
+			if (!_label.IsEmpty) {
+				errorMessage = $"Unused label {_label}. You must emit an instruction after emitting a label.";
+				return false;
+			}
+			
 			var blocks = new InstructionBlock[1];
 			var block = new InstructionBlock(this._writer, _instructions, BaseRip);
 			blocks[0] = block;
