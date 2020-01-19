@@ -18536,11 +18536,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister8 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacementOnly) {
+			if (src.Value == Register.AL && Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs8_AL;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs8_AL : Code.Mov_rm8_r8;
+			} else op = src.Value == Register.AL && Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs8_AL : Code.Mov_rm8_r8;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18598,11 +18598,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacementOnly) {
+			if (src.Value == Register.AX && Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs16_AX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs16_AX : Code.Mov_rm16_r16;
+			} else op = src.Value == Register.AX && Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs16_AX : Code.Mov_rm16_r16;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18708,11 +18708,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacementOnly) {
+			if (src.Value == Register.EAX && Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs32_EAX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs32_EAX : Code.Mov_rm32_r32;
+			} else op = src.Value == Register.EAX && Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs32_EAX : Code.Mov_rm32_r32;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18802,11 +18802,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			Code op;
-			if (Bitness == 64 && dst.IsDisplacementOnly) {
+			if (src.Value == Register.RAX && Bitness == 64 && dst.IsDisplacementOnly) {
 				op = Code.Mov_moffs64_RAX;
 				AddInstruction(Instruction.CreateMemory64(op, (ulong)dst.Displacement, src, dst.Prefix));
 				return;
-			} else op = Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs64_RAX : Code.Mov_rm64_r64;
+			} else op = src.Value == Register.RAX && Bitness < 64 && dst.IsDisplacementOnly ? Code.Mov_moffs64_RAX : Code.Mov_rm64_r64;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>mov instruction.<br/>
@@ -18986,11 +18986,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister8 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacementOnly) {
+			if (dst.Value == Register.AL && Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_AL_moffs8;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AL_moffs8 : Code.Mov_r8_rm8;
+			} else op = dst.Value == Register.AL && Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AL_moffs8 : Code.Mov_r8_rm8;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19016,11 +19016,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister16 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacementOnly) {
+			if (dst.Value == Register.AX && Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_AX_moffs16;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AX_moffs16 : Code.Mov_r16_rm16;
+			} else op = dst.Value == Register.AX && Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_AX_moffs16 : Code.Mov_r16_rm16;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19046,11 +19046,11 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void mov(AssemblerRegister32 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacementOnly) {
+			if (dst.Value == Register.EAX && Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_EAX_moffs32;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_EAX_moffs32 : Code.Mov_r32_rm32;
+			} else op = dst.Value == Register.EAX && Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_EAX_moffs32 : Code.Mov_r32_rm32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>
@@ -19076,11 +19076,11 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void mov(AssemblerRegister64 dst, AssemblerMemoryOperand src) {
 			Code op;
-			if (Bitness == 64 && src.IsDisplacementOnly) {
+			if (dst.Value == Register.RAX && Bitness == 64 && src.IsDisplacementOnly) {
 				op = Code.Mov_RAX_moffs64;
 				AddInstruction(Instruction.CreateMemory64(op, dst, (ulong)src.Displacement, src.Prefix));
 				return;
-			} else op = Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_RAX_moffs64 : Code.Mov_r64_rm64;
+			} else op = dst.Value == Register.RAX && Bitness < 64 && src.IsDisplacementOnly ? Code.Mov_RAX_moffs64 : Code.Mov_r64_rm64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>mov instruction.<br/>

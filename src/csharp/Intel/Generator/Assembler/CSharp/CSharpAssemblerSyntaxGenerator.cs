@@ -468,7 +468,7 @@ namespace Generator.Assembler.CSharp {
 				var selector = node.Selector;
 				Debug.Assert(selector != null);
 				var argKind = selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default;
-				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind);
+				var condition = GetArgConditionForOpCodeKind(argKind, selector.Kind, selector.ArgIndex);
 				var isSelectorSupportedByBitness = IsSelectorSupportedByBitness(bitness, selector.Kind, out var continueElse);
 				var (contextIfFlags, contextElseFlags) = GetIfElseContextFlags(selector.Kind);
 				if (isSelectorSupportedByBitness) {
@@ -617,19 +617,6 @@ namespace Generator.Assembler.CSharp {
 			{
 				instructionCreateArgs.Add($"{group.PseudoOpsKindImmediateValue}");			
 			}
-
-			// TODO: support memoff64
-
-			// if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
-			// 	var argIndex = selector.ArgIndex;
-			// 	if (argIndex == 1) {
-			// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
-			// 	}
-			// 	else {
-			// 		writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, (ulong){args[0].Name}.Displacement, {args[1].Name}, {args[0].Name}.Prefix));");
-			// 	}
-			// 	writer.WriteLine("return;");
-			// }
 
 			var optionalOpCodeFlags = new List<string>();
 			switch (contextFlags)
@@ -1080,8 +1067,8 @@ namespace Generator.Assembler.CSharp {
 			else {
 				var selector = node.Selector;
 				Debug.Assert(selector != null);
-				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind);
-				if (selector.IsConditionInlineable && selector.Kind != OpCodeSelectorKind.MemOffs64) {
+				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex);
+				if (selector.IsConditionInlineable && !IsMemOffs46Selector(selector.Kind)) {
 					writer.Write($"op = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
 					writer.Write(" : ");
@@ -1093,7 +1080,7 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 						GenerateOpCodeSelector(writer, group, true, selector.IfTrue, args);
 
-						if (selector.Kind == OpCodeSelectorKind.MemOffs64) {
+						if (IsMemOffs46Selector(selector.Kind)) {
 							var argIndex = selector.ArgIndex;
 							if (argIndex == 1) {
 								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");
@@ -1128,13 +1115,26 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind) {
+		static string GetArgConditionForOpCodeKind(RenderArg arg, OpCodeSelectorKind selectorKind, int index) {
 			var regName = arg.Name;
+			var otherRegName = arg.Name == "src" ? "dst" : "src";
 			switch (selectorKind) {
-			case OpCodeSelectorKind.MemOffs64:
-				return $"Bitness == 64 && {regName}.IsDisplacementOnly";
-			case OpCodeSelectorKind.MemOffs:
-				return $"Bitness < 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs64_RAX:
+				return $"{otherRegName}.Value == Register.RAX && Bitness == 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs64_EAX:
+				return $"{otherRegName}.Value == Register.EAX && Bitness == 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs64_AX:
+				return $"{otherRegName}.Value == Register.AX && Bitness == 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs64_AL:
+				return $"{otherRegName}.Value == Register.AL && Bitness == 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs_RAX:
+				return $"{otherRegName}.Value == Register.RAX && Bitness < 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs_EAX:
+				return $"{otherRegName}.Value == Register.EAX && Bitness < 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs_AX:
+				return $"{otherRegName}.Value == Register.AX && Bitness < 64 && {regName}.IsDisplacementOnly";
+			case OpCodeSelectorKind.MemOffs_AL:
+				return $"{otherRegName}.Value == Register.AL && Bitness < 64 && {regName}.IsDisplacementOnly";
 			case OpCodeSelectorKind.Bitness64:
 				return "Bitness == 64";
 			case OpCodeSelectorKind.Bitness32:
@@ -1288,7 +1288,10 @@ namespace Generator.Assembler.CSharp {
 	
 		static IEnumerable<string?> GetArgValue(int bitness, OpCodeSelectorKind selectorKind, bool isElseBranch, int index, List<RenderArg> args) {
 			switch (selectorKind) {
-			case OpCodeSelectorKind.MemOffs64:
+			case OpCodeSelectorKind.MemOffs64_RAX:
+			case OpCodeSelectorKind.MemOffs64_EAX:
+			case OpCodeSelectorKind.MemOffs64_AX:
+			case OpCodeSelectorKind.MemOffs64_AL:
 				if (isElseBranch) {
 					if (bitness == 64) {
 						yield return index == 0 ? $"__[rdi]" : $"__[rsi]";
@@ -1304,7 +1307,10 @@ namespace Generator.Assembler.CSharp {
 					yield return $"__[0x0123456789abcdef]";
 				}
 				break;			
-			case OpCodeSelectorKind.MemOffs:
+			case OpCodeSelectorKind.MemOffs_RAX:
+			case OpCodeSelectorKind.MemOffs_EAX:
+			case OpCodeSelectorKind.MemOffs_AX:
+			case OpCodeSelectorKind.MemOffs_AL:
 				if (isElseBranch) {
 					if (bitness == 64) {
 						yield return index == 0 ? $"__[rdi]" : $"__[rsi]";

@@ -658,22 +658,59 @@ namespace Generator.Assembler {
 				var opCodesRAXMOffs = new List<OpCodeInfo>();
 				var newOpCodes = new List<OpCodeInfo>();
 
+				var  memOffs64Selector = OpCodeSelectorKind.Invalid;
+				var  memOffsSelector = OpCodeSelectorKind.Invalid;
+				
 				int argIndex = 0;
 				for (var i = 0; i < opcodes.Count; i++) {
 					var opCodeInfo = opcodes[i];
 					// Special case, we want to disambiguate on the register and moffs
 					switch ((Code)opCodeInfo.Code.Value) {
 					case Code.Mov_moffs64_RAX:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
+						argIndex = 0;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_moffs32_EAX:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
+						argIndex = 0;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_moffs16_AX:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
+						argIndex = 0;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_moffs8_AL:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
 						argIndex = 0;
 						opCodesRAXMOffs.Add(opCodeInfo);
 						break;
 					case Code.Mov_RAX_moffs64:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
+						argIndex = 1;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;						
 					case Code.Mov_EAX_moffs32:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
+						argIndex = 1;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_AX_moffs16:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_AX;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_AX;
+						argIndex = 1;
+						opCodesRAXMOffs.Add(opCodeInfo);
+						break;
 					case Code.Mov_AL_moffs8:
+						memOffs64Selector = OpCodeSelectorKind.MemOffs64_AL;
+						memOffsSelector = OpCodeSelectorKind.MemOffs_AL;
 						argIndex = 1;
 						opCodesRAXMOffs.Add(opCodeInfo);
 						break;
@@ -684,9 +721,9 @@ namespace Generator.Assembler {
 				}
 
 				if (opCodesRAXMOffs.Count > 0) {
-					return new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs64) {
+					return new OpCodeSelector(argIndex, memOffs64Selector) {
 						IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), 
-						IfFalse = new OpCodeSelector(argIndex, OpCodeSelectorKind.MemOffs) {
+						IfFalse = new OpCodeSelector(argIndex, memOffsSelector) {
 							IfTrue = BuildSelectorGraph(group, group.Signature, group.Flags, opCodesRAXMOffs), 
 							IfFalse = BuildSelectorGraph(group, group.Signature, group.Flags, newOpCodes)
 						}
@@ -1986,7 +2023,10 @@ namespace Generator.Assembler {
 			case OpCodeSelectorKind.Bitness64:
 				continueElse = false;
 				return bitness == 64;
-			case OpCodeSelectorKind.MemOffs64:
+			case OpCodeSelectorKind.MemOffs64_RAX:
+			case OpCodeSelectorKind.MemOffs64_EAX:
+			case OpCodeSelectorKind.MemOffs64_AX:
+			case OpCodeSelectorKind.MemOffs64_AL:
 				continueElse = true;
 				return bitness == 64;
 			case OpCodeSelectorKind.Bitness32:
@@ -1995,11 +2035,26 @@ namespace Generator.Assembler {
 			case OpCodeSelectorKind.Bitness16:
 				continueElse = false;
 				return bitness >= 16;
-			case OpCodeSelectorKind.MemOffs:
+			case OpCodeSelectorKind.MemOffs_RAX:
+			case OpCodeSelectorKind.MemOffs_EAX:
+			case OpCodeSelectorKind.MemOffs_AX:
+			case OpCodeSelectorKind.MemOffs_AL:
 				continueElse = true;
 				return bitness < 64;
 			}
 			return true;
+		}
+
+		protected static bool IsMemOffs46Selector(OpCodeSelectorKind kind) {
+			switch (kind) {
+			case OpCodeSelectorKind.MemOffs64_RAX:
+			case OpCodeSelectorKind.MemOffs64_EAX:
+			case OpCodeSelectorKind.MemOffs64_AX:
+			case OpCodeSelectorKind.MemOffs64_AL:
+				return true;
+			}
+
+			return false;
 		}
 
 		protected static (OpCodeArgFlags,OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
@@ -2472,8 +2527,14 @@ namespace Generator.Assembler {
 			MemoryYMM,
 			MemoryZMM,
 			
-			MemOffs64,
-			MemOffs,
+			MemOffs64_RAX,
+			MemOffs64_EAX,
+			MemOffs64_AX,
+			MemOffs64_AL,
+			MemOffs_RAX,
+			MemOffs_EAX,
+			MemOffs_AX,
+			MemOffs_AL,
 		}
 	}
 }
