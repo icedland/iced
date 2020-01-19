@@ -5896,38 +5896,23 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void loop_l() {
-			{ /* if (PreferBranchShort) */
-				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.loop(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loop_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loop
-			}
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.loop(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loop_rel8_64_RCX, 2), 2), LocalOpCodeFlags.Branch);
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void loope_l() {
-			{ /* if (PreferBranchShort) */
-				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.loope(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loope_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loope
-			}
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.loope(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loope_rel8_64_RCX, 2), 2), LocalOpCodeFlags.Branch);
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void loopne_l() {
-			{ /* if (PreferBranchShort) */
-				{ /* if (Bitness == 64) */
-					TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loopne_rel8_64_RCX, 2), 2), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loopne
-			}
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Loopne_rel8_64_RCX, 2), 2), LocalOpCodeFlags.Branch);
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]

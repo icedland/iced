@@ -647,6 +647,11 @@ namespace Generator.Assembler {
 				var branchFar = new List<OpCodeInfo>();
 				CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchFar);
 				var newFlags = group.Flags & ~(OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear);
+				if (branchFar.Count == 0) {
+					Debug.Assert(branchShort.Count > 0);
+					return BuildSelectorGraph(group, group.Signature, newFlags, branchShort);
+				}
+				Debug.Assert(branchShort.Count > 0 && branchFar.Count > 0);
 				return new OpCodeSelector(OpCodeSelectorKind.BranchShort) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, branchShort), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, branchFar)};
 			}
 			

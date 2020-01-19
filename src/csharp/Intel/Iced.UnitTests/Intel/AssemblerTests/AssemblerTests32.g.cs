@@ -5266,35 +5266,20 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void loop_l() {
-			{ /* if (PreferBranchShort) */
-				{ // skip (Bitness == 64) not supported by this Assembler bitness
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loop
-			}
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void loope_l() {
-			{ /* if (PreferBranchShort) */
-				{ // skip (Bitness == 64) not supported by this Assembler bitness
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loope
-			}
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void loopne_l() {
-			{ /* if (PreferBranchShort) */
-				{ // skip (Bitness == 64) not supported by this Assembler bitness
-				} /* else skip (Bitness == 64) not supported by this Assembler bitness */
-			}
-			{
-				// See manual test for this case loopne
-			}
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]

@@ -18848,13 +18848,9 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void loop(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Loop_rel8_64_RCX;
-				} else op = Bitness >= 32 ? Code.Loop_rel8_32_ECX : Code.Loop_rel8_16_CX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Loop, dst);
-			}
+			if (Bitness == 64) {
+				op = Code.Loop_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loop_rel8_32_ECX : Code.Loop_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>loope instruction.<br/>
@@ -18890,13 +18886,9 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void loope(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Loope_rel8_64_RCX;
-				} else op = Bitness >= 32 ? Code.Loope_rel8_32_ECX : Code.Loope_rel8_16_CX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Loope, dst);
-			}
+			if (Bitness == 64) {
+				op = Code.Loope_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loope_rel8_32_ECX : Code.Loope_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>loopne instruction.<br/>
@@ -18932,13 +18924,9 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void loopne(Label dst) {
 			Code op;
-			if (PreferBranchShort) {
-				if (Bitness == 64) {
-					op = Code.Loopne_rel8_64_RCX;
-				} else op = Bitness >= 32 ? Code.Loopne_rel8_32_ECX : Code.Loopne_rel8_16_CX;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Loopne, dst);
-			}
+			if (Bitness == 64) {
+				op = Code.Loopne_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loopne_rel8_32_ECX : Code.Loopne_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>lsl instruction.<br/>

@@ -9,21 +9,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void TestManualInvalid() {
-			// loop_l
-			AssertInvalid(() => {
-				TestAssembler(c => c.loop(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
-			});
-
-			// loope_l
-			AssertInvalid(() => {
-				TestAssembler(c => c.loope(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
-			});
-
-			// loopne_l
-			AssertInvalid(() => {
-				TestAssembler(c => c.loopne(CreateAndEmitLabel(c)), default, LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
-			});
-			
 			// pop_regSegment
 			AssertInvalid(() => {
 				TestAssembler(c => c.pop(cs), default);
