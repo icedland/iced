@@ -53,6 +53,9 @@ namespace Iced.Intel
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __qword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr);
 		/// <summary>
+		/// Gets a 64-bit / mmword ptr memory operand.
+		/// </summary>
+		public static readonly AssemblerMemoryOperandFactory __mmword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr);	/// <summary>
 		/// Gets a 64-bit / qword bcst memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __qword_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr, Register.None, AssemblerOperandFlags.Broadcast);
@@ -61,6 +64,10 @@ namespace Iced.Intel
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __tword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.TwordPtr);
 		/// <summary>
+		/// Gets a 80-bit / tword ptr memory operand.
+		/// </summary>
+		public static readonly AssemblerMemoryOperandFactory __tbyte_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.TwordPtr);
+		/// <summary>
 		/// Gets a 16-bit segment + 32-bit / fword ptr memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __fword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.FwordPtr);
@@ -68,6 +75,10 @@ namespace Iced.Intel
 		/// Gets a 128-bit / xmm ptr memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __xmmword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.OwordPtr);
+		/// <summary>
+		/// Gets a 128-bit / oword ptr memory operand.
+		/// </summary>
+		public static readonly AssemblerMemoryOperandFactory __oword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.OwordPtr);
 		/// <summary>
 		/// Gets a 256-bit / ymm ptr memory operand.
 		/// </summary>
