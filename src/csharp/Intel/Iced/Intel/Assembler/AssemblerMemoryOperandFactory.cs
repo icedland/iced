@@ -96,10 +96,16 @@ namespace Iced.Intel
 		public AssemblerMemoryOperand this[AssemblerMemoryOperand operand] => new AssemblerMemoryOperand(Size, Prefix, operand.Base, operand.Index, operand.Scale, operand.Displacement, Flags);
 		
 		/// <summary>
-		/// Specify the offset displacement with this memory operand (Base + Index * Scale + Displacement)
+		/// Specify a long offset displacement.
 		/// </summary>
-		/// <param name="offset">Displacement of this memory operand.</param>
+		/// <param name="offset">Offset of this memory operand.</param>
 		public AssemblerMemoryOperand this[long offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, offset, Flags);
+
+		/// <summary>
+		/// Specify a ulong offset displacement.
+		/// </summary>
+		/// <param name="offset">Offset of this memory operand.</param>
+		public AssemblerMemoryOperand this[ulong offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, (long)offset, Flags);
 	}
 }
 #endif

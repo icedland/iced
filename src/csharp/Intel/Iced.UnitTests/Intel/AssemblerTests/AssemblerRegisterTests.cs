@@ -131,7 +131,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}
-
+			
+			{
+				var m = __[ulong.MaxValue];
+				Assert.Equal(new MemoryOperand(Register.None, Register.None, 1, unchecked((int)(ulong.MaxValue)), 8), m.ToMemoryOperand(64));
+				Assert.Equal(ulong.MaxValue, (ulong)m.Displacement);
+				Assert.Equal(MemoryOperandSize.None, m.Size);
+				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
+			}
 			{
 				var m = __[eax];
           		Assert.Equal(new MemoryOperand(Register.EAX, Register.None, 1, 0, 0), m.ToMemoryOperand(64));
