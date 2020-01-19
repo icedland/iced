@@ -1128,7 +1128,9 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeSelectorKind.ImmediateByteEqual1:
 				return $"{regName} == 1";
 			case OpCodeSelectorKind.ImmediateByteSigned: {
-				return arg.IsTypeSigned() ? $"{regName} >= sbyte.MinValue &&  {regName} <= sbyte.MaxValue" : $"{regName} <= byte.MaxValue";
+				return !arg.IsTypeSigned()
+					? $"({arg.GetSignedTypeFromUnsigned()}){regName} >= sbyte.MinValue && ({arg.GetSignedTypeFromUnsigned()}){regName} <= sbyte.MaxValue"
+					: $"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue";
 			}
 			case OpCodeSelectorKind.Vex:
 				return "PreferVex";
@@ -1343,21 +1345,23 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeSelectorKind.ImmediateByteSigned:
 				var arg = args[index];
 				if (isElseBranch) {
-					if (args[index].IsTypeSigned()) {
+					if (arg.IsTypeSigned()) {
 						yield return $"({arg.Type})(sbyte.MinValue - 1)";
 						yield return $"({arg.Type})(sbyte.MaxValue + 1)";
 					}
 					else {
-						yield return $"({arg.Type})(byte.MaxValue + 1)";
+						yield return $"({arg.GetSignedTypeFromUnsigned()})(sbyte.MinValue - 1)";
+						yield return $"({arg.GetSignedTypeFromUnsigned()})(sbyte.MaxValue + 1)";
 					}
 				}
 				else {
-					if (args[index].IsTypeSigned()) {
+					if (arg.IsTypeSigned()) {
 						yield return $"({arg.Type})sbyte.MinValue";
 						yield return $"({arg.Type})sbyte.MaxValue";
 					}
 					else {
-						yield return $"({arg.Type})byte.MaxValue";
+						yield return $"({arg.GetSignedTypeFromUnsigned()})sbyte.MinValue";
+						yield return $"({arg.GetSignedTypeFromUnsigned()})sbyte.MaxValue";
 					}
 				}
 				break;			
@@ -1789,6 +1793,21 @@ namespace Generator.Assembler.CSharp {
 					return true;
 				}
 				return false;
+			}
+
+			public string GetSignedTypeFromUnsigned() {
+				Debug.Assert(!IsTypeSigned());
+				switch (Type) {
+				case "byte":
+					return "sbyte";
+				case "ushort":
+					return "short";
+				case "uint":
+					return "int";
+				case "ulong":
+					return "long";
+				}
+				throw new ArgumentException($"Invalid {Type}");
 			}
 		}
 	}
