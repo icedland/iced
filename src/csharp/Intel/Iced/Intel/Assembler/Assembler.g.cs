@@ -16342,13 +16342,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void jmpe(AssemblerMemoryOperand dst) {
 			Code op;
-			if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Jmpe_rm32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Jmpe_rm16;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Jmpe, dst);
-			}
+			op = Bitness >= 32 ? Code.Jmpe_rm32 : Code.Jmpe_rm16;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>jmpe instruction.<br/>

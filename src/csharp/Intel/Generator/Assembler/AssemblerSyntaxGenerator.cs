@@ -744,10 +744,8 @@ namespace Generator.Assembler {
 			if (opcodes.Count == 1) {
 				return new OpCodeNode(opcodes[0]);
 			}
-			stackDepth++;
-			if (stackDepth >= 16) {
-				Debug.Assert(false, "Potential StackOverflow");
-			}
+			
+			Debug.Assert(stackDepth++ < 16, "Potential StackOverflow");
 			try {
 				OrderedSelectorList selectors;
 				
@@ -769,6 +767,7 @@ namespace Generator.Assembler {
 				case "sgdt":
 				case "sidt":
 				case "bndmov":
+				case "jmpe":
 					selectors = new OrderedSelectorList();
 					break;
 				default:

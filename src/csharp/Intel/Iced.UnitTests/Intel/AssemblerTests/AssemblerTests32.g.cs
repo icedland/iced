@@ -4650,16 +4650,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmpe_m() {
-			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
-				TestAssembler(c => c.jmpe(__dword_ptr[edx]), Instruction.Create(Code.Jmpe_rm32, __dword_ptr[edx].ToMemoryOperand(Bitness)));
-			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
-				TestAssembler(c => c.jmpe(__word_ptr[edx]), Instruction.Create(Code.Jmpe_rm16, __word_ptr[edx].ToMemoryOperand(Bitness)));
-			}
-			{
-				AssertInvalid( () => {
-					TestAssembler(c => c.jmpe(__zmmword_ptr[edx]), Instruction.Create(Code.Jmpe_rm16, __zmmword_ptr[edx].ToMemoryOperand(Bitness)));
-				});
-			}
+			{ /* if (Bitness >= 32) */
+				TestAssembler(c => c.jmpe(__dword_ptr[ecx]), Instruction.Create(Code.Jmpe_rm32, __dword_ptr[ecx].ToMemoryOperand(Bitness)));
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
 		[Fact]
