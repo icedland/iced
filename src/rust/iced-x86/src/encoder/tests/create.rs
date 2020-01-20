@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
-use core::u32;
+use core::{i32, i64, u32, u64};
 use std::panic;
 
 #[test]
@@ -1323,4 +1323,269 @@ fn encoding_instruction_requiring_opmask_fails_if_no_opmask() {
 	let mut encoder = Encoder::new(64);
 	let error_message = encoder.encode(&instr, 0).expect_err("It should fail to encode an invalid instruction");
 	assert_eq!("The instruction must use an opmask register", error_message);
+}
+
+#[test]
+fn create_imm_works() {
+	// OpKind::Immediate8
+	for &imm in [-0x80i32, 0xFF].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm);
+		assert_eq!(imm as u8, instr.immediate8());
+	}
+	for &imm in [-0x81i32, 0x100].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm8_imm8, Register::CL, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [-0x80i64, 0xFF].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm);
+		assert_eq!(imm as u8, instr.immediate8());
+	}
+	for &imm in [-0x81i64, 0x100].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm8_imm8, Register::CL, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0xFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm);
+		assert_eq!(imm, instr.immediate8() as u32);
+	}
+	for &imm in [0x100u32, 0xFFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm8_imm8, Register::CL, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0xFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm);
+		assert_eq!(imm, instr.immediate8() as u64);
+	}
+	for &imm in [0x100u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm8_imm8, Register::CL, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate8_2nd
+	for &imm in [-0x80i32, 0xFF].iter() {
+		let instr = Instruction::with_i32_i32(Code::Enterq_imm16_imm8, 0, imm);
+		assert_eq!(imm as u8, instr.immediate8_2nd());
+	}
+	for &imm in [-0x81i32, 0x100].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_i32_i32(Code::Enterq_imm16_imm8, 0, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0xFF].iter() {
+		let instr = Instruction::with_u32_u32(Code::Enterq_imm16_imm8, 0, imm);
+		assert_eq!(imm, instr.immediate8_2nd() as u32);
+	}
+	for &imm in [0x100u32, 0xFFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_u32_u32(Code::Enterq_imm16_imm8, 0, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate8to16
+	for &imm in [-0x80i32, 0x7F].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm);
+		assert_eq!(imm, instr.immediate8to16() as i32);
+	}
+	for &imm in [-0x81i32, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm16_imm8, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [-0x80i64, 0x7F].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm);
+		assert_eq!(imm, instr.immediate8to16() as i64);
+	}
+	for &imm in [-0x81i64, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm16_imm8, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0x7F, 0xFF80, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm);
+		assert_eq!(imm, instr.immediate8to16() as u16 as u32);
+	}
+	for &imm in [0x80u32, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0x0001_FF80, 0x0001_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm16_imm8, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0x7F, 0xFF80, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm);
+		assert_eq!(imm, instr.immediate8to16() as u16 as u64);
+	}
+	for &imm in [0x80u64, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FF80, 0x0001_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm16_imm8, Register::CX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate8to32
+	for &imm in [-0x80i32, 0x7F].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate8to32());
+	}
+	for &imm in [-0x81i32, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm32_imm8, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [-0x80i64, 0x7F].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate8to32() as i64);
+	}
+	for &imm in [-0x81i64, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm32_imm8, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate8to32() as u32);
+	}
+	for &imm in [0x80u32, 0xFFFF_FF7F].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm32_imm8, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate8to32() as u32 as u64);
+	}
+	for &imm in [0x80u64, 0xFFFF_FF7F, 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FFFF_FF80, 0x0001_FFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm32_imm8, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate8to64
+	for &imm in [-0x80i32, 0x7F].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm);
+		assert_eq!(imm as i64, instr.immediate8to64());
+	}
+	for &imm in [-0x81i32, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm64_imm8, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [-0x80i64, 0x7F].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm);
+		assert_eq!(imm, instr.immediate8to64());
+	}
+	for &imm in [-0x81i64, 0x80].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm64_imm8, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0x7F].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm);
+		assert_eq!(imm as i64, instr.immediate8to64());
+	}
+	for &imm in [0x80u32, 0xFFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm64_imm8, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0x7F, 0xFFFF_FFFF_FFFF_FF80, 0xFFFF_FFFF_FFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm);
+		assert_eq!(imm, instr.immediate8to64() as u64);
+	}
+	for &imm in [0x80u64, 0xFFFF_FFFF_FFFF_FF7F].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm64_imm8, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate32to64
+	for &imm in [-0x8000_0000i32, 0x7FFF_FFFF].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm64_imm32, Register::RCX, imm);
+		assert_eq!(imm as i64, instr.immediate32to64());
+	}
+	for &imm in [-0x8000_0000i64, 0x7FFF_FFFF].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm);
+		assert_eq!(imm, instr.immediate32to64());
+	}
+	for &imm in [-0x8000_0001i64, 0x8000_0000].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm64_imm32, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0x7FFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm);
+		assert_eq!(imm as i64, instr.immediate32to64());
+	}
+	for &imm in [0x8000_0000u32, 0xFFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm64_imm32, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0x7FFF_FFFF, 0xFFFF_FFFF_8000_0000, 0xFFFF_FFFF_FFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm);
+		assert_eq!(imm, instr.immediate32to64() as u64);
+	}
+	for &imm in [0x8000_0000u64, 0x0001_0000_0000, 0xFFFF_FFFF_7FFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm64_imm32, Register::RCX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate16
+	for &imm in [-0x8000i32, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm);
+		assert_eq!(imm as u16, instr.immediate16());
+	}
+	for &imm in [-0x8001i32, 0x0001_0000].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i32(Code::Add_rm16_imm16, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [-0x8000i64, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm);
+		assert_eq!(imm as u16, instr.immediate16());
+	}
+	for &imm in [-0x8001i64, 0x0001_0000].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm16_imm16, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm);
+		assert_eq!(imm, instr.immediate16() as u32);
+	}
+	for &imm in [0x0001_0000u32, 0xFFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u32(Code::Add_rm16_imm16, Register::CX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u64, 0xFFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm);
+		assert_eq!(imm, instr.immediate16() as u64);
+	}
+	for &imm in [0x0001_0000u64, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm16_imm16, Register::CX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate32
+	for &imm in [-0x8000_0000i32, 0x7FFF_FFFF].iter() {
+		let instr = Instruction::with_reg_i32(Code::Add_rm32_imm32, Register::ECX, imm);
+		assert_eq!(imm as u32, instr.immediate32());
+	}
+	for &imm in [-0x8000_0000i64, 0xFFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm);
+		assert_eq!(imm as u32, instr.immediate32());
+	}
+	for &imm in [-0x8000_0001i64, 0x0001_0000_0000].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_i64(Code::Add_rm32_imm32, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+	for &imm in [0u32, 0xFFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u32(Code::Add_rm32_imm32, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate32());
+	}
+	for &imm in [0u64, 0xFFFF_FFFF].iter() {
+		let instr = Instruction::with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm);
+		assert_eq!(imm, instr.immediate32() as u64);
+	}
+	for &imm in [0x0001_0000_0000u64, 0xFFFF_FFFF_FFFF_FFFF].iter() {
+		let result = panic::catch_unwind(|| Instruction::with_reg_u64(Code::Add_rm32_imm32, Register::ECX, imm));
+		assert!(result.is_err());
+	}
+
+	// OpKind::Immediate64
+	for &imm in [i32::MIN, i32::MAX].iter() {
+		let instr = Instruction::with_reg_i32(Code::Mov_r64_imm64, Register::RCX, imm);
+		assert_eq!(imm as u64, instr.immediate64());
+	}
+	for &imm in [i64::MIN, i64::MAX].iter() {
+		let instr = Instruction::with_reg_i64(Code::Mov_r64_imm64, Register::RCX, imm);
+		assert_eq!(imm as u64, instr.immediate64());
+	}
+	for &imm in [u32::MIN, u32::MAX].iter() {
+		let instr = Instruction::with_reg_u32(Code::Mov_r64_imm64, Register::RCX, imm);
+		assert_eq!(imm as u64, instr.immediate64());
+	}
+	for &imm in [u64::MIN, u64::MAX].iter() {
+		let instr = Instruction::with_reg_u64(Code::Mov_r64_imm64, Register::RCX, imm);
+		assert_eq!(imm, instr.immediate64());
+	}
 }

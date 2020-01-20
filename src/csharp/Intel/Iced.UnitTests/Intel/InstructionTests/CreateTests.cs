@@ -1617,6 +1617,217 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Throws<ArgumentNullException>(() => instr.GetVirtualAddress(1, 0, (VAGetRegisterValue)null));
 			Assert.Throws<ArgumentNullException>(() => instr.GetVirtualAddress(1, 0, (IVARegisterValueProvider)null));
 		}
+
+		[Fact]
+		void Create_imm_works() {
+			// OpKind.Immediate8
+			foreach (var imm in new int[] { -0x80, 0xFF }) {
+				var instr = Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm);
+				Assert.Equal((byte)imm, instr.Immediate8);
+			}
+			foreach (var imm in new int[] { -0x81, 0x100 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm));
+			foreach (var imm in new long[] { -0x80, 0xFF }) {
+				var instr = Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm);
+				Assert.Equal((byte)imm, instr.Immediate8);
+			}
+			foreach (var imm in new long[] { -0x81, 0x100 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm));
+			foreach (var imm in new uint[] { 0, 0xFF }) {
+				var instr = Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm);
+				Assert.Equal(imm, instr.Immediate8);
+			}
+			foreach (var imm in new uint[] { 0x100, 0xFFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm));
+			foreach (var imm in new ulong[] { 0, 0xFF }) {
+				var instr = Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm);
+				Assert.Equal(imm, instr.Immediate8);
+			}
+			foreach (var imm in new ulong[] { 0x100, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm8_imm8, Register.CL, imm));
+
+			// OpKind.Immediate8_2nd
+			foreach (var imm in new int[] { -0x80, 0xFF }) {
+				var instr = Instruction.Create(Code.Enterq_imm16_imm8, 0, imm);
+				Assert.Equal((byte)imm, instr.Immediate8_2nd);
+			}
+			foreach (var imm in new int[] { -0x81, 0x100 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Enterq_imm16_imm8, 0, imm));
+			foreach (var imm in new uint[] { 0, 0xFF }) {
+				var instr = Instruction.Create(Code.Enterq_imm16_imm8, 0U, imm);
+				Assert.Equal(imm, instr.Immediate8_2nd);
+			}
+			foreach (var imm in new uint[] { 0x100, 0xFFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Enterq_imm16_imm8, 0U, imm));
+
+			// OpKind.Immediate8to16
+			foreach (var imm in new int[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm);
+				Assert.Equal(imm, instr.Immediate8to16);
+			}
+			foreach (var imm in new int[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm));
+			foreach (var imm in new long[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm);
+				Assert.Equal(imm, instr.Immediate8to16);
+			}
+			foreach (var imm in new long[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm));
+			foreach (var imm in new uint[] { 0, 0x7F, 0xFF80, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm);
+				Assert.Equal(imm, (ushort)instr.Immediate8to16);
+			}
+			foreach (var imm in new uint[] { 0x80, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0x0001_FF80, 0x0001_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm));
+			foreach (var imm in new ulong[] { 0, 0x7F, 0xFF80, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm);
+				Assert.Equal(imm, (ushort)instr.Immediate8to16);
+			}
+			foreach (var imm in new ulong[] { 0x80, 0xFF7F, 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FF80, 0x0001_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm8, Register.CX, imm));
+
+			// OpKind.Immediate8to32
+			foreach (var imm in new int[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm);
+				Assert.Equal(imm, instr.Immediate8to32);
+			}
+			foreach (var imm in new int[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm));
+			foreach (var imm in new long[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm);
+				Assert.Equal(imm, instr.Immediate8to32);
+			}
+			foreach (var imm in new long[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm));
+			foreach (var imm in new uint[] { 0, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm);
+				Assert.Equal(imm, (uint)instr.Immediate8to32);
+			}
+			foreach (var imm in new uint[] { 0x80, 0xFFFF_FF7F })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm));
+			foreach (var imm in new ulong[] { 0, 0x7F, 0xFFFF_FF80, 0xFFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm);
+				Assert.Equal(imm, (uint)instr.Immediate8to32);
+			}
+			foreach (var imm in new ulong[] { 0x80, 0xFFFF_FF7F, 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF, 0x0001_FFFF_FF80, 0x0001_FFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm8, Register.ECX, imm));
+
+			// OpKind.Immediate8to64
+			foreach (var imm in new int[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate8to64);
+			}
+			foreach (var imm in new int[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm));
+			foreach (var imm in new long[] { -0x80, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate8to64);
+			}
+			foreach (var imm in new long[] { -0x81, 0x80 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm));
+			foreach (var imm in new uint[] { 0, 0x7F }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate8to64);
+			}
+			foreach (var imm in new uint[] { 0x80, 0xFFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm));
+			foreach (var imm in new ulong[] { 0, 0x7F, 0xFFFF_FFFF_FFFF_FF80, 0xFFFF_FFFF_FFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm);
+				Assert.Equal(imm, (ulong)instr.Immediate8to64);
+			}
+			foreach (var imm in new ulong[] { 0x80, 0xFFFF_FFFF_FFFF_FF7F })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm8, Register.RCX, imm));
+
+			// OpKind.Immediate32to64
+			foreach (var imm in new int[] { -0x8000_0000, 0x7FFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate32to64);
+			}
+			foreach (var imm in new long[] { -0x8000_0000, 0x7FFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate32to64);
+			}
+			foreach (var imm in new long[] { -0x8000_0001, 0x8000_0000 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm));
+			foreach (var imm in new uint[] { 0, 0x7FFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate32to64);
+			}
+			foreach (var imm in new uint[] { 0x8000_0000, 0xFFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm));
+			foreach (var imm in new ulong[] { 0, 0x7FFF_FFFF, 0xFFFF_FFFF_8000_0000, 0xFFFF_FFFF_FFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm);
+				Assert.Equal(imm, (ulong)instr.Immediate32to64);
+			}
+			foreach (var imm in new ulong[] { 0x8000_0000, 0x0001_0000_0000, 0xFFFF_FFFF_7FFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm64_imm32, Register.RCX, imm));
+
+			// OpKind.Immediate16
+			foreach (var imm in new int[] { -0x8000, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm);
+				Assert.Equal((ushort)imm, instr.Immediate16);
+			}
+			foreach (var imm in new int[] { -0x8001, 0x0001_0000 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm));
+			foreach (var imm in new long[] { -0x8000, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm);
+				Assert.Equal((ushort)imm, instr.Immediate16);
+			}
+			foreach (var imm in new long[] { -0x8001, 0x0001_0000 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm));
+			foreach (var imm in new uint[] { 0, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm);
+				Assert.Equal(imm, instr.Immediate16);
+			}
+			foreach (var imm in new uint[] { 0x0001_0000, 0xFFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm));
+			foreach (var imm in new ulong[] { 0, 0xFFFF }) {
+				var instr = Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm);
+				Assert.Equal(imm, instr.Immediate16);
+			}
+			foreach (var imm in new ulong[] { 0x0001_0000, 0xFFFF_FFFF, 0xFFFF_FFFF_FFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm16_imm16, Register.CX, imm));
+
+			// OpKind.Immediate32
+			foreach (var imm in new int[] { -0x8000_0000, 0x7FFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm);
+				Assert.Equal((uint)imm, instr.Immediate32);
+			}
+			foreach (var imm in new long[] { -0x8000_0000, 0xFFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm);
+				Assert.Equal((uint)imm, instr.Immediate32);
+			}
+			foreach (var imm in new long[] { -0x8000_0001, 0x0001_0000_0000 })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm));
+			foreach (var imm in new uint[] { 0, 0xFFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm);
+				Assert.Equal(imm, instr.Immediate32);
+			}
+			foreach (var imm in new ulong[] { 0, 0xFFFF_FFFF }) {
+				var instr = Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm);
+				Assert.Equal(imm, instr.Immediate32);
+			}
+			foreach (var imm in new ulong[] { 0x0001_0000_0000, 0xFFFF_FFFF_FFFF_FFFF })
+				Assert.Throws<ArgumentOutOfRangeException>(() => Instruction.Create(Code.Add_rm32_imm32, Register.ECX, imm));
+
+			// OpKind.Immediate64
+			foreach (var imm in new int[] { int.MinValue, int.MaxValue }) {
+				var instr = Instruction.Create(Code.Mov_r64_imm64, Register.RCX, imm);
+				Assert.Equal((ulong)imm, instr.Immediate64);
+			}
+			foreach (var imm in new long[] { long.MinValue, long.MaxValue }) {
+				var instr = Instruction.Create(Code.Mov_r64_imm64, Register.RCX, imm);
+				Assert.Equal((ulong)imm, instr.Immediate64);
+			}
+			foreach (var imm in new uint[] { uint.MinValue, uint.MaxValue }) {
+				var instr = Instruction.Create(Code.Mov_r64_imm64, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate64);
+			}
+			foreach (var imm in new ulong[] { ulong.MinValue, ulong.MaxValue }) {
+				var instr = Instruction.Create(Code.Mov_r64_imm64, Register.RCX, imm);
+				Assert.Equal(imm, instr.Immediate64);
+			}
+		}
 	}
 }
 #endif

@@ -192,7 +192,6 @@ namespace Generator.Encoder.CSharp {
 					int op = i - 1;
 					var arg = args[i];
 					writer.WriteLine();
-					string castType, castType2;
 					switch (arg.Type) {
 					case MethodArgType.Register:
 						writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
@@ -213,17 +212,10 @@ namespace Generator.Encoder.CSharp {
 
 					case MethodArgType.Int32:
 					case MethodArgType.UInt32:
-						var methodName = arg.Type == MethodArgType.Int32 ? "InitializeSignedImmediate" : "InitializeUnsignedImmediate";
-						castType = arg.Type == MethodArgType.Int32 ? "(uint)" : string.Empty;
-						castType2 = arg.Type == MethodArgType.Int32 ? "(ulong)" : string.Empty;
-						writer.WriteLine($"{methodName}(ref instruction, {op}, {idConverter.Argument(arg.Name)});");
-						break;
-
 					case MethodArgType.Int64:
 					case MethodArgType.UInt64:
-						castType = arg.Type == MethodArgType.Int64 ? "(ulong)" : string.Empty;
-						writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{immediate64Str};");
-						writer.WriteLine($"instruction.Immediate64 = {castType}{idConverter.Argument(arg.Name)};");
+						var methodName = arg.Type == MethodArgType.Int32 || arg.Type == MethodArgType.Int64 ? "InitializeSignedImmediate" : "InitializeUnsignedImmediate";
+						writer.WriteLine($"{methodName}(ref instruction, {op}, {idConverter.Argument(arg.Name)});");
 						break;
 
 					case MethodArgType.Code:

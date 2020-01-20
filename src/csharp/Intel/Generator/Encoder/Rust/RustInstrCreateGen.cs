@@ -230,16 +230,18 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("instruction");
 		}
 
-		static bool HasImmediateArg(CreateMethod method) {
+		static bool HasImmediateArg_8_16_32(CreateMethod method) {
 			foreach (var arg in method.Args) {
 				switch (arg.Type) {
 				case MethodArgType.UInt8:
 				case MethodArgType.UInt16:
 				case MethodArgType.Int32:
 				case MethodArgType.UInt32:
+					return true;
+
 				case MethodArgType.Int64:
 				case MethodArgType.UInt64:
-					return true;
+					break;
 				}
 			}
 			return false;
@@ -247,7 +249,7 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) {
 			Action? writePanics = null;
-			if (HasImmediateArg(method))
+			if (HasImmediateArg_8_16_32(method))
 				writePanics = () => docWriter.WriteLine(writer, $"Panics if the immediate is invalid");
 			WriteDocs(writer, method, writePanics);
 			WriteMethod(writer, method, GetCreateName(method));
@@ -261,11 +263,11 @@ namespace Generator.Encoder.Rust {
 				var immediate64Str = OpKindEnum.Instance[nameof(OpKind.Immediate64)].Name(idConverter);
 				var immediate8_2ndStr = OpKindEnum.Instance[nameof(OpKind.Immediate8_2nd)].Name(idConverter);
 				bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
+				string methodName;
 				for (int i = 1; i < args.Count; i++) {
 					int op = i - 1;
 					var arg = args[i];
 					writer.WriteLine();
-					string castType;
 					switch (arg.Type) {
 					case MethodArgType.Register:
 						writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
@@ -286,16 +288,15 @@ namespace Generator.Encoder.Rust {
 
 					case MethodArgType.Int32:
 					case MethodArgType.UInt32:
-						var methodName = arg.Type == MethodArgType.Int32 ? "initialize_signed_immediate" : "initialize_unsigned_immediate";
-						castType = arg.Type == MethodArgType.Int32 ? " as u32" : string.Empty;
-						writer.WriteLine($"super::instruction_internal::{methodName}(&mut instruction, {op}, {idConverter.Argument(arg.Name)});");
+						methodName = arg.Type == MethodArgType.Int32 ? "initialize_signed_immediate" : "initialize_unsigned_immediate";
+						var castType = arg.Type == MethodArgType.Int32 ? " as i64" : " as u64";
+						writer.WriteLine($"super::instruction_internal::{methodName}(&mut instruction, {op}, {idConverter.Argument(arg.Name)}{castType});");
 						break;
 
 					case MethodArgType.Int64:
 					case MethodArgType.UInt64:
-						castType = arg.Type == MethodArgType.Int64 ? " as u64" : string.Empty;
-						writer.WriteLine($"super::instruction_internal::internal_set_op{op}_kind(&mut instruction, {opKindStr}::{immediate64Str});");
-						writer.WriteLine($"instruction.set_immediate64({idConverter.Argument(arg.Name)}{castType});");
+						methodName = arg.Type == MethodArgType.Int64 ? "initialize_signed_immediate" : "initialize_unsigned_immediate";
+						writer.WriteLine($"super::instruction_internal::{methodName}(&mut instruction, {op}, {idConverter.Argument(arg.Name)});");
 						break;
 
 					case MethodArgType.Code:

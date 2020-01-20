@@ -40,7 +40,7 @@ namespace Iced.Intel {
 	// GENERATOR-END: RepPrefixKind
 
 	partial struct Instruction {
-		static void InitializeSignedImmediate(ref Instruction instruction, int operand, int immediate) {
+		static void InitializeSignedImmediate(ref Instruction instruction, int operand, long immediate) {
 			var opKind = GetImmediateOpKind(instruction.Code, operand);
 			instruction.SetOpKind(operand, opKind);
 
@@ -62,19 +62,19 @@ namespace Iced.Intel {
 			case OpKind.Immediate8to16:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to16 = (short)immediate;
+				instruction.Immediate8to16 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate8to32:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to32 = (int)immediate;
+				instruction.Immediate8to32 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate8to64:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to64 = immediate;
+				instruction.Immediate8to64 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate16:
@@ -85,11 +85,16 @@ namespace Iced.Intel {
 				break;
 
 			case OpKind.Immediate32:
+				// All int and all uint values can be used
+				if (!(int.MinValue <= immediate && immediate <= uint.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
 				instruction.Immediate32 = (uint)immediate;
 				break;
 
 			case OpKind.Immediate32to64:
-				instruction.Immediate32to64 = immediate;
+				if (!(int.MinValue <= immediate && immediate <= int.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32to64 = (int)immediate;
 				break;
 
 			case OpKind.Immediate64:
@@ -101,7 +106,7 @@ namespace Iced.Intel {
 			}
 		}
 
-		static void InitializeUnsignedImmediate(ref Instruction instruction, int operand, uint immediate) {
+		static void InitializeUnsignedImmediate(ref Instruction instruction, int operand, ulong immediate) {
 			var opKind = GetImmediateOpKind(instruction.Code, operand);
 			instruction.SetOpKind(operand, opKind);
 
@@ -119,21 +124,22 @@ namespace Iced.Intel {
 				break;
 
 			case OpKind.Immediate8to16:
-				if (immediate > (uint)sbyte.MaxValue)
+				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFF80 <= immediate && immediate <= 0xFFFF)))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to16 = (short)immediate;
+				instruction.Immediate8to16 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate8to32:
-				if (immediate > (uint)sbyte.MaxValue)
+				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFFFF_FF80 <= immediate && immediate <= 0xFFFF_FFFF)))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to32 = (int)immediate;
+				instruction.Immediate8to32 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate8to64:
-				if (immediate > (uint)sbyte.MaxValue)
+				// Allow 00..7F and FFFF_FFFF_FFFF_FF80..FFFF_FFFF_FFFF_FFFF
+				if ((immediate + 0x80) > byte.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to64 = immediate;
+				instruction.Immediate8to64 = (sbyte)immediate;
 				break;
 
 			case OpKind.Immediate16:
@@ -143,13 +149,16 @@ namespace Iced.Intel {
 				break;
 
 			case OpKind.Immediate32:
-				instruction.Immediate32 = immediate;
+				if (immediate > uint.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32 = (uint)immediate;
 				break;
 
 			case OpKind.Immediate32to64:
-				if (immediate > int.MaxValue)
+				// Allow 0..7FFF_FFFF and FFFF_FFFF_8000_0000..FFFF_FFFF_FFFF_FFFF
+				if ((immediate + 0x8000_0000) > (ulong)uint.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate32to64 = immediate;
+				instruction.Immediate32to64 = (int)immediate;
 				break;
 
 			case OpKind.Immediate64:
@@ -536,8 +545,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			instruction.InternalOp1Kind = OpKind.Immediate64;
-			instruction.Immediate64 = (ulong)immediate;
+			InitializeSignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -557,8 +565,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			instruction.InternalOp1Kind = OpKind.Immediate64;
-			instruction.Immediate64 = immediate;
+			InitializeUnsignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;

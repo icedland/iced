@@ -3189,7 +3189,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
@@ -3212,7 +3212,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64);
 
 		debug_assert_eq!(1, instruction.op_count());
 		instruction
@@ -3292,7 +3292,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3320,17 +3320,13 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
-	///
-	/// # Panics
-	///
-	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3348,18 +3344,13 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
-		instruction.set_immediate64(immediate as u64);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
 	}
 
 	/// Creates an instruction with 2 operands
-	///
-	/// # Panics
-	///
-	/// Panics if the immediate is invalid
 	///
 	/// # Arguments
 	///
@@ -3377,8 +3368,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Immediate64);
-		instruction.set_immediate64(immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3433,7 +3423,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -3461,7 +3451,7 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64);
 
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
@@ -3489,9 +3479,9 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate1);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate1 as i64);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate2 as i64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3515,9 +3505,9 @@ impl Instruction {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate1);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate1 as u64);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate2 as u64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3581,7 +3571,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate as i64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3614,7 +3604,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate as u64);
 
 		debug_assert_eq!(2, instruction.op_count());
 		instruction
@@ -3678,7 +3668,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3711,7 +3701,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3776,9 +3766,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate1);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 1, immediate1 as i64);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate2 as i64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3807,9 +3797,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op0_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate1);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 1, immediate1 as u64);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate2 as u64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3883,7 +3873,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3921,7 +3911,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -3995,7 +3985,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate as i64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -4033,7 +4023,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate as u64);
 
 		debug_assert_eq!(3, instruction.op_count());
 		instruction
@@ -4107,7 +4097,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4145,7 +4135,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op2_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op2_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4220,9 +4210,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate1);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 2, immediate1 as i64);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate2 as i64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4256,9 +4246,9 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op1_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op1_register(&mut instruction, register2);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate1);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 2, immediate1 as u64);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate2 as u64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4342,7 +4332,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 3, immediate as i64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4385,7 +4375,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 3, immediate as u64);
 
 		debug_assert_eq!(4, instruction.op_count());
 		instruction
@@ -4428,7 +4418,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
@@ -4471,7 +4461,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register4);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
@@ -4519,7 +4509,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
@@ -4567,7 +4557,7 @@ impl Instruction {
 		instruction.set_is_broadcast(memory.is_broadcast);
 		instruction.set_segment_prefix(memory.segment_prefix);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
@@ -4615,7 +4605,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_signed_immediate(&mut instruction, 4, immediate as i64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction
@@ -4663,7 +4653,7 @@ impl Instruction {
 		//super::instruction_internal::internal_set_op3_kind(&mut instruction, OpKind::Register);
 		super::instruction_internal::internal_set_op3_register(&mut instruction, register3);
 
-		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate);
+		super::instruction_internal::initialize_unsigned_immediate(&mut instruction, 4, immediate as u64);
 
 		debug_assert_eq!(5, instruction.op_count());
 		instruction

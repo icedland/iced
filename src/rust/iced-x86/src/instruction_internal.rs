@@ -334,14 +334,14 @@ pub(crate) fn get_address_size_in_bytes(base_reg: Register, index_reg: Register,
 }
 
 #[cfg(feature = "encoder")]
-pub(crate) fn initialize_signed_immediate(instruction: &mut Instruction, operand: usize, immediate: i32) {
+pub(crate) fn initialize_signed_immediate(instruction: &mut Instruction, operand: usize, immediate: i64) {
 	let op_kind = get_immediate_op_kind(instruction.code(), operand);
 	instruction.set_op_kind(operand as u32, op_kind);
 
 	match op_kind {
 		OpKind::Immediate8 => {
 			// All i8 and all u8 values can be used
-			if !(i8::MIN as i32 <= immediate && immediate <= u8::MAX as i32) {
+			if !(i8::MIN as i64 <= immediate && immediate <= u8::MAX as i64) {
 				panic!();
 			}
 			instruction.set_immediate8(immediate as u8);
@@ -349,119 +349,127 @@ pub(crate) fn initialize_signed_immediate(instruction: &mut Instruction, operand
 
 		OpKind::Immediate8_2nd => {
 			// All i8 and all u8 values can be used
-			if !(i8::MIN as i32 <= immediate && immediate <= u8::MAX as i32) {
+			if !(i8::MIN as i64 <= immediate && immediate <= u8::MAX as i64) {
 				panic!();
 			}
 			instruction.set_immediate8_2nd(immediate as u8);
 		}
 
 		OpKind::Immediate8to16 => {
-			if !(i8::MIN as i32 <= immediate && immediate <= i8::MAX as i32) {
+			if !(i8::MIN as i64 <= immediate && immediate <= i8::MAX as i64) {
 				panic!();
 			}
-			instruction.set_immediate8to16(immediate as i16);
+			instruction.set_immediate8to16(immediate as i8 as i16);
 		}
 
 		OpKind::Immediate8to32 => {
-			if !(i8::MIN as i32 <= immediate && immediate <= i8::MAX as i32) {
+			if !(i8::MIN as i64 <= immediate && immediate <= i8::MAX as i64) {
 				panic!();
 			}
-			instruction.set_immediate8to32(immediate);
+			instruction.set_immediate8to32(immediate as i8 as i32);
 		}
 
 		OpKind::Immediate8to64 => {
-			if !(i8::MIN as i32 <= immediate && immediate <= i8::MAX as i32) {
+			if !(i8::MIN as i64 <= immediate && immediate <= i8::MAX as i64) {
 				panic!();
 			}
-			instruction.set_immediate8to64(immediate as i64);
+			instruction.set_immediate8to64(immediate as i8 as i64);
 		}
 
 		OpKind::Immediate16 => {
 			// All short and all ushort values can be used
-			if !(i16::MIN as i32 <= immediate && immediate <= u16::MAX as i32) {
+			if !(i16::MIN as i64 <= immediate && immediate <= u16::MAX as i64) {
 				panic!();
 			}
 			instruction.set_immediate16(immediate as u16);
 		}
 
 		OpKind::Immediate32 => {
+			// All int and all uint values can be used
+			if !(i32::MIN as i64 <= immediate && immediate <= u32::MAX as i64) {
+				panic!();
+			}
 			instruction.set_immediate32(immediate as u32);
 		}
 
 		OpKind::Immediate32to64 => {
-			instruction.set_immediate32to64(immediate as i64);
+			if !(i32::MIN as i64 <= immediate && immediate <= i32::MAX as i64) {
+				panic!();
+			}
+			instruction.set_immediate32to64(immediate as i32 as i64);
 		}
 
-		OpKind::Immediate64 => {
-			instruction.set_immediate64(immediate as u64);
-		}
+		OpKind::Immediate64 => instruction.set_immediate64(immediate as u64),
 
 		_ => panic!(),
 	}
 }
 
 #[cfg(feature = "encoder")]
-pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, operand: usize, immediate: u32) {
+pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, operand: usize, immediate: u64) {
 	let op_kind = get_immediate_op_kind(instruction.code(), operand);
 	instruction.set_op_kind(operand as u32, op_kind);
 
 	match op_kind {
 		OpKind::Immediate8 => {
-			if immediate > u8::MAX as u32 {
+			if immediate > u8::MAX as u64 {
 				panic!();
 			}
 			instruction.set_immediate8(immediate as u8);
 		}
 
 		OpKind::Immediate8_2nd => {
-			if immediate > u8::MAX as u32 {
+			if immediate > u8::MAX as u64 {
 				panic!();
 			}
 			instruction.set_immediate8_2nd(immediate as u8);
 		}
 
 		OpKind::Immediate8to16 => {
-			if immediate > i8::MAX as u32 {
+			if !(immediate <= i8::MAX as u64 || (0xFF80 <= immediate && immediate <= 0xFFFF)) {
 				panic!();
 			}
-			instruction.set_immediate8to16(immediate as i16);
+			instruction.set_immediate8to16(immediate as i8 as i16);
 		}
 
 		OpKind::Immediate8to32 => {
-			if immediate > i8::MAX as u32 {
+			if !(immediate <= i8::MAX as u64 || (0xFFFF_FF80 <= immediate && immediate <= 0xFFFF_FFFF)) {
 				panic!();
 			}
-			instruction.set_immediate8to32(immediate as i32);
+			instruction.set_immediate8to32(immediate as i8 as i32);
 		}
 
 		OpKind::Immediate8to64 => {
-			if immediate > i8::MAX as u32 {
+			// Allow 00..7F and FFFF_FFFF_FFFF_FF80..FFFF_FFFF_FFFF_FFFF
+			if immediate.wrapping_add(0x80) > u8::MAX as u64 {
 				panic!();
 			}
-			instruction.set_immediate8to64(immediate as i64);
+			instruction.set_immediate8to64(immediate as i8 as i64);
 		}
 
 		OpKind::Immediate16 => {
-			if immediate > u16::MAX as u32 {
+			if immediate > u16::MAX as u64 {
 				panic!();
 			}
 			instruction.set_immediate16(immediate as u16);
 		}
 
 		OpKind::Immediate32 => {
-			instruction.set_immediate32(immediate);
+			if immediate > u32::MAX as u64 {
+				panic!();
+			}
+			instruction.set_immediate32(immediate as u32);
 		}
 
 		OpKind::Immediate32to64 => {
-			if immediate > i32::MAX as u32 {
+			// Allow 0..7FFF_FFFF and FFFF_FFFF_8000_0000..FFFF_FFFF_FFFF_FFFF
+			if immediate.wrapping_add(0x8000_0000) > u32::MAX as u64 {
 				panic!();
 			}
-			instruction.set_immediate32to64(immediate as i64);
+			instruction.set_immediate32to64(immediate as i32 as i64);
 		}
 
-		OpKind::Immediate64 => {
-			instruction.set_immediate64(immediate as u64);
-		}
+		OpKind::Immediate64 => instruction.set_immediate64(immediate),
 
 		_ => panic!(),
 	}
