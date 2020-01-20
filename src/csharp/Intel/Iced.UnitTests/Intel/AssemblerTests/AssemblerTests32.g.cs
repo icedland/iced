@@ -4415,11 +4415,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.jcxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jcxz_rel8_16, 2), 2), LocalOpCodeFlags.Branch);
 		}
 
-		[Fact(Skip = "Test ignored")]
-		public void jcxz_lu() {
-			TestAssembler(c => c.jcxz(12752), Instruction.CreateBranch(Code.Jcxz_rel8_16, 12752), LocalOpCodeFlags.BranchUlong);
-		}
-
 		[Fact]
 		public void je_l() {
 			{ /* if (PreferBranchShort) */

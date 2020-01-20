@@ -517,7 +517,7 @@ namespace Generator.Assembler.CSharp {
 
 			var fullMethodNameStr = fullMethodName.ToString();
 			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr)) {
-				writer.WriteLine("[Fact(Skip = \"Test ignored\")]");
+				return;
 			}
 			else {
 				writer.WriteLine("[Fact]");

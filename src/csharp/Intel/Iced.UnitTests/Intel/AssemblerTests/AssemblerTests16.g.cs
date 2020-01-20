@@ -4440,11 +4440,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.jecxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jecxz_rel8_32, 2), 2), LocalOpCodeFlags.Branch);
 		}
 
-		[Fact(Skip = "Test ignored")]
-		public void jecxz_lu() {
-			TestAssembler(c => c.jecxz(12752), Instruction.CreateBranch(Code.Jecxz_rel8_32, 12752), LocalOpCodeFlags.BranchUlong);
-		}
-
 		[Fact]
 		public void jg_l() {
 			{ /* if (PreferBranchShort) */
