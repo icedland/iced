@@ -458,8 +458,13 @@ namespace Generator.Assembler {
 
 					case OpCodeOperandKind.imm8sex16:
 					case OpCodeOperandKind.imm8sex32:
-					case OpCodeOperandKind.imm8sex64:
 						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended;
+						argKind = ArgKind.Immediate;
+						argSize = 1;
+						break;
+
+					case OpCodeOperandKind.imm8sex64:
+						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended | OpCodeArgFlags.UnsignedUIntNotSupported;
 						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
@@ -470,7 +475,12 @@ namespace Generator.Assembler {
 						break;
 
 					case OpCodeOperandKind.imm32:
+						argKind = ArgKind.Immediate;
+						argSize = 4;
+						break;
+
 					case OpCodeOperandKind.imm32sex64:
+						opCodeArgFlags |= OpCodeArgFlags.UnsignedUIntNotSupported;
 						argKind = ArgKind.Immediate;
 						argSize = 4;
 						break;
@@ -525,7 +535,7 @@ namespace Generator.Assembler {
 				var @group = orderedGroups[i];
 
 				// Skip immediate with uint if we have signed-extended
-				if ((group.Flags & OpCodeArgFlags.HasImmediateByteSignedExtended) != 0) {
+				if ((group.Flags & OpCodeArgFlags.UnsignedUIntNotSupported) != 0) {
 					bool skipGroup = false;
 					for (int argIndex = 0; argIndex < group.Signature.ArgCount; argIndex++) {
 						if (group.Signature.GetArgKind(argIndex) == ArgKind.ImmediateUnsigned && group.MaxArgSizes[argIndex] == 4) {
@@ -1386,6 +1396,7 @@ namespace Generator.Assembler {
 			IsBroadcastXYZ = 1 << 16,
 			HasLabelUlong = 1 << 17,
 			HasImmediateByte = 1 << 18,
+			UnsignedUIntNotSupported = 1 << 19,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {

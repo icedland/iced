@@ -619,6 +619,44 @@ namespace Iced.Intel {
 			} else op = dst == Register.AX ? Code.Adc_AX_imm16 : Code.Adc_rm16_imm16;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>adc instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 15 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /2 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADC r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /2 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void adc(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Adc_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Adc_EAX_imm32 : Code.Adc_rm32_imm32;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>adcx instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -1175,6 +1213,44 @@ namespace Iced.Intel {
 			if ((short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue) {
 				op = Code.Add_rm16_imm8;
 			} else op = dst == Register.AX ? Code.Add_AX_imm16 : Code.Add_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>add instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 05 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /0 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>ADD r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /0 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void add(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Add_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Add_EAX_imm32 : Code.Add_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>addpd instruction.<br/>
@@ -2149,6 +2225,44 @@ namespace Iced.Intel {
 			if ((short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue) {
 				op = Code.And_rm16_imm8;
 			} else op = dst == Register.AX ? Code.And_AX_imm16 : Code.And_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>and instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 25 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /4 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>AND r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /4 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void and(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.And_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.And_EAX_imm32 : Code.And_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>andn instruction.<br/>
@@ -7745,6 +7859,44 @@ namespace Iced.Intel {
 			if ((short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue) {
 				op = Code.Cmp_rm16_imm8;
 			} else op = dst == Register.AX ? Code.Cmp_AX_imm16 : Code.Cmp_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>cmp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 3D id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /7 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CMP r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /7 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void cmp(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Cmp_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Cmp_EAX_imm32 : Code.Cmp_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>cmpeqpd instruction.</summary>
@@ -13877,6 +14029,32 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <br/>
 		/// <br/>
+		/// <c>IMUL r32, r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 69 /r id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 6B /r ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void imul(AssemblerRegister32 dst, AssemblerRegister32 src1, uint imm) {
+			Code op;
+			op = (int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue ? Code.Imul_r32_rm32_imm8 : Code.Imul_r32_rm32_imm32;
+			AddInstruction(Instruction.Create(op, dst, src1, imm));
+		}
+		/// <summary>imul instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
 		/// <c>IMUL r16, r/m16, imm16</c><br/>
 		/// <br/>
 		/// <c>o16 69 /r iw</c><br/>
@@ -13897,6 +14075,32 @@ namespace Iced.Intel {
 		public void imul(AssemblerRegister16 dst, AssemblerMemoryOperand src1, ushort imm) {
 			Code op;
 			op = (short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue ? Code.Imul_r16_rm16_imm8 : Code.Imul_r16_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
+		}
+		/// <summary>imul instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 69 /r id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>IMUL r32, r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 6B /r ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void imul(AssemblerRegister32 dst, AssemblerMemoryOperand src1, uint imm) {
+			Code op;
+			op = (int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue ? Code.Imul_r32_rm32_imm8 : Code.Imul_r32_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>in instruction.<br/>
@@ -21369,62 +21573,6 @@ namespace Iced.Intel {
 			op = Code.Mov_r64_imm64;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
-		/// <summary>mov instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m64, imm32</c><br/>
-		/// <br/>
-		/// <c>REX.W C7 /0 id</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m32, imm32</c><br/>
-		/// <br/>
-		/// <c>o32 C7 /0 id</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m16, imm16</c><br/>
-		/// <br/>
-		/// <c>o16 C7 /0 iw</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>MOV r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>C6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void mov(AssemblerMemoryOperand dst, uint imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Mov_rm64_imm32;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Mov_rm32_imm32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Mov_rm16_imm16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Mov_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Mov, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
-		}
 		/// <summary>movapd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -24563,6 +24711,44 @@ namespace Iced.Intel {
 			if ((short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue) {
 				op = Code.Or_rm16_imm8;
 			} else op = dst == Register.AX ? Code.Or_AX_imm16 : Code.Or_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>or instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 0D id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /1 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>OR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /1 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void or(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Or_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Or_EAX_imm32 : Code.Or_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>orpd instruction.<br/>
@@ -39555,6 +39741,44 @@ namespace Iced.Intel {
 			} else op = dst == Register.AX ? Code.Sbb_AX_imm16 : Code.Sbb_rm16_imm16;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>sbb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 1D id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /3 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SBB r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /3 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sbb(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Sbb_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Sbb_EAX_imm32 : Code.Sbb_rm32_imm32;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>scasb instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -43451,6 +43675,44 @@ namespace Iced.Intel {
 			} else op = dst == Register.AX ? Code.Sub_AX_imm16 : Code.Sub_rm16_imm16;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
+		/// <summary>sub instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 2D id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /5 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>SUB r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /5 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void sub(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Sub_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Sub_EAX_imm32 : Code.Sub_rm32_imm32;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
 		/// <summary>subpd instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -44120,88 +44382,6 @@ namespace Iced.Intel {
 			Code op;
 			op = dst == Register.EAX ? Code.Test_EAX_imm32 : Code.Test_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
-		}
-		/// <summary>test instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST RAX, imm32</c><br/>
-		/// <br/>
-		/// <c>REX.W A9 id</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m64, imm32</c><br/>
-		/// <br/>
-		/// <c>REX.W F7 /0 id</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c></summary>
-		public void test(AssemblerRegister64 dst, uint imm) {
-			Code op;
-			op = dst == Register.RAX ? Code.Test_RAX_imm32 : Code.Test_rm64_imm32;
-			AddInstruction(Instruction.Create(op, dst, imm));
-		}
-		/// <summary>test instruction.<br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m64, imm32</c><br/>
-		/// <br/>
-		/// <c>REX.W F7 /0 id</c><br/>
-		/// <br/>
-		/// <c>X64</c><br/>
-		/// <br/>
-		/// <c>64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m32, imm32</c><br/>
-		/// <br/>
-		/// <c>o32 F7 /0 id</c><br/>
-		/// <br/>
-		/// <c>386+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m16, imm16</c><br/>
-		/// <br/>
-		/// <c>o16 F7 /0 iw</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c><br/>
-		/// <br/>
-		/// <br/>
-		/// <br/>
-		/// <c>TEST r/m8, imm8</c><br/>
-		/// <br/>
-		/// <c>F6 /0 ib</c><br/>
-		/// <br/>
-		/// <c>8086+</c><br/>
-		/// <br/>
-		/// <c>16/32/64-bit</c></summary>
-		public void test(AssemblerMemoryOperand dst, uint imm) {
-			Code op;
-			if (dst.Size == MemoryOperandSize.QwordPtr) {
-				op = Code.Test_rm64_imm32;
-			} else if (dst.Size == MemoryOperandSize.DwordPtr) {
-				op = Code.Test_rm32_imm32;
-			} else if (dst.Size == MemoryOperandSize.WordPtr) {
-				op = Code.Test_rm16_imm16;
-			} else if (dst.Size == MemoryOperandSize.BytePtr) {
-				op = Code.Test_rm8_imm8;
-			} else {
-				throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
-			}
-			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
 		}
 		/// <summary>tpause instruction.<br/>
 		/// <br/>
@@ -124269,6 +124449,44 @@ namespace Iced.Intel {
 			if ((short)imm >= sbyte.MinValue && (short)imm <= sbyte.MaxValue) {
 				op = Code.Xor_rm16_imm8;
 			} else op = dst == Register.AX ? Code.Xor_AX_imm16 : Code.Xor_rm16_imm16;
+			AddInstruction(Instruction.Create(op, dst, imm));
+		}
+		/// <summary>xor instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR EAX, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 35 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR r/m32, imm32</c><br/>
+		/// <br/>
+		/// <c>o32 81 /6 id</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XOR r/m32, imm8</c><br/>
+		/// <br/>
+		/// <c>o32 83 /6 ib</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xor(AssemblerRegister32 dst, uint imm) {
+			Code op;
+			if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) {
+				op = Code.Xor_rm32_imm8;
+			} else op = dst == Register.EAX ? Code.Xor_EAX_imm32 : Code.Xor_rm32_imm32;
 			AddInstruction(Instruction.Create(op, dst, imm));
 		}
 		/// <summary>xorpd instruction.<br/>
