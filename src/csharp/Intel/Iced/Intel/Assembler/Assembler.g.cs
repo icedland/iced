@@ -16366,7 +16366,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void jmpe(Label dst) {
 			Code op;
-			op = PreferBranchShort ? Code.Jmpe_disp16 : Code.Jmpe_disp32;
+			op = Bitness >= 32 ? Code.Jmpe_disp32 : Code.Jmpe_disp16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
 		/// <summary>jmpe instruction.<br/>
@@ -16392,7 +16392,7 @@ namespace Iced.Intel {
 		/// <c>16/32-bit</c></summary>
 		public void jmpe(ulong dst) {
 			Code op;
-			op = PreferBranchShort ? Code.Jmpe_disp16 : Code.Jmpe_disp32;
+			op = Bitness >= 32 ? Code.Jmpe_disp32 : Code.Jmpe_disp16;
 			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jne instruction.<br/>

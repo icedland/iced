@@ -4588,16 +4588,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jmpe_l() {
-			{ /* if (PreferBranchShort) */
-				TestAssembler(c => c.jmpe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmpe_disp16, 2), 2), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.Branch);
-			} /* else */ TestAssembler(c => c.jmpe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmpe_disp32, 2), 2), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.Branch);
+			{ // skip (Bitness >= 32) not supported by this Assembler bitness
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
 		[Fact]
 		public void jmpe_lu() {
-			{ /* if (PreferBranchShort) */
-				TestAssembler(c => c.jmpe(12752), Instruction.CreateBranch(Code.Jmpe_disp16, 12752), LocalOpCodeFlags.PreferBranchShort | LocalOpCodeFlags.BranchUlong);
-			} /* else */ TestAssembler(c => c.jmpe(12752), Instruction.CreateBranch(Code.Jmpe_disp32, 12752), LocalOpCodeFlags.PreferBranchNear | LocalOpCodeFlags.BranchUlong);
+			{ // skip (Bitness >= 32) not supported by this Assembler bitness
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
 		[Fact]

@@ -661,7 +661,7 @@ namespace Generator.Assembler {
 				var newFlags = group.Flags ^ OpCodeArgFlags.HasImmediateByteSigned;
 				return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteSigned) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteSigned), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers)};
 			}
-			else if (group.IsBranch) {
+			else if (group.Name != "jmpe" && group.IsBranch) {
 				var branchShort = new List<OpCodeInfo>();
 				var branchFar = new List<OpCodeInfo>();
 				CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchFar);
