@@ -451,6 +451,7 @@ namespace Generator.Assembler {
 						break;
 
 					case OpCodeOperandKind.imm8:
+						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByte;
 						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
@@ -458,7 +459,7 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.imm8sex16:
 					case OpCodeOperandKind.imm8sex32:
 					case OpCodeOperandKind.imm8sex64:
-						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSigned;
+						opCodeArgFlags |= OpCodeArgFlags.HasImmediateByteSignedExtended;
 						argKind = ArgKind.Immediate;
 						argSize = 1;
 						break;
@@ -524,7 +525,7 @@ namespace Generator.Assembler {
 				var @group = orderedGroups[i];
 
 				// Skip immediate with uint if we have signed-extended
-				if ((group.Flags & OpCodeArgFlags.HasImmediateByteSigned) != 0) {
+				if ((group.Flags & OpCodeArgFlags.HasImmediateByteSignedExtended) != 0) {
 					bool skipGroup = false;
 					for (int argIndex = 0; argIndex < group.Signature.ArgCount; argIndex++) {
 						if (group.Signature.GetArgKind(argIndex) == ArgKind.ImmediateUnsigned && group.MaxArgSizes[argIndex] == 4) {
@@ -652,13 +653,30 @@ namespace Generator.Assembler {
 				var newFlags = group.Flags ^ OpCodeArgFlags.HasImmediateByteEqual1;
 				return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteEqual1) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteEqual1), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers)};
 			}
-			else if ((group.Flags & OpCodeArgFlags.HasImmediateByteSigned) != 0) { 
+			else if ((group.Flags & OpCodeArgFlags.HasImmediateByteSignedExtended) != 0) { 
 				// handle imm >= sbyte.MinValue && imm <= byte.MaxValue 
 				var opcodesWithImmediateByteSigned = new List<OpCodeInfo>();
 				var opcodesOthers = new List<OpCodeInfo>();
 				var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteSigned, opcodesWithImmediateByteSigned, opcodesOthers);
+				for (var index = opcodesWithImmediateByteSigned.Count - 1; index >= 0; index--) {
+					var opCodeInfo = opcodesWithImmediateByteSigned[index];
+					bool addOpCode = false;
+					for (int j = 0; j < opCodeInfo.OpKindsLength; j++) {
+						var opKind = opCodeInfo.OpKind(j);
+						if (opKind == OpCodeOperandKind.r8_opcode || opKind == OpCodeOperandKind.r8_or_mem || opKind == OpCodeOperandKind.r8_reg) {
+							addOpCode = true;
+							break;
+						}
+					}
+
+					if (addOpCode) {
+						opcodesOthers.Add(opCodeInfo);
+						break;
+					}
+				}
+
 				Debug.Assert(indices.Count == 1);
-				var newFlags = group.Flags ^ OpCodeArgFlags.HasImmediateByteSigned;
+				var newFlags = group.Flags ^ OpCodeArgFlags.HasImmediateByteSignedExtended;
 				return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteSigned) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteSigned), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers)};
 			}
 			else if (group.Name != "jmpe" && group.IsBranch) {
@@ -1350,7 +1368,7 @@ namespace Generator.Assembler {
 			Default = 0,
 			HasImmediateByteEqual1 = 1,
 			HasImmediateByteLessThanBits = 1 << 1,
-			HasImmediateByteSigned = 1 << 2,
+			HasImmediateByteSignedExtended = 1 << 2,
 			HasLabel = 1 << 3,
 			HasBranchShort = 1 << 4, 
 			HasBranchNear = 1 << 5,
@@ -1367,6 +1385,7 @@ namespace Generator.Assembler {
 			HasAmbiguousBroadcast = 1 << 16,
 			IsBroadcastXYZ = 1 << 16,
 			HasLabelUlong = 1 << 17,
+			HasImmediateByte = 1 << 18,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {

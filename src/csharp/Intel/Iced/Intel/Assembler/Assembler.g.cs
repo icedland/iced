@@ -548,6 +548,8 @@ namespace Iced.Intel {
 				op = Code.Adc_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Adc_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Adc_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Adc, dst, imm);
 			}
@@ -1104,6 +1106,8 @@ namespace Iced.Intel {
 				op = Code.Add_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Add_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Add_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Add, dst, imm);
 			}
@@ -2076,6 +2080,8 @@ namespace Iced.Intel {
 				op = Code.And_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.And_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.And_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.And, dst, imm);
 			}
@@ -7670,6 +7676,8 @@ namespace Iced.Intel {
 				op = Code.Cmp_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Cmp_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Cmp_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Cmp, dst, imm);
 			}
@@ -24486,6 +24494,8 @@ namespace Iced.Intel {
 				op = Code.Or_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Or_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Or_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Or, dst, imm);
 			}
@@ -39474,6 +39484,8 @@ namespace Iced.Intel {
 				op = Code.Sbb_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sbb_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Sbb_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sbb, dst, imm);
 			}
@@ -43368,6 +43380,8 @@ namespace Iced.Intel {
 				op = Code.Sub_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Sub_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Sub_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Sub, dst, imm);
 			}
@@ -124186,6 +124200,8 @@ namespace Iced.Intel {
 				op = Code.Xor_rm32_imm32;
 			} else if (dst.Size == MemoryOperandSize.WordPtr) {
 				op = Code.Xor_rm16_imm16;
+			} else if (dst.Size == MemoryOperandSize.BytePtr) {
+				op = Code.Xor_rm8_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Xor, dst, imm);
 			}
