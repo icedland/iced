@@ -5379,6 +5379,44 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Call_rel32_32 : Code.Call_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>call instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CALL rel32</c><br/>
+		/// <br/>
+		/// <c>E8 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CALL rel32</c><br/>
+		/// <br/>
+		/// <c>o32 E8 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>CALL rel16</c><br/>
+		/// <br/>
+		/// <c>o16 E8 cw</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void call(ulong dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Call_rel32_64;
+			} else op = Bitness >= 32 ? Code.Call_rel32_32 : Code.Call_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>cbw instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -14689,6 +14727,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Ja_rel32_32 : Code.Ja_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>ja instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel8</c><br/>
+		/// <br/>
+		/// <c>77 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel32</c><br/>
+		/// <br/>
+		/// <c>0F 87 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel8</c><br/>
+		/// <br/>
+		/// <c>o32 77 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 87 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel8</c><br/>
+		/// <br/>
+		/// <c>o16 77 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JA rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 87 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void ja(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Ja_rel8_64;
+				} else op = Bitness >= 32 ? Code.Ja_rel8_32 : Code.Ja_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Ja_rel32_64;
+			} else op = Bitness >= 32 ? Code.Ja_rel32_32 : Code.Ja_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jae instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -14760,6 +14870,78 @@ namespace Iced.Intel {
 				op = Code.Jae_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jae_rel32_32 : Code.Jae_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jae instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel8</c><br/>
+		/// <br/>
+		/// <c>73 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 83 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 73 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 83 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 73 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JAE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 83 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jae(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jae_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jae_rel8_32 : Code.Jae_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jae_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jae_rel32_32 : Code.Jae_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jb instruction.<br/>
 		/// <br/>
@@ -14833,6 +15015,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jb_rel32_32 : Code.Jb_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jb instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel8</c><br/>
+		/// <br/>
+		/// <c>72 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel32</c><br/>
+		/// <br/>
+		/// <c>0F 82 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel8</c><br/>
+		/// <br/>
+		/// <c>o32 72 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 82 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel8</c><br/>
+		/// <br/>
+		/// <c>o16 72 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JB rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 82 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jb(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jb_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jb_rel8_32 : Code.Jb_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jb_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jb_rel32_32 : Code.Jb_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jbe instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -14905,6 +15159,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jbe_rel32_32 : Code.Jbe_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jbe instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel8</c><br/>
+		/// <br/>
+		/// <c>76 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 86 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 76 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 86 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 76 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JBE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 86 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jbe(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jbe_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jbe_rel8_32 : Code.Jbe_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jbe_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jbe_rel32_32 : Code.Jbe_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jcxz instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -14920,6 +15246,22 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Jcxz_rel8_16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jcxz instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JCXZ rel8</c><br/>
+		/// <br/>
+		/// <c>a16 o16 E3 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void jcxz(ulong dst) {
+			Code op;
+			op = Code.Jcxz_rel8_16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>je instruction.<br/>
 		/// <br/>
@@ -14993,6 +15335,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Je_rel32_32 : Code.Je_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>je instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel8</c><br/>
+		/// <br/>
+		/// <c>74 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 84 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 74 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 84 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 74 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 84 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void je(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Je_rel8_64;
+				} else op = Bitness >= 32 ? Code.Je_rel8_32 : Code.Je_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Je_rel32_64;
+			} else op = Bitness >= 32 ? Code.Je_rel32_32 : Code.Je_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jecxz instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15008,6 +15422,22 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Jecxz_rel8_32;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jecxz instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JECXZ rel8</c><br/>
+		/// <br/>
+		/// <c>a32 o32 E3 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void jecxz(ulong dst) {
+			Code op;
+			op = Code.Jecxz_rel8_32;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jg instruction.<br/>
 		/// <br/>
@@ -15081,6 +15511,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jg_rel32_32 : Code.Jg_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jg instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel8</c><br/>
+		/// <br/>
+		/// <c>7F cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8F cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7F cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8F cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7F cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JG rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8F cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jg(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jg_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jg_rel8_32 : Code.Jg_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jg_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jg_rel32_32 : Code.Jg_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jge instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15152,6 +15654,78 @@ namespace Iced.Intel {
 				op = Code.Jge_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jge_rel32_32 : Code.Jge_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jge instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel8</c><br/>
+		/// <br/>
+		/// <c>7D cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8D cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7D cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8D cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7D cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JGE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8D cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jge(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jge_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jge_rel8_32 : Code.Jge_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jge_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jge_rel32_32 : Code.Jge_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jl instruction.<br/>
 		/// <br/>
@@ -15225,6 +15799,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jl_rel32_32 : Code.Jl_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jl instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel8</c><br/>
+		/// <br/>
+		/// <c>7C cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8C cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7C cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8C cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7C cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JL rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8C cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jl(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jl_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jl_rel8_32 : Code.Jl_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jl_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jl_rel32_32 : Code.Jl_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jle instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15296,6 +15942,78 @@ namespace Iced.Intel {
 				op = Code.Jle_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jle_rel32_32 : Code.Jle_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jle instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel8</c><br/>
+		/// <br/>
+		/// <c>7E cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8E cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7E cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8E cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7E cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JLE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8E cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jle(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jle_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jle_rel8_32 : Code.Jle_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jle_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jle_rel32_32 : Code.Jle_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jmp instruction.<br/>
 		/// <br/>
@@ -15495,6 +16213,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jmp_rel32_32 : Code.Jmp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jmp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel32</c><br/>
+		/// <br/>
+		/// <c>E9 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel8</c><br/>
+		/// <br/>
+		/// <c>EB cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel32</c><br/>
+		/// <br/>
+		/// <c>o32 E9 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel8</c><br/>
+		/// <br/>
+		/// <c>o32 EB cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 E9 cw</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMP rel8</c><br/>
+		/// <br/>
+		/// <c>o16 EB cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jmp(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jmp_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jmp_rel8_32 : Code.Jmp_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jmp_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jmp_rel32_32 : Code.Jmp_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jmpe instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15579,6 +16369,32 @@ namespace Iced.Intel {
 			op = PreferBranchShort ? Code.Jmpe_disp16 : Code.Jmpe_disp32;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jmpe instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMPE disp32</c><br/>
+		/// <br/>
+		/// <c>o32 0F B8 cd</c><br/>
+		/// <br/>
+		/// <c>IA-64</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JMPE disp16</c><br/>
+		/// <br/>
+		/// <c>o16 0F B8 cw</c><br/>
+		/// <br/>
+		/// <c>IA-64</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void jmpe(ulong dst) {
+			Code op;
+			op = PreferBranchShort ? Code.Jmpe_disp16 : Code.Jmpe_disp32;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jne instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15650,6 +16466,78 @@ namespace Iced.Intel {
 				op = Code.Jne_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jne_rel32_32 : Code.Jne_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jne instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel8</c><br/>
+		/// <br/>
+		/// <c>75 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel32</c><br/>
+		/// <br/>
+		/// <c>0F 85 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel8</c><br/>
+		/// <br/>
+		/// <c>o32 75 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 85 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel8</c><br/>
+		/// <br/>
+		/// <c>o16 75 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNE rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 85 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jne(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jne_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jne_rel8_32 : Code.Jne_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jne_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jne_rel32_32 : Code.Jne_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jno instruction.<br/>
 		/// <br/>
@@ -15723,6 +16611,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jno_rel32_32 : Code.Jno_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jno instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel8</c><br/>
+		/// <br/>
+		/// <c>71 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel32</c><br/>
+		/// <br/>
+		/// <c>0F 81 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel8</c><br/>
+		/// <br/>
+		/// <c>o32 71 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 81 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel8</c><br/>
+		/// <br/>
+		/// <c>o16 71 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNO rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 81 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jno(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jno_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jno_rel8_32 : Code.Jno_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jno_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jno_rel32_32 : Code.Jno_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jnp instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15794,6 +16754,78 @@ namespace Iced.Intel {
 				op = Code.Jnp_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jnp_rel32_32 : Code.Jnp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jnp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel8</c><br/>
+		/// <br/>
+		/// <c>7B cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8B cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7B cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8B cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7B cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8B cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jnp(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jnp_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jnp_rel8_32 : Code.Jnp_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jnp_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jnp_rel32_32 : Code.Jnp_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jns instruction.<br/>
 		/// <br/>
@@ -15867,6 +16899,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jns_rel32_32 : Code.Jns_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jns instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel8</c><br/>
+		/// <br/>
+		/// <c>79 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel32</c><br/>
+		/// <br/>
+		/// <c>0F 89 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel8</c><br/>
+		/// <br/>
+		/// <c>o32 79 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 89 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel8</c><br/>
+		/// <br/>
+		/// <c>o16 79 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JNS rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 89 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jns(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jns_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jns_rel8_32 : Code.Jns_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jns_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jns_rel32_32 : Code.Jns_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jo instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -15938,6 +17042,78 @@ namespace Iced.Intel {
 				op = Code.Jo_rel32_64;
 			} else op = Bitness >= 32 ? Code.Jo_rel32_32 : Code.Jo_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jo instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel8</c><br/>
+		/// <br/>
+		/// <c>70 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel32</c><br/>
+		/// <br/>
+		/// <c>0F 80 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel8</c><br/>
+		/// <br/>
+		/// <c>o32 70 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 80 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel8</c><br/>
+		/// <br/>
+		/// <c>o16 70 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JO rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 80 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jo(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jo_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jo_rel8_32 : Code.Jo_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jo_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jo_rel32_32 : Code.Jo_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>jp instruction.<br/>
 		/// <br/>
@@ -16011,6 +17187,78 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Jp_rel32_32 : Code.Jp_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>jp instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel8</c><br/>
+		/// <br/>
+		/// <c>7A cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel32</c><br/>
+		/// <br/>
+		/// <c>0F 8A cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel8</c><br/>
+		/// <br/>
+		/// <c>o32 7A cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 8A cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel8</c><br/>
+		/// <br/>
+		/// <c>o16 7A cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JP rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 8A cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void jp(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Jp_rel8_64;
+				} else op = Bitness >= 32 ? Code.Jp_rel8_32 : Code.Jp_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Jp_rel32_64;
+			} else op = Bitness >= 32 ? Code.Jp_rel32_32 : Code.Jp_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>jrcxz instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -16026,6 +17274,22 @@ namespace Iced.Intel {
 			Code op;
 			op = Code.Jrcxz_rel8_64;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>jrcxz instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JRCXZ rel8</c><br/>
+		/// <br/>
+		/// <c>E3 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void jrcxz(ulong dst) {
+			Code op;
+			op = Code.Jrcxz_rel8_64;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>js instruction.<br/>
 		/// <br/>
@@ -16098,6 +17362,78 @@ namespace Iced.Intel {
 				op = Code.Js_rel32_64;
 			} else op = Bitness >= 32 ? Code.Js_rel32_32 : Code.Js_rel16;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>js instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel8</c><br/>
+		/// <br/>
+		/// <c>78 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel32</c><br/>
+		/// <br/>
+		/// <c>0F 88 cd</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel8</c><br/>
+		/// <br/>
+		/// <c>o32 78 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel32</c><br/>
+		/// <br/>
+		/// <c>o32 0F 88 cd</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel8</c><br/>
+		/// <br/>
+		/// <c>o16 78 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>JS rel16</c><br/>
+		/// <br/>
+		/// <c>o16 0F 88 cw</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void js(ulong dst) {
+			Code op;
+			if (PreferBranchShort) {
+				if (Bitness == 64) {
+					op = Code.Js_rel8_64;
+				} else op = Bitness >= 32 ? Code.Js_rel8_32 : Code.Js_rel8_16;
+			} else if (Bitness == 64) {
+				op = Code.Js_rel32_64;
+			} else op = Bitness >= 32 ? Code.Js_rel32_32 : Code.Js_rel16;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>kaddb instruction.<br/>
 		/// <br/>
@@ -18055,6 +19391,44 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Loop_rel8_32_ECX : Code.Loop_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>loop instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOP rel8</c><br/>
+		/// <br/>
+		/// <c>E2 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOP rel8</c><br/>
+		/// <br/>
+		/// <c>a32 o32 E2 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOP rel8</c><br/>
+		/// <br/>
+		/// <c>a16 o16 E2 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void loop(ulong dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loop_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loop_rel8_32_ECX : Code.Loop_rel8_16_CX;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>loope instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -18093,6 +19467,44 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Loope_rel8_32_ECX : Code.Loope_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
 		}
+		/// <summary>loope instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c><br/>
+		/// <br/>
+		/// <c>E1 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c><br/>
+		/// <br/>
+		/// <c>a32 o32 E1 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPE rel8</c><br/>
+		/// <br/>
+		/// <c>a16 o16 E1 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void loope(ulong dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loope_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loope_rel8_32_ECX : Code.Loope_rel8_16_CX;
+			AddInstruction(Instruction.CreateBranch(op, dst));
+		}
 		/// <summary>loopne instruction.<br/>
 		/// <br/>
 		/// <br/>
@@ -18130,6 +19542,44 @@ namespace Iced.Intel {
 				op = Code.Loopne_rel8_64_RCX;
 			} else op = Bitness >= 32 ? Code.Loopne_rel8_32_ECX : Code.Loopne_rel8_16_CX;
 			AddInstruction(Instruction.CreateBranch(op, dst.Id));
+		}
+		/// <summary>loopne instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c><br/>
+		/// <br/>
+		/// <c>E0 cb</c><br/>
+		/// <br/>
+		/// <c>X64</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c><br/>
+		/// <br/>
+		/// <c>a32 o32 E0 cb</c><br/>
+		/// <br/>
+		/// <c>386+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>LOOPNE rel8</c><br/>
+		/// <br/>
+		/// <c>a16 o16 E0 cb</c><br/>
+		/// <br/>
+		/// <c>8086+</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void loopne(ulong dst) {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Loopne_rel8_64_RCX;
+			} else op = Bitness >= 32 ? Code.Loopne_rel8_32_ECX : Code.Loopne_rel8_16_CX;
+			AddInstruction(Instruction.CreateBranch(op, dst));
 		}
 		/// <summary>lsl instruction.<br/>
 		/// <br/>
@@ -121844,6 +123294,30 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void xbegin(Label dst) {
 			AddInstruction(Instruction.CreateXbegin(Bitness, dst.Id));
+		}
+		/// <summary>xbegin instruction.<br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XBEGIN rel16</c><br/>
+		/// <br/>
+		/// <c>o16 C7 F8 cw</c><br/>
+		/// <br/>
+		/// <c>RTM</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <br/>
+		/// <br/>
+		/// <c>XBEGIN rel32</c><br/>
+		/// <br/>
+		/// <c>o32 C7 F8 cd</c><br/>
+		/// <br/>
+		/// <c>RTM</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xbegin(ulong dst) {
+			AddInstruction(Instruction.CreateXbegin(Bitness, dst));
 		}
 		/// <summary>xbts instruction.<br/>
 		/// <br/>

@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.Equal(1, assembler.Instructions.Count);
 
 			// Encode the instruction first to get any errors
-			assembler.Encode(BlockEncoderOptions.DontFixBranches);
+			assembler.Encode((flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
 			
 			// Check that the instruction is the one expected
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
@@ -114,7 +114,10 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				decoderOptions = DecoderOptions.Jmpe;
 				break;
 			}
-			decoderOptions |= DecoderOptions.AmdBranches;
+
+			if ((flags & LocalOpCodeFlags.BranchUlong) == 0) {
+				decoderOptions |= DecoderOptions.AmdBranches;
+			}
 
 			// Check decoding back against the original instruction
 			var instructionAsBytes = new StringBuilder();
@@ -124,48 +127,48 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 			
 			var decoder = Decoder.Create(_bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
-			var againstInst = decoder.Decode();
+			var decodedInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
-				Assert.Equal(againstInst, Instruction.Create(Code.Wait));
-				againstInst = decoder.Decode();
+				Assert.Equal(decodedInst, Instruction.Create(Code.Wait));
+				decodedInst = decoder.Decode();
 
-				switch (againstInst.Code)
+				switch (decodedInst.Code)
 				{
 				case Code.Fnstenv_m14byte:
-					againstInst.Code = Code.Fstenv_m14byte;
+					decodedInst.Code = Code.Fstenv_m14byte;
 					break;
                 case Code.Fnstenv_m28byte:
-					againstInst.Code = Code.Fstenv_m28byte;
+					decodedInst.Code = Code.Fstenv_m28byte;
 					break;
                 case Code.Fnstcw_m2byte:
-					againstInst.Code = Code.Fstcw_m2byte;
+					decodedInst.Code = Code.Fstcw_m2byte;
 					break;
                 case Code.Fneni:
-					againstInst.Code = Code.Feni;
+					decodedInst.Code = Code.Feni;
 					break;
                 case Code.Fndisi:
-					againstInst.Code = Code.Fdisi;
+					decodedInst.Code = Code.Fdisi;
 					break;
                 case Code.Fnclex:
-					againstInst.Code = Code.Fclex;
+					decodedInst.Code = Code.Fclex;
 					break;
                 case Code.Fninit:
-					againstInst.Code = Code.Finit;
+					decodedInst.Code = Code.Finit;
 					break;
                 case Code.Fnsetpm:
-					againstInst.Code = Code.Fsetpm;
+					decodedInst.Code = Code.Fsetpm;
 					break;
                 case Code.Fnsave_m94byte:
-					againstInst.Code = Code.Fsave_m94byte;
+					decodedInst.Code = Code.Fsave_m94byte;
 					break;
                 case Code.Fnsave_m108byte:	
-					againstInst.Code = Code.Fsave_m108byte;
+					decodedInst.Code = Code.Fsave_m108byte;
 					break;
                 case Code.Fnstsw_m2byte:
-					againstInst.Code = Code.Fstsw_m2byte;
+					decodedInst.Code = Code.Fstsw_m2byte;
 					break;
                 case Code.Fnstsw_AX:
-					againstInst.Code = Code.Fstsw_AX;
+					decodedInst.Code = Code.Fstsw_AX;
 					break;
 				}
 			}
@@ -175,10 +178,44 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			 	inst.NearBranch32 = 0;
 			}
 
-			// TODO: check why decoding doesn't return the same
-			//if (againstInst.Code == Code.Xbegin_rel16 || againstInst.Code == Code.Xbegin_rel32) return;
-			
-			Assert.True(inst == againstInst, $"Decoding failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {againstInst}\n");
+			// Special case for branch via ulong. An instruction like `jecxz 000031D0h`
+			// could have been encoded with a sequence like:
+			//
+			// 0:  e0 02                   loopne 0x4
+			// 2:  eb 05                   jmp    0x9
+			// 4:  e9 c7 31 00 00          jmp    0x31d0
+			if ((flags & LocalOpCodeFlags.BranchUlong) != 0) {
+				var formatter = new MasmFormatter();
+				var instOutput = new StringOutput();
+				formatter.FormatMnemonic(inst, instOutput);
+				var instMnemo = instOutput.ToStringAndReset();
+				formatter.FormatMnemonic(decodedInst, instOutput);
+				var decodedInstMnemo = instOutput.ToStringAndReset();
+				
+				Assert.True(instMnemo == decodedInstMnemo, $"Branch ulong Decoding failed!\nExpected: {instMnemo}\nActual Decoded: {decodedInstMnemo}\n");
+
+				if (decodedInst.NearBranch32 == 4) {
+					var nextDecodedInst = decoder.Decode();
+					Code expectedCode;
+					if (Bitness == 64) {
+						expectedCode = Code.Jmp_rel8_64;
+					}
+					else if (Bitness == 32) {
+						expectedCode = Code.Jmp_rel8_32;
+					}
+					else {
+						expectedCode = Code.Jmp_rel8_16;
+					}
+
+					Assert.True(nextDecodedInst.Code == expectedCode, $"Branch ulong next decoding failed!\nExpected: {expectedCode} \nActual Decoded: {nextDecodedInst}\n");
+				}
+				else {
+					Assert.True(inst.NearBranch32 == decodedInst.NearBranch32, $"Branch decoding offset failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
+				}
+			}
+			else {
+				Assert.True(inst == decodedInst, $"Decoding failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
+			}
 		}
 
 		protected unsafe void TestAssemblerDeclareData<T>(Action<Assembler> fAsm, T[] data) where T : unmanaged {
@@ -259,6 +296,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			PreferBranchNear = 1 << 4,
 			Branch = 1 << 5,
 			Broadcast = 1 << 6,
+			BranchUlong = 1 << 7,
 		}
 	}
 }

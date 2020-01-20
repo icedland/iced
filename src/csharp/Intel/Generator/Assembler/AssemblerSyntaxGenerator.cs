@@ -1366,6 +1366,7 @@ namespace Generator.Assembler {
 			RoundingControl = 1 << 15,
 			HasAmbiguousBroadcast = 1 << 16,
 			IsBroadcastXYZ = 1 << 16,
+			HasLabelUlong = 1 << 17,
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
@@ -1846,14 +1847,29 @@ namespace Generator.Assembler {
 				}
 			}
 
-			if ((opCodeArgFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) == 0) {
+			if (!pseudoOpsKind.HasValue && (opCodeArgFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) == 0) {
 				var broadcastName = RenameAmbiguousBroadcasts(name, code);
-				if (!pseudoOpsKind.HasValue && (opCodeArgFlags & OpCodeArgFlags.IsBroadcastXYZ) == 0  && broadcastName != name) {
+				if ((opCodeArgFlags & OpCodeArgFlags.IsBroadcastXYZ) == 0  && broadcastName != name) {
 					group.Flags |= OpCodeArgFlags.HasAmbiguousBroadcast;
 					AddOpCodeToGroup(broadcastName, memoName, signature, code, opCodeArgFlags | OpCodeArgFlags.IsBroadcastXYZ, null, numberLeadingArgToDiscard, argSizes, isOtherImmediate);
 				}
 			}
 
+			// Handle label as ulong
+			if (!pseudoOpsKind.HasValue && (opCodeArgFlags & OpCodeArgFlags.HasLabelUlong) == 0 && (opCodeArgFlags & OpCodeArgFlags.HasLabel) != 0) {
+				var newLabelULongSignature = new Signature();
+				for (int i = 0; i < signature.ArgCount; i++) {
+					var argKind = signature.GetArgKind(i);
+					switch (argKind) {
+					case ArgKind.Label:
+						argKind = ArgKind.LabelUlong;
+						break;
+					}
+					newLabelULongSignature.AddArgKind(argKind);
+				}
+				AddOpCodeToGroup(name, memoName, newLabelULongSignature, code, opCodeArgFlags | OpCodeArgFlags.HasLabelUlong, null, numberLeadingArgToDiscard, argSizes, isOtherImmediate);
+			}
+			
 			return group;
 		}
 
@@ -2012,6 +2028,7 @@ namespace Generator.Assembler {
 			Immediate,
 			ImmediateUnsigned,
 			Label,
+			LabelUlong,
 			
 			FilterRegisterDX,
 			FilterRegisterCL,
