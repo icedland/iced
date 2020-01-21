@@ -3322,42 +3322,42 @@ namespace Iced.Intel.EncoderInternal {
 				0x00900001, 0x00001009, 0x0000F7E3,// VEX_Vpgatherdd_ymm_vm32y_ymm
 				0x00900001, 0x00002C09, 0x0000E7A2,// VEX_Vpgatherdq_xmm_vm32x_xmm
 				0x00900001, 0x00003009, 0x0000F7A3,// VEX_Vpgatherdq_ymm_vm32x_ymm
-				0x00900002, 0x01028009, 0x0000059E,// EVEX_Vpgatherdd_xmm_k1_vm32x
-				0x00900002, 0x01028409, 0x000005DF,// EVEX_Vpgatherdd_ymm_k1_vm32y
-				0x00900002, 0x01028809, 0x00000620,// EVEX_Vpgatherdd_zmm_k1_vm32z
-				0x00900002, 0x01029009, 0x0000059E,// EVEX_Vpgatherdq_xmm_k1_vm32x
-				0x00900002, 0x01029409, 0x0000059F,// EVEX_Vpgatherdq_ymm_k1_vm32x
-				0x00900002, 0x01029809, 0x000005E0,// EVEX_Vpgatherdq_zmm_k1_vm32y
+				0x00900002, 0x05028009, 0x0000059E,// EVEX_Vpgatherdd_xmm_k1_vm32x
+				0x00900002, 0x05028409, 0x000005DF,// EVEX_Vpgatherdd_ymm_k1_vm32y
+				0x00900002, 0x05028809, 0x00000620,// EVEX_Vpgatherdd_zmm_k1_vm32z
+				0x00900002, 0x05029009, 0x0000059E,// EVEX_Vpgatherdq_xmm_k1_vm32x
+				0x00900002, 0x05029409, 0x0000059F,// EVEX_Vpgatherdq_ymm_k1_vm32x
+				0x00900002, 0x05029809, 0x000005E0,// EVEX_Vpgatherdq_zmm_k1_vm32y
 				0x00910001, 0x00000C09, 0x0000E822,// VEX_Vpgatherqd_xmm_vm64x_xmm
 				0x00910001, 0x00001009, 0x0000E862,// VEX_Vpgatherqd_xmm_vm64y_xmm
 				0x00910001, 0x00002C09, 0x0000E822,// VEX_Vpgatherqq_xmm_vm64x_xmm
 				0x00910001, 0x00003009, 0x0000F863,// VEX_Vpgatherqq_ymm_vm64y_ymm
-				0x00910002, 0x01028009, 0x0000065E,// EVEX_Vpgatherqd_xmm_k1_vm64x
-				0x00910002, 0x01028409, 0x0000069E,// EVEX_Vpgatherqd_xmm_k1_vm64y
-				0x00910002, 0x01028809, 0x000006DF,// EVEX_Vpgatherqd_ymm_k1_vm64z
-				0x00910002, 0x01029009, 0x0000065E,// EVEX_Vpgatherqq_xmm_k1_vm64x
-				0x00910002, 0x01029409, 0x0000069F,// EVEX_Vpgatherqq_ymm_k1_vm64y
-				0x00910002, 0x01029809, 0x000006E0,// EVEX_Vpgatherqq_zmm_k1_vm64z
+				0x00910002, 0x05028009, 0x0000065E,// EVEX_Vpgatherqd_xmm_k1_vm64x
+				0x00910002, 0x05028409, 0x0000069E,// EVEX_Vpgatherqd_xmm_k1_vm64y
+				0x00910002, 0x05028809, 0x000006DF,// EVEX_Vpgatherqd_ymm_k1_vm64z
+				0x00910002, 0x05029009, 0x0000065E,// EVEX_Vpgatherqq_xmm_k1_vm64x
+				0x00910002, 0x05029409, 0x0000069F,// EVEX_Vpgatherqq_ymm_k1_vm64y
+				0x00910002, 0x05029809, 0x000006E0,// EVEX_Vpgatherqq_zmm_k1_vm64z
 				0x00920001, 0x00000C09, 0x0000E7A2,// VEX_Vgatherdps_xmm_vm32x_xmm
 				0x00920001, 0x00001009, 0x0000F7E3,// VEX_Vgatherdps_ymm_vm32y_ymm
 				0x00920001, 0x00002C09, 0x0000E7A2,// VEX_Vgatherdpd_xmm_vm32x_xmm
 				0x00920001, 0x00003009, 0x0000F7A3,// VEX_Vgatherdpd_ymm_vm32x_ymm
-				0x00920002, 0x01028009, 0x0000059E,// EVEX_Vgatherdps_xmm_k1_vm32x
-				0x00920002, 0x01028409, 0x000005DF,// EVEX_Vgatherdps_ymm_k1_vm32y
-				0x00920002, 0x01028809, 0x00000620,// EVEX_Vgatherdps_zmm_k1_vm32z
-				0x00920002, 0x01029009, 0x0000059E,// EVEX_Vgatherdpd_xmm_k1_vm32x
-				0x00920002, 0x01029409, 0x0000059F,// EVEX_Vgatherdpd_ymm_k1_vm32x
-				0x00920002, 0x01029809, 0x000005E0,// EVEX_Vgatherdpd_zmm_k1_vm32y
+				0x00920002, 0x05028009, 0x0000059E,// EVEX_Vgatherdps_xmm_k1_vm32x
+				0x00920002, 0x05028409, 0x000005DF,// EVEX_Vgatherdps_ymm_k1_vm32y
+				0x00920002, 0x05028809, 0x00000620,// EVEX_Vgatherdps_zmm_k1_vm32z
+				0x00920002, 0x05029009, 0x0000059E,// EVEX_Vgatherdpd_xmm_k1_vm32x
+				0x00920002, 0x05029409, 0x0000059F,// EVEX_Vgatherdpd_ymm_k1_vm32x
+				0x00920002, 0x05029809, 0x000005E0,// EVEX_Vgatherdpd_zmm_k1_vm32y
 				0x00930001, 0x00000C09, 0x0000E822,// VEX_Vgatherqps_xmm_vm64x_xmm
 				0x00930001, 0x00001009, 0x0000E862,// VEX_Vgatherqps_xmm_vm64y_xmm
 				0x00930001, 0x00002C09, 0x0000E822,// VEX_Vgatherqpd_xmm_vm64x_xmm
 				0x00930001, 0x00003009, 0x0000F863,// VEX_Vgatherqpd_ymm_vm64y_ymm
-				0x00930002, 0x01028009, 0x0000065E,// EVEX_Vgatherqps_xmm_k1_vm64x
-				0x00930002, 0x01028409, 0x0000069E,// EVEX_Vgatherqps_xmm_k1_vm64y
-				0x00930002, 0x01028809, 0x000006DF,// EVEX_Vgatherqps_ymm_k1_vm64z
-				0x00930002, 0x01029009, 0x0000065E,// EVEX_Vgatherqpd_xmm_k1_vm64x
-				0x00930002, 0x01029409, 0x0000069F,// EVEX_Vgatherqpd_ymm_k1_vm64y
-				0x00930002, 0x01029809, 0x000006E0,// EVEX_Vgatherqpd_zmm_k1_vm64z
+				0x00930002, 0x05028009, 0x0000065E,// EVEX_Vgatherqps_xmm_k1_vm64x
+				0x00930002, 0x05028409, 0x0000069E,// EVEX_Vgatherqps_xmm_k1_vm64y
+				0x00930002, 0x05028809, 0x000006DF,// EVEX_Vgatherqps_ymm_k1_vm64z
+				0x00930002, 0x05029009, 0x0000065E,// EVEX_Vgatherqpd_xmm_k1_vm64x
+				0x00930002, 0x05029409, 0x0000069F,// EVEX_Vgatherqpd_ymm_k1_vm64y
+				0x00930002, 0x05029809, 0x000006E0,// EVEX_Vgatherqpd_zmm_k1_vm64z
 				0x00960001, 0x00000C09, 0x000253A2,// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
 				0x00960001, 0x00001009, 0x000263E3,// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
 				0x00960001, 0x00002C09, 0x000253A2,// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
@@ -3436,30 +3436,30 @@ namespace Iced.Intel.EncoderInternal {
 				0x009F0001, 0x00003409, 0x000253A2,// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
 				0x009F0002, 0x03528009, 0x0002125E,// EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er
 				0x009F0002, 0x03529009, 0x0002125E,// EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er
-				0x00A00002, 0x01028009, 0x00000796,// EVEX_Vpscatterdd_vm32x_k1_xmm
-				0x00A00002, 0x01028409, 0x000007D7,// EVEX_Vpscatterdd_vm32y_k1_ymm
-				0x00A00002, 0x01028809, 0x00000818,// EVEX_Vpscatterdd_vm32z_k1_zmm
-				0x00A00002, 0x01029009, 0x00000796,// EVEX_Vpscatterdq_vm32x_k1_xmm
-				0x00A00002, 0x01029409, 0x000007D6,// EVEX_Vpscatterdq_vm32x_k1_ymm
-				0x00A00002, 0x01029809, 0x00000817,// EVEX_Vpscatterdq_vm32y_k1_zmm
-				0x00A10002, 0x01028009, 0x00000799,// EVEX_Vpscatterqd_vm64x_k1_xmm
-				0x00A10002, 0x01028409, 0x0000079A,// EVEX_Vpscatterqd_vm64y_k1_xmm
-				0x00A10002, 0x01028809, 0x000007DB,// EVEX_Vpscatterqd_vm64z_k1_ymm
-				0x00A10002, 0x01029009, 0x00000799,// EVEX_Vpscatterqq_vm64x_k1_xmm
-				0x00A10002, 0x01029409, 0x000007DA,// EVEX_Vpscatterqq_vm64y_k1_ymm
-				0x00A10002, 0x01029809, 0x0000081B,// EVEX_Vpscatterqq_vm64z_k1_zmm
-				0x00A20002, 0x01028009, 0x00000796,// EVEX_Vscatterdps_vm32x_k1_xmm
-				0x00A20002, 0x01028409, 0x000007D7,// EVEX_Vscatterdps_vm32y_k1_ymm
-				0x00A20002, 0x01028809, 0x00000818,// EVEX_Vscatterdps_vm32z_k1_zmm
-				0x00A20002, 0x01029009, 0x00000796,// EVEX_Vscatterdpd_vm32x_k1_xmm
-				0x00A20002, 0x01029409, 0x000007D6,// EVEX_Vscatterdpd_vm32x_k1_ymm
-				0x00A20002, 0x01029809, 0x00000817,// EVEX_Vscatterdpd_vm32y_k1_zmm
-				0x00A30002, 0x01028009, 0x00000799,// EVEX_Vscatterqps_vm64x_k1_xmm
-				0x00A30002, 0x01028409, 0x0000079A,// EVEX_Vscatterqps_vm64y_k1_xmm
-				0x00A30002, 0x01028809, 0x000007DB,// EVEX_Vscatterqps_vm64z_k1_ymm
-				0x00A30002, 0x01029009, 0x00000799,// EVEX_Vscatterqpd_vm64x_k1_xmm
-				0x00A30002, 0x01029409, 0x000007DA,// EVEX_Vscatterqpd_vm64y_k1_ymm
-				0x00A30002, 0x01029809, 0x0000081B,// EVEX_Vscatterqpd_vm64z_k1_zmm
+				0x00A00002, 0x05028009, 0x00000796,// EVEX_Vpscatterdd_vm32x_k1_xmm
+				0x00A00002, 0x05028409, 0x000007D7,// EVEX_Vpscatterdd_vm32y_k1_ymm
+				0x00A00002, 0x05028809, 0x00000818,// EVEX_Vpscatterdd_vm32z_k1_zmm
+				0x00A00002, 0x05029009, 0x00000796,// EVEX_Vpscatterdq_vm32x_k1_xmm
+				0x00A00002, 0x05029409, 0x000007D6,// EVEX_Vpscatterdq_vm32x_k1_ymm
+				0x00A00002, 0x05029809, 0x00000817,// EVEX_Vpscatterdq_vm32y_k1_zmm
+				0x00A10002, 0x05028009, 0x00000799,// EVEX_Vpscatterqd_vm64x_k1_xmm
+				0x00A10002, 0x05028409, 0x0000079A,// EVEX_Vpscatterqd_vm64y_k1_xmm
+				0x00A10002, 0x05028809, 0x000007DB,// EVEX_Vpscatterqd_vm64z_k1_ymm
+				0x00A10002, 0x05029009, 0x00000799,// EVEX_Vpscatterqq_vm64x_k1_xmm
+				0x00A10002, 0x05029409, 0x000007DA,// EVEX_Vpscatterqq_vm64y_k1_ymm
+				0x00A10002, 0x05029809, 0x0000081B,// EVEX_Vpscatterqq_vm64z_k1_zmm
+				0x00A20002, 0x05028009, 0x00000796,// EVEX_Vscatterdps_vm32x_k1_xmm
+				0x00A20002, 0x05028409, 0x000007D7,// EVEX_Vscatterdps_vm32y_k1_ymm
+				0x00A20002, 0x05028809, 0x00000818,// EVEX_Vscatterdps_vm32z_k1_zmm
+				0x00A20002, 0x05029009, 0x00000796,// EVEX_Vscatterdpd_vm32x_k1_xmm
+				0x00A20002, 0x05029409, 0x000007D6,// EVEX_Vscatterdpd_vm32x_k1_ymm
+				0x00A20002, 0x05029809, 0x00000817,// EVEX_Vscatterdpd_vm32y_k1_zmm
+				0x00A30002, 0x05028009, 0x00000799,// EVEX_Vscatterqps_vm64x_k1_xmm
+				0x00A30002, 0x05028409, 0x0000079A,// EVEX_Vscatterqps_vm64y_k1_xmm
+				0x00A30002, 0x05028809, 0x000007DB,// EVEX_Vscatterqps_vm64z_k1_ymm
+				0x00A30002, 0x05029009, 0x00000799,// EVEX_Vscatterqpd_vm64x_k1_xmm
+				0x00A30002, 0x05029409, 0x000007DA,// EVEX_Vscatterqpd_vm64y_k1_ymm
+				0x00A30002, 0x05029809, 0x0000081B,// EVEX_Vscatterqpd_vm64z_k1_zmm
 				0x00A60001, 0x00000C09, 0x000253A2,// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
 				0x00A60001, 0x00001009, 0x000263E3,// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
 				0x00A60001, 0x00002C09, 0x000253A2,// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
@@ -3626,22 +3626,22 @@ namespace Iced.Intel.EncoderInternal {
 				0x00C40002, 0x03205009, 0x0000085E,// EVEX_Vpconflictq_xmm_k1z_xmmm128b64
 				0x00C40002, 0x03209409, 0x0000089F,// EVEX_Vpconflictq_ymm_k1z_ymmm256b64
 				0x00C40002, 0x0320D809, 0x000008E0,// EVEX_Vpconflictq_zmm_k1z_zmmm512b64
-				0x00C60002, 0x010288C9, 0x00000018,// EVEX_Vgatherpf0dps_vm32z_k1
-				0x00C60002, 0x010298C9, 0x00000017,// EVEX_Vgatherpf0dpd_vm32y_k1
-				0x00C60002, 0x01028949, 0x00000018,// EVEX_Vgatherpf1dps_vm32z_k1
-				0x00C60002, 0x01029949, 0x00000017,// EVEX_Vgatherpf1dpd_vm32y_k1
-				0x00C60002, 0x01028AC9, 0x00000018,// EVEX_Vscatterpf0dps_vm32z_k1
-				0x00C60002, 0x01029AC9, 0x00000017,// EVEX_Vscatterpf0dpd_vm32y_k1
-				0x00C60002, 0x01028B49, 0x00000018,// EVEX_Vscatterpf1dps_vm32z_k1
-				0x00C60002, 0x01029B49, 0x00000017,// EVEX_Vscatterpf1dpd_vm32y_k1
-				0x00C70002, 0x010288C9, 0x0000001B,// EVEX_Vgatherpf0qps_vm64z_k1
-				0x00C70002, 0x010298C9, 0x0000001B,// EVEX_Vgatherpf0qpd_vm64z_k1
-				0x00C70002, 0x01028949, 0x0000001B,// EVEX_Vgatherpf1qps_vm64z_k1
-				0x00C70002, 0x01029949, 0x0000001B,// EVEX_Vgatherpf1qpd_vm64z_k1
-				0x00C70002, 0x01028AC9, 0x0000001B,// EVEX_Vscatterpf0qps_vm64z_k1
-				0x00C70002, 0x01029AC9, 0x0000001B,// EVEX_Vscatterpf0qpd_vm64z_k1
-				0x00C70002, 0x01028B49, 0x0000001B,// EVEX_Vscatterpf1qps_vm64z_k1
-				0x00C70002, 0x01029B49, 0x0000001B,// EVEX_Vscatterpf1qpd_vm64z_k1
+				0x00C60002, 0x050288C9, 0x00000018,// EVEX_Vgatherpf0dps_vm32z_k1
+				0x00C60002, 0x050298C9, 0x00000017,// EVEX_Vgatherpf0dpd_vm32y_k1
+				0x00C60002, 0x05028949, 0x00000018,// EVEX_Vgatherpf1dps_vm32z_k1
+				0x00C60002, 0x05029949, 0x00000017,// EVEX_Vgatherpf1dpd_vm32y_k1
+				0x00C60002, 0x05028AC9, 0x00000018,// EVEX_Vscatterpf0dps_vm32z_k1
+				0x00C60002, 0x05029AC9, 0x00000017,// EVEX_Vscatterpf0dpd_vm32y_k1
+				0x00C60002, 0x05028B49, 0x00000018,// EVEX_Vscatterpf1dps_vm32z_k1
+				0x00C60002, 0x05029B49, 0x00000017,// EVEX_Vscatterpf1dpd_vm32y_k1
+				0x00C70002, 0x050288C9, 0x0000001B,// EVEX_Vgatherpf0qps_vm64z_k1
+				0x00C70002, 0x050298C9, 0x0000001B,// EVEX_Vgatherpf0qpd_vm64z_k1
+				0x00C70002, 0x05028949, 0x0000001B,// EVEX_Vgatherpf1qps_vm64z_k1
+				0x00C70002, 0x05029949, 0x0000001B,// EVEX_Vgatherpf1qpd_vm64z_k1
+				0x00C70002, 0x05028AC9, 0x0000001B,// EVEX_Vscatterpf0qps_vm64z_k1
+				0x00C70002, 0x05029AC9, 0x0000001B,// EVEX_Vscatterpf0qpd_vm64z_k1
+				0x00C70002, 0x05028B49, 0x0000001B,// EVEX_Vscatterpf1qps_vm64z_k1
+				0x00C70002, 0x05029B49, 0x0000001B,// EVEX_Vscatterpf1qpd_vm64z_k1
 				0x00C80000, 0x00008008, 0x00003263,// Sha1nexte_xmm_xmmm128
 				0x00C80002, 0x03A0C809, 0x000008E0,// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
 				0x00C80002, 0x03A0D809, 0x000008E0,// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae

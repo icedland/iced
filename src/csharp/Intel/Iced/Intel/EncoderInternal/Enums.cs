@@ -359,6 +359,7 @@ namespace Iced.Intel.EncoderInternal {
 		sae = 0x00800000,
 		k1 = 0x01000000,
 		z = 0x02000000,
+		NonZeroOpMaskRegister = 0x04000000,
 	}
 	// GENERATOR-END: EvexFlags
 

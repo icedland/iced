@@ -606,8 +606,14 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByteInternal(b);
 
 			b = instruction.InternalOpMask;
-			if (b != 0 && (flags & EvexFlags.k1) == 0)
-				encoder.ErrorMessage = "The instruction doesn't support opmask registers";
+			if (b != 0) {
+				if ((flags & EvexFlags.k1) == 0)
+					encoder.ErrorMessage = "The instruction doesn't support opmask registers";
+			}
+			else {
+				if ((flags & EvexFlags.NonZeroOpMaskRegister) != 0)
+					encoder.ErrorMessage = "The instruction must use an opmask register";
+			}
 			b |= (encoderFlags >> ((int)EncoderFlags.VvvvvShift + 4 - 3)) & 8;
 			if (instruction.SuppressAllExceptions) {
 				if ((flags & EvexFlags.sae) == 0)

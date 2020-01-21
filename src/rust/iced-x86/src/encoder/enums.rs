@@ -699,6 +699,7 @@ impl EvexFlags {
 	pub(crate) const SAE: u32 = 0x0080_0000;
 	pub(crate) const K1: u32 = 0x0100_0000;
 	pub(crate) const Z: u32 = 0x0200_0000;
+	pub(crate) const NON_ZERO_OP_MASK_REGISTER: u32 = 0x0400_0000;
 }
 // GENERATOR-END: EvexFlags
 

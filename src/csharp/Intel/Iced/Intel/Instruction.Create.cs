@@ -40,6 +40,136 @@ namespace Iced.Intel {
 	// GENERATOR-END: RepPrefixKind
 
 	partial struct Instruction {
+		static void InitializeSignedImmediate(ref Instruction instruction, int operand, long immediate) {
+			var opKind = GetImmediateOpKind(instruction.Code, operand);
+			instruction.SetOpKind(operand, opKind);
+
+			switch (opKind) {
+			case OpKind.Immediate8:
+				// All sbyte and all byte values can be used
+				if (!(sbyte.MinValue <= immediate && immediate <= byte.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8_2nd:
+				// All sbyte and all byte values can be used
+				if (!(sbyte.MinValue <= immediate && immediate <= byte.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8_2nd = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to16:
+				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to32:
+				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to64:
+				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate16:
+				// All short and all ushort values can be used
+				if (!(short.MinValue <= immediate && immediate <= ushort.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate16 = (ushort)immediate;
+				break;
+
+			case OpKind.Immediate32:
+				// All int and all uint values can be used
+				if (!(int.MinValue <= immediate && immediate <= uint.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32 = (uint)immediate;
+				break;
+
+			case OpKind.Immediate32to64:
+				if (!(int.MinValue <= immediate && immediate <= int.MaxValue))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32 = (uint)immediate;
+				break;
+
+			case OpKind.Immediate64:
+				instruction.Immediate64 = (ulong)immediate;
+				break;
+
+			default:
+				throw new ArgumentOutOfRangeException(nameof(opKind));
+			}
+		}
+
+		static void InitializeUnsignedImmediate(ref Instruction instruction, int operand, ulong immediate) {
+			var opKind = GetImmediateOpKind(instruction.Code, operand);
+			instruction.SetOpKind(operand, opKind);
+
+			switch (opKind) {
+			case OpKind.Immediate8:
+				if (immediate > byte.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8_2nd:
+				if (immediate > byte.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8_2nd = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to16:
+				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFF80 <= immediate && immediate <= 0xFFFF)))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to32:
+				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFFFF_FF80 <= immediate && immediate <= 0xFFFF_FFFF)))
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate8to64:
+				// Allow 00..7F and FFFF_FFFF_FFFF_FF80..FFFF_FFFF_FFFF_FFFF
+				if ((immediate + 0x80) > byte.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate8 = (byte)immediate;
+				break;
+
+			case OpKind.Immediate16:
+				if (immediate > ushort.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.InternalImmediate16 = (ushort)immediate;
+				break;
+
+			case OpKind.Immediate32:
+				if (immediate > uint.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32 = (uint)immediate;
+				break;
+
+			case OpKind.Immediate32to64:
+				// Allow 0..7FFF_FFFF and FFFF_FFFF_8000_0000..FFFF_FFFF_FFFF_FFFF
+				if ((immediate + 0x8000_0000) > (ulong)uint.MaxValue)
+					throw new ArgumentOutOfRangeException(nameof(immediate));
+				instruction.Immediate32 = (uint)immediate;
+				break;
+
+			case OpKind.Immediate64:
+				instruction.Immediate64 = immediate;
+				break;
+
+			default:
+				throw new ArgumentOutOfRangeException(nameof(opKind));
+			}
+		}
+
 		static OpKind GetImmediateOpKind(Code code, int operand) {
 			var handlers = EncoderInternal.OpCodeHandlers.Handlers;
 			if ((uint)code >= (uint)handlers.Length)
@@ -77,27 +207,6 @@ namespace Iced.Intel {
 			if (opKind == (OpKind)(-1))
 				throw new ArgumentException($"{code}'s op{operand} isn't a far branch operand");
 			return opKind;
-		}
-
-		static uint MaskImmediate32(uint imm, OpKind opKind) {
-			switch (opKind) {
-			case OpKind.Immediate8:
-			case OpKind.Immediate8_2nd:
-			case OpKind.Immediate8to16:
-			case OpKind.Immediate8to32:
-			case OpKind.Immediate8to64:
-				return imm & 0xFF;
-
-			case OpKind.Immediate16:
-				return imm & 0xFFFF;
-
-			case OpKind.Immediate32:
-			case OpKind.Immediate32to64:
-				return imm;
-
-			default:
-				throw new ArgumentOutOfRangeException(nameof(opKind));
-			}
 		}
 
 		static Instruction CreateString_Reg_SegRSI(Code code, int addressSize, Register register, Register segmentPrefix, RepPrefixKind repPrefix) {
@@ -317,12 +426,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 0, immediate);
 
 			Debug.Assert(instruction.OpCount == 1);
 			return instruction;
@@ -337,12 +441,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 0, immediate);
 
 			Debug.Assert(instruction.OpCount == 1);
 			return instruction;
@@ -406,12 +505,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -431,12 +525,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -456,8 +545,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			instruction.InternalOp1Kind = OpKind.Immediate64;
-			instruction.Immediate64 = (ulong)immediate;
+			InitializeSignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -477,8 +565,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			instruction.InternalOp1Kind = OpKind.Immediate64;
-			instruction.Immediate64 = immediate;
+			InitializeUnsignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -521,12 +608,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 0, immediate);
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -546,12 +628,7 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 0, immediate);
 
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp1Kind = OpKind.Register;
@@ -571,12 +648,9 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
-			instruction.Immediate32 = MaskImmediate32((uint)immediate1, opKind);
+			InitializeSignedImmediate(ref instruction, 0, immediate1);
 
-			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeSignedImmediate(ref instruction, 1, immediate2);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -592,12 +666,9 @@ namespace Iced.Intel {
 			Instruction instruction = default;
 			instruction.InternalCode = code;
 
-			var opKind = GetImmediateOpKind(code, 0);
-			instruction.InternalOp0Kind = GetImmediateOpKind(code, 0);
-			instruction.Immediate32 = MaskImmediate32(immediate1, opKind);
+			InitializeUnsignedImmediate(ref instruction, 0, immediate1);
 
-			instruction.InternalOp1Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeUnsignedImmediate(ref instruction, 1, immediate2);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -649,12 +720,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -679,12 +745,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 1, immediate);
 
 			Debug.Assert(instruction.OpCount == 2);
 			return instruction;
@@ -736,12 +797,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -766,12 +822,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -824,12 +875,9 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
-			instruction.Immediate32 = MaskImmediate32((uint)immediate1, opKind);
+			InitializeSignedImmediate(ref instruction, 1, immediate1);
 
-			instruction.InternalOp2Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeSignedImmediate(ref instruction, 2, immediate2);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -850,12 +898,9 @@ namespace Iced.Intel {
 			//instruction.InternalOp0Kind = OpKind.Register;
 			instruction.InternalOp0Register = register;
 
-			var opKind = GetImmediateOpKind(code, 1);
-			instruction.InternalOp1Kind = GetImmediateOpKind(code, 1);
-			instruction.Immediate32 = MaskImmediate32(immediate1, opKind);
+			InitializeUnsignedImmediate(ref instruction, 1, immediate1);
 
-			instruction.InternalOp2Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeUnsignedImmediate(ref instruction, 2, immediate2);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -917,12 +962,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -952,12 +992,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -1019,12 +1054,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -1054,12 +1084,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 2, immediate);
 
 			Debug.Assert(instruction.OpCount == 3);
 			return instruction;
@@ -1121,12 +1146,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
-			var opKind = GetImmediateOpKind(code, 3);
-			instruction.InternalOp3Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 3, immediate);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1156,12 +1176,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp2Kind = OpKind.Register;
 			instruction.InternalOp2Register = register3;
 
-			var opKind = GetImmediateOpKind(code, 3);
-			instruction.InternalOp3Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 3, immediate);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1224,12 +1239,9 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
-			instruction.Immediate32 = MaskImmediate32((uint)immediate1, opKind);
+			InitializeSignedImmediate(ref instruction, 2, immediate1);
 
-			instruction.InternalOp3Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeSignedImmediate(ref instruction, 3, immediate2);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1255,12 +1267,9 @@ namespace Iced.Intel {
 			//instruction.InternalOp1Kind = OpKind.Register;
 			instruction.InternalOp1Register = register2;
 
-			var opKind = GetImmediateOpKind(code, 2);
-			instruction.InternalOp2Kind = GetImmediateOpKind(code, 2);
-			instruction.Immediate32 = MaskImmediate32(immediate1, opKind);
+			InitializeUnsignedImmediate(ref instruction, 2, immediate1);
 
-			instruction.InternalOp3Kind = OpKind.Immediate8_2nd;
-			instruction.Immediate8_2nd = (byte)immediate2;
+			InitializeUnsignedImmediate(ref instruction, 3, immediate2);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1332,12 +1341,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 3);
-			instruction.InternalOp3Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 3, immediate);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1372,12 +1376,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 3);
-			instruction.InternalOp3Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 3, immediate);
 
 			Debug.Assert(instruction.OpCount == 4);
 			return instruction;
@@ -1412,12 +1411,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register4;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
@@ -1452,12 +1446,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register4;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
@@ -1497,12 +1486,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
@@ -1542,12 +1526,7 @@ namespace Iced.Intel {
 			instruction.IsBroadcast = memory.IsBroadcast;
 			instruction.SegmentPrefix = memory.SegmentPrefix;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
@@ -1587,12 +1566,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register3;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = (ulong)immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32((uint)immediate, opKind);
+			InitializeSignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;
@@ -1632,12 +1606,7 @@ namespace Iced.Intel {
 			//instruction.InternalOp3Kind = OpKind.Register;
 			instruction.InternalOp3Register = register3;
 
-			var opKind = GetImmediateOpKind(code, 4);
-			instruction.InternalOp4Kind = opKind;
-			if (opKind == OpKind.Immediate64)
-				instruction.Immediate64 = immediate;
-			else
-				instruction.Immediate32 = MaskImmediate32(immediate, opKind);
+			InitializeUnsignedImmediate(ref instruction, 4, immediate);
 
 			Debug.Assert(instruction.OpCount == 5);
 			return instruction;

@@ -185,6 +185,20 @@ impl MemoryOperand {
 	/// # Arguments
 	///
 	/// * `base`: Base register or [`Register::None`]
+	/// * `index`: Index register or [`Register::None`]
+	///
+	/// [`Register::None`]: enum.Register.html#variant.None
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_base_index(base: Register, index: Register) -> Self {
+		Self { segment_prefix: Register::None, base, index, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// * `base`: Base register or [`Register::None`]
 	/// * `displacement`: Memory displacement
 	/// * `displ_size`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	///

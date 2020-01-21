@@ -669,6 +669,7 @@ namespace Generator.Encoder {
 			var evex_sae = EncoderTypes.EvexFlags["sae"].Value;
 			var evex_k1 = EncoderTypes.EvexFlags["k1"].Value;
 			var evex_z = EncoderTypes.EvexFlags["z"].Value;
+			var evexNonZeroOpMaskRegister = EncoderTypes.EvexFlags["NonZeroOpMaskRegister"].Value;
 
 			var d3nowEncodableShift = (int)EncoderTypes.D3nowFlags["EncodableShift"].Value;
 
@@ -753,6 +754,8 @@ namespace Generator.Encoder {
 						dword2 |= evex_k1;
 					if ((opCode.Flags & OpCodeFlags.ZeroingMasking) != 0)
 						dword2 |= evex_z;
+					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
+						dword2 |= evexNonZeroOpMaskRegister;
 
 					dword3 = 0;
 					for (int i = 0; i < einfo.OpKinds.Length; i++)

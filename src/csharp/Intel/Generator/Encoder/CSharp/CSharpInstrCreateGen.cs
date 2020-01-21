@@ -188,12 +188,10 @@ namespace Generator.Encoder.CSharp {
 				var immediate64Str = OpKindEnum.Instance[nameof(OpKind.Immediate64)].Name(idConverter);
 				var immediate8_2ndStr = OpKindEnum.Instance[nameof(OpKind.Immediate8_2nd)].Name(idConverter);
 				bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
-				int intCount = 0;
 				for (int i = 1; i < args.Count; i++) {
 					int op = i - 1;
 					var arg = args[i];
 					writer.WriteLine();
-					string castType, castType2;
 					switch (arg.Type) {
 					case MethodArgType.Register:
 						writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
@@ -214,40 +212,10 @@ namespace Generator.Encoder.CSharp {
 
 					case MethodArgType.Int32:
 					case MethodArgType.UInt32:
-						castType = arg.Type == MethodArgType.Int32 ? "(uint)" : string.Empty;
-						castType2 = arg.Type == MethodArgType.Int32 ? "(ulong)" : string.Empty;
-						if (multipleInts) {
-							switch (intCount++) {
-							case 0:
-								writer.WriteLine($"var opKind = GetImmediateOpKind({codeName}, {op});");
-								writer.WriteLine($"instruction.InternalOp{op}Kind = GetImmediateOpKind({codeName}, {op});");
-								writer.WriteLine($"instruction.Immediate32 = MaskImmediate32({castType}{idConverter.Argument(arg.Name)}, opKind);");
-								break;
-							case 1:
-								writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{immediate8_2ndStr};");
-								writer.WriteLine($"instruction.Immediate8_2nd = (byte){idConverter.Argument(arg.Name)};");
-								break;
-							default:
-								throw new InvalidOperationException();
-							}
-						}
-						else {
-							writer.WriteLine($"var opKind = GetImmediateOpKind({codeName}, {op});");
-							writer.WriteLine($"instruction.InternalOp{op}Kind = opKind;");
-							writer.WriteLine($"if (opKind == {opKindStr}.{immediate64Str})");
-							using (writer.Indent())
-								writer.WriteLine($"instruction.Immediate64 = {castType2}{idConverter.Argument(arg.Name)};");
-							writer.WriteLine("else");
-							using (writer.Indent())
-								writer.WriteLine($"instruction.Immediate32 = MaskImmediate32({castType}{idConverter.Argument(arg.Name)}, opKind);");
-						}
-						break;
-
 					case MethodArgType.Int64:
 					case MethodArgType.UInt64:
-						castType = arg.Type == MethodArgType.Int64 ? "(ulong)" : string.Empty;
-						writer.WriteLine($"instruction.InternalOp{op}Kind = {opKindStr}.{immediate64Str};");
-						writer.WriteLine($"instruction.Immediate64 = {castType}{idConverter.Argument(arg.Name)};");
+						var methodName = arg.Type == MethodArgType.Int32 || arg.Type == MethodArgType.Int64 ? "InitializeSignedImmediate" : "InitializeUnsignedImmediate";
+						writer.WriteLine($"{methodName}(ref instruction, {op}, {idConverter.Argument(arg.Name)});");
 						break;
 
 					case MethodArgType.Code:

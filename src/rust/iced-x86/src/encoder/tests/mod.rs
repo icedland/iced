@@ -672,6 +672,16 @@ fn verify_memory_operand_ctors() {
 		assert_eq!(Register::None, op.segment_prefix);
 	}
 	{
+		let op = MemoryOperand::with_base_index(Register::RCX, Register::RSI);
+		assert_eq!(Register::RCX, op.base);
+		assert_eq!(Register::RSI, op.index);
+		assert_eq!(1, op.scale);
+		assert_eq!(0, op.displacement);
+		assert_eq!(0, op.displ_size);
+		assert!(!op.is_broadcast);
+		assert_eq!(Register::None, op.segment_prefix);
+	}
+	{
 		let op = MemoryOperand::with_base_displ_size(Register::RCX, 0x1234_5678, 8);
 		assert_eq!(Register::RCX, op.base);
 		assert_eq!(Register::None, op.index);
