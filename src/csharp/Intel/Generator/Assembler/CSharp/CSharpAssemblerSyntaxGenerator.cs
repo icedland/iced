@@ -1454,8 +1454,8 @@ namespace Generator.Assembler.CSharp {
 						yield return $"({arg.Type})(sbyte.MaxValue + 1)";
 					}
 					else {
-						yield return $"({arg.GetSignedTypeFromUnsigned()})(sbyte.MinValue - 1)";
-						yield return $"({arg.GetSignedTypeFromUnsigned()})(sbyte.MaxValue + 1)";
+						yield return $"unchecked(({arg.Type})(sbyte.MinValue - 1))";
+						yield return $"unchecked(({arg.Type})(sbyte.MaxValue + 1))";
 					}
 				}
 				else {
@@ -1464,8 +1464,8 @@ namespace Generator.Assembler.CSharp {
 						yield return $"({arg.Type})sbyte.MaxValue";
 					}
 					else {
-						yield return $"({arg.GetSignedTypeFromUnsigned()})sbyte.MinValue";
-						yield return $"({arg.GetSignedTypeFromUnsigned()})sbyte.MaxValue";
+						yield return $"unchecked(({arg.Type})sbyte.MinValue)";
+						yield return $"unchecked(({arg.Type})sbyte.MaxValue)";
 					}
 				}
 				break;			
