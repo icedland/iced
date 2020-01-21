@@ -49,39 +49,39 @@ namespace Iced.Intel {
 				// All sbyte and all byte values can be used
 				if (!(sbyte.MinValue <= immediate && immediate <= byte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8 = (byte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8_2nd:
 				// All sbyte and all byte values can be used
 				if (!(sbyte.MinValue <= immediate && immediate <= byte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8_2nd = (byte)immediate;
+				instruction.InternalImmediate8_2nd = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to16:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to16 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to32:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to32 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to64:
 				if (!(sbyte.MinValue <= immediate && immediate <= sbyte.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to64 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate16:
 				// All short and all ushort values can be used
 				if (!(short.MinValue <= immediate && immediate <= ushort.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate16 = (ushort)immediate;
+				instruction.InternalImmediate16 = (ushort)immediate;
 				break;
 
 			case OpKind.Immediate32:
@@ -94,7 +94,7 @@ namespace Iced.Intel {
 			case OpKind.Immediate32to64:
 				if (!(int.MinValue <= immediate && immediate <= int.MaxValue))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate32to64 = (int)immediate;
+				instruction.Immediate32 = (uint)immediate;
 				break;
 
 			case OpKind.Immediate64:
@@ -114,38 +114,38 @@ namespace Iced.Intel {
 			case OpKind.Immediate8:
 				if (immediate > byte.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8 = (byte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8_2nd:
 				if (immediate > byte.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8_2nd = (byte)immediate;
+				instruction.InternalImmediate8_2nd = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to16:
 				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFF80 <= immediate && immediate <= 0xFFFF)))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to16 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to32:
 				if (!(immediate <= (ulong)sbyte.MaxValue || (0xFFFF_FF80 <= immediate && immediate <= 0xFFFF_FFFF)))
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to32 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate8to64:
 				// Allow 00..7F and FFFF_FFFF_FFFF_FF80..FFFF_FFFF_FFFF_FFFF
 				if ((immediate + 0x80) > byte.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate8to64 = (sbyte)immediate;
+				instruction.InternalImmediate8 = (byte)immediate;
 				break;
 
 			case OpKind.Immediate16:
 				if (immediate > ushort.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate16 = (ushort)immediate;
+				instruction.InternalImmediate16 = (ushort)immediate;
 				break;
 
 			case OpKind.Immediate32:
@@ -158,7 +158,7 @@ namespace Iced.Intel {
 				// Allow 0..7FFF_FFFF and FFFF_FFFF_8000_0000..FFFF_FFFF_FFFF_FFFF
 				if ((immediate + 0x8000_0000) > (ulong)uint.MaxValue)
 					throw new ArgumentOutOfRangeException(nameof(immediate));
-				instruction.Immediate32to64 = (int)immediate;
+				instruction.Immediate32 = (uint)immediate;
 				break;
 
 			case OpKind.Immediate64:
