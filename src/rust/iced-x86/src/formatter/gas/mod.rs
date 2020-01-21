@@ -27,6 +27,8 @@ mod fmt_tbl;
 mod info;
 mod mem_size_tbl;
 mod regs;
+#[cfg(test)]
+mod tests;
 
 use self::enums::*;
 use self::fmt_tbl::ALL_INFOS;
@@ -988,8 +990,8 @@ impl<'a> GasFormatter<'a> {
 
 	#[inline]
 	fn get_reg_str(&self, reg_num: u32) -> &'static str {
-		debug_assert!((reg_num as usize) < self.all_registers.len());
-		let reg_str = &self.all_registers[reg_num as usize];
+		debug_assert!((reg_num as usize) < self.all_registers().len());
+		let reg_str = &self.all_registers()[reg_num as usize];
 		reg_str.get(self.options.upper_case_registers() || self.options.upper_case_all())
 	}
 

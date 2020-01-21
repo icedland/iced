@@ -61,10 +61,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				64 => DecoderConstants.DEFAULT_IP64,
 				_ => throw new InvalidOperationException(),
 			};
-			var instr = decoder.Decode();
-			ulong value1 = instr.GetVirtualAddress(operand, elementIndex, getRegValue);
+			var instruction = decoder.Decode();
+			ulong value1 = instruction.GetVirtualAddress(operand, elementIndex, getRegValue);
 			Assert.Equal(expectedValue, value1);
-			ulong value2 = instr.GetVirtualAddress(operand, elementIndex, (register, elementIndex2, elementSize) =>
+			ulong value2 = instruction.GetVirtualAddress(operand, elementIndex, (register, elementIndex2, elementSize) =>
 				getRegValue.GetRegisterValue(register, elementIndex2, elementSize));
 			Assert.Equal(expectedValue, value2);
 		}

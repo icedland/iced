@@ -335,9 +335,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.Equal(instructions.Length, list.Count);
 			Assert.Equal(instructions.Length, list.Capacity);
 			int index = 0;
-			foreach (ref var instr in list) {
+			foreach (ref var instruction in list) {
 				Assert.True(index < instructions.Length);
-				Assert.True(Instruction.EqualsAllBits(instructions[index], instr));
+				Assert.True(Instruction.EqualsAllBits(instructions[index], instruction));
 				index++;
 			}
 			Assert.Equal(instructions.Length, index);
@@ -355,10 +355,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		void ToArray_works(Instruction[] instructions, bool addExtraElem) {
 			var list = new InstructionList(instructions);
 			if (addExtraElem) {
-				var instr = Instruction.Create(Code.Nopw);
-				list.Add(instr);
+				var instruction = Instruction.Create(Code.Nopw);
+				list.Add(instruction);
 				Array.Resize(ref instructions, instructions.Length + 1);
-				instructions[instructions.Length - 1] = instr;
+				instructions[instructions.Length - 1] = instruction;
 			}
 			Assert.Equal(instructions.Length, list.Count);
 			Assert.True(instructions.Length <= list.Capacity);
@@ -716,9 +716,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(Contains_works_Data))]
-		void Contains_works(Instruction[] data, Instruction instr, bool expected) {
+		void Contains_works(Instruction[] data, Instruction instruction, bool expected) {
 			var list = new InstructionList(data);
-			var result = list.Contains(instr);
+			var result = list.Contains(instruction);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> Contains_works_Data {
@@ -736,9 +736,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(IndexOf1_works_Data))]
-		void IndexOf1_works(Instruction[] data, Instruction instr, int expected) {
+		void IndexOf1_works(Instruction[] data, Instruction instruction, int expected) {
 			var list = new InstructionList(data);
-			var result = list.IndexOf(instr);
+			var result = list.IndexOf(instruction);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> IndexOf1_works_Data {
@@ -757,9 +757,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(IndexOf2_works_Data))]
-		void IndexOf2_works(Instruction[] data, Instruction instr, int index, int expected) {
+		void IndexOf2_works(Instruction[] data, Instruction instruction, int index, int expected) {
 			var list = new InstructionList(data);
-			var result = list.IndexOf(instr, index);
+			var result = list.IndexOf(instruction, index);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> IndexOf2_works_Data {
@@ -788,9 +788,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(IndexOf3_works_Data))]
-		void IndexOf3_works(Instruction[] data, Instruction instr, int index, int count, int expected) {
+		void IndexOf3_works(Instruction[] data, Instruction instruction, int index, int count, int expected) {
 			var list = new InstructionList(data);
-			var result = list.IndexOf(instr, index, count);
+			var result = list.IndexOf(instruction, index, count);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> IndexOf3_works_Data {
@@ -825,9 +825,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(LastIndexOf1_works_Data))]
-		void LastIndexOf1_works(Instruction[] data, Instruction instr, int expected) {
+		void LastIndexOf1_works(Instruction[] data, Instruction instruction, int expected) {
 			var list = new InstructionList(data);
-			var result = list.LastIndexOf(instr);
+			var result = list.LastIndexOf(instruction);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> LastIndexOf1_works_Data {
@@ -846,9 +846,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(LastIndexOf2_works_Data))]
-		void LastIndexOf2_works(Instruction[] data, Instruction instr, int index, int expected) {
+		void LastIndexOf2_works(Instruction[] data, Instruction instruction, int index, int expected) {
 			var list = new InstructionList(data);
-			var result = list.LastIndexOf(instr, index);
+			var result = list.LastIndexOf(instruction, index);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> LastIndexOf2_works_Data {
@@ -879,9 +879,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(LastIndexOf3_works_Data))]
-		void LastIndexOf3_works(Instruction[] data, Instruction instr, int index, int count, int expected) {
+		void LastIndexOf3_works(Instruction[] data, Instruction instruction, int index, int count, int expected) {
 			var list = new InstructionList(data);
-			var result = list.LastIndexOf(instr, index, count);
+			var result = list.LastIndexOf(instruction, index, count);
 			Assert.Equal(expected, result);
 		}
 		public static IEnumerable<object[]> LastIndexOf3_works_Data {
@@ -916,9 +916,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(Remove_works_Data))]
-		void Remove_works(Instruction[] data, Instruction instr, bool expected, Instruction[] expectedData) {
+		void Remove_works(Instruction[] data, Instruction instruction, bool expected, Instruction[] expectedData) {
 			var list = new InstructionList(data);
-			var result = list.Remove(instr);
+			var result = list.Remove(instruction);
 			Assert.Equal(expected, result);
 			var listElems = new Instruction[list.Count];
 			list.CopyTo(listElems);

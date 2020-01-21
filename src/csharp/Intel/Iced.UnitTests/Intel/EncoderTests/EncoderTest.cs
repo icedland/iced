@@ -122,12 +122,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			a.ImmediateSize == b.ImmediateSize &&
 			a.ImmediateSize2 == b.ImmediateSize2;
 
-		protected void NonDecodeEncodeBase(int bitness, ref Instruction instr, string hexBytes, ulong rip) {
+		protected void NonDecodeEncodeBase(int bitness, ref Instruction instruction, string hexBytes, ulong rip) {
 			var expectedBytes = HexUtils.ToByteArray(hexBytes);
 			var writer = new CodeWriterImpl();
 			var encoder = Encoder.Create(bitness, writer);
 			Assert.Equal(bitness, encoder.Bitness);
-			bool result = encoder.TryEncode(instr, rip, out uint encodedInstrLen, out string errorMessage);
+			bool result = encoder.TryEncode(instruction, rip, out uint encodedInstrLen, out string errorMessage);
 			Assert.True(errorMessage is null, "Unexpected error message: " + errorMessage);
 			Assert.True(result, "Error, result from Encoder.TryEncode must be true");
 			var encodedBytes = writer.ToArray();
@@ -141,9 +141,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(encodedBytes.Length, (int)encodedInstrLen);
 		}
 
-		protected void EncodeInvalidBase(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidBitness) {
+		protected void EncodeInvalidBase(uint id, int bitness, Code code, string hexBytes, DecoderOptions options, int invalidBitness) {
 			var origBytes = HexUtils.ToByteArray(hexBytes);
-			var decoder = CreateDecoder(codeSize, origBytes, options);
+			var decoder = CreateDecoder(bitness, origBytes, options);
 			var origRip = decoder.IP;
 			var origInstr = decoder.Decode();
 			Assert.Equal(code, origInstr.Code);
@@ -164,36 +164,36 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.False(result);
 		}
 
-		Encoder CreateEncoder(int codeSize, CodeWriter writer) {
-			var encoder = Encoder.Create(codeSize, writer);
-			Assert.Equal(codeSize, encoder.Bitness);
+		Encoder CreateEncoder(int bitness, CodeWriter writer) {
+			var encoder = Encoder.Create(bitness, writer);
+			Assert.Equal(bitness, encoder.Bitness);
 			return encoder;
 		}
 
-		Decoder CreateDecoder(int codeSize, byte[] hexBytes, DecoderOptions options) {
+		Decoder CreateDecoder(int bitness, byte[] hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
-			var decoder = Decoder.Create(codeSize, codeReader, options);
-			decoder.IP = codeSize switch {
+			var decoder = Decoder.Create(bitness, codeReader, options);
+			decoder.IP = bitness switch {
 				16 => DecoderConstants.DEFAULT_IP16,
 				32 => DecoderConstants.DEFAULT_IP32,
 				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(codeSize)),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
 			};
-			Assert.Equal(codeSize, decoder.Bitness);
+			Assert.Equal(bitness, decoder.Bitness);
 			return decoder;
 		}
 
-		protected static IEnumerable<object[]> GetEncodeData(int codeSize) {
+		protected static IEnumerable<object[]> GetEncodeData(int bitness) {
 			foreach (var info in DecoderTestUtils.GetEncoderTests(includeOtherTests: true, includeInvalid: false)) {
-				if (codeSize != info.Bitness)
+				if (bitness != info.Bitness)
 					continue;
 				yield return new object[] { info.Id, info.Bitness, info.Code, info.HexBytes, info.EncodedHexBytes, info.Options };
 			}
 		}
 
-		protected static IEnumerable<object[]> GetNonDecodedEncodeData(int codeSize) {
+		protected static IEnumerable<object[]> GetNonDecodedEncodeData(int bitness) {
 			foreach (var info in NonDecodedInstructions.GetTests()) {
-				if (codeSize != info.bitness)
+				if (bitness != info.bitness)
 					continue;
 				ulong rip = 0;
 				yield return new object[] { info.bitness, info.instruction, info.hexBytes, rip };

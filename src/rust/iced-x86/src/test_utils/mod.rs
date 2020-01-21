@@ -59,6 +59,12 @@ pub(crate) fn get_instr_info_unit_tests_dir() -> PathBuf {
 	path
 }
 
+pub(crate) fn get_formatter_unit_tests_dir() -> PathBuf {
+	let mut path = get_unit_tests_base_dir();
+	path.push("Formatter");
+	path
+}
+
 pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 	match bitness {
 		16 => DecoderConstants::DEFAULT_IP16,

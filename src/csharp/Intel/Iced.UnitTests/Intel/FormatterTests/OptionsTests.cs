@@ -31,20 +31,20 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct OptionsInstructionInfo {
-		public readonly int CodeSize;
+		public readonly int Bitness;
 		public readonly string HexBytes;
 		public readonly Code Code;
 		public readonly Action<FormatterOptions> InitOptions;
 		public readonly Action<Decoder> InitDecoder;
-		public OptionsInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption) {
-			CodeSize = codeSize;
+		public OptionsInstructionInfo(int bitness, string hexBytes, Code code, Action<FormatterOptions> enableOption) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			InitOptions = enableOption;
 			InitDecoder = initDecoderDefault;
 		}
-		public OptionsInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, Action<Decoder> initDecoder) {
-			CodeSize = codeSize;
+		public OptionsInstructionInfo(int bitness, string hexBytes, Code code, Action<FormatterOptions> enableOption, Action<Decoder> initDecoder) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			InitOptions = enableOption;
@@ -67,7 +67,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		protected void FormatBase(int index, OptionsInstructionInfo info, string formattedString, Formatter formatter) {
 			info.InitOptions(formatter.Options);
-			FormatterTestUtils.SimpleFormatTest(info.CodeSize, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
+			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
 		}
 
 		static IEnumerable<T> GetEnumValues<T>() where T : struct {

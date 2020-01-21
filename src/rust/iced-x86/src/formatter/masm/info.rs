@@ -318,10 +318,10 @@ pub(super) struct SimpleInstrInfo_mmxmem {
 
 impl SimpleInstrInfo_mmxmem {
 	pub(super) fn with_mnemonic(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags: InstrOpInfoFlags::NONE }
+		Self { mnemonic: FormatterString::new(mnemonic), flags: InstrOpInfoFlags::MEM_SIZE_MMX }
 	}
 	pub(super) fn new(mnemonic: String, flags: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags }
+		Self { mnemonic: FormatterString::new(mnemonic), flags: flags | InstrOpInfoFlags::MEM_SIZE_MMX }
 	}
 }
 

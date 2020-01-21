@@ -116,9 +116,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		void Verify_Instruction_OpCodeInfo() {
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = (Code)i;
-				Assert.True(ReferenceEquals(code.ToOpCode(), instr.OpCode));
+				Instruction instruction = default;
+				instruction.Code = (Code)i;
+				Assert.True(ReferenceEquals(code.ToOpCode(), instruction.OpCode));
 			}
 		}
 

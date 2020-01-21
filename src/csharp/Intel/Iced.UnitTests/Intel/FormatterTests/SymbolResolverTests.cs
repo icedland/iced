@@ -30,22 +30,22 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct SymbolInstructionInfo {
-		public readonly int CodeSize;
+		public readonly int Bitness;
 		public readonly string HexBytes;
 		public readonly Code Code;
 		public readonly Action<FormatterOptions> InitOptions;
 		public readonly Action<Decoder> InitDecoder;
 		internal readonly TestSymbolResolver SymbolResolver;
-		internal SymbolInstructionInfo(int codeSize, string hexBytes, Code code, TestSymbolResolver symbolResolver) {
-			CodeSize = codeSize;
+		internal SymbolInstructionInfo(int bitness, string hexBytes, Code code, TestSymbolResolver symbolResolver) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			InitOptions = initOptionsDefault;
 			InitDecoder = initDecoderDefault;
 			SymbolResolver = symbolResolver;
 		}
-		internal SymbolInstructionInfo(int codeSize, string hexBytes, Code code, Action<FormatterOptions> enableOption, TestSymbolResolver symbolResolver) {
-			CodeSize = codeSize;
+		internal SymbolInstructionInfo(int bitness, string hexBytes, Code code, Action<FormatterOptions> enableOption, TestSymbolResolver symbolResolver) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			InitOptions = enableOption;
@@ -83,7 +83,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			var formatter = formatterInfo.formatter;
 			symbolResolver.resultDispl = resultDispl;
 			info.InitOptions(formatter.Options);
-			FormatterTestUtils.SimpleFormatTest(info.CodeSize, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
+			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, info.InitDecoder);
 		}
 	}
 }

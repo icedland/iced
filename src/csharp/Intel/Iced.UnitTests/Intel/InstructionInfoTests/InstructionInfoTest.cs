@@ -69,48 +69,48 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 	public abstract class InstructionInfoTest {
 		protected void TestInstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options, int lineNo, InstructionInfoTestCase testCase) {
 			var codeBytes = HexUtils.ToByteArray(hexBytes);
-			Instruction instr;
+			Instruction instruction;
 			if (testCase.IsSpecial) {
 				if (bitness == 16 && code == Code.Popw_CS && hexBytes == "0F") {
-					instr = default;
-					instr.Code = Code.Popw_CS;
-					instr.Op0Kind = OpKind.Register;
-					instr.Op0Register = Register.CS;
-					instr.CodeSize = CodeSize.Code16;
-					instr.Length = 1;
+					instruction = default;
+					instruction.Code = Code.Popw_CS;
+					instruction.Op0Kind = OpKind.Register;
+					instruction.Op0Register = Register.CS;
+					instruction.CodeSize = CodeSize.Code16;
+					instruction.Length = 1;
 				}
 				else if (code <= Code.DeclareQword) {
-					instr = default;
-					instr.Code = code;
-					instr.DeclareDataCount = 1;
+					instruction = default;
+					instruction.Code = code;
+					instruction.DeclareDataCount = 1;
 					Assert.Equal(64, bitness);
-					instr.CodeSize = CodeSize.Code64;
+					instruction.CodeSize = CodeSize.Code64;
 					switch (code) {
 					case Code.DeclareByte:
 						Assert.Equal("66", hexBytes);
-						instr.SetDeclareByteValue(0, 0x66);
+						instruction.SetDeclareByteValue(0, 0x66);
 						break;
 					case Code.DeclareWord:
 						Assert.Equal("6644", hexBytes);
-						instr.SetDeclareWordValue(0, 0x4466);
+						instruction.SetDeclareWordValue(0, 0x4466);
 						break;
 					case Code.DeclareDword:
 						Assert.Equal("664422EE", hexBytes);
-						instr.SetDeclareDwordValue(0, 0xEE224466);
+						instruction.SetDeclareDwordValue(0, 0xEE224466);
 						break;
 					case Code.DeclareQword:
 						Assert.Equal("664422EE12345678", hexBytes);
-						instr.SetDeclareQwordValue(0, 0x78563412EE224466);
+						instruction.SetDeclareQwordValue(0, 0x78563412EE224466);
 						break;
 					default: throw new InvalidOperationException();
 					}
 				}
 				else {
 					var decoder = CreateDecoder(bitness, codeBytes, options);
-					instr = decoder.Decode();
-					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instr.Length == 1) {
-						instr = decoder.Decode();
-						instr.Code = instr.Code switch {
+					instruction = decoder.Decode();
+					if (codeBytes.Length > 1 && codeBytes[0] == 0x9B && instruction.Length == 1) {
+						instruction = decoder.Decode();
+						instruction.Code = instruction.Code switch {
 							Code.Fnstenv_m14byte => Code.Fstenv_m14byte,
 							Code.Fnstenv_m28byte => Code.Fstenv_m28byte,
 							Code.Fnstcw_m2byte => Code.Fstcw_m2byte,
@@ -132,13 +132,13 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			}
 			else {
 				var decoder = CreateDecoder(bitness, codeBytes, options);
-				instr = decoder.Decode();
+				instruction = decoder.Decode();
 			}
-			Assert.Equal(code, instr.Code);
+			Assert.Equal(code, instruction.Code);
 
-			Assert.Equal(testCase.StackPointerIncrement, instr.StackPointerIncrement);
+			Assert.Equal(testCase.StackPointerIncrement, instruction.StackPointerIncrement);
 
-			var info = new InstructionInfoFactory().GetInfo(instr);
+			var info = new InstructionInfoFactory().GetInfo(instruction);
 			Assert.Equal(testCase.Encoding, info.Encoding);
 			Assert.Equal(testCase.CpuidFeatures, info.CpuidFeatures);
 			Assert.Equal(testCase.RflagsRead, info.RflagsRead);
@@ -164,8 +164,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				new HashSet<UsedRegister>(GetUsedRegisters(info.GetUsedRegisters()), UsedRegisterEqualityComparer.Instance));
 
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
-			Debug.Assert(instr.OpCount <= IcedConstants.MaxOpCount);
-			for (int i = 0; i < instr.OpCount; i++) {
+			Debug.Assert(instruction.OpCount <= IcedConstants.MaxOpCount);
+			for (int i = 0; i < instruction.OpCount; i++) {
 				switch (i) {
 				case 0:
 					Assert.Equal(testCase.Op0Access, info.GetOpAccess(i));
@@ -191,7 +191,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 					throw new InvalidOperationException();
 				}
 			}
-			for (int i = instr.OpCount; i < IcedConstants.MaxOpCount; i++)
+			for (int i = instruction.OpCount; i < IcedConstants.MaxOpCount; i++)
 				Assert.Equal(OpAccess.None, info.GetOpAccess(i));
 
 			Assert.Equal(RflagsBits.None, info.RflagsWritten & (info.RflagsCleared | info.RflagsSet | info.RflagsUndefined));
@@ -200,42 +200,42 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(RflagsBits.None, info.RflagsUndefined & (info.RflagsWritten | info.RflagsCleared | info.RflagsSet));
 			Assert.Equal(info.RflagsWritten | info.RflagsCleared | info.RflagsSet | info.RflagsUndefined, info.RflagsModified);
 
-			var info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.None);
+			var info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.None);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: true);
-			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoMemoryUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: true, hasMem2: false);
-			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.NoRegisterUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: true);
-			info2 = new InstructionInfoFactory().GetInfo(instr, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
+			info2 = new InstructionInfoFactory().GetInfo(instruction, InstructionInfoOptions.NoRegisterUsage | InstructionInfoOptions.NoMemoryUsage);
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
-			Assert.Equal(info.Encoding, instr.Code.Encoding());
+			Assert.Equal(info.Encoding, instruction.Code.Encoding());
 #if !NO_ENCODER
-			Assert.Equal(code.ToOpCode().Encoding, instr.Code.Encoding());
+			Assert.Equal(code.ToOpCode().Encoding, instruction.Code.Encoding());
 #endif
-			var cf = instr.Code.CpuidFeatures();
-			if (cf.Length == 1 && cf[0] == CpuidFeature.AVX && instr.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
+			var cf = instruction.Code.CpuidFeatures();
+			if (cf.Length == 1 && cf[0] == CpuidFeature.AVX && instruction.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
 				cf = new[] { CpuidFeature.AVX2 };
 			Assert.Equal(info.CpuidFeatures, cf);
-			Assert.Equal(info.FlowControl, instr.Code.FlowControl());
-			Assert.Equal(info.IsProtectedMode, instr.Code.IsProtectedMode());
-			Assert.Equal(info.IsPrivileged, instr.Code.IsPrivileged());
-			Assert.Equal(info.IsStackInstruction, instr.Code.IsStackInstruction());
-			Assert.Equal(info.IsSaveRestoreInstruction, instr.Code.IsSaveRestoreInstruction());
+			Assert.Equal(info.FlowControl, instruction.Code.FlowControl());
+			Assert.Equal(info.IsProtectedMode, instruction.Code.IsProtectedMode());
+			Assert.Equal(info.IsPrivileged, instruction.Code.IsPrivileged());
+			Assert.Equal(info.IsStackInstruction, instruction.Code.IsStackInstruction());
+			Assert.Equal(info.IsSaveRestoreInstruction, instruction.Code.IsSaveRestoreInstruction());
 
-			Assert.Equal(info.Encoding, instr.Encoding);
-			Assert.Equal(info.CpuidFeatures, instr.CpuidFeatures);
-			Assert.Equal(info.FlowControl, instr.FlowControl);
-			Assert.Equal(info.IsProtectedMode, instr.IsProtectedMode);
-			Assert.Equal(info.IsPrivileged, instr.IsPrivileged);
-			Assert.Equal(info.IsStackInstruction, instr.IsStackInstruction);
-			Assert.Equal(info.IsSaveRestoreInstruction, instr.IsSaveRestoreInstruction);
-			Assert.Equal(info.RflagsRead, instr.RflagsRead);
-			Assert.Equal(info.RflagsWritten, instr.RflagsWritten);
-			Assert.Equal(info.RflagsCleared, instr.RflagsCleared);
-			Assert.Equal(info.RflagsSet, instr.RflagsSet);
-			Assert.Equal(info.RflagsUndefined, instr.RflagsUndefined);
-			Assert.Equal(info.RflagsModified, instr.RflagsModified);
+			Assert.Equal(info.Encoding, instruction.Encoding);
+			Assert.Equal(info.CpuidFeatures, instruction.CpuidFeatures);
+			Assert.Equal(info.FlowControl, instruction.FlowControl);
+			Assert.Equal(info.IsProtectedMode, instruction.IsProtectedMode);
+			Assert.Equal(info.IsPrivileged, instruction.IsPrivileged);
+			Assert.Equal(info.IsStackInstruction, instruction.IsStackInstruction);
+			Assert.Equal(info.IsSaveRestoreInstruction, instruction.IsSaveRestoreInstruction);
+			Assert.Equal(info.RflagsRead, instruction.RflagsRead);
+			Assert.Equal(info.RflagsWritten, instruction.RflagsWritten);
+			Assert.Equal(info.RflagsCleared, instruction.RflagsCleared);
+			Assert.Equal(info.RflagsSet, instruction.RflagsSet);
+			Assert.Equal(info.RflagsUndefined, instruction.RflagsUndefined);
+			Assert.Equal(info.RflagsModified, instruction.RflagsModified);
 		}
 
 		void CheckEqual(ref InstructionInfo info1, ref InstructionInfo info2, bool hasRegs2, bool hasMem2) {
@@ -409,17 +409,17 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			return -1;
 		}
 
-		Decoder CreateDecoder(int codeSize, byte[] codeBytes, DecoderOptions options) {
+		Decoder CreateDecoder(int bitness, byte[] codeBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(codeBytes);
-			var decoder = Decoder.Create(codeSize, codeReader, options);
+			var decoder = Decoder.Create(bitness, codeReader, options);
 
-			decoder.IP = codeSize switch {
+			decoder.IP = bitness switch {
 				16 => DecoderConstants.DEFAULT_IP16,
 				32 => DecoderConstants.DEFAULT_IP32,
 				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(codeSize)),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
 			};
-			Assert.Equal(codeSize, decoder.Bitness);
+			Assert.Equal(bitness, decoder.Bitness);
 			return decoder;
 		}
 

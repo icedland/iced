@@ -111,8 +111,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		readonly StringBuilder sb = new StringBuilder();
 		int length;
 
-		string GetCodeValue(int codeSize, bool isVsib) =>
-			isVsib ? EVEX_Code : codeSize switch {
+		string GetCodeValue(int bitness, bool isVsib) =>
+			isVsib ? EVEX_Code : bitness switch {
 				16 => Legacy_Code_16,
 				32 => Legacy_Code_32,
 				64 => Legacy_Code_64,
@@ -243,8 +243,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			}
 		}
 
-		Register GetLegacyRegister(int codeSize) =>
-			codeSize switch {
+		Register GetLegacyRegister(int bitness) =>
+			bitness switch {
 				16 => Legacy_Register_16,
 				32 => Legacy_Register_32,
 				64 => Legacy_Register_64,
@@ -275,7 +275,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		}
 
 		void DoIt() {
-			(int codeSize, int addrSize, bool isVsib)[] memInfos = new(int codeSize, int addrSize, bool isVsib)[] {
+			(int bitness, int addrSize, bool isVsib)[] memInfos = new(int bitness, int addrSize, bool isVsib)[] {
 				(16, 16, false),
 				(16, 32, false),
 				(16, 32, true),
@@ -291,8 +291,8 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			};
 
 			foreach (var memInfo in memInfos) {
-				Console.WriteLine($"CodeSize: {memInfo.codeSize}, AddrSize: {memInfo.addrSize}, VSIB={memInfo.isVsib}");
-				var filename = $@"C:\memtestgen\out_cs{memInfo.codeSize}_as{memInfo.addrSize}";
+				Console.WriteLine($"Bitness: {memInfo.bitness}, AddrSize: {memInfo.addrSize}, VSIB={memInfo.isVsib}");
+				var filename = $@"C:\memtestgen\out_cs{memInfo.bitness}_as{memInfo.addrSize}";
 				if (memInfo.isVsib)
 					filename += "-vsib";
 				filename += ".bin";
@@ -300,7 +300,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				if (File.Exists(filename))
 					File.Delete(filename);
 				using (var file = File.OpenWrite(filename)) {
-					foreach (var info in GetMemInfo(memInfo.codeSize, memInfo.addrSize, memInfo.isVsib)) {
+					foreach (var info in GetMemInfo(memInfo.bitness, memInfo.addrSize, memInfo.isVsib)) {
 						string displString;
 						switch (info.DisplSize) {
 						case 0:
@@ -333,17 +333,17 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 
 		static string ToString(Register register) => register.ToString().ToLowerInvariant();
 
-		IEnumerable<MemInfo> GetMemInfo(int codeSize, int addrSize, bool isVsib) {
+		IEnumerable<MemInfo> GetMemInfo(int bitness, int addrSize, bool isVsib) {
 			var hash = new HashSet<MemInfo>();
 			if (addrSize == 16) {
-				foreach (var info in GetMemInfo16(codeSize, addrSize, isVsib)) {
+				foreach (var info in GetMemInfo16(bitness, addrSize, isVsib)) {
 					if (!hash.Add(info))
 						continue;
 					yield return info;
 				}
 			}
 			else {
-				foreach (var info in GetMemInfo3264(codeSize, addrSize, isVsib)) {
+				foreach (var info in GetMemInfo3264(bitness, addrSize, isVsib)) {
 					if (!hash.Add(info))
 						continue;
 					yield return info;
@@ -351,7 +351,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			}
 		}
 
-		IEnumerable<MemInfo> GetMemInfo16(int codeSize, int addrSize, bool isVsib) {
+		IEnumerable<MemInfo> GetMemInfo16(int bitness, int addrSize, bool isVsib) {
 			if (isVsib)
 				throw new InvalidOperationException();
 			for (uint i = 0; i < 0x100; i++) {
@@ -366,7 +366,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				var prefixSeg = Register.None;
 				int scale = 0;
 
-				var register = GetLegacyRegister(codeSize) + reg;
+				var register = GetLegacyRegister(bitness) + reg;
 				Register baseReg, indexReg;
 				switch (rm) {
 				case 0:
@@ -427,26 +427,26 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				}
 
 				uint displ = GetDispl(addrSize, displSize, modRM);
-				LegacyEncode(codeSize != addrSize, 0, modRM, -1, displSize, displ);
+				LegacyEncode(bitness != addrSize, 0, modRM, -1, displSize, displ);
 				var hexBytes = GetHexBytes(out int length);
-				yield return new MemInfo(hexBytes, length, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid: false);
+				yield return new MemInfo(hexBytes, length, GetCodeValue(bitness, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid: false);
 			}
 		}
 
-		IEnumerable<MemInfo> GetMemInfo3264(int codeSize, int addrSize, bool isVsib) {
+		IEnumerable<MemInfo> GetMemInfo3264(int bitness, int addrSize, bool isVsib) {
 			if (isVsib) {
-				foreach (var info in GetMemInfo3264(codeSize, addrSize, isVsib, onlySib: true))
+				foreach (var info in GetMemInfo3264(bitness, addrSize, isVsib, onlySib: true))
 					yield return info;
 			}
 			else {
-				foreach (var info in GetMemInfo3264(codeSize, addrSize, isVsib, onlySib: false))
+				foreach (var info in GetMemInfo3264(bitness, addrSize, isVsib, onlySib: false))
 					yield return info;
-				foreach (var info in GetMemInfo3264(codeSize, addrSize, isVsib, onlySib: true))
+				foreach (var info in GetMemInfo3264(bitness, addrSize, isVsib, onlySib: true))
 					yield return info;
 			}
 		}
 
-		IEnumerable<MemInfo> GetMemInfo3264(int codeSize, int addrSize, bool isVsib, bool onlySib) {
+		IEnumerable<MemInfo> GetMemInfo3264(int bitness, int addrSize, bool isVsib, bool onlySib) {
 			Register defaultBaseReg;
 			if (addrSize == 32)
 				defaultBaseReg = Register.EAX;
@@ -459,7 +459,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 			// [8] = 'register' register bit 3 (bit 4 isn't used if it's XMM)
 			// [9] = 'baseReg' register bit 3
 			// [11:10] = 'indexReg' register bits [4:3]
-			if (codeSize == 64) {
+			if (bitness == 64) {
 				if (isVsib)
 					max = 0x100 * 16;
 				else
@@ -491,7 +491,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				uint extraIndexReg = ((i >> 10) & 3) << 3;
 
 				int regNum = (int)extraRegister + reg;
-				var register = isVsib ? regNum + EVEX_Register : GetLegacyRegister(codeSize) + regNum;
+				var register = isVsib ? regNum + EVEX_Register : GetLegacyRegister(bitness) + regNum;
 				var baseReg = defaultBaseReg + (int)extraBaseReg + rm;
 
 				// Only test the memory operand
@@ -504,7 +504,7 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 					displSize = 0;
 					if (rm == 5) {
 						displSize = addrSize == 64 ? 8 : 4;
-						if (codeSize == 64)
+						if (bitness == 64)
 							baseReg = addrSize == 32 ? Register.EIP : Register.RIP;
 						else
 							baseReg = Register.None;
@@ -521,15 +521,15 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 				}
 
 				if (!hasSib)
-					yield return GetMemInfo3264(codeSize, addrSize, isVsib, modRM, -1, defaultBaseReg, defaultIndexReg, register, baseReg, extraBaseReg, extraIndexReg, displSize);
+					yield return GetMemInfo3264(bitness, addrSize, isVsib, modRM, -1, defaultBaseReg, defaultIndexReg, register, baseReg, extraBaseReg, extraIndexReg, displSize);
 				else {
 					for (int sib = 0; sib < 0x100; sib++)
-						yield return GetMemInfo3264(codeSize, addrSize, isVsib, modRM, sib, defaultBaseReg, defaultIndexReg, register, baseReg, extraBaseReg, extraIndexReg, displSize);
+						yield return GetMemInfo3264(bitness, addrSize, isVsib, modRM, sib, defaultBaseReg, defaultIndexReg, register, baseReg, extraBaseReg, extraIndexReg, displSize);
 				}
 			}
 		}
 
-		MemInfo GetMemInfo3264(int codeSize, int addrSize, bool isVsib, byte modRM, int sib, Register defaultBaseReg, Register defaultIndexReg, Register register, Register baseReg, uint extraBaseReg, uint extraIndexReg, int displSize) {
+		MemInfo GetMemInfo3264(int bitness, int addrSize, bool isVsib, byte modRM, int sib, Register defaultBaseReg, Register defaultIndexReg, Register register, Register baseReg, uint extraBaseReg, uint extraIndexReg, int displSize) {
 			var mod = (modRM >> 6) & 3;
 			Register indexReg;
 			int scale;
@@ -555,13 +555,13 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 
 			int baseRegNum = baseReg == Register.None || baseReg == Register.RIP || baseReg == Register.EIP ? -1 : baseReg - defaultBaseReg;
 			int indexRegNum = indexReg == Register.None ? -1 : indexReg - defaultIndexReg;
-			var regBase = isVsib ? EVEX_Register : GetLegacyRegister(codeSize);
+			var regBase = isVsib ? EVEX_Register : GetLegacyRegister(bitness);
 			int regNum = register - regBase;
 
 			var prefixSeg = Register.None;
 			uint displ = GetDispl(addrSize, displSize, sib >= 0 ? (byte)sib : modRM);
 			if (isVsib) {
-				EvexEncode(codeSize != addrSize, modRM, sib, displSize, displ, regNum, baseRegNum, indexRegNum);
+				EvexEncode(bitness != addrSize, modRM, sib, displSize, displ, regNum, baseRegNum, indexRegNum);
 				if (displSize == 1)
 					displ = (uint)((int)(sbyte)displ * EVEX_Displ8N);
 			}
@@ -589,10 +589,10 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 
 				if (rex != 0)
 					rex |= 0x40;
-				LegacyEncode(codeSize != addrSize, rex, modRM, sib, displSize, displ);
+				LegacyEncode(bitness != addrSize, rex, modRM, sib, displSize, displ);
 			}
 			var hexBytes = GetHexBytes(out int length);
-			return new MemInfo(hexBytes, length, GetCodeValue(codeSize, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid);
+			return new MemInfo(hexBytes, length, GetCodeValue(bitness, isVsib), register, prefixSeg, baseReg, indexReg, scale, displSize, displ, isInvalid);
 		}
 	}
 }

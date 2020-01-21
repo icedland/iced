@@ -37,6 +37,15 @@ pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
 	v
 }
 
+pub(crate) fn get_infos(bitness: u32) -> &'static Vec<(&'static str, Instruction)> {
+	match bitness {
+		16 => &*INFOS16,
+		32 => &*INFOS32,
+		64 => &*INFOS64,
+		_ => unreachable!(),
+	}
+}
+
 pub(crate) const INFOS16_LEN: usize = 49;
 pub(crate) const INFOS32_LEN: usize = 49;
 pub(crate) const INFOS64_LEN: usize = 48;

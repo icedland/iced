@@ -30,18 +30,18 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public readonly struct InstructionInfo {
-		public readonly int CodeSize;
+		public readonly int Bitness;
 		public readonly string HexBytes;
 		public readonly Code Code;
 		public readonly DecoderOptions Options;
-		public InstructionInfo(int codeSize, string hexBytes, Code code) {
-			CodeSize = codeSize;
+		public InstructionInfo(int bitness, string hexBytes, Code code) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			Options = DecoderOptions.None;
 		}
-		public InstructionInfo(int codeSize, string hexBytes, Code code, DecoderOptions options) {
-			CodeSize = codeSize;
+		public InstructionInfo(int bitness, string hexBytes, Code code, DecoderOptions options) {
+			Bitness = bitness;
 			HexBytes = hexBytes;
 			Code = code;
 			Options = options;
@@ -140,10 +140,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		protected void FormatBase(int index, InstructionInfo info, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(info.CodeSize, info.HexBytes, info.Code, info.Options, formattedString, formatter);
+			FormatterTestUtils.FormatTest(info.Bitness, info.HexBytes, info.Code, info.Options, formattedString, formatter);
 
-		protected void FormatBase(int index, Instruction instr, string formattedString, Formatter formatter) =>
-			FormatterTestUtils.FormatTest(instr, formattedString, formatter);
+		protected void FormatBase(int index, Instruction instruction, string formattedString, Formatter formatter) =>
+			FormatterTestUtils.FormatTest(instruction, formattedString, formatter);
 	}
 }
 #endif

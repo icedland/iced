@@ -43,6 +43,8 @@ mod string_output;
 mod strings_data;
 mod strings_tbl;
 mod symres;
+#[cfg(test)]
+mod tests;
 
 pub use self::enums::*;
 pub use self::fmt_opt_provider::*;

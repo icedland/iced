@@ -256,7 +256,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 				64 => DecoderConstants.DEFAULT_IP64,
 				_ => throw new InvalidOperationException(),
 			};
-			decoder.Decode(out var instr);
+			decoder.Decode(out var instruction);
 
 			var resolver = new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
@@ -276,7 +276,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			formatter.MasmOptions.AddDsPrefix32 = (flags & Flags.NoAddDsPrefix32) == 0;
 
 			var output = new StringOutput();
-			formatter.Format(instr, output);
+			formatter.Format(instruction, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()

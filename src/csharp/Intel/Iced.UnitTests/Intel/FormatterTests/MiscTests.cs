@@ -110,32 +110,32 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		[Theory]
 		[MemberData(nameof(AllFormatters))]
 		void Methods_throw_if_null_input(Formatter formatter) {
-			var instr = Instruction.Create(Code.Mov_rm64_r64, Register.RAX, Register.RCX);
-			Assert.Throws<ArgumentNullException>(() => formatter.FormatMnemonic(instr, null));
-			Assert.Throws<ArgumentNullException>(() => formatter.FormatMnemonic(instr, null, FormatMnemonicOptions.None));
-			Assert.Throws<ArgumentNullException>(() => formatter.FormatOperand(instr, null, 0));
-			Assert.Throws<ArgumentNullException>(() => formatter.FormatOperandSeparator(instr, null));
-			Assert.Throws<ArgumentNullException>(() => formatter.FormatAllOperands(instr, null));
-			Assert.Throws<ArgumentNullException>(() => formatter.Format(instr, null));
+			var instruction = Instruction.Create(Code.Mov_rm64_r64, Register.RAX, Register.RCX);
+			Assert.Throws<ArgumentNullException>(() => formatter.FormatMnemonic(instruction, null));
+			Assert.Throws<ArgumentNullException>(() => formatter.FormatMnemonic(instruction, null, FormatMnemonicOptions.None));
+			Assert.Throws<ArgumentNullException>(() => formatter.FormatOperand(instruction, null, 0));
+			Assert.Throws<ArgumentNullException>(() => formatter.FormatOperandSeparator(instruction, null));
+			Assert.Throws<ArgumentNullException>(() => formatter.FormatAllOperands(instruction, null));
+			Assert.Throws<ArgumentNullException>(() => formatter.Format(instruction, null));
 		}
 
 		[Theory]
 		[MemberData(nameof(AllFormatters))]
 		void Methods_throw_if_invalid_operand_or_instructionOperand(Formatter formatter) {
 			{
-				var instr = Instruction.Create(Code.Mov_rm64_r64, Register.RAX, Register.RCX);
+				var instruction = Instruction.Create(Code.Mov_rm64_r64, Register.RAX, Register.RCX);
 				const int numOps = 2;
 				const int numInstrOps = 2;
-				Assert.Equal(numOps, formatter.GetOperandCount(instr));
-				Assert.Equal(numInstrOps, instr.OpCount);
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instr, -1, out _));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instr, numOps, out _));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(instr, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(instr, numOps));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instr, numInstrOps));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringOutput(), -1));
-				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instr, new StringOutput(), numOps));
+				Assert.Equal(numOps, formatter.GetOperandCount(instruction));
+				Assert.Equal(numInstrOps, instruction.OpCount);
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instruction, -1, out _));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instruction, numOps, out _));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(instruction, -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(instruction, numOps));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instruction, -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetFormatterOperand(instruction, numInstrOps));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instruction, new StringOutput(), -1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(instruction, new StringOutput(), numOps));
 			}
 
 			{

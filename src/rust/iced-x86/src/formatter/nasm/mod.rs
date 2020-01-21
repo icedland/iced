@@ -27,6 +27,8 @@ mod fmt_tbl;
 mod info;
 mod mem_size_tbl;
 mod regs;
+#[cfg(test)]
+mod tests;
 
 use self::enums::*;
 use self::fmt_tbl::ALL_INFOS;

@@ -46,47 +46,47 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = code;
+				Instruction instruction = default;
+				instruction.Code = code;
 
 				Assert.Equal(jccShort.Contains(code) || jccNear.Contains(code), code.IsJccShortOrNear());
-				Assert.Equal(code.IsJccShortOrNear(), instr.IsJccShortOrNear);
+				Assert.Equal(code.IsJccShortOrNear(), instruction.IsJccShortOrNear);
 
 				Assert.Equal(jccNear.Contains(code), code.IsJccNear());
-				Assert.Equal(code.IsJccNear(), instr.IsJccNear);
+				Assert.Equal(code.IsJccNear(), instruction.IsJccNear);
 
 				Assert.Equal(jccShort.Contains(code), code.IsJccShort());
-				Assert.Equal(code.IsJccShort(), instr.IsJccShort);
+				Assert.Equal(code.IsJccShort(), instruction.IsJccShort);
 
 				Assert.Equal(jmpShort.Contains(code), code.IsJmpShort());
-				Assert.Equal(code.IsJmpShort(), instr.IsJmpShort);
+				Assert.Equal(code.IsJmpShort(), instruction.IsJmpShort);
 
 				Assert.Equal(jmpNear.Contains(code), code.IsJmpNear());
-				Assert.Equal(code.IsJmpNear(), instr.IsJmpNear);
+				Assert.Equal(code.IsJmpNear(), instruction.IsJmpNear);
 
 				Assert.Equal(jmpShort.Contains(code) || jmpNear.Contains(code), code.IsJmpShortOrNear());
-				Assert.Equal(code.IsJmpShortOrNear(), instr.IsJmpShortOrNear);
+				Assert.Equal(code.IsJmpShortOrNear(), instruction.IsJmpShortOrNear);
 
 				Assert.Equal(jmpFar.Contains(code), code.IsJmpFar());
-				Assert.Equal(code.IsJmpFar(), instr.IsJmpFar);
+				Assert.Equal(code.IsJmpFar(), instruction.IsJmpFar);
 
 				Assert.Equal(callNear.Contains(code), code.IsCallNear());
-				Assert.Equal(code.IsCallNear(), instr.IsCallNear);
+				Assert.Equal(code.IsCallNear(), instruction.IsCallNear);
 
 				Assert.Equal(callFar.Contains(code), code.IsCallFar());
-				Assert.Equal(code.IsCallFar(), instr.IsCallFar);
+				Assert.Equal(code.IsCallFar(), instruction.IsCallFar);
 
 				Assert.Equal(jmpNearIndirect.Contains(code), code.IsJmpNearIndirect());
-				Assert.Equal(code.IsJmpNearIndirect(), instr.IsJmpNearIndirect);
+				Assert.Equal(code.IsJmpNearIndirect(), instruction.IsJmpNearIndirect);
 
 				Assert.Equal(jmpFarIndirect.Contains(code), code.IsJmpFarIndirect());
-				Assert.Equal(code.IsJmpFarIndirect(), instr.IsJmpFarIndirect);
+				Assert.Equal(code.IsJmpFarIndirect(), instruction.IsJmpFarIndirect);
 
 				Assert.Equal(callNearIndirect.Contains(code), code.IsCallNearIndirect());
-				Assert.Equal(code.IsCallNearIndirect(), instr.IsCallNearIndirect);
+				Assert.Equal(code.IsCallNearIndirect(), instruction.IsCallNearIndirect);
 
 				Assert.Equal(callFarIndirect.Contains(code), code.IsCallFarIndirect());
-				Assert.Equal(code.IsCallFarIndirect(), instr.IsCallFarIndirect);
+				Assert.Equal(code.IsCallFarIndirect(), instruction.IsCallFarIndirect);
 			}
 		}
 
@@ -94,15 +94,15 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		void Verify_ProtectedMode_is_true_if_VEX_XOP_EVEX() {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
-				decoder.Decode(out var instr);
-				switch (instr.Encoding) {
+				decoder.Decode(out var instruction);
+				switch (instruction.Encoding) {
 				case EncodingKind.Legacy:
 				case EncodingKind.D3NOW:
 					break;
 				case EncodingKind.VEX:
 				case EncodingKind.EVEX:
 				case EncodingKind.XOP:
-					Assert.True(instr.IsProtectedMode);
+					Assert.True(instruction.IsProtectedMode);
 					Assert.True(info.Code.IsProtectedMode());
 					break;
 				default:
@@ -125,15 +125,15 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = code;
+				Instruction instruction = default;
+				instruction.Code = code;
 
 				if (!toNegatedCodeValue.TryGetValue(code, out var negatedCodeValue))
 					negatedCodeValue = code;
 
 				Assert.Equal(negatedCodeValue, code.NegateConditionCode());
-				instr.NegateConditionCode();
-				Assert.Equal(negatedCodeValue, instr.Code);
+				instruction.NegateConditionCode();
+				Assert.Equal(negatedCodeValue, instruction.Code);
 			}
 		}
 
@@ -147,15 +147,15 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = code;
+				Instruction instruction = default;
+				instruction.Code = code;
 
 				if (!toShortBranch.TryGetValue(code, out var shortCodeValue))
 					shortCodeValue = code;
 
 				Assert.Equal(shortCodeValue, code.ToShortBranch());
-				instr.ToShortBranch();
-				Assert.Equal(shortCodeValue, instr.Code);
+				instruction.ToShortBranch();
+				Assert.Equal(shortCodeValue, instruction.Code);
 			}
 		}
 
@@ -169,15 +169,15 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = code;
+				Instruction instruction = default;
+				instruction.Code = code;
 
 				if (!toNearBranch.TryGetValue(code, out var nearCodeValue))
 					nearCodeValue = code;
 
 				Assert.Equal(nearCodeValue, code.ToNearBranch());
-				instr.ToNearBranch();
-				Assert.Equal(nearCodeValue, instr.Code);
+				instruction.ToNearBranch();
+				Assert.Equal(nearCodeValue, instruction.Code);
 			}
 		}
 
@@ -195,14 +195,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				var code = (Code)i;
-				Instruction instr = default;
-				instr.Code = code;
+				Instruction instruction = default;
+				instruction.Code = code;
 
 				if (!toConditionCode.TryGetValue(code, out var cc))
 					cc = ConditionCode.None;
 
 				Assert.Equal(cc, code.ConditionCode());
-				Assert.Equal(cc, instr.ConditionCode);
+				Assert.Equal(cc, instruction.ConditionCode);
 			}
 		}
 

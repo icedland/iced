@@ -121,11 +121,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 		[InlineData("3E FF 10", Code.Call_rm64, 64, "notrack", FormatMnemonicOptions.NoMnemonic)]
 		void FormatMnemonicOptions1(string hexBytes, Code code, int bitness, string formattedString, FormatMnemonicOptions options) {
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(hexBytes));
-			decoder.Decode(out var instr);
-			Assert.Equal(code, instr.Code);
+			decoder.Decode(out var instruction);
+			Assert.Equal(code, instruction.Code);
 			var formatter = FormatterFactory.Create();
 			var output = new StringOutput();
-			formatter.FormatMnemonic(instr, output, options);
+			formatter.FormatMnemonic(instruction, output, options);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check
 			// Show the full string without ellipses by using Equal<string>() instead of Equal()

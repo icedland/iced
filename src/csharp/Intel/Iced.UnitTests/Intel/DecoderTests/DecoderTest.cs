@@ -42,16 +42,16 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return CreateDecoder(bitness, hexBytes, options).decoder;
 		}
 
-		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int codeSize, string hexBytes, DecoderOptions options) {
+		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int bitness, string hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
-			var decoder = Decoder.Create(codeSize, codeReader, options);
-			decoder.IP = codeSize switch {
+			var decoder = Decoder.Create(bitness, codeReader, options);
+			decoder.IP = bitness switch {
 				16 => DecoderConstants.DEFAULT_IP16,
 				32 => DecoderConstants.DEFAULT_IP32,
 				64 => DecoderConstants.DEFAULT_IP64,
-				_ => throw new ArgumentOutOfRangeException(nameof(codeSize)),
+				_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
 			};
-			Assert.Equal(codeSize, decoder.Bitness);
+			Assert.Equal(bitness, decoder.Bitness);
 			int length = Math.Min(IcedConstants.MaxInstructionLength, codeReader.Count);
 			bool canRead = length < codeReader.Count;
 			return (decoder, length, canRead, codeReader);
@@ -59,34 +59,34 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
-			var instr = decoder.Decode();
+			var instruction = decoder.Decode();
 			Assert.Equal(canRead, codeReader.CanReadByte);
 
-			Assert.Equal(code, instr.Code);
-			Assert.Equal(2, instr.OpCount);
-			Assert.Equal(length, instr.Length);
-			Assert.False(instr.HasRepPrefix);
-			Assert.False(instr.HasRepePrefix);
-			Assert.False(instr.HasRepnePrefix);
-			Assert.False(instr.HasLockPrefix);
-			Assert.Equal(prefixSeg, instr.SegmentPrefix);
-			if (instr.SegmentPrefix == Register.None)
-				Assert.False(instr.HasSegmentPrefix);
+			Assert.Equal(code, instruction.Code);
+			Assert.Equal(2, instruction.OpCount);
+			Assert.Equal(length, instruction.Length);
+			Assert.False(instruction.HasRepPrefix);
+			Assert.False(instruction.HasRepePrefix);
+			Assert.False(instruction.HasRepnePrefix);
+			Assert.False(instruction.HasLockPrefix);
+			Assert.Equal(prefixSeg, instruction.SegmentPrefix);
+			if (instruction.SegmentPrefix == Register.None)
+				Assert.False(instruction.HasSegmentPrefix);
 			else
-				Assert.True(instr.HasSegmentPrefix);
+				Assert.True(instruction.HasSegmentPrefix);
 
-			Assert.Equal(OpKind.Memory, instr.Op0Kind);
-			Assert.Equal(segReg, instr.MemorySegment);
-			Assert.Equal(baseReg, instr.MemoryBase);
-			Assert.Equal(indexReg, instr.MemoryIndex);
-			Assert.Equal(displ, instr.MemoryDisplacement);
-			Assert.Equal((ulong)(int)displ, instr.MemoryDisplacement64);
-			Assert.Equal(1 << scale, instr.MemoryIndexScale);
-			Assert.Equal(displSize, instr.MemoryDisplSize);
+			Assert.Equal(OpKind.Memory, instruction.Op0Kind);
+			Assert.Equal(segReg, instruction.MemorySegment);
+			Assert.Equal(baseReg, instruction.MemoryBase);
+			Assert.Equal(indexReg, instruction.MemoryIndex);
+			Assert.Equal(displ, instruction.MemoryDisplacement);
+			Assert.Equal((ulong)(int)displ, instruction.MemoryDisplacement64);
+			Assert.Equal(1 << scale, instruction.MemoryIndexScale);
+			Assert.Equal(displSize, instruction.MemoryDisplSize);
 
-			Assert.Equal(OpKind.Register, instr.Op1Kind);
-			Assert.Equal(register, instr.Op1Register);
-			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instr));
+			Assert.Equal(OpKind.Register, instruction.Op1Kind);
+			Assert.Equal(register, instruction.Op1Register);
+			VerifyConstantOffsets(constantOffsets, decoder.GetConstantOffsets(instruction));
 		}
 
 		protected static IEnumerable<object[]> GetMemOpsData(int bitness) {
@@ -123,122 +123,122 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal void DecoderTestBase(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
 			ulong rip = decoder.IP;
-			decoder.Decode(out var instr);
+			decoder.Decode(out var instruction);
 			Assert.Equal(canRead, codeReader.CanReadByte);
-			Assert.Equal(tc.Code, instr.Code);
-			Assert.Equal(tc.Mnemonic, instr.Mnemonic);
-			Assert.Equal(instr.Mnemonic, instr.Code.Mnemonic());
-			Assert.Equal(length, instr.Length);
-			Assert.Equal(rip, instr.IP);
-			Assert.Equal(decoder.IP, instr.NextIP);
-			Assert.Equal(tc.OpCount, instr.OpCount);
-			Assert.Equal(tc.ZeroingMasking, instr.ZeroingMasking);
-			Assert.Equal(!tc.ZeroingMasking, instr.MergingMasking);
-			Assert.Equal(tc.SuppressAllExceptions, instr.SuppressAllExceptions);
-			Assert.Equal(tc.IsBroadcast, instr.IsBroadcast);
-			Assert.Equal(tc.HasXacquirePrefix, instr.HasXacquirePrefix);
-			Assert.Equal(tc.HasXreleasePrefix, instr.HasXreleasePrefix);
-			Assert.Equal(tc.HasRepePrefix, instr.HasRepPrefix);
-			Assert.Equal(tc.HasRepePrefix, instr.HasRepePrefix);
-			Assert.Equal(tc.HasRepnePrefix, instr.HasRepnePrefix);
-			Assert.Equal(tc.HasLockPrefix, instr.HasLockPrefix);
+			Assert.Equal(tc.Code, instruction.Code);
+			Assert.Equal(tc.Mnemonic, instruction.Mnemonic);
+			Assert.Equal(instruction.Mnemonic, instruction.Code.Mnemonic());
+			Assert.Equal(length, instruction.Length);
+			Assert.Equal(rip, instruction.IP);
+			Assert.Equal(decoder.IP, instruction.NextIP);
+			Assert.Equal(tc.OpCount, instruction.OpCount);
+			Assert.Equal(tc.ZeroingMasking, instruction.ZeroingMasking);
+			Assert.Equal(!tc.ZeroingMasking, instruction.MergingMasking);
+			Assert.Equal(tc.SuppressAllExceptions, instruction.SuppressAllExceptions);
+			Assert.Equal(tc.IsBroadcast, instruction.IsBroadcast);
+			Assert.Equal(tc.HasXacquirePrefix, instruction.HasXacquirePrefix);
+			Assert.Equal(tc.HasXreleasePrefix, instruction.HasXreleasePrefix);
+			Assert.Equal(tc.HasRepePrefix, instruction.HasRepPrefix);
+			Assert.Equal(tc.HasRepePrefix, instruction.HasRepePrefix);
+			Assert.Equal(tc.HasRepnePrefix, instruction.HasRepnePrefix);
+			Assert.Equal(tc.HasLockPrefix, instruction.HasLockPrefix);
 			switch (tc.VsibBitness) {
 			case 0:
-				Assert.False(instr.IsVsib);
-				Assert.False(instr.IsVsib32);
-				Assert.False(instr.IsVsib64);
-				Assert.False(instr.TryGetVsib64(out _));
+				Assert.False(instruction.IsVsib);
+				Assert.False(instruction.IsVsib32);
+				Assert.False(instruction.IsVsib64);
+				Assert.False(instruction.TryGetVsib64(out _));
 				break;
 
 			case 32:
-				Assert.True(instr.IsVsib);
-				Assert.True(instr.IsVsib32);
-				Assert.False(instr.IsVsib64);
-				Assert.True(instr.TryGetVsib64(out bool vsib64) && !vsib64);
+				Assert.True(instruction.IsVsib);
+				Assert.True(instruction.IsVsib32);
+				Assert.False(instruction.IsVsib64);
+				Assert.True(instruction.TryGetVsib64(out bool vsib64) && !vsib64);
 				break;
 
 			case 64:
-				Assert.True(instr.IsVsib);
-				Assert.False(instr.IsVsib32);
-				Assert.True(instr.IsVsib64);
-				Assert.True(instr.TryGetVsib64(out vsib64) && vsib64);
+				Assert.True(instruction.IsVsib);
+				Assert.False(instruction.IsVsib32);
+				Assert.True(instruction.IsVsib64);
+				Assert.True(instruction.TryGetVsib64(out vsib64) && vsib64);
 				break;
 
 			default:
 				throw new InvalidOperationException();
 			}
-			Assert.Equal(tc.OpMask, instr.OpMask);
-			Assert.Equal(tc.OpMask != Register.None, instr.HasOpMask);
-			Assert.Equal(tc.RoundingControl, instr.RoundingControl);
-			Assert.Equal(tc.SegmentPrefix, instr.SegmentPrefix);
-			if (instr.SegmentPrefix == Register.None)
-				Assert.False(instr.HasSegmentPrefix);
+			Assert.Equal(tc.OpMask, instruction.OpMask);
+			Assert.Equal(tc.OpMask != Register.None, instruction.HasOpMask);
+			Assert.Equal(tc.RoundingControl, instruction.RoundingControl);
+			Assert.Equal(tc.SegmentPrefix, instruction.SegmentPrefix);
+			if (instruction.SegmentPrefix == Register.None)
+				Assert.False(instruction.HasSegmentPrefix);
 			else
-				Assert.True(instr.HasSegmentPrefix);
+				Assert.True(instruction.HasSegmentPrefix);
 			for (int i = 0; i < tc.OpCount; i++) {
 				var opKind = tc.GetOpKind(i);
-				Assert.Equal(opKind, instr.GetOpKind(i));
+				Assert.Equal(opKind, instruction.GetOpKind(i));
 				switch (opKind) {
 				case OpKind.Register:
-					Assert.Equal(tc.GetOpRegister(i), instr.GetOpRegister(i));
+					Assert.Equal(tc.GetOpRegister(i), instruction.GetOpRegister(i));
 					break;
 
 				case OpKind.NearBranch16:
-					Assert.Equal(tc.NearBranch, instr.NearBranch16);
+					Assert.Equal(tc.NearBranch, instruction.NearBranch16);
 					break;
 
 				case OpKind.NearBranch32:
-					Assert.Equal(tc.NearBranch, instr.NearBranch32);
+					Assert.Equal(tc.NearBranch, instruction.NearBranch32);
 					break;
 
 				case OpKind.NearBranch64:
-					Assert.Equal(tc.NearBranch, instr.NearBranch64);
+					Assert.Equal(tc.NearBranch, instruction.NearBranch64);
 					break;
 
 				case OpKind.FarBranch16:
-					Assert.Equal(tc.FarBranch, instr.FarBranch16);
-					Assert.Equal(tc.FarBranchSelector, instr.FarBranchSelector);
+					Assert.Equal(tc.FarBranch, instruction.FarBranch16);
+					Assert.Equal(tc.FarBranchSelector, instruction.FarBranchSelector);
 					break;
 
 				case OpKind.FarBranch32:
-					Assert.Equal(tc.FarBranch, instr.FarBranch32);
-					Assert.Equal(tc.FarBranchSelector, instr.FarBranchSelector);
+					Assert.Equal(tc.FarBranch, instruction.FarBranch32);
+					Assert.Equal(tc.FarBranchSelector, instruction.FarBranchSelector);
 					break;
 
 				case OpKind.Immediate8:
-					Assert.Equal((byte)tc.Immediate, instr.Immediate8);
+					Assert.Equal((byte)tc.Immediate, instruction.Immediate8);
 					break;
 
 				case OpKind.Immediate8_2nd:
-					Assert.Equal(tc.Immediate_2nd, instr.Immediate8_2nd);
+					Assert.Equal(tc.Immediate_2nd, instruction.Immediate8_2nd);
 					break;
 
 				case OpKind.Immediate16:
-					Assert.Equal((ushort)tc.Immediate, instr.Immediate16);
+					Assert.Equal((ushort)tc.Immediate, instruction.Immediate16);
 					break;
 
 				case OpKind.Immediate32:
-					Assert.Equal((uint)tc.Immediate, instr.Immediate32);
+					Assert.Equal((uint)tc.Immediate, instruction.Immediate32);
 					break;
 
 				case OpKind.Immediate64:
-					Assert.Equal(tc.Immediate, instr.Immediate64);
+					Assert.Equal(tc.Immediate, instruction.Immediate64);
 					break;
 
 				case OpKind.Immediate8to16:
-					Assert.Equal((short)tc.Immediate, instr.Immediate8to16);
+					Assert.Equal((short)tc.Immediate, instruction.Immediate8to16);
 					break;
 
 				case OpKind.Immediate8to32:
-					Assert.Equal((int)tc.Immediate, instr.Immediate8to32);
+					Assert.Equal((int)tc.Immediate, instruction.Immediate8to32);
 					break;
 
 				case OpKind.Immediate8to64:
-					Assert.Equal((long)tc.Immediate, instr.Immediate8to64);
+					Assert.Equal((long)tc.Immediate, instruction.Immediate8to64);
 					break;
 
 				case OpKind.Immediate32to64:
-					Assert.Equal((long)tc.Immediate, instr.Immediate32to64);
+					Assert.Equal((long)tc.Immediate, instruction.Immediate32to64);
 					break;
 
 				case OpKind.MemorySegSI:
@@ -247,31 +247,31 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				case OpKind.MemorySegDI:
 				case OpKind.MemorySegEDI:
 				case OpKind.MemorySegRDI:
-					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
-					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					Assert.Equal(tc.MemorySegment, instruction.MemorySegment);
+					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;
 
 				case OpKind.MemoryESDI:
 				case OpKind.MemoryESEDI:
 				case OpKind.MemoryESRDI:
-					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;
 
 				case OpKind.Memory64:
-					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
-					Assert.Equal(tc.MemoryAddress64, instr.MemoryAddress64);
-					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					Assert.Equal(tc.MemorySegment, instruction.MemorySegment);
+					Assert.Equal(tc.MemoryAddress64, instruction.MemoryAddress64);
+					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;
 
 				case OpKind.Memory:
-					Assert.Equal(tc.MemorySegment, instr.MemorySegment);
-					Assert.Equal(tc.MemoryBase, instr.MemoryBase);
-					Assert.Equal(tc.MemoryIndex, instr.MemoryIndex);
-					Assert.Equal(tc.MemoryIndexScale, instr.MemoryIndexScale);
-					Assert.Equal(tc.MemoryDisplacement, instr.MemoryDisplacement);
-					Assert.Equal((ulong)(int)tc.MemoryDisplacement, instr.MemoryDisplacement64);
-					Assert.Equal(tc.MemoryDisplSize, instr.MemoryDisplSize);
-					Assert.Equal(tc.MemorySize, instr.MemorySize);
+					Assert.Equal(tc.MemorySegment, instruction.MemorySegment);
+					Assert.Equal(tc.MemoryBase, instruction.MemoryBase);
+					Assert.Equal(tc.MemoryIndex, instruction.MemoryIndex);
+					Assert.Equal(tc.MemoryIndexScale, instruction.MemoryIndexScale);
+					Assert.Equal(tc.MemoryDisplacement, instruction.MemoryDisplacement);
+					Assert.Equal((ulong)(int)tc.MemoryDisplacement, instruction.MemoryDisplacement64);
+					Assert.Equal(tc.MemoryDisplSize, instruction.MemoryDisplSize);
+					Assert.Equal(tc.MemorySize, instruction.MemorySize);
 					break;
 
 				default:
@@ -279,32 +279,32 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				}
 			}
 			if (tc.OpCount >= 1) {
-				Assert.Equal(tc.Op0Kind, instr.Op0Kind);
+				Assert.Equal(tc.Op0Kind, instruction.Op0Kind);
 				if (tc.Op0Kind == OpKind.Register)
-					Assert.Equal(tc.Op0Register, instr.Op0Register);
+					Assert.Equal(tc.Op0Register, instruction.Op0Register);
 				if (tc.OpCount >= 2) {
-					Assert.Equal(tc.Op1Kind, instr.Op1Kind);
+					Assert.Equal(tc.Op1Kind, instruction.Op1Kind);
 					if (tc.Op1Kind == OpKind.Register)
-						Assert.Equal(tc.Op1Register, instr.Op1Register);
+						Assert.Equal(tc.Op1Register, instruction.Op1Register);
 					if (tc.OpCount >= 3) {
-						Assert.Equal(tc.Op2Kind, instr.Op2Kind);
+						Assert.Equal(tc.Op2Kind, instruction.Op2Kind);
 						if (tc.Op2Kind == OpKind.Register)
-							Assert.Equal(tc.Op2Register, instr.Op2Register);
+							Assert.Equal(tc.Op2Register, instruction.Op2Register);
 						if (tc.OpCount >= 4) {
-							Assert.Equal(tc.Op3Kind, instr.Op3Kind);
+							Assert.Equal(tc.Op3Kind, instruction.Op3Kind);
 							if (tc.Op3Kind == OpKind.Register)
-								Assert.Equal(tc.Op3Register, instr.Op3Register);
+								Assert.Equal(tc.Op3Register, instruction.Op3Register);
 							if (tc.OpCount >= 5) {
-								Assert.Equal(tc.Op4Kind, instr.Op4Kind);
+								Assert.Equal(tc.Op4Kind, instruction.Op4Kind);
 								if (tc.Op4Kind == OpKind.Register)
-									Assert.Equal(tc.Op4Register, instr.Op4Register);
+									Assert.Equal(tc.Op4Register, instruction.Op4Register);
 								Assert.Equal(5, tc.OpCount);
 							}
 						}
 					}
 				}
 			}
-			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instr));
+			VerifyConstantOffsets(tc.ConstantOffsets, decoder.GetConstantOffsets(instruction));
 		}
 
 		protected static void VerifyConstantOffsets(in ConstantOffsets expected, in ConstantOffsets actual) {

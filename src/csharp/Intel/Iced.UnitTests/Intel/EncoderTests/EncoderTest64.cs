@@ -30,12 +30,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class EncoderTest64 : EncoderTest {
 		[Theory]
 		[MemberData(nameof(Encode_Data))]
-		void Encode(uint id, int codeSize, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) => EncodeBase(id, codeSize, code, hexBytes, encodedHexBytes, options);
+		void Encode(uint id, int bitness, Code code, string hexBytes, string encodedHexBytes, DecoderOptions options) => EncodeBase(id, bitness, code, hexBytes, encodedHexBytes, options);
 		public static IEnumerable<object[]> Encode_Data => GetEncodeData(64);
 
 		[Theory]
 		[MemberData(nameof(NonDecodeEncode_Data))]
-		void NonDecodeEncode(int codeSize, Instruction instr, string hexBytes, ulong rip) => NonDecodeEncodeBase(codeSize, ref instr, hexBytes, rip);
+		void NonDecodeEncode(int bitness, Instruction instruction, string hexBytes, ulong rip) => NonDecodeEncodeBase(bitness, ref instruction, hexBytes, rip);
 		public static IEnumerable<object[]> NonDecodeEncode_Data => GetNonDecodedEncodeData(64);
 	}
 }

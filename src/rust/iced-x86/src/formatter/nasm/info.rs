@@ -438,7 +438,7 @@ impl SimpleInstrInfo_SEX2 {
 
 impl InstrInfo for SimpleInstrInfo_SEX2 {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		debug_assert_ne!(2, instruction.op_count());
+		debug_assert_eq!(2, instruction.op_count());
 		let sex_info =
 			if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory { self.sex_info_mem } else { self.sex_info_reg };
 		let flags = self.flags | ((sex_info as u32) << InstrOpInfoFlags::SIGN_EXTEND_INFO_SHIFT);

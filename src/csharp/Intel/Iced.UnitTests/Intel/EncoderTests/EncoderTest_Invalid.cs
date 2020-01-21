@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 	public sealed class EncoderTest_Invalid : EncoderTest {
 		[Theory]
 		[MemberData(nameof(EncodeInvalid_Data))]
-		void EncodeInvalid(uint id, int codeSize, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) => EncodeInvalidBase(id, codeSize, code, hexBytes, options, invalidCodeSize);
+		void EncodeInvalid(uint id, int bitness, Code code, string hexBytes, DecoderOptions options, int invalidCodeSize) => EncodeInvalidBase(id, bitness, code, hexBytes, options, invalidCodeSize);
 		public static IEnumerable<object[]> EncodeInvalid_Data {
 			get {
 				foreach (var info in DecoderTestUtils.GetEncoderTests(includeOtherTests: false, includeInvalid: false)) {
