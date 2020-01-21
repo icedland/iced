@@ -534,23 +534,6 @@ namespace Generator.Assembler {
 			for (var i = 0; i < orderedGroups.Count; i++) {
 				var @group = orderedGroups[i];
 
-				// Skip immediate with uint if we have signed-extended
-				if ((group.Flags & OpCodeArgFlags.UnsignedUIntNotSupported) != 0) {
-					bool skipGroup = false;
-					for (int argIndex = 0; argIndex < group.Signature.ArgCount; argIndex++) {
-						if (group.Signature.GetArgKind(argIndex) == ArgKind.ImmediateUnsigned && group.MaxArgSizes[argIndex] == 4) {
-							orderedGroups.RemoveAt(i);
-							i--;
-							skipGroup = true;
-							break;
-						}
-					}
-
-					if (skipGroup) {
-						continue;
-					}
-				}
-				
 				if (@group.HasRegisterMemoryMappedToRegister) {
 					var inputOpCodes = @group.Items;
 					opcodes.Clear();
@@ -1859,8 +1842,8 @@ namespace Generator.Assembler {
 			group.UpdateMaxArgSizes(argSizes);
 
 			// Duplicate immediate signatures with opposite unsigned/signed version
-			if (!pseudoOpsKind.HasValue && !isOtherImmediate) {
-				var signatureWithOtherImmediates = new Signature();
+			if (!pseudoOpsKind.HasValue && !isOtherImmediate && (opCodeArgFlags & OpCodeArgFlags.UnsignedUIntNotSupported) == 0) {
+				var signatureWithOtherImmediate = new Signature();
 				for (int i = 0; i < signature.ArgCount; i++) {
 					var argKind = signature.GetArgKind(i);
 					switch (argKind) {
@@ -1869,11 +1852,11 @@ namespace Generator.Assembler {
 						break;
 					}
 
-					signatureWithOtherImmediates.AddArgKind(argKind);
+					signatureWithOtherImmediate.AddArgKind(argKind);
 				}
 
-				if (signature != signatureWithOtherImmediates) {
-					AddOpCodeToGroup(name, memoName, signatureWithOtherImmediates, code, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, true);
+				if (signature != signatureWithOtherImmediate) {
+					AddOpCodeToGroup(name, memoName, signatureWithOtherImmediate, code, opCodeArgFlags, null, numberLeadingArgToDiscard, argSizes, true);
 				}
 			}
 

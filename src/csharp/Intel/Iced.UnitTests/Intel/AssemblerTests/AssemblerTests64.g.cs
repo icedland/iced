@@ -237,6 +237,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void adc_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.adc(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.adc(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.adc(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.adc(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Adc_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.adc(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.adc(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.adc(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.adc(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Adc_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.adc(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Adc_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.adc(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Adc_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.adc(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Adc_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.adc(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Adc_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.adc(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Adc_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.adc(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Adc_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.adc(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Adc_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.adc(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Adc_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
+		}
+
+		[Fact]
 		public void adcx_reg32_reg32() {
 			TestAssembler(c => c.adcx(ecx, ebx), Instruction.Create(Code.Adcx_r32_rm32, ecx, ebx));
 		}
@@ -454,6 +507,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.add(eax, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_EAX_imm32, eax, unchecked((uint)(sbyte.MaxValue + 1))));
 			} /* else */ TestAssembler(c => c.add(ebx, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_rm32_imm32, ebx, unchecked((uint)(sbyte.MaxValue + 1))));
+		}
+
+		[Fact]
+		public void add_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.add(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.add(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.add(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.add(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Add_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.add(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.add(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.add(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.add(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Add_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.add(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Add_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.add(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Add_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.add(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Add_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.add(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Add_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.add(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.add(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.add(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.add(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Add_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
 		}
 
 		[Fact]
@@ -804,6 +910,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.and(eax, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_EAX_imm32, eax, unchecked((uint)(sbyte.MaxValue + 1))));
 			} /* else */ TestAssembler(c => c.and(ebx, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_rm32_imm32, ebx, unchecked((uint)(sbyte.MaxValue + 1))));
+		}
+
+		[Fact]
+		public void and_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.and(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.and(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.and(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.and(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.And_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.and(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.and(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.and(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.and(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.And_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.and(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.And_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.and(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.And_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.and(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.And_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.and(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.And_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.and(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.and(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.and(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.and(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.And_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
 		}
 
 		[Fact]
@@ -2572,6 +2731,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.cmp(eax, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_EAX_imm32, eax, unchecked((uint)(sbyte.MaxValue + 1))));
 			} /* else */ TestAssembler(c => c.cmp(ebx, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_rm32_imm32, ebx, unchecked((uint)(sbyte.MaxValue + 1))));
+		}
+
+		[Fact]
+		public void cmp_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.cmp(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.cmp(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.cmp(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.cmp(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Cmp_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.cmp(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.cmp(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.cmp(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.cmp(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Cmp_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.cmp(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Cmp_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.cmp(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Cmp_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.cmp(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Cmp_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.cmp(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Cmp_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.cmp(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.cmp(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.cmp(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.cmp(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Cmp_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
 		}
 
 		[Fact]
@@ -6517,6 +6729,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void mov_m_u() {
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.mov(__dword_ptr[rdx], int.MaxValue), Instruction.Create(Code.Mov_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), int.MaxValue));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.mov(__word_ptr[rdx], 16567), Instruction.Create(Code.Mov_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), 16567));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.mov(__byte_ptr[rdx], (byte)127), Instruction.Create(Code.Mov_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), (byte)127));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.mov(__zmmword_ptr[rdx], (byte)127), Instruction.Create(Code.Mov_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), (byte)127));
+				});
+			}
+		}
+
+		[Fact]
 		public void movapd_regXMM_regXMM() {
 			TestAssembler(c => c.movapd(xmm0, xmm9), Instruction.Create(Code.Movapd_xmm_xmmm128, xmm0, xmm9));
 		}
@@ -7565,6 +7793,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.or(eax, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_EAX_imm32, eax, unchecked((uint)(sbyte.MaxValue + 1))));
 			} /* else */ TestAssembler(c => c.or(ebx, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_rm32_imm32, ebx, unchecked((uint)(sbyte.MaxValue + 1))));
+		}
+
+		[Fact]
+		public void or_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.or(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.or(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.or(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.or(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Or_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.or(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.or(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.or(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.or(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Or_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.or(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Or_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.or(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Or_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.or(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Or_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.or(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Or_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.or(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.or(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.or(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.or(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Or_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
 		}
 
 		[Fact]
@@ -10649,6 +10930,31 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void push_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (Bitness >= 32) */
+					{
+						// Skipping Pushd_imm8 - Not supported for Mode64
+					}
+				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
+				{ /* if (Bitness >= 32) */
+					{
+						// Skipping Pushd_imm8 - Not supported for Mode64
+					}
+				} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
+			} /* else */ { /* if (Bitness >= 32) */
+				{
+					// Skipping Pushd_imm32 - Not supported for Mode64
+				}
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
+			{ /* if (Bitness >= 32) */
+				{
+					// Skipping Pushd_imm32 - Not supported for Mode64
+				}
+			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void pushf() {
 			TestAssembler(c => c.pushf(), Instruction.Create(Code.Pushfw));
 		}
@@ -12176,6 +12482,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void sbb_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.sbb(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.sbb(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.sbb(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.sbb(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sbb_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.sbb(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.sbb(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.sbb(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.sbb(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sbb_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.sbb(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sbb_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.sbb(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sbb_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.sbb(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sbb_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.sbb(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sbb_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.sbb(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sbb_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.sbb(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sbb_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.sbb(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sbb_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.sbb(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sbb_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
+		}
+
+		[Fact]
 		public void scasb() {
 			TestAssembler(c => c.scasb(), Instruction.CreateScasb(Bitness));
 		}
@@ -13411,6 +13770,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void sub_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.sub(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.sub(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.sub(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.sub(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Sub_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.sub(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.sub(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.sub(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.sub(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Sub_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.sub(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sub_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.sub(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sub_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.sub(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sub_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.sub(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Sub_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.sub(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sub_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.sub(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sub_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.sub(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sub_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.sub(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Sub_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
+		}
+
+		[Fact]
 		public void subpd_regXMM_regXMM() {
 			TestAssembler(c => c.subpd(xmm0, xmm9), Instruction.Create(Code.Subpd_xmm_xmmm128, xmm0, xmm9));
 		}
@@ -13610,6 +14022,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.test(eax, int.MaxValue), Instruction.Create(Code.Test_EAX_imm32, eax, int.MaxValue));
 			} /* else */ TestAssembler(c => c.test(ebx, int.MaxValue), Instruction.Create(Code.Test_rm32_imm32, ebx, int.MaxValue));
+		}
+
+		[Fact]
+		public void test_m_u() {
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.test(__dword_ptr[rdx], int.MaxValue), Instruction.Create(Code.Test_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), int.MaxValue));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.test(__word_ptr[rdx], 16567), Instruction.Create(Code.Test_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), 16567));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.test(__byte_ptr[rdx], (byte)127), Instruction.Create(Code.Test_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), (byte)127));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.test(__zmmword_ptr[rdx], (byte)127), Instruction.Create(Code.Test_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), (byte)127));
+				});
+			}
 		}
 
 		[Fact]
@@ -41713,6 +42141,59 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (dst == Register.EAX) */
 				TestAssembler(c => c.xor(eax, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_EAX_imm32, eax, unchecked((uint)(sbyte.MaxValue + 1))));
 			} /* else */ TestAssembler(c => c.xor(ebx, unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_rm32_imm32, ebx, unchecked((uint)(sbyte.MaxValue + 1))));
+		}
+
+		[Fact]
+		public void xor_m_u() {
+			{ /* if ((int)imm >= sbyte.MinValue && (int)imm <= sbyte.MaxValue) */
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.xor(__dword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.xor(__word_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.xor(__byte_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.xor(__zmmword_ptr[rdx], unchecked((uint)sbyte.MinValue)), Instruction.Create(Code.Xor_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MinValue)));
+					});
+				}
+				{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+					TestAssembler(c => c.xor(__dword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm32_imm8, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+					TestAssembler(c => c.xor(__word_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm16_imm8, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+					TestAssembler(c => c.xor(__byte_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+				}
+				{
+					AssertInvalid( () => {
+						TestAssembler(c => c.xor(__zmmword_ptr[rdx], unchecked((uint)sbyte.MaxValue)), Instruction.Create(Code.Xor_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)sbyte.MaxValue)));
+					});
+				}
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.xor(__dword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Xor_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.xor(__word_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Xor_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.xor(__byte_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Xor_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.xor(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MinValue - 1))), Instruction.Create(Code.Xor_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MinValue - 1))));
+				});
+			}
+			{ /* if (dst.Size == MemoryOperandSize.DwordPtr) */
+				TestAssembler(c => c.xor(__dword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_rm32_imm32, __dword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.WordPtr) */
+				TestAssembler(c => c.xor(__word_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_rm16_imm16, __word_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			} /* else */ { /* if (dst.Size == MemoryOperandSize.BytePtr) */
+				TestAssembler(c => c.xor(__byte_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_rm8_imm8, __byte_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+			}
+			{
+				AssertInvalid( () => {
+					TestAssembler(c => c.xor(__zmmword_ptr[rdx], unchecked((uint)(sbyte.MaxValue + 1))), Instruction.Create(Code.Xor_rm8_imm8, __zmmword_ptr[rdx].ToMemoryOperand(Bitness), unchecked((uint)(sbyte.MaxValue + 1))));
+				});
+			}
 		}
 
 		[Fact]
