@@ -27,11 +27,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Generator.Decoder;
 using Generator.Documentation.CSharp;
 using Generator.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
@@ -429,7 +431,20 @@ namespace Generator.Assembler.CSharp {
 					for (var i = 0; i < renderArgs.Count; i++) {
 						var renderArg = renderArgs[i];
 						writer.Write(", ");
-						writer.Write(renderArg.Name);
+
+						var argName = renderArg.Name;
+						
+						// Perform casting for unsigned
+						if (IsArgKindImmediate(renderArg.Kind) && !renderArg.IsTypeSigned()) {
+							if (renderArg.Type == "ulong") {
+								argName = $"(ulong){argName}";
+							}
+							else if (renderArg.Type != "uint") {
+								argName = $"(uint){argName}";
+							}
+						}
+						
+						writer.Write(argName);
 						if (renderArg.Kind == ArgKind.Label) {
 							writer.Write(".Id");
 						}
@@ -590,7 +605,8 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 
 						bool isGenerated = false;
-						if (isSelectorSupportedByBitness && selector.ArgIndex >= 0) {
+						// Don't generate AssertInvalid for unsigned as they are already tested by signed
+						if (isSelectorSupportedByBitness && selector.ArgIndex >= 0 && !group.HasImmediateUnsigned) {
 							var newArg = GetInvalidArgValue(bitness, selector.Kind, selector.ArgIndex);
 							if (newArg != null) {
 
@@ -616,7 +632,12 @@ namespace Generator.Assembler.CSharp {
 						}
 
 						if (!isGenerated) {
-							writer.WriteLine($"// See manual test for this case {methodName}");
+							if (group.HasImmediateUnsigned) {
+								writer.WriteLine($"// Already tested by signed version");
+							}
+							else {
+								writer.WriteLine($"// See manual test for this case {methodName}");
+							}
 						}
 					}
 					writer.WriteLine("}");
@@ -639,7 +660,7 @@ namespace Generator.Assembler.CSharp {
 			}
 
 			bool isMoffs = IsMoffs(opCodeInfo);
-
+			
 			var assemblerArgs = new List<string>();
 			var instructionCreateArgs = new List<string>();
 			for (var i = 0; i < argValues.Count; i++)
@@ -683,15 +704,27 @@ namespace Generator.Assembler.CSharp {
 					argValueForAssembler += ".k1";
 					argValueForInstructionCreate += ".k1";
 				}
-
-				Debug.Assert(argValueForAssembler != null);
-				assemblerArgs.Add(argValueForAssembler);
-				Debug.Assert(argValueForInstructionCreate != null);
+				
 				if (renderArg.Kind == ArgKind.Memory && (!isMoffs || bitness != 64))
 				{
 					argValueForInstructionCreate += ".ToMemoryOperand(Bitness)";
 				}
 
+				// Perform casting for unsigned
+				if (IsArgKindImmediate(renderArg.Kind) && !renderArg.IsTypeSigned()) {
+					if (renderArg.Type == "ulong") {
+						argValueForAssembler = $"unchecked({argValueForAssembler})";
+						argValueForInstructionCreate = $"unchecked({argValueForInstructionCreate})";
+					}
+					else {
+						argValueForAssembler = $"({renderArg.Type}){argValueForAssembler}";
+						argValueForInstructionCreate = $"(uint)({renderArg.Type}){argValueForInstructionCreate}";
+					}
+				}
+
+				Debug.Assert(argValueForAssembler != null);
+				assemblerArgs.Add(argValueForAssembler);
+				Debug.Assert(argValueForInstructionCreate != null);
 				instructionCreateArgs.Add(argValueForInstructionCreate);
 			}
 			
@@ -1088,7 +1121,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.imm2_m2z:
 				return "3";
 			case OpCodeOperandKind.imm8:
-				return arg.IsTypeSigned() ? "(sbyte)-5" : "(byte)127";
+				return arg.IsTypeSigned() ? "-5" : "127";
 			case OpCodeOperandKind.imm8_const_1:
 				return "1";
 			case OpCodeOperandKind.imm8sex16:
@@ -1231,9 +1264,19 @@ namespace Generator.Assembler.CSharp {
 				return "PreferBranchShort";
 			case OpCodeSelectorKind.ImmediateByteEqual1:
 				return $"{regName} == 1";
-			case OpCodeSelectorKind.ImmediateByteSigned: {
+			case OpCodeSelectorKind.ImmediateByteSigned8: {
 				return !arg.IsTypeSigned()
-					? $"({arg.GetSignedTypeFromUnsigned()}){regName} >= sbyte.MinValue && ({arg.GetSignedTypeFromUnsigned()}){regName} <= sbyte.MaxValue"
+					? $"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFFFF_FF80 <= {regName} && {regName} <= 0xFFFF_FFFF)"
+					: $"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue";
+			}
+			case OpCodeSelectorKind.ImmediateByteSigned8To16: {
+				return !arg.IsTypeSigned()
+					? $"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFF80 <= {regName} && {regName} <= 0xFFFF)"
+					: $"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue";
+			}
+			case OpCodeSelectorKind.ImmediateByteSigned8To32: {
+				return !arg.IsTypeSigned()
+					? $"{regName} <= ({arg.Type})sbyte.MaxValue || (0xFFFF_FF80 <= {regName} && {regName} <= 0xFFFF_FFFF)"
 					: $"{regName} >= sbyte.MinValue && {regName} <= sbyte.MaxValue";
 			}
 			case OpCodeSelectorKind.Vex:
@@ -1446,29 +1489,59 @@ namespace Generator.Assembler.CSharp {
 					yield return "1";
 				}
 				break;			
-			case OpCodeSelectorKind.ImmediateByteSigned:
-				var arg = args[index];
+			case OpCodeSelectorKind.ImmediateByteSigned8:
 				if (isElseBranch) {
+					yield return null;
+				}
+				else {
+					var arg = args[index];
 					if (arg.IsTypeSigned()) {
-						yield return $"({arg.Type})(sbyte.MinValue - 1)";
-						yield return $"({arg.Type})(sbyte.MaxValue + 1)";
+						yield return $"sbyte.MinValue";
+						yield return $"sbyte.MaxValue";
 					}
 					else {
-						yield return $"unchecked(({arg.Type})(sbyte.MinValue - 1))";
-						yield return $"unchecked(({arg.Type})(sbyte.MaxValue + 1))";
+						yield return $"unchecked((uint)sbyte.MinValue)";
+						yield return $"unchecked((uint)sbyte.MaxValue)";
 					}
+				}
+				break;
+			case OpCodeSelectorKind.ImmediateByteSigned8To16:
+			{
+				var arg = args[index];
+				if (isElseBranch) {
+					yield return null;
 				}
 				else {
 					if (arg.IsTypeSigned()) {
-						yield return $"({arg.Type})sbyte.MinValue";
-						yield return $"({arg.Type})sbyte.MaxValue";
+						yield return $"sbyte.MinValue";
+						yield return $"sbyte.MaxValue";
+					}
+					else {
+						yield return $"unchecked((ushort)sbyte.MinValue)";
+						yield return $"unchecked((ushort)sbyte.MaxValue)";
+					}
+				}
+
+				break;
+			}				
+			case OpCodeSelectorKind.ImmediateByteSigned8To32: {
+				var arg = args[index];
+				if (isElseBranch) {
+					yield return null;
+				}
+				else {
+					if (arg.IsTypeSigned()) {
+						yield return $"sbyte.MinValue";
+						yield return $"sbyte.MaxValue";
 					}
 					else {
 						yield return $"unchecked(({arg.Type})sbyte.MinValue)";
 						yield return $"unchecked(({arg.Type})sbyte.MaxValue)";
 					}
 				}
-				break;			
+
+				break;
+			}
 			case OpCodeSelectorKind.Vex:
 				if (isElseBranch) {
 					yield return "c.PreferVex = false;";
@@ -1897,6 +1970,25 @@ namespace Generator.Assembler.CSharp {
 					return true;
 				}
 				return false;
+			}
+			
+			public int GetArgSize()
+			{
+				switch (Type) {
+				case "byte":
+				case "sbyte":
+					return 1;
+				case "short":
+				case "ushort":
+					return 2;
+				case "int":
+				case "uint":
+					return 4;
+				case "long":
+				case "ulong":
+					return 8;
+				}
+				throw new ArgumentException($"Invalid {Type}");
 			}
 
 			public string GetSignedTypeFromUnsigned() {
