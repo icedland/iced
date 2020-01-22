@@ -64,15 +64,103 @@ namespace Generator {
 		public static IdentifierConverter Create() => new CSharpIdentifierConverter();
 		CSharpIdentifierConverter() { }
 		public override string Type(string name) => name;
-		public override string Field(string name) => name;
-		public override string EnumField(string name) => name;
+		public override string Field(string name) => Escape(name);
+		public override string EnumField(string name) => Escape(name);
 		public override string PropertyDoc(string name) => name;
 		public override string MethodDoc(string name) => name;
-		public override string Method(string name) => name;
-		public override string Constant(string name) => name;
-		public override string Static(string name) => name;
-		public override string Namespace(string name) => name;
-		public override string Argument(string name) => name;
+		public override string Method(string name) => Escape(name);
+		public override string Constant(string name) => Escape(name);
+		public override string Static(string name) => Escape(name);
+		public override string Namespace(string name) => Escape(name);
+		public override string Argument(string name) => Escape(name);
+
+		public static string Escape(string name) {
+			            // From https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
+            switch (name)
+            {
+                case "abstract":
+                case "as":
+                case "base":
+                case "bool":
+                case "break":
+                case "byte":
+                case "case":
+                case "catch":
+                case "char":
+                case "checked":
+                case "class":
+                case "const":
+                case "continue":
+                case "decimal":
+                case "default":
+                case "delegate":
+                case "do":
+                case "double":
+                case "else":
+                case "enum":
+                case "event":
+                case "explicit":
+                case "extern":
+                case "false":
+                case "finally":
+                case "fixed":
+                case "float":
+                case "for":
+                case "foreach":
+                case "goto":
+                case "if":
+                case "implicit":
+                case "in":
+                case "int":
+                case "interface":
+                case "internal":
+                case "is":
+                case "lock":
+                case "long":
+                case "namespace":
+                case "new":
+                case "null":
+                case "object":
+                case "operator":
+                case "out":
+                case "override":
+                case "params":
+                case "private":
+                case "protected":
+                case "public":
+                case "readonly":
+                case "ref":
+                case "return":
+                case "sbyte":
+                case "sealed":
+                case "short":
+                case "sizeof":
+                case "stackalloc":
+                case "static":
+                case "string":
+                case "struct":
+                case "switch":
+                case "this":
+                case "throw":
+                case "true":
+                case "try":
+                case "typeof":
+                case "uint":
+                case "ulong":
+                case "unchecked":
+                case "unsafe":
+                case "ushort":
+                case "using":
+                case "virtual":
+                case "void":
+                case "volatile":
+                case "while":
+                    return $"@{name}";
+
+                default:
+                    return name;
+            }
+		}
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {

@@ -178,6 +178,13 @@ namespace Iced.Intel {
 		public static bool IsXMM(this Register register) => Register.XMM0 <= register && register <= IcedConstants.XMM_last;
 
 		/// <summary>
+		/// Checks if it's a 64-bit vector register (<c>MM0</c>-<c>MM7</c>)
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsMM(this Register register) => Register.MM0 <= register && register <= Register.MM7;
+
+		/// <summary>
 		/// Checks if it's a 256-bit vector register (<c>YMM0</c>-<c>YMM31</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
@@ -191,6 +198,48 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public static bool IsZMM(this Register register) => Register.ZMM0 <= register && register <= IcedConstants.ZMM_last;
 
+		/// <summary>
+		/// Check if it is a K0-K7 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsK(this Register register) => Register.K0 <= register && register <= Register.K7;
+
+		/// <summary>
+		/// Check if it is a CR0-CR15 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsCR(this Register register) => (Register.CR0 <= register && register <= Register.CR15);
+		
+		/// <summary>
+		/// Check if it is a DR0-DR15 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsDR(this Register register) => (Register.DR0 <= register && register <= Register.DR15);
+
+		/// <summary>
+		/// Check if it is a TR0-TR7 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsTR(this Register register) => (Register.TR0 <= register && register <= Register.TR7);
+		
+		/// <summary>
+		/// Check if it is a ST0-ST7 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsST(this Register register) => (Register.ST0 <= register && register <= Register.ST7);
+		
+		/// <summary>
+		/// Check if it is a BND0-BND3 register.
+		/// </summary>
+		/// <param name="register">Register</param>
+		/// <returns></returns>
+		public static bool IsBND(this Register register) => (Register.BND0 <= register && register <= Register.BND3);
+		
 		/// <summary>
 		/// Checks if it's an <c>XMM</c>, <c>YMM</c> or <c>ZMM</c> register
 		/// </summary>

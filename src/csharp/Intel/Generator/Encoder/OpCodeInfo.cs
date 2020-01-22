@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Diagnostics;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 
@@ -63,6 +64,12 @@ namespace Generator.Encoder {
 		public uint OpCode { get; protected set; }
 		public int GroupIndex { get; protected set; }
 		public OpCodeFlags Flags { get; protected set; }
+
+		public abstract int OpKindsLength { get; }
+
+		public abstract OpCodeOperandKind OpKind(int arg); 
+
+		public override string ToString() => $"{this.GetType().Name}: {Code.RawName}";
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
@@ -71,6 +78,14 @@ namespace Generator.Encoder {
 		public OperandSize OperandSize { get; }
 		public AddressSize AddressSize { get; }
 		public LegacyOpKind[] OpKinds { get; }
+
+		public override int OpKindsLength => OpKinds.Length;
+
+		public override OpCodeOperandKind OpKind(int arg) {
+			var kind = OpKinds[arg];
+			return (OpCodeOperandKind)EncoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
+		} 
+		
 		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -88,6 +103,14 @@ namespace Generator.Encoder {
 		public override EncodingKind Encoding => EncodingKind.VEX;
 		public VexVectorLength VectorLength { get; }
 		public VexOpKind[] OpKinds { get; }
+
+		public override int OpKindsLength => OpKinds.Length;
+
+		public override OpCodeOperandKind OpKind(int arg) {
+			var kind = OpKinds[arg];
+			return (OpCodeOperandKind)EncoderTypes.VexOpHandlers[(int)kind].opCodeOperandKind.Value;
+		}
+		
 		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -104,6 +127,14 @@ namespace Generator.Encoder {
 		public override EncodingKind Encoding => EncodingKind.XOP;
 		public XopVectorLength VectorLength { get; }
 		public XopOpKind[] OpKinds { get; }
+		
+		public override int OpKindsLength => OpKinds.Length;
+
+		public override OpCodeOperandKind OpKind(int arg) {
+			var kind = OpKinds[arg];
+			return (OpCodeOperandKind)EncoderTypes.XopOpHandlers[(int)kind].opCodeOperandKind.Value;
+		} 
+		
 		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -121,6 +152,14 @@ namespace Generator.Encoder {
 		public EvexVectorLength VectorLength { get; }
 		public TupleType TupleType { get; }
 		public EvexOpKind[] OpKinds { get; }
+		
+		public override int OpKindsLength => OpKinds.Length;
+
+		public override OpCodeOperandKind OpKind(int arg) {
+			var kind = OpKinds[arg];
+			return (OpCodeOperandKind)EncoderTypes.EvexOpHandlers[(int)kind].opCodeOperandKind.Value;
+		} 
+		
 		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -137,6 +176,15 @@ namespace Generator.Encoder {
 	sealed class D3nowOpCodeInfo : OpCodeInfo {
 		public override EncodingKind Encoding => EncodingKind.D3NOW;
 		public uint Immediate8 { get; }
+		
+		public override int OpKindsLength => 2;
+
+		public override OpCodeOperandKind OpKind(int arg) {
+			if (arg == 0) return OpCodeOperandKind.mm_reg;
+			if (arg == 1) return OpCodeOperandKind.mm_or_mem;
+			throw new ArgumentOutOfRangeException($"{arg}");
+		} 
+		
 		public D3nowOpCodeInfo(EnumValue code, uint immediate8, OpCodeFlags flags) {
 			Code = code;
 			MandatoryPrefix = MandatoryPrefix.None;

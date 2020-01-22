@@ -62,7 +62,14 @@ Instruction info:
 - `MemorySizeExtensions`
 - `RegisterExtensions`
 
+High Level Assembler:
+
+- `Assembler`
+- `AssemblerRegisters` (use `using static` to have access directly to registers e.g `eax`, `rdi`, `xmm1`...)
+
 # Examples
+
+## Decoding
 
 For another example, see [JitDasm](https://github.com/0xd4d/JitDasm).
 
@@ -601,6 +608,74 @@ Disassembled code:
             }
         }
     }
+}
+```
+
+## Assembler
+
+Iced provide a high level assembler by providing a friendly syntax close to what an assembler could provide:
+
+```c#
+using Iced.Intel;
+using static Iced.Intel.AssemblerRegisters; // This allow to import assembler registers e.g `eax` directly accessible as variables
+
+public static class AssemblerPlay
+{
+	public static MemoryStream GenerateCode()
+	{
+		var stream = new MemoryStream();
+		var c = Assembler.Create(64, new StreamCodeWriter(stream));
+
+		c.push(r15);
+		c.mov(r15, rsi);
+		c.mov(rax, __[rdi]);
+		c.add(rax, r15);
+		c.pop(r15);
+		c.ret();
+
+		c.Encode();
+
+		return stream;
+	}
+}
+```
+
+The assembler supports the entire instruction set available through the `Encoder` class.
+
+- For prefixes (e.g `rep`, `xacquire`) they are directly accessible on the `Assembler`. For example: `c.rep.movsd()`.
+- AVX512+ k1z/sae/rounding flags can be set directly on registers: `c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae)`
+- AVX512+ broadcasting can be specified via e.g `__dword_bcst`: `c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax])`
+
+Labels can be created via `Assembler.CreateLabel`, placed just before an instruction via `Assembler.Label` and referenced by branche instructions:
+
+```c#
+using Iced.Intel;
+using static Iced.Intel.AssemblerRegisters; // This allow to import assembler registers e.g `eax` directly accessible as variables
+
+public static class AssemblerPlay
+{
+	public static MemoryStream GenerateCode()
+	{
+		var stream = new MemoryStream();
+		var c = Assembler.Create(64, new StreamCodeWriter(stream));
+
+		var label1 = c.CreateLabel();
+
+		c.push(r15);
+		c.add(rax, r15);
+		c.jne(label1); // Jump to Label1
+
+		c.inc(rax);
+
+		// Emit label1:
+		c.Label(label1);
+		c.pop(r15);
+		c.ret();
+
+		c.Encode();
+
+		return stream;
+	}
 }
 ```
 
