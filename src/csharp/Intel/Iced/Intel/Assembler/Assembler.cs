@@ -302,6 +302,74 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, basePtr, address));
 		}
 		
+		/// <summary>
+		/// Generates multibyte NOP instructions
+		/// </summary>
+		/// <param name="amount">Number of bytes</param>
+		public void nop(int amount) {
+			if (amount < 0)
+				throw new ArgumentOutOfRangeException(nameof(amount));
+			if (amount == 0) return;
+
+			const int maxMultibyteNopInstructionLength = 9;
+
+			int cycles = Math.DivRem(amount, maxMultibyteNopInstructionLength, out int rest);
+
+			for (int i = 0; i < cycles; i++) {
+				AppendNop(maxMultibyteNopInstructionLength);
+			}
+			if (rest > 0)
+				AppendNop(rest);
+
+			void AppendNop(int amount) {
+				switch (amount) {
+				case 1:
+					db(0x90); //NOP
+					break;
+				case 2:
+					db(0x66, 0x90); //66 NOP
+					break;
+				case 3:
+					db(0x0F, 0x1F, 0x00); //NOP dword ptr [eax] or NOP word ptr [bx+si]
+					break;
+				case 4:
+					db(0x0F, 0x1F, 0x40, 0x00); //NOP dword ptr [eax + 00] or NOP word ptr [bx+si]
+					break;
+				case 5:
+					if (Bitness >= 32)
+						db(0x0F, 0x1F, 0x44, 0x00, 0x00); //NOP dword ptr [eax + eax*1 + 00]
+					else
+						db(0x0F, 0x1F, 0x80, 0x00, 0x00); //NOP word ptr[bx + si]
+					break;
+				case 6:
+					if (Bitness >= 32)
+						db(0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); //66 NOP dword ptr [eax + eax*1 + 00]
+					else
+						db(0x66, 0x0F, 0x1F, 0x80, 0x00, 0x00); //NOP dword ptr [bx+si]
+					break;
+				case 7:
+					if (Bitness >= 32)
+						db(0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); //NOP dword ptr [eax + 00000000]
+					else
+						db(0x67, 0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); //NOP dword ptr [eax+eax]
+					break;
+				case 8:
+					if (Bitness >= 32)
+						db(0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //NOP dword ptr [eax + eax*1 + 00000000]
+					else
+						db(0x67, 0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); //NOP word ptr [eax]
+					break;
+				case 9:
+					if (Bitness >= 32)
+						db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //66 NOP dword ptr [eax + eax*1 + 00000000] 	
+					else
+						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //NOP word ptr [eax+eax]	
+					break;
+
+				}
+			}
+		}
+		
 		/// <summary>xlatb instruction.</summary>
 		public void xlatb() {
 			if (Bitness == 64) {
