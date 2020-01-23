@@ -23,9 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::useless_let_if_seq))]
 
+use super::enums::*;
 use super::handlers::*;
 use super::*;
-use core::mem;
+use core::u32;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -37,6 +38,10 @@ pub(crate) struct OpCodeHandler_Reg {
 }
 
 impl OpCodeHandler_Reg {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Reg::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -57,6 +62,10 @@ pub(crate) struct OpCodeHandler_RegIb {
 }
 
 impl OpCodeHandler_RegIb {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_RegIb::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -79,6 +88,10 @@ pub(crate) struct OpCodeHandler_IbReg {
 }
 
 impl OpCodeHandler_IbReg {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_IbReg::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -100,6 +113,10 @@ pub(crate) struct OpCodeHandler_AL_DX {
 }
 
 impl OpCodeHandler_AL_DX {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_AL_DX::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -122,6 +139,10 @@ pub(crate) struct OpCodeHandler_DX_AL {
 }
 
 impl OpCodeHandler_DX_AL {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_DX_AL::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -144,6 +165,10 @@ pub(crate) struct OpCodeHandler_Ib {
 }
 
 impl OpCodeHandler_Ib {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Ib::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -162,6 +187,10 @@ pub(crate) struct OpCodeHandler_Ib3 {
 }
 
 impl OpCodeHandler_Ib3 {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Ib3::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -180,6 +209,26 @@ pub(crate) struct OpCodeHandler_MandatoryPrefix {
 }
 
 impl OpCodeHandler_MandatoryPrefix {
+	pub fn new(
+		has_modrm: bool, handler: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler,
+		handler_f2: *const OpCodeHandler,
+	) -> Self {
+		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
+		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
+		const_assert_eq!(2, MandatoryPrefixByte::PF3 as u32);
+		const_assert_eq!(3, MandatoryPrefixByte::PF2 as u32);
+		assert!(!is_null_instance_handler(handler));
+		assert!(!is_null_instance_handler(handler_66));
+		assert!(!is_null_instance_handler(handler_f3));
+		assert!(!is_null_instance_handler(handler_f2));
+		let handlers = unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] };
+		debug_assert_eq!(has_modrm, handlers[0].has_modrm);
+		debug_assert_eq!(has_modrm, handlers[1].has_modrm);
+		debug_assert_eq!(has_modrm, handlers[2].has_modrm);
+		debug_assert_eq!(has_modrm, handlers[3].has_modrm);
+		Self { decode: OpCodeHandler_MandatoryPrefix::decode, has_modrm, handlers: unsafe { [&*handler, &*handler_66, &*handler_f3, &*handler_f2] } }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -199,6 +248,47 @@ pub(crate) struct OpCodeHandler_MandatoryPrefix3 {
 }
 
 impl OpCodeHandler_MandatoryPrefix3 {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+	pub(crate) fn new(
+		handler_reg: *const OpCodeHandler, handler_mem: *const OpCodeHandler, handler66_reg: *const OpCodeHandler,
+		handler66_mem: *const OpCodeHandler, handlerf3_reg: *const OpCodeHandler, handlerf3_mem: *const OpCodeHandler,
+		handlerf2_reg: *const OpCodeHandler, handlerf2_mem: *const OpCodeHandler, flags: u32,
+	) -> Self {
+		assert!(!is_null_instance_handler(handler_reg));
+		assert!(!is_null_instance_handler(handler_mem));
+		assert!(!is_null_instance_handler(handler66_reg));
+		assert!(!is_null_instance_handler(handler66_mem));
+		assert!(!is_null_instance_handler(handlerf3_reg));
+		assert!(!is_null_instance_handler(handlerf3_mem));
+		assert!(!is_null_instance_handler(handlerf2_reg));
+		assert!(!is_null_instance_handler(handlerf2_mem));
+		let handlers_reg = unsafe {
+			[
+				(&*handler_reg, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
+				(&*handler66_reg, (flags & LegacyHandlerFlags::HANDLER_66_REG) == 0),
+				(&*handlerf3_reg, (flags & LegacyHandlerFlags::HANDLER_F3_REG) == 0),
+				(&*handlerf2_reg, (flags & LegacyHandlerFlags::HANDLER_F2_REG) == 0),
+			]
+		};
+		let handlers_mem = unsafe {
+			[
+				(&*handler_mem, (flags & LegacyHandlerFlags::HANDLER_MEM) == 0),
+				(&*handler66_mem, (flags & LegacyHandlerFlags::HANDLER_66_MEM) == 0),
+				(&*handlerf3_mem, (flags & LegacyHandlerFlags::HANDLER_F3_MEM) == 0),
+				(&*handlerf2_mem, (flags & LegacyHandlerFlags::HANDLER_F2_MEM) == 0),
+			]
+		};
+		debug_assert!(handlers_reg[0].0.has_modrm);
+		debug_assert!(handlers_reg[1].0.has_modrm);
+		debug_assert!(handlers_reg[2].0.has_modrm);
+		debug_assert!(handlers_reg[3].0.has_modrm);
+		debug_assert!(handlers_mem[0].0.has_modrm);
+		debug_assert!(handlers_mem[1].0.has_modrm);
+		debug_assert!(handlers_mem[2].0.has_modrm);
+		debug_assert!(handlers_mem[3].0.has_modrm);
+		Self { decode: OpCodeHandler_MandatoryPrefix3::decode, has_modrm: true, handlers_reg, handlers_mem }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -229,6 +319,23 @@ pub(crate) struct OpCodeHandler_MandatoryPrefix_F3_F2 {
 }
 
 impl OpCodeHandler_MandatoryPrefix_F3_F2 {
+	pub(crate) fn new(
+		handler_normal: *const OpCodeHandler, handler_f3: *const OpCodeHandler, clear_f3: bool, handler_f2: *const OpCodeHandler, clear_f2: bool,
+	) -> Self {
+		assert!(!is_null_instance_handler(handler_normal));
+		assert!(!is_null_instance_handler(handler_f3));
+		assert!(!is_null_instance_handler(handler_f2));
+		Self {
+			decode: OpCodeHandler_MandatoryPrefix_F3_F2::decode,
+			has_modrm: false,
+			handler_normal: unsafe { &*handler_normal },
+			handler_f3: unsafe { &*handler_f3 },
+			clear_f3,
+			handler_f2: unsafe { &*handler_f2 },
+			clear_f2,
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -264,6 +371,10 @@ pub(crate) struct OpCodeHandler_NIb {
 }
 
 impl OpCodeHandler_NIb {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_NIb::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -290,6 +401,17 @@ pub(crate) struct OpCodeHandler_ReservedNop {
 }
 
 impl OpCodeHandler_ReservedNop {
+	pub(crate) fn new(reserved_nop_handler: *const OpCodeHandler, other_handler: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(reserved_nop_handler));
+		assert!(!is_null_instance_handler(other_handler));
+		Self {
+			decode: OpCodeHandler_ReservedNop::decode,
+			has_modrm: true,
+			reserved_nop_handler: unsafe { &*reserved_nop_handler },
+			other_handler: unsafe { &*other_handler },
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -310,6 +432,10 @@ pub(crate) struct OpCodeHandler_Ev_Iz {
 }
 
 impl OpCodeHandler_Ev_Iz {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Iz::decode, has_modrm: true, code16, code32, code64, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -362,6 +488,10 @@ pub(crate) struct OpCodeHandler_Ev_Ib {
 }
 
 impl OpCodeHandler_Ev_Ib {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Ib::decode, has_modrm: true, code16, code32, code64, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -414,6 +544,10 @@ pub(crate) struct OpCodeHandler_Ev_Ib2 {
 }
 
 impl OpCodeHandler_Ev_Ib2 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Ib2::decode, has_modrm: true, code16, code32, code64, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -461,6 +595,10 @@ pub(crate) struct OpCodeHandler_Ev_1 {
 }
 
 impl OpCodeHandler_Ev_1 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_1::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -503,6 +641,10 @@ pub(crate) struct OpCodeHandler_Ev_CL {
 }
 
 impl OpCodeHandler_Ev_CL {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_CL::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -546,6 +688,10 @@ pub(crate) struct OpCodeHandler_Ev {
 }
 
 impl OpCodeHandler_Ev {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev::decode, has_modrm: true, code16, code32, code64, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -591,6 +737,10 @@ pub(crate) struct OpCodeHandler_Rv {
 }
 
 impl OpCodeHandler_Rv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Rv::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -633,6 +783,10 @@ pub(crate) struct OpCodeHandler_Rv_32_64 {
 }
 
 impl OpCodeHandler_Rv_32_64 {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Rv_32_64::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -666,6 +820,17 @@ pub(crate) struct OpCodeHandler_Ev_REXW {
 }
 
 impl OpCodeHandler_Ev_REXW {
+	pub(crate) fn new(code32: u32, code64: u32, allow_reg: bool, allow_mem: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_Ev_REXW::decode,
+			has_modrm: true,
+			code32,
+			code64,
+			disallow_reg: if allow_reg { 0 } else { u32::MAX },
+			disallow_mem: if allow_mem { 0 } else { u32::MAX },
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -712,6 +877,10 @@ pub(crate) struct OpCodeHandler_Evj {
 }
 
 impl OpCodeHandler_Evj {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Evj::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -772,6 +941,10 @@ pub(crate) struct OpCodeHandler_Ep {
 }
 
 impl OpCodeHandler_Ep {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ep::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -802,6 +975,10 @@ pub(crate) struct OpCodeHandler_Evw {
 }
 
 impl OpCodeHandler_Evw {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Evw::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -841,6 +1018,10 @@ pub(crate) struct OpCodeHandler_Ew {
 }
 
 impl OpCodeHandler_Ew {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ew::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -880,6 +1061,10 @@ pub(crate) struct OpCodeHandler_Ms {
 }
 
 impl OpCodeHandler_Ms {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ms::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -907,6 +1092,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev {
 }
 
 impl OpCodeHandler_Gv_Ev {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -964,6 +1153,10 @@ pub(crate) struct OpCodeHandler_Gv_M_as {
 }
 
 impl OpCodeHandler_Gv_M_as {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_M_as::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1012,6 +1205,10 @@ pub(crate) struct OpCodeHandler_Gdq_Ev {
 }
 
 impl OpCodeHandler_Gdq_Ev {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gdq_Ev::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1069,6 +1266,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev3 {
 }
 
 impl OpCodeHandler_Gv_Ev3 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev3::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1126,6 +1327,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev2 {
 }
 
 impl OpCodeHandler_Gv_Ev2 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev2::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1181,6 +1386,10 @@ pub(crate) struct OpCodeHandler_R_C {
 }
 
 impl OpCodeHandler_R_C {
+	pub(crate) fn new(code32: u32, code64: u32, base_reg: Register) -> Self {
+		Self { decode: OpCodeHandler_R_C::decode, has_modrm: true, code32, code64, base_reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1235,6 +1444,10 @@ pub(crate) struct OpCodeHandler_C_R {
 }
 
 impl OpCodeHandler_C_R {
+	pub(crate) fn new(code32: u32, code64: u32, base_reg: Register) -> Self {
+		Self { decode: OpCodeHandler_C_R::decode, has_modrm: true, code32, code64, base_reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1289,6 +1502,10 @@ pub(crate) struct OpCodeHandler_Jb {
 }
 
 impl OpCodeHandler_Jb {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Jb::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1334,6 +1551,10 @@ pub(crate) struct OpCodeHandler_Jx {
 }
 
 impl OpCodeHandler_Jx {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Jx::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1396,6 +1617,10 @@ pub(crate) struct OpCodeHandler_Jz {
 }
 
 impl OpCodeHandler_Jz {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Jz::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1444,6 +1669,10 @@ pub(crate) struct OpCodeHandler_Jb2 {
 }
 
 impl OpCodeHandler_Jb2 {
+	pub(crate) fn new(code16_16: u32, code16_32: u32, code16_64: u32, code32_16: u32, code32_32: u32, code64_32: u32, code64_64: u32) -> Self {
+		Self { decode: OpCodeHandler_Jb2::decode, has_modrm: false, code16_16, code16_32, code16_64, code32_16, code32_32, code64_32, code64_64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1504,6 +1733,10 @@ pub(crate) struct OpCodeHandler_Jdisp {
 }
 
 impl OpCodeHandler_Jdisp {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Jdisp::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1532,6 +1765,10 @@ pub(crate) struct OpCodeHandler_PushOpSizeReg {
 }
 
 impl OpCodeHandler_PushOpSizeReg {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_PushOpSizeReg::decode, has_modrm: false, code16, code32, code64, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1565,6 +1802,10 @@ pub(crate) struct OpCodeHandler_PushEv {
 }
 
 impl OpCodeHandler_PushEv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_PushEv::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1617,6 +1858,10 @@ pub(crate) struct OpCodeHandler_Ev_Gv {
 }
 
 impl OpCodeHandler_Ev_Gv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv::decode, has_modrm: true, code16, code32, code64, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1679,6 +1924,10 @@ pub(crate) struct OpCodeHandler_Ev_Gv_32_64 {
 }
 
 impl OpCodeHandler_Ev_Gv_32_64 {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv_32_64::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1721,6 +1970,10 @@ pub(crate) struct OpCodeHandler_Ev_Gv_Ib {
 }
 
 impl OpCodeHandler_Ev_Gv_Ib {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv_Ib::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1780,6 +2033,10 @@ pub(crate) struct OpCodeHandler_Ev_Gv_CL {
 }
 
 impl OpCodeHandler_Ev_Gv_CL {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv_CL::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1840,6 +2097,10 @@ pub(crate) struct OpCodeHandler_Gv_Mp {
 }
 
 impl OpCodeHandler_Gv_Mp {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Mp::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1888,6 +2149,10 @@ pub(crate) struct OpCodeHandler_Gv_Eb {
 }
 
 impl OpCodeHandler_Gv_Eb {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Eb::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1942,6 +2207,10 @@ pub(crate) struct OpCodeHandler_Gv_Ew {
 }
 
 impl OpCodeHandler_Gv_Ew {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ew::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -1995,6 +2264,10 @@ pub(crate) struct OpCodeHandler_PushSimple2 {
 }
 
 impl OpCodeHandler_PushSimple2 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_PushSimple2::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2025,6 +2298,10 @@ pub(crate) struct OpCodeHandler_Simple2 {
 }
 
 impl OpCodeHandler_Simple2 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple2::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2049,6 +2326,10 @@ pub(crate) struct OpCodeHandler_Simple2Iw {
 }
 
 impl OpCodeHandler_Simple2Iw {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple2Iw::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2075,6 +2356,10 @@ pub(crate) struct OpCodeHandler_Simple3 {
 }
 
 impl OpCodeHandler_Simple3 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple3::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2105,6 +2390,10 @@ pub(crate) struct OpCodeHandler_Simple5 {
 }
 
 impl OpCodeHandler_Simple5 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple5::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2129,6 +2418,10 @@ pub(crate) struct OpCodeHandler_Simple5_ModRM_as {
 }
 
 impl OpCodeHandler_Simple5_ModRM_as {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple5_ModRM_as::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2164,6 +2457,10 @@ pub(crate) struct OpCodeHandler_Simple4 {
 }
 
 impl OpCodeHandler_Simple4 {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Simple4::decode, has_modrm: false, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2187,6 +2484,10 @@ pub(crate) struct OpCodeHandler_PushSimpleReg {
 }
 
 impl OpCodeHandler_PushSimpleReg {
+	pub(crate) fn new(index: u32, code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_PushSimpleReg::decode, has_modrm: false, index, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2240,6 +2541,10 @@ pub(crate) struct OpCodeHandler_SimpleReg {
 }
 
 impl OpCodeHandler_SimpleReg {
+	pub(crate) fn new(code: u32, index: u32) -> Self {
+		Self { decode: OpCodeHandler_SimpleReg::decode, has_modrm: false, code, index }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2320,6 +2625,10 @@ pub(crate) struct OpCodeHandler_Xchg_Reg_rAX {
 }
 
 impl OpCodeHandler_Xchg_Reg_rAX {
+	pub(crate) fn new(index: u32) -> Self {
+		Self { decode: OpCodeHandler_Xchg_Reg_rAX::decode, has_modrm: false, index }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2363,6 +2672,10 @@ pub(crate) struct OpCodeHandler_Reg_Iz {
 }
 
 impl OpCodeHandler_Reg_Iz {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Iz::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2419,6 +2732,10 @@ pub(crate) struct OpCodeHandler_RegIb3 {
 }
 
 impl OpCodeHandler_RegIb3 {
+	pub(crate) fn new(index: u32) -> Self {
+		Self { decode: OpCodeHandler_RegIb3::decode, has_modrm: false, index }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2446,6 +2763,10 @@ pub(crate) struct OpCodeHandler_RegIz2 {
 }
 
 impl OpCodeHandler_RegIz2 {
+	pub(crate) fn new(index: u32) -> Self {
+		Self { decode: OpCodeHandler_RegIz2::decode, has_modrm: false, index }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2495,6 +2816,10 @@ pub(crate) struct OpCodeHandler_PushIb2 {
 }
 
 impl OpCodeHandler_PushIb2 {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_PushIb2::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2533,6 +2858,10 @@ pub(crate) struct OpCodeHandler_PushIz {
 }
 
 impl OpCodeHandler_PushIz {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_PushIz::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2570,6 +2899,10 @@ pub(crate) struct OpCodeHandler_Gv_Ma {
 }
 
 impl OpCodeHandler_Gv_Ma {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ma::decode, has_modrm: true, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2606,6 +2939,10 @@ pub(crate) struct OpCodeHandler_RvMw_Gw {
 }
 
 impl OpCodeHandler_RvMw_Gw {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_RvMw_Gw::decode, has_modrm: true, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2652,6 +2989,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev_Ib {
 }
 
 impl OpCodeHandler_Gv_Ev_Ib {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev_Ib::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2715,6 +3056,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev_Ib_REX {
 }
 
 impl OpCodeHandler_Gv_Ev_Ib_REX {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev_Ib_REX::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2759,6 +3104,17 @@ pub(crate) struct OpCodeHandler_Gv_Ev_32_64 {
 }
 
 impl OpCodeHandler_Gv_Ev_32_64 {
+	pub(crate) fn new(code32: u32, code64: u32, allow_reg: bool, allow_mem: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_Gv_Ev_32_64::decode,
+			has_modrm: true,
+			code32,
+			code64,
+			disallow_mem: if allow_mem { 0 } else { u32::MAX },
+			disallow_reg: if allow_reg { 0 } else { u32::MAX },
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2807,6 +3163,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev_Iz {
 }
 
 impl OpCodeHandler_Gv_Ev_Iz {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev_Iz::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2869,6 +3229,10 @@ pub(crate) struct OpCodeHandler_Yb_Reg {
 }
 
 impl OpCodeHandler_Yb_Reg {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Yb_Reg::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2897,6 +3261,10 @@ pub(crate) struct OpCodeHandler_Yv_Reg {
 }
 
 impl OpCodeHandler_Yv_Reg {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Yv_Reg::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2936,6 +3304,10 @@ pub(crate) struct OpCodeHandler_Yv_Reg2 {
 }
 
 impl OpCodeHandler_Yv_Reg2 {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Yv_Reg2::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2970,6 +3342,10 @@ pub(crate) struct OpCodeHandler_Reg_Xb {
 }
 
 impl OpCodeHandler_Reg_Xb {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Reg_Xb::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -2998,6 +3374,10 @@ pub(crate) struct OpCodeHandler_Reg_Xv {
 }
 
 impl OpCodeHandler_Reg_Xv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Xv::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3037,6 +3417,10 @@ pub(crate) struct OpCodeHandler_Reg_Xv2 {
 }
 
 impl OpCodeHandler_Reg_Xv2 {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Xv2::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3071,6 +3455,10 @@ pub(crate) struct OpCodeHandler_Reg_Yb {
 }
 
 impl OpCodeHandler_Reg_Yb {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Reg_Yb::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3099,6 +3487,10 @@ pub(crate) struct OpCodeHandler_Reg_Yv {
 }
 
 impl OpCodeHandler_Reg_Yv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Yv::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3137,6 +3529,10 @@ pub(crate) struct OpCodeHandler_Yb_Xb {
 }
 
 impl OpCodeHandler_Yb_Xb {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Yb_Xb::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3165,6 +3561,10 @@ pub(crate) struct OpCodeHandler_Yv_Xv {
 }
 
 impl OpCodeHandler_Yv_Xv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Yv_Xv::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3197,6 +3597,10 @@ pub(crate) struct OpCodeHandler_Xb_Yb {
 }
 
 impl OpCodeHandler_Xb_Yb {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Xb_Yb::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3225,6 +3629,10 @@ pub(crate) struct OpCodeHandler_Xv_Yv {
 }
 
 impl OpCodeHandler_Xv_Yv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Xv_Yv::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3259,6 +3667,10 @@ pub(crate) struct OpCodeHandler_Ev_Sw {
 }
 
 impl OpCodeHandler_Ev_Sw {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Sw::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3301,6 +3713,10 @@ pub(crate) struct OpCodeHandler_Gv_M {
 }
 
 impl OpCodeHandler_Gv_M {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_M::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3349,6 +3765,10 @@ pub(crate) struct OpCodeHandler_Sw_Ev {
 }
 
 impl OpCodeHandler_Sw_Ev {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Sw_Ev::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3394,6 +3814,10 @@ pub(crate) struct OpCodeHandler_Ap {
 }
 
 impl OpCodeHandler_Ap {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Ap::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3423,6 +3847,10 @@ pub(crate) struct OpCodeHandler_Reg_Ob {
 }
 
 impl OpCodeHandler_Reg_Ob {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Reg_Ob::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3465,6 +3893,10 @@ pub(crate) struct OpCodeHandler_Ob_Reg {
 }
 
 impl OpCodeHandler_Ob_Reg {
+	pub(crate) fn new(code: u32, reg: Register) -> Self {
+		Self { decode: OpCodeHandler_Ob_Reg::decode, has_modrm: false, code, reg }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3508,6 +3940,10 @@ pub(crate) struct OpCodeHandler_Reg_Ov {
 }
 
 impl OpCodeHandler_Reg_Ov {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Ov::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3563,6 +3999,10 @@ pub(crate) struct OpCodeHandler_Ov_Reg {
 }
 
 impl OpCodeHandler_Ov_Reg {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ov_Reg::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3618,6 +4058,10 @@ pub(crate) struct OpCodeHandler_BranchIw {
 }
 
 impl OpCodeHandler_BranchIw {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_BranchIw::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3650,6 +4094,10 @@ pub(crate) struct OpCodeHandler_BranchSimple {
 }
 
 impl OpCodeHandler_BranchSimple {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_BranchSimple::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3680,6 +4128,10 @@ pub(crate) struct OpCodeHandler_Iw_Ib {
 }
 
 impl OpCodeHandler_Iw_Ib {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Iw_Ib::decode, has_modrm: false, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3713,6 +4165,10 @@ pub(crate) struct OpCodeHandler_Reg_Ib2 {
 }
 
 impl OpCodeHandler_Reg_Ib2 {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_Reg_Ib2::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3740,6 +4196,10 @@ pub(crate) struct OpCodeHandler_IbReg2 {
 }
 
 impl OpCodeHandler_IbReg2 {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_IbReg2::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3767,6 +4227,10 @@ pub(crate) struct OpCodeHandler_eAX_DX {
 }
 
 impl OpCodeHandler_eAX_DX {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_eAX_DX::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3797,6 +4261,10 @@ pub(crate) struct OpCodeHandler_DX_eAX {
 }
 
 impl OpCodeHandler_DX_eAX {
+	pub(crate) fn new(code16: u32, code32: u32) -> Self {
+		Self { decode: OpCodeHandler_DX_eAX::decode, has_modrm: false, code16, code32 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3827,6 +4295,10 @@ pub(crate) struct OpCodeHandler_Eb_Ib {
 }
 
 impl OpCodeHandler_Eb_Ib {
+	pub(crate) fn new(code: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Eb_Ib::decode, has_modrm: true, code, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3863,6 +4335,10 @@ pub(crate) struct OpCodeHandler_Eb_1 {
 }
 
 impl OpCodeHandler_Eb_1 {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Eb_1::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3894,6 +4370,10 @@ pub(crate) struct OpCodeHandler_Eb_CL {
 }
 
 impl OpCodeHandler_Eb_CL {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Eb_CL::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3926,6 +4406,10 @@ pub(crate) struct OpCodeHandler_Eb {
 }
 
 impl OpCodeHandler_Eb {
+	pub(crate) fn new(code: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Eb::decode, has_modrm: true, code, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -3961,6 +4445,10 @@ pub(crate) struct OpCodeHandler_Eb_Gb {
 }
 
 impl OpCodeHandler_Eb_Gb {
+	pub(crate) fn new(code: u32, flags: u32) -> Self {
+		Self { decode: OpCodeHandler_Eb_Gb::decode, has_modrm: true, code, flags }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4003,6 +4491,10 @@ pub(crate) struct OpCodeHandler_Gb_Eb {
 }
 
 impl OpCodeHandler_Gb_Eb {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Gb_Eb::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4040,6 +4532,14 @@ pub(crate) struct OpCodeHandler_M {
 }
 
 impl OpCodeHandler_M {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_M::decode, has_modrm: true, code_w0: code, code_w1: code }
+	}
+
+	pub(crate) fn new1(code_w0: u32, code_w1: u32) -> Self {
+		Self { decode: OpCodeHandler_M::decode, has_modrm: true, code_w0, code_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4069,6 +4569,10 @@ pub(crate) struct OpCodeHandler_M_REXW {
 }
 
 impl OpCodeHandler_M_REXW {
+	pub(crate) fn new(code32: u32, code64: u32, flags32: u32, flags64: u32) -> Self {
+		Self { decode: OpCodeHandler_M_REXW::decode, has_modrm: true, code32, code64, flags32, flags64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4107,6 +4611,10 @@ pub(crate) struct OpCodeHandler_MemBx {
 }
 
 impl OpCodeHandler_MemBx {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_MemBx::decode, has_modrm: false, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4137,6 +4645,14 @@ pub(crate) struct OpCodeHandler_VW {
 }
 
 impl OpCodeHandler_VW {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VW::decode, has_modrm: true, base_reg, code_r: code, code_m: code }
+	}
+
+	pub(crate) fn new1(base_reg: Register, code_r: u32, code_m: u32) -> Self {
+		Self { decode: OpCodeHandler_VW::decode, has_modrm: true, base_reg, code_r, code_m }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4175,6 +4691,10 @@ pub(crate) struct OpCodeHandler_WV {
 }
 
 impl OpCodeHandler_WV {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_WV::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4209,6 +4729,10 @@ pub(crate) struct OpCodeHandler_rDI_VX_RX {
 }
 
 impl OpCodeHandler_rDI_VX_RX {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_rDI_VX_RX::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4248,6 +4772,10 @@ pub(crate) struct OpCodeHandler_rDI_P_N {
 }
 
 impl OpCodeHandler_rDI_P_N {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_rDI_P_N::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4282,6 +4810,10 @@ pub(crate) struct OpCodeHandler_VM {
 }
 
 impl OpCodeHandler_VM {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VM::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4311,6 +4843,10 @@ pub(crate) struct OpCodeHandler_MV {
 }
 
 impl OpCodeHandler_MV {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_MV::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4340,6 +4876,10 @@ pub(crate) struct OpCodeHandler_VQ {
 }
 
 impl OpCodeHandler_VQ {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VQ::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4370,6 +4910,10 @@ pub(crate) struct OpCodeHandler_P_Q {
 }
 
 impl OpCodeHandler_P_Q {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_P_Q::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4397,6 +4941,10 @@ pub(crate) struct OpCodeHandler_Q_P {
 }
 
 impl OpCodeHandler_Q_P {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_Q_P::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4424,6 +4972,10 @@ pub(crate) struct OpCodeHandler_MP {
 }
 
 impl OpCodeHandler_MP {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_MP::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4449,6 +5001,10 @@ pub(crate) struct OpCodeHandler_P_Q_Ib {
 }
 
 impl OpCodeHandler_P_Q_Ib {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_P_Q_Ib::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4479,6 +5035,10 @@ pub(crate) struct OpCodeHandler_P_W {
 }
 
 impl OpCodeHandler_P_W {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_P_W::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4510,6 +5070,10 @@ pub(crate) struct OpCodeHandler_P_R {
 }
 
 impl OpCodeHandler_P_R {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_P_R::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4540,6 +5104,10 @@ pub(crate) struct OpCodeHandler_P_Ev {
 }
 
 impl OpCodeHandler_P_Ev {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_P_Ev::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4578,6 +5146,10 @@ pub(crate) struct OpCodeHandler_P_Ev_Ib {
 }
 
 impl OpCodeHandler_P_Ev_Ib {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_P_Ev_Ib::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4618,6 +5190,10 @@ pub(crate) struct OpCodeHandler_Ev_P {
 }
 
 impl OpCodeHandler_Ev_P {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_P::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4657,6 +5233,10 @@ pub(crate) struct OpCodeHandler_Gv_W {
 }
 
 impl OpCodeHandler_Gv_W {
+	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_W::decode, has_modrm: true, base_reg, code_w0, code_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4702,6 +5282,10 @@ pub(crate) struct OpCodeHandler_V_Ev {
 }
 
 impl OpCodeHandler_V_Ev {
+	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32) -> Self {
+		Self { decode: OpCodeHandler_V_Ev::decode, has_modrm: true, base_reg, code_w0, code_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4744,6 +5328,14 @@ pub(crate) struct OpCodeHandler_VWIb {
 }
 
 impl OpCodeHandler_VWIb {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VWIb::decode, has_modrm: true, base_reg, code_w0: code, code_w1: code }
+	}
+
+	pub(crate) fn new1(base_reg: Register, code_w0: u32, code_w1: u32) -> Self {
+		Self { decode: OpCodeHandler_VWIb::decode, has_modrm: true, base_reg, code_w0, code_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4784,6 +5376,10 @@ pub(crate) struct OpCodeHandler_VRIbIb {
 }
 
 impl OpCodeHandler_VRIbIb {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VRIbIb::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4821,6 +5417,10 @@ pub(crate) struct OpCodeHandler_RIbIb {
 }
 
 impl OpCodeHandler_RIbIb {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_RIbIb::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4852,6 +5452,10 @@ pub(crate) struct OpCodeHandler_RIb {
 }
 
 impl OpCodeHandler_RIb {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_RIb::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4882,6 +5486,10 @@ pub(crate) struct OpCodeHandler_Ed_V_Ib {
 }
 
 impl OpCodeHandler_Ed_V_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4925,6 +5533,10 @@ pub(crate) struct OpCodeHandler_VX_Ev {
 }
 
 impl OpCodeHandler_VX_Ev {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_VX_Ev::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -4966,6 +5578,10 @@ pub(crate) struct OpCodeHandler_Ev_VX {
 }
 
 impl OpCodeHandler_Ev_VX {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_VX::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5008,6 +5624,10 @@ pub(crate) struct OpCodeHandler_VX_E_Ib {
 }
 
 impl OpCodeHandler_VX_E_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_VX_E_Ib::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5052,6 +5672,10 @@ pub(crate) struct OpCodeHandler_Gv_RX {
 }
 
 impl OpCodeHandler_Gv_RX {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_RX::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5095,6 +5719,10 @@ pub(crate) struct OpCodeHandler_B_MIB {
 }
 
 impl OpCodeHandler_B_MIB {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_B_MIB::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5124,6 +5752,10 @@ pub(crate) struct OpCodeHandler_MIB_B {
 }
 
 impl OpCodeHandler_MIB_B {
+	pub(crate) fn new(code: u32) -> Self {
+		Self { decode: OpCodeHandler_MIB_B::decode, has_modrm: true, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5154,6 +5786,10 @@ pub(crate) struct OpCodeHandler_B_BM {
 }
 
 impl OpCodeHandler_B_BM {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_B_BM::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5191,6 +5827,10 @@ pub(crate) struct OpCodeHandler_BM_B {
 }
 
 impl OpCodeHandler_BM_B {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_BM_B::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5228,6 +5868,10 @@ pub(crate) struct OpCodeHandler_B_Ev {
 }
 
 impl OpCodeHandler_B_Ev {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_B_Ev::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5269,6 +5913,10 @@ pub(crate) struct OpCodeHandler_Mv_Gv_REXW {
 }
 
 impl OpCodeHandler_Mv_Gv_REXW {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Mv_Gv_REXW::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5308,6 +5956,10 @@ pub(crate) struct OpCodeHandler_Gv_N_Ib_REX {
 }
 
 impl OpCodeHandler_Gv_N_Ib_REX {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_N_Ib_REX::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5351,6 +6003,10 @@ pub(crate) struct OpCodeHandler_Gv_N {
 }
 
 impl OpCodeHandler_Gv_N {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_N::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5392,6 +6048,10 @@ pub(crate) struct OpCodeHandler_VN {
 }
 
 impl OpCodeHandler_VN {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_VN::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5423,6 +6083,10 @@ pub(crate) struct OpCodeHandler_Gv_Mv {
 }
 
 impl OpCodeHandler_Gv_Mv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Mv::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5471,6 +6135,10 @@ pub(crate) struct OpCodeHandler_Mv_Gv {
 }
 
 impl OpCodeHandler_Mv_Gv {
+	pub(crate) fn new(code16: u32, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Mv_Gv::decode, has_modrm: true, code16, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5518,6 +6186,10 @@ pub(crate) struct OpCodeHandler_Gv_Eb_REX {
 }
 
 impl OpCodeHandler_Gv_Eb_REX {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Eb_REX::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5563,6 +6235,10 @@ pub(crate) struct OpCodeHandler_Gv_Ev_REX {
 }
 
 impl OpCodeHandler_Gv_Ev_REX {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Gv_Ev_REX::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5614,6 +6290,10 @@ pub(crate) struct OpCodeHandler_Ev_Gv_REX {
 }
 
 impl OpCodeHandler_Ev_Gv_REX {
+	pub(crate) fn new(code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_Ev_Gv_REX::decode, has_modrm: true, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5651,6 +6331,10 @@ pub(crate) struct OpCodeHandler_GvM_VX_Ib {
 }
 
 impl OpCodeHandler_GvM_VX_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
@@ -5692,6 +6376,10 @@ pub(crate) struct OpCodeHandler_Wbinvd {
 }
 
 impl OpCodeHandler_Wbinvd {
+	pub(crate) fn new() -> Self {
+		Self { decode: OpCodeHandler_Wbinvd::decode, has_modrm: false }
+	}
+
 	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if (decoder.options & DecoderOptions::NO_WBNOINVD) != 0 || decoder.state.mandatory_prefix != MandatoryPrefixByte::PF3 as u32 {

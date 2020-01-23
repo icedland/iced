@@ -49,7 +49,7 @@ namespace Generator.Tables.Rust {
 			if (RegisterEnum.Instance.Values.Length > 0x100)
 				throw new InvalidOperationException();
 			foreach (var info in infos)
-				writer.WriteLine($"RegisterInfo {{ register: {regName}::{info.Register.Name(idConverter)} as u8, base: {regName}::{info.Base.Name(idConverter)} as u8, full_register: {regName}::{info.FullRegister.Name(idConverter)} as u8, size: {info.Size} }},");
+				writer.WriteLine($"RegisterInfo {{ register: {regName}::{info.Register.Name(idConverter)}, base: {regName}::{info.Base.Name(idConverter)}, full_register: {regName}::{info.FullRegister.Name(idConverter)}, size: {info.Size} }},");
 		}
 	}
 }

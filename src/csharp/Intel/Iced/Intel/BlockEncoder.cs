@@ -110,7 +110,7 @@ namespace Iced.Intel {
 		/// If <see cref="BlockEncoderOptions.ReturnNewInstructionOffsets"/> option was enabled:
 		/// <br/>
 		/// Offsets of the instructions relative to the base IP. If the instruction was rewritten to a new instruction
-		/// (eg. <c>JE SHORT</c> -> <c>JE NEAR</c>), the value <see cref="uint.MaxValue"/> is stored in that array element.
+		/// (eg. <c>JE TARGET_TOO_FAR_AWAY</c> -> <c>JNE SHORT SKIP ; JMP QWORD PTR [MEM]</c>), the value <see cref="uint.MaxValue"/> is stored in that array element.
 		/// </summary>
 		public readonly uint[] NewInstructionOffsets;
 

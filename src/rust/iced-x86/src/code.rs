@@ -37864,7 +37864,7 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn mnemonic(self) -> Mnemonic {
-		unsafe { mem::transmute(*mnemonics::TO_MNEMONIC.get_unchecked(self as usize)) }
+		mnemonics::TO_MNEMONIC[self as usize]
 	}
 }
 
@@ -37876,7 +37876,7 @@ impl Code {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op_code(self) -> &'static OpCodeInfo {
-		unsafe { &*(&*self::encoder::op_code_tbl::OP_CODE_INFO_TBL).get_unchecked(self as usize) }
+		&self::encoder::op_code_tbl::OP_CODE_INFO_TBL[self as usize]
 	}
 }
 

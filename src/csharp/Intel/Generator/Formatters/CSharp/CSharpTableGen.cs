@@ -78,7 +78,7 @@ namespace Generator.Formatters.CSharp {
 						var name = info.nasm.ToString();
 						if (name == "byte")
 							name = "@" + name;
-						writer.WriteLine($"(byte)((uint)MemoryKeywords.{name} | ((uint)Size.S{size} << SizeKindShift)),");
+						writer.WriteLine($"(byte)MemoryKeywords.{name},");
 					}
 				});
 				new FileUpdater(TargetLanguage.CSharp, "BcstTo", filename).Generate(writer => {

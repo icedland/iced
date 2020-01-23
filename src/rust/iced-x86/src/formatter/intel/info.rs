@@ -259,12 +259,8 @@ struct InstrInfoConstants;
 impl InstrInfoConstants {
 	pub const OP_ACCESS_NONE: i8 = -(OpAccess::None as i8 + 2);
 	pub const OP_ACCESS_READ: i8 = -(OpAccess::Read as i8 + 2);
-	pub const OP_ACCESS_COND_READ: i8 = -(OpAccess::CondRead as i8 + 2);
 	pub const OP_ACCESS_WRITE: i8 = -(OpAccess::Write as i8 + 2);
-	pub const OP_ACCESS_COND_WRITE: i8 = -(OpAccess::CondWrite as i8 + 2);
 	pub const OP_ACCESS_READ_WRITE: i8 = -(OpAccess::ReadWrite as i8 + 2);
-	pub const OP_ACCESS_READ_COND_WRITE: i8 = -(OpAccess::ReadCondWrite as i8 + 2);
-	pub const OP_ACCESS_NO_MEM_ACCESS: i8 = -(OpAccess::NoMemAccess as i8 + 2);
 }
 #[cfg(not(feature = "instr_info"))]
 impl InstrInfoConstants {

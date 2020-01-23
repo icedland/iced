@@ -99,12 +99,12 @@ namespace Generator.Formatters.Rust {
 				});
 				new FileUpdater(TargetLanguage.Rust, "MemorySizes", filename).Generate(writer => {
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
-					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [u8; {memInfos.Length}] = [");
+					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [MemoryKeywords; {memInfos.Length}] = [");
 					using (writer.Indent()) {
 						var sizeTbl = MemorySizeInfoTable.Data;
 						foreach (var info in memInfos) {
 							int size = sizeTbl[(int)info.memSize.Value].Size;
-							writer.WriteLine($"((MemoryKeywords::{info.nasm} as u8) | ((Size::S{size} as u8) << SIZE_KIND_SHIFT)),");
+							writer.WriteLine($"MemoryKeywords::{info.nasm},");
 						}
 					}
 					writer.WriteLine("];");

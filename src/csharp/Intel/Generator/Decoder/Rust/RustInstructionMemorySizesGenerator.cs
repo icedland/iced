@@ -49,26 +49,18 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static SIZES: [u8; ({IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2)] = [");
+				writer.WriteLine($"pub(crate) static SIZES: [{memSizeName}; ({IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2)] = [");
 				using (writer.Indent()) {
 					foreach (var d in data) {
 						if (d.mem.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value;
-						if (d.mem.Value == 0)
-							value = "0";
-						else
-							value = $"{memSizeName}::{d.mem.Name(idConverter)} as u8";
+						string value = $"{memSizeName}::{d.mem.Name(idConverter)}";
 						writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 					}
 					foreach (var d in data) {
 						if (d.bcst.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value;
-						if (d.bcst.Value == 0)
-							value = "0";
-						else
-							value = $"{memSizeName}::{d.bcst.Name(idConverter)} as u8";
+						string value = $"{memSizeName}::{d.bcst.Name(idConverter)}";
 						writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
 					}
 				}

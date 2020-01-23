@@ -41,6 +41,7 @@ namespace Generator {
 		public const string AttributeAllowTooManyArguments = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::too_many_arguments))]";
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
 		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
+		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
 
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";

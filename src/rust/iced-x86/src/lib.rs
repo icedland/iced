@@ -73,6 +73,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // '_ requires rustc >= 1.31.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))] // Requires rustc >= 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
@@ -110,6 +111,7 @@ mod block_enc;
 mod code;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
+mod data_reader;
 #[cfg(feature = "decoder")]
 mod decoder;
 #[cfg(feature = "encoder")]

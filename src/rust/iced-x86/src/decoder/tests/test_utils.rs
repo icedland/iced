@@ -38,7 +38,6 @@ pub(crate) struct DecoderTestInfo {
 	hex_bytes: String,
 	encoded_hex_bytes: String,
 	decoder_options: u32,
-	can_encode: bool,
 }
 
 impl DecoderTestInfo {
@@ -56,9 +55,6 @@ impl DecoderTestInfo {
 	}
 	pub(crate) fn decoder_options(&self) -> u32 {
 		self.decoder_options
-	}
-	pub(crate) fn can_encode(&self) -> bool {
-		self.can_encode
 	}
 }
 
@@ -169,7 +165,6 @@ fn add_tests(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderTestCase], include_in
 			hex_bytes: tc.hex_bytes.clone(),
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
-			can_encode: tc.can_encode,
 		});
 	}
 }
@@ -190,7 +185,6 @@ fn add_tests_mem(v: &mut Vec<DecoderTestInfo>, tests: &[DecoderMemoryTestCase], 
 			hex_bytes: tc.hex_bytes.clone(),
 			encoded_hex_bytes: tc.encoded_hex_bytes.clone(),
 			decoder_options: tc.decoder_options,
-			can_encode: tc.can_encode,
 		});
 	}
 }

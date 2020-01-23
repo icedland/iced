@@ -85,12 +85,7 @@ namespace Iced.Intel.DecoderInternal {
 		public bool ReadBoolean() => reader.ReadByte() != 0;
 		public int ReadInt32() => (int)reader.ReadCompressedUInt32();
 
-		public OpCodeHandler ReadHandler() {
-			int count = handlerReader.ReadHandlers(ref this, handlerArray, 0);
-			if (count != 1)
-				throw new InvalidOperationException();
-			return handlerArray[0] ?? throw new InvalidOperationException();
-		}
+		public OpCodeHandler ReadHandler() => ReadHandlerOrNull() ?? throw new InvalidOperationException();
 
 		public OpCodeHandler? ReadHandlerOrNull() {
 			int count = handlerReader.ReadHandlers(ref this, handlerArray, 0);

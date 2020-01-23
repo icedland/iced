@@ -135,13 +135,6 @@ pub(crate) fn internal_set_op3_kind(this: &mut Instruction, new_value: OpKind) {
 }
 
 #[inline]
-pub(crate) fn internal_set_op4_kind(_this: &mut Instruction, new_value: OpKind) {
-	if new_value != OpKind::Immediate8 {
-		panic!();
-	}
-}
-
-#[inline]
 pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 4);
 	this.memory_flags |= (new_value << MemoryFlags::DISPL_SIZE_SHIFT) as u16;
@@ -477,8 +470,7 @@ pub(crate) fn initialize_unsigned_immediate(instruction: &mut Instruction, opera
 
 #[cfg(feature = "encoder")]
 pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
-	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
-	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if operand >= operands.len() {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
@@ -486,7 +478,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
-	match unsafe { *operands.get_unchecked(operand) }.immediate_op_kind() {
+	match operands[operand].immediate_op_kind() {
 		Some(op_kind) => op_kind,
 		None => {
 			if cfg!(debug_assertions) {
@@ -500,8 +492,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 
 #[cfg(feature = "encoder")]
 pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
-	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
-	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if operand >= operands.len() {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
@@ -509,7 +500,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
-	match unsafe { *operands.get_unchecked(operand) }.near_branch_op_kind() {
+	match operands[operand].near_branch_op_kind() {
 		Some(op_kind) => op_kind,
 		None => {
 			if cfg!(debug_assertions) {
@@ -523,8 +514,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 
 #[cfg(feature = "encoder")]
 pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
-	let handlers = &*super::encoder::handlers_table::HANDLERS_TABLE;
-	let operands = &unsafe { *handlers.get_unchecked(code as usize) }.operands;
+	let operands = &super::encoder::handlers_table::HANDLERS_TABLE[code as usize].operands;
 	if operand >= operands.len() {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
@@ -532,7 +522,7 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
-	match unsafe { *operands.get_unchecked(operand) }.far_branch_op_kind() {
+	match operands[operand].far_branch_op_kind() {
 		Some(op_kind) => op_kind,
 		None => {
 			if cfg!(debug_assertions) {

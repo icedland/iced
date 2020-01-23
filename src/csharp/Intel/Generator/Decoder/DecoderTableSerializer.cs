@@ -23,21 +23,77 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.IO;
 
-namespace Generator.Decoder.CSharp {
-	abstract class DecoderTableSerializer {
-		public abstract string ClassName { get; }
+namespace Generator.Decoder {
+	sealed class DecoderTableSerializerInfo {
+		public readonly (string name, object?[] handlers)[] TablesToSerialize;
+		public readonly string[] TableIndexNames;
+		public object NullValue => nullValue ?? throw new InvalidOperationException();
+		readonly object? nullValue;
+		public readonly object HandlerReferenceValue;
+		public readonly object ArrayReferenceValue;
+		public readonly object Invalid2Value;
+		public readonly object DupValue;
 
-		enum InfoKind {
+		DecoderTableSerializerInfo((string name, object?[] handlers)[] tablesToSerialize, string[] tableIndexNames, object? nullValue, object handlerReferenceValue, object arrayReferenceValue, object invalid2Value, object dupValue) {
+			TablesToSerialize = tablesToSerialize;
+			TableIndexNames = tableIndexNames;
+			this.nullValue = nullValue;
+			HandlerReferenceValue = handlerReferenceValue;
+			ArrayReferenceValue = arrayReferenceValue;
+			Invalid2Value = invalid2Value;
+			DupValue = dupValue;
+		}
+
+		public static DecoderTableSerializerInfo Legacy() =>
+			new DecoderTableSerializerInfo(OpCodeHandlersTables_Legacy.GetHandlers(),
+				new string[] { OpCodeHandlersTables_Legacy.OneByteHandlers },
+				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Null)],
+				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.HandlerReference)],
+				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.ArrayReference)],
+				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Invalid2)],
+				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Dup)]);
+
+		public static DecoderTableSerializerInfo Vex() =>
+			new DecoderTableSerializerInfo(OpCodeHandlersTables_VEX.GetHandlers(),
+				new string[] { OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX },
+				null,
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.HandlerReference)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.ArrayReference)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid2)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Dup)]);
+
+		public static DecoderTableSerializerInfo Xop() =>
+			new DecoderTableSerializerInfo(OpCodeHandlersTables_XOP.GetHandlers(),
+				new string[] { OpCodeHandlersTables_XOP.XOP8, OpCodeHandlersTables_XOP.XOP9, OpCodeHandlersTables_XOP.XOPA },
+				null,
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.HandlerReference)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.ArrayReference)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid2)],
+				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Dup)]);
+
+		public static DecoderTableSerializerInfo Evex() =>
+			new DecoderTableSerializerInfo(OpCodeHandlersTables_EVEX.GetHandlers(),
+				new string[] { OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX },
+				null,
+				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.HandlerReference)],
+				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.ArrayReference)],
+				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Invalid2)],
+				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Dup)]);
+	}
+
+	abstract class DecoderTableSerializer {
+		protected enum InfoKind {
 			Handler,
 			Handlers,
 		}
 
-		sealed class Info {
+		protected sealed class Info {
 			public readonly uint Index;
 			public readonly InfoKind Kind;
 			public Info(uint index, InfoKind kind) {
@@ -46,61 +102,34 @@ namespace Generator.Decoder.CSharp {
 			}
 		}
 
-		readonly IdentifierConverter idConverter;
+		protected readonly DecoderTableSerializerInfo info;
+		protected readonly IdentifierConverter idConverter;
 		readonly Dictionary<string, Info> infos;
 		readonly StringBuilder sb;
 
-		protected DecoderTableSerializer() {
-			idConverter = CSharpIdentifierConverter.Create();
+		protected DecoderTableSerializer(IdentifierConverter idConverter, DecoderTableSerializerInfo info) {
+			this.idConverter = idConverter;
+			this.info = info;
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
 			sb = new StringBuilder();
 		}
 
-		protected abstract (string name, object?[] handlers)[] GetTablesToSerialize();
-		protected abstract string[] GetTableIndexNames();
+		protected void SerializeCore(FileWriter writer) {
+			var tables = info.TablesToSerialize;
+			if (tables.Length == 0)
+				throw new InvalidOperationException();
+			for (int i = 0; i < tables.Length; i++) {
+				var name = tables[i].name;
+				var handlers = tables[i].handlers;
+				bool isHandler = IsHandler(handlers);
+				infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
 
-		public void Serialize(FileWriter writer) {
-			writer.WriteFileHeader();
-			writer.WriteLine($"#if {CSharpConstants.DecoderDefine}");
-			writer.WriteLine($"namespace {CSharpConstants.DecoderNamespace} {{");
-			using (writer.Indent()) {
-				writer.WriteLine($"static partial class {ClassName} {{");
-				using (writer.Indent()) {
-					writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-					writer.WriteLine("static System.ReadOnlySpan<byte> GetSerializedTables() =>");
-					writer.WriteLineNoIndent("#else");
-					writer.WriteLine("static byte[] GetSerializedTables() =>");
-					writer.WriteLineNoIndent("#endif");
-					using (writer.Indent()) {
-						writer.WriteLine("new byte[] {");
-						using (writer.Indent()) {
-							var tables = GetTablesToSerialize();
-							if (tables.Length == 0)
-								throw new InvalidOperationException();
-							for (int i = 0; i < tables.Length; i++) {
-								var name = tables[i].name;
-								var handlers = tables[i].handlers;
-								bool isHandler = HandlerUtils.IsHandler(handlers);
-								infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
+				if (i != 0)
+					writer.WriteLine();
+				writer.WriteCommentLine(name);
 
-								if (i != 0)
-									writer.WriteLine();
-								writer.WriteCommentLine(name);
-
-								SerializeHandlers(writer, handlers, writeKind: true);
-							}
-						}
-						writer.WriteLine("};");
-					}
-
-					foreach (var name in GetTableIndexNames())
-						writer.WriteLine($"const uint {name}Index = {GetInfo(name).Index};");
-
-				}
-				writer.WriteLine("}");
+				SerializeHandlers(writer, handlers, writeKind: true);
 			}
-			writer.WriteLine("}");
-			writer.WriteLine("#endif");
 		}
 
 		static bool IsInvalid(object?[] handler) {
@@ -115,8 +144,16 @@ namespace Generator.Decoder.CSharp {
 			return isInvalid;
 		}
 
+		static bool IsHandler(object?[] handlers) =>
+			IsHandler(handlers, out _);
+
+		static bool IsHandler(object?[] handlers, [NotNullWhen(true)] out EnumValue? enumValue) {
+			enumValue = handlers[0] as EnumValue;
+			return !(enumValue is null);
+		}
+
 		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
-			if (HandlerUtils.IsHandler(handlers)) {
+			if (IsHandler(handlers)) {
 				if (writeKind)
 					Write(writer, SerializedDataKindEnum.Instance[nameof(SerializedDataKind.HandlerReference)]);
 				SerializeHandler(writer, handlers);
@@ -157,12 +194,12 @@ namespace Generator.Decoder.CSharp {
 		int SerializeHandler(FileWriter writer, object?[] handlers, int index) {
 			int invalidCount = CountInvalid(handlers, index);
 			if (invalidCount == 2) {
-				SerializeData(writer, new object[] { GetInvalid2Value() });
+				SerializeData(writer, new object[] { info.Invalid2Value });
 				return 2;
 			}
 			int count = CountSame(handlers, index);
 			if (count > 1) {
-				SerializeData(writer, new object[] { GetDupValue(), new DupInfo((uint)count, handlers[index]) });
+				SerializeData(writer, new object[] { info.DupValue, new DupInfo((uint)count, handlers[index]) });
 				return count;
 			}
 
@@ -207,12 +244,6 @@ namespace Generator.Decoder.CSharp {
 			}
 			return count;
 		}
-
-		protected abstract object GetNullValue();
-		protected abstract object GetHandlerReferenceValue();
-		protected abstract object GetArrayReferenceValue();
-		protected abstract object GetInvalid2Value();
-		protected abstract object GetDupValue();
 
 		static readonly Dictionary<IEnumValue, (int codeIndex, int codeLen)> enumValueInfo = new Dictionary<IEnumValue, (int codeIndex, int codeLen)> {
 			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ap)], (1, 2) },
@@ -397,7 +428,7 @@ namespace Generator.Decoder.CSharp {
 
 		void SerializeData(FileWriter writer, object? data) {
 			if (data is null)
-				data = GetNullValue();
+				data = info.NullValue;
 			switch (data) {
 			case object?[] moreHandlers:
 				SerializeHandlers(writer, moreHandlers);
@@ -458,8 +489,8 @@ namespace Generator.Decoder.CSharp {
 			case string name:
 				var info = GetInfo(name);
 				object kind2 = info.Kind switch {
-					InfoKind.Handler => GetHandlerReferenceValue(),
-					InfoKind.Handlers => GetArrayReferenceValue(),
+					InfoKind.Handler => this.info.HandlerReferenceValue,
+					InfoKind.Handlers => this.info.ArrayReferenceValue,
 					_ => throw new InvalidOperationException(),
 				};
 				SerializeHandlers(writer, new object[] { kind2, new InfoIndex(info.Index, name) });
@@ -493,7 +524,7 @@ namespace Generator.Decoder.CSharp {
 			}
 		}
 
-		Info GetInfo(string name) {
+		protected Info GetInfo(string name) {
 			if (!infos.TryGetValue(name, out var info))
 				throw new ArgumentException($"Invalid table name: {name}");
 			return info;

@@ -21,60 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#[cfg(not(feature = "std"))]
-use alloc::string::String;
-use core::str;
+using Generator.IO;
 
-pub(super) struct DataReader<'a> {
-	data: &'a [u8],
-	index: usize,
-}
+namespace Generator.Decoder.Rust {
+	sealed class RustDecoderTableSerializer : DecoderTableSerializer {
+		public string TableName { get; }
 
-impl<'a> DataReader<'a> {
-	pub(super) fn new(data: &'a [u8]) -> Self {
-		Self { data, index: 0 }
-	}
-
-	pub(super) fn index(&self) -> usize {
-		self.index
-	}
-
-	pub(super) fn set_index(&mut self, index: usize) {
-		self.index = index
-	}
-
-	pub(super) fn can_read(&self) -> bool {
-		self.index < self.data.len()
-	}
-
-	pub(super) fn read_u8(&mut self) -> usize {
-		let b = self.data[self.index] as usize;
-		self.index += 1;
-		b
-	}
-
-	pub(super) fn read_compressed_u32(&mut self) -> u32 {
-		let mut result = 0;
-		let mut shift = 0;
-		loop {
-			if shift >= 32 {
-				panic!();
-			}
-
-			let b = self.read_u8() as u32;
-			if (b & 0x80) == 0 {
-				return result | (b << shift);
-			}
-			result |= (b & 0x7F) << shift;
-
-			shift += 7;
+		public RustDecoderTableSerializer(string tableName, DecoderTableSerializerInfo info) : base(RustIdentifierConverter.Create(), info) {
+			TableName = tableName;
 		}
-	}
 
-	pub(super) fn read_ascii_string(&mut self) -> String {
-		let len = self.read_u8();
-		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();
-		self.index += len;
-		String::from(s)
+		public void Serialize(FileWriter writer) {
+			writer.WriteFileHeader();
+			writer.WriteLine(RustConstants.AttributeNoRustFmt);
+			writer.WriteLine($"pub(super) static TBL_DATA: &[u8] = &[");
+			using (writer.Indent())
+				SerializeCore(writer);
+			writer.WriteLine("];");
+
+			foreach (var name in info.TableIndexNames) {
+				var constName = idConverter.Constant($"{name}Index");
+				writer.WriteLine($"pub(super) const {constName}: usize = {GetInfo(name).Index};");
+			}
+		}
 	}
 }

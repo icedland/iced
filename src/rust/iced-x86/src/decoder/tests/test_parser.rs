@@ -154,6 +154,7 @@ lazy_static! {
 }
 
 pub(crate) struct DecoderTestParserConstants;
+#[allow(dead_code)]
 impl DecoderTestParserConstants {
 	pub(crate) const NO_ENCODE: u32 = 0;
 	pub(crate) const BROADCAST: u32 = 1;

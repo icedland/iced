@@ -138,6 +138,7 @@ lazy_static! {
 }
 
 pub(crate) struct OpCodeInfoKeys;
+#[allow(dead_code)]
 impl OpCodeInfoKeys {
 	pub(crate) const GROUP_INDEX: u32 = 0;
 	pub(crate) const OP_CODE_OPERAND_KIND: u32 = 1;
@@ -191,6 +192,7 @@ lazy_static! {
 }
 
 pub(crate) struct OpCodeInfoFlags;
+#[allow(dead_code)]
 impl OpCodeInfoFlags {
 	pub(crate) const NOT_INSTRUCTION: u32 = 0;
 	pub(crate) const BIT16: u32 = 1;

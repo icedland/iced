@@ -131,8 +131,8 @@ impl NumberFormatter {
 		let use_digit_sep = digit_group_size > 0 && !digit_separator.is_empty();
 		for i in 0..digits {
 			let index = digits - i - 1;
-			if (index as usize) < DIVS.len() {
-				let digit = (value / DIVS[index as usize] % 10) as u32;
+			if let Some(&div) = DIVS.get(index as usize) {
+				let digit = (value / div % 10) as u32;
 				sb.push((digit + '0' as u32) as u8 as char);
 			} else {
 				sb.push('0');

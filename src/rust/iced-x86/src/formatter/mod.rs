@@ -21,7 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-mod data_reader;
 mod enums;
 mod fmt_consts;
 mod fmt_opt_provider;
@@ -312,6 +311,14 @@ impl FormatterOutputMethods {
 ///
 /// This trait is sealed and cannot be implemented by your own types.
 pub trait Formatter: private::Sealed {
+	/// Formats the whole instruction: prefixes, mnemonic, operands
+	///
+	/// # Arguments
+	///
+	/// - `instruction`: Instruction
+	/// - `output`: Output, eg. a `String`
+	fn format(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
+
 	/// Gets the formatter options (immutable)
 	#[cfg_attr(has_must_use, must_use)]
 	fn options(&self) -> &FormatterOptions;
@@ -325,7 +332,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `output`: Output
+	/// - `output`: Output, eg. a `String`
 	#[inline]
 	fn format_mnemonic(&mut self, instruction: &Instruction, output: &mut FormatterOutput) {
 		self.format_mnemonic_options(instruction, output, FormatMnemonicOptions::NONE);
@@ -336,7 +343,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `output`: Output
+	/// - `output`: Output, eg. a `String`
 	/// - `options`: Options, see [`FormatMnemonicOptions`]
 	///
 	/// [`FormatMnemonicOptions`]: struct.FormatMnemonicOptions.html
@@ -406,7 +413,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `output`: Output
+	/// - `output`: Output, eg. a `String`
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
 	///
 	/// [`operand_count()`]: #tymethod.operand_count
@@ -417,7 +424,7 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `output`: Output
+	/// - `output`: Output, eg. a `String`
 	fn format_operand_separator(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
 
 	/// Formats all operands
@@ -425,16 +432,8 @@ pub trait Formatter: private::Sealed {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `output`: Output
+	/// - `output`: Output, eg. a `String`
 	fn format_all_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
-
-	/// Formats the whole instruction: prefixes, mnemonic, operands
-	///
-	/// # Arguments
-	///
-	/// - `instruction`: Instruction
-	/// - `output`: Output
-	fn format(&mut self, instruction: &Instruction, output: &mut FormatterOutput);
 
 	/// Formats a register
 	///

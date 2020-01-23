@@ -48,6 +48,7 @@ impl InstructionInfoOptions {
 }
 
 struct Flags;
+#[allow(dead_code)]
 impl Flags {
 	pub const NONE: u32 = 0;
 	pub const NO_MEMORY_USAGE: u32 = 0x0000_0001;
@@ -179,7 +180,9 @@ impl InstructionInfoFactory {
 	/// # Arguments
 	///
 	/// * `instruction`: The instruction that should be analyzed
-	/// * `options`: Options, see `InstructionInfoOptions`
+	/// * `options`: Options, see [`InstructionInfoOptions`]
+	///
+	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn info_options(&mut self, instruction: &Instruction, options: u32) -> &InstructionInfo {

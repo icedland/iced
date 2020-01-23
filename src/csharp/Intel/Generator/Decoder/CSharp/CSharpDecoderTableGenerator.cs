@@ -32,11 +32,11 @@ namespace Generator.Decoder.CSharp {
 		public CSharpDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
-			var serializers = new DecoderTableSerializer[] {
-				new LegacyDecoderTableSerializer(),
-				new VexDecoderTableSerializer(),
-				new EvexDecoderTableSerializer(),
-				new XopDecoderTableSerializer(),
+			var serializers = new CSharpDecoderTableSerializer[] {
+				new CSharpDecoderTableSerializer("OpCodeHandlersTables_Legacy", DecoderTableSerializerInfo.Legacy()),
+				new CSharpDecoderTableSerializer("OpCodeHandlersTables_VEX", DecoderTableSerializerInfo.Vex()),
+				new CSharpDecoderTableSerializer("OpCodeHandlersTables_EVEX", DecoderTableSerializerInfo.Evex()),
+				new CSharpDecoderTableSerializer("OpCodeHandlersTables_XOP", DecoderTableSerializerInfo.Xop()),
 			};
 
 			foreach (var serializer in serializers) {

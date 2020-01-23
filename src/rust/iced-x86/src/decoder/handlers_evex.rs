@@ -36,6 +36,22 @@ pub(crate) struct OpCodeHandler_VectorLength_EVEX {
 }
 
 impl OpCodeHandler_VectorLength_EVEX {
+	#[allow(trivial_casts)]
+	pub(crate) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
+		const_assert_eq!(0, VectorLength::L128 as u32);
+		const_assert_eq!(1, VectorLength::L256 as u32);
+		const_assert_eq!(2, VectorLength::L512 as u32);
+		const_assert_eq!(3, VectorLength::Unknown as u32);
+		assert!(!is_null_instance_handler(handler128));
+		assert!(!is_null_instance_handler(handler256));
+		assert!(!is_null_instance_handler(handler512));
+		let handlers = unsafe { [&*handler128, &*handler256, &*handler512, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)] };
+		assert!(handlers[0].has_modrm);
+		assert!(handlers[1].has_modrm);
+		assert!(handlers[2].has_modrm);
+		Self { decode: OpCodeHandler_VectorLength_EVEX::decode, has_modrm: true, handlers }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -53,6 +69,22 @@ pub(crate) struct OpCodeHandler_VectorLength_EVEX_er {
 }
 
 impl OpCodeHandler_VectorLength_EVEX_er {
+	#[allow(trivial_casts)]
+	pub(crate) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
+		const_assert_eq!(0, VectorLength::L128 as u32);
+		const_assert_eq!(1, VectorLength::L256 as u32);
+		const_assert_eq!(2, VectorLength::L512 as u32);
+		const_assert_eq!(3, VectorLength::Unknown as u32);
+		assert!(!is_null_instance_handler(handler128));
+		assert!(!is_null_instance_handler(handler256));
+		assert!(!is_null_instance_handler(handler512));
+		let handlers = unsafe { [&*handler128, &*handler256, &*handler512, &*(&INVALID_HANDLER as *const _ as *const OpCodeHandler)] };
+		assert!(handlers[0].has_modrm);
+		assert!(handlers[1].has_modrm);
+		assert!(handlers[2].has_modrm);
+		Self { decode: OpCodeHandler_VectorLength_EVEX_er::decode, has_modrm: true, handlers }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -74,6 +106,11 @@ pub(crate) struct OpCodeHandler_EVEX {
 }
 
 impl OpCodeHandler_EVEX {
+	pub(crate) fn new(handler_mem: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(handler_mem));
+		Self { decode: OpCodeHandler_EVEX::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		if decoder.state.mod_ == 3 || decoder.is64_mode {
@@ -98,6 +135,10 @@ pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_er {
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_er {
+	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -159,6 +200,10 @@ pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
+	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -212,6 +257,10 @@ pub(crate) struct OpCodeHandler_EVEX_Ed_V_Ib {
 }
 
 impl OpCodeHandler_EVEX_Ed_V_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -262,6 +311,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkHW_er {
 }
 
 impl OpCodeHandler_EVEX_VkHW_er {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkHW_er::decode, has_modrm: true, base_reg, code, tuple_type, only_sae, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -323,6 +376,27 @@ pub(crate) struct OpCodeHandler_EVEX_VkW_er {
 }
 
 impl OpCodeHandler_EVEX_VkW_er {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VkW_er::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			code,
+			tuple_type,
+			only_sae,
+			can_broadcast: true,
+		}
+	}
+
+	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
+	}
+
+	pub(crate) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -382,6 +456,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkWIb_er {
 }
 
 impl OpCodeHandler_EVEX_VkWIb_er {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkWIb_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -431,6 +509,14 @@ pub(crate) struct OpCodeHandler_EVEX_VkW {
 }
 
 impl OpCodeHandler_EVEX_VkW {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+	}
+
+	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -482,6 +568,34 @@ pub(crate) struct OpCodeHandler_EVEX_WkV {
 }
 
 impl OpCodeHandler_EVEX_WkV {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_WkV::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			code,
+			tuple_type,
+			disallow_zeroing_masking: 0,
+		}
+	}
+
+	pub(crate) fn new1(base_reg: Register, code: u32, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_WkV::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			code,
+			tuple_type,
+			disallow_zeroing_masking: if allow_zeroing_masking { 0 } else { u32::MAX },
+		}
+	}
+
+	pub(crate) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WkV::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -524,6 +638,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkM {
 }
 
 impl OpCodeHandler_EVEX_VkM {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkM::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -560,6 +678,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkWIb {
 }
 
 impl OpCodeHandler_EVEX_VkWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -612,6 +734,10 @@ pub(crate) struct OpCodeHandler_EVEX_WkVIb {
 }
 
 impl OpCodeHandler_EVEX_WkVIb {
+	pub(crate) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WkVIb::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -655,6 +781,10 @@ pub(crate) struct OpCodeHandler_EVEX_HkWIb {
 }
 
 impl OpCodeHandler_EVEX_HkWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_HkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -701,6 +831,10 @@ pub(crate) struct OpCodeHandler_EVEX_HWIb {
 }
 
 impl OpCodeHandler_EVEX_HWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_HWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -743,6 +877,10 @@ pub(crate) struct OpCodeHandler_EVEX_WkVIb_er {
 }
 
 impl OpCodeHandler_EVEX_WkVIb_er {
+	pub(crate) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WkVIb_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -791,6 +929,10 @@ pub(crate) struct OpCodeHandler_EVEX_VW_er {
 }
 
 impl OpCodeHandler_EVEX_VW_er {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VW_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -837,6 +979,10 @@ pub(crate) struct OpCodeHandler_EVEX_VW {
 }
 
 impl OpCodeHandler_EVEX_VW {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -880,6 +1026,10 @@ pub(crate) struct OpCodeHandler_EVEX_WV {
 }
 
 impl OpCodeHandler_EVEX_WV {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WV::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -922,6 +1072,10 @@ pub(crate) struct OpCodeHandler_EVEX_VM {
 }
 
 impl OpCodeHandler_EVEX_VM {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VM::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -955,6 +1109,10 @@ pub(crate) struct OpCodeHandler_EVEX_VK {
 }
 
 impl OpCodeHandler_EVEX_VK {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VK::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -989,6 +1147,10 @@ pub(crate) struct OpCodeHandler_EVEX_KR {
 }
 
 impl OpCodeHandler_EVEX_KR {
+	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KR::decode, has_modrm: true, base_reg, code }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1032,6 +1194,10 @@ pub(crate) struct OpCodeHandler_EVEX_KkHWIb_sae {
 }
 
 impl OpCodeHandler_EVEX_KkHWIb_sae {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1089,6 +1255,23 @@ pub(crate) struct OpCodeHandler_EVEX_VkHW {
 }
 
 impl OpCodeHandler_EVEX_VkHW {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VkHW::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			base_reg3: base_reg,
+			code,
+			tuple_type,
+			can_broadcast,
+		}
+	}
+
+	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkHW::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1139,6 +1322,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkHM {
 }
 
 impl OpCodeHandler_EVEX_VkHM {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkHM::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1179,6 +1366,23 @@ pub(crate) struct OpCodeHandler_EVEX_VkHWIb {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VkHWIb::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			base_reg3: base_reg,
+			code,
+			tuple_type,
+			can_broadcast,
+		}
+	}
+
+	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkHWIb::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1233,6 +1437,19 @@ pub(crate) struct OpCodeHandler_EVEX_VkHWIb_er {
 }
 
 impl OpCodeHandler_EVEX_VkHWIb_er {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VkHWIb_er::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			base_reg3: base_reg,
+			code,
+			tuple_type,
+			can_broadcast,
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1285,6 +1502,10 @@ pub(crate) struct OpCodeHandler_EVEX_KkHW {
 }
 
 impl OpCodeHandler_EVEX_KkHW {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KkHW::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1337,6 +1558,10 @@ pub(crate) struct OpCodeHandler_EVEX_KP1HW {
 }
 
 impl OpCodeHandler_EVEX_KP1HW {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KP1HW::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1386,6 +1611,10 @@ pub(crate) struct OpCodeHandler_EVEX_KkHWIb {
 }
 
 impl OpCodeHandler_EVEX_KkHWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KkHWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1440,6 +1669,10 @@ pub(crate) struct OpCodeHandler_EVEX_WkHV {
 }
 
 impl OpCodeHandler_EVEX_WkHV {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1478,6 +1711,10 @@ pub(crate) struct OpCodeHandler_EVEX_VHWIb {
 }
 
 impl OpCodeHandler_EVEX_VHWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VHWIb::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1525,6 +1762,32 @@ pub(crate) struct OpCodeHandler_EVEX_VHW {
 }
 
 impl OpCodeHandler_EVEX_VHW {
+	pub(crate) fn new(base_reg: Register, code_r: u32, code_m: u32, tuple_type: TupleType) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VHW::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			base_reg3: base_reg,
+			code_r,
+			code_m,
+			tuple_type,
+		}
+	}
+
+	pub(crate) fn new2(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self {
+			decode: OpCodeHandler_EVEX_VHW::decode,
+			has_modrm: true,
+			base_reg1: base_reg,
+			base_reg2: base_reg,
+			base_reg3: base_reg,
+			code_r: code,
+			code_m: code,
+			tuple_type,
+		}
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1568,6 +1831,10 @@ pub(crate) struct OpCodeHandler_EVEX_VHM {
 }
 
 impl OpCodeHandler_EVEX_VHM {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VHM::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1607,6 +1874,10 @@ pub(crate) struct OpCodeHandler_EVEX_Gv_W_er {
 }
 
 impl OpCodeHandler_EVEX_Gv_W_er {
+	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_Gv_W_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type, only_sae }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1674,6 +1945,10 @@ pub(crate) struct OpCodeHandler_EVEX_VX_Ev {
 }
 
 impl OpCodeHandler_EVEX_VX_Ev {
+	pub(crate) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VX_Ev::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1720,6 +1995,10 @@ pub(crate) struct OpCodeHandler_EVEX_Ev_VX {
 }
 
 impl OpCodeHandler_EVEX_Ev_VX {
+	pub(crate) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_Ev_VX::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1765,6 +2044,10 @@ pub(crate) struct OpCodeHandler_EVEX_Ev_VX_Ib {
 }
 
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1811,6 +2094,10 @@ pub(crate) struct OpCodeHandler_EVEX_MV {
 }
 
 impl OpCodeHandler_EVEX_MV {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_MV::decode, has_modrm: true, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1845,6 +2132,10 @@ pub(crate) struct OpCodeHandler_EVEX_VkEv_REXW {
 }
 
 impl OpCodeHandler_EVEX_VkEv_REXW {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VkEv_REXW::decode, has_modrm: true, base_reg, code32, code64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1889,6 +2180,10 @@ pub(crate) struct OpCodeHandler_EVEX_Vk_VSIB {
 }
 
 impl OpCodeHandler_EVEX_Vk_VSIB {
+	pub(crate) fn new(base_reg: Register, vsib_base: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_Vk_VSIB::decode, has_modrm: true, base_reg, vsib_base, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1929,6 +2224,10 @@ pub(crate) struct OpCodeHandler_EVEX_VSIB_k1_VX {
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
+	pub(crate) fn new(vsib_index: Register, base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, has_modrm: true, vsib_index, base_reg, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1965,6 +2264,10 @@ pub(crate) struct OpCodeHandler_EVEX_VSIB_k1 {
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1 {
+	pub(crate) fn new(vsib_index: Register, code: u32, tuple_type: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_VSIB_k1::decode, has_modrm: true, vsib_index, code, tuple_type }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -1997,6 +2300,10 @@ pub(crate) struct OpCodeHandler_EVEX_GvM_VX_Ib {
 }
 
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
+	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+		Self { decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
@@ -2046,6 +2353,10 @@ pub(crate) struct OpCodeHandler_EVEX_KkWIb {
 }
 
 impl OpCodeHandler_EVEX_KkWIb {
+	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+		Self { decode: OpCodeHandler_EVEX_KkWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
+	}
+
 	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());

@@ -27,8 +27,8 @@ use super::mnemonic_str_tbl::TO_MNEMONIC_STR;
 use super::op_code::OpCodeInfo;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
+use core::char;
 use core::fmt::Write;
-use core::{char, mem};
 
 pub(crate) struct InstructionFormatter<'a, 'b> {
 	op_code: &'a OpCodeInfo,
@@ -489,7 +489,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		if is_broadcast {
 			index += IcedConstants::NUMBER_OF_CODE_VALUES;
 		}
-		unsafe { mem::transmute(instruction_memory_sizes::SIZES[index]) }
+		instruction_memory_sizes::SIZES[index]
 	}
 
 	pub(crate) fn format(&mut self) -> String {

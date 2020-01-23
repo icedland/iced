@@ -32,15 +32,15 @@ namespace Generator.Decoder.Rust {
 		public RustDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
 
 		public void Generate() {
-			var serializers = new DecoderTableSerializer[] {
-				new LegacyDecoderTableSerializer(),
-				new VexDecoderTableSerializer(),
-				new EvexDecoderTableSerializer(),
-				new XopDecoderTableSerializer(),
+			var serializers = new RustDecoderTableSerializer[] {
+				new RustDecoderTableSerializer("legacy", DecoderTableSerializerInfo.Legacy()),
+				new RustDecoderTableSerializer("vex", DecoderTableSerializerInfo.Vex()),
+				new RustDecoderTableSerializer("evex", DecoderTableSerializerInfo.Evex()),
+				new RustDecoderTableSerializer("xop", DecoderTableSerializerInfo.Xop()),
 			};
 
 			foreach (var serializer in serializers) {
-				var filename = Path.Combine(generatorOptions.RustDir, "decoder", $"tables_{serializer.Name}.rs");
+				var filename = Path.Combine(generatorOptions.RustDir, "decoder", "table_de", $"data_{serializer.TableName}.rs");
 				using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}

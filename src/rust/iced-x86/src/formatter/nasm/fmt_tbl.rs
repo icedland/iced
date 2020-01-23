@@ -21,8 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::super::super::data_reader::DataReader;
 use super::super::super::iced_constants::IcedConstants;
-use super::super::data_reader::DataReader;
 use super::super::pseudo_ops::get_pseudo_ops;
 use super::super::strings_tbl::get_strings_table;
 use super::enums::*;

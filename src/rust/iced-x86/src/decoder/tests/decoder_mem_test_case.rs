@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::*;
 
+#[allow(dead_code)]
 pub(crate) struct DecoderMemoryTestCase {
 	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,

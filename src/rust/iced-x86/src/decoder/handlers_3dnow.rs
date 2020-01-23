@@ -296,6 +296,11 @@ pub(crate) struct OpCodeHandler_D3NOW {
 }
 
 impl OpCodeHandler_D3NOW {
+	pub(crate) fn new() -> Self {
+		assert_eq!(0x100, CODE_VALUES.len());
+		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
+	}
+
 	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		const_assert_eq!(0, OpKind::Register as u32);
@@ -311,7 +316,6 @@ impl OpCodeHandler_D3NOW {
 			decoder.read_op_mem(instruction);
 			decoder.read_u8()
 		};
-		debug_assert_eq!(0x100, CODE_VALUES.len());
 		let code = unsafe { mem::transmute(*CODE_VALUES.get_unchecked(ib)) };
 		super::instruction_internal::internal_set_code(instruction, code);
 		if code == Code::INVALID {

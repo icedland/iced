@@ -68,16 +68,16 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.CpuidFeature, new PartialEnumFileInfo("CpuidFeature", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CpuidFeatureInternal, new PartialEnumFileInfo("CpuidFeatureInternal", Path.Combine(generatorOptions.RustDir, "info", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.DecoderOptions, new PartialEnumFileInfo("DecoderOptions", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
-			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, null);
+			toPartialFileInfo.Add(TypeIds.SerializedDataKind, new PartialEnumFileInfo("SerializedDataKind", Path.Combine(generatorOptions.RustDir, "decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, new PartialEnumFileInfo("OpCodeHandlerKind", Path.Combine(generatorOptions.RustDir, "decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, new PartialEnumFileInfo("LegacyHandlerFlags", Path.Combine(generatorOptions.RustDir, "decoder", "enums.rs")));
+			toPartialFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, new PartialEnumFileInfo("EvexOpCodeHandlerKind", Path.Combine(generatorOptions.RustDir, "decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.VexOpCodeHandlerKind, new PartialEnumFileInfo("VexOpCodeHandlerKind", Path.Combine(generatorOptions.RustDir, "decoder", "table_de", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.HandlerFlags, new PartialEnumFileInfo("HandlerFlags", Path.Combine(generatorOptions.RustDir, "decoder", "mod.rs")));
-			toPartialFileInfo.Add(TypeIds.LegacyHandlerFlags, null);
 			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("MemorySize", Path.Combine(generatorOptions.RustDir, "memory_size.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.OpCodeHandlerKind, null);
 			toPartialFileInfo.Add(TypeIds.PseudoOpsKind, new PartialEnumFileInfo("PseudoOpsKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Register", Path.Combine(generatorOptions.RustDir, "register.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
-			toPartialFileInfo.Add(TypeIds.SerializedDataKind, null);
 			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("TupleType", Path.Combine(generatorOptions.RustDir, "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.VexOpCodeHandlerKind, null);
 			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Mnemonic", Path.Combine(generatorOptions.RustDir, "mnemonic.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
 			toPartialFileInfo.Add(TypeIds.FormatterFlowControl, new PartialEnumFileInfo("FormatterFlowControl", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEq));
 			toPartialFileInfo.Add(TypeIds.GasCtorKind, new PartialEnumFileInfo("CtorKind", Path.Combine(generatorOptions.RustDir, "formatter", "gas", "enums.rs"), new[] { RustConstants.AttributeCopyEq, RustConstants.AttributeAllowNonCamelCaseTypes }));
@@ -202,6 +202,8 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(attr);
 			if (enumType.IsPublic && enumType.IsMissingDocs)
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
+			if (!enumType.IsPublic)
+				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 			var pub = enumType.IsPublic ? "pub " : "pub(crate) ";
 			writer.WriteLine($"{pub}enum {enumTypeName} {{");
 			using (writer.Indent()) {

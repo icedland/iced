@@ -21,15 +21,60 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-namespace Generator.Decoder.Rust {
-	sealed class XopDecoderTableSerializer : VexCommonDecoderTableSerializer {
-		public override string Name => "xop";
-		public override string HandlersModuleName => "vex";
-		protected override (string name, object?[] handlers)[] Handlers => OpCodeHandlersTables_XOP.GetHandlers();
-		protected override (string origName, string newName)[] RootNames => new[] {
-			(OpCodeHandlersTables_XOP.XOP8, "HANDLERS_XOP8"),
-			(OpCodeHandlersTables_XOP.XOP9, "HANDLERS_XOP9"),
-			(OpCodeHandlersTables_XOP.XOPA, "HANDLERS_XOPA"),
-		};
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+use core::str;
+
+pub(crate) struct DataReader<'a> {
+	data: &'a [u8],
+	index: usize,
+}
+
+impl<'a> DataReader<'a> {
+	pub(crate) fn new(data: &'a [u8]) -> Self {
+		Self { data, index: 0 }
+	}
+
+	pub(crate) fn index(&self) -> usize {
+		self.index
+	}
+
+	pub(crate) fn set_index(&mut self, index: usize) {
+		self.index = index
+	}
+
+	pub(crate) fn can_read(&self) -> bool {
+		self.index < self.data.len()
+	}
+
+	pub(crate) fn read_u8(&mut self) -> usize {
+		let b = self.data[self.index] as usize;
+		self.index += 1;
+		b
+	}
+
+	pub(crate) fn read_compressed_u32(&mut self) -> u32 {
+		let mut result = 0;
+		let mut shift = 0;
+		loop {
+			if shift >= 32 {
+				panic!();
+			}
+
+			let b = self.read_u8() as u32;
+			if (b & 0x80) == 0 {
+				return result | (b << shift);
+			}
+			result |= (b & 0x7F) << shift;
+
+			shift += 7;
+		}
+	}
+
+	pub(crate) fn read_ascii_string(&mut self) -> String {
+		let len = self.read_u8();
+		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();
+		self.index += len;
+		String::from(s)
 	}
 }

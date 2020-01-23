@@ -187,6 +187,12 @@ namespace Generator {
 				"OpKind_MemoryESEDI" => "OP_KIND_MEMORY_ES_EDI",
 				"OpKind_MemoryESRDI" => "OP_KIND_MEMORY_ES_RDI",
 				"HighLegacy8BitRegs" => "HIGH_LEGACY_8_BIT_REGS",
+				"TwoByteHandlers_0FXXIndex" => "TWO_BYTE_HANDLERS_0FXX_INDEX",
+				"ThreeByteHandlers_0F38XXIndex" => "THREE_BYTE_HANDLERS_0F38XX_INDEX",
+				"ThreeByteHandlers_0F3AXXIndex" => "THREE_BYTE_HANDLERS_0F3AXX_INDEX",
+				"XOPAIndex" => "XOPA_INDEX",
+				"Handler66Reg" => "HANDLER_66_REG",
+				"Handler66Mem" => "HANDLER_66_MEM",
 				_ => ToScreamingSnakeCase(name),
 			};
 
