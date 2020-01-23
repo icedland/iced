@@ -302,6 +302,58 @@ namespace Iced.Intel {
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, basePtr, address));
 		}
 		
+		/// <summary>
+		/// Generates multibyte NOP instructions
+		/// </summary>
+		/// <param name="amount">Amount of NOPs</param>
+		public void nop(int amount) {
+			if (amount <= 0)
+				throw new ArgumentOutOfRangeException($"{nameof(amount)} must be within 1-{int.MaxValue}");
+
+			int maxMultibyteNop = Bitness >= 32 ? 9 : 4;
+
+			int cycles = Math.DivRem(amount, maxMultibyteNop, out int rest);
+
+			for (int i = 0; i < cycles; i++) {
+				AppendNop(maxMultibyteNop);
+			}
+			if (rest > 0)
+				AppendNop(rest);
+
+			void AppendNop(int numberOfNops) {
+				switch (numberOfNops) {
+				case 1:
+					db(0x90); //NOP
+					break;
+				case 2:
+					db(0x66, 0x90); //66 NOP
+					break;
+				case 3:
+					db(0x0F, 0x1F, 0x00); //NOP DWORD ptr [EAX]
+					break;
+				case 4:
+					db(0x0F, 0x1F, 0x40, 0x00); //NOP DWORD ptr [EAX + 00H]
+					break;
+				case 5:
+					db(0x0F, 0x1F, 0x44, 0x00, 0x00); //NOP DWORD ptr [EAX + EAX*1 + 00H]
+					break;
+				case 6:
+					db(0x66, 0x0F, 0x1F, 0x44, 0x00, 0x00); //66 NOP DWORD ptr [EAX + EAX*1 + 00H]
+					break;
+				case 7:
+					db(0x0F, 0x1F, 0x80, 0x00, 0x00, 0x00, 0x00); //NOP DWORD ptr [EAX + 00000000H]
+					break;
+				case 8:
+					db(0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //NOP DWORD ptr [EAX + EAX*1 + 00000000H]
+					break;
+				case 9:
+					db(0x66, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); //66 NOP DWORD ptr [EAX + EAX*1 + 00000000H] 	
+					break;
+
+				}
+			}
+		}
+		
 		/// <summary>xlatb instruction.</summary>
 		public void xlatb() {
 			if (Bitness == 64) {
