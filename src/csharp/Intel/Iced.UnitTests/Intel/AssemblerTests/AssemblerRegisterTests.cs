@@ -292,7 +292,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var assembler = Assembler.Create(64, new CodeWriterImpl());
 				var label = assembler.CreateLabel("Check");
 				var m = __[label];
-				Assert.Equal(new MemoryOperand(Register.RIP, Register.None, 1, 2, 1), m.ToMemoryOperand(64));
+				Assert.Equal(new MemoryOperand(Register.RIP, Register.None, 1, 1, 1), m.ToMemoryOperand(64));
 				Assert.Equal(MemoryOperandSize.None, m.Size);
 				Assert.Equal(AssemblerOperandFlags.None, m.Flags);
 			}

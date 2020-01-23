@@ -33,6 +33,7 @@ namespace Iced.Intel
 		internal Label(string? name, ulong id) {
 			Name = name ?? "___label";
 			Id = id;
+			InstructionIndex = -1;
 		}
 		
 		/// <summary>
@@ -44,6 +45,11 @@ namespace Iced.Intel
 		/// Id of this label.
 		/// </summary>
 		public readonly ulong Id;
+		
+		/// <summary>
+		/// Gets the instruction index associated with this label. This is setup after calling <see cref="Assembler.Label"/>.
+		/// </summary>
+		public int InstructionIndex { get; internal set; }
 
 		/// <summary>
 		/// <c>true</c> if this label is empty and was not created by <see cref="Assembler.CreateLabel"/>.
