@@ -305,7 +305,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Generates multibyte NOP instructions
 		/// </summary>
-		/// <param name="amount">Amount of NOPs</param>
+		/// <param name="amount">Number of bytes</param>
 		public void nop(int amount) {
 			if (amount <= 0)
 				throw new ArgumentOutOfRangeException($"{nameof(amount)} must be within 1-{int.MaxValue}");
