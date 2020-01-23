@@ -175,11 +175,15 @@ impl FormatterOptions {
 		options
 	}
 
+	// NOTE: These tables must render correctly by `cargo doc` and inside of IDEs, eg. VSCode.
+	// An extra `-` is needed for `cargo doc`.
+
 	/// Prefixes are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `REP stosd`
-	/// - `false`: `rep stosd`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `REP stosd`
+	/// Yes | `false` | `rep stosd`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_prefixes(&self) -> bool {
@@ -188,9 +192,10 @@ impl FormatterOptions {
 
 	/// Prefixes are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `REP stosd`
-	/// - `false`: `rep stosd`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `REP stosd`
+	/// Yes | `false` | `rep stosd`
 	///
 	/// # Arguments
 	///
@@ -206,9 +211,10 @@ impl FormatterOptions {
 
 	/// Mnemonics are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `MOV rcx,rax`
-	/// - `false`: `mov rcx,rax`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `MOV rcx,rax`
+	/// Yes | `false` | `mov rcx,rax`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_mnemonics(&self) -> bool {
@@ -217,9 +223,10 @@ impl FormatterOptions {
 
 	/// Mnemonics are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `MOV rcx,rax`
-	/// - `false`: `mov rcx,rax`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `MOV rcx,rax`
+	/// Yes | `false` | `mov rcx,rax`
 	///
 	/// # Arguments
 	///
@@ -235,9 +242,10 @@ impl FormatterOptions {
 
 	/// Registers are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `mov RCX,[RAX+RDX*8]`
-	/// - `false`: `mov rcx,[rax+rdx*8]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov RCX,[RAX+RDX*8]`
+	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_registers(&self) -> bool {
@@ -246,9 +254,10 @@ impl FormatterOptions {
 
 	/// Registers are upper cased
 	///
-	/// - Default: `false`
-	/// - `true`: `mov RCX,[RAX+RDX*8]`
-	/// - `false`: `mov rcx,[rax+rdx*8]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov RCX,[RAX+RDX*8]`
+	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
 	///
 	/// # Arguments
 	///
@@ -264,9 +273,10 @@ impl FormatterOptions {
 
 	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
 	///
-	/// - Default: `false`
-	/// - `true`: `mov BYTE PTR [rcx],12h`
-	/// - `false`: `mov byte ptr [rcx],12h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov BYTE PTR [rcx],12h`
+	/// Yes | `false` | `mov byte ptr [rcx],12h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_keywords(&self) -> bool {
@@ -275,9 +285,10 @@ impl FormatterOptions {
 
 	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
 	///
-	/// - Default: `false`
-	/// - `true`: `mov BYTE PTR [rcx],12h`
-	/// - `false`: `mov byte ptr [rcx],12h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov BYTE PTR [rcx],12h`
+	/// Yes | `false` | `mov byte ptr [rcx],12h`
 	///
 	/// # Arguments
 	///
@@ -293,9 +304,10 @@ impl FormatterOptions {
 
 	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
 	///
-	/// - Default: `false`
-	/// - `true`: `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-	/// - `false`: `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
+	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_decorators(&self) -> bool {
@@ -304,9 +316,10 @@ impl FormatterOptions {
 
 	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
 	///
-	/// - Default: `false`
-	/// - `true`: `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-	/// - `false`: `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
+	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	///
 	/// # Arguments
 	///
@@ -322,9 +335,10 @@ impl FormatterOptions {
 
 	/// Everything is upper cased, except numbers and their prefixes/suffixes
 	///
-	/// - Default: `false`
-	/// - `true`: `MOV EAX,GS:[RCX*4+0ffh]`
-	/// - `false`: `mov eax,gs:[rcx*4+0ffh]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
+	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_all(&self) -> bool {
@@ -333,9 +347,10 @@ impl FormatterOptions {
 
 	/// Everything is upper cased, except numbers and their prefixes/suffixes
 	///
-	/// - Default: `false`
-	/// - `true`: `MOV EAX,GS:[RCX*4+0ffh]`
-	/// - `false`: `mov eax,gs:[rcx*4+0ffh]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
+	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	///
 	/// # Arguments
 	///
@@ -352,9 +367,10 @@ impl FormatterOptions {
 	/// Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
 	/// At least one space or tab is always added between the mnemonic and the first operand.
 	///
-	/// - Default: `0`
-	/// - `0`: `mov•rcx,rbp`
-	/// - `8`: `mov•••••rcx,rbp`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `0` | `mov•rcx,rbp`
+	/// - | `8` | `mov•••••rcx,rbp`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn first_operand_char_index(&self) -> u32 {
@@ -364,9 +380,10 @@ impl FormatterOptions {
 	/// Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
 	/// At least one space or tab is always added between the mnemonic and the first operand.
 	///
-	/// - Default: `0`
-	/// - `0`: `mov•rcx,rbp`
-	/// - `8`: `mov•••••rcx,rbp`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `0` | `mov•rcx,rbp`
+	/// - | `8` | `mov•••••rcx,rbp`
 	///
 	/// # Arguments
 	///
@@ -399,9 +416,10 @@ impl FormatterOptions {
 
 	/// Add a space after the operand separator
 	///
-	/// - Default: `false`
-	/// - `true`: `mov rax, rcx`
-	/// - `false`: `mov rax,rcx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov rax, rcx`
+	/// Yes | `false` | `mov rax,rcx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_after_operand_separator(&self) -> bool {
@@ -410,9 +428,10 @@ impl FormatterOptions {
 
 	/// Add a space after the operand separator
 	///
-	/// - Default: `false`
-	/// - `true`: `mov rax, rcx`
-	/// - `false`: `mov rax,rcx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov rax, rcx`
+	/// Yes | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
 	///
@@ -428,9 +447,10 @@ impl FormatterOptions {
 
 	/// Add a space between the memory expression and the brackets
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[ rcx+rdx ]`
-	/// - `false`: `mov eax,[rcx+rdx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[ rcx+rdx ]`
+	/// Yes | `false` | `mov eax,[rcx+rdx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_after_memory_bracket(&self) -> bool {
@@ -439,9 +459,10 @@ impl FormatterOptions {
 
 	/// Add a space between the memory expression and the brackets
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[ rcx+rdx ]`
-	/// - `false`: `mov eax,[rcx+rdx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[ rcx+rdx ]`
+	/// Yes | `false` | `mov eax,[rcx+rdx]`
 	///
 	/// # Arguments
 	///
@@ -457,9 +478,10 @@ impl FormatterOptions {
 
 	/// Add spaces between memory operand `+` and `-` operators
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx + rdx*8 - 80h]`
-	/// - `false`: `mov eax,[rcx+rdx*8-80h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
+	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_between_memory_add_operators(&self) -> bool {
@@ -468,9 +490,10 @@ impl FormatterOptions {
 
 	/// Add spaces between memory operand `+` and `-` operators
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx + rdx*8 - 80h]`
-	/// - `false`: `mov eax,[rcx+rdx*8-80h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
+	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
 	///
@@ -486,9 +509,10 @@ impl FormatterOptions {
 
 	/// Add spaces between memory operand `*` operator
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx+rdx * 8-80h]`
-	/// - `false`: `mov eax,[rcx+rdx*8-80h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
+	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_between_memory_mul_operators(&self) -> bool {
@@ -497,9 +521,10 @@ impl FormatterOptions {
 
 	/// Add spaces between memory operand `*` operator
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx+rdx * 8-80h]`
-	/// - `false`: `mov eax,[rcx+rdx*8-80h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
+	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
 	///
@@ -515,9 +540,10 @@ impl FormatterOptions {
 
 	/// Show memory operand scale value before the index register
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[8*rdx]`
-	/// - `false`: `mov eax,[rdx*8]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[8*rdx]`
+	/// Yes | `false` | `mov eax,[rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn scale_before_index(&self) -> bool {
@@ -526,9 +552,10 @@ impl FormatterOptions {
 
 	/// Show memory operand scale value before the index register
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[8*rdx]`
-	/// - `false`: `mov eax,[rdx*8]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[8*rdx]`
+	/// Yes | `false` | `mov eax,[rdx*8]`
 	///
 	/// # Arguments
 	///
@@ -544,9 +571,10 @@ impl FormatterOptions {
 
 	/// Always show the scale value even if it's `*1`
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rbx+rcx*1]`
-	/// - `false`: `mov eax,[rbx+rcx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rbx+rcx*1]`
+	/// Yes | `false` | `mov eax,[rbx+rcx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn always_show_scale(&self) -> bool {
@@ -555,9 +583,10 @@ impl FormatterOptions {
 
 	/// Always show the scale value even if it's `*1`
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rbx+rcx*1]`
-	/// - `false`: `mov eax,[rbx+rcx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rbx+rcx*1]`
+	/// Yes | `false` | `mov eax,[rbx+rcx]`
 	///
 	/// # Arguments
 	///
@@ -574,9 +603,10 @@ impl FormatterOptions {
 	/// Always show the effective segment register. If the option is `false`, only show the segment register if
 	/// there's a segment override prefix.
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,ds:[ecx]`
-	/// - `false`: `mov eax,[ecx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,ds:[ecx]`
+	/// Yes | `false` | `mov eax,[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn always_show_segment_register(&self) -> bool {
@@ -586,9 +616,10 @@ impl FormatterOptions {
 	/// Always show the effective segment register. If the option is `false`, only show the segment register if
 	/// there's a segment override prefix.
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,ds:[ecx]`
-	/// - `false`: `mov eax,[ecx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,ds:[ecx]`
+	/// Yes | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
 	///
@@ -604,9 +635,10 @@ impl FormatterOptions {
 
 	/// Show zero displacements
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx*2+0]`
-	/// - `false`: `mov eax,[rcx*2]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx*2+0]`
+	/// Yes | `false` | `mov eax,[rcx*2]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn show_zero_displacements(&self) -> bool {
@@ -615,9 +647,10 @@ impl FormatterOptions {
 
 	/// Show zero displacements
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rcx*2+0]`
-	/// - `false`: `mov eax,[rcx*2]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rcx*2+0]`
+	/// Yes | `false` | `mov eax,[rcx*2]`
 	///
 	/// # Arguments
 	///
@@ -677,9 +710,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `0x12345678`
-	/// - `4`: `0x1234_5678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `0x12345678`
+	/// Yes | `4` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn hex_digit_group_size(&self) -> u32 {
@@ -690,9 +724,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `0x12345678`
-	/// - `4`: `0x1234_5678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `0x12345678`
+	/// Yes | `4` | `0x1234_5678`
 	///
 	/// # Arguments
 	///
@@ -748,9 +783,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `3`
-	/// - `0`: `12345678`
-	/// - `3`: `12_345_678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `12345678`
+	/// Yes | `3` | `12_345_678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn decimal_digit_group_size(&self) -> u32 {
@@ -761,9 +797,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `3`
-	/// - `0`: `12345678`
-	/// - `3`: `12_345_678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `12345678`
+	/// Yes | `3` | `12_345_678`
 	///
 	/// # Arguments
 	///
@@ -819,9 +856,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `12345670`
-	/// - `4`: `1234_5670`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `12345670`
+	/// Yes | `4` | `1234_5670`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn octal_digit_group_size(&self) -> u32 {
@@ -832,9 +870,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `12345670`
-	/// - `4`: `1234_5670`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `12345670`
+	/// Yes | `4` | `1234_5670`
 	///
 	/// # Arguments
 	///
@@ -890,9 +929,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `11010111`
-	/// - `4`: `1101_0111`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `11010111`
+	/// Yes | `4` | `1101_0111`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn binary_digit_group_size(&self) -> u32 {
@@ -903,9 +943,10 @@ impl FormatterOptions {
 	///
 	/// [`digit_separator()`]: #method.digit_separator
 	///
-	/// - Default: `4`
-	/// - `0`: `11010111`
-	/// - `4`: `1101_0111`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `0` | `11010111`
+	/// Yes | `4` | `1101_0111`
 	///
 	/// # Arguments
 	///
@@ -919,9 +960,10 @@ impl FormatterOptions {
 	///
 	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
 	///
-	/// - Default: `""`
-	/// - `""`: `0x12345678`
-	/// - `"_"`: `0x1234_5678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `""` | `0x12345678`
+	/// - | `"_"` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn digit_separator(&self) -> &str {
@@ -930,9 +972,10 @@ impl FormatterOptions {
 
 	/// Digit separator or an empty string
 	///
-	/// - Default: `""`
-	/// - `""`: `0x12345678`
-	/// - `"_"`: `0x1234_5678`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `""` | `0x12345678`
+	/// - | `"_"` | `0x1234_5678`
 	///
 	/// # Arguments
 	///
@@ -945,9 +988,10 @@ impl FormatterOptions {
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
 	/// This option has no effect on branch targets, use [`branch_leading_zeroes`].
 	///
-	/// - Default: `true`
-	/// - `true`: `0x0000000A`/`0000000Ah`
-	/// - `false`: `0xA`/`0Ah`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0x0000000A`/`0000000Ah`
+	/// - | `false` | `0xA`/`0Ah`
 	///
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
 	#[cfg_attr(has_must_use, must_use)]
@@ -959,9 +1003,10 @@ impl FormatterOptions {
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
 	/// This option has no effect on branch targets, use [`branch_leading_zeroes()`].
 	///
-	/// - Default: `true`
-	/// - `true`: `0x0000000A`/`0000000Ah`
-	/// - `false`: `0xA`/`0Ah`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0x0000000A`/`0000000Ah`
+	/// - | `false` | `0xA`/`0Ah`
 	///
 	/// [`branch_leading_zeroes()`]: #method.branch_leading_zeroes
 	///
@@ -979,9 +1024,10 @@ impl FormatterOptions {
 
 	/// Use upper case hex digits
 	///
-	/// - Default: `true`
-	/// - `true`: `0xFF`
-	/// - `false`: `0xff`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0xFF`
+	/// - | `false` | `0xff`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn upper_case_hex(&self) -> bool {
@@ -990,9 +1036,10 @@ impl FormatterOptions {
 
 	/// Use upper case hex digits
 	///
-	/// - Default: `true`
-	/// - `true`: `0xFF`
-	/// - `false`: `0xff`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0xFF`
+	/// - | `false` | `0xff`
 	///
 	/// # Arguments
 	///
@@ -1008,9 +1055,10 @@ impl FormatterOptions {
 
 	/// Small hex numbers (-9 .. 9) are shown in decimal
 	///
-	/// - Default: `true`
-	/// - `true`: `9`
-	/// - `false`: `0x9`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `9`
+	/// - | `false` | `0x9`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn small_hex_numbers_in_decimal(&self) -> bool {
@@ -1019,9 +1067,10 @@ impl FormatterOptions {
 
 	/// Small hex numbers (-9 .. 9) are shown in decimal
 	///
-	/// - Default: `true`
-	/// - `true`: `9`
-	/// - `false`: `0x9`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `9`
+	/// - | `false` | `0x9`
 	///
 	/// # Arguments
 	///
@@ -1037,9 +1086,10 @@ impl FormatterOptions {
 
 	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
-	/// - Default: `true`
-	/// - `true`: `0FFh`
-	/// - `false`: `FFh`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0FFh`
+	/// - | `false` | `FFh`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn add_leading_zero_to_hex_numbers(&self) -> bool {
@@ -1048,9 +1098,10 @@ impl FormatterOptions {
 
 	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
 	///
-	/// - Default: `true`
-	/// - `true`: `0FFh`
-	/// - `false`: `FFh`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `0FFh`
+	/// - | `false` | `FFh`
 	///
 	/// # Arguments
 	///
@@ -1091,9 +1142,10 @@ impl FormatterOptions {
 
 	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
-	/// - Default: `false`
-	/// - `true`: `je 00000123h`
-	/// - `false`: `je 123h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `je 00000123h`
+	/// Yes | `false` | `je 123h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn branch_leading_zeroes(&self) -> bool {
@@ -1102,9 +1154,10 @@ impl FormatterOptions {
 
 	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
 	///
-	/// - Default: `false`
-	/// - `true`: `je 00000123h`
-	/// - `false`: `je 123h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `je 00000123h`
+	/// Yes | `false` | `je 123h`
 	///
 	/// # Arguments
 	///
@@ -1120,9 +1173,10 @@ impl FormatterOptions {
 
 	/// Show immediate operands as signed numbers
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,-1`
-	/// - `false`: `mov eax,FFFFFFFF`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,-1`
+	/// Yes | `false` | `mov eax,FFFFFFFF`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn signed_immediate_operands(&self) -> bool {
@@ -1131,9 +1185,10 @@ impl FormatterOptions {
 
 	/// Show immediate operands as signed numbers
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,-1`
-	/// - `false`: `mov eax,FFFFFFFF`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,-1`
+	/// Yes | `false` | `mov eax,FFFFFFFF`
 	///
 	/// # Arguments
 	///
@@ -1149,9 +1204,10 @@ impl FormatterOptions {
 
 	/// Displacements are signed numbers
 	///
-	/// - Default: `true`
-	/// - `true`: `mov al,[eax-2000h]`
-	/// - `false`: `mov al,[eax+0FFFFE000h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `mov al,[eax-2000h]`
+	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn signed_memory_displacements(&self) -> bool {
@@ -1160,9 +1216,10 @@ impl FormatterOptions {
 
 	/// Displacements are signed numbers
 	///
-	/// - Default: `true`
-	/// - `true`: `mov al,[eax-2000h]`
-	/// - `false`: `mov al,[eax+0FFFFE000h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `mov al,[eax-2000h]`
+	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	///
 	/// # Arguments
 	///
@@ -1178,9 +1235,10 @@ impl FormatterOptions {
 
 	/// Add leading zeroes to displacements
 	///
-	/// - Default: `false`
-	/// - `true`: `mov al,[eax+00000012h]`
-	/// - `false`: `mov al,[eax+12h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov al,[eax+00000012h]`
+	/// Yes | `false` | `mov al,[eax+12h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn displacement_leading_zeroes(&self) -> bool {
@@ -1189,9 +1247,10 @@ impl FormatterOptions {
 
 	/// Add leading zeroes to displacements
 	///
-	/// - Default: `false`
-	/// - `true`: `mov al,[eax+00000012h]`
-	/// - `false`: `mov al,[eax+12h]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov al,[eax+00000012h]`
+	/// Yes | `false` | `mov al,[eax+12h]`
 	///
 	/// # Arguments
 	///
@@ -1234,9 +1293,10 @@ impl FormatterOptions {
 
 	/// Show `RIP+displ` or the virtual address
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rip+12345678h]`
-	/// - `false`: `mov eax,[1029384756AFBECDh]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rip_relative_addresses(&self) -> bool {
@@ -1245,9 +1305,10 @@ impl FormatterOptions {
 
 	/// Show `RIP+displ` or the virtual address
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[rip+12345678h]`
-	/// - `false`: `mov eax,[1029384756AFBECDh]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[rip+12345678h]`
+	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
 	///
@@ -1263,9 +1324,10 @@ impl FormatterOptions {
 
 	/// Show `NEAR`, `SHORT`, etc if it's a branch instruction
 	///
-	/// - Default: `true`
-	/// - `true`: `je short 1234h`
-	/// - `false`: `je 1234h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `je short 1234h`
+	/// - | `false` | `je 1234h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn show_branch_size(&self) -> bool {
@@ -1274,9 +1336,10 @@ impl FormatterOptions {
 
 	/// Show `NEAR`, `SHORT`, etc if it's a branch instruction
 	///
-	/// - Default: `true`
-	/// - `true`: `je short 1234h`
-	/// - `false`: `je 1234h`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `je short 1234h`
+	/// - | `false` | `je 1234h`
 	///
 	/// # Arguments
 	///
@@ -1292,9 +1355,10 @@ impl FormatterOptions {
 
 	/// Use pseudo instructions
 	///
-	/// - Default: `true`
-	/// - `true`: `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - `false`: `vcmpsd xmm2,xmm6,xmm3,5`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
+	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn use_pseudo_ops(&self) -> bool {
@@ -1303,9 +1367,10 @@ impl FormatterOptions {
 
 	/// Use pseudo instructions
 	///
-	/// - Default: `true`
-	/// - `true`: `vcmpnltsd xmm2,xmm6,xmm3`
-	/// - `false`: `vcmpsd xmm2,xmm6,xmm3,5`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
+	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	///
 	/// # Arguments
 	///
@@ -1321,9 +1386,10 @@ impl FormatterOptions {
 
 	/// Show the original value after the symbol name
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[myfield (12345678)]`
-	/// - `false`: `mov eax,[myfield]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// Yes | `false` | `mov eax,[myfield]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn show_symbol_address(&self) -> bool {
@@ -1332,9 +1398,10 @@ impl FormatterOptions {
 
 	/// Show the original value after the symbol name
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,[myfield (12345678)]`
-	/// - `false`: `mov eax,[myfield]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,[myfield (12345678)]`
+	/// Yes | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
 	///
@@ -1350,9 +1417,10 @@ impl FormatterOptions {
 
 	/// (gas only): If `true`, the formatter doesn't add `%` to registers
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,ecx`
-	/// - `false`: `mov %eax,%ecx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,ecx`
+	/// Yes | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_naked_registers(&self) -> bool {
@@ -1361,9 +1429,10 @@ impl FormatterOptions {
 
 	/// (gas only): If `true`, the formatter doesn't add `%` to registers
 	///
-	/// - Default: `false`
-	/// - `true`: `mov eax,ecx`
-	/// - `false`: `mov %eax,%ecx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `mov eax,ecx`
+	/// Yes | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
 	///
@@ -1379,9 +1448,10 @@ impl FormatterOptions {
 
 	/// (gas only): Shows the mnemonic size suffix even when not needed
 	///
-	/// - Default: `false`
-	/// - `true`: `movl %eax,%ecx`
-	/// - `false`: `mov %eax,%ecx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `movl %eax,%ecx`
+	/// Yes | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_show_mnemonic_size_suffix(&self) -> bool {
@@ -1390,9 +1460,10 @@ impl FormatterOptions {
 
 	/// (gas only): Shows the mnemonic size suffix even when not needed
 	///
-	/// - Default: `false`
-	/// - `true`: `movl %eax,%ecx`
-	/// - `false`: `mov %eax,%ecx`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `movl %eax,%ecx`
+	/// Yes | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
 	///
@@ -1408,9 +1479,10 @@ impl FormatterOptions {
 
 	/// (gas only): Add a space after the comma if it's a memory operand
 	///
-	/// - Default: `false`
-	/// - `true`: `(%eax, %ecx, 2)`
-	/// - `false`: `(%eax,%ecx,2)`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `(%eax, %ecx, 2)`
+	/// Yes | `false` | `(%eax,%ecx,2)`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_space_after_memory_operand_comma(&self) -> bool {
@@ -1419,9 +1491,10 @@ impl FormatterOptions {
 
 	/// (gas only): Add a space after the comma if it's a memory operand
 	///
-	/// - Default: `false`
-	/// - `true`: `(%eax, %ecx, 2)`
-	/// - `false`: `(%eax,%ecx,2)`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `(%eax, %ecx, 2)`
+	/// Yes | `false` | `(%eax,%ecx,2)`
 	///
 	/// # Arguments
 	///
@@ -1437,9 +1510,10 @@ impl FormatterOptions {
 
 	/// (masm only): Add a `DS` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
 	///
-	/// - Default: `true`
-	/// - `true`: `mov eax,ds:[12345678]`
-	/// - `false`: `mov eax,[12345678]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `mov eax,ds:[12345678]`
+	/// - | `false` | `mov eax,[12345678]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn masm_add_ds_prefix32(&self) -> bool {
@@ -1448,9 +1522,10 @@ impl FormatterOptions {
 
 	/// (masm only): Add a `DS` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
 	///
-	/// - Default: `true`
-	/// - `true`: `mov eax,ds:[12345678]`
-	/// - `false`: `mov eax,[12345678]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `mov eax,ds:[12345678]`
+	/// - | `false` | `mov eax,[12345678]`
 	///
 	/// # Arguments
 	///
@@ -1466,9 +1541,10 @@ impl FormatterOptions {
 
 	/// (masm only): Show symbols in brackets
 	///
-	/// - Default: `true`
-	/// - `true`: `[ecx+symbol]` / `[symbol]`
-	/// - `false`: `symbol[ecx]` / `symbol`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
+	/// - | `false` | `symbol[ecx]` / `symbol`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn masm_symbol_displ_in_brackets(&self) -> bool {
@@ -1477,9 +1553,10 @@ impl FormatterOptions {
 
 	/// (masm only): Show symbols in brackets
 	///
-	/// - Default: `true`
-	/// - `true`: `[ecx+symbol]` / `[symbol]`
-	/// - `false`: `symbol[ecx]` / `symbol`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
+	/// - | `false` | `symbol[ecx]` / `symbol`
 	///
 	/// # Arguments
 	///
@@ -1495,9 +1572,10 @@ impl FormatterOptions {
 
 	/// (masm only): Show displacements in brackets
 	///
-	/// - Default: `true`
-	/// - `true`: `[ecx+1234h]`
-	/// - `false`: `1234h[ecx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `[ecx+1234h]`
+	/// - | `false` | `1234h[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn masm_displ_in_brackets(&self) -> bool {
@@ -1506,9 +1584,10 @@ impl FormatterOptions {
 
 	/// (masm only): Show displacements in brackets
 	///
-	/// - Default: `true`
-	/// - `true`: `[ecx+1234h]`
-	/// - `false`: `1234h[ecx]`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `true` | `[ecx+1234h]`
+	/// - | `false` | `1234h[ecx]`
 	///
 	/// # Arguments
 	///
@@ -1524,9 +1603,10 @@ impl FormatterOptions {
 
 	/// (nasm only): Shows `BYTE`, `WORD`, `DWORD` or `QWORD` if it's a sign extended immediate operand value
 	///
-	/// - Default: `false`
-	/// - `true`: `or rcx,byte -1`
-	/// - `false`: `or rcx,-1`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `or rcx,byte -1`
+	/// Yes | `false` | `or rcx,-1`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn nasm_show_sign_extended_immediate_size(&self) -> bool {
@@ -1535,9 +1615,10 @@ impl FormatterOptions {
 
 	/// (nasm only): Shows `BYTE`, `WORD`, `DWORD` or `QWORD` if it's a sign extended immediate operand value
 	///
-	/// - Default: `false`
-	/// - `true`: `or rcx,byte -1`
-	/// - `false`: `or rcx,-1`
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `or rcx,byte -1`
+	/// Yes | `false` | `or rcx,-1`
 	///
 	/// # Arguments
 	///
