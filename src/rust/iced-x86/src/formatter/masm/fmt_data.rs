@@ -1015,7 +1015,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Test_rm8_r8
-	0x22,// reverse2
+	0x01,// Normal_1
 	0x0D,// 13 = "test"
 
 	// Test_rm16_r16

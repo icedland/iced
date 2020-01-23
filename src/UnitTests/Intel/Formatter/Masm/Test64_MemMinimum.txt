@@ -407,14 +407,14 @@ cmp eax, -5Bh
 cmp dword ptr [rax], -5Bh
 cmp r8, -5Bh
 cmp qword ptr [rax], -5Bh
-test cl, dh
-test bh, [rax]
-test cx, si
-test bx, [rax]
-test ecx, esi
-test ebx, [rax]
-test rcx, rsi
-test rbx, [rax]
+test dh, cl
+test [rax], bh
+test si, cx
+test [rax], bx
+test esi, ecx
+test [rax], ebx
+test rsi, rcx
+test [rax], rbx
 xchg cl, dh
 xchg bh, [rax]
 xchg cx, si
