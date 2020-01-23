@@ -60,7 +60,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				0x90													//NOP
 			});
 
-			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(0), new byte[] { 0x90 }));
+			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(-1), new byte[] { 0x90 }));
 		}
 	}
 
@@ -121,7 +121,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				0x90													//NOP
 			});
 
-			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(0), new byte[] { 0x90 }));
+			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(-1), new byte[] { 0x90 }));
 		}
 	}
 	public class AssemblerMultiByteNopTests64 : AssemblerTestsBase {
@@ -181,7 +181,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				0x90													//NOP
 			});
 
-			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(0), new byte[] { 0x90 }));
+			Assert.Throws<ArgumentOutOfRangeException>(() => TestAssemblerDeclareData(c => c.nop(-1), new byte[] { 0x90 }));
 		}
 	}
 }
