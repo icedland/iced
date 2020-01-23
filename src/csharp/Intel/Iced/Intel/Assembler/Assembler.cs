@@ -321,8 +321,8 @@ namespace Iced.Intel {
 			if (rest > 0)
 				AppendNop(rest);
 
-			void AppendNop(int numberOfNops) {
-				switch (numberOfNops) {
+			void AppendNop(int amount) {
+				switch (amount) {
 				case 1:
 					db(0x90); //NOP
 					break;
