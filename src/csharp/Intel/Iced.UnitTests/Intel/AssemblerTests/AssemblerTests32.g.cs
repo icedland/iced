@@ -4410,7 +4410,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jcxz_l() {
-			TestAssembler(c => c.jcxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jcxz_rel8_16, 2), 2), LocalOpCodeFlags.Branch);
+			TestAssembler(c => c.jcxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jcxz_rel8_16, 1), 1), LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]
@@ -4433,7 +4433,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void jecxz_l() {
-			TestAssembler(c => c.jecxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jecxz_rel8_32, 2), 2), LocalOpCodeFlags.Branch);
+			TestAssembler(c => c.jecxz(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jecxz_rel8_32, 1), 1), LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]
@@ -4587,7 +4587,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void jmpe_l() {
 			{ /* if (Bitness >= 32) */
-				TestAssembler(c => c.jmpe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmpe_disp32, 2), 2), LocalOpCodeFlags.Branch);
+				TestAssembler(c => c.jmpe(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateBranch(Code.Jmpe_disp32, 1), 1), LocalOpCodeFlags.Branch);
 			} /* else skip (Bitness >= 32) not supported by this Assembler bitness */
 		}
 
@@ -39692,7 +39692,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void xbegin_l() {
-			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 2), 2), LocalOpCodeFlags.Branch);
+			TestAssembler(c => c.xbegin(CreateAndEmitLabel(c)), AssignLabel(Instruction.CreateXbegin(Bitness, 1), 1), LocalOpCodeFlags.Branch);
 		}
 
 		[Fact]

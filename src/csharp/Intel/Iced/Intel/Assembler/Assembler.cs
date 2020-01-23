@@ -26,7 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using Iced.Intel.BlockEncoderInternal;
+
 namespace Iced.Intel {
 	/// <summary>
 	/// High-Level Assembler.
@@ -51,15 +51,10 @@ namespace Iced.Intel {
 			Bitness = bitness;
 			_writer = writer;
 			_instructions = new List<Instruction>();
-			_label = CreateLabel();
+			_label = default;
 			PreferVex = true;
 			PreferBranchShort = true;
 		}
-		
-		/// <summary>
-		/// Base RIP used when encoding.
-		/// </summary>
-		public ulong BaseRip { get; set; }
 
 		/// <summary>
 		/// Gets the bitness defined for this assembler.
@@ -132,8 +127,10 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="label">Label to use</param>
 		/// <exception cref="ArgumentException"></exception>
-		public void Label(Label label) {
-			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}");
+		public void Label(ref Label label) {
+			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}", nameof(label));
+			if (label.InstructionIndex >= 0) throw new ArgumentException($"Cannot reuse label. The specified label is already associated with an instruction at index {label.InstructionIndex}.", nameof(label));
+			label.InstructionIndex = _instructions.Count;
 			_label = label;
 		}
 
@@ -385,25 +382,27 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Encode the instructions of this assembler with the specified options.
 		/// </summary>
+		/// <param name="baseRIP">Base RIP address.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public BlockEncoderResult Encode(BlockEncoderOptions options = BlockEncoderOptions.None) {
-			if (!TryEncode(out var errorMessage, out var blockResult, options)) {
+		public AssemblerResult Encode(ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			if (!TryEncode(baseRIP, out var errorMessage, out var assemblerResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
-			return blockResult;
+			return assemblerResult;
 		}
 
 		/// <summary>
 		/// Tries to encode the instructions of this assembler with the specified options.
 		/// </summary>
+		/// <param name="baseRIP">Base RIP address.</param>
 		/// <param name="errorMessage">Error messages.</param>
-		/// <param name="blockResult">Block result.</param>
+		/// <param name="assemblerResult">The assembler result.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
-		public bool TryEncode(out string? errorMessage, out BlockEncoderResult blockResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
-			blockResult = default;
+		public bool TryEncode(ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			assemblerResult = default;
 
 			// Protect against using a prefix without actually using it
 			if (_nextPrefixFlags != PrefixFlags.None) {
@@ -418,13 +417,12 @@ namespace Iced.Intel {
 			}
 			
 			var blocks = new InstructionBlock[1];
-			var block = new InstructionBlock(this._writer, _instructions, BaseRip);
+			var block = new InstructionBlock(this._writer, _instructions, baseRIP);
 			blocks[0] = block;
 
-			blockResult = default;
 			var result = BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options);
 			if (result && blockResults != null) {
-				blockResult = blockResults[0];
+				assemblerResult = new AssemblerResult(baseRIP, blockResults[0]);
 			}
 
 			return result;

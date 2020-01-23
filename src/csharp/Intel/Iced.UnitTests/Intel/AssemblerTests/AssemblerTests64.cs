@@ -34,9 +34,45 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var writer = new CodeWriterImpl();
 				var assembler = Assembler.Create(Bitness, writer);
 				var label = assembler.CreateLabel(("BadLabel"));
-				assembler.Label(label);
+				assembler.Label(ref label);
 				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Encode());
 				Assert.Contains("Unused label", ex.Message);
+			}
+		}
+		
+		[Fact]
+		public void TestLabelRIP() {
+			{
+				var writer = new CodeWriterImpl();
+				var c = Assembler.Create(Bitness, writer);
+				var label1 = c.CreateLabel();
+				c.nop();
+				c.nop();
+				c.nop();
+				c.Label(ref label1);		
+				c.nop();
+				var result = c.Encode(0x100, BlockEncoderOptions.ReturnNewInstructionOffsets);
+				var label1RIP = result.GetLabelRIP(label1);
+				Assert.Equal((ulong)0x103, label1RIP);
+			}
+			{
+				var writer = new CodeWriterImpl();
+				var c = Assembler.Create(Bitness, writer);
+				var label1 = c.CreateLabel();
+				c.nop();
+				c.Label(ref label1);				
+				c.nop();
+				
+				// Cannot use a label not created via CreateLabel
+				var emptyLabel = new Label();
+				Assert.Throws<ArgumentException>(() => c.Label(ref emptyLabel));
+				
+				// Cannot use a label already emitted
+				Assert.Throws<ArgumentException>(() => c.Label(ref label1));
+				
+				var result = c.Encode();
+				// Will throw without BlockEncoderOptions.ReturnNewInstructionOffsets
+				Assert.Throws<ArgumentOutOfRangeException>(() => result.GetLabelRIP(label1));
 			}
 		}
 

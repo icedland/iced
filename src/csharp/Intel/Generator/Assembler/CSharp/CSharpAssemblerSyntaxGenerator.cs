@@ -1159,7 +1159,7 @@ namespace Generator.Assembler.CSharp {
 				if (arg.Kind == ArgKind.LabelUlong) {
 					return "12752";
 				}
-				return isAssembler ? "CreateAndEmitLabel(c)" : "2"; // labels starts at 2 because label 1 is for first instruction
+				return isAssembler ? "CreateAndEmitLabel(c)" : "1"; // First id of label starts at 1
 			
 			default:
 				throw new ArgumentOutOfRangeException(nameof(kind), kind, null);

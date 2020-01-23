@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.Equal(1, assembler.Instructions.Count);
 
 			// Encode the instruction first to get any errors
-			assembler.Encode((flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
+			assembler.Encode(0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
 			
 			// Check that the instruction is the one expected
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
@@ -236,7 +236,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		protected Label CreateAndEmitLabel(Assembler c) {
 			var label = c.CreateLabel();
-			c.Label(label);
+			c.Label(ref label);
 			return label;
 		}
 
