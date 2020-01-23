@@ -307,8 +307,9 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="amount">Number of bytes</param>
 		public void nop(int amount) {
-			if (amount <= 0)
-				throw new ArgumentOutOfRangeException($"{nameof(amount)} must be within 1-{int.MaxValue}");
+			if (amount < 0)
+				throw new ArgumentOutOfRangeException(nameof(amount));
+			if (amount == 0) return;
 
 			const int maxMultibyteNopInstructionLength = 9;
 
