@@ -32,7 +32,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// High-Level Assembler.
 	/// </summary>
-	public sealed partial class Assembler {
+	public partial class Assembler {
 		readonly List<Instruction> _instructions;
 		ulong _currentLabelId;
 		Label _label;
@@ -41,9 +41,16 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates a new instance of this assembler 
 		/// </summary>
-		/// <param name="bitness">Bitness</param>
-		Assembler(int bitness) {
-			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
+		/// <param name="bitness">The assembler instruction set bitness, either 16, 32 or 64 bit.</param>
+		public Assembler(int bitness) {
+			switch (bitness) {
+			case 16:
+			case 32:
+			case 64:
+				break;
+			default:
+				throw new ArgumentOutOfRangeException("Only 16, 32 or 64 bitness are supported", nameof(bitness));
+			}
 			Bitness = bitness;
 			_instructions = new List<Instruction>();
 			_label = default;
@@ -79,24 +86,6 @@ namespace Iced.Intel {
 			_currentLabelId = 0;
 			_label = default;
 			_nextPrefixFlags = PrefixFlags.None;
-		}
-
-		/// <summary>
-		/// Creates a new <see cref="Assembler"/>.
-		/// </summary>
-		/// <param name="bitness">Bitness of the assembler</param>
-		/// <returns></returns>
-		/// <exception cref="ArgumentNullException"></exception>
-		/// <exception cref="ArgumentOutOfRangeException"></exception>
-		public static Assembler Create(int bitness) {
-			switch (bitness) {
-			case 16:
-			case 32:
-			case 64:
-				return new Assembler(bitness);
-			default:
-				throw new ArgumentOutOfRangeException(nameof(bitness));
-			}
 		}
 
 		/// <summary>
