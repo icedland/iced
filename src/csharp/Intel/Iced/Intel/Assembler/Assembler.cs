@@ -20,8 +20,8 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
-#nullable enable
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,7 +32,6 @@ namespace Iced.Intel {
 	/// High-Level Assembler.
 	/// </summary>
 	public sealed partial class Assembler {
-
 		readonly List<Instruction> _instructions;
 		ulong _currentLabelId;
 		Label _label;
@@ -55,12 +54,12 @@ namespace Iced.Intel {
 		/// Gets the bitness defined for this assembler.
 		/// </summary>
 		public int Bitness { get; }
-		
+
 		/// <summary>
 		/// <c>true</c> to prefer VEX encoding over EVEX. This is the default. 
 		/// </summary>
 		public bool PreferVex { get; set; }
-		
+
 		/// <summary>
 		/// <c>true</c> to prefer short branch encoding. This is the default. 
 		/// </summary>
@@ -134,7 +133,7 @@ namespace Iced.Intel {
 		/// <param name="flags">Operand flags passed.</param>
 		public void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
 			instruction.IP = _label.Id;
-			
+
 			// Setup prefixes
 			if (_nextPrefixFlags != PrefixFlags.None) {
 				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
@@ -197,7 +196,7 @@ namespace Iced.Intel {
 				return this;
 			}
 		}
-		
+
 		/// <summary>
 		/// Add xacquire prefix before the next instruction.
 		/// </summary>
@@ -216,10 +215,10 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public Assembler xrelease {
-			 get {
-				 _nextPrefixFlags |= PrefixFlags.Xrelease;
-				 return this;
-			 }
+			get {
+				_nextPrefixFlags |= PrefixFlags.Xrelease;
+				return this;
+			}
 		}
 
 		/// <summary>
@@ -257,7 +256,7 @@ namespace Iced.Intel {
 				return this;
 			}
 		}
-		
+
 		/// <summary>
 		/// Add bnd prefix before the next instruction.
 		/// </summary>
@@ -269,7 +268,7 @@ namespace Iced.Intel {
 				return this;
 			}
 		}
-		
+
 		/// <summary>
 		/// Add notrack prefix before the next instruction.
 		/// </summary>
@@ -286,12 +285,12 @@ namespace Iced.Intel {
 		public void call(ushort basePtr, uint address) {
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, basePtr, address));
 		}
-		
+
 		/// <summary>jmp ptr1632/ptr1616 instruction.</summary>
 		public void jmp(ushort basePtr, uint address) {
 			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, basePtr, address));
 		}
-		
+
 		/// <summary>
 		/// Generates multibyte NOP instructions
 		/// </summary>
@@ -359,12 +358,13 @@ namespace Iced.Intel {
 				}
 			}
 		}
-		
+
 		/// <summary>xlatb instruction.</summary>
 		public void xlatb() {
 			if (Bitness == 64) {
 				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1)));
-			} else if (Bitness == 32) {
+			}
+			else if (Bitness == 32) {
 				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1)));
 			}
 			else {

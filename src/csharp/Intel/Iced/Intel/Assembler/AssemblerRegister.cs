@@ -20,25 +20,24 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
 #nullable enable
 using System;
 using System.Diagnostics;
 
-namespace Iced.Intel
-{
-     /// <summary>
+namespace Iced.Intel {
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegister8 : IEquatable<AssemblerRegister8> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister8(Register value) {
-            if (!value.IsGPR8()) throw new ArgumentException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
+			if (!value.IsGPR8()) throw new ArgumentException($"Invalid register {value}. Must be a GPR8 register", nameof(value));
 			Value = value;
 		} 
 
@@ -81,18 +80,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegister8 left, AssemblerRegister8 right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegister16 : IEquatable<AssemblerRegister16> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister16(Register value) {
-            if (!value.IsGPR16()) throw new ArgumentException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
+			if (!value.IsGPR16()) throw new ArgumentException($"Invalid register {value}. Must be a GPR16 register", nameof(value));
 			Value = value;
 		} 
 
@@ -119,7 +117,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegister16 right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -128,7 +126,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegisterXMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -137,7 +135,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegisterYMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -206,19 +204,18 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerRegister16 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
-    }
-     /// <summary>
+	}
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegister32 : IEquatable<AssemblerRegister32> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister32(Register value) {
-            if (!value.IsGPR32()) throw new ArgumentException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
+			if (!value.IsGPR32()) throw new ArgumentException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -326,7 +323,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegister32 right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -335,7 +332,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterXMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -344,7 +341,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister32 left, AssemblerRegisterYMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -413,19 +410,18 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerRegister32 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
-    }
-     /// <summary>
+	}
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegister64 : IEquatable<AssemblerRegister64> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister64(Register value) {
-            if (!value.IsGPR64()) throw new ArgumentException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
+			if (!value.IsGPR64()) throw new ArgumentException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -533,7 +529,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegister64 right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -542,7 +538,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterXMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -551,7 +547,7 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister64 left, AssemblerRegisterYMM right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -620,19 +616,18 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerRegister64 register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
-    }
-     /// <summary>
+	}
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterMM : IEquatable<AssemblerRegisterMM> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterMM(Register value) {
-            if (!value.IsMM()) throw new ArgumentException($"Invalid register {value}. Must be a MM register", nameof(value));
+			if (!value.IsMM()) throw new ArgumentException($"Invalid register {value}. Must be a MM register", nameof(value));
 			Value = value;
 		} 
 
@@ -675,18 +670,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterMM left, AssemblerRegisterMM right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterXMM : IEquatable<AssemblerRegisterXMM> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterXMM(Register value) {
-            if (!value.IsXMM()) throw new ArgumentException($"Invalid register {value}. Must be a XMM register", nameof(value));
+			if (!value.IsXMM()) throw new ArgumentException($"Invalid register {value}. Must be a XMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -839,18 +833,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterXMM left, AssemblerRegisterXMM right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterYMM : IEquatable<AssemblerRegisterYMM> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterYMM(Register value) {
-            if (!value.IsYMM()) throw new ArgumentException($"Invalid register {value}. Must be a YMM register", nameof(value));
+			if (!value.IsYMM()) throw new ArgumentException($"Invalid register {value}. Must be a YMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -1003,18 +996,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterYMM left, AssemblerRegisterYMM right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterZMM : IEquatable<AssemblerRegisterZMM> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterZMM(Register value) {
-            if (!value.IsZMM()) throw new ArgumentException($"Invalid register {value}. Must be a ZMM register", nameof(value));
+			if (!value.IsZMM()) throw new ArgumentException($"Invalid register {value}. Must be a ZMM register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -1167,18 +1159,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterZMM left, AssemblerRegisterZMM right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterK : IEquatable<AssemblerRegisterK> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterK(Register value) {
-            if (!value.IsK()) throw new ArgumentException($"Invalid register {value}. Must be a K register", nameof(value));
+			if (!value.IsK()) throw new ArgumentException($"Invalid register {value}. Must be a K register", nameof(value));
 			Value = value;
 			Flags = AssemblerOperandFlags.None;
 		} 
@@ -1277,18 +1268,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterK left, AssemblerRegisterK right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterCR : IEquatable<AssemblerRegisterCR> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterCR(Register value) {
-            if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
+			if (!value.IsCR()) throw new ArgumentException($"Invalid register {value}. Must be a CR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1331,18 +1321,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterCR left, AssemblerRegisterCR right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterTR : IEquatable<AssemblerRegisterTR> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterTR(Register value) {
-            if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
+			if (!value.IsTR()) throw new ArgumentException($"Invalid register {value}. Must be a TR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1385,18 +1374,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterTR left, AssemblerRegisterTR right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterDR : IEquatable<AssemblerRegisterDR> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterDR(Register value) {
-            if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
+			if (!value.IsDR()) throw new ArgumentException($"Invalid register {value}. Must be a DR register", nameof(value));
 			Value = value;
 		} 
 
@@ -1439,18 +1427,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterDR left, AssemblerRegisterDR right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterST : IEquatable<AssemblerRegisterST> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterST(Register value) {
-            if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
+			if (!value.IsST()) throw new ArgumentException($"Invalid register {value}. Must be a ST register", nameof(value));
 			Value = value;
 		} 
 
@@ -1493,18 +1480,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterST left, AssemblerRegisterST right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterSegment : IEquatable<AssemblerRegisterSegment> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterSegment(Register value) {
-            if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
+			if (!value.IsSegmentRegister()) throw new ArgumentException($"Invalid register {value}. Must be a SegmentRegister register", nameof(value));
 			Value = value;
 		} 
 
@@ -1547,18 +1533,17 @@ namespace Iced.Intel
 		public static bool operator !=(AssemblerRegisterSegment left, AssemblerRegisterSegment right) => !left.Equals(right);
 	}
 
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegisterBND : IEquatable<AssemblerRegisterBND> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegisterBND(Register value) {
-            if (!value.IsBND()) throw new ArgumentException($"Invalid register {value}. Must be a BND register", nameof(value));
+			if (!value.IsBND()) throw new ArgumentException($"Invalid register {value}. Must be a BND register", nameof(value));
 			Value = value;
 		} 
 

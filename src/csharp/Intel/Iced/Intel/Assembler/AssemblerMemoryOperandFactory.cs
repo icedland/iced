@@ -20,10 +20,9 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
-#nullable enable
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand factory.
 	/// </summary>
@@ -59,7 +58,7 @@ namespace Iced.Intel
 		/// Prefix register.
 		/// </summary>
 		public readonly Register Prefix;
-		
+
 		/// <summary>
 		/// Gets the mask associated with this operand.
 		/// </summary>
@@ -68,33 +67,39 @@ namespace Iced.Intel
 		/// <summary>
 		/// Use the ES register with this memory operand.
 		/// </summary>
-		public AssemblerMemoryOperandFactory es => new AssemblerMemoryOperandFactory(Size, Register.ES, Flags); 
+		public AssemblerMemoryOperandFactory es => new AssemblerMemoryOperandFactory(Size, Register.ES, Flags);
+
 		/// <summary>
 		/// Use the CS register with this memory operand.
 		/// </summary>
-		public AssemblerMemoryOperandFactory cs => new AssemblerMemoryOperandFactory(Size, Register.CS, Flags); 
+		public AssemblerMemoryOperandFactory cs => new AssemblerMemoryOperandFactory(Size, Register.CS, Flags);
+
 		/// <summary>
 		/// Use the CS register with this memory operand.
 		/// </summary>
-		public AssemblerMemoryOperandFactory ss => new AssemblerMemoryOperandFactory(Size, Register.SS, Flags); 
+		public AssemblerMemoryOperandFactory ss => new AssemblerMemoryOperandFactory(Size, Register.SS, Flags);
+
 		/// <summary>
 		/// Use the DS register with this memory operand.
 		/// </summary>
-		public AssemblerMemoryOperandFactory ds => new AssemblerMemoryOperandFactory(Size, Register.DS, Flags); 
+		public AssemblerMemoryOperandFactory ds => new AssemblerMemoryOperandFactory(Size, Register.DS, Flags);
+
 		/// <summary>
 		/// Use the FS register with this memory operand.
 		/// </summary>
-		public AssemblerMemoryOperandFactory fs => new AssemblerMemoryOperandFactory(Size, Register.FS, Flags); 
+		public AssemblerMemoryOperandFactory fs => new AssemblerMemoryOperandFactory(Size, Register.FS, Flags);
+
 		/// <summary>
 		/// Use the GS register with this memory operand.
 		/// </summary>
 		public AssemblerMemoryOperandFactory gs => new AssemblerMemoryOperandFactory(Size, Register.GS, Flags);
+
 		/// <summary>
 		/// Specify the content of the memory operand (Base + Index * Scale + Displacement).
 		/// </summary>
 		/// <param name="operand">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerMemoryOperand operand] => new AssemblerMemoryOperand(Size, Prefix, operand.Base, operand.Index, operand.Scale, operand.Displacement, Flags);
-		
+
 		/// <summary>
 		/// Specify a long offset displacement.
 		/// </summary>
@@ -106,7 +111,7 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="offset">Offset of this memory operand.</param>
 		public AssemblerMemoryOperand this[ulong offset] => new AssemblerMemoryOperand(Size, Prefix, Register.None, Register.None, 1, (long)offset, Flags);
-		
+
 		/// <summary>
 		/// Specify a memory operand with a label.
 		/// </summary>

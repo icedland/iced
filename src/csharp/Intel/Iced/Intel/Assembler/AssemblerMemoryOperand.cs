@@ -20,19 +20,17 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
-#nullable enable
 using System;
 using System.Diagnostics;
 
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// Defines an assembly memory operand used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{Base} + {Index} * {Scale} + {Displacement}")]
 	public readonly struct AssemblerMemoryOperand : IEquatable<AssemblerMemoryOperand> {
-		
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
@@ -82,7 +80,7 @@ namespace Iced.Intel
 		/// Gets the displacement.
 		/// </summary>
 		public readonly long Displacement;
-		
+
 		/// <summary>
 		/// Gets the mask associated with this operand.
 		/// </summary>
@@ -91,7 +89,7 @@ namespace Iced.Intel
 		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a broadcast.
 		/// </summary>
-		public bool IsBroadcast => (Flags & AssemblerOperandFlags.Broadcast) != 0; 
+		public bool IsBroadcast => (Flags & AssemblerOperandFlags.Broadcast) != 0;
 
 		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a memory access using displacement only (no base and index registers are used).
@@ -112,7 +110,7 @@ namespace Iced.Intel
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerMemoryOperand k3 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -122,12 +120,12 @@ namespace Iced.Intel
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerMemoryOperand k5 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerMemoryOperand k6 => new AssemblerMemoryOperand(Size, Prefix, Base, Index, Scale, Displacement, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
@@ -184,8 +182,8 @@ namespace Iced.Intel
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator -(AssemblerMemoryOperand left, int displacement) {
 			return new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, left.Displacement - displacement, left.Flags);
-		}		
-		
+		}
+
 		/// <summary>
 		/// Gets a memory operand for the specified bitness.
 		/// </summary>
@@ -208,17 +206,15 @@ namespace Iced.Intel
 		public override bool Equals(object? obj) => obj is AssemblerMemoryOperand other && Equals(other);
 
 		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				var hashCode = (int) Size;
-				hashCode = (hashCode * 397) ^ (int) Prefix;
-				hashCode = (hashCode * 397) ^ (int) Base;
-				hashCode = (hashCode * 397) ^ (int) Index;
+		public override int GetHashCode() {
+			unchecked {
+				var hashCode = (int)Size;
+				hashCode = (hashCode * 397) ^ (int)Prefix;
+				hashCode = (hashCode * 397) ^ (int)Base;
+				hashCode = (hashCode * 397) ^ (int)Index;
 				hashCode = (hashCode * 397) ^ Scale;
 				hashCode = (hashCode * 397) ^ Displacement.GetHashCode();
-				hashCode = (hashCode * 397) ^ (int) Flags;
+				hashCode = (hashCode * 397) ^ (int)Flags;
 				return hashCode;
 			}
 		}

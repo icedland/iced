@@ -27,7 +27,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 namespace Iced.Intel {
-	using System;
 	public sealed partial class Assembler {
 		/// <summary>aaa instruction.<br/>
 		/// <br/>

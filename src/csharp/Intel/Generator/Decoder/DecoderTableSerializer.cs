@@ -221,7 +221,7 @@ namespace Generator.Decoder {
 		static bool IsSame(object? a, object? b) {
 			if (object.Equals(a, b))
 				return true;
-			if (a == null || b == null)
+			if (a is null || b is null)
 				return false;
 			if (a is object?[] aa && b is object?[] ba) {
 				if (aa.Length != ba.Length)

@@ -20,10 +20,9 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
-#nullable enable
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// Registers used for <see cref="Assembler"/>. 
 	/// </summary>
@@ -55,7 +54,8 @@ namespace Iced.Intel
 		/// <summary>
 		/// Gets a 64-bit / mmword ptr memory operand.
 		/// </summary>
-		public static readonly AssemblerMemoryOperandFactory __mmword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr);	/// <summary>
+		public static readonly AssemblerMemoryOperandFactory __mmword_ptr = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr);
+		/// <summary>
 		/// Gets a 64-bit / qword bcst memory operand.
 		/// </summary>
 		public static readonly AssemblerMemoryOperandFactory __qword_bcst = new AssemblerMemoryOperandFactory(MemoryOperandSize.QwordPtr, Register.None, AssemblerOperandFlags.Broadcast);

@@ -20,12 +20,11 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
-#nullable enable
 using System;
 
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// A label that can be created by <see cref="Assembler.CreateLabel"/>.
 	/// </summary>
@@ -35,7 +34,7 @@ namespace Iced.Intel
 			Id = id;
 			InstructionIndex = -1;
 		}
-		
+
 		/// <summary>
 		/// Name of this label.
 		/// </summary>
@@ -45,7 +44,7 @@ namespace Iced.Intel
 		/// Id of this label.
 		/// </summary>
 		public readonly ulong Id;
-		
+
 		/// <summary>
 		/// Gets the instruction index associated with this label. This is setup after calling <see cref="Assembler.Label"/>.
 		/// </summary>
@@ -66,10 +65,8 @@ namespace Iced.Intel
 		public override bool Equals(object? obj) => obj is Label other && Equals(other);
 
 		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			unchecked
-			{
+		public override int GetHashCode() {
+			unchecked {
 				return (Name.GetHashCode() * 397) ^ Id.GetHashCode();
 			}
 		}

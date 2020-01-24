@@ -99,7 +99,7 @@ namespace Generator.Constants.CSharp {
 				writer.WriteLine($"namespace {info.Namespace} {{");
 
 				if (constantsType.IsPublic && constantsType.IsMissingDocs)
-					writer.WriteLine("#pragma warning disable 1591 // Missing XML comment for publicly visible type or member");
+					writer.WriteLine(CSharpConstants.PragmaMissingDocsDisable);
 				using (writer.Indent())
 					WriteConstants(writer, constantsType);
 				writer.WriteLine("}");

@@ -20,6 +20,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -41,16 +42,16 @@ namespace Generator.Assembler {
 
 		protected AssemblerSyntaxGenerator() {
 			_groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
-            _groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
+			_groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
 		}
-		
+
 		protected const OpCodeFlags BitnessMaskFlags = OpCodeFlags.Mode64 | OpCodeFlags.Mode32 | OpCodeFlags.Mode16;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
 			Code.INVALID,
-			
+
 			Code.Nopq,
-			
+
 			Code.Add_rm8_imm8_82,
 			Code.Or_rm8_imm8_82,
 			Code.Adc_rm8_imm8_82,
@@ -84,7 +85,7 @@ namespace Generator.Assembler {
 			Code.Sfence_FD,
 			Code.Sfence_FE,
 			Code.Sfence_FF,
-			
+
 			Code.ReservedNop_rm16_r16_0F0D,
 			Code.ReservedNop_rm32_r32_0F0D,
 			Code.ReservedNop_rm64_r64_0F0D,
@@ -112,14 +113,14 @@ namespace Generator.Assembler {
 			Code.ReservedNop_rm16_r16_0F1F,
 			Code.ReservedNop_rm32_r32_0F1F,
 			Code.ReservedNop_rm64_r64_0F1F,
-			
+
 			Code.Cmpxchg486_rm8_r8,
 			Code.Cmpxchg486_rm16_r16,
 			Code.Cmpxchg486_rm32_r32,
-			
+
 			Code.Loadall286,
 			Code.Loadallreset286,
-			
+
 			Code.Fstp_sti_DFD0,
 			Code.Fstp_sti_DFD8,
 			Code.Fxch_st0_sti_DDC8,
@@ -127,17 +128,17 @@ namespace Generator.Assembler {
 			Code.Fcom_st0_sti_DCD0,
 			Code.Fcomp_st0_sti_DED0,
 			Code.Fcomp_st0_sti_DCD8,
-			
+
 			Code.VEX_Vmovss_xmm_xmm_xmm_0F11,
 			Code.VEX_Vmovsd_xmm_xmm_xmm_0F11,
 			Code.EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
 			Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
-			
+
 			Code.DeclareByte,
 			Code.DeclareWord,
 			Code.DeclareDword,
 			Code.DeclareQword,
-			
+
 			Code.Loopne_rel8_32_CX,
 			Code.Loopne_rel8_16_ECX,
 			Code.Loopne_rel8_64_ECX,
@@ -154,7 +155,7 @@ namespace Generator.Assembler {
 			Code.Jecxz_rel8_16,
 			Code.Jecxz_rel8_64,
 			Code.Jrcxz_rel8_16,
-			
+
 			Code.Popw_CS,
 			
 			// The following are implemented manually
@@ -164,7 +165,7 @@ namespace Generator.Assembler {
 			Code.Jmp_ptr1616,
 			Code.Jmp_ptr1632,
 		};
-		
+
 		static readonly Dictionary<Code, string> MapOpCodeToNewName = new Dictionary<Code, string>() {
 			{Code.Iretw, "iret"},
 			{Code.Iretd, "iretd"},
@@ -184,11 +185,11 @@ namespace Generator.Assembler {
 			{Code.Sysretd, "sysret"},
 			{Code.Sysretq, "sysretq"},
 		};
-		
+
 		protected abstract void GenerateRegisters(EnumType registers);
 
 		protected abstract void Generate(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] opCodes);
-		
+
 		public void Generate() {
 			GenerateRegisters(RegisterEnum.Instance);
 			Generate(OpCodeInfoTable.Data);
@@ -196,31 +197,31 @@ namespace Generator.Assembler {
 
 		void Generate(OpCodeInfo[] opCodes) {
 
-			foreach(var opCodeInfo in opCodes) {
+			foreach (var opCodeInfo in opCodes) {
 				var code = (Code)opCodeInfo.Code.Value;
 				if (DiscardOpCodes.Contains(code)) continue;
 
 				string memoName = MnemonicsTable.Table[(int)opCodeInfo.Code.Value].mnemonicEnum.RawName;
 				var name = MapOpCodeToNewName.TryGetValue(code, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
 				if (code == Code.Int3) name = "int3";
-				
+
 				bool toAdd = true;
 				var signature = new Signature();
 				var regOnlySignature = new Signature();
-				
+
 				PseudoOpsKind? pseudoOpsKind = null;
 				{
 					var ctorInfos = Generator.Formatters.Intel.CtorInfos.Infos[opCodeInfo.Code.Value];
 					var enumValue = ctorInfos[ctorInfos.Length - 1] as EnumValue;
-					if (enumValue != null && enumValue.DeclaringType.TypeId == TypeIds.PseudoOpsKind) {
+					if (enumValue is object && enumValue.DeclaringType.TypeId == TypeIds.PseudoOpsKind) {
 						pseudoOpsKind = (PseudoOpsKind)enumValue.Value;
 					}
 				}
 
 				var opCodeArgFlags = OpCodeArgFlags.Default;
 
-				if (opCodeInfo is VexOpCodeInfo) {  opCodeArgFlags |= OpCodeArgFlags.HasVex; }
-				if (opCodeInfo is EvexOpCodeInfo) {  opCodeArgFlags |= OpCodeArgFlags.HasEvex;  }
+				if (opCodeInfo is VexOpCodeInfo) { opCodeArgFlags |= OpCodeArgFlags.HasVex; }
+				if (opCodeInfo is EvexOpCodeInfo) { opCodeArgFlags |= OpCodeArgFlags.HasEvex; }
 
 				if ((opCodeInfo.Flags & OpCodeFlags.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
 				if ((opCodeInfo.Flags & OpCodeFlags.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
@@ -236,11 +237,11 @@ namespace Generator.Assembler {
 				int numberLeadingArgToDiscard = 0;
 				var numberLeadingArgToDiscardOpt = GetSpecialArgEncodingInstruction(opCodeInfo);
 				if (numberLeadingArgToDiscardOpt.HasValue) {
-					numberLeadingArgToDiscard = numberLeadingArgToDiscardOpt.Value; 
+					numberLeadingArgToDiscard = numberLeadingArgToDiscardOpt.Value;
 					opCodeArgFlags |= OpCodeArgFlags.HasSpecialInstructionEncoding;
 				}
 
-				for(int i = numberLeadingArgToDiscard; i < opCodeInfo.OpKindsLength; i++) {
+				for (int i = numberLeadingArgToDiscard; i < opCodeInfo.OpKindsLength; i++) {
 					var opKind = GetOperandKind(opCodeInfo, i);
 					var argKind = ArgKind.Unknown;
 					int argSize = 0;
@@ -251,12 +252,12 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.r8_reg:
 						argKind = ArgKind.Register8;
 						break;
-						
+
 					case OpCodeOperandKind.ax:
 					case OpCodeOperandKind.dx:
 					case OpCodeOperandKind.r16_opcode:
 					case OpCodeOperandKind.r16_reg:
-					case OpCodeOperandKind.r16_reg_mem: 
+					case OpCodeOperandKind.r16_reg_mem:
 					case OpCodeOperandKind.r16_rm:
 						argKind = ArgKind.Register16;
 						break;
@@ -278,7 +279,7 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.r64_reg_mem:
 						argKind = ArgKind.Register64;
 						break;
-					
+
 					case OpCodeOperandKind.es:
 					case OpCodeOperandKind.cs:
 					case OpCodeOperandKind.ss:
@@ -288,7 +289,7 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.seg_reg:
 						argKind = ArgKind.RegisterSegment;
 						break;
-					
+
 					case OpCodeOperandKind.mm_reg:
 					case OpCodeOperandKind.mm_rm:
 						argKind = ArgKind.RegisterMM;
@@ -298,11 +299,11 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.xmm_is5:
 					case OpCodeOperandKind.xmm_reg:
 					case OpCodeOperandKind.xmm_vvvv:
-					case OpCodeOperandKind.xmm_rm: 
+					case OpCodeOperandKind.xmm_rm:
 					case OpCodeOperandKind.xmmp3_vvvv:
 						argKind = ArgKind.RegisterXMM;
 						break;
-						
+
 					case OpCodeOperandKind.ymm_is4:
 					case OpCodeOperandKind.ymm_is5:
 					case OpCodeOperandKind.ymm_reg:
@@ -313,15 +314,15 @@ namespace Generator.Assembler {
 
 					case OpCodeOperandKind.zmm_reg:
 					case OpCodeOperandKind.zmm_vvvv:
-					case OpCodeOperandKind.zmm_rm: 
-					case OpCodeOperandKind.zmmp3_vvvv:						
+					case OpCodeOperandKind.zmm_rm:
+					case OpCodeOperandKind.zmmp3_vvvv:
 						argKind = ArgKind.RegisterZMM;
 						break;
 
 					case OpCodeOperandKind.kp1_reg:
 					case OpCodeOperandKind.k_reg:
 					case OpCodeOperandKind.k_vvvv:
-					case OpCodeOperandKind.k_rm: 
+					case OpCodeOperandKind.k_rm:
 						argKind = ArgKind.RegisterK;
 						break;
 
@@ -404,8 +405,7 @@ namespace Generator.Assembler {
 					case OpCodeOperandKind.br64_4: // NEAR
 					case OpCodeOperandKind.br16_2:
 						argKind = ArgKind.Label;
-						if (name != "call")
-						{
+						if (name != "call") {
 							opCodeArgFlags |= OpCodeArgFlags.HasBranchNear;
 						}
 						opCodeArgFlags |= OpCodeArgFlags.HasLabel;
@@ -491,7 +491,7 @@ namespace Generator.Assembler {
 						argSize = 8;
 						break;
 					}
-					
+
 					if (argKind == ArgKind.Unknown) {
 						toAdd = false;
 						break;
@@ -511,7 +511,7 @@ namespace Generator.Assembler {
 							AddOpCodeToGroup(name, memoName, signature, opCodeInfo, opCodeArgFlags, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
 						}
 					}
-					
+
 					if (signature != regOnlySignature) {
 						opCodeArgFlags = opCodeArgFlags & ~OpCodeArgFlags.HasBroadcast;
 						AddOpCodeToGroup(name, memoName, regOnlySignature, opCodeInfo, opCodeArgFlags | OpCodeArgFlags.HasRegisterMemoryMappedToRegister, pseudoOpsKind, numberLeadingArgToDiscard, argSizes, false);
@@ -630,23 +630,23 @@ namespace Generator.Assembler {
 
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group) {
 			// In case of one opcode, we don't need to perform any disambiguation
-			var opcodes = group.Items; 
+			var opcodes = group.Items;
 			// Sort opcodes by decreasing size
 			opcodes.Sort(group.OrderOpCodesPerOpKindPriority);
 			return BuildSelectorGraph(group, group.Signature, group.Flags, opcodes);
 		}
-		
+
 		OpCodeNode BuildSelectorGraph(OpCodeInfoGroup group, Signature signature, OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes) {
 			if (opcodes.Count == 0) return default;
 
 			if (opcodes.Count == 1) {
 				return new OpCodeNode(opcodes[0]);
 			}
-			
+
 			Debug.Assert(_stackDepth++ < 16, "Potential StackOverflow");
 			try {
 				OrderedSelectorList selectors;
-				
+
 				if ((argFlags & OpCodeArgFlags.HasImmediateByteEqual1) != 0) {
 					// handle imm8 == 1 
 					var opcodesWithImmediateByteEqual1 = new List<OpCodeInfo>();
@@ -654,26 +654,26 @@ namespace Generator.Assembler {
 					var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteEqual1, opcodesWithImmediateByteEqual1, opcodesOthers);
 					Debug.Assert(indices.Count == 1);
 					var newFlags = argFlags ^ OpCodeArgFlags.HasImmediateByteEqual1;
-					return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteEqual1) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteEqual1), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers)};
+					return new OpCodeSelector(indices[0], OpCodeSelectorKind.ImmediateByteEqual1) { IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteEqual1), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers) };
 				}
 				else if (group.Name != "jmpe" && group.IsBranch) {
 					var branchShort = new List<OpCodeInfo>();
 					var branchFar = new List<OpCodeInfo>();
 					CollectByOperandKindPredicate(opcodes, IsBranchShort, branchShort, branchFar);
-					if (branchShort.Count > 0 &&  branchFar.Count > 0) {
+					if (branchShort.Count > 0 && branchFar.Count > 0) {
 						var newFlags = argFlags & ~(OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear);
-						return new OpCodeSelector(OpCodeSelectorKind.BranchShort) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, branchShort), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, branchFar)};
+						return new OpCodeSelector(OpCodeSelectorKind.BranchShort) { IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, branchShort), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, branchFar) };
 					}
 				}
-				
+
 				// Handle case of moffs
 				if (group.Name == "mov") {
 					var opCodesRAXMOffs = new List<OpCodeInfo>();
 					var newOpCodes = new List<OpCodeInfo>();
 
-					var  memOffs64Selector = OpCodeSelectorKind.Invalid;
-					var  memOffsSelector = OpCodeSelectorKind.Invalid;
-					
+					var memOffs64Selector = OpCodeSelectorKind.Invalid;
+					var memOffsSelector = OpCodeSelectorKind.Invalid;
+
 					int argIndex = 0;
 					for (var i = 0; i < opcodes.Count; i++) {
 						var opCodeInfo = opcodes[i];
@@ -708,7 +708,7 @@ namespace Generator.Assembler {
 							memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
 							argIndex = 1;
 							opCodesRAXMOffs.Add(opCodeInfo);
-							break;						
+							break;
 						case Code.Mov_EAX_moffs32:
 							memOffs64Selector = OpCodeSelectorKind.MemOffs64_EAX;
 							memOffsSelector = OpCodeSelectorKind.MemOffs_EAX;
@@ -735,23 +735,23 @@ namespace Generator.Assembler {
 
 					if (opCodesRAXMOffs.Count > 0) {
 						return new OpCodeSelector(argIndex, memOffs64Selector) {
-							IfTrue = BuildSelectorGraph(group, group.Signature, argFlags, opCodesRAXMOffs), 
+							IfTrue = BuildSelectorGraph(group, group.Signature, argFlags, opCodesRAXMOffs),
 							IfFalse = new OpCodeSelector(argIndex, memOffsSelector) {
-								IfTrue = BuildSelectorGraph(group, group.Signature, argFlags, opCodesRAXMOffs), 
+								IfTrue = BuildSelectorGraph(group, group.Signature, argFlags, opCodesRAXMOffs),
 								IfFalse = BuildSelectorGraph(group, group.Signature, argFlags, newOpCodes)
 							}
 						};
 					}
-				}				
-				
-				
+				}
+
+
 				// Handle disambiguation for auto-broadcast select
 				if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
 					int memoryIndex = GetBroadcastMemory(argFlags, opcodes, signature, out var broadcastSelectorKind, out var evexBroadcastOpCode);
 					if (memoryIndex >= 0) {
-						Debug.Assert(evexBroadcastOpCode != null);
+						Debug.Assert(evexBroadcastOpCode is object);
 						return new OpCodeSelector(memoryIndex, broadcastSelectorKind) {
-							IfTrue = evexBroadcastOpCode, 
+							IfTrue = evexBroadcastOpCode,
 							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~OpCodeArgFlags.HasBroadcast, opcodes)
 						};
 					}
@@ -792,7 +792,7 @@ namespace Generator.Assembler {
 						return BuildSelectorGraphFromSelectors(group, group.Signature, argFlags, selectors);
 					}
 
-					if ((argFlags & OpCodeArgFlags.HasImmediateByteSignedExtended) != 0) { 
+					if ((argFlags & OpCodeArgFlags.HasImmediateByteSignedExtended) != 0) {
 						// handle imm >= sbyte.MinValue && imm <= byte.MaxValue 
 						var opcodesWithImmediateByteSigned = new List<OpCodeInfo>();
 						var opcodesOthers = new List<OpCodeInfo>();
@@ -812,18 +812,18 @@ namespace Generator.Assembler {
 								break;
 							}
 						}
-						
+
 						Debug.Assert(indices.Count == 1);
 						var newFlags = argFlags ^ OpCodeArgFlags.HasImmediateByteSignedExtended;
-						return new OpCodeSelector(indices[0], selectorKind) {IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteSigned), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers)};
-					}					
-					
+						return new OpCodeSelector(indices[0], selectorKind) { IfTrue = BuildSelectorGraph(group, group.Signature, newFlags, opcodesWithImmediateByteSigned), IfFalse = BuildSelectorGraph(group, group.Signature, newFlags, opcodesOthers) };
+					}
+
 					if ((argFlags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) {
 						var vex = opcodes.Where(x => x is VexOpCodeInfo).ToList();
 						var evex = opcodes.Where(x => x is EvexOpCodeInfo).ToList();
 
 						return new OpCodeSelector(OpCodeSelectorKind.Vex) {
-							IfTrue = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex), 
+							IfTrue = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), vex),
 							IfFalse = BuildSelectorGraph(group, signature, argFlags & ~(OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex), evex),
 						};
 					}
@@ -846,12 +846,12 @@ namespace Generator.Assembler {
 			foreach (var (kind, list) in selectors) {
 				OpCodeNode node;
 				OpCodeSelector? newSelector = null;
-					
+
 				switch (kind) {
 				case OpCodeSelectorKind.Bitness32:
 				case OpCodeSelectorKind.Bitness16:
 					// Bitness32/Bitness16 can be last without a condition
-					if (list.Count == 1 && selectorIndex + 1  == selectors.Count) {
+					if (list.Count == 1 && selectorIndex + 1 == selectors.Count) {
 						node = new OpCodeNode(list[0]);
 					}
 					else {
@@ -863,7 +863,7 @@ namespace Generator.Assembler {
 				case OpCodeSelectorKind.Register32:
 				case OpCodeSelectorKind.Register64:
 				case OpCodeSelectorKind.RegisterST:
-					if (list.Count == 1 || selectorIndex + 1  == selectors.Count) {
+					if (list.Count == 1 || selectorIndex + 1 == selectors.Count) {
 						node = BuildSelectorGraph(group, signature, argFlags, list);
 					}
 					else {
@@ -876,12 +876,12 @@ namespace Generator.Assembler {
 					newSelector.IfTrue = list.Count == 1 ? new OpCodeNode(list[0]) : BuildSelectorGraph(group, signature, argFlags, list);
 					break;
 				}
-					
+
 				if (rootNode.IsEmpty) {
 					rootNode = node;
 				}
 
-				if (previousSelector != null) {
+				if (previousSelector is object) {
 					previousSelector.IfFalse = node;
 				}
 
@@ -892,18 +892,14 @@ namespace Generator.Assembler {
 			return rootNode;
 		}
 
-		static OrderedSelectorList BuildSelectorsPerBitness(OpCodeInfoGroup @group, OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes)
-		{
+		static OrderedSelectorList BuildSelectorsPerBitness(OpCodeInfoGroup @group, OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes) {
 			var selectors = new OrderedSelectorList();
-			foreach (var opCodeInfo in opcodes)
-			{
-				if (opCodeInfo is LegacyOpCodeInfo legacy)
-				{
+			foreach (var opCodeInfo in opcodes) {
+				if (opCodeInfo is LegacyOpCodeInfo legacy) {
 					int bitness = GetBitness(legacy);
 
 					OpCodeSelectorKind selectorKind;
-					switch (bitness)
-					{
+					switch (bitness) {
 					case 16:
 						selectorKind = OpCodeSelectorKind.Bitness16;
 						break;
@@ -918,28 +914,23 @@ namespace Generator.Assembler {
 
 					selectors.Add(selectorKind, opCodeInfo);
 				}
-				else
-				{
+				else {
 					Console.WriteLine($"Unable to detect bitness for opcode {opCodeInfo.Code.RawName} for group {@group.Name} / {argFlags}");
 					//selectors.Add(OpCodeSelectorKind.Invalid, opCodeInfo);
 				}
 			}
-			
+
 			// Try to detect bitness differently (for dec_rm16/dec_r16)
-			if (selectors.Count == 1)
-			{
+			if (selectors.Count == 1) {
 				selectors.Clear();
 				var added = new HashSet<OpCodeInfo>();
-				foreach (var bitnessMask in new OpCodeFlags[] {OpCodeFlags.Mode64, OpCodeFlags.Mode32, OpCodeFlags.Mode16})
-				{
-					foreach (var opCodeInfo in opcodes)
-					{
+				foreach (var bitnessMask in new OpCodeFlags[] { OpCodeFlags.Mode64, OpCodeFlags.Mode32, OpCodeFlags.Mode16 }) {
+					foreach (var opCodeInfo in opcodes) {
 						if ((opCodeInfo.Flags & bitnessMask) == 0) continue;
 						if (added.Contains(opCodeInfo)) continue;
 
 						OpCodeSelectorKind selectorKind;
-						switch (bitnessMask)
-						{
+						switch (bitnessMask) {
 						case OpCodeFlags.Mode16:
 							selectorKind = OpCodeSelectorKind.Bitness16;
 							break;
@@ -958,7 +949,7 @@ namespace Generator.Assembler {
 					}
 				}
 			}
-			
+
 			return selectors;
 		}
 
@@ -974,17 +965,17 @@ namespace Generator.Assembler {
 						var opKind = evex.OpKind(i);
 						broadcastOpCodeInfo = evex;
 						switch (opKind) {
-							case OpCodeOperandKind.xmm_or_mem:
-								selctorKind = OpCodeSelectorKind.EvexBroadcastX;
-								break;
-							case OpCodeOperandKind.ymm_or_mem:
-								selctorKind = OpCodeSelectorKind.EvexBroadcastY;
-								break;
-							case OpCodeOperandKind.zmm_or_mem:
-								selctorKind = OpCodeSelectorKind.EvexBroadcastZ;
-								break;
-							default:
-								throw new ArgumentException($"invalud {opKind}"); 
+						case OpCodeOperandKind.xmm_or_mem:
+							selctorKind = OpCodeSelectorKind.EvexBroadcastX;
+							break;
+						case OpCodeOperandKind.ymm_or_mem:
+							selctorKind = OpCodeSelectorKind.EvexBroadcastY;
+							break;
+						case OpCodeOperandKind.zmm_or_mem:
+							selctorKind = OpCodeSelectorKind.EvexBroadcastZ;
+							break;
+						default:
+							throw new ArgumentException($"invalud {opKind}");
 						}
 						break;
 					}
@@ -995,8 +986,8 @@ namespace Generator.Assembler {
 
 			return memoryIndex;
 		}
-		
-		
+
+
 		static bool ShouldDiscardDuplicatedOpCode(Signature signature, OpCodeInfo opCode) {
 			bool testDiscard = false;
 			for (int i = 0; i < signature.ArgCount; i++) {
@@ -1009,7 +1000,7 @@ namespace Generator.Assembler {
 
 			if (testDiscard) {
 				switch ((Code)opCode.Code.Value) {
-				
+
 				case Code.Pextrb_r64m8_xmm_imm8:             // => Code.Pextrb_r32m8_xmm_imm8
 				case Code.Extractps_r64m32_xmm_imm8:         // => Code.Extractps_rm32_xmm_imm8	
 				case Code.Pinsrb_xmm_r64m8_imm8:             // => Code.Pinsrb_xmm_r32m8_imm8
@@ -1042,7 +1033,7 @@ namespace Generator.Assembler {
 		static int GetBitness(LegacyOpCodeInfo legacy) {
 			int bitness = 64;
 			var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
-			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize; 
+			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize;
 			switch (sizeFlags) {
 			case OpCodeFlags.Mode16:
 				bitness = 16;
@@ -1053,23 +1044,22 @@ namespace Generator.Assembler {
 			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
 				bitness = operandSize == OperandSize.Size16 ? 16 : 32;
 				break;
-							
+
 			case OpCodeFlags.Mode64:
-				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 :  64;
+				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 : 64;
 				break;
 			default:
 				break;
 			}
 			return bitness;
 		}
-		
+
 
 		static List<int> CollectByOperandKindPredicate(List<OpCodeInfo> opcodes, Func<OpCodeOperandKind, bool?> predicate, List<OpCodeInfo> opcodesMatchingPredicate, List<OpCodeInfo> opcodesNotMatchingPredicate) {
 			var argIndices = new List<int>();
 			foreach (var opCodeInfo in opcodes) {
 				var selected = opcodesNotMatchingPredicate;
-				for (int i = 0; i < opCodeInfo.OpKindsLength; i++)
-				{
+				for (int i = 0; i < opCodeInfo.OpKindsLength; i++) {
 					var argOpKind = GetOperandKind(opCodeInfo, i);
 					var result = predicate(argOpKind);
 					if (result.HasValue) {
@@ -1091,12 +1081,12 @@ namespace Generator.Assembler {
 		static bool? IsBranchShort(OpCodeOperandKind kind) {
 			switch (kind) {
 			case OpCodeOperandKind.br32_4:
-			case OpCodeOperandKind.br64_4: 
+			case OpCodeOperandKind.br64_4:
 			case OpCodeOperandKind.xbegin_4:
 			case OpCodeOperandKind.brdisp_4:
 			case OpCodeOperandKind.br16_2:
 				return false;
-						
+
 			case OpCodeOperandKind.xbegin_2:
 			case OpCodeOperandKind.brdisp_2:
 			case OpCodeOperandKind.br16_1:
@@ -1131,16 +1121,14 @@ namespace Generator.Assembler {
 
 		static OrderedSelectorList BuildSelectorsByRegisterOrMemory(Signature signature, OpCodeArgFlags argFlags, List<OpCodeInfo> opcodes, bool isRegister) {
 			List<OrderedSelectorList>? selectorsList = null;
-			for (int argIndex = 0; argIndex < signature.ArgCount; argIndex++)
-			{
+			for (int argIndex = 0; argIndex < signature.ArgCount; argIndex++) {
 				var argKind = signature.GetArgKind(argIndex);
 				if (isRegister && !IsRegister(argKind) || !isRegister && (argKind != ArgKind.Memory)) {
 					continue;
 				}
 
-				var selectors = new OrderedSelectorList() {ArgIndex = argIndex};
-				foreach (var opCodeInfo in opcodes)
-				{
+				var selectors = new OrderedSelectorList() { ArgIndex = argIndex };
+				foreach (var opCodeInfo in opcodes) {
 					var argOpKind = GetOperandKind(opCodeInfo, argIndex);
 					var conditionKind = GetSelectorKindForRegisterOrMemory(opCodeInfo, argOpKind, (argFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0);
 					selectors.Add(conditionKind, opCodeInfo);
@@ -1151,11 +1139,11 @@ namespace Generator.Assembler {
 					return selectors;
 				}
 
-				if (selectorsList == null) selectorsList = new List<OrderedSelectorList>();
+				if (selectorsList is null) selectorsList = new List<OrderedSelectorList>();
 				selectorsList.Add(selectors);
 			}
 
-			if (selectorsList == null) return new OrderedSelectorList(); 
+			if (selectorsList is null) return new OrderedSelectorList();
 
 			// Select the biggest selector
 			return selectorsList.First(x => x.Count == selectorsList.Max(x => x.Count));
@@ -1203,7 +1191,7 @@ namespace Generator.Assembler {
 
 			return false;
 		}
-		
+
 		protected static int GetMemoryAddressSizeInBits(OpCodeInfo opCodeInfo) {
 			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
 			switch (memSize) {
@@ -1225,7 +1213,7 @@ namespace Generator.Assembler {
 			}
 
 			public int ArgIndex { get; set; }
-			
+
 			public void Add(OpCodeSelectorKind kindToAdd, OpCodeInfo opCodeInfo) {
 				foreach (var (kind, list) in this) {
 					if (kind == kindToAdd) {
@@ -1238,8 +1226,8 @@ namespace Generator.Assembler {
 				Add((kindToAdd, new List<OpCodeInfo>(1) { opCodeInfo }));
 			}
 		}
-		
-	
+
+
 		static int GetPriorityFromKind(OpCodeOperandKind kind, int addressSize) {
 			switch (kind) {
 
@@ -1257,7 +1245,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.ymm_rm:
 			case OpCodeOperandKind.ymm_or_mem:
 				return -20;
-			
+
 			case OpCodeOperandKind.xmm_is4:
 			case OpCodeOperandKind.xmm_is5:
 			case OpCodeOperandKind.xmm_reg:
@@ -1270,13 +1258,13 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.rax:
 			case OpCodeOperandKind.st0:
 				return 0;
-			
+
 			case OpCodeOperandKind.r64_opcode:
 			case OpCodeOperandKind.r64_vvvv:
 			case OpCodeOperandKind.r64_reg:
 			case OpCodeOperandKind.r64_or_mem:
 			case OpCodeOperandKind.r64_or_mem_mpx:
-			case OpCodeOperandKind.imm32sex64:							
+			case OpCodeOperandKind.imm32sex64:
 			case OpCodeOperandKind.imm64:
 			case OpCodeOperandKind.r64_rm:
 			case OpCodeOperandKind.r64_reg_mem:
@@ -1284,7 +1272,7 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.eax:
 				return 15;
-			
+
 			case OpCodeOperandKind.sti_opcode:
 			case OpCodeOperandKind.r32_opcode:
 			case OpCodeOperandKind.r32_vvvv:
@@ -1299,13 +1287,13 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.ax:
 			case OpCodeOperandKind.dx:
 				return 25;
-				
+
 			case OpCodeOperandKind.r16_opcode:
 			case OpCodeOperandKind.r16_reg:
 			case OpCodeOperandKind.r16_or_mem:
 			case OpCodeOperandKind.r16_reg_mem:
 			case OpCodeOperandKind.r16_rm:
-			case OpCodeOperandKind.imm16: 
+			case OpCodeOperandKind.imm16:
 				return 30;
 
 			case OpCodeOperandKind.imm8_const_1:
@@ -1314,7 +1302,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.al:
 			case OpCodeOperandKind.cl:
 				return 45;
-				
+
 			case OpCodeOperandKind.r8_opcode:
 			case OpCodeOperandKind.r8_reg:
 			case OpCodeOperandKind.r8_or_mem:
@@ -1349,13 +1337,13 @@ namespace Generator.Assembler {
 					return 50;
 				}
 				return int.MaxValue;
-			
+
 			case OpCodeOperandKind.seg_reg:
 				return 60;
-			
+
 			default:
-				
-				
+
+
 				return int.MaxValue;
 			}
 		}
@@ -1367,7 +1355,7 @@ namespace Generator.Assembler {
 			HasImmediateByteLessThanBits = 1 << 1,
 			HasImmediateByteSignedExtended = 1 << 2,
 			HasLabel = 1 << 3,
-			HasBranchShort = 1 << 4, 
+			HasBranchShort = 1 << 4,
 			HasBranchNear = 1 << 5,
 			HasVex = 1 << 6,
 			HasEvex = 1 << 7,
@@ -1388,19 +1376,16 @@ namespace Generator.Assembler {
 		}
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
-			
+
 			var bitnessFlags = OpCodeFlags.None;
 			var vexOrEvexFlags = OpCodeArgFlags.Default;
-			
-			foreach (var code in inputOpCodes)
-			{
+
+			foreach (var code in inputOpCodes) {
 				var registerSignature = new Signature();
 				bool isValid = true;
-				for (int i = 0; i < code.OpKindsLength; i++)
-				{
+				for (int i = 0; i < code.OpKindsLength; i++) {
 					var argKind = GetFilterRegisterKindFromOpKind(GetOperandKind(code, i), GetMemoryAddressSizeInBits(code), allowMemory);
-					if (argKind == ArgKind.Unknown)
-					{
+					if (argKind == ArgKind.Unknown) {
 						isValid = false;
 						break;
 					}
@@ -1411,7 +1396,7 @@ namespace Generator.Assembler {
 				var codeBitnessFlags = code.Flags & BitnessMaskFlags;
 				var codeEvexFlags = code is VexOpCodeInfo ? OpCodeArgFlags.HasVex : code is EvexOpCodeInfo ? OpCodeArgFlags.HasEvex : OpCodeArgFlags.Default;
 
-				if (isValid && (signatures.Add(registerSignature) || ((bitnessFlags & codeBitnessFlags) != codeBitnessFlags) || (codeEvexFlags != OpCodeArgFlags.Default && (vexOrEvexFlags & codeEvexFlags) == 0)  || (group.Flags & ( OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
+				if (isValid && (signatures.Add(registerSignature) || ((bitnessFlags & codeBitnessFlags) != codeBitnessFlags) || (codeEvexFlags != OpCodeArgFlags.Default && (vexOrEvexFlags & codeEvexFlags) == 0) || (group.Flags & (OpCodeArgFlags.RoundingControl | OpCodeArgFlags.SuppressAllExceptions)) != 0)) {
 					bitnessFlags |= codeBitnessFlags;
 					vexOrEvexFlags |= codeEvexFlags;
 					if (!opcodes.Contains(code)) {
@@ -1426,7 +1411,7 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.st0:
 			case OpCodeOperandKind.sti_opcode:
 				return ArgKind.RegisterST;
-			
+
 			case OpCodeOperandKind.r8_opcode:
 			case OpCodeOperandKind.r8_reg:
 				return ArgKind.Register8;
@@ -1459,16 +1444,16 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.imm8sex32:
 			case OpCodeOperandKind.imm8sex64:
 				return ArgKind.FilterImmediate8;
-			
-			case OpCodeOperandKind.imm16: 
+
+			case OpCodeOperandKind.imm16:
 			case OpCodeOperandKind.imm32:
-			case OpCodeOperandKind.imm32sex64:							
+			case OpCodeOperandKind.imm32sex64:
 			case OpCodeOperandKind.imm64:
 				return ArgKind.Immediate;
-			
+
 			case OpCodeOperandKind.seg_reg:
 				return ArgKind.RegisterSegment;
-			
+
 			case OpCodeOperandKind.dx:
 				return ArgKind.FilterRegisterDX;
 			case OpCodeOperandKind.cl:
@@ -1494,17 +1479,17 @@ namespace Generator.Assembler {
 				return ArgKind.FilterRegisterFS;
 			case OpCodeOperandKind.gs:
 				return ArgKind.FilterRegisterGS;
-			
+
 			case OpCodeOperandKind.bnd_reg:
 				return ArgKind.RegisterBND;
-			
+
 			case OpCodeOperandKind.cr_reg:
 				return ArgKind.RegisterCR;
 			case OpCodeOperandKind.tr_reg:
 				return ArgKind.RegisterTR;
 			case OpCodeOperandKind.dr_reg:
 				return ArgKind.RegisterDR;
-			
+
 			case OpCodeOperandKind.k_reg:
 			case OpCodeOperandKind.kp1_reg:
 			case OpCodeOperandKind.k_rm:
@@ -1547,8 +1532,8 @@ namespace Generator.Assembler {
 				case OpCodeOperandKind.r64_or_mem:
 				case OpCodeOperandKind.r64_or_mem_mpx:
 					return ArgKind.Register64;
-			    case OpCodeOperandKind.mm_or_mem:
-				    return ArgKind.RegisterMM;
+				case OpCodeOperandKind.mm_or_mem:
+					return ArgKind.RegisterMM;
 				case OpCodeOperandKind.k_or_mem:
 					return ArgKind.RegisterK;
 				case OpCodeOperandKind.xmm_or_mem:
@@ -1574,7 +1559,7 @@ namespace Generator.Assembler {
 					break;
 				}
 			}
-			
+
 			return ArgKind.Unknown;
 		}
 
@@ -1591,7 +1576,7 @@ namespace Generator.Assembler {
 
 			return false;
 		}
-		
+
 		protected static OpCodeSelectorKind GetSelectorKindForRegisterOrMemory(OpCodeInfo opCodeInfo, OpCodeOperandKind opKind, bool returnMemoryAsRegister) {
 
 			switch (opKind) {
@@ -1602,22 +1587,22 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.mem_mib: {
 				return GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory);
 			}
-			
+
 			case OpCodeOperandKind.mem_vsib32x:
 				return OpCodeSelectorKind.MemoryIndex32Xmm;
-			
+
 			case OpCodeOperandKind.mem_vsib32y:
 				return OpCodeSelectorKind.MemoryIndex32Ymm;
-			
+
 			case OpCodeOperandKind.mem_vsib32z:
 				return OpCodeSelectorKind.MemoryIndex32Zmm;
-			
+
 			case OpCodeOperandKind.mem_vsib64x:
 				return OpCodeSelectorKind.MemoryIndex64Xmm;
-			
+
 			case OpCodeOperandKind.mem_vsib64y:
 				return OpCodeSelectorKind.MemoryIndex64Ymm;
-			
+
 			case OpCodeOperandKind.mem_vsib64z:
 				return OpCodeSelectorKind.MemoryIndex64Zmm;
 
@@ -1637,7 +1622,7 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.mm_or_mem:
 				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryMM);
-			
+
 			case OpCodeOperandKind.xmm_or_mem:
 				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterXMM : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.MemoryXMM);
 
@@ -1652,7 +1637,7 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.k_or_mem:
 				return returnMemoryAsRegister ? OpCodeSelectorKind.RegisterK : GetOpCodeSelectorKindForMemory(opCodeInfo, OpCodeSelectorKind.Memory);
-			
+
 			case OpCodeOperandKind.r8_reg:
 			case OpCodeOperandKind.r8_opcode:
 				return OpCodeSelectorKind.Register8;
@@ -1676,10 +1661,10 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.r64_vvvv:
 			case OpCodeOperandKind.r64_reg_mem:
 				return OpCodeSelectorKind.Register64;
-			
+
 			case OpCodeOperandKind.seg_reg:
 				return OpCodeSelectorKind.RegisterSegment;
-			
+
 			case OpCodeOperandKind.k_reg:
 			case OpCodeOperandKind.kp1_reg:
 			case OpCodeOperandKind.k_rm:
@@ -1704,13 +1689,13 @@ namespace Generator.Assembler {
 			case OpCodeOperandKind.ymm_is4:
 			case OpCodeOperandKind.ymm_is5:
 				return OpCodeSelectorKind.RegisterYMM;
-			
+
 			case OpCodeOperandKind.zmm_reg:
 			case OpCodeOperandKind.zmm_rm:
 			case OpCodeOperandKind.zmm_vvvv:
 			case OpCodeOperandKind.zmmp3_vvvv:
 				return OpCodeSelectorKind.RegisterZMM;
-			
+
 			case OpCodeOperandKind.cr_reg:
 				return OpCodeSelectorKind.RegisterCR;
 
@@ -1722,7 +1707,7 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.bnd_reg:
 				return OpCodeSelectorKind.RegisterBND;
-			
+
 			case OpCodeOperandKind.es:
 				return OpCodeSelectorKind.RegisterES;
 
@@ -1734,13 +1719,13 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.ds:
 				return OpCodeSelectorKind.RegisterDS;
-			
+
 			case OpCodeOperandKind.fs:
 				return OpCodeSelectorKind.RegisterFS;
 
 			case OpCodeOperandKind.gs:
 				return OpCodeSelectorKind.RegisterGS;
-			
+
 			case OpCodeOperandKind.al:
 				return OpCodeSelectorKind.RegisterAL;
 
@@ -1755,31 +1740,29 @@ namespace Generator.Assembler {
 
 			case OpCodeOperandKind.eax:
 				return OpCodeSelectorKind.RegisterEAX;
-			
+
 			case OpCodeOperandKind.rax:
 				return OpCodeSelectorKind.RegisterRAX;
-			
+
 			case OpCodeOperandKind.st0:
 				return OpCodeSelectorKind.RegisterST0;
 			case OpCodeOperandKind.sti_opcode:
 				return OpCodeSelectorKind.RegisterST;
-			
+
 			case OpCodeOperandKind.seg_rSI:
 			case OpCodeOperandKind.es_rDI:
 			case OpCodeOperandKind.seg_rDI:
 			case OpCodeOperandKind.seg_rBX_al:
 				return OpCodeSelectorKind.Memory;
-			
+
 			default:
 				throw new ArgumentOutOfRangeException(nameof(opKind), opKind, null);
 			}
 		}
 
-		static OpCodeSelectorKind GetOpCodeSelectorKindForMemory(OpCodeInfo opCodeInfo, OpCodeSelectorKind defaultMemory)
-		{
-			var memSize = (MemorySize) InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
-			switch (memSize)
-			{
+		static OpCodeSelectorKind GetOpCodeSelectorKindForMemory(OpCodeInfo opCodeInfo, OpCodeSelectorKind defaultMemory) {
+			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
+			switch (memSize) {
 			case MemorySize.Fword6:
 				memSize = MemorySize.UInt32;
 				break;
@@ -1788,9 +1771,8 @@ namespace Generator.Assembler {
 				break;
 			}
 
-			var addressSize = 8 * MemorySizeInfoTable.Data[(int) memSize].Size;
-			switch (addressSize)
-			{
+			var addressSize = 8 * MemorySizeInfoTable.Data[(int)memSize].Size;
+			switch (addressSize) {
 			case 512:
 				return OpCodeSelectorKind.MemoryZMM;
 			case 256:
@@ -1827,10 +1809,10 @@ namespace Generator.Assembler {
 			}
 			group.Flags |= opCodeArgFlags;
 			group.AllOpCodeFlags |= code.Flags;
-			
+
 			// Handle pseudo ops
-			if (group.RootPseudoOpsKind != null) {
-				Debug.Assert(pseudoOpsKind != null);
+			if (group.RootPseudoOpsKind is object) {
+				Debug.Assert(pseudoOpsKind is object);
 				Debug.Assert(group.RootPseudoOpsKind.Value == pseudoOpsKind.Value);
 				Debug.Assert(_groupsWithPseudo.ContainsKey(key));
 			}
@@ -1842,7 +1824,7 @@ namespace Generator.Assembler {
 					}
 				}
 			}
-			
+
 			group.NumberOfLeadingArgToDiscard = numberLeadingArgToDiscard;
 			group.UpdateMaxArgSizes(argSizes);
 
@@ -1867,7 +1849,7 @@ namespace Generator.Assembler {
 
 			if (!pseudoOpsKind.HasValue && (opCodeArgFlags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) == 0) {
 				var broadcastName = RenameAmbiguousBroadcasts(name, code);
-				if ((opCodeArgFlags & OpCodeArgFlags.IsBroadcastXYZ) == 0  && broadcastName != name) {
+				if ((opCodeArgFlags & OpCodeArgFlags.IsBroadcastXYZ) == 0 && broadcastName != name) {
 					group.Flags |= OpCodeArgFlags.HasAmbiguousBroadcast;
 					AddOpCodeToGroup(broadcastName, memoName, signature, code, opCodeArgFlags | OpCodeArgFlags.IsBroadcastXYZ, null, numberLeadingArgToDiscard, argSizes, isOtherImmediate);
 				}
@@ -1887,7 +1869,7 @@ namespace Generator.Assembler {
 				}
 				AddOpCodeToGroup(name, memoName, newLabelULongSignature, code, opCodeArgFlags | OpCodeArgFlags.HasLabelUlong, null, numberLeadingArgToDiscard, argSizes, isOtherImmediate);
 			}
-			
+
 			return group;
 		}
 
@@ -1905,13 +1887,13 @@ namespace Generator.Assembler {
 			foreach (var group in _groupsWithPseudo.Values) {
 				var pseudo = group.RootPseudoOpsKind ?? throw new InvalidOperationException("Root cannot be null");
 				var pseudoNames = FormatterConstants.GetPseudoOps(pseudo);
-				
+
 				// Create new signature with last imm argument
 				var signature = new Signature();
 				for (int i = 0; i < group.Signature.ArgCount - 1; i++) {
 					signature.AddArgKind(group.Signature.GetArgKind(i));
 				}
-				
+
 				for (int i = 0; i < pseudoNames.Length; i++) {
 					var name = pseudoNames[i];
 					var key = new GroupKey(name, signature);
@@ -1932,7 +1914,7 @@ namespace Generator.Assembler {
 						Flags = OpCodeArgFlags.Pseudo,
 						AllOpCodeFlags = group.AllOpCodeFlags,
 						MemoName = group.MemoName,
-						ParentPseudoOpsKind = @group, 
+						ParentPseudoOpsKind = @group,
 						PseudoOpsKindImmediateValue = imm
 					};
 					newGroup.UpdateMaxArgSizes(group.MaxArgSizes);
@@ -1962,8 +1944,7 @@ namespace Generator.Assembler {
 
 			public static bool operator !=(GroupKey left, GroupKey right) => !left.Equals(right);
 
-			public int CompareTo(GroupKey other)
-			{
+			public int CompareTo(GroupKey other) {
 				var nameComparison = string.Compare(Name, other.Name, StringComparison.Ordinal);
 				if (nameComparison != 0) return nameComparison;
 				return Signature.CompareTo(other.Signature);
@@ -1987,7 +1968,7 @@ namespace Generator.Assembler {
 			public override string ToString() {
 				var builder = new StringBuilder();
 				builder.Append('(');
-				for(int i = 0; i < ArgCount; i++) {
+				for (int i = 0; i < ArgCount; i++) {
 					if (i > 0) builder.Append(", ");
 					builder.Append(GetArgKind(i));
 				}
@@ -2005,8 +1986,7 @@ namespace Generator.Assembler {
 
 			public static bool operator !=(Signature left, Signature right) => !left.Equals(right);
 
-			public int CompareTo(Signature other)
-			{
+			public int CompareTo(Signature other) {
 				var argCountComparison = ArgCount.CompareTo(other.ArgCount);
 				if (argCountComparison != 0) return argCountComparison;
 				return _argKinds.CompareTo(other._argKinds);
@@ -2030,7 +2010,7 @@ namespace Generator.Assembler {
 			RegisterCR,
 			RegisterDR,
 			RegisterTR,
-			
+
 			Register8Memory,
 			Register16Memory,
 			Register32Memory,
@@ -2041,13 +2021,13 @@ namespace Generator.Assembler {
 			RegisterXMMMemory,
 			RegisterYMMMemory,
 			RegisterZMMMemory,
-			
+
 			Memory,
 			Immediate,
 			ImmediateUnsigned,
 			Label,
 			LabelUlong,
-			
+
 			FilterRegisterDX,
 			FilterRegisterCL,
 			FilterRegisterAL,
@@ -2074,21 +2054,21 @@ namespace Generator.Assembler {
 				Items = new List<OpCodeInfo>();
 				MaxArgSizes = new List<int>();
 			}
-			
+
 			public string MemoName { get; set; }
-			
+
 			public string Name { get; }
-			
+
 			public OpCodeFlags AllOpCodeFlags { get; set; }
 
 			public OpCodeArgFlags Flags { get; set; }
-			
+
 			public PseudoOpsKind? RootPseudoOpsKind { get; set; }
-			
+
 			public OpCodeInfoGroup? ParentPseudoOpsKind { get; set; }
-			
+
 			public int PseudoOpsKindImmediateValue { get; set; }
-			
+
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
 
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
@@ -2096,21 +2076,21 @@ namespace Generator.Assembler {
 			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear)) != 0;
 
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
-			
+
 			public bool HasVexAndEvex => (Flags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex);
-			
+
 			public bool HasImmediateUnsigned => (Flags & OpCodeArgFlags.HasImmediateUnsigned) != 0;
 
 			public Signature Signature { get; }
-			
+
 			public OpCodeNode RootOpCodeNode { get; set; }
-			
+
 			public int MaxImmediateSize { get; set; }
 
 			public List<OpCodeInfo> Items { get; }
-			
+
 			public List<int> MaxArgSizes { get; }
-			
+
 			public int NumberOfLeadingArgToDiscard { get; set; }
 
 			public void UpdateMaxArgSizes(List<int> argSizes) {
@@ -2124,22 +2104,22 @@ namespace Generator.Assembler {
 					}
 				}
 			}
-			
+
 			public int OrderOpCodesPerOpKindPriority(OpCodeInfo x, OpCodeInfo y) {
 				Debug.Assert(x.OpKindsLength == y.OpKindsLength);
 				int result;
 				for (int i = 0; i < x.OpKindsLength; i++) {
-					if (!IsRegister(Signature.GetArgKind(i))) continue;  
+					if (!IsRegister(Signature.GetArgKind(i))) continue;
 					result = GetPriorityFromKind(GetOperandKind(x, i), GetMemoryAddressSizeInBits(x)).CompareTo(GetPriorityFromKind(GetOperandKind(y, i), GetMemoryAddressSizeInBits(y)));
 					if (result != 0) return result;
 				}
 
 				for (int i = 0; i < x.OpKindsLength; i++) {
-					if (IsRegister(Signature.GetArgKind(i))) continue;  
+					if (IsRegister(Signature.GetArgKind(i))) continue;
 					result = GetPriorityFromKind(GetOperandKind(x, i), GetMemoryAddressSizeInBits(x)).CompareTo(GetPriorityFromKind(GetOperandKind(y, i), GetMemoryAddressSizeInBits(y)));
 					if (result != 0) return result;
 				}
-				
+
 				// Case for ordering by decreasing bitness
 				var xmemSize = (MemorySize)InstructionMemorySizesTable.Table[x.Code.Value].mem.Value;
 				var ymemSize = (MemorySize)InstructionMemorySizesTable.Table[y.Code.Value].mem.Value;
@@ -2160,7 +2140,7 @@ namespace Generator.Assembler {
 			foreach (var opCodeInfo in group.Items) {
 				var ctorInfos = Generator.Formatters.Intel.CtorInfos.Infos[opCodeInfo.Code.Value];
 				var enumValue = ctorInfos[ctorInfos.Length - 1] as EnumValue;
-				if (enumValue == null || enumValue.DeclaringType.TypeId != TypeIds.PseudoOpsKind)
+				if (enumValue is null || enumValue.DeclaringType.TypeId != TypeIds.PseudoOpsKind)
 					break;
 
 				pseudoOpsKind = (PseudoOpsKind)enumValue.Value;
@@ -2168,7 +2148,7 @@ namespace Generator.Assembler {
 
 			return pseudoOpsKind;
 		}
-		
+
 		protected static bool IsSelectorSupportedByBitness(int bitness, OpCodeSelectorKind kind, out bool continueElse) {
 			continueElse = true;
 			switch (kind) {
@@ -2209,7 +2189,7 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-		protected static (OpCodeArgFlags,OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
+		protected static (OpCodeArgFlags, OpCodeArgFlags) GetIfElseContextFlags(OpCodeSelectorKind kind) {
 			switch (kind) {
 			case OpCodeSelectorKind.Vex:
 				return (OpCodeArgFlags.HasVex, OpCodeArgFlags.HasEvex);
@@ -2512,7 +2492,7 @@ namespace Generator.Assembler {
 
 			return false;
 		}
-		
+
 		protected static bool IsAmbiguousBroadcast(OpCodeInfo opCodeInfo) {
 			switch ((Code)opCodeInfo.Code.Value) {
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
@@ -2545,8 +2525,7 @@ namespace Generator.Assembler {
 		static string RenameAmbiguousBroadcasts(string name, OpCodeInfo opCodeInfo) {
 			if ((opCodeInfo.Flags & OpCodeFlags.Broadcast) == 0) return name;
 
-			if (IsAmbiguousBroadcast(opCodeInfo))
-			{
+			if (IsAmbiguousBroadcast(opCodeInfo)) {
 				for (int i = 0; i < opCodeInfo.OpKindsLength; i++) {
 					var kind = GetOperandKind(opCodeInfo, i);
 					switch (kind) {
@@ -2559,10 +2538,10 @@ namespace Generator.Assembler {
 					}
 				}
 			}
-			
+
 			return name;
 		}
-		
+
 		protected readonly struct OpCodeNode {
 			readonly object _value;
 
@@ -2574,10 +2553,10 @@ namespace Generator.Assembler {
 				_value = selector;
 			}
 
-			public bool IsEmpty => _value == null;
+			public bool IsEmpty => _value is null;
 
 			public OpCodeInfo? OpCodeInfo => _value as OpCodeInfo;
-			
+
 			public OpCodeSelector? Selector => _value as OpCodeSelector;
 
 			public static implicit operator OpCodeNode(OpCodeInfo opCodeInfo) => new OpCodeNode(opCodeInfo);
@@ -2588,7 +2567,7 @@ namespace Generator.Assembler {
 		protected class OpCodeSelector {
 			public OpCodeSelector(OpCodeSelectorKind kind) {
 				ArgIndex = -1;
-				Kind = kind;	
+				Kind = kind;
 			}
 
 			public OpCodeSelector(int argIndex, OpCodeSelectorKind kind) {
@@ -2599,23 +2578,23 @@ namespace Generator.Assembler {
 			public readonly int ArgIndex;
 
 			public readonly OpCodeSelectorKind Kind;
-			
+
 			public OpCodeNode IfTrue;
 
 			public OpCodeNode IfFalse;
 
-			public bool IsConditionInlineable => IfTrue.OpCodeInfo != null && IfFalse.OpCodeInfo != null;
+			public bool IsConditionInlineable => IfTrue.OpCodeInfo is object && IfFalse.OpCodeInfo is object;
 		}
 
 		protected enum OpCodeSelectorKind {
 			Invalid,
-			
+
 			Bitness64,
 			Bitness32,
 			Bitness16,
-			
+
 			BranchShort,
-			
+
 			ImmediateInt,
 			ImmediateByte,
 			ImmediateByteEqual1,
@@ -2628,15 +2607,15 @@ namespace Generator.Assembler {
 			EvexBroadcastX,
 			EvexBroadcastY,
 			EvexBroadcastZ,
-						
+
 			MemoryIndex32Xmm,
 			MemoryIndex32Ymm,
 			MemoryIndex32Zmm,
-			
+
 			MemoryIndex64Xmm,
 			MemoryIndex64Ymm,
 			MemoryIndex64Zmm,
-			
+
 			RegisterCL,
 			RegisterAL,
 			RegisterAX,
@@ -2652,23 +2631,23 @@ namespace Generator.Assembler {
 			RegisterFS,
 			RegisterGS,
 			RegisterDX,
-			
+
 			Register8,
 			Register16,
 			Register32,
 			Register64,
-			
+
 			RegisterK,
-			
+
 			RegisterST0,
 			RegisterST,
-			
+
 			RegisterSegment,
 
 			RegisterCR,
 			RegisterDR,
 			RegisterTR,
-			
+
 			RegisterMM,
 			RegisterXMM,
 			RegisterYMM,
@@ -2682,14 +2661,14 @@ namespace Generator.Assembler {
 			Memory48,
 			Memory64,
 			Memory80,
-		
+
 			MemoryK,
-			
+
 			MemoryMM,
 			MemoryXMM,
 			MemoryYMM,
 			MemoryZMM,
-			
+
 			MemOffs64_RAX,
 			MemOffs64_EAX,
 			MemOffs64_AX,

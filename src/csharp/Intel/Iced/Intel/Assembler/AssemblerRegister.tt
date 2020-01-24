@@ -23,47 +23,46 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+
 #if !NO_ENCODER
 #nullable enable
 using System;
 using System.Diagnostics;
 
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 <#
-    foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "Segment", "BND" })
-    {
-	    var isName = r switch
-	    {
-		    "8" => "GPR8",
-		    "16" => "GPR16",
-		    "32" => "GPR32",
-		    "64" => "GPR64",
-		    "Segment" => "SegmentRegister",
-		    _ => $"{r}"
-		    };
-	    bool is32_64 = r == "32" || r == "64";
-	    bool is16_32_64 = r == "16" || is32_64;
-	    bool isXYZMM = r == "XMM" || r == "YMM" || r == "ZMM";
-	    bool hasSaeRounding = is32_64 | isXYZMM; 
-	    bool hasFlags = isXYZMM || r == "K" || hasSaeRounding;
+	foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "Segment", "BND" })
+	{
+		var isName = r switch
+		{
+			"8" => "GPR8",
+			"16" => "GPR16",
+			"32" => "GPR32",
+			"64" => "GPR64",
+			"Segment" => "SegmentRegister",
+			_ => $"{r}"
+		};
+		bool is32_64 = r == "32" || r == "64";
+		bool is16_32_64 = r == "16" || is32_64;
+		bool isXYZMM = r == "XMM" || r == "YMM" || r == "ZMM";
+		bool hasSaeRounding = is32_64 | isXYZMM; 
+		bool hasFlags = isXYZMM || r == "K" || hasSaeRounding;
 #>
-     /// <summary>
+	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
 	public readonly partial struct AssemblerRegister<#= r #> : IEquatable<AssemblerRegister<#= r #>> {
-
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
 		public AssemblerRegister<#= r #>(Register value) {
-            if (!value.Is<#= isName #>()) throw new ArgumentException($"Invalid register {value}. Must be a <#= isName #> register", nameof(value));
+			if (!value.Is<#= isName #>()) throw new ArgumentException($"Invalid register {value}. Must be a <#= isName #> register", nameof(value));
 			Value = value;
 <# if (hasFlags) { #>
 			Flags = AssemblerOperandFlags.None;
-<#      }#>
+<#	  }#>
 		} 
 
 		/// <summary>
@@ -72,8 +71,8 @@ namespace Iced.Intel
 		public readonly Register Value;
 
 <#
-	    if (hasFlags)
-	    {
+		if (hasFlags)
+		{
 #>
 		/// <summary>
 		/// Creates a new instance.
@@ -131,8 +130,8 @@ namespace Iced.Intel
 		public AssemblerRegister<#= r #> z => new AssemblerRegister<#= r #>(Value, Flags | AssemblerOperandFlags.Zeroing);
 		
 <#
-		    if (hasSaeRounding)
-		    {
+			if (hasSaeRounding)
+			{
 #>
 
 		/// <summary>
@@ -160,8 +159,8 @@ namespace Iced.Intel
 		/// </summary>
 		public AssemblerRegister<#= r #> rz_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
 <#
-		    }
-	    }
+			}
+		}
 #>
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegister<#= r #>"/> to a <see cref="Register"/>.
@@ -173,8 +172,8 @@ namespace Iced.Intel
 		}
 
 <#
-	    if (is16_32_64)
-	    {
+		if (is16_32_64)
+		{
 #>
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -186,10 +185,10 @@ namespace Iced.Intel
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
 <#
-		    foreach (var mm in new string[] {"XMM", "YMM", "ZMM"})
-		    {
+			foreach (var mm in new string[] {"XMM", "YMM", "ZMM"})
+			{
 #>
-    	/// <summary>
+		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
@@ -198,12 +197,12 @@ namespace Iced.Intel
 		public static AssemblerMemoryOperand operator +(AssemblerRegister<#= r #> left, AssemblerRegister<#= mm #> right) {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
-<#			    
-			    
-		    }
-	    }
-	    
-	    if (is16_32_64 || isXYZMM) {
+<#				
+				
+			}
+		}
+		
+		if (is16_32_64 || isXYZMM) {
 #>
 		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
@@ -235,26 +234,26 @@ namespace Iced.Intel
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
 		}
 <#
-	    }
+		}
 #>
 		/// <inheritdoc />
 <#
-	    if (hasFlags)
-	    {
+		if (hasFlags)
+		{
 #>
 		public bool Equals(AssemblerRegister<#= r #> other) => Value == other.Value && Flags == other.Flags;
 
 		/// <inheritdoc />
 		public override int GetHashCode() => ((int) Value * 397) ^ (int)Flags;
 <#
-	    } else {
+		} else {
 #>
 		public bool Equals(AssemblerRegister<#= r #> other) => Value == other.Value;
 
 		/// <inheritdoc />
 		public override int GetHashCode() => (int) Value;
 <#
-	    }
+		}
 #>
 		/// <inheritdoc />
 		public override bool Equals(object? obj) => obj is AssemblerRegister<#= r #> other && Equals(other);
@@ -277,8 +276,8 @@ namespace Iced.Intel
 	}
 
 <#
-	    if (is16_32_64)
-	    {
+		if (is16_32_64)
+		{
 #>
 	public readonly partial struct AssemblerMemoryOperandFactory {
 		/// <summary>
@@ -286,10 +285,10 @@ namespace Iced.Intel
 		/// </summary>
 		/// <param name="register">Size of this memory operand.</param>
 		public AssemblerMemoryOperand this[AssemblerRegister<#= r #> register] => new AssemblerMemoryOperand(Size, Prefix, register, Register.None, 1, 0, Flags);
-    }
+	}
 <#
-	    }
-    }
+		}
+	}
 #>
 }
 #endif
