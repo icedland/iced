@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Encode the instruction first to get any errors
 			var writer = new CodeWriterImpl();
-			assembler.Encode(writer, 0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
+			assembler.Assemble(writer, 0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
 			
 			// Check that the instruction is the one expected
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
@@ -224,7 +224,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			fAsm(assembler);
 
 			var writer = new CodeWriterImpl();
-			assembler.Encode(writer);
+			assembler.Assemble(writer);
 			var buffer = writer.ToArray();
 			
 			Assert.Equal(sizeOfT * data.Length, buffer.Length);

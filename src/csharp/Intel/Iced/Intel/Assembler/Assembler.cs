@@ -373,25 +373,25 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Encode the instructions of this assembler with the specified options.
+		/// Assembles the instructions of this assembler with the specified options.
 		/// </summary>
 		/// <param name="writer">The code writer.</param>
 		/// <param name="baseRIP">Base RIP address.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public AssemblerResult Encode(CodeWriter writer, ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
+		public AssemblerResult Assemble(CodeWriter writer, ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
 
-			if (!TryEncode(writer, baseRIP, out var errorMessage, out var assemblerResult, options)) {
+			if (!TryAssemble(writer, baseRIP, out var errorMessage, out var assemblerResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
 			return assemblerResult;
 		}
 
 		/// <summary>
-		/// Tries to encode the instructions of this assembler with the specified options.
+		/// Tries to assemble the instructions of this assembler with the specified options.
 		/// </summary>
 		/// <param name="writer">The code writer.</param>
 		/// <param name="baseRIP">Base RIP address.</param>
@@ -399,7 +399,7 @@ namespace Iced.Intel {
 		/// <param name="assemblerResult">The assembler result.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
-		public bool TryEncode(CodeWriter writer, ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+		public bool TryAssemble(CodeWriter writer, ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
 
