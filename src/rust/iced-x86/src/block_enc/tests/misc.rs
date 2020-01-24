@@ -42,18 +42,21 @@ fn encode_zero_instructions() {
 	let mut result;
 
 	result = BlockEncoder::encode(16, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
+	assert_eq!(0, result.rip);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
 	assert!(result.constant_offsets.is_empty());
 
 	result = BlockEncoder::encode(32, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
+	assert_eq!(0, result.rip);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
 	assert!(result.constant_offsets.is_empty());
 
 	result = BlockEncoder::encode(64, InstructionBlock::new(&[], 0), BlockEncoderOptions::NONE).unwrap();
+	assert_eq!(0, result.rip);
 	assert!(result.code_buffer.is_empty());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
@@ -75,6 +78,7 @@ fn default_args() {
 	];
 	let instructions = decode(BITNESS, ORIG_RIP, &original_data, DecoderOptions::NONE);
 	let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions, NEW_RIP), BlockEncoderOptions::NONE).unwrap();
+	assert_eq!(NEW_RIP, result.rip);
 	assert_eq!(0x28, result.code_buffer.len());
 	assert!(result.reloc_infos.is_empty());
 	assert!(result.new_instruction_offsets.is_empty());
@@ -99,6 +103,7 @@ fn verify_result_vectors() {
 		{
 			let instructions1 = decode(BITNESS, ORIG_RIP1, &[0xE9, 0x56, 0x78, 0xA5, 0x5A], DecoderOptions::NONE);
 			let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions1, NEW_RIP1), options).unwrap();
+			assert_eq!(NEW_RIP1, result.rip);
 			if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 {
 				assert_eq!(1, result.reloc_infos.len());
 			} else {
@@ -122,6 +127,8 @@ fn verify_result_vectors() {
 			let block2 = InstructionBlock::new(&instructions2, NEW_RIP2);
 			let result = BlockEncoder::encode_slice(BITNESS, &[block1, block2], options).unwrap();
 			assert_eq!(2, result.len());
+			assert_eq!(NEW_RIP1, result[0].rip);
+			assert_eq!(NEW_RIP2, result[1].rip);
 			if (options & BlockEncoderOptions::RETURN_RELOC_INFOS) != 0 {
 				assert_eq!(1, result[0].reloc_infos.len());
 				assert_eq!(1, result[1].reloc_infos.len());
@@ -169,6 +176,7 @@ fn encode_declare_byte() {
 
 		let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions, NEW_RIP), BlockEncoderOptions::NONE).unwrap();
 		assert_eq!(info.1, result.code_buffer);
+		assert_eq!(NEW_RIP, result.rip);
 		assert!(result.reloc_infos.is_empty());
 		assert!(result.new_instruction_offsets.is_empty());
 		assert!(result.constant_offsets.is_empty());

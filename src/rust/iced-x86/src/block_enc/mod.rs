@@ -99,6 +99,11 @@ impl<'a> InstructionBlock<'a> {
 /// [`BlockEncoder`]: struct.BlockEncoder.html
 #[derive(Debug)]
 pub struct BlockEncoderResult {
+	/// <summary>
+	/// Base IP of all encoded instructions
+	/// </summary>
+	pub rip: u64,
+
 	/// The bytes of all encoded instructions
 	pub code_buffer: Vec<u8>,
 
@@ -396,6 +401,7 @@ impl BlockEncoder {
 			}
 			block.write_data();
 			result_vec.push(BlockEncoderResult {
+				rip: block.rip,
 				code_buffer: block.take_buffer(),
 				reloc_infos: block.take_reloc_infos(),
 				new_instruction_offsets,

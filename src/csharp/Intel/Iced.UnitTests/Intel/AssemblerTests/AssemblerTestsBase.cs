@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.IO;
 using System.Text;
 using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
@@ -224,7 +223,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			fAsm(assembler);
 
 			var writer = new CodeWriterImpl();
-			assembler.Assemble(writer);
+			assembler.Assemble(writer, 0);
 			var buffer = writer.ToArray();
 			
 			Assert.Equal(sizeOfT * data.Length, buffer.Length);

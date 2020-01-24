@@ -27,7 +27,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				var assembler = Assembler.Create(Bitness);
 				var writer = new CodeWriterImpl();
-				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Assemble(writer));
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Assemble(writer, 0));
 				Assert.Contains("Unused prefixes", ex.Message);
 			}
 			{
@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var label = assembler.CreateLabel(("BadLabel"));
 				assembler.Label(ref label);
 				var writer = new CodeWriterImpl();
-				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Assemble(writer));
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Assemble(writer, 0));
 				Assert.Contains("Unused label", ex.Message);
 			}
 		}
@@ -71,7 +71,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				Assert.Throws<ArgumentException>(() => c.Label(ref label1));
 				
 				var writer = new CodeWriterImpl();
-				var result = c.Assemble(writer);
+				var result = c.Assemble(writer, 0);
 				// Will throw without BlockEncoderOptions.ReturnNewInstructionOffsets
 				Assert.Throws<ArgumentOutOfRangeException>(() => result.GetLabelRIP(label1));
 			}

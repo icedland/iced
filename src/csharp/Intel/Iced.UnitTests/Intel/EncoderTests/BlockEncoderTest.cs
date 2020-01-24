@@ -74,6 +74,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Null(errorMessage);
 			var encodedBytes = codeWriter.ToArray();
 			Assert.Equal(newData, encodedBytes);
+			Assert.Equal(newRip, result.RIP);
 			var relocInfos = result.RelocInfos;
 			var newInstructionOffsets = result.NewInstructionOffsets;
 			var constantOffsets = result.ConstantOffsets;

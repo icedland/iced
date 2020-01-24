@@ -100,6 +100,11 @@ namespace Iced.Intel {
 	/// </summary>
 	public readonly struct BlockEncoderResult {
 		/// <summary>
+		/// Base IP of all encoded instructions
+		/// </summary>
+		public readonly ulong RIP;
+
+		/// <summary>
 		/// If <see cref="BlockEncoderOptions.ReturnRelocInfos"/> option was enabled:
 		/// <br/>
 		/// All <see cref="RelocInfo"/>s
@@ -122,7 +127,8 @@ namespace Iced.Intel {
 		/// </summary>
 		public readonly ConstantOffsets[] ConstantOffsets;
 
-		internal BlockEncoderResult(List<RelocInfo>? relocInfos, uint[]? newInstructionOffsets, ConstantOffsets[]? constantOffsets) {
+		internal BlockEncoderResult(ulong rip, List<RelocInfo>? relocInfos, uint[]? newInstructionOffsets, ConstantOffsets[]? constantOffsets) {
+			RIP = rip;
 			RelocInfos = relocInfos;
 			NewInstructionOffsets = newInstructionOffsets ?? Array2.Empty<uint>();
 			ConstantOffsets = constantOffsets ?? Array2.Empty<ConstantOffsets>();
@@ -346,7 +352,7 @@ namespace Iced.Intel {
 					}
 					ip += size;
 				}
-				resultArray[i] = new BlockEncoderResult(block.relocInfos, newInstructionOffsets, constantOffsets);
+				resultArray[i] = new BlockEncoderResult(block.RIP, block.relocInfos, newInstructionOffsets, constantOffsets);
 				block.WriteData();
 			}
 

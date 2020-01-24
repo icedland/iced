@@ -64,6 +64,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
+			Assert.Equal(0UL, result.RIP);
 			Assert.Null(result.RelocInfos);
 			Assert.NotNull(result.NewInstructionOffsets);
 			Assert.True(result.NewInstructionOffsets.Length == 0);
@@ -74,6 +75,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
+			Assert.Equal(0UL, result.RIP);
 			Assert.Null(result.RelocInfos);
 			Assert.NotNull(result.NewInstructionOffsets);
 			Assert.True(result.NewInstructionOffsets.Length == 0);
@@ -84,6 +86,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Empty(codeWriter.ToArray());
+			Assert.Equal(0UL, result.RIP);
 			Assert.Null(result.RelocInfos);
 			Assert.NotNull(result.NewInstructionOffsets);
 			Assert.True(result.NewInstructionOffsets.Length == 0);
@@ -109,6 +112,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter, instructions, newRip), out var errorMessage, out var result);
 			Assert.True(b);
 			Assert.Null(errorMessage);
+			Assert.Equal(newRip, result.RIP);
 			Assert.Equal(0x28, codeWriter.ToArray().Length);
 			Assert.Null(result.RelocInfos);
 			Assert.NotNull(result.NewInstructionOffsets);
@@ -134,6 +138,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				bool b = BlockEncoder.TryEncode(bitness, new InstructionBlock(codeWriter1, instructions1, newRip1), out var errorMessage, out var result, options);
 				Assert.True(b);
 				Assert.Null(errorMessage);
+				Assert.Equal(newRip1, result.RIP);
 				if ((options & BlockEncoderOptions.ReturnRelocInfos) != 0) {
 					Assert.NotNull(result.RelocInfos);
 					Assert.True(result.RelocInfos.Count == 1);
@@ -169,6 +174,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Null(errorMessage);
 				Assert.NotNull(resultArray);
 				Assert.Equal(2, resultArray.Length);
+				Assert.Equal(newRip1, resultArray[0].RIP);
+				Assert.Equal(newRip2, resultArray[1].RIP);
 				if ((options & BlockEncoderOptions.ReturnRelocInfos) != 0) {
 					Assert.NotNull(resultArray[0].RelocInfos);
 					Assert.NotNull(resultArray[1].RelocInfos);
@@ -231,6 +238,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.True(b);
 			Assert.Null(errorMessage);
 			Assert.Equal(expectedData, codeWriter.ToArray());
+			Assert.Equal(newRip, result.RIP);
 			Assert.Null(result.RelocInfos);
 			Assert.NotNull(result.NewInstructionOffsets);
 			Assert.True(result.NewInstructionOffsets.Length == 0);

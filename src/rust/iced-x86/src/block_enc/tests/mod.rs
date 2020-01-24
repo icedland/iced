@@ -75,6 +75,7 @@ fn encode_test(
 	let result = BlockEncoder::encode(bitness, InstructionBlock::new(&orig_instrs, new_rip), options).unwrap();
 	let encoded_bytes = result.code_buffer;
 	assert_eq!(new_data, &encoded_bytes[..]);
+	assert_eq!(new_rip, result.rip);
 	let reloc_infos = result.reloc_infos;
 	let new_instruction_offsets = result.new_instruction_offsets;
 	let constant_offsets = result.constant_offsets;

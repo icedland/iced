@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Iced.Intel {
@@ -376,15 +377,15 @@ namespace Iced.Intel {
 		/// Assembles the instructions of this assembler with the specified options.
 		/// </summary>
 		/// <param name="writer">The code writer.</param>
-		/// <param name="baseRIP">Base RIP address.</param>
+		/// <param name="rip">Base address.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public AssemblerResult Assemble(CodeWriter writer, ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
+		public AssemblerResult Assemble(CodeWriter writer, ulong rip, BlockEncoderOptions options = BlockEncoderOptions.None) {
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
 
-			if (!TryAssemble(writer, baseRIP, out var errorMessage, out var assemblerResult, options)) {
+			if (!TryAssemble(writer, rip, out var errorMessage, out var assemblerResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
 			return assemblerResult;
@@ -394,12 +395,12 @@ namespace Iced.Intel {
 		/// Tries to assemble the instructions of this assembler with the specified options.
 		/// </summary>
 		/// <param name="writer">The code writer.</param>
-		/// <param name="baseRIP">Base RIP address.</param>
+		/// <param name="rip">Base address.</param>
 		/// <param name="errorMessage">Error messages.</param>
-		/// <param name="assemblerResult">The assembler result.</param>
+		/// <param name="assemblerResult">The assembler result if successful.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
-		public bool TryAssemble(CodeWriter writer, ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+		public bool TryAssemble(CodeWriter writer, ulong rip, [NotNullWhen(false)] out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
 			if (writer is null)
 				ThrowHelper.ThrowArgumentNullException_writer();
 
@@ -410,23 +411,22 @@ namespace Iced.Intel {
 				errorMessage = $"Unused prefixes {_nextPrefixFlags}. You must emit an instruction after using an instruction prefix.";
 				return false;
 			}
-			
+
 			// Protect against a label emitted without being attached to an instruction
 			if (!_label.IsEmpty) {
 				errorMessage = $"Unused label {_label}. You must emit an instruction after emitting a label.";
 				return false;
 			}
-			
-			var blocks = new InstructionBlock[1];
-			var block = new InstructionBlock(writer, _instructions, baseRIP);
-			blocks[0] = block;
 
-			var result = BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options);
-			if (result && blockResults != null) {
-				assemblerResult = new AssemblerResult(baseRIP, blockResults[0]);
+			var blocks = new[] { new InstructionBlock(writer, _instructions, rip) };
+			if (BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options)) {
+				assemblerResult = new AssemblerResult(blockResults);
+				return true;
 			}
-
-			return result;
+			else {
+				assemblerResult = new AssemblerResult(Array2.Empty<BlockEncoderResult>());
+				return false;
+			}
 		}
 
 		/// <summary>
