@@ -56,7 +56,7 @@ namespace Iced.Intel {
 		public bool IsEmpty => Id == 0;
 
 		/// <inheritdoc />
-		public override string ToString() => "{Name}@{Id}";
+		public override string ToString() => $"{Name}@{Id}";
 
 		/// <inheritdoc />
 		public bool Equals(Label other) => Name == other.Name && Id == other.Id;
