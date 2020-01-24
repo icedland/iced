@@ -136,7 +136,7 @@ namespace Generator {
 		public static readonly TypeId PrefixKind = new TypeId(nameof(PrefixKind));
 		public static readonly TypeId DecoratorKind = new TypeId(nameof(DecoratorKind));
 		public static readonly TypeId NumberKind = new TypeId(nameof(NumberKind));
-		public static readonly TypeId FormatterOutputTextKind = new TypeId(nameof(FormatterOutputTextKind));
+		public static readonly TypeId FormatterTextKind = new TypeId(nameof(FormatterTextKind));
 		public static readonly TypeId SymbolFlags = new TypeId(nameof(SymbolFlags));
 		public static readonly TypeId GasInstrOpKind = new TypeId(nameof(GasInstrOpKind));
 		public static readonly TypeId IntelInstrOpKind = new TypeId(nameof(IntelInstrOpKind));

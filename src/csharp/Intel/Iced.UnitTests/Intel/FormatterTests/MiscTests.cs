@@ -241,7 +241,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			var sb = new StringBuilder();
 			sb.Append("Text");
 			var output = new StringOutput(sb);
-			output.Write("hello", FormatterOutputTextKind.Text);
+			output.Write("hello", FormatterTextKind.Text);
 			Assert.Equal("Texthello", sb.ToString());
 			Assert.Equal("Texthello", output.ToString());
 		}

@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::{Code, Instruction, Register};
-use super::enums::{FormatterFlowControl, FormatterOutputTextKind, PrefixKind};
+use super::enums::{FormatterFlowControl, FormatterTextKind, PrefixKind};
 use super::FormatterOutput;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -79,7 +79,7 @@ fn add_strings(output: &mut FormatterOutput, strings: &[String], count: u32) {
 	let mut count = count as usize;
 	while count > 0 {
 		let n = cmp::min(count, strings.len());
-		output.write(&strings[n - 1], FormatterOutputTextKind::Text);
+		output.write(&strings[n - 1], FormatterTextKind::Text);
 		count -= n;
 	}
 }

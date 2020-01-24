@@ -202,12 +202,12 @@ impl<'a> MasmFormatter<'a> {
 
 		if (mnemonic_options & FormatMnemonicOptions::NO_MNEMONIC) == 0 {
 			if need_space {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				*column += 1;
 			}
 			let mnemonic = op_info.mnemonic;
 			if (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) != 0 {
-				output.write(mnemonic.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterOutputTextKind::Directive);
+				output.write(mnemonic.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterTextKind::Directive);
 			} else {
 				output.write_mnemonic(instruction, mnemonic.get(self.options.upper_case_mnemonics() || self.options.upper_case_all()));
 			}
@@ -264,7 +264,7 @@ impl<'a> MasmFormatter<'a> {
 	) {
 		if *need_space {
 			*column += 1;
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 		output.write_prefix(instruction, prefix.get(self.options.upper_case_prefixes() || self.options.upper_case_all()), prefix_kind);
 		*column += prefix.len() as u32;
@@ -274,9 +274,9 @@ impl<'a> MasmFormatter<'a> {
 	fn format_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput, op_info: &InstrOpInfo) {
 		for i in 0..op_info.op_count as u32 {
 			if i > 0 {
-				output.write(",", FormatterOutputTextKind::Punctuation);
+				output.write(",", FormatterTextKind::Punctuation);
 				if self.options.space_after_operand_separator() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			}
 			self.format_operand(instruction, output, op_info, i);
@@ -380,7 +380,7 @@ impl<'a> MasmFormatter<'a> {
 						s,
 						imm64,
 						number_kind,
-						if is_call(flow_control) { FormatterOutputTextKind::FunctionAddress } else { FormatterOutputTextKind::LabelAddress },
+						if is_call(flow_control) { FormatterTextKind::FunctionAddress } else { FormatterTextKind::LabelAddress },
 					);
 				}
 			}
@@ -443,10 +443,10 @@ impl<'a> MasmFormatter<'a> {
 							s,
 							instruction.far_branch_selector() as u64,
 							NumberKind::UInt16,
-							FormatterOutputTextKind::SelectorValue,
+							FormatterTextKind::SelectorValue,
 						);
 					}
-					output.write(":", FormatterOutputTextKind::Punctuation);
+					output.write(":", FormatterTextKind::Punctuation);
 					FormatterOutputMethods::write1(
 						output,
 						instruction,
@@ -480,10 +480,10 @@ impl<'a> MasmFormatter<'a> {
 							s,
 							instruction.far_branch_selector() as u64,
 							NumberKind::UInt16,
-							FormatterOutputTextKind::SelectorValue,
+							FormatterTextKind::SelectorValue,
 						);
 					}
-					output.write(":", FormatterOutputTextKind::Punctuation);
+					output.write(":", FormatterTextKind::Punctuation);
 					let s = if op_kind == InstrOpKind::FarBranch32 {
 						self.number_formatter.format_u32_zeroes(
 							&self.options,
@@ -506,7 +506,7 @@ impl<'a> MasmFormatter<'a> {
 						s,
 						imm64,
 						number_kind,
-						if is_call(flow_control) { FormatterOutputTextKind::FunctionAddress } else { FormatterOutputTextKind::LabelAddress },
+						if is_call(flow_control) { FormatterTextKind::FunctionAddress } else { FormatterTextKind::LabelAddress },
 					);
 				}
 			}
@@ -529,7 +529,7 @@ impl<'a> MasmFormatter<'a> {
 				} {
 					if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
 						self.format_keyword(output, &self.str_.offset);
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					let mut number_options = NumberFormattingOptions::with_immediate(&self.options);
 					if let Some(ref mut options_provider) = self.options_provider {
@@ -556,7 +556,7 @@ impl<'a> MasmFormatter<'a> {
 						imm64 = imm8 as i8 as u64;
 						number_kind = NumberKind::Int8;
 						if (imm8 as i8) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm8 = -(imm8 as i8) as u8;
 						}
 					} else {
@@ -564,7 +564,7 @@ impl<'a> MasmFormatter<'a> {
 						number_kind = NumberKind::UInt8;
 					}
 					let s = self.number_formatter.format_u8(&self.options, &number_options, imm8);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -584,7 +584,7 @@ impl<'a> MasmFormatter<'a> {
 				} {
 					if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
 						self.format_keyword(output, &self.str_.offset);
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					let mut number_options = NumberFormattingOptions::with_immediate(&self.options);
 					if let Some(ref mut options_provider) = self.options_provider {
@@ -611,7 +611,7 @@ impl<'a> MasmFormatter<'a> {
 						imm64 = imm16 as i16 as u64;
 						number_kind = NumberKind::Int16;
 						if (imm16 as i16) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm16 = -(imm16 as i16) as u16;
 						}
 					} else {
@@ -619,7 +619,7 @@ impl<'a> MasmFormatter<'a> {
 						number_kind = NumberKind::UInt16;
 					}
 					let s = self.number_formatter.format_u16(&self.options, &number_options, imm16);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -639,7 +639,7 @@ impl<'a> MasmFormatter<'a> {
 				} {
 					if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
 						self.format_keyword(output, &self.str_.offset);
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					let mut number_options = NumberFormattingOptions::with_immediate(&self.options);
 					if let Some(ref mut options_provider) = self.options_provider {
@@ -666,7 +666,7 @@ impl<'a> MasmFormatter<'a> {
 						imm64 = imm32 as i32 as u64;
 						number_kind = NumberKind::Int32;
 						if (imm32 as i32) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm32 = -(imm32 as i32) as u32;
 						}
 					} else {
@@ -674,7 +674,7 @@ impl<'a> MasmFormatter<'a> {
 						number_kind = NumberKind::UInt32;
 					}
 					let s = self.number_formatter.format_u32(&self.options, &number_options, imm32);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -696,7 +696,7 @@ impl<'a> MasmFormatter<'a> {
 				} {
 					if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
 						self.format_keyword(output, &self.str_.offset);
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					let mut number_options = NumberFormattingOptions::with_immediate(&self.options);
 					if let Some(ref mut options_provider) = self.options_provider {
@@ -723,14 +723,14 @@ impl<'a> MasmFormatter<'a> {
 					if number_options.signed_number {
 						number_kind = NumberKind::Int64;
 						if (imm64 as i64) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm64 = -(imm64 as i64) as u64;
 						}
 					} else {
 						number_kind = NumberKind::UInt64;
 					}
 					let s = self.number_formatter.format_u64(&self.options, &number_options, imm64);
-					output.write_number(instruction, operand, instruction_operand, s, value64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, value64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -924,9 +924,9 @@ impl<'a> MasmFormatter<'a> {
 		}
 
 		if operand == 0 && instruction.has_op_mask() {
-			output.write("{", FormatterOutputTextKind::Punctuation);
+			output.write("{", FormatterTextKind::Punctuation);
 			self.format_register_internal(output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
-			output.write("}", FormatterOutputTextKind::Punctuation);
+			output.write("}", FormatterTextKind::Punctuation);
 			if instruction.zeroing_masking() {
 				self.format_decorator(output, instruction, operand, instruction_operand, &self.str_.z, DecoratorKind::ZeroingMasking);
 			}
@@ -939,7 +939,7 @@ impl<'a> MasmFormatter<'a> {
 				const_assert_eq!(2, RoundingControl::RoundDown as u32);
 				const_assert_eq!(3, RoundingControl::RoundUp as u32);
 				const_assert_eq!(4, RoundingControl::RoundTowardZero as u32);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				self.format_decorator(
 					output,
 					instruction,
@@ -949,7 +949,7 @@ impl<'a> MasmFormatter<'a> {
 					DecoratorKind::RoundingControl,
 				);
 			} else if instruction.suppress_all_exceptions() {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				self.format_decorator(output, instruction, operand, instruction_operand, &self.str_.sae, DecoratorKind::SuppressAllExceptions);
 			}
 		}
@@ -959,7 +959,7 @@ impl<'a> MasmFormatter<'a> {
 		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &FormatterString,
 		decorator: DecoratorKind,
 	) {
-		output.write("{", FormatterOutputTextKind::Punctuation);
+		output.write("{", FormatterTextKind::Punctuation);
 		output.write_decorator(
 			instruction,
 			operand,
@@ -967,7 +967,7 @@ impl<'a> MasmFormatter<'a> {
 			text.get(self.options.upper_case_decorators() || self.options.upper_case_all()),
 			decorator,
 		);
-		output.write("}", FormatterOutputTextKind::Punctuation);
+		output.write("}", FormatterTextKind::Punctuation);
 	}
 
 	#[inline]
@@ -1073,7 +1073,7 @@ impl<'a> MasmFormatter<'a> {
 			|| (is1632 && !has_mem_reg && symbol.is_none() && self.options.masm_add_ds_prefix32())
 		{
 			self.format_register_internal(output, instruction, operand, instruction_operand, seg_reg as u32);
-			output.write(":", FormatterOutputTextKind::Punctuation);
+			output.write(":", FormatterTextKind::Punctuation);
 		}
 		if !displ_in_brackets {
 			self.format_memory_displ(
@@ -1092,9 +1092,9 @@ impl<'a> MasmFormatter<'a> {
 			);
 		}
 		if need_brackets {
-			output.write("[", FormatterOutputTextKind::Punctuation);
+			output.write("[", FormatterTextKind::Punctuation);
 			if self.options.space_after_memory_bracket() {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 		}
 
@@ -1108,11 +1108,11 @@ impl<'a> MasmFormatter<'a> {
 		if index_reg != Register::None {
 			if need_plus {
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("+", FormatterOutputTextKind::Operator);
+				output.write("+", FormatterTextKind::Operator);
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			}
 			need_plus = true;
@@ -1127,24 +1127,24 @@ impl<'a> MasmFormatter<'a> {
 					SCALE_NUMBERS[scale as usize],
 					1u64 << scale,
 					NumberKind::Int32,
-					FormatterOutputTextKind::Number,
+					FormatterTextKind::Number,
 				);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("*", FormatterOutputTextKind::Operator);
+				output.write("*", FormatterTextKind::Operator);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 				self.format_register_internal(output, instruction, operand, instruction_operand, index_reg as u32);
 			} else {
 				self.format_register_internal(output, instruction, operand, instruction_operand, index_reg as u32);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("*", FormatterOutputTextKind::Operator);
+				output.write("*", FormatterTextKind::Operator);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 				output.write_number(
 					instruction,
@@ -1153,7 +1153,7 @@ impl<'a> MasmFormatter<'a> {
 					SCALE_NUMBERS[scale as usize],
 					1u64 << scale,
 					NumberKind::Int32,
-					FormatterOutputTextKind::Number,
+					FormatterTextKind::Number,
 				);
 			}
 		}
@@ -1177,9 +1177,9 @@ impl<'a> MasmFormatter<'a> {
 
 		if need_brackets {
 			if self.options.space_after_memory_bracket() {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
-			output.write("]", FormatterOutputTextKind::Punctuation);
+			output.write("]", FormatterTextKind::Punctuation);
 		}
 	}
 
@@ -1196,18 +1196,18 @@ impl<'a> MasmFormatter<'a> {
 		if let &Some(ref symbol) = symbol {
 			if need_plus {
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 				if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-					output.write("-", FormatterOutputTextKind::Operator);
+					output.write("-", FormatterTextKind::Operator);
 				} else {
-					output.write("+", FormatterOutputTextKind::Operator);
+					output.write("+", FormatterTextKind::Operator);
 				}
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-				output.write("-", FormatterOutputTextKind::Operator);
+				output.write("-", FormatterTextKind::Operator);
 			}
 
 			FormatterOutputMethods::write2(
@@ -1230,17 +1230,17 @@ impl<'a> MasmFormatter<'a> {
 			if need_plus {
 				is_signed = number_options.signed_number;
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 
 				if addr_size == 4 {
 					if !number_options.signed_number {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i32) < 0 {
-						output.write("-", FormatterOutputTextKind::Operator);
+						output.write("-", FormatterTextKind::Operator);
 						displ = (-(displ as i32)) as u32 as i64;
 					} else {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					}
 					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 4);
@@ -1248,12 +1248,12 @@ impl<'a> MasmFormatter<'a> {
 					}
 				} else if addr_size == 8 {
 					if !number_options.signed_number {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					} else if displ < 0 {
-						output.write("-", FormatterOutputTextKind::Operator);
+						output.write("-", FormatterTextKind::Operator);
 						displ = -displ;
 					} else {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					}
 					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 8);
@@ -1262,12 +1262,12 @@ impl<'a> MasmFormatter<'a> {
 				} else {
 					debug_assert_eq!(2, addr_size);
 					if !number_options.signed_number {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					} else if (displ as i16) < 0 {
-						output.write("-", FormatterOutputTextKind::Operator);
+						output.write("-", FormatterTextKind::Operator);
 						displ = (-(displ as i16)) as u16 as i64;
 					} else {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					}
 					if number_options.displacement_leading_zeroes {
 						debug_assert!(displ_size <= 2);
@@ -1275,7 +1275,7 @@ impl<'a> MasmFormatter<'a> {
 					}
 				}
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			} else {
 				is_signed = false;
@@ -1304,7 +1304,7 @@ impl<'a> MasmFormatter<'a> {
 			} else {
 				unreachable!();
 			};
-			output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterOutputTextKind::Number);
+			output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterTextKind::Number);
 		}
 	}
 
@@ -1379,7 +1379,7 @@ impl<'a> MasmFormatter<'a> {
 
 		for &name in mem_size_strings.iter() {
 			self.format_keyword(output, name);
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 
@@ -1409,7 +1409,7 @@ impl<'a> MasmFormatter<'a> {
 	}
 
 	fn format_keyword(&mut self, output: &mut FormatterOutput, keyword: &FormatterString) {
-		output.write(keyword.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterOutputTextKind::Keyword);
+		output.write(keyword.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterTextKind::Keyword);
 	}
 
 	fn format_flow_control(&mut self, output: &mut FormatterOutput, kind: FormatterFlowControl, operand_options: FormatterOperandOptions) {
@@ -1422,23 +1422,23 @@ impl<'a> MasmFormatter<'a> {
 
 			FormatterFlowControl::ShortBranch => {
 				self.format_keyword(output, &self.str_.short);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 
 			FormatterFlowControl::NearBranch => {
 				self.format_keyword(output, &self.str_.near);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				self.format_keyword(output, &self.str_.ptr);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 
 			FormatterFlowControl::NearCall => {}
 
 			FormatterFlowControl::FarBranch | FormatterFlowControl::FarCall => {
 				self.format_keyword(output, &self.str_.far);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				self.format_keyword(output, &self.str_.ptr);
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 
 			FormatterFlowControl::Xbegin => {}
@@ -1521,9 +1521,9 @@ impl<'a> Formatter for MasmFormatter<'a> {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn format_operand_separator(&mut self, _instruction: &Instruction, output: &mut FormatterOutput) {
-		output.write(",", FormatterOutputTextKind::Punctuation);
+		output.write(",", FormatterTextKind::Punctuation);
 		if self.options.space_after_operand_separator() {
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 

@@ -32,7 +32,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="text">Text</param>
 		/// <param name="kind">Text kind</param>
-		public abstract void Write(string text, FormatterOutputTextKind kind);
+		public abstract void Write(string text, FormatterTextKind kind);
 
 		/// <summary>
 		/// Writes a prefix
@@ -40,14 +40,14 @@ namespace Iced.Intel {
 		/// <param name="instruction">Instruction</param>
 		/// <param name="text">Prefix text</param>
 		/// <param name="prefix">Prefix</param>
-		public virtual void WritePrefix(in Instruction instruction, string text, PrefixKind prefix) => Write(text, FormatterOutputTextKind.Prefix);
+		public virtual void WritePrefix(in Instruction instruction, string text, PrefixKind prefix) => Write(text, FormatterTextKind.Prefix);
 
 		/// <summary>
 		/// Writes a mnemonic (see <see cref="Instruction.Mnemonic"/>)
 		/// </summary>
 		/// <param name="instruction">Instruction</param>
 		/// <param name="text">Mnemonic text</param>
-		public virtual void WriteMnemonic(in Instruction instruction, string text) => Write(text, FormatterOutputTextKind.Mnemonic);
+		public virtual void WriteMnemonic(in Instruction instruction, string text) => Write(text, FormatterTextKind.Mnemonic);
 
 		/// <summary>
 		/// Writes a number
@@ -59,7 +59,7 @@ namespace Iced.Intel {
 		/// <param name="value">Value</param>
 		/// <param name="numberKind">Number kind</param>
 		/// <param name="kind">Text kind</param>
-		public virtual void WriteNumber(in Instruction instruction, int operand, int instructionOperand, string text, ulong value, NumberKind numberKind, FormatterOutputTextKind kind) => Write(text, kind);
+		public virtual void WriteNumber(in Instruction instruction, int operand, int instructionOperand, string text, ulong value, NumberKind numberKind, FormatterTextKind kind) => Write(text, kind);
 
 		/// <summary>
 		/// Writes a decorator
@@ -69,7 +69,7 @@ namespace Iced.Intel {
 		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
 		/// <param name="text">Decorator text</param>
 		/// <param name="decorator">Decorator</param>
-		public virtual void WriteDecorator(in Instruction instruction, int operand, int instructionOperand, string text, DecoratorKind decorator) => Write(text, FormatterOutputTextKind.Decorator);
+		public virtual void WriteDecorator(in Instruction instruction, int operand, int instructionOperand, string text, DecoratorKind decorator) => Write(text, FormatterTextKind.Decorator);
 
 		/// <summary>
 		/// Writes a register
@@ -79,7 +79,7 @@ namespace Iced.Intel {
 		/// <param name="instructionOperand">Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.</param>
 		/// <param name="text">Register text</param>
 		/// <param name="register">Register</param>
-		public virtual void WriteRegister(in Instruction instruction, int operand, int instructionOperand, string text, Register register) => Write(text, FormatterOutputTextKind.Register);
+		public virtual void WriteRegister(in Instruction instruction, int operand, int instructionOperand, string text, Register register) => Write(text, FormatterTextKind.Register);
 
 		/// <summary>
 		/// Writes a symbol
@@ -107,17 +107,17 @@ namespace Iced.Intel {
 			long displ = (long)(address - symbol.Address);
 			if ((symbol.Flags & SymbolFlags.Signed) != 0) {
 				if (writeMinusIfSigned)
-					Write("-", FormatterOutputTextKind.Operator);
+					Write("-", FormatterTextKind.Operator);
 				displ = -displ;
 			}
 			WriteSymbol(instruction, operand, instructionOperand, address, symbol);
 			NumberKind numberKind;
 			if (displ != 0) {
 				if (spacesBetweenOp)
-					Write(" ", FormatterOutputTextKind.Text);
+					Write(" ", FormatterTextKind.Text);
 				ulong origDispl = (ulong)displ;
 				if (displ < 0) {
-					Write("-", FormatterOutputTextKind.Operator);
+					Write("-", FormatterTextKind.Operator);
 					displ = -displ;
 					if (displ <= sbyte.MaxValue + 1)
 						numberKind = NumberKind.Int8;
@@ -129,7 +129,7 @@ namespace Iced.Intel {
 						numberKind = NumberKind.Int64;
 				}
 				else {
-					Write("+", FormatterOutputTextKind.Operator);
+					Write("+", FormatterTextKind.Operator);
 					if (displ <= sbyte.MaxValue)
 						numberKind = NumberKind.Int8;
 					else if (displ <= short.MaxValue)
@@ -140,13 +140,13 @@ namespace Iced.Intel {
 						numberKind = NumberKind.Int64;
 				}
 				if (spacesBetweenOp)
-					Write(" ", FormatterOutputTextKind.Text);
+					Write(" ", FormatterTextKind.Text);
 				var s = numberFormatter.FormatUInt64(options, numberOptions, (ulong)displ, leadingZeroes: false);
-				WriteNumber(instruction, operand, instructionOperand, s, origDispl, numberKind, FormatterOutputTextKind.Number);
+				WriteNumber(instruction, operand, instructionOperand, s, origDispl, numberKind, FormatterTextKind.Number);
 			}
 			if (showSymbolAddress) {
-				Write(" ", FormatterOutputTextKind.Text);
-				Write("(", FormatterOutputTextKind.Punctuation);
+				Write(" ", FormatterTextKind.Text);
+				Write("(", FormatterTextKind.Punctuation);
 				string s;
 				if (address <= ushort.MaxValue) {
 					s = numberFormatter.FormatUInt16(options, numberOptions, (ushort)address, leadingZeroes: true);
@@ -160,8 +160,8 @@ namespace Iced.Intel {
 					s = numberFormatter.FormatUInt64(options, numberOptions, address, leadingZeroes: true);
 					numberKind = NumberKind.UInt64;
 				}
-				WriteNumber(instruction, operand, instructionOperand, s, address, numberKind, FormatterOutputTextKind.Number);
-				Write(")", FormatterOutputTextKind.Punctuation);
+				WriteNumber(instruction, operand, instructionOperand, s, address, numberKind, FormatterTextKind.Number);
+				Write(")", FormatterTextKind.Punctuation);
 			}
 		}
 	}

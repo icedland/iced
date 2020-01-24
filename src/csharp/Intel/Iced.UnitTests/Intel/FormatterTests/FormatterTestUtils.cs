@@ -61,13 +61,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				formatter.FormatOperand(instruction, output, i);
 				operands[i] = output.ToStringAndReset();
 			}
-			output.Write(mnemonic, FormatterOutputTextKind.Text);
+			output.Write(mnemonic, FormatterTextKind.Text);
 			if (operands.Length > 0) {
-				output.Write(" ", FormatterOutputTextKind.Text);
+				output.Write(" ", FormatterTextKind.Text);
 				for (int i = 0; i < operands.Length; i++) {
 					if (i > 0)
 						formatter.FormatOperandSeparator(instruction, output);
-					output.Write(operands[i], FormatterOutputTextKind.Text);
+					output.Write(operands[i], FormatterTextKind.Text);
 				}
 			}
 			actualFormattedString = output.ToStringAndReset();

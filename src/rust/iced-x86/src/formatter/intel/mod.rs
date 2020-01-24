@@ -215,19 +215,19 @@ impl<'a> IntelFormatter<'a> {
 
 		if (mnemonic_options & FormatMnemonicOptions::NO_MNEMONIC) == 0 {
 			if need_space {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				*column += 1;
 			}
 			let mnemonic = op_info.mnemonic;
 			if (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) != 0 {
-				output.write(mnemonic.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterOutputTextKind::Directive);
+				output.write(mnemonic.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterTextKind::Directive);
 			} else {
 				output.write_mnemonic(instruction, mnemonic.get(self.options.upper_case_mnemonics() || self.options.upper_case_all()));
 			}
 			*column += mnemonic.len() as u32;
 
 			if (op_info.flags & InstrOpInfoFlags::FAR_MNEMONIC as u16) != 0 {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 				// This should be treated as part of the mnemonic
 				output.write_mnemonic(instruction, &self.str_.far.get(self.options.upper_case_mnemonics() || self.options.upper_case_all()));
 				*column += (self.str_.far.len() + 1) as u32;
@@ -283,7 +283,7 @@ impl<'a> IntelFormatter<'a> {
 	) {
 		if *need_space {
 			*column += 1;
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 		output.write_prefix(instruction, prefix.get(self.options.upper_case_prefixes() || self.options.upper_case_all()), prefix_kind);
 		*column += prefix.len() as u32;
@@ -293,9 +293,9 @@ impl<'a> IntelFormatter<'a> {
 	fn format_operands(&mut self, instruction: &Instruction, output: &mut FormatterOutput, op_info: &InstrOpInfo) {
 		for i in 0..op_info.op_count as u32 {
 			if i > 0 {
-				output.write(",", FormatterOutputTextKind::Punctuation);
+				output.write(",", FormatterTextKind::Punctuation);
 				if self.options.space_after_operand_separator() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			}
 			self.format_operand(instruction, output, op_info, i);
@@ -399,7 +399,7 @@ impl<'a> IntelFormatter<'a> {
 						s,
 						imm64,
 						number_kind,
-						if is_call(flow_control) { FormatterOutputTextKind::FunctionAddress } else { FormatterOutputTextKind::LabelAddress },
+						if is_call(flow_control) { FormatterTextKind::FunctionAddress } else { FormatterTextKind::LabelAddress },
 					);
 				}
 			}
@@ -441,9 +441,9 @@ impl<'a> IntelFormatter<'a> {
 						symbol,
 						self.options.show_symbol_address(),
 					);
-					output.write(",", FormatterOutputTextKind::Punctuation);
+					output.write(",", FormatterTextKind::Punctuation);
 					if self.options.space_after_operand_separator() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					debug_assert!(operand + 1 == 1);
 					let selector_symbol = if let Some(ref mut symbol_resolver) = self.symbol_resolver {
@@ -486,7 +486,7 @@ impl<'a> IntelFormatter<'a> {
 							s,
 							instruction.far_branch_selector() as u64,
 							NumberKind::UInt16,
-							FormatterOutputTextKind::SelectorValue,
+							FormatterTextKind::SelectorValue,
 						);
 					}
 				} else {
@@ -535,12 +535,12 @@ impl<'a> IntelFormatter<'a> {
 							s,
 							imm64,
 							number_kind,
-							if is_call(flow_control) { FormatterOutputTextKind::FunctionAddress } else { FormatterOutputTextKind::LabelAddress },
+							if is_call(flow_control) { FormatterTextKind::FunctionAddress } else { FormatterTextKind::LabelAddress },
 						);
 					}
-					output.write(",", FormatterOutputTextKind::Punctuation);
+					output.write(",", FormatterTextKind::Punctuation);
 					if self.options.space_after_operand_separator() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					let mut number_options = NumberFormattingOptions::with_branch(&self.options);
 					if let Some(ref mut options_provider) = self.options_provider {
@@ -559,7 +559,7 @@ impl<'a> IntelFormatter<'a> {
 						s,
 						instruction.far_branch_selector() as u64,
 						NumberKind::UInt16,
-						FormatterOutputTextKind::SelectorValue,
+						FormatterTextKind::SelectorValue,
 					);
 				}
 			}
@@ -603,7 +603,7 @@ impl<'a> IntelFormatter<'a> {
 						imm64 = imm8 as i8 as u64;
 						number_kind = NumberKind::Int8;
 						if (imm8 as i8) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm8 = -(imm8 as i8) as u8;
 						}
 					} else {
@@ -611,7 +611,7 @@ impl<'a> IntelFormatter<'a> {
 						number_kind = NumberKind::UInt8;
 					}
 					let s = self.number_formatter.format_u8(&self.options, &number_options, imm8);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -654,7 +654,7 @@ impl<'a> IntelFormatter<'a> {
 						imm64 = imm16 as i16 as u64;
 						number_kind = NumberKind::Int16;
 						if (imm16 as i16) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm16 = -(imm16 as i16) as u16;
 						}
 					} else {
@@ -662,7 +662,7 @@ impl<'a> IntelFormatter<'a> {
 						number_kind = NumberKind::UInt16;
 					}
 					let s = self.number_formatter.format_u16(&self.options, &number_options, imm16);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -705,7 +705,7 @@ impl<'a> IntelFormatter<'a> {
 						imm64 = imm32 as i32 as u64;
 						number_kind = NumberKind::Int32;
 						if (imm32 as i32) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm32 = -(imm32 as i32) as u32;
 						}
 					} else {
@@ -713,7 +713,7 @@ impl<'a> IntelFormatter<'a> {
 						number_kind = NumberKind::UInt32;
 					}
 					let s = self.number_formatter.format_u32(&self.options, &number_options, imm32);
-					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, imm64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -758,14 +758,14 @@ impl<'a> IntelFormatter<'a> {
 					if number_options.signed_number {
 						number_kind = NumberKind::Int64;
 						if (imm64 as i64) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							imm64 = -(imm64 as i64) as u64;
 						}
 					} else {
 						number_kind = NumberKind::UInt64;
 					}
 					let s = self.number_formatter.format_u64(&self.options, &number_options, imm64);
-					output.write_number(instruction, operand, instruction_operand, s, value64, number_kind, FormatterOutputTextKind::Number);
+					output.write_number(instruction, operand, instruction_operand, s, value64, number_kind, FormatterTextKind::Number);
 				}
 			}
 
@@ -959,9 +959,9 @@ impl<'a> IntelFormatter<'a> {
 		}
 
 		if operand == 0 && instruction.has_op_mask() && (op_info.flags & InstrOpInfoFlags::IGNORE_OP_MASK as u16) == 0 {
-			output.write("{", FormatterOutputTextKind::Punctuation);
+			output.write("{", FormatterTextKind::Punctuation);
 			self.format_register_internal(output, instruction, operand, instruction_operand, instruction.op_mask() as u32);
-			output.write("}", FormatterOutputTextKind::Punctuation);
+			output.write("}", FormatterTextKind::Punctuation);
 			if instruction.zeroing_masking() {
 				self.format_decorator(output, instruction, operand, instruction_operand, &self.str_.z, DecoratorKind::ZeroingMasking);
 			}
@@ -996,7 +996,7 @@ impl<'a> IntelFormatter<'a> {
 			[((flags as usize) >> InstrOpInfoFlags::BRANCH_SIZE_INFO_SHIFT) & InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize];
 		for &keyword in keywords.iter() {
 			self.format_keyword(output, keyword);
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 
@@ -1004,7 +1004,7 @@ impl<'a> IntelFormatter<'a> {
 		&mut self, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &FormatterString,
 		decorator: DecoratorKind,
 	) {
-		output.write("{", FormatterOutputTextKind::Punctuation);
+		output.write("{", FormatterTextKind::Punctuation);
 		output.write_decorator(
 			instruction,
 			operand,
@@ -1012,7 +1012,7 @@ impl<'a> IntelFormatter<'a> {
 			text.get(self.options.upper_case_decorators() || self.options.upper_case_all()),
 			decorator,
 		);
-		output.write("}", FormatterOutputTextKind::Punctuation);
+		output.write("}", FormatterTextKind::Punctuation);
 	}
 
 	#[inline]
@@ -1100,11 +1100,11 @@ impl<'a> IntelFormatter<'a> {
 				&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
 		if self.options.always_show_segment_register() || (seg_override != Register::None && !notrack_prefix) {
 			self.format_register_internal(output, instruction, operand, instruction_operand, seg_reg as u32);
-			output.write(":", FormatterOutputTextKind::Punctuation);
+			output.write(":", FormatterTextKind::Punctuation);
 		}
-		output.write("[", FormatterOutputTextKind::Punctuation);
+		output.write("[", FormatterTextKind::Punctuation);
 		if self.options.space_after_memory_bracket() {
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 
 		let mut need_plus = if base_reg != Register::None {
@@ -1117,11 +1117,11 @@ impl<'a> IntelFormatter<'a> {
 		if index_reg != Register::None {
 			if need_plus {
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("+", FormatterOutputTextKind::Operator);
+				output.write("+", FormatterTextKind::Operator);
 				if self.options.space_between_memory_add_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 			}
 			need_plus = true;
@@ -1136,24 +1136,24 @@ impl<'a> IntelFormatter<'a> {
 					SCALE_NUMBERS[scale as usize],
 					1u64 << scale,
 					NumberKind::Int32,
-					FormatterOutputTextKind::Number,
+					FormatterTextKind::Number,
 				);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("*", FormatterOutputTextKind::Operator);
+				output.write("*", FormatterTextKind::Operator);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 				self.format_register_internal(output, instruction, operand, instruction_operand, index_reg as u32);
 			} else {
 				self.format_register_internal(output, instruction, operand, instruction_operand, index_reg as u32);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
-				output.write("*", FormatterOutputTextKind::Operator);
+				output.write("*", FormatterTextKind::Operator);
 				if self.options.space_between_memory_mul_operators() {
-					output.write(" ", FormatterOutputTextKind::Text);
+					output.write(" ", FormatterTextKind::Text);
 				}
 				output.write_number(
 					instruction,
@@ -1162,7 +1162,7 @@ impl<'a> IntelFormatter<'a> {
 					SCALE_NUMBERS[scale as usize],
 					1u64 << scale,
 					NumberKind::Int32,
-					FormatterOutputTextKind::Number,
+					FormatterTextKind::Number,
 				);
 			}
 		}
@@ -1175,18 +1175,18 @@ impl<'a> IntelFormatter<'a> {
 			if let Some(ref symbol) = symbol {
 				if need_plus {
 					if self.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 					if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-						output.write("-", FormatterOutputTextKind::Operator);
+						output.write("-", FormatterTextKind::Operator);
 					} else {
-						output.write("+", FormatterOutputTextKind::Operator);
+						output.write("+", FormatterTextKind::Operator);
 					}
 					if self.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 				} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-					output.write("-", FormatterOutputTextKind::Operator);
+					output.write("-", FormatterTextKind::Operator);
 				}
 
 				FormatterOutputMethods::write2(
@@ -1209,17 +1209,17 @@ impl<'a> IntelFormatter<'a> {
 				if need_plus {
 					is_signed = number_options.signed_number;
 					if self.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 
 					if addr_size == 4 {
 						if !number_options.signed_number {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						} else if (displ as i32) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							displ = (-(displ as i32)) as u32 as i64;
 						} else {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 4);
@@ -1227,12 +1227,12 @@ impl<'a> IntelFormatter<'a> {
 						}
 					} else if addr_size == 8 {
 						if !number_options.signed_number {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						} else if displ < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							displ = -displ;
 						} else {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 8);
@@ -1241,12 +1241,12 @@ impl<'a> IntelFormatter<'a> {
 					} else {
 						debug_assert_eq!(2, addr_size);
 						if !number_options.signed_number {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						} else if (displ as i16) < 0 {
-							output.write("-", FormatterOutputTextKind::Operator);
+							output.write("-", FormatterTextKind::Operator);
 							displ = (-(displ as i16)) as u16 as i64;
 						} else {
-							output.write("+", FormatterOutputTextKind::Operator);
+							output.write("+", FormatterTextKind::Operator);
 						}
 						if number_options.displacement_leading_zeroes {
 							debug_assert!(displ_size <= 2);
@@ -1254,7 +1254,7 @@ impl<'a> IntelFormatter<'a> {
 						}
 					}
 					if self.options.space_between_memory_add_operators() {
-						output.write(" ", FormatterOutputTextKind::Text);
+						output.write(" ", FormatterTextKind::Text);
 					}
 				} else {
 					is_signed = false;
@@ -1283,14 +1283,14 @@ impl<'a> IntelFormatter<'a> {
 				} else {
 					unreachable!();
 				};
-				output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterOutputTextKind::Number);
+				output.write_number(instruction, operand, instruction_operand, s, orig_displ, displ_kind, FormatterTextKind::Number);
 			}
 		}
 
 		if self.options.space_after_memory_bracket() {
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
-		output.write("]", FormatterOutputTextKind::Punctuation);
+		output.write("]", FormatterTextKind::Punctuation);
 
 		debug_assert!((mem_size as usize) < self.all_memory_sizes.len());
 		let bcst_to = &self.all_memory_sizes[mem_size as usize].bcst_to;
@@ -1338,7 +1338,7 @@ impl<'a> IntelFormatter<'a> {
 
 		for &keyword in mem_info.keywords.iter() {
 			self.format_keyword(output, keyword);
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 
@@ -1362,7 +1362,7 @@ impl<'a> IntelFormatter<'a> {
 	}
 
 	fn format_keyword(&mut self, output: &mut FormatterOutput, keyword: &FormatterString) {
-		output.write(keyword.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterOutputTextKind::Keyword);
+		output.write(keyword.get(self.options.upper_case_keywords() || self.options.upper_case_all()), FormatterTextKind::Keyword);
 	}
 }
 
@@ -1441,9 +1441,9 @@ impl<'a> Formatter for IntelFormatter<'a> {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn format_operand_separator(&mut self, _instruction: &Instruction, output: &mut FormatterOutput) {
-		output.write(",", FormatterOutputTextKind::Punctuation);
+		output.write(",", FormatterTextKind::Punctuation);
 		if self.options.space_after_operand_separator() {
-			output.write(" ", FormatterOutputTextKind::Text);
+			output.write(" ", FormatterTextKind::Text);
 		}
 	}
 

@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		/// <param name="text">Symbol</param>
 		public SymbolResult(ulong address, string text) {
 			Address = address;
-			Text = new TextInfo(text, FormatterOutputTextKind.Label);
+			Text = new TextInfo(text, FormatterTextKind.Label);
 			Flags = SymbolFlags.None;
 			SymbolSize = MemorySize.Unknown;
 		}
@@ -107,7 +107,7 @@ namespace Iced.Intel {
 		/// <param name="size">Symbol size</param>
 		public SymbolResult(ulong address, string text, MemorySize size) {
 			Address = address;
-			Text = new TextInfo(text, FormatterOutputTextKind.Label);
+			Text = new TextInfo(text, FormatterTextKind.Label);
 			Flags = SymbolFlags.HasSymbolSize;
 			SymbolSize = size;
 		}
@@ -118,7 +118,7 @@ namespace Iced.Intel {
 		/// <param name="address">The address of the symbol</param>
 		/// <param name="text">Symbol</param>
 		/// <param name="color">Color</param>
-		public SymbolResult(ulong address, string text, FormatterOutputTextKind color) {
+		public SymbolResult(ulong address, string text, FormatterTextKind color) {
 			Address = address;
 			Text = new TextInfo(text, color);
 			Flags = SymbolFlags.None;
@@ -132,7 +132,7 @@ namespace Iced.Intel {
 		/// <param name="text">Symbol</param>
 		/// <param name="color">Color</param>
 		/// <param name="flags">Symbol flags</param>
-		public SymbolResult(ulong address, string text, FormatterOutputTextKind color, SymbolFlags flags) {
+		public SymbolResult(ulong address, string text, FormatterTextKind color, SymbolFlags flags) {
 			Address = address;
 			Text = new TextInfo(text, color);
 			Flags = flags & ~SymbolFlags.HasSymbolSize;
@@ -216,7 +216,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="text">Text</param>
 		/// <param name="color">Color</param>
-		public TextInfo(string text, FormatterOutputTextKind color) {
+		public TextInfo(string text, FormatterTextKind color) {
 			Text = new TextPart(text, color);
 			TextArray = null;
 		}
@@ -252,14 +252,14 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Color
 		/// </summary>
-		public readonly FormatterOutputTextKind Color;
+		public readonly FormatterTextKind Color;
 
 		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="text">Text</param>
 		/// <param name="color">Color</param>
-		public TextPart(string text, FormatterOutputTextKind color) {
+		public TextPart(string text, FormatterTextKind color) {
 			Text = text;
 			Color = color;
 		}

@@ -54,7 +54,7 @@ namespace Iced.Intel {
 		/// <param name="text">Text, can be an empty string</param>
 		/// <param name="kind">Text kind. This value can be identical to the previous value passed to this method. It's
 		/// the responsibility of the implementer to merge any such strings if needed.</param>
-		public override void Write(string text, FormatterOutputTextKind kind) => sb.Append(text);
+		public override void Write(string text, FormatterTextKind kind) => sb.Append(text);
 
 		/// <summary>
 		/// Clears the <see cref="StringBuilder"/> instance so this class can be reused to format the next instruction

@@ -268,9 +268,9 @@ namespace Iced.Intel {
 		public override void FormatOperandSeparator(in Instruction instruction, FormatterOutput output) {
 			if (output is null)
 				ThrowHelper.ThrowArgumentNullException_output();
-			output.Write(",", FormatterOutputTextKind.Punctuation);
+			output.Write(",", FormatterTextKind.Punctuation);
 			if (options.SpaceAfterOperandSeparator)
-				output.Write(" ", FormatterOutputTextKind.Text);
+				output.Write(" ", FormatterTextKind.Text);
 		}
 
 		/// <summary>
@@ -318,13 +318,13 @@ namespace Iced.Intel {
 
 					case SizeOverride.Size16:
 					case SizeOverride.Size32:
-						output.Write(str_dot_byte.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterOutputTextKind.Directive);
-						output.Write(" ", FormatterOutputTextKind.Text);
+						output.Write(str_dot_byte.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterTextKind.Directive);
+						output.Write(" ", FormatterTextKind.Text);
 						var numberOptions = NumberFormattingOptions.CreateImmediateInternal(options);
 						var s = numberFormatter.FormatUInt8(options, numberOptions, 0x66);
-						output.Write(s, FormatterOutputTextKind.Number);
-						output.Write(";", FormatterOutputTextKind.Punctuation);
-						output.Write(" ", FormatterOutputTextKind.Text);
+						output.Write(s, FormatterTextKind.Number);
+						output.Write(";", FormatterTextKind.Punctuation);
+						output.Write(" ", FormatterTextKind.Text);
 						column += str_dot_byte.Length + 1 + s.Length + 1 + 1;
 						break;
 
@@ -377,12 +377,12 @@ namespace Iced.Intel {
 
 			if ((mnemonicOptions & FormatMnemonicOptions.NoMnemonic) == 0) {
 				if (needSpace) {
-					output.Write(" ", FormatterOutputTextKind.Text);
+					output.Write(" ", FormatterTextKind.Text);
 					column++;
 				}
 				var mnemonic = opInfo.Mnemonic;
 				if ((opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
-					output.Write(mnemonic.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterOutputTextKind.Directive);
+					output.Write(mnemonic.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterTextKind.Directive);
 				}
 				else {
 					output.WriteMnemonic(instruction, mnemonic.Get(options.UpperCaseMnemonics || options.UpperCaseAll));
@@ -398,8 +398,8 @@ namespace Iced.Intel {
 		}
 
 		void FormatBranchHint(FormatterOutput output, ref int column, FormatterString brHint) {
-			output.Write(",", FormatterOutputTextKind.Text);
-			output.Write(brHint.Get(options.UpperCasePrefixes || options.UpperCaseAll), FormatterOutputTextKind.Keyword);
+			output.Write(",", FormatterTextKind.Text);
+			output.Write(brHint.Get(options.UpperCasePrefixes || options.UpperCaseAll), FormatterTextKind.Keyword);
 			column += 1 + brHint.Length;
 		}
 
@@ -457,7 +457,7 @@ namespace Iced.Intel {
 		void FormatPrefix(FormatterOutput output, in Instruction instruction, ref int column, FormatterString prefix, PrefixKind prefixKind, ref bool needSpace) {
 			if (needSpace) {
 				column++;
-				output.Write(" ", FormatterOutputTextKind.Text);
+				output.Write(" ", FormatterTextKind.Text);
 			}
 			output.WritePrefix(instruction, prefix.Get(options.UpperCasePrefixes || options.UpperCaseAll), prefixKind);
 			column += prefix.Length;
@@ -469,9 +469,9 @@ namespace Iced.Intel {
 				ThrowHelper.ThrowArgumentNullException_output();
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				if (i > 0) {
-					output.Write(",", FormatterOutputTextKind.Punctuation);
+					output.Write(",", FormatterTextKind.Punctuation);
 					if (options.SpaceAfterOperandSeparator)
-						output.Write(" ", FormatterOutputTextKind.Text);
+						output.Write(" ", FormatterTextKind.Text);
 				}
 				FormatOperand(instruction, output, opInfo, i);
 			}
@@ -485,7 +485,7 @@ namespace Iced.Intel {
 			int instructionOperand = opInfo.GetInstructionIndex(operand);
 
 			if ((opInfo.Flags & InstrOpInfoFlags.IndirectOperand) != 0)
-				output.Write("*", FormatterOutputTextKind.Operator);
+				output.Write("*", FormatterTextKind.Operator);
 
 			string s;
 			FormatterFlowControl flowControl;
@@ -536,7 +536,7 @@ namespace Iced.Intel {
 						s = numberFormatter.FormatUInt64(options, numberOptions, instruction.NearBranch64, numberOptions.LeadingZeroes);
 					else
 						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.NearBranch16, numberOptions.LeadingZeroes);
-					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
+					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterTextKind.FunctionAddress : FormatterTextKind.LabelAddress);
 				}
 				break;
 
@@ -556,34 +556,34 @@ namespace Iced.Intel {
 				operandOptions = default;
 				optionsProvider?.GetOperandOptions(instruction, operand, instructionOperand, ref operandOptions, ref numberOptions);
 				if (!((symbolResolver = this.symbolResolver) is null) && symbolResolver.TryGetSymbol(instruction, operand, instructionOperand, (uint)imm64, immSize, out symbol)) {
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 					Debug.Assert(operand + 1 == 1);
 					if (!symbolResolver.TryGetSymbol(instruction, operand + 1, instructionOperand, instruction.FarBranchSelector, 2, out var selectorSymbol)) {
 						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
-						output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterOutputTextKind.SelectorValue);
+						output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterTextKind.SelectorValue);
 					}
 					else
 						output.Write(instruction, operand, instructionOperand, options, numberFormatter, numberOptions, instruction.FarBranchSelector, selectorSymbol, options.ShowSymbolAddress);
-					output.Write(",", FormatterOutputTextKind.Punctuation);
+					output.Write(",", FormatterTextKind.Punctuation);
 					if (options.SpaceAfterOperandSeparator)
-						output.Write(" ", FormatterOutputTextKind.Text);
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+						output.Write(" ", FormatterTextKind.Text);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 					output.Write(instruction, operand, instructionOperand, options, numberFormatter, numberOptions, imm64, symbol, options.ShowSymbolAddress);
 				}
 				else {
 					flowControl = FormatterUtils.GetFlowControl(instruction);
 					s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranchSelector, numberOptions.LeadingZeroes);
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
-					output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterOutputTextKind.SelectorValue);
-					output.Write(",", FormatterOutputTextKind.Punctuation);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
+					output.WriteNumber(instruction, operand, instructionOperand, s, instruction.FarBranchSelector, NumberKind.UInt16, FormatterTextKind.SelectorValue);
+					output.Write(",", FormatterTextKind.Punctuation);
 					if (options.SpaceAfterOperandSeparator)
-						output.Write(" ", FormatterOutputTextKind.Text);
+						output.Write(" ", FormatterTextKind.Text);
 					if (opKind == InstrOpKind.FarBranch32)
 						s = numberFormatter.FormatUInt32(options, numberOptions, instruction.FarBranch32, numberOptions.LeadingZeroes);
 					else
 						s = numberFormatter.FormatUInt16(options, numberOptions, instruction.FarBranch16, numberOptions.LeadingZeroes);
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
-					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterOutputTextKind.FunctionAddress : FormatterOutputTextKind.LabelAddress);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
+					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterUtils.IsCall(flowControl) ? FormatterTextKind.FunctionAddress : FormatterTextKind.LabelAddress);
 				}
 				break;
 
@@ -591,7 +591,7 @@ namespace Iced.Intel {
 			case InstrOpKind.Immediate8_2nd:
 			case InstrOpKind.DeclareByte:
 				if (opKind != InstrOpKind.DeclareByte)
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 				if (opKind == InstrOpKind.Immediate8)
 					imm8 = instruction.Immediate8;
 				else if (opKind == InstrOpKind.Immediate8_2nd)
@@ -608,7 +608,7 @@ namespace Iced.Intel {
 						imm64 = (ulong)(sbyte)imm8;
 						numberKind = NumberKind.Int8;
 						if ((sbyte)imm8 < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							imm8 = (byte)-(sbyte)imm8;
 						}
 					}
@@ -617,7 +617,7 @@ namespace Iced.Intel {
 						numberKind = NumberKind.UInt8;
 					}
 					s = numberFormatter.FormatUInt8(options, numberOptions, imm8);
-					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterOutputTextKind.Number);
+					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterTextKind.Number);
 				}
 				break;
 
@@ -625,7 +625,7 @@ namespace Iced.Intel {
 			case InstrOpKind.Immediate8to16:
 			case InstrOpKind.DeclareWord:
 				if (opKind != InstrOpKind.DeclareWord)
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 				if (opKind == InstrOpKind.Immediate16)
 					imm16 = instruction.Immediate16;
 				else if (opKind == InstrOpKind.Immediate8to16)
@@ -642,7 +642,7 @@ namespace Iced.Intel {
 						imm64 = (ulong)(short)imm16;
 						numberKind = NumberKind.Int16;
 						if ((short)imm16 < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							imm16 = (ushort)-(short)imm16;
 						}
 					}
@@ -651,7 +651,7 @@ namespace Iced.Intel {
 						numberKind = NumberKind.UInt16;
 					}
 					s = numberFormatter.FormatUInt16(options, numberOptions, imm16);
-					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterOutputTextKind.Number);
+					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterTextKind.Number);
 				}
 				break;
 
@@ -659,7 +659,7 @@ namespace Iced.Intel {
 			case InstrOpKind.Immediate8to32:
 			case InstrOpKind.DeclareDword:
 				if (opKind != InstrOpKind.DeclareDword)
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 				if (opKind == InstrOpKind.Immediate32)
 					imm32 = instruction.Immediate32;
 				else if (opKind == InstrOpKind.Immediate8to32)
@@ -676,7 +676,7 @@ namespace Iced.Intel {
 						imm64 = (ulong)(int)imm32;
 						numberKind = NumberKind.Int32;
 						if ((int)imm32 < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							imm32 = (uint)-(int)imm32;
 						}
 					}
@@ -685,7 +685,7 @@ namespace Iced.Intel {
 						numberKind = NumberKind.UInt32;
 					}
 					s = numberFormatter.FormatUInt32(options, numberOptions, imm32);
-					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterOutputTextKind.Number);
+					output.WriteNumber(instruction, operand, instructionOperand, s, imm64, numberKind, FormatterTextKind.Number);
 				}
 				break;
 
@@ -694,7 +694,7 @@ namespace Iced.Intel {
 			case InstrOpKind.Immediate32to64:
 			case InstrOpKind.DeclareQword:
 				if (opKind != InstrOpKind.DeclareQword)
-					output.Write(ImmediateValuePrefix, FormatterOutputTextKind.Operator);
+					output.Write(ImmediateValuePrefix, FormatterTextKind.Operator);
 				if (opKind == InstrOpKind.Immediate32to64)
 					imm64 = (ulong)instruction.Immediate32to64;
 				else if (opKind == InstrOpKind.Immediate8to64)
@@ -713,14 +713,14 @@ namespace Iced.Intel {
 					if (numberOptions.SignedNumber) {
 						numberKind = NumberKind.Int64;
 						if ((long)imm64 < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							imm64 = (ulong)-(long)imm64;
 						}
 					}
 					else
 						numberKind = NumberKind.UInt64;
 					s = numberFormatter.FormatUInt64(options, numberOptions, imm64);
-					output.WriteNumber(instruction, operand, instructionOperand, s, value64, numberKind, FormatterOutputTextKind.Number);
+					output.WriteNumber(instruction, operand, instructionOperand, s, value64, numberKind, FormatterTextKind.Number);
 				}
 				break;
 
@@ -804,18 +804,18 @@ namespace Iced.Intel {
 			}
 
 			if (operand + 1 == opInfo.OpCount && instruction.HasOpMask) {
-				output.Write("{", FormatterOutputTextKind.Punctuation);
+				output.Write("{", FormatterTextKind.Punctuation);
 				FormatRegister(output, instruction, operand, instructionOperand, (int)instruction.OpMask);
-				output.Write("}", FormatterOutputTextKind.Punctuation);
+				output.Write("}", FormatterTextKind.Punctuation);
 				if (instruction.ZeroingMasking)
 					FormatDecorator(output, instruction, operand, instructionOperand, str_z, DecoratorKind.ZeroingMasking);
 			}
 		}
 
 		void FormatDecorator(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, FormatterString text, DecoratorKind decorator) {
-			output.Write("{", FormatterOutputTextKind.Punctuation);
+			output.Write("{", FormatterTextKind.Punctuation);
 			output.WriteDecorator(instruction, operand, instructionOperand, text.Get(options.UpperCaseDecorators || options.UpperCaseAll), decorator);
-			output.Write("}", FormatterOutputTextKind.Punctuation);
+			output.Write("}", FormatterTextKind.Punctuation);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -884,7 +884,7 @@ namespace Iced.Intel {
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix)) {
 				FormatRegister(output, instruction, operand, instructionOperand, (int)segReg);
-				output.Write(":", FormatterOutputTextKind.Punctuation);
+				output.Write(":", FormatterTextKind.Punctuation);
 			}
 
 			if (useSymbol)
@@ -896,7 +896,7 @@ namespace Iced.Intel {
 					isSigned = numberOptions.SignedNumber;
 					if (addrSize == 4) {
 						if (numberOptions.SignedNumber && (int)displ < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							displ = (uint)-(int)displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
@@ -906,7 +906,7 @@ namespace Iced.Intel {
 					}
 					else if (addrSize == 8) {
 						if (numberOptions.SignedNumber && displ < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							displ = -displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
@@ -917,7 +917,7 @@ namespace Iced.Intel {
 					else {
 						Debug.Assert(addrSize == 2);
 						if (numberOptions.SignedNumber && (short)displ < 0) {
-							output.Write("-", FormatterOutputTextKind.Operator);
+							output.Write("-", FormatterTextKind.Operator);
 							displ = (ushort)-(short)displ;
 						}
 						if (numberOptions.DisplacementLeadingZeroes) {
@@ -949,13 +949,13 @@ namespace Iced.Intel {
 				}
 				else
 					throw new InvalidOperationException();
-				output.WriteNumber(instruction, operand, instructionOperand, s, origDispl, displKind, FormatterOutputTextKind.Number);
+				output.WriteNumber(instruction, operand, instructionOperand, s, origDispl, displKind, FormatterTextKind.Number);
 			}
 
 			if (hasBaseOrIndexReg) {
-				output.Write("(", FormatterOutputTextKind.Punctuation);
+				output.Write("(", FormatterTextKind.Punctuation);
 				if (options.SpaceAfterMemoryBracket)
-					output.Write(" ", FormatterOutputTextKind.Text);
+					output.Write(" ", FormatterTextKind.Text);
 
 				if (baseReg != Register.None && indexReg == Register.None && !useScale)
 					FormatRegister(output, instruction, operand, instructionOperand, (int)baseReg);
@@ -963,25 +963,25 @@ namespace Iced.Intel {
 					if (baseReg != Register.None)
 						FormatRegister(output, instruction, operand, instructionOperand, (int)baseReg);
 
-					output.Write(",", FormatterOutputTextKind.Punctuation);
+					output.Write(",", FormatterTextKind.Punctuation);
 					if (options.SpaceAfterMemoryOperandComma)
-						output.Write(" ", FormatterOutputTextKind.Text);
+						output.Write(" ", FormatterTextKind.Text);
 
 					if (indexReg != Register.None)
 						FormatRegister(output, instruction, operand, instructionOperand, (int)indexReg);
 
 					if (useScale) {
-						output.Write(",", FormatterOutputTextKind.Punctuation);
+						output.Write(",", FormatterTextKind.Punctuation);
 						if (options.SpaceAfterMemoryOperandComma)
-							output.Write(" ", FormatterOutputTextKind.Text);
+							output.Write(" ", FormatterTextKind.Text);
 
-						output.WriteNumber(instruction, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterOutputTextKind.Number);
+						output.WriteNumber(instruction, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterTextKind.Number);
 					}
 				}
 
 				if (options.SpaceAfterMemoryBracket)
-					output.Write(" ", FormatterOutputTextKind.Text);
-				output.Write(")", FormatterOutputTextKind.Punctuation);
+					output.Write(" ", FormatterTextKind.Text);
+				output.Write(")", FormatterTextKind.Punctuation);
 			}
 
 			Debug.Assert((uint)memSize < (uint)allMemorySizes.Length);

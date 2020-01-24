@@ -21,14 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::enums::FormatterOutputTextKind;
+use super::enums::FormatterTextKind;
 use super::FormatterOutput;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 impl FormatterOutput for String {
 	#[inline]
-	fn write(&mut self, text: &str, _kind: FormatterOutputTextKind) {
+	fn write(&mut self, text: &str, _kind: FormatterTextKind) {
 		self.push_str(text);
 	}
 }

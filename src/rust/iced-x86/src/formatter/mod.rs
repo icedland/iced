@@ -112,7 +112,7 @@ pub trait FormatterOutput {
 	///
 	/// - `text`: Text
 	/// - `kind`: Text kind
-	fn write(&mut self, text: &str, kind: FormatterOutputTextKind);
+	fn write(&mut self, text: &str, kind: FormatterTextKind);
 
 	/// Writes a prefix
 	///
@@ -124,7 +124,7 @@ pub trait FormatterOutput {
 	#[inline]
 	#[allow(unused_variables)]
 	fn write_prefix(&mut self, instruction: &Instruction, text: &str, prefix: PrefixKind) {
-		self.write(text, FormatterOutputTextKind::Prefix);
+		self.write(text, FormatterTextKind::Prefix);
 	}
 
 	/// Writes a mnemonic (see [`Instruction::mnemonic()`])
@@ -136,7 +136,7 @@ pub trait FormatterOutput {
 	#[inline]
 	#[allow(unused_variables)]
 	fn write_mnemonic(&mut self, instruction: &Instruction, text: &str) {
-		self.write(text, FormatterOutputTextKind::Mnemonic);
+		self.write(text, FormatterTextKind::Mnemonic);
 	}
 
 	/// Writes a number
@@ -155,7 +155,7 @@ pub trait FormatterOutput {
 	#[allow(unused_variables)]
 	fn write_number(
 		&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, value: u64, number_kind: NumberKind,
-		kind: FormatterOutputTextKind,
+		kind: FormatterTextKind,
 	) {
 		self.write(text, kind);
 	}
@@ -172,7 +172,7 @@ pub trait FormatterOutput {
 	#[inline]
 	#[allow(unused_variables)]
 	fn write_decorator(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, decorator: DecoratorKind) {
-		self.write(text, FormatterOutputTextKind::Decorator);
+		self.write(text, FormatterTextKind::Decorator);
 	}
 
 	/// Writes a register
@@ -187,7 +187,7 @@ pub trait FormatterOutput {
 	#[inline]
 	#[allow(unused_variables)]
 	fn write_register(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, register: Register) {
-		self.write(text, FormatterOutputTextKind::Register);
+		self.write(text, FormatterTextKind::Register);
 	}
 
 	/// Writes a symbol
@@ -247,7 +247,7 @@ impl FormatterOutputMethods {
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
 			if write_minus_if_signed {
-				output.write("-", FormatterOutputTextKind::Operator);
+				output.write("-", FormatterTextKind::Operator);
 			}
 			displ = -displ;
 		}
@@ -255,11 +255,11 @@ impl FormatterOutputMethods {
 		let mut number_kind: NumberKind;
 		if displ != 0 {
 			if spaces_between_op {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 			let orig_displ = displ as u64;
 			if displ < 0 {
-				output.write("-", FormatterOutputTextKind::Operator);
+				output.write("-", FormatterTextKind::Operator);
 				displ = -displ;
 				if displ <= i8::MAX as i64 + 1 {
 					number_kind = NumberKind::Int8;
@@ -271,7 +271,7 @@ impl FormatterOutputMethods {
 					number_kind = NumberKind::Int64;
 				}
 			} else {
-				output.write("+", FormatterOutputTextKind::Operator);
+				output.write("+", FormatterTextKind::Operator);
 				if displ <= i8::MAX as i64 {
 					number_kind = NumberKind::Int8;
 				} else if displ <= i16::MAX as i64 {
@@ -283,14 +283,14 @@ impl FormatterOutputMethods {
 				}
 			}
 			if spaces_between_op {
-				output.write(" ", FormatterOutputTextKind::Text);
+				output.write(" ", FormatterTextKind::Text);
 			}
 			let s = number_formatter.format_u64_zeroes(options, number_options, displ as u64, false);
-			output.write_number(instruction, operand, instruction_operand, s, orig_displ, number_kind, FormatterOutputTextKind::Number);
+			output.write_number(instruction, operand, instruction_operand, s, orig_displ, number_kind, FormatterTextKind::Number);
 		}
 		if show_symbol_address {
-			output.write(" ", FormatterOutputTextKind::Text);
-			output.write("(", FormatterOutputTextKind::Punctuation);
+			output.write(" ", FormatterTextKind::Text);
+			output.write("(", FormatterTextKind::Punctuation);
 			let s = if address <= u16::MAX as u64 {
 				number_kind = NumberKind::UInt16;
 				number_formatter.format_u16_zeroes(options, number_options, address as u16, true)
@@ -301,8 +301,8 @@ impl FormatterOutputMethods {
 				number_kind = NumberKind::UInt64;
 				number_formatter.format_u64_zeroes(options, number_options, address, true)
 			};
-			output.write_number(instruction, operand, instruction_operand, s, address, number_kind, FormatterOutputTextKind::Number);
-			output.write(")", FormatterOutputTextKind::Punctuation);
+			output.write_number(instruction, operand, instruction_operand, s, address, number_kind, FormatterTextKind::Number);
+			output.write(")", FormatterTextKind::Punctuation);
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -41,7 +41,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -49,7 +49,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP16 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -65,7 +65,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -81,7 +81,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -89,7 +89,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP32 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -97,7 +97,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -105,7 +105,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -113,7 +113,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -121,7 +121,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 2, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -130,12 +130,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(2, addressSize);
 					if (operand == 0) {
 						Assert.Equal(0xFEDCU, address);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					}
 					else {
 						Assert.Equal(1, operand);
 						Assert.Equal(0xA55AU, address);
-						symbol = new SymbolResult(address, new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo("selsym", FormatterTextKind.Text), SymbolFlags.Signed);
 					}
 					return true;
 				},
@@ -145,12 +145,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(2, addressSize);
 					if (operand == 0) {
 						Assert.Equal(0xFEDCU, address);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("symbol", FormatterTextKind.Text), new TextPart("more", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					}
 					else {
 						Assert.Equal(1, operand);
 						Assert.Equal(0xA55AU, address);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("selsym", FormatterTextKind.Text), new TextPart("extra", FormatterTextKind.Text) }));
 					}
 					return true;
 				},
@@ -160,7 +160,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(2, addressSize);
 					if (operand == 0) {
 						Assert.Equal(0xFEDCU, address);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 						return true;
 					}
 					else {
@@ -176,7 +176,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					Assert.Equal(2, addressSize);
 					if (operand == 0) {
 						Assert.Equal(0xFEDCU, address);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 						return true;
 					}
 					else {
@@ -192,13 +192,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
 						Assert.Equal(4, addressSize);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					}
 					else {
 						Assert.Equal(1, operand);
 						Assert.Equal(2, addressSize);
 						Assert.Equal(0xA55AU, address);
-						symbol = new SymbolResult(address, new TextInfo("selsym", FormatterOutputTextKind.Text), SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo("selsym", FormatterTextKind.Text), SymbolFlags.Signed);
 					}
 					return true;
 				},
@@ -208,13 +208,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
 						Assert.Equal(4, addressSize);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("symbol", FormatterOutputTextKind.Text), new TextPart("more", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("symbol", FormatterTextKind.Text), new TextPart("more", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					}
 					else {
 						Assert.Equal(1, operand);
 						Assert.Equal(2, addressSize);
 						Assert.Equal(0xA55AU, address);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("selsym", FormatterOutputTextKind.Text), new TextPart("extra", FormatterOutputTextKind.Text) }));
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("selsym", FormatterTextKind.Text), new TextPart("extra", FormatterTextKind.Text) }));
 					}
 					return true;
 				},
@@ -224,7 +224,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
 						Assert.Equal(4, addressSize);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 						return true;
 					}
 					else {
@@ -241,7 +241,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					if (operand == 0) {
 						Assert.Equal(0xFEDCBA98, address);
 						Assert.Equal(4, addressSize);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 						return true;
 					}
 					else {
@@ -257,7 +257,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(0xA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -265,7 +265,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(0xA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -273,7 +273,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(0xA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -281,7 +281,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(0xA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -295,7 +295,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					else {
 						Assert.Equal(1, addressSize);
 						Assert.Equal(0xA5UL, address);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 						return true;
 					}
 				},
@@ -310,7 +310,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					else {
 						Assert.Equal(1, addressSize);
 						Assert.Equal(0xA5UL, address);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 						return true;
 					}
 				},
@@ -325,7 +325,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					else {
 						Assert.Equal(1, addressSize);
 						Assert.Equal(0xA5UL, address);
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 						return true;
 					}
 				},
@@ -340,7 +340,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					else {
 						Assert.Equal(1, addressSize);
 						Assert.Equal(0xA5UL, address);
-						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+						symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 						return true;
 					}
 				},
@@ -349,7 +349,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -357,7 +357,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -365,7 +365,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -373,7 +373,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -381,7 +381,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFEDCBA98, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -389,7 +389,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFEDCBA98, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -397,7 +397,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFEDCBA98, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -405,7 +405,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFEDCBA98, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -413,7 +413,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFEDCBA983412A55A, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -421,7 +421,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFEDCBA983412A55A, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -429,7 +429,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFEDCBA983412A55A, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -437,7 +437,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFEDCBA983412A55A, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -445,7 +445,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(3UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -453,7 +453,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(3UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -461,7 +461,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(3UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -469,7 +469,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(1, addressSize);
 					Assert.Equal(3UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -477,7 +477,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -485,7 +485,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -493,7 +493,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -501,7 +501,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -509,7 +509,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -517,7 +517,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -525,7 +525,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -533,7 +533,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -541,7 +541,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.Relative);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.Relative);
 					return true;
 				},
 			}),
@@ -549,7 +549,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Relative | SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -557,7 +557,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -565,7 +565,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -573,7 +573,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -581,7 +581,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -589,7 +589,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -597,7 +597,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -605,7 +605,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -613,7 +613,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -621,7 +621,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -629,7 +629,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -637,7 +637,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -645,7 +645,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -653,7 +653,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -661,7 +661,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -669,7 +669,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xF0DEBC9A78563412UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -677,7 +677,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xF0DEBC9A78563412UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -685,7 +685,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xF0DEBC9A78563412UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -693,7 +693,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xF0DEBC9A78563412UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -701,7 +701,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -709,7 +709,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -717,7 +717,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(DecoderConstants.DEFAULT_IP64 + 6 + 0x12345678, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -725,7 +725,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal((DecoderConstants.DEFAULT_IP64 + 7 + 0x12345678) & 0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -733,7 +733,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -741,7 +741,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -749,7 +749,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -757,7 +757,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -765,7 +765,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -773,7 +773,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -781,7 +781,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -789,7 +789,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -797,7 +797,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -805,7 +805,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -813,7 +813,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -821,7 +821,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFFFUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -829,7 +829,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -837,7 +837,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -845,7 +845,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -853,7 +853,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -861,7 +861,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -869,7 +869,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -877,7 +877,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text));
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text));
 					return true;
 				},
 			}),
@@ -885,7 +885,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -893,7 +893,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -901,7 +901,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -909,7 +909,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -917,7 +917,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -925,7 +925,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -933,7 +933,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -941,7 +941,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -949,7 +949,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(2, addressSize);
 					Assert.Equal(0xA55AUL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -957,7 +957,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -965,7 +965,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -973,7 +973,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -981,7 +981,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(4, addressSize);
 					Assert.Equal(0xEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -989,7 +989,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -997,7 +997,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -1005,7 +1005,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return true;
 				},
 			}),
@@ -1013,7 +1013,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFEDCBA988UL, address);
-					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterOutputTextKind.Text), new TextPart("next", FormatterOutputTextKind.Text) }), SymbolFlags.Signed);
+					symbol = new SymbolResult(address, new TextInfo(new TextPart[] { new TextPart("sym", FormatterTextKind.Text), new TextPart("next", FormatterTextKind.Text) }), SymbolFlags.Signed);
 					return true;
 				},
 			}),
@@ -1021,7 +1021,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0xFFFFFFFFFFFFFFA5UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None);
 					return false;
 				},
 			}),
@@ -1029,7 +1029,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 					return true;
 				},
 			}),
@@ -1037,7 +1037,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 					return true;
 				},
 			}),
@@ -1045,7 +1045,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 					return true;
 				},
 			}),
@@ -1053,7 +1053,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 					return true;
 				},
 			}),
@@ -1061,7 +1061,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 					return true;
 				},
 			}),
@@ -1069,7 +1069,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 					return true;
 				},
 			}),
@@ -1077,7 +1077,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 					return true;
 				},
 			}),
@@ -1085,14 +1085,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					Assert.Equal(8, addressSize);
 					Assert.Equal(0x0000000012345678UL, address);
-					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+					symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 					return true;
 				},
 			}),
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Always, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 						return true;
 					}
 					symbol = default;
@@ -1102,7 +1102,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Always, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 						return true;
 					}
 					symbol = default;
@@ -1112,7 +1112,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Never, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 						return true;
 					}
 					symbol = default;
@@ -1122,7 +1122,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Never, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 						return true;
 					}
 					symbol = default;
@@ -1132,7 +1132,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Default, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 						return true;
 					}
 					symbol = default;
@@ -1142,7 +1142,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Default, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 						return true;
 					}
 					symbol = default;
@@ -1152,7 +1152,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Minimum, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt32);
 						return true;
 					}
 					symbol = default;
@@ -1162,7 +1162,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			new SymbolInstructionInfo(64, "C7 00 78563412", Code.Mov_rm32_imm32, a => a.MemorySizeOptions = MemorySizeOptions.Minimum, new TestSymbolResolver {
 				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
 					if (instructionOperand == 0) {
-						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterOutputTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
+						symbol = new SymbolResult(address, new TextInfo("symbol", FormatterTextKind.Text), SymbolFlags.None, MemorySize.UInt8);
 						return true;
 					}
 					symbol = default;

@@ -94,7 +94,7 @@ namespace Iced.Intel {
 				int n = count;
 				if (n >= strings.Length)
 					n = strings.Length;
-				output.Write(strings[n - 1], FormatterOutputTextKind.Text);
+				output.Write(strings[n - 1], FormatterTextKind.Text);
 				count -= n;
 			}
 		}

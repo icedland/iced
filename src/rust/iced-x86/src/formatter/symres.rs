@@ -52,7 +52,7 @@ pub struct TextPart {
 	/// Text
 	pub text: String,
 	/// Color
-	pub color: FormatterOutputTextKind,
+	pub color: FormatterTextKind,
 }
 
 impl TextPart {
@@ -64,7 +64,7 @@ impl TextPart {
 	/// - `color`: Color
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn new(text: String, color: FormatterOutputTextKind) -> Self {
+	pub fn new(text: String, color: FormatterTextKind) -> Self {
 		Self { text, color }
 	}
 }
@@ -89,7 +89,7 @@ impl TextInfo {
 	/// - `color`: Color
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn new(text: String, color: FormatterOutputTextKind) -> Self {
+	pub fn new(text: String, color: FormatterTextKind) -> Self {
 		TextInfo::Text(TextPart::new(text, color))
 	}
 
@@ -148,7 +148,7 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string(address: u64, text: String) -> Self {
-		Self { address, text: TextInfo::new(text, FormatterOutputTextKind::Label), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text: TextInfo::new(text, FormatterTextKind::Label), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
 	}
 
 	/// Constructor
@@ -161,7 +161,7 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_size(address: u64, text: String, size: MemorySize) -> Self {
-		Self { address, text: TextInfo::new(text, FormatterOutputTextKind::Label), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+		Self { address, text: TextInfo::new(text, FormatterTextKind::Label), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
 	}
 
 	/// Constructor
@@ -173,7 +173,7 @@ impl SymbolResult {
 	/// - `color`: Color
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_string_kind(address: u64, text: String, color: FormatterOutputTextKind) -> Self {
+	pub fn with_string_kind(address: u64, text: String, color: FormatterTextKind) -> Self {
 		Self { address, text: TextInfo::new(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
 	}
 
@@ -189,7 +189,7 @@ impl SymbolResult {
 	/// [`SymbolFlags`]: struct.SymbolFlags.html
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_string_kind_flags(address: u64, text: String, color: FormatterOutputTextKind, flags: u32) -> Self {
+	pub fn with_string_kind_flags(address: u64, text: String, color: FormatterTextKind, flags: u32) -> Self {
 		Self { address, text: TextInfo::new(text, color), flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
 	}
 
