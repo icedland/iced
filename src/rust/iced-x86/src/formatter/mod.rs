@@ -72,24 +72,32 @@ struct FormatterString {
 }
 
 impl FormatterString {
+	#[cfg_attr(has_must_use, must_use)]
 	fn new(lower: String) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
 		Self { upper: lower.to_uppercase(), lower }
 	}
 
+	#[cfg_attr(has_must_use, must_use)]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
 		Self { lower: String::from(lower), upper: lower.to_uppercase() }
 	}
 
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	fn len(&self) -> usize {
 		self.lower.len()
 	}
 
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	fn is_default(&self) -> bool {
 		self.lower.is_empty()
 	}
 
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
 	fn get(&self, upper: bool) -> &str {
 		if upper {
 			&self.upper
