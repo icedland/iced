@@ -632,7 +632,7 @@ public static class AssemblerPlay
 {
 	public static MemoryStream GenerateCode()
 	{
-		var c = Assembler.Create(64);
+		var c = new Assembler(64);
 
 		c.push(r15);
 		c.mov(r15, rsi);
@@ -643,7 +643,7 @@ public static class AssemblerPlay
 
 		var stream = new MemoryStream();
 		var writer = new StreamCodeWriter(stream)
-		c.Encode(writer);
+		c.Assemble(writer);
 
 		return stream;
 	}
@@ -668,7 +668,7 @@ public static class AssemblerPlay
 {
 	public static MemoryStream GenerateCode()
 	{
-		var c = Assembler.Create(64);
+		var c = new Assembler(64);
 
 		// Create a label
 		var label1 = c.CreateLabel();
@@ -686,7 +686,7 @@ public static class AssemblerPlay
 
 		var stream = new MemoryStream();
 		var writer = new StreamCodeWriter(stream)
-		c.Encode(writer);
+		c.Assemble(writer);
 
 		return stream;
 	}

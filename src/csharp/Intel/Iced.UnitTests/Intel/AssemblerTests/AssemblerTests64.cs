@@ -25,13 +25,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void TestInvalidStateAssembler() {
 			{
-				var assembler = Assembler.Create(Bitness);
+				var assembler = new Assembler(Bitness);
 				var writer = new CodeWriterImpl();
 				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Assemble(writer));
 				Assert.Contains("Unused prefixes", ex.Message);
 			}
 			{
-				var assembler = Assembler.Create(Bitness);
+				var assembler = new Assembler(Bitness);
 				var label = assembler.CreateLabel(("BadLabel"));
 				assembler.Label(ref label);
 				var writer = new CodeWriterImpl();
@@ -43,7 +43,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void TestLabelRIP() {
 			{
-				var c = Assembler.Create(Bitness);
+				var c = new Assembler(Bitness);
 				var label1 = c.CreateLabel();
 				c.nop();
 				c.nop();
@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				Assert.Equal((ulong)0x103, label1RIP);
 			}
 			{
-				var c = Assembler.Create(Bitness);
+				var c = new Assembler(Bitness);
 				var label1 = c.CreateLabel();
 				c.nop();
 				c.Label(ref label1);				
