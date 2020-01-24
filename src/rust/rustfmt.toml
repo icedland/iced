@@ -1,0 +1,8 @@
+newline_style = "Native"
+max_width = 150
+hard_tabs = true
+tab_spaces = 4
+fn_args_layout = "Compressed"
+edition = "2018"
+use_field_init_shorthand = true
+use_small_heuristics = "Max"

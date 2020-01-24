@@ -1,0 +1,1772 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+01 00, Add_rm16_r16, ax, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 01, Add_rm16_r16, ax, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 02, Add_rm16_r16, ax, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 03, Add_rm16_r16, ax, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 04, Add_rm16_r16, ax, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 05, Add_rm16_r16, ax, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 06 5AA5, Add_rm16_r16, ax, none, ds, none, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 07, Add_rm16_r16, ax, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 08, Add_rm16_r16, cx, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 09, Add_rm16_r16, cx, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 0A, Add_rm16_r16, cx, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 0B, Add_rm16_r16, cx, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 0C, Add_rm16_r16, cx, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 0D, Add_rm16_r16, cx, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 0E A55A, Add_rm16_r16, cx, none, ds, none, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 0F, Add_rm16_r16, cx, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 10, Add_rm16_r16, dx, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 11, Add_rm16_r16, dx, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 12, Add_rm16_r16, dx, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 13, Add_rm16_r16, dx, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 14, Add_rm16_r16, dx, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 15, Add_rm16_r16, dx, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 16 5AA5, Add_rm16_r16, dx, none, ds, none, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 17, Add_rm16_r16, dx, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 18, Add_rm16_r16, bx, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 19, Add_rm16_r16, bx, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 1A, Add_rm16_r16, bx, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 1B, Add_rm16_r16, bx, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 1C, Add_rm16_r16, bx, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 1D, Add_rm16_r16, bx, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 1E A55A, Add_rm16_r16, bx, none, ds, none, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 1F, Add_rm16_r16, bx, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 20, Add_rm16_r16, sp, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 21, Add_rm16_r16, sp, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 22, Add_rm16_r16, sp, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 23, Add_rm16_r16, sp, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 24, Add_rm16_r16, sp, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 25, Add_rm16_r16, sp, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 26 5AA5, Add_rm16_r16, sp, none, ds, none, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 27, Add_rm16_r16, sp, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 28, Add_rm16_r16, bp, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 29, Add_rm16_r16, bp, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 2A, Add_rm16_r16, bp, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 2B, Add_rm16_r16, bp, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 2C, Add_rm16_r16, bp, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 2D, Add_rm16_r16, bp, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 2E A55A, Add_rm16_r16, bp, none, ds, none, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 2F, Add_rm16_r16, bp, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 30, Add_rm16_r16, si, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 31, Add_rm16_r16, si, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 32, Add_rm16_r16, si, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 33, Add_rm16_r16, si, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 34, Add_rm16_r16, si, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 35, Add_rm16_r16, si, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 36 5AA5, Add_rm16_r16, si, none, ds, none, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 37, Add_rm16_r16, si, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 38, Add_rm16_r16, di, none, ds, bx, si, 0, 0, 0, 0;0;0;0;0;0
+01 39, Add_rm16_r16, di, none, ds, bx, di, 0, 0, 0, 0;0;0;0;0;0
+01 3A, Add_rm16_r16, di, none, ss, bp, si, 0, 0, 0, 0;0;0;0;0;0
+01 3B, Add_rm16_r16, di, none, ss, bp, di, 0, 0, 0, 0;0;0;0;0;0
+01 3C, Add_rm16_r16, di, none, ds, si, none, 0, 0, 0, 0;0;0;0;0;0
+01 3D, Add_rm16_r16, di, none, ds, di, none, 0, 0, 0, 0;0;0;0;0;0
+01 3E A55A, Add_rm16_r16, di, none, ds, none, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 3F, Add_rm16_r16, di, none, ds, bx, none, 0, 0, 0, 0;0;0;0;0;0
+01 40 A5, Add_rm16_r16, ax, none, ds, bx, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 41 A5, Add_rm16_r16, ax, none, ds, bx, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 42 A5, Add_rm16_r16, ax, none, ss, bp, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 43 A5, Add_rm16_r16, ax, none, ss, bp, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 44 A5, Add_rm16_r16, ax, none, ds, si, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 45 A5, Add_rm16_r16, ax, none, ds, di, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 46 A5, Add_rm16_r16, ax, none, ss, bp, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 47 A5, Add_rm16_r16, ax, none, ds, bx, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 48 5A, Add_rm16_r16, cx, none, ds, bx, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 49 5A, Add_rm16_r16, cx, none, ds, bx, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4A 5A, Add_rm16_r16, cx, none, ss, bp, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4B 5A, Add_rm16_r16, cx, none, ss, bp, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4C 5A, Add_rm16_r16, cx, none, ds, si, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4D 5A, Add_rm16_r16, cx, none, ds, di, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4E 5A, Add_rm16_r16, cx, none, ss, bp, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 4F 5A, Add_rm16_r16, cx, none, ds, bx, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 50 A5, Add_rm16_r16, dx, none, ds, bx, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 51 A5, Add_rm16_r16, dx, none, ds, bx, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 52 A5, Add_rm16_r16, dx, none, ss, bp, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 53 A5, Add_rm16_r16, dx, none, ss, bp, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 54 A5, Add_rm16_r16, dx, none, ds, si, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 55 A5, Add_rm16_r16, dx, none, ds, di, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 56 A5, Add_rm16_r16, dx, none, ss, bp, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 57 A5, Add_rm16_r16, dx, none, ds, bx, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 58 5A, Add_rm16_r16, bx, none, ds, bx, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 59 5A, Add_rm16_r16, bx, none, ds, bx, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5A 5A, Add_rm16_r16, bx, none, ss, bp, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5B 5A, Add_rm16_r16, bx, none, ss, bp, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5C 5A, Add_rm16_r16, bx, none, ds, si, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5D 5A, Add_rm16_r16, bx, none, ds, di, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5E 5A, Add_rm16_r16, bx, none, ss, bp, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 5F 5A, Add_rm16_r16, bx, none, ds, bx, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 60 A5, Add_rm16_r16, sp, none, ds, bx, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 61 A5, Add_rm16_r16, sp, none, ds, bx, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 62 A5, Add_rm16_r16, sp, none, ss, bp, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 63 A5, Add_rm16_r16, sp, none, ss, bp, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 64 A5, Add_rm16_r16, sp, none, ds, si, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 65 A5, Add_rm16_r16, sp, none, ds, di, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 66 A5, Add_rm16_r16, sp, none, ss, bp, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 67 A5, Add_rm16_r16, sp, none, ds, bx, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 68 5A, Add_rm16_r16, bp, none, ds, bx, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 69 5A, Add_rm16_r16, bp, none, ds, bx, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6A 5A, Add_rm16_r16, bp, none, ss, bp, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6B 5A, Add_rm16_r16, bp, none, ss, bp, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6C 5A, Add_rm16_r16, bp, none, ds, si, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6D 5A, Add_rm16_r16, bp, none, ds, di, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6E 5A, Add_rm16_r16, bp, none, ss, bp, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 6F 5A, Add_rm16_r16, bp, none, ds, bx, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 70 A5, Add_rm16_r16, si, none, ds, bx, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 71 A5, Add_rm16_r16, si, none, ds, bx, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 72 A5, Add_rm16_r16, si, none, ss, bp, si, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 73 A5, Add_rm16_r16, si, none, ss, bp, di, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 74 A5, Add_rm16_r16, si, none, ds, si, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 75 A5, Add_rm16_r16, si, none, ds, di, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 76 A5, Add_rm16_r16, si, none, ss, bp, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 77 A5, Add_rm16_r16, si, none, ds, bx, none, 0, 0xFFA5, 1, 0;0;0;0;2;1
+01 78 5A, Add_rm16_r16, di, none, ds, bx, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 79 5A, Add_rm16_r16, di, none, ds, bx, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7A 5A, Add_rm16_r16, di, none, ss, bp, si, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7B 5A, Add_rm16_r16, di, none, ss, bp, di, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7C 5A, Add_rm16_r16, di, none, ds, si, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7D 5A, Add_rm16_r16, di, none, ds, di, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7E 5A, Add_rm16_r16, di, none, ss, bp, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 7F 5A, Add_rm16_r16, di, none, ds, bx, none, 0, 0x005A, 1, 0;0;0;0;2;1
+01 80 5AA5, Add_rm16_r16, ax, none, ds, bx, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 81 5AA5, Add_rm16_r16, ax, none, ds, bx, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 82 5AA5, Add_rm16_r16, ax, none, ss, bp, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 83 5AA5, Add_rm16_r16, ax, none, ss, bp, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 84 5AA5, Add_rm16_r16, ax, none, ds, si, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 85 5AA5, Add_rm16_r16, ax, none, ds, di, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 86 5AA5, Add_rm16_r16, ax, none, ss, bp, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 87 5AA5, Add_rm16_r16, ax, none, ds, bx, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 88 A55A, Add_rm16_r16, cx, none, ds, bx, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 89 A55A, Add_rm16_r16, cx, none, ds, bx, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8A A55A, Add_rm16_r16, cx, none, ss, bp, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8B A55A, Add_rm16_r16, cx, none, ss, bp, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8C A55A, Add_rm16_r16, cx, none, ds, si, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8D A55A, Add_rm16_r16, cx, none, ds, di, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8E A55A, Add_rm16_r16, cx, none, ss, bp, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 8F A55A, Add_rm16_r16, cx, none, ds, bx, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 90 5AA5, Add_rm16_r16, dx, none, ds, bx, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 91 5AA5, Add_rm16_r16, dx, none, ds, bx, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 92 5AA5, Add_rm16_r16, dx, none, ss, bp, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 93 5AA5, Add_rm16_r16, dx, none, ss, bp, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 94 5AA5, Add_rm16_r16, dx, none, ds, si, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 95 5AA5, Add_rm16_r16, dx, none, ds, di, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 96 5AA5, Add_rm16_r16, dx, none, ss, bp, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 97 5AA5, Add_rm16_r16, dx, none, ds, bx, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 98 A55A, Add_rm16_r16, bx, none, ds, bx, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 99 A55A, Add_rm16_r16, bx, none, ds, bx, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9A A55A, Add_rm16_r16, bx, none, ss, bp, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9B A55A, Add_rm16_r16, bx, none, ss, bp, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9C A55A, Add_rm16_r16, bx, none, ds, si, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9D A55A, Add_rm16_r16, bx, none, ds, di, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9E A55A, Add_rm16_r16, bx, none, ss, bp, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 9F A55A, Add_rm16_r16, bx, none, ds, bx, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 A0 5AA5, Add_rm16_r16, sp, none, ds, bx, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A1 5AA5, Add_rm16_r16, sp, none, ds, bx, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A2 5AA5, Add_rm16_r16, sp, none, ss, bp, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A3 5AA5, Add_rm16_r16, sp, none, ss, bp, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A4 5AA5, Add_rm16_r16, sp, none, ds, si, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A5 5AA5, Add_rm16_r16, sp, none, ds, di, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A6 5AA5, Add_rm16_r16, sp, none, ss, bp, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A7 5AA5, Add_rm16_r16, sp, none, ds, bx, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 A8 A55A, Add_rm16_r16, bp, none, ds, bx, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 A9 A55A, Add_rm16_r16, bp, none, ds, bx, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AA A55A, Add_rm16_r16, bp, none, ss, bp, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AB A55A, Add_rm16_r16, bp, none, ss, bp, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AC A55A, Add_rm16_r16, bp, none, ds, si, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AD A55A, Add_rm16_r16, bp, none, ds, di, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AE A55A, Add_rm16_r16, bp, none, ss, bp, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 AF A55A, Add_rm16_r16, bp, none, ds, bx, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 B0 5AA5, Add_rm16_r16, si, none, ds, bx, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B1 5AA5, Add_rm16_r16, si, none, ds, bx, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B2 5AA5, Add_rm16_r16, si, none, ss, bp, si, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B3 5AA5, Add_rm16_r16, si, none, ss, bp, di, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B4 5AA5, Add_rm16_r16, si, none, ds, si, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B5 5AA5, Add_rm16_r16, si, none, ds, di, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B6 5AA5, Add_rm16_r16, si, none, ss, bp, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B7 5AA5, Add_rm16_r16, si, none, ds, bx, none, 0, 0xA55A, 2, 0;0;0;0;2;2
+01 B8 A55A, Add_rm16_r16, di, none, ds, bx, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 B9 A55A, Add_rm16_r16, di, none, ds, bx, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BA A55A, Add_rm16_r16, di, none, ss, bp, si, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BB A55A, Add_rm16_r16, di, none, ss, bp, di, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BC A55A, Add_rm16_r16, di, none, ds, si, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BD A55A, Add_rm16_r16, di, none, ds, di, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BE A55A, Add_rm16_r16, di, none, ss, bp, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+01 BF A55A, Add_rm16_r16, di, none, ds, bx, none, 0, 0x5AA5, 2, 0;0;0;0;2;2
+67 01 30, Add_rm16_r16, si, none, ds, eax, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 31, Add_rm16_r16, si, none, ds, ecx, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 32, Add_rm16_r16, si, none, ds, edx, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 33, Add_rm16_r16, si, none, ds, ebx, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 35 34125AA5, Add_rm16_r16, si, none, ds, none, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 36, Add_rm16_r16, si, none, ds, esi, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 37, Add_rm16_r16, si, none, ds, edi, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 70 A5, Add_rm16_r16, si, none, ds, eax, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 71 A5, Add_rm16_r16, si, none, ds, ecx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 72 A5, Add_rm16_r16, si, none, ds, edx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 73 A5, Add_rm16_r16, si, none, ds, ebx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 75 A5, Add_rm16_r16, si, none, ss, ebp, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 76 A5, Add_rm16_r16, si, none, ds, esi, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 77 A5, Add_rm16_r16, si, none, ds, edi, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;3;1
+67 01 B0 34125AA5, Add_rm16_r16, si, none, ds, eax, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B1 34125AA5, Add_rm16_r16, si, none, ds, ecx, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B2 34125AA5, Add_rm16_r16, si, none, ds, edx, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B3 34125AA5, Add_rm16_r16, si, none, ds, ebx, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B5 34125AA5, Add_rm16_r16, si, none, ss, ebp, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B6 34125AA5, Add_rm16_r16, si, none, ds, esi, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 B7 34125AA5, Add_rm16_r16, si, none, ds, edi, none, 0, 0xA55A1234, 4, 0;0;0;0;3;4
+67 01 34 00, Add_rm16_r16, si, none, ds, eax, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 01, Add_rm16_r16, si, none, ds, ecx, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 02, Add_rm16_r16, si, none, ds, edx, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 03, Add_rm16_r16, si, none, ds, ebx, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 04, Add_rm16_r16, si, none, ss, esp, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 05 34125AA5, Add_rm16_r16, si, none, ds, none, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 06, Add_rm16_r16, si, none, ds, esi, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 07, Add_rm16_r16, si, none, ds, edi, eax, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 08, Add_rm16_r16, si, none, ds, eax, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 09, Add_rm16_r16, si, none, ds, ecx, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 0A, Add_rm16_r16, si, none, ds, edx, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 0B, Add_rm16_r16, si, none, ds, ebx, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 0C, Add_rm16_r16, si, none, ss, esp, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 0D 8967A55A, Add_rm16_r16, si, none, ds, none, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 0E, Add_rm16_r16, si, none, ds, esi, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 0F, Add_rm16_r16, si, none, ds, edi, ecx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 10, Add_rm16_r16, si, none, ds, eax, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 11, Add_rm16_r16, si, none, ds, ecx, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 12, Add_rm16_r16, si, none, ds, edx, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 13, Add_rm16_r16, si, none, ds, ebx, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 14, Add_rm16_r16, si, none, ss, esp, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 15 34125AA5, Add_rm16_r16, si, none, ds, none, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 16, Add_rm16_r16, si, none, ds, esi, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 17, Add_rm16_r16, si, none, ds, edi, edx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 18, Add_rm16_r16, si, none, ds, eax, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 19, Add_rm16_r16, si, none, ds, ecx, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 1A, Add_rm16_r16, si, none, ds, edx, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 1B, Add_rm16_r16, si, none, ds, ebx, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 1C, Add_rm16_r16, si, none, ss, esp, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 1D 8967A55A, Add_rm16_r16, si, none, ds, none, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 1E, Add_rm16_r16, si, none, ds, esi, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 1F, Add_rm16_r16, si, none, ds, edi, ebx, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 20, Add_rm16_r16, si, none, ds, eax, none, 0, 0, 0, 0;0;0;0;0;0, 670130
+67 01 34 21, Add_rm16_r16, si, none, ds, ecx, none, 0, 0, 0, 0;0;0;0;0;0, 670131
+67 01 34 22, Add_rm16_r16, si, none, ds, edx, none, 0, 0, 0, 0;0;0;0;0;0, 670132
+67 01 34 23, Add_rm16_r16, si, none, ds, ebx, none, 0, 0, 0, 0;0;0;0;0;0, 670133
+67 01 34 24, Add_rm16_r16, si, none, ss, esp, none, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 25 34125AA5, Add_rm16_r16, si, none, ds, none, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 67013534125AA5
+67 01 34 26, Add_rm16_r16, si, none, ds, esi, none, 0, 0, 0, 0;0;0;0;0;0, 670136
+67 01 34 27, Add_rm16_r16, si, none, ds, edi, none, 0, 0, 0, 0;0;0;0;0;0, 670137
+67 01 34 28, Add_rm16_r16, si, none, ds, eax, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 29, Add_rm16_r16, si, none, ds, ecx, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 2A, Add_rm16_r16, si, none, ds, edx, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 2B, Add_rm16_r16, si, none, ds, ebx, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 2C, Add_rm16_r16, si, none, ss, esp, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 2D 8967A55A, Add_rm16_r16, si, none, ds, none, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 2E, Add_rm16_r16, si, none, ds, esi, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 2F, Add_rm16_r16, si, none, ds, edi, ebp, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 30, Add_rm16_r16, si, none, ds, eax, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 31, Add_rm16_r16, si, none, ds, ecx, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 32, Add_rm16_r16, si, none, ds, edx, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 33, Add_rm16_r16, si, none, ds, ebx, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 34, Add_rm16_r16, si, none, ss, esp, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 35 34125AA5, Add_rm16_r16, si, none, ds, none, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 36, Add_rm16_r16, si, none, ds, esi, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 37, Add_rm16_r16, si, none, ds, edi, esi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 38, Add_rm16_r16, si, none, ds, eax, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 39, Add_rm16_r16, si, none, ds, ecx, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 3A, Add_rm16_r16, si, none, ds, edx, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 3B, Add_rm16_r16, si, none, ds, ebx, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 3C, Add_rm16_r16, si, none, ss, esp, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 3D 8967A55A, Add_rm16_r16, si, none, ds, none, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 3E, Add_rm16_r16, si, none, ds, esi, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 3F, Add_rm16_r16, si, none, ds, edi, edi, 0, 0, 0, 0;0;0;0;0;0
+67 01 34 40, Add_rm16_r16, si, none, ds, eax, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 41, Add_rm16_r16, si, none, ds, ecx, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 42, Add_rm16_r16, si, none, ds, edx, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 43, Add_rm16_r16, si, none, ds, ebx, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 44, Add_rm16_r16, si, none, ss, esp, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 45 34125AA5, Add_rm16_r16, si, none, ds, none, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 46, Add_rm16_r16, si, none, ds, esi, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 47, Add_rm16_r16, si, none, ds, edi, eax, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 48, Add_rm16_r16, si, none, ds, eax, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 49, Add_rm16_r16, si, none, ds, ecx, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 4A, Add_rm16_r16, si, none, ds, edx, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 4B, Add_rm16_r16, si, none, ds, ebx, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 4C, Add_rm16_r16, si, none, ss, esp, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 4D 8967A55A, Add_rm16_r16, si, none, ds, none, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 4E, Add_rm16_r16, si, none, ds, esi, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 4F, Add_rm16_r16, si, none, ds, edi, ecx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 50, Add_rm16_r16, si, none, ds, eax, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 51, Add_rm16_r16, si, none, ds, ecx, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 52, Add_rm16_r16, si, none, ds, edx, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 53, Add_rm16_r16, si, none, ds, ebx, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 54, Add_rm16_r16, si, none, ss, esp, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 55 34125AA5, Add_rm16_r16, si, none, ds, none, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 56, Add_rm16_r16, si, none, ds, esi, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 57, Add_rm16_r16, si, none, ds, edi, edx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 58, Add_rm16_r16, si, none, ds, eax, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 59, Add_rm16_r16, si, none, ds, ecx, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 5A, Add_rm16_r16, si, none, ds, edx, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 5B, Add_rm16_r16, si, none, ds, ebx, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 5C, Add_rm16_r16, si, none, ss, esp, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 5D 8967A55A, Add_rm16_r16, si, none, ds, none, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 5E, Add_rm16_r16, si, none, ds, esi, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 5F, Add_rm16_r16, si, none, ds, edi, ebx, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 60, Add_rm16_r16, si, none, ds, eax, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 61, Add_rm16_r16, si, none, ds, ecx, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 62, Add_rm16_r16, si, none, ds, edx, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 63, Add_rm16_r16, si, none, ds, ebx, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 64, Add_rm16_r16, si, none, ss, esp, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 65 34125AA5, Add_rm16_r16, si, none, ds, none, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 66, Add_rm16_r16, si, none, ds, esi, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 67, Add_rm16_r16, si, none, ds, edi, none, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 68, Add_rm16_r16, si, none, ds, eax, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 69, Add_rm16_r16, si, none, ds, ecx, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 6A, Add_rm16_r16, si, none, ds, edx, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 6B, Add_rm16_r16, si, none, ds, ebx, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 6C, Add_rm16_r16, si, none, ss, esp, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 6D 8967A55A, Add_rm16_r16, si, none, ds, none, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 6E, Add_rm16_r16, si, none, ds, esi, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 6F, Add_rm16_r16, si, none, ds, edi, ebp, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 70, Add_rm16_r16, si, none, ds, eax, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 71, Add_rm16_r16, si, none, ds, ecx, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 72, Add_rm16_r16, si, none, ds, edx, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 73, Add_rm16_r16, si, none, ds, ebx, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 74, Add_rm16_r16, si, none, ss, esp, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 75 34125AA5, Add_rm16_r16, si, none, ds, none, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 76, Add_rm16_r16, si, none, ds, esi, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 77, Add_rm16_r16, si, none, ds, edi, esi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 78, Add_rm16_r16, si, none, ds, eax, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 79, Add_rm16_r16, si, none, ds, ecx, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 7A, Add_rm16_r16, si, none, ds, edx, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 7B, Add_rm16_r16, si, none, ds, ebx, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 7C, Add_rm16_r16, si, none, ss, esp, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 7D 8967A55A, Add_rm16_r16, si, none, ds, none, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 7E, Add_rm16_r16, si, none, ds, esi, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 7F, Add_rm16_r16, si, none, ds, edi, edi, 1, 0, 0, 0;0;0;0;0;0
+67 01 34 80, Add_rm16_r16, si, none, ds, eax, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 81, Add_rm16_r16, si, none, ds, ecx, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 82, Add_rm16_r16, si, none, ds, edx, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 83, Add_rm16_r16, si, none, ds, ebx, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 84, Add_rm16_r16, si, none, ss, esp, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 85 34125AA5, Add_rm16_r16, si, none, ds, none, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 86, Add_rm16_r16, si, none, ds, esi, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 87, Add_rm16_r16, si, none, ds, edi, eax, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 88, Add_rm16_r16, si, none, ds, eax, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 89, Add_rm16_r16, si, none, ds, ecx, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 8A, Add_rm16_r16, si, none, ds, edx, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 8B, Add_rm16_r16, si, none, ds, ebx, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 8C, Add_rm16_r16, si, none, ss, esp, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 8D 8967A55A, Add_rm16_r16, si, none, ds, none, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 8E, Add_rm16_r16, si, none, ds, esi, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 8F, Add_rm16_r16, si, none, ds, edi, ecx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 90, Add_rm16_r16, si, none, ds, eax, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 91, Add_rm16_r16, si, none, ds, ecx, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 92, Add_rm16_r16, si, none, ds, edx, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 93, Add_rm16_r16, si, none, ds, ebx, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 94, Add_rm16_r16, si, none, ss, esp, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 95 34125AA5, Add_rm16_r16, si, none, ds, none, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 96, Add_rm16_r16, si, none, ds, esi, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 97, Add_rm16_r16, si, none, ds, edi, edx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 98, Add_rm16_r16, si, none, ds, eax, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 99, Add_rm16_r16, si, none, ds, ecx, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 9A, Add_rm16_r16, si, none, ds, edx, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 9B, Add_rm16_r16, si, none, ds, ebx, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 9C, Add_rm16_r16, si, none, ss, esp, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 9D 8967A55A, Add_rm16_r16, si, none, ds, none, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 9E, Add_rm16_r16, si, none, ds, esi, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 9F, Add_rm16_r16, si, none, ds, edi, ebx, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A0, Add_rm16_r16, si, none, ds, eax, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A1, Add_rm16_r16, si, none, ds, ecx, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A2, Add_rm16_r16, si, none, ds, edx, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A3, Add_rm16_r16, si, none, ds, ebx, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A4, Add_rm16_r16, si, none, ss, esp, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A5 34125AA5, Add_rm16_r16, si, none, ds, none, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 A6, Add_rm16_r16, si, none, ds, esi, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A7, Add_rm16_r16, si, none, ds, edi, none, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A8, Add_rm16_r16, si, none, ds, eax, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 A9, Add_rm16_r16, si, none, ds, ecx, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 AA, Add_rm16_r16, si, none, ds, edx, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 AB, Add_rm16_r16, si, none, ds, ebx, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 AC, Add_rm16_r16, si, none, ss, esp, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 AD 8967A55A, Add_rm16_r16, si, none, ds, none, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 AE, Add_rm16_r16, si, none, ds, esi, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 AF, Add_rm16_r16, si, none, ds, edi, ebp, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B0, Add_rm16_r16, si, none, ds, eax, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B1, Add_rm16_r16, si, none, ds, ecx, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B2, Add_rm16_r16, si, none, ds, edx, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B3, Add_rm16_r16, si, none, ds, ebx, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B4, Add_rm16_r16, si, none, ss, esp, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B5 34125AA5, Add_rm16_r16, si, none, ds, none, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 B6, Add_rm16_r16, si, none, ds, esi, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B7, Add_rm16_r16, si, none, ds, edi, esi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B8, Add_rm16_r16, si, none, ds, eax, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 B9, Add_rm16_r16, si, none, ds, ecx, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 BA, Add_rm16_r16, si, none, ds, edx, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 BB, Add_rm16_r16, si, none, ds, ebx, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 BC, Add_rm16_r16, si, none, ss, esp, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 BD 8967A55A, Add_rm16_r16, si, none, ds, none, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 BE, Add_rm16_r16, si, none, ds, esi, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 BF, Add_rm16_r16, si, none, ds, edi, edi, 2, 0, 0, 0;0;0;0;0;0
+67 01 34 C0, Add_rm16_r16, si, none, ds, eax, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C1, Add_rm16_r16, si, none, ds, ecx, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C2, Add_rm16_r16, si, none, ds, edx, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C3, Add_rm16_r16, si, none, ds, ebx, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C4, Add_rm16_r16, si, none, ss, esp, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C5 34125AA5, Add_rm16_r16, si, none, ds, none, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 C6, Add_rm16_r16, si, none, ds, esi, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C7, Add_rm16_r16, si, none, ds, edi, eax, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C8, Add_rm16_r16, si, none, ds, eax, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 C9, Add_rm16_r16, si, none, ds, ecx, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 CA, Add_rm16_r16, si, none, ds, edx, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 CB, Add_rm16_r16, si, none, ds, ebx, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 CC, Add_rm16_r16, si, none, ss, esp, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 CD 8967A55A, Add_rm16_r16, si, none, ds, none, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 CE, Add_rm16_r16, si, none, ds, esi, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 CF, Add_rm16_r16, si, none, ds, edi, ecx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D0, Add_rm16_r16, si, none, ds, eax, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D1, Add_rm16_r16, si, none, ds, ecx, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D2, Add_rm16_r16, si, none, ds, edx, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D3, Add_rm16_r16, si, none, ds, ebx, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D4, Add_rm16_r16, si, none, ss, esp, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D5 34125AA5, Add_rm16_r16, si, none, ds, none, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 D6, Add_rm16_r16, si, none, ds, esi, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D7, Add_rm16_r16, si, none, ds, edi, edx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D8, Add_rm16_r16, si, none, ds, eax, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 D9, Add_rm16_r16, si, none, ds, ecx, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 DA, Add_rm16_r16, si, none, ds, edx, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 DB, Add_rm16_r16, si, none, ds, ebx, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 DC, Add_rm16_r16, si, none, ss, esp, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 DD 8967A55A, Add_rm16_r16, si, none, ds, none, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 DE, Add_rm16_r16, si, none, ds, esi, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 DF, Add_rm16_r16, si, none, ds, edi, ebx, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E0, Add_rm16_r16, si, none, ds, eax, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E1, Add_rm16_r16, si, none, ds, ecx, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E2, Add_rm16_r16, si, none, ds, edx, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E3, Add_rm16_r16, si, none, ds, ebx, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E4, Add_rm16_r16, si, none, ss, esp, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E5 34125AA5, Add_rm16_r16, si, none, ds, none, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 E6, Add_rm16_r16, si, none, ds, esi, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E7, Add_rm16_r16, si, none, ds, edi, none, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E8, Add_rm16_r16, si, none, ds, eax, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 E9, Add_rm16_r16, si, none, ds, ecx, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 EA, Add_rm16_r16, si, none, ds, edx, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 EB, Add_rm16_r16, si, none, ds, ebx, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 EC, Add_rm16_r16, si, none, ss, esp, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 ED 8967A55A, Add_rm16_r16, si, none, ds, none, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 EE, Add_rm16_r16, si, none, ds, esi, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 EF, Add_rm16_r16, si, none, ds, edi, ebp, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F0, Add_rm16_r16, si, none, ds, eax, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F1, Add_rm16_r16, si, none, ds, ecx, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F2, Add_rm16_r16, si, none, ds, edx, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F3, Add_rm16_r16, si, none, ds, ebx, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F4, Add_rm16_r16, si, none, ss, esp, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F5 34125AA5, Add_rm16_r16, si, none, ds, none, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 34 F6, Add_rm16_r16, si, none, ds, esi, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F7, Add_rm16_r16, si, none, ds, edi, esi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F8, Add_rm16_r16, si, none, ds, eax, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 F9, Add_rm16_r16, si, none, ds, ecx, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 FA, Add_rm16_r16, si, none, ds, edx, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 FB, Add_rm16_r16, si, none, ds, ebx, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 FC, Add_rm16_r16, si, none, ss, esp, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 FD 8967A55A, Add_rm16_r16, si, none, ds, none, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 34 FE, Add_rm16_r16, si, none, ds, esi, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 34 FF, Add_rm16_r16, si, none, ds, edi, edi, 3, 0, 0, 0;0;0;0;0;0
+67 01 74 00 A5, Add_rm16_r16, si, none, ds, eax, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 01 A5, Add_rm16_r16, si, none, ds, ecx, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 02 A5, Add_rm16_r16, si, none, ds, edx, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 03 A5, Add_rm16_r16, si, none, ds, ebx, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 04 A5, Add_rm16_r16, si, none, ss, esp, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 05 A5, Add_rm16_r16, si, none, ss, ebp, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 06 A5, Add_rm16_r16, si, none, ds, esi, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 07 A5, Add_rm16_r16, si, none, ds, edi, eax, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 08 5A, Add_rm16_r16, si, none, ds, eax, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 09 5A, Add_rm16_r16, si, none, ds, ecx, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0A 5A, Add_rm16_r16, si, none, ds, edx, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0B 5A, Add_rm16_r16, si, none, ds, ebx, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0C 5A, Add_rm16_r16, si, none, ss, esp, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0D 5A, Add_rm16_r16, si, none, ss, ebp, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0E 5A, Add_rm16_r16, si, none, ds, esi, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 0F 5A, Add_rm16_r16, si, none, ds, edi, ecx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 10 A5, Add_rm16_r16, si, none, ds, eax, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 11 A5, Add_rm16_r16, si, none, ds, ecx, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 12 A5, Add_rm16_r16, si, none, ds, edx, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 13 A5, Add_rm16_r16, si, none, ds, ebx, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 14 A5, Add_rm16_r16, si, none, ss, esp, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 15 A5, Add_rm16_r16, si, none, ss, ebp, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 16 A5, Add_rm16_r16, si, none, ds, esi, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 17 A5, Add_rm16_r16, si, none, ds, edi, edx, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 18 5A, Add_rm16_r16, si, none, ds, eax, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 19 5A, Add_rm16_r16, si, none, ds, ecx, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1A 5A, Add_rm16_r16, si, none, ds, edx, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1B 5A, Add_rm16_r16, si, none, ds, ebx, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1C 5A, Add_rm16_r16, si, none, ss, esp, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1D 5A, Add_rm16_r16, si, none, ss, ebp, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1E 5A, Add_rm16_r16, si, none, ds, esi, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 1F 5A, Add_rm16_r16, si, none, ds, edi, ebx, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 20 A5, Add_rm16_r16, si, none, ds, eax, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670170A5
+67 01 74 21 A5, Add_rm16_r16, si, none, ds, ecx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670171A5
+67 01 74 22 A5, Add_rm16_r16, si, none, ds, edx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670172A5
+67 01 74 23 A5, Add_rm16_r16, si, none, ds, ebx, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670173A5
+67 01 74 24 A5, Add_rm16_r16, si, none, ss, esp, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 25 A5, Add_rm16_r16, si, none, ss, ebp, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670175A5
+67 01 74 26 A5, Add_rm16_r16, si, none, ds, esi, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670176A5
+67 01 74 27 A5, Add_rm16_r16, si, none, ds, edi, none, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1, 670177A5
+67 01 74 28 5A, Add_rm16_r16, si, none, ds, eax, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 29 5A, Add_rm16_r16, si, none, ds, ecx, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2A 5A, Add_rm16_r16, si, none, ds, edx, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2B 5A, Add_rm16_r16, si, none, ds, ebx, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2C 5A, Add_rm16_r16, si, none, ss, esp, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2D 5A, Add_rm16_r16, si, none, ss, ebp, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2E 5A, Add_rm16_r16, si, none, ds, esi, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 2F 5A, Add_rm16_r16, si, none, ds, edi, ebp, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 30 A5, Add_rm16_r16, si, none, ds, eax, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 31 A5, Add_rm16_r16, si, none, ds, ecx, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 32 A5, Add_rm16_r16, si, none, ds, edx, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 33 A5, Add_rm16_r16, si, none, ds, ebx, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 34 A5, Add_rm16_r16, si, none, ss, esp, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 35 A5, Add_rm16_r16, si, none, ss, ebp, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 36 A5, Add_rm16_r16, si, none, ds, esi, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 37 A5, Add_rm16_r16, si, none, ds, edi, esi, 0, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 38 5A, Add_rm16_r16, si, none, ds, eax, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 39 5A, Add_rm16_r16, si, none, ds, ecx, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3A 5A, Add_rm16_r16, si, none, ds, edx, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3B 5A, Add_rm16_r16, si, none, ds, ebx, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3C 5A, Add_rm16_r16, si, none, ss, esp, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3D 5A, Add_rm16_r16, si, none, ss, ebp, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3E 5A, Add_rm16_r16, si, none, ds, esi, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 3F 5A, Add_rm16_r16, si, none, ds, edi, edi, 0, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 40 A5, Add_rm16_r16, si, none, ds, eax, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 41 A5, Add_rm16_r16, si, none, ds, ecx, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 42 A5, Add_rm16_r16, si, none, ds, edx, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 43 A5, Add_rm16_r16, si, none, ds, ebx, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 44 A5, Add_rm16_r16, si, none, ss, esp, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 45 A5, Add_rm16_r16, si, none, ss, ebp, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 46 A5, Add_rm16_r16, si, none, ds, esi, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 47 A5, Add_rm16_r16, si, none, ds, edi, eax, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 48 5A, Add_rm16_r16, si, none, ds, eax, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 49 5A, Add_rm16_r16, si, none, ds, ecx, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4A 5A, Add_rm16_r16, si, none, ds, edx, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4B 5A, Add_rm16_r16, si, none, ds, ebx, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4C 5A, Add_rm16_r16, si, none, ss, esp, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4D 5A, Add_rm16_r16, si, none, ss, ebp, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4E 5A, Add_rm16_r16, si, none, ds, esi, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 4F 5A, Add_rm16_r16, si, none, ds, edi, ecx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 50 A5, Add_rm16_r16, si, none, ds, eax, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 51 A5, Add_rm16_r16, si, none, ds, ecx, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 52 A5, Add_rm16_r16, si, none, ds, edx, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 53 A5, Add_rm16_r16, si, none, ds, ebx, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 54 A5, Add_rm16_r16, si, none, ss, esp, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 55 A5, Add_rm16_r16, si, none, ss, ebp, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 56 A5, Add_rm16_r16, si, none, ds, esi, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 57 A5, Add_rm16_r16, si, none, ds, edi, edx, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 58 5A, Add_rm16_r16, si, none, ds, eax, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 59 5A, Add_rm16_r16, si, none, ds, ecx, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5A 5A, Add_rm16_r16, si, none, ds, edx, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5B 5A, Add_rm16_r16, si, none, ds, ebx, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5C 5A, Add_rm16_r16, si, none, ss, esp, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5D 5A, Add_rm16_r16, si, none, ss, ebp, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5E 5A, Add_rm16_r16, si, none, ds, esi, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 5F 5A, Add_rm16_r16, si, none, ds, edi, ebx, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 60 A5, Add_rm16_r16, si, none, ds, eax, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 61 A5, Add_rm16_r16, si, none, ds, ecx, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 62 A5, Add_rm16_r16, si, none, ds, edx, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 63 A5, Add_rm16_r16, si, none, ds, ebx, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 64 A5, Add_rm16_r16, si, none, ss, esp, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 65 A5, Add_rm16_r16, si, none, ss, ebp, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 66 A5, Add_rm16_r16, si, none, ds, esi, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 67 A5, Add_rm16_r16, si, none, ds, edi, none, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 68 5A, Add_rm16_r16, si, none, ds, eax, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 69 5A, Add_rm16_r16, si, none, ds, ecx, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6A 5A, Add_rm16_r16, si, none, ds, edx, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6B 5A, Add_rm16_r16, si, none, ds, ebx, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6C 5A, Add_rm16_r16, si, none, ss, esp, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6D 5A, Add_rm16_r16, si, none, ss, ebp, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6E 5A, Add_rm16_r16, si, none, ds, esi, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 6F 5A, Add_rm16_r16, si, none, ds, edi, ebp, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 70 A5, Add_rm16_r16, si, none, ds, eax, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 71 A5, Add_rm16_r16, si, none, ds, ecx, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 72 A5, Add_rm16_r16, si, none, ds, edx, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 73 A5, Add_rm16_r16, si, none, ds, ebx, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 74 A5, Add_rm16_r16, si, none, ss, esp, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 75 A5, Add_rm16_r16, si, none, ss, ebp, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 76 A5, Add_rm16_r16, si, none, ds, esi, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 77 A5, Add_rm16_r16, si, none, ds, edi, esi, 1, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 78 5A, Add_rm16_r16, si, none, ds, eax, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 79 5A, Add_rm16_r16, si, none, ds, ecx, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7A 5A, Add_rm16_r16, si, none, ds, edx, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7B 5A, Add_rm16_r16, si, none, ds, ebx, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7C 5A, Add_rm16_r16, si, none, ss, esp, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7D 5A, Add_rm16_r16, si, none, ss, ebp, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7E 5A, Add_rm16_r16, si, none, ds, esi, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 7F 5A, Add_rm16_r16, si, none, ds, edi, edi, 1, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 80 A5, Add_rm16_r16, si, none, ds, eax, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 81 A5, Add_rm16_r16, si, none, ds, ecx, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 82 A5, Add_rm16_r16, si, none, ds, edx, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 83 A5, Add_rm16_r16, si, none, ds, ebx, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 84 A5, Add_rm16_r16, si, none, ss, esp, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 85 A5, Add_rm16_r16, si, none, ss, ebp, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 86 A5, Add_rm16_r16, si, none, ds, esi, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 87 A5, Add_rm16_r16, si, none, ds, edi, eax, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 88 5A, Add_rm16_r16, si, none, ds, eax, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 89 5A, Add_rm16_r16, si, none, ds, ecx, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8A 5A, Add_rm16_r16, si, none, ds, edx, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8B 5A, Add_rm16_r16, si, none, ds, ebx, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8C 5A, Add_rm16_r16, si, none, ss, esp, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8D 5A, Add_rm16_r16, si, none, ss, ebp, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8E 5A, Add_rm16_r16, si, none, ds, esi, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 8F 5A, Add_rm16_r16, si, none, ds, edi, ecx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 90 A5, Add_rm16_r16, si, none, ds, eax, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 91 A5, Add_rm16_r16, si, none, ds, ecx, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 92 A5, Add_rm16_r16, si, none, ds, edx, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 93 A5, Add_rm16_r16, si, none, ds, ebx, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 94 A5, Add_rm16_r16, si, none, ss, esp, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 95 A5, Add_rm16_r16, si, none, ss, ebp, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 96 A5, Add_rm16_r16, si, none, ds, esi, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 97 A5, Add_rm16_r16, si, none, ds, edi, edx, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 98 5A, Add_rm16_r16, si, none, ds, eax, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 99 5A, Add_rm16_r16, si, none, ds, ecx, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9A 5A, Add_rm16_r16, si, none, ds, edx, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9B 5A, Add_rm16_r16, si, none, ds, ebx, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9C 5A, Add_rm16_r16, si, none, ss, esp, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9D 5A, Add_rm16_r16, si, none, ss, ebp, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9E 5A, Add_rm16_r16, si, none, ds, esi, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 9F 5A, Add_rm16_r16, si, none, ds, edi, ebx, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 A0 A5, Add_rm16_r16, si, none, ds, eax, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A1 A5, Add_rm16_r16, si, none, ds, ecx, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A2 A5, Add_rm16_r16, si, none, ds, edx, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A3 A5, Add_rm16_r16, si, none, ds, ebx, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A4 A5, Add_rm16_r16, si, none, ss, esp, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A5 A5, Add_rm16_r16, si, none, ss, ebp, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A6 A5, Add_rm16_r16, si, none, ds, esi, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A7 A5, Add_rm16_r16, si, none, ds, edi, none, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 A8 5A, Add_rm16_r16, si, none, ds, eax, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 A9 5A, Add_rm16_r16, si, none, ds, ecx, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AA 5A, Add_rm16_r16, si, none, ds, edx, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AB 5A, Add_rm16_r16, si, none, ds, ebx, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AC 5A, Add_rm16_r16, si, none, ss, esp, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AD 5A, Add_rm16_r16, si, none, ss, ebp, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AE 5A, Add_rm16_r16, si, none, ds, esi, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 AF 5A, Add_rm16_r16, si, none, ds, edi, ebp, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 B0 A5, Add_rm16_r16, si, none, ds, eax, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B1 A5, Add_rm16_r16, si, none, ds, ecx, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B2 A5, Add_rm16_r16, si, none, ds, edx, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B3 A5, Add_rm16_r16, si, none, ds, ebx, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B4 A5, Add_rm16_r16, si, none, ss, esp, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B5 A5, Add_rm16_r16, si, none, ss, ebp, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B6 A5, Add_rm16_r16, si, none, ds, esi, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B7 A5, Add_rm16_r16, si, none, ds, edi, esi, 2, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 B8 5A, Add_rm16_r16, si, none, ds, eax, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 B9 5A, Add_rm16_r16, si, none, ds, ecx, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BA 5A, Add_rm16_r16, si, none, ds, edx, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BB 5A, Add_rm16_r16, si, none, ds, ebx, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BC 5A, Add_rm16_r16, si, none, ss, esp, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BD 5A, Add_rm16_r16, si, none, ss, ebp, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BE 5A, Add_rm16_r16, si, none, ds, esi, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 BF 5A, Add_rm16_r16, si, none, ds, edi, edi, 2, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 C0 A5, Add_rm16_r16, si, none, ds, eax, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C1 A5, Add_rm16_r16, si, none, ds, ecx, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C2 A5, Add_rm16_r16, si, none, ds, edx, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C3 A5, Add_rm16_r16, si, none, ds, ebx, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C4 A5, Add_rm16_r16, si, none, ss, esp, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C5 A5, Add_rm16_r16, si, none, ss, ebp, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C6 A5, Add_rm16_r16, si, none, ds, esi, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C7 A5, Add_rm16_r16, si, none, ds, edi, eax, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 C8 5A, Add_rm16_r16, si, none, ds, eax, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 C9 5A, Add_rm16_r16, si, none, ds, ecx, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CA 5A, Add_rm16_r16, si, none, ds, edx, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CB 5A, Add_rm16_r16, si, none, ds, ebx, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CC 5A, Add_rm16_r16, si, none, ss, esp, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CD 5A, Add_rm16_r16, si, none, ss, ebp, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CE 5A, Add_rm16_r16, si, none, ds, esi, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 CF 5A, Add_rm16_r16, si, none, ds, edi, ecx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 D0 A5, Add_rm16_r16, si, none, ds, eax, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D1 A5, Add_rm16_r16, si, none, ds, ecx, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D2 A5, Add_rm16_r16, si, none, ds, edx, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D3 A5, Add_rm16_r16, si, none, ds, ebx, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D4 A5, Add_rm16_r16, si, none, ss, esp, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D5 A5, Add_rm16_r16, si, none, ss, ebp, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D6 A5, Add_rm16_r16, si, none, ds, esi, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D7 A5, Add_rm16_r16, si, none, ds, edi, edx, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 D8 5A, Add_rm16_r16, si, none, ds, eax, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 D9 5A, Add_rm16_r16, si, none, ds, ecx, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DA 5A, Add_rm16_r16, si, none, ds, edx, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DB 5A, Add_rm16_r16, si, none, ds, ebx, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DC 5A, Add_rm16_r16, si, none, ss, esp, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DD 5A, Add_rm16_r16, si, none, ss, ebp, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DE 5A, Add_rm16_r16, si, none, ds, esi, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 DF 5A, Add_rm16_r16, si, none, ds, edi, ebx, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 E0 A5, Add_rm16_r16, si, none, ds, eax, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E1 A5, Add_rm16_r16, si, none, ds, ecx, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E2 A5, Add_rm16_r16, si, none, ds, edx, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E3 A5, Add_rm16_r16, si, none, ds, ebx, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E4 A5, Add_rm16_r16, si, none, ss, esp, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E5 A5, Add_rm16_r16, si, none, ss, ebp, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E6 A5, Add_rm16_r16, si, none, ds, esi, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E7 A5, Add_rm16_r16, si, none, ds, edi, none, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 E8 5A, Add_rm16_r16, si, none, ds, eax, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 E9 5A, Add_rm16_r16, si, none, ds, ecx, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 EA 5A, Add_rm16_r16, si, none, ds, edx, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 EB 5A, Add_rm16_r16, si, none, ds, ebx, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 EC 5A, Add_rm16_r16, si, none, ss, esp, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 ED 5A, Add_rm16_r16, si, none, ss, ebp, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 EE 5A, Add_rm16_r16, si, none, ds, esi, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 EF 5A, Add_rm16_r16, si, none, ds, edi, ebp, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 F0 A5, Add_rm16_r16, si, none, ds, eax, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F1 A5, Add_rm16_r16, si, none, ds, ecx, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F2 A5, Add_rm16_r16, si, none, ds, edx, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F3 A5, Add_rm16_r16, si, none, ds, ebx, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F4 A5, Add_rm16_r16, si, none, ss, esp, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F5 A5, Add_rm16_r16, si, none, ss, ebp, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F6 A5, Add_rm16_r16, si, none, ds, esi, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F7 A5, Add_rm16_r16, si, none, ds, edi, esi, 3, 0xFFFFFFA5, 1, 0;0;0;0;4;1
+67 01 74 F8 5A, Add_rm16_r16, si, none, ds, eax, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 F9 5A, Add_rm16_r16, si, none, ds, ecx, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FA 5A, Add_rm16_r16, si, none, ds, edx, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FB 5A, Add_rm16_r16, si, none, ds, ebx, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FC 5A, Add_rm16_r16, si, none, ss, esp, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FD 5A, Add_rm16_r16, si, none, ss, ebp, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FE 5A, Add_rm16_r16, si, none, ds, esi, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 74 FF 5A, Add_rm16_r16, si, none, ds, edi, edi, 3, 0x0000005A, 1, 0;0;0;0;4;1
+67 01 B4 00 34125AA5, Add_rm16_r16, si, none, ds, eax, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 01 34125AA5, Add_rm16_r16, si, none, ds, ecx, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 02 34125AA5, Add_rm16_r16, si, none, ds, edx, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 03 34125AA5, Add_rm16_r16, si, none, ds, ebx, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 04 34125AA5, Add_rm16_r16, si, none, ss, esp, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 05 34125AA5, Add_rm16_r16, si, none, ss, ebp, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 06 34125AA5, Add_rm16_r16, si, none, ds, esi, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 07 34125AA5, Add_rm16_r16, si, none, ds, edi, eax, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 08 8967A55A, Add_rm16_r16, si, none, ds, eax, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 09 8967A55A, Add_rm16_r16, si, none, ds, ecx, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0A 8967A55A, Add_rm16_r16, si, none, ds, edx, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0C 8967A55A, Add_rm16_r16, si, none, ss, esp, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0E 8967A55A, Add_rm16_r16, si, none, ds, esi, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 0F 8967A55A, Add_rm16_r16, si, none, ds, edi, ecx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 10 34125AA5, Add_rm16_r16, si, none, ds, eax, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 11 34125AA5, Add_rm16_r16, si, none, ds, ecx, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 12 34125AA5, Add_rm16_r16, si, none, ds, edx, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 13 34125AA5, Add_rm16_r16, si, none, ds, ebx, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 14 34125AA5, Add_rm16_r16, si, none, ss, esp, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 15 34125AA5, Add_rm16_r16, si, none, ss, ebp, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 16 34125AA5, Add_rm16_r16, si, none, ds, esi, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 17 34125AA5, Add_rm16_r16, si, none, ds, edi, edx, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 18 8967A55A, Add_rm16_r16, si, none, ds, eax, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 19 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1A 8967A55A, Add_rm16_r16, si, none, ds, edx, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1C 8967A55A, Add_rm16_r16, si, none, ss, esp, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1E 8967A55A, Add_rm16_r16, si, none, ds, esi, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 1F 8967A55A, Add_rm16_r16, si, none, ds, edi, ebx, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 20 34125AA5, Add_rm16_r16, si, none, ds, eax, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B034125AA5
+67 01 B4 21 34125AA5, Add_rm16_r16, si, none, ds, ecx, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B134125AA5
+67 01 B4 22 34125AA5, Add_rm16_r16, si, none, ds, edx, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B234125AA5
+67 01 B4 23 34125AA5, Add_rm16_r16, si, none, ds, ebx, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B334125AA5
+67 01 B4 24 34125AA5, Add_rm16_r16, si, none, ss, esp, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 25 34125AA5, Add_rm16_r16, si, none, ss, ebp, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B534125AA5
+67 01 B4 26 34125AA5, Add_rm16_r16, si, none, ds, esi, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B634125AA5
+67 01 B4 27 34125AA5, Add_rm16_r16, si, none, ds, edi, none, 0, 0xA55A1234, 4, 0;0;0;0;4;4, 6701B734125AA5
+67 01 B4 28 8967A55A, Add_rm16_r16, si, none, ds, eax, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 29 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2A 8967A55A, Add_rm16_r16, si, none, ds, edx, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2C 8967A55A, Add_rm16_r16, si, none, ss, esp, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2E 8967A55A, Add_rm16_r16, si, none, ds, esi, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 2F 8967A55A, Add_rm16_r16, si, none, ds, edi, ebp, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 30 34125AA5, Add_rm16_r16, si, none, ds, eax, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 31 34125AA5, Add_rm16_r16, si, none, ds, ecx, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 32 34125AA5, Add_rm16_r16, si, none, ds, edx, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 33 34125AA5, Add_rm16_r16, si, none, ds, ebx, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 34 34125AA5, Add_rm16_r16, si, none, ss, esp, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 35 34125AA5, Add_rm16_r16, si, none, ss, ebp, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 36 34125AA5, Add_rm16_r16, si, none, ds, esi, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 37 34125AA5, Add_rm16_r16, si, none, ds, edi, esi, 0, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 38 8967A55A, Add_rm16_r16, si, none, ds, eax, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 39 8967A55A, Add_rm16_r16, si, none, ds, ecx, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3A 8967A55A, Add_rm16_r16, si, none, ds, edx, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3B 8967A55A, Add_rm16_r16, si, none, ds, ebx, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3C 8967A55A, Add_rm16_r16, si, none, ss, esp, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3D 8967A55A, Add_rm16_r16, si, none, ss, ebp, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3E 8967A55A, Add_rm16_r16, si, none, ds, esi, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 3F 8967A55A, Add_rm16_r16, si, none, ds, edi, edi, 0, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 40 34125AA5, Add_rm16_r16, si, none, ds, eax, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 41 34125AA5, Add_rm16_r16, si, none, ds, ecx, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 42 34125AA5, Add_rm16_r16, si, none, ds, edx, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 43 34125AA5, Add_rm16_r16, si, none, ds, ebx, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 44 34125AA5, Add_rm16_r16, si, none, ss, esp, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 45 34125AA5, Add_rm16_r16, si, none, ss, ebp, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 46 34125AA5, Add_rm16_r16, si, none, ds, esi, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 47 34125AA5, Add_rm16_r16, si, none, ds, edi, eax, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 48 8967A55A, Add_rm16_r16, si, none, ds, eax, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 49 8967A55A, Add_rm16_r16, si, none, ds, ecx, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4A 8967A55A, Add_rm16_r16, si, none, ds, edx, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4C 8967A55A, Add_rm16_r16, si, none, ss, esp, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4E 8967A55A, Add_rm16_r16, si, none, ds, esi, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 4F 8967A55A, Add_rm16_r16, si, none, ds, edi, ecx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 50 34125AA5, Add_rm16_r16, si, none, ds, eax, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 51 34125AA5, Add_rm16_r16, si, none, ds, ecx, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 52 34125AA5, Add_rm16_r16, si, none, ds, edx, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 53 34125AA5, Add_rm16_r16, si, none, ds, ebx, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 54 34125AA5, Add_rm16_r16, si, none, ss, esp, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 55 34125AA5, Add_rm16_r16, si, none, ss, ebp, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 56 34125AA5, Add_rm16_r16, si, none, ds, esi, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 57 34125AA5, Add_rm16_r16, si, none, ds, edi, edx, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 58 8967A55A, Add_rm16_r16, si, none, ds, eax, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 59 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5A 8967A55A, Add_rm16_r16, si, none, ds, edx, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5C 8967A55A, Add_rm16_r16, si, none, ss, esp, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5E 8967A55A, Add_rm16_r16, si, none, ds, esi, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 5F 8967A55A, Add_rm16_r16, si, none, ds, edi, ebx, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 60 34125AA5, Add_rm16_r16, si, none, ds, eax, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 61 34125AA5, Add_rm16_r16, si, none, ds, ecx, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 62 34125AA5, Add_rm16_r16, si, none, ds, edx, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 63 34125AA5, Add_rm16_r16, si, none, ds, ebx, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 64 34125AA5, Add_rm16_r16, si, none, ss, esp, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 65 34125AA5, Add_rm16_r16, si, none, ss, ebp, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 66 34125AA5, Add_rm16_r16, si, none, ds, esi, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 67 34125AA5, Add_rm16_r16, si, none, ds, edi, none, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 68 8967A55A, Add_rm16_r16, si, none, ds, eax, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 69 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6A 8967A55A, Add_rm16_r16, si, none, ds, edx, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6C 8967A55A, Add_rm16_r16, si, none, ss, esp, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6E 8967A55A, Add_rm16_r16, si, none, ds, esi, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 6F 8967A55A, Add_rm16_r16, si, none, ds, edi, ebp, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 70 34125AA5, Add_rm16_r16, si, none, ds, eax, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 71 34125AA5, Add_rm16_r16, si, none, ds, ecx, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 72 34125AA5, Add_rm16_r16, si, none, ds, edx, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 73 34125AA5, Add_rm16_r16, si, none, ds, ebx, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 74 34125AA5, Add_rm16_r16, si, none, ss, esp, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 75 34125AA5, Add_rm16_r16, si, none, ss, ebp, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 76 34125AA5, Add_rm16_r16, si, none, ds, esi, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 77 34125AA5, Add_rm16_r16, si, none, ds, edi, esi, 1, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 78 8967A55A, Add_rm16_r16, si, none, ds, eax, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 79 8967A55A, Add_rm16_r16, si, none, ds, ecx, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7A 8967A55A, Add_rm16_r16, si, none, ds, edx, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7B 8967A55A, Add_rm16_r16, si, none, ds, ebx, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7C 8967A55A, Add_rm16_r16, si, none, ss, esp, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7D 8967A55A, Add_rm16_r16, si, none, ss, ebp, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7E 8967A55A, Add_rm16_r16, si, none, ds, esi, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 7F 8967A55A, Add_rm16_r16, si, none, ds, edi, edi, 1, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 80 34125AA5, Add_rm16_r16, si, none, ds, eax, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 81 34125AA5, Add_rm16_r16, si, none, ds, ecx, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 82 34125AA5, Add_rm16_r16, si, none, ds, edx, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 83 34125AA5, Add_rm16_r16, si, none, ds, ebx, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 84 34125AA5, Add_rm16_r16, si, none, ss, esp, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 85 34125AA5, Add_rm16_r16, si, none, ss, ebp, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 86 34125AA5, Add_rm16_r16, si, none, ds, esi, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 87 34125AA5, Add_rm16_r16, si, none, ds, edi, eax, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 88 8967A55A, Add_rm16_r16, si, none, ds, eax, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 89 8967A55A, Add_rm16_r16, si, none, ds, ecx, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8A 8967A55A, Add_rm16_r16, si, none, ds, edx, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8C 8967A55A, Add_rm16_r16, si, none, ss, esp, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8E 8967A55A, Add_rm16_r16, si, none, ds, esi, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 8F 8967A55A, Add_rm16_r16, si, none, ds, edi, ecx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 90 34125AA5, Add_rm16_r16, si, none, ds, eax, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 91 34125AA5, Add_rm16_r16, si, none, ds, ecx, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 92 34125AA5, Add_rm16_r16, si, none, ds, edx, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 93 34125AA5, Add_rm16_r16, si, none, ds, ebx, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 94 34125AA5, Add_rm16_r16, si, none, ss, esp, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 95 34125AA5, Add_rm16_r16, si, none, ss, ebp, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 96 34125AA5, Add_rm16_r16, si, none, ds, esi, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 97 34125AA5, Add_rm16_r16, si, none, ds, edi, edx, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 98 8967A55A, Add_rm16_r16, si, none, ds, eax, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 99 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9A 8967A55A, Add_rm16_r16, si, none, ds, edx, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9B 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9C 8967A55A, Add_rm16_r16, si, none, ss, esp, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9D 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9E 8967A55A, Add_rm16_r16, si, none, ds, esi, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 9F 8967A55A, Add_rm16_r16, si, none, ds, edi, ebx, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 A0 34125AA5, Add_rm16_r16, si, none, ds, eax, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A1 34125AA5, Add_rm16_r16, si, none, ds, ecx, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A2 34125AA5, Add_rm16_r16, si, none, ds, edx, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A3 34125AA5, Add_rm16_r16, si, none, ds, ebx, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A4 34125AA5, Add_rm16_r16, si, none, ss, esp, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A5 34125AA5, Add_rm16_r16, si, none, ss, ebp, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A6 34125AA5, Add_rm16_r16, si, none, ds, esi, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A7 34125AA5, Add_rm16_r16, si, none, ds, edi, none, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 A8 8967A55A, Add_rm16_r16, si, none, ds, eax, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 A9 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AA 8967A55A, Add_rm16_r16, si, none, ds, edx, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AB 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AC 8967A55A, Add_rm16_r16, si, none, ss, esp, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AD 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AE 8967A55A, Add_rm16_r16, si, none, ds, esi, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 AF 8967A55A, Add_rm16_r16, si, none, ds, edi, ebp, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 B0 34125AA5, Add_rm16_r16, si, none, ds, eax, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B1 34125AA5, Add_rm16_r16, si, none, ds, ecx, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B2 34125AA5, Add_rm16_r16, si, none, ds, edx, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B3 34125AA5, Add_rm16_r16, si, none, ds, ebx, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B4 34125AA5, Add_rm16_r16, si, none, ss, esp, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B5 34125AA5, Add_rm16_r16, si, none, ss, ebp, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B6 34125AA5, Add_rm16_r16, si, none, ds, esi, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B7 34125AA5, Add_rm16_r16, si, none, ds, edi, esi, 2, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 B8 8967A55A, Add_rm16_r16, si, none, ds, eax, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 B9 8967A55A, Add_rm16_r16, si, none, ds, ecx, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BA 8967A55A, Add_rm16_r16, si, none, ds, edx, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BB 8967A55A, Add_rm16_r16, si, none, ds, ebx, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BC 8967A55A, Add_rm16_r16, si, none, ss, esp, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BD 8967A55A, Add_rm16_r16, si, none, ss, ebp, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BE 8967A55A, Add_rm16_r16, si, none, ds, esi, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 BF 8967A55A, Add_rm16_r16, si, none, ds, edi, edi, 2, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 C0 34125AA5, Add_rm16_r16, si, none, ds, eax, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C1 34125AA5, Add_rm16_r16, si, none, ds, ecx, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C2 34125AA5, Add_rm16_r16, si, none, ds, edx, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C3 34125AA5, Add_rm16_r16, si, none, ds, ebx, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C4 34125AA5, Add_rm16_r16, si, none, ss, esp, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C5 34125AA5, Add_rm16_r16, si, none, ss, ebp, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C6 34125AA5, Add_rm16_r16, si, none, ds, esi, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C7 34125AA5, Add_rm16_r16, si, none, ds, edi, eax, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 C8 8967A55A, Add_rm16_r16, si, none, ds, eax, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 C9 8967A55A, Add_rm16_r16, si, none, ds, ecx, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CA 8967A55A, Add_rm16_r16, si, none, ds, edx, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CB 8967A55A, Add_rm16_r16, si, none, ds, ebx, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CC 8967A55A, Add_rm16_r16, si, none, ss, esp, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CD 8967A55A, Add_rm16_r16, si, none, ss, ebp, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CE 8967A55A, Add_rm16_r16, si, none, ds, esi, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 CF 8967A55A, Add_rm16_r16, si, none, ds, edi, ecx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 D0 34125AA5, Add_rm16_r16, si, none, ds, eax, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D1 34125AA5, Add_rm16_r16, si, none, ds, ecx, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D2 34125AA5, Add_rm16_r16, si, none, ds, edx, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D3 34125AA5, Add_rm16_r16, si, none, ds, ebx, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D4 34125AA5, Add_rm16_r16, si, none, ss, esp, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D5 34125AA5, Add_rm16_r16, si, none, ss, ebp, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D6 34125AA5, Add_rm16_r16, si, none, ds, esi, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D7 34125AA5, Add_rm16_r16, si, none, ds, edi, edx, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 D8 8967A55A, Add_rm16_r16, si, none, ds, eax, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 D9 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DA 8967A55A, Add_rm16_r16, si, none, ds, edx, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DB 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DC 8967A55A, Add_rm16_r16, si, none, ss, esp, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DD 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DE 8967A55A, Add_rm16_r16, si, none, ds, esi, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 DF 8967A55A, Add_rm16_r16, si, none, ds, edi, ebx, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 E0 34125AA5, Add_rm16_r16, si, none, ds, eax, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E1 34125AA5, Add_rm16_r16, si, none, ds, ecx, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E2 34125AA5, Add_rm16_r16, si, none, ds, edx, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E3 34125AA5, Add_rm16_r16, si, none, ds, ebx, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E4 34125AA5, Add_rm16_r16, si, none, ss, esp, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E5 34125AA5, Add_rm16_r16, si, none, ss, ebp, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E6 34125AA5, Add_rm16_r16, si, none, ds, esi, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E7 34125AA5, Add_rm16_r16, si, none, ds, edi, none, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 E8 8967A55A, Add_rm16_r16, si, none, ds, eax, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 E9 8967A55A, Add_rm16_r16, si, none, ds, ecx, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 EA 8967A55A, Add_rm16_r16, si, none, ds, edx, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 EB 8967A55A, Add_rm16_r16, si, none, ds, ebx, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 EC 8967A55A, Add_rm16_r16, si, none, ss, esp, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 ED 8967A55A, Add_rm16_r16, si, none, ss, ebp, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 EE 8967A55A, Add_rm16_r16, si, none, ds, esi, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 EF 8967A55A, Add_rm16_r16, si, none, ds, edi, ebp, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 F0 34125AA5, Add_rm16_r16, si, none, ds, eax, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F1 34125AA5, Add_rm16_r16, si, none, ds, ecx, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F2 34125AA5, Add_rm16_r16, si, none, ds, edx, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F3 34125AA5, Add_rm16_r16, si, none, ds, ebx, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F4 34125AA5, Add_rm16_r16, si, none, ss, esp, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F5 34125AA5, Add_rm16_r16, si, none, ss, ebp, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F6 34125AA5, Add_rm16_r16, si, none, ds, esi, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F7 34125AA5, Add_rm16_r16, si, none, ds, edi, esi, 3, 0xA55A1234, 4, 0;0;0;0;4;4
+67 01 B4 F8 8967A55A, Add_rm16_r16, si, none, ds, eax, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 F9 8967A55A, Add_rm16_r16, si, none, ds, ecx, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FA 8967A55A, Add_rm16_r16, si, none, ds, edx, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FB 8967A55A, Add_rm16_r16, si, none, ds, ebx, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FC 8967A55A, Add_rm16_r16, si, none, ss, esp, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FD 8967A55A, Add_rm16_r16, si, none, ss, ebp, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FE 8967A55A, Add_rm16_r16, si, none, ds, esi, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 01 B4 FF 8967A55A, Add_rm16_r16, si, none, ds, edi, edi, 3, 0x5AA56789, 4, 0;0;0;0;4;4
+67 62 F27D09 A0 34 00, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 01, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 02, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 03, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 04, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 05 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 06, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 07, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 08, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 09, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 0A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 0B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 0C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 0D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 0E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 0F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 10, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 11, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 12, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 13, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 14, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 15 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 16, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 17, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 18, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 19, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 1A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 1B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 1C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 1D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 1E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 1F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 20, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 21, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 22, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 23, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 24, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 25 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 26, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 27, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 28, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 29, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 2A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 2B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 2C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 2D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 2E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 2F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 30, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 31, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 32, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 33, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 34, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 35 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 36, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 37, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 38, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 39, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 3A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 3B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 3C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 3D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 3E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 3F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 0, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 40, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 41, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 42, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 43, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 44, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 45 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 46, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 47, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 48, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 49, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 4A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 4B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 4C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 4D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 4E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 4F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 50, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 51, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 52, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 53, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 54, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 55 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 56, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 57, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 58, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 59, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 5B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 5C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 5D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 5E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 5F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 60, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 61, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 62, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 63, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 64, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 65 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 66, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 67, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 68, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 69, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 6A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 6B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 6C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 6D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 6E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 6F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 70, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 71, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 72, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 73, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 74, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 75 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 76, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 77, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 78, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 79, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 7A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 7B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 7C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 7D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 7E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 7F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 1, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 80, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 81, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 82, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 83, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 84, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 85 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 86, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 87, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 88, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 89, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 8A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 8B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 8C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 8D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 8E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 8F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 90, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 91, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 92, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 93, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 94, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 95 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 96, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 97, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 98, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 99, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 9A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 9B, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 9C, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 9D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 9E, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 9F, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 A6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 A9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 AA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 AB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 AC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 AD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 AE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 AF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 B6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 B9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 BA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 BB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 BC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 BD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 BE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 BF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 2, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 C6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 C9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 CA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 CB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 CC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 CD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 CE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 CF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 D6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 D9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 DA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 DB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 DC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 DD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 DE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 DF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 E6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 E9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 EA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 EB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 EC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 ED 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 EE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 EF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F0, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F1, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F2, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F3, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F4, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 F6, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F7, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F8, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 F9, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 FA, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 FB, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 FC, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 FD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, none, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 34 FE, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 34 FF, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 3, 0, 0, 0;0;0;0;0;0
+67 62 F27D09 A0 74 00 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 01 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 02 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 03 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 04 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 05 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 06 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 07 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 08 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 09 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 0F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 10 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 11 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 12 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 13 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 14 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 15 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 16 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 17 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 18 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 19 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 1F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 20 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 21 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 22 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 23 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 24 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 25 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 26 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 27 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 28 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 29 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 2F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 30 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 31 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 32 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 33 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 34 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 35 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 36 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 37 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 0, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 38 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 39 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 3F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 0, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 40 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 41 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 42 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 43 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 44 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 45 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 46 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 47 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 48 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 49 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 4F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 50 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 51 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 52 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 53 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 54 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 55 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 56 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 57 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 58 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 59 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 5F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 60 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 61 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 62 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 63 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 64 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 65 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 66 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 67 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 68 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 69 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 6F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 70 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 71 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 72 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 73 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 74 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 75 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 76 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 77 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 1, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 78 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 79 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 7F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 1, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 80 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 81 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 82 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 83 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 84 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 85 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 86 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 87 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 88 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 89 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 8F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 90 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 91 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 92 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 93 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 94 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 95 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 96 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 97 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 98 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 99 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9A 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9B 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9C 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9D 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9E 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 9F 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 A9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AD 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 AF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 2, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 B9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BD 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 BF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 2, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 C9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CD 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 CF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 D9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DD 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 DF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 E9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 EA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 EB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 EC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 ED 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 EE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 EF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F0 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F1 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F2 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F3 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F4 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F5 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F6 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F7 A5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 3, 0xFFFFFE94, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F8 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 F9 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FA 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FB 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FC 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FD 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FE 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 74 FF 5A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 3, 0x00000168, 1, 0;0;0;0;8;1
+67 62 F27D09 A0 B4 00 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 01 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 02 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 03 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 04 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 05 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 06 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 07 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 08 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 09 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 0F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 10 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 11 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 12 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 13 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 14 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 15 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 16 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 17 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 18 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 19 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 1F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 20 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 21 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 22 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 23 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 24 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 25 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 26 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 27 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 28 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 29 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 2F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 30 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 31 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 32 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 33 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 34 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 35 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 36 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 37 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 0, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 38 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 39 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 3F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 0, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 40 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 41 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 42 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 43 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 44 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 45 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 46 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 47 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 48 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 49 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 4F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 50 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 51 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 52 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 53 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 54 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 55 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 56 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 57 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 58 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 59 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 5F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 60 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 61 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 62 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 63 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 64 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 65 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 66 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 67 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 68 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 69 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 6F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 70 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 71 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 72 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 73 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 74 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 75 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 76 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 77 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 1, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 78 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 79 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 7F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 1, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 80 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 81 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 82 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 83 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 84 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 85 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 86 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 87 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 88 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 89 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 8F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 90 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 91 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 92 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 93 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 94 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 95 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 96 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 97 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 98 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 99 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9A 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9B 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9C 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9D 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9E 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 9F 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 A9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 AF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 2, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 B9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 BF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 2, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm0, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 C9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 CF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm1, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm2, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 D9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 DF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm3, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm4, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 E9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 EA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 EB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 EC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 ED 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 EE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 EF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm5, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F0 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F1 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F2 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F3 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F4 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F5 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F6 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F7 34125AA5, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm6, 3, 0xA55A1234, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F8 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, eax, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 F9 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ecx, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FA 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edx, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FB 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, ebx, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FC 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, esp, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FD 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ss, ebp, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FE 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, esi, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4
+67 62 F27D09 A0 B4 FF 8967A55A, EVEX_Vpscatterdd_vm32x_k1_xmm, xmm6, none, ds, edi, xmm7, 3, 0x5AA56789, 4, 0;0;0;0;8;4

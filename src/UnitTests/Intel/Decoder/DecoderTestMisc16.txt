@@ -1,0 +1,92 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+# one byte too long
+26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0,
+
+# max length
+26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx es: enc=2601CE
+
+# not enough bytes
+, INVALID, INVALID, 0,
+66, INVALID, INVALID, 0,
+01, INVALID, INVALID, 0,
+
+# Verify that 16-bit vsib addressing is invalid
+C4E249 90 54 01, INVALID, INVALID, 0,
+C4E249 90 54 01, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm2 op1=m;ds;si;;1;1;1;Int32 op2=r;xmm6 vsib32 co=0;0;0;0;5;1 noinvalidcheck noencode
+67 C4E249 90 00, INVALID, INVALID, 0,
+67 C4E249 90 00, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm0 op1=m;ds;eax;;1;0;0;Int32 op2=r;xmm6 vsib32 co=0;0;0;0;0;0 noinvalidcheck noencode
+62 F27D0B 90 54 01, INVALID, INVALID, 0,
+62 F27D0B 90 54 01, EVEX_Vpgatherdd_xmm_k1_vm32x, Vpgatherdd, 2, op0=r;xmm2 op1=m;ds;si;;1;4;1;Int32 k3 vsib32 co=0;0;0;0;6;1 noinvalidcheck noencode
+67 62 F27D0B 90 00, INVALID, INVALID, 0,
+67 62 F27D0B 90 00, EVEX_Vpgatherdd_xmm_k1_vm32x, Vpgatherdd, 2, op0=r;xmm0 op1=m;ds;eax;;1;0;0;Int32 k3 vsib32 co=0;0;0;0;0;0 noinvalidcheck noencode
+
+# prefix: double 66
+66 66 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx enc=6601CE
+
+# prefix: double 67
+67 67 8D 18, Lea_r16_m, Lea, 2, op0=r;bx op1=m;ds;eax;;1;0;0;Unknown enc=678D18
+
+# prefix: extra segment prefixes
+26 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+26 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+26 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+26 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+26 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+26 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118
+
+2E 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+2E 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+2E 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+2E 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+2E 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+2E 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118
+
+36 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+36 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+36 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+36 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+36 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+36 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118
+
+3E 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+3E 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+3E 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+3E 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+3E 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+3E 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118
+
+64 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+64 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+64 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+64 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+64 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+64 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118
+
+65 26 01 18, Add_rm16_r16, Add, 2, op0=m;es;bx;si;1;0;0;UInt16 op1=r;bx es: enc=260118
+65 2E 01 18, Add_rm16_r16, Add, 2, op0=m;cs;bx;si;1;0;0;UInt16 op1=r;bx cs: enc=2E0118
+65 36 01 18, Add_rm16_r16, Add, 2, op0=m;ss;bx;si;1;0;0;UInt16 op1=r;bx ss: enc=360118
+65 3E 01 18, Add_rm16_r16, Add, 2, op0=m;ds;bx;si;1;0;0;UInt16 op1=r;bx ds: enc=3E0118
+65 64 01 18, Add_rm16_r16, Add, 2, op0=m;fs;bx;si;1;0;0;UInt16 op1=r;bx fs: enc=640118
+65 65 01 18, Add_rm16_r16, Add, 2, op0=m;gs;bx;si;1;0;0;UInt16 op1=r;bx gs: enc=650118

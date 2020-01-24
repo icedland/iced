@@ -1,0 +1,159 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+Unknown, 0, 0, Unknown, 1,
+UInt8, 1, 1, UInt8, 1,
+UInt16, 2, 2, UInt16, 1,
+UInt32, 4, 4, UInt32, 1,
+UInt52, 8, 8, UInt52, 1,
+UInt64, 8, 8, UInt64, 1,
+UInt128, 16, 16, UInt128, 1,
+UInt256, 32, 32, UInt256, 1,
+UInt512, 64, 64, UInt512, 1,
+Int8, 1, 1, Int8, 1, signed
+Int16, 2, 2, Int16, 1, signed
+Int32, 4, 4, Int32, 1, signed
+Int64, 8, 8, Int64, 1, signed
+Int128, 16, 16, Int128, 1, signed
+Int256, 32, 32, Int256, 1, signed
+Int512, 64, 64, Int512, 1, signed
+SegPtr16, 4, 4, SegPtr16, 1,
+SegPtr32, 6, 6, SegPtr32, 1,
+SegPtr64, 10, 10, SegPtr64, 1,
+WordOffset, 2, 2, WordOffset, 1,
+DwordOffset, 4, 4, DwordOffset, 1,
+QwordOffset, 8, 8, QwordOffset, 1,
+Bound16_WordWord, 4, 4, Bound16_WordWord, 1,
+Bound32_DwordDword, 8, 8, Bound32_DwordDword, 1,
+Bnd32, 8, 8, Bnd32, 1,
+Bnd64, 16, 16, Bnd64, 1,
+Fword6, 6, 6, Fword6, 1,
+Fword10, 10, 10, Fword10, 1,
+Float16, 2, 2, Float16, 1, signed
+Float32, 4, 4, Float32, 1, signed
+Float64, 8, 8, Float64, 1, signed
+Float80, 10, 10, Float80, 1, signed
+Float128, 16, 16, Float128, 1, signed
+BFloat16, 2, 2, BFloat16, 1, signed
+FpuEnv14, 14, 14, FpuEnv14, 1,
+FpuEnv28, 28, 28, FpuEnv28, 1,
+FpuState94, 94, 94, FpuState94, 1,
+FpuState108, 108, 108, FpuState108, 1,
+Fxsave_512Byte, 512, 512, Fxsave_512Byte, 1,
+Fxsave64_512Byte, 512, 512, Fxsave64_512Byte, 1,
+Xsave, 0, 0, Xsave, 1,
+Xsave64, 0, 0, Xsave64, 1,
+Bcd, 10, 10, Bcd, 1, signed
+Packed16_UInt8, 2, 1, UInt8, 2, packed
+Packed16_Int8, 2, 1, Int8, 2, packed signed
+Packed32_UInt8, 4, 1, UInt8, 4, packed
+Packed32_Int8, 4, 1, Int8, 4, packed signed
+Packed32_UInt16, 4, 2, UInt16, 2, packed
+Packed32_Int16, 4, 2, Int16, 2, packed signed
+Packed32_BFloat16, 4, 2, BFloat16, 2, packed signed
+Packed64_UInt8, 8, 1, UInt8, 8, packed
+Packed64_Int8, 8, 1, Int8, 8, packed signed
+Packed64_UInt16, 8, 2, UInt16, 4, packed
+Packed64_Int16, 8, 2, Int16, 4, packed signed
+Packed64_UInt32, 8, 4, UInt32, 2, packed
+Packed64_Int32, 8, 4, Int32, 2, packed signed
+Packed64_Float16, 8, 2, Float16, 4, packed signed
+Packed64_Float32, 8, 4, Float32, 2, packed signed
+Packed128_UInt8, 16, 1, UInt8, 16, packed
+Packed128_Int8, 16, 1, Int8, 16, packed signed
+Packed128_UInt16, 16, 2, UInt16, 8, packed
+Packed128_Int16, 16, 2, Int16, 8, packed signed
+Packed128_UInt32, 16, 4, UInt32, 4, packed
+Packed128_Int32, 16, 4, Int32, 4, packed signed
+Packed128_UInt52, 16, 8, UInt52, 2, packed
+Packed128_UInt64, 16, 8, UInt64, 2, packed
+Packed128_Int64, 16, 8, Int64, 2, packed signed
+Packed128_Float16, 16, 2, Float16, 8, packed signed
+Packed128_Float32, 16, 4, Float32, 4, packed signed
+Packed128_Float64, 16, 8, Float64, 2, packed signed
+Packed128_2xBFloat16, 16, 4, Packed32_BFloat16, 4, packed signed
+Packed256_UInt8, 32, 1, UInt8, 32, packed
+Packed256_Int8, 32, 1, Int8, 32, packed signed
+Packed256_UInt16, 32, 2, UInt16, 16, packed
+Packed256_Int16, 32, 2, Int16, 16, packed signed
+Packed256_UInt32, 32, 4, UInt32, 8, packed
+Packed256_Int32, 32, 4, Int32, 8, packed signed
+Packed256_UInt52, 32, 8, UInt52, 4, packed
+Packed256_UInt64, 32, 8, UInt64, 4, packed
+Packed256_Int64, 32, 8, Int64, 4, packed signed
+Packed256_UInt128, 32, 16, UInt128, 2, packed
+Packed256_Int128, 32, 16, Int128, 2, packed signed
+Packed256_Float16, 32, 2, Float16, 16, packed signed
+Packed256_Float32, 32, 4, Float32, 8, packed signed
+Packed256_Float64, 32, 8, Float64, 4, packed signed
+Packed256_Float128, 32, 16, Float128, 2, packed signed
+Packed256_2xBFloat16, 32, 4, Packed32_BFloat16, 8, packed signed
+Packed512_UInt8, 64, 1, UInt8, 64, packed
+Packed512_Int8, 64, 1, Int8, 64, packed signed
+Packed512_UInt16, 64, 2, UInt16, 32, packed
+Packed512_Int16, 64, 2, Int16, 32, packed signed
+Packed512_UInt32, 64, 4, UInt32, 16, packed
+Packed512_Int32, 64, 4, Int32, 16, packed signed
+Packed512_UInt52, 64, 8, UInt52, 8, packed
+Packed512_UInt64, 64, 8, UInt64, 8, packed
+Packed512_Int64, 64, 8, Int64, 8, packed signed
+Packed512_UInt128, 64, 16, UInt128, 4, packed
+Packed512_Float32, 64, 4, Float32, 16, packed signed
+Packed512_Float64, 64, 8, Float64, 8, packed signed
+Packed512_2xBFloat16, 64, 4, Packed32_BFloat16, 16, packed signed
+Broadcast64_UInt32, 4, 4, UInt32, 1, bcst
+Broadcast64_Int32, 4, 4, Int32, 1, signed bcst
+Broadcast64_Float32, 4, 4, Float32, 1, signed bcst
+Broadcast128_UInt32, 4, 4, UInt32, 1, bcst
+Broadcast128_Int32, 4, 4, Int32, 1, signed bcst
+Broadcast128_UInt52, 8, 8, UInt52, 1, bcst
+Broadcast128_UInt64, 8, 8, UInt64, 1, bcst
+Broadcast128_Int64, 8, 8, Int64, 1, signed bcst
+Broadcast128_Float32, 4, 4, Float32, 1, signed bcst
+Broadcast128_Float64, 8, 8, Float64, 1, signed bcst
+Broadcast256_UInt32, 4, 4, UInt32, 1, bcst
+Broadcast256_Int32, 4, 4, Int32, 1, signed bcst
+Broadcast256_UInt52, 8, 8, UInt52, 1, bcst
+Broadcast256_UInt64, 8, 8, UInt64, 1, bcst
+Broadcast256_Int64, 8, 8, Int64, 1, signed bcst
+Broadcast256_Float32, 4, 4, Float32, 1, signed bcst
+Broadcast256_Float64, 8, 8, Float64, 1, signed bcst
+Broadcast512_UInt32, 4, 4, UInt32, 1, bcst
+Broadcast512_Int32, 4, 4, Int32, 1, signed bcst
+Broadcast512_UInt52, 8, 8, UInt52, 1, bcst
+Broadcast512_UInt64, 8, 8, UInt64, 1, bcst
+Broadcast512_Int64, 8, 8, Int64, 1, signed bcst
+Broadcast512_Float32, 4, 4, Float32, 1, signed bcst
+Broadcast512_Float64, 8, 8, Float64, 1, signed bcst
+Broadcast128_2xInt16, 4, 2, Int16, 2, packed signed bcst
+Broadcast256_2xInt16, 4, 2, Int16, 2, packed signed bcst
+Broadcast512_2xInt16, 4, 2, Int16, 2, packed signed bcst
+Broadcast128_2xUInt32, 8, 4, UInt32, 2, packed bcst
+Broadcast256_2xUInt32, 8, 4, UInt32, 2, packed bcst
+Broadcast512_2xUInt32, 8, 4, UInt32, 2, packed bcst
+Broadcast128_2xInt32, 8, 4, Int32, 2, packed signed bcst
+Broadcast256_2xInt32, 8, 4, Int32, 2, packed signed bcst
+Broadcast512_2xInt32, 8, 4, Int32, 2, packed signed bcst
+Broadcast128_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst
+Broadcast256_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst
+Broadcast512_2xBFloat16, 4, 2, BFloat16, 2, packed signed bcst

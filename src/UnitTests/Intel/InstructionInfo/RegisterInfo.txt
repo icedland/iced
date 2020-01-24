@@ -1,0 +1,280 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+none, 0, none, none, none, 0,
+
+al, 0, al, rax, eax, 1, gpr gpr8
+cl, 1, al, rcx, ecx, 1, gpr gpr8
+dl, 2, al, rdx, edx, 1, gpr gpr8
+bl, 3, al, rbx, ebx, 1, gpr gpr8
+ah, 4, al, rax, eax, 1, gpr gpr8
+ch, 5, al, rcx, ecx, 1, gpr gpr8
+dh, 6, al, rdx, edx, 1, gpr gpr8
+bh, 7, al, rbx, ebx, 1, gpr gpr8
+spl, 8, al, rsp, esp, 1, gpr gpr8
+bpl, 9, al, rbp, ebp, 1, gpr gpr8
+sil, 10, al, rsi, esi, 1, gpr gpr8
+dil, 11, al, rdi, edi, 1, gpr gpr8
+r8l, 12, al, r8, r8d, 1, gpr gpr8
+r9l, 13, al, r9, r9d, 1, gpr gpr8
+r10l, 14, al, r10, r10d, 1, gpr gpr8
+r11l, 15, al, r11, r11d, 1, gpr gpr8
+r12l, 16, al, r12, r12d, 1, gpr gpr8
+r13l, 17, al, r13, r13d, 1, gpr gpr8
+r14l, 18, al, r14, r14d, 1, gpr gpr8
+r15l, 19, al, r15, r15d, 1, gpr gpr8
+
+ax, 0, ax, rax, eax, 2, gpr gpr16
+cx, 1, ax, rcx, ecx, 2, gpr gpr16
+dx, 2, ax, rdx, edx, 2, gpr gpr16
+bx, 3, ax, rbx, ebx, 2, gpr gpr16
+sp, 4, ax, rsp, esp, 2, gpr gpr16
+bp, 5, ax, rbp, ebp, 2, gpr gpr16
+si, 6, ax, rsi, esi, 2, gpr gpr16
+di, 7, ax, rdi, edi, 2, gpr gpr16
+r8w, 8, ax, r8, r8d, 2, gpr gpr16
+r9w, 9, ax, r9, r9d, 2, gpr gpr16
+r10w, 10, ax, r10, r10d, 2, gpr gpr16
+r11w, 11, ax, r11, r11d, 2, gpr gpr16
+r12w, 12, ax, r12, r12d, 2, gpr gpr16
+r13w, 13, ax, r13, r13d, 2, gpr gpr16
+r14w, 14, ax, r14, r14d, 2, gpr gpr16
+r15w, 15, ax, r15, r15d, 2, gpr gpr16
+
+eax, 0, eax, rax, eax, 4, gpr gpr32
+ecx, 1, eax, rcx, ecx, 4, gpr gpr32
+edx, 2, eax, rdx, edx, 4, gpr gpr32
+ebx, 3, eax, rbx, ebx, 4, gpr gpr32
+esp, 4, eax, rsp, esp, 4, gpr gpr32
+ebp, 5, eax, rbp, ebp, 4, gpr gpr32
+esi, 6, eax, rsi, esi, 4, gpr gpr32
+edi, 7, eax, rdi, edi, 4, gpr gpr32
+r8d, 8, eax, r8, r8d, 4, gpr gpr32
+r9d, 9, eax, r9, r9d, 4, gpr gpr32
+r10d, 10, eax, r10, r10d, 4, gpr gpr32
+r11d, 11, eax, r11, r11d, 4, gpr gpr32
+r12d, 12, eax, r12, r12d, 4, gpr gpr32
+r13d, 13, eax, r13, r13d, 4, gpr gpr32
+r14d, 14, eax, r14, r14d, 4, gpr gpr32
+r15d, 15, eax, r15, r15d, 4, gpr gpr32
+
+rax, 0, rax, rax, eax, 8, gpr gpr64
+rcx, 1, rax, rcx, ecx, 8, gpr gpr64
+rdx, 2, rax, rdx, edx, 8, gpr gpr64
+rbx, 3, rax, rbx, ebx, 8, gpr gpr64
+rsp, 4, rax, rsp, esp, 8, gpr gpr64
+rbp, 5, rax, rbp, ebp, 8, gpr gpr64
+rsi, 6, rax, rsi, esi, 8, gpr gpr64
+rdi, 7, rax, rdi, edi, 8, gpr gpr64
+r8, 8, rax, r8, r8d, 8, gpr gpr64
+r9, 9, rax, r9, r9d, 8, gpr gpr64
+r10, 10, rax, r10, r10d, 8, gpr gpr64
+r11, 11, rax, r11, r11d, 8, gpr gpr64
+r12, 12, rax, r12, r12d, 8, gpr gpr64
+r13, 13, rax, r13, r13d, 8, gpr gpr64
+r14, 14, rax, r14, r14d, 8, gpr gpr64
+r15, 15, rax, r15, r15d, 8, gpr gpr64
+
+eip, 0, eip, rip, rip, 4,
+rip, 1, eip, rip, rip, 8,
+
+es, 0, es, es, es, 2, seg
+cs, 1, es, cs, cs, 2, seg
+ss, 2, es, ss, ss, 2, seg
+ds, 3, es, ds, ds, 2, seg
+fs, 4, es, fs, fs, 2, seg
+gs, 5, es, gs, gs, 2, seg
+
+xmm0, 0, xmm0, zmm0, zmm0, 16, vec xmm
+xmm1, 1, xmm0, zmm1, zmm1, 16, vec xmm
+xmm2, 2, xmm0, zmm2, zmm2, 16, vec xmm
+xmm3, 3, xmm0, zmm3, zmm3, 16, vec xmm
+xmm4, 4, xmm0, zmm4, zmm4, 16, vec xmm
+xmm5, 5, xmm0, zmm5, zmm5, 16, vec xmm
+xmm6, 6, xmm0, zmm6, zmm6, 16, vec xmm
+xmm7, 7, xmm0, zmm7, zmm7, 16, vec xmm
+xmm8, 8, xmm0, zmm8, zmm8, 16, vec xmm
+xmm9, 9, xmm0, zmm9, zmm9, 16, vec xmm
+xmm10, 10, xmm0, zmm10, zmm10, 16, vec xmm
+xmm11, 11, xmm0, zmm11, zmm11, 16, vec xmm
+xmm12, 12, xmm0, zmm12, zmm12, 16, vec xmm
+xmm13, 13, xmm0, zmm13, zmm13, 16, vec xmm
+xmm14, 14, xmm0, zmm14, zmm14, 16, vec xmm
+xmm15, 15, xmm0, zmm15, zmm15, 16, vec xmm
+xmm16, 16, xmm0, zmm16, zmm16, 16, vec xmm
+xmm17, 17, xmm0, zmm17, zmm17, 16, vec xmm
+xmm18, 18, xmm0, zmm18, zmm18, 16, vec xmm
+xmm19, 19, xmm0, zmm19, zmm19, 16, vec xmm
+xmm20, 20, xmm0, zmm20, zmm20, 16, vec xmm
+xmm21, 21, xmm0, zmm21, zmm21, 16, vec xmm
+xmm22, 22, xmm0, zmm22, zmm22, 16, vec xmm
+xmm23, 23, xmm0, zmm23, zmm23, 16, vec xmm
+xmm24, 24, xmm0, zmm24, zmm24, 16, vec xmm
+xmm25, 25, xmm0, zmm25, zmm25, 16, vec xmm
+xmm26, 26, xmm0, zmm26, zmm26, 16, vec xmm
+xmm27, 27, xmm0, zmm27, zmm27, 16, vec xmm
+xmm28, 28, xmm0, zmm28, zmm28, 16, vec xmm
+xmm29, 29, xmm0, zmm29, zmm29, 16, vec xmm
+xmm30, 30, xmm0, zmm30, zmm30, 16, vec xmm
+xmm31, 31, xmm0, zmm31, zmm31, 16, vec xmm
+
+ymm0, 0, ymm0, zmm0, zmm0, 32, vec ymm
+ymm1, 1, ymm0, zmm1, zmm1, 32, vec ymm
+ymm2, 2, ymm0, zmm2, zmm2, 32, vec ymm
+ymm3, 3, ymm0, zmm3, zmm3, 32, vec ymm
+ymm4, 4, ymm0, zmm4, zmm4, 32, vec ymm
+ymm5, 5, ymm0, zmm5, zmm5, 32, vec ymm
+ymm6, 6, ymm0, zmm6, zmm6, 32, vec ymm
+ymm7, 7, ymm0, zmm7, zmm7, 32, vec ymm
+ymm8, 8, ymm0, zmm8, zmm8, 32, vec ymm
+ymm9, 9, ymm0, zmm9, zmm9, 32, vec ymm
+ymm10, 10, ymm0, zmm10, zmm10, 32, vec ymm
+ymm11, 11, ymm0, zmm11, zmm11, 32, vec ymm
+ymm12, 12, ymm0, zmm12, zmm12, 32, vec ymm
+ymm13, 13, ymm0, zmm13, zmm13, 32, vec ymm
+ymm14, 14, ymm0, zmm14, zmm14, 32, vec ymm
+ymm15, 15, ymm0, zmm15, zmm15, 32, vec ymm
+ymm16, 16, ymm0, zmm16, zmm16, 32, vec ymm
+ymm17, 17, ymm0, zmm17, zmm17, 32, vec ymm
+ymm18, 18, ymm0, zmm18, zmm18, 32, vec ymm
+ymm19, 19, ymm0, zmm19, zmm19, 32, vec ymm
+ymm20, 20, ymm0, zmm20, zmm20, 32, vec ymm
+ymm21, 21, ymm0, zmm21, zmm21, 32, vec ymm
+ymm22, 22, ymm0, zmm22, zmm22, 32, vec ymm
+ymm23, 23, ymm0, zmm23, zmm23, 32, vec ymm
+ymm24, 24, ymm0, zmm24, zmm24, 32, vec ymm
+ymm25, 25, ymm0, zmm25, zmm25, 32, vec ymm
+ymm26, 26, ymm0, zmm26, zmm26, 32, vec ymm
+ymm27, 27, ymm0, zmm27, zmm27, 32, vec ymm
+ymm28, 28, ymm0, zmm28, zmm28, 32, vec ymm
+ymm29, 29, ymm0, zmm29, zmm29, 32, vec ymm
+ymm30, 30, ymm0, zmm30, zmm30, 32, vec ymm
+ymm31, 31, ymm0, zmm31, zmm31, 32, vec ymm
+
+zmm0, 0, zmm0, zmm0, zmm0, 64, vec zmm
+zmm1, 1, zmm0, zmm1, zmm1, 64, vec zmm
+zmm2, 2, zmm0, zmm2, zmm2, 64, vec zmm
+zmm3, 3, zmm0, zmm3, zmm3, 64, vec zmm
+zmm4, 4, zmm0, zmm4, zmm4, 64, vec zmm
+zmm5, 5, zmm0, zmm5, zmm5, 64, vec zmm
+zmm6, 6, zmm0, zmm6, zmm6, 64, vec zmm
+zmm7, 7, zmm0, zmm7, zmm7, 64, vec zmm
+zmm8, 8, zmm0, zmm8, zmm8, 64, vec zmm
+zmm9, 9, zmm0, zmm9, zmm9, 64, vec zmm
+zmm10, 10, zmm0, zmm10, zmm10, 64, vec zmm
+zmm11, 11, zmm0, zmm11, zmm11, 64, vec zmm
+zmm12, 12, zmm0, zmm12, zmm12, 64, vec zmm
+zmm13, 13, zmm0, zmm13, zmm13, 64, vec zmm
+zmm14, 14, zmm0, zmm14, zmm14, 64, vec zmm
+zmm15, 15, zmm0, zmm15, zmm15, 64, vec zmm
+zmm16, 16, zmm0, zmm16, zmm16, 64, vec zmm
+zmm17, 17, zmm0, zmm17, zmm17, 64, vec zmm
+zmm18, 18, zmm0, zmm18, zmm18, 64, vec zmm
+zmm19, 19, zmm0, zmm19, zmm19, 64, vec zmm
+zmm20, 20, zmm0, zmm20, zmm20, 64, vec zmm
+zmm21, 21, zmm0, zmm21, zmm21, 64, vec zmm
+zmm22, 22, zmm0, zmm22, zmm22, 64, vec zmm
+zmm23, 23, zmm0, zmm23, zmm23, 64, vec zmm
+zmm24, 24, zmm0, zmm24, zmm24, 64, vec zmm
+zmm25, 25, zmm0, zmm25, zmm25, 64, vec zmm
+zmm26, 26, zmm0, zmm26, zmm26, 64, vec zmm
+zmm27, 27, zmm0, zmm27, zmm27, 64, vec zmm
+zmm28, 28, zmm0, zmm28, zmm28, 64, vec zmm
+zmm29, 29, zmm0, zmm29, zmm29, 64, vec zmm
+zmm30, 30, zmm0, zmm30, zmm30, 64, vec zmm
+zmm31, 31, zmm0, zmm31, zmm31, 64, vec zmm
+
+k0, 0, k0, k0, k0, 8,
+k1, 1, k0, k1, k1, 8,
+k2, 2, k0, k2, k2, 8,
+k3, 3, k0, k3, k3, 8,
+k4, 4, k0, k4, k4, 8,
+k5, 5, k0, k5, k5, 8,
+k6, 6, k0, k6, k6, 8,
+k7, 7, k0, k7, k7, 8,
+
+bnd0, 0, bnd0, bnd0, bnd0, 16,
+bnd1, 1, bnd0, bnd1, bnd1, 16,
+bnd2, 2, bnd0, bnd2, bnd2, 16,
+bnd3, 3, bnd0, bnd3, bnd3, 16,
+
+cr0, 0, cr0, cr0, cr0, 8,
+cr1, 1, cr0, cr1, cr1, 8,
+cr2, 2, cr0, cr2, cr2, 8,
+cr3, 3, cr0, cr3, cr3, 8,
+cr4, 4, cr0, cr4, cr4, 8,
+cr5, 5, cr0, cr5, cr5, 8,
+cr6, 6, cr0, cr6, cr6, 8,
+cr7, 7, cr0, cr7, cr7, 8,
+cr8, 8, cr0, cr8, cr8, 8,
+cr9, 9, cr0, cr9, cr9, 8,
+cr10, 10, cr0, cr10, cr10, 8,
+cr11, 11, cr0, cr11, cr11, 8,
+cr12, 12, cr0, cr12, cr12, 8,
+cr13, 13, cr0, cr13, cr13, 8,
+cr14, 14, cr0, cr14, cr14, 8,
+cr15, 15, cr0, cr15, cr15, 8,
+
+dr0, 0, dr0, dr0, dr0, 8,
+dr1, 1, dr0, dr1, dr1, 8,
+dr2, 2, dr0, dr2, dr2, 8,
+dr3, 3, dr0, dr3, dr3, 8,
+dr4, 4, dr0, dr4, dr4, 8,
+dr5, 5, dr0, dr5, dr5, 8,
+dr6, 6, dr0, dr6, dr6, 8,
+dr7, 7, dr0, dr7, dr7, 8,
+dr8, 8, dr0, dr8, dr8, 8,
+dr9, 9, dr0, dr9, dr9, 8,
+dr10, 10, dr0, dr10, dr10, 8,
+dr11, 11, dr0, dr11, dr11, 8,
+dr12, 12, dr0, dr12, dr12, 8,
+dr13, 13, dr0, dr13, dr13, 8,
+dr14, 14, dr0, dr14, dr14, 8,
+dr15, 15, dr0, dr15, dr15, 8,
+
+st0, 0, st0, st0, st0, 10,
+st1, 1, st0, st1, st1, 10,
+st2, 2, st0, st2, st2, 10,
+st3, 3, st0, st3, st3, 10,
+st4, 4, st0, st4, st4, 10,
+st5, 5, st0, st5, st5, 10,
+st6, 6, st0, st6, st6, 10,
+st7, 7, st0, st7, st7, 10,
+
+mm0, 0, mm0, mm0, mm0, 8,
+mm1, 1, mm0, mm1, mm1, 8,
+mm2, 2, mm0, mm2, mm2, 8,
+mm3, 3, mm0, mm3, mm3, 8,
+mm4, 4, mm0, mm4, mm4, 8,
+mm5, 5, mm0, mm5, mm5, 8,
+mm6, 6, mm0, mm6, mm6, 8,
+mm7, 7, mm0, mm7, mm7, 8,
+
+tr0, 0, tr0, tr0, tr0, 4,
+tr1, 1, tr0, tr1, tr1, 4,
+tr2, 2, tr0, tr2, tr2, 4,
+tr3, 3, tr0, tr3, tr3, 4,
+tr4, 4, tr0, tr4, tr4, 4,
+tr5, 5, tr0, tr5, tr5, 4,
+tr6, 6, tr0, tr6, tr6, 4,
+tr7, 7, tr0, tr7, tr7, 4,

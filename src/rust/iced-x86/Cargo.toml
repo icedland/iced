@@ -1,0 +1,47 @@
+[package]
+name = "iced-x86"
+version = "0.0.0"# Update html_root_url in lib.rs
+authors = ["0xd4d <de4dot@gmail.com>"]
+license = "MIT"
+description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust"
+#homepage = "https://github.com/0xd4d/iced"
+repository = "https://github.com/0xd4d/iced"
+readme = "README.md"
+# At most 5 keywords can be used
+keywords = ["disassembler", "x86", "amd64", "x86_64", "decoder"]
+categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support"]
+
+[badges]
+codecov = { repository = "https://github.com/0xd4d/iced", branch = "master", service = "github" }
+maintenance = { status = "actively-developed" }
+
+# These features are documented in the module docs (lib.rs)
+[features]
+default = ["std", "decoder", "encoder", "instr_info", "all_formatters"]
+decoder = []
+encoder = []
+instr_info = []
+all_formatters = ["gas_formatter", "intel_formatter", "masm_formatter", "nasm_formatter"]
+gas_formatter = []
+intel_formatter = []
+masm_formatter = []
+nasm_formatter = []
+std = ["lazy_static"]
+# no_std feature is needed since std and no_std require different deps
+no_std = ["lazy_static/spin_no_std", "hashbrown"]
+exhaustive_enums = []
+
+[dependencies]
+static_assertions = "0.3.4"
+
+[dependencies.lazy_static]
+version = "1.1.0"
+# It's not really optional, std or no_std must be used and they both require it.
+optional = true
+
+[dependencies.hashbrown]
+version = "0.6.3"
+optional = true
+
+[build-dependencies]
+rustc_version = "0.2.3"

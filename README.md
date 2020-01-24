@@ -3,17 +3,22 @@
 
 <img align="right" width="160px" height="160px" src="logo.png">
 
-High performance x86 (16/32/64-bit) instruction decoder, encoder and disassembler.
+High performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler.
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
 - Supports all Intel and AMD instructions
-- The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
-- Small decoded instructions, only 32 bytes
-- The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- The encoder can be used to re-encode decoded instructions at any address
-- The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
+- High level [Assembler](#assemble-instructions) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
+- [Decoding](#disassemble-decode-and-format-instructions) and disassembler support:
+  - The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
+  - Small decoded instructions, only 32 bytes
+  - The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- Encoding support:  
+  - The encoder can be used to re-encode decoded instructions at any address
+  - The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
 - API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 - All instructions are tested (decode, encode, format, instruction info)
+- Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
+- License: MIT
 
 # Classes
 
@@ -22,9 +27,10 @@ See below for some examples. All classes are in the `Iced.Intel` namespace.
 Decoder:
 
 - `Decoder`
-- `Instruction`
+- `Instruction` (and `Instruction.Create()` methods)
 - `CodeReader`
-	- `ByteArrayCodeReader`
+    - `ByteArrayCodeReader`
+    - `StreamCodeReader`
 - `InstructionList`
 - `ConstantOffsets`
 - `IcedFeatures.Initialize()`
@@ -32,69 +38,61 @@ Decoder:
 Formatters:
 
 - `Formatter`
-	- `MasmFormatter`
-	- `NasmFormatter`
-	- `GasFormatter`
-	- `IntelFormatter`
+    - `MasmFormatter`
+    - `NasmFormatter`
+    - `GasFormatter`
+    - `IntelFormatter`
 - `FormatterOptions`
-	- `MasmFormatterOptions`
-	- `NasmFormatterOptions`
-	- `GasFormatterOptions`
-	- `IntelFormatterOptions`
+    - `MasmFormatterOptions`
+    - `NasmFormatterOptions`
+    - `GasFormatterOptions`
+    - `IntelFormatterOptions`
 - `FormatterOutput`
-	- `StringBuilderFormatterOutput`
+    - `StringOutput`
 - `ISymbolResolver`
 - `IFormatterOptionsProvider`
+
+Assembler:
+
+- `Assembler`
+- `Label`
+- `AssemblerRegisters` (use `using static` to have access directly to registers e.g `eax`, `rdi`, `xmm1`...)
 
 Encoder:
 
 - `Encoder`
 - `BlockEncoder`
 - `CodeWriter`
+  - `StreamCodeWriter`
 - `ConstantOffsets`
 - `OpCodeInfo` (`Instruction.OpCode` and `Code.ToOpCode()`)
 
 Instruction info:
 
-- `Instruction.GetInfo()`
 - `InstructionInfo`
 - `InstructionInfoFactory`
 - `InstructionInfoExtensions`
 - `MemorySizeExtensions`
 - `RegisterExtensions`
 
-# Examples
+# How-tos
 
-For another example, see [JitDasm](https://github.com/0xd4d/JitDasm).
+- [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
+- [Assemble instructions](#assemble-instructions)
+- [Disassemble with a symbol resolver](#disassemble-with-a-symbol-resolver)
+- [Disassemble with colorized text](#disassemble-with-colorized-text)
+- [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
+- [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
+
+## Disassemble (decode and format instructions)
 
 ```C#
 using System;
-using System.Collections.Generic;
 using Iced.Intel;
 
-namespace Iced.Examples {
-    static class Program {
-        const int HEXBYTES_COLUMN_BYTE_LENGTH = 10;
-
-        static void Main(string[] args) {
-            IcedFeatures.Initialize();
-            DecoderFormatterExample();
-            EncoderExample();
-            CreateInstructionsExample();
-            InstructionInfoExample();
-        }
-
-        const int exampleCodeBitness = 64;
-        const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
-        static readonly byte[] exampleCode = new byte[] {
-            0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
-            0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
-            0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
-            0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
-        };
-
-        /*
-         * This method produces the following output:
+static class HowTo_Disassemble {
+    /*
+     * This method produces the following output:
 00007FFAC46ACDA4 48895C2410           mov       [rsp+10h],rbx
 00007FFAC46ACDA9 4889742418           mov       [rsp+18h],rsi
 00007FFAC46ACDAE 55                   push      rbp
@@ -108,217 +106,358 @@ namespace Iced.Examples {
 00007FFAC46ACDD2 4C8B052F240A00       mov       r8,[rel 7FFA`C474`F208h]
 00007FFAC46ACDD9 488D05787C0400       lea       rax,[rel 7FFA`C46F`4A58h]
 00007FFAC46ACDE0 33FF                 xor       edi,edi
-        */
-        static void DecoderFormatterExample() {
-            // You can also pass in a hex string, eg. "90 91 929394", or you can use your own CodeReader
-            // reading data from a file or memory etc
-            var codeBytes = exampleCode;
-            var codeReader = new ByteArrayCodeReader(codeBytes);
-            var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.IP = exampleCodeRIP;
-            ulong endRip = decoder.IP + (uint)codeBytes.Length;
+    */
+    public static void Example() {
+        // You can also pass in a hex string, eg. "90 91 929394", or you can use your own CodeReader
+        // reading data from a file or memory etc
+        var codeBytes = exampleCode;
+        var codeReader = new ByteArrayCodeReader(codeBytes);
+        var decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = exampleCodeRIP;
+        ulong endRip = decoder.IP + (uint)codeBytes.Length;
 
-            // This list is faster than List<Instruction> since it uses refs to the Instructions
-            // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
-            // and a ref iterator. Add() uses 'in' (ref readonly).
-            var instructions = new InstructionList();
-            while (decoder.IP < endRip) {
-                // The method allocates an uninitialized element at the end of the list and
-                // returns a reference to it which is initialized by Decode().
-                decoder.Decode(out instructions.AllocUninitializedElement());
-            }
-
-            // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED)
-            var formatter = new NasmFormatter();
-            formatter.Options.DigitSeparator = "`";
-            formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
-            // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
-            foreach (ref var instr in instructions) {
-                // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
-                formatter.Format(instr, output);
-                Console.Write(instr.IP.ToString("X16"));
-                Console.Write(" ");
-                int instrLen = instr.ByteLength;
-                int byteBaseIndex = (int)(instr.IP - exampleCodeRIP);
-                for (int i = 0; i < instrLen; i++)
-                    Console.Write(codeBytes[byteBaseIndex + i].ToString("X2"));
-                int missingBytes = HEXBYTES_COLUMN_BYTE_LENGTH - instrLen;
-                for (int i = 0; i < missingBytes; i++)
-                    Console.Write("  ");
-                Console.Write(" ");
-                Console.WriteLine(output.ToStringAndReset());
-            }
+        // This list is faster than List<Instruction> since it uses refs to the Instructions
+        // instead of copying them (each Instruction is 32 bytes in size). It has a ref indexer,
+        // and a ref iterator. Add() uses 'in' (ref readonly).
+        var instructions = new InstructionList();
+        while (decoder.IP < endRip) {
+            // The method allocates an uninitialized element at the end of the list and
+            // returns a reference to it which is initialized by Decode().
+            decoder.Decode(out instructions.AllocUninitializedElement());
         }
 
-        /*
-         * This method produces the following output:
-New code bytes:
-0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D
-0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05
-0x18, 0x57, 0xEA, 0xFF, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B
-0x05, 0x2F, 0x24, 0xEA, 0xFF, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0xE4, 0xFF, 0x33, 0xFF
-Disassembled code:
-00007FFAC48ACDA4 mov       [rsp+10h],rbx
-00007FFAC48ACDA9 mov       [rsp+18h],rsi
-00007FFAC48ACDAE push      rbp
-00007FFAC48ACDAF push      rdi
-00007FFAC48ACDB0 push      r14
-00007FFAC48ACDB2 lea       rbp,[rsp-100h]
-00007FFAC48ACDBA sub       rsp,200h
-00007FFAC48ACDC1 mov       rax,[rel 7FFA`C475`24E0h]
-00007FFAC48ACDC8 xor       rax,rsp
-00007FFAC48ACDCB mov       [rbp+0F0h],rax
-00007FFAC48ACDD2 mov       r8,[rel 7FFA`C474`F208h]
-00007FFAC48ACDD9 lea       rax,[rel 7FFA`C46F`4A58h]
-00007FFAC48ACDE0 xor       edi,edi
-         */
-        static void EncoderExample() {
-            var codeReader = new ByteArrayCodeReader(exampleCode);
-            var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.IP = exampleCodeRIP;
-            ulong endRip = decoder.IP + (uint)exampleCode.Length;
-
-            var instructions = new InstructionList();
-            while (decoder.IP < endRip)
-                decoder.Decode(out instructions.AllocUninitializedElement());
-
-            // Relocate the code to some new location. It can fix short/near branches and
-            // convert them to short/near/long forms if needed. This also works even if it's a
-            // jrcxz/loop/loopcc instruction which only has a short form.
-            //
-            // It can currently only fix RIP relative operands if the new location is within 2GB
-            // of the target data location.
-            //
-            // There's also a simpler Encoder class which is used by BlockEncoder, but it can only
-            // encode one instruction at a time and doesn't fix branches.
-            //
-            // Note that a block is not the same thing as a basic block. A block can contain any
-            // number of instructions, including any number of branch instructions. One block
-            // should be enough unless you must relocate different blocks to different locations.
-            var codeWriter = new CodeWriterImpl();
-            ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
-            var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
-            // This method can also encode more than one block but that's rarely needed, see above comment.
-            bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage);
-            if (!success) {
-                Console.WriteLine($"ERROR: {errorMessage}");
-                return;
-            }
-            var newCode = codeWriter.ToArray();
-            Console.WriteLine("New code bytes:");
-            for (int i = 0; i < newCode.Length;) {
-                for (int j = 0; j < 16 && i < newCode.Length; i++, j++) {
-                    if (j != 0)
-                        Console.Write(", ");
-                    Console.Write("0x");
-                    Console.Write(newCode[i].ToString("X2"));
-                }
-                Console.WriteLine();
-            }
-
-            // Disassemble the new relocated code. It's identical to the original code except that
-            // the RIP relative instructions have been updated.
-            Console.WriteLine("Disassembled code:");
-            var formatter = new NasmFormatter();
-            formatter.Options.DigitSeparator = "`";
-            formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
-            var newDecoder = Decoder.Create(decoder.Bitness, new ByteArrayCodeReader(newCode));
-            newDecoder.IP = block.RIP;
-            endRip = newDecoder.IP + (uint)newCode.Length;
-            while (newDecoder.IP < endRip) {
-                newDecoder.Decode(out var instr);
-                formatter.Format(instr, output);
-                Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
-            }
+        // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED)
+        var formatter = new NasmFormatter();
+        formatter.Options.DigitSeparator = "`";
+        formatter.Options.FirstOperandCharIndex = 10;
+        var output = new StringOutput();
+        // Use InstructionList's ref iterator (C# 7.3) to prevent copying 32 bytes every iteration
+        foreach (ref var instr in instructions) {
+            // Don't use instr.ToString(), it allocates more, uses masm syntax and default options
+            formatter.Format(instr, output);
+            Console.Write(instr.IP.ToString("X16"));
+            Console.Write(" ");
+            int instrLen = instr.Length;
+            int byteBaseIndex = (int)(instr.IP - exampleCodeRIP);
+            for (int i = 0; i < instrLen; i++)
+                Console.Write(codeBytes[byteBaseIndex + i].ToString("X2"));
+            int missingBytes = HEXBYTES_COLUMN_BYTE_LENGTH - instrLen;
+            for (int i = 0; i < missingBytes; i++)
+                Console.Write("  ");
+            Console.Write(" ");
+            Console.WriteLine(output.ToStringAndReset());
         }
-        // Simple and inefficient code writer that stores the data in a List<byte>, with a ToArray() method
-        // to get the data
-        sealed class CodeWriterImpl : CodeWriter {
-            readonly List<byte> allBytes = new List<byte>();
-            public override void WriteByte(byte value) => allBytes.Add(value);
-            public byte[] ToArray() => allBytes.ToArray();
-        }
+    }
 
-        /*
-         * This method produces the following output:
-Disassembled code:
-00007FFAC48ACDA4 push      rbp
-00007FFAC48ACDA5 push      rdi
-00007FFAC48ACDA6 push      rsi
-00007FFAC48ACDA7 sub       rsp,50h
-00007FFAC48ACDAE vzeroupper
-00007FFAC48ACDB1 lea       rbp,[rsp+60h]
-00007FFAC48ACDB6 mov       rsi,rcx
-00007FFAC48ACDB9 lea       rdi,[rbp-38h]
-00007FFAC48ACDBD mov       ecx,0Ah
-00007FFAC48ACDC2 xor       eax,eax
-00007FFAC48ACDC4 rep stosd
-00007FFAC48ACDC6 mov       rcx,rsi
-00007FFAC48ACDC9 mov       [rbp+10h],rcx
-00007FFAC48ACDCD mov       [rbp+18h],rdx
-         */
-        static void CreateInstructionsExample() {
-            const int bitness = 64;
+    const int HEXBYTES_COLUMN_BYTE_LENGTH = 10;
+    const int exampleCodeBitness = 64;
+    const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
+    static readonly byte[] exampleCode = new byte[] {
+        0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
+        0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
+        0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
+        0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
+    };
+}
+```
 
-            var instructions = new InstructionList();
-            // push    rbp
-            instructions.Add(Instruction.Create(Code.Push_r64, Register.RBP));
-            // push    rdi
-            instructions.Add(Instruction.Create(Code.Push_r64, Register.RDI));
-            // push    rsi
-            instructions.Add(Instruction.Create(Code.Push_r64, Register.RSI));
-            // sub     rsp,50h
-            instructions.Add(Instruction.Create(Code.Sub_rm64_imm32, Register.RSP, 0x50));
-            // vzeroupper
-            instructions.Add(Instruction.Create(Code.VEX_Vzeroupper));
-            // lea     rbp,[rsp+60h]
-            instructions.Add(Instruction.Create(Code.Lea_r64_m, Register.RBP, new MemoryOperand(Register.RSP, 0x60)));
-            // mov     rsi,rcx
-            instructions.Add(Instruction.Create(Code.Mov_r64_rm64, Register.RSI, Register.RCX));
-            // lea     rdi,[rbp-38h]
-            instructions.Add(Instruction.Create(Code.Lea_r64_m, Register.RDI, new MemoryOperand(Register.RBP, -0x38)));
-            // mov     ecx,0Ah
-            instructions.Add(Instruction.Create(Code.Mov_r32_imm32, Register.ECX, 0x0A));
-            // xor     eax,eax
-            instructions.Add(Instruction.Create(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
-            // rep stosd
-            instructions.Add(Instruction.CreateStosd(bitness, RepPrefixKind.Rep));
-            // mov     rcx,rsi
-            instructions.Add(Instruction.Create(Code.Mov_r64_rm64, Register.RCX, Register.RSI));
-            // mov     [rbp+10h],rcx
-            instructions.Add(Instruction.Create(Code.Mov_rm64_r64, new MemoryOperand(Register.RBP, 0x10), Register.RCX));
-            // mov     [rbp+18h],rdx
-            instructions.Add(Instruction.Create(Code.Mov_rm64_r64, new MemoryOperand(Register.RBP, 0x18), Register.RDX));
+## Assemble instructions
 
-            var codeWriter = new CodeWriterImpl();
-            ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
-            var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
-            bool success = BlockEncoder.TryEncode(bitness, block, out var errorMessage);
-            if (!success) {
-                Console.WriteLine($"ERROR: {errorMessage}");
-                return;
-            }
+```C#
+using System;
+using System.IO;
+using Iced.Intel;
+using static Iced.Intel.AssemblerRegisters;
 
-            var newCode = codeWriter.ToArray();
-            Console.WriteLine("Disassembled code:");
-            var formatter = new NasmFormatter();
-            formatter.Options.DigitSeparator = "`";
-            formatter.Options.FirstOperandCharIndex = 10;
-            var output = new StringBuilderFormatterOutput();
-            var newDecoder = Decoder.Create(bitness, new ByteArrayCodeReader(newCode));
-            newDecoder.IP = block.RIP;
-            ulong endRip = newDecoder.IP + (uint)newCode.Length;
-            while (newDecoder.IP < endRip) {
-                newDecoder.Decode(out var instr);
-                formatter.Format(instr, output);
-                Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
-            }
+static class HowTo_Assemble {
+    /*
+     * This method produces the following output:
+10000000 = push r15
+10000002 = add rax,r15
+10000005 = mov rax,[rax]
+10000008 = mov rax,[rax]
+1000000B = cmp dword ptr [rax+rcx*8+10h],0FFFFFFFFh
+10000010 = jne short 0000000010000031h
+10000012 = inc rax
+10000015 = lea rcx,[10000031h]
+1000001C = rep stosd
+1000001E = xacquire lock add qword ptr [rax+rcx],7Bh
+10000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
+1000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
+10000031 = pop r15
+10000033 = ret
+     */
+    public static MemoryStream Example() {
+        // The assembler supports all modes: 16-bit, 32-bit and 64-bit.
+        var c = Assembler.Create(64);
+
+        var label1 = c.CreateLabel();
+
+        c.push(r15);
+        c.add(rax, r15);
+
+        // If the memory operand can only have one size, __[] can be used. The assembler ignores
+        // the memory size unless it's an ambiguous instruction, eg. 'add [mem],123'
+        c.mov(rax, __[rax]);
+        c.mov(rax, __qword_ptr[rax]);
+
+        // The assembler must know the memory size to pick the correct instruction
+        c.cmp(__dword_ptr[rax + rcx * 8 + 0x10], -1);
+        c.jne(label1); // Jump to Label1
+
+        c.inc(rax);
+
+        // Labels can be referenced by memory operands (64-bit only) and call/jmp/jcc/loopcc instructions
+        c.lea(rcx, __[label1]);
+
+        // The assembler has prefix properties that will be added to the following instruction
+        c.rep.stosd();
+        c.xacquire.@lock.add(__qword_ptr[rax + rcx], 123);
+
+        // The assembler defaults to VEX instructions. If you need EVEX instructions, set PreferVex=false
+        c.PreferVex = false;
+        // AVX-512 decorators are properties on the memory and register operands
+        c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae);
+        // To broadcast memory, use the __dword_bcst/__qword_bcst memory types
+        c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax]);
+
+        // Emit label1:
+        c.Label(ref label1);
+        c.pop(r15);
+        c.ret();
+
+        const ulong RIP = 0x1000_0000;
+        var stream = new MemoryStream();
+        c.Assemble(new StreamCodeWriter(stream), RIP);
+
+        // Disassemble the result
+        stream.Position = 0;
+        var reader = new StreamCodeReader(stream);
+        var decoder = Decoder.Create(64, reader);
+        decoder.IP = RIP;
+        while (stream.Position < stream.Length) {
+            decoder.Decode(out var instr);
+            Console.WriteLine($"{instr.IP:X} = {instr}");
         }
 
-        /*
-         * This method produces the following output:
+        return stream;
+    }
+}
+```
+
+## Disassemble with a symbol resolver
+
+```C#
+using System;
+using System.Collections.Generic;
+using Iced.Intel;
+
+static class HowTo_SymbolResolver {
+    sealed class SymbolResolver : ISymbolResolver {
+        readonly Dictionary<ulong, string> symbolDict;
+
+        public SymbolResolver(Dictionary<ulong, string> symbolDict) {
+            this.symbolDict = symbolDict;
+        }
+
+        public bool TryGetSymbol(in Instruction instruction, int operand, int instructionOperand,
+            ulong address, int addressSize, out SymbolResult symbol) {
+            if (symbolDict.TryGetValue(address, out var symbolText)) {
+                // The 'address' arg is the address of the symbol and doesn't have to be identical
+                // to the 'address' arg passed to TryGetSymbol(). If it's different from the input
+                // address, the formatter will add +N or -N, eg. '[rax+symbol+123]'
+                symbol = new SymbolResult(address, symbolText);
+                return true;
+            }
+            symbol = default;
+            return false;
+        }
+    }
+
+    public static void Example() {
+        var symbols = new Dictionary<ulong, string> {
+            { 0x5AA55AA5UL, "my_data" },
+        };
+        var symbolResolver = new SymbolResolver(symbols);
+        var decoder = Decoder.Create(64, new ByteArrayCodeReader("488B8AA55AA55A"));
+        decoder.Decode(out var instr);
+
+        var formatter = new GasFormatter(null, symbolResolver);
+        var output = new StringOutput();
+        formatter.Format(instr, output);
+        // Prints: mov my_data(%rdx),%rcx
+        Console.WriteLine(output.ToStringAndReset());
+    }
+}
+```
+
+## Disassemble with colorized text
+
+```C#
+using System;
+using System.Collections.Generic;
+using Iced.Intel;
+
+static class HowTo_ColorizedText {
+    public static void Example() {
+        var codeReader = new ByteArrayCodeReader(exampleCode);
+        var decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = exampleCodeRIP;
+
+        var formatter = new MasmFormatter();
+        var output = new FormatterOutputImpl();
+        while (codeReader.CanReadByte) {
+            decoder.Decode(out var instr);
+            output.List.Clear();
+            formatter.Format(instr, output);
+            foreach (var (text, kind) in output.List) {
+                Console.ForegroundColor = GetColor(kind);
+                Console.Write(text);
+            }
+            Console.WriteLine();
+        }
+        Console.ResetColor();
+    }
+
+    sealed class FormatterOutputImpl : FormatterOutput {
+        public List<(string text, FormatterTextKind kind)> List =
+            new List<(string text, FormatterTextKind kind)>();
+        public override void Write(string text, FormatterTextKind kind) => List.Add((text, kind));
+    }
+
+    static ConsoleColor GetColor(FormatterTextKind kind) {
+        switch (kind) {
+        case FormatterTextKind.Directive:
+        case FormatterTextKind.Keyword:
+            return ConsoleColor.Yellow;
+
+        case FormatterTextKind.Prefix:
+        case FormatterTextKind.Mnemonic:
+            return ConsoleColor.Red;
+
+        case FormatterTextKind.Register:
+            return ConsoleColor.Magenta;
+
+        case FormatterTextKind.Number:
+            return ConsoleColor.Green;
+
+        default:
+            return ConsoleColor.White;
+        }
+    }
+
+    const int exampleCodeBitness = 64;
+    const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
+    static readonly byte[] exampleCode = new byte[] {
+        0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
+        0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
+        0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
+        0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
+    };
+}
+```
+
+## Move code in memory (eg. hook a function)
+
+```C#
+using System;
+using System.Collections.Generic;
+using Iced.Intel;
+
+static class HowTo_MoveCode {
+    // Decodes instructions from some address, then encodes them starting at some
+    // other address. This can be used to hook a function. You decode enough instructions
+    // until you have enough bytes to add a JMP instruction that jumps to your code.
+    // Your code will then conditionally jump to the original code that you re-encoded.
+    //
+    // This code uses the BlockEncoder which will help with some things, eg. converting
+    // short branches to longer branches if the target is too far away.
+    //
+    // 64-bit mode also supports RIP relative addressing, but the encoder can't rewrite
+    // those to use a longer displacement. If any of the moved instructions have RIP
+    // relative addressing and it tries to access data too far away, the encoder will fail.
+    // The easiest solution is to use OS alloc functions that allocate memory close to the
+    // original code (+/-2GB).
+    public static void Example() {
+        var codeReader = new ByteArrayCodeReader(exampleCode);
+        var decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = exampleCodeRIP;
+
+        var instructions = new InstructionList();
+        while (codeReader.CanReadByte)
+            decoder.Decode(out instructions.AllocUninitializedElement());
+
+        // Relocate the code to some new location. It can fix short/near branches and
+        // convert them to short/near/long forms if needed. This also works even if it's a
+        // jrcxz/loop/loopcc instruction which only has a short form.
+        //
+        // It can currently only fix RIP relative operands if the new location is within 2GB
+        // of the target data location.
+        //
+        // Note that a block is not the same thing as a basic block. A block can contain any
+        // number of instructions, including any number of branch instructions. One block
+        // should be enough unless you must relocate different blocks to different locations.
+        var codeWriter = new CodeWriterImpl();
+        ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
+        var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
+        // This method can also encode more than one block but that's rarely needed, see above comment.
+        bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage, out _);
+        if (!success) {
+            Console.WriteLine($"ERROR: {errorMessage}");
+            return;
+        }
+        var newCode = codeWriter.ToArray();
+        Console.WriteLine("New code bytes:");
+        for (int i = 0; i < newCode.Length;) {
+            for (int j = 0; j < 16 && i < newCode.Length; i++, j++) {
+                if (j != 0)
+                    Console.Write(", ");
+                Console.Write("0x");
+                Console.Write(newCode[i].ToString("X2"));
+            }
+            Console.WriteLine();
+        }
+
+        // Disassemble the new relocated code. It's identical to the original code except that
+        // the RIP relative instructions have been updated.
+        Console.WriteLine("Disassembled code:");
+        var formatter = new NasmFormatter();
+        var output = new StringOutput();
+        var newReader = new ByteArrayCodeReader(newCode);
+        var newDecoder = Decoder.Create(decoder.Bitness, newReader);
+        newDecoder.IP = block.RIP;
+        while (newReader.CanReadByte) {
+            newDecoder.Decode(out var instr);
+            formatter.Format(instr, output);
+            Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
+        }
+    }
+    sealed class CodeWriterImpl : CodeWriter {
+        readonly List<byte> allBytes = new List<byte>();
+        public override void WriteByte(byte value) => allBytes.Add(value);
+        public byte[] ToArray() => allBytes.ToArray();
+    }
+
+    const int exampleCodeBitness = 64;
+    const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
+    static readonly byte[] exampleCode = new byte[] {
+        0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
+        0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
+        0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
+        0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
+    };
+}
+```
+
+## Get instruction info, eg. read/written regs/mem, control flow info, etc
+
+```C#
+using System;
+using Iced.Intel;
+
+static class HowTo_InstructionInfo {
+    /*
+     * This method produces the following output:
 00007FFAC46ACDA4 mov [rsp+10h],rbx
     OpCode: REX.W 89 /r
     Instruction: MOV r/m64, r64
@@ -524,86 +663,88 @@ Disassembled code:
     Op0: r32_reg
     Op1: r32_or_mem
     RDI:Write
-         */
-        static void InstructionInfoExample() {
-            var codeReader = new ByteArrayCodeReader(exampleCode);
-            var decoder = Decoder.Create(exampleCodeBitness, codeReader);
-            decoder.IP = exampleCodeRIP;
-            ulong endRip = decoder.IP + (uint)exampleCode.Length;
+     */
+    public static void Example() {
+        var codeReader = new ByteArrayCodeReader(exampleCode);
+        var decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = exampleCodeRIP;
 
-            // For PERF, use a factory to create the instruction info if you need register
-            // and memory usage. If it's something else, eg. encoding, flags, etc, there
-            // are properties on Instruction that can be used instead that don't allocate.
-            // The factory only allocates once and reuses the internal arrays; calling
-            // Instruction.GetInfo() allocates every single call.
-            var instrInfoFactory = new InstructionInfoFactory();
-            while (decoder.IP < endRip) {
-                decoder.Decode(out var instr);
+        // Use a factory to create the instruction info if you need register and
+        // memory usage. If it's something else, eg. encoding, flags, etc, there
+        // are properties on Instruction that can be used instead.
+        var instrInfoFactory = new InstructionInfoFactory();
+        while (codeReader.CanReadByte) {
+            decoder.Decode(out var instr);
 
-                // Gets offsets in the instruction of the displacement and immediates and their sizes.
-                // This can be useful if there are relocations in the binary. The encoder has a similar
-                // method. This method must be called after Decode() and you must pass in the last
-                // instruction Decode() returned.
-                var offsets = decoder.GetConstantOffsets(instr);
+            // Gets offsets in the instruction of the displacement and immediates and their sizes.
+            // This can be useful if there are relocations in the binary. The encoder has a similar
+            // method. This method must be called after Decode() and you must pass in the last
+            // instruction Decode() returned.
+            var offsets = decoder.GetConstantOffsets(instr);
 
-                // A formatter is recommended since this ToString() method defaults to masm syntax,
-                // uses default options, and allocates every single time it's called.
-                var disasmStr = instr.ToString();
-                Console.WriteLine($"{instr.IP:X16} {disasmStr}");
+            Console.WriteLine($"{instr.IP:X16} {instr}");
 
-                var opCode = instr.OpCode;
-                var info = instrInfoFactory.GetInfo(instr);
-                const string tab = "    ";
-                Console.WriteLine($"{tab}OpCode: {opCode.ToOpCodeString()}");
-                Console.WriteLine($"{tab}Instruction: {opCode.ToInstructionString()}");
-                Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
-                Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");
-                Console.WriteLine($"{tab}Code: {instr.Code}");
-                Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
-                Console.WriteLine($"{tab}FlowControl: {instr.FlowControl}");
-                if (offsets.HasDisplacement)
-                    Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
-                if (offsets.HasImmediate)
-                    Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
-                if (offsets.HasImmediate2)
-                    Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
-                if (instr.IsStackInstruction)
-                    Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
-                if (instr.ConditionCode != ConditionCode.None)
-                    Console.WriteLine($"{tab}Condition code: {instr.ConditionCode}");
-                if (instr.RflagsRead != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
-                if (instr.RflagsWritten != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Written: {instr.RflagsWritten}");
-                if (instr.RflagsCleared != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Cleared: {instr.RflagsCleared}");
-                if (instr.RflagsSet != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Set: {instr.RflagsSet}");
-                if (instr.RflagsUndefined != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Undefined: {instr.RflagsUndefined}");
-                if (instr.RflagsModified != RflagsBits.None)
-                    Console.WriteLine($"{tab}RFLAGS Modified: {instr.RflagsModified}");
-                for (int i = 0; i < instr.OpCount; i++) {
-                    var opKind = instr.GetOpKind(i);
-                    if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
-                        int size = instr.MemorySize.GetSize();
-                        if (size != 0)
-                            Console.WriteLine($"{tab}Memory size: {size}");
-                        break;
-                    }
+            var opCode = instr.OpCode;
+            var info = instrInfoFactory.GetInfo(instr);
+            const string tab = "    ";
+            Console.WriteLine($"{tab}OpCode: {opCode.ToOpCodeString()}");
+            Console.WriteLine($"{tab}Instruction: {opCode.ToInstructionString()}");
+            Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
+            Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");
+            Console.WriteLine($"{tab}Code: {instr.Code}");
+            Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
+            Console.WriteLine($"{tab}FlowControl: {instr.FlowControl}");
+            if (offsets.HasDisplacement)
+                Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
+            if (offsets.HasImmediate)
+                Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
+            if (offsets.HasImmediate2)
+                Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
+            if (instr.IsStackInstruction)
+                Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
+            if (instr.ConditionCode != ConditionCode.None)
+                Console.WriteLine($"{tab}Condition code: {instr.ConditionCode}");
+            if (instr.RflagsRead != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
+            if (instr.RflagsWritten != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Written: {instr.RflagsWritten}");
+            if (instr.RflagsCleared != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Cleared: {instr.RflagsCleared}");
+            if (instr.RflagsSet != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Set: {instr.RflagsSet}");
+            if (instr.RflagsUndefined != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Undefined: {instr.RflagsUndefined}");
+            if (instr.RflagsModified != RflagsBits.None)
+                Console.WriteLine($"{tab}RFLAGS Modified: {instr.RflagsModified}");
+            for (int i = 0; i < instr.OpCount; i++) {
+                var opKind = instr.GetOpKind(i);
+                if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
+                    int size = instr.MemorySize.GetSize();
+                    if (size != 0)
+                        Console.WriteLine($"{tab}Memory size: {size}");
+                    break;
                 }
-                for (int i = 0; i < instr.OpCount; i++)
-                    Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
-                for (int i = 0; i < opCode.OpCount; i++)
-                    Console.WriteLine($"{tab}Op{i}: {opCode.GetOpKind(i)}");
-                // The returned iterator is a struct, nothing is allocated unless you box it
-                foreach (var regInfo in info.GetUsedRegisters())
-                    Console.WriteLine($"{tab}{regInfo.ToString()}");
-                foreach (var memInfo in info.GetUsedMemory())
-                    Console.WriteLine($"{tab}{memInfo.ToString()}");
             }
+            for (int i = 0; i < instr.OpCount; i++)
+                Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
+            for (int i = 0; i < opCode.OpCount; i++)
+                Console.WriteLine($"{tab}Op{i}: {opCode.GetOpKind(i)}");
+            // The returned iterator is a struct, nothing is allocated unless you box it
+            foreach (var regInfo in info.GetUsedRegisters())
+                Console.WriteLine($"{tab}{regInfo.ToString()}");
+            foreach (var memInfo in info.GetUsedMemory())
+                Console.WriteLine($"{tab}{memInfo.ToString()}");
         }
     }
+
+    const int exampleCodeBitness = 64;
+    const ulong exampleCodeRIP = 0x00007FFAC46ACDA4;
+    static readonly byte[] exampleCode = new byte[] {
+        0x48, 0x89, 0x5C, 0x24, 0x10, 0x48, 0x89, 0x74, 0x24, 0x18, 0x55, 0x57, 0x41, 0x56, 0x48, 0x8D,
+        0xAC, 0x24, 0x00, 0xFF, 0xFF, 0xFF, 0x48, 0x81, 0xEC, 0x00, 0x02, 0x00, 0x00, 0x48, 0x8B, 0x05,
+        0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
+        0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
+    };
 }
 ```
 
