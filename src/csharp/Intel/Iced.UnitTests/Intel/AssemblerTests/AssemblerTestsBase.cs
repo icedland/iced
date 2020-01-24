@@ -39,7 +39,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public int Bitness => _bitness;
 		
 		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
-			var assembler = Assembler.Create(_bitness);
+			var assembler = new Assembler(_bitness);
 			
 			// Encode the instruction
 			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
@@ -218,7 +218,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		protected unsafe void TestAssemblerDeclareData<T>(Action<Assembler> fAsm, T[] data) where T : unmanaged {
-			var assembler = Assembler.Create(Bitness);
+			var assembler = new Assembler(Bitness);
 			var sizeOfT = sizeof(T);
 			fAsm(assembler);
 

@@ -189,7 +189,7 @@ static class HowTo_Assemble {
      */
     public static MemoryStream Example() {
         // The assembler supports all modes: 16-bit, 32-bit and 64-bit.
-        var c = Assembler.Create(64);
+        var c = new Assembler(64);
 
         var label1 = c.CreateLabel();
 

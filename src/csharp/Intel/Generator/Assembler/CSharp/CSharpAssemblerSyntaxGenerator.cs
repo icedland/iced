@@ -105,7 +105,7 @@ namespace Generator.Assembler.CSharp {
 				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
-					writer.WriteLine("public sealed partial class Assembler {");
+					writer.WriteLine("public partial class Assembler {");
 					using (writer.Indent()) {
 						foreach (var group in groups) {
 							var renderArgs = GetRenderArgs(group);
