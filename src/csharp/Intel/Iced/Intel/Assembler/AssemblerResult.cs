@@ -27,7 +27,7 @@ using System;
 namespace Iced.Intel
 {
 	/// <summary>
-	/// Result of <see cref="Assembler.Encode"/>.
+	/// Result of <see cref="Assembler.Assemble"/>.
 	/// </summary>
 	public readonly struct AssemblerResult {
 		
@@ -61,7 +61,7 @@ namespace Iced.Intel
 		public ulong GetLabelRIP(in Label label) {
 			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(Assembler)}.{nameof(Assembler.CreateLabel)}", nameof(label));
 			if (label.InstructionIndex < 0) throw new ArgumentException($"The label is not associated with an instruction index. It must be emitted via {nameof(Assembler)}.{nameof(Assembler.Label)}.", nameof(label));
-			if (BlockEncoderResult.NewInstructionOffsets == null || label.InstructionIndex >= BlockEncoderResult.NewInstructionOffsets.Length) throw new ArgumentOutOfRangeException(nameof(label), $"The label instruction index {label.InstructionIndex} is out of range of the instruction offsets results {BlockEncoderResult.NewInstructionOffsets?.Length ?? 0}. Did you forget to pass {nameof(BlockEncoderOptions)}.{nameof(BlockEncoderOptions.ReturnNewInstructionOffsets)} to {nameof(Assembler)}.{nameof(Assembler.Encode)}/{nameof(Assembler.TryEncode)}?");
+			if (BlockEncoderResult.NewInstructionOffsets == null || label.InstructionIndex >= BlockEncoderResult.NewInstructionOffsets.Length) throw new ArgumentOutOfRangeException(nameof(label), $"The label instruction index {label.InstructionIndex} is out of range of the instruction offsets results {BlockEncoderResult.NewInstructionOffsets?.Length ?? 0}. Did you forget to pass {nameof(BlockEncoderOptions)}.{nameof(BlockEncoderOptions.ReturnNewInstructionOffsets)} to {nameof(Assembler)}.{nameof(Assembler.Assemble)}/{nameof(Assembler.TryAssemble)}?");
 			return BaseRIP + BlockEncoderResult.NewInstructionOffsets[label.InstructionIndex];
 		}
 	}
