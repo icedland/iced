@@ -315,7 +315,8 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Add leading zeroes to hexadecimal/octal/binary numbers.
-		/// This option has no effect on branch targets, use <see cref="BranchLeadingZeroes"/>.
+		/// This option has no effect on branch targets and displacements, use <see cref="BranchLeadingZeroes"/>
+		/// and <see cref="DisplacementLeadingZeroes"/>.
 		/// <br/>
 		/// Default: <see langword="false"/>
 		/// <br/>

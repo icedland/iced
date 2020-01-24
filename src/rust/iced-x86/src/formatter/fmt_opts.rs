@@ -986,14 +986,16 @@ impl FormatterOptions {
 	}
 
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets, use [`branch_leading_zeroes`].
+	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
+	/// and [`displacement_leading_zeroes`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0x0000000A`/`0000000Ah`
-	/// - | `false` | `0xA`/`0Ah`
+	/// - | `true` | `0x0000000A`/`0000000Ah`
+	/// Yes | `false` | `0xA`/`0Ah`
 	///
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
+	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn leading_zeroes(&self) -> bool {
@@ -1001,14 +1003,16 @@ impl FormatterOptions {
 	}
 
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets, use [`branch_leading_zeroes()`].
+	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
+	/// and [`displacement_leading_zeroes`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0x0000000A`/`0000000Ah`
-	/// - | `false` | `0xA`/`0Ah`
+	/// - | `true` | `0x0000000A`/`0000000Ah`
+	/// Yes | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes()`]: #method.branch_leading_zeroes
+	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
+	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
 	///
 	/// # Arguments
 	///
@@ -1144,8 +1148,8 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `je 00000123h`
-	/// Yes | `false` | `je 123h`
+	/// Yes | `true` | `je 00000123h`
+	/// - | `false` | `je 123h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn branch_leading_zeroes(&self) -> bool {
@@ -1156,8 +1160,8 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// - | `true` | `je 00000123h`
-	/// Yes | `false` | `je 123h`
+	/// Yes | `true` | `je 00000123h`
+	/// - | `false` | `je 123h`
 	///
 	/// # Arguments
 	///
