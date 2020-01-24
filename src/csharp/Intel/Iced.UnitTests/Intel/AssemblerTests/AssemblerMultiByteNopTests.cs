@@ -8,6 +8,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void Test16Bit() {
+			TestAssemblerDeclareData(c => c.nop(0), new byte[] { });
 			TestAssemblerDeclareData(c => c.nop(1), new byte[] { 0x90 }); //NOP
 			TestAssemblerDeclareData(c => c.nop(2), new byte[] { 0x66, 0x90 }); //66 NOP
 			TestAssemblerDeclareData(c => c.nop(3), new byte[] { 0x0F, 0x1F, 0x00 }); //NOP word ptr [bx+si]
@@ -69,6 +70,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void Test32Bit() {
+			TestAssemblerDeclareData(c => c.nop(0), new byte[] { });
 			TestAssemblerDeclareData(c => c.nop(1), new byte[] { 0x90 }); //NOP
 			TestAssemblerDeclareData(c => c.nop(2), new byte[] { 0x66, 0x90 }); //66 NOP
 			TestAssemblerDeclareData(c => c.nop(3), new byte[] { 0x0F, 0x1F, 0x00 }); //NOP dword ptr [eax]
@@ -129,6 +131,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void Test64Bit() {
+			TestAssemblerDeclareData(c => c.nop(0), new byte[] { });
 			TestAssemblerDeclareData(c => c.nop(1), new byte[] { 0x90 }); //NOP
 			TestAssemblerDeclareData(c => c.nop(2), new byte[] { 0x66, 0x90 }); //66 NOP
 			TestAssemblerDeclareData(c => c.nop(3), new byte[] { 0x0F, 0x1F, 0x00 }); //NOP dword ptr [eax]
