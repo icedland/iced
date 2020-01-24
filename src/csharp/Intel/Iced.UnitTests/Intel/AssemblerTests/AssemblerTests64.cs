@@ -25,17 +25,17 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void TestInvalidStateAssembler() {
 			{
+				var assembler = Assembler.Create(Bitness);
 				var writer = new CodeWriterImpl();
-				var assembler = Assembler.Create(Bitness, writer);
-				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Encode());
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.rep.Encode(writer));
 				Assert.Contains("Unused prefixes", ex.Message);
 			}
 			{
-				var writer = new CodeWriterImpl();
-				var assembler = Assembler.Create(Bitness, writer);
+				var assembler = Assembler.Create(Bitness);
 				var label = assembler.CreateLabel(("BadLabel"));
 				assembler.Label(ref label);
-				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Encode());
+				var writer = new CodeWriterImpl();
+				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Encode(writer));
 				Assert.Contains("Unused label", ex.Message);
 			}
 		}
@@ -43,21 +43,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void TestLabelRIP() {
 			{
-				var writer = new CodeWriterImpl();
-				var c = Assembler.Create(Bitness, writer);
+				var c = Assembler.Create(Bitness);
 				var label1 = c.CreateLabel();
 				c.nop();
 				c.nop();
 				c.nop();
 				c.Label(ref label1);		
 				c.nop();
-				var result = c.Encode(0x100, BlockEncoderOptions.ReturnNewInstructionOffsets);
+				
+				var writer = new CodeWriterImpl();
+				var result = c.Encode(writer, 0x100, BlockEncoderOptions.ReturnNewInstructionOffsets);
 				var label1RIP = result.GetLabelRIP(label1);
 				Assert.Equal((ulong)0x103, label1RIP);
 			}
 			{
-				var writer = new CodeWriterImpl();
-				var c = Assembler.Create(Bitness, writer);
+				var c = Assembler.Create(Bitness);
 				var label1 = c.CreateLabel();
 				c.nop();
 				c.Label(ref label1);				
@@ -70,7 +70,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				// Cannot use a label already emitted
 				Assert.Throws<ArgumentException>(() => c.Label(ref label1));
 				
-				var result = c.Encode();
+				var writer = new CodeWriterImpl();
+				var result = c.Encode(writer);
 				// Will throw without BlockEncoderOptions.ReturnNewInstructionOffsets
 				Assert.Throws<ArgumentOutOfRangeException>(() => result.GetLabelRIP(label1));
 			}

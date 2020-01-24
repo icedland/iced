@@ -7,13 +7,17 @@ High performance x86 (16/32/64-bit) instruction decoder, disassembler and assemb
 It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
 - Supports all Intel and AMD instructions
-- The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
-- Small decoded instructions, only 32 bytes
-- The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- The encoder can be used to re-encode decoded instructions at any address
-- The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
+- High level [Assembler](#Assembler) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
+- [Decoding](#Decoding) and disassembler support:
+  - The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
+  - Small decoded instructions, only 32 bytes
+  - The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- Encoding support:  
+  - The encoder can be used to re-encode decoded instructions at any address
+  - The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
 - API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 - All instructions are tested (decode, encode, format, instruction info)
+- Supports of `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
 
 # Classes
 
@@ -25,6 +29,7 @@ Decoder:
 - `Instruction` (and `Instruction.Create()` methods)
 - `CodeReader`
 	- `ByteArrayCodeReader`
+	- `StreamCodeReader`
 - `InstructionList`
 - `ConstantOffsets`
 - `IcedFeatures.Initialize()`
@@ -51,6 +56,7 @@ Encoder:
 - `Encoder`
 - `BlockEncoder`
 - `CodeWriter`
+  - `StreamCodeWriter`
 - `ConstantOffsets`
 - `OpCodeInfo` (`Instruction.OpCode` and `Code.ToOpCode()`)
 
@@ -65,6 +71,7 @@ Instruction info:
 High Level Assembler:
 
 - `Assembler`
+- `Label`
 - `AssemblerRegisters` (use `using static` to have access directly to registers e.g `eax`, `rdi`, `xmm1`...)
 
 # Examples
@@ -613,18 +620,19 @@ Disassembled code:
 
 ## Assembler
 
-Iced provide a high level assembler by providing a friendly syntax close to what an assembler could provide:
+Iced provide a high level assembler by providing a friendly syntax close to what a regular assembler could provide:
 
 ```c#
 using Iced.Intel;
-using static Iced.Intel.AssemblerRegisters; // This allow to import assembler registers e.g `eax` directly accessible as variables
+// The following using static allows to import assembler registers
+// e.g `eax` directly accessible as variables
+using static Iced.Intel.AssemblerRegisters; 
 
 public static class AssemblerPlay
 {
 	public static MemoryStream GenerateCode()
 	{
-		var stream = new MemoryStream();
-		var c = Assembler.Create(64, new StreamCodeWriter(stream));
+		var c = Assembler.Create(64);
 
 		c.push(r15);
 		c.mov(r15, rsi);
@@ -633,7 +641,9 @@ public static class AssemblerPlay
 		c.pop(r15);
 		c.ret();
 
-		c.Encode();
+		var stream = new MemoryStream();
+		var writer = new StreamCodeWriter(stream)
+		c.Encode(writer);
 
 		return stream;
 	}
@@ -646,19 +656,21 @@ The assembler supports the entire instruction set available through the `Encoder
 - AVX512+ k1z/sae/rounding flags can be set directly on registers: `c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae)`
 - AVX512+ broadcasting can be specified via e.g `__dword_bcst`: `c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax])`
 
-Labels can be created via `Assembler.CreateLabel`, placed just before an instruction via `Assembler.Label` and referenced by branche instructions:
+Labels can be created via `Assembler.CreateLabel`, placed just before an instruction via `Assembler.Label` and referenced by branch instructions:
 
 ```c#
 using Iced.Intel;
-using static Iced.Intel.AssemblerRegisters; // This allow to import assembler registers e.g `eax` directly accessible as variables
+// The following using static allows to import assembler registers
+// e.g `eax` directly accessible as variables
+using static Iced.Intel.AssemblerRegisters;
 
 public static class AssemblerPlay
 {
 	public static MemoryStream GenerateCode()
 	{
-		var stream = new MemoryStream();
-		var c = Assembler.Create(64, new StreamCodeWriter(stream));
+		var c = Assembler.Create(64);
 
+		// Create a label
 		var label1 = c.CreateLabel();
 
 		c.push(r15);
@@ -668,11 +680,13 @@ public static class AssemblerPlay
 		c.inc(rax);
 
 		// Emit label1:
-		c.Label(label1);
+		c.Label(ref label1);
 		c.pop(r15);
 		c.ret();
 
-		c.Encode();
+		var stream = new MemoryStream();
+		var writer = new StreamCodeWriter(stream)
+		c.Encode(writer);
 
 		return stream;
 	}

@@ -40,8 +40,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public int Bitness => _bitness;
 		
 		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
-			var writer = new CodeWriterImpl();
-			var assembler = Assembler.Create(_bitness, writer);
+			var assembler = Assembler.Create(_bitness);
 			
 			// Encode the instruction
 			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
@@ -62,7 +61,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.Equal(1, assembler.Instructions.Count);
 
 			// Encode the instruction first to get any errors
-			assembler.Encode(0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
+			var writer = new CodeWriterImpl();
+			assembler.Encode(writer, 0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
 			
 			// Check that the instruction is the one expected
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
@@ -219,12 +219,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		protected unsafe void TestAssemblerDeclareData<T>(Action<Assembler> fAsm, T[] data) where T : unmanaged {
-			var writer = new CodeWriterImpl();
-			var assembler = Assembler.Create(Bitness, writer);
+			var assembler = Assembler.Create(Bitness);
 			var sizeOfT = sizeof(T);
 			fAsm(assembler);
-			assembler.Encode();
+
+			var writer = new CodeWriterImpl();
+			assembler.Encode(writer);
 			var buffer = writer.ToArray();
+			
 			Assert.Equal(sizeOfT * data.Length, buffer.Length);
 			fixed (void* pData = data) {
 				for (int i = 0; i < buffer.Length; i++) {

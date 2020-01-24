@@ -33,7 +33,6 @@ namespace Iced.Intel {
 	/// </summary>
 	public sealed partial class Assembler {
 
-		readonly CodeWriter _writer;
 		readonly List<Instruction> _instructions;
 		ulong _currentLabelId;
 		Label _label;
@@ -42,14 +41,10 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Creates a new instance of this assembler 
 		/// </summary>
-		/// <param name="writer">CodeWriter</param>
 		/// <param name="bitness">Bitness</param>
-		Assembler(CodeWriter writer, int bitness) {
+		Assembler(int bitness) {
 			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
-			if (writer is null)
-				ThrowHelper.ThrowArgumentNullException_writer();
 			Bitness = bitness;
-			_writer = writer;
 			_instructions = new List<Instruction>();
 			_label = default;
 			PreferVex = true;
@@ -90,17 +85,15 @@ namespace Iced.Intel {
 		/// Creates a new <see cref="Assembler"/>.
 		/// </summary>
 		/// <param name="bitness">Bitness of the assembler</param>
-		/// <param name="writer">Code writer.</param>
 		/// <returns></returns>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="ArgumentOutOfRangeException"></exception>
-		public static Assembler Create(int bitness, CodeWriter writer) {
-			if (writer == null) throw new ArgumentNullException(nameof(writer));
+		public static Assembler Create(int bitness) {
 			switch (bitness) {
 			case 16:
 			case 32:
 			case 64:
-				return new Assembler(writer, bitness);
+				return new Assembler(bitness);
 			default:
 				throw new ArgumentOutOfRangeException(nameof(bitness));
 			}
@@ -382,12 +375,16 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Encode the instructions of this assembler with the specified options.
 		/// </summary>
+		/// <param name="writer">The code writer.</param>
 		/// <param name="baseRIP">Base RIP address.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns></returns>
 		/// <exception cref="InvalidOperationException"></exception>
-		public AssemblerResult Encode(ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
-			if (!TryEncode(baseRIP, out var errorMessage, out var assemblerResult, options)) {
+		public AssemblerResult Encode(CodeWriter writer, ulong baseRIP = 0, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			if (writer is null)
+				ThrowHelper.ThrowArgumentNullException_writer();
+
+			if (!TryEncode(writer, baseRIP, out var errorMessage, out var assemblerResult, options)) {
 				throw new InvalidOperationException(errorMessage);
 			}
 			return assemblerResult;
@@ -396,12 +393,16 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Tries to encode the instructions of this assembler with the specified options.
 		/// </summary>
+		/// <param name="writer">The code writer.</param>
 		/// <param name="baseRIP">Base RIP address.</param>
 		/// <param name="errorMessage">Error messages.</param>
 		/// <param name="assemblerResult">The assembler result.</param>
 		/// <param name="options">Encoding options.</param>
 		/// <returns><c>true</c> if the encoding was successful; <c>false</c> otherwise.</returns>
-		public bool TryEncode(ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+		public bool TryEncode(CodeWriter writer, ulong baseRIP, out string? errorMessage, out AssemblerResult assemblerResult, BlockEncoderOptions options = BlockEncoderOptions.None) {
+			if (writer is null)
+				ThrowHelper.ThrowArgumentNullException_writer();
+
 			assemblerResult = default;
 
 			// Protect against using a prefix without actually using it
@@ -417,7 +418,7 @@ namespace Iced.Intel {
 			}
 			
 			var blocks = new InstructionBlock[1];
-			var block = new InstructionBlock(this._writer, _instructions, baseRIP);
+			var block = new InstructionBlock(writer, _instructions, baseRIP);
 			blocks[0] = block;
 
 			var result = BlockEncoder.TryEncode(Bitness, blocks, out errorMessage, out var blockResults, options);
