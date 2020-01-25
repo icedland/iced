@@ -85,7 +85,15 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public NasmFormatter() : this(null) { }
+		public NasmFormatter() : this(null, null, null) { }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="symbolResolver">Symbol resolver or null</param>
+		/// <param name="optionsProvider">Operand options provider or null</param>
+		public NasmFormatter(ISymbolResolver? symbolResolver, IFormatterOptionsProvider? optionsProvider = null)
+			: this(null, symbolResolver, optionsProvider) { }
 
 		/// <summary>
 		/// Constructor

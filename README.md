@@ -286,7 +286,7 @@ static class HowTo_SymbolResolver {
         var decoder = Decoder.Create(64, new ByteArrayCodeReader("488B8AA55AA55A"));
         decoder.Decode(out var instr);
 
-        var formatter = new GasFormatter(null, symbolResolver);
+        var formatter = new GasFormatter(symbolResolver);
         var output = new StringOutput();
         formatter.Format(instr, output);
         // Prints: mov my_data(%rdx),%rcx

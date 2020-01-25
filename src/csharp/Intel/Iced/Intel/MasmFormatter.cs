@@ -103,7 +103,15 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public MasmFormatter() : this(null) { }
+		public MasmFormatter() : this(null, null, null) { }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="symbolResolver">Symbol resolver or null</param>
+		/// <param name="optionsProvider">Operand options provider or null</param>
+		public MasmFormatter(ISymbolResolver? symbolResolver, IFormatterOptionsProvider? optionsProvider = null)
+			: this(null, symbolResolver, optionsProvider) { }
 
 		/// <summary>
 		/// Constructor

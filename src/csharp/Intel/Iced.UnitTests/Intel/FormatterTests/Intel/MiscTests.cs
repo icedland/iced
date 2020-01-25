@@ -132,6 +132,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 
 		[Fact]
 		void TestFormattingWithDefaultFormatterCtor() => FormatterTestUtils.TestFormatterDoesNotThrow(new IntelFormatter());
+
+		[Fact]
+		void TestFormattingWithDefaultFormatterCtor2() => FormatterTestUtils.TestFormatterDoesNotThrow(new IntelFormatter((ISymbolResolver)null));
 	}
 }
 #endif

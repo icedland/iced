@@ -135,6 +135,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		[Fact]
 		void TestFormattingWithDefaultFormatterCtor() => FormatterTestUtils.TestFormatterDoesNotThrow(new MasmFormatter());
+
+		[Fact]
+		void TestFormattingWithDefaultFormatterCtor2() => FormatterTestUtils.TestFormatterDoesNotThrow(new MasmFormatter((ISymbolResolver)null));
 	}
 }
 #endif
