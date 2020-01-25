@@ -25,7 +25,7 @@ if (!$NoTest) {
 	}
 	if (!(Test-Path src/csharp/Intel/Iced.UnitTests/bin/$configuration/$netcore_tfm)) { throw "Invalid tfm: $netcore_tfm" }
 	$collectCoverage = if ($NoCoverage) { '' } else { 'true' }
-	dotnet test -c $configuration -f $netcore_tfm -p:Exclude='\"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts\"' -p:ExcludeByFile="$PWD\src\Intel\csharp\Iced\**\*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collectCoverage -p:CoverletOutputFormat=lcov --no-build src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64
+	dotnet test -c $configuration -f $netcore_tfm -p:Exclude='\"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts\"' -p:ExcludeByFile="$PWD\src\csharp\Intel\Iced\**\*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collectCoverage -p:CoverletOutputFormat=lcov --no-build src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64
 	if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
