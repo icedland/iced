@@ -179,19 +179,21 @@ static class HowTo_Assemble {
 1000000B = cmp dword ptr [rax+rcx*8+10h],0FFFFFFFFh
 10000010 = jne short 0000000010000031h
 10000012 = inc rax
-10000015 = lea rcx,[10000031h]
+10000015 = lea rcx,[10000034h]
 1000001C = rep stosd
 1000001E = xacquire lock add qword ptr [rax+rcx],7Bh
 10000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
 1000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
 10000031 = pop r15
 10000033 = ret
+10000034 = pause
      */
     public static MemoryStream Example() {
         // The assembler supports all modes: 16-bit, 32-bit and 64-bit.
         var c = new Assembler(64);
 
         var label1 = c.CreateLabel();
+        var data1 = c.CreateLabel();
 
         c.push(r15);
         c.add(rax, r15);
@@ -208,7 +210,7 @@ static class HowTo_Assemble {
         c.inc(rax);
 
         // Labels can be referenced by memory operands (64-bit only) and call/jmp/jcc/loopcc instructions
-        c.lea(rcx, __[label1]);
+        c.lea(rcx, __[data1]);
 
         // The assembler has prefix properties that will be added to the following instruction
         c.rep.stosd();
@@ -225,6 +227,8 @@ static class HowTo_Assemble {
         c.Label(ref label1);
         c.pop(r15);
         c.ret();
+        c.Label(ref data1);
+        c.db(0xF3, 0x90); // pause
 
         const ulong RIP = 0x1000_0000;
         var stream = new MemoryStream();
@@ -320,7 +324,7 @@ static class HowTo_ColorizedText {
     }
 
     sealed class FormatterOutputImpl : FormatterOutput {
-        public List<(string text, FormatterTextKind kind)> List =
+        public readonly List<(string text, FormatterTextKind kind)> List =
             new List<(string text, FormatterTextKind kind)>();
         public override void Write(string text, FormatterTextKind kind) => List.Add((text, kind));
     }
@@ -362,6 +366,7 @@ static class HowTo_ColorizedText {
 ```C#
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Iced.Intel;
 
 static class HowTo_MoveCode {
@@ -378,14 +383,101 @@ static class HowTo_MoveCode {
     // relative addressing and it tries to access data too far away, the encoder will fail.
     // The easiest solution is to use OS alloc functions that allocate memory close to the
     // original code (+/-2GB).
+
+    /*
+     * This method produces the following output:
+Original code:
+00007FFAC46ACDA4 mov [rsp+10h],rbx
+00007FFAC46ACDA9 mov [rsp+18h],rsi
+00007FFAC46ACDAE push rbp
+00007FFAC46ACDAF push rdi
+00007FFAC46ACDB0 push r14
+00007FFAC46ACDB2 lea rbp,[rsp-100h]
+00007FFAC46ACDBA sub rsp,200h
+00007FFAC46ACDC1 mov rax,[rel 7FFAC47524E0h]
+00007FFAC46ACDC8 xor rax,rsp
+00007FFAC46ACDCB mov [rbp+0F0h],rax
+00007FFAC46ACDD2 mov r8,[rel 7FFAC474F208h]
+00007FFAC46ACDD9 lea rax,[rel 7FFAC46F4A58h]
+00007FFAC46ACDE0 xor edi,edi
+
+Original + patched code:
+00007FFAC46ACDA4 mov rax,123456789ABCDEF0h
+00007FFAC46ACDAE jmp rax
+00007FFAC46ACDB0 push r14
+00007FFAC46ACDB2 lea rbp,[rsp-100h]
+00007FFAC46ACDBA sub rsp,200h
+00007FFAC46ACDC1 mov rax,[rel 7FFAC47524E0h]
+00007FFAC46ACDC8 xor rax,rsp
+00007FFAC46ACDCB mov [rbp+0F0h],rax
+00007FFAC46ACDD2 mov r8,[rel 7FFAC474F208h]
+00007FFAC46ACDD9 lea rax,[rel 7FFAC46F4A58h]
+00007FFAC46ACDE0 xor edi,edi
+
+Moved code:
+00007FFAC48ACDA4 mov [rsp+10h],rbx
+00007FFAC48ACDA9 mov [rsp+18h],rsi
+00007FFAC48ACDAE push rbp
+00007FFAC48ACDAF push rdi
+00007FFAC48ACDB0 jmp 00007FFAC46ACDB0h
+     */
     public static void Example() {
+        Console.WriteLine("Original code:");
+        Disassemble(exampleCode, exampleCodeRIP);
+
         var codeReader = new ByteArrayCodeReader(exampleCode);
         var decoder = Decoder.Create(exampleCodeBitness, codeReader);
         decoder.IP = exampleCodeRIP;
 
-        var instructions = new InstructionList();
-        while (codeReader.CanReadByte)
-            decoder.Decode(out instructions.AllocUninitializedElement());
+        // In 64-bit mode, we need 12 bytes to jump to any address:
+        //      mov rax,imm64   // 10
+        //      jmp rax         // 2
+        // We overwrite rax because it's probably not used by the called function.
+        // In 32-bit mode, a normal JMP is just 5 bytes
+        const uint requiredBytes = 10 + 2;
+        uint totalBytes = 0;
+        var origInstructions = new InstructionList();
+        while (codeReader.CanReadByte) {
+            decoder.Decode(out var instr);
+            origInstructions.Add(instr);
+            totalBytes += (uint)instr.Length;
+            if (instr.Code == Code.INVALID)
+                throw new Exception("Found garbage");
+            if (totalBytes >= requiredBytes)
+                break;
+
+            switch (instr.FlowControl) {
+            case FlowControl.Next:
+                break;
+
+            case FlowControl.UnconditionalBranch:
+                if (instr.Op0Kind == OpKind.NearBranch64) {
+                    var target = instr.NearBranchTarget;
+                    // You could check if it's just jumping forward a few bytes and follow it
+                    // but this is a simple example so we'll fail.
+                }
+                goto default;
+
+            case FlowControl.IndirectBranch:// eg. jmp reg/mem
+            case FlowControl.ConditionalBranch:// eg. je, jno, etc
+            case FlowControl.Return:// eg. ret
+            case FlowControl.Call:// eg. call method
+            case FlowControl.IndirectCall:// eg. call reg/mem
+            case FlowControl.Interrupt:// eg. int n
+            case FlowControl.XbeginXabortXend:
+            case FlowControl.Exception:// eg. ud0
+            default:
+                throw new Exception("Not supported by this simple example");
+            }
+        }
+        if (totalBytes < requiredBytes)
+            throw new Exception("Not enough bytes!");
+        Debug.Assert(origInstructions.Count > 0);
+        // Create a JMP instruction that branches to the original code, except those instructions
+        // that we we'll re-encode. We don't need to do it if it already ends in 'ret'
+        ref readonly var lastInstr = ref origInstructions[origInstructions.Count - 1];
+        if (lastInstr.FlowControl != FlowControl.Return)
+            origInstructions.Add(Instruction.CreateBranch(Code.Jmp_rel32_64, lastInstr.NextIP));
 
         // Relocate the code to some new location. It can fix short/near branches and
         // convert them to short/near/long forms if needed. This also works even if it's a
@@ -399,7 +491,7 @@ static class HowTo_MoveCode {
         // should be enough unless you must relocate different blocks to different locations.
         var codeWriter = new CodeWriterImpl();
         ulong relocatedBaseAddress = exampleCodeRIP + 0x200000;
-        var block = new InstructionBlock(codeWriter, instructions, relocatedBaseAddress);
+        var block = new InstructionBlock(codeWriter, origInstructions, relocatedBaseAddress);
         // This method can also encode more than one block but that's rarely needed, see above comment.
         bool success = BlockEncoder.TryEncode(decoder.Bitness, block, out var errorMessage, out _);
         if (!success) {
@@ -407,30 +499,61 @@ static class HowTo_MoveCode {
             return;
         }
         var newCode = codeWriter.ToArray();
-        Console.WriteLine("New code bytes:");
-        for (int i = 0; i < newCode.Length;) {
-            for (int j = 0; j < 16 && i < newCode.Length; i++, j++) {
-                if (j != 0)
-                    Console.Write(", ");
-                Console.Write("0x");
-                Console.Write(newCode[i].ToString("X2"));
-            }
-            Console.WriteLine();
-        }
 
-        // Disassemble the new relocated code. It's identical to the original code except that
-        // the RIP relative instructions have been updated.
-        Console.WriteLine("Disassembled code:");
+        // Patch the original code. Pretend that we use some OS API to write to memory...
+        // We could use the BlockEncoder/Encoder for this but it's easy to do yourself too.
+        // This is 'mov rax,imm64; jmp rax'
+        const ulong YOUR_FUNC = 0x123456789ABCDEF0;// Address of your code
+        exampleCode[0] = 0x48;// \ 'MOV RAX,imm64'
+        exampleCode[1] = 0xB8;// /
+        ulong v = YOUR_FUNC;
+        for (int i = 0; i < 8; i++, v >>= 8)
+            exampleCode[2 + i] = (byte)v;
+        exampleCode[10] = 0xFF;// \ JMP RAX
+        exampleCode[11] = 0xE0;// /
+
+        // Disassemble it
+        Console.WriteLine("Original + patched code:");
         var formatter = new NasmFormatter();
         var output = new StringOutput();
-        var newReader = new ByteArrayCodeReader(newCode);
-        var newDecoder = Decoder.Create(decoder.Bitness, newReader);
-        newDecoder.IP = block.RIP;
-        while (newReader.CanReadByte) {
-            newDecoder.Decode(out var instr);
+        codeReader = new ByteArrayCodeReader(exampleCode);
+        decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = exampleCodeRIP;
+        while (codeReader.CanReadByte) {
+            Instruction instr;
+            if (decoder.IP == exampleCodeRIP + requiredBytes && lastInstr.NextIP - decoder.IP != 0) {
+                // The instruction was partially overwritten, so just show it as a 'db x,y,z' instead of garbage
+                var len = (int)(lastInstr.NextIP - decoder.IP);
+                var index = (int)(decoder.IP - exampleCodeRIP);
+                instr = Instruction.CreateDeclareByte(exampleCode, index, len);
+                instr.NextIP = decoder.IP;
+                for (int i = 0; i < len; i++)
+                    codeReader.ReadByte();
+                decoder.IP += (ulong)len;
+            }
+            else
+                instr = decoder.Decode();
             formatter.Format(instr, output);
             Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
         }
+        Console.WriteLine();
+
+        // Disassemble the moved code
+        Console.WriteLine("Moved code:");
+        Disassemble(newCode, relocatedBaseAddress);
+    }
+    static void Disassemble(byte[] data, ulong ip) {
+        var formatter = new NasmFormatter();
+        var output = new StringOutput();
+        var codeReader = new ByteArrayCodeReader(data);
+        var decoder = Decoder.Create(exampleCodeBitness, codeReader);
+        decoder.IP = ip;
+        while (codeReader.CanReadByte) {
+            decoder.Decode(out var instr);
+            formatter.Format(instr, output);
+            Console.WriteLine($"{instr.IP:X16} {output.ToStringAndReset()}");
+        }
+        Console.WriteLine();
     }
     sealed class CodeWriterImpl : CodeWriter {
         readonly List<byte> allBytes = new List<byte>();
@@ -472,9 +595,9 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
-    RSP:Read
-    RBX:Read
-    [SS:RSP+0x10;UInt64;Write]
+    Used reg: RSP:Read
+    Used reg: RBX:Read
+    Used mem: [SS:RSP+0x10;UInt64;Write]
 00007FFAC46ACDA9 mov [rsp+18h],rsi
     OpCode: REX.W 89 /r
     Instruction: MOV r/m64, r64
@@ -489,9 +612,9 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
-    RSP:Read
-    RSI:Read
-    [SS:RSP+0x18;UInt64;Write]
+    Used reg: RSP:Read
+    Used reg: RSI:Read
+    Used mem: [SS:RSP+0x18;UInt64;Write]
 00007FFAC46ACDAE push rbp
     OpCode: 50+ro
     Instruction: PUSH r64
@@ -503,9 +626,9 @@ static class HowTo_InstructionInfo {
     SP Increment: -8
     Op0Access: Read
     Op0: r64_opcode
-    RBP:Read
-    RSP:ReadWrite
-    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
+    Used reg: RBP:Read
+    Used reg: RSP:ReadWrite
+    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDAF push rdi
     OpCode: 50+ro
     Instruction: PUSH r64
@@ -517,9 +640,9 @@ static class HowTo_InstructionInfo {
     SP Increment: -8
     Op0Access: Read
     Op0: r64_opcode
-    RDI:Read
-    RSP:ReadWrite
-    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
+    Used reg: RDI:Read
+    Used reg: RSP:ReadWrite
+    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB0 push r14
     OpCode: 50+ro
     Instruction: PUSH r64
@@ -531,9 +654,9 @@ static class HowTo_InstructionInfo {
     SP Increment: -8
     Op0Access: Read
     Op0: r64_opcode
-    R14:Read
-    RSP:ReadWrite
-    [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
+    Used reg: R14:Read
+    Used reg: RSP:ReadWrite
+    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
 00007FFAC46ACDB2 lea rbp,[rsp-100h]
     OpCode: REX.W 8D /r
     Instruction: LEA r64, m
@@ -547,8 +670,8 @@ static class HowTo_InstructionInfo {
     Op1Access: NoMemAccess
     Op0: r64_reg
     Op1: mem
-    RBP:Write
-    RSP:Read
+    Used reg: RBP:Write
+    Used reg: RSP:Read
 00007FFAC46ACDBA sub rsp,200h
     OpCode: REX.W 81 /5 id
     Instruction: SUB r/m64, imm32
@@ -564,7 +687,7 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_or_mem
     Op1: imm32sex64
-    RSP:ReadWrite
+    Used reg: RSP:ReadWrite
 00007FFAC46ACDC1 mov rax,[7FFAC47524E0h]
     OpCode: REX.W 8B /r
     Instruction: MOV r64, r/m64
@@ -579,8 +702,8 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_reg
     Op1: r64_or_mem
-    RAX:Write
-    [DS:0x7FFAC47524E0;UInt64;Read]
+    Used reg: RAX:Write
+    Used mem: [DS:0x7FFAC47524E0;UInt64;Read]
 00007FFAC46ACDC8 xor rax,rsp
     OpCode: REX.W 33 /r
     Instruction: XOR r64, r/m64
@@ -597,8 +720,8 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_reg
     Op1: r64_or_mem
-    RAX:ReadWrite
-    RSP:Read
+    Used reg: RAX:ReadWrite
+    Used reg: RSP:Read
 00007FFAC46ACDCB mov [rbp+0F0h],rax
     OpCode: REX.W 89 /r
     Instruction: MOV r/m64, r64
@@ -613,9 +736,9 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
-    RBP:Read
-    RAX:Read
-    [SS:RBP+0xF0;UInt64;Write]
+    Used reg: RBP:Read
+    Used reg: RAX:Read
+    Used mem: [SS:RBP+0xF0;UInt64;Write]
 00007FFAC46ACDD2 mov r8,[7FFAC474F208h]
     OpCode: REX.W 8B /r
     Instruction: MOV r64, r/m64
@@ -630,8 +753,8 @@ static class HowTo_InstructionInfo {
     Op1Access: Read
     Op0: r64_reg
     Op1: r64_or_mem
-    R8:Write
-    [DS:0x7FFAC474F208;UInt64;Read]
+    Used reg: R8:Write
+    Used mem: [DS:0x7FFAC474F208;UInt64;Read]
 00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
     OpCode: REX.W 8D /r
     Instruction: LEA r64, m
@@ -645,7 +768,7 @@ static class HowTo_InstructionInfo {
     Op1Access: NoMemAccess
     Op0: r64_reg
     Op1: mem
-    RAX:Write
+    Used reg: RAX:Write
 00007FFAC46ACDE0 xor edi,edi
     OpCode: o32 33 /r
     Instruction: XOR r32, r/m32
@@ -662,7 +785,7 @@ static class HowTo_InstructionInfo {
     Op1Access: None
     Op0: r32_reg
     Op1: r32_or_mem
-    RDI:Write
+    Used reg: RDI:Write
      */
     public static void Example() {
         var codeReader = new ByteArrayCodeReader(exampleCode);
@@ -731,9 +854,9 @@ static class HowTo_InstructionInfo {
                 Console.WriteLine($"{tab}Op{i}: {opCode.GetOpKind(i)}");
             // The returned iterator is a struct, nothing is allocated unless you box it
             foreach (var regInfo in info.GetUsedRegisters())
-                Console.WriteLine($"{tab}{regInfo.ToString()}");
+                Console.WriteLine($"{tab}Used reg: {regInfo.ToString()}");
             foreach (var memInfo in info.GetUsedMemory())
-                Console.WriteLine($"{tab}{memInfo.ToString()}");
+                Console.WriteLine($"{tab}Used mem: {memInfo.ToString()}");
         }
     }
 
