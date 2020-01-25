@@ -492,13 +492,6 @@ namespace Iced.Intel {
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 			}
 		}
-		internal OpKind InternalOp4Kind {
-			[MethodImpl(MethodImplOptions.AggressiveInlining)]
-			set {
-				if (value != OpKind.Immediate8)
-					ThrowHelper.ThrowArgumentOutOfRangeException_value();
-			}
-		}
 
 		/// <summary>
 		/// Gets an operand's kind if it exists (see <see cref="OpCount"/>)

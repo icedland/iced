@@ -99,9 +99,7 @@ impl<'a> InstructionBlock<'a> {
 /// [`BlockEncoder`]: struct.BlockEncoder.html
 #[derive(Debug)]
 pub struct BlockEncoderResult {
-	/// <summary>
 	/// Base IP of all encoded instructions
-	/// </summary>
 	pub rip: u64,
 
 	/// The bytes of all encoded instructions

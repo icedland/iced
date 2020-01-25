@@ -33,8 +33,7 @@ namespace Iced.Intel {
 <#
 	foreach(var r in new string[] { "8", "16", "32", "64", "MM", "XMM", "YMM", "ZMM", "K", "CR", "TR", "DR", "ST", "Segment", "BND" })
 	{
-		var isName = r switch
-		{
+		var isName = r switch {
 			"8" => "GPR8",
 			"16" => "GPR16",
 			"32" => "GPR32",

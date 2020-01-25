@@ -313,8 +313,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				throw new ArgumentOutOfRangeException(nameof(code));
 			}
 
-			return bitness switch
-			{
+			return bitness switch {
 				16 => c16,
 				32 => c32,
 				64 => c64,
