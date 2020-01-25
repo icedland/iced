@@ -113,6 +113,35 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			case Code.Jmpe_disp32:
 				decoderOptions = DecoderOptions.Jmpe;
 				break;
+			case Code.ReservedNop_rm16_r16_0F0D:
+			case Code.ReservedNop_rm32_r32_0F0D:
+			case Code.ReservedNop_rm64_r64_0F0D:
+			case Code.ReservedNop_rm16_r16_0F18:
+			case Code.ReservedNop_rm32_r32_0F18:
+			case Code.ReservedNop_rm64_r64_0F18:
+			case Code.ReservedNop_rm16_r16_0F19:
+			case Code.ReservedNop_rm32_r32_0F19:
+			case Code.ReservedNop_rm64_r64_0F19:
+			case Code.ReservedNop_rm16_r16_0F1A:
+			case Code.ReservedNop_rm32_r32_0F1A:
+			case Code.ReservedNop_rm64_r64_0F1A:
+			case Code.ReservedNop_rm16_r16_0F1B:
+			case Code.ReservedNop_rm32_r32_0F1B:
+			case Code.ReservedNop_rm64_r64_0F1B:
+			case Code.ReservedNop_rm16_r16_0F1C:
+			case Code.ReservedNop_rm32_r32_0F1C:
+			case Code.ReservedNop_rm64_r64_0F1C:
+			case Code.ReservedNop_rm16_r16_0F1D:
+			case Code.ReservedNop_rm32_r32_0F1D:
+			case Code.ReservedNop_rm64_r64_0F1D:
+			case Code.ReservedNop_rm16_r16_0F1E:
+			case Code.ReservedNop_rm32_r32_0F1E:
+			case Code.ReservedNop_rm64_r64_0F1E:
+			case Code.ReservedNop_rm16_r16_0F1F:
+			case Code.ReservedNop_rm32_r32_0F1F:
+			case Code.ReservedNop_rm64_r64_0F1F:
+				decoderOptions = DecoderOptions.ForceReservedNop;
+				break;
 			}
 
 			if ((flags & LocalOpCodeFlags.BranchUlong) == 0) {
@@ -173,7 +202,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Reset IP to 0 when matching against decode
 			if (inst.Code != Code.Jmpe_disp16 && inst.Code != Code.Jmpe_disp32 && (flags & LocalOpCodeFlags.Branch) != 0) {
-				inst.NearBranch32 = 0;
+				inst.NearBranch64 = 0;
 			}
 
 			// Special case for branch via ulong. An instruction like `jecxz 000031D0h`

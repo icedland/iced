@@ -33,7 +33,7 @@ namespace Iced.Intel {
 	/// High-Level Assembler.
 	/// </summary>
 	public partial class Assembler {
-		readonly List<Instruction> _instructions;
+		readonly InstructionList _instructions;
 		ulong _currentLabelId;
 		Label _label;
 		PrefixFlags _nextPrefixFlags;
@@ -52,7 +52,7 @@ namespace Iced.Intel {
 				throw new ArgumentOutOfRangeException("Only 16, 32 or 64 bitness are supported", nameof(bitness));
 			}
 			Bitness = bitness;
-			_instructions = new List<Instruction>();
+			_instructions = new InstructionList();
 			_label = default;
 			PreferVex = true;
 			PreferBranchShort = true;

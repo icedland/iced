@@ -81,7 +81,19 @@ namespace Generator.Assembler.CSharp {
 							// Discard EIP/RIP from assembler registers
 							if (name == "EIP" || name == "RIP") continue;
 							var registerName = name;
-							var assemblerRegisterName = (registerName.StartsWith("R") && registerName.EndsWith("L") ? registerName.Replace("L", "B") : registerName).ToLowerInvariant();
+							switch ((Register)register.Value) {
+							case Register.R8L:
+							case Register.R9L:
+							case Register.R10L:
+							case Register.R11L:
+							case Register.R12L:
+							case Register.R13L:
+							case Register.R14L:
+							case Register.R15L:
+								registerName = registerName.Replace("L", "B");
+								break;
+							}
+							var assemblerRegisterName = registerName.ToLowerInvariant();
 							var registerTypeName = $"AssemblerRegister{GetRegisterPostfix((Register)register.Value)}";
 							writer.WriteLine($"public static readonly {registerTypeName} {assemblerRegisterName} = new {registerTypeName}(Register.{name});");
 						}
@@ -358,7 +370,7 @@ namespace Generator.Assembler.CSharp {
 			methodDoc.Append($"{group.Name} instruction.");
 			foreach (var code in group.Items) {
 				if (!string.IsNullOrEmpty(code.Code.Documentation)) {
-					methodDoc.Append("#(p:)##(p:)#");
+					methodDoc.Append("#(p:)#");
 					methodDoc.Append(code.Code.Documentation);
 				}
 			}
