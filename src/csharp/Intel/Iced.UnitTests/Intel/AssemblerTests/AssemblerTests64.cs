@@ -3,11 +3,91 @@ using System;
 using Iced.Intel;
 using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
-
 using static Iced.Intel.AssemblerRegisters;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	public sealed partial class AssemblerTests64 {
+		[Fact]
+		void xlatb() {
+			TestAssembler(c => c.xlatb(), Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL)));
+		}
+
+		[Fact]
+		void Ctor() {
+			var c = new Assembler(Bitness);
+			Assert.Equal(Bitness, c.Bitness);
+			Assert.True(c.PreferVex);
+			Assert.True(c.PreferBranchShort);
+			Assert.Empty(c.Instructions);
+			Assert.True(c.CurrentLabel.IsEmpty);
+		}
+
+		[Fact]
+		void Reset_works() {
+			var c = new Assembler(Bitness);
+			c.CreateLabel();
+			c.add(rax, rcx);
+			c.PreferVex = false;
+			c.PreferBranchShort = false;
+			c.Reset();
+			Assert.False(c.PreferVex);
+			Assert.False(c.PreferBranchShort);
+			Assert.Empty(c.Instructions);
+			Assert.True(c.CurrentLabel.IsEmpty);
+			var writer = new CodeWriterImpl();
+			var result = c.Assemble(writer, 0);
+			Assert.Single(result.Result);
+			Assert.Empty(writer.ToArray());
+		}
+
+		[Fact]
+		void Invalid_bitness_throws() {
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
+				Assert.Throws<ArgumentOutOfRangeException>(() => new Assembler(bitness));
+		}
+
+		[Fact]
+		void Assemble_throws_if_null_writer() {
+			var c = new Assembler(Bitness);
+			c.nop();
+			Assert.Throws<ArgumentNullException>(() => c.Assemble(null, 0));
+		}
+
+		[Fact]
+		void TryAssemble_throws_if_null_writer() {
+			var c = new Assembler(Bitness);
+			c.nop();
+			Assert.Throws<ArgumentNullException>(() => c.TryAssemble(null, 0, out _, out _));
+		}
+
+		[Fact]
+		void Assemble_throws_if_error() {
+			var c = new Assembler(64);
+			c.aaa();
+			Assert.Throws<InvalidOperationException>(() => c.Assemble(new CodeWriterImpl(), 0));
+		}
+
+		[Fact]
+		void TryAssemble_returns_error_string_if_it_failed() {
+			var c = new Assembler(64);
+			c.aaa();
+			bool b = c.TryAssemble(new CodeWriterImpl(), 0, out var errorMessage, out var result);
+			Assert.False(b);
+			Assert.NotNull(errorMessage);
+			Assert.NotNull(result.Result);
+			Assert.Empty(result.Result);
+		}
+
+		[Fact]
+		void Test_opmask_registers() {
+			TestAssembler(c => c.vmovups(zmm0.k1, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K1), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k2, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K2), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k3, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K3), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k4, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K4), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k5, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K5), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k6, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K6), LocalOpCodeFlags.PreferEvex);
+			TestAssembler(c => c.vmovups(zmm0.k7, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K7), LocalOpCodeFlags.PreferEvex);
+		}
 
 		[Fact]
 		public void TestManualInvalid() {
@@ -45,6 +125,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		public void TestLabelRIP() {
 			{
 				var c = new Assembler(Bitness);
+				var label0 = c.CreateLabel();
 				var label1 = c.CreateLabel();
 				c.nop();
 				c.nop();
@@ -56,6 +137,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var result = c.Assemble(writer, 0x100, BlockEncoderOptions.ReturnNewInstructionOffsets);
 				var label1RIP = result.GetLabelRIP(label1);
 				Assert.Equal((ulong)0x103, label1RIP);
+				Assert.Throws<ArgumentOutOfRangeException>(() => result.GetLabelRIP(label1, 1));
+				Assert.Throws<ArgumentException>(() => result.GetLabelRIP(label0));
 			}
 			{
 				var c = new Assembler(Bitness);
@@ -75,6 +158,8 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var result = c.Assemble(writer, 0);
 				// Will throw without BlockEncoderOptions.ReturnNewInstructionOffsets
 				Assert.Throws<ArgumentOutOfRangeException>(() => result.GetLabelRIP(label1));
+				Assert.Throws<ArgumentOutOfRangeException>(() => default(AssemblerResult).GetLabelRIP(label1));
+				Assert.Throws<ArgumentException>(() => result.GetLabelRIP(new Label()));
 			}
 		}
 

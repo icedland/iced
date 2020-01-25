@@ -112,6 +112,7 @@ namespace Iced.Intel {
 		public void Label(ref Label label) {
 			if (label.IsEmpty) throw new ArgumentException($"Invalid label. Must be created via {nameof(CreateLabel)}", nameof(label));
 			if (label.InstructionIndex >= 0) throw new ArgumentException($"Cannot reuse label. The specified label is already associated with an instruction at index {label.InstructionIndex}.", nameof(label));
+			if (!_label.IsEmpty) throw new ArgumentException("At most one label per instruction is allowed");
 			label.InstructionIndex = _instructions.Count;
 			_label = label;
 		}
@@ -271,14 +272,24 @@ namespace Iced.Intel {
 			}
 		}
 
-		/// <summary>call ptr1632/ptr1616 instruction.</summary>
-		public void call(ushort basePtr, uint address) {
-			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, basePtr, address));
+		/// <summary>call selector:offset instruction.</summary>
+		public void call(ushort selector, uint offset) {
+			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Call_ptr1632 : Code.Call_ptr1616, selector, offset));
 		}
 
-		/// <summary>jmp ptr1632/ptr1616 instruction.</summary>
-		public void jmp(ushort basePtr, uint address) {
-			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, basePtr, address));
+		/// <summary>jmp selector:offset instruction.</summary>
+		public void jmp(ushort selector, uint offset) {
+			AddInstruction(Instruction.CreateBranch(Bitness >= 32 ? Code.Jmp_ptr1632 : Code.Jmp_ptr1616, selector, offset));
+		}
+
+		/// <summary>xlatb instruction.</summary>
+		public void xlatb() {
+			if (Bitness == 64)
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1)));
+			else if (Bitness == 32)
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1)));
+			else
+				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.BX, Register.AL, 1)));
 		}
 
 		/// <summary>
@@ -346,19 +357,6 @@ namespace Iced.Intel {
 					break;
 
 				}
-			}
-		}
-
-		/// <summary>xlatb instruction.</summary>
-		public void xlatb() {
-			if (Bitness == 64) {
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.RBX, Register.AL, 1)));
-			}
-			else if (Bitness == 32) {
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.EBX, Register.AL, 1)));
-			}
-			else {
-				AddInstruction(Instruction.Create(Code.Xlat_m8, new MemoryOperand(Register.BX, Register.AL, 1)));
 			}
 		}
 

@@ -184,8 +184,10 @@ namespace Iced.Intel {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
 <#
-			foreach (var mm in new string[] {"XMM", "YMM", "ZMM"})
+			if (is32_64)
 			{
+				foreach (var mm in new string[] {"XMM", "YMM", "ZMM"})
+				{
 #>
 		/// <summary>
 		/// Adds a register (base) to another register (index) and return a memory operand.
@@ -198,6 +200,7 @@ namespace Iced.Intel {
 		}
 <#				
 				
+				}
 			}
 		}
 		

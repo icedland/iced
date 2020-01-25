@@ -281,6 +281,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return instruction;
 		}
 
+		protected Instruction ApplyK(Instruction instruction, Register k) {
+			instruction.OpMask = k;
+			return instruction;
+		}
+
 		protected void AssertInvalid(Action action) {
 			var exception = Assert.Throws<InvalidOperationException>(action);
 			Assert.Contains("Unable to calculate an OpCode", exception.Message);

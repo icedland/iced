@@ -295,7 +295,7 @@ impl BlockEncoder {
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32, or 64
-	/// * `block`: All instructions
+	/// * `blocks`: All instructions
 	/// * `options`: Encoder options, see [`BlockEncoderOptions`]
 	///
 	/// # Examples

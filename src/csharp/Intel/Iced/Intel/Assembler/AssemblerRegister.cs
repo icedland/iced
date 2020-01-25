@@ -118,33 +118,6 @@ namespace Iced.Intel {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
-		/// </summary>
-		/// <param name="left">The base register.</param>
-		/// <param name="right">The index register</param>
-		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegisterXMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
-		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
-		/// </summary>
-		/// <param name="left">The base register.</param>
-		/// <param name="right">The index register</param>
-		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegisterYMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
-		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
-		/// </summary>
-		/// <param name="left">The base register.</param>
-		/// <param name="right">The index register</param>
-		/// <returns></returns>
-		public static AssemblerMemoryOperand operator +(AssemblerRegister16 left, AssemblerRegisterZMM right) {
-			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
-		}
-		/// <summary>
 		/// Adds a register (base) with a displacement and return a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
