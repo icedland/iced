@@ -176,9 +176,6 @@ namespace Generator.Assembler.CSharp {
 				writerTests.WriteLine($"#if {CSharpConstants.EncoderDefine}");
 				writerTests.WriteLine($"namespace {CSharpConstants.IcedUnitTestsNamespace}.{assemblerTestsNameBase} {{");
 				using (writerTests.Indent()) {
-					writerTests.WriteLine("using System;");
-					writerTests.WriteLine("using System.Linq;");
-					writerTests.WriteLine("using System.Text;");
 					writerTests.WriteLine("using Iced.Intel;");
 					writerTests.WriteLine("using Xunit;");
 					writerTests.WriteLine("using static Iced.Intel.AssemblerRegisters;");

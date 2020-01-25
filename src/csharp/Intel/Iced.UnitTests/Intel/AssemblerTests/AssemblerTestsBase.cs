@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#if !NO_ENCODER
 using System;
 using System.Text;
 using Iced.UnitTests.Intel.EncoderTests;
@@ -28,19 +29,19 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	using Iced.Intel;
-	
+
 	public abstract class AssemblerTestsBase {
 		int _bitness;
-		
+
 		protected AssemblerTestsBase(int bitness) {
 			_bitness = bitness;
 		}
-		
+
 		public int Bitness => _bitness;
-		
+
 		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
 			var assembler = new Assembler(_bitness);
-			
+
 			// Encode the instruction
 			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
 				assembler.PreferVex = true;
@@ -55,14 +56,14 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				assembler.PreferBranchShort = false;
 			}
 			fAsm(assembler);
-			
+
 			// Expecting only one instruction
 			Assert.Equal(1, assembler.Instructions.Count);
 
 			// Encode the instruction first to get any errors
 			var writer = new CodeWriterImpl();
 			assembler.Assemble(writer, 0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
-			
+
 			// Check that the instruction is the one expected
 			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
 				expectedInst.IsBroadcast = true;
@@ -120,53 +121,51 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Check decoding back against the original instruction
 			var instructionAsBytes = new StringBuilder();
-			foreach(var b in writer.ToArray())
-			{
+			foreach (var b in writer.ToArray()) {
 				instructionAsBytes.Append($"{b:x2} ");
 			}
-			
+
 			var decoder = Decoder.Create(_bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
 			var decodedInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(decodedInst, Instruction.Create(Code.Wait));
 				decodedInst = decoder.Decode();
 
-				switch (decodedInst.Code)
-				{
+				switch (decodedInst.Code) {
 				case Code.Fnstenv_m14byte:
 					decodedInst.Code = Code.Fstenv_m14byte;
 					break;
-                case Code.Fnstenv_m28byte:
+				case Code.Fnstenv_m28byte:
 					decodedInst.Code = Code.Fstenv_m28byte;
 					break;
-                case Code.Fnstcw_m2byte:
+				case Code.Fnstcw_m2byte:
 					decodedInst.Code = Code.Fstcw_m2byte;
 					break;
-                case Code.Fneni:
+				case Code.Fneni:
 					decodedInst.Code = Code.Feni;
 					break;
-                case Code.Fndisi:
+				case Code.Fndisi:
 					decodedInst.Code = Code.Fdisi;
 					break;
-                case Code.Fnclex:
+				case Code.Fnclex:
 					decodedInst.Code = Code.Fclex;
 					break;
-                case Code.Fninit:
+				case Code.Fninit:
 					decodedInst.Code = Code.Finit;
 					break;
-                case Code.Fnsetpm:
+				case Code.Fnsetpm:
 					decodedInst.Code = Code.Fsetpm;
 					break;
-                case Code.Fnsave_m94byte:
+				case Code.Fnsave_m94byte:
 					decodedInst.Code = Code.Fsave_m94byte;
 					break;
-                case Code.Fnsave_m108byte:	
+				case Code.Fnsave_m108byte:
 					decodedInst.Code = Code.Fsave_m108byte;
 					break;
-                case Code.Fnstsw_m2byte:
+				case Code.Fnstsw_m2byte:
 					decodedInst.Code = Code.Fstsw_m2byte;
 					break;
-                case Code.Fnstsw_AX:
+				case Code.Fnstsw_AX:
 					decodedInst.Code = Code.Fstsw_AX;
 					break;
 				}
@@ -174,7 +173,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Reset IP to 0 when matching against decode
 			if (inst.Code != Code.Jmpe_disp16 && inst.Code != Code.Jmpe_disp32 && (flags & LocalOpCodeFlags.Branch) != 0) {
-			 	inst.NearBranch32 = 0;
+				inst.NearBranch32 = 0;
 			}
 
 			// Special case for branch via ulong. An instruction like `jecxz 000031D0h`
@@ -190,7 +189,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				var instMnemo = instOutput.ToStringAndReset();
 				formatter.FormatMnemonic(decodedInst, instOutput);
 				var decodedInstMnemo = instOutput.ToStringAndReset();
-				
+
 				Assert.True(instMnemo == decodedInstMnemo, $"Branch ulong Decoding failed!\nExpected: {instMnemo}\nActual Decoded: {decodedInstMnemo}\n");
 
 				if (decodedInst.NearBranch32 == 4) {
@@ -225,11 +224,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			var writer = new CodeWriterImpl();
 			assembler.Assemble(writer, 0);
 			var buffer = writer.ToArray();
-			
+
 			Assert.Equal(sizeOfT * data.Length, buffer.Length);
 			fixed (void* pData = data) {
 				for (int i = 0; i < buffer.Length; i++) {
-					var expectedData = ((byte*)pData)[i]; 
+					var expectedData = ((byte*)pData)[i];
 					Assert.True(expectedData == buffer[i], $"Invalid data at offset {i}. Expecting {expectedData:x2}. Actual: {buffer[i]}");
 				}
 			}
@@ -244,11 +243,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) {
 			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 		}
-		
+
 		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) {
 			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 		}
-		
+
 		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) {
 			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 		}
@@ -256,7 +255,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) {
 			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 		}
-		
+
 		protected Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) {
 			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 		}
@@ -267,11 +266,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		protected Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) {
 			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 		}
-		
+
 		protected Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) {
 			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 		}
-		
+
 		protected Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;
 			return instruction;
@@ -292,7 +291,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			None = 0,
 			Fwait = 1 << 0,
 			PreferVex = 1 << 1,
-			PreferEvex = 1 << 2,			
+			PreferEvex = 1 << 2,
 			PreferBranchShort = 1 << 3,
 			PreferBranchNear = 1 << 4,
 			Branch = 1 << 5,
@@ -301,3 +300,4 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 	}
 }
+#endif

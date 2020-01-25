@@ -1,5 +1,5 @@
+#if !NO_ENCODER
 using System;
-using Iced.UnitTests.Intel.AssemblerTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
@@ -188,3 +188,4 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 	}
 }
+#endif

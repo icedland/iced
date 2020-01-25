@@ -27,9 +27,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 namespace Iced.UnitTests.Intel.AssemblerTests {
-	using System;
-	using System.Linq;
-	using System.Text;
 	using Iced.Intel;
 	using Xunit;
 	using static Iced.Intel.AssemblerRegisters;
