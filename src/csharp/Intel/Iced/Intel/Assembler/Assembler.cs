@@ -36,6 +36,9 @@ namespace Iced.Intel {
 		readonly InstructionList _instructions;
 		ulong _currentLabelId;
 		Label _label;
+		Label _currentAnonLabel;
+		Label _nextAnonLabel;
+		bool _definedAnonLabel;
 		PrefixFlags _nextPrefixFlags;
 
 		/// <summary>
@@ -54,6 +57,9 @@ namespace Iced.Intel {
 			Bitness = bitness;
 			_instructions = new InstructionList();
 			_label = default;
+			_currentAnonLabel = default;
+			_nextAnonLabel = default;
+			_definedAnonLabel = false;
 			PreferVex = true;
 			PreferBranchShort = true;
 		}
@@ -85,6 +91,9 @@ namespace Iced.Intel {
 			_instructions.Clear();
 			_currentLabelId = 0;
 			_label = default;
+			_currentAnonLabel = default;
+			_nextAnonLabel = default;
+			_definedAnonLabel = false;
 			_nextPrefixFlags = PrefixFlags.None;
 		}
 
@@ -118,12 +127,54 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// Creates an anonymous label that can be referenced by using the <see cref="B"/> (backward anonymous label)
+		/// and <see cref="F"/> (forward anonymous label).
+		/// </summary>
+		public void AnonymousLabel() {
+			if (_nextAnonLabel.IsEmpty)
+				_currentAnonLabel = CreateLabel();
+			else
+				_currentAnonLabel = _nextAnonLabel;
+			_nextAnonLabel = default;
+			_definedAnonLabel = true;
+		}
+
+		/// <summary>
+		/// References the previous anonymous label created by <see cref="AnonymousLabel"/>
+		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Label @B {
+			get {
+				if (_currentAnonLabel.IsEmpty)
+					throw new InvalidOperationException("No anonymous label has been created yet");
+				return _currentAnonLabel;
+			}
+		}
+
+		/// <summary>
+		/// References the next anonymous label created by a future call to <see cref="AnonymousLabel"/>
+		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public Label @F {
+			get {
+				if (_nextAnonLabel.IsEmpty)
+					_nextAnonLabel = CreateLabel();
+				return _nextAnonLabel;
+			}
+		}
+
+		/// <summary>
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
 		/// <param name="instruction"></param>
 		/// <param name="flags">Operand flags passed.</param>
 		public void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
-			instruction.IP = _label.Id;
+			if (!_label.IsEmpty && _definedAnonLabel)
+				throw new InvalidOperationException("You can't create both an anonymous label and a normal label");
+			if (!_label.IsEmpty)
+				instruction.IP = _label.Id;
+			else if (_definedAnonLabel)
+				instruction.IP = _currentAnonLabel.Id;
 
 			// Setup prefixes
 			if (_nextPrefixFlags != PrefixFlags.None) {
@@ -173,6 +224,7 @@ namespace Iced.Intel {
 			}
 			_instructions.Add(instruction);
 			_label = default;
+			_definedAnonLabel = false;
 			_nextPrefixFlags = PrefixFlags.None;
 		}
 
@@ -402,6 +454,11 @@ namespace Iced.Intel {
 			// Protect against a label emitted without being attached to an instruction
 			if (!_label.IsEmpty) {
 				errorMessage = $"Unused label {_label}. You must emit an instruction after emitting a label.";
+				return false;
+			}
+
+			if (_definedAnonLabel) {
+				errorMessage = "Unused anonymous label. You must emit an instruction after emitting a label.";
 				return false;
 			}
 

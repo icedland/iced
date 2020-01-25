@@ -177,16 +177,22 @@ static class HowTo_Assemble {
 10000005 = mov rax,[rax]
 10000008 = mov rax,[rax]
 1000000B = cmp dword ptr [rax+rcx*8+10h],0FFFFFFFFh
-10000010 = jne short 0000000010000031h
+10000010 = jne short 000000001000003Dh
 10000012 = inc rax
-10000015 = lea rcx,[10000034h]
+10000015 = lea rcx,[10000040h]
 1000001C = rep stosd
 1000001E = xacquire lock add qword ptr [rax+rcx],7Bh
 10000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
 1000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
-10000031 = pop r15
-10000033 = ret
-10000034 = pause
+10000031 = inc rax
+10000034 = je short 0000000010000031h
+10000036 = inc rcx
+10000039 = je short 000000001000003Ch
+1000003B = nop
+1000003C = nop
+1000003D = pop r15
+1000003F = ret
+10000040 = pause
      */
     public static MemoryStream Example() {
         // The assembler supports all modes: 16-bit, 32-bit and 64-bit.
@@ -222,6 +228,16 @@ static class HowTo_Assemble {
         c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae);
         // To broadcast memory, use the __dword_bcst/__qword_bcst memory types
         c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax]);
+
+        // You can create anonymous labels, just like in eg. masm @F and @B
+        c.AnonymousLabel(); // same as @@: in masm
+        c.inc(rax);
+        c.je(c.@B); // reference the previous anonymous label
+        c.inc(rcx);
+        c.je(c.@F); // reference the next anonymous label
+        c.nop();
+        c.AnonymousLabel();
+        c.nop();
 
         // Emit label1:
         c.Label(ref label1);
