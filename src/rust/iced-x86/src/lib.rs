@@ -94,12 +94,39 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(has_alloc)]
-#[macro_use]
+#[cfg(all(
+	has_alloc,
+	any(feature = "encoder", feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter")
+))]
+#[cfg_attr(
+	all(
+		has_alloc,
+		any(feature = "encoder", feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter")
+	),
+	macro_use
+)]
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
-#[macro_use]
+#[cfg(any(
+	feature = "decoder",
+	feature = "encoder",
+	feature = "gas_formatter",
+	feature = "intel_formatter",
+	feature = "masm_formatter",
+	feature = "nasm_formatter"
+))]
+#[cfg_attr(
+	any(
+		feature = "decoder",
+		feature = "encoder",
+		feature = "gas_formatter",
+		feature = "intel_formatter",
+		feature = "masm_formatter",
+		feature = "nasm_formatter"
+	),
+	macro_use
+)]
 extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
@@ -117,7 +144,7 @@ mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
-#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
@@ -146,7 +173,7 @@ pub use self::decoder::*;
 #[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
-#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter",))]
+#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]

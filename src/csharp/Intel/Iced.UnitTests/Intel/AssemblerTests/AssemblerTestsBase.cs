@@ -23,13 +23,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
-using System.Text;
+using Iced.Intel;
 using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
-	using Iced.Intel;
-
 	public abstract class AssemblerTestsBase {
 		int _bitness;
 
@@ -149,7 +147,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 
 			// Check decoding back against the original instruction
-			var instructionAsBytes = new StringBuilder();
+			var instructionAsBytes = new System.Text.StringBuilder();
 			foreach (var b in writer.ToArray()) {
 				instructionAsBytes.Append($"{b:x2} ");
 			}
@@ -202,42 +200,33 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 			// Reset IP to 0 when matching against decode
 			if (inst.Code != Code.Jmpe_disp16 && inst.Code != Code.Jmpe_disp32 && (flags & LocalOpCodeFlags.Branch) != 0) {
-				inst.NearBranch64 = 0;
+				// Check if it's a label ID, if so, replace it with the IP
+				if (inst.NearBranch64 == 1)
+					inst.NearBranch64 = 0;
 			}
 
-			// Special case for branch via ulong. An instruction like `jecxz 000031D0h`
+			// Special case for branch via ulong. An instruction like `loopne 000031D0h`
 			// could have been encoded with a sequence like:
 			//
 			// 0:  e0 02                   loopne 0x4
 			// 2:  eb 05                   jmp    0x9
 			// 4:  e9 c7 31 00 00          jmp    0x31d0
 			if ((flags & LocalOpCodeFlags.BranchUlong) != 0) {
-				var formatter = new MasmFormatter();
-				var instOutput = new StringOutput();
-				formatter.FormatMnemonic(inst, instOutput);
-				var instMnemo = instOutput.ToStringAndReset();
-				formatter.FormatMnemonic(decodedInst, instOutput);
-				var decodedInstMnemo = instOutput.ToStringAndReset();
+				Assert.Equal(inst.Code.ToShortBranch(), decodedInst.Code.ToShortBranch());
 
-				Assert.True(instMnemo == decodedInstMnemo, $"Branch ulong Decoding failed!\nExpected: {instMnemo}\nActual Decoded: {decodedInstMnemo}\n");
-
-				if (decodedInst.NearBranch32 == 4) {
+				if (decodedInst.NearBranch64 == 4) {
 					var nextDecodedInst = decoder.Decode();
-					Code expectedCode;
-					if (Bitness == 64) {
-						expectedCode = Code.Jmp_rel8_64;
-					}
-					else if (Bitness == 32) {
-						expectedCode = Code.Jmp_rel8_32;
-					}
-					else {
-						expectedCode = Code.Jmp_rel8_16;
-					}
+					var expectedCode = Bitness switch {
+						16 => Code.Jmp_rel8_16,
+						32 => Code.Jmp_rel8_32,
+						64 => Code.Jmp_rel8_64,
+						_ => throw new InvalidOperationException(),
+					};
 
 					Assert.True(nextDecodedInst.Code == expectedCode, $"Branch ulong next decoding failed!\nExpected: {expectedCode} \nActual Decoded: {nextDecodedInst}\n");
 				}
 				else {
-					Assert.True(inst.NearBranch32 == decodedInst.NearBranch32, $"Branch decoding offset failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
+					Assert.True(inst.NearBranch64 == decodedInst.NearBranch64, $"Branch decoding offset failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
 				}
 			}
 			else {

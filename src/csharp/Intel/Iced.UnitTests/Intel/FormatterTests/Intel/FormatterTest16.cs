@@ -44,6 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 		void Format_MemMinimum(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemMinimum());
 		public static IEnumerable<object[]> Format_Data_MemMinimum => GetFormatData(16, "Intel", "MemMinimum");
 
+#if !NO_ENCODER
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_MemAlways))]
 		void Format_NonDec_MemAlways(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemAlways());
@@ -58,6 +59,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 		[MemberData(nameof(Format_Data_NonDec_MemMinimum))]
 		void Format_NonDec_MemMinimum(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemMinimum());
 		public static IEnumerable<object[]> Format_Data_NonDec_MemMinimum => GetFormatData(16, NonDecodedInstructions.Infos16, "Intel", "NonDec_MemMinimum");
+#endif
 
 		[Theory]
 		[MemberData(nameof(Format_Data_Misc))]

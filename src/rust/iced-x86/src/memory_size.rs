@@ -21,13 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::iced_constants::IcedConstants;
 use core::fmt;
 
-#[cfg(feature = "instr_info")]
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
 pub use self::info::*;
 
-#[cfg(feature = "instr_info")]
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
 mod info {
 	use super::super::iced_constants::IcedConstants;
 	use super::MemorySize;
@@ -809,7 +808,7 @@ impl Default for MemorySize {
 }
 // GENERATOR-END: MemorySize
 
-#[cfg(feature = "instr_info")]
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
 impl MemorySize {
 	/// Gets the memory size info
 	///
@@ -943,10 +942,7 @@ impl MemorySize {
 	pub fn element_count(self) -> usize {
 		self.info().element_count()
 	}
-}
 
-#[cfg(any(feature = "instr_info", feature = "encoder"))]
-impl MemorySize {
 	/// Checks if it is a broadcast memory type
 	///
 	/// # Examples
@@ -959,6 +955,7 @@ impl MemorySize {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn is_broadcast(self) -> bool {
+		use super::iced_constants::IcedConstants;
 		self >= IcedConstants::FIRST_BROADCAST_MEMORY_SIZE
 	}
 }

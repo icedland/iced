@@ -24,7 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod instr_infos;
 
 use self::instr_infos::*;
-use super::super::decoder::tests::non_decoded_tests;
+#[cfg(feature = "encoder")]
+use super::super::encoder::tests::non_decoded_tests;
 use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::{Code, Instruction};
@@ -41,6 +42,7 @@ pub(crate) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: b
 	}
 }
 
+#[cfg(feature = "encoder")]
 pub(crate) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let instrs = non_decoded_tests::get_infos(bitness);
 	let lines = get_formatted_lines(bitness, dir, filename);

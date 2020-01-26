@@ -966,13 +966,19 @@ namespace Iced.Intel {
 			}
 		}
 
-		static readonly byte[] segmentOverrides = new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
+#if HAS_SPAN
+		static ReadOnlySpan<byte> SegmentOverrides =>// Property
+#else
+		static readonly byte[] SegmentOverrides =// Field
+#endif
+			new byte[6] { 0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65 };
+
 		void WritePrefixes(in Instruction instruction) {
 			Debug.Assert((handler.Flags & OpCodeHandlerFlags.DeclareData) == 0);
 			var seg = instruction.SegmentPrefix;
 			if (seg != Register.None) {
-				Debug.Assert((uint)(seg - Register.ES) < (uint)segmentOverrides.Length);
-				WriteByteInternal(segmentOverrides[seg - Register.ES]);
+				Debug.Assert((uint)(seg - Register.ES) < (uint)SegmentOverrides.Length);
+				WriteByteInternal(SegmentOverrides[seg - Register.ES]);
 			}
 			if ((EncoderFlags & EncoderFlags.PF0) != 0 || instruction.HasLockPrefix)
 				WriteByteInternal(0xF0);

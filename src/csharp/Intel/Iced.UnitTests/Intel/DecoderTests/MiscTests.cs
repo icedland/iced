@@ -167,7 +167,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 
-				switch (info.Code.Encoding()) {
+				switch (info.Code.ToOpCode().Encoding) {
 				case EncodingKind.Legacy:
 				case EncodingKind.D3NOW:
 					continue;
@@ -286,7 +286,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (reg == Register.None)
 						reg = instruction.MemoryIndex;
 					if (reg != Register.None)
-						return reg.GetInfo().Size * 8;
+						return GetSize(reg) * 8;
 					if (instruction.MemoryDisplSize == 4)
 						return 32;
 					if (instruction.MemoryDisplSize == 8)
@@ -301,10 +301,52 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			return 0;
 		}
 
+		static int GetSize(Register reg) {
+			if (Register.AX <= reg && reg <= Register.R15W)
+				return 2;
+			if (Register.EAX <= reg && reg <= Register.R15D || reg == Register.EIP)
+				return 4;
+			if (Register.RAX <= reg && reg <= Register.R15 || reg == Register.RIP)
+				return 8;
+			throw new InvalidOperationException();
+		}
+
+		static int GetNumber(Register reg) {
+			if (Register.AL <= reg && reg <= Register.R15L)
+				return reg - Register.AL;
+			if (Register.AX <= reg && reg <= Register.R15W)
+				return reg - Register.AX;
+			if (Register.EAX <= reg && reg <= Register.R15D)
+				return reg - Register.EAX;
+			if (Register.RAX <= reg && reg <= Register.R15)
+				return reg - Register.RAX;
+			if (Register.XMM0 <= reg && reg <= Register.XMM31)
+				return reg - Register.XMM0;
+			if (Register.YMM0 <= reg && reg <= Register.YMM31)
+				return reg - Register.YMM0;
+			if (Register.ZMM0 <= reg && reg <= Register.ZMM31)
+				return reg - Register.ZMM0;
+			if (Register.K0 <= reg && reg <= Register.K7)
+				return reg - Register.K0;
+			if (Register.BND0 <= reg && reg <= Register.BND3)
+				return reg - Register.BND0;
+			if (Register.CR0 <= reg && reg <= Register.CR15)
+				return reg - Register.CR0;
+			if (Register.DR0 <= reg && reg <= Register.DR15)
+				return reg - Register.DR0;
+			if (Register.MM0 <= reg && reg <= Register.MM7)
+				return reg - Register.MM0;
+			if (Register.ST0 <= reg && reg <= Register.ST7)
+				return reg - Register.ST0;
+			if (Register.TR0 <= reg && reg <= Register.TR7)
+				return reg - Register.TR0;
+			throw new InvalidOperationException();
+		}
+
 		[Fact]
 		void Test_EVEX_reserved_bits() {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
-				if (info.Code.Encoding() != EncodingKind.EVEX)
+				if (info.Code.ToOpCode().Encoding != EncodingKind.EVEX)
 					continue;
 				var bytes = HexUtils.ToByteArray(info.HexBytes);
 				int evexIndex = GetEvexIndex(bytes);
@@ -1346,8 +1388,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 							Assert.Equal(OpKind.Register, instruction.Op0Kind);
 							Assert.Equal(OpKind.Memory, instruction.Op1Kind);
 							Assert.NotEqual(Register.None, instruction.MemoryIndex);
-							Assert.Equal(regNum, instruction.Op0Register.GetInfo().Number);
-							Assert.Equal(regNum, instruction.MemoryIndex.GetInfo().Number);
+							Assert.Equal(regNum, GetNumber(instruction.Op0Register));
+							Assert.Equal(regNum, GetNumber(instruction.MemoryIndex));
 						}
 					}
 				}
@@ -1491,9 +1533,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 								Assert.Equal(OpKind.Memory, instruction.Op1Kind);
 								Assert.Equal(OpKind.Register, instruction.Op2Kind);
 								Assert.NotEqual(Register.None, instruction.MemoryIndex);
-								Assert.Equal(newReg, instruction.Op0Register.GetInfo().Number);
-								Assert.Equal(newVidx, instruction.MemoryIndex.GetInfo().Number);
-								Assert.Equal(newVvvv, instruction.Op2Register.GetInfo().Number);
+								Assert.Equal(newReg, GetNumber(instruction.Op0Register));
+								Assert.Equal(newVidx, GetNumber(instruction.MemoryIndex));
+								Assert.Equal(newVvvv, GetNumber(instruction.Op2Register));
 							}
 						}
 					}

@@ -24,7 +24,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod fmt_factory;
 
 use self::fmt_factory::*;
-use super::super::tests::{formatter_test, formatter_test_nondec};
+use super::super::tests::formatter_test;
+#[cfg(feature = "encoder")]
+use super::super::tests::formatter_test_nondec;
 
 #[test]
 fn fmt_forcesuffix_16() {
@@ -42,11 +44,13 @@ fn fmt_misc_16() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_forcesuffix_16() {
 	formatter_test_nondec(16, "Gas", "NonDec_ForceSuffix", || create_forcesuffix());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_nosuffix_16() {
 	formatter_test_nondec(16, "Gas", "NonDec_NoSuffix", || create_nosuffix());
 }
@@ -67,11 +71,13 @@ fn fmt_misc_32() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_forcesuffix_32() {
 	formatter_test_nondec(32, "Gas", "NonDec_ForceSuffix", || create_forcesuffix());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_nosuffix_32() {
 	formatter_test_nondec(32, "Gas", "NonDec_NoSuffix", || create_nosuffix());
 }
@@ -92,11 +98,13 @@ fn fmt_misc_64() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_forcesuffix_64() {
 	formatter_test_nondec(64, "Gas", "NonDec_ForceSuffix", || create_forcesuffix());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_nosuffix_64() {
 	formatter_test_nondec(64, "Gas", "NonDec_NoSuffix", || create_nosuffix());
 }

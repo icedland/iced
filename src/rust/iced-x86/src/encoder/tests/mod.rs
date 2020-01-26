@@ -22,12 +22,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod create;
+pub(crate) mod non_decoded_tests;
 mod op_code_test_case;
 mod op_code_test_case_parser;
 
 use self::op_code_test_case::*;
 use self::op_code_test_case_parser::OpCodeInfoTestParser;
-use super::super::decoder::tests::non_decoded_tests;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;

@@ -271,7 +271,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		[Fact]
 		void InstructionInfo_GetOpAccess_throws_if_invalid_input() {
-			var info = new InstructionInfoFactory().GetInfo(Instruction.Create(Code.Nopd));
+			Instruction instr = default;
+			instr.Code = Code.Nopd;
+			var info = new InstructionInfoFactory().GetInfo(instr);
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpAccess(-1));
 			Assert.Throws<ArgumentOutOfRangeException>(() => info.GetOpAccess(IcedConstants.MaxOpCount));
 		}

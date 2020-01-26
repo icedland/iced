@@ -39,6 +39,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		void Format_NoSuffix(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_NoSuffix());
 		public static IEnumerable<object[]> Format_Data_NoSuffix => GetFormatData(16, "Gas", "NoSuffix");
 
+#if !NO_ENCODER
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_ForceSuffix))]
 		void Format_NonDec_ForceSuffix(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_ForceSuffix());
@@ -48,6 +49,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		[MemberData(nameof(Format_Data_NonDec_NoSuffix))]
 		void Format_NonDec_NoSuffix(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_NoSuffix());
 		public static IEnumerable<object[]> Format_Data_NonDec_NoSuffix => GetFormatData(16, NonDecodedInstructions.Infos16, "Gas", "NonDec_NoSuffix");
+#endif
 
 		[Theory]
 		[MemberData(nameof(Format_Data_Misc))]

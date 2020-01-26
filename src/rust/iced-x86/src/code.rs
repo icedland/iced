@@ -26,6 +26,7 @@ use super::info::enums::*;
 use super::mnemonics;
 use super::*;
 use core::fmt;
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
 use core::mem;
 
 // GENERATOR-BEGIN: Code
@@ -38085,6 +38086,50 @@ impl Code {
 		(self as u32).wrapping_sub(Code::Call_m1616 as u32) <= (Code::Call_m1664 as u32 - Code::Call_m1616 as u32)
 	}
 
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode::None`] is returned
+	///
+	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert_eq!(ConditionCode::be, Code::Jbe_rel8_64.condition_code());
+	/// assert_eq!(ConditionCode::o, Code::Cmovo_r64_rm64.condition_code());
+	/// assert_eq!(ConditionCode::ne, Code::Setne_rm8.condition_code());
+	/// assert_eq!(ConditionCode::None, Code::Pause.condition_code());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	pub fn condition_code(self) -> ConditionCode {
+		let mut t;
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
+		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
+		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
+		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
+			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
+		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
+			return unsafe { mem::transmute((t + ConditionCode::o as u32) as u8) };
+		}
+
+		ConditionCode::None
+	}
+}
+
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
+impl Code {
 	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and returns
 	/// the original value if it's none of those instructions.
 	///
@@ -38189,46 +38234,5 @@ impl Code {
 		}
 
 		self
-	}
-
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode::None`] is returned
-	///
-	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
-	///
-	/// # Examples
-	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(ConditionCode::be, Code::Jbe_rel8_64.condition_code());
-	/// assert_eq!(ConditionCode::o, Code::Cmovo_r64_rm64.condition_code());
-	/// assert_eq!(ConditionCode::ne, Code::Setne_rm8.condition_code());
-	/// assert_eq!(ConditionCode::None, Code::Pause.condition_code());
-	/// ```
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn condition_code(self) -> ConditionCode {
-		let mut t;
-
-		t = (self as u32).wrapping_sub(Code::Jo_rel16 as u32);
-		if t <= (Code::Jg_rel32_64 as u32 - Code::Jo_rel16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
-		}
-
-		t = (self as u32).wrapping_sub(Code::Jo_rel8_16 as u32);
-		if t <= (Code::Jg_rel8_64 as u32 - Code::Jo_rel8_16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
-		}
-
-		t = (self as u32).wrapping_sub(Code::Cmovo_r16_rm16 as u32);
-		if t <= (Code::Cmovg_r64_rm64 as u32 - Code::Cmovo_r16_rm16 as u32) {
-			return unsafe { mem::transmute(((t / 3) + ConditionCode::o as u32) as u8) };
-		}
-
-		t = (self as u32).wrapping_sub(Code::Seto_rm8 as u32);
-		if t <= (Code::Setg_rm8 as u32 - Code::Seto_rm8 as u32) {
-			return unsafe { mem::transmute((t + ConditionCode::o as u32) as u8) };
-		}
-
-		ConditionCode::None
 	}
 }

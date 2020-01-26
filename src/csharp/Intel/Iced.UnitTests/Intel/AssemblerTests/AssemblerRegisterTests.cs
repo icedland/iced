@@ -1,3 +1,4 @@
+#if !NO_ENCODER
 using Iced.Intel;
 using Xunit;
 using static Iced.Intel.AssemblerRegisters;
@@ -522,3 +523,4 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 	}
 }
+#endif

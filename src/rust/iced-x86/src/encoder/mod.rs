@@ -35,7 +35,7 @@ mod op_kind_tables;
 mod ops;
 mod ops_tables;
 #[cfg(test)]
-mod tests;
+pub(crate) mod tests;
 
 pub use self::enums::*;
 use self::handlers_table::*;

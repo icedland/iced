@@ -38,7 +38,7 @@ namespace Generator.Tables.CSharp {
 
 		public void Generate() {
 			var infos = MemorySizeInfoTable.Data;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "MemorySizeExtensions.1.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}

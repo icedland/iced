@@ -613,7 +613,10 @@ impl Register {
 	pub fn size(self) -> usize {
 		self.info().size()
 	}
+}
 
+#[cfg(any(feature = "instr_info", feature = "encoder"))]
+impl Register {
 	/// Checks if it's a segment register (`ES`, `CS`, `SS`, `DS`, `FS`, `GS`)
 	///
 	/// # Examples

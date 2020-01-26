@@ -28,7 +28,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // pub(crate) from Instruction's fields.
 
 use super::*;
-use core::{i16, i32, i8, u16, u32, u8};
+#[cfg(feature = "encoder")]
+use core::{i16, i32, i8};
+use core::{u16, u32, u8};
 
 #[inline]
 pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize) {

@@ -24,7 +24,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod fmt_factory;
 
 use self::fmt_factory::*;
-use super::super::tests::{formatter_test, formatter_test_nondec};
+use super::super::tests::formatter_test;
+#[cfg(feature = "encoder")]
+use super::super::tests::formatter_test_nondec;
 
 #[test]
 fn fmt_memalways_16() {
@@ -47,16 +49,19 @@ fn fmt_misc_16() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memalways_16() {
 	formatter_test_nondec(16, "Nasm", "NonDec_MemAlways", || create_memalways());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memdefault_16() {
 	formatter_test_nondec(16, "Nasm", "NonDec_MemDefault", || create_memdefault());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memminimum_16() {
 	formatter_test_nondec(16, "Nasm", "NonDec_MemMinimum", || create_memminimum());
 }
@@ -82,16 +87,19 @@ fn fmt_misc_32() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memalways_32() {
 	formatter_test_nondec(32, "Nasm", "NonDec_MemAlways", || create_memalways());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memdefault_32() {
 	formatter_test_nondec(32, "Nasm", "NonDec_MemDefault", || create_memdefault());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memminimum_32() {
 	formatter_test_nondec(32, "Nasm", "NonDec_MemMinimum", || create_memminimum());
 }
@@ -117,16 +125,19 @@ fn fmt_misc_64() {
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memalways_64() {
 	formatter_test_nondec(64, "Nasm", "NonDec_MemAlways", || create_memalways());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memdefault_64() {
 	formatter_test_nondec(64, "Nasm", "NonDec_MemDefault", || create_memdefault());
 }
 
 #[test]
+#[cfg(feature = "encoder")]
 fn fmt_nondec_memminimum_64() {
 	formatter_test_nondec(64, "Nasm", "NonDec_MemMinimum", || create_memminimum());
 }

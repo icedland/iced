@@ -25,14 +25,12 @@ mod decoder_mem_test_case;
 mod decoder_test_case;
 mod mem_test_parser;
 mod misc_tests;
-pub(crate) mod non_decoded_tests;
 mod test_cases;
 mod test_parser;
 pub(crate) mod test_utils;
 
 use self::decoder_mem_test_case::*;
 use self::decoder_test_case::*;
-use self::non_decoded_tests::*;
 use self::test_utils::*;
 use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
@@ -312,7 +310,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 	}
 
 	#[cfg(feature = "encoder")]
-	for info in get_tests() {
+	for info in super::super::encoder::tests::non_decoded_tests::get_tests() {
 		tested[info.2.code() as usize] |= match info.0 {
 			16 => T16,
 			32 => T32,
