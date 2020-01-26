@@ -53,6 +53,7 @@ jobs:
             dotnet build -v:m -c Release src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
           }
+          git clean -xdf
 
       - name: Build, test
         shell: pwsh
