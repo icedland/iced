@@ -52,7 +52,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister<#= r #> : IEquatable<AssemblerRegister<#= r #>> {
 		/// <summary>
 		/// Creates a new instance.

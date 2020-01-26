@@ -24,8 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_ENCODER
 using System.IO;
 
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// Code writer to a <see cref="System.IO.Stream"/>. 
 	/// </summary>
@@ -41,7 +40,10 @@ namespace Iced.Intel
 		/// </summary>
 		public readonly Stream Stream;
 
-		/// <inheritdoc />
+		/// <summary>
+		/// Writes the next byte
+		/// </summary>
+		/// <param name="value">Value</param>
 		public override void WriteByte(byte value) => Stream.WriteByte(value);
 	}
 }

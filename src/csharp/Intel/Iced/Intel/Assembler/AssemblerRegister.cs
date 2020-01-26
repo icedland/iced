@@ -32,7 +32,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister8 : IEquatable<AssemblerRegister8> {
 		/// <summary>
 		/// Creates a new instance.
@@ -86,7 +86,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister16 : IEquatable<AssemblerRegister16> {
 		/// <summary>
 		/// Creates a new instance.
@@ -185,7 +185,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister32 : IEquatable<AssemblerRegister32> {
 		/// <summary>
 		/// Creates a new instance.
@@ -392,7 +392,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister64 : IEquatable<AssemblerRegister64> {
 		/// <summary>
 		/// Creates a new instance.
@@ -599,7 +599,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterMM : IEquatable<AssemblerRegisterMM> {
 		/// <summary>
 		/// Creates a new instance.
@@ -653,7 +653,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterXMM : IEquatable<AssemblerRegisterXMM> {
 		/// <summary>
 		/// Creates a new instance.
@@ -817,7 +817,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterYMM : IEquatable<AssemblerRegisterYMM> {
 		/// <summary>
 		/// Creates a new instance.
@@ -981,7 +981,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterZMM : IEquatable<AssemblerRegisterZMM> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1145,7 +1145,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterK : IEquatable<AssemblerRegisterK> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1255,7 +1255,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterCR : IEquatable<AssemblerRegisterCR> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1309,7 +1309,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterTR : IEquatable<AssemblerRegisterTR> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1363,7 +1363,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterDR : IEquatable<AssemblerRegisterDR> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1417,7 +1417,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterST : IEquatable<AssemblerRegisterST> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1471,7 +1471,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterSegment : IEquatable<AssemblerRegisterSegment> {
 		/// <summary>
 		/// Creates a new instance.
@@ -1525,7 +1525,7 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
-    [EditorBrowsable(EditorBrowsableState.Never)]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegisterBND : IEquatable<AssemblerRegisterBND> {
 		/// <summary>
 		/// Creates a new instance.

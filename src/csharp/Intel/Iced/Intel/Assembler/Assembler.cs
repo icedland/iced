@@ -125,7 +125,7 @@ namespace Iced.Intel {
 			label.InstructionIndex = _instructions.Count;
 			_label = label;
 		}
-		
+
 		/// <summary>
 		/// Creates an anonymous label that can be referenced by using the <see cref="B"/> (backward anonymous label)
 		/// and <see cref="F"/> (forward anonymous label).
@@ -170,7 +170,7 @@ namespace Iced.Intel {
 		public void AddInstruction(Instruction instruction) {
 			AddInstruction(ref instruction);
 		}
-		
+
 		/// <summary>
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
@@ -182,7 +182,7 @@ namespace Iced.Intel {
 				instruction.IP = _label.Id;
 			else if (_definedAnonLabel)
 				instruction.IP = _currentAnonLabel.Id;
-			
+
 			// Setup prefixes
 			if (_nextPrefixFlags != PrefixFlags.None) {
 				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
@@ -209,11 +209,11 @@ namespace Iced.Intel {
 				if ((_nextPrefixFlags & PrefixFlags.Notrack) != 0) {
 					instruction.SegmentPrefix = Register.DS;
 				}
-			}			
-			
+			}
+
 			_instructions.Add(instruction);
 			_label = default;
-			_definedAnonLabel = false;			
+			_definedAnonLabel = false;
 			_nextPrefixFlags = PrefixFlags.None;
 		}
 

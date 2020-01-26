@@ -24,8 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if !NO_DECODER
 using System.IO;
 
-namespace Iced.Intel
-{
+namespace Iced.Intel {
 	/// <summary>
 	/// Code reader from a <see cref="System.IO.Stream"/>. 
 	/// </summary>
@@ -41,7 +40,10 @@ namespace Iced.Intel
 		/// </summary>
 		public readonly Stream Stream;
 
-		/// <inheritdoc />
+		/// <summary>
+		/// Reads the next byte or returns less than 0 if there are no more bytes
+		/// </summary>
+		/// <returns></returns>
 		public override int ReadByte() => Stream.ReadByte();
 	}
 }
