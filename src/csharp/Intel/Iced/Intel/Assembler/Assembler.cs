@@ -115,15 +115,24 @@ namespace Iced.Intel {
 			label.InstructionIndex = _instructions.Count;
 			_label = label;
 		}
+		
+		/// <summary>
+		/// Add an instruction directly to the flow of instructions.
+		/// </summary>
+		/// <param name="instruction"></param>
+		public void AddInstruction(Instruction instruction) {
+			instruction.IP = _label.Id;
+			_instructions.Add(instruction);
+			_label = default;
+			_nextPrefixFlags = PrefixFlags.None;
+		}
 
 		/// <summary>
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
 		/// <param name="instruction"></param>
 		/// <param name="flags">Operand flags passed.</param>
-		public void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
-			instruction.IP = _label.Id;
-
+		private void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
 			// Setup prefixes
 			if (_nextPrefixFlags != PrefixFlags.None) {
 				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
@@ -170,9 +179,7 @@ namespace Iced.Intel {
 					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundControlMask)) >> 3));
 				}
 			}
-			_instructions.Add(instruction);
-			_label = default;
-			_nextPrefixFlags = PrefixFlags.None;
+			AddInstruction(instruction);
 		}
 
 		/// <summary>

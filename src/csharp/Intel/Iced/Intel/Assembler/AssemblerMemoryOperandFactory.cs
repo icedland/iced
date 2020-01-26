@@ -21,17 +21,20 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.ComponentModel;
+
 #if !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand factory.
 	/// </summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerMemoryOperandFactory {
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="size">Size of this memory operand.</param>
-		public AssemblerMemoryOperandFactory(MemoryOperandSize size) {
+		internal AssemblerMemoryOperandFactory(MemoryOperandSize size) {
 			Prefix = Register.None;
 			Size = size;
 			Flags = AssemblerOperandFlags.None;
@@ -43,7 +46,7 @@ namespace Iced.Intel {
 		/// <param name="size">Size of this memory operand.</param>
 		/// <param name="prefix">Register prefix</param>
 		/// <param name="flags">Flags</param>
-		public AssemblerMemoryOperandFactory(MemoryOperandSize size, Register prefix, AssemblerOperandFlags flags) {
+		internal AssemblerMemoryOperandFactory(MemoryOperandSize size, Register prefix, AssemblerOperandFlags flags) {
 			Size = size;
 			Prefix = prefix;
 			Flags = flags;
@@ -52,7 +55,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Size of this memory operand.
 		/// </summary>
-		public readonly MemoryOperandSize Size;
+		internal readonly MemoryOperandSize Size;
 
 		/// <summary>
 		/// Prefix register.
@@ -62,7 +65,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the mask associated with this operand.
 		/// </summary>
-		public readonly AssemblerOperandFlags Flags;
+		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
 		/// Use the ES register with this memory operand.
