@@ -518,6 +518,14 @@ fn register_info() {
 		assert_eq!((tc.flags & RegisterFlags::YMM) != 0, tc.register.is_ymm());
 		assert_eq!((tc.flags & RegisterFlags::ZMM) != 0, tc.register.is_zmm());
 		assert_eq!((tc.flags & RegisterFlags::VECTOR_REGISTER) != 0, tc.register.is_vector_register());
+		assert_eq!((tc.flags & RegisterFlags::IP) != 0, tc.register.is_ip());
+		assert_eq!((tc.flags & RegisterFlags::K) != 0, tc.register.is_k());
+		assert_eq!((tc.flags & RegisterFlags::BND) != 0, tc.register.is_bnd());
+		assert_eq!((tc.flags & RegisterFlags::CR) != 0, tc.register.is_cr());
+		assert_eq!((tc.flags & RegisterFlags::DR) != 0, tc.register.is_dr());
+		assert_eq!((tc.flags & RegisterFlags::TR) != 0, tc.register.is_tr());
+		assert_eq!((tc.flags & RegisterFlags::ST) != 0, tc.register.is_st());
+		assert_eq!((tc.flags & RegisterFlags::MM) != 0, tc.register.is_mm());
 	}
 }
 

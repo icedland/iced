@@ -798,6 +798,126 @@ impl Register {
 	pub fn is_vector_register(self) -> bool {
 		Register::XMM0 <= self && self <= IcedConstants::VMM_LAST
 	}
+
+	/// Checks if it's `EIP`/`RIP`
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(Register::EIP.is_ip());
+	/// assert!(Register::RIP.is_ip());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_ip(self) -> bool {
+		self == Register::EIP || self == Register::RIP
+	}
+
+	/// Checks if it's an opmask register (`K0`-`K7`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_k());
+	/// assert!(Register::K3.is_k());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_k(self) -> bool {
+		Register::K0 <= self && self <= Register::K7
+	}
+
+	/// Check if it's a control register (`CR0`-`CR15`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_cr());
+	/// assert!(Register::CR3.is_cr());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_cr(self) -> bool {
+		Register::CR0 <= self && self <= Register::CR15
+	}
+
+	/// Check if it's a debug register (`DR0`-`DR15`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_dr());
+	/// assert!(Register::DR3.is_dr());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_dr(self) -> bool {
+		Register::DR0 <= self && self <= Register::DR15
+	}
+
+	/// Check if it's a test register (`TR0`-`TR7`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_tr());
+	/// assert!(Register::TR3.is_tr());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_tr(self) -> bool {
+		Register::TR0 <= self && self <= Register::TR7
+	}
+
+	/// Check if it's an FPU stack register (`ST0`-`ST7`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_st());
+	/// assert!(Register::ST3.is_st());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_st(self) -> bool {
+		Register::ST0 <= self && self <= Register::ST7
+	}
+
+	/// Check if it's a bound register (`BND0`-`BND3`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_bnd());
+	/// assert!(Register::BND3.is_bnd());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_bnd(self) -> bool {
+		Register::BND0 <= self && self <= Register::BND3
+	}
+
+	/// Checks if it's an MMX register (`MM0`-`MM7`)
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	/// assert!(!Register::R13D.is_mm());
+	/// assert!(Register::MM3.is_mm());
+	/// ```
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn is_mm(self) -> bool {
+		Register::MM0 <= self && self <= Register::MM7
+	}
 }
 
 // GENERATOR-BEGIN: Register

@@ -95,8 +95,8 @@ r13, 13, rax, r13, r13d, 8, gpr gpr64
 r14, 14, rax, r14, r14d, 8, gpr gpr64
 r15, 15, rax, r15, r15d, 8, gpr gpr64
 
-eip, 0, eip, rip, rip, 4,
-rip, 1, eip, rip, rip, 8,
+eip, 0, eip, rip, rip, 4, ip
+rip, 1, eip, rip, rip, 8, ip
 
 es, 0, es, es, es, 2, seg
 cs, 1, es, cs, cs, 2, seg
@@ -204,77 +204,77 @@ zmm29, 29, zmm0, zmm29, zmm29, 64, vec zmm
 zmm30, 30, zmm0, zmm30, zmm30, 64, vec zmm
 zmm31, 31, zmm0, zmm31, zmm31, 64, vec zmm
 
-k0, 0, k0, k0, k0, 8,
-k1, 1, k0, k1, k1, 8,
-k2, 2, k0, k2, k2, 8,
-k3, 3, k0, k3, k3, 8,
-k4, 4, k0, k4, k4, 8,
-k5, 5, k0, k5, k5, 8,
-k6, 6, k0, k6, k6, 8,
-k7, 7, k0, k7, k7, 8,
+k0, 0, k0, k0, k0, 8, k
+k1, 1, k0, k1, k1, 8, k
+k2, 2, k0, k2, k2, 8, k
+k3, 3, k0, k3, k3, 8, k
+k4, 4, k0, k4, k4, 8, k
+k5, 5, k0, k5, k5, 8, k
+k6, 6, k0, k6, k6, 8, k
+k7, 7, k0, k7, k7, 8, k
 
-bnd0, 0, bnd0, bnd0, bnd0, 16,
-bnd1, 1, bnd0, bnd1, bnd1, 16,
-bnd2, 2, bnd0, bnd2, bnd2, 16,
-bnd3, 3, bnd0, bnd3, bnd3, 16,
+bnd0, 0, bnd0, bnd0, bnd0, 16, bnd
+bnd1, 1, bnd0, bnd1, bnd1, 16, bnd
+bnd2, 2, bnd0, bnd2, bnd2, 16, bnd
+bnd3, 3, bnd0, bnd3, bnd3, 16, bnd
 
-cr0, 0, cr0, cr0, cr0, 8,
-cr1, 1, cr0, cr1, cr1, 8,
-cr2, 2, cr0, cr2, cr2, 8,
-cr3, 3, cr0, cr3, cr3, 8,
-cr4, 4, cr0, cr4, cr4, 8,
-cr5, 5, cr0, cr5, cr5, 8,
-cr6, 6, cr0, cr6, cr6, 8,
-cr7, 7, cr0, cr7, cr7, 8,
-cr8, 8, cr0, cr8, cr8, 8,
-cr9, 9, cr0, cr9, cr9, 8,
-cr10, 10, cr0, cr10, cr10, 8,
-cr11, 11, cr0, cr11, cr11, 8,
-cr12, 12, cr0, cr12, cr12, 8,
-cr13, 13, cr0, cr13, cr13, 8,
-cr14, 14, cr0, cr14, cr14, 8,
-cr15, 15, cr0, cr15, cr15, 8,
+cr0, 0, cr0, cr0, cr0, 8, cr
+cr1, 1, cr0, cr1, cr1, 8, cr
+cr2, 2, cr0, cr2, cr2, 8, cr
+cr3, 3, cr0, cr3, cr3, 8, cr
+cr4, 4, cr0, cr4, cr4, 8, cr
+cr5, 5, cr0, cr5, cr5, 8, cr
+cr6, 6, cr0, cr6, cr6, 8, cr
+cr7, 7, cr0, cr7, cr7, 8, cr
+cr8, 8, cr0, cr8, cr8, 8, cr
+cr9, 9, cr0, cr9, cr9, 8, cr
+cr10, 10, cr0, cr10, cr10, 8, cr
+cr11, 11, cr0, cr11, cr11, 8, cr
+cr12, 12, cr0, cr12, cr12, 8, cr
+cr13, 13, cr0, cr13, cr13, 8, cr
+cr14, 14, cr0, cr14, cr14, 8, cr
+cr15, 15, cr0, cr15, cr15, 8, cr
 
-dr0, 0, dr0, dr0, dr0, 8,
-dr1, 1, dr0, dr1, dr1, 8,
-dr2, 2, dr0, dr2, dr2, 8,
-dr3, 3, dr0, dr3, dr3, 8,
-dr4, 4, dr0, dr4, dr4, 8,
-dr5, 5, dr0, dr5, dr5, 8,
-dr6, 6, dr0, dr6, dr6, 8,
-dr7, 7, dr0, dr7, dr7, 8,
-dr8, 8, dr0, dr8, dr8, 8,
-dr9, 9, dr0, dr9, dr9, 8,
-dr10, 10, dr0, dr10, dr10, 8,
-dr11, 11, dr0, dr11, dr11, 8,
-dr12, 12, dr0, dr12, dr12, 8,
-dr13, 13, dr0, dr13, dr13, 8,
-dr14, 14, dr0, dr14, dr14, 8,
-dr15, 15, dr0, dr15, dr15, 8,
+dr0, 0, dr0, dr0, dr0, 8, dr
+dr1, 1, dr0, dr1, dr1, 8, dr
+dr2, 2, dr0, dr2, dr2, 8, dr
+dr3, 3, dr0, dr3, dr3, 8, dr
+dr4, 4, dr0, dr4, dr4, 8, dr
+dr5, 5, dr0, dr5, dr5, 8, dr
+dr6, 6, dr0, dr6, dr6, 8, dr
+dr7, 7, dr0, dr7, dr7, 8, dr
+dr8, 8, dr0, dr8, dr8, 8, dr
+dr9, 9, dr0, dr9, dr9, 8, dr
+dr10, 10, dr0, dr10, dr10, 8, dr
+dr11, 11, dr0, dr11, dr11, 8, dr
+dr12, 12, dr0, dr12, dr12, 8, dr
+dr13, 13, dr0, dr13, dr13, 8, dr
+dr14, 14, dr0, dr14, dr14, 8, dr
+dr15, 15, dr0, dr15, dr15, 8, dr
 
-st0, 0, st0, st0, st0, 10,
-st1, 1, st0, st1, st1, 10,
-st2, 2, st0, st2, st2, 10,
-st3, 3, st0, st3, st3, 10,
-st4, 4, st0, st4, st4, 10,
-st5, 5, st0, st5, st5, 10,
-st6, 6, st0, st6, st6, 10,
-st7, 7, st0, st7, st7, 10,
+st0, 0, st0, st0, st0, 10, st
+st1, 1, st0, st1, st1, 10, st
+st2, 2, st0, st2, st2, 10, st
+st3, 3, st0, st3, st3, 10, st
+st4, 4, st0, st4, st4, 10, st
+st5, 5, st0, st5, st5, 10, st
+st6, 6, st0, st6, st6, 10, st
+st7, 7, st0, st7, st7, 10, st
 
-mm0, 0, mm0, mm0, mm0, 8,
-mm1, 1, mm0, mm1, mm1, 8,
-mm2, 2, mm0, mm2, mm2, 8,
-mm3, 3, mm0, mm3, mm3, 8,
-mm4, 4, mm0, mm4, mm4, 8,
-mm5, 5, mm0, mm5, mm5, 8,
-mm6, 6, mm0, mm6, mm6, 8,
-mm7, 7, mm0, mm7, mm7, 8,
+mm0, 0, mm0, mm0, mm0, 8, mm
+mm1, 1, mm0, mm1, mm1, 8, mm
+mm2, 2, mm0, mm2, mm2, 8, mm
+mm3, 3, mm0, mm3, mm3, 8, mm
+mm4, 4, mm0, mm4, mm4, 8, mm
+mm5, 5, mm0, mm5, mm5, 8, mm
+mm6, 6, mm0, mm6, mm6, 8, mm
+mm7, 7, mm0, mm7, mm7, 8, mm
 
-tr0, 0, tr0, tr0, tr0, 4,
-tr1, 1, tr0, tr1, tr1, 4,
-tr2, 2, tr0, tr2, tr2, 4,
-tr3, 3, tr0, tr3, tr3, 4,
-tr4, 4, tr0, tr4, tr4, 4,
-tr5, 5, tr0, tr5, tr5, 4,
-tr6, 6, tr0, tr6, tr6, 4,
-tr7, 7, tr0, tr7, tr7, 4,
+tr0, 0, tr0, tr0, tr0, 4, tr
+tr1, 1, tr0, tr1, tr1, 4, tr
+tr2, 2, tr0, tr2, tr2, 4, tr
+tr3, 3, tr0, tr3, tr3, 4, tr
+tr4, 4, tr0, tr4, tr4, 4, tr
+tr5, 5, tr0, tr5, tr5, 4, tr
+tr6, 6, tr0, tr6, tr6, 4, tr
+tr7, 7, tr0, tr7, tr7, 4, tr

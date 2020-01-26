@@ -38,6 +38,14 @@ namespace Generator.Enums.InstructionInfo {
 		YMM					= 0x80,
 		ZMM					= 0x100,
 		VectorRegister		= 0x200,
+		IP					= 0x400,
+		K					= 0x800,
+		BND					= 0x1000,
+		CR					= 0x2000,
+		DR					= 0x4000,
+		TR					= 0x8000,
+		ST					= 0x10000,
+		MM					= 0x20000,
 	}
 
 	static class RegisterFlagsEnum {

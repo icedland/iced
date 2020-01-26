@@ -63,5 +63,13 @@ impl RegisterFlags {
 	pub(crate) const YMM: u32 = 0x0000_0080;
 	pub(crate) const ZMM: u32 = 0x0000_0100;
 	pub(crate) const VECTOR_REGISTER: u32 = 0x0000_0200;
+	pub(crate) const IP: u32 = 0x0000_0400;
+	pub(crate) const K: u32 = 0x0000_0800;
+	pub(crate) const BND: u32 = 0x0000_1000;
+	pub(crate) const CR: u32 = 0x0000_2000;
+	pub(crate) const DR: u32 = 0x0000_4000;
+	pub(crate) const TR: u32 = 0x0000_8000;
+	pub(crate) const ST: u32 = 0x0001_0000;
+	pub(crate) const MM: u32 = 0x0002_0000;
 }
 // GENERATOR-END: RegisterFlags

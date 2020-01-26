@@ -64,6 +64,14 @@ impl IntoIterator for RegisterInfoTestParser {
 		let _ = to_flags.insert("ymm", RegisterFlags::YMM);
 		let _ = to_flags.insert("zmm", RegisterFlags::ZMM);
 		let _ = to_flags.insert("vec", RegisterFlags::VECTOR_REGISTER);
+		let _ = to_flags.insert("ip", RegisterFlags::IP);
+		let _ = to_flags.insert("k", RegisterFlags::K);
+		let _ = to_flags.insert("bnd", RegisterFlags::BND);
+		let _ = to_flags.insert("cr", RegisterFlags::CR);
+		let _ = to_flags.insert("dr", RegisterFlags::DR);
+		let _ = to_flags.insert("tr", RegisterFlags::TR);
+		let _ = to_flags.insert("st", RegisterFlags::ST);
+		let _ = to_flags.insert("mm", RegisterFlags::MM);
 		// GENERATOR-END: FlagsDict
 
 		IntoIter { filename: self.filename, lines: self.lines, line_number: 0, to_flags }

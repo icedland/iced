@@ -68,6 +68,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			{ "ymm", RegisterFlags.YMM },
 			{ "zmm", RegisterFlags.ZMM },
 			{ "vec", RegisterFlags.VectorRegister },
+			{ "ip", RegisterFlags.IP },
+			{ "k", RegisterFlags.K },
+			{ "bnd", RegisterFlags.BND },
+			{ "cr", RegisterFlags.CR },
+			{ "dr", RegisterFlags.DR },
+			{ "tr", RegisterFlags.TR },
+			{ "st", RegisterFlags.ST },
+			{ "mm", RegisterFlags.MM },
 		};
 		// GENERATOR-END: Dicts
 	}
@@ -166,6 +174,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		YMM = 0x00000080,
 		ZMM = 0x00000100,
 		VectorRegister = 0x00000200,
+		IP = 0x00000400,
+		K = 0x00000800,
+		BND = 0x00001000,
+		CR = 0x00002000,
+		DR = 0x00004000,
+		TR = 0x00008000,
+		ST = 0x00010000,
+		MM = 0x00020000,
 	}
 	// GENERATOR-END: RegisterFlags
 }

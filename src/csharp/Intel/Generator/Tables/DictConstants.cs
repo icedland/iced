@@ -55,6 +55,14 @@ namespace Generator.Tables {
 			("ymm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.YMM)]),
 			("zmm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.ZMM)]),
 			("vec", RegisterFlagsEnum.Instance[nameof(RegisterFlags.VectorRegister)]),
+			("ip", RegisterFlagsEnum.Instance[nameof(RegisterFlags.IP)]),
+			("k", RegisterFlagsEnum.Instance[nameof(RegisterFlags.K)]),
+			("bnd", RegisterFlagsEnum.Instance[nameof(RegisterFlags.BND)]),
+			("cr", RegisterFlagsEnum.Instance[nameof(RegisterFlags.CR)]),
+			("dr", RegisterFlagsEnum.Instance[nameof(RegisterFlags.DR)]),
+			("tr", RegisterFlagsEnum.Instance[nameof(RegisterFlags.TR)]),
+			("st", RegisterFlagsEnum.Instance[nameof(RegisterFlags.ST)]),
+			("mm", RegisterFlagsEnum.Instance[nameof(RegisterFlags.MM)]),
 		};
 	}
 

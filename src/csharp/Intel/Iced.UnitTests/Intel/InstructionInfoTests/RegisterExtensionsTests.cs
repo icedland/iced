@@ -68,6 +68,14 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal((flags & RegisterFlags.YMM) != 0, register.IsYMM());
 			Assert.Equal((flags & RegisterFlags.ZMM) != 0, register.IsZMM());
 			Assert.Equal((flags & RegisterFlags.VectorRegister) != 0, register.IsVectorRegister());
+			Assert.Equal((flags & RegisterFlags.IP) != 0, register.IsIP());
+			Assert.Equal((flags & RegisterFlags.K) != 0, register.IsK());
+			Assert.Equal((flags & RegisterFlags.BND) != 0, register.IsBND());
+			Assert.Equal((flags & RegisterFlags.CR) != 0, register.IsCR());
+			Assert.Equal((flags & RegisterFlags.DR) != 0, register.IsDR());
+			Assert.Equal((flags & RegisterFlags.TR) != 0, register.IsTR());
+			Assert.Equal((flags & RegisterFlags.ST) != 0, register.IsST());
+			Assert.Equal((flags & RegisterFlags.MM) != 0, register.IsMM());
 		}
 		public static IEnumerable<object[]> VerifyRegisterProperties_Data {
 			get {
