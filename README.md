@@ -824,7 +824,8 @@ static class HowTo_InstructionInfo {
             Console.WriteLine($"{instr.IP:X16} {instr}");
 
             var opCode = instr.OpCode;
-            var info = instrInfoFactory.GetInfo(instr);
+            // It returns it by ref
+            ref readonly var info = ref instrInfoFactory.GetInfo(instr);
             const string tab = "    ";
             Console.WriteLine($"{tab}OpCode: {opCode.ToOpCodeString()}");
             Console.WriteLine($"{tab}Instruction: {opCode.ToInstructionString()}");

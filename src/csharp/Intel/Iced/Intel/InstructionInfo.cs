@@ -31,26 +31,15 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Contains information about an instruction, eg. read/written registers, read/written <c>RFLAGS</c> bits, <c>CPUID</c> feature bit, etc
 	/// </summary>
-	public struct InstructionInfo {
-		internal UsedRegister[] usedRegisters;
-		internal UsedMemory[] usedMemoryLocations;
-		internal ushort usedRegistersLength;
-		internal ushort usedMemoryLocationsLength;
-		internal ushort opMaskFlags;
+	public unsafe struct InstructionInfo {
+		internal SimpleList<UsedRegister> usedRegisters;
+		internal SimpleList<UsedMemory> usedMemoryLocations;
+		internal fixed byte opAccesses[IcedConstants.MaxOpCount];
 		internal byte cpuidFeatureInternal;
 		internal byte flowControl;
 		internal byte encoding;
 		internal byte rflagsInfo;
 		internal byte flags;
-
-		[Flags]
-		internal enum OpMaskFlags : ushort {
-			OpAccessMask			= 7,
-			Op1AccessShift			= 3,
-			Op2AccessShift			= 6,
-			Op3AccessShift			= 9,
-			Op4AccessShift			= 12,
-		}
 
 		[Flags]
 		internal enum Flags : byte {
@@ -60,17 +49,32 @@ namespace Iced.Intel {
 			Privileged				= 0x08,
 		}
 
+		internal InstructionInfo(bool dummy) {
+			usedRegisters = new SimpleList<UsedRegister>(new UsedRegister[InstrInfoConstants.DefaultUsedRegisterCollCapacity]);
+			usedMemoryLocations = new SimpleList<UsedMemory>(new UsedMemory[InstrInfoConstants.DefaultUsedMemoryCollCapacity]);
+			opAccesses[0] = 0;
+			opAccesses[1] = 0;
+			opAccesses[2] = 0;
+			opAccesses[3] = 0;
+			opAccesses[4] = 0;
+			cpuidFeatureInternal = 0;
+			flowControl = 0;
+			encoding = 0;
+			rflagsInfo = 0;
+			flags = 0;
+		}
+
 		/// <summary>
 		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all accessed registers if <see cref="IsSaveRestoreInstruction"/> is <see langword="true"/>.
 		/// </summary>
 		/// <returns></returns>
-		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters, usedRegistersLength);
+		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters.Array, (uint)usedRegisters.ValidLength);
 
 		/// <summary>
 		/// Gets a struct iterator that returns all accessed memory locations
 		/// </summary>
 		/// <returns></returns>
-		public readonly UsedMemoryIterator GetUsedMemory() => new UsedMemoryIterator(usedMemoryLocations, usedMemoryLocationsLength);
+		public readonly UsedMemoryIterator GetUsedMemory() => new UsedMemoryIterator(usedMemoryLocations.Array, (uint)usedMemoryLocations.ValidLength);
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 		public struct UsedRegisterIterator : IEnumerable<UsedRegister>, IEnumerator<UsedRegister> {
@@ -170,27 +174,27 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Operand #0 access
 		/// </summary>
-		public readonly OpAccess Op0Access => (OpAccess)(opMaskFlags & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op0Access => (OpAccess)opAccesses[0];
 
 		/// <summary>
 		/// Operand #1 access
 		/// </summary>
-		public readonly OpAccess Op1Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op1AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op1Access => (OpAccess)opAccesses[1];
 
 		/// <summary>
 		/// Operand #2 access
 		/// </summary>
-		public readonly OpAccess Op2Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op2AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op2Access => (OpAccess)opAccesses[2];
 
 		/// <summary>
 		/// Operand #3 access
 		/// </summary>
-		public readonly OpAccess Op3Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op3AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op3Access => (OpAccess)opAccesses[3];
 
 		/// <summary>
 		/// Operand #4 access
 		/// </summary>
-		public readonly OpAccess Op4Access => (OpAccess)(((uint)opMaskFlags >> (int)OpMaskFlags.Op4AccessShift) & (uint)OpMaskFlags.OpAccessMask);
+		public readonly OpAccess Op4Access => (OpAccess)opAccesses[4];
 
 		/// <summary>
 		/// Gets operand access
