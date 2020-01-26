@@ -28,6 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #nullable enable
 using System;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Iced.Intel {
 <#
@@ -51,12 +52,13 @@ namespace Iced.Intel {
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{" + nameof(Value) + "}")]
+    [EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly partial struct AssemblerRegister<#= r #> : IEquatable<AssemblerRegister<#= r #>> {
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
 		/// <param name="value">A Register</param>
-		public AssemblerRegister<#= r #>(Register value) {
+		internal AssemblerRegister<#= r #>(Register value) {
 			if (!value.Is<#= isName #>()) throw new ArgumentException($"Invalid register {value}. Must be a <#= isName #> register", nameof(value));
 			Value = value;
 <# if (hasFlags) { #>
@@ -78,7 +80,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
-		public AssemblerRegister<#= r #>(Register value, AssemblerOperandFlags flags) {
+		internal AssemblerRegister<#= r #>(Register value, AssemblerOperandFlags flags) {
 			Value = value;
 			Flags = flags;
 		}
@@ -86,7 +88,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the mask associated with this register.
 		/// </summary>
-		public readonly AssemblerOperandFlags Flags;
+		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
 		/// Apply mask Register K1.

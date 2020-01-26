@@ -125,7 +125,7 @@ namespace Iced.Intel {
 			label.InstructionIndex = _instructions.Count;
 			_label = label;
 		}
-
+		
 		/// <summary>
 		/// Creates an anonymous label that can be referenced by using the <see cref="B"/> (backward anonymous label)
 		/// and <see cref="F"/> (forward anonymous label).
@@ -167,15 +167,22 @@ namespace Iced.Intel {
 		/// Add an instruction directly to the flow of instructions.
 		/// </summary>
 		/// <param name="instruction"></param>
-		/// <param name="flags">Operand flags passed.</param>
-		public void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
+		public void AddInstruction(Instruction instruction) {
+			AddInstruction(ref instruction);
+		}
+		
+		/// <summary>
+		/// Add an instruction directly to the flow of instructions.
+		/// </summary>
+		/// <param name="instruction"></param>
+		public void AddInstruction(ref Instruction instruction) {
 			if (!_label.IsEmpty && _definedAnonLabel)
 				throw new InvalidOperationException("You can't create both an anonymous label and a normal label");
 			if (!_label.IsEmpty)
 				instruction.IP = _label.Id;
 			else if (_definedAnonLabel)
 				instruction.IP = _currentAnonLabel.Id;
-
+			
 			// Setup prefixes
 			if (_nextPrefixFlags != PrefixFlags.None) {
 				if ((_nextPrefixFlags & PrefixFlags.Lock) != 0) {
@@ -202,8 +209,20 @@ namespace Iced.Intel {
 				if ((_nextPrefixFlags & PrefixFlags.Notrack) != 0) {
 					instruction.SegmentPrefix = Register.DS;
 				}
-			}
+			}			
+			
+			_instructions.Add(instruction);
+			_label = default;
+			_definedAnonLabel = false;			
+			_nextPrefixFlags = PrefixFlags.None;
+		}
 
+		/// <summary>
+		/// Add an instruction directly to the flow of instructions.
+		/// </summary>
+		/// <param name="instruction"></param>
+		/// <param name="flags">Operand flags passed.</param>
+		void AddInstruction(Instruction instruction, AssemblerOperandFlags flags = AssemblerOperandFlags.None) {
 			if (flags != AssemblerOperandFlags.None) {
 				if ((flags & AssemblerOperandFlags.Broadcast) != 0) {
 					instruction.IsBroadcast = true;
@@ -222,10 +241,7 @@ namespace Iced.Intel {
 					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundControlMask)) >> 3));
 				}
 			}
-			_instructions.Add(instruction);
-			_label = default;
-			_definedAnonLabel = false;
-			_nextPrefixFlags = PrefixFlags.None;
+			AddInstruction(ref instruction);
 		}
 
 		/// <summary>

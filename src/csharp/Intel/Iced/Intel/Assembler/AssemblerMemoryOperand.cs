@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if !NO_ENCODER
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Iced.Intel {
@@ -30,6 +31,7 @@ namespace Iced.Intel {
 	/// Defines an assembly memory operand used with <see cref="Assembler"/>.
 	/// </summary>
 	[DebuggerDisplay("{Base} + {Index} * {Scale} + {Displacement}")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public readonly struct AssemblerMemoryOperand : IEquatable<AssemblerMemoryOperand> {
 		/// <summary>
 		/// Creates a new instance.
@@ -41,7 +43,7 @@ namespace Iced.Intel {
 		/// <param name="scale">Scale of the index.</param>
 		/// <param name="displacement">Displacement.</param>
 		/// <param name="flags">Flags attached to this operand.</param>
-		public AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, long displacement, AssemblerOperandFlags flags) {
+		internal AssemblerMemoryOperand(MemoryOperandSize size, Register prefix, Register @base, Register index, int scale, long displacement, AssemblerOperandFlags flags) {
 			Size = size;
 			Prefix = prefix;
 			Base = @base;
@@ -54,7 +56,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the size of the operand.
 		/// </summary>
-		public readonly MemoryOperandSize Size;
+		internal readonly MemoryOperandSize Size;
 
 		/// <summary>
 		/// Gets the register used as a prefix.
@@ -84,7 +86,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the mask associated with this operand.
 		/// </summary>
-		public readonly AssemblerOperandFlags Flags;
+		internal readonly AssemblerOperandFlags Flags;
 
 		/// <summary>
 		/// Gets a boolean indicating if this memory operand is a broadcast.

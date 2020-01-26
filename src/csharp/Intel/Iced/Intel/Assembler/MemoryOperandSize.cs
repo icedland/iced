@@ -26,7 +26,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand size.
 	/// </summary>
-	public enum MemoryOperandSize {
+	enum MemoryOperandSize {
 		/// <summary>
 		/// An unspecified memory operand.
 		/// </summary>

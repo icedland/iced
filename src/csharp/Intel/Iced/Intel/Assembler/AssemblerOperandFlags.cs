@@ -29,7 +29,7 @@ namespace Iced.Intel {
 	/// Assembler operand flags.
 	/// </summary>
 	[Flags]
-	public enum AssemblerOperandFlags {
+	enum AssemblerOperandFlags {
 		/// <summary>
 		/// No flags.
 		/// </summary>
