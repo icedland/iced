@@ -45,41 +45,41 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		void Anonymous_labels() {
-            var c = new Assembler(64);
+			var c = new Assembler(64);
 
-            var lbl1 = c.CreateLabel();
-            var lbl2 = c.CreateLabel();
-            var lbl3 = c.CreateLabel();
-            var lbl4 = c.CreateLabel();
+			var lbl1 = c.CreateLabel();
+			var lbl2 = c.CreateLabel();
+			var lbl3 = c.CreateLabel();
+			var lbl4 = c.CreateLabel();
 
-            c.Label(ref lbl1);
-            c.inc(eax);
-            c.nop();
-            c.AnonymousLabel();
-            c.je(c.@B);
-            c.nop();
-            c.Label(ref lbl2);
-            c.je(c.@B);
-            c.nop();
-            c.jmp(lbl1);
-            c.nop();
-            c.jmp(lbl2);
-            c.nop();
-            c.jmp(lbl3);
-            c.nop();
-            c.jmp(lbl4);
-            c.nop();
-            c.jne(c.@F);
-            c.nop();
-            c.Label(ref lbl3);
-            c.jne(c.@F);
-            c.nop();
-            c.AnonymousLabel();
-            c.inc(eax);
-            c.nop();
-            c.Label(ref lbl4);
-            c.nop();
-            c.nop();
+			c.Label(ref lbl1);
+			c.inc(eax);
+			c.nop();
+			c.AnonymousLabel();
+			c.je(c.@B);
+			c.nop();
+			c.Label(ref lbl2);
+			c.je(c.@B);
+			c.nop();
+			c.jmp(lbl1);
+			c.nop();
+			c.jmp(lbl2);
+			c.nop();
+			c.jmp(lbl3);
+			c.nop();
+			c.jmp(lbl4);
+			c.nop();
+			c.jne(c.@F);
+			c.nop();
+			c.Label(ref lbl3);
+			c.jne(c.@F);
+			c.nop();
+			c.AnonymousLabel();
+			c.inc(eax);
+			c.nop();
+			c.Label(ref lbl4);
+			c.nop();
+			c.nop();
 
 			var expectedData = new byte[] {
 				0xFF, 0xC0, 0x90, 0x74, 0xFE, 0x90, 0x74, 0xFB, 0x90, 0xEB, 0xF5, 0x90, 0xEB, 0xF8, 0x90, 0xEB,
@@ -96,6 +96,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			c.nop();
 			c.AnonymousLabel();
 			Assert.Throws<InvalidOperationException>(() => c.Assemble(new CodeWriterImpl(), 0));
+		}
+
+		[Fact]
+		void Undeclared_forward_anon_label_throws() {
+			var c = new Assembler(64);
+			c.nop();
+			c.je(c.@F);
+			Assert.Throws<InvalidOperationException>(() => c.Assemble(new CodeWriterImpl(), 0));
+		}
+
+		[Fact]
+		void At_most_one_anon_label_per_instruction() {
+			var c = new Assembler(64);
+			c.nop();
+			c.AnonymousLabel();
+			Assert.Throws<InvalidOperationException>(() => c.AnonymousLabel());
 		}
 
 		[Fact]

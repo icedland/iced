@@ -229,7 +229,7 @@ static class HowTo_Assemble {
         // To broadcast memory, use the __dword_bcst/__qword_bcst memory types
         c.vunpcklps(xmm2.k5.z, xmm6, __dword_bcst[rax]);
 
-        // You can create anonymous labels, just like in eg. masm @F and @B
+        // You can create anonymous labels, just like in eg. masm, @@, @F and @B
         c.AnonymousLabel(); // same as @@: in masm
         c.inc(rax);
         c.je(c.@B); // reference the previous anonymous label

@@ -127,10 +127,12 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Creates an anonymous label that can be referenced by using the <see cref="B"/> (backward anonymous label)
+		/// Creates an anonymous label that can be referenced by using <see cref="B"/> (backward anonymous label)
 		/// and <see cref="F"/> (forward anonymous label).
 		/// </summary>
 		public void AnonymousLabel() {
+			if (_definedAnonLabel)
+				throw new InvalidOperationException("At most one anonymous label per instruction is allowed");
 			if (_nextAnonLabel.IsEmpty)
 				_currentAnonLabel = CreateLabel();
 			else
@@ -475,6 +477,11 @@ namespace Iced.Intel {
 
 			if (_definedAnonLabel) {
 				errorMessage = "Unused anonymous label. You must emit an instruction after emitting a label.";
+				return false;
+			}
+
+			if (!_nextAnonLabel.IsEmpty) {
+				errorMessage = "Found an @F anonymous label reference but there was no call to " + nameof(AnonymousLabel);
 				return false;
 			}
 
