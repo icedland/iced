@@ -21,6 +21,39 @@ jobs:
           git diff --exit-code
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
 
+      - name: Build one feature at a time
+        shell: pwsh
+        run: |
+          foreach ($def in
+              "NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_ENCODER;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_NASM_FORMATTER",
+              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER"
+              ) {
+            git clean -xdf
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            $env:MoreDefineConstants=$def
+            dotnet build -v:m -c Release src/csharp/Intel/Iced/Iced.csproj
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          }
+          foreach ($def in
+              "NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_ENCODER;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_ENCODER;NO_INSTR_INFO;NO_INTEL_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_MASM_FORMATTER;NO_NASM_FORMATTER",
+              "NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_NASM_FORMATTER",
+              "NO_ENCODER;NO_INSTR_INFO;NO_GAS_FORMATTER;NO_INTEL_FORMATTER;NO_MASM_FORMATTER"
+              ) {
+            git clean -xdf
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+            $env:MoreDefineConstants=$def
+            dotnet build -v:m -c Release src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj
+            if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          }
+
       - name: Build, test
         shell: pwsh
         run: |
@@ -114,6 +147,45 @@ jobs:
           echo ==== BUILD DEBUG ====
           cargo build --color always --lib --no-default-features --features "no_std decoder encoder instr_info all_formatters"
           cd ../../..
+          git clean -xdf
+
+      - name: Build one feature at a time
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
+          cargo -V
+          cd src/rust/iced-x86
+          echo ==== std decoder ====
+          cargo check --lib --no-default-features --features "std decoder"
+          echo ==== std encoder ====
+          cargo check --lib --no-default-features --features "std encoder"
+          echo ==== std instr_info ====
+          cargo check --lib --no-default-features --features "std instr_info"
+          echo ==== std gas_formatter ====
+          cargo check --lib --no-default-features --features "std gas_formatter"
+          echo ==== std intel_formatter ====
+          cargo check --lib --no-default-features --features "std intel_formatter"
+          echo ==== std masm_formatter ====
+          cargo check --lib --no-default-features --features "std masm_formatter"
+          echo ==== std nasm_formatter ====
+          cargo check --lib --no-default-features --features "std nasm_formatter"
+          
+          echo ==== TEST std decoder ====
+          cargo check --tests --lib --no-default-features --features "std decoder"
+          echo ==== TEST std decoder encoder ====
+          cargo check --tests --lib --no-default-features --features "std decoder encoder"
+          echo ==== TEST std decoder instr_info ====
+          cargo check --tests --lib --no-default-features --features "std decoder instr_info"
+          echo ==== TEST std decoder gas_formatter ====
+          cargo check --tests --lib --no-default-features --features "std decoder gas_formatter"
+          echo ==== TEST std decoder intel_formatter ====
+          cargo check --tests --lib --no-default-features --features "std decoder intel_formatter"
+          echo ==== TEST std decoder masm_formatter ====
+          cargo check --tests --lib --no-default-features --features "std decoder masm_formatter"
+          echo ==== TEST std decoder nasm_formatter ====
+          cargo check --tests --lib --no-default-features --features "std decoder nasm_formatter"
+          cd ..
           git clean -xdf
 
       - name: Build, test (default)
