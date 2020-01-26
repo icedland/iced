@@ -6,6 +6,11 @@ using Xunit;
 using static Iced.Intel.AssemblerRegisters;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
+	// Make sure it can be derived
+	sealed class MyAssembler : Assembler {
+		public MyAssembler() : base(64) { }
+	}
+
 	public sealed partial class AssemblerTests64 {
 		[Fact]
 		void xlatb() {
@@ -27,6 +32,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			var c = new Assembler(Bitness);
 			c.CreateLabel();
 			c.add(rax, rcx);
+			_ = c.@lock;
 			c.PreferVex = false;
 			c.PreferBranchShort = false;
 			c.Reset();
