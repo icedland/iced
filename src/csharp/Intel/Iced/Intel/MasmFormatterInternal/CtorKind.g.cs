@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
+#if !NO_MASM
 namespace Iced.Intel.MasmFormatterInternal {
 	enum CtorKind {
 		Previous,

@@ -8,24 +8,23 @@ description = "iced-x86 is an x86/x64 disassembler, assembler and instruction de
 repository = "https://github.com/0xd4d/iced"
 readme = "README.md"
 # At most 5 keywords can be used
-keywords = ["disassembler", "x86", "amd64", "x86_64", "decoder"]
+keywords = ["disassembler", "assembler", "x86", "amd64", "x86_64"]
 categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support"]
 
 [badges]
-codecov = { repository = "https://github.com/0xd4d/iced", branch = "master", service = "github" }
+codecov = { repository = "0xd4d/iced", branch = "master", service = "github" }
 maintenance = { status = "actively-developed" }
 
 # These features are documented in the module docs (lib.rs)
 [features]
-default = ["std", "decoder", "encoder", "instr_info", "all_formatters"]
+default = ["std", "decoder", "encoder", "instr_info", "gas", "intel", "masm", "nasm"]
 decoder = []
 encoder = []
 instr_info = []
-all_formatters = ["gas_formatter", "intel_formatter", "masm_formatter", "nasm_formatter"]
-gas_formatter = []
-intel_formatter = []
-masm_formatter = []
-nasm_formatter = []
+gas = []
+intel = []
+masm = []
+nasm = []
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps
 no_std = ["lazy_static/spin_no_std", "hashbrown"]

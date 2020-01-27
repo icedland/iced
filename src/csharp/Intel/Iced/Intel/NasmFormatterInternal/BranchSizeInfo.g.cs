@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
+#if !NO_NASM
 namespace Iced.Intel.NasmFormatterInternal {
 	enum BranchSizeInfo {
 		None,

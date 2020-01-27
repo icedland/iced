@@ -26,13 +26,13 @@ mod fmt_consts;
 mod fmt_opt_provider;
 mod fmt_opts;
 mod fmt_utils;
-#[cfg(feature = "gas_formatter")]
+#[cfg(feature = "gas")]
 mod gas;
-#[cfg(feature = "intel_formatter")]
+#[cfg(feature = "intel")]
 mod intel;
-#[cfg(feature = "masm_formatter")]
+#[cfg(feature = "masm")]
 mod masm;
-#[cfg(feature = "nasm_formatter")]
+#[cfg(feature = "nasm")]
 mod nasm;
 mod num_fmt;
 mod num_fmt_opts;
@@ -48,13 +48,13 @@ mod tests;
 pub use self::enums::*;
 pub use self::fmt_opt_provider::*;
 pub use self::fmt_opts::*;
-#[cfg(feature = "gas_formatter")]
+#[cfg(feature = "gas")]
 pub use self::gas::*;
-#[cfg(feature = "intel_formatter")]
+#[cfg(feature = "intel")]
 pub use self::intel::*;
-#[cfg(feature = "masm_formatter")]
+#[cfg(feature = "masm")]
 pub use self::masm::*;
-#[cfg(feature = "nasm_formatter")]
+#[cfg(feature = "nasm")]
 pub use self::nasm::*;
 use self::num_fmt::NumberFormatter;
 pub use self::num_fmt_opts::*;
@@ -590,12 +590,12 @@ pub trait Formatter: private::Sealed {
 
 mod private {
 	pub trait Sealed {}
-	#[cfg(feature = "gas_formatter")]
+	#[cfg(feature = "gas")]
 	impl<'a> Sealed for super::gas::GasFormatter<'a> {}
-	#[cfg(feature = "intel_formatter")]
+	#[cfg(feature = "intel")]
 	impl<'a> Sealed for super::intel::IntelFormatter<'a> {}
-	#[cfg(feature = "masm_formatter")]
+	#[cfg(feature = "masm")]
 	impl<'a> Sealed for super::masm::MasmFormatter<'a> {}
-	#[cfg(feature = "nasm_formatter")]
+	#[cfg(feature = "nasm")]
 	impl<'a> Sealed for super::nasm::NasmFormatter<'a> {}
 }

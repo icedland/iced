@@ -45,11 +45,11 @@ namespace Generator {
 		public const string InstructionInfoDefine = "!NO_INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "!NO_DECODER || !NO_ENCODER";
 		public const string DecoderOrEncoderOrInstrInfoDefine = "!NO_DECODER || !NO_ENCODER || !NO_INSTR_INFO";
-		public const string AnyFormatterDefine = "(!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER";
-		public const string GasFormatterDefine = "!NO_GAS_FORMATTER && !NO_FORMATTER";
-		public const string IntelFormatterDefine = "!NO_INTEL_FORMATTER && !NO_FORMATTER";
-		public const string MasmFormatterDefine = "!NO_MASM_FORMATTER && !NO_FORMATTER";
-		public const string NasmFormatterDefine = "!NO_NASM_FORMATTER && !NO_FORMATTER";
+		public const string AnyFormatterDefine = "!NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM";
+		public const string GasFormatterDefine = "!NO_GAS";
+		public const string IntelFormatterDefine = "!NO_INTEL";
+		public const string MasmFormatterDefine = "!NO_MASM";
+		public const string NasmFormatterDefine = "!NO_NASM";
 
 		public const string PragmaMissingDocsDisable = "#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member";
 		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";

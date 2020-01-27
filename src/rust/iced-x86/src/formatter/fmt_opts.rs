@@ -128,7 +128,7 @@ impl FormatterOptions {
 	}
 
 	/// Creates default gas (AT&T) formatter options
-	#[cfg(feature = "gas_formatter")]
+	#[cfg(feature = "gas")]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_gas() -> Self {
@@ -140,7 +140,7 @@ impl FormatterOptions {
 	}
 
 	/// Creates default Intel (XED) formatter options
-	#[cfg(feature = "intel_formatter")]
+	#[cfg(feature = "intel")]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_intel() -> Self {
@@ -152,7 +152,7 @@ impl FormatterOptions {
 	}
 
 	/// Creates default masm formatter options
-	#[cfg(feature = "masm_formatter")]
+	#[cfg(feature = "masm")]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_masm() -> Self {
@@ -164,7 +164,7 @@ impl FormatterOptions {
 	}
 
 	/// Creates default nasm formatter options
-	#[cfg(feature = "nasm_formatter")]
+	#[cfg(feature = "nasm")]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_nasm() -> Self {

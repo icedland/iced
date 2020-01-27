@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
+#if !NO_INTEL
 namespace Iced.Intel.IntelFormatterInternal {
 	enum CtorKind {
 		Previous,

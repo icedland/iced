@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
 namespace Iced.Intel.FormatterInternal {
 	enum PseudoOpsKind {
 		cmpps,

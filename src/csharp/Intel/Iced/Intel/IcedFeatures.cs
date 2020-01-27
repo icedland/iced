@@ -33,7 +33,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasGasFormatter {
 			get {
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
+#if !NO_GAS
 				return true;
 #else
 				return false;
@@ -46,7 +46,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasIntelFormatter {
 			get {
-#if !NO_INTEL_FORMATTER && !NO_FORMATTER
+#if !NO_INTEL
 				return true;
 #else
 				return false;
@@ -59,7 +59,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasMasmFormatter {
 			get {
-#if !NO_MASM_FORMATTER && !NO_FORMATTER
+#if !NO_MASM
 				return true;
 #else
 				return false;
@@ -72,7 +72,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasNasmFormatter {
 			get {
-#if !NO_NASM_FORMATTER && !NO_FORMATTER
+#if !NO_NASM
 				return true;
 #else
 				return false;

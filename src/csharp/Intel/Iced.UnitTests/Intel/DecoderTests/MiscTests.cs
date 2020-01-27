@@ -302,6 +302,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static int GetSize(Register reg) {
+#if !NO_INSTR_INFO
+			return reg.GetSize();
+#else
 			if (Register.AX <= reg && reg <= Register.R15W)
 				return 2;
 			if (Register.EAX <= reg && reg <= Register.R15D || reg == Register.EIP)
@@ -309,9 +312,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			if (Register.RAX <= reg && reg <= Register.R15 || reg == Register.RIP)
 				return 8;
 			throw new InvalidOperationException();
+#endif
 		}
 
 		static int GetNumber(Register reg) {
+#if !NO_INSTR_INFO
+			return reg.GetNumber();
+#else
 			if (Register.AL <= reg && reg <= Register.R15L)
 				return reg - Register.AL;
 			if (Register.AX <= reg && reg <= Register.R15W)
@@ -341,6 +348,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			if (Register.TR0 <= reg && reg <= Register.TR7)
 				return reg - Register.TR0;
 			throw new InvalidOperationException();
+#endif
 		}
 
 		[Fact]

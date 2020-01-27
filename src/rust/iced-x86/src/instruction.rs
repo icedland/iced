@@ -27,7 +27,7 @@ use super::info::enums::*;
 use super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
 #[cfg(feature = "encoder")]
@@ -7083,7 +7083,7 @@ impl Hash for Instruction {
 	}
 }
 
-#[cfg(feature = "masm_formatter")]
+#[cfg(feature = "masm")]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -7094,7 +7094,7 @@ impl fmt::Display for Instruction {
 		Ok(())
 	}
 }
-#[cfg(all(not(feature = "masm_formatter"), feature = "nasm_formatter"))]
+#[cfg(all(not(feature = "masm"), feature = "nasm"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -7105,7 +7105,7 @@ impl fmt::Display for Instruction {
 		Ok(())
 	}
 }
-#[cfg(all(not(feature = "masm_formatter"), not(feature = "nasm_formatter"), feature = "intel_formatter"))]
+#[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -7116,7 +7116,7 @@ impl fmt::Display for Instruction {
 		Ok(())
 	}
 }
-#[cfg(all(not(feature = "masm_formatter"), not(feature = "nasm_formatter"), not(feature = "intel_formatter"), feature = "gas_formatter"))]
+#[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {

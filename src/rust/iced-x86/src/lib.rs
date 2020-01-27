@@ -31,18 +31,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //! ## Crate feature flags
 //!
-//! You can enable/disable these in your `Cargo.toml` file.
+//! You can enable/disable these in your `Cargo.toml` file or on the command line eg. `--no-default-features --features "std decoder encoder"`.
 //!
 //! - `decoder`: (Enabled by default) Enables the decoder
 //! - `encoder`: (Enabled by default) Enables the encoder
 //! - `instr_info`: (Enabled by default) Enables the instruction info code
-//! - `all_formatters`: (Enabled by default) Enables all formatters
-//! - `gas_formatter`: (Enabled by default) Enables the gas (AT&T) formatter
-//! - `intel_formatter`: (Enabled by default) Enables the Intel (XED) formatter
-//! - `masm_formatter`: (Enabled by default) Enables the masm formatter
-//! - `nasm_formatter`: (Enabled by default) Enables the nasm formatter
+//! - `gas`: (Enabled by default) Enables the gas (AT&T) formatter
+//! - `intel`: (Enabled by default) Enables the Intel (XED) formatter
+//! - `masm`: (Enabled by default) Enables the masm formatter
+//! - `nasm`: (Enabled by default) Enables the nasm formatter
 //! - `std`: (Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-//! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (rustc `1.36.0+`).
+//! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (rustc `1.36.0+`) and the `hashbrown` crate.
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
@@ -94,39 +93,13 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(all(
-	has_alloc,
-	any(feature = "encoder", feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter")
-))]
-#[cfg_attr(
-	all(
-		has_alloc,
-		any(feature = "encoder", feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter")
-	),
-	macro_use
-)]
+#[cfg(all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+#[cfg_attr(all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")), macro_use)]
 extern crate alloc;
 #[cfg(feature = "std")]
 extern crate core;
-#[cfg(any(
-	feature = "decoder",
-	feature = "encoder",
-	feature = "gas_formatter",
-	feature = "intel_formatter",
-	feature = "masm_formatter",
-	feature = "nasm_formatter"
-))]
-#[cfg_attr(
-	any(
-		feature = "decoder",
-		feature = "encoder",
-		feature = "gas_formatter",
-		feature = "intel_formatter",
-		feature = "masm_formatter",
-		feature = "nasm_formatter"
-	),
-	macro_use
-)]
+#[cfg(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg_attr(any(feature = "decoder", feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"), macro_use)]
 extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
@@ -144,7 +117,7 @@ mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
 mod enums;
-#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod formatter;
 pub(crate) mod iced_constants;
 mod iced_features;
@@ -173,7 +146,7 @@ pub use self::decoder::*;
 #[cfg(feature = "encoder")]
 pub use self::encoder::*;
 pub use self::enums::*;
-#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use self::formatter::*;
 pub use self::iced_features::*;
 #[cfg(feature = "instr_info")]

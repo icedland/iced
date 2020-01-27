@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if (!NO_GAS_FORMATTER || !NO_INTEL_FORMATTER || !NO_MASM_FORMATTER || !NO_NASM_FORMATTER) && !NO_FORMATTER
+#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,7 +111,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		[MemberData(nameof(AllFormatters))]
 		void Methods_throw_if_null_input(Formatter formatter) {
 			Instruction instruction = default;
-			instruction.InternalCode = Code.Mov_rm64_r64;
+			instruction.Code = Code.Mov_rm64_r64;
 			instruction.Op0Register = Register.RAX;
 			instruction.Op1Register = Register.RCX;
 			Assert.Throws<ArgumentNullException>(() => formatter.FormatMnemonic(instruction, null));
@@ -127,7 +127,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		void Methods_throw_if_invalid_operand_or_instructionOperand(Formatter formatter) {
 			{
 				Instruction instruction = default;
-				instruction.InternalCode = Code.Mov_rm64_r64;
+				instruction.Code = Code.Mov_rm64_r64;
 				instruction.Op0Register = Register.RAX;
 				instruction.Op1Register = Register.RCX;
 				const int numOps = 2;

@@ -114,12 +114,12 @@ impl InstrUtils {
 	// 6 = FF 15 XXXXXXXX = call qword ptr [rip+mem_target]
 	pub(self) const CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64: u32 = 6;
 
-	#[cfg(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter"))]
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	pub(self) fn create_error_message(error_message: &str, instruction: &Instruction) -> String {
 		format!("{} : 0x{:X} {}", error_message, instruction.ip(), instruction)
 	}
 
-	#[cfg(not(any(feature = "gas_formatter", feature = "intel_formatter", feature = "masm_formatter", feature = "nasm_formatter")))]
+	#[cfg(not(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
 	pub(self) fn create_error_message(error_message: &str, instruction: &Instruction) -> String {
 		format!("{} : 0x{:X}", error_message, instruction.ip())
 	}

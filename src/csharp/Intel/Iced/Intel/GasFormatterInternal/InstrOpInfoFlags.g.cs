@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_GAS_FORMATTER && !NO_FORMATTER
+#if !NO_GAS
 using System;
 
 namespace Iced.Intel.GasFormatterInternal {
