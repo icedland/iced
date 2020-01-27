@@ -81,6 +81,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
+			Assert.False(options.PreferST0);
 		}
 
 		[Theory]

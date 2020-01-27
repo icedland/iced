@@ -81,6 +81,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
+			Assert.False(options.PreferST0);
 			Assert.False(options.ShowSignExtendedImmediateSize);
 		}
 

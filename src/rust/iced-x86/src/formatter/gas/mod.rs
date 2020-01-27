@@ -989,7 +989,10 @@ impl<'a> GasFormatter<'a> {
 	}
 
 	#[inline]
-	fn get_reg_str(&self, reg_num: u32) -> &'static str {
+	fn get_reg_str(&self, mut reg_num: u32) -> &'static str {
+		if self.options.prefer_st0() && reg_num == Registers::REGISTER_ST {
+			reg_num = Register::ST0 as u32;
+		}
 		debug_assert!((reg_num as usize) < self.all_registers().len());
 		let reg_str = &self.all_registers()[reg_num as usize];
 		reg_str.get(self.options.upper_case_registers() || self.options.upper_case_all())

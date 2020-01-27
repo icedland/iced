@@ -64,6 +64,7 @@ impl Flags1 {
 struct Flags2;
 impl Flags2 {
 	pub(crate) const NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE: u32 = 0x0000_0001;
+	pub(crate) const PREFER_ST0: u32 = 0x0000_0002;
 }
 
 /// Formatter options
@@ -1633,6 +1634,37 @@ impl FormatterOptions {
 			self.options2 |= Flags2::NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE;
 		} else {
 			self.options2 &= !Flags2::NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE;
+		}
+	}
+
+	/// Use `st(0)` instead of `st` if `st` can be used. Ignored by the nasm formatter.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `fadd st(0),st(3)`
+	/// Yes | `false` | `fadd st,st(3)`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn prefer_st0(&self) -> bool {
+		(self.options2 & Flags2::PREFER_ST0) != 0
+	}
+
+	/// Use `st(0)` instead of `st` if `st` can be used. Ignored by the nasm formatter.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `fadd st(0),st(3)`
+	/// Yes | `false` | `fadd st,st(3)`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_prefer_st0(&mut self, value: bool) {
+		if value {
+			self.options2 |= Flags2::PREFER_ST0;
+		} else {
+			self.options2 &= !Flags2::PREFER_ST0;
 		}
 	}
 }

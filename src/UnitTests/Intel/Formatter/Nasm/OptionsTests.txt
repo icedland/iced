@@ -1792,3 +1792,63 @@ vpclmulhqlqdq zmm6,zmm2,zmm4
 vpclmullqhqdq zmm6,zmm2,zmm4
 vpclmulhqhqdq zmm6,zmm2,zmm4
 vpclmulqdq zmm6,zmm2,zmm4,0xff
+fadd st3
+fmul st3
+fsub st3
+fsubr st3
+fdiv st3
+fdivr st3
+fcmovb st3
+fcmove st3
+fcmovbe st3
+fcmovu st3
+fcmovnb st3
+fcmovne st3
+fcmovnbe st3
+fcmovnu st3
+fucomi st3
+fcomi st3
+fadd to st3
+fmul to st3
+fsubr to st3
+fsub to st3
+fdivr to st3
+fdiv to st3
+faddp st3
+fmulp st3
+fsubrp st3
+fsubp st3
+fdivrp st3
+fdivp st3
+fucomip st3
+fcomip st3
+fadd st3
+fmul st3
+fsub st3
+fsubr st3
+fdiv st3
+fdivr st3
+fcmovb st3
+fcmove st3
+fcmovbe st3
+fcmovu st3
+fcmovnb st3
+fcmovne st3
+fcmovnbe st3
+fcmovnu st3
+fucomi st3
+fcomi st3
+fadd to st3
+fmul to st3
+fsubr to st3
+fsub to st3
+fdivr to st3
+fdiv to st3
+faddp st3
+fmulp st3
+fsubrp st3
+fsubp st3
+fdivrp st3
+fdivp st3
+fucomip st3
+fcomip st3

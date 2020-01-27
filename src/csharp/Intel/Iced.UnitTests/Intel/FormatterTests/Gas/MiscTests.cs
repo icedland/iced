@@ -81,6 +81,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.True(options.ShowBranchSize);
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
+			Assert.False(options.PreferST0);
 			Assert.False(options.NakedRegisters);
 			Assert.False(options.ShowMnemonicSizeSuffix);
 			Assert.False(options.SpaceAfterMemoryOperandComma);

@@ -493,6 +493,17 @@ namespace Iced.Intel {
 		/// <see langword="false"/>: <c>mov eax,[myfield]</c>
 		/// </summary>
 		public bool ShowSymbolAddress { get; set; }
+
+		/// <summary>
+		/// Use <c>st(0)</c> instead of <c>st</c> if <c>st</c> can be used. Ignored by the nasm formatter.
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>fadd st(0),st(3)</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>fadd st,st(3)</c>
+		/// </summary>
+		public bool PreferST0 { get; set; }
 	}
 
 	// GENERATOR-BEGIN: NumberBase

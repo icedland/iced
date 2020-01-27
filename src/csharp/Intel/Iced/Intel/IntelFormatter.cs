@@ -761,9 +761,11 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		string ToString(int reg) {
-			Debug.Assert((uint)reg < (uint)allRegisters.Length);
-			var regStr = allRegisters[(int)reg];
+		string ToString(int regNum) {
+			Debug.Assert((uint)regNum < (uint)allRegisters.Length);
+			if (options.PreferST0 && regNum == Registers.Register_ST)
+				regNum = (int)Register.ST0;
+			var regStr = allRegisters[(int)regNum];
 			return regStr.Get(options.UpperCaseRegisters || options.UpperCaseAll);
 		}
 
