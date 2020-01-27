@@ -31,10 +31,10 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Contains information about an instruction, eg. read/written registers, read/written <c>RFLAGS</c> bits, <c>CPUID</c> feature bit, etc
 	/// </summary>
-	public unsafe struct InstructionInfo {
+	public struct InstructionInfo {
 		internal SimpleList<UsedRegister> usedRegisters;
 		internal SimpleList<UsedMemory> usedMemoryLocations;
-		internal fixed byte opAccesses[IcedConstants.MaxOpCount];
+		internal unsafe fixed byte opAccesses[IcedConstants.MaxOpCount];
 		internal byte cpuidFeatureInternal;
 		internal byte flowControl;
 		internal byte encoding;
@@ -52,11 +52,14 @@ namespace Iced.Intel {
 		internal InstructionInfo(bool dummy) {
 			usedRegisters = new SimpleList<UsedRegister>(new UsedRegister[InstrInfoConstants.DefaultUsedRegisterCollCapacity]);
 			usedMemoryLocations = new SimpleList<UsedMemory>(new UsedMemory[InstrInfoConstants.DefaultUsedMemoryCollCapacity]);
-			opAccesses[0] = 0;
-			opAccesses[1] = 0;
-			opAccesses[2] = 0;
-			opAccesses[3] = 0;
-			opAccesses[4] = 0;
+			unsafe {
+				opAccesses[0] = 0;
+				opAccesses[1] = 0;
+				opAccesses[2] = 0;
+				opAccesses[3] = 0;
+				opAccesses[4] = 0;
+				Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
+			}
 			cpuidFeatureInternal = 0;
 			flowControl = 0;
 			encoding = 0;
@@ -174,27 +177,57 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Operand #0 access
 		/// </summary>
-		public readonly OpAccess Op0Access => (OpAccess)opAccesses[0];
+		public readonly OpAccess Op0Access {
+			get {
+				unsafe {
+					return (OpAccess)opAccesses[0];
+				}
+			}
+		}
 
 		/// <summary>
 		/// Operand #1 access
 		/// </summary>
-		public readonly OpAccess Op1Access => (OpAccess)opAccesses[1];
+		public readonly OpAccess Op1Access {
+			get {
+				unsafe {
+					return (OpAccess)opAccesses[1];
+				}
+			}
+		}
 
 		/// <summary>
 		/// Operand #2 access
 		/// </summary>
-		public readonly OpAccess Op2Access => (OpAccess)opAccesses[2];
+		public readonly OpAccess Op2Access {
+			get {
+				unsafe {
+					return (OpAccess)opAccesses[2];
+				}
+			}
+		}
 
 		/// <summary>
 		/// Operand #3 access
 		/// </summary>
-		public readonly OpAccess Op3Access => (OpAccess)opAccesses[3];
+		public readonly OpAccess Op3Access {
+			get {
+				unsafe {
+					return (OpAccess)opAccesses[3];
+				}
+			}
+		}
 
 		/// <summary>
 		/// Operand #4 access
 		/// </summary>
-		public readonly OpAccess Op4Access => (OpAccess)opAccesses[4];
+		public readonly OpAccess Op4Access {
+			get {
+				unsafe {
+					return (OpAccess)opAccesses[4];
+				}
+			}
+		}
 
 		/// <summary>
 		/// Gets operand access

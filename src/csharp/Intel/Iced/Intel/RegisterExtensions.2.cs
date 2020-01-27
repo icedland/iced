@@ -105,35 +105,35 @@ namespace Iced.Intel {
 		public static bool IsK(this Register register) => Register.K0 <= register && register <= Register.K7;
 
 		/// <summary>
-		/// Check if it's a control register (<c>CR0</c>-<c>CR15</c>)
+		/// Checks if it's a control register (<c>CR0</c>-<c>CR15</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsCR(this Register register) => Register.CR0 <= register && register <= Register.CR15;
 
 		/// <summary>
-		/// Check if it's a debug register (<c>DR0</c>-<c>DR15</c>)
+		/// Checks if it's a debug register (<c>DR0</c>-<c>DR15</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsDR(this Register register) => Register.DR0 <= register && register <= Register.DR15;
 
 		/// <summary>
-		/// Check if it's a test register (<c>TR0</c>-<c>TR7</c>)
+		/// Checks if it's a test register (<c>TR0</c>-<c>TR7</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsTR(this Register register) => Register.TR0 <= register && register <= Register.TR7;
 
 		/// <summary>
-		/// Check if it's an FPU stack register (<c>ST0</c>-<c>ST7</c>)
+		/// Checks if it's an FPU stack register (<c>ST0</c>-<c>ST7</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
 		public static bool IsST(this Register register) => Register.ST0 <= register && register <= Register.ST7;
 
 		/// <summary>
-		/// Check if it's a bound register (<c>BND0</c>-<c>BND3</c>)
+		/// Checks if it's a bound register (<c>BND0</c>-<c>BND3</c>)
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>

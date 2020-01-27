@@ -93,7 +93,7 @@ namespace Iced.Intel {
 		public ref readonly InstructionInfo GetInfo(in Instruction instruction, InstructionInfoOptions options) =>
 			ref Create(instruction, options);
 
-		unsafe ref readonly InstructionInfo Create(in Instruction instruction, InstructionInfoOptions options) {
+		ref readonly InstructionInfo Create(in Instruction instruction, InstructionInfoOptions options) {
 			info.usedRegisters.ValidLength = 0;
 			info.usedMemoryLocations.ValidLength = 0;
 
@@ -171,27 +171,28 @@ namespace Iced.Intel {
 			}
 
 			Debug.Assert(instruction.OpCount <= IcedConstants.MaxOpCount);
-			info.opAccesses[0] = (byte)op0Access;
+			unsafe { info.opAccesses[0] = (byte)op0Access; }
 			var op1Info = (OpInfo1)((flags1 >> (int)InfoFlags1.OpInfo1Shift) & (uint)InfoFlags1.OpInfo1Mask);
-			info.opAccesses[1] = (byte)OpAccesses.Op1[(int)op1Info];
-			info.opAccesses[2] = (byte)OpAccesses.Op2[(int)((flags1 >> (int)InfoFlags1.OpInfo2Shift) & (uint)InfoFlags1.OpInfo2Mask)];
+			unsafe { info.opAccesses[1] = (byte)OpAccesses.Op1[(int)op1Info]; }
+			unsafe { info.opAccesses[2] = (byte)OpAccesses.Op2[(int)((flags1 >> (int)InfoFlags1.OpInfo2Shift) & (uint)InfoFlags1.OpInfo2Mask)]; }
 			if ((flags1 & (((uint)InfoFlags1.OpInfo3Mask) << (int)InfoFlags1.OpInfo3Shift)) != 0) {
 				Static.Assert((int)InstrInfoConstants.OpInfo3_Count == 2 ? 0 : -1);
-				info.opAccesses[3] = (byte)OpAccess.Read;
+				unsafe { info.opAccesses[3] = (byte)OpAccess.Read; }
 			}
 			else
-				info.opAccesses[3] = (byte)OpAccess.None;
+				unsafe { info.opAccesses[3] = (byte)OpAccess.None; }
 			if ((flags1 & (((uint)InfoFlags1.OpInfo4Mask) << (int)InfoFlags1.OpInfo4Shift)) != 0) {
 				Static.Assert((int)InstrInfoConstants.OpInfo4_Count == 2 ? 0 : -1);
-				info.opAccesses[4] = (byte)OpAccess.Read;
+				unsafe { info.opAccesses[4] = (byte)OpAccess.Read; }
 			}
 			else
-				info.opAccesses[4] = (byte)OpAccess.None;
+				unsafe { info.opAccesses[4] = (byte)OpAccess.None; }
 			Static.Assert(IcedConstants.MaxOpCount == 5 ? 0 : -1);
 
 			int opCount = instruction.OpCount;
 			for (int i = 0; i < opCount; i++) {
-				var access = (OpAccess)info.opAccesses[i];
+				OpAccess access;
+				unsafe { access = (OpAccess)info.opAccesses[i]; }
 				if (access == OpAccess.None)
 					continue;
 
@@ -199,7 +200,7 @@ namespace Iced.Intel {
 				case OpKind.Register:
 					if (access == OpAccess.NoMemAccess) {
 						access = OpAccess.Read;
-						info.opAccesses[i] = (byte)OpAccess.Read;
+						unsafe { info.opAccesses[i] = (byte)OpAccess.Read; };
 					}
 					if ((flags & Flags.NoRegisterUsage) == 0) {
 						if (i == 1 && op1Info == OpInfo1.ReadP3) {
@@ -304,7 +305,7 @@ namespace Iced.Intel {
 			return Register.SP;
 		}
 
-		unsafe void CodeInfoHandler(CodeInfo codeInfo, in Instruction instruction, Flags flags) {
+		void CodeInfoHandler(CodeInfo codeInfo, in Instruction instruction, Flags flags) {
 			Debug.Assert(codeInfo != CodeInfo.None);
 			int index;
 			ulong xspMask;
@@ -609,8 +610,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Ins:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondWrite;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
 					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
 					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
@@ -648,8 +649,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Outs:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondRead;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
 					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
 					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
@@ -685,8 +686,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Movs:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondWrite;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
 					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
 					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
@@ -745,8 +746,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Cmps:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondRead;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
 					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
 					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
@@ -805,8 +806,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Stos:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondWrite;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
 					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
 					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
@@ -844,8 +845,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Lods:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondWrite;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondWrite; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemorySegSI + 1 == OpKind.MemorySegESI ? 0 : -1);
 					Static.Assert(OpKind.MemorySegSI + 2 == OpKind.MemorySegRSI ? 0 : -1);
 					Static.Assert(Register.SI + 16 == Register.ESI ? 0 : -1);
@@ -881,8 +882,8 @@ namespace Iced.Intel {
 
 			case CodeInfo.Scas:
 				if (instruction.Internal_HasRepeOrRepnePrefix) {
-					info.opAccesses[0] = (byte)OpAccess.CondRead;
-					info.opAccesses[1] = (byte)OpAccess.CondRead;
+					unsafe { info.opAccesses[0] = (byte)OpAccess.CondRead; }
+					unsafe { info.opAccesses[1] = (byte)OpAccess.CondRead; }
 					Static.Assert(OpKind.MemoryESDI + 1 == OpKind.MemoryESEDI ? 0 : -1);
 					Static.Assert(OpKind.MemoryESDI + 2 == OpKind.MemoryESRDI ? 0 : -1);
 					Static.Assert(Register.DI + 16 == Register.EDI ? 0 : -1);
@@ -1630,8 +1631,8 @@ namespace Iced.Intel {
 					break;
 				if (instruction.Op0Kind != OpKind.Register || instruction.Op1Kind != OpKind.Register)
 					break;
-				info.opAccesses[0] = (byte)OpAccess.Write;
-				info.opAccesses[1] = (byte)OpAccess.None;
+				unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
+				unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
 				info.rflagsInfo = (byte)RflagsInfo.C_cos_S_pz_U_a;
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 2 || info.usedRegisters.ValidLength == 3);
@@ -1645,8 +1646,8 @@ namespace Iced.Intel {
 					break;
 				if (instruction.Op1Kind != OpKind.Register)
 					break;
-				info.opAccesses[0] = (byte)OpAccess.Write;
-				info.opAccesses[1] = (byte)OpAccess.None;
+				unsafe { info.opAccesses[0] = (byte)OpAccess.Write; }
+				unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 2 || info.usedRegisters.ValidLength == 3);
 					info.usedRegisters.Array[0] = new UsedRegister(instruction.Op0Register, OpAccess.Write);
@@ -1659,8 +1660,8 @@ namespace Iced.Intel {
 					break;
 				if (instruction.Op2Kind != OpKind.Register)
 					break;
-				info.opAccesses[1] = (byte)OpAccess.None;
-				info.opAccesses[2] = (byte)OpAccess.None;
+				unsafe { info.opAccesses[1] = (byte)OpAccess.None; }
+				unsafe { info.opAccesses[2] = (byte)OpAccess.None; }
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					Debug.Assert(info.usedRegisters.ValidLength == 3 || info.usedRegisters.ValidLength == 4);
 					Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - 2].Register == instruction.Op1Register);

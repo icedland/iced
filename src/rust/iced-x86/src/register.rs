@@ -829,7 +829,7 @@ impl Register {
 		Register::K0 <= self && self <= Register::K7
 	}
 
-	/// Check if it's a control register (`CR0`-`CR15`)
+	/// Checks if it's a control register (`CR0`-`CR15`)
 	///
 	/// # Examples
 	///
@@ -844,7 +844,7 @@ impl Register {
 		Register::CR0 <= self && self <= Register::CR15
 	}
 
-	/// Check if it's a debug register (`DR0`-`DR15`)
+	/// Checks if it's a debug register (`DR0`-`DR15`)
 	///
 	/// # Examples
 	///
@@ -859,7 +859,7 @@ impl Register {
 		Register::DR0 <= self && self <= Register::DR15
 	}
 
-	/// Check if it's a test register (`TR0`-`TR7`)
+	/// Checks if it's a test register (`TR0`-`TR7`)
 	///
 	/// # Examples
 	///
@@ -874,7 +874,7 @@ impl Register {
 		Register::TR0 <= self && self <= Register::TR7
 	}
 
-	/// Check if it's an FPU stack register (`ST0`-`ST7`)
+	/// Checks if it's an FPU stack register (`ST0`-`ST7`)
 	///
 	/// # Examples
 	///
@@ -889,7 +889,7 @@ impl Register {
 		Register::ST0 <= self && self <= Register::ST7
 	}
 
-	/// Check if it's a bound register (`BND0`-`BND3`)
+	/// Checks if it's a bound register (`BND0`-`BND3`)
 	///
 	/// # Examples
 	///
