@@ -155,7 +155,6 @@ jobs:
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
           export RUSTFLAGS="-D warnings"
-          cargo -V
           cd src/rust/iced-x86
           echo ==== std decoder ====
           cargo check --lib --no-default-features --features "std decoder"
