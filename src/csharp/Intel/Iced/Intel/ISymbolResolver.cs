@@ -62,6 +62,8 @@ namespace Iced.Intel {
 	/// Created by a <see cref="ISymbolResolver"/>
 	/// </summary>
 	public readonly struct SymbolResult {
+		const FormatterTextKind DefaultKind = FormatterTextKind.Label;
+
 		/// <summary>
 		/// The address of the symbol
 		/// </summary>
@@ -94,7 +96,7 @@ namespace Iced.Intel {
 		/// <param name="text">Symbol</param>
 		public SymbolResult(ulong address, string text) {
 			Address = address;
-			Text = new TextInfo(text, FormatterTextKind.Label);
+			Text = new TextInfo(text, DefaultKind);
 			Flags = SymbolFlags.None;
 			SymbolSize = MemorySize.Unknown;
 		}
@@ -107,7 +109,7 @@ namespace Iced.Intel {
 		/// <param name="size">Symbol size</param>
 		public SymbolResult(ulong address, string text, MemorySize size) {
 			Address = address;
-			Text = new TextInfo(text, FormatterTextKind.Label);
+			Text = new TextInfo(text, DefaultKind);
 			Flags = SymbolFlags.HasSymbolSize;
 			SymbolSize = size;
 		}

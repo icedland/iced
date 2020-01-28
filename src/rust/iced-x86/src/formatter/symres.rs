@@ -46,16 +46,48 @@ pub trait SymbolResolver {
 	) -> Option<SymbolResult>;
 }
 
+/// Contains a `&'a str` or a `String`
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
+pub enum SymResString<'a> {
+	/// Contains a `&'a str`
+	Str(&'a str),
+	/// Contains a `String`
+	String(String),
+}
+impl<'a> Default for SymResString<'a> {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		SymResString::Str("")
+	}
+}
+impl<'a> SymResString<'a> {
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub(crate) fn to_owned<'b>(self) -> SymResString<'b> {
+		match self {
+			SymResString::Str(s) => SymResString::String(String::from(s)),
+			SymResString::String(s) => SymResString::String(s),
+		}
+	}
+
+	pub(crate) fn to_owned2<'b>(&self) -> SymResString<'b> {
+		match self {
+			&SymResString::Str(s) => SymResString::String(String::from(s)),
+			&SymResString::String(ref s) => SymResString::String(s.clone()),
+		}
+	}
+}
+
 /// Contains text and colors
 #[derive(Debug, Default, Clone, Eq, PartialEq, Hash)]
-pub struct TextPart {
+pub struct SymResTextPart<'a> {
 	/// Text
-	pub text: String,
+	pub text: SymResString<'a>,
 	/// Color
 	pub color: FormatterTextKind,
 }
 
-impl TextPart {
+impl<'a> SymResTextPart<'a> {
 	/// Constructor
 	///
 	/// # Arguments
@@ -64,23 +96,44 @@ impl TextPart {
 	/// - `color`: Color
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn new(text: String, color: FormatterTextKind) -> Self {
-		Self { text, color }
+	pub fn new(text: &'a str, color: FormatterTextKind) -> Self {
+		Self { text: SymResString::Str(text), color }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `text`: Text
+	/// - `color`: Color
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_string(text: String, color: FormatterTextKind) -> Self {
+		Self { text: SymResString::String(text), color }
+	}
+
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub(crate) fn to_owned<'b>(self) -> SymResTextPart<'b> {
+		SymResTextPart { text: self.text.to_owned(), color: self.color }
+	}
+
+	pub(crate) fn to_owned2<'b>(&self) -> SymResTextPart<'b> {
+		SymResTextPart { text: self.text.to_owned2(), color: self.color }
 	}
 }
 
-/// Contains one or more [`TextPart`]s (text and color)
+/// Contains one or more [`SymResTextPart`]s (text and color)
 ///
-/// [`TextPart`]: struct.TextPart.html
+/// [`SymResTextPart`]: struct.SymResTextPart.html
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
-pub enum TextInfo {
+pub enum SymResTextInfo<'a> {
 	/// Text and color
-	Text(TextPart),
+	Text(SymResTextPart<'a>),
 	/// Text and color (vector)
-	TextVec(Vec<TextPart>),
+	TextVec(&'a [SymResTextPart<'a>]),
 }
 
-impl TextInfo {
+impl<'a> SymResTextInfo<'a> {
 	/// Constructor
 	///
 	/// # Arguments
@@ -89,8 +142,20 @@ impl TextInfo {
 	/// - `color`: Color
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn new(text: String, color: FormatterTextKind) -> Self {
-		TextInfo::Text(TextPart::new(text, color))
+	pub fn new(text: &'a str, color: FormatterTextKind) -> Self {
+		SymResTextInfo::Text(SymResTextPart::new(text, color))
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `text`: Text
+	/// - `color`: Color
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_string(text: String, color: FormatterTextKind) -> Self {
+		SymResTextInfo::Text(SymResTextPart::with_string(text, color))
 	}
 
 	/// Constructor
@@ -100,19 +165,31 @@ impl TextInfo {
 	/// - `text`: Text
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text(text: TextPart) -> Self {
-		TextInfo::Text(text)
+	pub fn with_text(text: SymResTextPart<'a>) -> Self {
+		SymResTextInfo::Text(text)
 	}
 
 	/// Constructor
 	///
 	/// # Arguments
 	///
-	/// - `text`: All text parts
+	/// - `text`: Text
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text_vec(text: Vec<TextPart>) -> Self {
-		TextInfo::TextVec(text)
+	pub fn with_vec(text: &'a [SymResTextPart<'a>]) -> Self {
+		SymResTextInfo::TextVec(text)
+	}
+
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub(crate) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymResTextInfo<'b> {
+		match self {
+			SymResTextInfo::Text(part) => SymResTextInfo::Text(part.to_owned()),
+			SymResTextInfo::TextVec(parts) => {
+				vec.clear();
+				vec.extend(parts.iter().map(|a| a.to_owned2()));
+				SymResTextInfo::TextVec(vec)
+			}
+		}
 	}
 }
 
@@ -120,12 +197,12 @@ impl TextInfo {
 ///
 /// [`SymbolResolver`]: trait.SymbolResolver.html
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
-pub struct SymbolResult {
+pub struct SymbolResult<'a> {
 	/// The address of the symbol
 	pub address: u64,
 
 	/// Contains the symbol
-	pub text: TextInfo,
+	pub text: SymResTextInfo<'a>,
 
 	/// Symbol flags, see [`SymbolFlags`]
 	///
@@ -138,7 +215,63 @@ pub struct SymbolResult {
 	pub symbol_size: MemorySize,
 }
 
-impl SymbolResult {
+impl<'a> SymbolResult<'a> {
+	const DEFAULT_KIND: FormatterTextKind = FormatterTextKind::Label;
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `address`: The address of the symbol
+	/// - `text`: Symbol
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_str(address: u64, text: &'a str) -> Self {
+		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `address`: The address of the symbol
+	/// - `text`: Symbol
+	/// - `size`: Symbol size
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_str_size(address: u64, text: &'a str, size: MemorySize) -> Self {
+		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `address`: The address of the symbol
+	/// - `text`: Symbol
+	/// - `color`: Color
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_str_kind(address: u64, text: &'a str, color: FormatterTextKind) -> Self {
+		Self { address, text: SymResTextInfo::new(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+	}
+
+	/// Constructor
+	///
+	/// # Arguments
+	///
+	/// - `address`: The address of the symbol
+	/// - `text`: Symbol
+	/// - `color`: Color
+	/// - `flags`: Symbol flags, see [`SymbolFlags`]
+	///
+	/// [`SymbolFlags`]: struct.SymbolFlags.html
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn with_str_kind_flags(address: u64, text: &'a str, color: FormatterTextKind, flags: u32) -> Self {
+		Self { address, text: SymResTextInfo::new(text, color), flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
+	}
+
 	/// Constructor
 	///
 	/// # Arguments
@@ -148,7 +281,12 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string(address: u64, text: String) -> Self {
-		Self { address, text: TextInfo::new(text, FormatterTextKind::Label), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self {
+			address,
+			text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND),
+			flags: SymbolFlags::NONE,
+			symbol_size: MemorySize::Unknown,
+		}
 	}
 
 	/// Constructor
@@ -161,7 +299,7 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_size(address: u64, text: String, size: MemorySize) -> Self {
-		Self { address, text: TextInfo::new(text, FormatterTextKind::Label), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+		Self { address, text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
 	}
 
 	/// Constructor
@@ -174,7 +312,7 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_kind(address: u64, text: String, color: FormatterTextKind) -> Self {
-		Self { address, text: TextInfo::new(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text: SymResTextInfo::with_string(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
 	}
 
 	/// Constructor
@@ -190,7 +328,12 @@ impl SymbolResult {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_kind_flags(address: u64, text: String, color: FormatterTextKind, flags: u32) -> Self {
-		Self { address, text: TextInfo::new(text, color), flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
+		Self {
+			address,
+			text: SymResTextInfo::with_string(text, color),
+			flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE,
+			symbol_size: MemorySize::Unknown,
+		}
 	}
 
 	/// Constructor
@@ -201,7 +344,7 @@ impl SymbolResult {
 	/// - `text`: Symbol
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text(address: u64, text: TextInfo) -> Self {
+	pub fn with_text(address: u64, text: SymResTextInfo<'a>) -> Self {
 		Self { address, text, flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
 	}
 
@@ -214,7 +357,7 @@ impl SymbolResult {
 	/// - `size`: Symbol size
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text_size(address: u64, text: TextInfo, size: MemorySize) -> Self {
+	pub fn with_text_size(address: u64, text: SymResTextInfo<'a>, size: MemorySize) -> Self {
 		Self { address, text, flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
 	}
 
@@ -229,7 +372,7 @@ impl SymbolResult {
 	/// [`SymbolFlags`]: struct.SymbolFlags.html
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text_flags(address: u64, text: TextInfo, flags: u32) -> Self {
+	pub fn with_text_flags(address: u64, text: SymResTextInfo<'a>, flags: u32) -> Self {
 		Self { address, text, flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
 	}
 
@@ -245,7 +388,7 @@ impl SymbolResult {
 	/// [`SymbolFlags`]: struct.SymbolFlags.html
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn with_text_flags_size(address: u64, text: TextInfo, flags: u32, size: MemorySize) -> Self {
+	pub fn with_text_flags_size(address: u64, text: SymResTextInfo<'a>, flags: u32, size: MemorySize) -> Self {
 		Self { address, text, flags: flags | SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
 	}
 
@@ -256,5 +399,10 @@ impl SymbolResult {
 	#[inline]
 	pub fn has_symbol_size(&self) -> bool {
 		(self.flags & SymbolFlags::HAS_SYMBOL_SIZE) != 0
+	}
+
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
+	pub(crate) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymbolResult<'b> {
+		SymbolResult { address: self.address, text: self.text.to_owned(vec), flags: self.flags, symbol_size: self.symbol_size }
 	}
 }

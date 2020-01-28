@@ -63,6 +63,8 @@ pub use self::symres::*;
 use super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::{i16, i32, i8, u16, u32, u8};
 
 #[derive(Debug, Default, Clone)]
@@ -211,11 +213,21 @@ pub trait FormatterOutput {
 	#[allow(unused_variables)]
 	fn write_symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, symbol: &SymbolResult) {
 		match symbol.text {
-			TextInfo::Text(ref part) => self.write(&part.text, part.color),
+			SymResTextInfo::Text(ref part) => {
+				let s = match &part.text {
+					&SymResString::Str(s) => s,
+					&SymResString::String(ref s) => s.as_str(),
+				};
+				self.write(s, part.color);
+			}
 
-			TextInfo::TextVec(ref v) => {
+			SymResTextInfo::TextVec(ref v) => {
 				for part in v.iter() {
-					self.write(&part.text, part.color);
+					let s = match &part.text {
+						&SymResString::Str(s) => s,
+						&SymResString::String(ref s) => s.as_str(),
+					};
+					self.write(s, part.color);
 				}
 			}
 		}
@@ -598,4 +610,11 @@ mod private {
 	impl<'a> Sealed for super::masm::MasmFormatter<'a> {}
 	#[cfg(feature = "nasm")]
 	impl<'a> Sealed for super::nasm::NasmFormatter<'a> {}
+}
+
+fn to_owned<'b>(sym_res: Option<SymbolResult>, vec: &'b mut Vec<SymResTextPart<'b>>) -> Option<SymbolResult<'b>> {
+	match sym_res {
+		None => None,
+		Some(sym_res) => Some(sym_res.to_owned(vec)),
+	}
 }
