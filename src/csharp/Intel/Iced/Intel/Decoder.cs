@@ -53,6 +53,7 @@ namespace Iced.Intel {
 		Xbegin = 0x00000800,
 		Lock = 0x00001000,
 		AllowLock = 0x00002000,
+		NoMoreBytes = 0x00004000,
 	}
 	// GENERATOR-END: StateFlags
 
@@ -221,7 +222,7 @@ namespace Iced.Intel {
 					return b;
 				}
 			}
-			state.flags |= StateFlags.IsInvalid;
+			state.flags |= StateFlags.IsInvalid | StateFlags.NoMoreBytes;
 			return 0;
 		}
 
@@ -231,8 +232,16 @@ namespace Iced.Intel {
 		internal uint ReadUInt32() => ReadByte() | (ReadByte() << 8) | (ReadByte() << 16) | (ReadByte() << 24);
 
 		/// <summary>
+		/// This property can be tested after calling <see cref="Decode()"/> and <see cref="Decode(out Instruction)"/>
+		/// to check if the decoded instruction is invalid because there's no more bytes left or because of bad input data.
+		/// </summary>
+		public bool InvalidNoMoreBytes => (state.flags & StateFlags.NoMoreBytes) != 0;
+
+		/// <summary>
 		/// Decodes the next instruction, see also <see cref="Decode(out Instruction)"/> which is faster
 		/// if you already have an <see cref="Instruction"/> local, array element or field.
+		/// <br/>
+		/// See also <see cref="InvalidNoMoreBytes"/>
 		/// </summary>
 		/// <returns></returns>
 		public Instruction Decode() {
@@ -241,7 +250,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Decodes the next instruction
+		/// Decodes the next instruction, see also <see cref="InvalidNoMoreBytes"/>
 		/// </summary>
 		/// <param name="instruction">Decoded instruction</param>
 		public void Decode(out Instruction instruction) {

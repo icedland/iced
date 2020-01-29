@@ -3151,5 +3151,18 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.False(instr1a != instr1b);
 		}
 #endif
+
+		[Fact]
+		void Decode_with_too_few_bytes_left() {
+			foreach (var tc in DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
+				var bytes = HexUtils.ToByteArray(tc.HexBytes);
+				for (int i = 0; i + 1 < bytes.Length; i++) {
+					var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(bytes, 0, i), tc.Options);
+					decoder.Decode(out var instr);
+					Assert.Equal(Code.INVALID, instr.Code);
+					Assert.True(decoder.InvalidNoMoreBytes);
+				}
+			}
+		}
 	}
 }

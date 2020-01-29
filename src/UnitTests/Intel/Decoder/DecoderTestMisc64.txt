@@ -22,15 +22,29 @@
 #
 
 # one byte too long
-26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0,
+26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0, nobytes
 
 # max length
 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx es: enc=2601CE
 
 # not enough bytes
-, INVALID, INVALID, 0,
-66, INVALID, INVALID, 0,
-01, INVALID, INVALID, 0,
+, INVALID, INVALID, 0, nobytes
+66, INVALID, INVALID, 0, nobytes
+01, INVALID, INVALID, 0, nobytes
+# Mov_r16_imm16, missing 1 byte (immediate)
+66 B8 5A, INVALID, INVALID, 0, nobytes
+# Mov_r32_imm32, missing 1-3 bytes (immediate)
+B8 5AA512, INVALID, INVALID, 0, nobytes
+B8 5AA5, INVALID, INVALID, 0, nobytes
+B8 5A, INVALID, INVALID, 0, nobytes
+# Mov_r64_imm64, missing 1-7 bytes (immediate)
+48 B8 041526375AA512, INVALID, INVALID, 0, nobytes
+48 B8 041526375AA5, INVALID, INVALID, 0, nobytes
+48 B8 041526375A, INVALID, INVALID, 0, nobytes
+48 B8 04152637, INVALID, INVALID, 0, nobytes
+48 B8 041526, INVALID, INVALID, 0, nobytes
+48 B8 0415, INVALID, INVALID, 0, nobytes
+48 B8 04, INVALID, INVALID, 0, nobytes
 
 # test extra mandatory prefixes
 0F10 08, Movups_xmm_xmmm128, Movups, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32

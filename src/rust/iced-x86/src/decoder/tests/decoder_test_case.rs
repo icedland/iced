@@ -27,6 +27,7 @@ use super::super::super::*;
 pub(crate) struct DecoderTestCase {
 	pub(crate) line_number: u32,
 	pub(crate) can_encode: bool,
+	pub(crate) invalid_no_more_bytes: bool,
 	pub(crate) decoder_options: u32,
 	pub(crate) bitness: u32,
 	pub(crate) hex_bytes: String,

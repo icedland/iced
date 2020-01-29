@@ -60,6 +60,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		protected void DecodeMemOpsBase(int bitness, string hexBytes, Code code, Register register, Register prefixSeg, Register segReg, Register baseReg, Register indexReg, int scale, uint displ, int displSize, in ConstantOffsets constantOffsets, string encodedHexBytes, DecoderOptions options) {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, options);
 			var instruction = decoder.Decode();
+			Assert.False(decoder.InvalidNoMoreBytes);
 			Assert.Equal(canRead, codeReader.CanReadByte);
 
 			Assert.Equal(code, instruction.Code);
@@ -95,17 +96,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				yield return new object[13] { tc.HexBytes, tc.Code, tc.Register, tc.SegmentPrefix, tc.SegmentRegister, tc.BaseRegister, tc.IndexRegister, tc.Scale, tc.Displacement, tc.DisplacementSize, tc.ConstantOffsets, tc.EncodedHexBytes, tc.DecoderOptions };
 		}
 
-		protected static IEnumerable<object[]> GetDecoderTestData(int bitness, int classIndex) {
+		protected static IEnumerable<object[]> GetDecoderTestData(int bitness) {
 			var allTestCases = DecoderTestCases.GetTestCases(bitness);
-			const int TotalClasses = 8;
-			if ((uint)classIndex >= (uint)TotalClasses)
-				throw new InvalidOperationException();
-			int countPerClass = (allTestCases.Length + TotalClasses - 1) / TotalClasses;
-			int startIndex = classIndex * countPerClass;
-			int endIndex = Math.Min(allTestCases.Length, startIndex + countPerClass);
 			object boxedBitness = bitness;
-			while (startIndex < endIndex) {
-				var tc = allTestCases[startIndex++];
+			foreach (var tc in allTestCases) {
 				Debug.Assert(bitness == tc.Bitness);
 				yield return new object[4] { boxedBitness, tc.LineNumber, tc.HexBytes, tc };
 			}
@@ -124,6 +118,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var (decoder, length, canRead, codeReader) = CreateDecoder(bitness, hexBytes, tc.DecoderOptions);
 			ulong rip = decoder.IP;
 			decoder.Decode(out var instruction);
+			Assert.Equal(tc.InvalidNoMoreBytes, decoder.InvalidNoMoreBytes);
 			Assert.Equal(canRead, codeReader.CanReadByte);
 			Assert.Equal(tc.Code, instruction.Code);
 			Assert.Equal(tc.Mnemonic, instruction.Mnemonic);

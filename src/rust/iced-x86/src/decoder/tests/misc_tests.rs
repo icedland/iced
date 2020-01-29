@@ -243,6 +243,19 @@ fn decode_ip_xxxxxxxxffffffff() {
 }
 
 #[test]
+fn decode_with_too_few_bytes_left() {
+	for tc in decoder_tests(true, false) {
+		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
+		for i in 0..bytes.len() - 1 {
+			let mut decoder = Decoder::new(tc.bitness(), &bytes[0..i], tc.decoder_options());
+			let instr = decoder.decode();
+			assert_eq!(Code::INVALID, instr.code());
+			assert!(decoder.invalid_no_more_bytes());
+		}
+	}
+}
+
+#[test]
 #[cfg(feature = "encoder")]
 fn instruction_operator_eq_neq() {
 	let instr1a = Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RAX, Register::RCX);

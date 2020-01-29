@@ -25,68 +25,12 @@ using System.Collections.Generic;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
-	public sealed class DecoderTest16_000 : DecoderTest {
+	public sealed class DecoderTest16 : DecoderTest {
 		[Theory]
 		[MemberData(nameof(Data))]
 		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
 			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 0);
-	}
-
-	public sealed class DecoderTest16_001 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 1);
-	}
-
-	public sealed class DecoderTest16_002 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 2);
-	}
-
-	public sealed class DecoderTest16_003 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 3);
-	}
-
-	public sealed class DecoderTest16_004 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 4);
-	}
-
-	public sealed class DecoderTest16_005 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 5);
-	}
-
-	public sealed class DecoderTest16_006 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 6);
-	}
-
-	public sealed class DecoderTest16_007 : DecoderTest {
-		[Theory]
-		[MemberData(nameof(Data))]
-		void DecoderTest(int bitness, int lineNo, string hexBytes, DecoderTestCase tc) =>
-			DecoderTestBase(bitness, lineNo, hexBytes, tc);
-		public static IEnumerable<object[]> Data => GetDecoderTestData(16, 7);
+		public static IEnumerable<object[]> Data => GetDecoderTestData(16);
 	}
 
 	public sealed class DecoderTestMisc16 : DecoderTest {

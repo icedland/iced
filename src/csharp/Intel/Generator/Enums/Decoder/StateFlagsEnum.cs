@@ -43,6 +43,7 @@ namespace Generator.Enums.Decoder {
 			Xbegin					= 0x00000800,
 			Lock					= 0x00001000,
 			AllowLock				= 0x00002000,
+			NoMoreBytes				= 0x00004000,
 		}
 
 		static EnumValue[] GetValues() {

@@ -2030,7 +2030,7 @@ DB E3, Fninit, Fninit, 0,
 DB E4, Fnsetpm, Fnsetpm, 0,
 
 DB E5, Frstpm, Frstpm, 0, oldfpu
-DB E5, INVALID, INVALID, 0,
+DB E5, INVALID, INVALID, 0, nobytes
 
 DB EB, Fucomi_st0_sti, Fucomi, 2, op0=r;st0 op1=r;st3
 66 DB EE, Fucomi_st0_sti, Fucomi, 2, op0=r;st0 op1=r;st6 enc=DBEE
@@ -2214,11 +2214,11 @@ DF E0, Fnstsw_AX, Fnstsw, 1, op0=r;ax
 66 DF E0, Fnstsw_AX, Fnstsw, 1, op0=r;ax enc=DFE0
 
 DF E1, Fstdw_AX, Fstdw, 1, op0=r;ax oldfpu
-DF E1, INVALID, INVALID, 0,
+DF E1, INVALID, INVALID, 0, nobytes
 66 DF E1, Fstdw_AX, Fstdw, 1, op0=r;ax oldfpu enc=DFE1
 
 DF E2, Fstsg_AX, Fstsg, 1, op0=r;ax oldfpu
-DF E2, INVALID, INVALID, 0,
+DF E2, INVALID, INVALID, 0, nobytes
 66 DF E2, Fstsg_AX, Fstsg, 1, op0=r;ax oldfpu enc=DFE2
 
 DF EB, Fucomip_st0_sti, Fucomip, 2, op0=r;st0 op1=r;st3
@@ -2709,7 +2709,7 @@ F3 0F01 FA, Mcommit, Mcommit, 0,
 66 0F03 18, Lsl_r32_r32m16, Lsl, 2, op0=r;ebx op1=m;ds;bx;si;1;0;0;UInt16
 
 0F04, Loadallreset286, Loadall, 0, loadall286
-0F04, INVALID, INVALID, 0,
+0F04, INVALID, INVALID, 0, nobytes
 
 0F05, Loadall286, Loadall, 0, loadall286
 
@@ -2731,7 +2731,7 @@ F2 0F09, Wbinvd, Wbinvd, 0, repne
 F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0A, Cl1invmb, Cl1invmb, 0, cl1invmb
-0F0A, INVALID, INVALID, 0,
+0F0A, INVALID, INVALID, 0, nobytes
 
 0F0B, Ud2, Ud2, 0,
 

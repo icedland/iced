@@ -198,6 +198,7 @@ impl StateFlags {
 	pub(crate) const XBEGIN: u32 = 0x0000_0800;
 	pub(crate) const LOCK: u32 = 0x0000_1000;
 	pub(crate) const ALLOW_LOCK: u32 = 0x0000_2000;
+	pub(crate) const NO_MORE_BYTES: u32 = 0x0000_4000;
 }
 // GENERATOR-END: StateFlags
 
@@ -621,7 +622,7 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(1);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID;
+				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 				0
 			}
 		}
@@ -637,7 +638,7 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(2);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID;
+				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 				0
 			}
 		}
@@ -664,16 +665,29 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(4);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID;
+				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 				0
 			}
 		}
 	}
 
+	/// This method can be called after calling [`decode()`] and [`decode_out()`] to check if the
+	/// decoded instruction is invalid because there's no more bytes left or because of bad input data.
+	///
+	/// [`decode()`]: #method.decode
+	/// [`decode_out()`]: #method.decode_out
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn invalid_no_more_bytes(&self) -> bool {
+		(self.state.flags & StateFlags::NO_MORE_BYTES) != 0
+	}
+
 	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
 	/// which avoids copying the decoded instruction to the caller's return variable.
+	/// See also [`invalid_no_more_bytes()`].
 	///
 	/// [`decode_out(&mut Instruction)`]: #method.decode_out
+	/// [`invalid_no_more_bytes()`]: #method.invalid_no_more_bytes
 	///
 	/// # Examples
 	///
@@ -718,8 +732,10 @@ impl<'a> Decoder<'a> {
 
 	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
 	/// which avoids copying the decoded instruction to the caller's return variable.
+	/// See also [`invalid_no_more_bytes()`].
 	///
 	/// [`decode_out(&mut Instruction)`]: #method.decode_out
+	/// [`invalid_no_more_bytes()`]: #method.invalid_no_more_bytes
 	///
 	/// # Examples
 	///
@@ -765,8 +781,10 @@ impl<'a> Decoder<'a> {
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
 	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
+	/// See also [`invalid_no_more_bytes()`].
 	///
 	/// [`decode()`]: #method.decode
+	/// [`invalid_no_more_bytes()`]: #method.invalid_no_more_bytes
 	///
 	/// # Arguments
 	///
@@ -928,6 +946,9 @@ impl<'a> Decoder<'a> {
 				*instruction = Instruction::default();
 				const_assert_eq!(0, Code::INVALID as u32);
 				//super::instruction_internal::internal_set_code(instruction, Code::INVALID);
+				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
+					self.data_ptr = self.max_data_ptr;
+				}
 			}
 		}
 		super::instruction_internal::internal_set_code_size(instruction, self.default_code_size);
