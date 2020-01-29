@@ -490,14 +490,14 @@ Moved code:
             throw new Exception("Not enough bytes!");
         Debug.Assert(origInstructions.Count > 0);
         // Create a JMP instruction that branches to the original code, except those instructions
-        // that we we'll re-encode. We don't need to do it if it already ends in 'ret'
+        // that we'll re-encode. We don't need to do it if it already ends in 'ret'
         ref readonly var lastInstr = ref origInstructions[origInstructions.Count - 1];
         if (lastInstr.FlowControl != FlowControl.Return)
             origInstructions.Add(Instruction.CreateBranch(Code.Jmp_rel32_64, lastInstr.NextIP));
 
         // Relocate the code to some new location. It can fix short/near branches and
         // convert them to short/near/long forms if needed. This also works even if it's a
-        // jrcxz/loop/loopcc instruction which only has a short form.
+        // jrcxz/loop/loopcc instruction which only have short forms.
         //
         // It can currently only fix RIP relative operands if the new location is within 2GB
         // of the target data location.
@@ -824,7 +824,7 @@ static class HowTo_InstructionInfo {
             Console.WriteLine($"{instr.IP:X16} {instr}");
 
             var opCode = instr.OpCode;
-            // It returns it by ref
+            // It returns it by ref, so use `ref readonly` to avoid a useless struct copy
             ref readonly var info = ref instrInfoFactory.GetInfo(instr);
             const string tab = "    ";
             Console.WriteLine($"{tab}OpCode: {opCode.ToOpCodeString()}");

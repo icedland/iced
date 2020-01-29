@@ -71,25 +71,30 @@ use core::{mem, u16, u32, u8};
 ///
 /// ```
 /// use iced_x86::*;
+/// use std::collections::HashMap;
 ///
 /// let bytes = b"\x48\x8B\x8A\xA5\x5A\xA5\x5A";
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// let instr = decoder.decode();
 ///
-/// struct MySymbolResolver {/*...*/}
+/// struct MySymbolResolver { map: HashMap<u64, String> }
 /// impl SymbolResolver for MySymbolResolver {
 ///     fn symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
 ///          address: u64, address_size: u32) -> Option<SymbolResult> {
-///         if address == 0x5AA55AA5 {
-///             Some(SymbolResult::with_string(address, String::from("my_data")))
+///         if let Some(symbol_string) = self.map.get(&address) {
+///             Some(SymbolResult::with_str(address, symbol_string.as_str()))
 ///         } else {
 ///             None
 ///         }
 ///     }
 /// }
 ///
+/// // Hard code the symbols, it's just an example!😄
+/// let mut sym_map: HashMap<u64, String> = HashMap::new();
+/// sym_map.insert(0x5AA55AA5, String::from("my_data"));
+///
 /// let mut output = String::new();
-/// let mut resolver = MySymbolResolver{};
+/// let mut resolver = MySymbolResolver { map: sym_map };
 /// let mut formatter = MasmFormatter::with_options(Some(&mut resolver), None);
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("mov rcx,[rdx+my_data]", output);

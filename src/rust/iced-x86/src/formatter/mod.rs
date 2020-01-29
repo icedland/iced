@@ -612,7 +612,7 @@ mod private {
 	impl<'a> Sealed for super::nasm::NasmFormatter<'a> {}
 }
 
-fn to_owned<'b>(sym_res: Option<SymbolResult>, vec: &'b mut Vec<SymResTextPart<'b>>) -> Option<SymbolResult<'b>> {
+fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'a>>) -> Option<SymbolResult<'a>> {
 	match sym_res {
 		None => None,
 		Some(sym_res) => Some(sym_res.to_owned(vec)),
