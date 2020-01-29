@@ -21,28 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS
-using System.Collections.Generic;
-using Iced.Intel;
-using Xunit;
+use super::super::super::tests::options::test_format_file;
+use super::fmt_factory;
 
-namespace Iced.UnitTests.Intel.FormatterTests.Gas {
-	public sealed class OptionsTests : FormatterTests.OptionsTests {
-		[Theory]
-		[MemberData(nameof(Format_Data))]
-		void Format(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Gas", "OptionsResult");
-
-		[Theory]
-		[MemberData(nameof(Format_Data2))]
-		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data2 => GetFormatData("Gas", "OptionsResult2", "Options2");
-
-		[Fact]
-		public void TestOptions() {
-			var options = new GasFormatterOptions();
-			TestOptionsBase(options);
-		}
-	}
+#[test]
+fn test_options() {
+	test_format_file("Intel", "OptionsResult", "", || fmt_factory::create_options());
 }
-#endif
+
+#[test]
+fn test_options2() {
+	test_format_file("Intel", "OptionsResult2", "Options2", || fmt_factory::create_options());
+}

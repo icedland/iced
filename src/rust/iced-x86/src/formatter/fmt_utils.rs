@@ -66,9 +66,8 @@ pub(super) fn add_tabs(output: &mut FormatterOutput, mut column: u32, mut first_
 			add_strings(output, &*TABS_TABLE, tabs);
 			column = end_col_rounded_down;
 		}
-		let spaces = first_operand_char_index - column;
-		if spaces > 0 {
-			add_strings(output, &*SPACES_TABLE, spaces);
+		if first_operand_char_index > column {
+			add_strings(output, &*SPACES_TABLE, first_operand_char_index - column);
 		} else if !added_tabs {
 			add_strings(output, &*SPACES_TABLE, 1);
 		}

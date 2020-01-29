@@ -261,7 +261,7 @@ impl BlockEncoder {
 	/// // orig_rip + 8
 	/// let block = InstructionBlock::new(&instructions, 0x1234_5678_9ABC_DEF8);
 	/// let bytes = match BlockEncoder::encode(64, block, BlockEncoderOptions::NONE) {
-	///     Err(err) => panic!(format!("Failed: {}", err)),
+	///     Err(err) => panic!("Failed: {}", err),
 	///     Ok(result) => result.code_buffer,
 	/// };
 	/// assert_eq!(vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9], bytes);
@@ -322,7 +322,7 @@ impl BlockEncoder {
 	/// // a new ip
 	/// let block2 = InstructionBlock::new(&instructions2, 0x8000_4000_2000_1000);
 	/// let bytes = match BlockEncoder::encode_slice(64, &[block1, block2], BlockEncoderOptions::NONE) {
-	///     Err(err) => panic!(format!("Failed: {}", err)),
+	///     Err(err) => panic!("Failed: {}", err),
 	///     Ok(result) => {
 	///         assert_eq!(2, result.len());
 	///         assert_eq!(vec![0x75, 0xF4, 0x00, 0xCE, 0x41, 0x19, 0xD9], result[0].code_buffer);

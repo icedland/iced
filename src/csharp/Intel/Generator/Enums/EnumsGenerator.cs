@@ -69,6 +69,7 @@ namespace Generator.Enums {
 			Formatter.NumberKindEnum.Instance,
 			Formatter.FormatterTextKindEnum.Instance,
 			Formatter.SymbolFlagsEnum.Instance,
+			Formatter.OptionsPropsEnum.Instance,
 			RoundingControlEnum.Instance,
 			OpKindEnum.Instance,
 			Instruction.CodeFlagsEnum.Instance,

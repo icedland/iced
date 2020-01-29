@@ -32,10 +32,16 @@ mod decoder_options_table;
 mod encoding_kind_table;
 #[cfg(feature = "instr_info")]
 mod flow_control_table;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod memory_size_options_table;
 mod memory_size_table;
 mod mnemonic_table;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod number_base_table;
 #[cfg(feature = "encoder")]
 mod op_code_operand_kind_table;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod options_props_table;
 mod register_table;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod tuple_type_table;
@@ -51,13 +57,21 @@ use self::decoder_options_table::*;
 use self::encoding_kind_table::*;
 #[cfg(feature = "instr_info")]
 use self::flow_control_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use self::memory_size_options_table::*;
 use self::memory_size_table::*;
 use self::mnemonic_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use self::number_base_table::*;
 #[cfg(feature = "encoder")]
 use self::op_code_operand_kind_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use self::options_props_table::*;
 use self::register_table::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 use self::tuple_type_table::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use super::super::formatter::tests::enums::OptionsProps;
 use super::super::*;
 use core::{i32, u16, u32, u8};
 use std::collections::HashMap;
@@ -253,5 +267,42 @@ pub(crate) fn to_condition_code(value: &str) -> Result<ConditionCode, String> {
 	match TO_CONDITION_CODE_HASH.get(value) {
 		Some(condition_code) => Ok(*condition_code),
 		None => Err(format!("Invalid ConditionCode value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_options_props(value: &str) -> Result<OptionsProps, String> {
+	let value = value.trim();
+	match TO_OPTIONS_PROPS_HASH.get(value) {
+		Some(options_props) => Ok(*options_props),
+		None => Err(format!("Invalid OptionsProps value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_memory_size_options(value: &str) -> Result<MemorySizeOptions, String> {
+	let value = value.trim();
+	match TO_MEMORY_SIZE_OPTIONS_HASH.get(value) {
+		Some(memory_size_options) => Ok(*memory_size_options),
+		None => Err(format!("Invalid MemorySizeOptions value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_number_base(value: &str) -> Result<NumberBase, String> {
+	let value = value.trim();
+	match TO_NUMBER_BASE_HASH.get(value) {
+		Some(number_base) => Ok(*number_base),
+		None => Err(format!("Invalid NumberBase value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_boolean(value: &str) -> Result<bool, String> {
+	let value = value.trim();
+	match value {
+		"false" => Ok(false),
+		"true" => Ok(true),
+		_ => Err(format!("Invalid boolean value: {}", value)),
 	}
 }

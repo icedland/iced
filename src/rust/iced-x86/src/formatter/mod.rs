@@ -43,7 +43,7 @@ mod strings_data;
 mod strings_tbl;
 mod symres;
 #[cfg(test)]
-mod tests;
+pub(crate) mod tests;
 
 pub use self::enums::*;
 pub use self::fmt_opt_provider::*;

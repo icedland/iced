@@ -31,25 +31,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Nasm", "OptionsTests");
+		public static IEnumerable<object[]> Format_Data => GetFormatData("Nasm", "OptionsResult");
 
 		[Theory]
-		[MemberData(nameof(Format2_Data))]
+		[MemberData(nameof(Format_Data2))]
 		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format2_Data {
-			get {
-				yield return new object[] {
-					0,
-					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_rm64_imm8, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = true),
-					"or rdx,byte 0xffffffffffffffa5",
-				};
-				yield return new object[] {
-					1,
-					new OptionsInstructionInfo(64, "48 83 CA A5", Code.Or_rm64_imm8, a => ((NasmFormatterOptions)a).ShowSignExtendedImmediateSize = false),
-					"or rdx,0xffffffffffffffa5",
-				};
-			}
-		}
+		public static IEnumerable<object[]> Format_Data2 => GetFormatData("Nasm", "OptionsResult2", "Options2");
 
 		[Fact]
 		public void TestOptions() {

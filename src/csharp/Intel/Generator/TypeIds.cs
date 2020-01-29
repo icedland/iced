@@ -143,5 +143,6 @@ namespace Generator {
 		public static readonly TypeId MasmInstrOpKind = new TypeId(nameof(MasmInstrOpKind));
 		public static readonly TypeId NasmInstrOpKind = new TypeId(nameof(NasmInstrOpKind));
 		public static readonly TypeId FormatterFlowControl = new TypeId(nameof(FormatterFlowControl));
+		public static readonly TypeId OptionsProps = new TypeId(nameof(OptionsProps));
 	}
 }

@@ -95,7 +95,6 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal(nextRip, instruction.NextIP);
 
 			var output = new StringOutput();
-
 			formatter.Format(instruction, output);
 			var actualFormattedString = output.ToStringAndReset();
 #pragma warning disable xUnit2006 // Do not use invalid string equality check

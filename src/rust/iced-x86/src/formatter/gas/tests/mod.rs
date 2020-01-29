@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod fmt_factory;
+mod options;
 
 use self::fmt_factory::*;
 use super::super::tests::formatter_test;

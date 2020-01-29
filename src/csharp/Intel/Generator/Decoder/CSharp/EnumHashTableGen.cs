@@ -25,6 +25,7 @@ using System.IO;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
+using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
@@ -52,6 +53,9 @@ namespace Generator.Decoder.CSharp {
 				("RegisterHash", RegisterEnum.Instance, true, "Intel/ToEnumConverter.Register.cs"),
 				("TupleTypeHash", TupleTypeEnum.Instance, false, "Intel/ToEnumConverter.TupleType.cs"),
 				("ConditionCodeHash", ConditionCodeEnum.Instance, false, "Intel/ToEnumConverter.ConditionCode.cs"),
+				("MemorySizeOptionsHash", MemorySizeOptionsEnum.Instance, false, "Intel/ToEnumConverter.MemorySizeOptions.cs"),
+				("NumberBaseHash", NumberBaseEnum.Instance, false, "Intel/ToEnumConverter.NumberBase.cs"),
+				("OptionsPropsHash", OptionsPropsEnum.Instance, false, "Intel/ToEnumConverter.OptionsProps.cs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.CSharpTestsDir, Path.Combine(info.filename.Split('/')));

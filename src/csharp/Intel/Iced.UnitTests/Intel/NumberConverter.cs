@@ -75,5 +75,12 @@ namespace Iced.UnitTests.Intel {
 				return (byte)v;
 			throw new InvalidOperationException($"Invalid number: '{value}'");
 		}
+
+		public static bool ToBoolean(string value) =>
+			value switch {
+				"true" => true,
+				"false" => false,
+				_ => throw new InvalidOperationException($"Invalid boolean: '{value}'"),
+			};
 	}
 }

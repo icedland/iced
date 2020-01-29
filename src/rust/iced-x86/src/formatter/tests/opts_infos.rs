@@ -21,28 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS
-using System.Collections.Generic;
-using Iced.Intel;
-using Xunit;
+use super::super::test_utils::get_formatter_unit_tests_dir;
+use super::options_test_case_parser::*;
+use super::opts_info::OptionsInstructionInfo;
 
-namespace Iced.UnitTests.Intel.FormatterTests.Gas {
-	public sealed class OptionsTests : FormatterTests.OptionsTests {
-		[Theory]
-		[MemberData(nameof(Format_Data))]
-		void Format(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Gas", "OptionsResult");
-
-		[Theory]
-		[MemberData(nameof(Format_Data2))]
-		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data2 => GetFormatData("Gas", "OptionsResult2", "Options2");
-
-		[Fact]
-		public void TestOptions() {
-			var options = new GasFormatterOptions();
-			TestOptionsBase(options);
-		}
-	}
+lazy_static! {
+	pub(super) static ref ALL_INFOS: Vec<OptionsInstructionInfo> = {
+		let mut filename = get_formatter_unit_tests_dir();
+		filename.push("Options.txt");
+		OptionsTestParser::new(filename.as_path()).into_iter().collect()
+	};
 }
-#endif

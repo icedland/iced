@@ -31,7 +31,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
 		void Format(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Intel", "OptionsTests");
+		public static IEnumerable<object[]> Format_Data => GetFormatData("Intel", "OptionsResult");
+
+		[Theory]
+		[MemberData(nameof(Format_Data2))]
+		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
+		public static IEnumerable<object[]> Format_Data2 => GetFormatData("Intel", "OptionsResult2", "Options2");
 
 		[Fact]
 		public void TestOptions() {

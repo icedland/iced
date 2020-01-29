@@ -1,0 +1,1978 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=true
+64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false
+
+64, 0F 20 E1, Mov_r64_cr, UpperCaseMnemonics=true
+64, 0F 20 E1, Mov_r64_cr, UpperCaseMnemonics=false
+
+64, 0F 20 E1, Mov_r64_cr, UpperCaseRegisters=true
+64, 0F 20 E1, Mov_r64_cr, UpperCaseRegisters=false
+
+64, 70 00, Jo_rel8_64, UpperCaseKeywords=true ShowBranchSize=true
+64, 70 00, Jo_rel8_64, UpperCaseKeywords=false ShowBranchSize=true
+
+64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
+64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
+64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
+64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
+64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
+64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
+64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
+64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
+64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UpperCaseDecorators=true
+64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UpperCaseDecorators=false
+
+64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
+64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
+64, 0F 20 E1, Mov_r64_cr, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
+64, 0F 20 E1, Mov_r64_cr, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
+64, 70 00, Jo_rel8_64, ShowBranchSize=true UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
+64, 70 00, Jo_rel8_64, ShowBranchSize=true UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=-1 FirstOperandCharIndex=-1
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=-1
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=-9 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=-8 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=-7 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=-6 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=-5 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=-4 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=-3 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=-2 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=-1 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=0 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=-9 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=-8 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=-7 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=-6 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=-5 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=-4 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=-3 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=-2 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=-1 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=0 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=-9 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=2 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=3 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=4 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=8 FirstOperandCharIndex=20
+
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=0
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=1
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=2
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=3
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=4
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=5
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=6
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=7
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=8
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=9
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=10
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=11
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=12
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=13
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=14
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=15
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=16
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=17
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=18
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=19
+64, 0F 20 E1, Mov_r64_cr, TabSize=100 FirstOperandCharIndex=20
+
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, SpaceAfterOperandSeparator=true
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, SpaceAfterOperandSeparator=false
+
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, SpaceAfterMemoryBracket=true
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, SpaceAfterMemoryBracket=false
+
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, SpaceBetweenMemoryAddOperators=true
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, SpaceBetweenMemoryAddOperators=false
+
+64, C7 44 48 12 88A9CBED, Mov_rm32_imm32, SpaceBetweenMemoryAddOperators=true
+64, C7 44 48 12 88A9CBED, Mov_rm32_imm32, SpaceBetweenMemoryAddOperators=false
+
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, ScaleBeforeIndex=false SpaceBetweenMemoryMulOperators=true
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, ScaleBeforeIndex=false SpaceBetweenMemoryMulOperators=false
+
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, ScaleBeforeIndex=true SpaceBetweenMemoryMulOperators=true
+64, C7 44 48 EE 88A9CBED, Mov_rm32_imm32, ScaleBeforeIndex=true SpaceBetweenMemoryMulOperators=false
+
+64, 8B 0C 10, Mov_r32_rm32, AlwaysShowScale=true
+64, 8B 0C 10, Mov_r32_rm32, AlwaysShowScale=false
+
+64, 8B 0C 10, Mov_r32_rm32, AlwaysShowSegmentRegister=true
+64, 8B 0C 10, Mov_r32_rm32, AlwaysShowSegmentRegister=false
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=<null> HexSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=ppp HexSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=<null> HexSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix= HexSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=ppp HexSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix= HexSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=ppp HexSuffix=sss
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix=<null> DecimalSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix=ppp DecimalSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix=<null> DecimalSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix= DecimalSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix=ppp DecimalSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix= DecimalSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DecimalPrefix=ppp DecimalSuffix=sss
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix=<null> OctalSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix=ppp OctalSuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix=<null> OctalSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix= OctalSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix=ppp OctalSuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix= OctalSuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal OctalPrefix=ppp OctalSuffix=sss
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix=<null> BinarySuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix=ppp BinarySuffix=<null>
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix=<null> BinarySuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix= BinarySuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix=ppp BinarySuffix=
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix= BinarySuffix=sss
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary BinaryPrefix=ppp BinarySuffix=sss
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=<null> HexDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=<null> HexDigitGroupSize=4
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=1 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=<null> HexDigitGroupSize=1 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=<null> DecimalDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=<null> DecimalDigitGroupSize=3
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` DecimalDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=1 OctalDigitGroupSize=0 BinaryDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=<null> HexDigitGroupSize=0 DecimalDigitGroupSize=1 OctalDigitGroupSize=0 BinaryDigitGroupSize=0
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal DigitSeparator=<null> OctalDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal DigitSeparator=<null> OctalDigitGroupSize=4
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` OctalDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=1 BinaryDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Octal DigitSeparator=<null> HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=1 BinaryDigitGroupSize=0
+
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary DigitSeparator=<null> BinaryDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary DigitSeparator=<null> BinaryDigitGroupSize=4
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary DigitSeparator=` BinaryDigitGroupSize=0
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=1
+64, 48 B8 1032547698BADC7E, Mov_r64_imm64, NumberBase=Binary DigitSeparator=<null> HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=1
+
+64, 48 C7 C000000000, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C010000000, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000010000, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000100000, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000100, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000001000, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000001, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000010, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000001000000, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000010000000, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000010000, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000100000, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000100, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000001000, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000001, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000010, Mov_r64_imm64, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+
+64, 48 C7 C000000000, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C00A000000, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C064000000, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C0E8030000, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C010270000, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C0A0860100, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C040420F00, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C080969800, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000E1F505, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000CA9A3B, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 00E40B5402000000, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 00E8764817000000, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0010A5D4E8000000, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 00A0724E18090000, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 00407A10F35A0000, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0080C6A47E8D0300, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000C16FF2862300, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 00008A5D78456301, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 000064A7B3B6E00D, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000E8890423C78A, Mov_r64_imm64, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=false
+
+64, 48 C7 C000000000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C008000000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C040000000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000020000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000100000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000800000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000400, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000002000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000001, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000008, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 C7 C000000040, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000002000000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000010000000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000080000000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000040000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000200000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000100, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000800, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000004000, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000002, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000010, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+64, 48 B8 0000000000000080, Mov_r64_imm64, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=false
+
+64, 48 C7 C000000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C002000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C004000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C008000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C010000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C020000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C040000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C080000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000010000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000020000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000040000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000080000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000100000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000200000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000400000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+64, 48 C7 C000800000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=false
+
+64, C7 C000000010, Mov_rm32_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, C7 C080969800, Mov_rm32_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, C7 C000002000, Mov_rm32_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, C7 C080000000, Mov_rm32_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=true
+
+64, 48 C7 C000000010, Mov_rm64_imm32, NumberBase=Hexadecimal DigitSeparator=` HexDigitGroupSize=4 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, 48 C7 C080969800, Mov_rm64_imm32, NumberBase=Decimal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=3 OctalDigitGroupSize=0 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, 48 C7 C000002000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=true
+64, 48 C7 C080000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=true
+
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false
+
+64, 8A 40 F6, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 F7, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 F8, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 F9, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FA, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FB, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FC, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FD, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FE, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 FF, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 00, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 01, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 02, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 03, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 04, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 05, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 06, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 07, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 08, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 09, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+64, 8A 40 0A, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
+
+64, 8A 40 F6, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 F7, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 F8, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 F9, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FA, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FB, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FC, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FD, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FE, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 FF, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 00, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 01, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 02, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 03, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 04, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 05, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 06, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 07, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 08, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 09, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+64, 8A 40 0A, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=false
+
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=<null> HexSuffix=<null> AddLeadingZeroToHexNumbers=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix=<null> HexSuffix=<null> AddLeadingZeroToHexNumbers=false
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix= HexSuffix= AddLeadingZeroToHexNumbers=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal HexPrefix= HexSuffix= AddLeadingZeroToHexNumbers=false
+
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Always
+64, 8A 40 01, Mov_r8_rm8, MemorySizeOptions=Default
+
+64, 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=false
+64, 67 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=false
+64, 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=true
+64, 67 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=true
+
+64, 70 00, Jo_rel8_64, ShowBranchSize=true
+64, 70 00, Jo_rel8_64, ShowBranchSize=false
+
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false HexPrefix=ppp HexSuffix=sss UpperCaseAll=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false HexPrefix=ppp HexSuffix=sss UpperCaseAll=false
+
+64, 70 00, Jo_rel8_64, SmallHexNumbersInDecimal=false BranchLeadingZeroes=false IP=0
+64, 70 00, Jo_rel8_64, SmallHexNumbersInDecimal=false BranchLeadingZeroes=true IP=0
+
+64, B1 A5, Mov_r8_imm8, SignedImmediateOperands=true
+64, B1 A5, Mov_r8_imm8, SignedImmediateOperands=false
+64, 66 B9 5AA5, Mov_r16_imm16, SignedImmediateOperands=true
+64, 66 B9 5AA5, Mov_r16_imm16, SignedImmediateOperands=false
+64, B9 34125AA5, Mov_r32_imm32, SignedImmediateOperands=true
+64, B9 34125AA5, Mov_r32_imm32, SignedImmediateOperands=false
+64, 48 B9 7856341234125AA5, Mov_r64_imm64, SignedImmediateOperands=true
+64, 48 B9 7856341234125AA5, Mov_r64_imm64, SignedImmediateOperands=false
+64, 66 83 C9 A5, Or_rm16_imm8, SignedImmediateOperands=true
+64, 66 83 C9 A5, Or_rm16_imm8, SignedImmediateOperands=false
+64, 83 C9 A5, Or_rm32_imm8, SignedImmediateOperands=true
+64, 83 C9 A5, Or_rm32_imm8, SignedImmediateOperands=false
+64, 48 83 C9 A5, Or_rm64_imm8, SignedImmediateOperands=true
+64, 48 83 C9 A5, Or_rm64_imm8, SignedImmediateOperands=false
+64, 48 81 C9 34125AA5, Or_rm64_imm32, SignedImmediateOperands=true
+64, 48 81 C9 34125AA5, Or_rm64_imm32, SignedImmediateOperands=false
+
+16, 8A 40 00, Mov_r8_rm8, ShowZeroDisplacements=true
+16, 8A 40 00, Mov_r8_rm8, ShowZeroDisplacements=false
+16, 8A 80 0000, Mov_r8_rm8, ShowZeroDisplacements=true
+16, 8A 80 0000, Mov_r8_rm8, ShowZeroDisplacements=false
+16, 8A 06 0000, Mov_r8_rm8, ShowZeroDisplacements=true
+16, 8A 06 0000, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 40 00, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 40 00, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 80 00000000, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 80 00000000, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 04 25 00000000, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 04 25 00000000, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 44 40 00, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 44 40 00, Mov_r8_rm8, ShowZeroDisplacements=false
+32, 8A 84 40 00000000, Mov_r8_rm8, ShowZeroDisplacements=true
+32, 8A 84 40 00000000, Mov_r8_rm8, ShowZeroDisplacements=false
+64, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=true RipRelativeAddresses=true IP=0xFFFFFFFFFFFFFFFA
+64, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=false RipRelativeAddresses=true IP=0xFFFFFFFFFFFFFFFA
+64, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=true RipRelativeAddresses=false IP=0xFFFFFFFFFFFFFFFA
+64, 8A 05 00000000, Mov_r8_rm8, ShowZeroDisplacements=false RipRelativeAddresses=false IP=0xFFFFFFFFFFFFFFFA
+
+64, B1 00, Mov_r8_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, B1 00, Mov_r8_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 66 B9 0000, Mov_r16_imm16, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 66 B9 0000, Mov_r16_imm16, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, B9 00000000, Mov_r32_imm32, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, B9 00000000, Mov_r32_imm32, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 48 B9 0000000000000000, Mov_r64_imm64, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 48 B9 0000000000000000, Mov_r64_imm64, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 66 83 C9 00, Or_rm16_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 66 83 C9 00, Or_rm16_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 83 C9 00, Or_rm32_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 83 C9 00, Or_rm32_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 48 83 C9 00, Or_rm64_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 48 83 C9 00, Or_rm64_imm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 48 81 C9 00000000, Or_rm64_imm32, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 48 81 C9 00000000, Or_rm64_imm32, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=false
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 8F FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 8F 0100, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 88 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 88 01000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 06 FFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=false
+
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+16, 8A 06 0000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+32, 8A 05 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=false
+64, 8A 04 25 00000000, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 FF, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+16, 8A 4F 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+32, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=true LeadingZeroes=true
+64, 8A 48 01, Mov_r8_rm8, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+
+16, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+16, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+32, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=true DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 62 F24D4B BC 50 7F, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+64, 62 F24D4B BC 50 80, EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er, NumberBase=Hexadecimal SmallHexNumbersInDecimal=false SignedMemoryDisplacements=false DisplacementLeadingZeroes=false LeadingZeroes=true
+
+64, DE C1, Faddp_sti_st0, UsePseudoOps=false
+64, D8 D1, Fcom_st0_sti, UsePseudoOps=false
+64, D8 D9, Fcomp_st0_sti, UsePseudoOps=false
+64, DE F9, Fdivp_sti_st0, UsePseudoOps=false
+64, DE F1, Fdivrp_sti_st0, UsePseudoOps=false
+64, DE C9, Fmulp_sti_st0, UsePseudoOps=false
+64, DE E9, Fsubp_sti_st0, UsePseudoOps=false
+64, DE E1, Fsubrp_sti_st0, UsePseudoOps=false
+64, DD E1, Fucom_st0_sti, UsePseudoOps=false
+64, DD E9, Fucomp_st0_sti, UsePseudoOps=false
+64, D9 C9, Fxch_st0_sti, UsePseudoOps=false
+
+64, 0FC2 CD 00, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 01, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 02, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 03, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 04, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 05, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 06, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 07, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 0FC2 CD 08, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, C5C8 C2 D3 00, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 01, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 02, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 03, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 04, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 05, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 06, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 07, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 08, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 09, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0A, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0B, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0C, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0D, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0E, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 0F, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 10, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 11, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 12, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 13, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 14, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 15, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 16, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 17, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 18, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 19, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1A, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1B, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1C, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1D, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1E, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 1F, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C8 C2 D3 20, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, C5CC C2 D3 00, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 01, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 02, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 03, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 04, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 05, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 06, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 07, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 08, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 09, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0A, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0B, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0C, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0D, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0E, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 0F, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 10, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 11, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 12, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 13, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 14, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 15, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 16, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 17, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 18, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 19, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1A, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1B, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1C, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1D, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1E, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 1F, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CC C2 D3 20, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+
+64, 62 F14C0B C2 D3 00, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 01, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 02, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 03, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 04, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 05, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 06, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 07, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 08, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 09, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0A, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0B, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0C, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0D, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0E, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 0F, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 10, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 11, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 12, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 13, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 14, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 15, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 16, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 17, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 18, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 19, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1A, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1B, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1C, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1D, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1E, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 1F, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+64, 62 F14C0B C2 D3 20, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=false
+
+64, 62 F14C2B C2 D3 00, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 01, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 02, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 03, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 04, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 05, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 06, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 07, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 08, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 09, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0A, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0B, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0C, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0D, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0E, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 0F, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 10, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 11, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 12, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 13, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 14, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 15, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 16, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 17, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 18, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 19, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1A, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1B, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1C, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1D, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1E, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 1F, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+64, 62 F14C2B C2 D3 20, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=false
+
+64, 62 F14C5B C2 D3 00, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 01, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 02, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 03, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 04, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 05, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 06, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 07, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 08, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 09, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0A, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0B, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0C, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0D, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0E, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 0F, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 10, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 11, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 12, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 13, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 14, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 15, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 16, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 17, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 18, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 19, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1A, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1B, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1C, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1D, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1E, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 1F, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+64, 62 F14C5B C2 D3 20, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=false
+
+64, 66 0FC2 CD 00, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 01, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 02, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 03, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 04, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 05, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 06, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 07, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0FC2 CD 08, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, C5C9 C2 D3 00, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 01, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 02, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 03, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 04, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 05, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 06, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 07, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 08, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 09, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0A, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0B, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0C, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0D, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0E, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 0F, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 10, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 11, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 12, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 13, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 14, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 15, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 16, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 17, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 18, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 19, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1A, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1B, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1C, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1D, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1E, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 1F, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C5C9 C2 D3 20, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, C5CD C2 D3 00, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 01, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 02, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 03, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 04, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 05, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 06, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 07, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 08, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 09, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0A, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0B, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0C, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0D, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0E, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 0F, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 10, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 11, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 12, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 13, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 14, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 15, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 16, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 17, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 18, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 19, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1A, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1B, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1C, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1D, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1E, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 1F, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C5CD C2 D3 20, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+
+64, 62 F1CD0B C2 D3 00, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 01, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 02, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 03, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 04, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 05, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 06, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 07, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 08, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 09, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0A, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0B, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0C, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0D, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0E, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 0F, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 10, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 11, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 12, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 13, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 14, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 15, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 16, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 17, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 18, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 19, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1A, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1B, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1C, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1D, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1E, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 1F, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+64, 62 F1CD0B C2 D3 20, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=false
+
+64, 62 F1CD2B C2 D3 00, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 01, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 02, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 03, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 04, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 05, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 06, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 07, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 08, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 09, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0A, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0B, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0C, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0D, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0E, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 0F, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 10, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 11, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 12, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 13, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 14, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 15, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 16, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 17, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 18, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 19, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1A, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1B, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1C, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1D, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1E, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 1F, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+64, 62 F1CD2B C2 D3 20, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=false
+
+64, 62 F1CD5B C2 D3 00, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 01, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 02, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 03, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 04, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 05, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 06, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 07, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 08, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 09, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0A, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0B, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0C, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0D, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0E, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 0F, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 10, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 11, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 12, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 13, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 14, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 15, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 16, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 17, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 18, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 19, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1A, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1B, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1C, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1D, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1E, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 1F, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+64, 62 F1CD5B C2 D3 20, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=false
+
+64, F3 0FC2 CD 00, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 01, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 02, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 03, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 04, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 05, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 06, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 07, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+64, F3 0FC2 CD 08, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=false
+
+64, C5CA C2 D3 00, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 01, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 02, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 03, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 04, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 05, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 06, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 07, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 08, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 09, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0A, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0B, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0C, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0D, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0E, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 0F, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 10, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 11, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 12, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 13, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 14, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 15, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 16, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 17, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 18, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 19, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1A, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1B, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1C, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1D, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1E, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 1F, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+64, C5CA C2 D3 20, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=false
+
+64, 62 F14E0B C2 D3 00, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 01, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 02, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 03, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 04, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 05, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 06, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 07, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 08, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 09, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0A, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0B, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0C, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0D, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0E, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 0F, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 10, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 11, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 12, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 13, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 14, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 15, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 16, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 17, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 18, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 19, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1A, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1B, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1C, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1D, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1E, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 1F, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+64, 62 F14E0B C2 D3 20, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=false
+
+64, F2 0FC2 CD 00, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 01, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 02, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 03, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 04, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 05, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 06, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 07, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+64, F2 0FC2 CD 08, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=false
+
+64, C5CB C2 D3 00, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 01, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 02, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 03, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 04, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 05, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 06, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 07, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 08, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 09, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0A, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0B, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0C, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0D, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0E, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 0F, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 10, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 11, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 12, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 13, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 14, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 15, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 16, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 17, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 18, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 19, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1A, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1B, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1C, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1D, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1E, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 1F, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+64, C5CB C2 D3 20, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=false
+
+64, 62 F1CF0B C2 D3 00, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 01, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 02, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 03, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 04, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 05, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 06, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 07, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 08, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 09, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0A, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0B, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0C, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0D, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0E, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 0F, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 10, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 11, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 12, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 13, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 14, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 15, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 16, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 17, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 18, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 19, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1A, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1B, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1C, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1D, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1E, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 1F, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+64, 62 F1CF0B C2 D3 20, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=false
+
+64, 8FE848 CC D3 00, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 01, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 02, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 03, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 04, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 05, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 06, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 07, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CC D3 08, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 CD D3 00, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 01, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 02, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 03, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 04, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 05, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 06, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 07, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CD D3 08, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 CE D3 00, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 01, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 02, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 03, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 04, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 05, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 06, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 07, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CE D3 08, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 CF D3 00, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 01, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 02, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 03, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 04, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 05, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 06, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 07, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 CF D3 08, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 EC D3 00, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 01, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 02, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 03, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 04, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 05, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 06, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 07, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EC D3 08, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 ED D3 00, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 01, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 02, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 03, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 04, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 05, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 06, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 07, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 ED D3 08, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 EE D3 00, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 01, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 02, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 03, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 04, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 05, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 06, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 07, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EE D3 08, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 8FE848 EF D3 00, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 01, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 02, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 03, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 04, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 05, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 06, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 07, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 8FE848 EF D3 08, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, DE C1, Faddp_sti_st0, UsePseudoOps=true
+64, D8 D1, Fcom_st0_sti, UsePseudoOps=true
+64, D8 D9, Fcomp_st0_sti, UsePseudoOps=true
+64, DE F9, Fdivp_sti_st0, UsePseudoOps=true
+64, DE F1, Fdivrp_sti_st0, UsePseudoOps=true
+64, DE C9, Fmulp_sti_st0, UsePseudoOps=true
+64, DE E9, Fsubp_sti_st0, UsePseudoOps=true
+64, DE E1, Fsubrp_sti_st0, UsePseudoOps=true
+64, DD E1, Fucom_st0_sti, UsePseudoOps=true
+64, DD E9, Fucomp_st0_sti, UsePseudoOps=true
+64, D9 C9, Fxch_st0_sti, UsePseudoOps=true
+
+64, 0FC2 CD 00, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 01, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 02, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 03, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 04, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 05, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 06, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 07, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 0FC2 CD 08, Cmpps_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C5C8 C2 D3 00, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 01, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 02, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 03, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 04, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 05, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 06, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 07, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 08, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 09, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0A, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0B, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0C, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0D, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0E, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 0F, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 10, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 11, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 12, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 13, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 14, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 15, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 16, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 17, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 18, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 19, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1A, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1B, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1C, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1D, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1E, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 1F, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C8 C2 D3 20, VEX_Vcmpps_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C5CC C2 D3 00, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 01, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 02, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 03, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 04, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 05, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 06, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 07, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 08, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 09, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0A, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0B, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0C, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0D, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0E, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 0F, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 10, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 11, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 12, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 13, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 14, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 15, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 16, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 17, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 18, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 19, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1A, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1B, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1C, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1D, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1E, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 1F, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CC C2 D3 20, VEX_Vcmpps_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+
+64, 62 F14C0B C2 D3 00, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 01, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 02, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 03, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 04, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 05, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 06, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 07, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 08, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 09, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0A, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0B, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0C, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0D, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0E, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 0F, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 10, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 11, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 12, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 13, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 14, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 15, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 16, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 17, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 18, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 19, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1A, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1B, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1C, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1D, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1E, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 1F, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+64, 62 F14C0B C2 D3 20, EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8, UsePseudoOps=true
+
+64, 62 F14C2B C2 D3 00, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 01, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 02, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 03, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 04, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 05, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 06, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 07, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 08, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 09, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0A, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0B, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0C, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0D, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0E, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 0F, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 10, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 11, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 12, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 13, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 14, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 15, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 16, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 17, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 18, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 19, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1A, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1B, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1C, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1D, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1E, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 1F, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+64, 62 F14C2B C2 D3 20, EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8, UsePseudoOps=true
+
+64, 62 F14C5B C2 D3 00, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 01, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 02, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 03, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 04, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 05, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 06, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 07, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 08, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 09, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0A, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0B, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0C, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0D, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0E, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 0F, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 10, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 11, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 12, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 13, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 14, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 15, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 16, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 17, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 18, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 19, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1A, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1B, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1C, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1D, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1E, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 1F, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+64, 62 F14C5B C2 D3 20, EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae, UsePseudoOps=true
+
+64, 66 0FC2 CD 00, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 01, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 02, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 03, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 04, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 05, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 06, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 07, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0FC2 CD 08, Cmppd_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C5C9 C2 D3 00, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 01, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 02, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 03, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 04, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 05, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 06, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 07, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 08, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 09, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0A, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0B, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0C, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0D, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0E, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 0F, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 10, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 11, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 12, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 13, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 14, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 15, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 16, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 17, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 18, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 19, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1A, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1B, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1C, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1D, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1E, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 1F, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C5C9 C2 D3 20, VEX_Vcmppd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C5CD C2 D3 00, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 01, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 02, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 03, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 04, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 05, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 06, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 07, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 08, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 09, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0A, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0B, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0C, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0D, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0E, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 0F, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 10, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 11, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 12, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 13, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 14, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 15, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 16, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 17, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 18, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 19, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1A, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1B, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1C, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1D, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1E, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 1F, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C5CD C2 D3 20, VEX_Vcmppd_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+
+64, 62 F1CD0B C2 D3 00, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 01, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 02, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 03, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 04, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 05, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 06, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 07, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 08, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 09, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0A, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0B, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0C, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0D, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0E, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 0F, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 10, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 11, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 12, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 13, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 14, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 15, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 16, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 17, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 18, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 19, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1A, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1B, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1C, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1D, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1E, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 1F, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+64, 62 F1CD0B C2 D3 20, EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8, UsePseudoOps=true
+
+64, 62 F1CD2B C2 D3 00, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 01, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 02, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 03, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 04, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 05, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 06, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 07, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 08, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 09, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0A, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0B, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0C, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0D, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0E, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 0F, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 10, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 11, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 12, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 13, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 14, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 15, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 16, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 17, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 18, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 19, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1A, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1B, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1C, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1D, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1E, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 1F, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+64, 62 F1CD2B C2 D3 20, EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8, UsePseudoOps=true
+
+64, 62 F1CD5B C2 D3 00, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 01, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 02, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 03, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 04, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 05, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 06, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 07, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 08, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 09, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0A, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0B, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0C, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0D, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0E, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 0F, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 10, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 11, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 12, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 13, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 14, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 15, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 16, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 17, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 18, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 19, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1A, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1B, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1C, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1D, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1E, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 1F, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+64, 62 F1CD5B C2 D3 20, EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae, UsePseudoOps=true
+
+64, F3 0FC2 CD 00, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 01, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 02, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 03, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 04, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 05, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 06, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 07, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+64, F3 0FC2 CD 08, Cmpss_xmm_xmmm32_imm8, UsePseudoOps=true
+
+64, C5CA C2 D3 00, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 01, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 02, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 03, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 04, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 05, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 06, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 07, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 08, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 09, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0A, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0B, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0C, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0D, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0E, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 0F, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 10, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 11, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 12, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 13, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 14, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 15, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 16, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 17, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 18, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 19, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1A, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1B, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1C, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1D, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1E, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 1F, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+64, C5CA C2 D3 20, VEX_Vcmpss_xmm_xmm_xmmm32_imm8, UsePseudoOps=true
+
+64, 62 F14E0B C2 D3 00, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 01, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 02, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 03, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 04, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 05, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 06, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 07, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 08, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 09, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0A, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0B, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0C, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0D, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0E, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 0F, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 10, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 11, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 12, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 13, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 14, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 15, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 16, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 17, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 18, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 19, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1A, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1B, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1C, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1D, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1E, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 1F, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+64, 62 F14E0B C2 D3 20, EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae, UsePseudoOps=true
+
+64, F2 0FC2 CD 00, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 01, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 02, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 03, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 04, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 05, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 06, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 07, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+64, F2 0FC2 CD 08, Cmpsd_xmm_xmmm64_imm8, UsePseudoOps=true
+
+64, C5CB C2 D3 00, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 01, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 02, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 03, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 04, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 05, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 06, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 07, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 08, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 09, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0A, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0B, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0C, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0D, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0E, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 0F, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 10, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 11, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 12, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 13, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 14, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 15, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 16, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 17, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 18, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 19, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1A, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1B, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1C, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1D, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1E, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 1F, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+64, C5CB C2 D3 20, VEX_Vcmpsd_xmm_xmm_xmmm64_imm8, UsePseudoOps=true
+
+64, 62 F1CF0B C2 D3 00, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 01, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 02, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 03, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 04, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 05, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 06, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 07, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 08, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 09, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0A, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0B, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0C, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0D, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0E, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 0F, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 10, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 11, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 12, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 13, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 14, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 15, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 16, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 17, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 18, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 19, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1A, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1B, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1C, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1D, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1E, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 1F, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+64, 62 F1CF0B C2 D3 20, EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae, UsePseudoOps=true
+
+64, 8FE848 CC D3 00, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 01, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 02, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 03, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 04, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 05, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 06, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 07, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CC D3 08, XOP_Vpcomb_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 CD D3 00, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 01, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 02, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 03, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 04, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 05, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 06, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 07, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CD D3 08, XOP_Vpcomw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 CE D3 00, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 01, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 02, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 03, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 04, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 05, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 06, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 07, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CE D3 08, XOP_Vpcomd_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 CF D3 00, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 01, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 02, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 03, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 04, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 05, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 06, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 07, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 CF D3 08, XOP_Vpcomq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 EC D3 00, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 01, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 02, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 03, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 04, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 05, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 06, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 07, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EC D3 08, XOP_Vpcomub_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 ED D3 00, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 01, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 02, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 03, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 04, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 05, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 06, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 07, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 ED D3 08, XOP_Vpcomuw_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 EE D3 00, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 01, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 02, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 03, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 04, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 05, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 06, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 07, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EE D3 08, XOP_Vpcomud_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 8FE848 EF D3 00, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 01, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 02, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 03, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 04, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 05, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 06, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 07, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 8FE848 EF D3 08, XOP_Vpcomuq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 66 6B C9 FF, Imul_r16_rm16_imm8, UsePseudoOps=false
+64, 6B C9 FF, Imul_r32_rm32_imm8, UsePseudoOps=false
+64, 48 6B C9 FF, Imul_r64_rm64_imm8, UsePseudoOps=false
+64, 66 69 C9 34 12, Imul_r16_rm16_imm16, UsePseudoOps=false
+64, 69 C9 78 56 34 12, Imul_r32_rm32_imm32, UsePseudoOps=false
+64, 48 69 C9 78 56 34 12, Imul_r64_rm64_imm32, UsePseudoOps=false
+
+64, 66 6B C9 FF, Imul_r16_rm16_imm8, UsePseudoOps=true
+64, 6B C9 FF, Imul_r32_rm32_imm8, UsePseudoOps=true
+64, 48 6B C9 FF, Imul_r64_rm64_imm8, UsePseudoOps=true
+64, 66 69 C9 34 12, Imul_r16_rm16_imm16, UsePseudoOps=true
+64, 69 C9 78 56 34 12, Imul_r32_rm32_imm32, UsePseudoOps=true
+64, 48 69 C9 78 56 34 12, Imul_r64_rm64_imm32, UsePseudoOps=true
+
+64, 66 0F3A44 F4 00, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0F3A44 F4 01, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0F3A44 F4 10, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0F3A44 F4 11, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 66 0F3A44 F4 FF, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 66 0F3A44 F4 00, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0F3A44 F4 01, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0F3A44 F4 10, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0F3A44 F4 11, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 66 0F3A44 F4 FF, Pclmulqdq_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C4E369 44 F4 00, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C4E369 44 F4 01, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C4E369 44 F4 10, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C4E369 44 F4 11, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, C4E369 44 F4 FF, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, C4E369 44 F4 00, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C4E369 44 F4 01, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C4E369 44 F4 10, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C4E369 44 F4 11, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, C4E369 44 F4 FF, VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, C4E36D 44 F4 00, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C4E36D 44 F4 01, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C4E36D 44 F4 10, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C4E36D 44 F4 11, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, C4E36D 44 F4 FF, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+
+64, C4E36D 44 F4 00, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C4E36D 44 F4 01, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C4E36D 44 F4 10, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C4E36D 44 F4 11, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, C4E36D 44 F4 FF, VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+
+64, 62 F36D08 44 F4 00, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 62 F36D08 44 F4 01, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 62 F36D08 44 F4 10, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 62 F36D08 44 F4 11, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+64, 62 F36D08 44 F4 FF, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=false
+
+64, 62 F36D08 44 F4 00, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 62 F36D08 44 F4 01, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 62 F36D08 44 F4 10, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 62 F36D08 44 F4 11, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+64, 62 F36D08 44 F4 FF, EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8, UsePseudoOps=true
+
+64, 62 F36D28 44 F4 00, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, 62 F36D28 44 F4 01, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, 62 F36D28 44 F4 10, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, 62 F36D28 44 F4 11, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+64, 62 F36D28 44 F4 FF, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=false
+
+64, 62 F36D28 44 F4 00, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, 62 F36D28 44 F4 01, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, 62 F36D28 44 F4 10, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, 62 F36D28 44 F4 11, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+64, 62 F36D28 44 F4 FF, EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8, UsePseudoOps=true
+
+64, 62 F36D48 44 F4 00, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=false
+64, 62 F36D48 44 F4 01, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=false
+64, 62 F36D48 44 F4 10, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=false
+64, 62 F36D48 44 F4 11, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=false
+64, 62 F36D48 44 F4 FF, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=false
+
+64, 62 F36D48 44 F4 00, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
+64, 62 F36D48 44 F4 01, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
+64, 62 F36D48 44 F4 10, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
+64, 62 F36D48 44 F4 11, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
+64, 62 F36D48 44 F4 FF, EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8, UsePseudoOps=true
+
+64, D8 C3, Fadd_st0_sti, PreferST0=false
+64, D8 CB, Fmul_st0_sti, PreferST0=false
+64, D8 E3, Fsub_st0_sti, PreferST0=false
+64, D8 EB, Fsubr_st0_sti, PreferST0=false
+64, D8 F3, Fdiv_st0_sti, PreferST0=false
+64, D8 FB, Fdivr_st0_sti, PreferST0=false
+64, DA C3, Fcmovb_st0_sti, PreferST0=false
+64, DA CB, Fcmove_st0_sti, PreferST0=false
+64, DA D3, Fcmovbe_st0_sti, PreferST0=false
+64, DA DB, Fcmovu_st0_sti, PreferST0=false
+64, DB C3, Fcmovnb_st0_sti, PreferST0=false
+64, DB CB, Fcmovne_st0_sti, PreferST0=false
+64, DB D3, Fcmovnbe_st0_sti, PreferST0=false
+64, DB DB, Fcmovnu_st0_sti, PreferST0=false
+64, DB EB, Fucomi_st0_sti, PreferST0=false
+64, DB F3, Fcomi_st0_sti, PreferST0=false
+64, DC C3, Fadd_sti_st0, PreferST0=false
+64, DC CB, Fmul_sti_st0, PreferST0=false
+64, DC E3, Fsubr_sti_st0, PreferST0=false
+64, DC EB, Fsub_sti_st0, PreferST0=false
+64, DC F3, Fdivr_sti_st0, PreferST0=false
+64, DC FB, Fdiv_sti_st0, PreferST0=false
+64, DE C3, Faddp_sti_st0, PreferST0=false
+64, DE CB, Fmulp_sti_st0, PreferST0=false
+64, DE E3, Fsubrp_sti_st0, PreferST0=false
+64, DE EB, Fsubp_sti_st0, PreferST0=false
+64, DE F3, Fdivrp_sti_st0, PreferST0=false
+64, DE FB, Fdivp_sti_st0, PreferST0=false
+64, DF EB, Fucomip_st0_sti, PreferST0=false
+64, DF F3, Fcomip_st0_sti, PreferST0=false
+
+64, D8 C3, Fadd_st0_sti, PreferST0=true
+64, D8 CB, Fmul_st0_sti, PreferST0=true
+64, D8 E3, Fsub_st0_sti, PreferST0=true
+64, D8 EB, Fsubr_st0_sti, PreferST0=true
+64, D8 F3, Fdiv_st0_sti, PreferST0=true
+64, D8 FB, Fdivr_st0_sti, PreferST0=true
+64, DA C3, Fcmovb_st0_sti, PreferST0=true
+64, DA CB, Fcmove_st0_sti, PreferST0=true
+64, DA D3, Fcmovbe_st0_sti, PreferST0=true
+64, DA DB, Fcmovu_st0_sti, PreferST0=true
+64, DB C3, Fcmovnb_st0_sti, PreferST0=true
+64, DB CB, Fcmovne_st0_sti, PreferST0=true
+64, DB D3, Fcmovnbe_st0_sti, PreferST0=true
+64, DB DB, Fcmovnu_st0_sti, PreferST0=true
+64, DB EB, Fucomi_st0_sti, PreferST0=true
+64, DB F3, Fcomi_st0_sti, PreferST0=true
+64, DC C3, Fadd_sti_st0, PreferST0=true
+64, DC CB, Fmul_sti_st0, PreferST0=true
+64, DC E3, Fsubr_sti_st0, PreferST0=true
+64, DC EB, Fsub_sti_st0, PreferST0=true
+64, DC F3, Fdivr_sti_st0, PreferST0=true
+64, DC FB, Fdiv_sti_st0, PreferST0=true
+64, DE C3, Faddp_sti_st0, PreferST0=true
+64, DE CB, Fmulp_sti_st0, PreferST0=true
+64, DE E3, Fsubrp_sti_st0, PreferST0=true
+64, DE EB, Fsubp_sti_st0, PreferST0=true
+64, DE F3, Fdivrp_sti_st0, PreferST0=true
+64, DE FB, Fdivp_sti_st0, PreferST0=true
+64, DF EB, Fucomip_st0_sti, PreferST0=true
+64, DF F3, Fcomip_st0_sti, PreferST0=true

@@ -21,14 +21,19 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+pub(crate) mod enums;
 mod instr_infos;
+pub(crate) mod options;
+mod options_test_case_parser;
+pub(crate) mod opts_info;
+mod opts_infos;
 
 use self::instr_infos::*;
 #[cfg(feature = "encoder")]
 use super::super::encoder::tests::non_decoded_tests;
 use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::{Code, Instruction};
+use super::super::{Code, Decoder, Instruction};
 use super::Formatter;
 
 pub(crate) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
@@ -110,4 +115,27 @@ fn format_test_instruction_core(instruction: &Instruction, formatted_string: &st
 	formatter.format_all_operands(instruction, &mut all_operands);
 	let actual_formatted_string = if all_operands.is_empty() { mnemonic } else { format!("{} {}", mnemonic, all_operands) };
 	assert_eq!(formatted_string, actual_formatted_string);
+}
+
+fn simple_format_test<F: Fn(&mut Decoder)>(
+	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, mut formatter: Box<Formatter>, init_decoder: F,
+) {
+	let bytes = to_vec_u8(hex_bytes).unwrap();
+	let mut decoder = create_decoder(bitness, &bytes, decoder_options).0;
+	(init_decoder)(&mut decoder);
+	let mut next_rip = decoder.ip();
+	let instruction = decoder.decode();
+	assert_eq!(code, instruction.code());
+	assert_eq!(next_rip as u16, instruction.ip16());
+	assert_eq!(next_rip as u32, instruction.ip32());
+	assert_eq!(next_rip, instruction.ip());
+	next_rip = next_rip.wrapping_add(instruction.len() as u64);
+	assert_eq!(next_rip, decoder.ip());
+	assert_eq!(next_rip as u16, instruction.next_ip16());
+	assert_eq!(next_rip as u32, instruction.next_ip32());
+	assert_eq!(next_rip, instruction.next_ip());
+
+	let mut output = String::new();
+	formatter.format(&instruction, &mut output);
+	assert_eq!(formatted_string, output);
 }

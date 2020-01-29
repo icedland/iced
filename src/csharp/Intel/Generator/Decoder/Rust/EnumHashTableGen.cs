@@ -25,6 +25,7 @@ using System.IO;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
+using Generator.Enums.Formatter;
 using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
@@ -52,6 +53,9 @@ namespace Generator.Decoder.Rust {
 				("RegisterHash", RegisterEnum.Instance, true, "test_utils/from_str_conv/register_table.rs"),
 				("TupleTypeHash", TupleTypeEnum.Instance, false, "test_utils/from_str_conv/tuple_type_table.rs"),
 				("ConditionCodeHash", ConditionCodeEnum.Instance, false, "test_utils/from_str_conv/condition_code_table.rs"),
+				("MemorySizeOptionsHash", MemorySizeOptionsEnum.Instance, false, "test_utils/from_str_conv/memory_size_options_table.rs"),
+				("NumberBaseHash", NumberBaseEnum.Instance, false, "test_utils/from_str_conv/number_base_table.rs"),
+				("OptionsPropsHash", OptionsPropsEnum.Instance, false, "test_utils/from_str_conv/options_props_table.rs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.RustDir, Path.Combine(info.filename.Split('/')));

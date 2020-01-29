@@ -170,6 +170,7 @@ namespace Generator.Enums.Rust {
 			toPartialFileInfo.Add(TypeIds.NumberKind, new PartialEnumFileInfo("NumberKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
 			toPartialFileInfo.Add(TypeIds.FormatterTextKind, new PartialEnumFileInfo("FormatterTextKind", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), new[] { RustConstants.AttributeCopyEqOrdHash, RustConstants.AttributeNonExhaustive }));
 			toPartialFileInfo.Add(TypeIds.SymbolFlags, new PartialEnumFileInfo("SymbolFlags", Path.Combine(generatorOptions.RustDir, "formatter", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
+			toPartialFileInfo.Add(TypeIds.OptionsProps, new PartialEnumFileInfo("OptionsProps", Path.Combine(generatorOptions.RustDir, "formatter", "tests", "enums.rs"), RustConstants.AttributeCopyEqOrdHash));
 		}
 
 		public override void Generate(EnumType enumType) {

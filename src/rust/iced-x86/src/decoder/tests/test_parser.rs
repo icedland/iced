@@ -69,7 +69,7 @@ lazy_static! {
 	pub(super) static ref TO_DECODER_TEST_PARSER_CONSTANTS: HashMap<&'static str, u32> = {
 		let mut h = HashMap::with_capacity(82);
 		let _ = h.insert("noencode", DecoderTestParserConstants::NO_ENCODE);
-		let _ = h.insert("nobytes", DecoderTestParserConstants::INVALID_NO_MORE_BYTES_LEFT);
+		let _ = h.insert("nobytes", DecoderTestParserConstants::INVALID_NO_MORE_BYTES);
 		let _ = h.insert("bcst", DecoderTestParserConstants::BROADCAST);
 		let _ = h.insert("xacquire", DecoderTestParserConstants::XACQUIRE);
 		let _ = h.insert("xrelease", DecoderTestParserConstants::XRELEASE);
@@ -158,7 +158,7 @@ pub(crate) struct DecoderTestParserConstants;
 #[allow(dead_code)]
 impl DecoderTestParserConstants {
 	pub(crate) const NO_ENCODE: u32 = 0;
-	pub(crate) const INVALID_NO_MORE_BYTES_LEFT: u32 = 1;
+	pub(crate) const INVALID_NO_MORE_BYTES: u32 = 1;
 	pub(crate) const BROADCAST: u32 = 2;
 	pub(crate) const XACQUIRE: u32 = 3;
 	pub(crate) const XRELEASE: u32 = 4;
@@ -304,7 +304,7 @@ impl IntoIter {
 
 			match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(key).unwrap_or(&u32::MAX) {
 				DecoderTestParserConstants::NO_ENCODE => tc.can_encode = false,
-				DecoderTestParserConstants::INVALID_NO_MORE_BYTES_LEFT => tc.invalid_no_more_bytes = true,
+				DecoderTestParserConstants::INVALID_NO_MORE_BYTES => tc.invalid_no_more_bytes = true,
 				DecoderTestParserConstants::BROADCAST => tc.is_broadcast = true,
 				DecoderTestParserConstants::XACQUIRE => tc.has_xacquire_prefix = true,
 				DecoderTestParserConstants::XRELEASE => tc.has_xrelease_prefix = true,
