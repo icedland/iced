@@ -80,8 +80,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::doc_markdown))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::fallible_impl_from))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::large_digit_groups))]
-//TODO: enable this when rustc 1.41.0 has been released
-//#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]

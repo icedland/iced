@@ -3158,7 +3158,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				var bytes = HexUtils.ToByteArray(tc.HexBytes);
 				for (int i = 0; i + 1 < bytes.Length; i++) {
 					var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(bytes, 0, i), tc.Options);
+					decoder.IP = 0x1000;
 					decoder.Decode(out var instr);
+					Assert.Equal(0x1000UL + (ulong)i, decoder.IP);
 					Assert.Equal(Code.INVALID, instr.Code);
 					Assert.True(decoder.InvalidNoMoreBytes);
 				}

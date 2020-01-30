@@ -248,7 +248,9 @@ fn decode_with_too_few_bytes_left() {
 		let bytes = to_vec_u8(tc.hex_bytes()).unwrap();
 		for i in 0..bytes.len() - 1 {
 			let mut decoder = Decoder::new(tc.bitness(), &bytes[0..i], tc.decoder_options());
+			decoder.set_ip(0x1000);
 			let instr = decoder.decode();
+			assert_eq!(0x1000 + i as u64, decoder.ip());
 			assert_eq!(Code::INVALID, instr.code());
 			assert!(decoder.invalid_no_more_bytes());
 		}

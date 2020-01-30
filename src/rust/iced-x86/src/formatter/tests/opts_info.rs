@@ -111,46 +111,16 @@ impl OptionsInstructionInfo {
 				OptionsProps::DigitSeparator => options.set_digit_separator(info.1.to_str()),
 				OptionsProps::DisplacementLeadingZeroes => options.set_displacement_leading_zeroes(info.1.to_bool()),
 				OptionsProps::FirstOperandCharIndex => options.set_first_operand_char_index(info.1.to_i32_as_u32()),
-				OptionsProps::GasNakedRegisters => {
-					if cfg!(feature = "gas") {
-						options.set_gas_naked_registers(info.1.to_bool())
-					} else {
-						panic!()
-					}
-				}
-				OptionsProps::GasShowMnemonicSizeSuffix => {
-					if cfg!(feature = "gas") {
-						options.set_gas_show_mnemonic_size_suffix(info.1.to_bool())
-					} else {
-						panic!()
-					}
-				}
-				OptionsProps::GasSpaceAfterMemoryOperandComma => {
-					if cfg!(feature = "gas") {
-						options.set_gas_space_after_memory_operand_comma(info.1.to_bool())
-					} else {
-						panic!()
-					}
-				}
+				OptionsProps::GasNakedRegisters => options.set_gas_naked_registers(info.1.to_bool()),
+				OptionsProps::GasShowMnemonicSizeSuffix => options.set_gas_show_mnemonic_size_suffix(info.1.to_bool()),
+				OptionsProps::GasSpaceAfterMemoryOperandComma => options.set_gas_space_after_memory_operand_comma(info.1.to_bool()),
 				OptionsProps::HexDigitGroupSize => options.set_hex_digit_group_size(info.1.to_i32_as_u32()),
 				OptionsProps::HexPrefix => options.set_hex_prefix(info.1.to_str()),
 				OptionsProps::HexSuffix => options.set_hex_suffix(info.1.to_str()),
 				OptionsProps::LeadingZeroes => options.set_leading_zeroes(info.1.to_bool()),
-				OptionsProps::MasmAddDsPrefix32 => {
-					if cfg!(feature = "masm") {
-						options.set_masm_add_ds_prefix32(info.1.to_bool())
-					} else {
-						panic!()
-					}
-				}
+				OptionsProps::MasmAddDsPrefix32 => options.set_masm_add_ds_prefix32(info.1.to_bool()),
 				OptionsProps::MemorySizeOptions => options.set_memory_size_options(info.1.to_memory_size_options()),
-				OptionsProps::NasmShowSignExtendedImmediateSize => {
-					if cfg!(feature = "nasm") {
-						options.set_nasm_show_sign_extended_immediate_size(info.1.to_bool())
-					} else {
-						panic!()
-					}
-				}
+				OptionsProps::NasmShowSignExtendedImmediateSize => options.set_nasm_show_sign_extended_immediate_size(info.1.to_bool()),
 				OptionsProps::NumberBase => options.set_number_base(info.1.to_number_base()),
 				OptionsProps::OctalDigitGroupSize => options.set_octal_digit_group_size(info.1.to_i32_as_u32()),
 				OptionsProps::OctalPrefix => options.set_octal_prefix(info.1.to_str()),
@@ -183,7 +153,7 @@ impl OptionsInstructionInfo {
 
 	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder) {
 		for info in self.vec.iter() {
-			if let OptionsProps::IP = info.0 {
+			if info.0 == OptionsProps::IP {
 				decoder.set_ip(info.1.to_u64());
 			}
 		}

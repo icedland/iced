@@ -34,9 +34,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		public static IEnumerable<object[]> Format_Data => GetFormatData("Gas", "OptionsResult");
 
 		[Theory]
-		[MemberData(nameof(Format_Data2))]
+		[MemberData(nameof(Format2_Data))]
 		void Format2(int index, OptionsInstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Options());
-		public static IEnumerable<object[]> Format_Data2 => GetFormatData("Gas", "OptionsResult2", "Options2");
+		public static IEnumerable<object[]> Format2_Data => GetFormatData("Gas", "OptionsResult2", "Options2");
 
 		[Fact]
 		public void TestOptions() {

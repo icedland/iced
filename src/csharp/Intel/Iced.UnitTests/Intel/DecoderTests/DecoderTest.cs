@@ -24,24 +24,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using Iced.Intel;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public abstract class DecoderTest {
-		protected Decoder CreateDecoder16(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(16, callerName, hexBytes, DecoderOptions.None);
-		protected Decoder CreateDecoder32(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(32, callerName, hexBytes, DecoderOptions.None);
-		protected Decoder CreateDecoder64(string hexBytes, [CallerMemberName] string callerName = null) =>
-			CreateDecoder(64, callerName, hexBytes, DecoderOptions.None);
-
-		Decoder CreateDecoder(int bitness, string callerName, string hexBytes, DecoderOptions options) {
-			Assert.StartsWith("Test" + bitness.ToString(), callerName);
-			return CreateDecoder(bitness, hexBytes, options).decoder;
-		}
-
 		(Decoder decoder, int length, bool canRead, ByteArrayCodeReader codeReader) CreateDecoder(int bitness, string hexBytes, DecoderOptions options) {
 			var codeReader = new ByteArrayCodeReader(hexBytes);
 			var decoder = Decoder.Create(bitness, codeReader, options);
