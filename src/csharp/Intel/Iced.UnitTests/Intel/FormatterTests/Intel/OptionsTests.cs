@@ -40,7 +40,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 
 		[Fact]
 		public void TestOptions() {
-			var options = new IntelFormatterOptions();
+			var options = FormatterOptions.CreateIntel();
 			TestOptionsBase(options);
 		}
 	}

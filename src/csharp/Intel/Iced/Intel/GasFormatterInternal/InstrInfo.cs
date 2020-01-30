@@ -348,7 +348,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
 #endif
 
-		public abstract void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info);
+		public abstract void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info);
 
 		protected static int GetBitness(CodeSize codeSize) =>
 			codeSize switch {
@@ -358,8 +358,8 @@ namespace Iced.Intel.GasFormatterInternal {
 				_ => 0,
 			};
 
-		protected static FormatterString GetMnemonic(GasFormatterOptions options, in Instruction instruction, FormatterString mnemonic, FormatterString mnemonic_suffix, InstrOpInfoFlags flags) {
-			if (options.ShowMnemonicSizeSuffix)
+		protected static FormatterString GetMnemonic(FormatterOptions options, in Instruction instruction, FormatterString mnemonic, FormatterString mnemonic_suffix, InstrOpInfoFlags flags) {
+			if (options.GasShowMnemonicSizeSuffix)
 				return mnemonic_suffix;
 			if ((flags & InstrOpInfoFlags.MnemonicSuffixIfMem) != 0 && MemorySizes.AllMemorySizes[(int)instruction.MemorySize].IsDefault) {
 				OpKind opKind;
@@ -387,7 +387,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
 	}
 
@@ -396,7 +396,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public SimpleInstrInfo_AamAad(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			if (instruction.Immediate8 == 10) {
 				info = default;
 				info.Mnemonic = mnemonic;
@@ -422,13 +422,13 @@ namespace Iced.Intel.GasFormatterInternal {
 		static readonly FormatterString str_xchgl = new FormatterString("xchgl");
 		static readonly FormatterString str_xchgq = new FormatterString("xchgq");
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness == 0 || (instrBitness & bitness) != 0)
 				info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			else {
 				info = default;
-				if (!options.ShowMnemonicSizeSuffix)
+				if (!options.GasShowMnemonicSizeSuffix)
 					info.Mnemonic = str_xchg;
 				else if (register == Register.AX)
 					info.Mnemonic = str_xchgw;
@@ -463,7 +463,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.pseudoOp = pseudoOp;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			Debug.Assert(instruction.OpCount == 2);
@@ -485,7 +485,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
 			if (options.UsePseudoOps && (instruction.Op0Register == Register.ST1 || instruction.Op1Register == Register.ST1)) {
 				info = default;
@@ -506,7 +506,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		public SimpleInstrInfo_ST_STi(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
@@ -520,7 +520,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		public SimpleInstrInfo_STi_ST(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
@@ -537,7 +537,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			InstrOpInfoFlags flags = 0;
 			var instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness != 0 && instrBitness != bitness) {
@@ -557,7 +557,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public SimpleInstrInfo_maskmovq(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			Debug.Assert(instruction.OpCount == 3);
 
 			var instrBitness = GetBitness(instruction.CodeSize);
@@ -594,7 +594,7 @@ namespace Iced.Intel.GasFormatterInternal {
 
 		public SimpleInstrInfo_pblendvb(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			Debug.Assert(instruction.OpCount == 2);
 			info.Mnemonic = mnemonic;
@@ -625,9 +625,9 @@ namespace Iced.Intel.GasFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = new FormatterString(mnemonic64);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			FormatterString mnemonic;
-			if (instruction.CodeSize == codeSize && !options.ShowMnemonicSizeSuffix)
+			if (instruction.CodeSize == codeSize && !options.GasShowMnemonicSizeSuffix)
 				mnemonic = mnemonics[(int)CodeSize.Unknown];
 			else
 				mnemonic = mnemonics[(int)codeSize];
@@ -646,12 +646,12 @@ namespace Iced.Intel.GasFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = new FormatterString(mnemonic64);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			int codeSize = (int)instruction.CodeSize;
-			if (options.ShowMnemonicSizeSuffix)
+			if (options.GasShowMnemonicSizeSuffix)
 				codeSize = (int)CodeSize.Code64;
 			var mnemonic = mnemonics[codeSize];
 			info = new InstrOpInfo(mnemonic, instruction, flags);
@@ -669,10 +669,10 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var instrBitness = GetBitness(instruction.CodeSize);
 			FormatterString mnemonic;
-			if (!options.ShowMnemonicSizeSuffix && (instrBitness == 0 || (instrBitness & bitness) != 0))
+			if (!options.GasShowMnemonicSizeSuffix && (instrBitness == 0 || (instrBitness & bitness) != 0))
 				mnemonic = this.mnemonic;
 			else
 				mnemonic = mnemonic_suffix;
@@ -692,7 +692,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness != 0 && instrBitness != bitness) {
@@ -722,7 +722,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			FormatterString mnemonic;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness != 0 && instrBitness != bitness)
@@ -744,7 +744,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -767,7 +767,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -795,7 +795,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			bool hasMemOp = instruction.Op0Kind == OpKind.Memory || instruction.Op1Kind == OpKind.Memory;
@@ -823,7 +823,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			int instrBitness = GetBitness(instruction.CodeSize);
 			FormatterString mnemonic;
 			if ((instrBitness != 0 && (instrBitness & bitness) == 0))
@@ -843,7 +843,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			Debug.Assert(instruction.OpCount == 1);
@@ -901,11 +901,11 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			var mnemonic = this.mnemonic;
-			if ((instrBitness != 0 && instrBitness != regSize) || options.ShowMnemonicSizeSuffix)
+			if ((instrBitness != 0 && instrBitness != regSize) || options.GasShowMnemonicSizeSuffix)
 				mnemonic = mnemonic_suffix;
 			if (instrBitness != 0 && instrBitness != bitness) {
 				if (bitness == 16)
@@ -928,7 +928,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness != 0 && instrBitness != bitness) {
@@ -959,7 +959,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness == 0) {
@@ -994,7 +994,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix64 = new FormatterString(mnemonic_suffix64);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
 			var opKind = instruction.GetOpKind(memOpNumber);
@@ -1044,7 +1044,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
 			var rc = instruction.RoundingControl;
 			if (rc != RoundingControl.None) {
@@ -1113,7 +1113,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			if (instruction.SuppressAllExceptions)
 				SimpleInstrInfo_er.MoveOperands(ref info, saeIndex, InstrOpKind.Sae);
@@ -1131,7 +1131,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.IndirectOperand;
 			var instrBitness = GetBitness(instruction.CodeSize);
 			FormatterString mnemonic;
@@ -1143,7 +1143,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				mnemonic = this.mnemonic;
 			}
 			else {
-				if (bitness != instrBitness || options.ShowMnemonicSizeSuffix)
+				if (bitness != instrBitness || options.GasShowMnemonicSizeSuffix)
 					mnemonic = mnemonic_suffix;
 				else
 					mnemonic = this.mnemonic;
@@ -1165,7 +1165,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -1182,7 +1182,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			int imm = instruction.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
@@ -1262,7 +1262,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			if (instruction.SuppressAllExceptions)
 				SimpleInstrInfo_er.MoveOperands(ref info, saeIndex, InstrOpKind.Sae);
@@ -1283,7 +1283,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			if (options.UsePseudoOps) {
 				int index;
@@ -1315,7 +1315,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
 			Debug.Assert(info.OpCount == 3);
@@ -1334,7 +1334,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
@@ -1364,7 +1364,7 @@ namespace Iced.Intel.GasFormatterInternal {
 			this.opKind = opKind;
 		}
 
-		public override void GetOpInfo(GasFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.KeepOperandOrder | InstrOpInfoFlags.MnemonicIsDirective);
 			info.OpCount = (byte)instruction.DeclareDataCount;
 			info.Op0Kind = opKind;

@@ -30,68 +30,23 @@ using Iced.Intel.GasFormatterInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// GNU assembler (AT&amp;T) formatter options
-	/// </summary>
-	public sealed class GasFormatterOptions : FormatterOptions {
-		/// <summary>
-		/// If <see langword="true"/>, the formatter doesn't add <c>%</c> to registers
-		/// <br/>
-		/// Default: <see langword="false"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>mov eax,ecx</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
-		/// </summary>
-		public bool NakedRegisters { get; set; }
-
-		/// <summary>
-		/// Shows the mnemonic size suffix even when not needed
-		/// <br/>
-		/// Default: <see langword="false"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>movl %eax,%ecx</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
-		/// </summary>
-		public bool ShowMnemonicSizeSuffix { get; set; }
-
-		/// <summary>
-		/// Add a space after the comma if it's a memory operand
-		/// <br/>
-		/// Default: <see langword="false"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>(%eax, %ecx, 2)</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>(%eax,%ecx,2)</c>
-		/// </summary>
-		public bool SpaceAfterMemoryOperandComma { get; set; }
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public GasFormatterOptions() {
-			HexPrefix = "0x";
-			OctalPrefix = "0";
-			BinaryPrefix = "0b";
-		}
-	}
-
-	/// <summary>
 	/// GNU assembler (AT&amp;T) formatter
 	/// </summary>
 	public sealed class GasFormatter : Formatter {
 		/// <summary>
-		/// Gets the formatter options, see also <see cref="GasOptions"/>
+		/// Gets the formatter options
 		/// </summary>
 		public override FormatterOptions Options => options;
 
 		/// <summary>
 		/// Gets the GAS formatter options
 		/// </summary>
-		public GasFormatterOptions GasOptions => options;
+		[System.Obsolete("Use " + nameof(Options) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public FormatterOptions GasOptions => options;
 
 		const string ImmediateValuePrefix = "$";
-		readonly GasFormatterOptions options;
+		readonly FormatterOptions options;
 		readonly ISymbolResolver? symbolResolver;
 		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly FormatterString[] allRegisters;
@@ -103,7 +58,7 @@ namespace Iced.Intel {
 		readonly FormatterString[] addrSizeStrings;
 		readonly string[] scaleNumbers;
 
-		FormatterString[] AllRegisters => options.NakedRegisters ? allRegistersNaked : allRegisters;
+		FormatterString[] AllRegisters => options.GasNakedRegisters ? allRegistersNaked : allRegisters;
 
 		/// <summary>
 		/// Constructor
@@ -124,8 +79,8 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public GasFormatter(GasFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
-			this.options = options ?? new GasFormatterOptions();
+		public GasFormatter(FormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
+			this.options = options ?? FormatterOptions.CreateGas();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
@@ -974,7 +929,7 @@ namespace Iced.Intel {
 						FormatRegister(output, instruction, operand, instructionOperand, (int)baseReg);
 
 					output.Write(",", FormatterTextKind.Punctuation);
-					if (options.SpaceAfterMemoryOperandComma)
+					if (options.GasSpaceAfterMemoryOperandComma)
 						output.Write(" ", FormatterTextKind.Text);
 
 					if (indexReg != Register.None)
@@ -982,7 +937,7 @@ namespace Iced.Intel {
 
 					if (useScale) {
 						output.Write(",", FormatterTextKind.Punctuation);
-						if (options.SpaceAfterMemoryOperandComma)
+						if (options.GasSpaceAfterMemoryOperandComma)
 							output.Write(" ", FormatterTextKind.Text);
 
 						output.WriteNumber(instruction, operand, instructionOperand, scaleNumbers[scale], 1U << scale, NumberKind.Int32, FormatterTextKind.Number);

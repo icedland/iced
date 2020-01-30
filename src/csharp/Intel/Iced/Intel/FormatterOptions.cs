@@ -26,7 +26,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Formatter options
 	/// </summary>
-	public abstract class FormatterOptions {
+	public sealed class FormatterOptions {
 		/// <summary>
 		/// Prefixes are upper cased
 		/// <br/>
@@ -495,6 +495,83 @@ namespace Iced.Intel {
 		public bool ShowSymbolAddress { get; set; }
 
 		/// <summary>
+		/// (gas only): If <see langword="true"/>, the formatter doesn't add <c>%</c> to registers
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov eax,ecx</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
+		/// </summary>
+		public bool GasNakedRegisters { get; set; }
+
+		/// <summary>
+		/// (gas only): Shows the mnemonic size suffix even when not needed
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>movl %eax,%ecx</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov %eax,%ecx</c>
+		/// </summary>
+		public bool GasShowMnemonicSizeSuffix { get; set; }
+
+		/// <summary>
+		/// (gas only): Add a space after the comma if it's a memory operand
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>(%eax, %ecx, 2)</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>(%eax,%ecx,2)</c>
+		/// </summary>
+		public bool GasSpaceAfterMemoryOperandComma { get; set; }
+
+		/// <summary>
+		/// (masm only): Add a <c>DS</c> segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
+		/// <br/>
+		/// Default: <see langword="true"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov eax,ds:[12345678]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov eax,[12345678]</c>
+		/// </summary>
+		public bool MasmAddDsPrefix32 { get; set; } = true;
+
+		/// <summary>
+		/// (masm only): Show symbols in brackets
+		/// <br/>
+		/// Default: <see langword="true"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>[ecx+symbol]</c> / <c>[symbol]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>symbol[ecx]</c> / <c>symbol</c>
+		/// </summary>
+		public bool MasmSymbolDisplInBrackets { get; set; } = true;
+
+		/// <summary>
+		/// (masm only): Show displacements in brackets
+		/// <br/>
+		/// Default: <see langword="true"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>[ecx+1234h]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>1234h[ecx]</c>
+		/// </summary>
+		public bool MasmDisplInBrackets { get; set; } = true;
+
+		/// <summary>
+		/// (nasm only): Shows <c>BYTE</c>, <c>WORD</c>, <c>DWORD</c> or <c>QWORD</c> if it's a sign extended immediate operand value
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>or rcx,byte -1</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>or rcx,-1</c>
+		/// </summary>
+		public bool NasmShowSignExtendedImmediateSize { get; set; }
+
+		/// <summary>
 		/// Use <c>st(0)</c> instead of <c>st</c> if <c>st</c> can be used. Ignored by the nasm formatter.
 		/// <br/>
 		/// Default: <see langword="false"/>
@@ -504,6 +581,58 @@ namespace Iced.Intel {
 		/// <see langword="false"/>: <c>fadd st,st(3)</c>
 		/// </summary>
 		public bool PreferST0 { get; set; }
+
+#if !NO_GAS
+		/// <summary>
+		/// Creates GNU assembler (AT&amp;T) formatter options
+		/// </summary>
+		/// <returns></returns>
+		public static FormatterOptions CreateGas() =>
+			new FormatterOptions {
+				HexPrefix = "0x",
+				OctalPrefix = "0",
+				BinaryPrefix = "0b",
+			};
+#endif
+
+#if !NO_INTEL
+		/// <summary>
+		/// Creates Intel (XED) formatter options
+		/// </summary>
+		/// <returns></returns>
+		public static FormatterOptions CreateIntel() =>
+			new FormatterOptions {
+				HexSuffix = "h",
+				OctalSuffix = "o",
+				BinarySuffix = "b",
+			};
+#endif
+
+#if !NO_MASM
+		/// <summary>
+		/// Creates masm formatter options
+		/// </summary>
+		/// <returns></returns>
+		public static FormatterOptions CreateMasm() =>
+			new FormatterOptions {
+				HexSuffix = "h",
+				OctalSuffix = "o",
+				BinarySuffix = "b",
+			};
+#endif
+
+#if !NO_NASM
+		/// <summary>
+		/// Creates nasm formatter options
+		/// </summary>
+		/// <returns></returns>
+		public static FormatterOptions CreateNasm() =>
+			new FormatterOptions {
+				HexSuffix = "h",
+				OctalSuffix = "o",
+				BinarySuffix = "b",
+			};
+#endif
 	}
 
 	// GENERATOR-BEGIN: NumberBase

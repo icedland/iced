@@ -30,45 +30,22 @@ using Iced.Intel.NasmFormatterInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Nasm formatter options
-	/// </summary>
-	public sealed class NasmFormatterOptions : FormatterOptions {
-		/// <summary>
-		/// Shows <c>BYTE</c>, <c>WORD</c>, <c>DWORD</c> or <c>QWORD</c> if it's a sign extended immediate operand value
-		/// <br/>
-		/// Default: <see langword="false"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>or rcx,byte -1</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>or rcx,-1</c>
-		/// </summary>
-		public bool ShowSignExtendedImmediateSize { get; set; }
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public NasmFormatterOptions() {
-			HexSuffix = "h";
-			OctalSuffix = "o";
-			BinarySuffix = "b";
-		}
-	}
-
-	/// <summary>
 	/// Nasm formatter
 	/// </summary>
 	public sealed class NasmFormatter : Formatter {
 		/// <summary>
-		/// Gets the formatter options, see also <see cref="NasmOptions"/>
+		/// Gets the formatter options
 		/// </summary>
 		public override FormatterOptions Options => options;
 
 		/// <summary>
 		/// Gets the nasm formatter options
 		/// </summary>
-		public NasmFormatterOptions NasmOptions => options;
+		[System.Obsolete("Use " + nameof(Options) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public FormatterOptions NasmOptions => options;
 
-		readonly NasmFormatterOptions options;
+		readonly FormatterOptions options;
 		readonly ISymbolResolver? symbolResolver;
 		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly FormatterString[] allRegisters;
@@ -101,8 +78,8 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public NasmFormatter(NasmFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
-			this.options = options ?? new NasmFormatterOptions();
+		public NasmFormatter(FormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
+			this.options = options ?? FormatterOptions.CreateNasm();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
@@ -776,7 +753,7 @@ namespace Iced.Intel {
 		}
 
 		void ShowSignExtendInfo(FormatterOutput output, InstrOpInfoFlags flags) {
-			if (!options.ShowSignExtendedImmediateSize)
+			if (!options.NasmShowSignExtendedImmediateSize)
 				return;
 
 			FormatterString keyword;

@@ -269,11 +269,11 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 				},
 			};
 			var formatter = (MasmFormatter)FormatterFactory.Create_Resolver(resolver).formatter;
-			formatter.MasmOptions.SymbolDisplInBrackets = (flags & Flags.SymbolDisplInBrackets) != 0;
-			formatter.MasmOptions.DisplInBrackets = (flags & Flags.DisplInBrackets) != 0;
-			formatter.MasmOptions.RipRelativeAddresses = (flags & Flags.Rip) != 0;
-			formatter.MasmOptions.ShowZeroDisplacements = (flags & Flags.ShowZeroDisplacements) != 0;
-			formatter.MasmOptions.AddDsPrefix32 = (flags & Flags.NoAddDsPrefix32) == 0;
+			formatter.Options.MasmSymbolDisplInBrackets = (flags & Flags.SymbolDisplInBrackets) != 0;
+			formatter.Options.MasmDisplInBrackets = (flags & Flags.DisplInBrackets) != 0;
+			formatter.Options.RipRelativeAddresses = (flags & Flags.Rip) != 0;
+			formatter.Options.ShowZeroDisplacements = (flags & Flags.ShowZeroDisplacements) != 0;
+			formatter.Options.MasmAddDsPrefix32 = (flags & Flags.NoAddDsPrefix32) == 0;
 
 			var output = new StringOutput();
 			formatter.Format(instruction, output);

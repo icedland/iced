@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 
 		[Fact]
 		void Verify_default_formatter_options() {
-			var options = new IntelFormatterOptions();
+			var options = FormatterOptions.CreateIntel();
 			Assert.False(options.UpperCasePrefixes);
 			Assert.False(options.UpperCaseMnemonics);
 			Assert.False(options.UpperCaseRegisters);

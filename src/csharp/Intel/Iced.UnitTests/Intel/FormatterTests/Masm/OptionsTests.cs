@@ -40,7 +40,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		[Fact]
 		public void TestOptions() {
-			var options = new MasmFormatterOptions();
+			var options = FormatterOptions.CreateMasm();
 			TestOptionsBase(options);
 		}
 	}

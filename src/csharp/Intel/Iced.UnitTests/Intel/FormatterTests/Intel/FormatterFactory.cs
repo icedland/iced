@@ -26,16 +26,18 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 	static class FormatterFactory {
-		static IntelFormatterOptions CreateOptions() => new IntelFormatterOptions {
-			UpperCaseHex = false,
-			HexPrefix = "0x",
-			HexSuffix = null,
-			OctalPrefix = "0o",
-			OctalSuffix = null,
-			BinaryPrefix = "0b",
-			BinarySuffix = null,
-			SpaceAfterOperandSeparator = true,
-		};
+		static FormatterOptions CreateOptions() {
+			var options = FormatterOptions.CreateIntel();
+			options.UpperCaseHex = false;
+			options.HexPrefix = "0x";
+			options.HexSuffix = null;
+			options.OctalPrefix = "0o";
+			options.OctalSuffix = null;
+			options.BinaryPrefix = "0b";
+			options.BinarySuffix = null;
+			options.SpaceAfterOperandSeparator = true;
+			return options;
+		}
 
 		public static IntelFormatter Create_MemDefault() {
 			var options = CreateOptions();

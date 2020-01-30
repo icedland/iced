@@ -40,7 +40,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		[Fact]
 		public void TestOptions() {
-			var options = new GasFormatterOptions();
+			var options = FormatterOptions.CreateGas();
 			TestOptionsBase(options);
 		}
 	}

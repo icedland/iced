@@ -30,67 +30,22 @@ using Iced.Intel.MasmFormatterInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Masm formatter options
-	/// </summary>
-	public sealed class MasmFormatterOptions : FormatterOptions {
-		/// <summary>
-		/// Add a <c>DS</c> segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
-		/// <br/>
-		/// Default: <see langword="true"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>mov eax,ds:[12345678]</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>mov eax,[12345678]</c>
-		/// </summary>
-		public bool AddDsPrefix32 { get; set; } = true;
-
-		/// <summary>
-		/// Show symbols in brackets
-		/// <br/>
-		/// Default: <see langword="true"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>[ecx+symbol]</c> / <c>[symbol]</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>symbol[ecx]</c> / <c>symbol</c>
-		/// </summary>
-		public bool SymbolDisplInBrackets { get; set; } = true;
-
-		/// <summary>
-		/// Show displacements in brackets
-		/// <br/>
-		/// Default: <see langword="true"/>
-		/// <br/>
-		/// <see langword="true"/>: <c>[ecx+1234h]</c>
-		/// <br/>
-		/// <see langword="false"/>: <c>1234h[ecx]</c>
-		/// </summary>
-		public bool DisplInBrackets { get; set; } = true;
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public MasmFormatterOptions() {
-			HexSuffix = "h";
-			OctalSuffix = "o";
-			BinarySuffix = "b";
-		}
-	}
-
-	/// <summary>
 	/// Masm formatter
 	/// </summary>
 	public sealed class MasmFormatter : Formatter {
 		/// <summary>
-		/// Gets the formatter options, see also <see cref="MasmOptions"/>
+		/// Gets the formatter options
 		/// </summary>
 		public override FormatterOptions Options => options;
 
 		/// <summary>
 		/// Gets the masm formatter options
 		/// </summary>
-		public MasmFormatterOptions MasmOptions => options;
+		[System.Obsolete("Use " + nameof(Options) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public FormatterOptions MasmOptions => options;
 
-		readonly MasmFormatterOptions options;
+		readonly FormatterOptions options;
 		readonly ISymbolResolver? symbolResolver;
 		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly FormatterString[] allRegisters;
@@ -119,8 +74,8 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public MasmFormatter(MasmFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
-			this.options = options ?? new MasmFormatterOptions();
+		public MasmFormatter(FormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
+			this.options = options ?? FormatterOptions.CreateMasm();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;
@@ -838,8 +793,8 @@ namespace Iced.Intel {
 			CodeSize codeSize;
 			bool is1632 = ((codeSize = instruction.CodeSize) == CodeSize.Code16 || codeSize == CodeSize.Code32);
 			bool hasMemReg = baseReg != Register.None || indexReg != Register.None;
-			bool displInBrackets = useSymbol ? options.SymbolDisplInBrackets : options.DisplInBrackets;
-			if ((!is1632 && !hasMemReg && !useSymbol) || (is1632 && !hasMemReg && !useSymbol && !options.AddDsPrefix32 && segOverride == Register.None))
+			bool displInBrackets = useSymbol ? options.MasmSymbolDisplInBrackets : options.MasmDisplInBrackets;
+			if ((!is1632 && !hasMemReg && !useSymbol) || (is1632 && !hasMemReg && !useSymbol && !options.MasmAddDsPrefix32 && segOverride == Register.None))
 				displInBrackets = true;
 			bool needBrackets = hasMemReg || displInBrackets;
 
@@ -848,7 +803,7 @@ namespace Iced.Intel {
 			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
 			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix) ||
-				(is1632 && !hasMemReg && !useSymbol && options.AddDsPrefix32)) {
+				(is1632 && !hasMemReg && !useSymbol && options.MasmAddDsPrefix32)) {
 				FormatRegister(output, instruction, operand, instructionOperand, (int)segReg);
 				output.Write(":", FormatterTextKind.Punctuation);
 			}

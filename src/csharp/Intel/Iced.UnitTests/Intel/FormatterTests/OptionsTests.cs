@@ -113,22 +113,16 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				case OptionsProps.DigitSeparator: options.DigitSeparator = (string)info.value; break;
 				case OptionsProps.DisplacementLeadingZeroes: options.DisplacementLeadingZeroes = (bool)info.value; break;
 				case OptionsProps.FirstOperandCharIndex: options.FirstOperandCharIndex = (int)info.value; break;
-#if !NO_GAS
-				case OptionsProps.GasNakedRegisters: ((GasFormatterOptions)options).NakedRegisters = (bool)info.value; break;
-				case OptionsProps.GasShowMnemonicSizeSuffix: ((GasFormatterOptions)options).ShowMnemonicSizeSuffix = (bool)info.value; break;
-				case OptionsProps.GasSpaceAfterMemoryOperandComma: ((GasFormatterOptions)options).SpaceAfterMemoryOperandComma = (bool)info.value; break;
-#endif
+				case OptionsProps.GasNakedRegisters: options.GasNakedRegisters = (bool)info.value; break;
+				case OptionsProps.GasShowMnemonicSizeSuffix: options.GasShowMnemonicSizeSuffix = (bool)info.value; break;
+				case OptionsProps.GasSpaceAfterMemoryOperandComma: options.GasSpaceAfterMemoryOperandComma = (bool)info.value; break;
 				case OptionsProps.HexDigitGroupSize: options.HexDigitGroupSize = (int)info.value; break;
 				case OptionsProps.HexPrefix: options.HexPrefix = (string)info.value; break;
 				case OptionsProps.HexSuffix: options.HexSuffix = (string)info.value; break;
 				case OptionsProps.LeadingZeroes: options.LeadingZeroes = (bool)info.value; break;
-#if !NO_MASM
-				case OptionsProps.MasmAddDsPrefix32: ((MasmFormatterOptions)options).AddDsPrefix32 = (bool)info.value; break;
-#endif
+				case OptionsProps.MasmAddDsPrefix32: options.MasmAddDsPrefix32 = (bool)info.value; break;
 				case OptionsProps.MemorySizeOptions: options.MemorySizeOptions = (MemorySizeOptions)info.value; break;
-#if !NO_NASM
-				case OptionsProps.NasmShowSignExtendedImmediateSize: ((NasmFormatterOptions)options).ShowSignExtendedImmediateSize = (bool)info.value; break;
-#endif
+				case OptionsProps.NasmShowSignExtendedImmediateSize: options.NasmShowSignExtendedImmediateSize = (bool)info.value; break;
 				case OptionsProps.NumberBase: options.NumberBase = (NumberBase)info.value; break;
 				case OptionsProps.OctalDigitGroupSize: options.OctalDigitGroupSize = (int)info.value; break;
 				case OptionsProps.OctalPrefix: options.OctalPrefix = (string)info.value; break;

@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		[Fact]
 		void Verify_default_formatter_options() {
-			var options = new MasmFormatterOptions();
+			var options = FormatterOptions.CreateMasm();
 			Assert.False(options.UpperCasePrefixes);
 			Assert.False(options.UpperCaseMnemonics);
 			Assert.False(options.UpperCaseRegisters);
@@ -82,9 +82,9 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.PreferST0);
-			Assert.True(options.AddDsPrefix32);
-			Assert.True(options.SymbolDisplInBrackets);
-			Assert.True(options.DisplInBrackets);
+			Assert.True(options.MasmAddDsPrefix32);
+			Assert.True(options.MasmSymbolDisplInBrackets);
+			Assert.True(options.MasmDisplInBrackets);
 		}
 
 		[Theory]

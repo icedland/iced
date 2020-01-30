@@ -263,7 +263,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public const int OpAccess_NoMemAccess = OpAccess_INVALID;
 #endif
 
-		public abstract void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info);
+		public abstract void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info);
 
 		protected static int GetBitness(CodeSize codeSize) =>
 			codeSize switch {
@@ -285,7 +285,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 	}
 
@@ -302,7 +302,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags | InstrOpInfoFlags.MemSize_Mmx;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 	}
 
@@ -315,7 +315,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			int instrBitness = GetBitness(instruction.CodeSize);
 			var flags = instrBitness == 0 || (instrBitness & bitness) != 0 ? InstrOpInfoFlags.MemSize_Nothing : InstrOpInfoFlags.MemSize_Normal | InstrOpInfoFlags.ShowNoMemSize_ForceSize;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
@@ -327,7 +327,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_AamAad(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			if (instruction.Immediate8 == 10) {
 				info = default;
 				info.Mnemonic = mnemonic;
@@ -342,7 +342,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_Ib(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
@@ -362,7 +362,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op0Kind,
 				CodeSize.Code16 => OpKind.MemoryESDI,
@@ -392,7 +392,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op1Kind,
 				CodeSize.Code16 => OpKind.MemorySegSI,
@@ -422,7 +422,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op0Kind,
 				CodeSize.Code16 => OpKind.MemoryESDI,
@@ -452,7 +452,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op1Kind,
 				CodeSize.Code16 => OpKind.MemoryESDI,
@@ -482,7 +482,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op0Kind,
 				CodeSize.Code16 => OpKind.MemoryESDI,
@@ -517,7 +517,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op1Kind,
 				CodeSize.Code16 => OpKind.MemorySegSI,
@@ -553,7 +553,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op1Kind,
 				CodeSize.Code16 => OpKind.MemoryESDI,
@@ -587,7 +587,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic_no_args = new FormatterString(mnemonic_no_args);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var baseReg = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.MemoryBase,
 				CodeSize.Code16 => Register.BX,
@@ -618,7 +618,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		static readonly FormatterString str_xchg = new FormatterString("xchg");
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			int instrBitness = GetBitness(instruction.CodeSize);
 			if (instrBitness == 0 || (instrBitness & bitness) != 0)
 				info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -650,7 +650,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.pseudoOp = pseudoOp;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			Debug.Assert(instruction.OpCount == 2);
@@ -673,7 +673,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
 			if (options.UsePseudoOps && (instruction.Op0Register == Register.ST1 || instruction.Op1Register == Register.ST1)) {
 				info = default;
@@ -695,7 +695,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op0Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
@@ -710,7 +710,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.Op1Register == (int)Register.ST0);
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
@@ -731,7 +731,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.register3 = register3;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
@@ -759,7 +759,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_mwait(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 2;
@@ -797,7 +797,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_mwaitx(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 3;
@@ -847,7 +847,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			Debug.Assert(instruction.OpCount == 3);
 			var shortFormOpKind = instruction.CodeSize switch {
 				CodeSize.Unknown => instruction.Op0Kind,
@@ -881,7 +881,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_pblendvb(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			Debug.Assert(instruction.OpCount == 2);
 			info.Mnemonic = mnemonic;
@@ -905,7 +905,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_reverse2(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			Debug.Assert(instruction.OpCount == 2);
@@ -933,7 +933,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = new FormatterString(mnemonic64);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			FormatterString mnemonic;
 			if (instruction.CodeSize == codeSize)
 				mnemonic = mnemonics[(int)CodeSize.Unknown];
@@ -954,7 +954,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = new FormatterString(mnemonic64);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var mnemonic = mnemonics[(int)instruction.CodeSize];
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 		}
@@ -971,7 +971,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			mnemonics[(int)CodeSize.Code64] = new FormatterString(mnemonic64);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -989,7 +989,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			if (instruction.CodeSize != codeSize && instruction.CodeSize != CodeSize.Unknown)
 				flags |= InstrOpInfoFlags.ShowNoMemSize_ForceSize;
@@ -1010,7 +1010,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic2 = new FormatterString(mnemonic2);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			FormatterString mnemonic;
 			if (instruction.CodeSize == codeSize || instruction.CodeSize == CodeSize.Unknown)
@@ -1028,7 +1028,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 		public SimpleInstrInfo_jcc(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			var prefixSeg = instruction.SegmentPrefix;
 			if (prefixSeg == Register.CS)
@@ -1052,7 +1052,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = this.flags;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
@@ -1073,7 +1073,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.flags = flags;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			int imm = instruction.Immediate8;
 			if (options.UsePseudoOps && (uint)imm < (uint)pseudo_ops.Length) {
@@ -1106,7 +1106,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.pseudo_ops = pseudo_ops;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			if (options.UsePseudoOps) {
 				int index;
@@ -1136,7 +1136,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 			Debug.Assert(info.OpCount == 3);
 			if (options.UsePseudoOps && info.Op0Kind == InstrOpKind.Register && info.Op1Kind == InstrOpKind.Register && info.Op0Register == info.Op1Register) {
@@ -1155,7 +1155,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 		public SimpleInstrInfo_Reg16(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
@@ -1178,7 +1178,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.register = register;
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 1;
@@ -1198,7 +1198,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			this.mnemonic = new FormatterString(mnemonic);
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = default;
 			info.Mnemonic = mnemonic;
 			info.OpCount = 2;
@@ -1246,7 +1246,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			};
 		}
 
-		public override void GetOpInfo(MasmFormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.MnemonicIsDirective);
 			info.OpCount = (byte)instruction.DeclareDataCount;
 			info.Op0Kind = opKind;

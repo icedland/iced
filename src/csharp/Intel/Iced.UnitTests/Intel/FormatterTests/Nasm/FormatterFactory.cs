@@ -26,20 +26,22 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 	static class FormatterFactory {
-		static NasmFormatterOptions CreateOptions() => new NasmFormatterOptions {
-			UpperCaseHex = false,
-			HexPrefix = "0x",
-			HexSuffix = null,
-			OctalPrefix = "0o",
-			OctalSuffix = null,
-			BinaryPrefix = "0b",
-			BinarySuffix = null,
-		};
+		static FormatterOptions CreateOptions() {
+			var options = FormatterOptions.CreateNasm();
+			options.UpperCaseHex = false;
+			options.HexPrefix = "0x";
+			options.HexSuffix = null;
+			options.OctalPrefix = "0o";
+			options.OctalSuffix = null;
+			options.BinaryPrefix = "0b";
+			options.BinarySuffix = null;
+			return options;
+		}
 
 		public static NasmFormatter Create_MemDefault() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
-			options.ShowSignExtendedImmediateSize = true;
+			options.NasmShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
@@ -50,7 +52,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		public static NasmFormatter Create_MemAlways() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Always;
-			options.ShowSignExtendedImmediateSize = true;
+			options.NasmShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
@@ -61,7 +63,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		public static NasmFormatter Create_MemMinimum() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Minimum;
-			options.ShowSignExtendedImmediateSize = true;
+			options.NasmShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
@@ -72,7 +74,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		public static NasmFormatter Create() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
-			options.ShowSignExtendedImmediateSize = true;
+			options.NasmShowSignExtendedImmediateSize = true;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new NasmFormatter(options);
@@ -81,7 +83,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		public static NasmFormatter Create_Options() {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
-			options.ShowSignExtendedImmediateSize = false;
+			options.NasmShowSignExtendedImmediateSize = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new NasmFormatter(options);
@@ -100,7 +102,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
 			options.MemorySizeOptions = MemorySizeOptions.Default;
-			options.ShowSignExtendedImmediateSize = false;
+			options.NasmShowSignExtendedImmediateSize = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return (new NasmFormatter(options, symbolResolver), symbolResolver);

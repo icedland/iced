@@ -26,7 +26,7 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 	static class FormatterFactory {
-		static MasmFormatterOptions CreateOptions() => new MasmFormatterOptions();
+		static FormatterOptions CreateOptions() => FormatterOptions.CreateMasm();
 
 		public static MasmFormatter Create_MemDefault() {
 			var options = CreateOptions();
@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
 			options.SpaceAfterOperandSeparator = false;
-			options.AddDsPrefix32 = true;
+			options.MasmAddDsPrefix32 = true;
 			return new MasmFormatter(options);
 		}
 
@@ -46,7 +46,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
 			options.SpaceAfterOperandSeparator = true;
-			options.AddDsPrefix32 = true;
+			options.MasmAddDsPrefix32 = true;
 			return new MasmFormatter(options);
 		}
 
@@ -57,7 +57,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
 			options.SpaceAfterOperandSeparator = true;
-			options.AddDsPrefix32 = false;
+			options.MasmAddDsPrefix32 = false;
 			return new MasmFormatter(options);
 		}
 

@@ -287,6 +287,58 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.Equal("Texthello", sb.ToString());
 			Assert.Equal("Texthello", output.ToString());
 		}
+
+		[Fact]
+		void Verify_default_formatter_options() {
+			var options = new FormatterOptions();
+			Assert.False(options.UpperCasePrefixes);
+			Assert.False(options.UpperCaseMnemonics);
+			Assert.False(options.UpperCaseRegisters);
+			Assert.False(options.UpperCaseKeywords);
+			Assert.False(options.UpperCaseDecorators);
+			Assert.False(options.UpperCaseAll);
+			Assert.Equal(0, options.FirstOperandCharIndex);
+			Assert.Equal(0, options.TabSize);
+			Assert.False(options.SpaceAfterOperandSeparator);
+			Assert.False(options.SpaceAfterMemoryBracket);
+			Assert.False(options.SpaceBetweenMemoryAddOperators);
+			Assert.False(options.SpaceBetweenMemoryMulOperators);
+			Assert.False(options.ScaleBeforeIndex);
+			Assert.False(options.AlwaysShowScale);
+			Assert.False(options.AlwaysShowSegmentRegister);
+			Assert.False(options.ShowZeroDisplacements);
+			Assert.Null(options.HexPrefix);
+			Assert.Null(options.HexSuffix);
+			Assert.Equal(4, options.HexDigitGroupSize);
+			Assert.Null(options.DecimalPrefix);
+			Assert.Null(options.DecimalSuffix);
+			Assert.Equal(3, options.DecimalDigitGroupSize);
+			Assert.Null(options.OctalPrefix);
+			Assert.Null(options.OctalSuffix);
+			Assert.Equal(4, options.OctalDigitGroupSize);
+			Assert.Null(options.BinaryPrefix);
+			Assert.Null(options.BinarySuffix);
+			Assert.Equal(4, options.BinaryDigitGroupSize);
+			Assert.Null(options.DigitSeparator);
+			Assert.False(options.LeadingZeroes);
+			Assert.True(options.UpperCaseHex);
+			Assert.True(options.SmallHexNumbersInDecimal);
+			Assert.True(options.AddLeadingZeroToHexNumbers);
+			Assert.Equal(NumberBase.Hexadecimal, options.NumberBase);
+			Assert.True(options.BranchLeadingZeroes);
+			Assert.False(options.SignedImmediateOperands);
+			Assert.True(options.SignedMemoryDisplacements);
+			Assert.False(options.DisplacementLeadingZeroes);
+			Assert.Equal(MemorySizeOptions.Default, options.MemorySizeOptions);
+			Assert.False(options.RipRelativeAddresses);
+			Assert.True(options.ShowBranchSize);
+			Assert.True(options.UsePseudoOps);
+			Assert.False(options.ShowSymbolAddress);
+			Assert.False(options.PreferST0);
+			Assert.True(options.MasmAddDsPrefix32);
+			Assert.True(options.MasmSymbolDisplInBrackets);
+			Assert.True(options.MasmDisplInBrackets);
+		}
 	}
 }
 #endif

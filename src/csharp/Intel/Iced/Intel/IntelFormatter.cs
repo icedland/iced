@@ -30,34 +30,22 @@ using Iced.Intel.IntelFormatterInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Intel formatter options
-	/// </summary>
-	public sealed class IntelFormatterOptions : FormatterOptions {
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public IntelFormatterOptions() {
-			HexSuffix = "h";
-			OctalSuffix = "o";
-			BinarySuffix = "b";
-		}
-	}
-
-	/// <summary>
-	/// Intel formatter (same as Intel XED)
+	/// Intel (XED) formatter
 	/// </summary>
 	public sealed class IntelFormatter : Formatter {
 		/// <summary>
-		/// Gets the formatter options, see also <see cref="IntelOptions"/>
+		/// Gets the formatter options
 		/// </summary>
 		public override FormatterOptions Options => options;
 
 		/// <summary>
 		/// Gets the Intel formatter options
 		/// </summary>
-		public IntelFormatterOptions IntelOptions => options;
+		[System.Obsolete("Use " + nameof(Options) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public FormatterOptions IntelOptions => options;
 
-		readonly IntelFormatterOptions options;
+		readonly FormatterOptions options;
 		readonly ISymbolResolver? symbolResolver;
 		readonly IFormatterOptionsProvider? optionsProvider;
 		readonly FormatterString[] allRegisters;
@@ -89,8 +77,8 @@ namespace Iced.Intel {
 		/// <param name="options">Formatter options or null</param>
 		/// <param name="symbolResolver">Symbol resolver or null</param>
 		/// <param name="optionsProvider">Operand options provider or null</param>
-		public IntelFormatter(IntelFormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
-			this.options = options ?? new IntelFormatterOptions();
+		public IntelFormatter(FormatterOptions? options, ISymbolResolver? symbolResolver = null, IFormatterOptionsProvider? optionsProvider = null) {
+			this.options = options ?? FormatterOptions.CreateIntel();
 			this.symbolResolver = symbolResolver;
 			this.optionsProvider = optionsProvider;
 			allRegisters = Registers.AllRegisters;

@@ -26,36 +26,40 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 	static class FormatterFactory {
-		static GasFormatterOptions CreateOptions() => new GasFormatterOptions { UpperCaseHex = false };
+		static FormatterOptions CreateOptions() {
+			var options = FormatterOptions.CreateGas();
+			options.UpperCaseHex = false;
+			return options;
+		}
 
 		public static GasFormatter Create_NoSuffix() {
 			var options = CreateOptions();
-			options.ShowMnemonicSizeSuffix = false;
-			options.NakedRegisters = false;
+			options.GasShowMnemonicSizeSuffix = false;
+			options.GasNakedRegisters = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			options.SignedImmediateOperands = false;
 			options.SpaceAfterOperandSeparator = false;
-			options.SpaceAfterMemoryOperandComma = true;
+			options.GasSpaceAfterMemoryOperandComma = true;
 			return new GasFormatter(options);
 		}
 
 		public static GasFormatter Create_ForceSuffix() {
 			var options = CreateOptions();
-			options.ShowMnemonicSizeSuffix = true;
-			options.NakedRegisters = true;
+			options.GasShowMnemonicSizeSuffix = true;
+			options.GasNakedRegisters = true;
 			options.ShowBranchSize = true;
 			options.RipRelativeAddresses = false;
 			options.SignedImmediateOperands = true;
 			options.SpaceAfterOperandSeparator = true;
-			options.SpaceAfterMemoryOperandComma = false;
+			options.GasSpaceAfterMemoryOperandComma = false;
 			return new GasFormatter(options);
 		}
 
 		public static GasFormatter Create() {
 			var options = CreateOptions();
-			options.ShowMnemonicSizeSuffix = false;
-			options.NakedRegisters = false;
+			options.GasShowMnemonicSizeSuffix = false;
+			options.GasNakedRegisters = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new GasFormatter(options);
@@ -63,8 +67,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		public static GasFormatter Create_Options() {
 			var options = CreateOptions();
-			options.ShowMnemonicSizeSuffix = false;
-			options.NakedRegisters = false;
+			options.GasShowMnemonicSizeSuffix = false;
+			options.GasNakedRegisters = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return new GasFormatter(options);
@@ -72,8 +76,8 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver(ISymbolResolver symbolResolver) {
 			var options = CreateOptions();
-			options.ShowMnemonicSizeSuffix = false;
-			options.NakedRegisters = false;
+			options.GasShowMnemonicSizeSuffix = false;
+			options.GasNakedRegisters = false;
 			options.ShowBranchSize = false;
 			options.RipRelativeAddresses = true;
 			return (new GasFormatter(options, symbolResolver), symbolResolver);
@@ -81,7 +85,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		public static GasFormatter Create_Registers(bool nakedRegisters) {
 			var options = CreateOptions();
-			options.NakedRegisters = nakedRegisters;
+			options.GasNakedRegisters = nakedRegisters;
 			return new GasFormatter(options);
 		}
 

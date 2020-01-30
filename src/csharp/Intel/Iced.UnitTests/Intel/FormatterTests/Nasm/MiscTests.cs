@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		[Fact]
 		void Verify_default_formatter_options() {
-			var options = new NasmFormatterOptions();
+			var options = FormatterOptions.CreateNasm();
 			Assert.False(options.UpperCasePrefixes);
 			Assert.False(options.UpperCaseMnemonics);
 			Assert.False(options.UpperCaseRegisters);
@@ -82,7 +82,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.PreferST0);
-			Assert.False(options.ShowSignExtendedImmediateSize);
+			Assert.False(options.NasmShowSignExtendedImmediateSize);
 		}
 
 		[Theory]
