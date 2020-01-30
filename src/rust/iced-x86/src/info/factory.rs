@@ -48,9 +48,7 @@ impl InstructionInfoOptions {
 }
 
 struct Flags;
-#[allow(dead_code)]
 impl Flags {
-	pub const NONE: u32 = 0;
 	pub const NO_MEMORY_USAGE: u32 = 0x0000_0001;
 	pub const NO_REGISTER_USAGE: u32 = 0x0000_0002;
 	pub const IS_64BIT: u32 = 0x0000_0004;

@@ -92,6 +92,7 @@ impl FormatterString {
 		self.lower.len()
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn is_default(&self) -> bool {

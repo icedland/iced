@@ -72,16 +72,19 @@ pub(super) fn create_options<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_resolver<'a>() -> Box<GasFormatter<'a>> {
 	panic!(); //TODO:
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>(naked_registers: bool) -> Box<GasFormatter<'a>> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_naked_registers(naked_registers);
 	fmt
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_numbers<'a>() -> Box<GasFormatter<'a>> {
 	create_fmt()
 }

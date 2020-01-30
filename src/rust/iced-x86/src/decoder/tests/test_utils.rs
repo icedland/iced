@@ -36,6 +36,7 @@ pub(crate) struct DecoderTestInfo {
 	bitness: u32,
 	code: Code,
 	hex_bytes: String,
+	#[allow(dead_code)]
 	encoded_hex_bytes: String,
 	decoder_options: u32,
 }
@@ -50,6 +51,7 @@ impl DecoderTestInfo {
 	pub(crate) fn hex_bytes(&self) -> &String {
 		&self.hex_bytes
 	}
+	#[cfg(feature = "encoder")]
 	pub(crate) fn encoded_hex_bytes(&self) -> &String {
 		&self.encoded_hex_bytes
 	}
@@ -124,6 +126,7 @@ pub(crate) fn code64_only() -> &'static HashSet<Code> {
 	&*CODE64_ONLY
 }
 
+#[cfg(feature = "encoder")]
 pub(crate) fn encoder_tests(include_other_tests: bool, include_invalid: bool) -> Vec<DecoderTestInfo> {
 	get_tests(include_other_tests, include_invalid, Some(true))
 }

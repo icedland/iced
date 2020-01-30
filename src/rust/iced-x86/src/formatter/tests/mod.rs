@@ -63,6 +63,7 @@ fn format_test_info(info: &InstructionInfo, formatted_string: &str, formatter: B
 	format_test(info.bitness, &info.hex_bytes, info.code, info.options, formatted_string, formatter);
 }
 
+#[cfg(feature = "encoder")]
 fn format_test_instruction(instruction: &Instruction, formatted_string: &str, formatter: Box<Formatter>) {
 	format_test_instruction_core(instruction, formatted_string, formatter);
 }

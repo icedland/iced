@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 mod decoder_constants;
 pub(crate) mod from_str_conv;
+#[cfg(feature = "instr_info")]
 pub(crate) mod section_file_reader;
 
 use self::decoder_constants::*;
@@ -41,30 +42,35 @@ fn get_unit_tests_base_dir() -> PathBuf {
 	path
 }
 
+#[cfg(feature = "decoder")]
 pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Decoder");
 	path
 }
 
+#[cfg(feature = "encoder")]
 pub(crate) fn get_encoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Encoder");
 	path
 }
 
+#[cfg(feature = "instr_info")]
 pub(crate) fn get_instr_info_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("InstructionInfo");
 	path
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn get_formatter_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Formatter");
 	path
 }
 
+#[cfg(feature = "decoder")]
 pub(crate) fn get_default_ip(bitness: u32) -> u64 {
 	match bitness {
 		16 => DecoderConstants::DEFAULT_IP16,

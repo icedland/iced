@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::str;
 
 pub(crate) struct DataReader<'a> {
@@ -35,10 +36,12 @@ impl<'a> DataReader<'a> {
 		Self { data, index: 0 }
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	pub(crate) fn index(&self) -> usize {
 		self.index
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	pub(crate) fn set_index(&mut self, index: usize) {
 		self.index = index
 	}
@@ -71,6 +74,7 @@ impl<'a> DataReader<'a> {
 		}
 	}
 
+	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 	pub(crate) fn read_ascii_string(&mut self) -> String {
 		let len = self.read_u8();
 		let s = str::from_utf8(&self.data[self.index..self.index + len]).unwrap();

@@ -78,14 +78,17 @@ pub(super) fn create_options<'a>() -> Box<MasmFormatter<'a>> {
 	fmt
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>() -> Box<MasmFormatter<'a>> {
 	create_fmt()
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_numbers<'a>() -> Box<MasmFormatter<'a>> {
 	create_fmt()
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_resolver<'a>() -> Box<MasmFormatter<'a>> {
 	panic!(); //TODO:
 }

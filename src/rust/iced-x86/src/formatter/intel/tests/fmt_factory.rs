@@ -85,14 +85,17 @@ pub(super) fn create_options<'a>() -> Box<IntelFormatter<'a>> {
 	fmt
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>() -> Box<IntelFormatter<'a>> {
 	create_fmt()
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_numbers<'a>() -> Box<IntelFormatter<'a>> {
 	create_fmt()
 }
 
+#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_resolver<'a>() -> Box<IntelFormatter<'a>> {
 	panic!(); //TODO:
 }

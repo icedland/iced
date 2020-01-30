@@ -26,9 +26,9 @@ mod code_table;
 mod condition_code_table;
 #[cfg(feature = "instr_info")]
 mod cpuid_feature_table;
-#[cfg(feature = "decoder")]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod decoder_options_table;
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[cfg(feature = "instr_info")]
 mod encoding_kind_table;
 #[cfg(feature = "instr_info")]
 mod flow_control_table;
@@ -43,7 +43,7 @@ mod op_code_operand_kind_table;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod options_props_table;
 mod register_table;
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "encoder")]
 mod tuple_type_table;
 
 use self::code_table::*;
@@ -51,9 +51,9 @@ use self::code_table::*;
 use self::condition_code_table::*;
 #[cfg(feature = "instr_info")]
 use self::cpuid_feature_table::*;
-#[cfg(feature = "decoder")]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::decoder_options_table::*;
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[cfg(feature = "instr_info")]
 use self::encoding_kind_table::*;
 #[cfg(feature = "instr_info")]
 use self::flow_control_table::*;
@@ -68,12 +68,13 @@ use self::op_code_operand_kind_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::options_props_table::*;
 use self::register_table::*;
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "encoder")]
 use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use super::super::formatter::tests::enums::OptionsProps;
 use super::super::*;
 use core::{i32, u16, u32, u8};
+#[cfg(feature = "instr_info")]
 use std::collections::HashMap;
 
 pub(crate) fn to_vec_u8(hex_data: &str) -> Result<Vec<u8>, String> {
@@ -119,6 +120,7 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	}
 }
 
+#[cfg(any(feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	let value = value.trim();
 	let result = if value.starts_with("0x") { i64::from_str_radix(&value[2..], 16) } else { value.trim().parse() };
@@ -138,6 +140,7 @@ pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
 	Err(format!("Invalid number: {}", value))
 }
 
+#[cfg(any(feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
 	let value = value.trim();
 	if let Ok(v64) = to_i64(value) {
@@ -195,6 +198,7 @@ pub(crate) fn to_register(value: &str) -> Result<Register, String> {
 	}
 }
 
+#[cfg(feature = "instr_info")]
 pub(crate) fn clone_register_hashmap() -> HashMap<String, Register> {
 	TO_REGISTER_HASH.iter().map(|kv| ((*kv.0).to_string(), *kv.1)).collect()
 }
@@ -207,7 +211,7 @@ pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {
 	}
 }
 
-#[cfg(feature = "decoder")]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	let value = value.trim();
 	match TO_DECODER_OPTIONS_HASH.get(value) {
@@ -216,7 +220,7 @@ pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	}
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
+#[cfg(feature = "instr_info")]
 pub(crate) fn to_encoding_kind(value: &str) -> Result<EncodingKind, String> {
 	let value = value.trim();
 	match TO_ENCODING_KIND_HASH.get(value) {
@@ -225,7 +229,7 @@ pub(crate) fn to_encoding_kind(value: &str) -> Result<EncodingKind, String> {
 	}
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "encoder")]
 pub(crate) fn to_tuple_type(value: &str) -> Result<TupleType, String> {
 	let value = value.trim();
 	match TO_TUPLE_TYPE_HASH.get(value) {

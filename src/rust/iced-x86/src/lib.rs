@@ -48,7 +48,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![doc(html_root_url = "https://docs.rs/iced-x86/0.0.0")]
 #![allow(unknown_lints)]
 #![allow(bare_trait_objects)] // dyn syntax supported by rustc >= 1.27.0
-#![allow(dead_code)] //TODO: REMOVE
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
 #![warn(deprecated_in_future)]
@@ -110,6 +109,7 @@ mod block_enc;
 mod code;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 mod constant_offsets;
+#[cfg(any(feature = "decoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod data_reader;
 #[cfg(feature = "decoder")]
 mod decoder;

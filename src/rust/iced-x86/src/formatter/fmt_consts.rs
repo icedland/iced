@@ -25,6 +25,7 @@ use super::FormatterString;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
+#[allow(dead_code)]
 pub(super) struct FormatterConstants {
 	pub(super) empty: FormatterString,
 	pub(super) b1to2: FormatterString,
@@ -167,6 +168,7 @@ lazy_static! {
 	};
 }
 
+#[allow(dead_code)]
 pub(super) struct FormatterArrayConstants {
 	pub(super) nothing: [&'static FormatterString; 0],
 	pub(super) byte_ptr: [&'static FormatterString; 2],

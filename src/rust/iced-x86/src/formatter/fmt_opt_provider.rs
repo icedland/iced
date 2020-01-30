@@ -45,7 +45,8 @@ pub trait FormatterOptionsProvider {
 
 pub(super) struct FormatterOperandOptionsFlags;
 impl FormatterOperandOptionsFlags {
-	pub(super) const NONE: u32 = 0;
+	#[cfg(any(feature = "intel", feature = "masm", feature = "nasm"))]
+	pub(super) const NONE: u32 = 0x0000_0000;
 	pub(super) const NO_BRANCH_SIZE: u32 = 0x0000_0001;
 	const RIP_RELATIVE_ADDRESSES: u32 = 0x0000_0002;
 	const MEMORY_SIZE_SHIFT: u32 = 30;
@@ -60,6 +61,7 @@ pub struct FormatterOperandOptions {
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
 impl FormatterOperandOptions {
+	#[cfg(any(feature = "intel", feature = "masm", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(super) fn new(flags: u32) -> Self {
