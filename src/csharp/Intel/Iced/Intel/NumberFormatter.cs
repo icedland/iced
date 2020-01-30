@@ -259,7 +259,7 @@ namespace Iced.Intel {
 				else {
 					if (!string.IsNullOrEmpty(options.Prefix))
 						sb.Append(options.Prefix);
-					ToHexadecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 3) >> 2 : 0, options.UpperCaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(options.Prefix));
+					ToHexadecimal(sb, value, options.DigitGroupSize, options.DigitSeparator, (flags & NumberFormatterFlags.LeadingZeroes) != 0 ? (valueSize + 3) >> 2 : 0, options.UppercaseHex, options.AddLeadingZeroToHexNumbers && string.IsNullOrEmpty(options.Prefix));
 					suffix = options.Suffix;
 				}
 				break;

@@ -47,12 +47,12 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Equal(formattedString, actualFormattedString);
 			}
 			{
-				formatter.Options.UpperCaseRegisters = false;
+				formatter.Options.UppercaseRegisters = false;
 				var actualFormattedString = formatter.Format(register);
 				Assert.Equal(formattedString.ToLowerInvariant(), actualFormattedString);
 			}
 			{
-				formatter.Options.UpperCaseRegisters = true;
+				formatter.Options.UppercaseRegisters = true;
 				var actualFormattedString = formatter.Format(register);
 				Assert.Equal(formattedString.ToUpperInvariant(), actualFormattedString);
 			}

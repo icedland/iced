@@ -28,7 +28,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 	static class FormatterFactory {
 		static FormatterOptions CreateOptions() {
 			var options = FormatterOptions.CreateGas();
-			options.UpperCaseHex = false;
+			options.UppercaseHex = false;
 			return options;
 		}
 
@@ -82,7 +82,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		public static GasFormatter Create_Numbers() {
 			var options = CreateOptions();
-			options.UpperCaseHex = true;
+			options.UppercaseHex = true;
 			options.HexPrefix = null;
 			options.HexSuffix = null;
 			options.OctalPrefix = null;

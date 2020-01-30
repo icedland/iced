@@ -61,7 +61,7 @@ use core::{mem, u16, u32, u8};
 ///
 /// let mut output = String::new();
 /// let mut formatter = GasFormatter::new();
-/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.options_mut().set_uppercase_mnemonics(true);
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("VCVTNE2PS2BF16 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}", output);
 /// ```
@@ -184,7 +184,7 @@ impl<'a> GasFormatter<'a> {
 
 					SizeOverride::Size16 | SizeOverride::Size32 => {
 						output.write(
-							self.d.str_.dot_byte.get(self.d.options.upper_case_keywords() || self.d.options.upper_case_all()),
+							self.d.str_.dot_byte.get(self.d.options.uppercase_keywords() || self.d.options.uppercase_all()),
 							FormatterTextKind::Directive,
 						);
 						output.write(" ", FormatterTextKind::Text);
@@ -288,9 +288,9 @@ impl<'a> GasFormatter<'a> {
 			}
 			let mnemonic = op_info.mnemonic;
 			if (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) != 0 {
-				output.write(mnemonic.get(self.d.options.upper_case_keywords() || self.d.options.upper_case_all()), FormatterTextKind::Directive);
+				output.write(mnemonic.get(self.d.options.uppercase_keywords() || self.d.options.uppercase_all()), FormatterTextKind::Directive);
 			} else {
-				output.write_mnemonic(instruction, mnemonic.get(self.d.options.upper_case_mnemonics() || self.d.options.upper_case_all()));
+				output.write_mnemonic(instruction, mnemonic.get(self.d.options.uppercase_mnemonics() || self.d.options.uppercase_all()));
 			}
 			*column += mnemonic.len() as u32;
 		}
@@ -305,7 +305,7 @@ impl<'a> GasFormatter<'a> {
 
 	fn format_branch_hint(options: &FormatterOptions, output: &mut FormatterOutput, column: &mut u32, br_hint: &FormatterString) {
 		output.write(",", FormatterTextKind::Text);
-		output.write(br_hint.get(options.upper_case_prefixes() || options.upper_case_all()), FormatterTextKind::Keyword);
+		output.write(br_hint.get(options.uppercase_prefixes() || options.uppercase_all()), FormatterTextKind::Keyword);
 		*column += 1 + br_hint.len() as u32;
 	}
 
@@ -364,7 +364,7 @@ impl<'a> GasFormatter<'a> {
 			*column += 1;
 			output.write(" ", FormatterTextKind::Text);
 		}
-		output.write_prefix(instruction, prefix.get(options.upper_case_prefixes() || options.upper_case_all()), prefix_kind);
+		output.write_prefix(instruction, prefix.get(options.uppercase_prefixes() || options.uppercase_all()), prefix_kind);
 		*column += prefix.len() as u32;
 		*need_space = true;
 	}
@@ -1061,7 +1061,7 @@ impl<'a> GasFormatter<'a> {
 			instruction,
 			operand,
 			instruction_operand,
-			text.get(options.upper_case_decorators() || options.upper_case_all()),
+			text.get(options.uppercase_decorators() || options.uppercase_all()),
 			decorator,
 		);
 		output.write("}", FormatterTextKind::Punctuation);
@@ -1074,7 +1074,7 @@ impl<'a> GasFormatter<'a> {
 		}
 		debug_assert!((reg_num as usize) < GasFormatter::all_registers(d).len());
 		let reg_str = &GasFormatter::all_registers(d)[reg_num as usize];
-		reg_str.get(d.options.upper_case_registers() || d.options.upper_case_all())
+		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
 	#[inline]

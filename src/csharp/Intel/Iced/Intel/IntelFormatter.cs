@@ -327,17 +327,17 @@ namespace Iced.Intel {
 				}
 				var mnemonic = opInfo.Mnemonic;
 				if ((opInfo.Flags & InstrOpInfoFlags.MnemonicIsDirective) != 0) {
-					output.Write(mnemonic.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterTextKind.Directive);
+					output.Write(mnemonic.Get(options.UppercaseKeywords || options.UppercaseAll), FormatterTextKind.Directive);
 				}
 				else {
-					output.WriteMnemonic(instruction, mnemonic.Get(options.UpperCaseMnemonics || options.UpperCaseAll));
+					output.WriteMnemonic(instruction, mnemonic.Get(options.UppercaseMnemonics || options.UppercaseAll));
 				}
 				column += mnemonic.Length;
 
 				if ((opInfo.Flags & InstrOpInfoFlags.FarMnemonic) != 0) {
 					output.Write(" ", FormatterTextKind.Text);
 					// This should be treated as part of the mnemonic
-					output.WriteMnemonic(instruction, str_far.Get(options.UpperCaseMnemonics || options.UpperCaseAll));
+					output.WriteMnemonic(instruction, str_far.Get(options.UppercaseMnemonics || options.UppercaseAll));
 					column += str_far.Length + 1;
 				}
 			}
@@ -394,7 +394,7 @@ namespace Iced.Intel {
 				column++;
 				output.Write(" ", FormatterTextKind.Text);
 			}
-			output.WritePrefix(instruction, prefix.Get(options.UpperCasePrefixes || options.UpperCaseAll), prefixKind);
+			output.WritePrefix(instruction, prefix.Get(options.UppercasePrefixes || options.UppercaseAll), prefixKind);
 			column += prefix.Length;
 			needSpace = true;
 		}
@@ -744,7 +744,7 @@ namespace Iced.Intel {
 
 		void FormatDecorator(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, FormatterString text, DecoratorKind decorator) {
 			output.Write("{", FormatterTextKind.Punctuation);
-			output.WriteDecorator(instruction, operand, instructionOperand, text.Get(options.UpperCaseDecorators || options.UpperCaseAll), decorator);
+			output.WriteDecorator(instruction, operand, instructionOperand, text.Get(options.UppercaseDecorators || options.UppercaseAll), decorator);
 			output.Write("}", FormatterTextKind.Punctuation);
 		}
 
@@ -754,7 +754,7 @@ namespace Iced.Intel {
 			if (options.PreferST0 && regNum == Registers.Register_ST)
 				regNum = (int)Register.ST0;
 			var regStr = allRegisters[(int)regNum];
-			return regStr.Get(options.UpperCaseRegisters || options.UpperCaseAll);
+			return regStr.Get(options.UppercaseRegisters || options.UppercaseAll);
 		}
 
 		[MethodImpl(MethodImplOptions.NoInlining)]
@@ -1027,7 +1027,7 @@ namespace Iced.Intel {
 		}
 
 		void FormatKeyword(FormatterOutput output, FormatterString keyword) =>
-			output.Write(keyword.Get(options.UpperCaseKeywords || options.UpperCaseAll), FormatterTextKind.Keyword);
+			output.Write(keyword.Get(options.UppercaseKeywords || options.UppercaseAll), FormatterTextKind.Keyword);
 
 		/// <summary>
 		/// Formats a register

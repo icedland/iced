@@ -27,12 +27,12 @@ use alloc::string::String;
 
 struct Flags1;
 impl Flags1 {
-	pub(crate) const UPPER_CASE_PREFIXES: u32 = 0x0000_0001;
-	pub(crate) const UPPER_CASE_MNEMONICS: u32 = 0x0000_0002;
-	pub(crate) const UPPER_CASE_REGISTERS: u32 = 0x0000_0004;
-	pub(crate) const UPPER_CASE_KEYWORDS: u32 = 0x0000_0008;
-	pub(crate) const UPPER_CASE_DECORATORS: u32 = 0x0000_0010;
-	pub(crate) const UPPER_CASE_ALL: u32 = 0x0000_0020;
+	pub(crate) const UPPERCASE_PREFIXES: u32 = 0x0000_0001;
+	pub(crate) const UPPERCASE_MNEMONICS: u32 = 0x0000_0002;
+	pub(crate) const UPPERCASE_REGISTERS: u32 = 0x0000_0004;
+	pub(crate) const UPPERCASE_KEYWORDS: u32 = 0x0000_0008;
+	pub(crate) const UPPERCASE_DECORATORS: u32 = 0x0000_0010;
+	pub(crate) const UPPERCASE_ALL: u32 = 0x0000_0020;
 	pub(crate) const SPACE_AFTER_OPERAND_SEPARATOR: u32 = 0x0000_0040;
 	pub(crate) const SPACE_AFTER_MEMORY_BRACKET: u32 = 0x0000_0080;
 	pub(crate) const SPACE_BETWEEN_MEMORY_ADD_OPERATORS: u32 = 0x0000_0100;
@@ -42,7 +42,7 @@ impl Flags1 {
 	pub(crate) const ALWAYS_SHOW_SEGMENT_REGISTER: u32 = 0x0000_1000;
 	pub(crate) const SHOW_ZERO_DISPLACEMENTS: u32 = 0x0000_2000;
 	pub(crate) const LEADING_ZEROES: u32 = 0x0000_4000;
-	pub(crate) const UPPER_CASE_HEX: u32 = 0x0000_8000;
+	pub(crate) const UPPERCASE_HEX: u32 = 0x0000_8000;
 	pub(crate) const SMALL_HEX_NUMBERS_IN_DECIMAL: u32 = 0x0001_0000;
 	pub(crate) const ADD_LEADING_ZERO_TO_HEX_NUMBERS: u32 = 0x0002_0000;
 	pub(crate) const BRANCH_LEADING_ZEROES: u32 = 0x0004_0000;
@@ -110,7 +110,7 @@ impl FormatterOptions {
 			decimal_digit_group_size: 3,
 			octal_digit_group_size: 4,
 			binary_digit_group_size: 4,
-			options1: Flags1::UPPER_CASE_HEX
+			options1: Flags1::UPPERCASE_HEX
 				| Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL
 				| Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS
 				| Flags1::BRANCH_LEADING_ZEROES
@@ -187,8 +187,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `rep stosd`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_prefixes(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_PREFIXES) != 0
+	pub fn uppercase_prefixes(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_PREFIXES) != 0
 	}
 
 	/// Prefixes are upper cased
@@ -202,11 +202,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_prefixes(&mut self, value: bool) {
+	pub fn set_uppercase_prefixes(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_PREFIXES;
+			self.options1 |= Flags1::UPPERCASE_PREFIXES;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_PREFIXES;
+			self.options1 &= !Flags1::UPPERCASE_PREFIXES;
 		}
 	}
 
@@ -218,8 +218,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `mov rcx,rax`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_mnemonics(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_MNEMONICS) != 0
+	pub fn uppercase_mnemonics(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_MNEMONICS) != 0
 	}
 
 	/// Mnemonics are upper cased
@@ -233,11 +233,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_mnemonics(&mut self, value: bool) {
+	pub fn set_uppercase_mnemonics(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_MNEMONICS;
+			self.options1 |= Flags1::UPPERCASE_MNEMONICS;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_MNEMONICS;
+			self.options1 &= !Flags1::UPPERCASE_MNEMONICS;
 		}
 	}
 
@@ -249,8 +249,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_registers(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_REGISTERS) != 0
+	pub fn uppercase_registers(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_REGISTERS) != 0
 	}
 
 	/// Registers are upper cased
@@ -264,11 +264,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_registers(&mut self, value: bool) {
+	pub fn set_uppercase_registers(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_REGISTERS;
+			self.options1 |= Flags1::UPPERCASE_REGISTERS;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_REGISTERS;
+			self.options1 &= !Flags1::UPPERCASE_REGISTERS;
 		}
 	}
 
@@ -280,8 +280,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `mov byte ptr [rcx],12h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_keywords(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_KEYWORDS) != 0
+	pub fn uppercase_keywords(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_KEYWORDS) != 0
 	}
 
 	/// Keywords are upper cased (eg. `BYTE PTR`, `SHORT`)
@@ -295,11 +295,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_keywords(&mut self, value: bool) {
+	pub fn set_uppercase_keywords(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_KEYWORDS;
+			self.options1 |= Flags1::UPPERCASE_KEYWORDS;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_KEYWORDS;
+			self.options1 &= !Flags1::UPPERCASE_KEYWORDS;
 		}
 	}
 
@@ -311,8 +311,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_decorators(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_DECORATORS) != 0
+	pub fn uppercase_decorators(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_DECORATORS) != 0
 	}
 
 	/// Upper case decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not op mask registers: `{k1}`)
@@ -326,11 +326,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_decorators(&mut self, value: bool) {
+	pub fn set_uppercase_decorators(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_DECORATORS;
+			self.options1 |= Flags1::UPPERCASE_DECORATORS;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_DECORATORS;
+			self.options1 &= !Flags1::UPPERCASE_DECORATORS;
 		}
 	}
 
@@ -342,8 +342,8 @@ impl FormatterOptions {
 	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_all(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_ALL) != 0
+	pub fn uppercase_all(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_ALL) != 0
 	}
 
 	/// Everything is upper cased, except numbers and their prefixes/suffixes
@@ -357,11 +357,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_all(&mut self, value: bool) {
+	pub fn set_uppercase_all(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_ALL;
+			self.options1 |= Flags1::UPPERCASE_ALL;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_ALL;
+			self.options1 &= !Flags1::UPPERCASE_ALL;
 		}
 	}
 
@@ -1035,8 +1035,8 @@ impl FormatterOptions {
 	/// - | `false` | `0xff`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub fn upper_case_hex(&self) -> bool {
-		(self.options1 & Flags1::UPPER_CASE_HEX) != 0
+	pub fn uppercase_hex(&self) -> bool {
+		(self.options1 & Flags1::UPPERCASE_HEX) != 0
 	}
 
 	/// Use upper case hex digits
@@ -1050,11 +1050,11 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_upper_case_hex(&mut self, value: bool) {
+	pub fn set_uppercase_hex(&mut self, value: bool) {
 		if value {
-			self.options1 |= Flags1::UPPER_CASE_HEX;
+			self.options1 |= Flags1::UPPERCASE_HEX;
 		} else {
-			self.options1 &= !Flags1::UPPER_CASE_HEX;
+			self.options1 &= !Flags1::UPPERCASE_HEX;
 		}
 	}
 

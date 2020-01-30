@@ -46,13 +46,13 @@ pub(crate) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Bo
 		}
 		{
 			let mut formatter = fmt_factory();
-			formatter.options_mut().set_upper_case_registers(false);
+			formatter.options_mut().set_uppercase_registers(false);
 			let actual_register_string = formatter.format_register(register);
 			assert_eq!(expected_register_string.to_lowercase(), actual_register_string);
 		}
 		{
 			let mut formatter = fmt_factory();
-			formatter.options_mut().set_upper_case_registers(true);
+			formatter.options_mut().set_uppercase_registers(true);
 			let actual_register_string = formatter.format_register(register);
 			assert_eq!(expected_register_string.to_uppercase(), actual_register_string);
 		}

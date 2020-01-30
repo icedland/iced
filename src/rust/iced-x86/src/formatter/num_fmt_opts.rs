@@ -40,7 +40,7 @@ pub struct NumberFormattingOptions<'a> {
 	/// Number base
 	pub number_base: NumberBase,
 	/// Use upper case hex digits
-	pub upper_case_hex: bool,
+	pub uppercase_hex: bool,
 	/// Small hex numbers (-9 .. 9) are shown in decimal
 	pub small_hex_numbers_in_decimal: bool,
 	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
@@ -111,7 +111,7 @@ impl<'a> NumberFormattingOptions<'a> {
 			digit_separator: options.digit_separator(),
 			digit_group_size: cmp::min(u8::MAX as u32, digit_group_size) as u8,
 			number_base: options.number_base(),
-			upper_case_hex: options.upper_case_hex(),
+			uppercase_hex: options.uppercase_hex(),
 			small_hex_numbers_in_decimal: options.small_hex_numbers_in_decimal(),
 			add_leading_zero_to_hex_numbers: options.add_leading_zero_to_hex_numbers(),
 			leading_zeroes,

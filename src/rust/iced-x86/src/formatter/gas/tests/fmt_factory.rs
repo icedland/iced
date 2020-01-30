@@ -26,7 +26,7 @@ use super::super::GasFormatter;
 
 fn create_fmt<'a>() -> Box<GasFormatter<'a>> {
 	let mut fmt = Box::new(GasFormatter::new());
-	fmt.options_mut().set_upper_case_hex(false);
+	fmt.options_mut().set_uppercase_hex(false);
 	fmt
 }
 
@@ -80,7 +80,7 @@ pub(super) fn create_registers<'a>(naked_registers: bool) -> Box<GasFormatter<'a
 
 pub(super) fn create_numbers<'a>() -> Box<GasFormatter<'a>> {
 	let mut formatter = create_fmt();
-	formatter.options_mut().set_upper_case_hex(true);
+	formatter.options_mut().set_uppercase_hex(true);
 	formatter.options_mut().set_hex_prefix(String::from(""));
 	formatter.options_mut().set_hex_suffix(String::from(""));
 	formatter.options_mut().set_decimal_prefix(String::from(""));

@@ -74,13 +74,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		SpaceBetweenMemoryAddOperators,
 		SpaceBetweenMemoryMulOperators,
 		TabSize,
-		UpperCaseAll,
-		UpperCaseDecorators,
-		UpperCaseHex,
-		UpperCaseKeywords,
-		UpperCaseMnemonics,
-		UpperCasePrefixes,
-		UpperCaseRegisters,
+		UppercaseAll,
+		UppercaseDecorators,
+		UppercaseHex,
+		UppercaseKeywords,
+		UppercaseMnemonics,
+		UppercasePrefixes,
+		UppercaseRegisters,
 		UsePseudoOps,
 	}
 	// GENERATOR-END: OptionsProps
@@ -140,13 +140,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				case OptionsProps.SpaceBetweenMemoryAddOperators: options.SpaceBetweenMemoryAddOperators = (bool)info.value; break;
 				case OptionsProps.SpaceBetweenMemoryMulOperators: options.SpaceBetweenMemoryMulOperators = (bool)info.value; break;
 				case OptionsProps.TabSize: options.TabSize = (int)info.value; break;
-				case OptionsProps.UpperCaseAll: options.UpperCaseAll = (bool)info.value; break;
-				case OptionsProps.UpperCaseDecorators: options.UpperCaseDecorators = (bool)info.value; break;
-				case OptionsProps.UpperCaseHex: options.UpperCaseHex = (bool)info.value; break;
-				case OptionsProps.UpperCaseKeywords: options.UpperCaseKeywords = (bool)info.value; break;
-				case OptionsProps.UpperCaseMnemonics: options.UpperCaseMnemonics = (bool)info.value; break;
-				case OptionsProps.UpperCasePrefixes: options.UpperCasePrefixes = (bool)info.value; break;
-				case OptionsProps.UpperCaseRegisters: options.UpperCaseRegisters = (bool)info.value; break;
+				case OptionsProps.UppercaseAll: options.UppercaseAll = (bool)info.value; break;
+				case OptionsProps.UppercaseDecorators: options.UppercaseDecorators = (bool)info.value; break;
+				case OptionsProps.UppercaseHex: options.UppercaseHex = (bool)info.value; break;
+				case OptionsProps.UppercaseKeywords: options.UppercaseKeywords = (bool)info.value; break;
+				case OptionsProps.UppercaseMnemonics: options.UppercaseMnemonics = (bool)info.value; break;
+				case OptionsProps.UppercasePrefixes: options.UppercasePrefixes = (bool)info.value; break;
+				case OptionsProps.UppercaseRegisters: options.UppercaseRegisters = (bool)info.value; break;
 				case OptionsProps.UsePseudoOps: options.UsePseudoOps = (bool)info.value; break;
 				}
 			}

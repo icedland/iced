@@ -27,7 +27,7 @@ use super::super::super::IntelFormatter;
 
 fn create_fmt<'a>() -> Box<IntelFormatter<'a>> {
 	let mut fmt = Box::new(IntelFormatter::new());
-	fmt.options_mut().set_upper_case_hex(false);
+	fmt.options_mut().set_uppercase_hex(false);
 	fmt.options_mut().set_hex_prefix(String::from("0x"));
 	fmt.options_mut().set_hex_suffix(String::from(""));
 	fmt.options_mut().set_octal_prefix(String::from("0o"));
@@ -91,7 +91,7 @@ pub(super) fn create_registers<'a>() -> Box<IntelFormatter<'a>> {
 
 pub(super) fn create_numbers<'a>() -> Box<IntelFormatter<'a>> {
 	let mut formatter = create_fmt();
-	formatter.options_mut().set_upper_case_hex(true);
+	formatter.options_mut().set_uppercase_hex(true);
 	formatter.options_mut().set_hex_prefix(String::from(""));
 	formatter.options_mut().set_hex_suffix(String::from(""));
 	formatter.options_mut().set_decimal_prefix(String::from(""));

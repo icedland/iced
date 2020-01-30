@@ -21,37 +21,37 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=true
-64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false
+64, 64 F3 A4, Movsb_m8_m8, UppercasePrefixes=true
+64, 64 F3 A4, Movsb_m8_m8, UppercasePrefixes=false
 
-64, 0F 20 E1, Mov_r64_cr, UpperCaseMnemonics=true
-64, 0F 20 E1, Mov_r64_cr, UpperCaseMnemonics=false
+64, 0F 20 E1, Mov_r64_cr, UppercaseMnemonics=true
+64, 0F 20 E1, Mov_r64_cr, UppercaseMnemonics=false
 
-64, 0F 20 E1, Mov_r64_cr, UpperCaseRegisters=true
-64, 0F 20 E1, Mov_r64_cr, UpperCaseRegisters=false
+64, 0F 20 E1, Mov_r64_cr, UppercaseRegisters=true
+64, 0F 20 E1, Mov_r64_cr, UppercaseRegisters=false
 
-64, 70 00, Jo_rel8_64, UpperCaseKeywords=true ShowBranchSize=true
-64, 70 00, Jo_rel8_64, UpperCaseKeywords=false ShowBranchSize=true
+64, 70 00, Jo_rel8_64, UppercaseKeywords=true ShowBranchSize=true
+64, 70 00, Jo_rel8_64, UppercaseKeywords=false ShowBranchSize=true
 
-64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
-64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
-64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
-64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
-64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
-64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
-64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=true
-64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UpperCaseDecorators=false
-64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UpperCaseDecorators=true
-64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UpperCaseDecorators=false
+64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=true
+64, 62 F14E9B 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=false
+64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=true
+64, 62 F14EBB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=false
+64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=true
+64, 62 F14EDB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=false
+64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=true
+64, 62 F14EFB 51 D3, EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er, UppercaseDecorators=false
+64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UppercaseDecorators=true
+64, 62 F3CDDB 54 D3 A5, EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae, UppercaseDecorators=false
 
-64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
-64, 64 F3 A4, Movsb_m8_m8, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
-64, 0F 20 E1, Mov_r64_cr, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
-64, 0F 20 E1, Mov_r64_cr, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
-64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
-64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
-64, 70 00, Jo_rel8_64, ShowBranchSize=true UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=true
-64, 70 00, Jo_rel8_64, ShowBranchSize=true UpperCasePrefixes=false UpperCaseMnemonics=false UpperCaseRegisters=false UpperCaseKeywords=false UpperCaseDecorators=false UpperCaseAll=false
+64, 64 F3 A4, Movsb_m8_m8, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=true
+64, 64 F3 A4, Movsb_m8_m8, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=false
+64, 0F 20 E1, Mov_r64_cr, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=true
+64, 0F 20 E1, Mov_r64_cr, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=false
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=true
+64, 62 F24DDB AE D3, EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er, UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=false
+64, 70 00, Jo_rel8_64, ShowBranchSize=true UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=true
+64, 70 00, Jo_rel8_64, ShowBranchSize=true UppercasePrefixes=false UppercaseMnemonics=false UppercaseRegisters=false UppercaseKeywords=false UppercaseDecorators=false UppercaseAll=false
 
 64, 0F 20 E1, Mov_r64_cr, TabSize=-1 FirstOperandCharIndex=-1
 64, 0F 20 E1, Mov_r64_cr, TabSize=1 FirstOperandCharIndex=-1
@@ -378,8 +378,8 @@
 64, 48 C7 C000002000, Mov_rm64_imm32, NumberBase=Octal DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=4 BinaryDigitGroupSize=0 LeadingZeroes=true
 64, 48 C7 C080000000, Mov_rm64_imm32, NumberBase=Binary DigitSeparator=` HexDigitGroupSize=0 DecimalDigitGroupSize=0 OctalDigitGroupSize=0 BinaryDigitGroupSize=4 LeadingZeroes=true
 
-64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=true
-64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UppercaseHex=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UppercaseHex=false
 
 64, 8A 40 F6, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
 64, 8A 40 F7, Mov_r8_rm8, NumberBase=Hexadecimal ShowZeroDisplacements=true SmallHexNumbersInDecimal=true
@@ -441,8 +441,8 @@
 64, 70 00, Jo_rel8_64, ShowBranchSize=true
 64, 70 00, Jo_rel8_64, ShowBranchSize=false
 
-64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false HexPrefix=ppp HexSuffix=sss UpperCaseAll=true
-64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UpperCaseHex=false HexPrefix=ppp HexSuffix=sss UpperCaseAll=false
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UppercaseHex=false HexPrefix=ppp HexSuffix=sss UppercaseAll=true
+64, 48 B8 1032547698BADCFE, Mov_r64_imm64, NumberBase=Hexadecimal UppercaseHex=false HexPrefix=ppp HexSuffix=sss UppercaseAll=false
 
 64, 70 00, Jo_rel8_64, SmallHexNumbersInDecimal=false BranchLeadingZeroes=false IP=0
 64, 70 00, Jo_rel8_64, SmallHexNumbersInDecimal=false BranchLeadingZeroes=true IP=0

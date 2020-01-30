@@ -28,7 +28,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 	static class FormatterFactory {
 		static FormatterOptions CreateOptions() {
 			var options = FormatterOptions.CreateIntel();
-			options.UpperCaseHex = false;
+			options.UppercaseHex = false;
 			options.HexPrefix = "0x";
 			options.HexSuffix = null;
 			options.OctalPrefix = "0o";
@@ -93,7 +93,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Intel {
 
 		public static IntelFormatter Create_Numbers() {
 			var options = CreateOptions();
-			options.UpperCaseHex = true;
+			options.UppercaseHex = true;
 			options.HexPrefix = null;
 			options.HexSuffix = null;
 			options.OctalPrefix = null;

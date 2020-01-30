@@ -61,7 +61,7 @@ use core::{mem, u16, u32, u8};
 ///
 /// let mut output = String::new();
 /// let mut formatter = IntelFormatter::new();
-/// formatter.options_mut().set_upper_case_mnemonics(true);
+/// formatter.options_mut().set_uppercase_mnemonics(true);
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,[rax+4]{1to16}", output);
 /// ```
@@ -273,16 +273,16 @@ impl<'a> IntelFormatter<'a> {
 			}
 			let mnemonic = op_info.mnemonic;
 			if (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) != 0 {
-				output.write(mnemonic.get(self.d.options.upper_case_keywords() || self.d.options.upper_case_all()), FormatterTextKind::Directive);
+				output.write(mnemonic.get(self.d.options.uppercase_keywords() || self.d.options.uppercase_all()), FormatterTextKind::Directive);
 			} else {
-				output.write_mnemonic(instruction, mnemonic.get(self.d.options.upper_case_mnemonics() || self.d.options.upper_case_all()));
+				output.write_mnemonic(instruction, mnemonic.get(self.d.options.uppercase_mnemonics() || self.d.options.uppercase_all()));
 			}
 			*column += mnemonic.len() as u32;
 
 			if (op_info.flags & InstrOpInfoFlags::FAR_MNEMONIC as u16) != 0 {
 				output.write(" ", FormatterTextKind::Text);
 				// This should be treated as part of the mnemonic
-				output.write_mnemonic(instruction, &self.d.str_.far.get(self.d.options.upper_case_mnemonics() || self.d.options.upper_case_all()));
+				output.write_mnemonic(instruction, &self.d.str_.far.get(self.d.options.uppercase_mnemonics() || self.d.options.uppercase_all()));
 				*column += (self.d.str_.far.len() + 1) as u32;
 			}
 		}
@@ -338,7 +338,7 @@ impl<'a> IntelFormatter<'a> {
 			*column += 1;
 			output.write(" ", FormatterTextKind::Text);
 		}
-		output.write_prefix(instruction, prefix.get(options.upper_case_prefixes() || options.upper_case_all()), prefix_kind);
+		output.write_prefix(instruction, prefix.get(options.uppercase_prefixes() || options.uppercase_all()), prefix_kind);
 		*column += prefix.len() as u32;
 		*need_space = true;
 	}
@@ -1086,7 +1086,7 @@ impl<'a> IntelFormatter<'a> {
 			instruction,
 			operand,
 			instruction_operand,
-			text.get(options.upper_case_decorators() || options.upper_case_all()),
+			text.get(options.uppercase_decorators() || options.uppercase_all()),
 			decorator,
 		);
 		output.write("}", FormatterTextKind::Punctuation);
@@ -1099,7 +1099,7 @@ impl<'a> IntelFormatter<'a> {
 		}
 		debug_assert!((reg_num as usize) < d.all_registers.len());
 		let reg_str = &d.all_registers[reg_num as usize];
-		reg_str.get(d.options.upper_case_registers() || d.options.upper_case_all())
+		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
 	#[inline]
@@ -1442,7 +1442,7 @@ impl<'a> IntelFormatter<'a> {
 	}
 
 	fn format_keyword(options: &FormatterOptions, output: &mut FormatterOutput, keyword: &FormatterString) {
-		output.write(keyword.get(options.upper_case_keywords() || options.upper_case_all()), FormatterTextKind::Keyword);
+		output.write(keyword.get(options.uppercase_keywords() || options.uppercase_all()), FormatterTextKind::Keyword);
 	}
 }
 

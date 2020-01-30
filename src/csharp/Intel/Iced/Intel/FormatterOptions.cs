@@ -36,7 +36,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>rep stosd</c>
 		/// </summary>
-		public bool UpperCasePrefixes { get; set; }
+		public bool UppercasePrefixes { get; set; }
 
 		/// <summary>
 		/// Mnemonics are upper cased
@@ -47,7 +47,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov rcx,rax</c>
 		/// </summary>
-		public bool UpperCaseMnemonics { get; set; }
+		public bool UppercaseMnemonics { get; set; }
 
 		/// <summary>
 		/// Registers are upper cased
@@ -58,7 +58,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov rcx,[rax+rdx*8]</c>
 		/// </summary>
-		public bool UpperCaseRegisters { get; set; }
+		public bool UppercaseRegisters { get; set; }
 
 		/// <summary>
 		/// Keywords are upper cased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
@@ -69,7 +69,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov byte ptr [rcx],12h</c>
 		/// </summary>
-		public bool UpperCaseKeywords { get; set; }
+		public bool UppercaseKeywords { get; set; }
 
 		/// <summary>
 		/// Upper case decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not op mask registers: <c>{k1}</c>)
@@ -80,7 +80,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]</c>
 		/// </summary>
-		public bool UpperCaseDecorators { get; set; }
+		public bool UppercaseDecorators { get; set; }
 
 		/// <summary>
 		/// Everything is upper cased, except numbers and their prefixes/suffixes
@@ -91,7 +91,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov eax,gs:[rcx*4+0ffh]</c>
 		/// </summary>
-		public bool UpperCaseAll { get; set; }
+		public bool UppercaseAll { get; set; }
 
 		/// <summary>
 		/// Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
@@ -335,7 +335,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>0xff</c>
 		/// </summary>
-		public bool UpperCaseHex { get; set; } = true;
+		public bool UppercaseHex { get; set; } = true;
 
 		/// <summary>
 		/// Small hex numbers (-9 .. 9) are shown in decimal
@@ -581,6 +581,118 @@ namespace Iced.Intel {
 		/// <see langword="false"/>: <c>fadd st,st(3)</c>
 		/// </summary>
 		public bool PreferST0 { get; set; }
+
+		/// <summary>
+		/// Prefixes are upper cased
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>REP stosd</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>rep stosd</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCasePrefixes {
+			get => UppercasePrefixes;
+			set => UppercasePrefixes = value;
+		}
+
+		/// <summary>
+		/// Mnemonics are upper cased
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>MOV rcx,rax</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov rcx,rax</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseMnemonics {
+			get => UppercaseMnemonics;
+			set => UppercaseMnemonics = value;
+		}
+
+		/// <summary>
+		/// Registers are upper cased
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov RCX,[RAX+RDX*8]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov rcx,[rax+rdx*8]</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseRegisters {
+			get => UppercaseRegisters;
+			set => UppercaseRegisters = value;
+		}
+
+		/// <summary>
+		/// Keywords are upper cased (eg. <c>BYTE PTR</c>, <c>SHORT</c>)
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>mov BYTE PTR [rcx],12h</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov byte ptr [rcx],12h</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseKeywords {
+			get => UppercaseKeywords;
+			set => UppercaseKeywords = value;
+		}
+
+		/// <summary>
+		/// Upper case decorators, eg. <c>{z}</c>, <c>{sae}</c>, <c>{rd-sae}</c> (but not op mask registers: <c>{k1}</c>)
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseDecorators {
+			get => UppercaseDecorators;
+			set => UppercaseDecorators = value;
+		}
+
+		/// <summary>
+		/// Everything is upper cased, except numbers and their prefixes/suffixes
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>MOV EAX,GS:[RCX*4+0ffh]</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>mov eax,gs:[rcx*4+0ffh]</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseAll {
+			get => UppercaseAll;
+			set => UppercaseAll = value;
+		}
+
+		/// <summary>
+		/// Use upper case hex digits
+		/// <br/>
+		/// Default: <see langword="true"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>0xFF</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>0xff</c>
+		/// </summary>
+		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public bool UpperCaseHex {
+			get => UppercaseHex;
+			set => UppercaseHex= value;
+		}
 
 #if !NO_GAS
 		/// <summary>

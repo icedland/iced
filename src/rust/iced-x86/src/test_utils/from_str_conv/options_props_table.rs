@@ -72,13 +72,13 @@ lazy_static! {
 		h.insert("SpaceBetweenMemoryAddOperators", OptionsProps::SpaceBetweenMemoryAddOperators);
 		h.insert("SpaceBetweenMemoryMulOperators", OptionsProps::SpaceBetweenMemoryMulOperators);
 		h.insert("TabSize", OptionsProps::TabSize);
-		h.insert("UpperCaseAll", OptionsProps::UpperCaseAll);
-		h.insert("UpperCaseDecorators", OptionsProps::UpperCaseDecorators);
-		h.insert("UpperCaseHex", OptionsProps::UpperCaseHex);
-		h.insert("UpperCaseKeywords", OptionsProps::UpperCaseKeywords);
-		h.insert("UpperCaseMnemonics", OptionsProps::UpperCaseMnemonics);
-		h.insert("UpperCasePrefixes", OptionsProps::UpperCasePrefixes);
-		h.insert("UpperCaseRegisters", OptionsProps::UpperCaseRegisters);
+		h.insert("UppercaseAll", OptionsProps::UppercaseAll);
+		h.insert("UppercaseDecorators", OptionsProps::UppercaseDecorators);
+		h.insert("UppercaseHex", OptionsProps::UppercaseHex);
+		h.insert("UppercaseKeywords", OptionsProps::UppercaseKeywords);
+		h.insert("UppercaseMnemonics", OptionsProps::UppercaseMnemonics);
+		h.insert("UppercasePrefixes", OptionsProps::UppercasePrefixes);
+		h.insert("UppercaseRegisters", OptionsProps::UppercaseRegisters);
 		h.insert("UsePseudoOps", OptionsProps::UsePseudoOps);
 		// GENERATOR-END: OptionsPropsHash
 		h

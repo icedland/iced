@@ -28,7 +28,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 	static class FormatterFactory {
 		static FormatterOptions CreateOptions() {
 			var options = FormatterOptions.CreateNasm();
-			options.UpperCaseHex = false;
+			options.UppercaseHex = false;
 			options.HexPrefix = "0x";
 			options.HexSuffix = null;
 			options.OctalPrefix = "0o";
@@ -96,7 +96,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_Numbers() {
 			var options = CreateOptions();
-			options.UpperCaseHex = true;
+			options.UppercaseHex = true;
 			options.HexPrefix = null;
 			options.HexSuffix = null;
 			options.OctalPrefix = null;

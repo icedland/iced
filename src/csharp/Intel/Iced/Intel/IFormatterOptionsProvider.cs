@@ -133,7 +133,7 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Use upper case hex digits
 		/// </summary>
-		public bool UpperCaseHex;
+		public bool UppercaseHex;
 
 		/// <summary>
 		/// Small hex numbers (-9 .. 9) are shown in decimal
@@ -223,7 +223,7 @@ namespace Iced.Intel {
 			DisplacementLeadingZeroes = displacementLeadingZeroes;
 			numberBaseByteValue = (byte)options.NumberBase;
 			DigitSeparator = options.DigitSeparator;
-			UpperCaseHex = options.UpperCaseHex;
+			UppercaseHex = options.UppercaseHex;
 			SmallHexNumbersInDecimal = options.SmallHexNumbersInDecimal;
 			AddLeadingZeroToHexNumbers = options.AddLeadingZeroToHexNumbers;
 			int digitGroupSize;

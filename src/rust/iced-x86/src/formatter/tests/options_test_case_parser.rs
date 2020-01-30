@@ -136,13 +136,13 @@ impl IntoIter {
 				| OptionsProps::SpaceAfterOperandSeparator
 				| OptionsProps::SpaceBetweenMemoryAddOperators
 				| OptionsProps::SpaceBetweenMemoryMulOperators
-				| OptionsProps::UpperCaseAll
-				| OptionsProps::UpperCaseDecorators
-				| OptionsProps::UpperCaseHex
-				| OptionsProps::UpperCaseKeywords
-				| OptionsProps::UpperCaseMnemonics
-				| OptionsProps::UpperCasePrefixes
-				| OptionsProps::UpperCaseRegisters
+				| OptionsProps::UppercaseAll
+				| OptionsProps::UppercaseDecorators
+				| OptionsProps::UppercaseHex
+				| OptionsProps::UppercaseKeywords
+				| OptionsProps::UppercaseMnemonics
+				| OptionsProps::UppercasePrefixes
+				| OptionsProps::UppercaseRegisters
 				| OptionsProps::UsePseudoOps => OptionValue::Boolean(to_boolean(value_str)?),
 
 				OptionsProps::BinaryDigitGroupSize

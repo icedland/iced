@@ -38,12 +38,12 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		[Fact]
 		void Verify_default_formatter_options() {
 			var options = FormatterOptions.CreateNasm();
-			Assert.False(options.UpperCasePrefixes);
-			Assert.False(options.UpperCaseMnemonics);
-			Assert.False(options.UpperCaseRegisters);
-			Assert.False(options.UpperCaseKeywords);
-			Assert.False(options.UpperCaseDecorators);
-			Assert.False(options.UpperCaseAll);
+			Assert.False(options.UppercasePrefixes);
+			Assert.False(options.UppercaseMnemonics);
+			Assert.False(options.UppercaseRegisters);
+			Assert.False(options.UppercaseKeywords);
+			Assert.False(options.UppercaseDecorators);
+			Assert.False(options.UppercaseAll);
 			Assert.Equal(0, options.FirstOperandCharIndex);
 			Assert.Equal(0, options.TabSize);
 			Assert.False(options.SpaceAfterOperandSeparator);
@@ -68,7 +68,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.Equal(4, options.BinaryDigitGroupSize);
 			Assert.Null(options.DigitSeparator);
 			Assert.False(options.LeadingZeroes);
-			Assert.True(options.UpperCaseHex);
+			Assert.True(options.UppercaseHex);
 			Assert.True(options.SmallHexNumbersInDecimal);
 			Assert.True(options.AddLeadingZeroToHexNumbers);
 			Assert.Equal(NumberBase.Hexadecimal, options.NumberBase);

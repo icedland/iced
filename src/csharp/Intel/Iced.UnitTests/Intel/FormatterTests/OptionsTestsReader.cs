@@ -91,13 +91,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				case OptionsProps.SpaceAfterOperandSeparator:
 				case OptionsProps.SpaceBetweenMemoryAddOperators:
 				case OptionsProps.SpaceBetweenMemoryMulOperators:
-				case OptionsProps.UpperCaseAll:
-				case OptionsProps.UpperCaseDecorators:
-				case OptionsProps.UpperCaseHex:
-				case OptionsProps.UpperCaseKeywords:
-				case OptionsProps.UpperCaseMnemonics:
-				case OptionsProps.UpperCasePrefixes:
-				case OptionsProps.UpperCaseRegisters:
+				case OptionsProps.UppercaseAll:
+				case OptionsProps.UppercaseDecorators:
+				case OptionsProps.UppercaseHex:
+				case OptionsProps.UppercaseKeywords:
+				case OptionsProps.UppercaseMnemonics:
+				case OptionsProps.UppercasePrefixes:
+				case OptionsProps.UppercaseRegisters:
 				case OptionsProps.UsePseudoOps:
 					value = NumberConverter.ToBoolean(valueStr);
 					break;

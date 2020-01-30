@@ -377,7 +377,7 @@ impl NumberFormatter {
 						options.digit_group_size as u32,
 						options.digit_separator,
 						if (flags & NumberFormatterFlags::LEADING_ZEROES) != 0 { (value_size + 3) >> 2 } else { 0 },
-						options.upper_case_hex,
+						options.uppercase_hex,
 						options.add_leading_zero_to_hex_numbers && options.prefix.is_empty(),
 					);
 					suffix = options.suffix;
