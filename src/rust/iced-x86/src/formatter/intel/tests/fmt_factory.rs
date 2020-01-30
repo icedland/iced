@@ -90,9 +90,18 @@ pub(super) fn create_registers<'a>() -> Box<IntelFormatter<'a>> {
 	create_fmt()
 }
 
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_numbers<'a>() -> Box<IntelFormatter<'a>> {
-	create_fmt()
+	let mut formatter = create_fmt();
+	formatter.options_mut().set_upper_case_hex(true);
+	formatter.options_mut().set_hex_prefix(String::from(""));
+	formatter.options_mut().set_hex_suffix(String::from(""));
+	formatter.options_mut().set_decimal_prefix(String::from(""));
+	formatter.options_mut().set_decimal_suffix(String::from(""));
+	formatter.options_mut().set_octal_prefix(String::from(""));
+	formatter.options_mut().set_octal_suffix(String::from(""));
+	formatter.options_mut().set_binary_prefix(String::from(""));
+	formatter.options_mut().set_binary_suffix(String::from(""));
+	formatter
 }
 
 #[allow(dead_code)] //TODO: REMOVE

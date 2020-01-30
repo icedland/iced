@@ -74,15 +74,6 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			return new GasFormatter(options);
 		}
 
-		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver(ISymbolResolver symbolResolver) {
-			var options = CreateOptions();
-			options.GasShowMnemonicSizeSuffix = false;
-			options.GasNakedRegisters = false;
-			options.ShowBranchSize = false;
-			options.RipRelativeAddresses = true;
-			return (new GasFormatter(options, symbolResolver), symbolResolver);
-		}
-
 		public static GasFormatter Create_Registers(bool nakedRegisters) {
 			var options = CreateOptions();
 			options.GasNakedRegisters = nakedRegisters;
@@ -91,7 +82,23 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 
 		public static GasFormatter Create_Numbers() {
 			var options = CreateOptions();
+			options.UpperCaseHex = true;
+			options.HexPrefix = null;
+			options.HexSuffix = null;
+			options.OctalPrefix = null;
+			options.OctalSuffix = null;
+			options.BinaryPrefix = null;
+			options.BinarySuffix = null;
 			return new GasFormatter(options);
+		}
+
+		public static (Formatter formatter, ISymbolResolver symbolResolver) Create_Resolver(ISymbolResolver symbolResolver) {
+			var options = CreateOptions();
+			options.GasShowMnemonicSizeSuffix = false;
+			options.GasNakedRegisters = false;
+			options.ShowBranchSize = false;
+			options.RipRelativeAddresses = true;
+			return (new GasFormatter(options, symbolResolver), symbolResolver);
 		}
 	}
 }

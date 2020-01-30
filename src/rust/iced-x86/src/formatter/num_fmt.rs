@@ -226,7 +226,7 @@ impl NumberFormatter {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
-			value = -value;
+			value = 0i8.wrapping_sub(value);
 		}
 		self.format_unsigned_integer(formatter_options, options, value as u8 as u64, 8, flags)
 	}
@@ -237,7 +237,7 @@ impl NumberFormatter {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
-			value = -value;
+			value = 0i16.wrapping_sub(value);
 		}
 		self.format_unsigned_integer(formatter_options, options, value as u16 as u64, 16, flags)
 	}
@@ -248,7 +248,7 @@ impl NumberFormatter {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
-			value = -value;
+			value = 0i32.wrapping_sub(value);
 		}
 		self.format_unsigned_integer(formatter_options, options, value as u32 as u64, 32, flags)
 	}
@@ -259,7 +259,7 @@ impl NumberFormatter {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
 			flags |= NumberFormatterFlags::ADD_MINUS_SIGN;
-			value = -value;
+			value = 0i64.wrapping_sub(value);
 		}
 		self.format_unsigned_integer(formatter_options, options, value as u64, 64, flags)
 	}

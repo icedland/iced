@@ -73,6 +73,8 @@ use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use super::super::formatter::tests::enums::OptionsProps;
 use super::super::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use core::{i16, i8};
 use core::{i32, u16, u32, u8};
 #[cfg(feature = "instr_info")]
 use std::collections::HashMap;
@@ -122,10 +124,16 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 
 #[cfg(any(feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
-	let value = value.trim();
-	let result = if value.starts_with("0x") { i64::from_str_radix(&value[2..], 16) } else { value.trim().parse() };
+	let mut unsigned_value = value.trim();
+	let mult = if unsigned_value.starts_with('-') {
+		unsigned_value = &unsigned_value[1..];
+		-1
+	} else {
+		1
+	};
+	let result = if unsigned_value.starts_with("0x") { u64::from_str_radix(&unsigned_value[2..], 16) } else { unsigned_value.trim().parse() };
 	match result {
-		Ok(value) => Ok(value),
+		Ok(value) => Ok((value as i64).wrapping_mul(mult)),
 		Err(_) => Err(format!("Invalid number: {}", value)),
 	}
 }
@@ -161,11 +169,33 @@ pub(crate) fn to_u16(value: &str) -> Result<u16, String> {
 	Err(format!("Invalid number: {}", value))
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_i16(value: &str) -> Result<i16, String> {
+	let value = value.trim();
+	if let Ok(v64) = to_i64(value) {
+		if i16::MIN as i64 <= v64 && v64 <= i16::MAX as i64 {
+			return Ok(v64 as i16);
+		}
+	}
+	Err(format!("Invalid number: {}", value))
+}
+
 pub(crate) fn to_u8(value: &str) -> Result<u8, String> {
 	let value = value.trim();
 	if let Ok(v64) = to_u64(value) {
 		if v64 <= u8::MAX as u64 {
 			return Ok(v64 as u8);
+		}
+	}
+	Err(format!("Invalid number: {}", value))
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_i8(value: &str) -> Result<i8, String> {
+	let value = value.trim();
+	if let Ok(v64) = to_i64(value) {
+		if i8::MIN as i64 <= v64 && v64 <= i8::MAX as i64 {
+			return Ok(v64 as i8);
 		}
 	}
 	Err(format!("Invalid number: {}", value))
@@ -299,6 +329,11 @@ pub(crate) fn to_number_base(value: &str) -> Result<NumberBase, String> {
 		Some(number_base) => Ok(*number_base),
 		None => Err(format!("Invalid NumberBase value: {}", value)),
 	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn number_base_len() -> usize {
+	TO_NUMBER_BASE_HASH.len()
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

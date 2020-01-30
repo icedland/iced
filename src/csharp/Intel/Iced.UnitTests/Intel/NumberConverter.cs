@@ -38,13 +38,21 @@ namespace Iced.UnitTests.Intel {
 		}
 
 		public static long ToInt64(string value) {
-			if (value.StartsWith("0x")) {
-				value = value.Substring(2);
-				if (long.TryParse(value, SG.NumberStyles.HexNumber, null, out var number))
-					return number;
+			var unsigned_value = value;
+			long mult;
+			if (unsigned_value.StartsWith("-")) {
+				mult = -1;
+				unsigned_value = unsigned_value.Substring(1);
 			}
-			else if (long.TryParse(value, out var number))
-				return number;
+			else
+				mult = 1;
+			if (unsigned_value.StartsWith("0x")) {
+				unsigned_value = unsigned_value.Substring(2);
+				if (long.TryParse(unsigned_value, SG.NumberStyles.HexNumber, null, out var number))
+					return number * mult;
+			}
+			else if (long.TryParse(unsigned_value, out var number))
+				return number * mult;
 			throw new InvalidOperationException($"Invalid number: '{value}'");
 		}
 
@@ -69,10 +77,24 @@ namespace Iced.UnitTests.Intel {
 			throw new InvalidOperationException($"Invalid number: '{value}'");
 		}
 
+		public static short ToInt16(string value) {
+			long v = ToInt64(value);
+			if (short.MinValue <= v && v <= short.MaxValue)
+				return (short)v;
+			throw new InvalidOperationException($"Invalid number: '{value}'");
+		}
+
 		public static byte ToUInt8(string value) {
 			ulong v = ToUInt64(value);
 			if (v <= byte.MaxValue)
 				return (byte)v;
+			throw new InvalidOperationException($"Invalid number: '{value}'");
+		}
+
+		public static sbyte ToInt8(string value) {
+			long v = ToInt64(value);
+			if (sbyte.MinValue <= v && v <= sbyte.MaxValue)
+				return (sbyte)v;
 			throw new InvalidOperationException($"Invalid number: '{value}'");
 		}
 

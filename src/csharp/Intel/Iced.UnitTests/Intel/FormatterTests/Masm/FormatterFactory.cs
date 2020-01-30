@@ -84,6 +84,13 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 
 		public static MasmFormatter Create_Numbers() {
 			var options = CreateOptions();
+			options.UpperCaseHex = true;
+			options.HexPrefix = null;
+			options.HexSuffix = null;
+			options.OctalPrefix = null;
+			options.OctalSuffix = null;
+			options.BinaryPrefix = null;
+			options.BinarySuffix = null;
 			return new MasmFormatter(options);
 		}
 

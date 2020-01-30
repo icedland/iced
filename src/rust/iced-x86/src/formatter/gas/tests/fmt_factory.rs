@@ -73,18 +73,27 @@ pub(super) fn create_options<'a>() -> Box<GasFormatter<'a>> {
 }
 
 #[allow(dead_code)] //TODO: REMOVE
-pub(super) fn create_resolver<'a>() -> Box<GasFormatter<'a>> {
-	panic!(); //TODO:
-}
-
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>(naked_registers: bool) -> Box<GasFormatter<'a>> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_naked_registers(naked_registers);
 	fmt
 }
 
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_numbers<'a>() -> Box<GasFormatter<'a>> {
-	create_fmt()
+	let mut formatter = create_fmt();
+	formatter.options_mut().set_upper_case_hex(true);
+	formatter.options_mut().set_hex_prefix(String::from(""));
+	formatter.options_mut().set_hex_suffix(String::from(""));
+	formatter.options_mut().set_decimal_prefix(String::from(""));
+	formatter.options_mut().set_decimal_suffix(String::from(""));
+	formatter.options_mut().set_octal_prefix(String::from(""));
+	formatter.options_mut().set_octal_suffix(String::from(""));
+	formatter.options_mut().set_binary_prefix(String::from(""));
+	formatter.options_mut().set_binary_suffix(String::from(""));
+	formatter
+}
+
+#[allow(dead_code)] //TODO: REMOVE
+pub(super) fn create_resolver<'a>() -> Box<GasFormatter<'a>> {
+	panic!(); //TODO:
 }

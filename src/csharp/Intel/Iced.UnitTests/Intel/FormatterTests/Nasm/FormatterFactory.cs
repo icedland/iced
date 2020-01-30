@@ -96,6 +96,13 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 
 		public static NasmFormatter Create_Numbers() {
 			var options = CreateOptions();
+			options.UpperCaseHex = true;
+			options.HexPrefix = null;
+			options.HexSuffix = null;
+			options.OctalPrefix = null;
+			options.OctalSuffix = null;
+			options.BinaryPrefix = null;
+			options.BinarySuffix = null;
 			return new NasmFormatter(options);
 		}
 

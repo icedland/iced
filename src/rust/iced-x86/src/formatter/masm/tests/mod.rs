@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod fmt_factory;
+mod number;
 mod options;
 
 use self::fmt_factory::*;

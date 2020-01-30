@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 pub(crate) mod enums;
 mod instr_infos;
+pub(crate) mod number;
 pub(crate) mod options;
 mod options_test_case_parser;
 pub(crate) mod opts_info;
