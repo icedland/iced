@@ -78,7 +78,6 @@ pub(super) fn create_options<'a>() -> Box<MasmFormatter<'a>> {
 	fmt
 }
 
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>() -> Box<MasmFormatter<'a>> {
 	create_fmt()
 }

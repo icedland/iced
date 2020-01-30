@@ -85,7 +85,6 @@ pub(super) fn create_options<'a>() -> Box<IntelFormatter<'a>> {
 	fmt
 }
 
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>() -> Box<IntelFormatter<'a>> {
 	create_fmt()
 }

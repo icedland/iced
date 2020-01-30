@@ -28,6 +28,7 @@ pub(crate) mod options;
 mod options_test_case_parser;
 pub(crate) mod opts_info;
 mod opts_infos;
+pub(crate) mod registers;
 
 use self::instr_infos::*;
 #[cfg(feature = "encoder")]

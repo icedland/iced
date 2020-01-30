@@ -88,7 +88,6 @@ pub(super) fn create_options<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-#[allow(dead_code)] //TODO: REMOVE
 pub(super) fn create_registers<'a>() -> Box<NasmFormatter<'a>> {
 	create_fmt()
 }

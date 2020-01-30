@@ -42,8 +42,20 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		}
 
 		protected void FormatBase(Register register, string formattedString, Formatter formatter) {
-			var actualFormattedString = formatter.Format(register);
-			Assert.Equal(formattedString, actualFormattedString);
+			{
+				var actualFormattedString = formatter.Format(register);
+				Assert.Equal(formattedString, actualFormattedString);
+			}
+			{
+				formatter.Options.UpperCaseRegisters = false;
+				var actualFormattedString = formatter.Format(register);
+				Assert.Equal(formattedString.ToLowerInvariant(), actualFormattedString);
+			}
+			{
+				formatter.Options.UpperCaseRegisters = true;
+				var actualFormattedString = formatter.Format(register);
+				Assert.Equal(formattedString.ToUpperInvariant(), actualFormattedString);
+			}
 		}
 	}
 }
