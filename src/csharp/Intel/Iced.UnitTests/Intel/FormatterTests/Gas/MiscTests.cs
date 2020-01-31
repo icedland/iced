@@ -85,6 +85,10 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 			Assert.False(options.GasNakedRegisters);
 			Assert.False(options.GasShowMnemonicSizeSuffix);
 			Assert.False(options.GasSpaceAfterMemoryOperandComma);
+			Assert.True(options.MasmAddDsPrefix32);
+			Assert.True(options.MasmSymbolDisplInBrackets);
+			Assert.True(options.MasmDisplInBrackets);
+			Assert.False(options.NasmShowSignExtendedImmediateSize);
 		}
 
 		[Theory]

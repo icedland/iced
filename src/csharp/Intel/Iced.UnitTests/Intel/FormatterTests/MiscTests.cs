@@ -52,6 +52,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 #if !NO_ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests())
 				tested[(int)info.instruction.Code] = 1;
+#else
+			foreach (var code in CodeValueTests.NonDecodedCodeValues)
+				tested[(int)code] = 1;
 #endif
 
 			var sb = new StringBuilder();
@@ -335,9 +338,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.PreferST0);
+			Assert.False(options.GasNakedRegisters);
+			Assert.False(options.GasShowMnemonicSizeSuffix);
+			Assert.False(options.GasSpaceAfterMemoryOperandComma);
 			Assert.True(options.MasmAddDsPrefix32);
 			Assert.True(options.MasmSymbolDisplInBrackets);
 			Assert.True(options.MasmDisplInBrackets);
+			Assert.False(options.NasmShowSignExtendedImmediateSize);
 		}
 	}
 }

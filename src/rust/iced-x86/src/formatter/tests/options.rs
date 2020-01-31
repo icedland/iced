@@ -34,7 +34,11 @@ use std::path::PathBuf;
 fn read_lines(filename: PathBuf) -> Vec<String> {
 	let display_filename = filename.display().to_string();
 	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
-	BufReader::new(file).lines().map(|r| r.unwrap()).filter(|line| !line.is_empty() && !line.starts_with('#')).collect()
+	BufReader::new(file)
+		.lines()
+		.map(|r| r.unwrap_or_else(|e| panic!(e.to_string())))
+		.filter(|line| !line.is_empty() && !line.starts_with('#'))
+		.collect()
 }
 
 pub(crate) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {

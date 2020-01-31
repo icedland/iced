@@ -28,6 +28,26 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.DecoderTests {
 	public sealed class CodeValueTests {
+		public static readonly Code[] NonDecodedCodeValues = new Code[17] {
+			Code.DeclareByte,
+			Code.DeclareDword,
+			Code.DeclareQword,
+			Code.DeclareWord,
+			Code.Fclex,
+			Code.Fdisi,
+			Code.Feni,
+			Code.Finit,
+			Code.Fsave_m108byte,
+			Code.Fsave_m94byte,
+			Code.Fsetpm,
+			Code.Fstcw_m2byte,
+			Code.Fstenv_m14byte,
+			Code.Fstenv_m28byte,
+			Code.Fstsw_AX,
+			Code.Fstsw_m2byte,
+			Code.Popw_CS,
+		};
+
 		[Fact]
 		void Make_sure_all_Code_values_are_tested_in_16_32_64_bit_modes() {
 			const byte T16 = 0x01;
@@ -55,6 +75,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					64 => T64,
 					_ => throw new System.InvalidOperationException(),
 				};
+			}
+#else
+			foreach (var code in NonDecodedCodeValues) {
+				if (code == Code.Popw_CS)
+					tested[(int)code] |= T16 | T32;
+				else
+					tested[(int)code] |= T16 | T32 | T64;
 			}
 #endif
 

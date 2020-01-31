@@ -209,6 +209,11 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 	}
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn code_names() -> Vec<&'static str> {
+	(&*TO_CODE_HASH).iter().map(|kv| *kv.0).collect()
+}
+
 pub(crate) fn to_mnemonic(value: &str) -> Result<Mnemonic, String> {
 	let value = value.trim();
 	match TO_MNEMONIC_HASH.get(value) {

@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod fmt_factory;
+mod misc;
 mod number;
 mod options;
 mod registers;

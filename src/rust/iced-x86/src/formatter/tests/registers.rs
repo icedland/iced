@@ -35,7 +35,11 @@ pub(crate) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Bo
 	filename.push(format!("{}.txt", file_part));
 	let display_filename = filename.display().to_string();
 	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
-	let lines: Vec<_> = BufReader::new(file).lines().map(|r| r.unwrap()).filter(|line| !line.is_empty() && !line.starts_with('#')).collect();
+	let lines: Vec<_> = BufReader::new(file)
+		.lines()
+		.map(|r| r.unwrap_or_else(|e| panic!(e.to_string())))
+		.filter(|line| !line.is_empty() && !line.starts_with('#'))
+		.collect();
 	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, lines.len());
 	for (i, expected_register_string) in lines.into_iter().enumerate() {
 		let register: Register = unsafe { mem::transmute(i as u8) };

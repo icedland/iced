@@ -144,7 +144,7 @@ impl<'a> InstrOpInfo<'a> {
 	}
 
 	pub(super) fn operand_index(&self, instruction_operand: u32) -> Option<u32> {
-		let index = if instruction_operand == self.op0_index as u32 {
+		let index: i32 = if instruction_operand == self.op0_index as u32 {
 			0
 		} else if instruction_operand == self.op1_index as u32 {
 			1
@@ -157,7 +157,7 @@ impl<'a> InstrOpInfo<'a> {
 		} else {
 			-1
 		};
-		if index < (self.op_count as i32) {
+		if (index as u32) < self.op_count as u32 {
 			Some(index as u32)
 		} else {
 			None
