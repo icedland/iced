@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::enums::MemorySizeOptions;
 use super::super::super::Formatter;
 use super::super::super::MasmFormatter;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 fn create_fmt<'a>() -> Box<MasmFormatter<'a>> {
 	Box::new(MasmFormatter::new())

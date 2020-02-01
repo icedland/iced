@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
 	let mut v = Vec::with_capacity(INFOS16_LEN + INFOS32_LEN + INFOS64_LEN);

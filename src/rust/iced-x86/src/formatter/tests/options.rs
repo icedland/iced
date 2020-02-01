@@ -26,6 +26,12 @@ use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::*;
 use super::opts_info::*;
 use super::opts_infos;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;

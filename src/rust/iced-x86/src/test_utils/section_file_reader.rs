@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 use core::u32;
 use std::fs::File;
 use std::io::prelude::*;

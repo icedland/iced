@@ -26,6 +26,7 @@ use super::iced_constants::IcedConstants;
 use super::info::enums::*;
 use super::*;
 #[cfg(not(feature = "std"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::fmt;

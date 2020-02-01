@@ -147,7 +147,7 @@ jobs:
           git clean -xdf
           cd src/rust/iced-x86
           echo ==== BUILD DEBUG ====
-          cargo build --color always --lib --no-default-features --features "no_std decoder encoder instr_info gas intel masm nasm"
+          cargo check --color always --lib --no-default-features --features "no_std decoder encoder instr_info gas intel masm nasm"
           cd ../../..
           git clean -xdf
 
@@ -171,6 +171,21 @@ jobs:
           cargo check --lib --no-default-features --features "std masm"
           echo ==== std nasm ====
           cargo check --lib --no-default-features --features "std nasm"
+          
+          echo ==== no_std decoder ====
+          cargo check --lib --no-default-features --features "no_std decoder"
+          echo ==== no_std encoder ====
+          cargo check --lib --no-default-features --features "no_std encoder"
+          echo ==== no_std instr_info ====
+          cargo check --lib --no-default-features --features "no_std instr_info"
+          echo ==== no_std gas ====
+          cargo check --lib --no-default-features --features "no_std gas"
+          echo ==== no_std intel ====
+          cargo check --lib --no-default-features --features "no_std intel"
+          echo ==== no_std masm ====
+          cargo check --lib --no-default-features --features "no_std masm"
+          echo ==== no_std nasm ====
+          cargo check --lib --no-default-features --features "no_std nasm"
           
           echo ==== TEST std decoder ====
           cargo check --tests --lib --no-default-features --features "std decoder"

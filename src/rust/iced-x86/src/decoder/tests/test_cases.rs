@@ -26,6 +26,10 @@ use super::decoder_mem_test_case::*;
 use super::decoder_test_case::*;
 use super::mem_test_parser::*;
 use super::test_parser::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 fn read_decoder_test_cases_core(bitness: u32, filename: String) -> Vec<DecoderTestCase> {
 	let mut path = get_decoder_unit_tests_dir();

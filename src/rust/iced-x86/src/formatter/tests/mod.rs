@@ -38,6 +38,12 @@ use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::{Code, Decoder, Instruction};
 use super::Formatter;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 pub(crate) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
 	let infos = get_infos(bitness, is_misc);

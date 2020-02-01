@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::code::Code;
 use super::super::test_utils::from_str_conv::{to_code, to_decoder_options};
 use super::super::test_utils::get_formatter_unit_tests_dir;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;

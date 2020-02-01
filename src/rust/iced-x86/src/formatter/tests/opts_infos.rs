@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::*;
 use super::opts_info::OptionsInstructionInfo;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
 lazy_static! {
 	pub(super) static ref ALL_INFOS: Vec<OptionsInstructionInfo> = {

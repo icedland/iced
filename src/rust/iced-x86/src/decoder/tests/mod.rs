@@ -36,6 +36,8 @@ use super::super::iced_constants::IcedConstants;
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 use core::fmt::Write;
 use core::mem;
 

@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::iced_constants::IcedConstants;
 use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::mem;
 use std::fs::File;
 use std::io::prelude::*;

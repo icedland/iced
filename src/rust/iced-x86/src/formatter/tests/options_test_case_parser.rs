@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::test_utils::from_str_conv::*;
 use super::enums::OptionsProps;
 use super::opts_info::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use core::u32;
 use std::fs::File;

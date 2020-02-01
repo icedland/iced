@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 #[derive(Default)]
 pub(crate) struct DecoderTestCase {

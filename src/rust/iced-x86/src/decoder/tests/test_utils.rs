@@ -27,6 +27,13 @@ use super::super::super::*;
 use super::decoder_mem_test_case::*;
 use super::decoder_test_case::*;
 use super::test_cases::*;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;

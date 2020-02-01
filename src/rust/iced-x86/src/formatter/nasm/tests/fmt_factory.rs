@@ -24,6 +24,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::enums::MemorySizeOptions;
 use super::super::super::Formatter;
 use super::super::super::NasmFormatter;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 fn create_fmt<'a>() -> Box<NasmFormatter<'a>> {
 	let mut fmt = Box::new(NasmFormatter::new());

@@ -23,6 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::test_utils::*;
 use super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::cmp::Ordering;
 use core::u32;
 

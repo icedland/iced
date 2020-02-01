@@ -24,6 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::test_utils::*;
 use super::super::*;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::{i32, i64, u32, u64};
 use std::panic;
 

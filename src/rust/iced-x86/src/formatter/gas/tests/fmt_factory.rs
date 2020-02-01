@@ -23,6 +23,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::Formatter;
 use super::super::GasFormatter;
+#[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 fn create_fmt<'a>() -> Box<GasFormatter<'a>> {
 	let mut fmt = Box::new(GasFormatter::new());

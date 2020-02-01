@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::FormatterString;
 #[cfg(not(feature = "std"))]
+#[cfg(any(feature = "intel", feature = "nasm"))]
 use alloc::vec::Vec;
 
 #[allow(dead_code)]

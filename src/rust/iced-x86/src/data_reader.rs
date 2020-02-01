@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #[cfg(not(feature = "std"))]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::str;

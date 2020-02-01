@@ -28,6 +28,8 @@ use super::super::super::*;
 use super::super::info::InstrOpInfo;
 use super::super::regs::Registers;
 use super::fmt_factory;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
 
 #[test]
 fn methods_panic_if_invalid_operand_or_instruction_operand() {

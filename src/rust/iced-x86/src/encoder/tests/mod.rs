@@ -36,6 +36,10 @@ use super::super::*;
 use super::op_code_handler::InvalidHandler;
 #[cfg(any(has_alloc, not(feature = "std")))]
 use alloc::rc::Rc;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 use core::fmt::Write;
 use core::mem;
 #[cfg(all(not(has_alloc), feature = "std"))]

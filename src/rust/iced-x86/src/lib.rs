@@ -47,7 +47,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![doc(html_logo_url = "https://raw.githubusercontent.com/0xd4d/iced/master/logo.png")]
 #![doc(html_root_url = "https://docs.rs/iced-x86/0.0.0")]
 #![allow(unknown_lints)]
-#![allow(bare_trait_objects)] // dyn syntax supported by rustc >= 1.27.0
+#![allow(bare_trait_objects)] // Not supported if < 1.27.0
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
 #![warn(deprecated_in_future)]
@@ -70,9 +70,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::cognitive_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::collapsible_if))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // '_ requires rustc >= 1.31.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
-#![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))] // Requires rustc >= 1.26.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::range_plus_one))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::default_trait_access))]
@@ -93,7 +93,7 @@ compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
-#[cfg(all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
+#[cfg(all(has_alloc, any(not(feature = "std"), feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")))]
 #[cfg_attr(all(has_alloc, any(feature = "encoder", feature = "gas", feature = "intel", feature = "masm", feature = "nasm")), macro_use)]
 extern crate alloc;
 #[cfg(feature = "std")]
@@ -104,6 +104,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
 #[cfg(not(feature = "std"))]
+#[cfg(any(feature = "decoder", feature = "encoder"))]
 extern crate hashbrown;
 
 #[cfg(feature = "encoder")]
