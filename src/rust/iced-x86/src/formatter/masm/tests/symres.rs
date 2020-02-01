@@ -56,7 +56,7 @@ impl SymbolResolver for MySymbolResolver {
 #[test]
 fn symbol_options() {
 	let mut path = get_formatter_unit_tests_dir();
-	path.push("masm");
+	path.push("Masm");
 	path.push("SymbolOptions.txt");
 	for tc in SymbolOptionsTestParser::new(&path) {
 		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
