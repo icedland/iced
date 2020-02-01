@@ -200,8 +200,11 @@ impl Encoder {
 		}
 	}
 
-	/// Encodes an instruction and returns the size of the encoded instruction or an error
-	/// if it failed to encode it.
+	/// Encodes an instruction and returns the size of the encoded instruction
+	///
+	/// # Errors
+	///
+	/// Returns an error message on failure.
 	///
 	/// # Arguments
 	///

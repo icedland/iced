@@ -235,6 +235,10 @@ impl BlockEncoder {
 	/// far away from the new location of the encoded instructions. Every OS should have
 	/// some API to allocate memory close (+/-2GB) to the original code location.
 	///
+	/// # Errors
+	///
+	/// Returns an error message on failure.
+	///
 	/// # Panics
 	///
 	/// Panics if `bitness` is not one of 16, 32, 64.
@@ -287,6 +291,10 @@ impl BlockEncoder {
 	/// If the block has any `RIP`-relative memory operands, make sure the data isn't too
 	/// far away from the new location of the encoded instructions. Every OS should have
 	/// some API to allocate memory close (+/-2GB) to the original code location.
+	///
+	/// # Errors
+	///
+	/// Returns an error message on failure.
 	///
 	/// # Panics
 	///
