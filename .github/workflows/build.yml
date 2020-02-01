@@ -158,49 +158,49 @@ jobs:
           export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86
           echo ==== std decoder ====
-          cargo check --lib --no-default-features --features "std decoder"
+          cargo check --color always --no-default-features --features "std decoder"
           echo ==== std encoder ====
-          cargo check --lib --no-default-features --features "std encoder"
+          cargo check --color always --no-default-features --features "std encoder"
           echo ==== std instr_info ====
-          cargo check --lib --no-default-features --features "std instr_info"
+          cargo check --color always --no-default-features --features "std instr_info"
           echo ==== std gas ====
-          cargo check --lib --no-default-features --features "std gas"
+          cargo check --color always --no-default-features --features "std gas"
           echo ==== std intel ====
-          cargo check --lib --no-default-features --features "std intel"
+          cargo check --color always --no-default-features --features "std intel"
           echo ==== std masm ====
-          cargo check --lib --no-default-features --features "std masm"
+          cargo check --color always --no-default-features --features "std masm"
           echo ==== std nasm ====
-          cargo check --lib --no-default-features --features "std nasm"
+          cargo check --color always --no-default-features --features "std nasm"
           
           echo ==== no_std decoder ====
-          cargo check --lib --no-default-features --features "no_std decoder"
+          cargo check --color always --no-default-features --features "no_std decoder"
           echo ==== no_std encoder ====
-          cargo check --lib --no-default-features --features "no_std encoder"
+          cargo check --color always --no-default-features --features "no_std encoder"
           echo ==== no_std instr_info ====
-          cargo check --lib --no-default-features --features "no_std instr_info"
+          cargo check --color always --no-default-features --features "no_std instr_info"
           echo ==== no_std gas ====
-          cargo check --lib --no-default-features --features "no_std gas"
+          cargo check --color always --no-default-features --features "no_std gas"
           echo ==== no_std intel ====
-          cargo check --lib --no-default-features --features "no_std intel"
+          cargo check --color always --no-default-features --features "no_std intel"
           echo ==== no_std masm ====
-          cargo check --lib --no-default-features --features "no_std masm"
+          cargo check --color always --no-default-features --features "no_std masm"
           echo ==== no_std nasm ====
-          cargo check --lib --no-default-features --features "no_std nasm"
+          cargo check --color always --no-default-features --features "no_std nasm"
           
           echo ==== TEST std decoder ====
-          cargo check --tests --lib --no-default-features --features "std decoder"
+          cargo check --color always --tests --no-default-features --features "std decoder"
           echo ==== TEST std decoder encoder ====
-          cargo check --tests --lib --no-default-features --features "std decoder encoder"
+          cargo check --color always --tests --no-default-features --features "std decoder encoder"
           echo ==== TEST std decoder instr_info ====
-          cargo check --tests --lib --no-default-features --features "std decoder instr_info"
+          cargo check --color always --tests --no-default-features --features "std decoder instr_info"
           echo ==== TEST std decoder gas ====
-          cargo check --tests --lib --no-default-features --features "std decoder gas"
+          cargo check --color always --tests --no-default-features --features "std decoder gas"
           echo ==== TEST std decoder intel ====
-          cargo check --tests --lib --no-default-features --features "std decoder intel"
+          cargo check --color always --tests --no-default-features --features "std decoder intel"
           echo ==== TEST std decoder masm ====
-          cargo check --tests --lib --no-default-features --features "std decoder masm"
+          cargo check --color always --tests --no-default-features --features "std decoder masm"
           echo ==== TEST std decoder nasm ====
-          cargo check --tests --lib --no-default-features --features "std decoder nasm"
+          cargo check --color always --tests --no-default-features --features "std decoder nasm"
           cd ..
           git clean -xdf
 
@@ -219,7 +219,7 @@ jobs:
           cargo fmt -- --color always --check
           echo ==== DOC ====
           # Use nightly since that's what docs.rs uses
-          cargo +nightly doc
+          cargo +nightly doc --color always
           echo ==== BUILD DEBUG ====
           cargo build --color always
           echo ==== TEST DEBUG ====
