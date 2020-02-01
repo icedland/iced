@@ -21,15 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System;
-using System.Text;
-
 #if !NO_ENCODER
 namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand
 	/// </summary>
-	public readonly struct MemoryOperand : IEquatable<MemoryOperand> {
+	public readonly struct MemoryOperand {
 		/// <summary>
 		/// Segment override or <see cref="Register.None"/>
 		/// </summary>
@@ -267,84 +264,6 @@ namespace Iced.Intel {
 			DisplSize = 0;
 			IsBroadcast = false;
 		}
-
-		/// <inheritdoc />
-		public override string ToString() {
-			var text = new StringBuilder();
-
-			if (IsBroadcast) {
-				text.Append("bcst");
-			}
-			
-			if (SegmentPrefix != Register.None) {
-				if (IsBroadcast) text.Append(' ');
-				text.Append(SegmentPrefix.ToString().ToLowerInvariant());
-				text.Append(':');
-			}
-
-			text.Append('[');
-			if (Base != Register.None) {
-				text.Append(Base.ToString().ToLowerInvariant());
-				text.Append(" + ");
-			}
-			if (Index != Register.None) {
-				text.Append(Index.ToString().ToLowerInvariant());
-				if (Scale > 1) {
-					text.Append($" * {Scale}");
-				}
-			}
-
-			if (Displacement != 0) {
-				var displacement = Displacement; 
-				text.Append(Displacement < 0 ? " - " : " + ");
-				if (displacement < 0) displacement = -displacement;
-				text.Append(displacement);
-			}
-
-			text.Append(']');
-
-			text.Append($" (DisplSize: {DisplSize})");
-
-			return text.ToString();
-		}
-
-		/// <inheritdoc />
-		public bool Equals(MemoryOperand other) => SegmentPrefix == other.SegmentPrefix && Base == other.Base && Index == other.Index && Scale == other.Scale && Displacement == other.Displacement && DisplSize == other.DisplSize && IsBroadcast == other.IsBroadcast;
-
-		/// <inheritdoc />
-        public override bool Equals(object? obj) => obj is MemoryOperand other && Equals(other);
-
-		/// <inheritdoc />
-		public override int GetHashCode()
-		{
-			unchecked
-			{
-				var hashCode = (int) SegmentPrefix;
-				hashCode = (hashCode * 397) ^ (int) Base;
-				hashCode = (hashCode * 397) ^ (int) Index;
-				hashCode = (hashCode * 397) ^ Scale;
-				hashCode = (hashCode * 397) ^ Displacement;
-				hashCode = (hashCode * 397) ^ DisplSize;
-				hashCode = (hashCode * 397) ^ IsBroadcast.GetHashCode();
-				return hashCode;
-			}
-		}
-
-		/// <summary>
-		/// Equality operator for <see cref="MemoryOperand"/>.
-		/// </summary>
-		/// <param name="left">Left operand</param>
-		/// <param name="right">Right operand</param>
-		/// <returns><c>true</c> if equal; otherwise <c>false</c></returns>
-		public static bool operator ==(MemoryOperand left, MemoryOperand right) => left.Equals(right);
-
-		/// <summary>
-		/// Inequality operator for <see cref="MemoryOperand"/>.
-		/// </summary>
-		/// <param name="left">Left operand</param>
-		/// <param name="right">Right operand</param>
-		/// <returns><c>true</c> if not equal; otherwise <c>false</c></returns>
-		public static bool operator !=(MemoryOperand left, MemoryOperand right) => !left.Equals(right);
 	}
 }
 #endif
