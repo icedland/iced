@@ -47,6 +47,9 @@ namespace Generator.Tables.CSharp {
 				WriteDict(writer, EncoderConstants.MandatoryPrefixTable, "ToMandatoryPrefix");
 				WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "ToOpCodeTableKind");
 			});
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
+				WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable, "ToSymbolTestFlags");
+			});
 		}
 
 		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName) {

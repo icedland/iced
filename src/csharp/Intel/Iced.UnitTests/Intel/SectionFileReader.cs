@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel {
 			(string sectionName, Action<string, string> handler) currentSectionInfo = default;
 			Debug.Assert(File.Exists(filename));
 			int lineNo = 0;
-			foreach (var line in File.ReadAllLines(filename)) {
+			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
 				if (line.Length == 0 || line.StartsWith("#"))
 					continue;

@@ -22,15 +22,21 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::enums::MemorySizeOptions;
-use super::super::super::Formatter;
 use super::super::super::MasmFormatter;
+use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 fn create_fmt<'a>() -> Box<MasmFormatter<'a>> {
-	Box::new(MasmFormatter::new())
+	create_fmt2(None, None)
+}
+
+fn create_fmt2<'a>(
+	symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>,
+) -> Box<MasmFormatter<'a>> {
+	Box::new(MasmFormatter::with_options(symbol_resolver, options_provider))
 }
 
 pub(super) fn create_memdefault<'a>() -> Box<MasmFormatter<'a>> {
@@ -100,7 +106,10 @@ pub(super) fn create_numbers<'a>() -> Box<MasmFormatter<'a>> {
 	formatter
 }
 
-#[allow(dead_code)] //TODO: REMOVE
-pub(super) fn create_resolver<'a>() -> Box<MasmFormatter<'a>> {
-	panic!(); //TODO:
+pub(super) fn create_resolver<'a>(symbol_resolver: &'a mut SymbolResolver) -> Box<MasmFormatter<'a>> {
+	let mut formatter = create_fmt2(Some(symbol_resolver), None);
+	formatter.options_mut().set_memory_size_options(MemorySizeOptions::Default);
+	formatter.options_mut().set_show_branch_size(false);
+	formatter.options_mut().set_rip_relative_addresses(true);
+	formatter
 }

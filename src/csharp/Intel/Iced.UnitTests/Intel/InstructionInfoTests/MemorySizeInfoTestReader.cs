@@ -39,7 +39,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var filename = PathUtils.GetTestTextFilename("MemorySizeInfo.txt", "InstructionInfo");
 			Debug.Assert(File.Exists(filename));
 			int lineNo = 0;
-			foreach (var line in File.ReadAllLines(filename)) {
+			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
 				if (line.Length == 0 || line.StartsWith("#"))
 					continue;

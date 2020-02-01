@@ -26,6 +26,9 @@ mod misc;
 mod number;
 mod options;
 mod registers;
+mod sym_opts;
+mod sym_opts_parser;
+mod symres;
 
 use self::fmt_factory::*;
 use super::super::tests::formatter_test;

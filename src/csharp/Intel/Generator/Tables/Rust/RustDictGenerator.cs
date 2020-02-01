@@ -69,6 +69,11 @@ namespace Generator.Tables.Rust {
 					"OpCodeTableKindDict",
 					writer => WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "to_op_code_table_kind")
 				),
+				(
+					Path.Combine(generatorOptions.RustDir, "formatter", "masm", "tests", "sym_opts_parser.rs"),
+					"SymbolTestFlagsDict",
+					writer => WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable, "to_flags")
+				),
 			};
 			foreach (var info in infos) {
 				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));

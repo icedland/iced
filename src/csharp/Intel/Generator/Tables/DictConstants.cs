@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Generator.Enums;
 using Generator.Enums.Encoder;
+using Generator.Enums.Formatter.Masm;
 using Generator.Enums.InstructionInfo;
 
 namespace Generator.Tables {
@@ -89,6 +90,18 @@ namespace Generator.Tables {
 			("X8", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOP8)]),
 			("X9", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOP9)]),
 			("XA", OpCodeTableKindEnum.Instance[nameof(OpCodeTableKind.XOPA)]),
+		};
+	}
+
+	static class MasmSymbolOptionsConstants {
+		public static readonly (string value, EnumValue flags)[] SymbolTestFlagsTable = new (string value, EnumValue flags)[] {
+			("sym", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.Symbol)]),
+			("signed", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.Signed)]),
+			("symbr", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.SymbolDisplInBrackets)]),
+			("displbr", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.DisplInBrackets)]),
+			("rip", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.Rip)]),
+			("disp0", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.ShowZeroDisplacements)]),
+			("nods32", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.NoAddDsPrefix32)]),
 		};
 	}
 }
