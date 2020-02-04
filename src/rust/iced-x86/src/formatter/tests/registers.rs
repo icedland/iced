@@ -33,7 +33,7 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-pub(crate) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));

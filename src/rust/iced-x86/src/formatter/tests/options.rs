@@ -47,7 +47,7 @@ fn read_lines(filename: PathBuf) -> Vec<String> {
 		.collect()
 }
 
-pub(crate) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let tmp_infos: Vec<OptionsInstructionInfo>;
 	let all_infos = if options_file.is_empty() {
 		&*opts_infos::ALL_INFOS

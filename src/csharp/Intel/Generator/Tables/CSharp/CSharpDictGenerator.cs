@@ -50,6 +50,9 @@ namespace Generator.Tables.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
 				WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable, "ToSymbolTestFlags");
 			});
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "MnemonicOptionsTestsReader.cs")).Generate(writer => {
+				WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable, "ToFormatMnemonicOptions");
+			});
 		}
 
 		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName) {

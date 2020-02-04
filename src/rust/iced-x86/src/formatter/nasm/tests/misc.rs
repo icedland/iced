@@ -22,8 +22,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::super::iced_constants::IcedConstants;
-use super::super::super::test_utils::create_decoder;
+use super::super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::super::test_utils::{create_decoder, get_formatter_unit_tests_dir};
 use super::super::super::tests::misc;
+use super::super::super::tests::mnemonic_opts_parser::MnemonicOptionsTestParser;
 use super::super::super::*;
 use super::super::info::InstrOpInfo;
 use super::super::regs::Registers;
@@ -111,48 +113,17 @@ fn verify_formatter_options() {
 
 #[test]
 fn format_mnemonic_options() {
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	let data: [(&[u8], Code, u32, &'static str, u32); 25] = [
-		(b"\x10\x08", Code::Adc_rm8_r8, 64, "adc", FormatMnemonicOptions::NONE),
-		(b"\x10\x08", Code::Adc_rm8_r8, 64, "adc", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\x10\x08", Code::Adc_rm8_r8, 64, "", FormatMnemonicOptions::NO_MNEMONIC),
-		(b"\x10\x08", Code::Adc_rm8_r8, 64, "", FormatMnemonicOptions::NO_PREFIXES | FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\xF0\x10\x08", Code::Adc_rm8_r8, 64, "lock adc", FormatMnemonicOptions::NONE),
-		(b"\xF0\x10\x08", Code::Adc_rm8_r8, 64, "adc", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\xF0\x10\x08", Code::Adc_rm8_r8, 64, "lock", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\xF3\x6C", Code::Insb_m8_DX, 64, "rep insb", FormatMnemonicOptions::NONE),
-		(b"\xF3\x6C", Code::Insb_m8_DX, 64, "insb", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\xF3\x6C", Code::Insb_m8_DX, 64, "rep", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\xF2\xA6", Code::Cmpsb_m8_m8, 64, "repne cmpsb", FormatMnemonicOptions::NONE),
-		(b"\xF2\xA6", Code::Cmpsb_m8_m8, 64, "cmpsb", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\xF2\xA6", Code::Cmpsb_m8_m8, 64, "repne", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\xF2\xF0\x10\x08", Code::Adc_rm8_r8, 64, "xacquire lock adc", FormatMnemonicOptions::NONE),
-		(b"\xF2\xF0\x10\x08", Code::Adc_rm8_r8, 64, "adc", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\xF2\xF0\x10\x08", Code::Adc_rm8_r8, 64, "xacquire lock", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\x2E\x70\x00", Code::Jo_rel8_64, 64, "cs jo", FormatMnemonicOptions::NONE),
-		(b"\x2E\x70\x00", Code::Jo_rel8_64, 64, "jo", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\x2E\x70\x00", Code::Jo_rel8_64, 64, "cs", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\xF2\x70\x00", Code::Jo_rel8_64, 64, "bnd jo", FormatMnemonicOptions::NONE),
-		(b"\xF2\x70\x00", Code::Jo_rel8_64, 64, "jo", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\xF2\x70\x00", Code::Jo_rel8_64, 64, "bnd", FormatMnemonicOptions::NO_MNEMONIC),
-
-		(b"\x3E\xFF\x10", Code::Call_rm64, 64, "notrack call", FormatMnemonicOptions::NONE),
-		(b"\x3E\xFF\x10", Code::Call_rm64, 64, "call", FormatMnemonicOptions::NO_PREFIXES),
-		(b"\x3E\xFF\x10", Code::Call_rm64, 64, "notrack", FormatMnemonicOptions::NO_MNEMONIC),
-	];
-	for &(hex_bytes, code, bitness, formatted_string, mnemonic_options) in data.iter() {
-		let mut decoder = create_decoder(bitness, hex_bytes, DecoderOptions::NONE).0;
+	let mut path = get_formatter_unit_tests_dir();
+	path.push("Nasm");
+	path.push("MnemonicOptions.txt");
+	for tc in MnemonicOptionsTestParser::new(&path) {
+		let hex_bytes = to_vec_u8(&tc.hex_bytes).unwrap();
+		let mut decoder = create_decoder(tc.bitness, &hex_bytes, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
-		assert_eq!(code, instruction.code());
+		assert_eq!(tc.code, instruction.code());
 		let mut formatter = fmt_factory::create();
 		let mut output = String::new();
-		formatter.format_mnemonic_options(&instruction, &mut output, mnemonic_options);
-		assert_eq!(formatted_string, output);
+		formatter.format_mnemonic_options(&instruction, &mut output, tc.flags);
+		assert_eq!(tc.formatted_string, output);
 	}
 }

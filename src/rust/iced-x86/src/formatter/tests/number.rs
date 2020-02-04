@@ -130,7 +130,7 @@ static NUMBER_BASES: [NumberBase; 4] = [
 	NumberBase::Binary,
 ];
 
-pub(crate) fn number_tests(fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<Formatter>) {
 	assert_eq!(number_base_len(), NUMBER_BASES.len());
 	let mut number_filename = get_formatter_unit_tests_dir();
 	number_filename.push("Number.txt");

@@ -104,7 +104,7 @@ fn test_formatter_operand_options_methods() {
 	assert!(!options.rip_relative_addresses());
 }
 
-pub(crate) fn methods_panic_if_invalid_operand_or_instruction_operand(fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn methods_panic_if_invalid_operand_or_instruction_operand(fmt_factory: fn() -> Box<Formatter>) {
 	{
 		let mut instruction = Instruction::default();
 		instruction.set_code(Code::Mov_rm64_r64);
@@ -341,7 +341,7 @@ fn verify_formatter_options_new_is_same_as_default() {
 	assert_eq!(FormatterOptions::new(), FormatterOptions::default());
 }
 
-pub(crate) fn test_op_index(fmt_factory: fn() -> Box<Formatter>) {
+pub(in super::super) fn test_op_index(fmt_factory: fn() -> Box<Formatter>) {
 	let mut formatter = fmt_factory();
 	let mut instr_to_formatter: [Option<u32>; IcedConstants::MAX_OP_COUNT] = Default::default();
 	for info in test_utils::decoder_tests(true, false) {

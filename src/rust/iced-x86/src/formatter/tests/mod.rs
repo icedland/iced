@@ -23,13 +23,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 pub(crate) mod enums;
 mod instr_infos;
-pub(crate) mod misc;
-pub(crate) mod number;
-pub(crate) mod options;
-mod options_test_case_parser;
-pub(crate) mod opts_info;
+pub(super) mod misc;
+pub(super) mod mnemonic_opts_parser;
+pub(super) mod number;
+pub(super) mod options;
+pub(super) mod options_test_case_parser;
+pub(super) mod opts_info;
 mod opts_infos;
-pub(crate) mod registers;
+pub(super) mod registers;
 
 use self::instr_infos::*;
 #[cfg(feature = "encoder")]
@@ -45,7 +46,7 @@ use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
-pub(crate) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
+pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
 	let infos = get_infos(bitness, is_misc);
 	let lines = get_formatted_lines(bitness, dir, filename);
 	if infos.len() != lines.len() {
@@ -57,7 +58,7 @@ pub(crate) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: b
 }
 
 #[cfg(feature = "encoder")]
-pub(crate) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt_factory: fn() -> Box<Formatter>) {
+pub(super) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let instrs = non_decoded_tests::get_infos(bitness);
 	let lines = get_formatted_lines(bitness, dir, filename);
 	if instrs.len() != instrs.len() {

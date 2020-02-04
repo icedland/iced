@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Generator.Enums;
 using Generator.Enums.Encoder;
+using Generator.Enums.Formatter;
 using Generator.Enums.Formatter.Masm;
 using Generator.Enums.InstructionInfo;
 
@@ -102,6 +103,13 @@ namespace Generator.Tables {
 			("rip", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.Rip)]),
 			("disp0", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.ShowZeroDisplacements)]),
 			("nods32", SymbolTestFlagsEnum.Instance[nameof(SymbolTestFlags.NoAddDsPrefix32)]),
+		};
+	}
+
+	static class FormatMnemonicOptionsConstants {
+		public static readonly (string value, EnumValue flags)[] FormatMnemonicOptionsTable = new (string value, EnumValue flags)[] {
+			("noprefixes", FormatMnemonicOptionsEnum.Instance[nameof(FormatMnemonicOptions.NoPrefixes)]),
+			("nomnemonic", FormatMnemonicOptionsEnum.Instance[nameof(FormatMnemonicOptions.NoMnemonic)]),
 		};
 	}
 }
