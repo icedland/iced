@@ -1269,7 +1269,19 @@ impl<'a> Decoder<'a> {
 						return;
 					}
 				};
-				self.decode_table(table, instruction);
+				let b = self.read_u8();
+				let handler = unsafe { *table.offset(b as isize) };
+				debug_assert!(handler.has_modrm);
+				let m = self.read_u8() as u32;
+				self.state.modrm = m;
+				self.state.mod_ = m >> 6;
+				self.state.reg = (m >> 3) & 7;
+				self.state.rm = m & 7;
+				// Invalid if LL=3 and (mem or (reg and no rc))
+				if (self.invalid_check_mask & self.state.vector_length) == 3 && (m < 0xC0 || (self.state.flags & StateFlags::B) == 0) {
+					self.set_invalid_instruction();
+				}
+				(handler.decode)(handler, self, instruction);
 			} else {
 				self.set_invalid_instruction();
 			}

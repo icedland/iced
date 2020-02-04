@@ -662,14 +662,28 @@ namespace Iced.Intel {
 						state.vvvv = (~p1 >> 3) & 0x07;
 
 					int table = (int)(p0 & 3);
+					OpCodeHandler[] handlers;
 					if (table == 1)
-						DecodeTable(handlers_EVEX_0FXX, ref instruction);
+						handlers = handlers_EVEX_0FXX;
 					else if (table == 2)
-						DecodeTable(handlers_EVEX_0F38XX, ref instruction);
+						handlers = handlers_EVEX_0F38XX;
 					else if (table == 3)
-						DecodeTable(handlers_EVEX_0F3AXX, ref instruction);
-					else
+						handlers = handlers_EVEX_0F3AXX;
+					else {
 						SetInvalidInstruction();
+						return;
+					}
+					var handler = handlers[(int)ReadByte()];
+					Debug.Assert(handler.HasModRM);
+					uint m = ReadByte();
+					state.modrm = m;
+					state.mod = m >> 6;
+					state.reg = (m >> 3) & 7;
+					state.rm = m & 7;
+					// Invalid if LL=3 and (mem or (reg and no rc))
+					if ((invalidCheckMask & state.vectorLength) == 3 && (m < 0xC0 || (state.flags & StateFlags.b) == 0))
+						SetInvalidInstruction();
+					handler.Decode(this, ref instruction);
 				}
 				else
 					SetInvalidInstruction();

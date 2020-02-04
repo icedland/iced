@@ -499,10 +499,25 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						var origByte = bytes[evexIndex + 3];
 						for (int i = 1; i <= 3; i++) {
 							bytes[evexIndex + 3] = (byte)(origByte ^ (i << 5));
-							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
-							decoder.Decode(out instruction2);
-							Assert.Equal(info.Code, instruction2.Code);
-							Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
+							var ll = (bytes[evexIndex + 3] >> 5) & 3;
+							bool invalid = (info.Options & DecoderOptions.NoInvalidCheck) == 0 &&
+								ll == 3 && (bytes[evexIndex + 5] < 0xC0 || (bytes[evexIndex + 3] & 0x10) == 0);
+							if (invalid) {
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out instruction2);
+								Assert.Equal(Code.INVALID, instruction2.Code);
+
+								decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+								decoder.Decode(out instruction2);
+								Assert.Equal(info.Code, instruction2.Code);
+								Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
+							}
+							else {
+								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
+								decoder.Decode(out instruction2);
+								Assert.Equal(info.Code, instruction2.Code);
+								Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
+							}
 						}
 					}
 					else {
@@ -1785,6 +1800,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					int evexIndex = GetEvexIndex(bytes);
 					if (instruction.RoundingControl == RoundingControl.None)
 						tested.LBits |= 1U << ((bytes[evexIndex + 3] >> 5) & 3);
+
+					var ll = (bytes[evexIndex + 3] >> 5) & 3;
+					bool invalid = (info.Options & DecoderOptions.NoInvalidCheck) == 0 &&
+						ll == 3 && (bytes[evexIndex + 5] < 0xC0 || (bytes[evexIndex + 3] & 0x10) == 0);
+					if (!invalid)
+						tested.LBits |= 1U << 3;
+
 					tested.WBits |= 1U << (bytes[evexIndex + 2] >> 7);
 					tested.RBits |= 1U << ((bytes[evexIndex + 1] >> 7) ^ 1);
 					tested.XBits |= 1U << (((bytes[evexIndex + 1] >> 6) & 1) ^ 1);
