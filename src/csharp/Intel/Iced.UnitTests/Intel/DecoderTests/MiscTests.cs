@@ -616,7 +616,13 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				(bool valid, byte bits)[] p2Values;
 				if (opCode.CanUseZeroingMasking) {
 					Assert.True(opCode.CanUseOpMaskRegister);
-					p2Values = p2Values_k1z;
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
+					decoder.Decode(out var instruction);
+					Debug.Assert(instruction.Code != Code.INVALID);
+					if (instruction.Op0Kind == OpKind.Memory)
+						p2Values = p2Values_k1;
+					else
+						p2Values = p2Values_k1z;
 				}
 				else if (opCode.CanUseOpMaskRegister) {
 					if (opCode.RequireNonZeroOpMaskRegister)

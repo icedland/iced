@@ -526,6 +526,8 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
+				if (((uint)(state.flags & StateFlags.z) & decoder.invalidCheckMask) != 0)
+					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -640,6 +642,8 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
+				if (((uint)(state.flags & StateFlags.z) & decoder.invalidCheckMask) != 0)
+					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
@@ -763,7 +767,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			else {
 				instruction.InternalOp0Kind = OpKind.Memory;
-				if (((uint)(state.flags & StateFlags.b) & decoder.invalidCheckMask) != 0)
+				if (((uint)(state.flags & (StateFlags.b | StateFlags.z)) & decoder.invalidCheckMask) != 0)
 					decoder.SetInvalidInstruction();
 				decoder.ReadOpMem(ref instruction, tupleType);
 			}
