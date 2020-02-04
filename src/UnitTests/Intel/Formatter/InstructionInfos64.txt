@@ -7278,21 +7278,21 @@ D8 C5, Fadd_st0_sti
 D8 C6, Fadd_st0_sti
 D8 C7, Fadd_st0_sti
 0F20 C0, Mov_r64_cr
-0F20 C8, Mov_r64_cr
+0F20 C8, Mov_r64_cr, NoInvalidCheck
 0F20 D0, Mov_r64_cr
 0F20 D8, Mov_r64_cr
 0F20 E0, Mov_r64_cr
-0F20 E8, Mov_r64_cr
-0F20 F0, Mov_r64_cr
-0F20 F8, Mov_r64_cr
+0F20 E8, Mov_r64_cr, NoInvalidCheck
+0F20 F0, Mov_r64_cr, NoInvalidCheck
+0F20 F8, Mov_r64_cr, NoInvalidCheck
 44 0F20 C0, Mov_r64_cr
-44 0F20 C8, Mov_r64_cr
-44 0F20 D0, Mov_r64_cr
-44 0F20 D8, Mov_r64_cr
-44 0F20 E0, Mov_r64_cr
-44 0F20 E8, Mov_r64_cr
-44 0F20 F0, Mov_r64_cr
-44 0F20 F8, Mov_r64_cr
+44 0F20 C8, Mov_r64_cr, NoInvalidCheck
+44 0F20 D0, Mov_r64_cr, NoInvalidCheck
+44 0F20 D8, Mov_r64_cr, NoInvalidCheck
+44 0F20 E0, Mov_r64_cr, NoInvalidCheck
+44 0F20 E8, Mov_r64_cr, NoInvalidCheck
+44 0F20 F0, Mov_r64_cr, NoInvalidCheck
+44 0F20 F8, Mov_r64_cr, NoInvalidCheck
 0F21 C0, Mov_r64_dr
 0F21 C8, Mov_r64_dr
 0F21 D0, Mov_r64_dr
@@ -7301,14 +7301,14 @@ D8 C7, Fadd_st0_sti
 0F21 E8, Mov_r64_dr
 0F21 F0, Mov_r64_dr
 0F21 F8, Mov_r64_dr
-44 0F21 C0, Mov_r64_dr
-44 0F21 C8, Mov_r64_dr
-44 0F21 D0, Mov_r64_dr
-44 0F21 D8, Mov_r64_dr
-44 0F21 E0, Mov_r64_dr
-44 0F21 E8, Mov_r64_dr
-44 0F21 F0, Mov_r64_dr
-44 0F21 F8, Mov_r64_dr
+44 0F21 C0, Mov_r64_dr, NoInvalidCheck
+44 0F21 C8, Mov_r64_dr, NoInvalidCheck
+44 0F21 D0, Mov_r64_dr, NoInvalidCheck
+44 0F21 D8, Mov_r64_dr, NoInvalidCheck
+44 0F21 E0, Mov_r64_dr, NoInvalidCheck
+44 0F21 E8, Mov_r64_dr, NoInvalidCheck
+44 0F21 F0, Mov_r64_dr, NoInvalidCheck
+44 0F21 F8, Mov_r64_dr, NoInvalidCheck
 0F7F C8, Movq_mmm64_mm
 0F7F DA, Movq_mmm64_mm
 0F7F EC, Movq_mmm64_mm

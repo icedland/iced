@@ -1077,7 +1077,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.zmmp3_vvvv:
 				return $"zmm{index}";
 			case OpCodeOperandKind.cr_reg:
-				return "cr1";
+				return "cr2";
 			case OpCodeOperandKind.dr_reg:
 				return "dr1";
 			case OpCodeOperandKind.tr_reg:

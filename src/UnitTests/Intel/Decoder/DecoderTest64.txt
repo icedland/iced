@@ -6568,211 +6568,157 @@ F3 4F 0F1E FB, Endbr32, Endbr32, 0, enc=F30F1EFB
 49 0F1F C1, Nop_rm64, Nop, 1, op0=r;r9
 4E 0F1F C1, Nop_rm64, Nop, 1, op0=r;rcx enc=480F1FC1
 
-0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3
-0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3 enc=0F20DE
-0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-41 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-41 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3 enc=410F20DE
-41 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-41 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3
-44 0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-44 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11 enc=440F20DE
-44 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-44 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11
-45 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-45 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
-45 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-45 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11
-66 0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-66 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3 enc=0F20DE
-66 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-66 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3 enc=0F20DE
-66 41 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-66 41 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3 enc=410F20DE
-66 41 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-66 41 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3 enc=410F20DE
-66 44 0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-66 44 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11 enc=440F20DE
-66 44 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-66 44 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11 enc=440F20DE
-66 45 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-66 45 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
-66 45 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-66 45 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
-66 4A 0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-66 4A 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3 enc=0F20DE
-66 4A 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 enc=0F20F1
-66 4A 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr3 enc=0F20DE
-66 4B 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-66 4B 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3 enc=410F20DE
-66 4B 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr6 enc=410F20F1
-66 4B 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr3 enc=410F20DE
-66 4E 0F20 31, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-66 4E 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11 enc=440F20DE
-66 4E 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 enc=440F20F1
-66 4E 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;rsi op1=r;cr11 enc=440F20DE
-66 4F 0F20 31, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-66 4F 0F20 5E, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
-66 4F 0F20 B1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr14 enc=450F20F1
-66 4F 0F20 DE, Mov_r64_cr, Mov, 2, op0=r;r14 op1=r;cr11 enc=450F20DE
+0F20 81, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 enc=0F20C1
+0F20 41, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 enc=0F20C1
+0F20 01, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 enc=0F20C1
+0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0
+0F20 C9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr1 noinvalidcheck
+0F20 C9, INVALID, INVALID, 0,
+0F20 D1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr2
+0F20 D9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr3
+0F20 E1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr4
+0F20 E9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr5 noinvalidcheck
+0F20 E9, INVALID, INVALID, 0,
+0F20 F1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr6 noinvalidcheck
+0F20 F1, INVALID, INVALID, 0,
+0F20 F9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr7 noinvalidcheck
+0F20 F9, INVALID, INVALID, 0,
+44 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8
+44 0F20 C9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr9 noinvalidcheck
+44 0F20 C9, INVALID, INVALID, 0,
+44 0F20 D1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr10 noinvalidcheck
+44 0F20 D1, INVALID, INVALID, 0,
+44 0F20 D9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr11 noinvalidcheck
+44 0F20 D9, INVALID, INVALID, 0,
+44 0F20 E1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr12 noinvalidcheck
+44 0F20 E1, INVALID, INVALID, 0,
+44 0F20 E9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr13 noinvalidcheck
+44 0F20 E9, INVALID, INVALID, 0,
+44 0F20 F1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr14 noinvalidcheck
+44 0F20 F1, INVALID, INVALID, 0,
+44 0F20 F9, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr15 noinvalidcheck
+44 0F20 F9, INVALID, INVALID, 0,
+41 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr0
+44 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8
+45 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr8
+4F 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr8 enc=450F20C1
+66 4F 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;r9 op1=r;cr8 enc=450F20C1
 # Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
 F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8 enc=440F20C1
 F0 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr0 lock nolockmovcr0 noinvalidcheck
 F0 0F20 C1, INVALID, INVALID, 0, nolockmovcr0
 44 0F20 C1, Mov_r64_cr, Mov, 2, op0=r;rcx op1=r;cr8
 
-0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3
-0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3 enc=0F21DE
-0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-41 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-41 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3 enc=410F21DE
-41 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-41 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3
-44 0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-44 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11 enc=440F21DE
-44 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-44 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11
-45 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-45 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11 enc=450F21DE
-45 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-45 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11
-66 0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-66 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3 enc=0F21DE
-66 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-66 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3 enc=0F21DE
-66 41 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-66 41 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3 enc=410F21DE
-66 41 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-66 41 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3 enc=410F21DE
-66 44 0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-66 44 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11 enc=440F21DE
-66 44 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-66 44 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11 enc=440F21DE
-66 45 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-66 45 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11 enc=450F21DE
-66 45 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-66 45 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11 enc=450F21DE
-66 4A 0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-66 4A 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3 enc=0F21DE
-66 4A 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6 enc=0F21F1
-66 4A 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr3 enc=0F21DE
-66 4B 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-66 4B 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3 enc=410F21DE
-66 4B 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr6 enc=410F21F1
-66 4B 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr3 enc=410F21DE
-66 4E 0F21 31, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-66 4E 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11 enc=440F21DE
-66 4E 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 enc=440F21F1
-66 4E 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;rsi op1=r;dr11 enc=440F21DE
-66 4F 0F21 31, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-66 4F 0F21 5E, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11 enc=450F21DE
-66 4F 0F21 B1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr14 enc=450F21F1
-66 4F 0F21 DE, Mov_r64_dr, Mov, 2, op0=r;r14 op1=r;dr11 enc=450F21DE
+0F21 81, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
+0F21 41, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
+0F21 01, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
+0F21 C1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0
+0F21 C9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr1
+0F21 D1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr2
+0F21 D9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr3
+0F21 E1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr4
+0F21 E9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr5
+0F21 F1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr6
+0F21 F9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr7
+44 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr8 noinvalidcheck
+44 0F21 C1, INVALID, INVALID, 0,
+44 0F21 C9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr9 noinvalidcheck
+44 0F21 C9, INVALID, INVALID, 0,
+44 0F21 D1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr10 noinvalidcheck
+44 0F21 D1, INVALID, INVALID, 0,
+44 0F21 D9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr11 noinvalidcheck
+44 0F21 D9, INVALID, INVALID, 0,
+44 0F21 E1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr12 noinvalidcheck
+44 0F21 E1, INVALID, INVALID, 0,
+44 0F21 E9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr13 noinvalidcheck
+44 0F21 E9, INVALID, INVALID, 0,
+44 0F21 F1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr14 noinvalidcheck
+44 0F21 F1, INVALID, INVALID, 0,
+44 0F21 F9, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr15 noinvalidcheck
+44 0F21 F9, INVALID, INVALID, 0,
+41 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr0
+44 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr8 noinvalidcheck
+45 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr8 noinvalidcheck
+4F 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr8 enc=450F21C1 noinvalidcheck
+66 4F 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr8 enc=450F21C1 noinvalidcheck
+41 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;r9 op1=r;dr0
+4A 0F21 C1, Mov_r64_dr, Mov, 2, op0=r;rcx op1=r;dr0 enc=0F21C1
 
-0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi
-0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi enc=0F22DE
-0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-41 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-41 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14 enc=410F22DE
-41 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-41 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14
-44 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-44 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi enc=440F22DE
-44 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-44 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi
-45 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-45 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
-45 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-45 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14
-66 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-66 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi enc=0F22DE
-66 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-66 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi enc=0F22DE
-66 41 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-66 41 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14 enc=410F22DE
-66 41 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-66 41 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14 enc=410F22DE
-66 44 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-66 44 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi enc=440F22DE
-66 44 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-66 44 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi enc=440F22DE
-66 45 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-66 45 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
-66 45 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-66 45 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
-66 4A 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-66 4A 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi enc=0F22DE
-66 4A 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx enc=0F22F1
-66 4A 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rsi enc=0F22DE
-66 4B 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-66 4B 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14 enc=410F22DE
-66 4B 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;r9 enc=410F22F1
-66 4B 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;r14 enc=410F22DE
-66 4E 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-66 4E 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi enc=440F22DE
-66 4E 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx enc=440F22F1
-66 4E 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rsi enc=440F22DE
-66 4F 0F22 31, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-66 4F 0F22 5E, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
-66 4F 0F22 B1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;r9 enc=450F22F1
-66 4F 0F22 DE, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;r14 enc=450F22DE
+0F22 81, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx enc=0F22C1
+0F22 41, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx enc=0F22C1
+0F22 01, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx enc=0F22C1
+0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx
+0F22 C9, Mov_cr_r64, Mov, 2, op0=r;cr1 op1=r;rcx noinvalidcheck
+0F22 C9, INVALID, INVALID, 0,
+0F22 D1, Mov_cr_r64, Mov, 2, op0=r;cr2 op1=r;rcx
+0F22 D9, Mov_cr_r64, Mov, 2, op0=r;cr3 op1=r;rcx
+0F22 E1, Mov_cr_r64, Mov, 2, op0=r;cr4 op1=r;rcx
+0F22 E9, Mov_cr_r64, Mov, 2, op0=r;cr5 op1=r;rcx noinvalidcheck
+0F22 E9, INVALID, INVALID, 0,
+0F22 F1, Mov_cr_r64, Mov, 2, op0=r;cr6 op1=r;rcx noinvalidcheck
+0F22 F1, INVALID, INVALID, 0,
+0F22 F9, Mov_cr_r64, Mov, 2, op0=r;cr7 op1=r;rcx noinvalidcheck
+0F22 F9, INVALID, INVALID, 0,
+44 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx
+44 0F22 C9, Mov_cr_r64, Mov, 2, op0=r;cr9 op1=r;rcx noinvalidcheck
+44 0F22 C9, INVALID, INVALID, 0,
+44 0F22 D1, Mov_cr_r64, Mov, 2, op0=r;cr10 op1=r;rcx noinvalidcheck
+44 0F22 D1, INVALID, INVALID, 0,
+44 0F22 D9, Mov_cr_r64, Mov, 2, op0=r;cr11 op1=r;rcx noinvalidcheck
+44 0F22 D9, INVALID, INVALID, 0,
+44 0F22 E1, Mov_cr_r64, Mov, 2, op0=r;cr12 op1=r;rcx noinvalidcheck
+44 0F22 E1, INVALID, INVALID, 0,
+44 0F22 E9, Mov_cr_r64, Mov, 2, op0=r;cr13 op1=r;rcx noinvalidcheck
+44 0F22 E9, INVALID, INVALID, 0,
+44 0F22 F1, Mov_cr_r64, Mov, 2, op0=r;cr14 op1=r;rcx noinvalidcheck
+44 0F22 F1, INVALID, INVALID, 0,
+44 0F22 F9, Mov_cr_r64, Mov, 2, op0=r;cr15 op1=r;rcx noinvalidcheck
+44 0F22 F9, INVALID, INVALID, 0,
+41 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;r9
+44 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx
+45 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;r9
+4F 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;r9 enc=450F22C1
+66 4F 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;r9 enc=450F22C1
 # Some AMD CPUs support LOCK MOV CR0 = MOV CR8. Make sure we never encode MOV CR8 in 64-bit mode with a LOCK prefix
 F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx enc=440F22C1
 F0 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr0 op1=r;rcx lock nolockmovcr0 noinvalidcheck
 F0 0F22 C1, INVALID, INVALID, 0, nolockmovcr0
 44 0F22 C1, Mov_cr_r64, Mov, 2, op0=r;cr8 op1=r;rcx
 
-0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi
-0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi enc=0F23DE
-0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-41 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-41 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14 enc=410F23DE
-41 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-41 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14
-44 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-44 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi enc=440F23DE
-44 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-44 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi
-45 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-45 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14 enc=450F23DE
-45 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-45 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14
-66 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-66 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi enc=0F23DE
-66 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-66 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi enc=0F23DE
-66 41 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-66 41 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14 enc=410F23DE
-66 41 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-66 41 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14 enc=410F23DE
-66 44 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-66 44 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi enc=440F23DE
-66 44 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-66 44 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi enc=440F23DE
-66 45 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-66 45 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14 enc=450F23DE
-66 45 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-66 45 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14 enc=450F23DE
-66 4A 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-66 4A 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi enc=0F23DE
-66 4A 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx enc=0F23F1
-66 4A 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rsi enc=0F23DE
-66 4B 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-66 4B 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14 enc=410F23DE
-66 4B 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;r9 enc=410F23F1
-66 4B 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;r14 enc=410F23DE
-66 4E 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-66 4E 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi enc=440F23DE
-66 4E 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx enc=440F23F1
-66 4E 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rsi enc=440F23DE
-66 4F 0F23 31, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-66 4F 0F23 5E, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14 enc=450F23DE
-66 4F 0F23 B1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;r9 enc=450F23F1
-66 4F 0F23 DE, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;r14 enc=450F23DE
+0F23 81, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1
+0F23 41, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1
+0F23 01, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1
+0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx
+0F23 C9, Mov_dr_r64, Mov, 2, op0=r;dr1 op1=r;rcx
+0F23 D1, Mov_dr_r64, Mov, 2, op0=r;dr2 op1=r;rcx
+0F23 D9, Mov_dr_r64, Mov, 2, op0=r;dr3 op1=r;rcx
+0F23 E1, Mov_dr_r64, Mov, 2, op0=r;dr4 op1=r;rcx
+0F23 E9, Mov_dr_r64, Mov, 2, op0=r;dr5 op1=r;rcx
+0F23 F1, Mov_dr_r64, Mov, 2, op0=r;dr6 op1=r;rcx
+0F23 F9, Mov_dr_r64, Mov, 2, op0=r;dr7 op1=r;rcx
+44 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr8 op1=r;rcx noinvalidcheck
+44 0F23 C1, INVALID, INVALID, 0,
+44 0F23 C9, Mov_dr_r64, Mov, 2, op0=r;dr9 op1=r;rcx noinvalidcheck
+44 0F23 C9, INVALID, INVALID, 0,
+44 0F23 D1, Mov_dr_r64, Mov, 2, op0=r;dr10 op1=r;rcx noinvalidcheck
+44 0F23 D1, INVALID, INVALID, 0,
+44 0F23 D9, Mov_dr_r64, Mov, 2, op0=r;dr11 op1=r;rcx noinvalidcheck
+44 0F23 D9, INVALID, INVALID, 0,
+44 0F23 E1, Mov_dr_r64, Mov, 2, op0=r;dr12 op1=r;rcx noinvalidcheck
+44 0F23 E1, INVALID, INVALID, 0,
+44 0F23 E9, Mov_dr_r64, Mov, 2, op0=r;dr13 op1=r;rcx noinvalidcheck
+44 0F23 E9, INVALID, INVALID, 0,
+44 0F23 F1, Mov_dr_r64, Mov, 2, op0=r;dr14 op1=r;rcx noinvalidcheck
+44 0F23 F1, INVALID, INVALID, 0,
+44 0F23 F9, Mov_dr_r64, Mov, 2, op0=r;dr15 op1=r;rcx noinvalidcheck
+44 0F23 F9, INVALID, INVALID, 0,
+41 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;r9
+44 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr8 op1=r;rcx noinvalidcheck
+45 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr8 op1=r;r9 noinvalidcheck
+4F 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr8 op1=r;r9 enc=450F23C1 noinvalidcheck
+66 4F 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr8 op1=r;r9 enc=450F23C1 noinvalidcheck
+41 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;r9
+4A 0F23 C1, Mov_dr_r64, Mov, 2, op0=r;dr0 op1=r;rcx enc=0F23C1
 
 0F28 08, Movaps_xmm_xmmm128, Movaps, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Packed128_Float32
 0F28 CD, Movaps_xmm_xmmm128, Movaps, 2, op0=r;xmm1 op1=r;xmm5

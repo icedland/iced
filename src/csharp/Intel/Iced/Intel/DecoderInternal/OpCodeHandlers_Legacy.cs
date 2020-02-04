@@ -1192,7 +1192,21 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.InternalOp1Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+				var reg = (int)(state.reg + state.extraRegisterBase);
+				if (decoder.invalidCheckMask != 0) {
+					if (baseReg == Register.CR0) {
+						if (reg == 1 || (reg != 8 && reg >= 5))
+							decoder.SetInvalidInstruction();
+					}
+					else if (baseReg == Register.DR0) {
+						if (reg > 7)
+							decoder.SetInvalidInstruction();
+					}
+					else {
+						Debug.Assert(baseReg == Register.TR0);
+					}
+				}
+				instruction.InternalOp1Register = reg + baseReg;
 			}
 		}
 	}
@@ -1234,7 +1248,21 @@ namespace Iced.Intel.DecoderInternal {
 			else {
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + baseReg;
+				var reg = (int)(state.reg + state.extraRegisterBase);
+				if (decoder.invalidCheckMask != 0) {
+					if (baseReg == Register.CR0) {
+						if (reg == 1 || (reg != 8 && reg >= 5))
+							decoder.SetInvalidInstruction();
+					}
+					else if (baseReg == Register.DR0) {
+						if (reg > 7)
+							decoder.SetInvalidInstruction();
+					}
+					else {
+						Debug.Assert(baseReg == Register.TR0);
+					}
+				}
+				instruction.InternalOp0Register = reg + baseReg;
 			}
 		}
 	}

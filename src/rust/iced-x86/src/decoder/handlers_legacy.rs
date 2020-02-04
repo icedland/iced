@@ -1425,10 +1425,21 @@ impl OpCodeHandler_R_C {
 		} else {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op1_register_u32(
-				instruction,
-				decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32,
-			);
+			let reg = decoder.state.reg + decoder.state.extra_register_base;
+			if decoder.invalid_check_mask != 0 {
+				if this.base_reg == Register::CR0 {
+					if reg == 1 || (reg != 8 && reg >= 5) {
+						decoder.set_invalid_instruction();
+					}
+				} else if this.base_reg == Register::DR0 {
+					if reg > 7 {
+						decoder.set_invalid_instruction();
+					}
+				} else {
+					debug_assert_eq!(Register::TR0, this.base_reg);
+				}
+			}
+			super::instruction_internal::internal_set_op1_register_u32(instruction, reg + this.base_reg as u32);
 		}
 	}
 }
@@ -1483,10 +1494,21 @@ impl OpCodeHandler_C_R {
 		} else {
 			const_assert_eq!(0, OpKind::Register as u32);
 			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op0_register_u32(
-				instruction,
-				decoder.state.reg + decoder.state.extra_register_base + this.base_reg as u32,
-			);
+			let reg = decoder.state.reg + decoder.state.extra_register_base;
+			if decoder.invalid_check_mask != 0 {
+				if this.base_reg == Register::CR0 {
+					if reg == 1 || (reg != 8 && reg >= 5) {
+						decoder.set_invalid_instruction();
+					}
+				} else if this.base_reg == Register::DR0 {
+					if reg > 7 {
+						decoder.set_invalid_instruction();
+					}
+				} else {
+					debug_assert_eq!(Register::TR0, this.base_reg);
+				}
+			}
+			super::instruction_internal::internal_set_op0_register_u32(instruction, reg + this.base_reg as u32);
 		}
 	}
 }

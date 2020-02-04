@@ -6274,7 +6274,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mov_regCR_reg64() {
-			TestAssembler(c => c.mov(cr1, rdx), Instruction.Create(Code.Mov_cr_r64, cr1, rdx));
+			TestAssembler(c => c.mov(cr2, rdx), Instruction.Create(Code.Mov_cr_r64, cr2, rdx));
 		}
 
 		[Fact]
@@ -6314,7 +6314,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void mov_reg64_regCR() {
-			TestAssembler(c => c.mov(rcx, cr1), Instruction.Create(Code.Mov_r64_cr, rcx, cr1));
+			TestAssembler(c => c.mov(rcx, cr2), Instruction.Create(Code.Mov_r64_cr, rcx, cr2));
 		}
 
 		[Fact]

@@ -111,13 +111,29 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					switch (info.Code) {
 					case Code.Mov_r32_cr:
 					case Code.Mov_r64_cr:
-						if (info.HexBytes == "F0 0F20 C1")
+						switch (info.HexBytes) {
+						case "F0 0F20 C1":
+						case "0F20 C1":
+						case "0F20 81":
+						case "0F20 41":
+						case "0F20 01":
+						case "66 0F20 C1":
+						case "41 0F20 C1":
 							continue;
+						}
 						break;
 					case Code.Mov_cr_r32:
 					case Code.Mov_cr_r64:
-						if (info.HexBytes == "F0 0F22 C1")
+						switch (info.HexBytes) {
+						case "F0 0F22 C1":
+						case "0F22 C1":
+						case "0F22 81":
+						case "0F22 41":
+						case "0F22 01":
+						case "66 0F22 C1":
+						case "41 0F22 C1":
 							continue;
+						}
 						break;
 					}
 				}
@@ -1858,6 +1874,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 						tested.RBits |= 1U << (int)((rex >> 2) & 1);
 						tested.XBits |= 1U << (int)((rex >> 1) & 1);
 						tested.BBits |= 1U << (int)(rex & 1);
+						// Can't access regs dr8-dr15
+						if (info.Code == Code.Mov_r64_dr || info.Code == Code.Mov_dr_r64)
+							tested.RBits |= 1U << 1;
 					}
 					else {
 						tested.WBits |= 1;
