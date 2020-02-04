@@ -30,17 +30,21 @@ std = ["lazy_static"]
 no_std = ["lazy_static/spin_no_std", "hashbrown"]
 exhaustive_enums = []
 
-[dependencies]
-static_assertions = "0.3.4"
+# if: always
+[dependencies.static_assertions]
+version = "0.3.4"
 
+# if: decoder or encoder or gas or intel or masm or nasm
 [dependencies.lazy_static]
 version = "1.1.0"
 # It's not really optional, std or no_std must be used and they both require it.
 optional = true
 
+# if: no_std and encoder
 [dependencies.hashbrown]
 version = "0.6.3"
 optional = true
 
+# build.rs dependency
 [build-dependencies]
 rustc_version = "0.2.3"

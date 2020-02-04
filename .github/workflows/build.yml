@@ -147,7 +147,7 @@ jobs:
           git clean -xdf
           cd src/rust/iced-x86
           echo ==== BUILD DEBUG ====
-          cargo check --color always --lib --no-default-features --features "no_std decoder encoder instr_info gas intel masm nasm"
+          cargo check --color always --no-default-features --features "no_std decoder encoder instr_info gas intel masm nasm"
           cd ../../..
           git clean -xdf
 
