@@ -31,6 +31,21 @@ namespace Iced.Intel.DecoderInternal {
 		public abstract int ReadHandlers(ref TableDeserializer deserializer, OpCodeHandler?[] result, int resultIndex);
 	}
 
+	readonly struct HandlerInfo {
+		public readonly OpCodeHandler? handler;
+		public readonly OpCodeHandler?[]? handlers;
+
+		public HandlerInfo(OpCodeHandler handler) {
+			this.handler = handler;
+			handlers = null;
+		}
+
+		public HandlerInfo(OpCodeHandler?[] handlers) {
+			handler = null;
+			this.handlers = handlers;
+		}
+	}
+
 #if HAS_SPAN
 	ref struct TableDeserializer {
 #else
@@ -38,19 +53,17 @@ namespace Iced.Intel.DecoderInternal {
 #endif
 		DataReader reader;
 		readonly OpCodeHandlerReader handlerReader;
-		readonly Dictionary<uint, OpCodeHandler> indexToHandler;
-		readonly Dictionary<uint, OpCodeHandler?[]> indexToHandlers;
+		readonly List<HandlerInfo> idToHandler;
 		readonly OpCodeHandler?[] handlerArray;
 
 #if HAS_SPAN
-		public TableDeserializer(OpCodeHandlerReader handlerReader, ReadOnlySpan<byte> data) {
+		public TableDeserializer(OpCodeHandlerReader handlerReader, int maxIds, ReadOnlySpan<byte> data) {
 #else
-		public TableDeserializer(OpCodeHandlerReader handlerReader, byte[] data) {
+		public TableDeserializer(OpCodeHandlerReader handlerReader, int maxIds, byte[] data) {
 #endif
 			this.handlerReader = handlerReader;
 			reader = new DataReader(data);
-			indexToHandler = new Dictionary<uint, OpCodeHandler>();
-			indexToHandlers = new Dictionary<uint, OpCodeHandler?[]>();
+			idToHandler = new List<HandlerInfo>(maxIds);
 			handlerArray = new OpCodeHandler[1];
 		}
 
@@ -58,11 +71,11 @@ namespace Iced.Intel.DecoderInternal {
 			for (uint currentIndex = 0; reader.CanRead; currentIndex++) {
 				switch ((SerializedDataKind)reader.ReadByte()) {
 				case SerializedDataKind.HandlerReference:
-					indexToHandler.Add(currentIndex, ReadHandler());
+					idToHandler.Add(new HandlerInfo(ReadHandler()));
 					break;
 
 				case SerializedDataKind.ArrayReference:
-					indexToHandlers.Add(currentIndex, ReadHandlers((int)reader.ReadCompressedUInt32()));
+					idToHandler.Add(new HandlerInfo(ReadHandlers((int)reader.ReadCompressedUInt32())));
 					break;
 
 				default:
@@ -107,9 +120,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		public OpCodeHandler ReadHandlerReference() {
 			uint index = reader.ReadByte();
-			if (!indexToHandler.TryGetValue(index, out var handler))
-				throw new InvalidOperationException();
-			return handler;
+			return idToHandler[(int)index].handler ?? throw new InvalidOperationException();
 		}
 
 		public OpCodeHandler[] ReadArrayReference(uint kind) {
@@ -118,11 +129,8 @@ namespace Iced.Intel.DecoderInternal {
 			return GetTable(reader.ReadByte());
 		}
 
-		public OpCodeHandler[] GetTable(uint index) {
-			if (!indexToHandlers.TryGetValue(index, out var handlers))
-				throw new InvalidOperationException();
-			return handlers!;
-		}
+		public OpCodeHandler[] GetTable(uint index) =>
+			(idToHandler[(int)index].handlers ?? throw new InvalidOperationException())!;
 	}
 }
 #endif

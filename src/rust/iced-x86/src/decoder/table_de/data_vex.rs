@@ -5249,6 +5249,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 	// 255 = 0xFF
 	0x00,// Invalid
 ];
+pub(super) const MAX_ID_NAMES: usize = 8;
 pub(super) const THREE_BYTE_HANDLERS_0F38XX_INDEX: usize = 5;
 pub(super) const THREE_BYTE_HANDLERS_0F3AXX_INDEX: usize = 6;
 pub(super) const TWO_BYTE_HANDLERS_0FXX_INDEX: usize = 7;

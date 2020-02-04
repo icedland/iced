@@ -28,7 +28,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		static OpCodeHandlersTables_Legacy() {
 			var handlerReader = new LegacyOpCodeHandlerReader();
-			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
+			var deserializer = new TableDeserializer(handlerReader, MaxIdNames, GetSerializedTables());
 			deserializer.Deserialize();
 			OneByteHandlers = deserializer.GetTable(OneByteHandlersIndex);
 		}

@@ -929,6 +929,7 @@ namespace Iced.Intel.DecoderInternal {
 					0xED, 0x01,// 237
 					0x00,// Invalid
 			};
+		const int MaxIdNames = 7;
 		const uint XOP8Index = 4;
 		const uint XOP9Index = 5;
 		const uint XOPAIndex = 6;

@@ -50,6 +50,7 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteLine("};");
 					}
 
+					writer.WriteLine($"const int MaxIdNames = {info.TablesToSerialize.Length};");
 					foreach (var name in info.TableIndexNames) {
 						var constName = idConverter.Constant($"{name}Index");
 						writer.WriteLine($"const uint {constName} = {GetInfo(name).Index};");

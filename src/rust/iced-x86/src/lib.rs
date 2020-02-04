@@ -104,7 +104,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
 #[cfg(not(feature = "std"))]
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "encoder")]
 extern crate hashbrown;
 
 #[cfg(feature = "encoder")]

@@ -30,7 +30,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		static OpCodeHandlersTables_VEX() {
 			var handlerReader = new VexOpCodeHandlerReader();
-			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
+			var deserializer = new TableDeserializer(handlerReader, MaxIdNames, GetSerializedTables());
 			deserializer.Deserialize();
 			ThreeByteHandlers_0F38XX = deserializer.GetTable(ThreeByteHandlers_0F38XXIndex);
 			ThreeByteHandlers_0F3AXX = deserializer.GetTable(ThreeByteHandlers_0F3AXXIndex);

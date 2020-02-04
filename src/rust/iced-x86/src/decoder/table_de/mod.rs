@@ -38,49 +38,43 @@ use super::handlers::OpCodeHandler;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::mem;
-#[cfg(not(feature = "std"))]
-use hashbrown::HashMap;
-#[cfg(feature = "std")]
-use std::collections::HashMap;
+
+enum HandlerInfo {
+	Handler(*const OpCodeHandler),
+	Handlers(Vec<&'static OpCodeHandler>),
+}
 
 struct TableDeserializer<'a> {
 	reader: DataReader<'a>,
 	handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
-	index_to_handler: HashMap<usize, *const OpCodeHandler>,
-	index_to_handlers: HashMap<usize, Vec<&'static OpCodeHandler>>,
+	id_to_handler: Vec<HandlerInfo>,
 	temp_vecs: Vec<Vec<&'static OpCodeHandler>>,
 }
 
 impl<'a> TableDeserializer<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub(self) fn new(data: &'a [u8], handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>)) -> Self {
-		Self {
-			reader: DataReader::new(data),
-			handler_reader,
-			index_to_handler: HashMap::new(),
-			index_to_handlers: HashMap::new(),
-			temp_vecs: Vec::new(),
-		}
+	pub(self) fn new(
+		data: &'a [u8], max_ids: usize, handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
+	) -> Self {
+		Self { reader: DataReader::new(data), handler_reader, id_to_handler: Vec::with_capacity(max_ids), temp_vecs: Vec::new() }
 	}
 
 	pub(self) fn deserialize(&mut self) {
-		let mut current_index = 0;
 		while self.reader.can_read() {
 			let kind: SerializedDataKind = unsafe { mem::transmute(self.reader.read_u8() as u8) };
 			match kind {
 				SerializedDataKind::HandlerReference => {
 					let tmp = self.read_handler();
-					let _ = self.index_to_handler.insert(current_index, tmp);
+					self.id_to_handler.push(HandlerInfo::Handler(tmp));
 				}
 
 				SerializedDataKind::ArrayReference => {
 					let size = self.reader.read_compressed_u32() as usize;
 					let tmp = self.read_handlers(size);
-					let _ = self.index_to_handlers.insert(current_index, tmp);
+					self.id_to_handler.push(HandlerInfo::Handlers(tmp));
 				}
 			}
-			current_index += 1;
 		}
 		assert!(!self.reader.can_read());
 	}
@@ -194,15 +188,23 @@ impl<'a> TableDeserializer<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	pub(self) fn read_handler_reference(&mut self) -> *const OpCodeHandler {
 		let index = self.reader.read_u8();
-		*self.index_to_handler.get(&index).unwrap()
+		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
+			handler
+		} else {
+			panic!();
+		}
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	pub(self) fn read_array_reference(&mut self, kind: u32) -> Vec<&'static OpCodeHandler> {
 		assert_eq!(kind, self.reader.read_u8() as u32);
 		let index = self.reader.read_u8();
-		// There are a few dupe refs, clone the whole thing
-		self.index_to_handlers.get(&index).unwrap().to_vec()
+		if let &HandlerInfo::Handlers(ref handlers) = self.id_to_handler.get(index).unwrap() {
+			// There are a few dupe refs, clone the whole thing
+			handlers.to_vec()
+		} else {
+			panic!();
+		}
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
@@ -214,17 +216,20 @@ impl<'a> TableDeserializer<'a> {
 
 	#[cfg_attr(has_must_use, must_use)]
 	pub(self) fn table(&mut self, index: usize) -> Vec<&'static OpCodeHandler> {
-		let tmp = self.index_to_handlers.get_mut(&index).unwrap();
-		let handlers = mem::replace(tmp, Vec::new());
-		assert!(!handlers.is_empty());
-		handlers
+		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
+			let handlers = mem::replace(tmp, Vec::new());
+			assert!(!handlers.is_empty());
+			handlers
+		} else {
+			panic!();
+		}
 	}
 }
 
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
 	let handler_reader = self::legacy_reader::read_handlers;
-	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, handler_reader);
+	let mut deserializer = TableDeserializer::new(data_legacy::TBL_DATA, data_legacy::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	deserializer.table(data_legacy::ONE_BYTE_HANDLERS_INDEX)
 }
@@ -232,7 +237,7 @@ pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::evex_reader::read_handlers;
-	let mut deserializer = TableDeserializer::new(data_evex::TBL_DATA, handler_reader);
+	let mut deserializer = TableDeserializer::new(data_evex::TBL_DATA, data_evex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	(
 		deserializer.table(data_evex::TWO_BYTE_HANDLERS_0FXX_INDEX),
@@ -244,7 +249,7 @@ pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHa
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;
-	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, handler_reader);
+	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	(
 		deserializer.table(data_vex::TWO_BYTE_HANDLERS_0FXX_INDEX),
@@ -256,7 +261,7 @@ pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHan
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_xop() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;
-	let mut deserializer = TableDeserializer::new(data_xop::TBL_DATA, handler_reader);
+	let mut deserializer = TableDeserializer::new(data_xop::TBL_DATA, data_xop::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 	(deserializer.table(data_xop::XOP8_INDEX), deserializer.table(data_xop::XOP9_INDEX), deserializer.table(data_xop::XOPA_INDEX))
 }

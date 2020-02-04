@@ -30,7 +30,7 @@ namespace Iced.Intel.DecoderInternal {
 
 		static OpCodeHandlersTables_XOP() {
 			var handlerReader = new VexOpCodeHandlerReader();
-			var deserializer = new TableDeserializer(handlerReader, GetSerializedTables());
+			var deserializer = new TableDeserializer(handlerReader, MaxIdNames, GetSerializedTables());
 			deserializer.Deserialize();
 			XOP8 = deserializer.GetTable(XOP8Index);
 			XOP9 = deserializer.GetTable(XOP9Index);

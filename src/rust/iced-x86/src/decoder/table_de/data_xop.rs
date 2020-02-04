@@ -920,6 +920,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0xED, 0x01,// 237
 		0x00,// Invalid
 ];
+pub(super) const MAX_ID_NAMES: usize = 7;
 pub(super) const XOP8_INDEX: usize = 4;
 pub(super) const XOP9_INDEX: usize = 5;
 pub(super) const XOPA_INDEX: usize = 6;

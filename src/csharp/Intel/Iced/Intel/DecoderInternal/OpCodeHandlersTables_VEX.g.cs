@@ -5258,6 +5258,7 @@ namespace Iced.Intel.DecoderInternal {
 				// 255 = 0xFF
 				0x00,// Invalid
 			};
+		const int MaxIdNames = 8;
 		const uint ThreeByteHandlers_0F38XXIndex = 5;
 		const uint ThreeByteHandlers_0F3AXXIndex = 6;
 		const uint TwoByteHandlers_0FXXIndex = 7;

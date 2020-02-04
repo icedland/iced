@@ -7013,6 +7013,7 @@ namespace Iced.Intel.DecoderInternal {
 					0x08,// ArrayReference
 						0x1E,// 0x1E = handlers_Grp_FF
 			};
+		const int MaxIdNames = 75;
 		const uint OneByteHandlersIndex = 74;
 	}
 }
