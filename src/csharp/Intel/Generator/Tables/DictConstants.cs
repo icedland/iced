@@ -112,4 +112,11 @@ namespace Generator.Tables {
 			("nomnemonic", FormatMnemonicOptionsEnum.Instance[nameof(FormatMnemonicOptions.NoMnemonic)]),
 		};
 	}
+
+	static class SymbolFlagsConstants {
+		public static readonly (string value, EnumValue flags)[] SymbolFlagsTable = new (string value, EnumValue flags)[] {
+			("rel", SymbolFlagsEnum.Instance[nameof(SymbolFlags.Relative)]),
+			("signed", SymbolFlagsEnum.Instance[nameof(SymbolFlags.Signed)]),
+		};
+	}
 }

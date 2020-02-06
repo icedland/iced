@@ -60,6 +60,7 @@ pub(crate) enum OptionsProps {
 	RipRelativeAddresses,
 	ScaleBeforeIndex,
 	ShowBranchSize,
+	ShowSymbolAddress,
 	ShowZeroDisplacements,
 	SignedImmediateOperands,
 	SignedMemoryDisplacements,
@@ -79,7 +80,7 @@ pub(crate) enum OptionsProps {
 	UsePseudoOps,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OPTIONS_PROPS: [&str; 49] = [
+static GEN_DEBUG_OPTIONS_PROPS: [&str; 50] = [
 	"AddLeadingZeroToHexNumbers",
 	"AlwaysShowScale",
 	"AlwaysShowSegmentRegister",
@@ -112,6 +113,7 @@ static GEN_DEBUG_OPTIONS_PROPS: [&str; 49] = [
 	"RipRelativeAddresses",
 	"ScaleBeforeIndex",
 	"ShowBranchSize",
+	"ShowSymbolAddress",
 	"ShowZeroDisplacements",
 	"SignedImmediateOperands",
 	"SignedMemoryDisplacements",

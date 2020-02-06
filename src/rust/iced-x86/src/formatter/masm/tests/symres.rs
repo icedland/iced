@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::test_utils::from_str_conv::to_vec_u8;
 use super::super::super::test_utils::{create_decoder, get_formatter_unit_tests_dir};
+use super::super::super::tests::sym_res::symbol_resolver_test;
 use super::super::super::*;
 use super::fmt_factory::create_resolver;
 use super::sym_opts::*;
@@ -32,11 +33,16 @@ use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
-struct MySymbolResolver {
+#[test]
+fn symres() {
+	symbol_resolver_test("Masm", "SymbolResolverTests", |symbol_resolver| create_resolver(symbol_resolver));
+}
+
+struct SymbolResolverImpl {
 	flags: u32,
 }
 
-impl SymbolResolver for MySymbolResolver {
+impl SymbolResolver for SymbolResolverImpl {
 	fn symbol(
 		&mut self, _instruction: &Instruction, _operand: u32, instruction_operand: Option<u32>, address: u64, _address_size: u32,
 	) -> Option<SymbolResult> {
@@ -63,7 +69,7 @@ fn symbol_options() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
 
-		let mut symbol_resolver = MySymbolResolver { flags: tc.flags };
+		let mut symbol_resolver = SymbolResolverImpl { flags: tc.flags };
 		let mut formatter = create_resolver(&mut symbol_resolver);
 		formatter.options_mut().set_masm_symbol_displ_in_brackets((tc.flags & SymbolTestFlags::SYMBOL_DISPL_IN_BRACKETS) != 0);
 		formatter.options_mut().set_masm_displ_in_brackets((tc.flags & SymbolTestFlags::DISPL_IN_BRACKETS) != 0);

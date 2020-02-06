@@ -124,26 +124,5 @@ pub(super) fn get_formatted_lines(bitness: u32, dir: &str, file_part: &str) -> V
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("Test{}_{}.txt", bitness, file_part));
-
-	let display_filename = filename.display().to_string();
-	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
-	let mut fmt_lines: Vec<String> = Vec::new();
-	let mut line_number = 0;
-	for info in BufReader::new(file).lines() {
-		let result = match info {
-			Ok(line) => {
-				line_number += 1;
-				if line.is_empty() || line.starts_with('#') {
-					continue;
-				}
-				Ok(line)
-			}
-			Err(err) => Err(err.to_string()),
-		};
-		match result {
-			Ok(line) => fmt_lines.push(line),
-			Err(err) => panic!("Error reading formatter test case file '{}', line {}: {}", display_filename, line_number, err),
-		}
-	}
-	fmt_lines
+	super::get_lines_ignore_comments(filename.as_path())
 }

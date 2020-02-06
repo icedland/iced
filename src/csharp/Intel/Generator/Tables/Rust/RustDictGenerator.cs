@@ -79,6 +79,11 @@ namespace Generator.Tables.Rust {
 					"OptionsDict",
 					writer => WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable, "to_flags")
 				),
+				(
+					Path.Combine(generatorOptions.RustDir, "formatter", "tests", "sym_res_test_parser.rs"),
+					"OptionsDict",
+					writer => WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable, "to_flags")
+				),
 			};
 			foreach (var info in infos) {
 				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));

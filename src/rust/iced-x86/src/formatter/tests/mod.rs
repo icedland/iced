@@ -26,11 +26,16 @@ mod instr_infos;
 pub(super) mod misc;
 pub(super) mod mnemonic_opts_parser;
 pub(super) mod number;
+pub(super) mod opt_value;
 pub(super) mod options;
+mod options_parser;
 pub(super) mod options_test_case_parser;
 pub(super) mod opts_info;
 mod opts_infos;
 pub(super) mod registers;
+pub(super) mod sym_res;
+pub(super) mod sym_res_test_case;
+pub(super) mod sym_res_test_parser;
 
 use self::instr_infos::*;
 #[cfg(feature = "encoder")]
@@ -45,6 +50,20 @@ use alloc::boxed::Box;
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
+use std::fs::File;
+use std::io::prelude::*;
+use std::io::BufReader;
+use std::path::Path;
+
+fn get_lines_ignore_comments(filename: &Path) -> Vec<String> {
+	let display_filename = filename.display().to_string();
+	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
+	BufReader::new(file)
+		.lines()
+		.map(|r| r.unwrap_or_else(|e| panic!(e.to_string())))
+		.filter(|line| !line.is_empty() && !line.starts_with('#'))
+		.collect()
+}
 
 pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
 	let infos = get_infos(bitness, is_misc);
@@ -129,7 +148,7 @@ fn format_test_instruction_core(instruction: &Instruction, formatted_string: &st
 }
 
 fn simple_format_test<F: Fn(&mut Decoder)>(
-	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, mut formatter: Box<Formatter>, init_decoder: F,
+	bitness: u32, hex_bytes: &str, code: Code, decoder_options: u32, formatted_string: &str, formatter: &mut Formatter, init_decoder: F,
 ) {
 	let bytes = to_vec_u8(hex_bytes).unwrap();
 	let mut decoder = create_decoder(bitness, &bytes, decoder_options).0;

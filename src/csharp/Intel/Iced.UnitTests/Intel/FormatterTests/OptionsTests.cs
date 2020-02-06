@@ -65,6 +65,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		RipRelativeAddresses,
 		ScaleBeforeIndex,
 		ShowBranchSize,
+		ShowSymbolAddress,
 		ShowZeroDisplacements,
 		SignedImmediateOperands,
 		SignedMemoryDisplacements,
@@ -85,6 +86,82 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	}
 	// GENERATOR-END: OptionsProps
 
+	static class OptionsPropsUtils {
+		public static void Initialize(FormatterOptions options, OptionsProps property, object value) {
+			switch (property) {
+			case OptionsProps.AddLeadingZeroToHexNumbers: options.AddLeadingZeroToHexNumbers = (bool)value; break;
+			case OptionsProps.AlwaysShowScale: options.AlwaysShowScale = (bool)value; break;
+			case OptionsProps.AlwaysShowSegmentRegister: options.AlwaysShowSegmentRegister = (bool)value; break;
+			case OptionsProps.BinaryDigitGroupSize: options.BinaryDigitGroupSize = (int)value; break;
+			case OptionsProps.BinaryPrefix: options.BinaryPrefix = (string)value; break;
+			case OptionsProps.BinarySuffix: options.BinarySuffix = (string)value; break;
+			case OptionsProps.BranchLeadingZeroes: options.BranchLeadingZeroes = (bool)value; break;
+			case OptionsProps.DecimalDigitGroupSize: options.DecimalDigitGroupSize = (int)value; break;
+			case OptionsProps.DecimalPrefix: options.DecimalPrefix = (string)value; break;
+			case OptionsProps.DecimalSuffix: options.DecimalSuffix = (string)value; break;
+			case OptionsProps.DigitSeparator: options.DigitSeparator = (string)value; break;
+			case OptionsProps.DisplacementLeadingZeroes: options.DisplacementLeadingZeroes = (bool)value; break;
+			case OptionsProps.FirstOperandCharIndex: options.FirstOperandCharIndex = (int)value; break;
+			case OptionsProps.GasNakedRegisters: options.GasNakedRegisters = (bool)value; break;
+			case OptionsProps.GasShowMnemonicSizeSuffix: options.GasShowMnemonicSizeSuffix = (bool)value; break;
+			case OptionsProps.GasSpaceAfterMemoryOperandComma: options.GasSpaceAfterMemoryOperandComma = (bool)value; break;
+			case OptionsProps.HexDigitGroupSize: options.HexDigitGroupSize = (int)value; break;
+			case OptionsProps.HexPrefix: options.HexPrefix = (string)value; break;
+			case OptionsProps.HexSuffix: options.HexSuffix = (string)value; break;
+			case OptionsProps.LeadingZeroes: options.LeadingZeroes = (bool)value; break;
+			case OptionsProps.MasmAddDsPrefix32: options.MasmAddDsPrefix32 = (bool)value; break;
+			case OptionsProps.MemorySizeOptions: options.MemorySizeOptions = (MemorySizeOptions)value; break;
+			case OptionsProps.NasmShowSignExtendedImmediateSize: options.NasmShowSignExtendedImmediateSize = (bool)value; break;
+			case OptionsProps.NumberBase: options.NumberBase = (NumberBase)value; break;
+			case OptionsProps.OctalDigitGroupSize: options.OctalDigitGroupSize = (int)value; break;
+			case OptionsProps.OctalPrefix: options.OctalPrefix = (string)value; break;
+			case OptionsProps.OctalSuffix: options.OctalSuffix = (string)value; break;
+			case OptionsProps.PreferST0: options.PreferST0 = (bool)value; break;
+			case OptionsProps.RipRelativeAddresses: options.RipRelativeAddresses = (bool)value; break;
+			case OptionsProps.ScaleBeforeIndex: options.ScaleBeforeIndex = (bool)value; break;
+			case OptionsProps.ShowBranchSize: options.ShowBranchSize = (bool)value; break;
+			case OptionsProps.ShowSymbolAddress: options.ShowSymbolAddress = (bool)value; break;
+			case OptionsProps.ShowZeroDisplacements: options.ShowZeroDisplacements = (bool)value; break;
+			case OptionsProps.SignedImmediateOperands: options.SignedImmediateOperands = (bool)value; break;
+			case OptionsProps.SignedMemoryDisplacements: options.SignedMemoryDisplacements = (bool)value; break;
+			case OptionsProps.SmallHexNumbersInDecimal: options.SmallHexNumbersInDecimal = (bool)value; break;
+			case OptionsProps.SpaceAfterMemoryBracket: options.SpaceAfterMemoryBracket = (bool)value; break;
+			case OptionsProps.SpaceAfterOperandSeparator: options.SpaceAfterOperandSeparator = (bool)value; break;
+			case OptionsProps.SpaceBetweenMemoryAddOperators: options.SpaceBetweenMemoryAddOperators = (bool)value; break;
+			case OptionsProps.SpaceBetweenMemoryMulOperators: options.SpaceBetweenMemoryMulOperators = (bool)value; break;
+			case OptionsProps.TabSize: options.TabSize = (int)value; break;
+			case OptionsProps.UppercaseAll: options.UppercaseAll = (bool)value; break;
+			case OptionsProps.UppercaseDecorators: options.UppercaseDecorators = (bool)value; break;
+			case OptionsProps.UppercaseHex: options.UppercaseHex = (bool)value; break;
+			case OptionsProps.UppercaseKeywords: options.UppercaseKeywords = (bool)value; break;
+			case OptionsProps.UppercaseMnemonics: options.UppercaseMnemonics = (bool)value; break;
+			case OptionsProps.UppercasePrefixes: options.UppercasePrefixes = (bool)value; break;
+			case OptionsProps.UppercaseRegisters: options.UppercaseRegisters = (bool)value; break;
+			case OptionsProps.UsePseudoOps: options.UsePseudoOps = (bool)value; break;
+			case OptionsProps.IP: break;
+			default: throw new InvalidOperationException();
+			}
+		}
+
+		public static void Initialize(Decoder decoder, OptionsProps property, object value) {
+			switch (property) {
+			case OptionsProps.IP:
+				decoder.IP = (ulong)value;
+				break;
+			}
+		}
+
+		public static void Initialize(FormatterOptions options, IEnumerable<(OptionsProps property, object value)> properties) {
+			foreach (var info in properties)
+				Initialize(options, info.property, info.value);
+		}
+
+		public static void Initialize(Decoder decoder, IEnumerable<(OptionsProps property, object value)> properties) {
+			foreach (var info in properties)
+				Initialize(decoder, info.property, info.value);
+		}
+	}
+
 	public readonly struct OptionsInstructionInfo {
 		public readonly int Bitness;
 		public readonly string HexBytes;
@@ -97,70 +174,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			this.properties = properties;
 		}
 
-		internal void Initialize(FormatterOptions options) {
-			foreach (var info in properties) {
-				switch (info.property) {
-				case OptionsProps.AddLeadingZeroToHexNumbers: options.AddLeadingZeroToHexNumbers = (bool)info.value; break;
-				case OptionsProps.AlwaysShowScale: options.AlwaysShowScale = (bool)info.value; break;
-				case OptionsProps.AlwaysShowSegmentRegister: options.AlwaysShowSegmentRegister = (bool)info.value; break;
-				case OptionsProps.BinaryDigitGroupSize: options.BinaryDigitGroupSize = (int)info.value; break;
-				case OptionsProps.BinaryPrefix: options.BinaryPrefix = (string)info.value; break;
-				case OptionsProps.BinarySuffix: options.BinarySuffix = (string)info.value; break;
-				case OptionsProps.BranchLeadingZeroes: options.BranchLeadingZeroes = (bool)info.value; break;
-				case OptionsProps.DecimalDigitGroupSize: options.DecimalDigitGroupSize = (int)info.value; break;
-				case OptionsProps.DecimalPrefix: options.DecimalPrefix = (string)info.value; break;
-				case OptionsProps.DecimalSuffix: options.DecimalSuffix = (string)info.value; break;
-				case OptionsProps.DigitSeparator: options.DigitSeparator = (string)info.value; break;
-				case OptionsProps.DisplacementLeadingZeroes: options.DisplacementLeadingZeroes = (bool)info.value; break;
-				case OptionsProps.FirstOperandCharIndex: options.FirstOperandCharIndex = (int)info.value; break;
-				case OptionsProps.GasNakedRegisters: options.GasNakedRegisters = (bool)info.value; break;
-				case OptionsProps.GasShowMnemonicSizeSuffix: options.GasShowMnemonicSizeSuffix = (bool)info.value; break;
-				case OptionsProps.GasSpaceAfterMemoryOperandComma: options.GasSpaceAfterMemoryOperandComma = (bool)info.value; break;
-				case OptionsProps.HexDigitGroupSize: options.HexDigitGroupSize = (int)info.value; break;
-				case OptionsProps.HexPrefix: options.HexPrefix = (string)info.value; break;
-				case OptionsProps.HexSuffix: options.HexSuffix = (string)info.value; break;
-				case OptionsProps.LeadingZeroes: options.LeadingZeroes = (bool)info.value; break;
-				case OptionsProps.MasmAddDsPrefix32: options.MasmAddDsPrefix32 = (bool)info.value; break;
-				case OptionsProps.MemorySizeOptions: options.MemorySizeOptions = (MemorySizeOptions)info.value; break;
-				case OptionsProps.NasmShowSignExtendedImmediateSize: options.NasmShowSignExtendedImmediateSize = (bool)info.value; break;
-				case OptionsProps.NumberBase: options.NumberBase = (NumberBase)info.value; break;
-				case OptionsProps.OctalDigitGroupSize: options.OctalDigitGroupSize = (int)info.value; break;
-				case OptionsProps.OctalPrefix: options.OctalPrefix = (string)info.value; break;
-				case OptionsProps.OctalSuffix: options.OctalSuffix = (string)info.value; break;
-				case OptionsProps.PreferST0: options.PreferST0 = (bool)info.value; break;
-				case OptionsProps.RipRelativeAddresses: options.RipRelativeAddresses = (bool)info.value; break;
-				case OptionsProps.ScaleBeforeIndex: options.ScaleBeforeIndex = (bool)info.value; break;
-				case OptionsProps.ShowBranchSize: options.ShowBranchSize = (bool)info.value; break;
-				case OptionsProps.ShowZeroDisplacements: options.ShowZeroDisplacements = (bool)info.value; break;
-				case OptionsProps.SignedImmediateOperands: options.SignedImmediateOperands = (bool)info.value; break;
-				case OptionsProps.SignedMemoryDisplacements: options.SignedMemoryDisplacements = (bool)info.value; break;
-				case OptionsProps.SmallHexNumbersInDecimal: options.SmallHexNumbersInDecimal = (bool)info.value; break;
-				case OptionsProps.SpaceAfterMemoryBracket: options.SpaceAfterMemoryBracket = (bool)info.value; break;
-				case OptionsProps.SpaceAfterOperandSeparator: options.SpaceAfterOperandSeparator = (bool)info.value; break;
-				case OptionsProps.SpaceBetweenMemoryAddOperators: options.SpaceBetweenMemoryAddOperators = (bool)info.value; break;
-				case OptionsProps.SpaceBetweenMemoryMulOperators: options.SpaceBetweenMemoryMulOperators = (bool)info.value; break;
-				case OptionsProps.TabSize: options.TabSize = (int)info.value; break;
-				case OptionsProps.UppercaseAll: options.UppercaseAll = (bool)info.value; break;
-				case OptionsProps.UppercaseDecorators: options.UppercaseDecorators = (bool)info.value; break;
-				case OptionsProps.UppercaseHex: options.UppercaseHex = (bool)info.value; break;
-				case OptionsProps.UppercaseKeywords: options.UppercaseKeywords = (bool)info.value; break;
-				case OptionsProps.UppercaseMnemonics: options.UppercaseMnemonics = (bool)info.value; break;
-				case OptionsProps.UppercasePrefixes: options.UppercasePrefixes = (bool)info.value; break;
-				case OptionsProps.UppercaseRegisters: options.UppercaseRegisters = (bool)info.value; break;
-				case OptionsProps.UsePseudoOps: options.UsePseudoOps = (bool)info.value; break;
-				}
-			}
-		}
-
-		internal void Initialize(Decoder decoder) {
-			foreach (var info in properties) {
-				switch (info.property) {
-				case OptionsProps.IP:
-					decoder.IP = (ulong)info.value;
-					break;
-				}
-			}
-		}
+		internal void Initialize(FormatterOptions options) => OptionsPropsUtils.Initialize(options, properties);
+		internal void Initialize(Decoder decoder) => OptionsPropsUtils.Initialize(decoder, properties);
 	}
 
 	public abstract class OptionsTests {

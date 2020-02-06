@@ -1,0 +1,152 @@
+#
+# Copyright (C) 2018-2019 de4dot@gmail.com
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+# CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+# SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#
+
+16, 70 00, Jo_rel8_16, , 0x7FF2;0x7FF2;2;symbol;
+16, 70 00, Jo_rel8_16, ShowSymbolAddress=true, 0x7FF2;0x7ECF;2;sym|next;signed
+16, 70 00, Jo_rel8_16, ShowBranchSize=true, 0x7FF2;0x8115;2;symbol;
+16, 70 00, Jo_rel8_16, ShowBranchSize=false, 0x7FF2;0x7FF2;2;symbol;
+32, 70 00, Jo_rel8_32, , 0x7FFFFFF2;0x7FFFFECF;4;symbol;
+32, 70 00, Jo_rel8_32, ShowSymbolAddress=true, 0x7FFFFFF2;0x80000115;4;sym|next;signed
+32, 70 00, Jo_rel8_32, ShowBranchSize=true, 0x7FFFFFF2;0x7FFFFFF2;4;symbol;
+32, 70 00, Jo_rel8_32, ShowBranchSize=false, 0x7FFFFFF2;0x7FFFFECF;4;symbol;
+64, 70 00, Jo_rel8_64, , 0x7FFFFFFFFFFFFFF2;0x8000000000000115;8;symbol;
+64, 70 00, Jo_rel8_64, ShowSymbolAddress=true, 0x7FFFFFFFFFFFFFF2;0x7FFFFFFFFFFFFFF2;8;sym|next;signed
+64, 70 00, Jo_rel8_64, ShowBranchSize=true, 0x7FFFFFFFFFFFFFF2;0x7FFFFFFFFFFFFECF;8;symbol;
+64, 70 00, Jo_rel8_64, ShowBranchSize=false, 0x7FFFFFFFFFFFFFF2;0x8000000000000115;8;symbol;
+16, 9A DCFE 5AA5, Call_ptr1616, , 0xFEDC;0xFEDC;2;symbol;, 0xA55A;0xA55A;2;selsym;signed
+16, 9A DCFE 5AA5, Call_ptr1616, ShowSymbolAddress=true, 0xFEDC;0xFDB9;2;symbol|more;signed, 0xA55A;0xA437;2;selsym|extra;
+16, 9A DCFE 5AA5, Call_ptr1616, ShowBranchSize=true, 0xFEDC;0xFFFF;2;symbol;
+16, 9A DCFE 5AA5, Call_ptr1616, ShowBranchSize=false, 0xFEDC;0xFEDC;2;symbol;
+32, 9A 98BADCFE 5AA5, Call_ptr1632, , 0xFEDCBA98;0xFEDCB975;4;symbol;, 0xA55A;0xA437;2;selsym;signed
+32, 9A 98BADCFE 5AA5, Call_ptr1632, ShowSymbolAddress=true, 0xFEDCBA98;0xFEDCBBBB;4;symbol|more;signed, 0xA55A;0xA67D;2;selsym|extra;
+32, 9A 98BADCFE 5AA5, Call_ptr1632, ShowBranchSize=true, 0xFEDCBA98;0xFEDCBA98;4;symbol;
+32, 9A 98BADCFE 5AA5, Call_ptr1632, ShowBranchSize=false, 0xFEDCBA98;0xFEDCB975;4;symbol;
+64, B1 A5, Mov_r8_imm8, , 0xA5;0x1C8;1;symbol;rel
+64, B1 A5, Mov_r8_imm8, ShowSymbolAddress=true, 0xA5;0xA5;1;sym|next;signed rel
+64, B1 A5, Mov_r8_imm8, , 0xA5;0xFFFFFFFFFFFFFF82;1;symbol;
+64, B1 A5, Mov_r8_imm8, , 0xA5;0x1C8;1;sym|next;signed
+64, C8 5AA5 A5, Enterq_imm16_imm8, , 0xA5;0xA5;1;symbol;rel
+64, C8 5AA5 A5, Enterq_imm16_imm8, , 0xA5;0xFFFFFFFFFFFFFF82;1;sym|next;signed rel
+64, C8 5AA5 A5, Enterq_imm16_imm8, , 0xA5;0x1C8;1;symbol;
+64, C8 5AA5 A5, Enterq_imm16_imm8, , 0xA5;0xA5;1;sym|next;signed
+64, 66 B9 5AA5, Mov_r16_imm16, , 0xA55A;0xA437;2;symbol;rel
+64, 66 B9 5AA5, Mov_r16_imm16, , 0xA55A;0xA67D;2;sym|next;signed rel
+64, 66 B9 5AA5, Mov_r16_imm16, , 0xA55A;0xA55A;2;symbol;
+64, 66 B9 5AA5, Mov_r16_imm16, , 0xA55A;0xA437;2;sym|next;signed
+64, B9 98BADCFE, Mov_r32_imm32, , 0xFEDCBA98;0xFEDCBBBB;4;symbol;rel
+64, B9 98BADCFE, Mov_r32_imm32, ShowSymbolAddress=true, 0xFEDCBA98;0xFEDCBA98;4;sym|next;signed rel
+64, B9 98BADCFE, Mov_r32_imm32, , 0xFEDCBA98;0xFEDCB975;4;symbol;
+64, B9 98BADCFE, Mov_r32_imm32, , 0xFEDCBA98;0xFEDCBBBB;4;sym|next;signed
+64, 48 B9 5AA5123498BADCFE, Mov_r64_imm64, , 0xFEDCBA983412A55A;0xFEDCBA983412A55A;8;symbol;rel
+64, 48 B9 5AA5123498BADCFE, Mov_r64_imm64, , 0xFEDCBA983412A55A;0xFEDCBA983412A437;8;sym|next;signed rel
+64, 48 B9 5AA5123498BADCFE, Mov_r64_imm64, , 0xFEDCBA983412A55A;0xFEDCBA983412A67D;8;symbol;
+64, 48 B9 5AA5123498BADCFE, Mov_r64_imm64, , 0xFEDCBA983412A55A;0xFEDCBA983412A55A;8;sym|next;signed
+64, CC, Int3, , 3;0xFFFFFFFFFFFFFEE0;1;symbol;rel
+64, CC, Int3, , 3;0x126;1;sym|next;signed rel
+64, CC, Int3, , 3;0x3;1;symbol;
+64, CC, Int3, , 3;0xFFFFFFFFFFFFFEE0;1;sym|next;signed
+64, 66 83 C9 FF, Or_rm16_imm8, , 0xFFFF;0x10122;2;symbol;rel
+64, 66 83 C9 FF, Or_rm16_imm8, , 0xFFFF;0xFFFF;2;sym|next;signed rel
+64, 66 83 C9 FF, Or_rm16_imm8, , 0xFFFF;0xFEDC;2;symbol;
+64, 66 83 C9 FF, Or_rm16_imm8, , 0xFFFF;0x10122;2;sym|next;signed
+64, 83 C9 FF, Or_rm32_imm8, , 0xFFFFFFFF;0xFFFFFFFF;4;symbol;rel
+64, 83 C9 FF, Or_rm32_imm8, , 0xFFFFFFFF;0xFFFFFEDC;4;sym|next;signed rel
+64, 83 C9 FF, Or_rm32_imm8, , 0xFFFFFFFF;0x100000122;4;symbol;
+64, 83 C9 FF, Or_rm32_imm8, , 0xFFFFFFFF;0xFFFFFFFF;4;sym|next;signed
+64, 48 83 C9 FF, Or_rm64_imm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFEDC;8;symbol;rel
+64, 48 83 C9 FF, Or_rm64_imm8, , 0xFFFFFFFFFFFFFFFF;0x122;8;sym|next;signed rel
+64, 48 83 C9 FF, Or_rm64_imm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFFFF;8;symbol;
+64, 48 83 C9 FF, Or_rm64_imm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFEDC;8;sym|next;signed
+16, 64 A4, Movsb_m8_m8, , 0;0x123;2;symbol;
+16, 64 A4, Movsb_m8_m8, , 0;0x0;2;sym|next;signed
+16, 64 A4, Movsb_m8_m8, , 0;0xFFFFFFFFFFFFFEDD;2;symbol;
+16, 64 A4, Movsb_m8_m8, , 0;0x123;2;sym|next;signed
+32, 64 A4, Movsb_m8_m8, , 0;0x0;4;symbol;
+32, 64 A4, Movsb_m8_m8, , 0;0xFFFFFFFFFFFFFEDD;4;sym|next;signed
+32, 64 A4, Movsb_m8_m8, , 0;0x123;4;symbol;
+32, 64 A4, Movsb_m8_m8, , 0;0x0;4;sym|next;signed
+64, 64 A4, Movsb_m8_m8, , 0;0xFFFFFFFFFFFFFEDD;8;symbol;
+64, 64 A4, Movsb_m8_m8, , 0;0x123;8;sym|next;signed
+64, 64 A4, Movsb_m8_m8, , 0;0x0;8;symbol;
+64, 64 A4, Movsb_m8_m8, , 0;0xFFFFFFFFFFFFFEDD;8;sym|next;signed
+64, A0 123456789ABCDEF0, Mov_AL_moffs8, , 0xF0DEBC9A78563412;0xF0DEBC9A78563535;8;symbol;
+64, A0 123456789ABCDEF0, Mov_AL_moffs8, ShowSymbolAddress=true, 0xF0DEBC9A78563412;0xF0DEBC9A78563412;8;sym|next;signed
+64, A0 123456789ABCDEF0, Mov_AL_moffs8, , 0xF0DEBC9A78563412;0xF0DEBC9A785632EF;8;symbol;
+64, A0 123456789ABCDEF0, Mov_AL_moffs8, , 0xF0DEBC9A78563412;0xF0DEBC9A78563535;8;sym|next;signed
+64, 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=false, 0x800000001234566E;0x800000001234566E;8;symbol;
+64, 67 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=false, 0x1234566F;0x1234554C;4;sym|next;signed
+64, 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=true, 0x800000001234566E;0x8000000012345791;8;symbol;
+64, 67 8A 0D 78563412, Mov_r8_rm8, RipRelativeAddresses=true, 0x1234566F;0x1234566F;4;sym|next;signed
+16, 8A 06 FFFF, Mov_r8_rm8, , 0xFFFF;0xFEDC;2;symbol;
+16, 8A 06 FFFF, Mov_r8_rm8, , 0xFFFF;0x10122;2;sym|next;signed
+16, 8A 06 FFFF, Mov_r8_rm8, , 0xFFFF;0xFFFF;2;symbol;
+16, 8A 06 FFFF, Mov_r8_rm8, , 0xFFFF;0xFEDC;2;sym|next;signed
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFF;0x100000122;4;symbol;
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFF;0xFFFFFFFF;4;sym|next;signed
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFF;0xFFFFFEDC;4;symbol;
+32, 8A 05 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFF;0x100000122;4;sym|next;signed
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFFFF;8;symbol;
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFEDC;8;sym|next;signed
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFFF;0x122;8;symbol;
+64, 8A 04 25 FFFFFFFF, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFFF;0xFFFFFFFFFFFFFFFF;8;sym|next;signed
+64, 8A 00, Mov_r8_rm8, , 0;0xFFFFFFFFFFFFFEDD;8;symbol;
+64, 8A 00, Mov_r8_rm8, , 0;0x123;8;sym|next;signed
+64, 8A 00, Mov_r8_rm8, , 0;0x0;8;symbol;
+64, 8A 00, Mov_r8_rm8, , 0;0xFFFFFFFFFFFFFEDD;8;sym|next;signed
+64, 8A 40 A5, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFA5;0xC8;8;symbol;
+64, 8A 40 A5, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFA5;0xFFFFFFFFFFFFFFA5;8;sym|next;signed
+64, 8A 40 A5, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFA5;0xFFFFFFFFFFFFFE82;8;symbol;
+64, 8A 40 A5, Mov_r8_rm8, , 0xFFFFFFFFFFFFFFA5;0xC8;8;sym|next;signed
+64, 8A 40 A5, Mov_r8_rm8, SpaceBetweenMemoryAddOperators=true, 0xFFFFFFFFFFFFFFA5;0xFFFFFFFFFFFFFFA5;8;symbol;
+64, 8A 40 A5, Mov_r8_rm8, SpaceBetweenMemoryAddOperators=true, 0xFFFFFFFFFFFFFFA5;0xFFFFFFFFFFFFFE82;8;sym|next;signed
+64, 8A 40 A5, Mov_r8_rm8, SpaceBetweenMemoryAddOperators=false, 0xFFFFFFFFFFFFFFA5;0xC8;8;symbol;
+64, 8A 40 A5, Mov_r8_rm8, SpaceBetweenMemoryAddOperators=false, 0xFFFFFFFFFFFFFFA5;0xFFFFFFFFFFFFFFA5;8;sym|next;signed
+16, 8A 80 5AA5, Mov_r8_rm8, , 0xA55A;0xA437;2;symbol;
+16, 8A 80 5AA5, Mov_r8_rm8, , 0xA55A;0xA67D;2;sym|next;signed
+16, 8A 80 5AA5, Mov_r8_rm8, , 0xA55A;0xA55A;2;symbol;
+16, 8A 80 5AA5, Mov_r8_rm8, , 0xA55A;0xA437;2;sym|next;signed
+32, 8A 80 88A9CBED, Mov_r8_rm8, , 0xEDCBA988;0xEDCBAAAB;4;symbol;
+32, 8A 80 88A9CBED, Mov_r8_rm8, , 0xEDCBA988;0xEDCBA988;4;sym|next;signed
+32, 8A 80 88A9CBED, Mov_r8_rm8, , 0xEDCBA988;0xEDCBA865;4;symbol;
+32, 8A 80 88A9CBED, Mov_r8_rm8, , 0xEDCBA988;0xEDCBAAAB;4;sym|next;signed
+64, 8A 80 88A9CBED, Mov_r8_rm8, , 0xFFFFFFFFEDCBA988;0xFFFFFFFFEDCBA988;8;symbol;
+64, 8A 80 88A9CBED, Mov_r8_rm8, , 0xFFFFFFFFEDCBA988;0xFFFFFFFFEDCBA865;8;sym|next;signed
+64, 8A 80 88A9CBED, Mov_r8_rm8, , 0xFFFFFFFFEDCBA988;0xFFFFFFFFEDCBAAAB;8;symbol;
+64, 8A 80 88A9CBED, Mov_r8_rm8, , 0xFFFFFFFFEDCBA988;0xFFFFFFFFEDCBA988;8;sym|next;signed
+64, 8A 40 A5, Mov_r8_rm8,
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Always, 0x0000000012345678;0x1234579B;8;symbol;UInt32
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Always, 0x0000000012345678;0x12345678;8;symbol;UInt8
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Never, 0x0000000012345678;0x12345555;8;symbol;UInt32
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Never, 0x0000000012345678;0x1234579B;8;symbol;UInt8
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Default, 0x0000000012345678;0x12345678;8;symbol;UInt32
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Default, 0x0000000012345678;0x12345555;8;symbol;UInt8
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Minimum, 0x0000000012345678;0x1234579B;8;symbol;UInt32
+64, 8B 80 78563412, Mov_r32_rm32, MemorySizeOptions=Minimum, 0x0000000012345678;0x12345678;8;symbol;UInt8
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Always, 0;0xFFFFFFFFFFFFFEDD;8;symbol;UInt32
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Always, 0;0x123;8;symbol;UInt8
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Never, 0;0x0;8;symbol;UInt32
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Never, 0;0xFFFFFFFFFFFFFEDD;8;symbol;UInt8
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Default, 0;0x123;8;symbol;UInt32
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Default, 0;0x0;8;symbol;UInt8
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Minimum, 0;0xFFFFFFFFFFFFFEDD;8;symbol;UInt32
+64, C7 00 78563412, Mov_rm32_imm32, MemorySizeOptions=Minimum, 0;0x123;8;symbol;UInt8

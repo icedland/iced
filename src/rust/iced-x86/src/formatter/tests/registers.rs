@@ -29,21 +29,12 @@ use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::mem;
-use std::fs::File;
-use std::io::prelude::*;
-use std::io::BufReader;
 
 pub(in super::super) fn register_tests(dir: &str, file_part: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));
-	let display_filename = filename.display().to_string();
-	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
-	let lines: Vec<_> = BufReader::new(file)
-		.lines()
-		.map(|r| r.unwrap_or_else(|e| panic!(e.to_string())))
-		.filter(|line| !line.is_empty() && !line.starts_with('#'))
-		.collect();
+	let lines = super::get_lines_ignore_comments(filename.as_path());
 	assert_eq!(IcedConstants::NUMBER_OF_REGISTERS, lines.len());
 	for (i, expected_register_string) in lines.into_iter().enumerate() {
 		let register: Register = unsafe { mem::transmute(i as u8) };

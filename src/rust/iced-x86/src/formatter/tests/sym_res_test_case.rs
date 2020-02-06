@@ -21,16 +21,27 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL
-using System.Collections.Generic;
-using Xunit;
+use super::super::super::*;
+use super::enums::OptionsProps;
+use super::opt_value::OptionValue;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
 
-namespace Iced.UnitTests.Intel.FormatterTests.Intel {
-	public sealed class SymbolResolverTests : FormatterTests.SymbolResolverTests {
-		[Theory]
-		[MemberData(nameof(Format_Data))]
-		void Format(int index, SymbolResolverTestCase info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Resolver(new TestSymbolResolver(info)));
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Intel", "SymbolResolverTests");
-	}
+pub(super) struct SymbolResolverTestCase {
+	pub(super) bitness: u32,
+	pub(super) hex_bytes: String,
+	pub(super) code: Code,
+	pub(super) options: Vec<(OptionsProps, OptionValue)>,
+	pub(super) symbol_results: Vec<SymbolResultTestCase>,
 }
-#endif
+
+pub(super) struct SymbolResultTestCase {
+	pub(super) address: u64,
+	pub(super) symbol_address: u64,
+	pub(super) address_size: u32,
+	pub(super) flags: u32, // SymbolFlags
+	pub(super) memory_size: Option<MemorySize>,
+	pub(super) symbol_parts: Vec<String>,
+}

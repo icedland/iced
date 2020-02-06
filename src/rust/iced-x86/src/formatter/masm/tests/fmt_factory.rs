@@ -93,23 +93,23 @@ pub(super) fn create_registers<'a>() -> Box<MasmFormatter<'a>> {
 }
 
 pub(super) fn create_numbers<'a>() -> Box<MasmFormatter<'a>> {
-	let mut formatter = create_fmt();
-	formatter.options_mut().set_uppercase_hex(true);
-	formatter.options_mut().set_hex_prefix(String::from(""));
-	formatter.options_mut().set_hex_suffix(String::from(""));
-	formatter.options_mut().set_decimal_prefix(String::from(""));
-	formatter.options_mut().set_decimal_suffix(String::from(""));
-	formatter.options_mut().set_octal_prefix(String::from(""));
-	formatter.options_mut().set_octal_suffix(String::from(""));
-	formatter.options_mut().set_binary_prefix(String::from(""));
-	formatter.options_mut().set_binary_suffix(String::from(""));
-	formatter
+	let mut fmt = create_fmt();
+	fmt.options_mut().set_uppercase_hex(true);
+	fmt.options_mut().set_hex_prefix(String::from(""));
+	fmt.options_mut().set_hex_suffix(String::from(""));
+	fmt.options_mut().set_decimal_prefix(String::from(""));
+	fmt.options_mut().set_decimal_suffix(String::from(""));
+	fmt.options_mut().set_octal_prefix(String::from(""));
+	fmt.options_mut().set_octal_suffix(String::from(""));
+	fmt.options_mut().set_binary_prefix(String::from(""));
+	fmt.options_mut().set_binary_suffix(String::from(""));
+	fmt
 }
 
 pub(super) fn create_resolver<'a>(symbol_resolver: &'a mut SymbolResolver) -> Box<MasmFormatter<'a>> {
-	let mut formatter = create_fmt2(Some(symbol_resolver), None);
-	formatter.options_mut().set_memory_size_options(MemorySizeOptions::Default);
-	formatter.options_mut().set_show_branch_size(false);
-	formatter.options_mut().set_rip_relative_addresses(true);
-	formatter
+	let mut fmt = create_fmt2(Some(symbol_resolver), None);
+	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
+	fmt.options_mut().set_show_branch_size(false);
+	fmt.options_mut().set_rip_relative_addresses(true);
+	fmt
 }

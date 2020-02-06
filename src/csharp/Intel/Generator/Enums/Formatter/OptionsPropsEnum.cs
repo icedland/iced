@@ -57,6 +57,7 @@ namespace Generator.Enums.Formatter {
 		RipRelativeAddresses,
 		ScaleBeforeIndex,
 		ShowBranchSize,
+		ShowSymbolAddress,
 		ShowZeroDisplacements,
 		SignedImmediateOperands,
 		SignedMemoryDisplacements,

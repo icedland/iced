@@ -48,7 +48,6 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		static readonly char[] seps = new char[] { ',' };
 		static readonly char[] optsseps = new char[] { ' ' };
-		static readonly char[] kvseps = new char[] { '=' };
 		static OptionsInstructionInfo ReadTestCase(string line, int lineNo) {
 			var parts = line.Split(seps);
 			if (parts.Length != 4)
@@ -58,86 +57,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			var hexBytes = parts[1].Trim();
 			HexUtils.ToByteArray(hexBytes);
 			var code = ToCode(parts[2].Trim());
+
 			var properties = new List<(OptionsProps property, object value)>();
-
 			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries)) {
-				var kv = part.Split(kvseps, 2);
-				if (kv.Length != 2)
-					throw new InvalidOperationException($"Expected key=value: '{part}'");
-				var valueStr = kv[1].Trim();
-				var prop = ToEnumConverter.GetOptionsProps(kv[0].Trim());
-				object value;
-				switch (prop) {
-				case OptionsProps.AddLeadingZeroToHexNumbers:
-				case OptionsProps.AlwaysShowScale:
-				case OptionsProps.AlwaysShowSegmentRegister:
-				case OptionsProps.BranchLeadingZeroes:
-				case OptionsProps.DisplacementLeadingZeroes:
-				case OptionsProps.GasNakedRegisters:
-				case OptionsProps.GasShowMnemonicSizeSuffix:
-				case OptionsProps.GasSpaceAfterMemoryOperandComma:
-				case OptionsProps.LeadingZeroes:
-				case OptionsProps.MasmAddDsPrefix32:
-				case OptionsProps.NasmShowSignExtendedImmediateSize:
-				case OptionsProps.PreferST0:
-				case OptionsProps.RipRelativeAddresses:
-				case OptionsProps.ScaleBeforeIndex:
-				case OptionsProps.ShowBranchSize:
-				case OptionsProps.ShowZeroDisplacements:
-				case OptionsProps.SignedImmediateOperands:
-				case OptionsProps.SignedMemoryDisplacements:
-				case OptionsProps.SmallHexNumbersInDecimal:
-				case OptionsProps.SpaceAfterMemoryBracket:
-				case OptionsProps.SpaceAfterOperandSeparator:
-				case OptionsProps.SpaceBetweenMemoryAddOperators:
-				case OptionsProps.SpaceBetweenMemoryMulOperators:
-				case OptionsProps.UppercaseAll:
-				case OptionsProps.UppercaseDecorators:
-				case OptionsProps.UppercaseHex:
-				case OptionsProps.UppercaseKeywords:
-				case OptionsProps.UppercaseMnemonics:
-				case OptionsProps.UppercasePrefixes:
-				case OptionsProps.UppercaseRegisters:
-				case OptionsProps.UsePseudoOps:
-					value = NumberConverter.ToBoolean(valueStr);
-					break;
-
-				case OptionsProps.BinaryDigitGroupSize:
-				case OptionsProps.DecimalDigitGroupSize:
-				case OptionsProps.FirstOperandCharIndex:
-				case OptionsProps.HexDigitGroupSize:
-				case OptionsProps.OctalDigitGroupSize:
-				case OptionsProps.TabSize:
-					value = NumberConverter.ToInt32(valueStr);
-					break;
-
-				case OptionsProps.IP:
-					value = NumberConverter.ToUInt64(valueStr);
-					break;
-
-				case OptionsProps.BinaryPrefix:
-				case OptionsProps.BinarySuffix:
-				case OptionsProps.DecimalPrefix:
-				case OptionsProps.DecimalSuffix:
-				case OptionsProps.DigitSeparator:
-				case OptionsProps.HexPrefix:
-				case OptionsProps.HexSuffix:
-				case OptionsProps.OctalPrefix:
-				case OptionsProps.OctalSuffix:
-					value = valueStr == "<null>" ? null : valueStr;
-					break;
-
-				case OptionsProps.MemorySizeOptions:
-					value = ToEnumConverter.GetMemorySizeOptions(valueStr);
-					break;
-
-				case OptionsProps.NumberBase:
-					value = ToEnumConverter.GetNumberBase(valueStr);
-					break;
-
-				default:
-					throw new InvalidOperationException();
-				}
+				var (prop, value) = OptionsParser.ParseOption(part);
 				properties.Add((prop, value));
 			}
 

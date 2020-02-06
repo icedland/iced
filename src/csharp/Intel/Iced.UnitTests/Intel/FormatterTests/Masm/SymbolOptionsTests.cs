@@ -123,6 +123,22 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 	}
 
 	public sealed class SymbolOptionsTests {
+		sealed class SymbolResolver : ISymbolResolver {
+			readonly SymbolTestFlags flags;
+
+			public SymbolResolver(SymbolTestFlags flags) => this.flags = flags;
+
+			public bool TryGetSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) {
+				if (instructionOperand == 1 && (flags & SymbolTestFlags.Symbol) != 0) {
+					symbol = new SymbolResult(address, "symbol", FormatterTextKind.Data,
+						(flags & SymbolTestFlags.Signed) != 0 ? SymbolFlags.Signed : SymbolFlags.None);
+					return true;
+				}
+				symbol = default;
+				return false;
+			}
+		}
+
 		[Theory]
 		[MemberData(nameof(TestIt_Data))]
 		void TestIt(string hexBytes, int bitness, string formattedString, SymbolTestFlags flags) {
@@ -135,17 +151,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			};
 			decoder.Decode(out var instruction);
 
-			var resolver = new TestSymbolResolver {
-				tryGetSymbol = (in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) => {
-					if (instructionOperand == 1 && (flags & SymbolTestFlags.Symbol) != 0) {
-						symbol = new SymbolResult(address, "symbol", FormatterTextKind.Data, (flags & SymbolTestFlags.Signed) != 0 ? SymbolFlags.Signed : SymbolFlags.None);
-						return true;
-					}
-					symbol = default;
-					return false;
-				},
-			};
-			var formatter = (MasmFormatter)FormatterFactory.Create_Resolver(resolver).formatter;
+			var formatter = FormatterFactory.Create_Resolver(new SymbolResolver(flags)).formatter;
 			formatter.Options.MasmSymbolDisplInBrackets = (flags & SymbolTestFlags.SymbolDisplInBrackets) != 0;
 			formatter.Options.MasmDisplInBrackets = (flags & SymbolTestFlags.DisplInBrackets) != 0;
 			formatter.Options.RipRelativeAddresses = (flags & SymbolTestFlags.Rip) != 0;

@@ -22,15 +22,21 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::enums::MemorySizeOptions;
-use super::super::super::Formatter;
 use super::super::super::NasmFormatter;
+use super::super::super::{Formatter, FormatterOptionsProvider, SymbolResolver};
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
 fn create_fmt<'a>() -> Box<NasmFormatter<'a>> {
-	let mut fmt = Box::new(NasmFormatter::new());
+	create_fmt2(None, None)
+}
+
+fn create_fmt2<'a>(
+	symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>,
+) -> Box<NasmFormatter<'a>> {
+	let mut fmt = Box::new(NasmFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt.options_mut().set_hex_prefix(String::from("0x"));
 	fmt.options_mut().set_hex_suffix(String::from(""));
@@ -97,20 +103,24 @@ pub(super) fn create_registers<'a>() -> Box<NasmFormatter<'a>> {
 }
 
 pub(super) fn create_numbers<'a>() -> Box<NasmFormatter<'a>> {
-	let mut formatter = create_fmt();
-	formatter.options_mut().set_uppercase_hex(true);
-	formatter.options_mut().set_hex_prefix(String::from(""));
-	formatter.options_mut().set_hex_suffix(String::from(""));
-	formatter.options_mut().set_decimal_prefix(String::from(""));
-	formatter.options_mut().set_decimal_suffix(String::from(""));
-	formatter.options_mut().set_octal_prefix(String::from(""));
-	formatter.options_mut().set_octal_suffix(String::from(""));
-	formatter.options_mut().set_binary_prefix(String::from(""));
-	formatter.options_mut().set_binary_suffix(String::from(""));
-	formatter
+	let mut fmt = create_fmt();
+	fmt.options_mut().set_uppercase_hex(true);
+	fmt.options_mut().set_hex_prefix(String::from(""));
+	fmt.options_mut().set_hex_suffix(String::from(""));
+	fmt.options_mut().set_decimal_prefix(String::from(""));
+	fmt.options_mut().set_decimal_suffix(String::from(""));
+	fmt.options_mut().set_octal_prefix(String::from(""));
+	fmt.options_mut().set_octal_suffix(String::from(""));
+	fmt.options_mut().set_binary_prefix(String::from(""));
+	fmt.options_mut().set_binary_suffix(String::from(""));
+	fmt
 }
 
-#[allow(dead_code)] //TODO: REMOVE
-pub(super) fn create_resolver<'a>() -> Box<NasmFormatter<'a>> {
-	panic!(); //TODO:
+pub(super) fn create_resolver<'a>(symbol_resolver: &'a mut SymbolResolver) -> Box<NasmFormatter<'a>> {
+	let mut fmt = create_fmt2(Some(symbol_resolver), None);
+	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
+	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(false);
+	fmt.options_mut().set_show_branch_size(false);
+	fmt.options_mut().set_rip_relative_addresses(true);
+	fmt
 }

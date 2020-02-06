@@ -21,16 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INTEL
-using System.Collections.Generic;
-using Xunit;
+use super::super::super::tests::sym_res::symbol_resolver_test;
+use super::fmt_factory::create_resolver;
 
-namespace Iced.UnitTests.Intel.FormatterTests.Intel {
-	public sealed class SymbolResolverTests : FormatterTests.SymbolResolverTests {
-		[Theory]
-		[MemberData(nameof(Format_Data))]
-		void Format(int index, SymbolResolverTestCase info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Resolver(new TestSymbolResolver(info)));
-		public static IEnumerable<object[]> Format_Data => GetFormatData("Intel", "SymbolResolverTests");
-	}
+#[test]
+fn symres() {
+	symbol_resolver_test("Nasm", "SymbolResolverTests", |symbol_resolver| create_resolver(symbol_resolver));
 }
-#endif
