@@ -8348,3 +8348,11 @@ vcvtne2ps2bf16 ymm2{k5}{z},ymm6,dword bcst [rax+4]
 vcvtne2ps2bf16 zmm2{k3}{z},zmm6,zmm3
 vcvtne2ps2bf16 zmm2,zmm6,[rax+40h]
 vcvtne2ps2bf16 zmm2{k5}{z},zmm6,dword bcst [rax+4]
+vcvtsi2sd xmm18,xmm14,ebx {rn-sae}
+vcvtsi2sd xmm10,xmm22,ebx {rd-sae}
+vcvtsi2sd xmm2,xmm6,r11d {ru-sae}
+vcvtsi2sd xmm2,xmm6,ebx {rz-sae}
+vcvtusi2sd xmm18,xmm14,ebx {rn-sae}
+vcvtusi2sd xmm10,xmm22,ebx {rd-sae}
+vcvtusi2sd xmm2,xmm6,r11d {ru-sae}
+vcvtusi2sd xmm2,xmm6,ebx {rz-sae}

@@ -8348,3 +8348,11 @@ F3 0FA7 E8, XcryptOfb_64
 62 F24FCB 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
 62 F24F48 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
 62 F24FDD 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
+62 E10F18 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+62 714F30 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+62 D14F58 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+62 F14F78 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+62 E10F18 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+62 714F30 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+62 D14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er

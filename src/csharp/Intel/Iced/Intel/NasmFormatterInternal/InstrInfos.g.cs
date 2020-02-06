@@ -4730,13 +4730,13 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-				0x80,// 'v', Previous
-
-				// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
 				0x8D,// 'v', er_3
 				0x83, 0x01,// 131 = "vcvtsi2sd"
 				0x02,// 0x2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
+				0x80,// 'v', Previous
 
 				// Movntps_m128_xmm
 				0x01,// Normal_1
@@ -7295,15 +7295,13 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x80,// 'v', Previous
 
 				// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-				0x82,// 'v', Normal_2
-				0xC5, 0x05,// 709 = "vcvtusi2sd"
-				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
-
-				// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
 				0x8D,// 'v', er_3
 				0xC5, 0x05,// 709 = "vcvtusi2sd"
 				0x02,// 0x2
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+				// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
+				0x80,// 'v', Previous
 
 				// Haddpd_xmm_xmmm128
 				0x01,// Normal_1

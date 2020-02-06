@@ -5530,9 +5530,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-				0x85,// 'v', Normal_3
+				0x8C,// 'v', er_4
 				0x83, 0x01,// 131 = "vcvtsi2sd"
 				0x6C,// 'l'
+				0x01,// 0x1
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtsi2sd_xmm_xmm_rm64_er
@@ -8176,9 +8177,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-				0x85,// 'v', Normal_3
+				0x8C,// 'v', er_4
 				0xC5, 0x05,// 709 = "vcvtusi2sd"
 				0x6C,// 'l'
+				0x01,// 0x1
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// EVEX_Vcvtusi2sd_xmm_xmm_rm64_er
