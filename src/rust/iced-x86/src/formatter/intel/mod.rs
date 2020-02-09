@@ -41,6 +41,7 @@ use super::fmt_consts::*;
 use super::fmt_utils::*;
 use super::instruction_internal::get_address_size_in_bytes;
 use super::num_fmt::*;
+use super::regs_tbl::REGS_TBL;
 use super::*;
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
@@ -144,7 +145,7 @@ impl<'a> IntelFormatter<'a> {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_intel(),
-				all_registers: &*ALL_REGISTERS,
+				all_registers: &*REGS_TBL,
 				instr_infos: &*ALL_INFOS,
 				all_memory_sizes: &*MEM_SIZE_TBL,
 				str_: &*FORMATTER_CONSTANTS,

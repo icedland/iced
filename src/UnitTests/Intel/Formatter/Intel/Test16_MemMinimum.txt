@@ -386,8 +386,8 @@ crc32 ecx, si
 crc32 ebx, word ptr [bx+si]
 crc32 ecx, esi
 crc32 ebx, dword ptr [bx+si]
-addr32 maskmovq mmx2, mmx3
-maskmovq mmx2, mmx3
+addr32 maskmovq mm2, mm3
+maskmovq mm2, mm3
 addr32 maskmovdqu xmm2, xmm3
 maskmovdqu xmm2, xmm3
 addr32 vmaskmovdqu xmm2, xmm3
@@ -406,7 +406,7 @@ lodsw fs:[si]
 lodsd fs:[si]
 xlat [ebx]
 xlat fs:[bx]
-maskmovq mmx2, mmx3, fs
+maskmovq mm2, mm3, fs
 maskmovdqu xmm2, xmm3, fs
 vmaskmovdqu xmm2, xmm3, fs
 xlat [bx]

@@ -1477,9 +1477,9 @@ vmovapd ymm3, ymm2
 vmovapd [rax+0x20], ymm2
 vmovapd zmm3, zmm2
 vmovapd [rax+0x40], zmm2
-cvtpi2ps xmm1, mmx5
+cvtpi2ps xmm1, mm5
 cvtpi2ps xmm1, [rax]
-cvtpi2pd xmm1, mmx5
+cvtpi2pd xmm1, mm5
 cvtpi2pd xmm1, [rax]
 cvtsi2ss xmm1, ebp
 cvtsi2ss xmm1, dword ptr [rax]
@@ -1517,10 +1517,10 @@ vmovntpd [rax], ymm2
 vmovntpd [rax+0x10], xmm2
 vmovntpd [rax+0x20], ymm2
 vmovntpd [rax+0x40], zmm2
-cvttps2pi mmx1, xmm5
-cvttps2pi mmx1, [rax]
-cvttpd2pi mmx1, xmm5
-cvttpd2pi mmx1, [rax]
+cvttps2pi mm1, xmm5
+cvttps2pi mm1, [rax]
+cvttpd2pi mm1, xmm5
+cvttpd2pi mm1, [rax]
 cvttss2si ecx, xmm5
 cvttss2si ecx, [rax]
 cvttss2si rcx, xmm5
@@ -1545,10 +1545,10 @@ vcvttsd2si edx, xmm3
 vcvttsd2si edx, [rax+8]
 vcvttsd2si rdx, xmm3
 vcvttsd2si rdx, [rax+8]
-cvtps2pi mmx1, xmm5
-cvtps2pi mmx1, [rax]
-cvtpd2pi mmx1, xmm5
-cvtpd2pi mmx1, [rax]
+cvtps2pi mm1, xmm5
+cvtps2pi mm1, [rax]
+cvtpd2pi mm1, xmm5
+cvtpd2pi mm1, [rax]
 cvtss2si ecx, xmm5
 cvtss2si ecx, [rax]
 cvtss2si rcx, xmm5
@@ -2274,8 +2274,8 @@ vmaxsd xmm2, xmm6, xmm3
 vmaxsd xmm2, xmm6, [rax]
 vmaxsd xmm2{k3}{z}, xmm6, xmm3
 vmaxsd xmm2{k3}, xmm6, [rax+8]
-punpcklbw mmx1, mmx5
-punpcklbw mmx1, [rax]
+punpcklbw mm1, mm5
+punpcklbw mm1, [rax]
 punpcklbw xmm1, xmm5
 punpcklbw xmm1, [rax]
 vpunpcklbw xmm2, xmm6, xmm3
@@ -2288,8 +2288,8 @@ vpunpcklbw ymm2{k3}, ymm6, ymm3
 vpunpcklbw ymm2{k3}, ymm6, [rax+0x20]
 vpunpcklbw zmm2{k3}, zmm6, zmm3
 vpunpcklbw zmm2{k3}, zmm6, [rax+0x40]
-punpcklwd mmx1, mmx5
-punpcklwd mmx1, [rax]
+punpcklwd mm1, mm5
+punpcklwd mm1, [rax]
 punpcklwd xmm1, xmm5
 punpcklwd xmm1, [rax]
 vpunpcklwd xmm2, xmm6, xmm3
@@ -2302,8 +2302,8 @@ vpunpcklwd ymm2{k3}, ymm6, ymm3
 vpunpcklwd ymm2{k3}, ymm6, [rax+0x20]
 vpunpcklwd zmm2{k3}, zmm6, zmm3
 vpunpcklwd zmm2{k3}, zmm6, [rax+0x40]
-punpckldq mmx1, mmx5
-punpckldq mmx1, [rax]
+punpckldq mm1, mm5
+punpckldq mm1, [rax]
 punpckldq xmm1, xmm5
 punpckldq xmm1, [rax]
 vpunpckldq xmm2, xmm6, xmm3
@@ -2319,8 +2319,8 @@ vpunpckldq ymm2{k5}{z}, ymm6, [rax+4]{1to8}
 vpunpckldq zmm2{k3}{z}, zmm6, zmm3
 vpunpckldq zmm2{k3}, zmm6, [rax+0x40]
 vpunpckldq zmm2{k5}{z}, zmm6, [rax+4]{1to16}
-packsswb mmx1, mmx5
-packsswb mmx1, [rax]
+packsswb mm1, mm5
+packsswb mm1, [rax]
 packsswb xmm1, xmm5
 packsswb xmm1, [rax]
 vpacksswb xmm2, xmm6, xmm3
@@ -2333,8 +2333,8 @@ vpacksswb ymm2{k3}, ymm6, ymm3
 vpacksswb ymm2{k3}, ymm6, [rax+0x20]
 vpacksswb zmm2{k3}, zmm6, zmm3
 vpacksswb zmm2{k3}, zmm6, [rax+0x40]
-pcmpgtb mmx1, mmx5
-pcmpgtb mmx1, [rax]
+pcmpgtb mm1, mm5
+pcmpgtb mm1, [rax]
 pcmpgtb xmm1, xmm5
 pcmpgtb xmm1, [rax]
 vpcmpgtb xmm2, xmm6, xmm3
@@ -2347,8 +2347,8 @@ vpcmpgtb k2{k3}, ymm6, ymm3
 vpcmpgtb k2{k3}, ymm6, [rax+0x20]
 vpcmpgtb k2{k3}, zmm6, zmm3
 vpcmpgtb k2{k3}, zmm6, [rax+0x40]
-pcmpgtw mmx1, mmx5
-pcmpgtw mmx1, [rax]
+pcmpgtw mm1, mm5
+pcmpgtw mm1, [rax]
 pcmpgtw xmm1, xmm5
 pcmpgtw xmm1, [rax]
 vpcmpgtw xmm2, xmm6, xmm3
@@ -2361,8 +2361,8 @@ vpcmpgtw k2{k3}, ymm6, ymm3
 vpcmpgtw k2{k3}, ymm6, [rax+0x20]
 vpcmpgtw k2{k3}, zmm6, zmm3
 vpcmpgtw k2{k3}, zmm6, [rax+0x40]
-pcmpgtd mmx1, mmx5
-pcmpgtd mmx1, [rax]
+pcmpgtd mm1, mm5
+pcmpgtd mm1, [rax]
 pcmpgtd xmm1, xmm5
 pcmpgtd xmm1, [rax]
 vpcmpgtd xmm2, xmm6, xmm3
@@ -2378,8 +2378,8 @@ vpcmpgtd k2{k5}, ymm6, [rax+4]{1to8}
 vpcmpgtd k2{k3}, zmm6, zmm3
 vpcmpgtd k2{k3}, zmm6, [rax+0x40]
 vpcmpgtd k2{k5}, zmm6, [rax+4]{1to16}
-packuswb mmx1, mmx5
-packuswb mmx1, [rax]
+packuswb mm1, mm5
+packuswb mm1, [rax]
 packuswb xmm1, xmm5
 packuswb xmm1, [rax]
 vpackuswb xmm2, xmm6, xmm3
@@ -2392,8 +2392,8 @@ vpackuswb ymm2{k3}, ymm6, ymm3
 vpackuswb ymm2{k3}, ymm6, [rax+0x20]
 vpackuswb zmm2{k3}, zmm6, zmm3
 vpackuswb zmm2{k3}, zmm6, [rax+0x40]
-punpckhbw mmx1, mmx5
-punpckhbw mmx1, [rax]
+punpckhbw mm1, mm5
+punpckhbw mm1, [rax]
 punpckhbw xmm1, xmm5
 punpckhbw xmm1, [rax]
 vpunpckhbw xmm2, xmm6, xmm3
@@ -2406,8 +2406,8 @@ vpunpckhbw ymm2{k3}, ymm6, ymm3
 vpunpckhbw ymm2{k3}, ymm6, [rax+0x20]
 vpunpckhbw zmm2{k3}, zmm6, zmm3
 vpunpckhbw zmm2{k3}, zmm6, [rax+0x40]
-punpckhwd mmx1, mmx5
-punpckhwd mmx1, [rax]
+punpckhwd mm1, mm5
+punpckhwd mm1, [rax]
 punpckhwd xmm1, xmm5
 punpckhwd xmm1, [rax]
 vpunpckhwd xmm2, xmm6, xmm3
@@ -2420,8 +2420,8 @@ vpunpckhwd ymm2{k3}, ymm6, ymm3
 vpunpckhwd ymm2{k3}, ymm6, [rax+0x20]
 vpunpckhwd zmm2{k3}, zmm6, zmm3
 vpunpckhwd zmm2{k3}, zmm6, [rax+0x40]
-punpckhdq mmx1, mmx5
-punpckhdq mmx1, [rax]
+punpckhdq mm1, mm5
+punpckhdq mm1, [rax]
 punpckhdq xmm1, xmm5
 punpckhdq xmm1, [rax]
 vpunpckhdq xmm2, xmm6, xmm3
@@ -2437,8 +2437,8 @@ vpunpckhdq ymm2{k5}{z}, ymm6, [rax+4]{1to8}
 vpunpckhdq zmm2{k3}{z}, zmm6, zmm3
 vpunpckhdq zmm2{k3}, zmm6, [rax+0x40]
 vpunpckhdq zmm2{k5}{z}, zmm6, [rax+4]{1to16}
-packssdw mmx1, mmx5
-packssdw mmx1, [rax]
+packssdw mm1, mm5
+packssdw mm1, [rax]
 packssdw xmm1, xmm5
 packssdw xmm1, [rax]
 vpackssdw xmm2, xmm6, xmm3
@@ -2484,10 +2484,10 @@ vpunpckhqdq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpunpckhqdq zmm2{k3}{z}, zmm6, zmm3
 vpunpckhqdq zmm2{k3}, zmm6, [rax+0x40]
 vpunpckhqdq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-movd mmx1, ebp
-movd mmx1, [rax]
-movq mmx1, rbp
-movq mmx1, [rax]
+movd mm1, ebp
+movd mm1, [rax]
+movq mm1, rbp
+movq mm1, [rax]
 movd xmm1, ebp
 movd xmm1, [rax]
 movq xmm1, rbp
@@ -2500,8 +2500,8 @@ vmovd xmm2, ebx
 vmovd xmm2, [rax+4]
 vmovq xmm2, rbx
 vmovq xmm2, [rax+8]
-movq mmx1, mmx5
-movq mmx1, [rax]
+movq mm1, mm5
+movq mm1, [rax]
 movdqa xmm1, xmm5
 movdqa xmm1, [rax]
 vmovdqa xmm1, xmm5
@@ -2550,8 +2550,8 @@ vmovdqu16 ymm2, ymm3
 vmovdqu16 ymm2, [rax+0x20]
 vmovdqu16 zmm2, zmm3
 vmovdqu16 zmm2, [rax+0x40]
-pshufw mmx1, mmx5, -0x5b
-pshufw mmx1, [rax], -0x5b
+pshufw mm1, mm5, -0x5b
+pshufw mm1, [rax], -0x5b
 pshufd xmm1, xmm5, -0x5b
 pshufd xmm1, [rax], -0x5b
 vpshufd xmm2, xmm3, -0x5b
@@ -2591,7 +2591,7 @@ vpshuflw ymm2{k3}{z}, ymm3, -0x5b
 vpshuflw ymm2{k3}{z}, [rax+0x20], -0x5b
 vpshuflw zmm2{k3}{z}, zmm3, -0x5b
 vpshuflw zmm2{k3}{z}, [rax+0x40], -0x5b
-psrlw mmx5, -0x5b
+psrlw mm5, -0x5b
 psrlw xmm5, -0x5b
 vpsrlw xmm6, xmm5, -0x5b
 vpsrlw ymm6, ymm5, -0x5b
@@ -2601,7 +2601,7 @@ vpsrlw ymm6{k3}, ymm5, -0x5b
 vpsrlw ymm6{k3}, [rax+0x20], -0x5b
 vpsrlw zmm6{k3}, zmm5, -0x5b
 vpsrlw zmm6{k3}, [rax+0x40], -0x5b
-psraw mmx5, -0x5b
+psraw mm5, -0x5b
 psraw xmm5, -0x5b
 vpsraw xmm6, xmm5, -0x5b
 vpsraw ymm6, ymm5, -0x5b
@@ -2611,7 +2611,7 @@ vpsraw ymm6{k3}, ymm5, -0x5b
 vpsraw ymm6{k3}, [rax+0x20], -0x5b
 vpsraw zmm6{k3}, zmm5, -0x5b
 vpsraw zmm6{k3}, [rax+0x40], -0x5b
-psllw mmx5, -0x5b
+psllw mm5, -0x5b
 psllw xmm5, -0x5b
 vpsllw xmm6, xmm5, -0x5b
 vpsllw ymm6, ymm5, -0x5b
@@ -2657,7 +2657,7 @@ vprolq ymm6{k5}{z}, [rax+8]{1to4}, -0x5b
 vprolq zmm6{k3}, zmm5, -0x5b
 vprolq zmm6{k3}, [rax+0x40], -0x5b
 vprolq zmm6{k5}{z}, [rax+8]{1to8}, -0x5b
-psrld mmx5, -0x5b
+psrld mm5, -0x5b
 psrld xmm5, -0x5b
 vpsrld xmm6, xmm5, -0x5b
 vpsrld ymm6, ymm5, -0x5b
@@ -2670,7 +2670,7 @@ vpsrld ymm6{k5}{z}, [rax+4]{1to8}, -0x5b
 vpsrld zmm6{k3}, zmm5, -0x5b
 vpsrld zmm6{k3}, [rax+0x40], -0x5b
 vpsrld zmm6{k5}{z}, [rax+4]{1to16}, -0x5b
-psrad mmx5, -0x5b
+psrad mm5, -0x5b
 psrad xmm5, -0x5b
 vpsrad xmm6, xmm5, -0x5b
 vpsrad ymm6, ymm5, -0x5b
@@ -2692,7 +2692,7 @@ vpsraq ymm6{k5}{z}, [rax+8]{1to4}, -0x5b
 vpsraq zmm6{k3}, zmm5, -0x5b
 vpsraq zmm6{k3}, [rax+0x40], -0x5b
 vpsraq zmm6{k5}{z}, [rax+8]{1to8}, -0x5b
-pslld mmx5, -0x5b
+pslld mm5, -0x5b
 pslld xmm5, -0x5b
 vpslld xmm6, xmm5, -0x5b
 vpslld ymm6, ymm5, -0x5b
@@ -2705,7 +2705,7 @@ vpslld ymm6{k5}{z}, [rax+4]{1to8}, -0x5b
 vpslld zmm6{k3}, zmm5, -0x5b
 vpslld zmm6{k3}, [rax+0x40], -0x5b
 vpslld zmm6{k5}{z}, [rax+4]{1to16}, -0x5b
-psrlq mmx5, -0x5b
+psrlq mm5, -0x5b
 psrlq xmm5, -0x5b
 vpsrlq xmm6, xmm5, -0x5b
 vpsrlq ymm6, ymm5, -0x5b
@@ -2727,7 +2727,7 @@ vpsrldq ymm6, ymm5, -0x5b
 vpsrldq ymm6, [rax+0x20], -0x5b
 vpsrldq zmm6, zmm5, -0x5b
 vpsrldq zmm6, [rax+0x40], -0x5b
-psllq mmx5, -0x5b
+psllq mm5, -0x5b
 psllq xmm5, -0x5b
 vpsllq xmm6, xmm5, -0x5b
 vpsllq ymm6, ymm5, -0x5b
@@ -2749,8 +2749,8 @@ vpslldq ymm6, ymm5, -0x5b
 vpslldq ymm6, [rax+0x20], -0x5b
 vpslldq zmm6, zmm5, -0x5b
 vpslldq zmm6, [rax+0x40], -0x5b
-pcmpeqb mmx1, mmx5
-pcmpeqb mmx1, [rax]
+pcmpeqb mm1, mm5
+pcmpeqb mm1, [rax]
 pcmpeqb xmm1, xmm5
 pcmpeqb xmm1, [rax]
 vpcmpeqb xmm2, xmm6, xmm3
@@ -2763,8 +2763,8 @@ vpcmpeqb k2{k3}, ymm6, ymm3
 vpcmpeqb k2{k3}, ymm6, [rax+0x20]
 vpcmpeqb k2{k3}, zmm6, zmm3
 vpcmpeqb k2{k3}, zmm6, [rax+0x40]
-pcmpeqw mmx1, mmx5
-pcmpeqw mmx1, [rax]
+pcmpeqw mm1, mm5
+pcmpeqw mm1, [rax]
 pcmpeqw xmm1, xmm5
 pcmpeqw xmm1, [rax]
 vpcmpeqw xmm2, xmm6, xmm3
@@ -2777,8 +2777,8 @@ vpcmpeqw k2{k3}, ymm6, ymm3
 vpcmpeqw k2{k3}, ymm6, [rax+0x20]
 vpcmpeqw k2{k3}, zmm6, zmm3
 vpcmpeqw k2{k3}, zmm6, [rax+0x40]
-pcmpeqd mmx1, mmx5
-pcmpeqd mmx1, [rax]
+pcmpeqd mm1, mm5
+pcmpeqd mm1, [rax]
 pcmpeqd xmm1, xmm5
 pcmpeqd xmm1, [rax]
 vpcmpeqd xmm2, xmm6, xmm3
@@ -2993,10 +2993,10 @@ vhsubps xmm2, xmm6, xmm3
 vhsubps xmm2, xmm6, [rax]
 vhsubps ymm2, ymm6, ymm3
 vhsubps ymm2, ymm6, [rax]
-movd ebp, mmx1
-movd [rax], mmx1
-movq rbp, mmx1
-movq [rax], mmx1
+movd ebp, mm1
+movd [rax], mm1
+movq rbp, mm1
+movq [rax], mm1
 movd ebp, xmm1
 movd [rax], xmm1
 movq rbp, xmm1
@@ -3015,8 +3015,8 @@ vmovq xmm1, xmm5
 vmovq xmm2, [rax]
 vmovq xmm2, xmm3
 vmovq xmm2, [rax+8]
-movq mmx5, mmx1
-movq [rax], mmx1
+movq mm5, mm1
+movq [rax], mm1
 movdqa xmm5, xmm1
 movdqa [rax], xmm1
 vmovdqa xmm5, xmm1
@@ -3411,10 +3411,10 @@ vcmpsd k2{k3}, xmm6, xmm3, -0x5b
 vcmpsd k2{k3}, xmm6, [rax+8], -0x5b
 movnti [rax], ebx
 movnti [rax], rbx
-pinsrw mmx1, ebp, -0x5b
-pinsrw mmx1, [rax], -0x5b
-pinsrw mmx1, rbp, -0x5b
-pinsrw mmx1, [rax], -0x5b
+pinsrw mm1, ebp, -0x5b
+pinsrw mm1, [rax], -0x5b
+pinsrw mm1, rbp, -0x5b
+pinsrw mm1, [rax], -0x5b
 pinsrw xmm1, ebp, -0x5b
 pinsrw xmm1, [rax], -0x5b
 pinsrw xmm1, rbp, -0x5b
@@ -3427,8 +3427,8 @@ vpinsrw xmm2, xmm6, ebx, -0x5b
 vpinsrw xmm2, xmm6, [rax+2], -0x5b
 vpinsrw xmm2, xmm6, rbx, -0x5b
 vpinsrw xmm2, xmm6, [rax+2], -0x5b
-pextrw ecx, mmx5, -0x5b
-pextrw rcx, mmx5, -0x5b
+pextrw ecx, mm5, -0x5b
+pextrw rcx, mm5, -0x5b
 pextrw ecx, xmm5, -0x5b
 pextrw rcx, xmm5, -0x5b
 vpextrw edx, xmm3, -0x5b
@@ -3544,8 +3544,8 @@ vaddsubps xmm2, xmm6, xmm3
 vaddsubps xmm2, xmm6, [rax]
 vaddsubps ymm2, ymm6, ymm3
 vaddsubps ymm2, ymm6, [rax]
-psrlw mmx1, mmx5
-psrlw mmx1, [rax]
+psrlw mm1, mm5
+psrlw mm1, [rax]
 psrlw xmm1, xmm5
 psrlw xmm1, [rax]
 vpsrlw xmm2, xmm6, xmm3
@@ -3558,8 +3558,8 @@ vpsrlw ymm2{k3}, ymm6, xmm3
 vpsrlw ymm2{k3}, ymm6, [rax+0x10]
 vpsrlw zmm2{k3}, zmm6, xmm3
 vpsrlw zmm2{k3}, zmm6, [rax+0x10]
-psrld mmx1, mmx5
-psrld mmx1, [rax]
+psrld mm1, mm5
+psrld mm1, [rax]
 psrld xmm1, xmm5
 psrld xmm1, [rax]
 vpsrld xmm2, xmm6, xmm3
@@ -3572,8 +3572,8 @@ vpsrld ymm2{k3}, ymm6, xmm3
 vpsrld ymm2{k3}, ymm6, [rax+0x10]
 vpsrld zmm2{k3}, zmm6, xmm3
 vpsrld zmm2{k3}, zmm6, [rax+0x10]
-psrlq mmx1, mmx5
-psrlq mmx1, [rax]
+psrlq mm1, mm5
+psrlq mm1, [rax]
 psrlq xmm1, xmm5
 psrlq xmm1, [rax]
 vpsrlq xmm2, xmm6, xmm3
@@ -3586,8 +3586,8 @@ vpsrlq ymm2{k3}, ymm6, xmm3
 vpsrlq ymm2{k3}, ymm6, [rax+0x10]
 vpsrlq zmm2{k3}, zmm6, xmm3
 vpsrlq zmm2{k3}, zmm6, [rax+0x10]
-paddq mmx1, mmx5
-paddq mmx1, [rax]
+paddq mm1, mm5
+paddq mm1, [rax]
 paddq xmm1, xmm5
 paddq xmm1, [rax]
 vpaddq xmm2, xmm6, xmm3
@@ -3603,8 +3603,8 @@ vpaddq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpaddq zmm2{k3}{z}, zmm6, zmm3
 vpaddq zmm2{k3}, zmm6, [rax+0x40]
 vpaddq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-pmullw mmx1, mmx5
-pmullw mmx1, [rax]
+pmullw mm1, mm5
+pmullw mm1, [rax]
 pmullw xmm1, xmm5
 pmullw xmm1, [rax]
 vpmullw xmm2, xmm6, xmm3
@@ -3623,18 +3623,18 @@ vmovq xmm5, xmm1
 vmovq [rax], xmm2
 vmovq xmm3, xmm2
 vmovq [rax+8], xmm2
-movq2dq xmm1, mmx5
-movdq2q mmx1, xmm5
-pmovmskb ecx, mmx5
-pmovmskb rcx, mmx5
+movq2dq xmm1, mm5
+movdq2q mm1, xmm5
+pmovmskb ecx, mm5
+pmovmskb rcx, mm5
 pmovmskb ecx, xmm5
 pmovmskb rcx, xmm5
 vpmovmskb ecx, xmm5
 vpmovmskb rcx, xmm5
 vpmovmskb ecx, ymm5
 vpmovmskb rcx, ymm5
-psubusb mmx1, mmx5
-psubusb mmx1, [rax]
+psubusb mm1, mm5
+psubusb mm1, [rax]
 psubusb xmm1, xmm5
 psubusb xmm1, [rax]
 vpsubusb xmm2, xmm6, xmm3
@@ -3647,8 +3647,8 @@ vpsubusb ymm2{k3}, ymm6, ymm3
 vpsubusb ymm2{k3}, ymm6, [rax+0x20]
 vpsubusb zmm2{k3}, zmm6, zmm3
 vpsubusb zmm2{k3}, zmm6, [rax+0x40]
-psubusw mmx1, mmx5
-psubusw mmx1, [rax]
+psubusw mm1, mm5
+psubusw mm1, [rax]
 psubusw xmm1, xmm5
 psubusw xmm1, [rax]
 vpsubusw xmm2, xmm6, xmm3
@@ -3661,8 +3661,8 @@ vpsubusw ymm2{k3}, ymm6, ymm3
 vpsubusw ymm2{k3}, ymm6, [rax+0x20]
 vpsubusw zmm2{k3}, zmm6, zmm3
 vpsubusw zmm2{k3}, zmm6, [rax+0x40]
-pminub mmx1, mmx5
-pminub mmx1, [rax]
+pminub mm1, mm5
+pminub mm1, [rax]
 pminub xmm1, xmm5
 pminub xmm1, [rax]
 vpminub xmm2, xmm6, xmm3
@@ -3675,8 +3675,8 @@ vpminub ymm2{k3}, ymm6, ymm3
 vpminub ymm2{k3}, ymm6, [rax+0x20]
 vpminub zmm2{k3}, zmm6, zmm3
 vpminub zmm2{k3}, zmm6, [rax+0x40]
-pand mmx1, mmx5
-pand mmx1, [rax]
+pand mm1, mm5
+pand mm1, [rax]
 pand xmm1, xmm5
 pand xmm1, [rax]
 vpand xmm2, xmm6, xmm3
@@ -3701,8 +3701,8 @@ vpandq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpandq zmm2{k3}{z}, zmm6, zmm3
 vpandq zmm2{k3}, zmm6, [rax+0x40]
 vpandq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-paddusb mmx1, mmx5
-paddusb mmx1, [rax]
+paddusb mm1, mm5
+paddusb mm1, [rax]
 paddusb xmm1, xmm5
 paddusb xmm1, [rax]
 vpaddusb xmm2, xmm6, xmm3
@@ -3715,8 +3715,8 @@ vpaddusb ymm2{k3}, ymm6, ymm3
 vpaddusb ymm2{k3}, ymm6, [rax+0x20]
 vpaddusb zmm2{k3}, zmm6, zmm3
 vpaddusb zmm2{k3}, zmm6, [rax+0x40]
-paddusw mmx1, mmx5
-paddusw mmx1, [rax]
+paddusw mm1, mm5
+paddusw mm1, [rax]
 paddusw xmm1, xmm5
 paddusw xmm1, [rax]
 vpaddusw xmm2, xmm6, xmm3
@@ -3729,8 +3729,8 @@ vpaddusw ymm2{k3}, ymm6, ymm3
 vpaddusw ymm2{k3}, ymm6, [rax+0x20]
 vpaddusw zmm2{k3}, zmm6, zmm3
 vpaddusw zmm2{k3}, zmm6, [rax+0x40]
-pmaxub mmx1, mmx5
-pmaxub mmx1, [rax]
+pmaxub mm1, mm5
+pmaxub mm1, [rax]
 pmaxub xmm1, xmm5
 pmaxub xmm1, [rax]
 vpmaxub xmm2, xmm6, xmm3
@@ -3743,8 +3743,8 @@ vpmaxub ymm2{k3}, ymm6, ymm3
 vpmaxub ymm2{k3}, ymm6, [rax+0x20]
 vpmaxub zmm2{k3}, zmm6, zmm3
 vpmaxub zmm2{k3}, zmm6, [rax+0x40]
-pandn mmx1, mmx5
-pandn mmx1, [rax]
+pandn mm1, mm5
+pandn mm1, [rax]
 pandn xmm1, xmm5
 pandn xmm1, [rax]
 vpandn xmm2, xmm6, xmm3
@@ -3769,8 +3769,8 @@ vpandnq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpandnq zmm2{k3}{z}, zmm6, zmm3
 vpandnq zmm2{k3}, zmm6, [rax+0x40]
 vpandnq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-pavgb mmx1, mmx5
-pavgb mmx1, [rax]
+pavgb mm1, mm5
+pavgb mm1, [rax]
 pavgb xmm1, xmm5
 pavgb xmm1, [rax]
 vpavgb xmm2, xmm6, xmm3
@@ -3783,8 +3783,8 @@ vpavgb ymm2{k3}, ymm6, ymm3
 vpavgb ymm2{k3}, ymm6, [rax+0x20]
 vpavgb zmm2{k3}, zmm6, zmm3
 vpavgb zmm2{k3}, zmm6, [rax+0x40]
-psraw mmx1, mmx5
-psraw mmx1, [rax]
+psraw mm1, mm5
+psraw mm1, [rax]
 psraw xmm1, xmm5
 psraw xmm1, [rax]
 vpsraw xmm2, xmm6, xmm3
@@ -3797,8 +3797,8 @@ vpsraw ymm2{k3}, ymm6, xmm3
 vpsraw ymm2{k3}, ymm6, [rax+0x10]
 vpsraw zmm2{k3}, zmm6, xmm3
 vpsraw zmm2{k3}, zmm6, [rax+0x10]
-psrad mmx1, mmx5
-psrad mmx1, [rax]
+psrad mm1, mm5
+psrad mm1, [rax]
 psrad xmm1, xmm5
 psrad xmm1, [rax]
 vpsrad xmm2, xmm6, xmm3
@@ -3817,8 +3817,8 @@ vpsraq ymm2{k3}, ymm6, xmm3
 vpsraq ymm2{k3}, ymm6, [rax+0x10]
 vpsraq zmm2{k3}, zmm6, xmm3
 vpsraq zmm2{k3}, zmm6, [rax+0x10]
-pavgw mmx1, mmx5
-pavgw mmx1, [rax]
+pavgw mm1, mm5
+pavgw mm1, [rax]
 pavgw xmm1, xmm5
 pavgw xmm1, [rax]
 vpavgw xmm2, xmm6, xmm3
@@ -3831,8 +3831,8 @@ vpavgw ymm2{k3}, ymm6, ymm3
 vpavgw ymm2{k3}, ymm6, [rax+0x20]
 vpavgw zmm2{k3}, zmm6, zmm3
 vpavgw zmm2{k3}, zmm6, [rax+0x40]
-pmulhuw mmx1, mmx5
-pmulhuw mmx1, [rax]
+pmulhuw mm1, mm5
+pmulhuw mm1, [rax]
 pmulhuw xmm1, xmm5
 pmulhuw xmm1, [rax]
 vpmulhuw xmm2, xmm6, xmm3
@@ -3845,8 +3845,8 @@ vpmulhuw ymm2{k3}, ymm6, ymm3
 vpmulhuw ymm2{k3}, ymm6, [rax+0x20]
 vpmulhuw zmm2{k3}, zmm6, zmm3
 vpmulhuw zmm2{k3}, zmm6, [rax+0x40]
-pmulhw mmx1, mmx5
-pmulhw mmx1, [rax]
+pmulhw mm1, mm5
+pmulhw mm1, [rax]
 pmulhw xmm1, xmm5
 pmulhw xmm1, [rax]
 vpmulhw xmm2, xmm6, xmm3
@@ -3913,15 +3913,15 @@ vcvtpd2dq xmm2{k3}{z}, [rax+8]{1to4}
 vcvtpd2dq ymm2{k3}, zmm3
 vcvtpd2dq ymm2, [rax+0x40]
 vcvtpd2dq ymm2{k3}{z}, [rax+8]{1to8}
-movntq [rax], mmx1
+movntq [rax], mm1
 movntdq [rax], xmm1
 vmovntdq [rax], xmm2
 vmovntdq [rax], ymm2
 vmovntdq [rax+0x10], xmm2
 vmovntdq [rax+0x20], ymm2
 vmovntdq [rax+0x40], zmm2
-psubsb mmx1, mmx5
-psubsb mmx1, [rax]
+psubsb mm1, mm5
+psubsb mm1, [rax]
 psubsb xmm1, xmm5
 psubsb xmm1, [rax]
 vpsubsb xmm2, xmm6, xmm3
@@ -3934,8 +3934,8 @@ vpsubsb ymm2{k3}, ymm6, ymm3
 vpsubsb ymm2{k3}, ymm6, [rax+0x20]
 vpsubsb zmm2{k3}, zmm6, zmm3
 vpsubsb zmm2{k3}, zmm6, [rax+0x40]
-psubsw mmx1, mmx5
-psubsw mmx1, [rax]
+psubsw mm1, mm5
+psubsw mm1, [rax]
 psubsw xmm1, xmm5
 psubsw xmm1, [rax]
 vpsubsw xmm2, xmm6, xmm3
@@ -3948,8 +3948,8 @@ vpsubsw ymm2{k3}, ymm6, ymm3
 vpsubsw ymm2{k3}, ymm6, [rax+0x20]
 vpsubsw zmm2{k3}, zmm6, zmm3
 vpsubsw zmm2{k3}, zmm6, [rax+0x40]
-pminsw mmx1, mmx5
-pminsw mmx1, [rax]
+pminsw mm1, mm5
+pminsw mm1, [rax]
 pminsw xmm1, xmm5
 pminsw xmm1, [rax]
 vpminsw xmm2, xmm6, xmm3
@@ -3962,8 +3962,8 @@ vpminsw ymm2{k3}, ymm6, ymm3
 vpminsw ymm2{k3}, ymm6, [rax+0x20]
 vpminsw zmm2{k3}, zmm6, zmm3
 vpminsw zmm2{k3}, zmm6, [rax+0x40]
-por mmx1, mmx5
-por mmx1, [rax]
+por mm1, mm5
+por mm1, [rax]
 por xmm1, xmm5
 por xmm1, [rax]
 vpor xmm2, xmm6, xmm3
@@ -3988,8 +3988,8 @@ vporq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vporq zmm2{k3}{z}, zmm6, zmm3
 vporq zmm2{k3}, zmm6, [rax+0x40]
 vporq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-paddsb mmx1, mmx5
-paddsb mmx1, [rax]
+paddsb mm1, mm5
+paddsb mm1, [rax]
 paddsb xmm1, xmm5
 paddsb xmm1, [rax]
 vpaddsb xmm2, xmm6, xmm3
@@ -4002,8 +4002,8 @@ vpaddsb ymm2{k3}, ymm6, ymm3
 vpaddsb ymm2{k3}, ymm6, [rax+0x20]
 vpaddsb zmm2{k3}, zmm6, zmm3
 vpaddsb zmm2{k3}, zmm6, [rax+0x40]
-paddsw mmx1, mmx5
-paddsw mmx1, [rax]
+paddsw mm1, mm5
+paddsw mm1, [rax]
 paddsw xmm1, xmm5
 paddsw xmm1, [rax]
 vpaddsw xmm2, xmm6, xmm3
@@ -4016,8 +4016,8 @@ vpaddsw ymm2{k3}, ymm6, ymm3
 vpaddsw ymm2{k3}, ymm6, [rax+0x20]
 vpaddsw zmm2{k3}, zmm6, zmm3
 vpaddsw zmm2{k3}, zmm6, [rax+0x40]
-pmaxsw mmx1, mmx5
-pmaxsw mmx1, [rax]
+pmaxsw mm1, mm5
+pmaxsw mm1, [rax]
 pmaxsw xmm1, xmm5
 pmaxsw xmm1, [rax]
 vpmaxsw xmm2, xmm6, xmm3
@@ -4030,8 +4030,8 @@ vpmaxsw ymm2{k3}, ymm6, ymm3
 vpmaxsw ymm2{k3}, ymm6, [rax+0x20]
 vpmaxsw zmm2{k3}, zmm6, zmm3
 vpmaxsw zmm2{k3}, zmm6, [rax+0x40]
-pxor mmx1, mmx5
-pxor mmx1, [rax]
+pxor mm1, mm5
+pxor mm1, [rax]
 pxor xmm1, xmm5
 pxor xmm1, [rax]
 vpxor xmm2, xmm6, xmm3
@@ -4059,8 +4059,8 @@ vpxorq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
 lddqu xmm1, [rax]
 vlddqu xmm2, [rax]
 vlddqu ymm2, [rax]
-psllw mmx1, mmx5
-psllw mmx1, [rax]
+psllw mm1, mm5
+psllw mm1, [rax]
 psllw xmm1, xmm5
 psllw xmm1, [rax]
 vpsllw xmm2, xmm6, xmm3
@@ -4073,8 +4073,8 @@ vpsllw ymm2{k3}, ymm6, xmm3
 vpsllw ymm2{k3}, ymm6, [rax+0x10]
 vpsllw zmm2{k3}, zmm6, xmm3
 vpsllw zmm2{k3}, zmm6, [rax+0x10]
-pslld mmx1, mmx5
-pslld mmx1, [rax]
+pslld mm1, mm5
+pslld mm1, [rax]
 pslld xmm1, xmm5
 pslld xmm1, [rax]
 vpslld xmm2, xmm6, xmm3
@@ -4087,8 +4087,8 @@ vpslld ymm2{k3}, ymm6, xmm3
 vpslld ymm2{k3}, ymm6, [rax+0x10]
 vpslld zmm2{k3}, zmm6, xmm3
 vpslld zmm2{k3}, zmm6, [rax+0x10]
-psllq mmx1, mmx5
-psllq mmx1, [rax]
+psllq mm1, mm5
+psllq mm1, [rax]
 psllq xmm1, xmm5
 psllq xmm1, [rax]
 vpsllq xmm2, xmm6, xmm3
@@ -4101,8 +4101,8 @@ vpsllq ymm2{k3}, ymm6, xmm3
 vpsllq ymm2{k3}, ymm6, [rax+0x10]
 vpsllq zmm2{k3}, zmm6, xmm3
 vpsllq zmm2{k3}, zmm6, [rax+0x10]
-pmuludq mmx1, mmx5
-pmuludq mmx1, [rax]
+pmuludq mm1, mm5
+pmuludq mm1, [rax]
 pmuludq xmm1, xmm5
 pmuludq xmm1, [rax]
 vpmuludq xmm2, xmm6, xmm3
@@ -4118,8 +4118,8 @@ vpmuludq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpmuludq zmm2{k3}{z}, zmm6, zmm3
 vpmuludq zmm2{k3}, zmm6, [rax+0x40]
 vpmuludq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-pmaddwd mmx1, mmx5
-pmaddwd mmx1, [rax]
+pmaddwd mm1, mm5
+pmaddwd mm1, [rax]
 pmaddwd xmm1, xmm5
 pmaddwd xmm1, [rax]
 vpmaddwd xmm2, xmm6, xmm3
@@ -4132,8 +4132,8 @@ vpmaddwd ymm2{k3}, ymm6, ymm3
 vpmaddwd ymm2{k3}, ymm6, [rax+0x20]
 vpmaddwd zmm2{k3}, zmm6, zmm3
 vpmaddwd zmm2{k3}, zmm6, [rax+0x40]
-psadbw mmx1, mmx5
-psadbw mmx1, [rax]
+psadbw mm1, mm5
+psadbw mm1, [rax]
 psadbw xmm1, xmm5
 psadbw xmm1, [rax]
 vpsadbw xmm2, xmm6, xmm3
@@ -4146,14 +4146,14 @@ vpsadbw ymm2, ymm6, ymm3
 vpsadbw ymm2, ymm6, [rax+0x20]
 vpsadbw zmm2, zmm6, zmm3
 vpsadbw zmm2, zmm6, [rax+0x40]
-addr32 maskmovq mmx2, mmx3
-maskmovq mmx2, mmx3
+addr32 maskmovq mm2, mm3
+maskmovq mm2, mm3
 addr32 maskmovdqu xmm2, xmm3
 maskmovdqu xmm2, xmm3
 addr32 vmaskmovdqu xmm2, xmm3
 vmaskmovdqu xmm2, xmm3
-psubb mmx1, mmx5
-psubb mmx1, [rax]
+psubb mm1, mm5
+psubb mm1, [rax]
 psubb xmm1, xmm5
 psubb xmm1, [rax]
 vpsubb xmm2, xmm6, xmm3
@@ -4166,8 +4166,8 @@ vpsubb ymm2{k3}, ymm6, ymm3
 vpsubb ymm2{k3}, ymm6, [rax+0x20]
 vpsubb zmm2{k3}, zmm6, zmm3
 vpsubb zmm2{k3}, zmm6, [rax+0x40]
-psubw mmx1, mmx5
-psubw mmx1, [rax]
+psubw mm1, mm5
+psubw mm1, [rax]
 psubw xmm1, xmm5
 psubw xmm1, [rax]
 vpsubw xmm2, xmm6, xmm3
@@ -4180,8 +4180,8 @@ vpsubw ymm2{k3}, ymm6, ymm3
 vpsubw ymm2{k3}, ymm6, [rax+0x20]
 vpsubw zmm2{k3}, zmm6, zmm3
 vpsubw zmm2{k3}, zmm6, [rax+0x40]
-psubd mmx1, mmx5
-psubd mmx1, [rax]
+psubd mm1, mm5
+psubd mm1, [rax]
 psubd xmm1, xmm5
 psubd xmm1, [rax]
 vpsubd xmm2, xmm6, xmm3
@@ -4197,8 +4197,8 @@ vpsubd ymm2{k5}{z}, ymm6, [rax+4]{1to8}
 vpsubd zmm2{k3}{z}, zmm6, zmm3
 vpsubd zmm2{k3}, zmm6, [rax+0x40]
 vpsubd zmm2{k5}{z}, zmm6, [rax+4]{1to16}
-psubq mmx1, mmx5
-psubq mmx1, [rax]
+psubq mm1, mm5
+psubq mm1, [rax]
 psubq xmm1, xmm5
 psubq xmm1, [rax]
 vpsubq xmm2, xmm6, xmm3
@@ -4214,8 +4214,8 @@ vpsubq ymm2{k5}{z}, ymm6, [rax+8]{1to4}
 vpsubq zmm2{k3}{z}, zmm6, zmm3
 vpsubq zmm2{k3}, zmm6, [rax+0x40]
 vpsubq zmm2{k5}{z}, zmm6, [rax+8]{1to8}
-paddb mmx1, mmx5
-paddb mmx1, [rax]
+paddb mm1, mm5
+paddb mm1, [rax]
 paddb xmm1, xmm5
 paddb xmm1, [rax]
 vpaddb xmm2, xmm6, xmm3
@@ -4228,8 +4228,8 @@ vpaddb ymm2{k3}, ymm6, ymm3
 vpaddb ymm2{k3}, ymm6, [rax+0x20]
 vpaddb zmm2{k3}, zmm6, zmm3
 vpaddb zmm2{k3}, zmm6, [rax+0x40]
-paddw mmx1, mmx5
-paddw mmx1, [rax]
+paddw mm1, mm5
+paddw mm1, [rax]
 paddw xmm1, xmm5
 paddw xmm1, [rax]
 vpaddw xmm2, xmm6, xmm3
@@ -4242,8 +4242,8 @@ vpaddw ymm2{k3}, ymm6, ymm3
 vpaddw ymm2{k3}, ymm6, [rax+0x20]
 vpaddw zmm2{k3}, zmm6, zmm3
 vpaddw zmm2{k3}, zmm6, [rax+0x40]
-paddd mmx1, mmx5
-paddd mmx1, [rax]
+paddd mm1, mm5
+paddd mm1, [rax]
 paddd xmm1, xmm5
 paddd xmm1, [rax]
 vpaddd xmm2, xmm6, xmm3
@@ -4265,8 +4265,8 @@ ud0 ecx, esi
 ud0 ebx, [rax]
 ud0 rcx, rsi
 ud0 rbx, [rax]
-pshufb mmx1, mmx5
-pshufb mmx1, [rax]
+pshufb mm1, mm5
+pshufb mm1, [rax]
 pshufb xmm1, xmm5
 pshufb xmm1, [rax]
 vpshufb xmm2, xmm6, xmm3
@@ -4279,32 +4279,32 @@ vpshufb ymm2{k3}, ymm6, ymm3
 vpshufb ymm2{k3}, ymm6, [rax+0x20]
 vpshufb zmm2{k3}, zmm6, zmm3
 vpshufb zmm2{k3}, zmm6, [rax+0x40]
-phaddw mmx1, mmx5
-phaddw mmx1, [rax]
+phaddw mm1, mm5
+phaddw mm1, [rax]
 phaddw xmm1, xmm5
 phaddw xmm1, [rax]
 vphaddw xmm2, xmm6, xmm3
 vphaddw xmm2, xmm6, [rax]
 vphaddw ymm2, ymm6, ymm3
 vphaddw ymm2, ymm6, [rax]
-phaddd mmx1, mmx5
-phaddd mmx1, [rax]
+phaddd mm1, mm5
+phaddd mm1, [rax]
 phaddd xmm1, xmm5
 phaddd xmm1, [rax]
 vphaddd xmm2, xmm6, xmm3
 vphaddd xmm2, xmm6, [rax]
 vphaddd ymm2, ymm6, ymm3
 vphaddd ymm2, ymm6, [rax]
-phaddsw mmx1, mmx5
-phaddsw mmx1, [rax]
+phaddsw mm1, mm5
+phaddsw mm1, [rax]
 phaddsw xmm1, xmm5
 phaddsw xmm1, [rax]
 vphaddsw xmm2, xmm6, xmm3
 vphaddsw xmm2, xmm6, [rax]
 vphaddsw ymm2, ymm6, ymm3
 vphaddsw ymm2, ymm6, [rax]
-pmaddubsw mmx1, mmx5
-pmaddubsw mmx1, [rax]
+pmaddubsw mm1, mm5
+pmaddubsw mm1, [rax]
 pmaddubsw xmm1, xmm5
 pmaddubsw xmm1, [rax]
 vpmaddubsw xmm2, xmm6, xmm3
@@ -4317,56 +4317,56 @@ vpmaddubsw ymm2{k3}, ymm6, ymm3
 vpmaddubsw ymm2{k3}, ymm6, [rax+0x20]
 vpmaddubsw zmm2{k3}, zmm6, zmm3
 vpmaddubsw zmm2{k3}, zmm6, [rax+0x40]
-phsubw mmx1, mmx5
-phsubw mmx1, [rax]
+phsubw mm1, mm5
+phsubw mm1, [rax]
 phsubw xmm1, xmm5
 phsubw xmm1, [rax]
 vphsubw xmm2, xmm6, xmm3
 vphsubw xmm2, xmm6, [rax]
 vphsubw ymm2, ymm6, ymm3
 vphsubw ymm2, ymm6, [rax]
-phsubd mmx1, mmx5
-phsubd mmx1, [rax]
+phsubd mm1, mm5
+phsubd mm1, [rax]
 phsubd xmm1, xmm5
 phsubd xmm1, [rax]
 vphsubd xmm2, xmm6, xmm3
 vphsubd xmm2, xmm6, [rax]
 vphsubd ymm2, ymm6, ymm3
 vphsubd ymm2, ymm6, [rax]
-phsubsw mmx1, mmx5
-phsubsw mmx1, [rax]
+phsubsw mm1, mm5
+phsubsw mm1, [rax]
 phsubsw xmm1, xmm5
 phsubsw xmm1, [rax]
 vphsubsw xmm2, xmm6, xmm3
 vphsubsw xmm2, xmm6, [rax]
 vphsubsw ymm2, ymm6, ymm3
 vphsubsw ymm2, ymm6, [rax]
-psignb mmx1, mmx5
-psignb mmx1, [rax]
+psignb mm1, mm5
+psignb mm1, [rax]
 psignb xmm1, xmm5
 psignb xmm1, [rax]
 vpsignb xmm2, xmm6, xmm3
 vpsignb xmm2, xmm6, [rax]
 vpsignb ymm2, ymm6, ymm3
 vpsignb ymm2, ymm6, [rax]
-psignw mmx1, mmx5
-psignw mmx1, [rax]
+psignw mm1, mm5
+psignw mm1, [rax]
 psignw xmm1, xmm5
 psignw xmm1, [rax]
 vpsignw xmm2, xmm6, xmm3
 vpsignw xmm2, xmm6, [rax]
 vpsignw ymm2, ymm6, ymm3
 vpsignw ymm2, ymm6, [rax]
-psignd mmx1, mmx5
-psignd mmx1, [rax]
+psignd mm1, mm5
+psignd mm1, [rax]
 psignd xmm1, xmm5
 psignd xmm1, [rax]
 vpsignd xmm2, xmm6, xmm3
 vpsignd xmm2, xmm6, [rax]
 vpsignd ymm2, ymm6, ymm3
 vpsignd ymm2, ymm6, [rax]
-pmulhrsw mmx1, mmx5
-pmulhrsw mmx1, [rax]
+pmulhrsw mm1, mm5
+pmulhrsw mm1, [rax]
 pmulhrsw xmm1, xmm5
 pmulhrsw xmm1, [rax]
 vpmulhrsw xmm2, xmm6, xmm3
@@ -4566,8 +4566,8 @@ vbroadcastf64x2 ymm2, [rax+0x10]
 vbroadcastf64x2 zmm2, [rax+0x10]
 vbroadcastf32x8 zmm2, [rax+0x20]
 vbroadcastf64x4 zmm2, [rax+0x20]
-pabsb mmx1, mmx5
-pabsb mmx1, [rax]
+pabsb mm1, mm5
+pabsb mm1, [rax]
 pabsb xmm1, xmm5
 pabsb xmm1, [rax]
 vpabsb xmm1, xmm5
@@ -4580,8 +4580,8 @@ vpabsb ymm2, ymm3
 vpabsb ymm2, [rax+0x20]
 vpabsb zmm2, zmm3
 vpabsb zmm2, [rax+0x40]
-pabsw mmx1, mmx5
-pabsw mmx1, [rax]
+pabsw mm1, mm5
+pabsw mm1, [rax]
 pabsw xmm1, xmm5
 pabsw xmm1, [rax]
 vpabsw xmm1, xmm5
@@ -4594,8 +4594,8 @@ vpabsw ymm2, ymm3
 vpabsw ymm2, [rax+0x20]
 vpabsw zmm2, zmm3
 vpabsw zmm2, [rax+0x40]
-pabsd mmx1, mmx5
-pabsd mmx1, [rax]
+pabsd mm1, mm5
+pabsd mm1, [rax]
 pabsd xmm1, xmm5
 pabsd xmm1, [rax]
 vpabsd xmm2, xmm3
@@ -6615,8 +6615,8 @@ vpblendw xmm2, xmm6, xmm3, -0x5b
 vpblendw xmm2, xmm6, [rax], -0x5b
 vpblendw ymm2, ymm6, ymm3, 0x5a
 vpblendw ymm2, ymm6, [rax], 0x5a
-palignr mmx1, mmx5, -0x5b
-palignr mmx1, [rax], -0x5b
+palignr mm1, mm5, -0x5b
+palignr mm1, [rax], -0x5b
 palignr xmm1, xmm5, -0x5b
 palignr xmm1, [rax], -0x5b
 vpalignr xmm2, xmm6, xmm3, -0x5b
@@ -7084,7 +7084,7 @@ lodsd fs:[rsi]
 lodsq fs:[rsi]
 xlat [ebx]
 xlat fs:[rbx]
-maskmovq mmx2, mmx3, fs
+maskmovq mm2, mm3, fs
 maskmovdqu xmm2, xmm3, fs
 vmaskmovdqu xmm2, xmm3, fs
 addr32 monitor
@@ -7309,10 +7309,10 @@ mov rax, dr12
 mov rax, dr13
 mov rax, dr14
 mov rax, dr15
-movq mmx0, mmx1
-movq mmx2, mmx3
-movq mmx4, mmx5
-movq mmx6, mmx7
+movq mm0, mm1
+movq mm2, mm3
+movq mm4, mm5
+movq mm6, mm7
 vmovups xmm0{k1}, xmm1
 vmovups xmm2{k1}, xmm3
 vmovups xmm4{k1}, xmm5
@@ -7820,58 +7820,58 @@ lwpval esi, ebx, -0x5aa5edcc
 lwpval esi, [rax], -0x5aa5edcc
 lwpval rsi, ebx, -0x5aa5edcc
 lwpval rsi, [rax], -0x5aa5edcc
-pi2fw mmx1, mmx5
-pi2fw mmx1, [rax-0x5aa5edcc]
-pi2fd mmx1, mmx5
-pi2fd mmx1, [rax-0x5aa5edcc]
-pf2iw mmx1, mmx5
-pf2iw mmx1, [rax-0x5aa5edcc]
-pf2id mmx1, mmx5
-pf2id mmx1, [rax-0x5aa5edcc]
-pfrcpv mmx1, mmx5
-pfrcpv mmx1, [rax-0x5aa5edcc]
-pfrsqrtv mmx1, mmx5
-pfrsqrtv mmx1, [rax-0x5aa5edcc]
-pfnacc mmx1, mmx5
-pfnacc mmx1, [rax-0x5aa5edcc]
-pfpnacc mmx1, mmx5
-pfpnacc mmx1, [rax-0x5aa5edcc]
-pfcmpge mmx1, mmx5
-pfcmpge mmx1, [rax-0x5aa5edcc]
-pfmin mmx1, mmx5
-pfmin mmx1, [rax-0x5aa5edcc]
-pfrcp mmx1, mmx5
-pfrcp mmx1, [rax-0x5aa5edcc]
-pfrsqrt mmx1, mmx5
-pfrsqrt mmx1, [rax-0x5aa5edcc]
-pfsub mmx1, mmx5
-pfsub mmx1, [rax-0x5aa5edcc]
-pfadd mmx1, mmx5
-pfadd mmx1, [rax-0x5aa5edcc]
-pfcmpgt mmx1, mmx5
-pfcmpgt mmx1, [rax-0x5aa5edcc]
-pfmax mmx1, mmx5
-pfmax mmx1, [rax-0x5aa5edcc]
-pfrcpit1 mmx1, mmx5
-pfrcpit1 mmx1, [rax-0x5aa5edcc]
-pfrsqit1 mmx1, mmx5
-pfrsqit1 mmx1, [rax-0x5aa5edcc]
-pfsubr mmx1, mmx5
-pfsubr mmx1, [rax-0x5aa5edcc]
-pfacc mmx1, mmx5
-pfacc mmx1, [rax-0x5aa5edcc]
-pfcmpeq mmx1, mmx5
-pfcmpeq mmx1, [rax-0x5aa5edcc]
-pfmul mmx1, mmx5
-pfmul mmx1, [rax-0x5aa5edcc]
-pfrcpit2 mmx1, mmx5
-pfrcpit2 mmx1, [rax-0x5aa5edcc]
-pmulhrw mmx1, mmx5
-pmulhrw mmx1, [rax-0x5aa5edcc]
-pswapd mmx1, mmx5
-pswapd mmx1, [rax-0x5aa5edcc]
-pavgusb mmx1, mmx5
-pavgusb mmx1, [rax-0x5aa5edcc]
+pi2fw mm1, mm5
+pi2fw mm1, [rax-0x5aa5edcc]
+pi2fd mm1, mm5
+pi2fd mm1, [rax-0x5aa5edcc]
+pf2iw mm1, mm5
+pf2iw mm1, [rax-0x5aa5edcc]
+pf2id mm1, mm5
+pf2id mm1, [rax-0x5aa5edcc]
+pfrcpv mm1, mm5
+pfrcpv mm1, [rax-0x5aa5edcc]
+pfrsqrtv mm1, mm5
+pfrsqrtv mm1, [rax-0x5aa5edcc]
+pfnacc mm1, mm5
+pfnacc mm1, [rax-0x5aa5edcc]
+pfpnacc mm1, mm5
+pfpnacc mm1, [rax-0x5aa5edcc]
+pfcmpge mm1, mm5
+pfcmpge mm1, [rax-0x5aa5edcc]
+pfmin mm1, mm5
+pfmin mm1, [rax-0x5aa5edcc]
+pfrcp mm1, mm5
+pfrcp mm1, [rax-0x5aa5edcc]
+pfrsqrt mm1, mm5
+pfrsqrt mm1, [rax-0x5aa5edcc]
+pfsub mm1, mm5
+pfsub mm1, [rax-0x5aa5edcc]
+pfadd mm1, mm5
+pfadd mm1, [rax-0x5aa5edcc]
+pfcmpgt mm1, mm5
+pfcmpgt mm1, [rax-0x5aa5edcc]
+pfmax mm1, mm5
+pfmax mm1, [rax-0x5aa5edcc]
+pfrcpit1 mm1, mm5
+pfrcpit1 mm1, [rax-0x5aa5edcc]
+pfrsqit1 mm1, mm5
+pfrsqit1 mm1, [rax-0x5aa5edcc]
+pfsubr mm1, mm5
+pfsubr mm1, [rax-0x5aa5edcc]
+pfacc mm1, mm5
+pfacc mm1, [rax-0x5aa5edcc]
+pfcmpeq mm1, mm5
+pfcmpeq mm1, [rax-0x5aa5edcc]
+pfmul mm1, mm5
+pfmul mm1, [rax-0x5aa5edcc]
+pfrcpit2 mm1, mm5
+pfrcpit2 mm1, [rax-0x5aa5edcc]
+pmulhrw mm1, mm5
+pmulhrw mm1, [rax-0x5aa5edcc]
+pswapd mm1, mm5
+pswapd mm1, [rax-0x5aa5edcc]
+pavgusb mm1, mm5
+pavgusb mm1, [rax-0x5aa5edcc]
 sal bh, 0x5a
 sal byte ptr [rax], 0x5a
 sal di, 0x5a
