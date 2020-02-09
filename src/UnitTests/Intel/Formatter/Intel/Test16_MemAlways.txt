@@ -243,8 +243,8 @@ scasw word ptr [edi]
 scasw word ptr [di]
 scasd dword ptr [edi]
 scasd dword ptr [di]
-xbegin 0x254e
-data32 xbegin 0x2551
+xbegin 0x0000254e
+data32 xbegin 0x34132551
 enter -0x5aa6, -0x5a
 leave
 ret far -0x5aa6

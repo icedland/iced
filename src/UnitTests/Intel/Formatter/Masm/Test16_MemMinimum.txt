@@ -243,8 +243,8 @@ scas [edi]
 scasw
 scas [edi]
 scasd
-xbegin 254Eh
-xbegin 2551h
+xbegin 0000254Eh
+xbegin 34132551h
 enter -5AA6h, -5Ah
 leave
 retf -5AA6h

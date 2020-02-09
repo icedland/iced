@@ -1606,11 +1606,12 @@ C7 C2 A55A, Mov_rm16_imm16, Mov, 2, op0=r;dx op1=i16;0x5AA5 co=2;2;0;0;0;0
 66 C7 C1 5AA51234, Mov_rm32_imm32, Mov, 2, op0=r;ecx op1=i32;0x3412A55A co=3;4;0;0;0;0
 66 C7 C2 A55A89AB, Mov_rm32_imm32, Mov, 2, op0=r;edx op1=i32;0xAB895AA5 co=3;4;0;0;0;0
 
-C7 F8 5AA5, Xbegin_rel16, Xbegin, 1, op0=nb16;0x254E co=2;2;0;0;0;0
-C7 F8 A55A, Xbegin_rel16, Xbegin, 1, op0=nb16;0xDA99 co=2;2;0;0;0;0
+C7 F8 5AA5, Xbegin_rel16, Xbegin, 1, op0=nb32;0x254E co=2;2;0;0;0;0
+C7 F8 A55A, Xbegin_rel16, Xbegin, 1, op0=nb32;0xDA99 co=2;2;0;0;0;0
+C7 F8 0080, Xbegin_rel16, Xbegin, 1, op0=nb32;0xFFFFFFF4 co=2;2;0;0;0;0
 
-66 C7 F8 5AA51234, Xbegin_rel32, Xbegin, 1, op0=nb16;0x2551 co=3;4;0;0;0;0 enc=66C7F85AA5FFFF
-66 C7 F8 A56789AB, Xbegin_rel32, Xbegin, 1, op0=nb16;0xE79C co=3;4;0;0;0;0 enc=66C7F8A5670000
+66 C7 F8 5AA51234, Xbegin_rel32, Xbegin, 1, op0=nb32;0x34132551 co=3;4;0;0;0;0
+66 C7 F8 A56789AB, Xbegin_rel32, Xbegin, 1, op0=nb32;0xAB89E79C co=3;4;0;0;0;0
 
 C8 5AA5 A6, Enterw_imm16_imm8, Enter, 2, op0=i16;0xA55A op1=i8_2nd;0xA6 co=1;2;3;1;0;0
 C8 A55A 6A, Enterw_imm16_imm8, Enter, 2, op0=i16;0x5AA5 op1=i8_2nd;0x6A co=1;2;3;1;0;0

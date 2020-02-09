@@ -243,8 +243,8 @@ a32 scasw
 scasw
 a32 scasd
 scasd
-xbegin 0x254e
-xbegin 0x2551
+xbegin 0x0000254e
+xbegin 0x34132551
 enter 0xa55a,0xa6
 leave
 retf 0xa55a

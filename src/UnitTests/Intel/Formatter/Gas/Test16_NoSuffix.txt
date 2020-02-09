@@ -243,8 +243,8 @@ scas (%edi),%ax
 scas (%di),%ax
 scas (%edi),%eax
 scas (%di),%eax
-xbegin 0x254e
-data32 xbegin 0x2551
+xbegin 0x0000254e
+data32 xbegin 0x34132551
 enter $0xa55a,$0xa6
 leave
 lret $0xa55a

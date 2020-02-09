@@ -513,41 +513,24 @@ impl Encoder {
 
 				_ => unreachable!(),
 			}
-		} else if self.bitness == 32 {
+		} else {
 			if !self.verify_op_kind(operand, OpKind::NearBranch32, instruction.op_kind(operand)) {
 				return;
 			}
 
 			match imm_size {
 				2 => {
-					self.encoder_flags |= EncoderFlags::P66;
+					const_assert_eq!(0x80, EncoderFlags::P66);
+					self.encoder_flags |= (self.bitness & 0x20) << 2;
 					self.imm_size = ImmSize::RipRelSize2_Target32;
 					self.immediate = instruction.near_branch32();
 				}
 
 				4 => {
+					const_assert_eq!(0x80, EncoderFlags::P66);
+					self.encoder_flags |= (self.bitness & 0x10) << 3;
 					self.imm_size = ImmSize::RipRelSize4_Target32;
 					self.immediate = instruction.near_branch32();
-				}
-
-				_ => unreachable!(),
-			}
-		} else {
-			debug_assert_eq!(16, self.bitness);
-			if !self.verify_op_kind(operand, OpKind::NearBranch16, instruction.op_kind(operand)) {
-				return;
-			}
-
-			match imm_size {
-				2 => {
-					self.imm_size = ImmSize::RipRelSize2_Target16;
-					self.immediate = instruction.near_branch16() as u32;
-				}
-
-				4 => {
-					self.encoder_flags |= EncoderFlags::P66;
-					self.imm_size = ImmSize::RipRelSize4_Target32;
-					self.immediate = instruction.near_branch16() as u32;
 				}
 
 				_ => unreachable!(),

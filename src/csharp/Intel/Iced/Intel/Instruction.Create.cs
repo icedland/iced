@@ -1656,8 +1656,8 @@ namespace Iced.Intel {
 			switch (bitness) {
 			case 16:
 				instruction.InternalCode = Code.Xbegin_rel16;
-				instruction.InternalOp0Kind = OpKind.NearBranch16;
-				instruction.InternalNearBranch16 = (ushort)target;
+				instruction.InternalOp0Kind = OpKind.NearBranch32;
+				instruction.NearBranch32 = (uint)target;
 				break;
 
 			case 32:

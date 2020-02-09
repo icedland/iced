@@ -1341,7 +1341,8 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.NearBranch64 = (ulong)(short)decoder.ReadUInt16() + decoder.GetCurrentInstructionPointer64();
 				}
 			}
-			else if (decoder.defaultCodeSize == CodeSize.Code32) {
+			else {
+				Debug.Assert(decoder.defaultCodeSize == CodeSize.Code16 || decoder.defaultCodeSize == CodeSize.Code32);
 				if (state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code32;
 					instruction.InternalOp0Kind = OpKind.NearBranch32;
@@ -1352,20 +1353,6 @@ namespace Iced.Intel.DecoderInternal {
 					instruction.InternalCode = code16;
 					instruction.InternalOp0Kind = OpKind.NearBranch32;
 					instruction.NearBranch32 = (uint)(short)decoder.ReadUInt16() + decoder.GetCurrentInstructionPointer32();
-				}
-			}
-			else {
-				Debug.Assert(decoder.defaultCodeSize == CodeSize.Code16);
-				if (state.operandSize == OpSize.Size16) {
-					instruction.InternalCode = code16;
-					instruction.InternalOp0Kind = OpKind.NearBranch16;
-					instruction.InternalNearBranch16 = (ushort)(decoder.ReadUInt16() + decoder.GetCurrentInstructionPointer32());
-				}
-				else {
-					Debug.Assert(state.operandSize == OpSize.Size32);
-					instruction.InternalCode = code32;
-					instruction.InternalOp0Kind = OpKind.NearBranch16;
-					instruction.InternalNearBranch16 = (ushort)(decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer32());
 				}
 			}
 		}

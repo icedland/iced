@@ -448,42 +448,24 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				}
 			}
-			else if (bitness == 32) {
+			else {
+				Debug.Assert(bitness == 16 || bitness == 32);
 				if (!Verify(operand, OpKind.NearBranch32, instruction.GetOpKind(operand)))
 					return;
 
 				switch (immSize) {
 				case 2:
-					EncoderFlags |= EncoderFlags.P66;
+					Static.Assert((int)EncoderFlags.P66 == 0x80 ? 0 : -1);
+					EncoderFlags |= (EncoderFlags)((bitness & 0x20) << 2);
 					ImmSize = ImmSize.RipRelSize2_Target32;
 					Immediate = instruction.NearBranch32;
 					break;
 
 				case 4:
+					Static.Assert((int)EncoderFlags.P66 == 0x80 ? 0 : -1);
+					EncoderFlags |= (EncoderFlags)((bitness & 0x10) << 3);
 					ImmSize = ImmSize.RipRelSize4_Target32;
 					Immediate = instruction.NearBranch32;
-					break;
-
-				case 8:
-				default:
-					throw new InvalidOperationException();
-				}
-			}
-			else {
-				Debug.Assert(bitness == 16);
-				if (!Verify(operand, OpKind.NearBranch16, instruction.GetOpKind(operand)))
-					return;
-
-				switch (immSize) {
-				case 2:
-					ImmSize = ImmSize.RipRelSize2_Target16;
-					Immediate = instruction.NearBranch16;
-					break;
-
-				case 4:
-					EncoderFlags |= EncoderFlags.P66;
-					ImmSize = ImmSize.RipRelSize4_Target32;
-					Immediate = instruction.NearBranch16;
 					break;
 
 				case 8:

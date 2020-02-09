@@ -4729,8 +4729,8 @@ impl Instruction {
 		match bitness {
 			16 => {
 				super::instruction_internal::internal_set_code(&mut instruction, Code::Xbegin_rel16);
-				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch16);
-				super::instruction_internal::internal_set_near_branch16(&mut instruction, target as u16 as u32);
+				super::instruction_internal::internal_set_op0_kind(&mut instruction, OpKind::NearBranch32);
+				instruction.set_near_branch32(target as u32);
 			}
 
 			32 => {

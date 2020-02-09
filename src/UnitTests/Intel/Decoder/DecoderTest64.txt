@@ -3209,6 +3209,7 @@ F3 48 C7 00 A55A89AB, Mov_rm64_imm32, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=i32
 
 66 C7 F8 5AA5, Xbegin_rel16, Xbegin, 1, op0=nb64;0x7FFFFFFFFFFFA54F co=3;2;0;0;0;0
 66 C7 F8 A55A, Xbegin_rel16, Xbegin, 1, op0=nb64;0x8000000000005A9A co=3;2;0;0;0;0
+66 C7 F8 0080, Xbegin_rel16, Xbegin, 1, op0=nb64;0x7FFFFFFFFFFF7FF5 co=3;2;0;0;0;0
 66 47 C7 F8 5AA5, Xbegin_rel16, Xbegin, 1, op0=nb64;0x7FFFFFFFFFFFA550 co=4;2;0;0;0;0 enc=66C7F85BA5
 
 C7 F8 5AA51234, Xbegin_rel32, Xbegin, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
