@@ -31,6 +31,7 @@ namespace Iced.UnitTests.Intel {
 		public static bool TryNumberBase(string value, out NumberBase numberBase) => numberBaseDict.TryGetValue(value, out numberBase);
 		public static NumberBase GetNumberBase(string value) => TryNumberBase(value, out var numberBase) ? numberBase : throw new InvalidOperationException($"Invalid NumberBase value: {value}");
 		public static int NumberBaseCount => numberBaseDict.Count;
+		public static IEnumerable<NumberBase> GetNumberBaseValues() => numberBaseDict.Values;
 
 		static readonly Dictionary<string, NumberBase> numberBaseDict =
 			// GENERATOR-BEGIN: NumberBaseHash

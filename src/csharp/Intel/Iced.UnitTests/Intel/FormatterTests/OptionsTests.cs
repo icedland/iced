@@ -201,18 +201,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.Code, DecoderOptions.None, formattedString, formatter, decoder => info.Initialize(decoder));
 		}
 
-		static IEnumerable<T> GetEnumValues<T>() where T : struct {
-			var t = typeof(T);
-			if (!t.IsEnum)
-				throw new InvalidOperationException();
-			foreach (var value in Enum.GetValues(t))
-				yield return (T)value;
-		}
-
 		protected void TestOptionsBase(FormatterOptions options) {
 			{
 				int min = int.MaxValue, max = int.MinValue;
-				foreach (var value in GetEnumValues<NumberBase>()) {
+				foreach (var value in ToEnumConverter.GetNumberBaseValues()) {
 					min = Math.Min(min, (int)value);
 					max = Math.Max(max, (int)value);
 					options.NumberBase = value;
@@ -225,7 +217,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 			{
 				int min = int.MaxValue, max = int.MinValue;
-				foreach (var value in GetEnumValues<MemorySizeOptions>()) {
+				foreach (var value in ToEnumConverter.GetMemorySizeOptionsValues()) {
 					min = Math.Min(min, (int)value);
 					max = Math.Max(max, (int)value);
 					options.MemorySizeOptions = value;

@@ -30,6 +30,7 @@ namespace Iced.UnitTests.Intel {
 	static partial class ToEnumConverter {
 		public static bool TryMemorySizeOptions(string value, out MemorySizeOptions memorySizeOptions) => memorySizeOptionsDict.TryGetValue(value, out memorySizeOptions);
 		public static MemorySizeOptions GetMemorySizeOptions(string value) => TryMemorySizeOptions(value, out var memorySizeOptions) ? memorySizeOptions : throw new InvalidOperationException($"Invalid MemorySizeOptions value: {value}");
+		public static IEnumerable<MemorySizeOptions> GetMemorySizeOptionsValues() => memorySizeOptionsDict.Values;
 
 		static readonly Dictionary<string, MemorySizeOptions> memorySizeOptionsDict =
 			// GENERATOR-BEGIN: MemorySizeOptionsHash
