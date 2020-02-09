@@ -343,10 +343,6 @@ impl SymbolFlags {
 	pub const RELATIVE: u32 = 0x0000_0001;
 	/// It's a signed symbol and it should be displayed as `-symbol` or `reg-symbol` instead of `symbol` or `reg+symbol`
 	pub const SIGNED: u32 = 0x0000_0002;
-	/// Set if [`SymbolResult::symbol_size`] is valid
-	///
-	/// [`SymbolResult::symbol_size`]: struct.SymbolResult.html#variant.symbol_size
-	pub const HAS_SYMBOL_SIZE: u32 = 0x0000_0004;
 }
 // GENERATOR-END: SymbolFlags
 

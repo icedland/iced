@@ -1397,7 +1397,7 @@ impl<'a> IntelFormatter<'a> {
 		let mem_info = &d.all_memory_sizes[mem_size as usize];
 
 		if mem_size_options == MemorySizeOptions::Default {
-			if symbol.is_some() && symbol.as_ref().unwrap().has_symbol_size() {
+			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if IntelFormatter::is_same_mem_size(d, mem_info.keywords, symbol.as_ref().unwrap()) {
 					return;
 				}
@@ -1405,7 +1405,7 @@ impl<'a> IntelFormatter<'a> {
 				return;
 			}
 		} else if mem_size_options == MemorySizeOptions::Minimum {
-			if symbol.is_some() && symbol.as_ref().unwrap().has_symbol_size() {
+			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if IntelFormatter::is_same_mem_size(d, mem_info.keywords, symbol.as_ref().unwrap()) {
 					return;
 				}
@@ -1424,8 +1424,9 @@ impl<'a> IntelFormatter<'a> {
 	}
 
 	fn is_same_mem_size(d: &SelfData, mem_size_strings: &[&FormatterString], symbol: &SymbolResult) -> bool {
-		debug_assert!((symbol.symbol_size as usize) < d.all_memory_sizes.len());
-		let symbol_mem_info = &d.all_memory_sizes[symbol.symbol_size as usize];
+		let symbol_size = symbol.symbol_size.unwrap_or(MemorySize::Unknown);
+		debug_assert!((symbol_size as usize) < d.all_memory_sizes.len());
+		let symbol_mem_info = &d.all_memory_sizes[symbol_size as usize];
 		let symbol_mem_size_strings = symbol_mem_info.keywords;
 		IntelFormatter::is_same_mem_size_slice(mem_size_strings, symbol_mem_size_strings)
 	}

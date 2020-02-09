@@ -54,6 +54,8 @@ namespace Generator.Constants.Rust {
 			var sb = new StringBuilder();
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {
+					if (ShouldIgnore(constant))
+						continue;
 					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
 					sb.Clear();
 					sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
@@ -69,6 +71,13 @@ namespace Generator.Constants.Rust {
 			}
 
 			writer.WriteLine("}");
+		}
+
+		static bool ShouldIgnore(Constant constant) {
+			if (constant.DeclaringType.TypeId == TypeIds.SymbolFlags)
+				return constant.ValueUInt64 == (ulong)Enums.Formatter.SymbolFlags.HasSymbolSize;
+
+			return false;
 		}
 
 		string GetType(ConstantKind kind) {

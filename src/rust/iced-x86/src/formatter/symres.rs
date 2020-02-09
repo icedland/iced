@@ -209,10 +209,8 @@ pub struct SymbolResult<'a> {
 	/// [`SymbolFlags`]: struct.SymbolFlags.html
 	pub flags: u32,
 
-	/// Symbol size if [`has_symbol_size()`] is `true`
-	///
-	/// [`has_symbol_size()`]: #method.has_symbol_size
-	pub symbol_size: MemorySize,
+	/// Symbol size or `None`
+	pub symbol_size: Option<MemorySize>,
 }
 
 impl<'a> SymbolResult<'a> {
@@ -227,7 +225,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_str(address: u64, text: &'a str) -> Self {
-		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: None }
 	}
 
 	/// Constructor
@@ -240,7 +238,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_str_size(address: u64, text: &'a str, size: MemorySize) -> Self {
-		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+		Self { address, text: SymResTextInfo::new(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: Some(size) }
 	}
 
 	/// Constructor
@@ -253,7 +251,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_str_kind(address: u64, text: &'a str, color: FormatterTextKind) -> Self {
-		Self { address, text: SymResTextInfo::new(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text: SymResTextInfo::new(text, color), flags: SymbolFlags::NONE, symbol_size: None }
 	}
 
 	/// Constructor
@@ -269,7 +267,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_str_kind_flags(address: u64, text: &'a str, color: FormatterTextKind, flags: u32) -> Self {
-		Self { address, text: SymResTextInfo::new(text, color), flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
+		Self { address, text: SymResTextInfo::new(text, color), flags, symbol_size: None }
 	}
 
 	/// Constructor
@@ -281,12 +279,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string(address: u64, text: String) -> Self {
-		Self {
-			address,
-			text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND),
-			flags: SymbolFlags::NONE,
-			symbol_size: MemorySize::Unknown,
-		}
+		Self { address, text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: None }
 	}
 
 	/// Constructor
@@ -299,7 +292,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_size(address: u64, text: String, size: MemorySize) -> Self {
-		Self { address, text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+		Self { address, text: SymResTextInfo::with_string(text, SymbolResult::DEFAULT_KIND), flags: SymbolFlags::NONE, symbol_size: Some(size) }
 	}
 
 	/// Constructor
@@ -312,7 +305,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_kind(address: u64, text: String, color: FormatterTextKind) -> Self {
-		Self { address, text: SymResTextInfo::with_string(text, color), flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text: SymResTextInfo::with_string(text, color), flags: SymbolFlags::NONE, symbol_size: None }
 	}
 
 	/// Constructor
@@ -328,12 +321,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_string_kind_flags(address: u64, text: String, color: FormatterTextKind, flags: u32) -> Self {
-		Self {
-			address,
-			text: SymResTextInfo::with_string(text, color),
-			flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE,
-			symbol_size: MemorySize::Unknown,
-		}
+		Self { address, text: SymResTextInfo::with_string(text, color), flags, symbol_size: None }
 	}
 
 	/// Constructor
@@ -345,7 +333,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_text(address: u64, text: SymResTextInfo<'a>) -> Self {
-		Self { address, text, flags: SymbolFlags::NONE, symbol_size: MemorySize::Unknown }
+		Self { address, text, flags: SymbolFlags::NONE, symbol_size: None }
 	}
 
 	/// Constructor
@@ -358,7 +346,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_text_size(address: u64, text: SymResTextInfo<'a>, size: MemorySize) -> Self {
-		Self { address, text, flags: SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
+		Self { address, text, flags: SymbolFlags::NONE, symbol_size: Some(size) }
 	}
 
 	/// Constructor
@@ -373,7 +361,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_text_flags(address: u64, text: SymResTextInfo<'a>, flags: u32) -> Self {
-		Self { address, text, flags: flags & !SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: MemorySize::Unknown }
+		Self { address, text, flags, symbol_size: None }
 	}
 
 	/// Constructor
@@ -389,16 +377,7 @@ impl<'a> SymbolResult<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn with_text_flags_size(address: u64, text: SymResTextInfo<'a>, flags: u32, size: MemorySize) -> Self {
-		Self { address, text, flags: flags | SymbolFlags::HAS_SYMBOL_SIZE, symbol_size: size }
-	}
-
-	/// Checks whether [`symbol_size`] is valid
-	///
-	/// [`symbol_size`]: #structfield.symbol_size
-	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
-	pub fn has_symbol_size(&self) -> bool {
-		(self.flags & SymbolFlags::HAS_SYMBOL_SIZE) != 0
+		Self { address, text, flags, symbol_size: Some(size) }
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]

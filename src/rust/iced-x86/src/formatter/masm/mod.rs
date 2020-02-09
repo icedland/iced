@@ -1432,7 +1432,7 @@ impl<'a> MasmFormatter<'a> {
 		}
 
 		if mem_size_options == MemorySizeOptions::Default {
-			if symbol.is_some() && symbol.as_ref().unwrap().has_symbol_size() {
+			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if MasmFormatter::is_same_mem_size(d, mem_size_strings, mem_info.is_broadcast, symbol.as_ref().unwrap()) {
 					return;
 				}
@@ -1440,7 +1440,7 @@ impl<'a> MasmFormatter<'a> {
 				return;
 			}
 		} else if mem_size_options == MemorySizeOptions::Minimum {
-			if symbol.is_some() && symbol.as_ref().unwrap().has_symbol_size() {
+			if symbol.is_some() && symbol.as_ref().unwrap().symbol_size.is_some() {
 				if MasmFormatter::is_same_mem_size(d, mem_size_strings, mem_info.is_broadcast, symbol.as_ref().unwrap()) {
 					return;
 				}
@@ -1462,8 +1462,9 @@ impl<'a> MasmFormatter<'a> {
 		if is_broadcast {
 			return false;
 		}
-		debug_assert!((symbol.symbol_size as usize) < d.all_memory_sizes.len());
-		let symbol_mem_info = &d.all_memory_sizes[symbol.symbol_size as usize];
+		let symbol_size = symbol.symbol_size.unwrap_or(MemorySize::Unknown);
+		debug_assert!((symbol_size as usize) < d.all_memory_sizes.len());
+		let symbol_mem_info = &d.all_memory_sizes[symbol_size as usize];
 		if symbol_mem_info.is_broadcast {
 			false
 		} else {
