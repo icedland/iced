@@ -223,7 +223,7 @@ pub(crate) fn internal_set_memory_address64_hi(this: &mut Instruction, new_value
 	this.mem_displ = new_value;
 }
 
-#[cfg(any(feature = "decoder", feature = "encoder"))]
+#[cfg(feature = "decoder")]
 #[inline]
 pub(crate) fn internal_set_near_branch16(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
