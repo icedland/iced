@@ -130,12 +130,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_nop::new(v, s, unsafe { mem::transmute(v2 as u8) }))
 			}
 
-			CtorKind::nop0F1F => {
-				v = reader.read_u8() as u32;
-				v2 = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_nop0F1F::new(unsafe { mem::transmute(v as u8) }, s, v2))
-			}
-
 			CtorKind::os2 => {
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os::with_mnemonic(v, s))

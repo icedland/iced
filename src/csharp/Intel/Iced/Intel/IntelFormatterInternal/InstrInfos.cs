@@ -144,12 +144,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_nop((int)v, s, (Register)v2);
 					break;
 
-				case CtorKind.nop0F1F:
-					v = reader.ReadByte();
-					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_nop0F1F((Register)v, s, (InstrOpInfoFlags)v2);
-					break;
-
 				case CtorKind.os2:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_os((int)v, s);

@@ -719,28 +719,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_nop0F1F : InstrInfo {
-		readonly FormatterString mnemonic;
-		readonly InstrOpInfoFlags flags;
-		readonly Register register;
-
-		public SimpleInstrInfo_nop0F1F(Register register, string mnemonic, InstrOpInfoFlags flags) {
-			this.mnemonic = new FormatterString(mnemonic);
-			this.flags = flags;
-			this.register = register;
-		}
-
-		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
-			Debug.Assert(instruction.OpCount == 1, "Instruction is fixed, remove this class");
-			info = new InstrOpInfo(mnemonic, instruction, flags);
-			info.OpCount++;
-			info.Op1Kind = InstrOpKind.Register;
-			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-			info.Op1Register = (byte)register;
-			info.Op1Index = OpAccess_None;
-		}
-	}
-
 	sealed class SimpleInstrInfo_k1 : InstrInfo {
 		readonly FormatterString mnemonic;
 

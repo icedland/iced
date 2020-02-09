@@ -44,7 +44,6 @@ namespace Generator.Enums.Formatter.Intel {
 		memsize,
 		movabs,
 		nop,
-		nop0F1F,
 		os2,
 		os3,
 		os_bnd,

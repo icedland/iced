@@ -833,32 +833,6 @@ impl InstrInfo for SimpleInstrInfo_xbegin {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_nop0F1F {
-	mnemonic: FormatterString,
-	flags: u32,
-	register: Register,
-}
-
-impl SimpleInstrInfo_nop0F1F {
-	pub(super) fn new(register: Register, mnemonic: String, flags: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), flags, register }
-	}
-}
-
-impl InstrInfo for SimpleInstrInfo_nop0F1F {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		debug_assert_eq!(1, instruction.op_count(), "Instruction is fixed, remove this class");
-		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
-		info.op_count += 1;
-		info.op1_kind = InstrOpKind::Register;
-		const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
-		info.op1_register = self.register as u8;
-		info.op1_index = InstrInfoConstants::OP_ACCESS_NONE;
-		info
-	}
-}
-
-#[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_k1 {
 	mnemonic: FormatterString,
 }

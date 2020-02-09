@@ -1419,12 +1419,12 @@ bndmov [rax], bnd1
 bndmk bnd1, [rax]
 bndcn bnd1, rdx
 bndcn bnd1, [rax]
-nop cx, ax
-nop word ptr [rax], ax
-nop ecx, eax
-nop dword ptr [rax], eax
-nop rcx, rax
-nop qword ptr [rax], rax
+nop cx
+nop word ptr [rax]
+nop ecx
+nop dword ptr [rax]
+nop rcx
+nop qword ptr [rax]
 mov rsi, cr3
 mov rsi, dr3
 mov cr3, rsi
