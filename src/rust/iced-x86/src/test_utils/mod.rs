@@ -42,6 +42,12 @@ fn get_unit_tests_base_dir() -> PathBuf {
 	path
 }
 
+pub(crate) fn get_instruction_unit_tests_dir() -> PathBuf {
+	let mut path = get_unit_tests_base_dir();
+	path.push("Instruction");
+	path
+}
+
 #[cfg(feature = "decoder")]
 pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();

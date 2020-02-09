@@ -21,7 +21,26 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-mod instr_misc;
-mod va;
-mod va_test_case;
-mod va_test_parser;
+use super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::test_utils::{create_decoder, get_instruction_unit_tests_dir};
+use super::va_test_parser::*;
+
+#[test]
+fn va_tests() {
+	let mut path = get_instruction_unit_tests_dir();
+	path.push("VirtualAddressTests.txt");
+	for tc in VirtualAddressTestParser::new(&path) {
+		let bytes = to_vec_u8(&tc.hex_bytes).unwrap();
+		let mut decoder = create_decoder(tc.bitness, &bytes, 0).0;
+		let instruction = decoder.decode();
+		let value1 = instruction.virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
+			for reg_value in tc.register_values.iter() {
+				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
+					return reg_value.value;
+				}
+			}
+			panic!();
+		});
+		assert_eq!(tc.expected_value, value1);
+	}
+}

@@ -21,7 +21,24 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-mod instr_misc;
-mod va;
-mod va_test_case;
-mod va_test_parser;
+use super::super::Register;
+#[cfg(not(feature = "std"))]
+use alloc::string::String;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+
+pub(super) struct VARegisterValue {
+	pub(super) register: Register,
+	pub(super) element_index: usize,
+	pub(super) element_size: usize,
+	pub(super) value: u64,
+}
+
+pub(super) struct VirtualAddressTestCase {
+	pub(super) bitness: u32,
+	pub(super) hex_bytes: String,
+	pub(super) operand: u32,
+	pub(super) element_index: usize,
+	pub(super) expected_value: u64,
+	pub(super) register_values: Vec<VARegisterValue>,
+}
