@@ -42,7 +42,7 @@ use self::instr_infos::*;
 use super::super::encoder::tests::non_decoded_tests;
 use super::super::test_utils::create_decoder;
 use super::super::test_utils::from_str_conv::to_vec_u8;
-use super::super::{Code, Decoder, Instruction};
+use super::super::{Code, Decoder, DecoderOptions, Instruction};
 use super::Formatter;
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
@@ -168,4 +168,28 @@ fn simple_format_test<F: Fn(&mut Decoder)>(
 	let mut output = String::new();
 	formatter.format(&instruction, &mut output);
 	assert_eq!(formatted_string, output);
+}
+
+#[test]
+#[cfg_attr(feature = "cargo-clippy", allow(clippy::same_functions_in_if_condition))]
+#[cfg_attr(feature = "cargo-clippy", allow(clippy::if_same_then_else))]
+fn display_trait() {
+	let bytes = b"\x00\xCE";
+	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	let instr = decoder.decode();
+	let expected = if cfg!(feature = "masm") {
+		"add dh,cl"
+	} else if cfg!(feature = "nasm") {
+		"add dh,cl"
+	} else if cfg!(feature = "intel") {
+		"add dh,cl"
+	} else if cfg!(feature = "gas") {
+		"add %cl,%dh"
+	} else {
+		unreachable!()
+	};
+	let actual = format!("{}", instr);
+	assert_eq!(expected, actual);
+	let actual = instr.to_string();
+	assert_eq!(expected, actual);
 }
