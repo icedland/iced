@@ -62,6 +62,7 @@ namespace Generator.Enums.Formatter.Intel {
 		STi_ST,
 		xbegin,
 		YA,
+		invlpga,
 	}
 
 	static class CtorKindEnum {

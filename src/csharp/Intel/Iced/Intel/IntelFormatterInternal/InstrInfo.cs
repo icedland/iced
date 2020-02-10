@@ -987,6 +987,48 @@ namespace Iced.Intel.IntelFormatterInternal {
 		}
 	}
 
+	sealed class SimpleInstrInfo_invlpga : InstrInfo {
+		readonly int bitness;
+		readonly FormatterString mnemonic;
+
+		public SimpleInstrInfo_invlpga(int bitness, string mnemonic) {
+			this.bitness = bitness;
+			this.mnemonic = new FormatterString(mnemonic);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = default;
+			info.Mnemonic = mnemonic;
+			info.OpCount = 2;
+			info.Op0Kind = InstrOpKind.Register;
+			info.Op1Kind = InstrOpKind.Register;
+			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+			info.Op1Register = (byte)Register.ECX;
+			info.Op0Index = OpAccess_Read;
+			info.Op1Index = OpAccess_Read;
+
+			switch (bitness) {
+			case 16:
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op0Register = (byte)Register.AX;
+				break;
+
+			case 32:
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op0Register = (byte)Register.EAX;
+				break;
+
+			case 64:
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op0Register = (byte)Register.RAX;
+				break;
+
+			default:
+				throw new InvalidOperationException();
+			}
+		}
+	}
+
 	sealed class SimpleInstrInfo_DeclareData : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly InstrOpKind opKind;

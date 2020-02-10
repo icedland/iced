@@ -591,7 +591,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>rep stosd</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercasePrefixes) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCasePrefixes {
 			get => UppercasePrefixes;
@@ -607,7 +607,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov rcx,rax</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseMnemonics) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseMnemonics {
 			get => UppercaseMnemonics;
@@ -623,7 +623,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov rcx,[rax+rdx*8]</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseRegisters) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseRegisters {
 			get => UppercaseRegisters;
@@ -639,7 +639,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov byte ptr [rcx],12h</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseKeywords) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseKeywords {
 			get => UppercaseKeywords;
@@ -655,7 +655,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseDecorators) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseDecorators {
 			get => UppercaseDecorators;
@@ -671,7 +671,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>mov eax,gs:[rcx*4+0ffh]</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseAll) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseAll {
 			get => UppercaseAll;
@@ -687,7 +687,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <see langword="false"/>: <c>0xff</c>
 		/// </summary>
-		[System.Obsolete("Use " + nameof(DisplacementLeadingZeroes) + " instead of this property", true)]
+		[System.Obsolete("Use " + nameof(UppercaseHex) + " instead of this property", true)]
 		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
 		public bool UpperCaseHex {
 			get => UppercaseHex;

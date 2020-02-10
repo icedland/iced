@@ -236,6 +236,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_YA(s);
 					break;
 
+				case CtorKind.invlpga:
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_invlpga((int)v, s);
+					break;
+
 				default:
 					throw new InvalidOperationException();
 				}

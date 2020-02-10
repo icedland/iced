@@ -521,14 +521,14 @@ mov cl, fs:[bp+0x1234]
 mov cl, fs:[bx+0x1234]
 arpl dx, si
 arpl [bx+si], bx
-vmrun
-addr32 vmrun
-vmload
-addr32 vmload
-vmsave
-addr32 vmsave
-invlpga
-addr32 invlpga
+vmrun ax
+vmrun eax
+vmload ax
+vmload eax
+vmsave ax
+vmsave eax
+invlpga ax, ecx
+invlpga eax, ecx
 monitorx
 addr32 monitorx
 clzero ax

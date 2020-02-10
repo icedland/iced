@@ -65,6 +65,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 		STi_ST,
 		xbegin,
 		YA,
+		invlpga,
 	}
 }
 #endif

@@ -3488,53 +3488,53 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x84, 0x07,// 900 = "enclu"
 
 				// Vmrunw
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDD, 0x03,// 477 = "vmrun"
-				0x10,// 0x10
+				0x15,// AX
 
 				// Vmrund
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDD, 0x03,// 477 = "vmrun"
-				0x20,// 0x20
+				0x25,// EAX
 
 				// Vmrunq
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDD, 0x03,// 477 = "vmrun"
-				0x40,// 0x40
+				0x35,// RAX
 
 				// Vmmcall
 				0x81,// 'v', Normal_1
 				0xB2, 0x08,// 1074 = "vmmcall"
 
 				// Vmloadw
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xD5, 0x03,// 469 = "vmload"
-				0x10,// 0x10
+				0x15,// AX
 
 				// Vmloadd
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xD5, 0x03,// 469 = "vmload"
-				0x20,// 0x20
+				0x25,// EAX
 
 				// Vmloadq
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xD5, 0x03,// 469 = "vmload"
-				0x40,// 0x40
+				0x35,// RAX
 
 				// Vmsavew
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDE, 0x03,// 478 = "vmsave"
-				0x10,// 0x10
+				0x15,// AX
 
 				// Vmsaved
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDE, 0x03,// 478 = "vmsave"
-				0x20,// 0x20
+				0x25,// EAX
 
 				// Vmsaveq
-				0x83,// 'v', asz
+				0x9C,// 'v', reg
 				0xDE, 0x03,// 478 = "vmsave"
-				0x40,// 0x40
+				0x35,// RAX
 
 				// Stgi
 				0x01,// Normal_1
@@ -3550,17 +3550,17 @@ namespace Iced.Intel.IntelFormatterInternal {
 				0x25,// EAX
 
 				// Invlpgaw
-				0x03,// asz
+				0x25,// invlpga
 				0xC1, 0x03,// 449 = "invlpga"
 				0x10,// 0x10
 
 				// Invlpgad
-				0x03,// asz
+				0x25,// invlpga
 				0xC1, 0x03,// 449 = "invlpga"
 				0x20,// 0x20
 
 				// Invlpgaq
-				0x03,// asz
+				0x25,// invlpga
 				0xC1, 0x03,// 449 = "invlpga"
 				0x40,// 0x40
 

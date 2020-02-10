@@ -1164,6 +1164,51 @@ impl InstrInfo for SimpleInstrInfo_reg {
 }
 
 #[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_invlpga {
+	mnemonic: FormatterString,
+	bitness: u32,
+}
+
+impl SimpleInstrInfo_invlpga {
+	pub(super) fn new(bitness: u32, mnemonic: String) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic), bitness }
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_invlpga {
+	fn op_info<'a>(&'a self, _options: &FormatterOptions, _instruction: &Instruction) -> InstrOpInfo<'a> {
+		let mut info = InstrOpInfo::default(&self.mnemonic);
+		info.op_count = 2;
+		info.op0_kind = InstrOpKind::Register;
+		info.op1_kind = InstrOpKind::Register;
+		const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+		info.op1_register = Register::ECX as u8;
+		info.op0_index = InstrInfoConstants::OP_ACCESS_READ;
+		info.op1_index = InstrInfoConstants::OP_ACCESS_READ;
+
+		match self.bitness {
+			16 => {
+				const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+				info.op0_register = Register::AX as u8;
+			}
+
+			32 => {
+				const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+				info.op0_register = Register::EAX as u8;
+			}
+
+			64 => {
+				const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+				info.op0_register = Register::RAX as u8;
+			}
+
+			_ => unreachable!(),
+		}
+		info
+	}
+}
+
+#[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_DeclareData {
 	mnemonic: FormatterString,
 	op_kind: InstrOpKind,

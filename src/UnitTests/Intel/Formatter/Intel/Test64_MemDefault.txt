@@ -7447,18 +7447,18 @@ vsqrtss xmm2{k3}{z}{rne-sae},xmm6,xmm3
 vsqrtss xmm2{k3}{z}{rd-sae},xmm6,xmm3
 vsqrtss xmm2{k3}{z}{ru-sae},xmm6,xmm3
 vsqrtss xmm2{k3}{z}{rz-sae},xmm6,xmm3
-addr32 vmrun
-vmrun
+vmrun eax
+vmrun rax
 vmmcall
-addr32 vmload
-vmload
-addr32 vmsave
-vmsave
+vmload eax
+vmload rax
+vmsave eax
+vmsave rax
 stgi
 clgi
 skinit eax
-addr32 invlpga
-invlpga
+invlpga eax,ecx
+invlpga rax,ecx
 addr32 monitorx
 monitorx
 mcommit
