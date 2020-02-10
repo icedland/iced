@@ -243,7 +243,7 @@ jobs:
           cd src/rust/iced-x86
           echo ==== UPDATE Cargo.lock ====
           cargo +1.20.0 generate-lockfile
-          cargo +1.20.0 update --package lazy_static --precise 1.1.0
+          cargo +1.20.0 update --package lazy_static --precise 1.1.1
           echo ==== BUILD DEBUG ====
           cargo +1.20.0 build --color always
           echo ==== TEST DEBUG ====
