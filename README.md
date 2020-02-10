@@ -896,7 +896,7 @@ static class HowTo_GetVirtualAddress {
         var decoder = Decoder.Create(64, reader);
         var instr = decoder.Decode();
 
-        var va = instr.GetVirtualAddress(0, 0, (register, element_index, element_size) => {
+        var va = instr.GetVirtualAddress(0, 0, (register, elementIndex, elementSize) => {
             switch (register) {
             // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
             case Register.ES:
