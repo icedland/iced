@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86"
-version = "0.0.0"# Update html_root_url in lib.rs
+version = "0.0.0"# Update html_root_url in lib.rs and usage section in lib.rs/README and version numbers in README docs.rs links
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust"
@@ -36,7 +36,7 @@ version = "0.3.4"
 
 # if: decoder or encoder or gas or intel or masm or nasm
 [dependencies.lazy_static]
-version = "1.1.0"
+version = "1.1.1"
 # It's not really optional, std or no_std must be used and they both require it.
 optional = true
 

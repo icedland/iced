@@ -247,8 +247,8 @@ jobs:
           echo ==== BUILD DEBUG ====
           cargo +1.20.0 build --color always
           echo ==== TEST DEBUG ====
-          cargo +1.20.0 test --color always
+          cargo +1.20.0 test --color always -- --skip "lib.rs"
           echo ==== BUILD RELEASE ====
           cargo +1.20.0 build --color always --release
           echo ==== TEST RELEASE ====
-          cargo +1.20.0 test --color always --release
+          cargo +1.20.0 test --color always --release -- --skip "lib.rs"

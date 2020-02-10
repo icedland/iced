@@ -1,24 +1,22 @@
 # Iced [![NuGet](https://img.shields.io/nuget/v/Iced.svg)](https://www.nuget.org/packages/Iced/) [![GitHub builds](https://github.com/0xd4d/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/0xd4d/iced/actions) [![codecov](https://codecov.io/gh/0xd4d/iced/branch/master/graph/badge.svg)](https://codecov.io/gh/0xd4d/iced)
 
-
 <img align="right" width="160px" height="160px" src="logo.png">
 
-High performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler.
-It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
+Iced is a high performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#. It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. remove garbage instructions), to relocate code or as a disassembler.
 
-- Supports all Intel and AMD instructions
-- High level [Assembler](#assemble-instructions) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
-- [Decoding](#disassemble-decode-and-format-instructions) and disassembler support:
-  - The decoder doesn't allocate any memory and is 2x-5x+ faster than other similar libraries written in C or C#
-  - Small decoded instructions, only 32 bytes
-  - The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- Encoding support:  
-  - The encoder can be used to re-encode decoded instructions at any address
-  - The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
-- API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
-- All instructions are tested (decode, encode, format, instruction info)
-- Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
-- License: MIT
+- ✔️Supports all Intel and AMD instructions
+- ✔️High level [Assembler](#assemble-instructions) providing a simple and lean syntax (e.g `asm.mov(eax, edx)`))
+- ✔️[Decoding](#disassemble-decode-and-format-instructions) and disassembler support:
+  - ✔️The decoder doesn't allocate any memory; the C# code is 2x-5x+ faster than other similar libraries written in C or C#
+  - ✔️Small decoded instructions, only 32 bytes
+  - ✔️The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
+- ✔️Encoding support:  
+  - ✔️The encoder can be used to re-encode decoded instructions at any address
+  - ✔️The block encoder encodes a list of instructions and optimizes branches to short, near or 'long' (64-bit: 1 or more instructions)
+- ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
+- ✔️All instructions are tested (decode, encode, format, instruction info)
+- ✔️Supports `.NET Standard 2.0/2.1+` and `.NET Framework 4.5+`
+- ✔️License: MIT
 
 # Classes
 
@@ -79,6 +77,7 @@ Instruction info:
 - [Disassemble with colorized text](#disassemble-with-colorized-text)
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
+- [Get the virtual address of a memory operand](#get-the-virtual-address-of-a-memory-operand)
 
 ## Disassemble (decode and format instructions)
 
@@ -168,27 +167,27 @@ using static Iced.Intel.AssemblerRegisters;
 static class HowTo_Assemble {
     /*
      * This method produces the following output:
-10000000 = push r15
-10000002 = add rax,r15
-10000005 = mov rax,[rax]
-10000008 = mov rax,[rax]
-1000000B = cmp dword ptr [rax+rcx*8+10h],0FFFFFFFFh
-10000010 = jne short 000000001000003Dh
-10000012 = inc rax
-10000015 = lea rcx,[10000040h]
-1000001C = rep stosd
-1000001E = xacquire lock add qword ptr [rax+rcx],7Bh
-10000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
-1000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
-10000031 = inc rax
-10000034 = je short 0000000010000031h
-10000036 = inc rcx
-10000039 = je short 000000001000003Ch
-1000003B = nop
-1000003C = nop
-1000003D = pop r15
-1000003F = ret
-10000040 = pause
+1234567810000000 = push r15
+1234567810000002 = add rax,r15
+1234567810000005 = mov rax,[rax]
+1234567810000008 = mov rax,[rax]
+123456781000000B = cmp dword ptr [rax+rcx*8+10h],0FFFFFFFFh
+1234567810000010 = jne short 123456781000003Dh
+1234567810000012 = inc rax
+1234567810000015 = lea rcx,[1234567810000040h]
+123456781000001C = rep stosd
+123456781000001E = xacquire lock add qword ptr [rax+rcx],7Bh
+1234567810000025 = vaddpd zmm1{k3}{z},zmm2,zmm3 {rz-sae}
+123456781000002B = vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax]
+1234567810000031 = inc rax
+1234567810000034 = je short 1234567810000031h
+1234567810000036 = inc rcx
+1234567810000039 = je short 123456781000003Ch
+123456781000003B = nop
+123456781000003C = nop
+123456781000003D = pop r15
+123456781000003F = ret
+1234567810000040 = pause
      */
     public static MemoryStream Example() {
         // The assembler supports all modes: 16-bit, 32-bit and 64-bit.
@@ -242,7 +241,7 @@ static class HowTo_Assemble {
         c.Label(ref data1);
         c.db(0xF3, 0x90); // pause
 
-        const ulong RIP = 0x1000_0000;
+        const ulong RIP = 0x1234_5678_1000_0000;
         var stream = new MemoryStream();
         c.Assemble(new StreamCodeWriter(stream), RIP);
 
@@ -822,54 +821,53 @@ static class HowTo_InstructionInfo {
             var opCode = instr.OpCode;
             // It returns it by ref, so use `ref readonly` to avoid a useless struct copy
             ref readonly var info = ref instrInfoFactory.GetInfo(instr);
-            const string tab = "    ";
-            Console.WriteLine($"{tab}OpCode: {opCode.ToOpCodeString()}");
-            Console.WriteLine($"{tab}Instruction: {opCode.ToInstructionString()}");
-            Console.WriteLine($"{tab}Encoding: {instr.Encoding}");
-            Console.WriteLine($"{tab}Mnemonic: {instr.Mnemonic}");
-            Console.WriteLine($"{tab}Code: {instr.Code}");
-            Console.WriteLine($"{tab}CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
-            Console.WriteLine($"{tab}FlowControl: {instr.FlowControl}");
+            Console.WriteLine($"    OpCode: {opCode.ToOpCodeString()}");
+            Console.WriteLine($"    Instruction: {opCode.ToInstructionString()}");
+            Console.WriteLine($"    Encoding: {instr.Encoding}");
+            Console.WriteLine($"    Mnemonic: {instr.Mnemonic}");
+            Console.WriteLine($"    Code: {instr.Code}");
+            Console.WriteLine($"    CpuidFeature: {string.Join(" and ", instr.CpuidFeatures)}");
+            Console.WriteLine($"    FlowControl: {instr.FlowControl}");
             if (offsets.HasDisplacement)
-                Console.WriteLine($"{tab}Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
+                Console.WriteLine($"    Displacement offset = {offsets.DisplacementOffset}, size = {offsets.DisplacementSize}");
             if (offsets.HasImmediate)
-                Console.WriteLine($"{tab}Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
+                Console.WriteLine($"    Immediate offset = {offsets.ImmediateOffset}, size = {offsets.ImmediateSize}");
             if (offsets.HasImmediate2)
-                Console.WriteLine($"{tab}Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
+                Console.WriteLine($"    Immediate #2 offset = {offsets.ImmediateOffset2}, size = {offsets.ImmediateSize2}");
             if (instr.IsStackInstruction)
-                Console.WriteLine($"{tab}SP Increment: {instr.StackPointerIncrement}");
+                Console.WriteLine($"    SP Increment: {instr.StackPointerIncrement}");
             if (instr.ConditionCode != ConditionCode.None)
-                Console.WriteLine($"{tab}Condition code: {instr.ConditionCode}");
+                Console.WriteLine($"    Condition code: {instr.ConditionCode}");
             if (instr.RflagsRead != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Read: {instr.RflagsRead}");
+                Console.WriteLine($"    RFLAGS Read: {instr.RflagsRead}");
             if (instr.RflagsWritten != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Written: {instr.RflagsWritten}");
+                Console.WriteLine($"    RFLAGS Written: {instr.RflagsWritten}");
             if (instr.RflagsCleared != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Cleared: {instr.RflagsCleared}");
+                Console.WriteLine($"    RFLAGS Cleared: {instr.RflagsCleared}");
             if (instr.RflagsSet != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Set: {instr.RflagsSet}");
+                Console.WriteLine($"    RFLAGS Set: {instr.RflagsSet}");
             if (instr.RflagsUndefined != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Undefined: {instr.RflagsUndefined}");
+                Console.WriteLine($"    RFLAGS Undefined: {instr.RflagsUndefined}");
             if (instr.RflagsModified != RflagsBits.None)
-                Console.WriteLine($"{tab}RFLAGS Modified: {instr.RflagsModified}");
+                Console.WriteLine($"    RFLAGS Modified: {instr.RflagsModified}");
             for (int i = 0; i < instr.OpCount; i++) {
                 var opKind = instr.GetOpKind(i);
                 if (opKind == OpKind.Memory || opKind == OpKind.Memory64) {
                     int size = instr.MemorySize.GetSize();
                     if (size != 0)
-                        Console.WriteLine($"{tab}Memory size: {size}");
+                        Console.WriteLine($"    Memory size: {size}");
                     break;
                 }
             }
             for (int i = 0; i < instr.OpCount; i++)
-                Console.WriteLine($"{tab}Op{i}Access: {info.GetOpAccess(i)}");
+                Console.WriteLine($"    Op{i}Access: {info.GetOpAccess(i)}");
             for (int i = 0; i < opCode.OpCount; i++)
-                Console.WriteLine($"{tab}Op{i}: {opCode.GetOpKind(i)}");
+                Console.WriteLine($"    Op{i}: {opCode.GetOpKind(i)}");
             // The returned iterator is a struct, nothing is allocated unless you box it
             foreach (var regInfo in info.GetUsedRegisters())
-                Console.WriteLine($"{tab}Used reg: {regInfo.ToString()}");
+                Console.WriteLine($"    Used reg: {regInfo.ToString()}");
             foreach (var memInfo in info.GetUsedMemory())
-                Console.WriteLine($"{tab}Used mem: {memInfo.ToString()}");
+                Console.WriteLine($"    Used mem: {memInfo.ToString()}");
         }
     }
 
@@ -881,6 +879,41 @@ static class HowTo_InstructionInfo {
         0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
         0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
     };
+}
+```
+
+## Get the virtual address of a memory operand
+
+```C#
+using System;
+using System.Diagnostics;
+using Iced.Intel;
+
+static class HowTo_GetVirtualAddress {
+    public static void Example() {
+        // add [rdi+r12*8-5AA5EDCCh],esi
+        var reader = new ByteArrayCodeReader("4201B4E734125AA5");
+        var decoder = Decoder.Create(64, reader);
+        var instr = decoder.Decode();
+
+        var va = instr.GetVirtualAddress(0, 0, (register, element_index, element_size) => {
+            switch (register) {
+            // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
+            case Register.ES:
+            case Register.CS:
+            case Register.SS:
+            case Register.DS:
+                return 0;
+            case Register.RDI:
+                return 0x0000_0000_1000_0000;
+            case Register.R12:
+                return 0x0000_0004_0000_0000;
+            default:
+                throw new NotImplementedException();
+            }
+        });
+        Debug.Assert(va == 0x0000_001F_B55A_1234);
+    }
 }
 ```
 
