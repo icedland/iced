@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod instr_misc;
+mod reg;
 mod va;
 mod va_test_case;
 mod va_test_parser;
