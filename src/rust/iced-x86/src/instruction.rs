@@ -3236,7 +3236,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem(code: Code, memory: &MemoryOperand) -> Self {
+	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3393,7 +3393,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_mem(code: Code, register: Register, memory: &MemoryOperand) -> Self {
+	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3532,7 +3532,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_reg(code: Code, memory: &MemoryOperand, register: Register) -> Self {
+	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3567,7 +3567,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_i32(code: Code, memory: &MemoryOperand, immediate: i32) -> Self {
+	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3600,7 +3600,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_u32(code: Code, memory: &MemoryOperand, immediate: u32) -> Self {
+	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3727,7 +3727,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: &MemoryOperand) -> Self {
+	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3825,7 +3825,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: &MemoryOperand, register2: Register) -> Self {
+	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3865,7 +3865,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_mem_i32(code: Code, register: Register, memory: &MemoryOperand, immediate: i32) -> Self {
+	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3903,7 +3903,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_mem_u32(code: Code, register: Register, memory: &MemoryOperand, immediate: u32) -> Self {
+	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3937,7 +3937,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_reg_reg(code: Code, memory: &MemoryOperand, register1: Register, register2: Register) -> Self {
+	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -3977,7 +3977,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_reg_i32(code: Code, memory: &MemoryOperand, register: Register, immediate: i32) -> Self {
+	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4015,7 +4015,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_mem_reg_u32(code: Code, memory: &MemoryOperand, register: Register, immediate: u32) -> Self {
+	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4162,7 +4162,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand) -> Self {
+	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4275,7 +4275,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register) -> Self {
+	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4320,7 +4320,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, immediate: i32) -> Self {
+	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4363,7 +4363,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, immediate: u32) -> Self {
+	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4493,7 +4493,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand, immediate: i32) -> Self {
+	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4541,7 +4541,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: &MemoryOperand, immediate: u32) -> Self {
+	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4589,7 +4589,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register, immediate: i32) -> Self {
+	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 
@@ -4637,7 +4637,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: &MemoryOperand, register3: Register, immediate: u32) -> Self {
+	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, code);
 

@@ -48,7 +48,7 @@ fn eq_and_hash_ignore_some_fields() {
 		Code::VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2,
 		Register::XMM1,
 		Register::XMM2,
-		&MemoryOperand::new(Register::RCX, Register::R14, 8, 0x1234_5678, 8, false, Register::FS),
+		MemoryOperand::new(Register::RCX, Register::R14, 8, 0x1234_5678, 8, false, Register::FS),
 		Register::XMM10,
 		0xA5,
 	);

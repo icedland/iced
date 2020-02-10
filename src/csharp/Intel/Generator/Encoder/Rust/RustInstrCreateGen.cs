@@ -88,7 +88,7 @@ namespace Generator.Encoder.Rust {
 					writer.Write(RepPrefixKindEnum.Instance.Name(idConverter));
 					break;
 				case MethodArgType.Memory:
-					writer.Write("&MemoryOperand");
+					writer.Write("MemoryOperand");
 					break;
 				case MethodArgType.UInt8:
 					writer.Write("u8");

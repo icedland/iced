@@ -200,13 +200,13 @@ pub(crate) fn how_to_encode_instructions() {
     instructions.push(Instruction::with_reg_mem(
         Code::Lea_r64_m,
         Register::RBP,
-        &MemoryOperand::with_base_displ(Register::RSP, 0x60),
+        MemoryOperand::with_base_displ(Register::RSP, 0x60),
     ));
     instructions.push(Instruction::with_reg_reg(Code::Mov_r64_rm64, Register::RSI, Register::RCX));
     instructions.push(Instruction::with_reg_mem(
         Code::Lea_r64_m,
         Register::RDI,
-        &MemoryOperand::with_base_displ(Register::RBP, -0x38),
+        MemoryOperand::with_base_displ(Register::RBP, -0x38),
     ));
     instructions.push(Instruction::with_reg_i32(Code::Mov_r32_imm32, Register::ECX, 0x0A));
     instructions.push(Instruction::with_reg_reg(Code::Xor_r32_rm32, Register::EAX, Register::EAX));
@@ -226,7 +226,7 @@ pub(crate) fn how_to_encode_instructions() {
     instructions.push(Instruction::with_reg_mem(
         Code::Lea_r64_m,
         Register::R14,
-        &MemoryOperand::with_base_displ(Register::RIP, data1 as i32),
+        MemoryOperand::with_base_displ(Register::RIP, data1 as i32),
     ));
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
