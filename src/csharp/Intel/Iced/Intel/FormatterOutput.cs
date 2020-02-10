@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 namespace Iced.Intel {
 	/// <summary>
 	/// Used by a <see cref="Formatter"/> to write all text

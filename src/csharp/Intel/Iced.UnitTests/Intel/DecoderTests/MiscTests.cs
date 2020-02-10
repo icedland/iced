@@ -90,7 +90,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			}
 		}
 
-#if !NO_ENCODER
+#if ENCODER
 		[Fact]
 		void Verify_invalid_and_valid_lock_prefix() {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
@@ -318,7 +318,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static int GetSize(Register reg) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 			return reg.GetSize();
 #else
 			if (Register.AX <= reg && reg <= Register.R15W)
@@ -332,7 +332,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		}
 
 		static int GetNumber(Register reg) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 			return reg.GetNumber();
 #else
 			if (Register.AL <= reg && reg <= Register.R15L)
@@ -3186,7 +3186,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, null, DecoderOptions.None));
 		}
 
-#if !NO_ENCODER
+#if ENCODER
 		[Fact]
 		void Instruction_operator_eq_neq() {
 			var instr1a = Instruction.Create(Code.Mov_r64_rm64, Register.RAX, Register.RCX);

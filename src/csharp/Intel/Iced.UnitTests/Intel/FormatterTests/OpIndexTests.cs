@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 using System;
 using Iced.Intel;
 using Xunit;
@@ -49,7 +49,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 						Assert.True(instrOpIndex < instrOpCount);
 						instrToFormatter[instrOpIndex] = formatterOpIndex;
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 						Assert.False(formatter.TryGetOpAccess(instruction, formatterOpIndex, out var access));
 						Assert.Equal(OpAccess.None, access);
 #endif
@@ -62,7 +62,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 					}
 					else {
 						Assert.Equal(-1, instrOpIndex);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 						Assert.True(formatter.TryGetOpAccess(instruction, formatterOpIndex, out var access));
 						Assert.True(access >= OpAccess.None && access <= OpAccess.NoMemAccess);
 #endif

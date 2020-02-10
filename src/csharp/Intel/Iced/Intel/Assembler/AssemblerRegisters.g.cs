@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_ENCODER
+#if ENCODER
 namespace Iced.Intel {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	public static partial class AssemblerRegisters {

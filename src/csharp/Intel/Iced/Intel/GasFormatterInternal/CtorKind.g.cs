@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_GAS
+#if GAS
 namespace Iced.Intel.GasFormatterInternal {
 	enum CtorKind {
 		Previous,

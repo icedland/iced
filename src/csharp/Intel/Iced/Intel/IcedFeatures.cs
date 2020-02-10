@@ -33,7 +33,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasGasFormatter {
 			get {
-#if !NO_GAS
+#if GAS
 				return true;
 #else
 				return false;
@@ -46,7 +46,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasIntelFormatter {
 			get {
-#if !NO_INTEL
+#if INTEL
 				return true;
 #else
 				return false;
@@ -59,7 +59,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasMasmFormatter {
 			get {
-#if !NO_MASM
+#if MASM
 				return true;
 #else
 				return false;
@@ -72,7 +72,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasNasmFormatter {
 			get {
-#if !NO_NASM
+#if NASM
 				return true;
 #else
 				return false;
@@ -85,7 +85,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasDecoder {
 			get {
-#if !NO_DECODER
+#if DECODER
 				return true;
 #else
 				return false;
@@ -98,7 +98,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasEncoder {
 			get {
-#if !NO_ENCODER
+#if ENCODER
 				return true;
 #else
 				return false;
@@ -111,7 +111,7 @@ namespace Iced.Intel {
 		/// </summary>
 		public static bool HasInstructionInfo {
 			get {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				return true;
 #else
 				return false;
@@ -130,7 +130,7 @@ namespace Iced.Intel {
 		/// in a method called by Main().
 		/// </summary>
 		public static void Initialize() {
-#if !NO_DECODER
+#if DECODER
 			// The decoder already initializes this stuff, but when it's called, it's a little bit too late.
 			RuntimeHelpers.RunClassConstructor(typeof(Decoder).TypeHandle);
 #endif

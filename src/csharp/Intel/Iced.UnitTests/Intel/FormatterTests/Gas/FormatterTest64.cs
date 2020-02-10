@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS
+#if GAS
 using System.Collections.Generic;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
@@ -39,7 +39,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 		void Format_NoSuffix(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_NoSuffix());
 		public static IEnumerable<object[]> Format_Data_NoSuffix => GetFormatData(64, "Gas", "NoSuffix");
 
-#if !NO_ENCODER
+#if ENCODER
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_ForceSuffix))]
 		void Format_NonDec_ForceSuffix(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_ForceSuffix());

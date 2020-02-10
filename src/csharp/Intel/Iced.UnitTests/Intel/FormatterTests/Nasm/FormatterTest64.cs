@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_NASM
+#if NASM
 using System.Collections.Generic;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
@@ -44,7 +44,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 		void Format_MemMinimum(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemMinimum());
 		public static IEnumerable<object[]> Format_Data_MemMinimum => GetFormatData(64, "Nasm", "MemMinimum");
 
-#if !NO_ENCODER
+#if ENCODER
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_MemAlways))]
 		void Format_NonDec_MemAlways(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_MemAlways());

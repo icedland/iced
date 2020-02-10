@@ -25,32 +25,32 @@ jobs:
         shell: pwsh
         run: |
           foreach ($def in
-              "NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_DECODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_DECODER;NO_ENCODER;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_MASM;NO_NASM",
-              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_NASM",
-              "NO_DECODER;NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM"
+              "DECODER",
+              "ENCODER",
+              "INSTR_INFO",
+              "GAS",
+              "INTEL",
+              "MASM",
+              "NASM"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
-            $env:MoreDefineConstants=$def
+            $env:IcedFeatureFlags=$def
             dotnet build -v:m -c Release src/csharp/Intel/Iced/Iced.csproj
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
           }
           foreach ($def in
-              "NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_ENCODER;NO_GAS;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_ENCODER;NO_INSTR_INFO;NO_INTEL;NO_MASM;NO_NASM",
-              "NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_MASM;NO_NASM",
-              "NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_NASM",
-              "NO_ENCODER;NO_INSTR_INFO;NO_GAS;NO_INTEL;NO_MASM"
+              "DECODER",
+              "DECODER;ENCODER",
+              "DECODER;INSTR_INFO",
+              "DECODER;GAS",
+              "DECODER;INTEL",
+              "DECODER;MASM",
+              "DECODER;NASM"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
-            $env:MoreDefineConstants=$def
+            $env:IcedFeatureFlags=$def
             dotnet build -v:m -c Release src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
           }

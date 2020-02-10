@@ -67,7 +67,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				};
 			}
 
-#if !NO_ENCODER
+#if ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests()) {
 				tested[(int)info.instruction.Code] |= info.bitness switch {
 					16 => T16,

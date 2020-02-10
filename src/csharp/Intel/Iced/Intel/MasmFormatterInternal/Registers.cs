@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_MASM
+#if MASM
 using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.MasmFormatterInternal {

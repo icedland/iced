@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS
+#if GAS
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests.Gas {

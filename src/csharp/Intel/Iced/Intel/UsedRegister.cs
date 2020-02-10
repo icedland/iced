@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 namespace Iced.Intel {
 	/// <summary>
 	/// A register used by an instruction

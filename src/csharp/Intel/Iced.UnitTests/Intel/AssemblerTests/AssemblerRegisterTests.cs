@@ -1,4 +1,4 @@
-#if !NO_ENCODER
+#if ENCODER
 using Iced.Intel;
 using Xunit;
 using static Iced.Intel.AssemblerRegisters;

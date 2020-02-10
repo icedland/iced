@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_DECODER || !NO_ENCODER
+#if DECODER || ENCODER
 namespace Iced.Intel {
 	/// <summary>Tuple type (EVEX) which can be used to get the disp8 scale factor <c>N</c></summary>
 	public enum TupleType {

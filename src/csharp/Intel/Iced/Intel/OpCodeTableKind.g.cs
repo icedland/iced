@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_ENCODER
+#if ENCODER
 namespace Iced.Intel {
 	/// <summary>Opcode table</summary>
 	public enum OpCodeTableKind {

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_DECODER
+#if DECODER
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -138,7 +138,7 @@ namespace Iced.Intel {
 			_ = OpCodeHandler_D3NOW.CodeValues;
 			_ = InstructionOpCounts.OpCount;
 			_ = MnemonicUtilsData.toMnemonic;
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 			_ = RegisterExtensions.RegisterInfos;
 			_ = MemorySizeExtensions.MemorySizeInfos;
 			_ = InstructionInfoInternal.InstrInfoTable.Data;

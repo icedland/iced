@@ -40,7 +40,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
 		}
 
-#if !NO_ENCODER
+#if ENCODER
 		[Fact]
 		void Equals_and_GetHashCode_ignore_some_fields() {
 			var instruction1 = Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RCX, Register.R14, 8, 0x12345678, 8, false, Register.FS), Register.XMM10, 0xA5);

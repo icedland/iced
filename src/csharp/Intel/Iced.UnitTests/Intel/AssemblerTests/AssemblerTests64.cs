@@ -1,4 +1,4 @@
-#if !NO_ENCODER
+#if ENCODER
 using System;
 using Iced.Intel;
 using Iced.UnitTests.Intel.EncoderTests;

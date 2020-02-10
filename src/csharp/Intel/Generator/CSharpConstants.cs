@@ -40,16 +40,16 @@ namespace Generator {
 		public const string IcedUnitTestsNamespace = "Iced.UnitTests.Intel";
 
 		public const string HasSpanDefine = "HAS_SPAN";
-		public const string DecoderDefine = "!NO_DECODER";
-		public const string EncoderDefine = "!NO_ENCODER";
-		public const string InstructionInfoDefine = "!NO_INSTR_INFO";
-		public const string DecoderOrEncoderDefine = "!NO_DECODER || !NO_ENCODER";
-		public const string DecoderOrEncoderOrInstrInfoDefine = "!NO_DECODER || !NO_ENCODER || !NO_INSTR_INFO";
-		public const string AnyFormatterDefine = "!NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM";
-		public const string GasFormatterDefine = "!NO_GAS";
-		public const string IntelFormatterDefine = "!NO_INTEL";
-		public const string MasmFormatterDefine = "!NO_MASM";
-		public const string NasmFormatterDefine = "!NO_NASM";
+		public const string DecoderDefine = "DECODER";
+		public const string EncoderDefine = "ENCODER";
+		public const string InstructionInfoDefine = "INSTR_INFO";
+		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
+		public const string DecoderOrEncoderOrInstrInfoDefine = "DECODER || ENCODER || INSTR_INFO";
+		public const string AnyFormatterDefine = "GAS || INTEL || MASM || NASM";
+		public const string GasFormatterDefine = "GAS";
+		public const string IntelFormatterDefine = "INTEL";
+		public const string MasmFormatterDefine = "MASM";
+		public const string NasmFormatterDefine = "NASM";
 
 		public const string PragmaMissingDocsDisable = "#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member";
 		public const string PragmaMissingDocsRestore = "#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member";

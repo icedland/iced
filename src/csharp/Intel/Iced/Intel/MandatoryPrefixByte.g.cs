@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_DECODER || !NO_ENCODER
+#if DECODER || ENCODER
 namespace Iced.Intel {
 	enum MandatoryPrefixByte : uint {
 		None,

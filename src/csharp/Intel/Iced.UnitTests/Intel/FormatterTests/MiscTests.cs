@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				foreach (var info in infos)
 					tested[(int)info.Code] = 1;
 			}
-#if !NO_ENCODER
+#if ENCODER
 			foreach (var info in NonDecodedInstructions.GetTests())
 				tested[(int)info.instruction.Code] = 1;
 #else
@@ -137,7 +137,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				const int numInstrOps = 2;
 				Assert.Equal(numOps, formatter.GetOperandCount(instruction));
 				Assert.Equal(numInstrOps, instruction.OpCount);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instruction, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(instruction, numOps, out _));
 #endif
@@ -151,7 +151,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 			{
 				Instruction invalid = default;
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(invalid, -1, out _));
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(invalid, 0, out _));
 #endif
@@ -163,10 +163,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(invalid, new StringOutput(), 0));
 			}
 
-#if !NO_ENCODER
+#if ENCODER
 			{
 				var db = Instruction.CreateDeclareByte(new byte[8]);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(db, -1, out _));
 #endif
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(db, -1));
@@ -174,14 +174,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(db, new StringOutput(), -1));
 				Assert.Equal(8, db.DeclareDataCount);
 				for (int i = 0; i < db.DeclareDataCount; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					formatter.TryGetOpAccess(db, i, out _);
 #endif
 					formatter.GetInstructionOperand(db, i);
 					formatter.FormatOperand(db, new StringOutput(), i);
 				}
 				for (int i = db.DeclareDataCount; i < 17; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(db, i, out _));
 #endif
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(db, i));
@@ -191,10 +191,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 #endif
 
-#if !NO_ENCODER
+#if ENCODER
 			{
 				var dw = Instruction.CreateDeclareWord(new byte[8]);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dw, -1, out _));
 #endif
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dw, -1));
@@ -202,14 +202,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dw, new StringOutput(), -1));
 				Assert.Equal(4, dw.DeclareDataCount);
 				for (int i = 0; i < dw.DeclareDataCount; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					formatter.TryGetOpAccess(dw, i, out _);
 #endif
 					formatter.GetInstructionOperand(dw, i);
 					formatter.FormatOperand(dw, new StringOutput(), i);
 				}
 				for (int i = dw.DeclareDataCount; i < 17; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dw, i, out _));
 #endif
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dw, i));
@@ -219,10 +219,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 #endif
 
-#if !NO_ENCODER
+#if ENCODER
 			{
 				var dd = Instruction.CreateDeclareDword(new byte[8]);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dd, -1, out _));
 #endif
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dd, -1));
@@ -230,14 +230,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dd, new StringOutput(), -1));
 				Assert.Equal(2, dd.DeclareDataCount);
 				for (int i = 0; i < dd.DeclareDataCount; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					formatter.TryGetOpAccess(dd, i, out _);
 #endif
 					formatter.GetInstructionOperand(dd, i);
 					formatter.FormatOperand(dd, new StringOutput(), i);
 				}
 				for (int i = dd.DeclareDataCount; i < 17; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dd, i, out _));
 #endif
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dd, i));
@@ -247,10 +247,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 #endif
 
-#if !NO_ENCODER
+#if ENCODER
 			{
 				var dq = Instruction.CreateDeclareQword(new byte[8]);
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dq, -1, out _));
 #endif
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dq, -1));
@@ -258,14 +258,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				Assert.Throws<ArgumentOutOfRangeException>(() => formatter.FormatOperand(dq, new StringOutput(), -1));
 				Assert.Equal(1, dq.DeclareDataCount);
 				for (int i = 0; i < dq.DeclareDataCount; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					formatter.TryGetOpAccess(dq, i, out _);
 #endif
 					formatter.GetInstructionOperand(dq, i);
 					formatter.FormatOperand(dq, new StringOutput(), i);
 				}
 				for (int i = dq.DeclareDataCount; i < 17; i++) {
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.TryGetOpAccess(dq, i, out _));
 #endif
 					Assert.Throws<ArgumentOutOfRangeException>(() => formatter.GetInstructionOperand(dq, i));

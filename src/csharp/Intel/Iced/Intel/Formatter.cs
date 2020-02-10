@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 using System;
 
 namespace Iced.Intel {
@@ -57,7 +57,7 @@ namespace Iced.Intel {
 		/// <returns></returns>
 		public abstract int GetOperandCount(in Instruction instruction);
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 		/// <summary>
 		/// Returns the operand access but only if it's an operand added by the formatter. If it's an
 		/// operand that is part of <see cref="Instruction"/>, you should call eg. <see cref="InstructionInfoFactory.GetInfo(in Instruction)"/>.

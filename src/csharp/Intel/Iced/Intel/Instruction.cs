@@ -1585,7 +1585,7 @@ namespace Iced.Intel {
 			}
 		}
 
-#if !NO_ENCODER
+#if ENCODER
 		/// <summary>
 		/// Gets the <see cref="OpCodeInfo"/>
 		/// </summary>
@@ -1601,19 +1601,19 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <returns></returns>
 		public override readonly string ToString() {
-#if !NO_MASM
+#if MASM
 			var output = new StringOutput();
 			new MasmFormatter().Format(this, output);
 			return output.ToString();
-#elif !NO_NASM
+#elif NASM
 			var output = new StringOutput();
 			new NasmFormatter().Format(this, output);
 			return output.ToString();
-#elif !NO_INTEL
+#elif INTEL
 			var output = new StringOutput();
 			new IntelFormatter().Format(this, output);
 			return output.ToString();
-#elif !NO_GAS
+#elif GAS
 			var output = new StringOutput();
 			new GasFormatter().Format(this, output);
 			return output.ToString();

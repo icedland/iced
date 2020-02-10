@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_NASM
+#if NASM
 using System;
 using System.Diagnostics;
 using Iced.Intel.FormatterInternal;
@@ -154,7 +154,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 			return instructionOperand < 0 ? -1 : instructionOperand;
 		}
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 		public readonly bool TryGetOpAccess(int operand, out OpAccess access) {
 			int instructionOperand;
 			switch (operand) {
@@ -272,7 +272,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 	abstract class InstrInfo {
 		public const int OpAccess_INVALID = -1;
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 		public const int OpAccess_None = -(int)(OpAccess.None + 2);
 		public const int OpAccess_Read = -(int)(OpAccess.Read + 2);
 		public const int OpAccess_CondRead = -(int)(OpAccess.CondRead + 2);

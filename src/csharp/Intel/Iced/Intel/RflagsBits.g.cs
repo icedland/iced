@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 using System;
 
 namespace Iced.Intel {

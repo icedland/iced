@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.ComponentModel;
 
-#if !NO_ENCODER
+#if ENCODER
 namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand factory.

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_ENCODER
+#if ENCODER
 namespace Iced.Intel.BlockEncoderInternal {
 	readonly struct TargetInstr {
 		readonly Instr? instruction;

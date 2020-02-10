@@ -11,7 +11,8 @@
     <Features>strict;nullablePublicOnly</Features>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Iced.snk</AssemblyOriginatorKeyFile>
-    <DefineConstants>$(MoreDefineConstants)</DefineConstants>
+    <IcedFeatureFlags>DECODER;ENCODER;INSTR_INFO;GAS;INTEL;MASM;NASM</IcedFeatureFlags>
+    <DefineConstants>$(IcedDefineConstants);$(IcedFeatureFlags)</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_INSTR_INFO
+#if INSTR_INFO
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -210,7 +210,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instruction.Code.Encoding());
-#if !NO_ENCODER
+#if ENCODER
 			Assert.Equal(code.ToOpCode().Encoding, instruction.Code.Encoding());
 #endif
 			var cf = instruction.Code.CpuidFeatures();

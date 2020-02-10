@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_MASM
+#if MASM
 namespace Iced.Intel.MasmFormatterInternal {
 	static partial class InstrInfos {
 #if HAS_SPAN

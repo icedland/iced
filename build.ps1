@@ -7,7 +7,7 @@ $net_tfm = 'net48'
 $xunitVersion = '2.4.1'
 $xunitNetTfmVersion = 'net472'
 
-$env:MoreDefineConstants = ''
+$env:IcedDefineConstants = ''
 
 if ($null -eq $IsWindows) {
 	$IsWindows = $true
@@ -31,11 +31,11 @@ if (!$NoTest) {
 
 if (!$NoPack) {
 	# Don't include the IVT in the final binary
-	$env:MoreDefineConstants = 'IcedNoIVT'
+	$env:IcedDefineConstants = 'IcedNoIVT'
 	dotnet clean -v:m -c $configuration src/csharp/Iced.sln
 	if ($LASTEXITCODE) { exit $LASTEXITCODE }
 	dotnet pack -v:m -c $configuration src/csharp/Intel/Iced/Iced.csproj
 	if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
-$env:MoreDefineConstants = ''
+$env:IcedDefineConstants = ''

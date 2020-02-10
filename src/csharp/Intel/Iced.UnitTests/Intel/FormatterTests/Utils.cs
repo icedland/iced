@@ -21,23 +21,23 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 using System.Collections.Generic;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class Utils {
 		public static IEnumerable<Formatter> GetAllFormatters() {
-#if !NO_GAS
+#if GAS
 			yield return new GasFormatter();
 #endif
-#if !NO_INTEL
+#if INTEL
 			yield return new IntelFormatter();
 #endif
-#if !NO_MASM
+#if MASM
 			yield return new MasmFormatter();
 #endif
-#if !NO_NASM
+#if NASM
 			yield return new NasmFormatter();
 #endif
 		}

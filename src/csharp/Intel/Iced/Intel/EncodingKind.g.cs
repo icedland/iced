@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_DECODER || !NO_ENCODER || !NO_INSTR_INFO
+#if DECODER || ENCODER || INSTR_INFO
 namespace Iced.Intel {
 	/// <summary>Instruction encoding</summary>
 	public enum EncodingKind {

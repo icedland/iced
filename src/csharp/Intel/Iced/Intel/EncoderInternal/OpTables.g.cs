@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if !NO_ENCODER
+#if ENCODER
 namespace Iced.Intel.EncoderInternal {
 	static class OpHandlerData {
 		public static readonly Op[] LegacyOps = new Op[120] {

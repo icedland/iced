@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if !NO_GAS || !NO_INTEL || !NO_MASM || !NO_NASM
+#if GAS || INTEL || MASM || NASM
 namespace Iced.Intel {
 	/// <summary>
 	/// Formatter options
@@ -694,7 +694,7 @@ namespace Iced.Intel {
 			set => UppercaseHex= value;
 		}
 
-#if !NO_GAS
+#if GAS
 		/// <summary>
 		/// Creates GNU assembler (AT&amp;T) formatter options
 		/// </summary>
@@ -707,7 +707,7 @@ namespace Iced.Intel {
 			};
 #endif
 
-#if !NO_INTEL
+#if INTEL
 		/// <summary>
 		/// Creates Intel (XED) formatter options
 		/// </summary>
@@ -720,7 +720,7 @@ namespace Iced.Intel {
 			};
 #endif
 
-#if !NO_MASM
+#if MASM
 		/// <summary>
 		/// Creates masm formatter options
 		/// </summary>
@@ -733,7 +733,7 @@ namespace Iced.Intel {
 			};
 #endif
 
-#if !NO_NASM
+#if NASM
 		/// <summary>
 		/// Creates nasm formatter options
 		/// </summary>
