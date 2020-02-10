@@ -692,7 +692,7 @@ impl OpCodeInfo {
 		(self.flags & Flags::NON_ZERO_OP_MASK_REGISTER) != 0
 	}
 
-	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and target operand is not a memory operand)
+	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn can_use_zeroing_masking(&self) -> bool {

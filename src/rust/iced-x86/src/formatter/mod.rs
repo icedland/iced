@@ -394,6 +394,7 @@ pub trait Formatter: private::Sealed {
 	/// [`InstructionInfoFactory::info()`]: struct.InstructionInfoFactory.html#method.info
 	/// [`operand_count()`]: #tymethod.operand_count
 	#[cfg(feature = "instr_info")]
+	#[cfg_attr(has_must_use, must_use)]
 	fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess>;
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `None` if it's an operand added by the formatter

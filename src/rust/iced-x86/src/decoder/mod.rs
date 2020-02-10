@@ -253,7 +253,8 @@ pub struct Decoder<'a> {
 	data_ptr: *const u8,
 	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
 	data_ptr_end: *const u8,
-	// Equals to self.data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize) and is guaranteed to not overflow
+	// Equals to cmp::min(self.data_ptr.offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize), self.data_ptr_end)
+	// and is guaranteed to not overflow
 	max_data_ptr: *const u8,
 	instr_start_data_ptr: *const u8,
 	// These are verified to have exactly 0x100 elements, and they're static, so we don't need fat pointers.
@@ -394,8 +395,8 @@ impl<'a> Decoder<'a> {
 		}
 		let data_ptr_end: *const u8 = unsafe { data.get_unchecked(data.len()) };
 		assert!(data_ptr_end >= data.as_ptr());
-		// Verify that max_data_ptr can never overflow
-		assert!(unsafe { data.as_ptr().offset(IcedConstants::MAX_INSTRUCTION_LENGTH as isize) >= data.as_ptr() });
+		// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
+		assert!(unsafe { data.as_ptr().offset((data.len() + IcedConstants::MAX_INSTRUCTION_LENGTH + 4) as isize) >= data.as_ptr() });
 		let tables = &*TABLES;
 		Decoder {
 			ip: 0,
@@ -1269,8 +1270,7 @@ impl<'a> Decoder<'a> {
 						return;
 					}
 				};
-				let b = self.read_u8();
-				let handler = unsafe { *table.offset(b as isize) };
+				let handler = unsafe { *table.offset(self.read_u8() as isize) };
 				debug_assert!(handler.has_modrm);
 				let m = self.read_u8() as u32;
 				self.state.modrm = m;

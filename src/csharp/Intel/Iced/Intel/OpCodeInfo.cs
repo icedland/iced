@@ -580,7 +580,7 @@ namespace Iced.Intel {
 		public bool RequireNonZeroOpMaskRegister => (flags & Flags.NonZeroOpMaskRegister) != 0;
 
 		/// <summary>
-		/// (EVEX) <see langword="true"/> if the instruction supports zeroing masking (if one of the opmask registers <c>K1</c>-<c>K7</c> is used and target operand is not a memory operand)
+		/// (EVEX) <see langword="true"/> if the instruction supports zeroing masking (if one of the opmask registers <c>K1</c>-<c>K7</c> is used and destination operand is not a memory operand)
 		/// </summary>
 		public bool CanUseZeroingMasking => (flags & Flags.ZeroingMasking) != 0;
 

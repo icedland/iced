@@ -184,15 +184,15 @@ impl fmt::Debug for UsedMemory {
 			if self.scale() != 1 {
 				write!(f, "*{}", self.scale())?;
 			}
-			if self.displacement() != 0 || !need_plus {
-				if need_plus {
-					write!(f, "+")?;
-				}
-				if self.displacement() <= 9 {
-					write!(f, "{}", self.displacement())?;
-				} else {
-					write!(f, "0x{:X}", self.displacement())?;
-				}
+		}
+		if self.displacement() != 0 || !need_plus {
+			if need_plus {
+				write!(f, "+")?;
+			}
+			if self.displacement() <= 9 {
+				write!(f, "{}", self.displacement())?;
+			} else {
+				write!(f, "0x{:X}", self.displacement())?;
 			}
 		}
 		write!(f, ";{:?};{:?}]", self.memory_size(), self.access())?;

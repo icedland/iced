@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if !NO_ENCODER
-using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.BlockEncoderInternal {

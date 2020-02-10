@@ -971,7 +971,9 @@ impl FormatterOptions {
 		&self.digit_separator
 	}
 
-	/// Digit separator or an empty string
+	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	///
+	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
