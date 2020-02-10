@@ -55,7 +55,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (rustc `1.36.0+`) and the `hashbrown` crate.
+- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 ## How-tos
@@ -1048,7 +1048,7 @@ iced-x86 supports `rustc` `1.20.0` or later.
 This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
 
 If you use an older version of `rustc`, you may need to update the versions of some iced-x86 dependencies because `cargo` prefers to use the latest version which may not support your `rustc`.
-Eg. iced-x86 needs `lazy_static` `1.1.1`, but `cargo` wants to use the latest version which is currently `1.4.0` and it doesn't support the minimum supported `rustc` version.
+Eg. iced-x86 needs `lazy_static` `1.1.1` (or later), but `cargo` wants to use the latest version which is currently `1.4.0` and it doesn't support the minimum supported `rustc` version.
 Here's how you can force a compatible version of any iced-x86 dependency without updating iced-x86's `Cargo.toml`:
 
 ```sh
