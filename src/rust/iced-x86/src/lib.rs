@@ -134,7 +134,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!     let mut formatter = NasmFormatter::new();
 //!
 //!     // Change some options, there are many more
-//!     formatter.options_mut().set_digit_separator(String::from("`"));
+//!     formatter.options_mut().set_digit_separator("`");
 //!     formatter.options_mut().set_first_operand_char_index(10);
 //!
 //!     // String implements FormatterOutput

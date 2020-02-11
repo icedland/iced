@@ -93,14 +93,14 @@ pub(super) fn create_registers() -> Box<MasmFormatter> {
 pub(super) fn create_numbers() -> Box<MasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_uppercase_hex(true);
-	fmt.options_mut().set_hex_prefix(String::from(""));
-	fmt.options_mut().set_hex_suffix(String::from(""));
-	fmt.options_mut().set_decimal_prefix(String::from(""));
-	fmt.options_mut().set_decimal_suffix(String::from(""));
-	fmt.options_mut().set_octal_prefix(String::from(""));
-	fmt.options_mut().set_octal_suffix(String::from(""));
-	fmt.options_mut().set_binary_prefix(String::from(""));
-	fmt.options_mut().set_binary_suffix(String::from(""));
+	fmt.options_mut().set_hex_prefix("");
+	fmt.options_mut().set_hex_suffix("");
+	fmt.options_mut().set_decimal_prefix("");
+	fmt.options_mut().set_decimal_suffix("");
+	fmt.options_mut().set_octal_prefix("");
+	fmt.options_mut().set_octal_suffix("");
+	fmt.options_mut().set_binary_prefix("");
+	fmt.options_mut().set_binary_suffix("");
 	fmt
 }
 

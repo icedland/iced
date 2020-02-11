@@ -36,12 +36,12 @@ fn create_fmt() -> Box<NasmFormatter> {
 fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<NasmFormatter> {
 	let mut fmt = Box::new(NasmFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
-	fmt.options_mut().set_hex_prefix(String::from("0x"));
-	fmt.options_mut().set_hex_suffix(String::from(""));
-	fmt.options_mut().set_octal_prefix(String::from("0o"));
-	fmt.options_mut().set_octal_suffix(String::from(""));
-	fmt.options_mut().set_binary_prefix(String::from("0b"));
-	fmt.options_mut().set_binary_suffix(String::from(""));
+	fmt.options_mut().set_hex_prefix("0x");
+	fmt.options_mut().set_hex_suffix("");
+	fmt.options_mut().set_octal_prefix("0o");
+	fmt.options_mut().set_octal_suffix("");
+	fmt.options_mut().set_binary_prefix("0b");
+	fmt.options_mut().set_binary_suffix("");
 	fmt
 }
 
@@ -103,14 +103,14 @@ pub(super) fn create_registers() -> Box<NasmFormatter> {
 pub(super) fn create_numbers() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_uppercase_hex(true);
-	fmt.options_mut().set_hex_prefix(String::from(""));
-	fmt.options_mut().set_hex_suffix(String::from(""));
-	fmt.options_mut().set_decimal_prefix(String::from(""));
-	fmt.options_mut().set_decimal_suffix(String::from(""));
-	fmt.options_mut().set_octal_prefix(String::from(""));
-	fmt.options_mut().set_octal_suffix(String::from(""));
-	fmt.options_mut().set_binary_prefix(String::from(""));
-	fmt.options_mut().set_binary_suffix(String::from(""));
+	fmt.options_mut().set_hex_prefix("");
+	fmt.options_mut().set_hex_suffix("");
+	fmt.options_mut().set_decimal_prefix("");
+	fmt.options_mut().set_decimal_suffix("");
+	fmt.options_mut().set_octal_prefix("");
+	fmt.options_mut().set_octal_suffix("");
+	fmt.options_mut().set_binary_prefix("");
+	fmt.options_mut().set_binary_suffix("");
 	fmt
 }
 

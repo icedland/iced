@@ -24,6 +24,48 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::enums::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
+use core::hash::{Hash, Hasher};
+
+#[derive(Debug, Clone)]
+enum FormatterOptionString {
+	String(String),
+	Str(&'static str),
+}
+
+impl FormatterOptionString {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn as_str(&self) -> &str {
+		match self {
+			&FormatterOptionString::String(ref s) => s.as_str(),
+			&FormatterOptionString::Str(s) => s,
+		}
+	}
+}
+
+impl Default for FormatterOptionString {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn default() -> Self {
+		FormatterOptionString::Str("")
+	}
+}
+
+impl Eq for FormatterOptionString {}
+impl PartialEq<FormatterOptionString> for FormatterOptionString {
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	fn eq(&self, other: &FormatterOptionString) -> bool {
+		self.as_str().eq(other.as_str())
+	}
+}
+
+impl Hash for FormatterOptionString {
+	#[inline]
+	fn hash<H: Hasher>(&self, state: &mut H) {
+		state.write(self.as_str().as_bytes());
+	}
+}
 
 struct Flags1;
 impl Flags1 {
@@ -70,15 +112,15 @@ impl Flags2 {
 /// Formatter options
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub struct FormatterOptions {
-	hex_prefix: String,
-	hex_suffix: String,
-	decimal_prefix: String,
-	decimal_suffix: String,
-	octal_prefix: String,
-	octal_suffix: String,
-	binary_prefix: String,
-	binary_suffix: String,
-	digit_separator: String,
+	hex_prefix: FormatterOptionString,
+	hex_suffix: FormatterOptionString,
+	decimal_prefix: FormatterOptionString,
+	decimal_suffix: FormatterOptionString,
+	octal_prefix: FormatterOptionString,
+	octal_suffix: FormatterOptionString,
+	binary_prefix: FormatterOptionString,
+	binary_suffix: FormatterOptionString,
+	digit_separator: FormatterOptionString,
 	hex_digit_group_size: u32,
 	decimal_digit_group_size: u32,
 	octal_digit_group_size: u32,
@@ -97,15 +139,15 @@ impl FormatterOptions {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn new() -> Self {
 		Self {
-			hex_prefix: String::default(),
-			hex_suffix: String::default(),
-			decimal_prefix: String::default(),
-			decimal_suffix: String::default(),
-			octal_prefix: String::default(),
-			octal_suffix: String::default(),
-			binary_prefix: String::default(),
-			binary_suffix: String::default(),
-			digit_separator: String::default(),
+			hex_prefix: FormatterOptionString::default(),
+			hex_suffix: FormatterOptionString::default(),
+			decimal_prefix: FormatterOptionString::default(),
+			decimal_suffix: FormatterOptionString::default(),
+			octal_prefix: FormatterOptionString::default(),
+			octal_suffix: FormatterOptionString::default(),
+			binary_prefix: FormatterOptionString::default(),
+			binary_suffix: FormatterOptionString::default(),
+			digit_separator: FormatterOptionString::default(),
 			hex_digit_group_size: 4,
 			decimal_digit_group_size: 3,
 			octal_digit_group_size: 4,
@@ -134,9 +176,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_gas() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_prefix(String::from("0x"));
-		options.set_octal_prefix(String::from("0"));
-		options.set_binary_prefix(String::from("0b"));
+		options.set_hex_prefix("0x");
+		options.set_octal_prefix("0");
+		options.set_binary_prefix("0b");
 		options
 	}
 
@@ -146,9 +188,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_intel() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix(String::from("h"));
-		options.set_octal_suffix(String::from("o"));
-		options.set_binary_suffix(String::from("b"));
+		options.set_hex_suffix("h");
+		options.set_octal_suffix("o");
+		options.set_binary_suffix("b");
 		options
 	}
 
@@ -158,9 +200,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_masm() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix(String::from("h"));
-		options.set_octal_suffix(String::from("o"));
-		options.set_binary_suffix(String::from("b"));
+		options.set_hex_suffix("h");
+		options.set_octal_suffix("o");
+		options.set_binary_suffix("b");
 		options
 	}
 
@@ -170,9 +212,9 @@ impl FormatterOptions {
 	#[inline]
 	pub fn with_nasm() -> Self {
 		let mut options = FormatterOptions::new();
-		options.set_hex_suffix(String::from("h"));
-		options.set_octal_suffix(String::from("o"));
-		options.set_binary_suffix(String::from("b"));
+		options.set_hex_suffix("h");
+		options.set_octal_suffix("o");
+		options.set_binary_suffix("b");
 		options
 	}
 
@@ -671,7 +713,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn hex_prefix(&self) -> &str {
-		&self.hex_prefix
+		self.hex_prefix.as_str()
 	}
 
 	/// Hex number prefix or an empty string, eg. `"0x"`
@@ -682,8 +724,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_hex_prefix(&mut self, value: String) {
-		self.hex_prefix = value
+	pub fn set_hex_prefix(&mut self, value: &'static str) {
+		self.hex_prefix = FormatterOptionString::Str(value)
+	}
+
+	/// Hex number prefix or an empty string, eg. `"0x"`
+	///
+	/// - Default: `""` (masm/nasm/intel), `"0x"` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_hex_prefix_string(&mut self, value: String) {
+		self.hex_prefix = FormatterOptionString::String(value)
 	}
 
 	/// Hex number suffix or an empty string, eg. `"h"`
@@ -692,7 +746,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn hex_suffix(&self) -> &str {
-		&self.hex_suffix
+		self.hex_suffix.as_str()
 	}
 
 	/// Hex number suffix or an empty string, eg. `"h"`
@@ -703,8 +757,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_hex_suffix(&mut self, value: String) {
-		self.hex_suffix = value
+	pub fn set_hex_suffix(&mut self, value: &'static str) {
+		self.hex_suffix = FormatterOptionString::Str(value)
+	}
+
+	/// Hex number suffix or an empty string, eg. `"h"`
+	///
+	/// - Default: `"h"` (masm/nasm/intel), `""` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_hex_suffix_string(&mut self, value: String) {
+		self.hex_suffix = FormatterOptionString::String(value)
 	}
 
 	/// Size of a digit group, see also [`digit_separator()`]
@@ -744,7 +810,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn decimal_prefix(&self) -> &str {
-		&self.decimal_prefix
+		self.decimal_prefix.as_str()
 	}
 
 	/// Decimal number prefix or an empty string
@@ -755,8 +821,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_decimal_prefix(&mut self, value: String) {
-		self.decimal_prefix = value
+	pub fn set_decimal_prefix(&mut self, value: &'static str) {
+		self.decimal_prefix = FormatterOptionString::Str(value)
+	}
+
+	/// Decimal number prefix or an empty string
+	///
+	/// - Default: `""`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_decimal_prefix_string(&mut self, value: String) {
+		self.decimal_prefix = FormatterOptionString::String(value)
 	}
 
 	/// Decimal number suffix or an empty string
@@ -765,7 +843,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn decimal_suffix(&self) -> &str {
-		&self.decimal_suffix
+		self.decimal_suffix.as_str()
 	}
 
 	/// Decimal number suffix or an empty string
@@ -776,8 +854,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_decimal_suffix(&mut self, value: String) {
-		self.decimal_suffix = value
+	pub fn set_decimal_suffix(&mut self, value: &'static str) {
+		self.decimal_suffix = FormatterOptionString::Str(value)
+	}
+
+	/// Decimal number suffix or an empty string
+	///
+	/// - Default: `""`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_decimal_suffix_string(&mut self, value: String) {
+		self.decimal_suffix = FormatterOptionString::String(value)
 	}
 
 	/// Size of a digit group, see also [`digit_separator()`]
@@ -817,7 +907,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn octal_prefix(&self) -> &str {
-		&self.octal_prefix
+		self.octal_prefix.as_str()
 	}
 
 	/// Octal number prefix or an empty string
@@ -828,8 +918,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_octal_prefix(&mut self, value: String) {
-		self.octal_prefix = value
+	pub fn set_octal_prefix(&mut self, value: &'static str) {
+		self.octal_prefix = FormatterOptionString::Str(value)
+	}
+
+	/// Octal number prefix or an empty string
+	///
+	/// - Default: `""` (masm/nasm/intel), `"0"` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_octal_prefix_string(&mut self, value: String) {
+		self.octal_prefix = FormatterOptionString::String(value)
 	}
 
 	/// Octal number suffix or an empty string
@@ -838,7 +940,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn octal_suffix(&self) -> &str {
-		&self.octal_suffix
+		self.octal_suffix.as_str()
 	}
 
 	/// Octal number suffix or an empty string
@@ -849,8 +951,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_octal_suffix(&mut self, value: String) {
-		self.octal_suffix = value
+	pub fn set_octal_suffix(&mut self, value: &'static str) {
+		self.octal_suffix = FormatterOptionString::Str(value)
+	}
+
+	/// Octal number suffix or an empty string
+	///
+	/// - Default: `"o"` (masm/nasm/intel), `""` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_octal_suffix_string(&mut self, value: String) {
+		self.octal_suffix = FormatterOptionString::String(value)
 	}
 
 	/// Size of a digit group, see also [`digit_separator()`]
@@ -890,7 +1004,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn binary_prefix(&self) -> &str {
-		&self.binary_prefix
+		self.binary_prefix.as_str()
 	}
 
 	/// Binary number prefix or an empty string
@@ -901,8 +1015,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_binary_prefix(&mut self, value: String) {
-		self.binary_prefix = value
+	pub fn set_binary_prefix(&mut self, value: &'static str) {
+		self.binary_prefix = FormatterOptionString::Str(value)
+	}
+
+	/// Binary number prefix or an empty string
+	///
+	/// - Default: `""` (masm/nasm/intel), `"0b"` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_binary_prefix_string(&mut self, value: String) {
+		self.binary_prefix = FormatterOptionString::String(value)
 	}
 
 	/// Binary number suffix or an empty string
@@ -911,7 +1037,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn binary_suffix(&self) -> &str {
-		&self.binary_suffix
+		self.binary_suffix.as_str()
 	}
 
 	/// Binary number suffix or an empty string
@@ -922,8 +1048,20 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_binary_suffix(&mut self, value: String) {
-		self.binary_suffix = value
+	pub fn set_binary_suffix(&mut self, value: &'static str) {
+		self.binary_suffix = FormatterOptionString::Str(value)
+	}
+
+	/// Binary number suffix or an empty string
+	///
+	/// - Default: `"b"` (masm/nasm/intel), `""` (gas)
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_binary_suffix_string(&mut self, value: String) {
+		self.binary_suffix = FormatterOptionString::String(value)
 	}
 
 	/// Size of a digit group, see also [`digit_separator()`]
@@ -968,7 +1106,7 @@ impl FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn digit_separator(&self) -> &str {
-		&self.digit_separator
+		self.digit_separator.as_str()
 	}
 
 	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
@@ -984,8 +1122,25 @@ impl FormatterOptions {
 	///
 	/// * `value`: New value
 	#[inline]
-	pub fn set_digit_separator(&mut self, value: String) {
-		self.digit_separator = value
+	pub fn set_digit_separator(&mut self, value: &'static str) {
+		self.digit_separator = FormatterOptionString::Str(value)
+	}
+
+	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	///
+	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// Yes | `""` | `0x12345678`
+	/// - | `"_"` | `0x1234_5678`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_digit_separator_string(&mut self, value: String) {
+		self.digit_separator = FormatterOptionString::String(value)
 	}
 
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
