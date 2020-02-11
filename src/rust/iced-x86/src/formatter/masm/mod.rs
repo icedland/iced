@@ -94,20 +94,20 @@ use core::{mem, u16, u32, u8};
 /// sym_map.insert(0x5AA55AA5, String::from("my_data"));
 ///
 /// let mut output = String::new();
-/// let mut resolver = MySymbolResolver { map: sym_map };
-/// let mut formatter = MasmFormatter::with_options(Some(&mut resolver), None);
+/// let resolver = Box::new(MySymbolResolver { map: sym_map });
+/// let mut formatter = MasmFormatter::with_options(Some(resolver), None);
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("mov rcx,[rdx+my_data]", output);
 /// ```
 #[allow(missing_debug_implementations)]
-pub struct MasmFormatter<'a> {
+pub struct MasmFormatter {
 	d: SelfData,
 	number_formatter: NumberFormatter,
-	symbol_resolver: Option<&'a mut SymbolResolver>,
-	options_provider: Option<&'a mut FormatterOptionsProvider>,
+	symbol_resolver: Option<Box<SymbolResolver>>,
+	options_provider: Option<Box<FormatterOptionsProvider>>,
 }
 
-impl<'a> Default for MasmFormatter<'a> {
+impl Default for MasmFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn default() -> Self {
@@ -125,7 +125,7 @@ struct SelfData {
 	vec_: &'static FormatterArrayConstants,
 }
 
-impl<'a> MasmFormatter<'a> {
+impl MasmFormatter {
 	/// Creates a masm formatter
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -141,7 +141,7 @@ impl<'a> MasmFormatter<'a> {
 	/// - `options_provider`: Operand options provider or `None`
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
+	pub fn with_options(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Self {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_masm(),
@@ -1262,7 +1262,7 @@ impl<'a> MasmFormatter<'a> {
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	fn format_memory_displ(
-		d: &SelfData, number_formatter: &mut NumberFormatter, options_provider: &mut Option<&'a mut FormatterOptionsProvider>,
+		d: &SelfData, number_formatter: &mut NumberFormatter, options_provider: &mut Option<Box<FormatterOptionsProvider>>,
 		output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, symbol: &Option<SymbolResult>,
 		operand_options: &mut FormatterOperandOptions, abs_addr: u64, mut displ: i64, mut displ_size: u32, addr_size: u32, need_plus: bool,
 		force_displ: bool,
@@ -1522,7 +1522,7 @@ impl<'a> MasmFormatter<'a> {
 	}
 }
 
-impl<'a> Formatter for MasmFormatter<'a> {
+impl Formatter for MasmFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn options(&self) -> &FormatterOptions {

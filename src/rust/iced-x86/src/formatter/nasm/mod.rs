@@ -93,20 +93,20 @@ use core::{mem, u16, u32, u8};
 /// sym_map.insert(0x5AA55AA5, String::from("my_data"));
 ///
 /// let mut output = String::new();
-/// let mut resolver = MySymbolResolver { map: sym_map };
-/// let mut formatter = NasmFormatter::with_options(Some(&mut resolver), None);
+/// let resolver = Box::new(MySymbolResolver { map: sym_map });
+/// let mut formatter = NasmFormatter::with_options(Some(resolver), None);
 /// formatter.format(&instr, &mut output);
 /// assert_eq!("mov rcx,[rdx+my_data]", output);
 /// ```
 #[allow(missing_debug_implementations)]
-pub struct NasmFormatter<'a> {
+pub struct NasmFormatter {
 	d: SelfData,
 	number_formatter: NumberFormatter,
-	symbol_resolver: Option<&'a mut SymbolResolver>,
-	options_provider: Option<&'a mut FormatterOptionsProvider>,
+	symbol_resolver: Option<Box<SymbolResolver>>,
+	options_provider: Option<Box<FormatterOptionsProvider>>,
 }
 
-impl<'a> Default for NasmFormatter<'a> {
+impl Default for NasmFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn default() -> Self {
@@ -124,7 +124,7 @@ struct SelfData {
 	vec_: &'static FormatterArrayConstants,
 }
 
-impl<'a> NasmFormatter<'a> {
+impl NasmFormatter {
 	/// Creates a nasm formatter
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -140,7 +140,7 @@ impl<'a> NasmFormatter<'a> {
 	/// - `options_provider`: Operand options provider or `None`
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn with_options(symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>) -> Self {
+	pub fn with_options(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Self {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_nasm(),
@@ -1404,7 +1404,7 @@ impl<'a> NasmFormatter<'a> {
 	}
 }
 
-impl<'a> Formatter for NasmFormatter<'a> {
+impl Formatter for NasmFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn options(&self) -> &FormatterOptions {

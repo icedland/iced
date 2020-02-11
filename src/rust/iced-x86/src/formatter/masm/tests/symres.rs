@@ -29,6 +29,8 @@ use super::fmt_factory::create_resolver;
 use super::sym_opts::*;
 use super::sym_opts_parser::*;
 #[cfg(not(feature = "std"))]
+use alloc::boxed::Box;
+#[cfg(not(feature = "std"))]
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
@@ -69,8 +71,8 @@ fn symbol_options() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, DecoderOptions::NONE).0;
 		let instruction = decoder.decode();
 
-		let mut symbol_resolver = SymbolResolverImpl { flags: tc.flags };
-		let mut formatter = create_resolver(&mut symbol_resolver);
+		let symbol_resolver = Box::new(SymbolResolverImpl { flags: tc.flags });
+		let mut formatter = create_resolver(symbol_resolver);
 		formatter.options_mut().set_masm_symbol_displ_in_brackets((tc.flags & SymbolTestFlags::SYMBOL_DISPL_IN_BRACKETS) != 0);
 		formatter.options_mut().set_masm_displ_in_brackets((tc.flags & SymbolTestFlags::DISPL_IN_BRACKETS) != 0);
 		formatter.options_mut().set_rip_relative_addresses((tc.flags & SymbolTestFlags::RIP) != 0);

@@ -28,19 +28,17 @@ use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
-fn create_fmt<'a>() -> Box<GasFormatter<'a>> {
+fn create_fmt() -> Box<GasFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2<'a>(
-	symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>,
-) -> Box<GasFormatter<'a>> {
+fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<GasFormatter> {
 	let mut fmt = Box::new(GasFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt
 }
 
-pub(super) fn create_nosuffix<'a>() -> Box<GasFormatter<'a>> {
+pub(super) fn create_nosuffix() -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(false);
 	fmt.options_mut().set_gas_naked_registers(false);
@@ -52,7 +50,7 @@ pub(super) fn create_nosuffix<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_forcesuffix<'a>() -> Box<GasFormatter<'a>> {
+pub(super) fn create_forcesuffix() -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(true);
 	fmt.options_mut().set_gas_naked_registers(true);
@@ -64,7 +62,7 @@ pub(super) fn create_forcesuffix<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create<'a>() -> Box<GasFormatter<'a>> {
+pub(super) fn create() -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(false);
 	fmt.options_mut().set_gas_naked_registers(false);
@@ -73,7 +71,7 @@ pub(super) fn create<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_options<'a>() -> Box<GasFormatter<'a>> {
+pub(super) fn create_options() -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(false);
 	fmt.options_mut().set_gas_naked_registers(false);
@@ -82,13 +80,13 @@ pub(super) fn create_options<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_registers<'a>(naked_registers: bool) -> Box<GasFormatter<'a>> {
+pub(super) fn create_registers(naked_registers: bool) -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_gas_naked_registers(naked_registers);
 	fmt
 }
 
-pub(super) fn create_numbers<'a>() -> Box<GasFormatter<'a>> {
+pub(super) fn create_numbers() -> Box<GasFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_uppercase_hex(true);
 	fmt.options_mut().set_hex_prefix(String::from(""));
@@ -102,7 +100,7 @@ pub(super) fn create_numbers<'a>() -> Box<GasFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_resolver<'a>(symbol_resolver: &'a mut SymbolResolver) -> Box<GasFormatter<'a>> {
+pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<GasFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_gas_show_mnemonic_size_suffix(false);
 	fmt.options_mut().set_gas_naked_registers(false);

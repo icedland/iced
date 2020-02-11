@@ -29,13 +29,11 @@ use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 
-fn create_fmt<'a>() -> Box<NasmFormatter<'a>> {
+fn create_fmt() -> Box<NasmFormatter> {
 	create_fmt2(None, None)
 }
 
-fn create_fmt2<'a>(
-	symbol_resolver: Option<&'a mut SymbolResolver>, options_provider: Option<&'a mut FormatterOptionsProvider>,
-) -> Box<NasmFormatter<'a>> {
+fn create_fmt2(symbol_resolver: Option<Box<SymbolResolver>>, options_provider: Option<Box<FormatterOptionsProvider>>) -> Box<NasmFormatter> {
 	let mut fmt = Box::new(NasmFormatter::with_options(symbol_resolver, options_provider));
 	fmt.options_mut().set_uppercase_hex(false);
 	fmt.options_mut().set_hex_prefix(String::from("0x"));
@@ -47,7 +45,7 @@ fn create_fmt2<'a>(
 	fmt
 }
 
-pub(super) fn create_memdefault<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_memdefault() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(true);
@@ -58,7 +56,7 @@ pub(super) fn create_memdefault<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_memalways<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_memalways() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Always);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(true);
@@ -69,7 +67,7 @@ pub(super) fn create_memalways<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_memminimum<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_memminimum() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Minimum);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(true);
@@ -80,7 +78,7 @@ pub(super) fn create_memminimum<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(true);
@@ -89,7 +87,7 @@ pub(super) fn create<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_options<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_options() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(false);
@@ -98,11 +96,11 @@ pub(super) fn create_options<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_registers<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_registers() -> Box<NasmFormatter> {
 	create_fmt()
 }
 
-pub(super) fn create_numbers<'a>() -> Box<NasmFormatter<'a>> {
+pub(super) fn create_numbers() -> Box<NasmFormatter> {
 	let mut fmt = create_fmt();
 	fmt.options_mut().set_uppercase_hex(true);
 	fmt.options_mut().set_hex_prefix(String::from(""));
@@ -116,7 +114,7 @@ pub(super) fn create_numbers<'a>() -> Box<NasmFormatter<'a>> {
 	fmt
 }
 
-pub(super) fn create_resolver<'a>(symbol_resolver: &'a mut SymbolResolver) -> Box<NasmFormatter<'a>> {
+pub(super) fn create_resolver(symbol_resolver: Box<SymbolResolver>) -> Box<NasmFormatter> {
 	let mut fmt = create_fmt2(Some(symbol_resolver), None);
 	fmt.options_mut().set_memory_size_options(MemorySizeOptions::Default);
 	fmt.options_mut().set_nasm_show_sign_extended_immediate_size(false);

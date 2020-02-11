@@ -334,9 +334,9 @@ pub(crate) fn how_to_resolve_symbols() {
     sym_map.insert(0x5AA5_5AA5, String::from("my_data"));
 
     let mut output = String::new();
-    let mut resolver = MySymbolResolver { map: sym_map };
+    let resolver = Box::new(MySymbolResolver { map: sym_map });
     // Create a formatter that uses our symbol resolver
-    let mut formatter = MasmFormatter::with_options(Some(&mut resolver), None);
+    let mut formatter = MasmFormatter::with_options(Some(resolver), None);
 
     // This will call the symbol resolver for each immediate / displacement
     // it finds in the instruction.

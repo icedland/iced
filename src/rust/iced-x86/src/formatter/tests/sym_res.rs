@@ -65,9 +65,7 @@ impl<'a> SymbolResolver for SymbolResolverImpl<'a> {
 	}
 }
 
-pub(in super::super) fn symbol_resolver_test(
-	dir: &str, filename: &str, fmt_factory: for<'a> fn(symbol_resolver: &'a mut SymbolResolver) -> Box<Formatter + 'a>,
-) {
+pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<SymbolResolver>) -> Box<Formatter>) {
 	let mut path = get_formatter_unit_tests_dir();
 	path.push(dir);
 	path.push(format!("{}.txt", filename));
@@ -78,8 +76,8 @@ pub(in super::super) fn symbol_resolver_test(
 	}
 
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
-		let mut symbol_resolver = SymbolResolverImpl { info: &info, vec: Vec::new() };
-		let mut formatter = fmt_factory(&mut symbol_resolver);
+		let symbol_resolver = Box::new(SymbolResolverImpl { info: &info, vec: Vec::new() });
+		let mut formatter = fmt_factory(symbol_resolver);
 		for props in info.options.iter() {
 			props.1.initialize_options(formatter.options_mut(), props.0);
 		}
