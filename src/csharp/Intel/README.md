@@ -1,6 +1,6 @@
 # Iced [![NuGet](https://img.shields.io/nuget/v/Iced.svg)](https://www.nuget.org/packages/Iced/) [![GitHub builds](https://github.com/0xd4d/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/0xd4d/iced/actions) [![codecov](https://codecov.io/gh/0xd4d/iced/branch/master/graph/badge.svg)](https://codecov.io/gh/0xd4d/iced)
 
-<img align="right" width="160px" height="160px" src="logo.png">
+<img align="right" width="160px" height="160px" src="../../../logo.png">
 
 Iced is a high performance x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in C#.
 
