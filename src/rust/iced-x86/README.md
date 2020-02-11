@@ -27,14 +27,14 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-iced-x86 = "0.0.0"
+iced-x86 = "1.0.0"
 ```
 
 Or to customize which features to use:
 
 ```toml
 [dependencies.iced-x86]
-version = "0.0.0"
+version = "1.0.0"
 default-features = false
 # See below for all features
 features = ["std", "decoder", "masm"]
@@ -77,12 +77,12 @@ You can enable/disable these in your `Cargo.toml` file.
 This example uses a [`Decoder`] and one of the [`Formatter`]s to decode and format the code,
 eg. [`GasFormatter`], [`IntelFormatter`], [`MasmFormatter`], [`NasmFormatter`].
 
-[`Decoder`]: https://docs.rs/iced-x86/0.0.0/struct.Decoder.html
-[`Formatter`]: https://docs.rs/iced-x86/0.0.0/trait.Formatter.html
-[`GasFormatter`]: https://docs.rs/iced-x86/0.0.0/struct.GasFormatter.html
-[`IntelFormatter`]: https://docs.rs/iced-x86/0.0.0/struct.IntelFormatter.html
-[`MasmFormatter`]: https://docs.rs/iced-x86/0.0.0/struct.MasmFormatter.html
-[`NasmFormatter`]: https://docs.rs/iced-x86/0.0.0/struct.NasmFormatter.html
+[`Decoder`]: https://docs.rs/iced-x86/1.0.0/struct.Decoder.html
+[`Formatter`]: https://docs.rs/iced-x86/1.0.0/trait.Formatter.html
+[`GasFormatter`]: https://docs.rs/iced-x86/1.0.0/struct.GasFormatter.html
+[`IntelFormatter`]: https://docs.rs/iced-x86/1.0.0/struct.IntelFormatter.html
+[`MasmFormatter`]: https://docs.rs/iced-x86/1.0.0/struct.MasmFormatter.html
+[`NasmFormatter`]: https://docs.rs/iced-x86/1.0.0/struct.NasmFormatter.html
 
 ```rust
 use iced_x86::{Decoder, DecoderOptions, Formatter, Instruction, NasmFormatter};
@@ -167,8 +167,8 @@ static EXAMPLE_CODE: &[u8] = &[
 
 This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
 
-[`BlockEncoder`]: https://docs.rs/iced-x86/0.0.0/struct.BlockEncoder.html
-[`Instruction`]: https://docs.rs/iced-x86/0.0.0/struct.Instruction.html
+[`BlockEncoder`]: https://docs.rs/iced-x86/1.0.0/struct.BlockEncoder.html
+[`Instruction`]: https://docs.rs/iced-x86/1.0.0/struct.Instruction.html
 
 ```rust
 use iced_x86::{
@@ -299,8 +299,8 @@ Output:
 
 Creates a custom [`SymbolResolver`] that is called by a [`Formatter`].
 
-[`SymbolResolver`]: https://docs.rs/iced-x86/0.0.0/trait.SymbolResolver.html
-[`Formatter`]: https://docs.rs/iced-x86/0.0.0/trait.Formatter.html
+[`SymbolResolver`]: https://docs.rs/iced-x86/1.0.0/trait.SymbolResolver.html
+[`Formatter`]: https://docs.rs/iced-x86/1.0.0/trait.Formatter.html
 
 ```rust
 use iced_x86::{
@@ -356,8 +356,8 @@ Creates a custom [`FormatterOutput`] that is called by a [`Formatter`].
 
 This example will fail to compile unless you install the `colored` crate, see below.
 
-[`FormatterOutput`]: https://docs.rs/iced-x86/0.0.0/trait.FormatterOutput.html
-[`Formatter`]: https://docs.rs/iced-x86/0.0.0/trait.Formatter.html
+[`FormatterOutput`]: https://docs.rs/iced-x86/1.0.0/trait.FormatterOutput.html
+[`Formatter`]: https://docs.rs/iced-x86/1.0.0/trait.Formatter.html
 
 ```rust, compile_fail
 // This example uses crate colored = "1.9.2"
@@ -622,8 +622,8 @@ static EXAMPLE_CODE: &[u8] = &[
 Shows how to get used registers/memory and other info. It uses [`Instruction`] methods
 and an [`InstructionInfoFactory`] to get this info.
 
-[`Instruction`]: https://docs.rs/iced-x86/0.0.0/struct.Instruction.html
-[`InstructionInfoFactory`]: https://docs.rs/iced-x86/0.0.0/struct.InstructionInfoFactory.html
+[`Instruction`]: https://docs.rs/iced-x86/1.0.0/struct.Instruction.html
+[`InstructionInfoFactory`]: https://docs.rs/iced-x86/1.0.0/struct.InstructionInfoFactory.html
 
 ```rust
 use iced_x86::{
