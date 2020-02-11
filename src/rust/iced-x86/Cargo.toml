@@ -43,7 +43,7 @@ optional = true
 
 # if: no_std and encoder
 [dependencies.hashbrown]
-version = "0.6.3"
+version = "0.7.0"
 optional = true
 
 # build.rs dependency
