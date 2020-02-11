@@ -155,6 +155,7 @@ fn verify_result_vectors() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn encode_declare_byte() {
 	const BITNESS: u32 = 64;
 	const NEW_RIP: u64 = 0x8000_0000_0000_0000;

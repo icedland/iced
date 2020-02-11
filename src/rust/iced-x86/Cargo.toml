@@ -25,6 +25,7 @@ gas = []
 intel = []
 masm = []
 nasm = []
+db = []
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps
 no_std = ["lazy_static/spin_no_std", "hashbrown"]

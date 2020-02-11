@@ -57,6 +57,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
+- `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
@@ -233,6 +234,7 @@ pub(crate) fn how_to_encode_instructions() {
     ));
     instructions.push(Instruction::with(Code::Nopd));
     let raw_data: &[u8] = &[0x12, 0x34, 0x56, 0x78];
+    // Creating db/dw/dd/dq instructions requires the `db` feature or it will panic!()
     instructions.push(add_label(data1, Instruction::with_declare_byte(raw_data)));
 
     // Use BlockEncoder to encode a block of instructions. This block can contain any
@@ -264,6 +266,7 @@ pub(crate) fn how_to_encode_instructions() {
         formatter.format(&instruction, &mut output);
         println!("{:016X} {}", instruction.ip(), output);
     }
+    // Creating db/dw/dd/dq instructions requires the `db` feature or it will panic!()
     let db = Instruction::with_declare_byte(bytes_data);
     output.clear();
     formatter.format(&db, &mut output);
@@ -584,32 +587,7 @@ pub(crate) fn how_to_move_code() {
 
     // Disassemble it
     println!("Original + patched code:");
-    let mut formatter = NasmFormatter::new();
-    let mut output = String::new();
-    let mut decoder = Decoder::new(EXAMPLE_CODE_BITNESS, &example_code, DecoderOptions::NONE);
-    decoder.set_ip(EXAMPLE_CODE_RIP);
-    while decoder.can_decode() {
-        let mut instr;
-        if decoder.ip() == EXAMPLE_CODE_RIP + required_bytes as u64
-            && jmp_back_addr - decoder.ip() != 0
-        {
-            // The instruction was partially overwritten, so just show it as a 'db x,y,z' instead of garbage
-            let len = (jmp_back_addr - decoder.ip()) as usize;
-            let index = (decoder.ip() - EXAMPLE_CODE_RIP) as usize;
-            instr = Instruction::with_declare_byte(&example_code[index..index + len]);
-            instr.set_next_ip(decoder.ip());
-            let pos = decoder.position();
-            decoder.set_position(pos + len);
-            let ip = decoder.ip();
-            decoder.set_ip(ip + len as u64);
-        } else {
-            instr = decoder.decode();
-        }
-        output.clear();
-        formatter.format(&instr, &mut output);
-        println!("{:016X} {}", instr.ip(), output);
-    }
-    println!();
+    disassemble(&example_code, EXAMPLE_CODE_RIP);
 
     // Disassemble the moved code
     println!("Moved code:");

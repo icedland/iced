@@ -721,7 +721,7 @@ namespace Generator.Encoder.Rust {
 			methodName = methodName + "_" + method.Args.Count.ToString();
 
 			writer.WriteLine();
-			WriteDocs(writer, method);
+			WriteDocs(writer, method, () => WriteDeclareDataPanic(writer));
 			WriteMethodAttributes(writer, method, false);
 			writer.Write($"pub fn {methodName}(");
 			WriteMethodDeclArgs(writer, method);
@@ -737,8 +737,14 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("}");
 		}
 
-		void WriteDataPanic(FileWriter writer, CreateMethod method, string extra) =>
-			docWriter.WriteLine(writer, $"Panics if `{idConverter.Argument(method.Args[0].Name)}.len()` {extra}");
+		const string dbPanicMsg = "Panics if `db` feature wasn't enabled";
+		void WriteDeclareDataPanic(FileWriter writer) =>
+			docWriter.WriteLine(writer, dbPanicMsg);
+
+		void WriteDataPanic(FileWriter writer, CreateMethod method, string extra) {
+			docWriter.WriteLine(writer, $"- Panics if `{idConverter.Argument(method.Args[0].Name)}.len()` {extra}");
+			docWriter.WriteLine(writer, $"- {dbPanicMsg}");
+		}
 
 		void GenCreateDeclareDataSlice(FileWriter writer, CreateMethod method, int elemSize, EnumValue code, string methodName, string setDeclValueName) {
 			writer.WriteLine();

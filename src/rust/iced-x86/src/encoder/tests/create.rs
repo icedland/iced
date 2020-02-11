@@ -30,6 +30,43 @@ use core::{i32, i64, u32, u64};
 use std::panic;
 
 #[test]
+#[cfg(not(feature = "db"))]
+#[should_panic]
+fn db_panics() {
+	let mut instr = Instruction::default();
+	instr.set_code(Code::DeclareByte);
+	instr.set_declare_byte_value(0, 0);
+}
+
+#[test]
+#[cfg(not(feature = "db"))]
+#[should_panic]
+fn dw_panics() {
+	let mut instr = Instruction::default();
+	instr.set_code(Code::DeclareWord);
+	instr.set_declare_word_value(0, 0);
+}
+
+#[test]
+#[cfg(not(feature = "db"))]
+#[should_panic]
+fn dd_panics() {
+	let mut instr = Instruction::default();
+	instr.set_code(Code::DeclareDword);
+	instr.set_declare_dword_value(0, 0);
+}
+
+#[test]
+#[cfg(not(feature = "db"))]
+#[should_panic]
+fn dq_panics() {
+	let mut instr = Instruction::default();
+	instr.set_code(Code::DeclareQword);
+	instr.set_declare_qword_value(0, 0);
+}
+
+#[test]
+#[cfg(feature = "db")]
 fn encoder_ignores_prefixes_if_declare_data() {
 	let instr = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
 	verify(&instr);
@@ -62,6 +99,7 @@ fn encoder_ignores_prefixes_if_declare_data() {
 	}
 }
 
+#[cfg(feature = "db")]
 fn get_data(instr: &Instruction) -> Vec<u8> {
 	let length = instr.declare_data_len()
 		* match instr.code() {
@@ -79,6 +117,7 @@ fn get_data(instr: &Instruction) -> Vec<u8> {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_data_byte_order_is_same() {
 	let data = vec![0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08];
 	let db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
@@ -96,6 +135,7 @@ fn declare_data_byte_order_is_same() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_byte_can_get_set() {
 	let mut db = Instruction::with_declare_byte_16(0x77, 0xA9, 0xCE, 0x9D, 0x55, 0x05, 0x42, 0x6C, 0x86, 0x32, 0xFE, 0x4F, 0x34, 0x27, 0xAA, 0x08);
 	db.set_declare_byte_value(0, 0xE2);
@@ -133,6 +173,7 @@ fn declare_byte_can_get_set() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_word_can_get_set() {
 	let mut dw = Instruction::with_declare_word_8(0x77A9, 0xCE9D, 0x5505, 0x426C, 0x8632, 0xFE4F, 0x3427, 0xAA08);
 	dw.set_declare_word_value(0, 0xE2C5);
@@ -154,6 +195,7 @@ fn declare_word_can_get_set() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_dword_can_get_set() {
 	let mut dd = Instruction::with_declare_dword_4(0x77A9_CE9D, 0x5505_426C, 0x8632_FE4F, 0x3427_AA08);
 	dd.set_declare_dword_value(0, 0xE2C5_FAB4);
@@ -167,6 +209,7 @@ fn declare_dword_can_get_set() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_qword_can_get_set() {
 	let mut dq = Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08);
 	dq.set_declare_qword_value(0, 0xE2C5_FAB4_CBE3_4DE4);
@@ -176,6 +219,7 @@ fn declare_qword_can_get_set() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn declare_data_does_not_use_other_properties() {
 	let data = [0xFFu8; 16];
 
@@ -210,6 +254,7 @@ fn declare_data_does_not_use_other_properties() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_byte() {
 	let instr = Instruction::with_declare_byte_1(0x77);
 	assert_eq!(Code::DeclareByte, instr.code());
@@ -293,6 +338,7 @@ fn with_declare_byte() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_word() {
 	let instr = Instruction::with_declare_word_1(0x77A9);
 	assert_eq!(Code::DeclareWord, instr.code());
@@ -336,6 +382,7 @@ fn with_declare_word() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_dword() {
 	let instr = Instruction::with_declare_dword_1(0x77A9_CE9D);
 	assert_eq!(Code::DeclareDword, instr.code());
@@ -359,6 +406,7 @@ fn with_declare_dword() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_qword() {
 	let instr = Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C);
 	assert_eq!(Code::DeclareQword, instr.code());
@@ -372,6 +420,7 @@ fn with_declare_qword() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_byte_slice() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -399,6 +448,7 @@ fn with_declare_byte_slice() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_word_slice() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -418,6 +468,7 @@ fn with_declare_word_slice() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_dword_slice() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -433,6 +484,7 @@ fn with_declare_dword_slice() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_qword_slice() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -446,6 +498,7 @@ fn with_declare_qword_slice() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_word_slice2() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -465,6 +518,7 @@ fn with_declare_word_slice2() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_dword_slice2() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -480,6 +534,7 @@ fn with_declare_dword_slice2() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_qword_slice2() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = vec![
@@ -926,6 +981,7 @@ fn with_test() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn with_declare_xxx_panics_if_invalid_length() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests: Vec<fn() -> Instruction> = vec![
@@ -1106,6 +1162,7 @@ fn get_set_register_panics_if_invalid_input() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn set_declare_xxx_value_panics_if_invalid_input() {
 	{
 		let mut instr = Instruction::with_declare_byte(&[0; 1]);
@@ -1170,6 +1227,7 @@ fn set_declare_xxx_value_panics_if_invalid_input() {
 }
 
 #[test]
+#[cfg(feature = "db")]
 fn get_declare_xxx_value_panics_if_invalid_input() {
 	{
 		let instr = Instruction::with_declare_byte(&[0; 1]);

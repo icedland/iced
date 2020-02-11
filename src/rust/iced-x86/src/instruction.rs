@@ -1739,7 +1739,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1759,7 +1760,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1767,24 +1769,28 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_byte_value(&mut self, index: usize, new_value: u8) {
-		match index {
-			0 => self.reg0 = new_value,
-			1 => self.reg1 = new_value,
-			2 => self.reg2 = new_value,
-			3 => self.reg3 = new_value,
-			4 => self.immediate = (self.immediate & 0xFFFF_FF00) | new_value as u32,
-			5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
-			6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
-			7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
-			8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u32,
-			9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
-			10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
-			11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
-			12 => self.mem_base_reg = new_value,
-			13 => self.mem_index_reg = new_value,
-			14 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_FF00) | new_value as u32,
-			15 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_00FF) | ((new_value as u32) << 8),
-			_ => panic!(),
+		if cfg!(feature = "db") {
+			match index {
+				0 => self.reg0 = new_value,
+				1 => self.reg1 = new_value,
+				2 => self.reg2 = new_value,
+				3 => self.reg3 = new_value,
+				4 => self.immediate = (self.immediate & 0xFFFF_FF00) | new_value as u32,
+				5 => self.immediate = (self.immediate & 0xFFFF_00FF) | ((new_value as u32) << 8),
+				6 => self.immediate = (self.immediate & 0xFF00_FFFF) | ((new_value as u32) << 16),
+				7 => self.immediate = (self.immediate & 0x00FF_FFFF) | ((new_value as u32) << 24),
+				8 => self.mem_displ = (self.mem_displ & 0xFFFF_FF00) | new_value as u32,
+				9 => self.mem_displ = (self.mem_displ & 0xFFFF_00FF) | ((new_value as u32) << 8),
+				10 => self.mem_displ = (self.mem_displ & 0xFF00_FFFF) | ((new_value as u32) << 16),
+				11 => self.mem_displ = (self.mem_displ & 0x00FF_FFFF) | ((new_value as u32) << 24),
+				12 => self.mem_base_reg = new_value,
+				13 => self.mem_index_reg = new_value,
+				14 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_FF00) | new_value as u32,
+				15 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_00FF) | ((new_value as u32) << 8),
+				_ => panic!(),
+			}
+		} else {
+			panic!();
 		}
 	}
 
@@ -1835,7 +1841,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1855,7 +1862,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1863,25 +1871,29 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_word_value(&mut self, index: usize, new_value: u16) {
-		match index {
-			0 => {
-				self.reg0 = new_value as u8;
-				self.reg1 = (new_value >> 8) as u8;
+		if cfg!(feature = "db") {
+			match index {
+				0 => {
+					self.reg0 = new_value as u8;
+					self.reg1 = (new_value >> 8) as u8;
+				}
+				1 => {
+					self.reg2 = new_value as u8;
+					self.reg3 = (new_value >> 8) as u8;
+				}
+				2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
+				3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
+				4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
+				5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
+				6 => {
+					self.mem_base_reg = new_value as u8;
+					self.mem_index_reg = (new_value >> 8) as u8;
+				}
+				7 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | new_value as u32,
+				_ => panic!(),
 			}
-			1 => {
-				self.reg2 = new_value as u8;
-				self.reg3 = (new_value >> 8) as u8;
-			}
-			2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
-			3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
-			4 => self.mem_displ = (self.mem_displ & 0xFFFF_0000) | new_value as u32,
-			5 => self.mem_displ = self.mem_displ as u16 as u32 | (new_value as u32) << 16,
-			6 => {
-				self.mem_base_reg = new_value as u8;
-				self.mem_index_reg = (new_value >> 8) as u8;
-			}
-			7 => self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | new_value as u32,
-			_ => panic!(),
+		} else {
+			panic!();
 		}
 	}
 
@@ -1924,7 +1936,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1944,7 +1957,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -1952,21 +1966,25 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_dword_value(&mut self, index: usize, new_value: u32) {
-		match index {
-			0 => {
-				self.reg0 = new_value as u8;
-				self.reg1 = (new_value >> 8) as u8;
-				self.reg2 = (new_value >> 16) as u8;
-				self.reg3 = (new_value >> 24) as u8;
+		if cfg!(feature = "db") {
+			match index {
+				0 => {
+					self.reg0 = new_value as u8;
+					self.reg1 = (new_value >> 8) as u8;
+					self.reg2 = (new_value >> 16) as u8;
+					self.reg3 = (new_value >> 24) as u8;
+				}
+				1 => self.immediate = new_value,
+				2 => self.mem_displ = new_value,
+				3 => {
+					self.mem_base_reg = new_value as u8;
+					self.mem_index_reg = (new_value >> 8) as u8;
+					self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 16);
+				}
+				_ => panic!(),
 			}
-			1 => self.immediate = new_value,
-			2 => self.mem_displ = new_value,
-			3 => {
-				self.mem_base_reg = new_value as u8;
-				self.mem_index_reg = (new_value >> 8) as u8;
-				self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 16);
-			}
-			_ => panic!(),
+		} else {
+			panic!();
 		}
 	}
 
@@ -2005,7 +2023,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2025,7 +2044,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `index` is invalid
+	/// - Panics if `index` is invalid
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -2033,21 +2053,25 @@ impl Instruction {
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn set_declare_qword_value(&mut self, index: usize, new_value: u64) {
-		match index {
-			0 => {
-				self.reg0 = new_value as u8;
-				self.reg1 = (new_value >> 8) as u8;
-				self.reg2 = (new_value >> 16) as u8;
-				self.reg3 = (new_value >> 24) as u8;
-				self.immediate = (new_value >> 32) as u32;
+		if cfg!(feature = "db") {
+			match index {
+				0 => {
+					self.reg0 = new_value as u8;
+					self.reg1 = (new_value >> 8) as u8;
+					self.reg2 = (new_value >> 16) as u8;
+					self.reg3 = (new_value >> 24) as u8;
+					self.immediate = (new_value >> 32) as u32;
+				}
+				1 => {
+					self.mem_displ = new_value as u32;
+					self.mem_base_reg = (new_value >> 32) as u8;
+					self.mem_index_reg = (new_value >> 40) as u8;
+					self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 48) as u32;
+				}
+				_ => panic!(),
 			}
-			1 => {
-				self.mem_displ = new_value as u32;
-				self.mem_base_reg = (new_value >> 32) as u8;
-				self.mem_index_reg = (new_value >> 40) as u8;
-				self.op_kind_flags = (self.op_kind_flags & 0xFFFF_0000) | (new_value >> 48) as u32;
-			}
-			_ => panic!(),
+		} else {
+			panic!();
 		}
 	}
 
@@ -5945,6 +5969,10 @@ impl Instruction {
 
 	/// Creates a `db`/`.byte` asm directive
 	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
+	///
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
@@ -5963,6 +5991,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -5984,6 +6016,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6007,6 +6043,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6032,6 +6072,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6059,6 +6103,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6088,6 +6136,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6119,6 +6171,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6153,6 +6209,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6189,6 +6249,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6227,6 +6291,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6267,6 +6335,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6309,6 +6381,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6353,6 +6429,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6399,6 +6479,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6447,6 +6531,10 @@ impl Instruction {
 	}
 
 	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6500,7 +6588,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 1-16
+	/// - Panics if `data.len()` is not 1-16
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6527,6 +6616,10 @@ impl Instruction {
 
 	/// Creates a `dw`/`.word` asm directive
 	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
+	///
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
@@ -6545,6 +6638,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6566,6 +6663,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6589,6 +6690,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6614,6 +6719,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6641,6 +6750,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6670,6 +6783,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6701,6 +6818,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6738,7 +6859,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 2-16 or not a multiple of 2
+	/// - Panics if `data.len()` is not 2-16 or not a multiple of 2
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6770,7 +6892,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 1-8
+	/// - Panics if `data.len()` is not 1-8
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6797,6 +6920,10 @@ impl Instruction {
 
 	/// Creates a `dd`/`.int` asm directive
 	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
+	///
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
@@ -6815,6 +6942,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6836,6 +6967,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6859,6 +6994,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6887,7 +7026,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 4-16 or not a multiple of 4
+	/// - Panics if `data.len()` is not 4-16 or not a multiple of 4
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6919,7 +7059,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 1-4
+	/// - Panics if `data.len()` is not 1-4
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6946,6 +7087,10 @@ impl Instruction {
 
 	/// Creates a `dq`/`.quad` asm directive
 	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
+	///
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
@@ -6964,6 +7109,10 @@ impl Instruction {
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// # Panics
+	///
+	/// Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -6988,7 +7137,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 8-16 or not a multiple of 8
+	/// - Panics if `data.len()` is not 8-16 or not a multiple of 8
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
@@ -7020,7 +7170,8 @@ impl Instruction {
 	///
 	/// # Panics
 	///
-	/// Panics if `data.len()` is not 1-2
+	/// - Panics if `data.len()` is not 1-2
+	/// - Panics if `db` feature wasn't enabled
 	///
 	/// # Arguments
 	///
