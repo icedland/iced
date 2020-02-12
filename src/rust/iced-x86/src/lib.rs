@@ -188,7 +188,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //! ## Create and encode instructions
 //!
-//! This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
+//! This example uses a [`BlockEncoder`] to encode created [`Instruction`]s. This example needs the `db` feature because it creates `db` "instructions".
 //!
 //! [`BlockEncoder`]: struct.BlockEncoder.html
 //! [`Instruction`]: struct.Instruction.html

@@ -165,7 +165,7 @@ static EXAMPLE_CODE: &[u8] = &[
 
 ## Create and encode instructions
 
-This example uses a [`BlockEncoder`] to encode created [`Instruction`]s.
+This example uses a [`BlockEncoder`] to encode created [`Instruction`]s. This example needs the `db` feature because it creates `db` "instructions".
 
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.0.0/iced_x86/struct.BlockEncoder.html
 [`Instruction`]: https://docs.rs/iced-x86/1.0.0/iced_x86/struct.Instruction.html
