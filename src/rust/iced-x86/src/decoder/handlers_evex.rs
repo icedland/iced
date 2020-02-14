@@ -29,15 +29,15 @@ use super::*;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_VectorLength_EVEX {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) handlers: [&'static OpCodeHandler; 4],
+pub(super) struct OpCodeHandler_VectorLength_EVEX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handlers: [&'static OpCodeHandler; 4],
 }
 
 impl OpCodeHandler_VectorLength_EVEX {
 	#[allow(trivial_casts)]
-	pub(crate) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
+	pub(super) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
 		const_assert_eq!(2, VectorLength::L512 as u32);
@@ -52,7 +52,7 @@ impl OpCodeHandler_VectorLength_EVEX {
 		Self { decode: OpCodeHandler_VectorLength_EVEX::decode, has_modrm: true, handlers }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		let handler = unsafe { *this.handlers.get_unchecked(decoder.state.vector_length as usize) };
@@ -62,15 +62,15 @@ impl OpCodeHandler_VectorLength_EVEX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_VectorLength_EVEX_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) handlers: [&'static OpCodeHandler; 4],
+pub(super) struct OpCodeHandler_VectorLength_EVEX_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handlers: [&'static OpCodeHandler; 4],
 }
 
 impl OpCodeHandler_VectorLength_EVEX_er {
 	#[allow(trivial_casts)]
-	pub(crate) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
+	pub(super) fn new(handler128: *const OpCodeHandler, handler256: *const OpCodeHandler, handler512: *const OpCodeHandler) -> Self {
 		const_assert_eq!(0, VectorLength::L128 as u32);
 		const_assert_eq!(1, VectorLength::L256 as u32);
 		const_assert_eq!(2, VectorLength::L512 as u32);
@@ -85,7 +85,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		Self { decode: OpCodeHandler_VectorLength_EVEX_er::decode, has_modrm: true, handlers }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		let mut index = decoder.state.vector_length as usize;
@@ -99,19 +99,19 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) handler_mem: &'static OpCodeHandler,
+pub(super) struct OpCodeHandler_EVEX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler_mem: &'static OpCodeHandler,
 }
 
 impl OpCodeHandler_EVEX {
-	pub(crate) fn new(handler_mem: *const OpCodeHandler) -> Self {
+	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
 		assert!(!is_null_instance_handler(handler_mem));
 		Self { decode: OpCodeHandler_EVEX::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		if decoder.state.mod_ == 3 || decoder.is64_mode {
 			decoder.evex_mvex(instruction);
@@ -124,22 +124,22 @@ impl OpCodeHandler_EVEX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code_w0: u32,
-	pub(crate) code_w1: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type_w0: TupleType,
-	pub(crate) tuple_type_w1: TupleType,
+pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code_w0: u32,
+	code_w1: u32,
+	base_reg: Register,
+	tuple_type_w0: TupleType,
+	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_er {
-	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_V_H_Ev_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -189,22 +189,22 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code_w0: u32,
-	pub(crate) code_w1: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type_w0: TupleType,
-	pub(crate) tuple_type_w1: TupleType,
+pub(super) struct OpCodeHandler_EVEX_V_H_Ev_Ib {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code_w0: u32,
+	code_w1: u32,
+	base_reg: Register,
+	tuple_type_w0: TupleType,
+	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_V_H_Ev_Ib {
-	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_V_H_Ev_Ib::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type_w0, tuple_type_w1 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -246,22 +246,22 @@ impl OpCodeHandler_EVEX_V_H_Ev_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_Ed_V_Ib {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type32: TupleType,
-	pub(crate) tuple_type64: TupleType,
+pub(super) struct OpCodeHandler_EVEX_Ed_V_Ib {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	base_reg: Register,
+	tuple_type32: TupleType,
+	tuple_type64: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Ed_V_Ib {
-	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ed_V_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -300,22 +300,22 @@ impl OpCodeHandler_EVEX_Ed_V_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkHW_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) only_sae: bool,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkHW_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	only_sae: bool,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkHW_er {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHW_er::decode, has_modrm: true, base_reg, code, tuple_type, only_sae, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -364,19 +364,19 @@ impl OpCodeHandler_EVEX_VkHW_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkW_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) only_sae: bool,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkW_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
+	only_sae: bool,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkW_er {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkW_er::decode,
 			has_modrm: true,
@@ -389,15 +389,15 @@ impl OpCodeHandler_EVEX_VkW_er {
 		}
 	}
 
-	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast: true }
 	}
 
-	pub(crate) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
+	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, only_sae: bool, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, only_sae, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
@@ -446,21 +446,21 @@ impl OpCodeHandler_EVEX_VkW_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkWIb_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VkWIb_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkWIb_er {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkWIb_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
@@ -498,26 +498,26 @@ impl OpCodeHandler_EVEX_VkWIb_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkW {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkW::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
@@ -557,18 +557,18 @@ impl OpCodeHandler_EVEX_VkW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_WkV {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) disallow_zeroing_masking: u32,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_WkV {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	disallow_zeroing_masking: u32,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkV {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
 			has_modrm: true,
@@ -580,7 +580,7 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
-	pub(crate) fn new1(base_reg: Register, code: u32, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
+	pub(super) fn new1(base_reg: Register, code: u32, tuple_type: TupleType, allow_zeroing_masking: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_WkV::decode,
 			has_modrm: true,
@@ -592,11 +592,11 @@ impl OpCodeHandler_EVEX_WkV {
 		}
 	}
 
-	pub(crate) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new2(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkV::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type, disallow_zeroing_masking: 0 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
@@ -632,20 +632,20 @@ impl OpCodeHandler_EVEX_WkV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkM {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VkM {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkM {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
@@ -670,22 +670,22 @@ impl OpCodeHandler_EVEX_VkM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
@@ -727,21 +727,21 @@ impl OpCodeHandler_EVEX_VkWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_WkVIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_WkVIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkVIb {
-	pub(crate) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkVIb::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
@@ -776,22 +776,22 @@ impl OpCodeHandler_EVEX_WkVIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_HkWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_HkWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_HkWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_HkWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -827,21 +827,21 @@ impl OpCodeHandler_EVEX_HkWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_HWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_HWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_HWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_HWIb::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -873,21 +873,21 @@ impl OpCodeHandler_EVEX_HWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_WkVIb_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_WkVIb_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkVIb_er {
-	pub(crate) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg1: Register, base_reg2: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkVIb_er::decode, has_modrm: true, base_reg1, base_reg2, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (decoder.state.vvvv & decoder.invalid_check_mask) != 0 {
@@ -925,21 +925,21 @@ impl OpCodeHandler_EVEX_WkVIb_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VW_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VW_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VW_er {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VW_er::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -975,21 +975,21 @@ impl OpCodeHandler_EVEX_VW_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VW {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VW::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1022,21 +1022,21 @@ impl OpCodeHandler_EVEX_VW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_WV {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_WV {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WV {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WV::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1069,20 +1069,20 @@ impl OpCodeHandler_EVEX_WV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VM {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VM {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VM {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::Z | StateFlags::B)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1107,19 +1107,19 @@ impl OpCodeHandler_EVEX_VM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VK {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
+pub(super) struct OpCodeHandler_EVEX_VK {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_VK {
-	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VK::decode, has_modrm: true, base_reg, code }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1145,19 +1145,19 @@ impl OpCodeHandler_EVEX_VK {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KR {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
+pub(super) struct OpCodeHandler_EVEX_KR {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_KR {
-	pub(crate) fn new(base_reg: Register, code: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KR::decode, has_modrm: true, base_reg, code }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
@@ -1190,21 +1190,21 @@ impl OpCodeHandler_EVEX_KR {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KkHWIb_sae {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_KkHWIb_sae {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHWIb_sae {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHWIb_sae::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)
@@ -1249,19 +1249,19 @@ impl OpCodeHandler_EVEX_KkHWIb_sae {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkHW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) base_reg3: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkHW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	base_reg3: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkHW {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHW::decode,
 			has_modrm: true,
@@ -1274,11 +1274,11 @@ impl OpCodeHandler_EVEX_VkHW {
 		}
 	}
 
-	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHW::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1318,21 +1318,21 @@ impl OpCodeHandler_EVEX_VkHW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkHM {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VkHM {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VkHM {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHM::decode, has_modrm: true, base_reg1: base_reg, base_reg2: base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1360,19 +1360,19 @@ impl OpCodeHandler_EVEX_VkHM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkHWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) base_reg3: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkHWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	base_reg3: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkHWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb::decode,
 			has_modrm: true,
@@ -1385,11 +1385,11 @@ impl OpCodeHandler_EVEX_VkHWIb {
 		}
 	}
 
-	pub(crate) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new1(base_reg1: Register, base_reg2: Register, base_reg3: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkHWIb::decode, has_modrm: true, base_reg1, base_reg2, base_reg3, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1431,19 +1431,19 @@ impl OpCodeHandler_EVEX_VkHWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkHWIb_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) base_reg3: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_VkHWIb_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	base_reg3: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_VkHWIb_er {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VkHWIb_er::decode,
 			has_modrm: true,
@@ -1456,7 +1456,7 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 		}
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1498,21 +1498,21 @@ impl OpCodeHandler_EVEX_VkHWIb_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KkHW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_KkHW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHW {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHW::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1555,20 +1555,20 @@ impl OpCodeHandler_EVEX_KkHW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KP1HW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_KP1HW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_KP1HW {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KP1HW::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1607,21 +1607,21 @@ impl OpCodeHandler_EVEX_KP1HW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KkHWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_KkHWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkHWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkHWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1666,20 +1666,20 @@ impl OpCodeHandler_EVEX_KkHWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_WkHV {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_WkHV {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_WkHV {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_WkHV::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -1708,20 +1708,20 @@ impl OpCodeHandler_EVEX_WkHV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VHWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VHWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VHWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VHWIb::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1756,19 +1756,19 @@ impl OpCodeHandler_EVEX_VHWIb {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VHW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code_r: u32,
-	pub(crate) code_m: u32,
-	pub(crate) base_reg1: Register,
-	pub(crate) base_reg2: Register,
-	pub(crate) base_reg3: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VHW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code_r: u32,
+	code_m: u32,
+	base_reg1: Register,
+	base_reg2: Register,
+	base_reg3: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VHW {
-	pub(crate) fn new(base_reg: Register, code_r: u32, code_m: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code_r: u32, code_m: u32, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
 			has_modrm: true,
@@ -1781,7 +1781,7 @@ impl OpCodeHandler_EVEX_VHW {
 		}
 	}
 
-	pub(crate) fn new2(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new2(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self {
 			decode: OpCodeHandler_EVEX_VHW::decode,
 			has_modrm: true,
@@ -1794,7 +1794,7 @@ impl OpCodeHandler_EVEX_VHW {
 		}
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1828,20 +1828,20 @@ impl OpCodeHandler_EVEX_VHW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VHM {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VHM {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VHM {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VHM::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1869,22 +1869,22 @@ impl OpCodeHandler_EVEX_VHM {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_Gv_W_er {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code_w0: u32,
-	pub(crate) code_w1: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) only_sae: bool,
+pub(super) struct OpCodeHandler_EVEX_Gv_W_er {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code_w0: u32,
+	code_w1: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	only_sae: bool,
 }
 
 impl OpCodeHandler_EVEX_Gv_W_er {
-	pub(crate) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type: TupleType, only_sae: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code_w0: u32, code_w1: u32, tuple_type: TupleType, only_sae: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Gv_W_er::decode, has_modrm: true, base_reg, code_w0, code_w1, tuple_type, only_sae }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.aaa | decoder.state.extra_register_base_evex)
@@ -1941,21 +1941,21 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VX_Ev {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) tuple_type_w0: TupleType,
-	pub(crate) tuple_type_w1: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VX_Ev {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	tuple_type_w0: TupleType,
+	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VX_Ev {
-	pub(crate) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VX_Ev::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -1991,21 +1991,21 @@ impl OpCodeHandler_EVEX_VX_Ev {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_Ev_VX {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) tuple_type_w0: TupleType,
-	pub(crate) tuple_type_w1: TupleType,
+pub(super) struct OpCodeHandler_EVEX_Ev_VX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	tuple_type_w0: TupleType,
+	tuple_type_w1: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Ev_VX {
-	pub(crate) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
+	pub(super) fn new(code32: u32, code64: u32, tuple_type_w0: TupleType, tuple_type_w1: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ev_VX::decode, has_modrm: true, code32, code64, tuple_type_w0, tuple_type_w1 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -2041,20 +2041,20 @@ impl OpCodeHandler_EVEX_Ev_VX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_Ev_VX_Ib {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) base_reg: Register,
+pub(super) struct OpCodeHandler_EVEX_Ev_VX_Ib {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_Ev_VX_Ib {
-	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Ev_VX_Ib::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z))
@@ -2091,20 +2091,20 @@ impl OpCodeHandler_EVEX_Ev_VX_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_MV {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_MV {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_MV {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_MV::decode, has_modrm: true, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -2129,20 +2129,20 @@ impl OpCodeHandler_EVEX_MV {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VkEv_REXW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) base_reg: Register,
+pub(super) struct OpCodeHandler_EVEX_VkEv_REXW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	base_reg: Register,
 }
 
 impl OpCodeHandler_EVEX_VkEv_REXW {
-	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
+	pub(super) fn new(base_reg: Register, code32: u32, code64: u32) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VkEv_REXW::decode, has_modrm: true, base_reg, code32, code64 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::B) | decoder.state.vvvv) & decoder.invalid_check_mask) != 0 {
@@ -2176,21 +2176,21 @@ impl OpCodeHandler_EVEX_VkEv_REXW {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_Vk_VSIB {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) vsib_base: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_Vk_VSIB {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	vsib_base: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_Vk_VSIB {
-	pub(crate) fn new(base_reg: Register, vsib_base: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, vsib_base: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_Vk_VSIB::decode, has_modrm: true, base_reg, vsib_base, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
@@ -2220,21 +2220,21 @@ impl OpCodeHandler_EVEX_Vk_VSIB {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VSIB_k1_VX {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) vsib_index: Register,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VSIB_k1_VX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	vsib_index: Register,
+	base_reg: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1_VX {
-	pub(crate) fn new(vsib_index: Register, base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(vsib_index: Register, base_reg: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VSIB_k1_VX::decode, has_modrm: true, vsib_index, base_reg, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
@@ -2261,20 +2261,20 @@ impl OpCodeHandler_EVEX_VSIB_k1_VX {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_VSIB_k1 {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) vsib_index: Register,
-	pub(crate) tuple_type: TupleType,
+pub(super) struct OpCodeHandler_EVEX_VSIB_k1 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	vsib_index: Register,
+	tuple_type: TupleType,
 }
 
 impl OpCodeHandler_EVEX_VSIB_k1 {
-	pub(crate) fn new(vsib_index: Register, code: u32, tuple_type: TupleType) -> Self {
+	pub(super) fn new(vsib_index: Register, code: u32, tuple_type: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_VSIB_k1::decode, has_modrm: true, vsib_index, code, tuple_type }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if decoder.invalid_check_mask != 0
@@ -2295,22 +2295,22 @@ impl OpCodeHandler_EVEX_VSIB_k1 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_GvM_VX_Ib {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code32: u32,
-	pub(crate) code64: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type32: TupleType,
-	pub(crate) tuple_type64: TupleType,
+pub(super) struct OpCodeHandler_EVEX_GvM_VX_Ib {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code32: u32,
+	code64: u32,
+	base_reg: Register,
+	tuple_type32: TupleType,
+	tuple_type64: TupleType,
 }
 
 impl OpCodeHandler_EVEX_GvM_VX_Ib {
-	pub(crate) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
+	pub(super) fn new(base_reg: Register, code32: u32, code64: u32, tuple_type32: TupleType, tuple_type64: TupleType) -> Self {
 		Self { decode: OpCodeHandler_EVEX_GvM_VX_Ib::decode, has_modrm: true, base_reg, code32, code64, tuple_type32, tuple_type64 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & (StateFlags::B | StateFlags::Z)) | decoder.state.vvvv | decoder.state.aaa) & decoder.invalid_check_mask) != 0 {
@@ -2349,21 +2349,21 @@ impl OpCodeHandler_EVEX_GvM_VX_Ib {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_EVEX_KkWIb {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
-	pub(crate) base_reg: Register,
-	pub(crate) tuple_type: TupleType,
-	pub(crate) can_broadcast: bool,
+pub(super) struct OpCodeHandler_EVEX_KkWIb {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
+	base_reg: Register,
+	tuple_type: TupleType,
+	can_broadcast: bool,
 }
 
 impl OpCodeHandler_EVEX_KkWIb {
-	pub(crate) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
+	pub(super) fn new(base_reg: Register, code: u32, tuple_type: TupleType, can_broadcast: bool) -> Self {
 		Self { decode: OpCodeHandler_EVEX_KkWIb::decode, has_modrm: true, base_reg, code, tuple_type, can_broadcast }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::EVEX, decoder.state.encoding());
 		if (((decoder.state.flags & StateFlags::Z) | decoder.state.vvvv | decoder.state.extra_register_base | decoder.state.extra_register_base_evex)

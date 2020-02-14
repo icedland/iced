@@ -289,18 +289,18 @@ static CODE_VALUES: [Code; 0x100] = [
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_D3NOW {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
+pub(super) struct OpCodeHandler_D3NOW {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
 }
 
 impl OpCodeHandler_D3NOW {
-	pub(crate) fn new() -> Self {
+	pub(super) fn new() -> Self {
 		assert_eq!(0x100, CODE_VALUES.len());
 		Self { decode: OpCodeHandler_D3NOW::decode, has_modrm: true }
 	}
 
-	pub(crate) fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);

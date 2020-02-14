@@ -26,18 +26,18 @@ use super::*;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_ST_STi {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
+pub(super) struct OpCodeHandler_ST_STi {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
 }
 
 impl OpCodeHandler_ST_STi {
-	pub(crate) fn new(code: u32) -> Self {
+	pub(super) fn new(code: u32) -> Self {
 		Self { decode: OpCodeHandler_ST_STi::decode, has_modrm: true, code }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -52,18 +52,18 @@ impl OpCodeHandler_ST_STi {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_STi_ST {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
+pub(super) struct OpCodeHandler_STi_ST {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
 }
 
 impl OpCodeHandler_STi_ST {
-	pub(crate) fn new(code: u32) -> Self {
+	pub(super) fn new(code: u32) -> Self {
 		Self { decode: OpCodeHandler_STi_ST::decode, has_modrm: true, code }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -78,18 +78,18 @@ impl OpCodeHandler_STi_ST {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_STi {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code: u32,
+pub(super) struct OpCodeHandler_STi {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code: u32,
 }
 
 impl OpCodeHandler_STi {
-	pub(crate) fn new(code: u32) -> Self {
+	pub(super) fn new(code: u32) -> Self {
 		Self { decode: OpCodeHandler_STi::decode, has_modrm: true, code }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		super::instruction_internal::internal_set_code_u32(instruction, this.code);
@@ -101,23 +101,23 @@ impl OpCodeHandler_STi {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(crate) struct OpCodeHandler_Mf {
-	pub(crate) decode: OpCodeHandlerDecodeFn,
-	pub(crate) has_modrm: bool,
-	pub(crate) code16: u32,
-	pub(crate) code32: u32,
+pub(super) struct OpCodeHandler_Mf {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	code16: u32,
+	code32: u32,
 }
 
 impl OpCodeHandler_Mf {
-	pub(crate) fn new(code: u32) -> Self {
+	pub(super) fn new(code: u32) -> Self {
 		Self { decode: OpCodeHandler_Mf::decode, has_modrm: true, code16: code, code32: code }
 	}
 
-	pub(crate) fn new1(code16: u32, code32: u32) -> Self {
+	pub(super) fn new1(code16: u32, code32: u32) -> Self {
 		Self { decode: OpCodeHandler_Mf::decode, has_modrm: true, code16, code32 }
 	}
 
-	pub(crate) fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(EncodingKind::Legacy, decoder.state.encoding());
 		if decoder.state.operand_size != OpSize::Size16 {
