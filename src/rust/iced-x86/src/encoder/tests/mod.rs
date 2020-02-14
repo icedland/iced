@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod create;
+mod dec_enc;
 pub(crate) mod non_decoded_tests;
 mod op_code_test_case;
 mod op_code_test_case_parser;

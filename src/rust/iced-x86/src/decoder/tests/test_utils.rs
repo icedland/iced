@@ -55,11 +55,11 @@ impl DecoderTestInfo {
 	pub(crate) fn code(&self) -> Code {
 		self.code
 	}
-	pub(crate) fn hex_bytes(&self) -> &String {
+	pub(crate) fn hex_bytes(&self) -> &str {
 		&self.hex_bytes
 	}
 	#[cfg(feature = "encoder")]
-	pub(crate) fn encoded_hex_bytes(&self) -> &String {
+	pub(crate) fn encoded_hex_bytes(&self) -> &str {
 		&self.encoded_hex_bytes
 	}
 	pub(crate) fn decoder_options(&self) -> u32 {

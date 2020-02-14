@@ -90,6 +90,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(AddLock(info.HexBytes, hasLock)), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 						Assert.False(instruction.HasLockPrefix);
 					}
 					{
@@ -165,17 +166,15 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						if (memRegSize != 0 && memRegSize != info.Bitness)
 							continue;
 						int nonPrefixIndex = SkipPrefixes(bytes, info.Bitness, out _);
-						if (nonPrefixIndex > 0) {
-							bool has67 = false;
-							for (int i = 0; i < nonPrefixIndex; i++) {
-								if (bytes[i] == 0x67) {
-									has67 = true;
-									break;
-								}
+						bool has67 = false;
+						for (int i = 0; i < nonPrefixIndex; i++) {
+							if (bytes[i] == 0x67) {
+								has67 = true;
+								break;
 							}
-							if (has67)
-								continue;
 						}
+						if (has67)
+							continue;
 					}
 					var hexBytes = prefix + info.HexBytes;
 					{
@@ -200,6 +199,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 					}
 				}
 			}
@@ -307,6 +307,36 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #endif
 		}
 
+		static int SkipPrefixes(byte[] bytes, int bitness, out uint rex) {
+			rex = 0;
+			for (int i = 0; i < bytes.Length; i++) {
+				byte b = bytes[i];
+				switch (b) {
+				case 0x26:
+				case 0x2E:
+				case 0x36:
+				case 0x3E:
+				case 0x64:
+				case 0x65:
+				case 0x66:
+				case 0x67:
+				case 0xF0:
+				case 0xF2:
+				case 0xF3:
+					rex = 0;
+					break;
+				default:
+					if (bitness == 64 && (b & 0xF0) == 0x40) {
+						rex = b;
+					}
+					else
+						return i;
+					break;
+				}
+			}
+			throw new InvalidOperationException();
+		}
+
 		[Fact]
 		void Test_EVEX_reserved_bits() {
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
@@ -320,11 +350,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 					}
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 					}
 				}
 			}
@@ -462,6 +494,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out instruction2);
 								Assert.Equal(Code.INVALID, instruction2.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 
 								decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 								decoder.Decode(out instruction2);
@@ -493,7 +526,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
 							}
 							else
-								Assert.False(info.Code == instruction2.Code);
+								Assert.NotEqual(info.Code, instruction2.Code);
 						}
 					}
 				}
@@ -590,8 +623,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							else
 								Assert.Equal(Register.None, instruction.OpMask);
 						}
-						else
+						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
+						}
 					}
 				}
 			}
@@ -645,8 +680,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 						else if (newCodeSaeOrEr && isRegOnly)
 							Assert.Equal(newCode, instruction.Code);
-						else
+						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
+						}
 						Assert.False(instruction.IsBroadcast);
 					}
 					{
@@ -743,7 +780,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						Assert.Equal(info.Code, origInstr.Code);
 					}
 					bool isVEX2 = bytes[vexIndex] == 0xC5;
-					uint b2_mask = (byte)(info.Bitness == 64 || !isVEX2 ? 0x78 : 0x38);
+					uint b2_mask = info.Bitness == 64 || !isVEX2 ? 0x78U : 0x38;
 					if (uses_vvvv) {
 						bytes[b2i] = (byte)((b2 & ~b2_mask) | (b2_mask & ~(vvvv_mask << 3)));
 						{
@@ -765,6 +802,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -779,6 +817,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -818,6 +857,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							Assert.Equal(info.Code, instruction.Code);
 						else {
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
 							decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out instruction);
 							Assert.Equal(info.Code, instruction.Code);
@@ -955,7 +995,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					int vexIndex = GetVexXopIndex(bytes);
 					bool isVEX2 = bytes[vexIndex] == 0xC5;
 					int mrmi = vexIndex + 3 + (isVEX2 ? 0 : 1);
-					bool isRegOnly = mrmi >= bytes.Length ? true : (bytes[mrmi] >> 6) == 3;
+					bool isRegOnly = mrmi >= bytes.Length || (bytes[mrmi] >> 6) == 3;
 					var b1 = bytes[vexIndex + 1];
 
 					Instruction origInstr;
@@ -1057,6 +1097,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1161,7 +1202,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					int vexIndex = GetVexXopIndex(bytes);
 					bool isVEX2 = bytes[vexIndex] == 0xC5;
 					int mrmi = vexIndex + 3 + (isVEX2 ? 0 : 1);
-					bool isRegOnly = mrmi >= bytes.Length ? true : (bytes[mrmi] >> 6) == 3;
+					bool isRegOnly = mrmi >= bytes.Length || (bytes[mrmi] >> 6) == 3;
 					var b1 = bytes[vexIndex + 1];
 
 					Instruction origInstr;
@@ -1204,6 +1245,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1270,6 +1312,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1282,6 +1325,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1365,6 +1409,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1397,7 +1442,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				return false;
 			}
 
-			int vsibIndex = -1;
 			for (int i = 1; i < opCode.OpCount; i++) {
 				switch (opCode.GetOpKind(i)) {
 				case OpCodeOperandKind.mem_vsib32x:
@@ -1406,15 +1450,11 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				case OpCodeOperandKind.mem_vsib64x:
 				case OpCodeOperandKind.mem_vsib64y:
 				case OpCodeOperandKind.mem_vsib64z:
-					vsibIndex = i;
-					i = int.MaxValue - 1;
-					break;
+					return true;
 				}
 			}
-			if (vsibIndex <= 0)
-				return false;
 
-			return true;
+			return false;
 		}
 
 		[Fact]
@@ -1509,6 +1549,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 								decoder.Decode(out var instruction);
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
 							}
 							{
 								var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -1608,42 +1649,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Equal(instruction.IsVsib32, isVsib32);
 				Assert.Equal(instruction.IsVsib64, isVsib64);
 			}
-		}
-
-		static int SkipPrefixes(byte[] bytes, int bitness, out uint rex) {
-			rex = 0;
-			int i;
-			for (i = 0; i < bytes.Length; i++) {
-				byte b = bytes[i];
-				bool isPrefix;
-				switch (b) {
-				case 0x26:
-				case 0x2E:
-				case 0x36:
-				case 0x3E:
-				case 0x64:
-				case 0x65:
-				case 0x66:
-				case 0x67:
-				case 0xF0:
-				case 0xF2:
-				case 0xF3:
-					isPrefix = true;
-					rex = 0;
-					break;
-				default:
-					if (bitness == 64 && (b & 0xF0) == 0x40) {
-						isPrefix = true;
-						rex = b;
-					}
-					else
-						isPrefix = false;
-					break;
-				}
-				if (!isPrefix)
-					break;
-			}
-			return i;
 		}
 
 		struct TestedInfo {
@@ -2711,6 +2716,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options);
 					decoder.Decode(out var instruction);
 					Assert.Equal(Code.INVALID, instruction.Code);
+					Assert.False(decoder.InvalidNoMoreBytes);
 				}
 				{
 					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(bytes), info.Options | DecoderOptions.NoInvalidCheck);
@@ -2788,11 +2794,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 					}
 					{
 						var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 						decoder.Decode(out var instruction);
 						Assert.Equal(Code.INVALID, instruction.Code);
+						Assert.False(decoder.InvalidNoMoreBytes);
 					}
 				}
 				else if (opCode.Encoding == EncodingKind.VEX) {
@@ -2812,11 +2820,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out var instruction);
 							Assert.Equal(Code.INVALID, instruction.Code);
+							Assert.False(decoder.InvalidNoMoreBytes);
 						}
 					}
 				}
@@ -2836,16 +2846,20 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 							decoder.Decode(out var instruction);
 							if (i < 8)
 								Assert.NotEqual(info.Code, instruction.Code);
-							else
+							else {
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
+							}
 						}
 						{
 							var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(hexBytes), info.Options ^ DecoderOptions.NoInvalidCheck);
 							decoder.Decode(out var instruction);
 							if (i < 8)
 								Assert.NotEqual(info.Code, instruction.Code);
-							else
+							else {
 								Assert.Equal(Code.INVALID, instruction.Code);
+								Assert.False(decoder.InvalidNoMoreBytes);
+							}
 						}
 					}
 				}
