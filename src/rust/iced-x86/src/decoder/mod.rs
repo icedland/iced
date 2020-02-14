@@ -524,11 +524,8 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[inline]
 	pub fn set_position(&mut self, new_pos: usize) {
-		if new_pos <= self.data.len() {
-			self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
-		} else {
-			panic!();
-		}
+		assert!(new_pos <= self.data.len());
+		self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
 	}
 
 	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the

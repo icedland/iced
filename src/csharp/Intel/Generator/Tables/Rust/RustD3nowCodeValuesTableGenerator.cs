@@ -54,7 +54,7 @@ namespace Generator.Tables.Rust {
 			var invalid = CodeEnum.Instance[nameof(Code.INVALID)];
 			foreach (var value in values) {
 				var enumValue = value ?? invalid;
-				writer.WriteLine($"{codeName}::{enumValue.Name(idConverter)} as u16,");
+				writer.WriteLine($"{codeName}::{enumValue.Name(idConverter)},");
 			}
 		}
 	}
