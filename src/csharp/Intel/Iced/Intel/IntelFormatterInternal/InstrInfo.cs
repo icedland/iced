@@ -299,7 +299,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			int instrBitness = GetBitness(instruction.CodeSize);
-			var flags = instrBitness == 0 || (instrBitness & bitness) != 0 ? InstrOpInfoFlags.MemSize_Nothing : InstrOpInfoFlags.ShowNoMemSize_ForceSize;
+			var flags = instrBitness == 0 || (instrBitness & bitness) != 0 ? InstrOpInfoFlags.MemSize_Nothing : InstrOpInfoFlags.ShowNoMemSize_ForceSize | InstrOpInfoFlags.ShowMinMemSize_ForceSize;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}

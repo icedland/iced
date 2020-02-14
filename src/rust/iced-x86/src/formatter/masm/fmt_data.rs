@@ -1298,73 +1298,73 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x2A,// YA
 	0xC3, 0x06,// 835 = "stos"
 	0x62,// 'b'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Stosw_m16_AX
 	0x2A,// YA
 	0xC3, 0x06,// 835 = "stos"
 	0x77,// 'w'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Stosd_m32_EAX
 	0x2A,// YA
 	0xC3, 0x06,// 835 = "stos"
 	0x64,// 'd'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Stosq_m64_RAX
 	0x2A,// YA
 	0xC3, 0x06,// 835 = "stos"
 	0x71,// 'q'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Lodsb_AL_m8
 	0x04,// AX
 	0x90, 0x06,// 784 = "lods"
 	0x62,// 'b'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Lodsw_AX_m16
 	0x04,// AX
 	0x90, 0x06,// 784 = "lods"
 	0x77,// 'w'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Lodsd_EAX_m32
 	0x04,// AX
 	0x90, 0x06,// 784 = "lods"
 	0x64,// 'd'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Lodsq_RAX_m64
 	0x04,// AX
 	0x90, 0x06,// 784 = "lods"
 	0x71,// 'q'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Scasb_AL_m8
 	0x05,// AY
 	0xBA, 0x06,// 826 = "scas"
 	0x62,// 'b'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Scasw_AX_m16
 	0x05,// AY
 	0xBA, 0x06,// 826 = "scas"
 	0x77,// 'w'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Scasd_EAX_m32
 	0x05,// AY
 	0xBA, 0x06,// 826 = "scas"
 	0x64,// 'd'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Scasq_RAX_m64
 	0x05,// AY
 	0xBA, 0x06,// 826 = "scas"
 	0x71,// 'q'
-	0x08,// 0x8 = ShowNoMemSize_ForceSize
+	0x18,// 0x18 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Mov_r8_imm8
 	0x01,// Normal_1

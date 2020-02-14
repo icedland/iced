@@ -294,23 +294,23 @@ cmps word ptr [si], word ptr [di]
 cmpsw
 cmps dword ptr [si], dword ptr [di]
 cmpsd
-stos [di]
+stos byte ptr [di]
 stosb
-stos [di]
+stos word ptr [di]
 stosw
-stos [di]
+stos dword ptr [di]
 stosd
-lods [si]
+lods byte ptr [si]
 lodsb
-lods [si]
+lods word ptr [si]
 lodsw
-lods [si]
+lods dword ptr [si]
 lodsd
-scas [di]
+scas byte ptr [di]
 scasb
-scas [di]
+scas word ptr [di]
 scasw
-scas [di]
+scas dword ptr [di]
 scasd
 xbegin 7FFFA54Fh
 xbegin 0B412A550h
@@ -470,9 +470,9 @@ movs dword ptr es:[edi], dword ptr fs:[esi]
 cmps byte ptr fs:[esi], byte ptr es:[edi]
 cmps word ptr fs:[esi], word ptr es:[edi]
 cmps dword ptr fs:[esi], dword ptr es:[edi]
-lods fs:[esi]
-lods fs:[esi]
-lods fs:[esi]
+lods byte ptr fs:[esi]
+lods word ptr fs:[esi]
+lods dword ptr fs:[esi]
 xlat [bx]
 xlat fs:[ebx]
 maskmovq fs:[edi], mm2, mm3
@@ -481,13 +481,13 @@ vmaskmovdqu fs:[edi], xmm2, xmm3
 xlatb
 aam -6
 aad -6
+fldenv fpuenv14 ptr [eax]
 fldenv [eax]
-fldenv [eax]
+fnstenv fpuenv14 ptr [eax]
 fnstenv [eax]
-fnstenv [eax]
+frstor fpustate94 ptr [eax]
 frstor [eax]
-frstor [eax]
-fnsave [eax]
+fnsave fpustate94 ptr [eax]
 fnsave [eax]
 monitor ax, ecx, edx
 monitor eax, ecx, edx

@@ -225,23 +225,23 @@ cmps word ptr [esi], word ptr [edi]
 cmpsw
 cmps dword ptr [esi], dword ptr [edi]
 cmpsd
-stos [edi]
+stos byte ptr [edi]
 stosb
-stos [edi]
+stos word ptr [edi]
 stosw
-stos [edi]
+stos dword ptr [edi]
 stosd
-lods [esi]
+lods byte ptr [esi]
 lodsb
-lods [esi]
+lods word ptr [esi]
 lodsw
-lods [esi]
+lods dword ptr [esi]
 lodsd
-scas [edi]
+scas byte ptr [edi]
 scasb
-scas [edi]
+scas word ptr [edi]
 scasw
-scas [edi]
+scas dword ptr [edi]
 scasd
 xbegin 0000254Eh
 xbegin 34132551h
@@ -401,9 +401,9 @@ movs dword ptr es:[di], dword ptr fs:[si]
 cmps byte ptr fs:[si], byte ptr es:[di]
 cmps word ptr fs:[si], word ptr es:[di]
 cmps dword ptr fs:[si], dword ptr es:[di]
-lods fs:[si]
-lods fs:[si]
-lods fs:[si]
+lods byte ptr fs:[si]
+lods word ptr fs:[si]
+lods dword ptr fs:[si]
 xlat [ebx]
 xlat fs:[bx]
 maskmovq fs:[di], mm2, mm3
@@ -415,13 +415,13 @@ aad
 aam -6
 aad -6
 fldenv [bx+si]
-fldenv [bx+si]
+fldenv fpuenv28 ptr [bx+si]
 fnstenv [bx+si]
-fnstenv [bx+si]
+fnstenv fpuenv28 ptr [bx+si]
 frstor [bx+si]
-frstor [bx+si]
+frstor fpustate108 ptr [bx+si]
 fnsave [bx+si]
-fnsave [bx+si]
+fnsave fpustate108 ptr [bx+si]
 monitor ax, ecx, edx
 monitor eax, ecx, edx
 mwait ax, ecx

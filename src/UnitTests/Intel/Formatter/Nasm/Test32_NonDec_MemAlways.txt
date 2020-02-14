@@ -21,9 +21,9 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-pop cs
-fstenv [eax]
-fstenv [fs:eax]
+o16 pop cs
+o16 fstenv [eax]
+o16 fstenv [fs:eax]
 fstenv [eax]
 fstenv [fs:eax]
 fstcw word [eax]
@@ -33,8 +33,8 @@ fdisi
 fclex
 finit
 fsetpm
-fsave [eax]
-fsave [fs:eax]
+o16 fsave [eax]
+o16 fsave [fs:eax]
 fsave [eax]
 fsave [fs:eax]
 fstsw word [eax]

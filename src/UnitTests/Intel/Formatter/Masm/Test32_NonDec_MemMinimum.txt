@@ -22,8 +22,8 @@
 #
 
 popw cs
-fstenv [eax]
-fstenv fs:[eax]
+fstenv fpuenv14 ptr [eax]
+fstenv fpuenv14 ptr fs:[eax]
 fstenv [eax]
 fstenv fs:[eax]
 fstcw [eax]
@@ -33,8 +33,8 @@ fdisi
 fclex
 finit
 fsetpm
-fsave [eax]
-fsave fs:[eax]
+fsave fpustate94 ptr [eax]
+fsave fpustate94 ptr fs:[eax]
 fsave [eax]
 fsave fs:[eax]
 fstsw [eax]

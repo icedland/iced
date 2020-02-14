@@ -481,13 +481,13 @@ vmaskmovdqu xmm2, xmm3, fs
 xlat [ebx]
 aam -6
 aad -6
+fldenv fpuenv14 ptr [eax]
 fldenv [eax]
-fldenv [eax]
+fnstenv fpuenv14 ptr [eax]
 fnstenv [eax]
-fnstenv [eax]
+frstor fpustate94 ptr [eax]
 frstor [eax]
-frstor [eax]
-fnsave [eax]
+fnsave fpustate94 ptr [eax]
 fnsave [eax]
 addr16 monitor
 monitor

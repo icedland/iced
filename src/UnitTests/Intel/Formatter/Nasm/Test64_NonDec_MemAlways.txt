@@ -21,8 +21,8 @@
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-fstenv [rax]
-fstenv [fs:rax]
+o16 fstenv [rax]
+o16 fstenv [fs:rax]
 fstenv [rax]
 fstenv [fs:rax]
 fstcw word [rax]
@@ -32,8 +32,8 @@ fdisi
 fclex
 finit
 fsetpm
-fsave [rax]
-fsave [fs:rax]
+o16 fsave [rax]
+o16 fsave [fs:rax]
 fsave [rax]
 fsave [fs:rax]
 fstsw word [rax]

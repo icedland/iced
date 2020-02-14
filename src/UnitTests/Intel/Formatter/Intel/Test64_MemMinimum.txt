@@ -867,10 +867,10 @@ fdivr st, st(3)
 fld st, dword ptr [rax]
 fst dword ptr [rax], st
 fstp dword ptr [rax], st
-fldenv [rax]
+fldenv fpuenv14 ptr [rax]
 fldenv [rax]
 fldcw [rax]
-fnstenv [rax]
+fnstenv fpuenv14 ptr [rax]
 fnstenv [rax]
 fnstcw [rax]
 fld st, st(3)
@@ -948,9 +948,9 @@ fld st, qword ptr [rax]
 fisttp qword ptr [rax], st
 fst qword ptr [rax], st
 fstp qword ptr [rax], st
+frstor fpustate94 ptr [rax]
 frstor [rax]
-frstor [rax]
-fnsave [rax]
+fnsave fpustate94 ptr [rax]
 fnsave [rax]
 fnstsw [rax]
 ffree st(3)

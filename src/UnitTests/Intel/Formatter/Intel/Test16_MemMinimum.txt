@@ -415,13 +415,13 @@ aad 0xa
 aam -6
 aad -6
 fldenv [bx+si]
-fldenv [bx+si]
+fldenv fpuenv28 ptr [bx+si]
 fnstenv [bx+si]
-fnstenv [bx+si]
+fnstenv fpuenv28 ptr [bx+si]
 frstor [bx+si]
-frstor [bx+si]
+frstor fpustate108 ptr [bx+si]
 fnsave [bx+si]
-fnsave [bx+si]
+fnsave fpustate108 ptr [bx+si]
 monitor
 addr32 monitor
 mwait

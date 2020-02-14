@@ -24,8 +24,8 @@
 pop cs
 fstenv [bx+si]
 fstenv [fs:bx+si]
-fstenv [bx+si]
-fstenv [fs:bx+si]
+o32 fstenv [bx+si]
+o32 fstenv [fs:bx+si]
 fstcw word [bx+si]
 fstcw word [fs:bx+si]
 feni
@@ -35,8 +35,8 @@ finit
 fsetpm
 fsave [bx+si]
 fsave [fs:bx+si]
-fsave [bx+si]
-fsave [fs:bx+si]
+o32 fsave [bx+si]
+o32 fsave [fs:bx+si]
 fstsw word [bx+si]
 fstsw word [fs:bx+si]
 fstsw ax

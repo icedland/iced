@@ -321,7 +321,7 @@ impl InstrInfo for SimpleInstrInfo_memsize {
 		let flags = if instr_bitness == 0 || (instr_bitness & self.bitness) != 0 {
 			InstrOpInfoFlags::MEM_SIZE_NOTHING
 		} else {
-			InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE
+			InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::SHOW_MIN_MEM_SIZE_FORCE_SIZE
 		};
 		InstrOpInfo::new(&self.mnemonic, instruction, flags)
 	}

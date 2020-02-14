@@ -556,29 +556,29 @@ test al, -5Bh
 test ax, 5AA5h
 test eax, 12345AA5h
 test rax, -7DCBA55Bh
-stos [edi]
+stos byte ptr [edi]
 stosb
-stos [edi]
+stos word ptr [edi]
 stosw
-stos [edi]
+stos dword ptr [edi]
 stosd
-stos [edi]
+stos qword ptr [edi]
 stosq
-lods [esi]
+lods byte ptr [esi]
 lodsb
-lods [esi]
+lods word ptr [esi]
 lodsw
-lods [esi]
+lods dword ptr [esi]
 lodsd
-lods [esi]
+lods qword ptr [esi]
 lodsq
-scas [edi]
+scas byte ptr [edi]
 scasb
-scas [edi]
+scas word ptr [edi]
 scasw
-scas [edi]
+scas dword ptr [edi]
 scasd
-scas [edi]
+scas qword ptr [edi]
 scasq
 mov al, 5Ah
 mov r8b, 5Ah
@@ -867,10 +867,10 @@ fdivr st, st(3)
 fld dword ptr [rax]
 fst dword ptr [rax]
 fstp dword ptr [rax]
-fldenv [rax]
+fldenv fpuenv14 ptr [rax]
 fldenv [rax]
 fldcw [rax]
-fnstenv [rax]
+fnstenv fpuenv14 ptr [rax]
 fnstenv [rax]
 fnstcw [rax]
 fld st(3)
@@ -948,9 +948,9 @@ fld qword ptr [rax]
 fisttp qword ptr [rax]
 fst qword ptr [rax]
 fstp qword ptr [rax]
+frstor fpustate94 ptr [rax]
 frstor [rax]
-frstor [rax]
-fnsave [rax]
+fnsave fpustate94 ptr [rax]
 fnsave [rax]
 fnstsw [rax]
 ffree st(3)
@@ -7078,10 +7078,10 @@ cmps byte ptr fs:[rsi], byte ptr es:[rdi]
 cmps word ptr fs:[rsi], word ptr es:[rdi]
 cmps dword ptr fs:[rsi], dword ptr es:[rdi]
 cmps qword ptr fs:[rsi], qword ptr es:[rdi]
-lods fs:[rsi]
-lods fs:[rsi]
-lods fs:[rsi]
-lods fs:[rsi]
+lods byte ptr fs:[rsi]
+lods word ptr fs:[rsi]
+lods dword ptr fs:[rsi]
+lods qword ptr fs:[rsi]
 xlat [ebx]
 xlat fs:[rbx]
 maskmovq fs:[rdi], mm2, mm3

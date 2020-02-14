@@ -24,8 +24,8 @@
 popw cs
 fstenv (bx,si)
 fstenv fs:(bx,si)
-fstenv (bx,si)
-fstenv fs:(bx,si)
+fstenvs (bx,si)
+fstenvs fs:(bx,si)
 fstcw (bx,si)
 fstcw fs:(bx,si)
 feni
@@ -35,8 +35,8 @@ finit
 fsetpm
 fsave (bx,si)
 fsave fs:(bx,si)
-fsave (bx,si)
-fsave fs:(bx,si)
+fsaves (bx,si)
+fsaves fs:(bx,si)
 fstsw (bx,si)
 fstsw fs:(bx,si)
 fstsw ax

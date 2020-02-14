@@ -24,8 +24,8 @@
 pop cs
 fstenv [bx+si]
 fstenv fs:[bx+si]
-fstenv [bx+si]
-fstenv fs:[bx+si]
+fstenv fpuenv28 ptr [bx+si]
+fstenv fpuenv28 ptr fs:[bx+si]
 fstcw word ptr [bx+si]
 fstcw word ptr fs:[bx+si]
 feni
@@ -35,8 +35,8 @@ finit
 fsetpm
 fsave [bx+si]
 fsave fs:[bx+si]
-fsave [bx+si]
-fsave fs:[bx+si]
+fsave fpustate108 ptr [bx+si]
+fsave fpustate108 ptr fs:[bx+si]
 fstsw word ptr [bx+si]
 fstsw word ptr fs:[bx+si]
 fstsw ax
