@@ -127,12 +127,12 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 			EncodingKind::VEX | EncodingKind::EVEX | EncodingKind::XOP => {}
 		}
 
-		let prefixes = match info.bitness() {
+		let prefixes: &[&str] = match info.bitness() {
 			16 | 32 => &prefixes1632,
 			64 => &prefixes64,
 			_ => unreachable!(),
 		};
-		for &prefix in prefixes {
+		for &prefix in prefixes.iter() {
 			let orig_instr;
 			{
 				let bytes = to_vec_u8(info.hex_bytes()).unwrap();
