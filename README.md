@@ -21,7 +21,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 
 See the following READMEs for examples:
 
-- .NET: [README](https://github.com/0xd4d/iced/tree/master/src/csharp/Intel/README.md)
+- .NET: [README](https://github.com/0xd4d/iced/blob/master/src/csharp/Intel/README.md)
 - Rust: [README](https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md)
 
 # License
