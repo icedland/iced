@@ -382,7 +382,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! [`FormatterOutput`]: trait.FormatterOutput.html
 //! [`Formatter`]: trait.Formatter.html
 //!
-//! ```rust, compile_fail
+//! ```rust compile_fail
 //! // This example uses crate colored = "1.9.2"
 //! use colored::{ColoredString, Colorize};
 //! use iced_x86::{

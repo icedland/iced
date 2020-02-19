@@ -359,7 +359,7 @@ This example will fail to compile unless you install the `colored` crate, see be
 [`FormatterOutput`]: https://docs.rs/iced-x86/1.0.0/iced_x86/trait.FormatterOutput.html
 [`Formatter`]: https://docs.rs/iced-x86/1.0.0/iced_x86/trait.Formatter.html
 
-```rust, compile_fail
+```rust compile_fail
 // This example uses crate colored = "1.9.2"
 use colored::{ColoredString, Colorize};
 use iced_x86::{
