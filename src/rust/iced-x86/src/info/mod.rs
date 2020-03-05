@@ -214,8 +214,8 @@ impl IIFlags {
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 #[derive(Debug)]
 pub struct InstructionInfo {
-	pub(crate) used_registers: Vec<UsedRegister>,
-	pub(crate) used_memory_locations: Vec<UsedMemory>,
+	used_registers: Vec<UsedRegister>,
+	used_memory_locations: Vec<UsedMemory>,
 	cpuid_feature_internal: usize,
 	rflags_info: usize,
 	flow_control: FlowControl,
@@ -227,7 +227,7 @@ pub struct InstructionInfo {
 impl InstructionInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
-	pub(crate) fn new(options: u32) -> Self {
+	fn new(options: u32) -> Self {
 		use self::enums::InstrInfoConstants;
 		Self {
 			used_registers: if (options & InstructionInfoOptions::NO_REGISTER_USAGE) == 0 {

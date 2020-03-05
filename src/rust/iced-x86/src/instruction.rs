@@ -4734,7 +4734,7 @@ impl Instruction {
 		instruction
 	}
 
-	/// Creates a new xbegin instruction
+	/// Creates a new `XBEGIN` instruction
 	///
 	/// # Panics
 	///

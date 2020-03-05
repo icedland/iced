@@ -1647,7 +1647,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Creates a new xbegin instruction
+		/// Creates a new <c>XBEGIN</c> instruction
 		/// </summary>
 		/// <param name="bitness">16, 32, or 64</param>
 		/// <param name="target">Target address</param>

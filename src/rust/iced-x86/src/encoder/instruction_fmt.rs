@@ -30,7 +30,7 @@ use alloc::string::String;
 use core::char;
 use core::fmt::Write;
 
-pub(crate) struct InstructionFormatter<'a, 'b> {
+pub(super) struct InstructionFormatter<'a, 'b> {
 	op_code: &'a OpCodeInfo,
 	sb: &'b mut String,
 	r32_count: u32,
@@ -50,7 +50,7 @@ pub(crate) struct InstructionFormatter<'a, 'b> {
 }
 
 impl<'a, 'b> InstructionFormatter<'a, 'b> {
-	pub(crate) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String) -> InstructionFormatter<'a, 'b> {
+	pub(super) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String) -> InstructionFormatter<'a, 'b> {
 		let mut no_vec_index = false;
 		let mut swap_vec_index_12 = false;
 		let mut start_op_index = 0;
@@ -492,7 +492,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		instruction_memory_sizes::SIZES[index]
 	}
 
-	pub(crate) fn format(&mut self) -> String {
+	pub(super) fn format(&mut self) -> String {
 		if !self.op_code.is_instruction() {
 			match self.op_code.code() {
 				// GENERATOR-BEGIN: InstrFmtNotInstructionString

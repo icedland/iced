@@ -38,7 +38,7 @@ pub(super) struct XbeginInstr {
 }
 
 impl XbeginInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		let mut instruction = *instruction;
 		if block_encoder.fix_branches() {
 			if block_encoder.bitness() == 16 {

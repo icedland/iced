@@ -90,7 +90,7 @@ pub struct OpCodeInfo {
 }
 
 impl OpCodeInfo {
-	pub(crate) fn new(code: Code, dword1: u32, dword2: u32, dword3: u32, sb: &mut String) -> Self {
+	pub(super) fn new(code: Code, dword1: u32, dword2: u32, dword3: u32, sb: &mut String) -> Self {
 		let mut flags = Flags::NONE;
 		if code <= Code::DeclareQword {
 			flags |= Flags::NO_INSTRUCTION;

@@ -43,7 +43,7 @@ pub(super) struct CallInstr {
 }
 
 impl CallInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		let mut instr_copy = *instruction;
 		instr_copy.set_near_branch64(0);
 		let orig_instruction_size = block_encoder.get_instruction_size(&instr_copy, 0);

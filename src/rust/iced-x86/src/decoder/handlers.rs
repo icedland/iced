@@ -202,7 +202,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 }
 
 impl OpCodeHandler_MandatoryPrefix2 {
-	pub fn new(
+	pub(super) fn new(
 		has_modrm: bool, handler: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler,
 		handler_f2: *const OpCodeHandler,
 	) -> Self {

@@ -187,7 +187,7 @@ impl InstructionInfoFactory {
 		Self::create(&mut self.info, instruction, options)
 	}
 
-	pub(crate) fn create<'a>(info: &'a mut InstructionInfo, instruction: &Instruction, options: u32) -> &'a InstructionInfo {
+	fn create<'a>(info: &'a mut InstructionInfo, instruction: &Instruction, options: u32) -> &'a InstructionInfo {
 		info.used_registers.clear();
 		info.used_memory_locations.clear();
 

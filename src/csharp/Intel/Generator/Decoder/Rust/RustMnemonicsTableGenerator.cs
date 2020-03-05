@@ -48,7 +48,7 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine($"use super::{MnemonicEnum.Instance.Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static TO_MNEMONIC: [{mnemonicName}; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] = [");
+				writer.WriteLine($"pub(super) static TO_MNEMONIC: [{mnemonicName}; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] = [");
 				using (writer.Indent()) {
 					foreach (var d in data) {
 						if (d.mnemonicEnum.Value > ushort.MaxValue)

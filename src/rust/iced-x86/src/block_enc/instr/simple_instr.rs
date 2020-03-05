@@ -36,7 +36,7 @@ pub(super) struct SimpleInstr {
 }
 
 impl SimpleInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		Self {
 			orig_ip: instruction.ip(),
 			ip: 0,

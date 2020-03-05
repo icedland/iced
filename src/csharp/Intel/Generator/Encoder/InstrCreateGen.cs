@@ -96,8 +96,8 @@ namespace Generator.Encoder {
 			// The code assumes it has value 0 so the field doesn't have to be initialized if we know that it's already 0
 			if (OpKindEnum.Instance[nameof(OpKind.Register)].Value != 0)
 				throw new InvalidOperationException();
-			var info = GetFileInfo();
-			new FileUpdater(info.language, info.id, info.filename).Generate(writer => {
+			var (language, id, filename) = GetFileInfo();
+			new FileUpdater(language, id, filename).Generate(writer => {
 				GenerateCreateMethods(writer);
 				GenerateCreateBranch(writer);
 				GenerateCreateFarBranch(writer);
@@ -217,7 +217,7 @@ namespace Generator.Encoder {
 
 		void GenerateCreateXbegin(FileWriter writer) {
 			writer.WriteLine();
-			var method = new CreateMethod("Creates a new xbegin instruction");
+			var method = new CreateMethod("Creates a new #(c:XBEGIN)# instruction");
 			AddBitnessArg(method);
 			AddTargetArg(method);
 			GenCreateXbegin(writer, method);

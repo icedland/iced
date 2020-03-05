@@ -52,7 +52,7 @@ pub(super) struct JmpInstr {
 }
 
 impl JmpInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		let mut instr_kind = InstrKind::Uninitialized;
 		let mut instr_copy: Instruction;
 		let size;

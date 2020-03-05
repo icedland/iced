@@ -40,7 +40,7 @@ pub(super) struct VirtualAddressTestParser {
 }
 
 impl VirtualAddressTestParser {
-	pub fn new(filename: &Path) -> Self {
+	pub(super) fn new(filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();

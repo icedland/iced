@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::OpCodeOperandKind;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 121] = [
+pub(super) static LEGACY_OP_KINDS: [OpCodeOperandKind; 121] = [
 	OpCodeOperandKind::None,// None
 	OpCodeOperandKind::farbr2_2,// Aww
 	OpCodeOperandKind::farbr4_2,// Adw
@@ -151,7 +151,7 @@ pub(crate) static LEGACY_OP_KINDS: [OpCodeOperandKind; 121] = [
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static VEX_OP_KINDS: [OpCodeOperandKind; 39] = [
+pub(super) static VEX_OP_KINDS: [OpCodeOperandKind; 39] = [
 	OpCodeOperandKind::None,// None
 	OpCodeOperandKind::r32_or_mem,// Ed
 	OpCodeOperandKind::r64_or_mem,// Eq
@@ -194,7 +194,7 @@ pub(crate) static VEX_OP_KINDS: [OpCodeOperandKind; 39] = [
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static XOP_OP_KINDS: [OpCodeOperandKind; 19] = [
+pub(super) static XOP_OP_KINDS: [OpCodeOperandKind; 19] = [
 	OpCodeOperandKind::None,// None
 	OpCodeOperandKind::r32_or_mem,// Ed
 	OpCodeOperandKind::r64_or_mem,// Eq
@@ -217,7 +217,7 @@ pub(crate) static XOP_OP_KINDS: [OpCodeOperandKind; 19] = [
 ];
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static EVEX_OP_KINDS: [OpCodeOperandKind; 36] = [
+pub(super) static EVEX_OP_KINDS: [OpCodeOperandKind; 36] = [
 	OpCodeOperandKind::None,// None
 	OpCodeOperandKind::r32_or_mem,// Ed
 	OpCodeOperandKind::r64_or_mem,// Eq

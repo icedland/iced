@@ -82,6 +82,9 @@ use core::{mem, u16, u32, u8};
 ///     fn symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>,
 ///          address: u64, address_size: u32) -> Option<SymbolResult> {
 ///         if let Some(symbol_string) = self.map.get(&address) {
+///             // The 'address' arg is the address of the symbol and doesn't have to be identical
+///             // to the 'address' arg passed to symbol(). If it's different from the input
+///             // address, the formatter will add +N or -N, eg. '[rax+symbol+123]'
 ///             Some(SymbolResult::with_str(address, symbol_string.as_str()))
 ///         } else {
 ///             None

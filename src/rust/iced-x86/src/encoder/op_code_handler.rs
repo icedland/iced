@@ -35,25 +35,25 @@ use core::{i8, mem, u32};
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #[repr(C)]
 pub(crate) struct OpCodeHandler {
-	pub(crate) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
-	pub(crate) try_convert_to_disp8n:
+	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),
+	pub(super) try_convert_to_disp8n:
 		Option<fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction, displ: i32) -> Option<i8>>,
 	pub(crate) operands: Box<[&'static (Op + Sync)]>,
-	pub(crate) op_code: u32,
-	pub(crate) group_index: i32,
-	pub(crate) flags: u32, // OpCodeHandlerFlags
-	pub(crate) encodable: Encodable,
-	pub(crate) op_size: OperandSize,
-	pub(crate) addr_size: AddressSize,
+	pub(super) op_code: u32,
+	pub(super) group_index: i32,
+	pub(super) flags: u32, // OpCodeHandlerFlags
+	pub(super) encodable: Encodable,
+	pub(super) op_size: OperandSize,
+	pub(super) addr_size: AddressSize,
 }
 
 #[repr(C)]
-pub(crate) struct InvalidHandler {
-	pub(crate) base: OpCodeHandler,
+pub(super) struct InvalidHandler {
+	pub(super) base: OpCodeHandler,
 }
 
 impl InvalidHandler {
-	pub(crate) fn new() -> Self {
+	pub(super) fn new() -> Self {
 		Self {
 			base: OpCodeHandler {
 				encode: Self::encode,
@@ -69,7 +69,7 @@ impl InvalidHandler {
 		}
 	}
 
-	pub(crate) const ERROR_MESSAGE: &'static str = "Can't encode an invalid instruction";
+	pub(super) const ERROR_MESSAGE: &'static str = "Can't encode an invalid instruction";
 
 	fn encode(_self_ptr: *const OpCodeHandler, encoder: &mut Encoder, _instruction: &Instruction) {
 		encoder.set_error_message_str(Self::ERROR_MESSAGE);
@@ -77,13 +77,13 @@ impl InvalidHandler {
 }
 
 #[repr(C)]
-pub(crate) struct DeclareDataHandler {
+pub(super) struct DeclareDataHandler {
 	base: OpCodeHandler,
 	elem_size: u32,
 }
 
 impl DeclareDataHandler {
-	pub(crate) fn new(code: Code) -> Self {
+	pub(super) fn new(code: Code) -> Self {
 		Self {
 			base: OpCodeHandler {
 				encode: Self::encode,
@@ -120,7 +120,7 @@ fn get_op_code(dword1: u32) -> u32 {
 }
 
 #[repr(C)]
-pub(crate) struct LegacyHandler {
+pub(super) struct LegacyHandler {
 	base: OpCodeHandler,
 	table_byte1: u32,
 	table_byte2: u32,
@@ -128,7 +128,7 @@ pub(crate) struct LegacyHandler {
 }
 
 impl LegacyHandler {
-	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
+	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & LegacyFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> LegacyFlags::GROUP_SHIFT) & 7) as i32 };
 		let flags = if (dword2 & LegacyFlags::FWAIT) != 0 { OpCodeHandlerFlags::FWAIT } else { OpCodeHandlerFlags::NONE };
 		let table: LegacyOpCodeTable =
@@ -239,7 +239,7 @@ impl LegacyHandler {
 }
 
 #[repr(C)]
-pub(crate) struct VexHandler {
+pub(super) struct VexHandler {
 	base: OpCodeHandler,
 	table: u32,
 	last_byte: u32,
@@ -249,7 +249,7 @@ pub(crate) struct VexHandler {
 }
 
 impl VexHandler {
-	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
+	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
 		let wbit: WBit = unsafe { mem::transmute(((dword2 >> VexFlags::WBIT_SHIFT) & VexFlags::WBIT_MASK) as u8) };
 		let w1 = if wbit == WBit::W1 { u32::MAX } else { 0 };
@@ -377,14 +377,14 @@ impl VexHandler {
 }
 
 #[repr(C)]
-pub(crate) struct XopHandler {
+pub(super) struct XopHandler {
 	base: OpCodeHandler,
 	table: u32,
 	last_byte: u32,
 }
 
 impl XopHandler {
-	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
+	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		const_assert_eq!(0, XopOpCodeTable::XOP8 as u32);
 		const_assert_eq!(1, XopOpCodeTable::XOP9 as u32);
 		const_assert_eq!(2, XopOpCodeTable::XOPA as u32);
@@ -473,7 +473,7 @@ impl XopHandler {
 }
 
 #[repr(C)]
-pub(crate) struct EvexHandler {
+pub(super) struct EvexHandler {
 	base: OpCodeHandler,
 	flags: u32, // EvexFlags
 	table: u32,
@@ -486,7 +486,7 @@ pub(crate) struct EvexHandler {
 }
 
 impl EvexHandler {
-	pub(crate) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
+	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i32 };
 		const_assert_eq!(0, MandatoryPrefixByte::None as u32);
 		const_assert_eq!(1, MandatoryPrefixByte::P66 as u32);
@@ -751,13 +751,13 @@ impl EvexHandler {
 }
 
 #[repr(C)]
-pub(crate) struct D3nowHandler {
+pub(super) struct D3nowHandler {
 	base: OpCodeHandler,
 	immediate: u32,
 }
 
 impl D3nowHandler {
-	pub(crate) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
+	pub(super) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);
 		static D3NOW_TABLE: [&(Op + Sync); 2] =
 			[&OpModRM_reg { reg_lo: Register::MM0, reg_hi: Register::MM7 }, &OpModRM_rm { reg_lo: Register::MM0, reg_hi: Register::MM7 }];

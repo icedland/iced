@@ -65,18 +65,18 @@ impl Default for LKind {
 }
 // GENERATOR-END: LKind
 
-pub(crate) struct OpCodeFormatter<'a, 'b> {
+pub(super) struct OpCodeFormatter<'a, 'b> {
 	op_code: &'a OpCodeInfo,
 	sb: &'b mut String,
 	lkind: LKind,
 }
 
 impl<'a, 'b> OpCodeFormatter<'a, 'b> {
-	pub(crate) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String, lkind: LKind) -> OpCodeFormatter<'a, 'b> {
+	pub(super) fn new(op_code: &'a OpCodeInfo, sb: &'b mut String, lkind: LKind) -> OpCodeFormatter<'a, 'b> {
 		Self { op_code, sb, lkind }
 	}
 
-	pub(crate) fn format(&mut self) -> String {
+	pub(super) fn format(&mut self) -> String {
 		if !self.op_code.is_instruction() {
 			match self.op_code.code() {
 				// GENERATOR-BEGIN: OpCodeFmtNotInstructionString

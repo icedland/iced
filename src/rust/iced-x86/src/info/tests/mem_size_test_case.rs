@@ -24,12 +24,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::*;
 
 #[derive(Default)]
-pub(crate) struct MemorySizeInfoTestCase {
-	pub line_number: u32,
-	pub memory_size: MemorySize,
-	pub size: usize,
-	pub element_size: usize,
-	pub element_type: MemorySize,
-	pub element_count: usize,
-	pub flags: u32, // MemorySizeFlags
+pub(super) struct MemorySizeInfoTestCase {
+	pub(super) line_number: u32,
+	pub(super) memory_size: MemorySize,
+	pub(super) size: usize,
+	pub(super) element_size: usize,
+	pub(super) element_type: MemorySize,
+	pub(super) element_count: usize,
+	pub(super) flags: u32, // MemorySizeFlags
 }

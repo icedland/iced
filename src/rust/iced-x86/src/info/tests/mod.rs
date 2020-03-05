@@ -54,13 +54,13 @@ use hashbrown::{HashMap, HashSet};
 use std::collections::{HashMap, HashSet};
 
 lazy_static! {
-	pub(super) static ref INSTR_INFO_16: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(16) };
+	static ref INSTR_INFO_16: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(16) };
 }
 lazy_static! {
-	pub(super) static ref INSTR_INFO_32: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(32) };
+	static ref INSTR_INFO_32: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(32) };
 }
 lazy_static! {
-	pub(super) static ref INSTR_INFO_64: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(64) };
+	static ref INSTR_INFO_64: Vec<InstrInfoTestCase> = { read_instr_info_test_cases(64) };
 }
 
 fn read_instr_info_test_cases(bitness: u32) -> Vec<InstrInfoTestCase> {

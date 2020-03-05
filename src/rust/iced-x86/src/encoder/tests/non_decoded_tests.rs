@@ -49,9 +49,9 @@ pub(crate) fn get_infos(bitness: u32) -> &'static Vec<(&'static str, Instruction
 	}
 }
 
-pub(crate) const INFOS16_LEN: usize = 49;
-pub(crate) const INFOS32_LEN: usize = 49;
-pub(crate) const INFOS64_LEN: usize = 48;
+const INFOS16_LEN: usize = 49;
+const INFOS32_LEN: usize = 49;
+const INFOS64_LEN: usize = 48;
 
 fn c16(mut instruction: Instruction) -> Instruction {
 	instruction.set_code_size(CodeSize::Code16);
@@ -69,7 +69,7 @@ fn c64(mut instruction: Instruction) -> Instruction {
 }
 
 lazy_static! {
-	pub(crate) static ref INFOS16: Vec<(&'static str, Instruction)> = {
+	static ref INFOS16: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		let array: [_; INFOS16_LEN] = [
 			("0F", c16(Instruction::with_reg(Code::Popw_CS, Register::CS))),
@@ -127,7 +127,7 @@ lazy_static! {
 }
 
 lazy_static! {
-	pub(crate) static ref INFOS32: Vec<(&'static str, Instruction)> = {
+	static ref INFOS32: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		let array: [_; INFOS32_LEN] = [
 			("66 0F", c32(Instruction::with_reg(Code::Popw_CS, Register::CS))),
@@ -185,7 +185,7 @@ lazy_static! {
 }
 
 lazy_static! {
-	pub(crate) static ref INFOS64: Vec<(&'static str, Instruction)> = {
+	static ref INFOS64: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		let array: [_; INFOS64_LEN] = [
 			("9B 66 D9 30", c64(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)))),

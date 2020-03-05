@@ -102,7 +102,7 @@ namespace Generator.Encoder.Rust {
 				var declTypeStr = OpCodeOperandKindEnum.Instance.Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static {name}: [{declTypeStr}; {table.Length}] = [");
+				writer.WriteLine($"pub(super) static {name}: [{declTypeStr}; {table.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in table)
 						writer.WriteLine($"{declTypeStr}::{info.opCodeOperandKind.Name(idConverter)},// {info.opKind.Name(idConverter)}");
@@ -266,7 +266,7 @@ namespace Generator.Encoder.Rust {
 
 			void WriteTable(FileWriter writer, string name, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)> values) {
 				var all = values.ToArray();
-				writer.WriteLine($"pub(crate) static {name}: [&(Op + Sync); {all.Length}] = [");
+				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in all) {
 						var info = dict[(value.opHandlerKind, value.args)];
@@ -322,7 +322,7 @@ namespace Generator.Encoder.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static OP_CODE_DATA: [u32; {opCodes.Length} * 3] = [");
+				writer.WriteLine($"pub(super) static OP_CODE_DATA: [u32; {opCodes.Length} * 3] = [");
 				using (writer.Indent()) {
 					foreach (var info in GetData(opCodes))
 						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword3)},// {info.opCode.Code.Name(idConverter)}");
@@ -414,7 +414,7 @@ namespace Generator.Encoder.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static TO_MNEMONIC_STR: [&str; {values.Length}] = [");
+				writer.WriteLine($"pub(super) static TO_MNEMONIC_STR: [&str; {values.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in values)
 						writer.WriteLine($"\"{value.RawName.ToLowerInvariant()}\",");

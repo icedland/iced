@@ -50,7 +50,7 @@ pub(super) struct IpRelMemOpInstr {
 }
 
 impl IpRelMemOpInstr {
-	pub fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
+	pub(super) fn new(block_encoder: &mut BlockEncoder, block: Rc<RefCell<Block>>, instruction: &Instruction) -> Self {
 		debug_assert!(instruction.is_ip_rel_memory_operand());
 
 		let mut instr_copy = *instruction;

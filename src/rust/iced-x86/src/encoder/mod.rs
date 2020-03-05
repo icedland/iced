@@ -110,34 +110,34 @@ pub struct Encoder {
 	eip: u32,
 	displ_addr: u32,
 	imm_addr: u32,
-	pub(crate) immediate: u32,
+	pub(self) immediate: u32,
 	// high 32 bits if it's a 64-bit immediate
 	// high 32 bits if it's an IP relative immediate (jcc,call target)
 	// high 32 bits if it's a 64-bit absolute address
-	pub(crate) immediate_hi: u32,
+	pub(self) immediate_hi: u32,
 	displ: u32,
 	// high 32 bits if it's an IP relative mem displ (target)
 	displ_hi: u32,
-	pub(crate) op_code: u32,
-	pub(crate) internal_vex_wig_lig: u32,
-	pub(crate) internal_vex_lig: u32,
-	pub(crate) internal_evex_wig: u32,
-	pub(crate) internal_evex_lig: u32,
-	pub(crate) prevent_vex2: u32,
+	pub(self) op_code: u32,
+	pub(self) internal_vex_wig_lig: u32,
+	pub(self) internal_vex_lig: u32,
+	pub(self) internal_evex_wig: u32,
+	pub(self) internal_evex_lig: u32,
+	pub(self) prevent_vex2: u32,
 	// ***************************
 	// These fields must be 64-bit aligned.
 	// They are cleared in encode() and should be close so the compiler can optimize clearing them.
-	pub(crate) encoder_flags: u32, // EncoderFlags
+	pub(self) encoder_flags: u32, // EncoderFlags
 	displ_size: DisplSize,
-	pub(crate) imm_size: ImmSize,
+	pub(self) imm_size: ImmSize,
 	mod_rm: u8,
 	sib: u8,
 	// ***************************
 }
 
 impl Encoder {
-	pub(crate) const ERROR_ONLY_1632_BIT_MODE: &'static str = "The instruction can only be used in 16/32-bit mode";
-	pub(crate) const ERROR_ONLY_64_BIT_MODE: &'static str = "The instruction can only be used in 64-bit mode";
+	pub(super) const ERROR_ONLY_1632_BIT_MODE: &'static str = "The instruction can only be used in 16/32-bit mode";
+	pub(super) const ERROR_ONLY_64_BIT_MODE: &'static str = "The instruction can only be used in 64-bit mode";
 
 	/// Creates an encoder
 	///
@@ -355,14 +355,14 @@ impl Encoder {
 	}
 
 	#[inline]
-	pub(crate) fn set_error_message(&mut self, message: String) {
+	pub(super) fn set_error_message(&mut self, message: String) {
 		if self.error_message.is_empty() {
 			self.error_message = message;
 		}
 	}
 
 	#[inline]
-	pub(crate) fn set_error_message_str(&mut self, message: &str) {
+	pub(super) fn set_error_message_str(&mut self, message: &str) {
 		if self.error_message.is_empty() {
 			self.error_message.push_str(message);
 		}
@@ -370,7 +370,7 @@ impl Encoder {
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub(crate) fn verify_op_kind(&mut self, operand: u32, expected: OpKind, actual: OpKind) -> bool {
+	pub(super) fn verify_op_kind(&mut self, operand: u32, expected: OpKind, actual: OpKind) -> bool {
 		if expected == actual {
 			true
 		} else {
@@ -385,7 +385,7 @@ impl Encoder {
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub(crate) fn verify_register(&mut self, operand: u32, expected: Register, actual: Register) -> bool {
+	pub(super) fn verify_register(&mut self, operand: u32, expected: Register, actual: Register) -> bool {
 		if expected == actual {
 			true
 		} else {
@@ -400,7 +400,7 @@ impl Encoder {
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
-	pub(crate) fn verify_register_range(&mut self, operand: u32, register: Register, reg_lo: Register, mut reg_hi: Register) -> bool {
+	pub(super) fn verify_register_range(&mut self, operand: u32, register: Register, reg_lo: Register, mut reg_hi: Register) -> bool {
 		if self.bitness != 64 && reg_hi as u32 > (reg_lo as u32).wrapping_add(7) {
 			reg_hi = unsafe { mem::transmute((reg_lo as u8).wrapping_add(7)) };
 		}
@@ -422,7 +422,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn add_branch(&mut self, op_kind: OpKind, imm_size: u32, instruction: &Instruction, operand: u32) {
+	pub(super) fn add_branch(&mut self, op_kind: OpKind, imm_size: u32, instruction: &Instruction, operand: u32) {
 		if !self.verify_op_kind(operand, op_kind, instruction.op_kind(operand)) {
 			return;
 		}
@@ -490,7 +490,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn add_branch_x(&mut self, imm_size: u32, instruction: &Instruction, operand: u32) {
+	pub(super) fn add_branch_x(&mut self, imm_size: u32, instruction: &Instruction, operand: u32) {
 		if self.bitness == 64 {
 			if !self.verify_op_kind(operand, OpKind::NearBranch64, instruction.op_kind(operand)) {
 				return;
@@ -538,7 +538,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn add_branch_disp(&mut self, displ_size: u32, instruction: &Instruction, operand: u32) {
+	pub(super) fn add_branch_disp(&mut self, displ_size: u32, instruction: &Instruction, operand: u32) {
 		debug_assert!(displ_size == 2 || displ_size == 4);
 		let op_kind;
 		match displ_size {
@@ -561,7 +561,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn add_far_branch(&mut self, instruction: &Instruction, operand: u32, size: u32) {
+	pub(super) fn add_far_branch(&mut self, instruction: &Instruction, operand: u32, size: u32) {
 		if size == 2 {
 			if !self.verify_op_kind(operand, OpKind::FarBranch16, instruction.op_kind(operand)) {
 				return;
@@ -583,7 +583,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn set_addr_size(&mut self, reg_size: u32) {
+	pub(super) fn set_addr_size(&mut self, reg_size: u32) {
 		debug_assert!(reg_size == 2 || reg_size == 4 || reg_size == 8);
 		if self.bitness == 64 {
 			if reg_size == 2 {
@@ -606,7 +606,7 @@ impl Encoder {
 		}
 	}
 
-	pub(crate) fn add_abs_mem(&mut self, instruction: &Instruction, operand: u32) {
+	pub(super) fn add_abs_mem(&mut self, instruction: &Instruction, operand: u32) {
 		self.encoder_flags |= EncoderFlags::DISPL;
 		let op_kind = instruction.op_kind(operand);
 		if op_kind == OpKind::Memory64 {
@@ -656,7 +656,7 @@ impl Encoder {
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
-	pub(crate) fn add_mod_rm_register(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
+	pub(super) fn add_mod_rm_register(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
 		if !self.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {
 			return;
 		}
@@ -682,7 +682,7 @@ impl Encoder {
 		self.encoder_flags |= (reg_num & 0x10) << (9 - 4);
 	}
 
-	pub(crate) fn add_reg(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
+	pub(super) fn add_reg(&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register) {
 		if !self.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {
 			return;
 		}
@@ -707,14 +707,14 @@ impl Encoder {
 	}
 
 	#[inline]
-	pub(crate) fn add_reg_or_mem(
+	pub(super) fn add_reg_or_mem(
 		&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register, allow_mem_op: bool, allow_reg_op: bool,
 	) {
 		self.add_reg_or_mem_full(instruction, operand, reg_lo, reg_hi, Register::None, Register::None, allow_mem_op, allow_reg_op);
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
-	pub(crate) fn add_reg_or_mem_full(
+	pub(super) fn add_reg_or_mem_full(
 		&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register, vsib_index_reg_lo: Register,
 		vsib_index_reg_hi: Register, allow_mem_op: bool, allow_reg_op: bool,
 	) {
@@ -1377,13 +1377,13 @@ impl Encoder {
 	}
 
 	#[inline]
-	pub(crate) fn write_byte_internal(&mut self, value: u32) {
+	pub(super) fn write_byte_internal(&mut self, value: u32) {
 		self.buffer.push(value as u8);
 		self.current_rip = self.current_rip.wrapping_add(1);
 	}
 
 	#[inline]
-	pub(crate) fn position(&self) -> usize {
+	pub(super) fn position(&self) -> usize {
 		self.buffer.len()
 	}
 
@@ -1406,7 +1406,7 @@ impl Encoder {
 	}
 
 	#[inline]
-	pub(crate) fn clear_buffer(&mut self) {
+	pub(super) fn clear_buffer(&mut self) {
 		self.buffer.clear()
 	}
 

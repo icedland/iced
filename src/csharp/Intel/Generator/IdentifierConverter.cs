@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Generator {
@@ -74,93 +76,30 @@ namespace Generator {
 		public override string Namespace(string name) => Escape(name);
 		public override string Argument(string name) => Escape(name);
 
-		public static string Escape(string name) {
-			            // From https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
-            switch (name)
-            {
-                case "abstract":
-                case "as":
-                case "base":
-                case "bool":
-                case "break":
-                case "byte":
-                case "case":
-                case "catch":
-                case "char":
-                case "checked":
-                case "class":
-                case "const":
-                case "continue":
-                case "decimal":
-                case "default":
-                case "delegate":
-                case "do":
-                case "double":
-                case "else":
-                case "enum":
-                case "event":
-                case "explicit":
-                case "extern":
-                case "false":
-                case "finally":
-                case "fixed":
-                case "float":
-                case "for":
-                case "foreach":
-                case "goto":
-                case "if":
-                case "implicit":
-                case "in":
-                case "int":
-                case "interface":
-                case "internal":
-                case "is":
-                case "lock":
-                case "long":
-                case "namespace":
-                case "new":
-                case "null":
-                case "object":
-                case "operator":
-                case "out":
-                case "override":
-                case "params":
-                case "private":
-                case "protected":
-                case "public":
-                case "readonly":
-                case "ref":
-                case "return":
-                case "sbyte":
-                case "sealed":
-                case "short":
-                case "sizeof":
-                case "stackalloc":
-                case "static":
-                case "string":
-                case "struct":
-                case "switch":
-                case "this":
-                case "throw":
-                case "true":
-                case "try":
-                case "typeof":
-                case "uint":
-                case "ulong":
-                case "unchecked":
-                case "unsafe":
-                case "ushort":
-                case "using":
-                case "virtual":
-                case "void":
-                case "volatile":
-                case "while":
-                    return $"@{name}";
+		static readonly HashSet<string> keywords = new HashSet<string>(StringComparer.Ordinal) {
+			"abstract", "as", "base", "bool",
+			"break", "byte", "case", "catch",
+			"char", "checked", "class", "const",
+			"continue", "decimal", "default", "delegate",
+			"do", "double", "else", "enum",
+			"event", "explicit", "extern", "false",
+			"finally", "fixed", "float", "for",
+			"foreach", "goto", "if", "implicit",
+			"in", "int", "interface", "internal",
+			"is", "lock", "long", "namespace",
+			"new", "null", "object", "operator",
+			"out", "override", "params", "private",
+			"protected", "public", "readonly", "ref",
+			"return", "sbyte", "sealed", "short",
+			"sizeof", "stackalloc", "static", "string",
+			"struct", "switch", "this", "throw",
+			"true", "try", "typeof", "uint",
+			"ulong", "unchecked", "unsafe", "ushort",
+			"using", "using", "static", "virtual", "void",
+			"volatile", "while",
+		};
 
-                default:
-                    return name;
-            }
-		}
+		static string Escape(string name) => keywords.Contains(name) ? "@" + name : name;
 	}
 
 	sealed class RustIdentifierConverter : IdentifierConverter {

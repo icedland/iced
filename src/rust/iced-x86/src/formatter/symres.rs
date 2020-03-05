@@ -63,14 +63,14 @@ impl<'a> Default for SymResString<'a> {
 }
 impl<'a> SymResString<'a> {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub(crate) fn to_owned<'b>(self) -> SymResString<'b> {
+	pub(super) fn to_owned<'b>(self) -> SymResString<'b> {
 		match self {
 			SymResString::Str(s) => SymResString::String(String::from(s)),
 			SymResString::String(s) => SymResString::String(s),
 		}
 	}
 
-	pub(crate) fn to_owned2<'b>(&self) -> SymResString<'b> {
+	pub(super) fn to_owned2<'b>(&self) -> SymResString<'b> {
 		match self {
 			&SymResString::Str(s) => SymResString::String(String::from(s)),
 			&SymResString::String(ref s) => SymResString::String(s.clone()),
@@ -113,11 +113,11 @@ impl<'a> SymResTextPart<'a> {
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub(crate) fn to_owned<'b>(self) -> SymResTextPart<'b> {
+	pub(super) fn to_owned<'b>(self) -> SymResTextPart<'b> {
 		SymResTextPart { text: self.text.to_owned(), color: self.color }
 	}
 
-	pub(crate) fn to_owned2<'b>(&self) -> SymResTextPart<'b> {
+	pub(super) fn to_owned2<'b>(&self) -> SymResTextPart<'b> {
 		SymResTextPart { text: self.text.to_owned2(), color: self.color }
 	}
 }
@@ -181,7 +181,7 @@ impl<'a> SymResTextInfo<'a> {
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub(crate) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymResTextInfo<'b> {
+	pub(super) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymResTextInfo<'b> {
 		match self {
 			SymResTextInfo::Text(part) => SymResTextInfo::Text(part.to_owned()),
 			SymResTextInfo::TextVec(parts) => {
@@ -381,7 +381,7 @@ impl<'a> SymbolResult<'a> {
 	}
 
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
-	pub(crate) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymbolResult<'b> {
+	pub(super) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymbolResult<'b> {
 		SymbolResult { address: self.address, text: self.text.to_owned(vec), flags: self.flags, symbol_size: self.symbol_size }
 	}
 }

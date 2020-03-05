@@ -388,7 +388,7 @@ static OP_VMX_ZMM0_ZMM31: OpVMx = OpVMx {
 static OP_X: OpX = OpX;
 static OP_Y: OpY = OpY;
 
-pub(crate) static LEGACY_TABLE: [&(Op + Sync); 121] = [
+pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&NONE,// None
 	&OP_A_2,// Aww
 	&OP_A_4,// Adw
@@ -511,7 +511,7 @@ pub(crate) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&OP_REG_EMBED8_EAX_R15_D,// r32_rd
 	&OP_REG_EMBED8_RAX_R15,// r64_ro
 ];
-pub(crate) static VEX_TABLE: [&(Op + Sync); 39] = [
+pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
 	&OP_MOD_RM_RM_RAX_R15,// Eq
@@ -552,7 +552,7 @@ pub(crate) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&OP_MOD_RM_RM_XMM0_XMM15,// WX
 	&OP_MOD_RM_RM_YMM0_YMM15,// WY
 ];
-pub(crate) static XOP_TABLE: [&(Op + Sync); 19] = [
+pub(super) static XOP_TABLE: [&(Op + Sync); 19] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
 	&OP_MOD_RM_RM_RAX_R15,// Eq
@@ -573,7 +573,7 @@ pub(crate) static XOP_TABLE: [&(Op + Sync); 19] = [
 	&OP_MOD_RM_RM_XMM0_XMM15,// WX
 	&OP_MOD_RM_RM_YMM0_YMM15,// WY
 ];
-pub(crate) static EVEX_TABLE: [&(Op + Sync); 36] = [
+pub(super) static EVEX_TABLE: [&(Op + Sync); 36] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
 	&OP_MOD_RM_RM_RAX_R15,// Eq

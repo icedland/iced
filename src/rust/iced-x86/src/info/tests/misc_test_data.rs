@@ -78,23 +78,23 @@ impl MiscSectionNameIds {
 	const CMOVCC_INFO: u32 = 15;
 }
 
-pub(crate) struct MiscTestsData {
-	pub(crate) jcc_short: HashSet<Code>,
-	pub(crate) jmp_near: HashSet<Code>,
-	pub(crate) jmp_far: HashSet<Code>,
-	pub(crate) jmp_short: HashSet<Code>,
-	pub(crate) jmp_near_indirect: HashSet<Code>,
-	pub(crate) jmp_far_indirect: HashSet<Code>,
-	pub(crate) jcc_near: HashSet<Code>,
-	pub(crate) call_far: HashSet<Code>,
-	pub(crate) call_near: HashSet<Code>,
-	pub(crate) call_near_indirect: HashSet<Code>,
-	pub(crate) call_far_indirect: HashSet<Code>,
-	pub(crate) jmp_infos: Vec<(Code, Code)>,
-	pub(crate) jcc_short_infos: Vec<(Code, Code, Code, ConditionCode)>,
-	pub(crate) jcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
-	pub(crate) setcc_infos: Vec<(Code, Code, ConditionCode)>,
-	pub(crate) cmovcc_infos: Vec<(Code, Code, ConditionCode)>,
+pub(super) struct MiscTestsData {
+	pub(super) jcc_short: HashSet<Code>,
+	pub(super) jmp_near: HashSet<Code>,
+	pub(super) jmp_far: HashSet<Code>,
+	pub(super) jmp_short: HashSet<Code>,
+	pub(super) jmp_near_indirect: HashSet<Code>,
+	pub(super) jmp_far_indirect: HashSet<Code>,
+	pub(super) jcc_near: HashSet<Code>,
+	pub(super) call_far: HashSet<Code>,
+	pub(super) call_near: HashSet<Code>,
+	pub(super) call_near_indirect: HashSet<Code>,
+	pub(super) call_far_indirect: HashSet<Code>,
+	pub(super) jmp_infos: Vec<(Code, Code)>,
+	pub(super) jcc_short_infos: Vec<(Code, Code, Code, ConditionCode)>,
+	pub(super) jcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
+	pub(super) setcc_infos: Vec<(Code, Code, ConditionCode)>,
+	pub(super) cmovcc_infos: Vec<(Code, Code, ConditionCode)>,
 }
 
 lazy_static! {

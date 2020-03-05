@@ -45,7 +45,7 @@ pub(crate) trait Op {
 	}
 }
 
-pub(crate) struct InvalidOpHandler;
+pub(super) struct InvalidOpHandler;
 impl Op for InvalidOpHandler {
 	fn encode(&self, _encoder: &mut Encoder, _instruction: &Instruction, _operand: u32) {
 		unreachable!()
@@ -53,7 +53,7 @@ impl Op for InvalidOpHandler {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_rm_mem_only;
+pub(super) struct OpModRM_rm_mem_only;
 impl Op for OpModRM_rm_mem_only {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		encoder.add_reg_or_mem(instruction, operand, Register::None, Register::None, true, false);
@@ -61,9 +61,9 @@ impl Op for OpModRM_rm_mem_only {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_rm {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpModRM_rm {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpModRM_rm {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -72,9 +72,9 @@ impl Op for OpModRM_rm {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpRegEmbed8 {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpRegEmbed8 {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpRegEmbed8 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -83,9 +83,9 @@ impl Op for OpRegEmbed8 {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_rm_reg_only {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpModRM_rm_reg_only {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpModRM_rm_reg_only {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -94,9 +94,9 @@ impl Op for OpModRM_rm_reg_only {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_reg {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpModRM_reg {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpModRM_reg {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -105,9 +105,9 @@ impl Op for OpModRM_reg {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_reg_mem {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpModRM_reg_mem {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpModRM_reg_mem {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -117,9 +117,9 @@ impl Op for OpModRM_reg_mem {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpModRM_regF0 {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpModRM_regF0 {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpModRM_regF0 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -137,8 +137,8 @@ impl Op for OpModRM_regF0 {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpReg {
-	pub(crate) register: Register,
+pub(super) struct OpReg {
+	pub(super) register: Register,
 }
 impl Op for OpReg {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -148,7 +148,7 @@ impl Op for OpReg {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpRegSTi;
+pub(super) struct OpRegSTi;
 impl Op for OpRegSTi {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {
@@ -164,7 +164,7 @@ impl Op for OpRegSTi {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OprDI;
+pub(super) struct OprDI;
 impl OprDI {
 	pub fn get_reg_size(op_kind: OpKind) -> u32 {
 		match op_kind {
@@ -190,8 +190,8 @@ impl Op for OprDI {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIb {
-	pub(crate) op_kind: OpKind,
+pub(super) struct OpIb {
+	pub(super) op_kind: OpKind,
 }
 impl Op for OpIb {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -209,7 +209,7 @@ impl Op for OpIb {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIw;
+pub(super) struct OpIw;
 impl Op for OpIw {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Immediate16, instruction.op_kind(operand)) {
@@ -225,8 +225,8 @@ impl Op for OpIw {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpId {
-	pub(crate) op_kind: OpKind,
+pub(super) struct OpId {
+	pub(super) op_kind: OpKind,
 }
 impl Op for OpId {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -244,7 +244,7 @@ impl Op for OpId {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIq;
+pub(super) struct OpIq;
 impl Op for OpIq {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Immediate64, instruction.op_kind(operand)) {
@@ -262,7 +262,7 @@ impl Op for OpIq {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIb21;
+pub(super) struct OpIb21;
 impl Op for OpIb21 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
@@ -279,7 +279,7 @@ impl Op for OpIb21 {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIb11;
+pub(super) struct OpIb11;
 impl Op for OpIb11 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Immediate8_2nd, instruction.op_kind(operand)) {
@@ -296,7 +296,7 @@ impl Op for OpIb11 {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpI2;
+pub(super) struct OpI2;
 impl Op for OpI2 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		let op_imm_kind = instruction.op_kind(operand);
@@ -319,7 +319,7 @@ impl Op for OpI2 {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpX;
+pub(super) struct OpX;
 impl OpX {
 	pub fn get_xreg_size(op_kind: OpKind) -> u32 {
 		match op_kind {
@@ -368,7 +368,7 @@ impl Op for OpX {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpY;
+pub(super) struct OpY;
 impl Op for OpY {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		let regy_size = OpX::get_yreg_size(instruction.op_kind(operand));
@@ -396,7 +396,7 @@ impl Op for OpY {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpMRBX;
+pub(super) struct OpMRBX;
 impl Op for OpMRBX {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Memory, instruction.op_kind(operand)) {
@@ -423,9 +423,9 @@ impl Op for OpMRBX {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpJ {
-	pub(crate) op_kind: OpKind,
-	pub(crate) imm_size: u32,
+pub(super) struct OpJ {
+	pub(super) op_kind: OpKind,
+	pub(super) imm_size: u32,
 }
 impl Op for OpJ {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -438,8 +438,8 @@ impl Op for OpJ {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpJx {
-	pub(crate) imm_size: u32,
+pub(super) struct OpJx {
+	pub(super) imm_size: u32,
 }
 impl Op for OpJx {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -455,8 +455,8 @@ impl Op for OpJx {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpJdisp {
-	pub(crate) displ_size: u32,
+pub(super) struct OpJdisp {
+	pub(super) displ_size: u32,
 }
 impl Op for OpJdisp {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -469,8 +469,8 @@ impl Op for OpJdisp {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpA {
-	pub(crate) size: u32,
+pub(super) struct OpA {
+	pub(super) size: u32,
 }
 impl Op for OpA {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -483,7 +483,7 @@ impl Op for OpA {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpO;
+pub(super) struct OpO;
 impl Op for OpO {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		encoder.add_abs_mem(instruction, operand);
@@ -491,8 +491,8 @@ impl Op for OpO {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpImm {
-	pub(crate) value: u8,
+pub(super) struct OpImm {
+	pub(super) value: u8,
 }
 impl Op for OpImm {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -511,9 +511,9 @@ impl Op for OpImm {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpHx {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpHx {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpHx {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -529,9 +529,9 @@ impl Op for OpHx {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpVMx {
-	pub(crate) vsib_index_reg_lo: Register,
-	pub(crate) vsib_index_reg_hi: Register,
+pub(super) struct OpVMx {
+	pub(super) vsib_index_reg_lo: Register,
+	pub(super) vsib_index_reg_hi: Register,
 }
 impl Op for OpVMx {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -549,9 +549,9 @@ impl Op for OpVMx {
 }
 
 #[allow(non_camel_case_types)]
-pub(crate) struct OpIs4x {
-	pub(crate) reg_lo: Register,
-	pub(crate) reg_hi: Register,
+pub(super) struct OpIs4x {
+	pub(super) reg_lo: Register,
+	pub(super) reg_hi: Register,
 }
 impl Op for OpIs4x {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {

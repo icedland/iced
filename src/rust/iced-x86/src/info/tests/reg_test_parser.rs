@@ -39,13 +39,13 @@ use std::io::prelude::*;
 use std::io::{BufReader, Lines};
 use std::path::Path;
 
-pub(crate) struct RegisterInfoTestParser {
+pub(super) struct RegisterInfoTestParser {
 	filename: String,
 	lines: Lines<BufReader<File>>,
 }
 
 impl RegisterInfoTestParser {
-	pub fn new(filename: &Path) -> Self {
+	pub(super) fn new(filename: &Path) -> Self {
 		let display_filename = filename.display().to_string();
 		let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 		let lines = BufReader::new(file).lines();
@@ -85,7 +85,7 @@ impl IntoIterator for RegisterInfoTestParser {
 	}
 }
 
-pub(crate) struct IntoIter {
+pub(super) struct IntoIter {
 	filename: String,
 	lines: Lines<BufReader<File>>,
 	line_number: u32,

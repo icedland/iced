@@ -138,7 +138,7 @@ namespace Generator.InstructionInfo.Rust {
 				var opInfo = opInfos[index];
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				var name = idConverter.Constant($"OpAccess_{index}");
-				writer.WriteLine($"pub(crate) static {name}: [{opAccessTypeStr}; {opInfo.Values.Length}] = [");
+				writer.WriteLine($"pub(super) static {name}: [{opAccessTypeStr}; {opInfo.Values.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in opInfo.Values) {
 						var v = ToOpAccess(value);

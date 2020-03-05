@@ -24,13 +24,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::super::*;
 
 #[derive(Default)]
-pub(crate) struct RegisterInfoTestCase {
-	pub line_number: u32,
-	pub register: Register,
-	pub number: usize,
-	pub base: Register,
-	pub full_register: Register,
-	pub full_register32: Register,
-	pub size: usize,
-	pub flags: u32, // RegisterFlags
+pub(super) struct RegisterInfoTestCase {
+	pub(super) line_number: u32,
+	pub(super) register: Register,
+	pub(super) number: usize,
+	pub(super) base: Register,
+	pub(super) full_register: Register,
+	pub(super) full_register32: Register,
+	pub(super) size: usize,
+	pub(super) flags: u32, // RegisterFlags
 }
