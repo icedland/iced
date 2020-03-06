@@ -129,6 +129,10 @@ namespace Iced.Intel {
 		uint Displ;
 		// high 32 bits if it's an IP relative mem displ (target)
 		uint DisplHi;
+		readonly EncoderFlags opSize16Flags;
+		readonly EncoderFlags opSize32Flags;
+		readonly EncoderFlags adrSize16Flags;
+		readonly EncoderFlags adrSize32Flags;
 		internal uint OpCode;
 		internal EncoderFlags EncoderFlags;
 		DisplSize DisplSize;
@@ -150,6 +154,10 @@ namespace Iced.Intel {
 			this.bitness = bitness;
 			handlers = OpCodeHandlers.Handlers;
 			handler = null!;// It's initialized by TryEncode
+			opSize16Flags = bitness != 16 ? EncoderFlags.P66 : 0;
+			opSize32Flags = bitness == 16 ? EncoderFlags.P66 : 0;
+			adrSize16Flags = bitness != 16 ? EncoderFlags.P67 : 0;
+			adrSize32Flags = bitness != 32 ? EncoderFlags.P67 : 0;
 		}
 
 		/// <summary>
@@ -207,7 +215,7 @@ namespace Iced.Intel {
 			if (handler.GroupIndex >= 0) {
 				Debug.Assert(EncoderFlags == 0);
 				EncoderFlags = EncoderFlags.ModRM;
-				ModRM |= (byte)(handler.GroupIndex << 3);
+				ModRM = (byte)(handler.GroupIndex << 3);
 			}
 
 			switch (handler.Encodable) {
@@ -233,13 +241,11 @@ namespace Iced.Intel {
 				break;
 
 			case OperandSize.Size16:
-				if (bitness != 16)
-					EncoderFlags |= EncoderFlags.P66;
+				EncoderFlags |= opSize16Flags;
 				break;
 
 			case OperandSize.Size32:
-				if (bitness == 16)
-					EncoderFlags |= EncoderFlags.P66;
+				EncoderFlags |= opSize32Flags;
 				break;
 
 			case OperandSize.Size64:
@@ -255,13 +261,11 @@ namespace Iced.Intel {
 				break;
 
 			case AddressSize.Size16:
-				if (bitness != 16)
-					EncoderFlags |= EncoderFlags.P67;
+				EncoderFlags |= adrSize16Flags;
 				break;
 
 			case AddressSize.Size32:
-				if (bitness != 32)
-					EncoderFlags |= EncoderFlags.P67;
+				EncoderFlags |= adrSize32Flags;
 				break;
 
 			case AddressSize.Size64:
@@ -359,15 +363,13 @@ namespace Iced.Intel {
 			case 1:
 				switch (opKind) {
 				case OpKind.NearBranch16:
-					if (bitness != 16)
-						EncoderFlags |= EncoderFlags.P66;
+					EncoderFlags |= opSize16Flags;
 					ImmSize = ImmSize.RipRelSize1_Target16;
 					Immediate = instruction.NearBranch16;
 					break;
 
 				case OpKind.NearBranch32:
-					if (bitness == 16)
-						EncoderFlags |= EncoderFlags.P66;
+					EncoderFlags |= opSize32Flags;
 					ImmSize = ImmSize.RipRelSize1_Target32;
 					Immediate = instruction.NearBranch32;
 					break;
@@ -387,8 +389,7 @@ namespace Iced.Intel {
 			case 2:
 				switch (opKind) {
 				case OpKind.NearBranch16:
-					if (bitness != 16)
-						EncoderFlags |= EncoderFlags.P66;
+					EncoderFlags |= opSize16Flags;
 					ImmSize = ImmSize.RipRelSize2_Target16;
 					Immediate = instruction.NearBranch16;
 					break;
@@ -401,8 +402,7 @@ namespace Iced.Intel {
 			case 4:
 				switch (opKind) {
 				case OpKind.NearBranch32:
-					if (bitness == 16)
-						EncoderFlags |= EncoderFlags.P66;
+					EncoderFlags |= opSize32Flags;
 					ImmSize = ImmSize.RipRelSize4_Target32;
 					Immediate = instruction.NearBranch32;
 					break;
@@ -572,8 +572,7 @@ namespace Iced.Intel {
 					Displ = instruction.MemoryDisplacement;
 				}
 				else if (displSize == 4) {
-					if (bitness != 32)
-						EncoderFlags |= EncoderFlags.P67;
+					EncoderFlags |= adrSize32Flags;
 					DisplSize = DisplSize.Size4;
 					Displ = instruction.MemoryDisplacement;
 				}

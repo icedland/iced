@@ -124,6 +124,10 @@ pub struct Encoder {
 	pub(self) internal_evex_wig: u32,
 	pub(self) internal_evex_lig: u32,
 	pub(self) prevent_vex2: u32,
+	opsize16_flags: u32,
+	opsize32_flags: u32,
+	adrsize16_flags: u32,
+	adrsize32_flags: u32,
 	// ***************************
 	// These fields must be 64-bit aligned.
 	// They are cleared in encode() and should be close so the compiler can optimize clearing them.
@@ -171,6 +175,11 @@ impl Encoder {
 			panic!();
 		}
 
+		let opsize16_flags = if bitness != 16 { EncoderFlags::P66 } else { 0 };
+		let opsize32_flags = if bitness == 16 { EncoderFlags::P66 } else { 0 };
+		let adrsize16_flags = if bitness != 16 { EncoderFlags::P67 } else { 0 };
+		let adrsize32_flags = if bitness != 32 { EncoderFlags::P67 } else { 0 };
+
 		Self {
 			current_rip: 0,
 			handler: unsafe { *HANDLERS_TABLE.get_unchecked(0) },
@@ -192,6 +201,10 @@ impl Encoder {
 			internal_evex_wig: 0,
 			internal_evex_lig: 0,
 			prevent_vex2: 0,
+			opsize16_flags,
+			opsize32_flags,
+			adrsize16_flags,
+			adrsize32_flags,
 			encoder_flags: 0,
 			displ_size: DisplSize::default(),
 			imm_size: ImmSize::default(),
@@ -252,7 +265,7 @@ impl Encoder {
 		let group_index = handler.group_index;
 		if group_index >= 0 {
 			self.encoder_flags |= EncoderFlags::MOD_RM;
-			self.mod_rm |= (group_index as u8) << 3;
+			self.mod_rm = (group_index as u8) << 3;
 		}
 
 		match handler.encodable {
@@ -273,36 +286,15 @@ impl Encoder {
 
 		match handler.op_size {
 			OperandSize::None => {}
-
-			OperandSize::Size16 => {
-				if self.bitness != 16 {
-					self.encoder_flags |= EncoderFlags::P66;
-				}
-			}
-
-			OperandSize::Size32 => {
-				if self.bitness == 16 {
-					self.encoder_flags |= EncoderFlags::P66;
-				}
-			}
-
+			OperandSize::Size16 => self.encoder_flags |= self.opsize16_flags,
+			OperandSize::Size32 => self.encoder_flags |= self.opsize32_flags,
 			OperandSize::Size64 => self.encoder_flags |= EncoderFlags::W,
 		}
 
 		match handler.addr_size {
 			AddressSize::None | AddressSize::Size64 => {}
-
-			AddressSize::Size16 => {
-				if self.bitness != 16 {
-					self.encoder_flags |= EncoderFlags::P67;
-				}
-			}
-
-			AddressSize::Size32 => {
-				if self.bitness != 32 {
-					self.encoder_flags |= EncoderFlags::P67;
-				}
-			}
+			AddressSize::Size16 => self.encoder_flags |= self.adrsize16_flags,
+			AddressSize::Size32 => self.encoder_flags |= self.adrsize32_flags,
 		}
 
 		if (handler.flags & OpCodeHandlerFlags::DECLARE_DATA) == 0 {
@@ -431,17 +423,13 @@ impl Encoder {
 		match imm_size {
 			1 => match op_kind {
 				OpKind::NearBranch16 => {
-					if self.bitness != 16 {
-						self.encoder_flags |= EncoderFlags::P66;
-					}
+					self.encoder_flags |= self.opsize16_flags;
 					self.imm_size = ImmSize::RipRelSize1_Target16;
 					self.immediate = instruction.near_branch16() as u32;
 				}
 
 				OpKind::NearBranch32 => {
-					if self.bitness == 16 {
-						self.encoder_flags |= EncoderFlags::P66;
-					}
+					self.encoder_flags |= self.opsize32_flags;
 					self.imm_size = ImmSize::RipRelSize1_Target32;
 					self.immediate = instruction.near_branch32();
 				}
@@ -458,9 +446,7 @@ impl Encoder {
 
 			2 => match op_kind {
 				OpKind::NearBranch16 => {
-					if self.bitness != 16 {
-						self.encoder_flags |= EncoderFlags::P66;
-					}
+					self.encoder_flags |= self.opsize16_flags;
 					self.imm_size = ImmSize::RipRelSize2_Target16;
 					self.immediate = instruction.near_branch16() as u32;
 				}
@@ -470,9 +456,7 @@ impl Encoder {
 
 			4 => match op_kind {
 				OpKind::NearBranch32 => {
-					if self.bitness == 16 {
-						self.encoder_flags |= EncoderFlags::P66;
-					}
+					self.encoder_flags |= self.opsize32_flags;
 					self.imm_size = ImmSize::RipRelSize4_Target32;
 					self.immediate = instruction.near_branch32();
 				}
@@ -635,9 +619,7 @@ impl Encoder {
 				self.displ_size = DisplSize::Size2;
 				self.displ = instruction.memory_displacement();
 			} else if displ_size == 4 {
-				if self.bitness != 32 {
-					self.encoder_flags |= EncoderFlags::P67;
-				}
+				self.encoder_flags |= self.adrsize32_flags;
 				self.displ_size = DisplSize::Size4;
 				self.displ = instruction.memory_displacement();
 			} else {
