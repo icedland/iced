@@ -807,7 +807,7 @@ namespace Iced.Intel {
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		string ToString(int regNum) {
+		string ToRegisterString(int regNum) {
 			Debug.Assert((uint)regNum < (uint)allRegisters.Length);
 			var regStr = allRegisters[(int)regNum];
 			return regStr.Get(options.UppercaseRegisters || options.UppercaseAll);
@@ -816,7 +816,7 @@ namespace Iced.Intel {
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		void FormatRegister(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, int regNum) {
 			Static.Assert(Registers.ExtraRegisters == 0 ? 0 : -1);
-			output.WriteRegister(instruction, operand, instructionOperand, ToString(regNum), (Register)regNum);
+			output.WriteRegister(instruction, operand, instructionOperand, ToRegisterString(regNum), (Register)regNum);
 		}
 
 		void FormatMemory(FormatterOutput output, in Instruction instruction, int operand, int instructionOperand, MemorySize memSize, Register segOverride, Register segReg, Register baseReg, Register indexReg, int scale, int displSize, long displ, int addrSize, InstrOpInfoFlags flags) {
@@ -1086,7 +1086,7 @@ namespace Iced.Intel {
 		/// </summary>
 		/// <param name="register">Register</param>
 		/// <returns></returns>
-		public override string Format(Register register) => ToString((int)register);
+		public override string Format(Register register) => ToRegisterString((int)register);
 
 		/// <summary>
 		/// Formats a <see cref="sbyte"/>

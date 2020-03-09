@@ -4,7 +4,7 @@ version = "1.0.0"# Update html_root_url in lib.rs and usage section in lib.rs/RE
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust"
-#homepage = "https://github.com/0xd4d/iced"
+homepage = "https://github.com/0xd4d/iced"
 repository = "https://github.com/0xd4d/iced"
 readme = "README.md"
 # At most 5 keywords can be used
