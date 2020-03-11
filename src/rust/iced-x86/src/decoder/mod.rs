@@ -396,7 +396,9 @@ impl<'a> Decoder<'a> {
 		let data_ptr_end: *const u8 = unsafe { data.get_unchecked(data.len()) };
 		assert!(data_ptr_end >= data.as_ptr());
 		// Verify that max_data_ptr can never overflow and that data_ptr.offset(N) can't overflow
-		assert!(unsafe { data.as_ptr().offset((data.len() + IcedConstants::MAX_INSTRUCTION_LENGTH + 4) as isize) >= data.as_ptr() });
+		assert!(unsafe {
+			data.as_ptr().offset((data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4).unwrap()) >= data.as_ptr()
+		});
 		let tables = &*TABLES;
 		Decoder {
 			ip: 0,
