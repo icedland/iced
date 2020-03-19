@@ -286,7 +286,7 @@ lazy_static! {
 		for _ in 0..STRINGS_COUNT {
 			let len = data[0] as usize;
 			data = &data[1..];
-			for &c in data[0..len].iter() {
+			for &c in &data[0..len] {
 				s.push(c as char);
 			}
 			data = &data[len..];

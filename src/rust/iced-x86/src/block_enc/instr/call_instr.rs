@@ -80,7 +80,7 @@ impl CallInstr {
 		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
-		let mut use_short = self.bitness != 64 || self.target_instr.is_in_block(self.block.clone());
+		let mut use_short = self.bitness != 64 || self.target_instr.is_in_block(Rc::clone(&self.block));
 		if !use_short {
 			let target_address = self.target_instr.address(self);
 			let next_rip = self.ip.wrapping_add(self.orig_instruction_size as u64);
@@ -100,7 +100,7 @@ impl CallInstr {
 
 		if self.pointer_data.is_none() {
 			// Temp needed if rustc < 1.36.0 (2015 edition)
-			let tmp = self.block.clone();
+			let tmp = Rc::clone(&self.block);
 			self.pointer_data = Some(tmp.borrow_mut().alloc_pointer_location());
 		}
 		false
@@ -109,7 +109,7 @@ impl CallInstr {
 
 impl Instr for CallInstr {
 	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+		Rc::clone(&self.block)
 	}
 
 	fn size(&self) -> u32 {

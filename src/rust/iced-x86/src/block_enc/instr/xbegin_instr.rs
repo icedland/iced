@@ -65,7 +65,7 @@ impl XbeginInstr {
 
 impl Instr for XbeginInstr {
 	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+		Rc::clone(&self.block)
 	}
 
 	fn size(&self) -> u32 {

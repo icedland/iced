@@ -186,7 +186,7 @@ impl<'a> SymResTextInfo<'a> {
 			SymResTextInfo::Text(part) => SymResTextInfo::Text(part.to_owned()),
 			SymResTextInfo::TextVec(parts) => {
 				vec.clear();
-				vec.extend(parts.iter().map(|a| a.to_owned2()));
+				vec.extend(parts.iter().map(SymResTextPart::to_owned2));
 				SymResTextInfo::TextVec(vec)
 			}
 		}

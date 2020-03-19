@@ -71,7 +71,7 @@ pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_fil
 }
 
 fn test_format(infos: Vec<(&OptionsInstructionInfo, String)>, fmt_factory: fn() -> Box<Formatter>) {
-	for &(tc, ref formatted_string) in infos.iter() {
+	for &(tc, ref formatted_string) in &infos {
 		let mut formatter = fmt_factory();
 		tc.initialize_options(formatter.options_mut());
 		super::simple_format_test(tc.bitness, &tc.hex_bytes, tc.code, 0, formatted_string.as_str(), formatter.as_mut(), |decoder| {

@@ -89,7 +89,7 @@ fn encode_test(
 	let mut expected_constant_offsets = Vec::with_capacity(constant_offsets.len());
 	let mut decoder = create_decoder(bitness, &encoded_bytes, decoder_options).0;
 	let mut instr = Instruction::default();
-	for &offset in new_instruction_offsets.iter() {
+	for &offset in &new_instruction_offsets {
 		if offset == u32::MAX {
 			expected_constant_offsets.push(ConstantOffsets::default());
 		} else {

@@ -132,7 +132,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop() {
 			64 => &prefixes64,
 			_ => unreachable!(),
 		};
-		for &prefix in prefixes.iter() {
+		for &prefix in prefixes {
 			let orig_instr;
 			{
 				let bytes = to_vec_u8(info.hex_bytes()).unwrap();
@@ -1418,7 +1418,7 @@ fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
 				vvvv_eq_vidx,
 				all_eq_all,
 			}
-			for &test_kind in [TestKind::reg_eq_vvvv, TestKind::reg_eq_vidx, TestKind::vvvv_eq_vidx, TestKind::all_eq_all].iter() {
+			for &test_kind in &[TestKind::reg_eq_vvvv, TestKind::reg_eq_vidx, TestKind::vvvv_eq_vidx, TestKind::all_eq_all] {
 				for i in 0..16 {
 					let reg_num: u32 = if info.bitness() == 64 { i } else { i & 7 };
 					// Use a small number (0-7) in case it's vex2 and 'other' is vidx (uses VEX.X bit)
@@ -1973,7 +1973,7 @@ fn verify_that_test_cases_test_enough_bits() {
 	let mut pfx_no_bnd_32: Vec<Code> = Vec::new();
 	let mut pfx_no_bnd_64: Vec<Code> = Vec::new();
 
-	for &bitness in [16u32, 32, 64].iter() {
+	for &bitness in &[16u32, 32, 64] {
 		let tested_infos: &[TestedInfo] = match bitness {
 			16 => &tested_infos_16,
 			32 => &tested_infos_32,

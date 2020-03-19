@@ -334,11 +334,11 @@ impl IntoIter {
 					}
 					tc.is_special = true;
 				}
-				InstructionInfoKeys::RFLAGS_READ => tc.rflags_read = self.parse_rflags(value)?,
-				InstructionInfoKeys::RFLAGS_UNDEFINED => tc.rflags_undefined = self.parse_rflags(value)?,
-				InstructionInfoKeys::RFLAGS_WRITTEN => tc.rflags_written = self.parse_rflags(value)?,
-				InstructionInfoKeys::RFLAGS_CLEARED => tc.rflags_cleared = self.parse_rflags(value)?,
-				InstructionInfoKeys::RFLAGS_SET => tc.rflags_set = self.parse_rflags(value)?,
+				InstructionInfoKeys::RFLAGS_READ => tc.rflags_read = IntoIter::parse_rflags(value)?,
+				InstructionInfoKeys::RFLAGS_UNDEFINED => tc.rflags_undefined = IntoIter::parse_rflags(value)?,
+				InstructionInfoKeys::RFLAGS_WRITTEN => tc.rflags_written = IntoIter::parse_rflags(value)?,
+				InstructionInfoKeys::RFLAGS_CLEARED => tc.rflags_cleared = IntoIter::parse_rflags(value)?,
+				InstructionInfoKeys::RFLAGS_SET => tc.rflags_set = IntoIter::parse_rflags(value)?,
 				InstructionInfoKeys::FLOW_CONTROL => tc.flow_control = to_flow_control(value)?,
 				InstructionInfoKeys::OP0_ACCESS => tc.op0_access = self.to_op_access(value)?,
 				InstructionInfoKeys::OP1_ACCESS => tc.op1_access = self.to_op_access(value)?,
@@ -357,7 +357,7 @@ impl IntoIter {
 				InstructionInfoKeys::READ_COND_WRITE_MEMORY => self.add_memory(value, OpAccess::ReadCondWrite, &mut tc)?,
 				InstructionInfoKeys::WRITE_MEMORY => self.add_memory(value, OpAccess::Write, &mut tc)?,
 				InstructionInfoKeys::COND_WRITE_MEMORY => self.add_memory(value, OpAccess::CondWrite, &mut tc)?,
-				InstructionInfoKeys::DECODER_OPTIONS => tc.decoder_options |= self.parse_decoder_options(value)?,
+				InstructionInfoKeys::DECODER_OPTIONS => tc.decoder_options |= IntoIter::parse_decoder_options(value)?,
 				_ => return Err(format!("Invalid key {}", key)),
 			}
 		}
@@ -365,7 +365,7 @@ impl IntoIter {
 		Ok(tc)
 	}
 
-	fn parse_rflags(&self, value: &str) -> Result<u32, String> {
+	fn parse_rflags(value: &str) -> Result<u32, String> {
 		let mut rflags = 0;
 		for c in value.chars() {
 			match c {
@@ -522,7 +522,7 @@ impl IntoIter {
 		}
 	}
 
-	fn parse_decoder_options(&self, value: &str) -> Result<u32, String> {
+	fn parse_decoder_options(value: &str) -> Result<u32, String> {
 		let mut decoder_options = 0;
 		for option_str in value.split(';') {
 			match *(*TO_INSTRUCTION_INFO_DECODER_OPTIONS).get(option_str).unwrap_or(&u32::MAX) {

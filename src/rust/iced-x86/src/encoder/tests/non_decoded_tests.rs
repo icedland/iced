@@ -27,13 +27,13 @@ use alloc::vec::Vec;
 
 pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
 	let mut v = Vec::with_capacity(INFOS16_LEN + INFOS32_LEN + INFOS64_LEN);
-	for &(hex_bytes, instr) in (&*INFOS16).iter() {
+	for &(hex_bytes, instr) in &*INFOS16 {
 		v.push((16, hex_bytes, instr));
 	}
-	for &(hex_bytes, instr) in (&*INFOS32).iter() {
+	for &(hex_bytes, instr) in &*INFOS32 {
 		v.push((32, hex_bytes, instr));
 	}
-	for &(hex_bytes, instr) in (&*INFOS64).iter() {
+	for &(hex_bytes, instr) in &*INFOS64 {
 		v.push((64, hex_bytes, instr));
 	}
 	v

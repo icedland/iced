@@ -286,7 +286,7 @@ impl IntelFormatter {
 			if (op_info.flags & InstrOpInfoFlags::FAR_MNEMONIC as u16) != 0 {
 				output.write(" ", FormatterTextKind::Text);
 				// This should be treated as part of the mnemonic
-				output.write_mnemonic(instruction, &self.d.str_.far.get(self.d.options.uppercase_mnemonics() || self.d.options.uppercase_all()));
+				output.write_mnemonic(instruction, self.d.str_.far.get(self.d.options.uppercase_mnemonics() || self.d.options.uppercase_all()));
 				*column += (self.d.str_.far.len() + 1) as u32;
 			}
 		}
@@ -1052,7 +1052,7 @@ impl IntelFormatter {
 					instruction,
 					operand,
 					instruction_operand,
-					&self.d.vec_.intel_rc_strings[rc as usize - 1],
+					self.d.vec_.intel_rc_strings[rc as usize - 1],
 					DecoratorKind::RoundingControl,
 				);
 			} else if instruction.suppress_all_exceptions() {
@@ -1075,7 +1075,7 @@ impl IntelFormatter {
 		}
 		let keywords = &d.vec_.intel_branch_infos
 			[((flags as usize) >> InstrOpInfoFlags::BRANCH_SIZE_INFO_SHIFT) & InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize];
-		for &keyword in keywords.iter() {
+		for &keyword in keywords {
 			IntelFormatter::format_keyword(&d.options, output, keyword);
 			output.write(" ", FormatterTextKind::Text);
 		}
@@ -1420,7 +1420,7 @@ impl IntelFormatter {
 			debug_assert_eq!(MemorySizeOptions::Always, mem_size_options);
 		}
 
-		for &keyword in mem_info.keywords.iter() {
+		for &keyword in mem_info.keywords {
 			IntelFormatter::format_keyword(&d.options, output, keyword);
 			output.write(" ", FormatterTextKind::Text);
 		}
@@ -1618,48 +1618,48 @@ impl Formatter for IntelFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i8(&self.d.options, &number_options, value)
+		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i16(&self.d.options, &number_options, value)
+		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i32(&self.d.options, &number_options, value)
+		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i64(&self.d.options, &number_options, value)
+		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u8(&self.d.options, &number_options, value)
+		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u16(&self.d.options, &number_options, value)
+		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u32(&self.d.options, &number_options, value)
+		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u64(&self.d.options, &number_options, value)
+		self.number_formatter.format_u64(&self.d.options, number_options, value)
 	}
 }

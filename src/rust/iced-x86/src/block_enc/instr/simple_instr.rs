@@ -41,7 +41,7 @@ impl SimpleInstr {
 			orig_ip: instruction.ip(),
 			ip: 0,
 			block,
-			size: block_encoder.get_instruction_size(&instruction, instruction.ip()),
+			size: block_encoder.get_instruction_size(instruction, instruction.ip()),
 			instruction: *instruction,
 		}
 	}
@@ -49,7 +49,7 @@ impl SimpleInstr {
 
 impl Instr for SimpleInstr {
 	fn block(&self) -> Rc<RefCell<Block>> {
-		self.block.clone()
+		Rc::clone(&self.block)
 	}
 
 	fn size(&self) -> u32 {

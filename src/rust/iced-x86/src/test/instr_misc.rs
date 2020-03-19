@@ -292,27 +292,27 @@ fn write_all_properties() {
 
 	const_assert_eq!(5, IcedConstants::MAX_OP_COUNT);
 	let op_kinds = get_op_kind_values();
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op0_kind(op_kind);
 		assert_eq!(op_kind, instr.op0_kind());
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op1_kind(op_kind);
 		assert_eq!(op_kind, instr.op1_kind());
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op2_kind(op_kind);
 		assert_eq!(op_kind, instr.op2_kind());
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op3_kind(op_kind);
 		assert_eq!(op_kind, instr.op3_kind());
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		if op_kind == OpKind::Immediate8 {
 			instr.set_op4_kind(op_kind);
 			assert_eq!(op_kind, instr.op4_kind());
@@ -322,31 +322,31 @@ fn write_all_properties() {
 		}
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op_kind(0, op_kind);
 		assert_eq!(op_kind, instr.op0_kind());
 		assert_eq!(op_kind, instr.op_kind(0));
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op_kind(1, op_kind);
 		assert_eq!(op_kind, instr.op1_kind());
 		assert_eq!(op_kind, instr.op_kind(1));
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op_kind(2, op_kind);
 		assert_eq!(op_kind, instr.op2_kind());
 		assert_eq!(op_kind, instr.op_kind(2));
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		instr.set_op_kind(3, op_kind);
 		assert_eq!(op_kind, instr.op3_kind());
 		assert_eq!(op_kind, instr.op_kind(3));
 	}
 
-	for &op_kind in op_kinds.iter() {
+	for &op_kind in &op_kinds {
 		if op_kind == OpKind::Immediate8 {
 			instr.set_op_kind(4, op_kind);
 			assert_eq!(op_kind, instr.op4_kind());
@@ -358,7 +358,7 @@ fn write_all_properties() {
 	}
 
 	let seg_values = [Register::ES, Register::CS, Register::SS, Register::DS, Register::FS, Register::GS, Register::None];
-	for &seg in seg_values.iter() {
+	for &seg in &seg_values {
 		instr.set_segment_prefix(seg);
 		assert_eq!(seg, instr.segment_prefix());
 		if instr.segment_prefix() == Register::None {
@@ -369,49 +369,49 @@ fn write_all_properties() {
 	}
 
 	let displ_sizes = [8, 4, 2, 1, 0];
-	for &displ_size in displ_sizes.iter() {
+	for &displ_size in &displ_sizes {
 		instr.set_memory_displ_size(displ_size);
 		assert_eq!(displ_size, instr.memory_displ_size());
 	}
 
 	let scale_values = [8, 4, 2, 1];
-	for &scale_value in scale_values.iter() {
+	for &scale_value in &scale_values {
 		instr.set_memory_index_scale(scale_value);
 		assert_eq!(scale_value, instr.memory_index_scale());
 	}
 
 	let register_values = get_register_values();
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_memory_base(reg);
 		assert_eq!(reg, instr.memory_base());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_memory_index(reg);
 		assert_eq!(reg, instr.memory_index());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op0_register(reg);
 		assert_eq!(reg, instr.op0_register());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op1_register(reg);
 		assert_eq!(reg, instr.op1_register());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op2_register(reg);
 		assert_eq!(reg, instr.op2_register());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op3_register(reg);
 		assert_eq!(reg, instr.op3_register());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		if reg == Register::None {
 			instr.set_op4_register(reg);
 			assert_eq!(reg, instr.op4_register());
@@ -421,31 +421,31 @@ fn write_all_properties() {
 		}
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op_register(0, reg);
 		assert_eq!(reg, instr.op0_register());
 		assert_eq!(reg, instr.op_register(0));
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op_register(1, reg);
 		assert_eq!(reg, instr.op1_register());
 		assert_eq!(reg, instr.op_register(1));
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op_register(2, reg);
 		assert_eq!(reg, instr.op2_register());
 		assert_eq!(reg, instr.op_register(2));
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_op_register(3, reg);
 		assert_eq!(reg, instr.op3_register());
 		assert_eq!(reg, instr.op_register(3));
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		if reg == Register::None {
 			instr.set_op_register(4, reg);
 			assert_eq!(reg, instr.op4_register());
@@ -457,7 +457,7 @@ fn write_all_properties() {
 	}
 
 	let op_masks = [Register::K1, Register::K2, Register::K3, Register::K4, Register::K5, Register::K6, Register::K7, Register::None];
-	for &op_mask in op_masks.iter() {
+	for &op_mask in &op_masks {
 		instr.set_op_mask(op_mask);
 		assert_eq!(op_mask, instr.op_mask());
 		assert_eq!(op_mask != Register::None, instr.has_op_mask());
@@ -481,7 +481,7 @@ fn write_all_properties() {
 		assert_eq!(rc, instr.rounding_control());
 	}
 
-	for &reg in register_values.iter() {
+	for &reg in &register_values {
 		instr.set_memory_base(reg);
 		assert_eq!(reg == Register::RIP || reg == Register::EIP, instr.is_ip_rel_memory_operand());
 	}

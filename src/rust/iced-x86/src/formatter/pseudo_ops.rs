@@ -184,7 +184,7 @@ lazy_static! {
 
 fn create(sb: &mut String, cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FormatterString> {
 	let mut strings = Vec::with_capacity(size);
-	for &cc_s in cc.iter() {
+	for &cc_s in cc {
 		if strings.len() == size {
 			break;
 		}

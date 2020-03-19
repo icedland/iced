@@ -78,7 +78,7 @@ fn decode_64() {
 }
 
 fn decode(bitness: u32) {
-	for info in test_cases::get_test_cases(bitness).iter() {
+	for info in test_cases::get_test_cases(bitness) {
 		decode_test(bitness, info);
 	}
 }
@@ -99,7 +99,7 @@ fn decode_misc_64() {
 }
 
 fn decode_misc(bitness: u32) {
-	for info in test_cases::get_misc_test_cases(bitness).iter() {
+	for info in test_cases::get_misc_test_cases(bitness) {
 		decode_test(bitness, info);
 	}
 }
@@ -272,7 +272,7 @@ fn decode_mem_64() {
 }
 
 fn decode_mem(bitness: u32) {
-	for info in test_cases::get_mem_test_cases(bitness).iter() {
+	for info in test_cases::get_mem_test_cases(bitness) {
 		decode_mem_test(bitness, info);
 	}
 }
@@ -345,7 +345,7 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 			}
 		}
 	} else {
-		for &code in NON_DECODED_CODE_VALUES.iter() {
+		for &code in &NON_DECODED_CODE_VALUES {
 			if code == Code::Popw_CS {
 				tested[code as usize] |= T16 | T32;
 			} else {

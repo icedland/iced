@@ -1043,7 +1043,7 @@ impl NasmFormatter {
 		}
 		let keywords = &d.vec_.nasm_branch_infos
 			[((flags as usize) >> InstrOpInfoFlags::BRANCH_SIZE_INFO_SHIFT) & InstrOpInfoFlags::BRANCH_SIZE_INFO_MASK as usize];
-		for &keyword in keywords.iter() {
+		for &keyword in keywords {
 			NasmFormatter::format_keyword(&d.options, output, keyword);
 			output.write(" ", FormatterTextKind::Text);
 		}
@@ -1574,48 +1574,48 @@ impl Formatter for NasmFormatter {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i8(&self.d.options, &number_options, value)
+		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i16(&self.d.options, &number_options, value)
+		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i32(&self.d.options, &number_options, value)
+		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_i64(&self.d.options, &number_options, value)
+		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u8(&self.d.options, &number_options, value)
+		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u16(&self.d.options, &number_options, value)
+		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u32(&self.d.options, &number_options, value)
+		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str {
-		self.number_formatter.format_u64(&self.d.options, &number_options, value)
+		self.number_formatter.format_u64(&self.d.options, number_options, value)
 	}
 }

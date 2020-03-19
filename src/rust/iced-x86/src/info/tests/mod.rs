@@ -214,36 +214,36 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NONE);
-	check_equal(&info, info2, true, true);
+	check_equal(info, info2, true, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
-	check_equal(&info, info2, true, false);
+	check_equal(info, info2, true, false);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
-	check_equal(&info, info2, false, true);
+	check_equal(info, info2, false, true);
 	let mut factory2 = InstructionInfoFactory::new();
 	let info2 = factory2.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
-	check_equal(&info, info2, false, false);
+	check_equal(info, info2, false, false);
 
 	{
 		let info2 = factory.info(&instr);
-		check_equal(&info, info2, true, true);
+		check_equal(info, info2, true, true);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NONE);
-		check_equal(&info, info2, true, true);
+		check_equal(info, info2, true, true);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_MEMORY_USAGE);
-		check_equal(&info, info2, true, false);
+		check_equal(info, info2, true, false);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE);
-		check_equal(&info, info2, false, true);
+		check_equal(info, info2, false, true);
 	}
 	{
 		let info2 = factory.info_options(&instr, InstructionInfoOptions::NO_REGISTER_USAGE | InstructionInfoOptions::NO_MEMORY_USAGE);
-		check_equal(&info, info2, false, false);
+		check_equal(info, info2, false, false);
 	}
 
 	assert_eq!(info.encoding(), instr.code().encoding());

@@ -99,7 +99,7 @@ fn verify_result_vectors() {
 		BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS,
 		BlockEncoderOptions::RETURN_CONSTANT_OFFSETS,
 	];
-	for &options in tests.iter() {
+	for &options in &tests {
 		{
 			let instructions1 = decode(BITNESS, ORIG_RIP1, &[0xE9, 0x56, 0x78, 0xA5, 0x5A], DecoderOptions::NONE);
 			let result = BlockEncoder::encode(BITNESS, InstructionBlock::new(&instructions1, NEW_RIP1), options).unwrap();

@@ -38,13 +38,13 @@ pub(super) struct OptionsInstructionInfo {
 
 impl OptionsInstructionInfo {
 	pub(super) fn initialize_options(&self, options: &mut FormatterOptions) {
-		for info in self.vec.iter() {
+		for info in &self.vec {
 			info.1.initialize_options(options, info.0);
 		}
 	}
 
 	pub(super) fn initialize_decoder(&self, decoder: &mut Decoder) {
-		for info in self.vec.iter() {
+		for info in &self.vec {
 			info.1.initialize_decoder(decoder, info.0);
 		}
 	}

@@ -34,7 +34,7 @@ fn va_tests() {
 		let mut decoder = create_decoder(tc.bitness, &bytes, 0).0;
 		let instruction = decoder.decode();
 		let value1 = instruction.virtual_address(tc.operand, tc.element_index, |register, element_index, element_size| {
-			for reg_value in tc.register_values.iter() {
+			for reg_value in &tc.register_values {
 				if (reg_value.register, reg_value.element_index, reg_value.element_size) == (register, element_index, element_size) {
 					return reg_value.value;
 				}

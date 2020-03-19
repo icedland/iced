@@ -40,9 +40,9 @@ lazy_static! {
 		let regs_tbl = &*REGS_TBL;
 		let mut v = Vec::with_capacity(regs_tbl.len());
 		let mut s = String::with_capacity(MAX_STRING_LENGTH + 1);
-		for reg in regs_tbl.iter() {
+		for reg in regs_tbl {
 			s.push('%');
-			s.push_str(&reg.get(false));
+			s.push_str(reg.get(false));
 			v.push(FormatterString::new(s.clone()));
 			s.clear();
 		}

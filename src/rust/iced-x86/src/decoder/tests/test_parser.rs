@@ -330,35 +330,35 @@ impl IntoIter {
 					if tc.op_count < 1 {
 						return Err(format!("Invalid OpCount: {} < 1", tc.op_count));
 					}
-					self.read_op_kind(&mut tc, 0, value)?;
+					IntoIter::read_op_kind(&mut tc, 0, value)?;
 				}
 
 				DecoderTestParserConstants::OP1_KIND => {
 					if tc.op_count < 2 {
 						return Err(format!("Invalid OpCount: {} < 2", tc.op_count));
 					}
-					self.read_op_kind(&mut tc, 1, value)?;
+					IntoIter::read_op_kind(&mut tc, 1, value)?;
 				}
 
 				DecoderTestParserConstants::OP2_KIND => {
 					if tc.op_count < 3 {
 						return Err(format!("Invalid OpCount: {} < 3", tc.op_count));
 					}
-					self.read_op_kind(&mut tc, 2, value)?;
+					IntoIter::read_op_kind(&mut tc, 2, value)?;
 				}
 
 				DecoderTestParserConstants::OP3_KIND => {
 					if tc.op_count < 4 {
 						return Err(format!("Invalid OpCount: {} < 4", tc.op_count));
 					}
-					self.read_op_kind(&mut tc, 3, value)?;
+					IntoIter::read_op_kind(&mut tc, 3, value)?;
 				}
 
 				DecoderTestParserConstants::OP4_KIND => {
 					if tc.op_count < 5 {
 						return Err(format!("Invalid OpCount: {} < 5", tc.op_count));
 					}
-					self.read_op_kind(&mut tc, 4, value)?;
+					IntoIter::read_op_kind(&mut tc, 4, value)?;
 				}
 
 				DecoderTestParserConstants::ENCODED_HEX_BYTES => {
@@ -409,7 +409,7 @@ impl IntoIter {
 		Ok(tc)
 	}
 
-	fn read_op_kind(&self, tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
+	fn read_op_kind(tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {
 		let parts: Vec<_> = value.split(';').collect();
 		match *(*TO_DECODER_TEST_PARSER_CONSTANTS).get(parts[0]).unwrap_or(&u32::MAX) {
 			DecoderTestParserConstants::OP_KIND_REGISTER => {

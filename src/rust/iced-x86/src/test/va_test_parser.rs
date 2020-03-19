@@ -77,7 +77,7 @@ impl Iterator for IntoIter {
 							if line.is_empty() || line.starts_with('#') {
 								continue;
 							}
-							self.read_next_test_case(line)
+							IntoIter::read_next_test_case(line)
 						}
 						Err(err) => Err(err.to_string()),
 					};
@@ -92,7 +92,7 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String) -> Result<VirtualAddressTestCase, String> {
+	fn read_next_test_case(line: String) -> Result<VirtualAddressTestCase, String> {
 		let elems: Vec<_> = line.split(',').collect();
 		if elems.len() != 6 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));

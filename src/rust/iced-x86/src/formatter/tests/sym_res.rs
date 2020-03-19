@@ -48,7 +48,7 @@ impl<'a> SymbolResolver for SymbolResolverImpl<'a> {
 	fn symbol(
 		&mut self, _instruction: &Instruction, _operand: u32, _instruction_operand: Option<u32>, address: u64, address_size: u32,
 	) -> Option<SymbolResult> {
-		for tc in self.info.symbol_results.iter() {
+		for tc in &self.info.symbol_results {
 			if tc.address != address || tc.address_size != address_size {
 				continue;
 			}
@@ -76,13 +76,13 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 	}
 
 	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
-		let symbol_resolver = Box::new(SymbolResolverImpl { info: &info, vec: Vec::new() });
+		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
 		let mut formatter = fmt_factory(symbol_resolver);
-		for props in info.options.iter() {
+		for props in &info.options {
 			props.1.initialize_options(formatter.options_mut(), props.0);
 		}
 		super::simple_format_test(info.bitness, &info.hex_bytes, info.code, 0, formatted_line.as_str(), formatter.as_mut(), |decoder| {
-			for props in info.options.iter() {
+			for props in &info.options {
 				props.1.initialize_decoder(decoder, props.0);
 			}
 		});

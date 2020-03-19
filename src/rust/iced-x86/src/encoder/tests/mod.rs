@@ -62,7 +62,7 @@ fn encode_64() {
 }
 
 fn encode(bitness: u32) {
-	for info in encoder_tests(true, false).iter() {
+	for info in &encoder_tests(true, false) {
 		if info.bitness() == bitness {
 			encode_test(info);
 		}
@@ -149,7 +149,7 @@ fn slice_u8_to_string(bytes: &[u8]) -> String {
 		return String::new();
 	}
 	let mut s = String::with_capacity(bytes.len() * 3 - 1);
-	for b in bytes.iter() {
+	for b in bytes {
 		if !s.is_empty() {
 			s.push_str(" ");
 		}
@@ -194,11 +194,11 @@ fn get_invalid_test_cases() -> Vec<(u32, Rc<DecoderTestInfo>)> {
 	for tc in encoder_tests(false, false) {
 		let tc = Rc::new(tc);
 		if code32_only().contains(&tc.code()) {
-			result.push((64, tc.clone()));
+			result.push((64, Rc::clone(&tc)));
 		}
 		if code64_only().contains(&tc.code()) {
-			result.push((16, tc.clone()));
-			result.push((32, tc.clone()));
+			result.push((16, Rc::clone(&tc)));
+			result.push((32, Rc::clone(&tc)));
 		}
 	}
 	result
@@ -297,7 +297,7 @@ fn encode_invalid_code_value_is_an_error() {
 	instr.set_code(Code::INVALID);
 	let instr = instr;
 
-	for &bitness in [16, 32, 64].iter() {
+	for &bitness in &[16, 32, 64] {
 		let mut encoder = Encoder::new(bitness);
 		match encoder.encode(&instr, 0) {
 			Ok(_) => unreachable!(),
@@ -338,7 +338,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
 	const_assert_eq!(5, IcedConstants::NUMBER_OF_ENCODING_KINDS);
 
-	for &(bitness, hex_bytes, rip, instruction) in tests.iter() {
+	for &(bitness, hex_bytes, rip, instruction) in &tests {
 		let expected_bytes = to_vec_u8(hex_bytes).unwrap();
 		let mut encoder = Encoder::new(bitness);
 		let encoded_length = encoder.encode(&instruction, rip).unwrap();
@@ -404,7 +404,7 @@ fn encode_r13_with_no_displ() {
 
 #[test]
 fn verify_encoder_options() {
-	for &bitness in [16, 32, 64].iter() {
+	for &bitness in &[16, 32, 64] {
 		let encoder = Encoder::new(bitness);
 		assert!(!encoder.prevent_vex2());
 		assert_eq!(0, encoder.vex_wig());
@@ -416,7 +416,7 @@ fn verify_encoder_options() {
 
 #[test]
 fn get_set_wig_lig_options() {
-	for &bitness in [16, 32, 64].iter() {
+	for &bitness in &[16, 32, 64] {
 		let mut encoder = Encoder::new(bitness);
 
 		encoder.set_vex_lig(1);
@@ -500,7 +500,7 @@ fn prevent_vex2_encoding() {
 		("C5FC 10 10", "C4E17C 10 10", Code::VEX_Vmovups_ymm_ymmm256, true),
 		("C5FC 10 10", "C5FC 10 10", Code::VEX_Vmovups_ymm_ymmm256, false),
 	];
-	for tc in tests.iter() {
+	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, prevent_vex2) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
 		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
@@ -539,7 +539,7 @@ fn test_vex_wig_lig() {
 		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 0),
 		("C4C179 50 D3", "C4C179 50 D3", Code::VEX_Vmovmskpd_r32_xmm, 1, 1),
 	];
-	for tc in tests.iter() {
+	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
 		let mut decoder = create_decoder(64, &hex_bytes, 0).0;
@@ -589,7 +589,7 @@ fn test_evex_wig_lig() {
 		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 2),
 		("62 F17C0B 51 50 01", "62 F17C0B 51 50 01", Code::EVEX_Vsqrtps_xmm_k1z_xmmm128b32, 1, 3),
 	];
-	for tc in tests.iter() {
+	for tc in &tests {
 		let (hex_bytes, expected_bytes, code, wig, lig) = *tc;
 		let hex_bytes = to_vec_u8(hex_bytes).unwrap();
 		let mut decoder = create_decoder(64, &hex_bytes, 0).0;

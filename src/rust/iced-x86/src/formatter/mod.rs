@@ -222,7 +222,7 @@ pub trait FormatterOutput {
 				self.write(s, part.color);
 			}
 
-			SymResTextInfo::TextVec(ref v) => {
+			SymResTextInfo::TextVec(v) => {
 				for part in v.iter() {
 					let s = match &part.text {
 						&SymResString::Str(s) => s,
@@ -272,7 +272,7 @@ impl FormatterOutputMethods {
 			}
 			displ = -displ;
 		}
-		output.write_symbol(instruction, operand, instruction_operand, address, &symbol);
+		output.write_symbol(instruction, operand, instruction_operand, address, symbol);
 		let mut number_kind: NumberKind;
 		if displ != 0 {
 			if spaces_between_op {

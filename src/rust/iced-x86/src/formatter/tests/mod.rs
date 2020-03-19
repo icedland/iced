@@ -71,7 +71,7 @@ pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: b
 	if infos.len() != lines.len() {
 		panic!("Infos len ({}) != fmt len ({}); dir={}, filename: {}, is_misc: {}", infos.len(), lines.len(), dir, filename, is_misc);
 	}
-	for i in infos.iter().zip(lines.iter().map(|x| x.as_str())) {
+	for i in infos.iter().zip(lines.iter().map(String::as_str)) {
 		format_test_info(i.0, i.1, fmt_factory());
 	}
 }
@@ -83,7 +83,7 @@ pub(super) fn formatter_test_nondec(bitness: u32, dir: &str, filename: &str, fmt
 	if instrs.len() != instrs.len() {
 		panic!("Instrs len ({}) != fmt len ({}); dir={}, filename: {}", instrs.len(), lines.len(), dir, filename);
 	}
-	for i in instrs.iter().zip(lines.iter().map(|x| x.as_str())) {
+	for i in instrs.iter().zip(lines.iter().map(String::as_str)) {
 		format_test_instruction(&(i.0).1, i.1, fmt_factory());
 	}
 }

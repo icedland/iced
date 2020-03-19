@@ -553,6 +553,7 @@ impl Instruction {
 	///
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op4_kind(&self) -> OpKind {
@@ -571,6 +572,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[inline]
 	pub fn set_op4_kind(&mut self, new_value: OpKind) {
 		if new_value != OpKind::Immediate8 {
@@ -1494,6 +1496,7 @@ impl Instruction {
 	/// [`op_register()`]: #method.op_register
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op4_register(&self) -> Register {
@@ -1515,6 +1518,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[inline]
 	pub fn set_op4_register(&mut self, new_value: Register) {
 		if new_value != Register::None {

@@ -167,7 +167,7 @@ impl BlockEncoder {
 		};
 
 		let mut instr_count = 0;
-		for instr_block in instr_blocks.iter() {
+		for instr_block in instr_blocks {
 			let instructions = instr_block.instructions;
 			let block = Rc::new(RefCell::new(Block::new(
 				&this,
@@ -176,23 +176,23 @@ impl BlockEncoder {
 			)));
 			let mut instrs = Vec::with_capacity(instructions.len());
 			let mut ip = instr_block.rip;
-			for instruction in instructions.iter() {
-				let instr = InstrUtils::create(&mut this, block.clone(), instruction);
+			for instruction in instructions {
+				let instr = InstrUtils::create(&mut this, Rc::clone(&block), instruction);
 				instr.borrow_mut().set_ip(ip);
-				instrs.push(instr.clone());
+				instrs.push(Rc::clone(&instr));
 				instr_count += 1;
 				debug_assert!(instr.borrow().size() != 0);
 				ip = ip.wrapping_add(instr.borrow().size() as u64);
 			}
-			this.blocks.push((block.clone(), instrs));
+			this.blocks.push((Rc::clone(&block), instrs));
 		}
 		// Optimize from low to high addresses
 		this.blocks.sort_unstable_by(|a, b| a.0.borrow().rip.cmp(&b.0.borrow().rip));
 
 		// There must not be any instructions with the same IP, except if IP = 0 (default value)
 		this.to_instr = HashMap::with_capacity(instr_count);
-		for info in this.blocks.iter() {
-			for instr in info.1.iter() {
+		for info in &this.blocks {
+			for instr in &info.1 {
 				let orig_ip = instr.borrow().orig_ip();
 				if this.to_instr.get(&orig_ip).is_some() {
 					if orig_ip != 0 {
@@ -200,7 +200,7 @@ impl BlockEncoder {
 					}
 					this.has_multiple_zero_ip_instrs = true;
 				} else {
-					let _ = this.to_instr.insert(orig_ip, instr.clone());
+					let _ = this.to_instr.insert(orig_ip, Rc::clone(instr));
 				}
 			}
 		}
@@ -209,9 +209,9 @@ impl BlockEncoder {
 		}
 
 		let mut tmp_blocks = mem::replace(&mut this.blocks, Vec::new());
-		for info in tmp_blocks.iter_mut() {
+		for info in &mut tmp_blocks {
 			let mut ip = info.0.borrow().rip;
-			for instr in info.1.iter_mut() {
+			for instr in &mut info.1 {
 				let mut instr = instr.borrow_mut();
 				instr.set_ip(ip);
 				let old_size = instr.size();
@@ -349,9 +349,9 @@ impl BlockEncoder {
 	fn encode2(&mut self) -> Result<Vec<BlockEncoderResult>, String> {
 		for _ in 0..1000 {
 			let mut updated = false;
-			for info in self.blocks.iter_mut() {
+			for info in &mut self.blocks {
 				let mut ip = info.0.borrow().rip;
-				for instr in info.1.iter_mut() {
+				for instr in &mut info.1 {
 					let mut instr = instr.borrow_mut();
 					instr.set_ip(ip);
 					let old_size = instr.size();
@@ -374,19 +374,19 @@ impl BlockEncoder {
 			}
 		}
 
-		for info in self.blocks.iter_mut() {
+		for info in &mut self.blocks {
 			info.0.borrow_mut().initialize_data(&info.1);
 		}
 
 		let mut result_vec: Vec<BlockEncoderResult> = Vec::with_capacity(self.blocks.len());
-		for info in self.blocks.iter_mut() {
+		for info in &mut self.blocks {
 			let mut block = info.0.borrow_mut();
 			let mut ip = block.rip;
 			let mut new_instruction_offsets: Vec<u32> =
 				if (self.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
 			let mut constant_offsets: Vec<ConstantOffsets> =
 				if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 { Vec::with_capacity(info.1.len()) } else { Vec::new() };
-			for instr in info.1.iter_mut() {
+			for instr in &mut info.1 {
 				let mut instr = instr.borrow_mut();
 				let buffer_pos = block.buffer_pos();
 				let is_original_instruction = if (self.options & BlockEncoderOptions::RETURN_CONSTANT_OFFSETS) != 0 {
@@ -418,7 +418,7 @@ impl BlockEncoder {
 		}
 		self.to_instr.clear();
 		if cfg!(debug_assertions) {
-			for info in self.blocks.iter() {
+			for info in &self.blocks {
 				// dispose() and other clear() calls should've removed all cyclic refs
 				assert_eq!(1, Rc::strong_count(&info.0));
 			}
@@ -432,7 +432,7 @@ impl BlockEncoder {
 			TargetInstr::new_owner()
 		} else {
 			match self.to_instr.get(&address) {
-				Some(instr) => TargetInstr::new_instr(instr.clone()),
+				Some(instr) => TargetInstr::new_instr(Rc::clone(instr)),
 				None => TargetInstr::new_address(address),
 			}
 		}

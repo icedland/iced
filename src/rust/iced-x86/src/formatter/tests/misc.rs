@@ -48,8 +48,8 @@ fn make_sure_all_code_values_are_formatted() {
 		(32, true),
 		(64, true),
 	];
-	for &(bitness, is_misc) in all_args.iter() {
-		for info in get_infos(bitness, is_misc).iter() {
+	for &(bitness, is_misc) in &all_args {
+		for info in get_infos(bitness, is_misc) {
 			tested[info.code as usize] = 1;
 		}
 	}
@@ -59,7 +59,7 @@ fn make_sure_all_code_values_are_formatted() {
 			tested[info.2.code() as usize] = 1;
 		}
 	} else {
-		for &code in super::super::super::decoder::tests::NON_DECODED_CODE_VALUES.iter() {
+		for &code in &super::super::super::decoder::tests::NON_DECODED_CODE_VALUES {
 			tested[code as usize] = 1;
 		}
 	}
@@ -350,7 +350,7 @@ pub(in super::super) fn test_op_index(fmt_factory: fn() -> Box<Formatter>) {
 		let instruction = decoder.decode();
 		assert_eq!(info.code(), instruction.code());
 
-		for i in instr_to_formatter.iter_mut() {
+		for i in &mut instr_to_formatter {
 			*i = None;
 		}
 

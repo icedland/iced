@@ -146,7 +146,7 @@ pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<Formatter>) {
 
 	for (number, formatted_strings) in numbers.into_iter().zip(formatted_numbers.into_iter()) {
 		assert_eq!(NUMBER_BASES.len(), formatted_strings.len());
-		for (&base, formatted_string) in NUMBER_BASES.iter().zip(formatted_strings.iter().map(|s| s.as_str())) {
+		for (&base, formatted_string) in NUMBER_BASES.iter().zip(formatted_strings.iter().map(String::as_str)) {
 			let mut formatter = fmt_factory();
 			formatter.options_mut().set_number_base(base);
 			let cloned_options = formatter.options().clone();
