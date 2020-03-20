@@ -629,11 +629,11 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub(self) fn read_u16(&mut self) -> usize {
 		unsafe {
 			let data_ptr = self.data_ptr;
 			if data_ptr.offset(1) < self.max_data_ptr {
+				#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 				let result = u16::from_le(ptr::read_unaligned(data_ptr as *const u16)) as usize;
 				self.data_ptr = data_ptr.offset(2);
 				result
@@ -645,7 +645,6 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 	pub(self) fn read_u32(&mut self) -> usize {
 		// What I really wanted to do was: (this saves one instruction)
 		//		const N: isize = 4;
@@ -661,6 +660,7 @@ impl<'a> Decoder<'a> {
 		unsafe {
 			let data_ptr = self.data_ptr;
 			if data_ptr.offset(3) < self.max_data_ptr {
+				#[cfg_attr(feature = "cargo-clippy", allow(clippy::cast_ptr_alignment))]
 				let result = u32::from_le(ptr::read_unaligned(data_ptr as *const u32)) as usize;
 				self.data_ptr = data_ptr.offset(4);
 				result
