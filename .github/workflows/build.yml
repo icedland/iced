@@ -137,6 +137,7 @@ jobs:
           # It fails on Windows, disable auto self update
           rustup toolchain install 1.20.0 --no-self-update
           rustup toolchain install nightly --no-self-update
+          rustup target add wasm32-unknown-unknown
           rustup update --no-self-update
 
       - name: Build no_std
@@ -228,6 +229,8 @@ jobs:
           cargo build --color always --features "db" --release
           echo ==== TEST RELEASE ====
           cargo test --color always --features "db" --release
+          echo ==== BUILD RELEASE wasm32-unknown-unknown ====
+          cargo check --color always --features "db" --target wasm32-unknown-unknown --release
           echo ==== PUBLISH DRY-RUN ====
           # It fails on Windows without this, claiming that some random number of rust files are dirty.
           # This is the 2nd GitHub CI for Windows hack I've added to this file.
