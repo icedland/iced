@@ -39,7 +39,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - ✔️The encoder can be used to re-encode decoded instructions at any address
 //! - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 //! - ✔️All instructions are tested (decode, encode, format, instruction info)
-//! - ✔️Supports `#![no_std]`
+//! - ✔️Supports `#![no_std]` and `WebAssembly`
 //! - ✔️Supports `rustc` `1.20.0` or later
 //! - ✔️Few dependencies (`static_assertions` and `lazy_static`)
 //! - ✔️License: MIT
@@ -81,6 +81,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - `masm`: (✔️Enabled by default) Enables the masm formatter
 //! - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 //! - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
+//! - `javascript`: Used when building the JavaScript + WebAssembly wasm file
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 //! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
@@ -1103,7 +1104,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::fallible_impl_from))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::large_digit_groups))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_errors_doc))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::missing_inline_in_public_items))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::needless_borrow))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::print_stdout))]
@@ -1114,6 +1114,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unused_self))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
+// Must disable #[inline] if wasm_bindgen since it doesn't export methods that are #[inline]d
+#![cfg_attr(all(feature = "cargo-clippy", not(feature = "javascript")), warn(clippy::missing_inline_in_public_items))]
 #![cfg_attr(not(feature = "std"), no_std)]
 
 // This should be the only place in the source code that uses no_std
@@ -1135,6 +1137,11 @@ extern crate static_assertions;
 #[cfg(not(feature = "std"))]
 #[cfg(feature = "encoder")]
 extern crate hashbrown;
+#[cfg(feature = "javascript")]
+#[cfg(feature = "instr_info")]
+extern crate js_sys;
+#[cfg(feature = "javascript")]
+extern crate wasm_bindgen;
 
 #[cfg(feature = "encoder")]
 mod block_enc;

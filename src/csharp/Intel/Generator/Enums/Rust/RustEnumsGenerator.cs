@@ -200,6 +200,8 @@ namespace Generator.Enums.Rust {
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
 			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
+			if (enumType.IsPublic)
+				writer.WriteLine(RustConstants.AttributeJavaScriptWasmBindGen);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
 			if (enumType.IsPublic && enumType.IsMissingDocs)

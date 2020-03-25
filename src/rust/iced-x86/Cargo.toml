@@ -26,6 +26,7 @@ intel = []
 masm = []
 nasm = []
 db = []
+javascript = ["wasm-bindgen", "js-sys"]
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps
 no_std = ["lazy_static/spin_no_std", "hashbrown"]
@@ -44,6 +45,16 @@ optional = true
 # if: no_std and encoder
 [dependencies.hashbrown]
 version = "0.7.1"
+optional = true
+
+# if: javascript
+[dependencies.wasm-bindgen]
+version = "0.2.59"
+optional = true
+
+# if: javascript
+[dependencies.js-sys]
+version = "0.3.36"
 optional = true
 
 # build.rs dependency

@@ -16,7 +16,7 @@ It can be used for static analysis of x86/x64 binaries, to rewrite code (eg. rem
 - ✔️The encoder can be used to re-encode decoded instructions at any address
 - ✔️API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, flow control info, etc
 - ✔️All instructions are tested (decode, encode, format, instruction info)
-- ✔️Supports `#![no_std]`
+- ✔️Supports `#![no_std]` and `WebAssembly`
 - ✔️Supports `rustc` `1.20.0` or later
 - ✔️Few dependencies (`static_assertions` and `lazy_static`)
 - ✔️License: MIT
@@ -58,6 +58,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 - `db`: Enables creating `db`, `dw`, `dd`, `dq` instructions. It's not enabled by default because it's possible to store up to 16 bytes in the instruction and then use another method to read an enum value.
+- `javascript`: Used when building the JavaScript + WebAssembly wasm file
 - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute

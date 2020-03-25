@@ -528,7 +528,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].immediate_op_kind() {
@@ -537,7 +537,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't an immediate operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't an immediate operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't an immediate operand", code as u32, operand);
 			}
 		}
 	}
@@ -550,7 +550,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].near_branch_op_kind() {
@@ -559,7 +559,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't a near branch operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't a near branch operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't a near branch operand", code as u32, operand);
 			}
 		}
 	}
@@ -572,7 +572,7 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].far_branch_op_kind() {
@@ -581,7 +581,7 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't a far branch operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't a far branch operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't a far branch operand", code as u32, operand);
 			}
 		}
 	}

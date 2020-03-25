@@ -22,10 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
+#[cfg(feature = "javascript")]
+use wasm_bindgen::prelude::*;
 
 /// Memory operand passed to one of [`Instruction`]'s `with_*()` constructor methods
 ///
 /// [`Instruction`]: struct.Instruction.html
+#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct MemoryOperand {
 	/// Segment override or [`Register::None`]
@@ -56,6 +59,7 @@ pub struct MemoryOperand {
 	pub is_broadcast: bool,
 }
 
+#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl MemoryOperand {
 	/// Constructor
 	///
@@ -72,6 +76,7 @@ impl MemoryOperand {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
 	pub fn new(
 		base: Register, index: Register, scale: u32, displacement: i32, displ_size: u32, is_broadcast: bool, segment_prefix: Register,
 	) -> Self {
