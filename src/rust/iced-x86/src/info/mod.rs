@@ -52,21 +52,21 @@ impl UsedRegister {
 	/// * `register`: Register
 	/// * `access`: Register access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn new(register: Register, access: OpAccess) -> Self {
 		Self { register, access }
 	}
 
 	/// Gets the register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn register(&self) -> Register {
 		self.register
 	}
 
 	/// Gets the register access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn access(&self) -> OpAccess {
 		self.access
 	}
@@ -106,14 +106,14 @@ impl UsedMemory {
 	/// * `memory_size`: Memory size
 	/// * `access`: Access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, _pad: 0 }
 	}
 
 	/// Effective segment register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn segment(&self) -> Register {
 		self.segment
 	}
@@ -122,7 +122,7 @@ impl UsedMemory {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn base(&self) -> Register {
 		self.base
 	}
@@ -131,35 +131,35 @@ impl UsedMemory {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn index(&self) -> Register {
 		self.index
 	}
 
 	/// Index scale (1, 2, 4 or 8)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn scale(&self) -> u32 {
 		self.scale as u32
 	}
 
 	/// Displacement
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn displacement(&self) -> u64 {
 		self.displacement
 	}
 
 	/// Size of location
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_size(&self) -> MemorySize {
 		self.memory_size
 	}
 
 	/// Memory access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn access(&self) -> OpAccess {
 		self.access
 	}
@@ -253,28 +253,28 @@ impl InstructionInfo {
 	///
 	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn used_registers(&self) -> &[UsedRegister] {
 		self.used_registers.as_slice()
 	}
 
 	/// Gets all accessed memory locations
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn used_memory(&self) -> &[UsedMemory] {
 		self.used_memory_locations.as_slice()
 	}
 
 	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_protected_mode(&self) -> bool {
 		(self.flags & IIFlags::PROTECTED_MODE) != 0
 	}
 
 	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_privileged(&self) -> bool {
 		(self.flags & IIFlags::PRIVILEGED) != 0
 	}
@@ -284,7 +284,7 @@ impl InstructionInfo {
 	///
 	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_stack_instruction(&self) -> bool {
 		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
 	}
@@ -294,63 +294,63 @@ impl InstructionInfo {
 	///
 	/// [`used_registers()`]: #method.used_registers
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		(self.flags & IIFlags::SAVE_RESTORE) != 0
 	}
 
 	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
 
 	/// Gets the CPU or CPUID feature flags
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
 		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
 	/// Flow control info
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn flow_control(&self) -> FlowControl {
 		self.flow_control
 	}
 
 	/// Operand #0 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op0_access(&self) -> OpAccess {
 		self.op_accesses[0]
 	}
 
 	/// Operand #1 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op1_access(&self) -> OpAccess {
 		self.op_accesses[1]
 	}
 
 	/// Operand #2 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op2_access(&self) -> OpAccess {
 		self.op_accesses[2]
 	}
 
 	/// Operand #3 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op3_access(&self) -> OpAccess {
 		self.op_accesses[3]
 	}
 
 	/// Operand #4 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op4_access(&self) -> OpAccess {
 		self.op_accesses[4]
 	}
@@ -376,7 +376,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -387,7 +387,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -398,7 +398,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -409,7 +409,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -420,7 +420,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -429,7 +429,7 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
 	}

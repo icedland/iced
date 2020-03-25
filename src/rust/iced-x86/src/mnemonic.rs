@@ -3111,7 +3111,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1538] = [
 	"Xtest",
 ];
 impl fmt::Debug for Mnemonic {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MNEMONIC[*self as usize])?;
 		Ok(())
@@ -3119,7 +3119,7 @@ impl fmt::Debug for Mnemonic {
 }
 impl Default for Mnemonic {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		Mnemonic::INVALID
 	}

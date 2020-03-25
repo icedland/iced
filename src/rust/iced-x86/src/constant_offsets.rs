@@ -44,14 +44,14 @@ pub struct ConstantOffsets {
 impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn displacement_offset(&self) -> usize {
 		self.displacement_offset as usize
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn displacement_size(&self) -> usize {
 		self.displacement_size as usize
 	}
@@ -61,28 +61,28 @@ impl ConstantOffsets {
 	/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 	/// of the instruction stream, eg. `SHL AL,1`.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate_offset(&self) -> usize {
 		self.immediate_offset as usize
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate_size(&self) -> usize {
 		self.immediate_size as usize
 	}
 
 	/// The offset of the second immediate, if any.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate_offset2(&self) -> usize {
 		self.immediate_offset2 as usize
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate_size2(&self) -> usize {
 		self.immediate_size2 as usize
 	}
@@ -92,7 +92,7 @@ impl ConstantOffsets {
 	/// [`displacement_offset()`]: #method.displacement_offset
 	/// [`displacement_size()`]: #method.displacement_size
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_displacement(&self) -> bool {
 		self.displacement_size != 0
 	}
@@ -102,7 +102,7 @@ impl ConstantOffsets {
 	/// [`immediate_offset()`]: #method.immediate_offset
 	/// [`immediate_size()`]: #method.immediate_size
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_immediate(&self) -> bool {
 		self.immediate_size != 0
 	}
@@ -112,7 +112,7 @@ impl ConstantOffsets {
 	/// [`immediate_offset2()`]: #method.immediate_offset2
 	/// [`immediate_size2()`]: #method.immediate_size2
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_immediate2(&self) -> bool {
 		self.immediate_size2 != 0
 	}

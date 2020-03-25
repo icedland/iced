@@ -48,7 +48,7 @@ static GEN_DEBUG_DISPL_SIZE: [&str; 7] = [
 	"RipRelSize4_Target64",
 ];
 impl fmt::Debug for DisplSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_DISPL_SIZE[*self as usize])?;
 		Ok(())
@@ -56,7 +56,7 @@ impl fmt::Debug for DisplSize {
 }
 impl Default for DisplSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		DisplSize::None
 	}
@@ -116,7 +116,7 @@ static GEN_DEBUG_IMM_SIZE: [&str; 19] = [
 	"Size1OpCode",
 ];
 impl fmt::Debug for ImmSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_IMM_SIZE[*self as usize])?;
 		Ok(())
@@ -124,7 +124,7 @@ impl fmt::Debug for ImmSize {
 }
 impl Default for ImmSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		ImmSize::None
 	}
@@ -177,7 +177,7 @@ static GEN_DEBUG_OPERAND_SIZE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for OperandSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OPERAND_SIZE[*self as usize])?;
 		Ok(())
@@ -185,7 +185,7 @@ impl fmt::Debug for OperandSize {
 }
 impl Default for OperandSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OperandSize::None
 	}
@@ -211,7 +211,7 @@ static GEN_DEBUG_ADDRESS_SIZE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for AddressSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ADDRESS_SIZE[*self as usize])?;
 		Ok(())
@@ -219,7 +219,7 @@ impl fmt::Debug for AddressSize {
 }
 impl Default for AddressSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		AddressSize::None
 	}
@@ -245,7 +245,7 @@ static GEN_DEBUG_LEGACY_OP_CODE_TABLE: [&str; 4] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for LegacyOpCodeTable {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LEGACY_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -253,7 +253,7 @@ impl fmt::Debug for LegacyOpCodeTable {
 }
 impl Default for LegacyOpCodeTable {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		LegacyOpCodeTable::Normal
 	}
@@ -277,7 +277,7 @@ static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 3] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for VexOpCodeTable {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -285,7 +285,7 @@ impl fmt::Debug for VexOpCodeTable {
 }
 impl Default for VexOpCodeTable {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		VexOpCodeTable::Table0F
 	}
@@ -309,7 +309,7 @@ static GEN_DEBUG_XOP_OP_CODE_TABLE: [&str; 3] = [
 	"XOPA",
 ];
 impl fmt::Debug for XopOpCodeTable {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -317,7 +317,7 @@ impl fmt::Debug for XopOpCodeTable {
 }
 impl Default for XopOpCodeTable {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		XopOpCodeTable::XOP8
 	}
@@ -341,7 +341,7 @@ static GEN_DEBUG_EVEX_OP_CODE_TABLE: [&str; 3] = [
 	"Table0F3A",
 ];
 impl fmt::Debug for EvexOpCodeTable {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_TABLE[*self as usize])?;
 		Ok(())
@@ -349,7 +349,7 @@ impl fmt::Debug for EvexOpCodeTable {
 }
 impl Default for EvexOpCodeTable {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		EvexOpCodeTable::Table0F
 	}
@@ -373,7 +373,7 @@ static GEN_DEBUG_ENCODABLE: [&str; 3] = [
 	"Only64",
 ];
 impl fmt::Debug for Encodable {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ENCODABLE[*self as usize])?;
 		Ok(())
@@ -381,7 +381,7 @@ impl fmt::Debug for Encodable {
 }
 impl Default for Encodable {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		Encodable::Any
 	}
@@ -411,7 +411,7 @@ static GEN_DEBUG_VEX_VECTOR_LENGTH: [&str; 6] = [
 	"LIG",
 ];
 impl fmt::Debug for VexVectorLength {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -419,7 +419,7 @@ impl fmt::Debug for VexVectorLength {
 }
 impl Default for VexVectorLength {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		VexVectorLength::LZ
 	}
@@ -445,7 +445,7 @@ static GEN_DEBUG_XOP_VECTOR_LENGTH: [&str; 4] = [
 	"L1",
 ];
 impl fmt::Debug for XopVectorLength {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -453,7 +453,7 @@ impl fmt::Debug for XopVectorLength {
 }
 impl Default for XopVectorLength {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		XopVectorLength::L128
 	}
@@ -477,7 +477,7 @@ static GEN_DEBUG_EVEX_VECTOR_LENGTH: [&str; 3] = [
 	"L512",
 ];
 impl fmt::Debug for EvexVectorLength {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_VECTOR_LENGTH[*self as usize])?;
 		Ok(())
@@ -485,7 +485,7 @@ impl fmt::Debug for EvexVectorLength {
 }
 impl Default for EvexVectorLength {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		EvexVectorLength::L128
 	}
@@ -585,7 +585,7 @@ static GEN_DEBUG_ALLOWED_PREFIXES: [&str; 9] = [
 	"Xrelease",
 ];
 impl fmt::Debug for AllowedPrefixes {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_ALLOWED_PREFIXES[*self as usize])?;
 		Ok(())
@@ -593,7 +593,7 @@ impl fmt::Debug for AllowedPrefixes {
 }
 impl Default for AllowedPrefixes {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		AllowedPrefixes::None
 	}
@@ -619,7 +619,7 @@ static GEN_DEBUG_WBIT: [&str; 4] = [
 	"WIG32",
 ];
 impl fmt::Debug for WBit {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_WBIT[*self as usize])?;
 		Ok(())
@@ -627,7 +627,7 @@ impl fmt::Debug for WBit {
 }
 impl Default for WBit {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		WBit::W0
 	}
@@ -1003,7 +1003,7 @@ static GEN_DEBUG_LEGACY_OP_KIND: [&str; 121] = [
 	"r64_ro",
 ];
 impl fmt::Debug for LegacyOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LEGACY_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1011,7 +1011,7 @@ impl fmt::Debug for LegacyOpKind {
 }
 impl Default for LegacyOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		LegacyOpKind::None
 	}
@@ -1107,7 +1107,7 @@ static GEN_DEBUG_VEX_OP_KIND: [&str; 39] = [
 	"WY",
 ];
 impl fmt::Debug for VexOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1115,7 +1115,7 @@ impl fmt::Debug for VexOpKind {
 }
 impl Default for VexOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		VexOpKind::None
 	}
@@ -1171,7 +1171,7 @@ static GEN_DEBUG_XOP_OP_KIND: [&str; 19] = [
 	"WY",
 ];
 impl fmt::Debug for XopOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_XOP_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1179,7 +1179,7 @@ impl fmt::Debug for XopOpKind {
 }
 impl Default for XopOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		XopOpKind::None
 	}
@@ -1269,7 +1269,7 @@ static GEN_DEBUG_EVEX_OP_KIND: [&str; 36] = [
 	"WZ",
 ];
 impl fmt::Debug for EvexOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_KIND[*self as usize])?;
 		Ok(())
@@ -1277,7 +1277,7 @@ impl fmt::Debug for EvexOpKind {
 }
 impl Default for EvexOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		EvexOpKind::None
 	}
@@ -1304,7 +1304,7 @@ static GEN_DEBUG_REP_PREFIX_KIND: [&str; 3] = [
 	"Repne",
 ];
 impl fmt::Debug for RepPrefixKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_REP_PREFIX_KIND[*self as usize])?;
 		Ok(())
@@ -1312,7 +1312,7 @@ impl fmt::Debug for RepPrefixKind {
 }
 impl Default for RepPrefixKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		RepPrefixKind::None
 	}

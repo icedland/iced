@@ -73,7 +73,7 @@ static GEN_DEBUG_OP_SIZE: [&str; 3] = [
 	"Size64",
 ];
 impl fmt::Debug for OpSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_SIZE[*self as usize])?;
 		Ok(())
@@ -81,7 +81,7 @@ impl fmt::Debug for OpSize {
 }
 impl Default for OpSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpSize::Size16
 	}
@@ -437,7 +437,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// [`position()`]: #method.position
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip(&self) -> u64 {
 		self.ip
 	}
@@ -449,14 +449,14 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `new_value`: New IP
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_ip(&mut self, new_value: u64) {
 		self.ip = new_value;
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn bitness(&self) -> u32 {
 		self.bitness
 	}
@@ -466,7 +466,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// [`set_position()`]: #method.set_position
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn max_position(&self) -> usize {
 		self.data.len()
 	}
@@ -479,7 +479,7 @@ impl<'a> Decoder<'a> {
 	/// [`position()`]: #method.position
 	/// [`can_decode()`]: #method.can_decode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn position(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
 	}
@@ -524,7 +524,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(Code::Pause, decoder.decode().code());
 	/// assert_eq!(3, decoder.position());
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_position(&mut self, new_pos: usize) {
 		assert!(new_pos <= self.data.len());
 		self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
@@ -569,7 +569,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(!decoder.can_decode());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
@@ -608,7 +608,7 @@ impl<'a> Decoder<'a> {
 	///     println!("code: {:?}", instr.code());
 	/// }
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn iter<'b>(&'b mut self) -> DecoderIter<'a, 'b> {
 		DecoderIter { decoder: self }
 	}
@@ -677,7 +677,7 @@ impl<'a> Decoder<'a> {
 	/// [`decode()`]: #method.decode
 	/// [`decode_out()`]: #method.decode_out
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn invalid_no_more_bytes(&self) -> bool {
 		(self.state.flags & StateFlags::NO_MORE_BYTES) != 0
 	}
@@ -722,7 +722,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(has_maybe_uninit)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { mem::MaybeUninit::uninit().assume_init() };
@@ -771,7 +771,7 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(not(has_maybe_uninit))]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { mem::uninitialized() };
@@ -963,7 +963,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
@@ -971,7 +971,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
@@ -1018,21 +1018,21 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		debug_assert_eq!(MandatoryPrefixByte::PF3 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		debug_assert_eq!(MandatoryPrefixByte::PF2 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn set_invalid_instruction(&mut self) {
 		self.state.flags |= StateFlags::IS_INVALID;
 	}
@@ -1787,7 +1787,7 @@ pub struct DecoderIter<'a: 'b, 'b> {
 impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 	type Item = Instruction;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1812,7 +1812,7 @@ pub struct DecoderIntoIter<'a> {
 impl<'a> Iterator for DecoderIntoIter<'a> {
 	type Item = Instruction;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1830,7 +1830,7 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type IntoIter = DecoderIntoIter<'a>;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }
 	}
@@ -1840,7 +1840,7 @@ impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }
 	}

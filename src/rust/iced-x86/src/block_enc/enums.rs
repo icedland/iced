@@ -37,7 +37,7 @@ static GEN_DEBUG_RELOC_KIND: [&str; 1] = [
 	"Offset64",
 ];
 impl fmt::Debug for RelocKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_RELOC_KIND[*self as usize])?;
 		Ok(())
@@ -45,7 +45,7 @@ impl fmt::Debug for RelocKind {
 }
 impl Default for RelocKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		RelocKind::Offset64
 	}

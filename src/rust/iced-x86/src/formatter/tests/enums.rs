@@ -133,7 +133,7 @@ static GEN_DEBUG_OPTIONS_PROPS: [&str; 50] = [
 	"UsePseudoOps",
 ];
 impl fmt::Debug for OptionsProps {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OPTIONS_PROPS[*self as usize])?;
 		Ok(())
@@ -141,7 +141,7 @@ impl fmt::Debug for OptionsProps {
 }
 impl Default for OptionsProps {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OptionsProps::AddLeadingZeroToHexNumbers
 	}

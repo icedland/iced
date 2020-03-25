@@ -518,7 +518,7 @@ impl OpCodeInfo {
 	/// assert_eq!(Code::EVEX_Vmovapd_ymm_k1z_ymmm256, op_code.code());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn code(&self) -> Code {
 		self.code
 	}
@@ -534,7 +534,7 @@ impl OpCodeInfo {
 	/// assert_eq!(EncodingKind::EVEX, op_code.encoding());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
@@ -557,49 +557,49 @@ impl OpCodeInfo {
 	/// [`dd`]: enum.Code.html#variant.DeclareDword
 	/// [`dq`]: enum.Code.html#variant.DeclareQword
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_instruction(&self) -> bool {
 		(self.flags & Flags::NO_INSTRUCTION) == 0
 	}
 
 	/// `true` if it's an instruction available in 16-bit mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn mode16(&self) -> bool {
 		(self.flags & Flags::MODE16) != 0
 	}
 
 	/// `true` if it's an instruction available in 32-bit mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn mode32(&self) -> bool {
 		(self.flags & Flags::MODE32) != 0
 	}
 
 	/// `true` if it's an instruction available in 64-bit mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn mode64(&self) -> bool {
 		(self.flags & Flags::MODE64) != 0
 	}
 
 	/// `true` if an `FWAIT` (`9B`) instruction is added before the instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn fwait(&self) -> bool {
 		(self.flags & Flags::FWAIT) != 0
 	}
 
 	/// (Legacy encoding) Gets the required operand size (16,32,64) or 0 if no operand size prefix (`66`) or `REX.W` prefix is needed
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn operand_size(&self) -> u32 {
 		self.operand_size as u32
 	}
 
 	/// (Legacy encoding) Gets the required address size (16,32,64) or 0 if no address size prefix (`67`) is needed
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn address_size(&self) -> u32 {
 		self.address_size as u32
 	}
@@ -608,7 +608,7 @@ impl OpCodeInfo {
 	///
 	/// [`is_lig()`]: #method.is_lig
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn l(&self) -> u32 {
 		self.l as u32
 	}
@@ -618,7 +618,7 @@ impl OpCodeInfo {
 	/// [`is_wig()`]: #method.is_wig
 	/// [`is_wig32()`]: #method.is_wig32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn w(&self) -> u32 {
 		if (self.flags & Flags::W) != 0 {
 			1
@@ -631,140 +631,140 @@ impl OpCodeInfo {
 	///
 	/// EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_lig(&self) -> bool {
 		(self.flags & Flags::LIG) != 0
 	}
 
 	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_wig(&self) -> bool {
 		(self.flags & Flags::WIG) != 0
 	}
 
 	/// (VEX/XOP/EVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_wig32(&self) -> bool {
 		(self.flags & Flags::WIG32) != 0
 	}
 
 	/// (EVEX) Gets the tuple type
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn tuple_type(&self) -> TupleType {
 		self.tuple_type
 	}
 
 	/// (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_broadcast(&self) -> bool {
 		(self.flags & Flags::BROADCAST) != 0
 	}
 
 	/// (EVEX) `true` if the instruction supports rounding control
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_rounding_control(&self) -> bool {
 		(self.flags & Flags::ROUNDING_CONTROL) != 0
 	}
 
 	/// (EVEX) `true` if the instruction supports suppress all exceptions
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_suppress_all_exceptions(&self) -> bool {
 		(self.flags & Flags::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
 
 	/// (EVEX) `true` if an op mask register can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_op_mask_register(&self) -> bool {
 		(self.flags & Flags::OP_MASK_REGISTER) != 0
 	}
 
 	/// (EVEX) `true` if a non-zero op mask register must be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn require_non_zero_op_mask_register(&self) -> bool {
 		(self.flags & Flags::NON_ZERO_OP_MASK_REGISTER) != 0
 	}
 
 	/// (EVEX) `true` if the instruction supports zeroing masking (if one of the op mask registers `K1`-`K7` is used and destination operand is not a memory operand)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_zeroing_masking(&self) -> bool {
 		(self.flags & Flags::ZEROING_MASKING) != 0
 	}
 
 	/// `true` if the `LOCK` (`F0`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_lock_prefix(&self) -> bool {
 		(self.flags & Flags::LOCK_PREFIX) != 0
 	}
 
 	/// `true` if the `XACQUIRE` (`F2`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_xacquire_prefix(&self) -> bool {
 		(self.flags & Flags::XACQUIRE_PREFIX) != 0
 	}
 
 	/// `true` if the `XRELEASE` (`F3`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_xrelease_prefix(&self) -> bool {
 		(self.flags & Flags::XRELEASE_PREFIX) != 0
 	}
 
 	/// `true` if the `REP` / `REPE` (`F3`) prefixes can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_rep_prefix(&self) -> bool {
 		(self.flags & Flags::REP_PREFIX) != 0
 	}
 
 	/// `true` if the `REPNE` (`F2`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_repne_prefix(&self) -> bool {
 		(self.flags & Flags::REPNE_PREFIX) != 0
 	}
 
 	/// `true` if the `BND` (`F2`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_bnd_prefix(&self) -> bool {
 		(self.flags & Flags::BND_PREFIX) != 0
 	}
 
 	/// `true` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_hint_taken_prefix(&self) -> bool {
 		(self.flags & Flags::HINT_TAKEN_PREFIX) != 0
 	}
 
 	/// `true` if the `NOTRACK` (`3E`) prefix can be used
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_use_notrack_prefix(&self) -> bool {
 		(self.flags & Flags::NOTRACK_PREFIX) != 0
 	}
 
 	/// Gets the opcode table
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn table(&self) -> OpCodeTableKind {
 		self.table
 	}
 
 	/// Gets the mandatory prefix
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn mandatory_prefix(&self) -> MandatoryPrefix {
 		self.mandatory_prefix
 	}
@@ -789,63 +789,63 @@ impl OpCodeInfo {
 	/// [`Code::Sub_r8_rm8`]: enum.Code.html#variant.Sub_r8_rm8
 	/// [`Code::Cvtpi2ps_xmm_mmm64`]: enum.Code.html#variant.Cvtpi2ps_xmm_mmm64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_code(&self) -> u32 {
 		self.op_code as u32
 	}
 
 	/// `true` if it's part of a group
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_group(&self) -> bool {
 		self.group_index >= 0
 	}
 
 	/// Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn group_index(&self) -> i32 {
 		self.group_index as i32
 	}
 
 	/// Gets the number of operands
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_count(&self) -> u32 {
 		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked(self.code as usize) as u32 }
 	}
 
 	/// Gets operand #0's opkind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op0_kind(&self) -> OpCodeOperandKind {
 		self.op0_kind
 	}
 
 	/// Gets operand #1's opkind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op1_kind(&self) -> OpCodeOperandKind {
 		self.op1_kind
 	}
 
 	/// Gets operand #2's opkind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op2_kind(&self) -> OpCodeOperandKind {
 		self.op2_kind
 	}
 
 	/// Gets operand #3's opkind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op3_kind(&self) -> OpCodeOperandKind {
 		self.op3_kind
 	}
 
 	/// Gets operand #4's opkind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op4_kind(&self) -> OpCodeOperandKind {
 		self.op4_kind
 	}
@@ -905,7 +905,7 @@ impl OpCodeInfo {
 	/// assert_eq!("EVEX.256.66.0F.W1 28 /r", op_code.op_code_string());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_code_string(&self) -> &str {
 		self.op_code_string.as_str()
 	}
@@ -923,14 +923,14 @@ impl OpCodeInfo {
 	/// assert_eq!("VMOVAPD ymm1 {k1}{z}, ymm2/m256", op_code.instruction_string());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn instruction_string(&self) -> &str {
 		self.instruction_string.as_str()
 	}
 }
 
 impl fmt::Display for OpCodeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", self.instruction_string)
 	}

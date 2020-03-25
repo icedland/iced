@@ -27,7 +27,7 @@ use super::FormatterOutput;
 use alloc::string::String;
 
 impl FormatterOutput for String {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn write(&mut self, text: &str, _kind: FormatterTextKind) {
 		self.push_str(text);
 	}

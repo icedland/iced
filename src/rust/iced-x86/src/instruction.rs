@@ -119,7 +119,7 @@ pub(crate) const INSTRUCTION_TOTAL_SIZE: usize = 32;
 impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared). See also the `with_*()` constructor methods.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn new() -> Self {
 		Instruction::default()
 	}
@@ -140,7 +140,7 @@ impl Instruction {
 
 	/// Gets the 16-bit IP of the instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip16(&self) -> u16 {
 		(self.next_rip as u16).wrapping_sub(self.len() as u16)
 	}
@@ -150,14 +150,14 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_ip16(&mut self, new_value: u16) {
 		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 32-bit IP of the instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip32(&self) -> u32 {
 		(self.next_rip as u32).wrapping_sub(self.len() as u32)
 	}
@@ -167,14 +167,14 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_ip32(&mut self, new_value: u32) {
 		self.next_rip = (new_value as u64).wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 64-bit IP of the instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip(&self) -> u64 {
 		self.next_rip.wrapping_sub(self.len() as u64)
 	}
@@ -184,14 +184,14 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_ip(&mut self, new_value: u64) {
 		self.next_rip = new_value.wrapping_add(self.len() as u64);
 	}
 
 	/// Gets the 16-bit IP of the next instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn next_ip16(&self) -> u16 {
 		self.next_rip as u16
 	}
@@ -201,14 +201,14 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_next_ip16(&mut self, new_value: u16) {
 		self.next_rip = new_value as u64;
 	}
 
 	/// Gets the 32-bit IP of the next instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn next_ip32(&self) -> u32 {
 		self.next_rip as u32
 	}
@@ -218,14 +218,14 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_next_ip32(&mut self, new_value: u32) {
 		self.next_rip = new_value as u64;
 	}
 
 	/// Gets the 64-bit IP of the next instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn next_ip(&self) -> u64 {
 		self.next_rip
 	}
@@ -235,7 +235,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_next_ip(&mut self, new_value: u64) {
 		self.next_rip = new_value;
 	}
@@ -243,7 +243,7 @@ impl Instruction {
 	/// Gets the code size when the instruction was decoded. This value is informational and can
 	/// be used by a formatter.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn code_size(&self) -> CodeSize {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::CODE_SIZE_SHIFT) & OpKindFlags::CODE_SIZE_MASK) as u8) }
 	}
@@ -254,7 +254,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_code_size(&mut self, new_value: CodeSize) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::CODE_SIZE_MASK << OpKindFlags::CODE_SIZE_SHIFT))
 			| (((new_value as u32) & OpKindFlags::CODE_SIZE_MASK) << OpKindFlags::CODE_SIZE_SHIFT);
@@ -264,7 +264,7 @@ impl Instruction {
 	///
 	/// [`mnemonic()`]: #method.mnemonic
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn code(&self) -> Code {
 		unsafe { mem::transmute((self.code_flags & CodeFlags::CODE_MASK) as u16) }
 	}
@@ -274,7 +274,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_code(&mut self, new_value: Code) {
 		self.code_flags = (self.code_flags & !CodeFlags::CODE_MASK) | new_value as u32;
 	}
@@ -283,7 +283,7 @@ impl Instruction {
 	///
 	/// [`code()`]: #method.code
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn mnemonic(&self) -> Mnemonic {
 		self.code().mnemonic()
 	}
@@ -303,7 +303,7 @@ impl Instruction {
 	/// assert_eq!(2, instr.op_count());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_count(&self) -> u32 {
 		unsafe { *instruction_op_counts::OP_COUNT.get_unchecked((self.code_flags & CodeFlags::CODE_MASK) as usize) as u32 }
 	}
@@ -311,7 +311,7 @@ impl Instruction {
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 	/// or create a new one, this method could return the wrong value.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn len(&self) -> usize {
 		((self.code_flags >> CodeFlags::INSTR_LENGTH_SHIFT) & CodeFlags::INSTR_LENGTH_MASK) as usize
 	}
@@ -322,7 +322,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_len(&mut self, new_value: usize) {
 		self.code_flags = (self.code_flags & !(CodeFlags::INSTR_LENGTH_MASK << CodeFlags::INSTR_LENGTH_SHIFT))
 			| (((new_value as u32) & CodeFlags::INSTR_LENGTH_MASK) << CodeFlags::INSTR_LENGTH_SHIFT);
@@ -330,7 +330,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_xacquire_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XACQUIRE_PREFIX) != 0
 	}
@@ -340,7 +340,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_xacquire_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::XACQUIRE_PREFIX;
@@ -351,7 +351,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_xrelease_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::XRELEASE_PREFIX) != 0
 	}
@@ -361,7 +361,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_xrelease_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::XRELEASE_PREFIX;
@@ -372,7 +372,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_rep_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
 	}
@@ -382,7 +382,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_rep_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::REPE_PREFIX;
@@ -393,7 +393,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_repe_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPE_PREFIX) != 0
 	}
@@ -403,7 +403,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_repe_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::REPE_PREFIX;
@@ -414,7 +414,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_repne_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::REPNE_PREFIX) != 0
 	}
@@ -424,7 +424,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_repne_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::REPNE_PREFIX;
@@ -435,7 +435,7 @@ impl Instruction {
 
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_lock_prefix(&self) -> bool {
 		(self.code_flags & CodeFlags::LOCK_PREFIX) != 0
 	}
@@ -445,7 +445,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_has_lock_prefix(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::LOCK_PREFIX;
@@ -459,7 +459,7 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op0_kind(&self) -> OpKind {
 		unsafe { mem::transmute((self.op_kind_flags & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
@@ -472,7 +472,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op0_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !OpKindFlags::OP_KIND_MASK) | ((new_value as u32) & OpKindFlags::OP_KIND_MASK);
 	}
@@ -482,7 +482,7 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op1_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP1_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
@@ -495,7 +495,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op1_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP1_KIND_SHIFT);
@@ -506,7 +506,7 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op2_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP2_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
@@ -519,7 +519,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op2_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::OP_KIND_MASK << OpKindFlags::OP2_KIND_SHIFT))
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP2_KIND_SHIFT);
@@ -530,7 +530,7 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op3_kind(&self) -> OpKind {
 		unsafe { mem::transmute(((self.op_kind_flags >> OpKindFlags::OP3_KIND_SHIFT) & OpKindFlags::OP_KIND_MASK) as u8) }
 	}
@@ -543,7 +543,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op3_kind(&mut self, new_value: OpKind) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::OP_KIND_MASK << OpKindFlags::OP3_KIND_SHIFT))
 			| (((new_value as u32) & OpKindFlags::OP_KIND_MASK) << OpKindFlags::OP3_KIND_SHIFT);
@@ -555,7 +555,7 @@ impl Instruction {
 	/// [`op_kind()`]: #method.op_kind
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op4_kind(&self) -> OpKind {
 		OpKind::Immediate8
 	}
@@ -573,7 +573,7 @@ impl Instruction {
 	///
 	/// * `new_value`: new value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op4_kind(&mut self, new_value: OpKind) {
 		if new_value != OpKind::Immediate8 {
 			panic!();
@@ -648,7 +648,7 @@ impl Instruction {
 	///
 	/// [`segment_prefix()`]: #method.segment_prefix
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_segment_prefix(&self) -> bool {
 		(((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1) < 6
 	}
@@ -666,7 +666,7 @@ impl Instruction {
 	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn segment_prefix(&self) -> Register {
 		let index = (((self.memory_flags as u32) >> MemoryFlags::SEGMENT_PREFIX_SHIFT) & MemoryFlags::SEGMENT_PREFIX_MASK).wrapping_sub(1);
 		if index < 6 {
@@ -730,7 +730,7 @@ impl Instruction {
 	/// [`memory_displacement()`]: #method.memory_displacement
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_displ_size(&self) -> u32 {
 		let size = ((self.memory_flags as u32) >> MemoryFlags::DISPL_SIZE_SHIFT) & MemoryFlags::DISPL_SIZE_MASK;
 		if size <= 2 {
@@ -768,7 +768,7 @@ impl Instruction {
 
 	/// `true` if the data is broadcasted (EVEX instructions only)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_broadcast(&self) -> bool {
 		(self.memory_flags & (MemoryFlags::BROADCAST as u16)) != 0
 	}
@@ -778,7 +778,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_is_broadcast(&mut self, new_value: bool) {
 		if new_value {
 			self.memory_flags |= MemoryFlags::BROADCAST as u16;
@@ -802,7 +802,7 @@ impl Instruction {
 	/// [`OpKind::MemoryESEDI`]: enum.OpKind.html#variant.MemoryESEDI
 	/// [`OpKind::MemoryESRDI`]: enum.OpKind.html#variant.MemoryESRDI
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_size(&self) -> MemorySize {
 		let mut index = self.code() as usize;
 		if self.is_broadcast() {
@@ -815,7 +815,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_index_scale(&self) -> u32 {
 		1 << (self.memory_flags as u32 & MemoryFlags::SCALE_MASK)
 	}
@@ -846,7 +846,7 @@ impl Instruction {
 	/// [`memory_displacement64()`]: #method.memory_displacement64
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_displacement(&self) -> u32 {
 		self.mem_displ
 	}
@@ -860,7 +860,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_memory_displacement(&mut self, new_value: u32) {
 		self.mem_displ = new_value;
 	}
@@ -870,7 +870,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_displacement64(&self) -> u64 {
 		self.mem_displ as i32 as u64
 	}
@@ -911,7 +911,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate_i32(&mut self, operand: u32, new_value: i32) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
@@ -926,7 +926,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate_u32(&mut self, operand: u32, new_value: u32) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
@@ -941,7 +941,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `new_value`: Immediate
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate_i64(&mut self, operand: u32, new_value: i64) {
 		self.set_immediate_u64(operand, new_value as u64);
 	}
@@ -972,7 +972,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate8(&self) -> u8 {
 		self.immediate as u8
 	}
@@ -984,7 +984,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate8(&mut self, new_value: u8) {
 		self.immediate = new_value as u32;
 	}
@@ -993,7 +993,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate8_2nd(&self) -> u8 {
 		self.mem_displ as u8
 	}
@@ -1005,7 +1005,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate8_2nd(&mut self, new_value: u8) {
 		self.mem_displ = new_value as u32;
 	}
@@ -1014,7 +1014,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate16(&self) -> u16 {
 		self.immediate as u16
 	}
@@ -1026,7 +1026,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate16(&mut self, new_value: u16) {
 		self.immediate = new_value as u32;
 	}
@@ -1035,7 +1035,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate32(&self) -> u32 {
 		self.immediate
 	}
@@ -1047,7 +1047,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate32(&mut self, new_value: u32) {
 		self.immediate = new_value;
 	}
@@ -1056,7 +1056,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | (self.immediate as u64)
 	}
@@ -1068,7 +1068,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
 		self.mem_displ = (new_value >> 32) as u32;
@@ -1078,7 +1078,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate8to16(&self) -> i16 {
 		self.immediate as i8 as i16
 	}
@@ -1090,7 +1090,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate8to16(&mut self, new_value: i16) {
 		self.immediate = new_value as i8 as u32;
 	}
@@ -1099,7 +1099,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate8to32(&self) -> i32 {
 		self.immediate as i8 as i32
 	}
@@ -1111,7 +1111,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate8to32(&mut self, new_value: i32) {
 		self.immediate = new_value as i8 as u32;
 	}
@@ -1120,7 +1120,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate8to64(&self) -> i64 {
 		self.immediate as i8 as i64
 	}
@@ -1132,7 +1132,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate8to64(&mut self, new_value: i64) {
 		self.immediate = new_value as i8 as u32;
 	}
@@ -1141,7 +1141,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn immediate32to64(&self) -> i64 {
 		self.immediate as i32 as i64
 	}
@@ -1153,7 +1153,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_immediate32to64(&mut self, new_value: i64) {
 		self.immediate = new_value as u32;
 	}
@@ -1162,7 +1162,7 @@ impl Instruction {
 	///
 	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_address64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
 	}
@@ -1174,7 +1174,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_memory_address64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
 		self.mem_displ = (new_value >> 32) as u32;
@@ -1184,7 +1184,7 @@ impl Instruction {
 	///
 	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn near_branch16(&self) -> u16 {
 		self.immediate as u16
 	}
@@ -1196,7 +1196,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_near_branch16(&mut self, new_value: u16) {
 		self.immediate = new_value as u32;
 	}
@@ -1205,7 +1205,7 @@ impl Instruction {
 	///
 	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn near_branch32(&self) -> u32 {
 		self.immediate
 	}
@@ -1217,7 +1217,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_near_branch32(&mut self, new_value: u32) {
 		self.immediate = new_value;
 	}
@@ -1226,7 +1226,7 @@ impl Instruction {
 	///
 	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn near_branch64(&self) -> u64 {
 		((self.mem_displ as u64) << 32) | self.immediate as u64
 	}
@@ -1238,7 +1238,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_near_branch64(&mut self, new_value: u64) {
 		self.immediate = new_value as u32;
 		self.mem_displ = (new_value >> 32) as u32;
@@ -1266,7 +1266,7 @@ impl Instruction {
 	///
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn far_branch16(&self) -> u16 {
 		self.immediate as u16
 	}
@@ -1278,7 +1278,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_far_branch16(&mut self, new_value: u16) {
 		self.immediate = new_value as u32;
 	}
@@ -1287,7 +1287,7 @@ impl Instruction {
 	///
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn far_branch32(&self) -> u32 {
 		self.immediate
 	}
@@ -1299,7 +1299,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_far_branch32(&mut self, new_value: u32) {
 		self.immediate = new_value;
 	}
@@ -1309,7 +1309,7 @@ impl Instruction {
 	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn far_branch_selector(&self) -> u16 {
 		self.mem_displ as u16
 	}
@@ -1322,7 +1322,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_far_branch_selector(&mut self, new_value: u16) {
 		self.mem_displ = new_value as u32;
 	}
@@ -1332,7 +1332,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_base(&self) -> Register {
 		unsafe { mem::transmute(self.mem_base_reg) }
 	}
@@ -1345,7 +1345,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_memory_base(&mut self, new_value: Register) {
 		self.mem_base_reg = new_value as u8;
 	}
@@ -1355,7 +1355,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_index(&self) -> Register {
 		unsafe { mem::transmute(self.mem_index_reg) }
 	}
@@ -1368,7 +1368,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_memory_index(&mut self, new_value: Register) {
 		self.mem_index_reg = new_value as u8;
 	}
@@ -1381,7 +1381,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op0_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg0) }
 	}
@@ -1397,7 +1397,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op0_register(&mut self, new_value: Register) {
 		self.reg0 = new_value as u8;
 	}
@@ -1410,7 +1410,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op1_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg1) }
 	}
@@ -1426,7 +1426,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op1_register(&mut self, new_value: Register) {
 		self.reg1 = new_value as u8;
 	}
@@ -1439,7 +1439,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op2_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg2) }
 	}
@@ -1455,7 +1455,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op2_register(&mut self, new_value: Register) {
 		self.reg2 = new_value as u8;
 	}
@@ -1468,7 +1468,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op3_register(&self) -> Register {
 		unsafe { mem::transmute(self.reg3) }
 	}
@@ -1484,7 +1484,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op3_register(&mut self, new_value: Register) {
 		self.reg3 = new_value as u8;
 	}
@@ -1498,7 +1498,7 @@ impl Instruction {
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op4_register(&self) -> Register {
 		Register::None
 	}
@@ -1519,7 +1519,7 @@ impl Instruction {
 	///
 	/// * `new_value`: New value
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_op4_register(&mut self, new_value: Register) {
 		if new_value != Register::None {
 			panic!();
@@ -1596,7 +1596,7 @@ impl Instruction {
 	/// [`Register::K7`]: enum.Register.html#variant.K7
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_mask(&self) -> Register {
 		let r = (self.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK;
 		if r == 0 {
@@ -1625,7 +1625,7 @@ impl Instruction {
 	///
 	/// [`op_mask()`]: #method.op_mask
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn has_op_mask(&self) -> bool {
 		(self.code_flags & (CodeFlags::OP_MASK_MASK << CodeFlags::OP_MASK_SHIFT)) != 0
 	}
@@ -1633,7 +1633,7 @@ impl Instruction {
 	/// `true` if zeroing-masking, `false` if merging-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn zeroing_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) != 0
 	}
@@ -1644,7 +1644,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_zeroing_masking(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::ZEROING_MASKING;
@@ -1656,7 +1656,7 @@ impl Instruction {
 	/// `true` if merging-masking, `false` if zeroing-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn merging_masking(&self) -> bool {
 		(self.code_flags & CodeFlags::ZEROING_MASKING) == 0
 	}
@@ -1667,7 +1667,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_merging_masking(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags &= !CodeFlags::ZEROING_MASKING;
@@ -1682,7 +1682,7 @@ impl Instruction {
 	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rounding_control(&self) -> RoundingControl {
 		unsafe { mem::transmute(((self.code_flags >> CodeFlags::ROUNDING_CONTROL_SHIFT) & CodeFlags::ROUNDING_CONTROL_MASK) as u8) }
 	}
@@ -1696,7 +1696,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_rounding_control(&mut self, new_value: RoundingControl) {
 		self.code_flags = (self.code_flags & !(CodeFlags::ROUNDING_CONTROL_MASK << CodeFlags::ROUNDING_CONTROL_SHIFT))
 			| ((new_value as u32 & CodeFlags::ROUNDING_CONTROL_MASK) << CodeFlags::ROUNDING_CONTROL_SHIFT);
@@ -1711,7 +1711,7 @@ impl Instruction {
 	/// [`Code::DeclareDword`]: enum.Code.html#variant.DeclareDword
 	/// [`Code::DeclareQword`]: enum.Code.html#variant.DeclareQword
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn declare_data_len(&self) -> usize {
 		(((self.op_kind_flags >> OpKindFlags::DATA_LENGTH_SHIFT) & OpKindFlags::DATA_LENGTH_MASK) + 1) as usize
 	}
@@ -1728,7 +1728,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_declare_data_len(&mut self, new_value: usize) {
 		self.op_kind_flags = (self.op_kind_flags & !(OpKindFlags::DATA_LENGTH_MASK << OpKindFlags::DATA_LENGTH_SHIFT))
 			| ((((new_value as u32) - 1) & OpKindFlags::DATA_LENGTH_MASK) << OpKindFlags::DATA_LENGTH_SHIFT);
@@ -1750,7 +1750,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-15)
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_declare_byte_value_i8(&mut self, index: usize, new_value: i8) {
 		self.set_declare_byte_value(index, new_value as u8)
 	}
@@ -1852,7 +1852,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-7)
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_declare_word_value_i16(&mut self, index: usize, new_value: i16) {
 		self.set_declare_word_value(index, new_value as u16);
 	}
@@ -1947,7 +1947,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-3)
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_declare_dword_value_i32(&mut self, index: usize, new_value: i32) {
 		self.set_declare_dword_value(index, new_value as u32);
 	}
@@ -2034,7 +2034,7 @@ impl Instruction {
 	///
 	/// * `index`: Index (0-1)
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_declare_qword_value_i64(&mut self, index: usize, new_value: i64) {
 		self.set_declare_qword_value(index, new_value as u64);
 	}
@@ -2116,7 +2116,7 @@ impl Instruction {
 	/// [`is_vsib32()`]: #method.is_vsib32
 	/// [`is_vsib64()`]: #method.is_vsib64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_vsib(&self) -> bool {
 		self.vsib().is_some()
 	}
@@ -2125,7 +2125,7 @@ impl Instruction {
 	///
 	/// [`is_vsib()`]: #method.is_vsib
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_vsib32(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
 			!is_vsib64
@@ -2138,7 +2138,7 @@ impl Instruction {
 	///
 	/// [`is_vsib()`]: #method.is_vsib
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_vsib64(&self) -> bool {
 		if let Some(is_vsib64) = self.vsib() {
 			is_vsib64
@@ -2258,7 +2258,7 @@ impl Instruction {
 	/// [`rounding_control()`]: #method.rounding_control
 	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn suppress_all_exceptions(&self) -> bool {
 		(self.code_flags & CodeFlags::SUPPRESS_ALL_EXCEPTIONS) != 0
 	}
@@ -2272,7 +2272,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `new_value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_suppress_all_exceptions(&mut self, new_value: bool) {
 		if new_value {
 			self.code_flags |= CodeFlags::SUPPRESS_ALL_EXCEPTIONS;
@@ -2283,7 +2283,7 @@ impl Instruction {
 
 	/// Checks if the memory operand is `RIP`/`EIP` relative
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_ip_rel_memory_operand(&self) -> bool {
 		let base_reg = self.memory_base();
 		base_reg == Register::RIP || base_reg == Register::EIP
@@ -2297,7 +2297,7 @@ impl Instruction {
 	/// [`memory_displacement()`]: #method.memory_displacement
 	/// [`is_ip_rel_memory_operand()`]: #method.is_ip_rel_memory_operand
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip_rel_memory_address(&self) -> u64 {
 		let mut result = self.next_ip().wrapping_add(self.memory_displacement() as i32 as u64);
 		if self.memory_base() == Register::EIP {
@@ -2547,7 +2547,7 @@ impl Instruction {
 	/// assert_eq!(EncodingKind::VEX, instr.encoding());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn encoding(&self) -> EncodingKind {
 		self.code().encoding()
 	}
@@ -2615,21 +2615,21 @@ impl Instruction {
 	/// assert_eq!(FlowControl::IndirectCall, instr.flow_control());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn flow_control(&self) -> FlowControl {
 		self.code().flow_control()
 	}
 
 	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_protected_mode(&self) -> bool {
 		self.code().is_protected_mode()
 	}
 
 	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_privileged(&self) -> bool {
 		self.code().is_privileged()
 	}
@@ -2659,14 +2659,14 @@ impl Instruction {
 	/// assert_eq!(-8, instr.stack_pointer_increment());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_stack_instruction(&self) -> bool {
 		self.code().is_stack_instruction()
 	}
 
 	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		self.code().is_save_restore_instruction()
 	}
@@ -2750,7 +2750,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info()) as u32 }
 	}
@@ -2790,7 +2790,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info()) as u32 }
 	}
@@ -2830,7 +2830,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info()) as u32 }
 	}
@@ -2870,7 +2870,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info()) as u32 }
 	}
@@ -2910,7 +2910,7 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info()) as u32 }
 	}
@@ -2948,98 +2948,98 @@ impl Instruction {
 	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info()) as u32 }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jcc_short_or_near(&self) -> bool {
 		self.code().is_jcc_short_or_near()
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jcc_near(&self) -> bool {
 		self.code().is_jcc_near()
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jcc_short(&self) -> bool {
 		self.code().is_jcc_short()
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_short(&self) -> bool {
 		self.code().is_jmp_short()
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_near(&self) -> bool {
 		self.code().is_jmp_near()
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_short_or_near(&self) -> bool {
 		self.code().is_jmp_short_or_near()
 	}
 
 	/// Checks if it's a `JMP FAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_far(&self) -> bool {
 		self.code().is_jmp_far()
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_call_near(&self) -> bool {
 		self.code().is_call_near()
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_call_far(&self) -> bool {
 		self.code().is_call_far()
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_near_indirect(&self) -> bool {
 		self.code().is_jmp_near_indirect()
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_jmp_far_indirect(&self) -> bool {
 		self.code().is_jmp_far_indirect()
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_call_near_indirect(&self) -> bool {
 		self.code().is_call_near_indirect()
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_call_far_indirect(&self) -> bool {
 		self.code().is_call_far_indirect()
 	}
@@ -3063,7 +3063,7 @@ impl Instruction {
 	/// assert_eq!(Code::Seta_rm8, instr.code());
 	/// assert_eq!(ConditionCode::a, instr.condition_code());
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn negate_condition_code(&mut self) {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().negate_condition_code();
@@ -3088,7 +3088,7 @@ impl Instruction {
 	/// instr.as_short_branch();
 	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn as_short_branch(&mut self) {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().as_short_branch();
@@ -3113,7 +3113,7 @@ impl Instruction {
 	/// instr.as_near_branch();
 	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn as_near_branch(&mut self) {
 		// Temp needed if rustc < 1.36.0 (2015 edition)
 		let t = self.code().as_near_branch();
@@ -3153,7 +3153,7 @@ impl Instruction {
 	/// assert_eq!(ConditionCode::None, instr.condition_code());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn condition_code(&self) -> ConditionCode {
 		self.code().condition_code()
 	}
@@ -3165,7 +3165,7 @@ impl Instruction {
 	///
 	/// [`OpCodeInfo`]: struct.OpCodeInfo.html
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn op_code(&self) -> &'static OpCodeInfo {
 		self.code().op_code()
 	}
@@ -4855,7 +4855,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_outsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, segment_prefix, rep_prefix)
@@ -4871,7 +4871,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_outsb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsb_DX_m8, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
@@ -4892,7 +4892,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_outsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, segment_prefix, rep_prefix)
@@ -4908,7 +4908,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_outsw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsw_DX_m16, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
@@ -4929,7 +4929,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_outsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, segment_prefix, rep_prefix)
@@ -4945,7 +4945,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_outsd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Outsd_DX_m32, address_size, Register::DX, Register::None, RepPrefixKind::Repe)
@@ -4966,7 +4966,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_lodsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, segment_prefix, rep_prefix)
@@ -4982,7 +4982,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_lodsb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsb_AL_m8, address_size, Register::AL, Register::None, RepPrefixKind::Repe)
@@ -5003,7 +5003,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_lodsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, segment_prefix, rep_prefix)
@@ -5019,7 +5019,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_lodsw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsw_AX_m16, address_size, Register::AX, Register::None, RepPrefixKind::Repe)
@@ -5040,7 +5040,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_lodsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, segment_prefix, rep_prefix)
@@ -5056,7 +5056,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_lodsd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsd_EAX_m32, address_size, Register::EAX, Register::None, RepPrefixKind::Repe)
@@ -5077,7 +5077,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_lodsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, segment_prefix, rep_prefix)
@@ -5093,7 +5093,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_lodsq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_segrsi(Code::Lodsq_RAX_m64, address_size, Register::RAX, Register::None, RepPrefixKind::Repe)
@@ -5112,7 +5112,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_scasb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, rep_prefix)
@@ -5128,7 +5128,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_scasb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repe)
@@ -5144,7 +5144,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_scasb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasb_AL_m8, address_size, Register::AL, RepPrefixKind::Repne)
@@ -5163,7 +5163,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_scasw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, rep_prefix)
@@ -5179,7 +5179,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_scasw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repe)
@@ -5195,7 +5195,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_scasw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasw_AX_m16, address_size, Register::AX, RepPrefixKind::Repne)
@@ -5214,7 +5214,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_scasd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, rep_prefix)
@@ -5230,7 +5230,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_scasd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repe)
@@ -5246,7 +5246,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_scasd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasd_EAX_m32, address_size, Register::EAX, RepPrefixKind::Repne)
@@ -5265,7 +5265,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_scasq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, rep_prefix)
@@ -5281,7 +5281,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_scasq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repe)
@@ -5297,7 +5297,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_scasq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_reg_esrdi(Code::Scasq_RAX_m64, address_size, Register::RAX, RepPrefixKind::Repne)
@@ -5316,7 +5316,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_insb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, rep_prefix)
@@ -5332,7 +5332,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_insb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insb_m8_DX, address_size, Register::DX, RepPrefixKind::Repe)
@@ -5351,7 +5351,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_insw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, rep_prefix)
@@ -5367,7 +5367,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_insw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insw_m16_DX, address_size, Register::DX, RepPrefixKind::Repe)
@@ -5386,7 +5386,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_insd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, rep_prefix)
@@ -5402,7 +5402,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_insd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Insd_m32_DX, address_size, Register::DX, RepPrefixKind::Repe)
@@ -5421,7 +5421,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_stosb(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, rep_prefix)
@@ -5437,7 +5437,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_stosb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosb_m8_AL, address_size, Register::AL, RepPrefixKind::Repe)
@@ -5456,7 +5456,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_stosw(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, rep_prefix)
@@ -5472,7 +5472,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_stosw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosw_m16_AX, address_size, Register::AX, RepPrefixKind::Repe)
@@ -5491,7 +5491,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_stosd(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, rep_prefix)
@@ -5507,7 +5507,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_stosd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosd_m32_EAX, address_size, Register::EAX, RepPrefixKind::Repe)
@@ -5526,7 +5526,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_stosq(address_size: u32, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, rep_prefix)
@@ -5542,7 +5542,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_stosq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_reg(Code::Stosq_m64_RAX, address_size, Register::RAX, RepPrefixKind::Repe)
@@ -5563,7 +5563,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_cmpsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, segment_prefix, rep_prefix)
@@ -5579,7 +5579,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_cmpsb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
@@ -5595,7 +5595,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_cmpsb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsb_m8_m8, address_size, Register::None, RepPrefixKind::Repne)
@@ -5616,7 +5616,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_cmpsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, segment_prefix, rep_prefix)
@@ -5632,7 +5632,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_cmpsw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
@@ -5648,7 +5648,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_cmpsw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsw_m16_m16, address_size, Register::None, RepPrefixKind::Repne)
@@ -5669,7 +5669,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_cmpsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, segment_prefix, rep_prefix)
@@ -5685,7 +5685,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_cmpsd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
@@ -5701,7 +5701,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_cmpsd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsd_m32_m32, address_size, Register::None, RepPrefixKind::Repne)
@@ -5722,7 +5722,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_cmpsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, segment_prefix, rep_prefix)
@@ -5738,7 +5738,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repe_cmpsq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
@@ -5754,7 +5754,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_repne_cmpsq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_segrsi_esrdi(Code::Cmpsq_m64_m64, address_size, Register::None, RepPrefixKind::Repne)
@@ -5775,7 +5775,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_movsb(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, segment_prefix, rep_prefix)
@@ -5791,7 +5791,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_movsb(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsb_m8_m8, address_size, Register::None, RepPrefixKind::Repe)
@@ -5812,7 +5812,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_movsw(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, segment_prefix, rep_prefix)
@@ -5828,7 +5828,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_movsw(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsw_m16_m16, address_size, Register::None, RepPrefixKind::Repe)
@@ -5849,7 +5849,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_movsd(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, segment_prefix, rep_prefix)
@@ -5865,7 +5865,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_movsd(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsd_m32_m32, address_size, Register::None, RepPrefixKind::Repe)
@@ -5886,7 +5886,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`RepPrefixKind::None`]: enum.RepPrefixKind.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_movsq(address_size: u32, segment_prefix: Register, rep_prefix: RepPrefixKind) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, segment_prefix, rep_prefix)
@@ -5902,7 +5902,7 @@ impl Instruction {
 	///
 	/// * `address_size`: 16, 32, or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_rep_movsq(address_size: u32) -> Self {
 		super::instruction_internal::with_string_esrdi_segrsi(Code::Movsq_m64_m64, address_size, Register::None, RepPrefixKind::Repe)
@@ -5923,7 +5923,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_maskmovq(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		super::instruction_internal::with_maskmov(Code::Maskmovq_rDI_mm_mm, address_size, register1, register2, segment_prefix)
@@ -5944,7 +5944,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_maskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		super::instruction_internal::with_maskmov(Code::Maskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)
@@ -5965,7 +5965,7 @@ impl Instruction {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn with_vmaskmovdqu(address_size: u32, register1: Register, register2: Register, segment_prefix: Register) -> Self {
 		super::instruction_internal::with_maskmov(Code::VEX_Vmaskmovdqu_rDI_xmm_xmm, address_size, register1, register2, segment_prefix)

@@ -65,7 +65,7 @@ impl RelocInfo {
 	/// * `kind`: Relocation kind
 	/// * `address`: Address
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn new(kind: RelocKind, address: u64) -> Self {
 		Self { address, kind }
 	}
@@ -88,7 +88,7 @@ impl<'a> InstructionBlock<'a> {
 	/// * `instructions`: All instructions
 	/// * `rip`: Base IP of all encoded instructions
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn new(instructions: &'a [Instruction], rip: u64) -> Self {
 		Self { instructions, rip }
 	}
@@ -273,7 +273,7 @@ impl BlockEncoder {
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn encode(bitness: u32, block: InstructionBlock, options: u32) -> Result<BlockEncoderResult, String> {
 		match Self::encode_slice(bitness, &[block], options) {
 			Ok(ref mut result_vec) => {
@@ -341,7 +341,7 @@ impl BlockEncoder {
 	///
 	/// [`BlockEncoderOptions`]: struct.BlockEncoderOptions.html
 	/// [`BlockEncoderOptions::DONT_FIX_BRANCHES`]: struct.BlockEncoderOptions.html#associatedconstant.DONT_FIX_BRANCHES
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn encode_slice(bitness: u32, blocks: &[InstructionBlock], options: u32) -> Result<Vec<BlockEncoderResult>, String> {
 		Self::new(bitness, blocks, options)?.encode2()
 	}

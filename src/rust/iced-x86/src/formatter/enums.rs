@@ -45,7 +45,7 @@ static GEN_DEBUG_NUMBER_BASE: [&str; 4] = [
 	"Binary",
 ];
 impl fmt::Debug for NumberBase {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_NUMBER_BASE[*self as usize])?;
 		Ok(())
@@ -53,7 +53,7 @@ impl fmt::Debug for NumberBase {
 }
 impl Default for NumberBase {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		NumberBase::Hexadecimal
 	}
@@ -82,7 +82,7 @@ static GEN_DEBUG_MEMORY_SIZE_OPTIONS: [&str; 4] = [
 	"Never",
 ];
 impl fmt::Debug for MemorySizeOptions {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE_OPTIONS[*self as usize])?;
 		Ok(())
@@ -90,7 +90,7 @@ impl fmt::Debug for MemorySizeOptions {
 }
 impl Default for MemorySizeOptions {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		MemorySizeOptions::Default
 	}
@@ -160,7 +160,7 @@ static GEN_DEBUG_PREFIX_KIND: [&str; 18] = [
 	"Xrelease",
 ];
 impl fmt::Debug for PrefixKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_PREFIX_KIND[*self as usize])?;
 		Ok(())
@@ -168,7 +168,7 @@ impl fmt::Debug for PrefixKind {
 }
 impl Default for PrefixKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		PrefixKind::ES
 	}
@@ -198,7 +198,7 @@ static GEN_DEBUG_DECORATOR_KIND: [&str; 4] = [
 	"ZeroingMasking",
 ];
 impl fmt::Debug for DecoratorKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_DECORATOR_KIND[*self as usize])?;
 		Ok(())
@@ -206,7 +206,7 @@ impl fmt::Debug for DecoratorKind {
 }
 impl Default for DecoratorKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		DecoratorKind::Broadcast
 	}
@@ -241,7 +241,7 @@ static GEN_DEBUG_NUMBER_KIND: [&str; 8] = [
 	"UInt64",
 ];
 impl fmt::Debug for NumberKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_NUMBER_KIND[*self as usize])?;
 		Ok(())
@@ -249,7 +249,7 @@ impl fmt::Debug for NumberKind {
 }
 impl Default for NumberKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		NumberKind::Int8
 	}
@@ -315,7 +315,7 @@ static GEN_DEBUG_FORMATTER_TEXT_KIND: [&str; 16] = [
 	"Function",
 ];
 impl fmt::Debug for FormatterTextKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_FORMATTER_TEXT_KIND[*self as usize])?;
 		Ok(())
@@ -323,7 +323,7 @@ impl fmt::Debug for FormatterTextKind {
 }
 impl Default for FormatterTextKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		FormatterTextKind::Text
 	}
@@ -393,7 +393,7 @@ static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 18] = [
 	"vpcomuq",
 ];
 impl fmt::Debug for PseudoOpsKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_PSEUDO_OPS_KIND[*self as usize])?;
 		Ok(())
@@ -401,7 +401,7 @@ impl fmt::Debug for PseudoOpsKind {
 }
 impl Default for PseudoOpsKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		PseudoOpsKind::cmpps
 	}
@@ -432,7 +432,7 @@ static GEN_DEBUG_FORMATTER_FLOW_CONTROL: [&str; 7] = [
 	"Xbegin",
 ];
 impl fmt::Debug for FormatterFlowControl {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_FORMATTER_FLOW_CONTROL[*self as usize])?;
 		Ok(())
@@ -440,7 +440,7 @@ impl fmt::Debug for FormatterFlowControl {
 }
 impl Default for FormatterFlowControl {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		FormatterFlowControl::AlwaysShortBranch
 	}

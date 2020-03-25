@@ -87,20 +87,20 @@ impl FormatterString {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn len(&self) -> usize {
 		self.lower.len()
 	}
 
 	#[cfg(any(feature = "gas", feature = "intel", feature = "nasm"))]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn is_default(&self) -> bool {
 		self.lower.is_empty()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn get(&self, upper: bool) -> &str {
 		if upper {
 			&self.upper
@@ -132,7 +132,7 @@ pub trait FormatterOutput {
 	/// - `instruction`: Instruction
 	/// - `text`: Prefix text
 	/// - `prefix`: Prefix
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[allow(unused_variables)]
 	fn write_prefix(&mut self, instruction: &Instruction, text: &str, prefix: PrefixKind) {
 		self.write(text, FormatterTextKind::Prefix);
@@ -144,7 +144,7 @@ pub trait FormatterOutput {
 	///
 	/// - `instruction`: Instruction
 	/// - `text`: Mnemonic text
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[allow(unused_variables)]
 	fn write_mnemonic(&mut self, instruction: &Instruction, text: &str) {
 		self.write(text, FormatterTextKind::Mnemonic);
@@ -161,7 +161,7 @@ pub trait FormatterOutput {
 	/// - `value`: Value
 	/// - `number_kind`: Number kind
 	/// - `kind`: Text kind
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	#[allow(unused_variables)]
 	fn write_number(
@@ -180,7 +180,7 @@ pub trait FormatterOutput {
 	/// - `instruction_operand`: Instruction operand number, 0-based, or `None` if it's an operand created by the formatter.
 	/// - `text`: Decorator text
 	/// - `decorator`: Decorator
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[allow(unused_variables)]
 	fn write_decorator(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, decorator: DecoratorKind) {
 		self.write(text, FormatterTextKind::Decorator);
@@ -195,7 +195,7 @@ pub trait FormatterOutput {
 	/// - `instruction_operand`: Instruction operand number, 0-based, or `None` if it's an operand created by the formatter.
 	/// - `text`: Register text
 	/// - `register`: Register
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[allow(unused_variables)]
 	fn write_register(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, text: &str, register: Register) {
 		self.write(text, FormatterTextKind::Register);
@@ -210,7 +210,7 @@ pub trait FormatterOutput {
 	/// - `instruction_operand`: Instruction operand number, 0-based, or `None` if it's an operand created by the formatter.
 	/// - `address`: Address
 	/// - `symbol`: Symbol
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	#[allow(unused_variables)]
 	fn write_symbol(&mut self, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, address: u64, symbol: &SymbolResult) {
 		match symbol.text {
@@ -354,7 +354,7 @@ pub trait Formatter: private::Sealed {
 	///
 	/// - `instruction`: Instruction
 	/// - `output`: Output, eg. a `String`
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn format_mnemonic(&mut self, instruction: &Instruction, output: &mut FormatterOutput) {
 		self.format_mnemonic_options(instruction, output, FormatMnemonicOptions::NONE);
 	}

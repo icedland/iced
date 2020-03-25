@@ -141,7 +141,7 @@ static GEN_DEBUG_OP_INFO0: [&str; 10] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo0 {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO0[*self as usize])?;
 		Ok(())
@@ -150,7 +150,7 @@ impl fmt::Debug for OpInfo0 {
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo0 {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpInfo0::None
 	}
@@ -185,7 +185,7 @@ static GEN_DEBUG_OP_INFO1: [&str; 7] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo1 {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO1[*self as usize])?;
 		Ok(())
@@ -194,7 +194,7 @@ impl fmt::Debug for OpInfo1 {
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo1 {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpInfo1::None
 	}
@@ -221,7 +221,7 @@ static GEN_DEBUG_OP_INFO2: [&str; 3] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo2 {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO2[*self as usize])?;
 		Ok(())
@@ -230,7 +230,7 @@ impl fmt::Debug for OpInfo2 {
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo2 {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpInfo2::None
 	}
@@ -255,7 +255,7 @@ static GEN_DEBUG_OP_INFO3: [&str; 2] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo3 {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO3[*self as usize])?;
 		Ok(())
@@ -264,7 +264,7 @@ impl fmt::Debug for OpInfo3 {
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo3 {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpInfo3::None
 	}
@@ -289,7 +289,7 @@ static GEN_DEBUG_OP_INFO4: [&str; 2] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for OpInfo4 {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_INFO4[*self as usize])?;
 		Ok(())
@@ -298,7 +298,7 @@ impl fmt::Debug for OpInfo4 {
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo4 {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpInfo4::None
 	}
@@ -513,7 +513,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 97] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CODE_INFO[*self as usize])?;
 		Ok(())
@@ -522,7 +522,7 @@ impl fmt::Debug for CodeInfo {
 #[cfg(feature = "instr_info")]
 impl Default for CodeInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		CodeInfo::None
 	}
@@ -651,7 +651,7 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 54] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for RflagsInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_RFLAGS_INFO[*self as usize])?;
 		Ok(())
@@ -660,7 +660,7 @@ impl fmt::Debug for RflagsInfo {
 #[cfg(feature = "instr_info")]
 impl Default for RflagsInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		RflagsInfo::None
 	}
@@ -977,7 +977,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 148] = [
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CPUID_FEATURE_INTERNAL[*self as usize])?;
 		Ok(())
@@ -986,7 +986,7 @@ impl fmt::Debug for CpuidFeatureInternal {
 #[cfg(feature = "instr_info")]
 impl Default for CpuidFeatureInternal {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		CpuidFeatureInternal::ADX
 	}

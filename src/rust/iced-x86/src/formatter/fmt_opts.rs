@@ -34,7 +34,7 @@ enum FormatterOptionString {
 
 impl FormatterOptionString {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn as_str(&self) -> &str {
 		match self {
 			&FormatterOptionString::String(ref s) => s.as_str(),
@@ -45,7 +45,7 @@ impl FormatterOptionString {
 
 impl Default for FormatterOptionString {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		FormatterOptionString::Str("")
 	}
@@ -54,14 +54,14 @@ impl Default for FormatterOptionString {
 impl Eq for FormatterOptionString {}
 impl PartialEq<FormatterOptionString> for FormatterOptionString {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn eq(&self, other: &FormatterOptionString) -> bool {
 		self.as_str().eq(other.as_str())
 	}
 }
 
 impl Hash for FormatterOptionString {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn hash<H: Hasher>(&self, state: &mut H) {
 		state.write(self.as_str().as_bytes());
 	}
@@ -173,7 +173,7 @@ impl FormatterOptions {
 	/// Creates default gas (AT&T) formatter options
 	#[cfg(feature = "gas")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn with_gas() -> Self {
 		let mut options = FormatterOptions::new();
 		options.set_hex_prefix("0x");
@@ -185,7 +185,7 @@ impl FormatterOptions {
 	/// Creates default Intel (XED) formatter options
 	#[cfg(feature = "intel")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn with_intel() -> Self {
 		let mut options = FormatterOptions::new();
 		options.set_hex_suffix("h");
@@ -197,7 +197,7 @@ impl FormatterOptions {
 	/// Creates default masm formatter options
 	#[cfg(feature = "masm")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn with_masm() -> Self {
 		let mut options = FormatterOptions::new();
 		options.set_hex_suffix("h");
@@ -209,7 +209,7 @@ impl FormatterOptions {
 	/// Creates default nasm formatter options
 	#[cfg(feature = "nasm")]
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn with_nasm() -> Self {
 		let mut options = FormatterOptions::new();
 		options.set_hex_suffix("h");
@@ -228,7 +228,7 @@ impl FormatterOptions {
 	/// - | `true` | `REP stosd`
 	/// Yes | `false` | `rep stosd`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_prefixes(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_PREFIXES) != 0
 	}
@@ -243,7 +243,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_prefixes(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_PREFIXES;
@@ -259,7 +259,7 @@ impl FormatterOptions {
 	/// - | `true` | `MOV rcx,rax`
 	/// Yes | `false` | `mov rcx,rax`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_mnemonics(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_MNEMONICS) != 0
 	}
@@ -274,7 +274,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_mnemonics(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_MNEMONICS;
@@ -290,7 +290,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov RCX,[RAX+RDX*8]`
 	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_registers(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_REGISTERS) != 0
 	}
@@ -305,7 +305,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_registers(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_REGISTERS;
@@ -321,7 +321,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov BYTE PTR [rcx],12h`
 	/// Yes | `false` | `mov byte ptr [rcx],12h`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_keywords(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_KEYWORDS) != 0
 	}
@@ -336,7 +336,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_keywords(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_KEYWORDS;
@@ -352,7 +352,7 @@ impl FormatterOptions {
 	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_decorators(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_DECORATORS) != 0
 	}
@@ -367,7 +367,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_decorators(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_DECORATORS;
@@ -383,7 +383,7 @@ impl FormatterOptions {
 	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_all(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_ALL) != 0
 	}
@@ -398,7 +398,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_all(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_ALL;
@@ -415,7 +415,7 @@ impl FormatterOptions {
 	/// Yes | `0` | `mov•rcx,rbp`
 	/// - | `8` | `mov•••••rcx,rbp`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn first_operand_char_index(&self) -> u32 {
 		self.first_operand_char_index
 	}
@@ -431,7 +431,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_first_operand_char_index(&mut self, value: u32) {
 		self.first_operand_char_index = value
 	}
@@ -440,7 +440,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `0`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn tab_size(&self) -> u32 {
 		self.tab_size
 	}
@@ -452,7 +452,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_tab_size(&mut self, value: u32) {
 		self.tab_size = value
 	}
@@ -464,7 +464,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov rax, rcx`
 	/// Yes | `false` | `mov rax,rcx`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn space_after_operand_separator(&self) -> bool {
 		(self.options1 & Flags1::SPACE_AFTER_OPERAND_SEPARATOR) != 0
 	}
@@ -479,7 +479,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_space_after_operand_separator(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SPACE_AFTER_OPERAND_SEPARATOR;
@@ -495,7 +495,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[ rcx+rdx ]`
 	/// Yes | `false` | `mov eax,[rcx+rdx]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn space_after_memory_bracket(&self) -> bool {
 		(self.options1 & Flags1::SPACE_AFTER_MEMORY_BRACKET) != 0
 	}
@@ -510,7 +510,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_space_after_memory_bracket(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SPACE_AFTER_MEMORY_BRACKET;
@@ -526,7 +526,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn space_between_memory_add_operators(&self) -> bool {
 		(self.options1 & Flags1::SPACE_BETWEEN_MEMORY_ADD_OPERATORS) != 0
 	}
@@ -541,7 +541,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_space_between_memory_add_operators(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SPACE_BETWEEN_MEMORY_ADD_OPERATORS;
@@ -557,7 +557,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn space_between_memory_mul_operators(&self) -> bool {
 		(self.options1 & Flags1::SPACE_BETWEEN_MEMORY_MUL_OPERATORS) != 0
 	}
@@ -572,7 +572,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_space_between_memory_mul_operators(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SPACE_BETWEEN_MEMORY_MUL_OPERATORS;
@@ -588,7 +588,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[8*rdx]`
 	/// Yes | `false` | `mov eax,[rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn scale_before_index(&self) -> bool {
 		(self.options1 & Flags1::SCALE_BEFORE_INDEX) != 0
 	}
@@ -603,7 +603,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_scale_before_index(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SCALE_BEFORE_INDEX;
@@ -619,7 +619,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[rbx+rcx*1]`
 	/// Yes | `false` | `mov eax,[rbx+rcx]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn always_show_scale(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_SCALE) != 0
 	}
@@ -634,7 +634,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_always_show_scale(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::ALWAYS_SHOW_SCALE;
@@ -651,7 +651,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,ds:[ecx]`
 	/// Yes | `false` | `mov eax,[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn always_show_segment_register(&self) -> bool {
 		(self.options1 & Flags1::ALWAYS_SHOW_SEGMENT_REGISTER) != 0
 	}
@@ -667,7 +667,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_always_show_segment_register(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::ALWAYS_SHOW_SEGMENT_REGISTER;
@@ -683,7 +683,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[rcx*2+0]`
 	/// Yes | `false` | `mov eax,[rcx*2]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn show_zero_displacements(&self) -> bool {
 		(self.options1 & Flags1::SHOW_ZERO_DISPLACEMENTS) != 0
 	}
@@ -698,7 +698,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_show_zero_displacements(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SHOW_ZERO_DISPLACEMENTS;
@@ -711,7 +711,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0x"` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn hex_prefix(&self) -> &str {
 		self.hex_prefix.as_str()
 	}
@@ -723,7 +723,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_hex_prefix(&mut self, value: &'static str) {
 		self.hex_prefix = FormatterOptionString::Str(value)
 	}
@@ -735,7 +735,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_hex_prefix_string(&mut self, value: String) {
 		self.hex_prefix = FormatterOptionString::String(value)
 	}
@@ -744,7 +744,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `"h"` (masm/nasm/intel), `""` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn hex_suffix(&self) -> &str {
 		self.hex_suffix.as_str()
 	}
@@ -756,7 +756,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_hex_suffix(&mut self, value: &'static str) {
 		self.hex_suffix = FormatterOptionString::Str(value)
 	}
@@ -768,7 +768,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_hex_suffix_string(&mut self, value: String) {
 		self.hex_suffix = FormatterOptionString::String(value)
 	}
@@ -782,7 +782,7 @@ impl FormatterOptions {
 	/// - | `0` | `0x12345678`
 	/// Yes | `4` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn hex_digit_group_size(&self) -> u32 {
 		self.hex_digit_group_size
 	}
@@ -799,7 +799,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_hex_digit_group_size(&mut self, value: u32) {
 		self.hex_digit_group_size = value
 	}
@@ -808,7 +808,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `""`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decimal_prefix(&self) -> &str {
 		self.decimal_prefix.as_str()
 	}
@@ -820,7 +820,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_decimal_prefix(&mut self, value: &'static str) {
 		self.decimal_prefix = FormatterOptionString::Str(value)
 	}
@@ -832,7 +832,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_decimal_prefix_string(&mut self, value: String) {
 		self.decimal_prefix = FormatterOptionString::String(value)
 	}
@@ -841,7 +841,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `""`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decimal_suffix(&self) -> &str {
 		self.decimal_suffix.as_str()
 	}
@@ -853,7 +853,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_decimal_suffix(&mut self, value: &'static str) {
 		self.decimal_suffix = FormatterOptionString::Str(value)
 	}
@@ -865,7 +865,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_decimal_suffix_string(&mut self, value: String) {
 		self.decimal_suffix = FormatterOptionString::String(value)
 	}
@@ -879,7 +879,7 @@ impl FormatterOptions {
 	/// - | `0` | `12345678`
 	/// Yes | `3` | `12_345_678`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decimal_digit_group_size(&self) -> u32 {
 		self.decimal_digit_group_size
 	}
@@ -896,7 +896,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_decimal_digit_group_size(&mut self, value: u32) {
 		self.decimal_digit_group_size = value
 	}
@@ -905,7 +905,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0"` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn octal_prefix(&self) -> &str {
 		self.octal_prefix.as_str()
 	}
@@ -917,7 +917,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_octal_prefix(&mut self, value: &'static str) {
 		self.octal_prefix = FormatterOptionString::Str(value)
 	}
@@ -929,7 +929,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_octal_prefix_string(&mut self, value: String) {
 		self.octal_prefix = FormatterOptionString::String(value)
 	}
@@ -938,7 +938,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `"o"` (masm/nasm/intel), `""` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn octal_suffix(&self) -> &str {
 		self.octal_suffix.as_str()
 	}
@@ -950,7 +950,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_octal_suffix(&mut self, value: &'static str) {
 		self.octal_suffix = FormatterOptionString::Str(value)
 	}
@@ -962,7 +962,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_octal_suffix_string(&mut self, value: String) {
 		self.octal_suffix = FormatterOptionString::String(value)
 	}
@@ -976,7 +976,7 @@ impl FormatterOptions {
 	/// - | `0` | `12345670`
 	/// Yes | `4` | `1234_5670`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn octal_digit_group_size(&self) -> u32 {
 		self.octal_digit_group_size
 	}
@@ -993,7 +993,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_octal_digit_group_size(&mut self, value: u32) {
 		self.octal_digit_group_size = value
 	}
@@ -1002,7 +1002,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0b"` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn binary_prefix(&self) -> &str {
 		self.binary_prefix.as_str()
 	}
@@ -1014,7 +1014,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_binary_prefix(&mut self, value: &'static str) {
 		self.binary_prefix = FormatterOptionString::Str(value)
 	}
@@ -1026,7 +1026,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_binary_prefix_string(&mut self, value: String) {
 		self.binary_prefix = FormatterOptionString::String(value)
 	}
@@ -1035,7 +1035,7 @@ impl FormatterOptions {
 	///
 	/// - Default: `"b"` (masm/nasm/intel), `""` (gas)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn binary_suffix(&self) -> &str {
 		self.binary_suffix.as_str()
 	}
@@ -1047,7 +1047,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_binary_suffix(&mut self, value: &'static str) {
 		self.binary_suffix = FormatterOptionString::Str(value)
 	}
@@ -1059,7 +1059,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_binary_suffix_string(&mut self, value: String) {
 		self.binary_suffix = FormatterOptionString::String(value)
 	}
@@ -1073,7 +1073,7 @@ impl FormatterOptions {
 	/// - | `0` | `11010111`
 	/// Yes | `4` | `1101_0111`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn binary_digit_group_size(&self) -> u32 {
 		self.binary_digit_group_size
 	}
@@ -1090,7 +1090,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_binary_digit_group_size(&mut self, value: u32) {
 		self.binary_digit_group_size = value
 	}
@@ -1104,7 +1104,7 @@ impl FormatterOptions {
 	/// Yes | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn digit_separator(&self) -> &str {
 		self.digit_separator.as_str()
 	}
@@ -1121,7 +1121,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_digit_separator(&mut self, value: &'static str) {
 		self.digit_separator = FormatterOptionString::Str(value)
 	}
@@ -1138,7 +1138,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_digit_separator_string(&mut self, value: String) {
 		self.digit_separator = FormatterOptionString::String(value)
 	}
@@ -1155,7 +1155,7 @@ impl FormatterOptions {
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
 	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn leading_zeroes(&self) -> bool {
 		(self.options1 & Flags1::LEADING_ZEROES) != 0
 	}
@@ -1175,7 +1175,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_leading_zeroes(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::LEADING_ZEROES;
@@ -1191,7 +1191,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `0xFF`
 	/// - | `false` | `0xff`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn uppercase_hex(&self) -> bool {
 		(self.options1 & Flags1::UPPERCASE_HEX) != 0
 	}
@@ -1206,7 +1206,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_uppercase_hex(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::UPPERCASE_HEX;
@@ -1222,7 +1222,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `9`
 	/// - | `false` | `0x9`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn small_hex_numbers_in_decimal(&self) -> bool {
 		(self.options1 & Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL) != 0
 	}
@@ -1237,7 +1237,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_small_hex_numbers_in_decimal(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SMALL_HEX_NUMBERS_IN_DECIMAL;
@@ -1253,7 +1253,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `0FFh`
 	/// - | `false` | `FFh`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn add_leading_zero_to_hex_numbers(&self) -> bool {
 		(self.options1 & Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS) != 0
 	}
@@ -1268,7 +1268,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_add_leading_zero_to_hex_numbers(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::ADD_LEADING_ZERO_TO_HEX_NUMBERS;
@@ -1283,7 +1283,7 @@ impl FormatterOptions {
 	///
 	/// [`Hexadecimal`]: enum.NumberBase.html#variant.Hexadecimal
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn number_base(&self) -> NumberBase {
 		self.number_base
 	}
@@ -1297,7 +1297,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_number_base(&mut self, value: NumberBase) {
 		self.number_base = value
 	}
@@ -1309,7 +1309,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `je 00000123h`
 	/// - | `false` | `je 123h`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn branch_leading_zeroes(&self) -> bool {
 		(self.options1 & Flags1::BRANCH_LEADING_ZEROES) != 0
 	}
@@ -1324,7 +1324,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_branch_leading_zeroes(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::BRANCH_LEADING_ZEROES;
@@ -1340,7 +1340,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,-1`
 	/// Yes | `false` | `mov eax,FFFFFFFF`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn signed_immediate_operands(&self) -> bool {
 		(self.options1 & Flags1::SIGNED_IMMEDIATE_OPERANDS) != 0
 	}
@@ -1355,7 +1355,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_signed_immediate_operands(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SIGNED_IMMEDIATE_OPERANDS;
@@ -1371,7 +1371,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `mov al,[eax-2000h]`
 	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn signed_memory_displacements(&self) -> bool {
 		(self.options1 & Flags1::SIGNED_MEMORY_DISPLACEMENTS) != 0
 	}
@@ -1386,7 +1386,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_signed_memory_displacements(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SIGNED_MEMORY_DISPLACEMENTS;
@@ -1402,7 +1402,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov al,[eax+00000012h]`
 	/// Yes | `false` | `mov al,[eax+12h]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn displacement_leading_zeroes(&self) -> bool {
 		(self.options1 & Flags1::DISPLACEMENT_LEADING_ZEROES) != 0
 	}
@@ -1417,7 +1417,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::DISPLACEMENT_LEADING_ZEROES;
@@ -1433,7 +1433,7 @@ impl FormatterOptions {
 	///
 	/// [`Default`]: enum.MemorySizeOptions.html#variant.Default
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn memory_size_options(&self) -> MemorySizeOptions {
 		self.memory_size_options
 	}
@@ -1448,7 +1448,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_memory_size_options(&mut self, value: MemorySizeOptions) {
 		self.memory_size_options = value
 	}
@@ -1460,7 +1460,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[rip+12345678h]`
 	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn rip_relative_addresses(&self) -> bool {
 		(self.options1 & Flags1::RIP_RELATIVE_ADDRESSES) != 0
 	}
@@ -1475,7 +1475,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_rip_relative_addresses(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::RIP_RELATIVE_ADDRESSES;
@@ -1491,7 +1491,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `je short 1234h`
 	/// - | `false` | `je 1234h`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn show_branch_size(&self) -> bool {
 		(self.options1 & Flags1::SHOW_BRANCH_SIZE) != 0
 	}
@@ -1506,7 +1506,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_show_branch_size(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SHOW_BRANCH_SIZE;
@@ -1522,7 +1522,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn use_pseudo_ops(&self) -> bool {
 		(self.options1 & Flags1::USE_PSEUDO_OPS) != 0
 	}
@@ -1537,7 +1537,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_use_pseudo_ops(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::USE_PSEUDO_OPS;
@@ -1553,7 +1553,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,[myfield (12345678)]`
 	/// Yes | `false` | `mov eax,[myfield]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn show_symbol_address(&self) -> bool {
 		(self.options1 & Flags1::SHOW_SYMBOL_ADDRESS) != 0
 	}
@@ -1568,7 +1568,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_show_symbol_address(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::SHOW_SYMBOL_ADDRESS;
@@ -1584,7 +1584,7 @@ impl FormatterOptions {
 	/// - | `true` | `mov eax,ecx`
 	/// Yes | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn gas_naked_registers(&self) -> bool {
 		(self.options1 & Flags1::GAS_NAKED_REGISTERS) != 0
 	}
@@ -1599,7 +1599,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_gas_naked_registers(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::GAS_NAKED_REGISTERS;
@@ -1615,7 +1615,7 @@ impl FormatterOptions {
 	/// - | `true` | `movl %eax,%ecx`
 	/// Yes | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn gas_show_mnemonic_size_suffix(&self) -> bool {
 		(self.options1 & Flags1::GAS_SHOW_MNEMONIC_SIZE_SUFFIX) != 0
 	}
@@ -1630,7 +1630,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_gas_show_mnemonic_size_suffix(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::GAS_SHOW_MNEMONIC_SIZE_SUFFIX;
@@ -1646,7 +1646,7 @@ impl FormatterOptions {
 	/// - | `true` | `(%eax, %ecx, 2)`
 	/// Yes | `false` | `(%eax,%ecx,2)`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn gas_space_after_memory_operand_comma(&self) -> bool {
 		(self.options1 & Flags1::GAS_SPACE_AFTER_MEMORY_OPERAND_COMMA) != 0
 	}
@@ -1661,7 +1661,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_gas_space_after_memory_operand_comma(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::GAS_SPACE_AFTER_MEMORY_OPERAND_COMMA;
@@ -1677,7 +1677,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `mov eax,ds:[12345678]`
 	/// - | `false` | `mov eax,[12345678]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn masm_add_ds_prefix32(&self) -> bool {
 		(self.options1 & Flags1::MASM_ADD_DS_PREFIX32) != 0
 	}
@@ -1692,7 +1692,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_masm_add_ds_prefix32(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::MASM_ADD_DS_PREFIX32;
@@ -1708,7 +1708,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
 	/// - | `false` | `symbol[ecx]` / `symbol`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn masm_symbol_displ_in_brackets(&self) -> bool {
 		(self.options1 & Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS) != 0
 	}
@@ -1723,7 +1723,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_masm_symbol_displ_in_brackets(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::MASM_SYMBOL_DISPL_IN_BRACKETS;
@@ -1739,7 +1739,7 @@ impl FormatterOptions {
 	/// Yes | `true` | `[ecx+1234h]`
 	/// - | `false` | `1234h[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn masm_displ_in_brackets(&self) -> bool {
 		(self.options1 & Flags1::MASM_DISPL_IN_BRACKETS) != 0
 	}
@@ -1754,7 +1754,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_masm_displ_in_brackets(&mut self, value: bool) {
 		if value {
 			self.options1 |= Flags1::MASM_DISPL_IN_BRACKETS;
@@ -1770,7 +1770,7 @@ impl FormatterOptions {
 	/// - | `true` | `or rcx,byte -1`
 	/// Yes | `false` | `or rcx,-1`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn nasm_show_sign_extended_immediate_size(&self) -> bool {
 		(self.options2 & Flags2::NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE) != 0
 	}
@@ -1785,7 +1785,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_nasm_show_sign_extended_immediate_size(&mut self, value: bool) {
 		if value {
 			self.options2 |= Flags2::NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE;
@@ -1801,7 +1801,7 @@ impl FormatterOptions {
 	/// - | `true` | `fadd st(0),st(3)`
 	/// Yes | `false` | `fadd st,st(3)`
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn prefer_st0(&self) -> bool {
 		(self.options2 & Flags2::PREFER_ST0) != 0
 	}
@@ -1816,7 +1816,7 @@ impl FormatterOptions {
 	/// # Arguments
 	///
 	/// * `value`: New value
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_prefer_st0(&mut self, value: bool) {
 		if value {
 			self.options2 |= Flags2::PREFER_ST0;
@@ -1828,7 +1828,7 @@ impl FormatterOptions {
 
 impl Default for FormatterOptions {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		FormatterOptions::new()
 	}

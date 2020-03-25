@@ -158,7 +158,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 62] = [
 	"YX",
 ];
 impl fmt::Debug for CtorKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])?;
 		Ok(())
@@ -166,7 +166,7 @@ impl fmt::Debug for CtorKind {
 }
 impl Default for CtorKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		CtorKind::Previous
 	}
@@ -200,7 +200,7 @@ static GEN_DEBUG_SIGN_EXTEND_INFO: [&str; 8] = [
 	"Sex4",
 ];
 impl fmt::Debug for SignExtendInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SIGN_EXTEND_INFO[*self as usize])?;
 		Ok(())
@@ -208,7 +208,7 @@ impl fmt::Debug for SignExtendInfo {
 }
 impl Default for SignExtendInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		SignExtendInfo::None
 	}
@@ -234,7 +234,7 @@ static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for SizeOverride {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SIZE_OVERRIDE[*self as usize])?;
 		Ok(())
@@ -242,7 +242,7 @@ impl fmt::Debug for SizeOverride {
 }
 impl Default for SizeOverride {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		SizeOverride::None
 	}
@@ -274,7 +274,7 @@ static GEN_DEBUG_BRANCH_SIZE_INFO: [&str; 7] = [
 	"Short",
 ];
 impl fmt::Debug for BranchSizeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_BRANCH_SIZE_INFO[*self as usize])?;
 		Ok(())
@@ -282,7 +282,7 @@ impl fmt::Debug for BranchSizeInfo {
 }
 impl Default for BranchSizeInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		BranchSizeInfo::None
 	}
@@ -406,7 +406,7 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 35] = [
 	"DeclareQword",
 ];
 impl fmt::Debug for InstrOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])?;
 		Ok(())
@@ -414,7 +414,7 @@ impl fmt::Debug for InstrOpKind {
 }
 impl Default for InstrOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		InstrOpKind::Register
 	}
@@ -440,7 +440,7 @@ static GEN_DEBUG_MEMORY_SIZE_INFO: [&str; 4] = [
 	"Qword",
 ];
 impl fmt::Debug for MemorySizeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_MEMORY_SIZE_INFO[*self as usize])?;
 		Ok(())
@@ -448,7 +448,7 @@ impl fmt::Debug for MemorySizeInfo {
 }
 impl Default for MemorySizeInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		MemorySizeInfo::None
 	}
@@ -472,7 +472,7 @@ static GEN_DEBUG_FAR_MEMORY_SIZE_INFO: [&str; 3] = [
 	"Dword",
 ];
 impl fmt::Debug for FarMemorySizeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_FAR_MEMORY_SIZE_INFO[*self as usize])?;
 		Ok(())
@@ -480,7 +480,7 @@ impl fmt::Debug for FarMemorySizeInfo {
 }
 impl Default for FarMemorySizeInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		FarMemorySizeInfo::None
 	}
