@@ -57,7 +57,7 @@ impl UsedRegister {
 	/// * `access`: Register access
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(not(feature = "javascript"), wasm_bindgen(constructor))]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
 	pub fn new(register: Register, access: OpAccess) -> Self {
 		Self { register, access }
 	}
@@ -116,7 +116,7 @@ impl UsedMemory {
 	/// * `access`: Access
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(not(feature = "javascript"), wasm_bindgen(constructor))]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, _pad: 0 }
 	}
