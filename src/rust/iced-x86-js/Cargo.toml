@@ -37,10 +37,3 @@ js-sys = "0.3.36"
 version = "1.0.1"
 path = "../iced-x86"
 default-features = false
-
-[profile.release]
-codegen-units = 1
-debug = true
-incremental = false
-lto = true
-opt-level = "s"
