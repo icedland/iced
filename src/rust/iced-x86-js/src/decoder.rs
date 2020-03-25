@@ -31,7 +31,7 @@ pub struct DecoderX86 {
 	// of this vector. We can't use another lifetime. This vector is read-only.
 	#[allow(dead_code)]
 	__data_do_not_use: Vec<u8>,
-	decoder: Box<Decoder<'static>>,
+	decoder: Decoder<'static>,
 }
 
 #[wasm_bindgen]
@@ -104,7 +104,7 @@ impl DecoderX86 {
 		// Safe, we only read it, we own the data, and store it in the returned value.
 		// The decoder also doesn't impl Drop (it can't ref possibly freed data in drop()).
 		let decoder_data = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };
-		let decoder = Box::new(Decoder::new(bitness, decoder_data, options));
+		let decoder = Decoder::new(bitness, decoder_data, options);
 		DecoderX86 { __data_do_not_use: data, decoder }
 	}
 
