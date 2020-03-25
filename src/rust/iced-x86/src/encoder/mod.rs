@@ -369,7 +369,10 @@ impl Encoder {
 			if cfg!(debug_assertions) {
 				self.set_error_message(format!("Operand {}: Expected: {:?}, actual: {:?}", operand, expected, actual));
 			} else {
-				self.set_error_message(format!("Operand {}: Expected: OpKind value {}, actual: OpKind value {}", operand, expected as u32, actual as u32));
+				self.set_error_message(format!(
+					"Operand {}: Expected: OpKind value {}, actual: OpKind value {}",
+					operand, expected as u32, actual as u32
+				));
 			}
 			false
 		}
@@ -384,7 +387,10 @@ impl Encoder {
 			if cfg!(debug_assertions) {
 				self.set_error_message(format!("Operand {}: Expected: {:?}, actual: {:?}", operand, expected, actual));
 			} else {
-				self.set_error_message(format!("Operand {}: Expected: Register value {}, actual: Register value {}", operand, expected as u32, actual as u32));
+				self.set_error_message(format!(
+					"Operand {}: Expected: Register value {}, actual: Register value {}",
+					operand, expected as u32, actual as u32
+				));
 			}
 			false
 		}
@@ -632,7 +638,10 @@ impl Encoder {
 			if cfg!(debug_assertions) {
 				self.set_error_message(format!("Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: {:?}", operand, op_kind));
 			} else {
-				self.set_error_message(format!("Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: OpKind value {}", operand, op_kind as u32));
+				self.set_error_message(format!(
+					"Operand {}: Expected OpKind::Memory or OpKind::Memory64, actual: OpKind value {}",
+					operand, op_kind as u32
+				));
 			}
 		}
 	}
