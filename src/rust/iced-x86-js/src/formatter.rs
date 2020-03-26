@@ -34,6 +34,7 @@ use wasm_bindgen::prelude::*;
 
 /// Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
 #[wasm_bindgen]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum FormatterSyntaxX86 {
 	/// GNU Assembler (AT&T)
 	#[cfg(feature = "gas")]
@@ -51,6 +52,7 @@ pub enum FormatterSyntaxX86 {
 
 /// X86 formatter that supports GNU Assembler, Intel XED, masm and nasm syntax
 #[wasm_bindgen]
+#[allow(missing_debug_implementations)]
 pub struct FormatterX86 {
 	formatter: Box<dyn Formatter>,
 }
@@ -80,6 +82,7 @@ impl FormatterX86 {
 	/// ```
 	///
 	/// [`FormatterSyntaxX86`]: enum.FormatterSyntaxX86.html
+	#[must_use]
 	#[wasm_bindgen(constructor)]
 	pub fn new(syntax: FormatterSyntaxX86) -> Self {
 		let formatter: Box<dyn Formatter> = match syntax {
@@ -136,7 +139,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn operand_count(&mut self, instruction: &Instruction) -> u32 {
 		self.formatter.operand_count(instruction)
 	}
@@ -157,7 +160,7 @@ impl FormatterX86 {
 	/// [`InstructionInfoFactory::info()`]: struct.InstructionInfoFactory.html#method.info
 	/// [`operand_count()`]: #tymethod.operand_count
 	#[cfg(feature = "instr_info")]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess> {
 		self.formatter.op_access(instruction, operand)
 	}
@@ -174,7 +177,7 @@ impl FormatterX86 {
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
 	///
 	/// [`operand_count()`]: #tymethod.operand_count
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32> {
 		self.formatter.get_instruction_operand(instruction, operand)
 	}
@@ -189,7 +192,7 @@ impl FormatterX86 {
 	///
 	/// - `instruction`: Instruction
 	/// - `instruction_operand`: Instruction operand
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn get_formatter_operand(&mut self, instruction: &Instruction, instruction_operand: u32) -> Option<u32> {
 		self.formatter.get_formatter_operand(instruction, instruction_operand)
 	}
@@ -240,7 +243,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `register`: Register
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_register(&mut self, register: Register) -> String {
 		self.formatter.format_register(register).to_owned()
 	}
@@ -250,7 +253,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_i8(&mut self, value: i8) -> String {
 		self.formatter.format_i8(value).to_owned()
 	}
@@ -260,7 +263,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_i16(&mut self, value: i16) -> String {
 		self.formatter.format_i16(value).to_owned()
 	}
@@ -270,7 +273,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_i32(&mut self, value: i32) -> String {
 		self.formatter.format_i32(value).to_owned()
 	}
@@ -280,7 +283,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_i64(&mut self, value: i64) -> String {
 		self.formatter.format_i64(value).to_owned()
 	}
@@ -290,7 +293,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_u8(&mut self, value: u8) -> String {
 		self.formatter.format_u8(value).to_owned()
 	}
@@ -300,7 +303,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_u16(&mut self, value: u16) -> String {
 		self.formatter.format_u16(value).to_owned()
 	}
@@ -310,7 +313,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_u32(&mut self, value: u32) -> String {
 		self.formatter.format_u32(value).to_owned()
 	}
@@ -320,7 +323,7 @@ impl FormatterX86 {
 	/// # Arguments
 	///
 	/// - `value`: Value
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn format_u64(&mut self, value: u64) -> String {
 		self.formatter.format_u64(value).to_owned()
 	}
@@ -334,7 +337,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `REP stosd`
 	/// Yes | `false` | `rep stosd`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_prefixes(&self) -> bool {
 		self.formatter.options().uppercase_prefixes()
@@ -361,7 +364,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `MOV rcx,rax`
 	/// Yes | `false` | `mov rcx,rax`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_mnemonics(&self) -> bool {
 		self.formatter.options().uppercase_mnemonics()
@@ -388,7 +391,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov RCX,[RAX+RDX*8]`
 	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_registers(&self) -> bool {
 		self.formatter.options().uppercase_registers()
@@ -415,7 +418,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov BYTE PTR [rcx],12h`
 	/// Yes | `false` | `mov byte ptr [rcx],12h`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_keywords(&self) -> bool {
 		self.formatter.options().uppercase_keywords()
@@ -442,7 +445,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_decorators(&self) -> bool {
 		self.formatter.options().uppercase_decorators()
@@ -469,7 +472,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_all(&self) -> bool {
 		self.formatter.options().uppercase_all()
@@ -497,7 +500,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `0` | `mov•rcx,rbp`
 	/// - | `8` | `mov•••••rcx,rbp`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn first_operand_char_index(&self) -> u32 {
 		self.formatter.options().first_operand_char_index()
@@ -522,7 +525,7 @@ impl FormatterX86 {
 	/// Size of a tab character or 0 to use spaces
 	///
 	/// - Default: `0`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn tab_size(&self) -> u32 {
 		self.formatter.options().tab_size()
@@ -546,7 +549,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov rax, rcx`
 	/// Yes | `false` | `mov rax,rcx`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn space_after_operand_separator(&self) -> bool {
 		self.formatter.options().space_after_operand_separator()
@@ -573,7 +576,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[ rcx+rdx ]`
 	/// Yes | `false` | `mov eax,[rcx+rdx]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn space_after_memory_bracket(&self) -> bool {
 		self.formatter.options().space_after_memory_bracket()
@@ -600,7 +603,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn space_between_memory_add_operators(&self) -> bool {
 		self.formatter.options().space_between_memory_add_operators()
@@ -627,7 +630,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn space_between_memory_mul_operators(&self) -> bool {
 		self.formatter.options().space_between_memory_mul_operators()
@@ -654,7 +657,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[8*rdx]`
 	/// Yes | `false` | `mov eax,[rdx*8]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn scale_before_index(&self) -> bool {
 		self.formatter.options().scale_before_index()
@@ -681,7 +684,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rbx+rcx*1]`
 	/// Yes | `false` | `mov eax,[rbx+rcx]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn always_show_scale(&self) -> bool {
 		self.formatter.options().always_show_scale()
@@ -709,7 +712,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ds:[ecx]`
 	/// Yes | `false` | `mov eax,[ecx]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn always_show_segment_register(&self) -> bool {
 		self.formatter.options().always_show_segment_register()
@@ -737,7 +740,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx*2+0]`
 	/// Yes | `false` | `mov eax,[rcx*2]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn show_zero_displacements(&self) -> bool {
 		self.formatter.options().show_zero_displacements()
@@ -761,7 +764,7 @@ impl FormatterX86 {
 	/// Hex number prefix or an empty string, eg. `"0x"`
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0x"` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn hex_prefix(&self) -> String {
 		self.formatter.options().hex_prefix().to_owned()
@@ -782,7 +785,7 @@ impl FormatterX86 {
 	/// Hex number suffix or an empty string, eg. `"h"`
 	///
 	/// - Default: `"h"` (masm/nasm/intel), `""` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn hex_suffix(&self) -> String {
 		self.formatter.options().hex_suffix().to_owned()
@@ -808,7 +811,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `0` | `0x12345678`
 	/// Yes | `4` | `0x1234_5678`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn hex_digit_group_size(&self) -> u32 {
 		self.formatter.options().hex_digit_group_size()
@@ -834,7 +837,7 @@ impl FormatterX86 {
 	/// Decimal number prefix or an empty string
 	///
 	/// - Default: `""`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn decimal_prefix(&self) -> String {
 		self.formatter.options().decimal_prefix().to_owned()
@@ -855,7 +858,7 @@ impl FormatterX86 {
 	/// Decimal number suffix or an empty string
 	///
 	/// - Default: `""`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn decimal_suffix(&self) -> String {
 		self.formatter.options().decimal_suffix().to_owned()
@@ -881,7 +884,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `0` | `12345678`
 	/// Yes | `3` | `12_345_678`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn decimal_digit_group_size(&self) -> u32 {
 		self.formatter.options().decimal_digit_group_size()
@@ -907,7 +910,7 @@ impl FormatterX86 {
 	/// Octal number prefix or an empty string
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0"` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn octal_prefix(&self) -> String {
 		self.formatter.options().octal_prefix().to_owned()
@@ -928,7 +931,7 @@ impl FormatterX86 {
 	/// Octal number suffix or an empty string
 	///
 	/// - Default: `"o"` (masm/nasm/intel), `""` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn octal_suffix(&self) -> String {
 		self.formatter.options().octal_suffix().to_owned()
@@ -954,7 +957,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `0` | `12345670`
 	/// Yes | `4` | `1234_5670`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn octal_digit_group_size(&self) -> u32 {
 		self.formatter.options().octal_digit_group_size()
@@ -980,7 +983,7 @@ impl FormatterX86 {
 	/// Binary number prefix or an empty string
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0b"` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn binary_prefix(&self) -> String {
 		self.formatter.options().binary_prefix().to_owned()
@@ -1001,7 +1004,7 @@ impl FormatterX86 {
 	/// Binary number suffix or an empty string
 	///
 	/// - Default: `"b"` (masm/nasm/intel), `""` (gas)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn binary_suffix(&self) -> String {
 		self.formatter.options().binary_suffix().to_owned()
@@ -1027,7 +1030,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `0` | `11010111`
 	/// Yes | `4` | `1101_0111`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn binary_digit_group_size(&self) -> u32 {
 		self.formatter.options().binary_digit_group_size()
@@ -1058,7 +1061,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn digit_separator(&self) -> String {
 		self.formatter.options().digit_separator().to_owned()
@@ -1092,7 +1095,7 @@ impl FormatterX86 {
 	///
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
 	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn leading_zeroes(&self) -> bool {
 		self.formatter.options().leading_zeroes()
@@ -1124,7 +1127,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `0xFF`
 	/// - | `false` | `0xff`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn uppercase_hex(&self) -> bool {
 		self.formatter.options().uppercase_hex()
@@ -1151,7 +1154,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `9`
 	/// - | `false` | `0x9`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn small_hex_numbers_in_decimal(&self) -> bool {
 		self.formatter.options().small_hex_numbers_in_decimal()
@@ -1178,7 +1181,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `0FFh`
 	/// - | `false` | `FFh`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn add_leading_zero_to_hex_numbers(&self) -> bool {
 		self.formatter.options().add_leading_zero_to_hex_numbers()
@@ -1204,7 +1207,7 @@ impl FormatterX86 {
 	/// - Default: [`Hexadecimal`]
 	///
 	/// [`Hexadecimal`]: enum.NumberBase.html#variant.Hexadecimal
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn number_base(&self) -> NumberBase {
 		self.formatter.options().number_base()
@@ -1230,7 +1233,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `je 00000123h`
 	/// - | `false` | `je 123h`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn branch_leading_zeroes(&self) -> bool {
 		self.formatter.options().branch_leading_zeroes()
@@ -1257,7 +1260,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,-1`
 	/// Yes | `false` | `mov eax,FFFFFFFF`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn signed_immediate_operands(&self) -> bool {
 		self.formatter.options().signed_immediate_operands()
@@ -1284,7 +1287,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `mov al,[eax-2000h]`
 	/// - | `false` | `mov al,[eax+0FFFFE000h]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn signed_memory_displacements(&self) -> bool {
 		self.formatter.options().signed_memory_displacements()
@@ -1311,7 +1314,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov al,[eax+00000012h]`
 	/// Yes | `false` | `mov al,[eax+12h]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn displacement_leading_zeroes(&self) -> bool {
 		self.formatter.options().displacement_leading_zeroes()
@@ -1338,7 +1341,7 @@ impl FormatterX86 {
 	/// - Default: [`Default`]
 	///
 	/// [`Default`]: enum.MemorySizeOptions.html#variant.Default
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn memory_size_options(&self) -> MemorySizeOptions {
 		self.formatter.options().memory_size_options()
@@ -1365,7 +1368,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rip+12345678h]`
 	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn rip_relative_addresses(&self) -> bool {
 		self.formatter.options().rip_relative_addresses()
@@ -1392,7 +1395,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `je short 1234h`
 	/// - | `false` | `je 1234h`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn show_branch_size(&self) -> bool {
 		self.formatter.options().show_branch_size()
@@ -1419,7 +1422,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn use_pseudo_ops(&self) -> bool {
 		self.formatter.options().use_pseudo_ops()
@@ -1446,7 +1449,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[myfield (12345678)]`
 	/// Yes | `false` | `mov eax,[myfield]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn show_symbol_address(&self) -> bool {
 		self.formatter.options().show_symbol_address()
@@ -1473,7 +1476,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ecx`
 	/// Yes | `false` | `mov %eax,%ecx`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn gas_naked_registers(&self) -> bool {
 		self.formatter.options().gas_naked_registers()
@@ -1500,7 +1503,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `movl %eax,%ecx`
 	/// Yes | `false` | `mov %eax,%ecx`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn gas_show_mnemonic_size_suffix(&self) -> bool {
 		self.formatter.options().gas_show_mnemonic_size_suffix()
@@ -1527,7 +1530,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `(%eax, %ecx, 2)`
 	/// Yes | `false` | `(%eax,%ecx,2)`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn gas_space_after_memory_operand_comma(&self) -> bool {
 		self.formatter.options().gas_space_after_memory_operand_comma()
@@ -1554,7 +1557,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `mov eax,ds:[12345678]`
 	/// - | `false` | `mov eax,[12345678]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn masm_add_ds_prefix32(&self) -> bool {
 		self.formatter.options().masm_add_ds_prefix32()
@@ -1581,7 +1584,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
 	/// - | `false` | `symbol[ecx]` / `symbol`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn masm_symbol_displ_in_brackets(&self) -> bool {
 		self.formatter.options().masm_symbol_displ_in_brackets()
@@ -1608,7 +1611,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// Yes | `true` | `[ecx+1234h]`
 	/// - | `false` | `1234h[ecx]`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn masm_displ_in_brackets(&self) -> bool {
 		self.formatter.options().masm_displ_in_brackets()
@@ -1635,7 +1638,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `or rcx,byte -1`
 	/// Yes | `false` | `or rcx,-1`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn nasm_show_sign_extended_immediate_size(&self) -> bool {
 		self.formatter.options().nasm_show_sign_extended_immediate_size()
@@ -1662,7 +1665,7 @@ impl FormatterX86 {
 	/// --------|-------|--------
 	/// - | `true` | `fadd st(0),st(3)`
 	/// Yes | `false` | `fadd st,st(3)`
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn prefer_st0(&self) -> bool {
 		self.formatter.options().prefer_st0()

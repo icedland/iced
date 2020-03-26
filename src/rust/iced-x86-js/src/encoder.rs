@@ -48,6 +48,7 @@ use wasm_bindgen::prelude::*;
 /// assert_eq!(vec![0x86, 0x64, 0x32, 0x16], buffer);
 /// ```
 #[wasm_bindgen]
+#[allow(missing_debug_implementations)]
 pub struct EncoderX86 {
 	encoder: Encoder,
 }
@@ -63,7 +64,7 @@ impl EncoderX86 {
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32 or 64
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32) -> Self {
 		Self::with_capacity(bitness, 0)
@@ -79,8 +80,7 @@ impl EncoderX86 {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `capacity`: Initial capacity of the `u8` buffer
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
 		let encoder = Encoder::with_capacity(bitness, capacity);
 		Self { encoder }
@@ -118,7 +118,6 @@ impl EncoderX86 {
 	/// let buffer = encoder.take_buffer();
 	/// assert_eq!(vec![0x75, 0xF2], buffer);
 	/// ```
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
 		match self.encoder.encode(instruction, rip) {
 			Ok(size) => Ok(size as u32),
@@ -160,7 +159,7 @@ impl EncoderX86 {
 	/// you've encoded all instructions and need the raw instruction bytes. See also [`set_buffer()`].
 	///
 	/// [`set_buffer()`]: #method.set_buffer
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
 		self.encoder.take_buffer()
 	}
@@ -174,14 +173,13 @@ impl EncoderX86 {
 
 	/// Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.
 	/// The caller can use this information to add relocations if needed.
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[must_use]
 	pub fn get_constant_offsets(&self) -> ConstantOffsets {
 		self.encoder.get_constant_offsets()
 	}
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn prevent_vex2(&self) -> bool {
 		self.encoder.prevent_vex2()
@@ -198,7 +196,7 @@ impl EncoderX86 {
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn vex_wig(&self) -> u32 {
 		self.encoder.vex_wig()
@@ -215,7 +213,7 @@ impl EncoderX86 {
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn vex_lig(&self) -> u32 {
 		self.encoder.vex_lig()
@@ -232,7 +230,7 @@ impl EncoderX86 {
 	}
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn evex_wig(&self) -> u32 {
 		self.encoder.evex_wig()
@@ -249,7 +247,7 @@ impl EncoderX86 {
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(getter)]
 	pub fn evex_lig(&self) -> u32 {
 		self.encoder.evex_lig()
@@ -267,7 +265,7 @@ impl EncoderX86 {
 
 	/// Gets the bitness (16, 32 or 64)
 	#[wasm_bindgen(getter)]
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	pub fn bitness(&self) -> u32 {
 		self.encoder.bitness()
 	}

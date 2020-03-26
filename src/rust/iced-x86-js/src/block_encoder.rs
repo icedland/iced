@@ -26,6 +26,7 @@ use wasm_bindgen::prelude::*;
 
 /// Encodes instructions. It can be used to move instructions from one location to another location.
 #[wasm_bindgen]
+#[derive(Debug)]
 pub struct BlockEncoder {
 	instructions: Vec<Instruction>,
 	bitness: u32,

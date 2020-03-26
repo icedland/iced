@@ -28,8 +28,7 @@ use wasm_bindgen::prelude::*;
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 #[wasm_bindgen(js_name = "InstructionInfoOptions")]
-#[allow(missing_debug_implementations)]
-#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum InstructionInfoOptionsJS {
 	/// No option is enabled
 	None = 0,
@@ -45,15 +44,59 @@ pub enum InstructionInfoOptionsJS {
 	NoRegisterUsage = 0x0000_0002,
 }
 
+/// Creates [`InstructionInfo`]s.
+///
+/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+///
+/// [`InstructionInfo`]: struct.InstructionInfo.html
+/// [`Instruction`]: struct.Instruction.html
+/// [`Code`]: enum.Code.html
+/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 #[wasm_bindgen]
+#[derive(Debug)]
 pub struct InstructionInfoFactoryX86 {
 	info_factory: InstructionInfoFactory,
 }
 
 #[wasm_bindgen]
 impl InstructionInfoFactoryX86 {
+	/// Creates a new instance.
+	///
+	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
+	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	///
+	/// [`Instruction`]: struct.Instruction.html
+	/// [`Code`]: enum.Code.html
+	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // add [rdi+r12*8-5AA5EDCCh],esi
+	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	///
+	/// // This allocates two vectors but they get re-used every time you call info() and info_options().
+	/// let mut info_factory = InstructionInfoFactory::new();
+	///
+	/// for instr in &mut decoder {
+	///     // There's also info_options() if you only need reg usage or only mem usage.
+	///     // info() returns both.
+	///     let info = info_factory.info(&instr);
+	///     for mem_info in info.used_memory().iter() {
+	///         println!("{:?}", mem_info);
+	///     }
+	///     for reg_info in info.used_registers().iter() {
+	///         println!("{:?}", reg_info);
+	///     }
+	/// }
+	/// ```
 	#[wasm_bindgen(constructor)]
 	#[allow(clippy::new_without_default)]
+	#[must_use]
 	pub fn new() -> Self {
 		InstructionInfoFactoryX86 { info_factory: InstructionInfoFactory::new() }
 	}
