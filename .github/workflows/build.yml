@@ -203,7 +203,16 @@ jobs:
           echo ==== TEST std decoder nasm ====
           cargo check --color always --tests --no-default-features --features "std decoder nasm"
           
-          cd ../iced-x86-js
+          cd ..
+          git clean -xdf
+
+      - name: iced-x86-js
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
+          cd src/rust/iced-x86-js
+          
           echo ==== javascript std db decoder ====
           cargo check --color always --no-default-features --features "javascript std db decoder"
           echo ==== javascript std db encoder ====
@@ -218,8 +227,8 @@ jobs:
           cargo check --color always --no-default-features --features "javascript std db masm"
           echo ==== javascript std db nasm ====
           cargo check --color always --no-default-features --features "javascript std db nasm"
-          echo ==== javascript std db decoder encoder instr_info gas intel masm nasm ====
-          cargo check --color always --no-default-features --features "javascript std db decoder encoder instr_info gas intel masm nasm"
+          echo ==== CLIPPY javascript std db decoder encoder instr_info gas intel masm nasm ====
+          cargo clippy --color always --no-default-features --features "javascript std db decoder encoder instr_info gas intel masm nasm"
           
           cd ..
           git clean -xdf
