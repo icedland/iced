@@ -29,7 +29,9 @@ use iced_x86::IntelFormatter;
 use iced_x86::MasmFormatter;
 #[cfg(feature = "nasm")]
 use iced_x86::NasmFormatter;
-use iced_x86::{Formatter, Instruction, MemorySizeOptions, NumberBase, OpAccess, Register};
+#[cfg(feature = "instr_info")]
+use iced_x86::OpAccess;
+use iced_x86::{Formatter, Instruction, MemorySizeOptions, NumberBase, Register};
 use wasm_bindgen::prelude::*;
 
 /// Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
@@ -37,16 +39,12 @@ use wasm_bindgen::prelude::*;
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum FormatterSyntaxX86 {
 	/// GNU Assembler (AT&T)
-	#[cfg(feature = "gas")]
 	Gas,
 	/// Intel XED
-	#[cfg(feature = "intel")]
 	Intel,
 	/// masm
-	#[cfg(feature = "masm")]
 	Masm,
 	/// nasm
-	#[cfg(feature = "nasm")]
 	Nasm,
 }
 
@@ -94,6 +92,8 @@ impl FormatterX86 {
 			FormatterSyntaxX86::Masm => Box::new(MasmFormatter::new()),
 			#[cfg(feature = "nasm")]
 			FormatterSyntaxX86::Nasm => Box::new(NasmFormatter::new()),
+			#[allow(unreachable_patterns)]
+			_ => panic!(),
 		};
 		Self { formatter }
 	}
