@@ -33,319 +33,319 @@ use core::{i16, i32, i8, u8};
 use core::{u16, u32};
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_code_size(this: &mut Instruction, new_value: CodeSize) {
 	this.op_kind_flags |= (new_value as u32) << OpKindFlags::CODE_SIZE_SHIFT;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_code(this: &mut Instruction, new_value: Code) {
 	this.code_flags |= new_value as u32;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_code_u32(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_len(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::INSTR_LENGTH_SHIFT;
 }
 
 #[cfg(feature = "encoder")]
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_has_repe_prefix_has_xrelease_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::XRELEASE_PREFIX)) != 0
 }
 
 #[cfg(feature = "encoder")]
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_has_repne_prefix_has_xacquire_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPNE_PREFIX | CodeFlags::XACQUIRE_PREFIX)) != 0
 }
 
 #[cfg(feature = "instr_info")]
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_has_repe_or_repne_prefix(this: &Instruction) -> bool {
 	(this.code_flags & (CodeFlags::REPE_PREFIX | CodeFlags::REPNE_PREFIX)) != 0
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_has_xacquire_prefix(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::XACQUIRE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_has_xrelease_prefix(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::XRELEASE_PREFIX
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::REPE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {
 	this.code_flags &= !CodeFlags::REPE_PREFIX
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_has_repne_prefix(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::REPNE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_clear_has_repne_prefix(this: &mut Instruction) {
 	this.code_flags &= !CodeFlags::REPNE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_has_lock_prefix(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::LOCK_PREFIX
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_clear_has_lock_prefix(this: &mut Instruction) {
 	this.code_flags &= !CodeFlags::LOCK_PREFIX
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op0_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= new_value as u32;
 }
 
 #[cfg(feature = "instr_info")]
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
 	(this.op_kind_flags & (OpKindFlags::OP_KIND_MASK | (OpKindFlags::OP_KIND_MASK << OpKindFlags::OP1_KIND_SHIFT))) != 0
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op1_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= (new_value as u32) << OpKindFlags::OP1_KIND_SHIFT;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op2_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= (new_value as u32) << OpKindFlags::OP2_KIND_SHIFT;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op3_kind(this: &mut Instruction, new_value: OpKind) {
 	this.op_kind_flags |= (new_value as u32) << OpKindFlags::OP3_KIND_SHIFT;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: u32) {
 	debug_assert!(new_value <= 4);
 	this.memory_flags |= (new_value << MemoryFlags::DISPL_SIZE_SHIFT) as u16;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_is_broadcast(this: &mut Instruction) {
 	this.memory_flags |= MemoryFlags::BROADCAST as u16;
 }
 
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_get_memory_index_scale(this: &Instruction) -> u32 {
 	(this.memory_flags & (MemoryFlags::SCALE_MASK as u16)) as u32
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_index_scale(this: &mut Instruction, new_value: u32) {
 	this.memory_flags |= new_value as u16;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_immediate8(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_immediate8_2nd(this: &mut Instruction, new_value: u32) {
 	this.mem_displ = new_value;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_immediate16(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_immediate64_lo(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_immediate64_hi(this: &mut Instruction, new_value: u32) {
 	this.mem_displ = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_address64_lo(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_address64_hi(this: &mut Instruction, new_value: u32) {
 	this.mem_displ = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_near_branch16(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_far_branch16(this: &mut Instruction, new_value: u32) {
 	this.immediate = new_value;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_far_branch_selector(this: &mut Instruction, new_value: u32) {
 	this.mem_displ = new_value;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_base(this: &mut Instruction, new_value: Register) {
 	this.mem_base_reg = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_base_u32(this: &mut Instruction, new_value: u32) {
 	this.mem_base_reg = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_index(this: &mut Instruction, new_value: Register) {
 	this.mem_index_reg = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_memory_index_u32(this: &mut Instruction, new_value: u32) {
 	this.mem_index_reg = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op0_register(this: &mut Instruction, new_value: Register) {
 	this.reg0 = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op0_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg0 = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op1_register(this: &mut Instruction, new_value: Register) {
 	this.reg1 = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op1_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg1 = new_value as u8;
 }
 
 #[cfg(any(feature = "decoder", feature = "encoder"))]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op2_register(this: &mut Instruction, new_value: Register) {
 	this.reg2 = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op2_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg2 = new_value as u8;
 }
 
 #[cfg(feature = "encoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op3_register(this: &mut Instruction, new_value: Register) {
 	this.reg3 = new_value as u8;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg3 = new_value as u8;
 }
 
 #[cfg(feature = "encoder")]
 #[cfg_attr(has_must_use, must_use)]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
 	(this.code_flags >> CodeFlags::OP_MASK_SHIFT) & CodeFlags::OP_MASK_MASK
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::OP_MASK_SHIFT
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_zeroing_masking(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::ZEROING_MASKING;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::ROUNDING_CONTROL_SHIFT;
 }
 
 #[cfg(feature = "encoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u32) {
 	this.op_kind_flags |= (new_value - 1) << OpKindFlags::DATA_LENGTH_SHIFT;
 }
 
 #[cfg(feature = "decoder")]
-#[inline]
+#[cfg_attr(not(feature = "javascript"), inline)]
 pub(crate) fn internal_set_suppress_all_exceptions(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::SUPPRESS_ALL_EXCEPTIONS;
 }
@@ -528,7 +528,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].immediate_op_kind() {
@@ -537,7 +537,7 @@ pub(crate) fn get_immediate_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't an immediate operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't an immediate operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't an immediate operand", code as u32, operand);
 			}
 		}
 	}
@@ -550,7 +550,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].near_branch_op_kind() {
@@ -559,7 +559,7 @@ pub(crate) fn get_near_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't a near branch operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't a near branch operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't a near branch operand", code as u32, operand);
 			}
 		}
 	}
@@ -572,7 +572,7 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 		if cfg!(debug_assertions) {
 			panic!("{:?} doesn't have at least {} operands", code, operand + 1);
 		} else {
-			panic!("{} doesn't have at least {} operands", code as u32, operand + 1);
+			panic!("Code value {} doesn't have at least {} operands", code as u32, operand + 1);
 		}
 	}
 	match operands[operand].far_branch_op_kind() {
@@ -581,7 +581,7 @@ pub(crate) fn get_far_branch_op_kind(code: Code, operand: usize) -> OpKind {
 			if cfg!(debug_assertions) {
 				panic!("{:?}'s op{} isn't a far branch operand", code, operand);
 			} else {
-				panic!("{}'s op{} isn't a far branch operand", code as u32, operand);
+				panic!("Code value {}'s op{} isn't a far branch operand", code as u32, operand);
 			}
 		}
 	}

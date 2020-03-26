@@ -53,7 +53,7 @@ struct TableDeserializer<'a> {
 
 impl<'a> TableDeserializer<'a> {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn new(
 		data: &'a [u8], max_ids: usize, handler_reader: fn(deserializer: &mut TableDeserializer, result: &mut Vec<&'static OpCodeHandler>),
 	) -> Self {
@@ -80,73 +80,73 @@ impl<'a> TableDeserializer<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_op_code_handler_kind(&mut self) -> OpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_vex_op_code_handler_kind(&mut self) -> VexOpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_evex_op_code_handler_kind(&mut self) -> EvexOpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_code(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_register(&mut self) -> Register {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_decoder_options(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_handler_flags(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_legacy_handler_flags(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_tuple_type(&mut self) -> TupleType {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_boolean(&mut self) -> bool {
 		self.reader.read_u8() != 0
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_u32(&mut self) -> u32 {
 		self.reader.read_compressed_u32()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn read_handler(&mut self) -> *const OpCodeHandler {
 		let result = self.read_handler_or_null_instance();
 		assert!(!is_null_instance_handler(result));

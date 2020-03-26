@@ -50,7 +50,7 @@ static GEN_DEBUG_LKIND: [&str; 4] = [
 	"LZ",
 ];
 impl fmt::Debug for LKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_LKIND[*self as usize])?;
 		Ok(())
@@ -58,7 +58,7 @@ impl fmt::Debug for LKind {
 }
 impl Default for LKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		LKind::None
 	}

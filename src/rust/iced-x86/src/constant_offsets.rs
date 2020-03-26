@@ -21,12 +21,16 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(feature = "javascript")]
+use wasm_bindgen::prelude::*;
+
 /// Contains the offsets of the displacement and immediate. Call [`Decoder::get_constant_offsets()`] or
 /// [`Encoder::get_constant_offsets()`] to get the offsets of the constants after the instruction has been
 /// decoded/encoded.
 ///
 /// [`Decoder::get_constant_offsets()`]: struct.Decoder.html#method.get_constant_offsets
 /// [`Encoder::get_constant_offsets()`]: struct.Encoder.html#method.get_constant_offsets
+#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
 #[allow(dead_code)]
 pub struct ConstantOffsets {
@@ -41,17 +45,20 @@ pub struct ConstantOffsets {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
+#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn displacement_offset(&self) -> usize {
 		self.displacement_offset as usize
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn displacement_size(&self) -> usize {
 		self.displacement_size as usize
 	}
@@ -61,28 +68,32 @@ impl ConstantOffsets {
 	/// This field can be invalid even if the operand has an immediate if it's an immediate that isn't part
 	/// of the instruction stream, eg. `SHL AL,1`.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn immediate_offset(&self) -> usize {
 		self.immediate_offset as usize
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn immediate_size(&self) -> usize {
 		self.immediate_size as usize
 	}
 
 	/// The offset of the second immediate, if any.
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn immediate_offset2(&self) -> usize {
 		self.immediate_offset2 as usize
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn immediate_size2(&self) -> usize {
 		self.immediate_size2 as usize
 	}
@@ -92,7 +103,8 @@ impl ConstantOffsets {
 	/// [`displacement_offset()`]: #method.displacement_offset
 	/// [`displacement_size()`]: #method.displacement_size
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn has_displacement(&self) -> bool {
 		self.displacement_size != 0
 	}
@@ -102,7 +114,8 @@ impl ConstantOffsets {
 	/// [`immediate_offset()`]: #method.immediate_offset
 	/// [`immediate_size()`]: #method.immediate_size
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn has_immediate(&self) -> bool {
 		self.immediate_size != 0
 	}
@@ -112,7 +125,8 @@ impl ConstantOffsets {
 	/// [`immediate_offset2()`]: #method.immediate_offset2
 	/// [`immediate_size2()`]: #method.immediate_size2
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
 	pub fn has_immediate2(&self) -> bool {
 		self.immediate_size2 != 0
 	}

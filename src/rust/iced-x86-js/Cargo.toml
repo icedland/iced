@@ -1,0 +1,39 @@
+[package]
+name = "iced-x86-js"
+version = "1.0.1"# Update html_root_url in lib.rs
+authors = ["0xd4d <de4dot@gmail.com>"]
+license = "MIT"
+description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust"
+homepage = "https://github.com/0xd4d/iced"
+repository = "https://github.com/0xd4d/iced"
+readme = "README.md"
+keywords = ["disassembler", "javascript", "assembler", "x86", "amd64"]
+categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["javascript", "std", "db", "decoder", "encoder", "instr_info", "gas", "intel", "masm", "nasm"]
+decoder = ["iced-x86/decoder"]
+encoder = ["iced-x86/encoder"]
+instr_info = ["iced-x86/instr_info"]
+gas = ["iced-x86/gas"]
+intel = ["iced-x86/intel"]
+masm = ["iced-x86/masm"]
+nasm = ["iced-x86/nasm"]
+db = ["iced-x86/db"]
+javascript = ["iced-x86/javascript"]
+std = ["iced-x86/std"]
+no_std = ["iced-x86/no_std"]
+exhaustive_enums = ["iced-x86/exhaustive_enums"]
+
+[dependencies]
+wasm-bindgen = "0.2.59"
+js-sys = "0.3.36"
+
+[dependencies.iced-x86]
+version = "1.0.1"
+path = "../iced-x86"
+default-features = false

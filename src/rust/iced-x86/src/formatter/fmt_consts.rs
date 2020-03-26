@@ -241,6 +241,7 @@ pub(super) struct FormatterArrayConstants {
 
 lazy_static! {
 	pub(super) static ref ARRAY_CONSTS: FormatterArrayConstants = {
+		#![cfg_attr(feature = "cargo-clippy", allow(clippy::let_unit_value))]
 		let c = &*FORMATTER_CONSTANTS;
 		let nothing: [&'static FormatterString; 0] = [];
 		let byte_ptr: [&'static FormatterString; 2] = [&c.byte, &c.ptr];

@@ -40,6 +40,8 @@ use super::*;
 #[cfg(has_fused_iterator)]
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr, u32};
+#[cfg(feature = "javascript")]
+use wasm_bindgen::prelude::*;
 
 // 26,2E,36,3E,64,65,66,67,F0,F2,F3
 static PREFIXES1632: [u32; 8] = [0x0000_0000, 0x4040_4040, 0x0000_0000, 0x0000_00F0, 0x0000_0000, 0x0000_0000, 0x0000_0000, 0x000D_0000];
@@ -73,7 +75,7 @@ static GEN_DEBUG_OP_SIZE: [&str; 3] = [
 	"Size64",
 ];
 impl fmt::Debug for OpSize {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_SIZE[*self as usize])?;
 		Ok(())
@@ -81,7 +83,7 @@ impl fmt::Debug for OpSize {
 }
 impl Default for OpSize {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		OpSize::Size16
 	}
@@ -165,6 +167,85 @@ impl DecoderOptions {
 	/// [`Code::Lahf`]: enum.Code.html#variant.Lahf
 	/// [`Code::Sahf`]: enum.Code.html#variant.Sahf
 	pub const NO_LAHF_SAHF_64: u32 = 0x0004_0000;
+}
+/// Decoder options
+#[cfg(feature = "javascript")]
+#[cfg_attr(feature = "javascript", wasm_bindgen(js_name = "DecoderOptions"))]
+#[allow(missing_copy_implementations)]
+#[allow(missing_debug_implementations)]
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[allow(non_camel_case_types)]
+pub enum DecoderOptionsJS {
+	/// No option is enabled
+	None = 0x0000_0000,
+	/// Disable some checks for invalid encodings of instructions, eg. most instructions can't use a `LOCK` prefix so if one is found, they're decoded as [`Code::INVALID`] unless this option is enabled.
+	///
+	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
+	NoInvalidCheck = 0x0000_0001,
+	/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
+	AmdBranches = 0x0000_0002,
+	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::ReservedNop_rm32_r32_0F1D`])
+	///
+	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
+	ForceReservedNop = 0x0000_0004,
+	/// Decode `UMOV` instructions (eg. [`Code::Umov_r32_rm32`])
+	///
+	/// [`Code::Umov_r32_rm32`]: enum.Code.html#variant.Umov_r32_rm32
+	Umov = 0x0000_0008,
+	/// Decode `XBTS`/`IBTS`
+	Xbts = 0x0000_0010,
+	/// Decode `0FA6`/`0FA7` as `CMPXCHG`
+	Cmpxchg486A = 0x0000_0020,
+	/// Decode some old removed FPU instructions (eg. `FRSTPM`)
+	OldFpu = 0x0000_0040,
+	/// Decode [`Code::Pcommit`]
+	///
+	/// [`Code::Pcommit`]: enum.Code.html#variant.Pcommit
+	Pcommit = 0x0000_0080,
+	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
+	Loadall286 = 0x0000_0100,
+	/// Decode [`Code::Loadall386`]
+	///
+	/// [`Code::Loadall386`]: enum.Code.html#variant.Loadall386
+	Loadall386 = 0x0000_0200,
+	/// Decode [`Code::Cl1invmb`]
+	///
+	/// [`Code::Cl1invmb`]: enum.Code.html#variant.Cl1invmb
+	Cl1invmb = 0x0000_0400,
+	/// Decode [`Code::Mov_r32_tr`] and [`Code::Mov_tr_r32`]
+	///
+	/// [`Code::Mov_r32_tr`]: enum.Code.html#variant.Mov_r32_tr
+	/// [`Code::Mov_tr_r32`]: enum.Code.html#variant.Mov_tr_r32
+	MovTr = 0x0000_0800,
+	/// Decode `JMPE` instructions
+	Jmpe = 0x0000_1000,
+	/// Don't decode [`Code::Pause`], decode [`Code::Nopd`]/etc instead
+	///
+	/// [`Code::Pause`]: enum.Code.html#variant.Pause
+	/// [`Code::Nopd`]: enum.Code.html#variant.Nopd
+	NoPause = 0x0000_2000,
+	/// Don't decode [`Code::Wbnoinvd`], decode [`Code::Wbinvd`] instead
+	///
+	/// [`Code::Wbnoinvd`]: enum.Code.html#variant.Wbnoinvd
+	/// [`Code::Wbinvd`]: enum.Code.html#variant.Wbinvd
+	NoWbnoinvd = 0x0000_4000,
+	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
+	NoLockMovCR0 = 0x0000_8000,
+	/// Don't decode [`Code::Tzcnt_r32_rm32`]/etc, decode [`Code::Bsf_r32_rm32`]/etc instead
+	///
+	/// [`Code::Tzcnt_r32_rm32`]: enum.Code.html#variant.Tzcnt_r32_rm32
+	/// [`Code::Bsf_r32_rm32`]: enum.Code.html#variant.Bsf_r32_rm32
+	NoMPFX_0FBC = 0x0001_0000,
+	/// Don't decode [`Code::Lzcnt_r32_rm32`]/etc, decode [`Code::Bsr_r32_rm32`]/etc instead
+	///
+	/// [`Code::Lzcnt_r32_rm32`]: enum.Code.html#variant.Lzcnt_r32_rm32
+	/// [`Code::Bsr_r32_rm32`]: enum.Code.html#variant.Bsr_r32_rm32
+	NoMPFX_0FBD = 0x0002_0000,
+	/// Don't decode [`Code::Lahf`] and [`Code::Sahf`] in 64-bit mode
+	///
+	/// [`Code::Lahf`]: enum.Code.html#variant.Lahf
+	/// [`Code::Sahf`]: enum.Code.html#variant.Sahf
+	NoLahfSahf64 = 0x0004_0000,
 }
 // GENERATOR-END: DecoderOptions
 
@@ -437,7 +518,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// [`position()`]: #method.position
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn ip(&self) -> u64 {
 		self.ip
 	}
@@ -449,14 +530,14 @@ impl<'a> Decoder<'a> {
 	/// # Arguments
 	///
 	/// * `new_value`: New IP
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_ip(&mut self, new_value: u64) {
 		self.ip = new_value;
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn bitness(&self) -> u32 {
 		self.bitness
 	}
@@ -466,7 +547,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// [`set_position()`]: #method.set_position
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn max_position(&self) -> usize {
 		self.data.len()
 	}
@@ -479,7 +560,7 @@ impl<'a> Decoder<'a> {
 	/// [`position()`]: #method.position
 	/// [`can_decode()`]: #method.can_decode
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn position(&self) -> usize {
 		self.data_ptr as usize - self.data.as_ptr() as usize
 	}
@@ -524,7 +605,7 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(Code::Pause, decoder.decode().code());
 	/// assert_eq!(3, decoder.position());
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn set_position(&mut self, new_pos: usize) {
 		assert!(new_pos <= self.data.len());
 		self.data_ptr = unsafe { self.data.get_unchecked(new_pos) };
@@ -569,7 +650,7 @@ impl<'a> Decoder<'a> {
 	/// assert!(!decoder.can_decode());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
@@ -608,7 +689,7 @@ impl<'a> Decoder<'a> {
 	///     println!("code: {:?}", instr.code());
 	/// }
 	/// ```
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn iter<'b>(&'b mut self) -> DecoderIter<'a, 'b> {
 		DecoderIter { decoder: self }
 	}
@@ -677,7 +758,7 @@ impl<'a> Decoder<'a> {
 	/// [`decode()`]: #method.decode
 	/// [`decode_out()`]: #method.decode_out
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn invalid_no_more_bytes(&self) -> bool {
 		(self.state.flags & StateFlags::NO_MORE_BYTES) != 0
 	}
@@ -722,7 +803,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg(has_maybe_uninit)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { mem::MaybeUninit::uninit().assume_init() };
@@ -771,7 +852,7 @@ impl<'a> Decoder<'a> {
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(deprecated_in_future)]
 	#[cfg(not(has_maybe_uninit))]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn decode(&mut self) -> Instruction {
 		// Safe, decode_out() initializes the whole thing
 		let mut instruction = unsafe { mem::uninitialized() };
@@ -963,7 +1044,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
@@ -971,7 +1052,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
 		debug_assert!(self.data_ptr as usize - self.instr_start_data_ptr as usize <= IcedConstants::MAX_INSTRUCTION_LENGTH);
@@ -1018,21 +1099,21 @@ impl<'a> Decoder<'a> {
 		}
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn clear_mandatory_prefix_f3(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		debug_assert_eq!(MandatoryPrefixByte::PF3 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repe_prefix(instruction);
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn clear_mandatory_prefix_f2(&self, instruction: &mut Instruction) {
 		debug_assert_eq!(EncodingKind::Legacy, self.state.encoding());
 		debug_assert_eq!(MandatoryPrefixByte::PF2 as u32, self.state.mandatory_prefix);
 		super::instruction_internal::internal_clear_has_repne_prefix(instruction);
 	}
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(self) fn set_invalid_instruction(&mut self) {
 		self.state.flags |= StateFlags::IS_INVALID;
 	}
@@ -1787,7 +1868,7 @@ pub struct DecoderIter<'a: 'b, 'b> {
 impl<'a, 'b> Iterator for DecoderIter<'a, 'b> {
 	type Item = Instruction;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1812,7 +1893,7 @@ pub struct DecoderIntoIter<'a> {
 impl<'a> Iterator for DecoderIntoIter<'a> {
 	type Item = Instruction;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn next(&mut self) -> Option<Self::Item> {
 		if self.decoder.can_decode() {
 			Some(self.decoder.decode())
@@ -1830,7 +1911,7 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type IntoIter = DecoderIntoIter<'a>;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }
 	}
@@ -1840,7 +1921,7 @@ impl<'a: 'b, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }
 	}

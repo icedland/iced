@@ -124,7 +124,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 45] = [
 	"YX",
 ];
 impl fmt::Debug for CtorKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])?;
 		Ok(())
@@ -132,7 +132,7 @@ impl fmt::Debug for CtorKind {
 }
 impl Default for CtorKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		CtorKind::Previous
 	}
@@ -235,7 +235,7 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 31] = [
 	"DeclareQword",
 ];
 impl fmt::Debug for InstrOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])?;
 		Ok(())
@@ -243,7 +243,7 @@ impl fmt::Debug for InstrOpKind {
 }
 impl Default for InstrOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		InstrOpKind::Register
 	}

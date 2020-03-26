@@ -110,7 +110,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 38] = [
 	"invlpga",
 ];
 impl fmt::Debug for CtorKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_CTOR_KIND[*self as usize])?;
 		Ok(())
@@ -118,7 +118,7 @@ impl fmt::Debug for CtorKind {
 }
 impl Default for CtorKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		CtorKind::Previous
 	}
@@ -144,7 +144,7 @@ static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"Size64",
 ];
 impl fmt::Debug for SizeOverride {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SIZE_OVERRIDE[*self as usize])?;
 		Ok(())
@@ -152,7 +152,7 @@ impl fmt::Debug for SizeOverride {
 }
 impl Default for SizeOverride {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		SizeOverride::None
 	}
@@ -174,7 +174,7 @@ static GEN_DEBUG_BRANCH_SIZE_INFO: [&str; 2] = [
 	"Short",
 ];
 impl fmt::Debug for BranchSizeInfo {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_BRANCH_SIZE_INFO[*self as usize])?;
 		Ok(())
@@ -182,7 +182,7 @@ impl fmt::Debug for BranchSizeInfo {
 }
 impl Default for BranchSizeInfo {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		BranchSizeInfo::None
 	}
@@ -292,7 +292,7 @@ static GEN_DEBUG_INSTR_OP_KIND: [&str; 30] = [
 	"DeclareQword",
 ];
 impl fmt::Debug for InstrOpKind {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_INSTR_OP_KIND[*self as usize])?;
 		Ok(())
@@ -300,7 +300,7 @@ impl fmt::Debug for InstrOpKind {
 }
 impl Default for InstrOpKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		InstrOpKind::Register
 	}

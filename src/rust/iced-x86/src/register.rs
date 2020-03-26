@@ -25,6 +25,8 @@ use super::iced_constants::IcedConstants;
 use core::fmt;
 use core::mem;
 use core::ops::{Add, AddAssign, Sub, SubAssign};
+#[cfg(feature = "javascript")]
+use wasm_bindgen::prelude::*;
 
 #[cfg(feature = "instr_info")]
 pub use self::info::*;
@@ -306,7 +308,7 @@ mod info {
 		/// assert_eq!(Register::EAX, info.register());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn register(&self) -> Register {
 			self.register
 		}
@@ -329,7 +331,7 @@ mod info {
 		/// assert_eq!(Register::ZMM0, info.base());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn base(&self) -> Register {
 			self.base
 		}
@@ -354,7 +356,7 @@ mod info {
 		/// assert_eq!(13, info.number());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn number(&self) -> usize {
 			self.register as usize - self.base as usize
 		}
@@ -381,7 +383,7 @@ mod info {
 		/// assert_eq!(Register::ZMM3, info.full_register());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn full_register(&self) -> Register {
 			self.full_register
 		}
@@ -409,7 +411,7 @@ mod info {
 		/// assert_eq!(Register::ZMM3, info.full_register32());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn full_register32(&self) -> Register {
 			let full_register = self.full_register;
 			if full_register.is_gpr() {
@@ -442,7 +444,7 @@ mod info {
 		/// assert_eq!(64, info.size());
 		/// ```
 		#[cfg_attr(has_must_use, must_use)]
-		#[inline]
+		#[cfg_attr(not(feature = "javascript"), inline)]
 		pub fn size(&self) -> usize {
 			self.size as usize
 		}
@@ -461,7 +463,7 @@ impl Register {
 	/// assert_eq!(4, info.size());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn info(self) -> &'static RegisterInfo {
 		&REGISTER_INFOS[self as usize]
 	}
@@ -490,7 +492,7 @@ impl Register {
 	/// assert_eq!(Register::EIP, Register::RIP.base());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn base(self) -> Self {
 		self.info().base()
 	}
@@ -521,7 +523,7 @@ impl Register {
 	/// assert_eq!(1, Register::RIP.number());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn number(self) -> usize {
 		self.info().number()
 	}
@@ -550,7 +552,7 @@ impl Register {
 	/// assert_eq!(Register::RIP, Register::RIP.full_register());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn full_register(self) -> Self {
 		self.info().full_register()
 	}
@@ -580,7 +582,7 @@ impl Register {
 	/// assert_eq!(Register::RIP, Register::RIP.full_register32());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn full_register32(self) -> Self {
 		self.info().full_register32()
 	}
@@ -609,7 +611,7 @@ impl Register {
 	/// assert_eq!(8, Register::RIP.size());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn size(self) -> usize {
 		self.info().size()
 	}
@@ -627,7 +629,7 @@ impl Register {
 	/// assert!(!Register::RCX.is_segment_register());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_segment_register(self) -> bool {
 		Register::ES <= self && self <= Register::GS
 	}
@@ -646,7 +648,7 @@ impl Register {
 	/// assert!(!Register::XMM0.is_gpr());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_gpr(self) -> bool {
 		Register::AL <= self && self <= Register::R15
 	}
@@ -665,7 +667,7 @@ impl Register {
 	/// assert!(!Register::XMM0.is_gpr8());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_gpr8(self) -> bool {
 		Register::AL <= self && self <= Register::R15L
 	}
@@ -684,7 +686,7 @@ impl Register {
 	/// assert!(!Register::XMM0.is_gpr16());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_gpr16(self) -> bool {
 		Register::AX <= self && self <= Register::R15W
 	}
@@ -703,7 +705,7 @@ impl Register {
 	/// assert!(!Register::XMM0.is_gpr32());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_gpr32(self) -> bool {
 		Register::EAX <= self && self <= Register::R15D
 	}
@@ -722,7 +724,7 @@ impl Register {
 	/// assert!(!Register::XMM0.is_gpr64());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_gpr64(self) -> bool {
 		Register::RAX <= self && self <= Register::R15
 	}
@@ -740,7 +742,7 @@ impl Register {
 	/// assert!(!Register::ZMM0.is_xmm());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_xmm(self) -> bool {
 		Register::XMM0 <= self && self <= IcedConstants::XMM_LAST
 	}
@@ -758,7 +760,7 @@ impl Register {
 	/// assert!(!Register::ZMM0.is_ymm());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_ymm(self) -> bool {
 		Register::YMM0 <= self && self <= IcedConstants::YMM_LAST
 	}
@@ -776,7 +778,7 @@ impl Register {
 	/// assert!(Register::ZMM0.is_zmm());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_zmm(self) -> bool {
 		Register::ZMM0 <= self && self <= IcedConstants::ZMM_LAST
 	}
@@ -794,7 +796,7 @@ impl Register {
 	/// assert!(Register::ZMM0.is_vector_register());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_vector_register(self) -> bool {
 		Register::XMM0 <= self && self <= IcedConstants::VMM_LAST
 	}
@@ -809,7 +811,7 @@ impl Register {
 	/// assert!(Register::RIP.is_ip());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_ip(self) -> bool {
 		self == Register::EIP || self == Register::RIP
 	}
@@ -824,7 +826,7 @@ impl Register {
 	/// assert!(Register::K3.is_k());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_k(self) -> bool {
 		Register::K0 <= self && self <= Register::K7
 	}
@@ -839,7 +841,7 @@ impl Register {
 	/// assert!(Register::CR3.is_cr());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_cr(self) -> bool {
 		Register::CR0 <= self && self <= Register::CR15
 	}
@@ -854,7 +856,7 @@ impl Register {
 	/// assert!(Register::DR3.is_dr());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_dr(self) -> bool {
 		Register::DR0 <= self && self <= Register::DR15
 	}
@@ -869,7 +871,7 @@ impl Register {
 	/// assert!(Register::TR3.is_tr());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_tr(self) -> bool {
 		Register::TR0 <= self && self <= Register::TR7
 	}
@@ -884,7 +886,7 @@ impl Register {
 	/// assert!(Register::ST3.is_st());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_st(self) -> bool {
 		Register::ST0 <= self && self <= Register::ST7
 	}
@@ -899,7 +901,7 @@ impl Register {
 	/// assert!(Register::BND3.is_bnd());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_bnd(self) -> bool {
 		Register::BND0 <= self && self <= Register::BND3
 	}
@@ -914,7 +916,7 @@ impl Register {
 	/// assert!(Register::MM3.is_mm());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub fn is_mm(self) -> bool {
 		Register::MM0 <= self && self <= Register::MM7
 	}
@@ -923,6 +925,7 @@ impl Register {
 // GENERATOR-BEGIN: Register
 // ⚠️This was generated by GENERATOR!🦹‍♂️
 /// A register
+#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 #[allow(missing_docs)]
@@ -1414,7 +1417,7 @@ static GEN_DEBUG_REGISTER: [&str; 241] = [
 	"TR7",
 ];
 impl fmt::Debug for Register {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_REGISTER[*self as usize])?;
 		Ok(())
@@ -1422,7 +1425,7 @@ impl fmt::Debug for Register {
 }
 impl Default for Register {
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn default() -> Self {
 		Register::None
 	}
@@ -1448,7 +1451,7 @@ impl Add<Register> for i32 {
 	type Output = Register;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add(self, rhs: Register) -> Self::Output {
 		rhs.add(self as u32)
 	}
@@ -1458,7 +1461,7 @@ impl Add<Register> for u32 {
 	type Output = Register;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add(self, rhs: Register) -> Self::Output {
 		rhs.add(self)
 	}
@@ -1468,7 +1471,7 @@ impl Add<i32> for Register {
 	type Output = Self;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add(self, rhs: i32) -> Self::Output {
 		self.add(rhs as u32)
 	}
@@ -1478,21 +1481,21 @@ impl Add<u32> for Register {
 	type Output = Self;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add(self, rhs: u32) -> Self::Output {
 		self.add(rhs)
 	}
 }
 // Register += i32
 impl AddAssign<i32> for Register {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add_assign(&mut self, rhs: i32) {
 		*self = self.add(rhs as u32)
 	}
 }
 // Register += u32
 impl AddAssign<u32> for Register {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn add_assign(&mut self, rhs: u32) {
 		*self = self.add(rhs)
 	}
@@ -1502,7 +1505,7 @@ impl Sub<i32> for Register {
 	type Output = Self;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn sub(self, rhs: i32) -> Self::Output {
 		self.sub(rhs as u32)
 	}
@@ -1512,21 +1515,21 @@ impl Sub<u32> for Register {
 	type Output = Self;
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn sub(self, rhs: u32) -> Self::Output {
 		self.sub(rhs)
 	}
 }
 // Register -= i32
 impl SubAssign<i32> for Register {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn sub_assign(&mut self, rhs: i32) {
 		*self = self.sub(rhs as u32)
 	}
 }
 // Register -= u32
 impl SubAssign<u32> for Register {
-	#[inline]
+	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn sub_assign(&mut self, rhs: u32) {
 		*self = self.sub(rhs)
 	}
