@@ -21,14 +21,14 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::*;
+use iced_x86::{ConstantOffsets, Decoder, Instruction};
 use std::slice;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct DecoderX86 {
-	// The decoder has a reference to this vector and the 'static lifetime is really the lifetime
-	// of this vector. We can't use another lifetime. This vector is read-only.
+	// The decoder has a reference to this vector and the 'static lifetime is really the lifetime of
+	// this vector. We can't use another lifetime. This vector and the field are read-only.
 	#[allow(dead_code)]
 	__data_do_not_use: Vec<u8>,
 	decoder: Decoder<'static>,

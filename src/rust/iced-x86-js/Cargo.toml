@@ -15,7 +15,7 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["javascript", "std", "db", "decoder", "masm"]
+default = ["javascript", "std", "db", "decoder", "encoder", "instr_info", "gas", "intel", "masm", "nasm"]
 decoder = ["iced-x86/decoder"]
 encoder = ["iced-x86/encoder"]
 instr_info = ["iced-x86/instr_info"]

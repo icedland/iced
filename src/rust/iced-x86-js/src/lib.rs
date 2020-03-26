@@ -27,6 +27,8 @@ mod block_encoder;
 mod decoder;
 #[cfg(feature = "encoder")]
 mod encoder;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
 
@@ -36,6 +38,8 @@ pub use block_encoder::*;
 pub use decoder::*;
 #[cfg(feature = "encoder")]
 pub use encoder::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use formatter::*;
 #[cfg(feature = "instr_info")]
 pub use info::*;
 
