@@ -7430,6 +7430,14 @@ impl Instruction {
 	pub fn to_string_js(&self) -> String {
 		self.to_string()
 	}
+
+	/// Clones this instance
+	#[cfg_attr(has_must_use, must_use)]
+	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[cfg_attr(feature = "javascript", wasm_bindgen(js_name = "clone"))]
+	pub fn clone_js(&self) -> Self {
+		*self
+	}
 }
 
 impl Eq for Instruction {}
