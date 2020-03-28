@@ -12,7 +12,8 @@ categories = ["wasm", "development-tools::debugging", "encoding", "hardware-supp
 edition = "2018"
 
 [lib]
-crate-type = ["cdylib", "rlib"]
+# Adding "rlib" increases the wasm file size, so ... don't do it
+crate-type = ["cdylib"]
 
 [features]
 default = ["decoder", "masm"]
@@ -26,8 +27,8 @@ masm = ["base", "iced-x86/masm"]
 nasm = ["base", "iced-x86/nasm"]
 
 [dependencies]
-wasm-bindgen = "0.2.59"
-js-sys = "0.3.36"
+wasm-bindgen = "0.2.60"
+js-sys = "0.3.37"
 
 [dependencies.iced-x86]
 version = "1.0.1"
