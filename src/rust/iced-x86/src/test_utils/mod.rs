@@ -55,7 +55,7 @@ pub(crate) fn get_decoder_unit_tests_dir() -> PathBuf {
 	path
 }
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub(crate) fn get_encoder_unit_tests_dir() -> PathBuf {
 	let mut path = get_unit_tests_base_dir();
 	path.push("Encoder");

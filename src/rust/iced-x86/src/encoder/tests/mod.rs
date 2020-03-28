@@ -22,12 +22,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 mod create;
+#[cfg(feature = "op_code_info")]
 mod dec_enc;
 pub(crate) mod non_decoded_tests;
+#[cfg(feature = "op_code_info")]
 mod op_code_test_case;
+#[cfg(feature = "op_code_info")]
 mod op_code_test_case_parser;
 
+#[cfg(feature = "op_code_info")]
 use self::op_code_test_case::*;
+#[cfg(feature = "op_code_info")]
 use self::op_code_test_case_parser::OpCodeInfoTestParser;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
@@ -42,6 +47,7 @@ use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt::Write;
+#[cfg(feature = "op_code_info")]
 use core::mem;
 #[cfg(all(not(has_alloc), feature = "std"))]
 use std::rc::Rc;
@@ -729,6 +735,7 @@ fn verify_memory_operand_ctors() {
 	}
 }
 
+#[cfg(feature = "op_code_info")]
 lazy_static! {
 	static ref OP_CODE_INFO_TEST_CASES: Vec<OpCodeInfoTestCase> = {
 		let mut filename = get_encoder_unit_tests_dir();
@@ -737,6 +744,7 @@ lazy_static! {
 	};
 }
 
+#[cfg(feature = "op_code_info")]
 #[test]
 fn test_all_op_code_infos() {
 	for tc in &*OP_CODE_INFO_TEST_CASES {
@@ -744,6 +752,7 @@ fn test_all_op_code_infos() {
 	}
 }
 
+#[cfg(feature = "op_code_info")]
 fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	let info = tc.code.op_code();
 	assert_eq!(tc.code, info.code());
@@ -812,6 +821,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 	}
 }
 
+#[cfg(feature = "op_code_info")]
 #[test]
 #[should_panic]
 fn op_kind_panics_if_invalid_input() {
@@ -819,6 +829,7 @@ fn op_kind_panics_if_invalid_input() {
 	let _ = op_code.op_kind(IcedConstants::MAX_OP_COUNT as u32);
 }
 
+#[cfg(feature = "op_code_info")]
 #[allow(trivial_casts)]
 #[test]
 fn verify_instruction_op_code_info() {
@@ -830,6 +841,7 @@ fn verify_instruction_op_code_info() {
 	}
 }
 
+#[cfg(feature = "op_code_info")]
 #[test]
 fn make_sure_all_code_values_are_tested_exactly_once() {
 	let mut tested = [false; IcedConstants::NUMBER_OF_CODE_VALUES];
@@ -850,12 +862,14 @@ fn make_sure_all_code_values_are_tested_exactly_once() {
 	assert_eq!("", s);
 }
 
+#[cfg(feature = "op_code_info")]
 #[test]
 #[should_panic]
 fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_0() {
 	let _ = Code::Nopd.op_code().is_available_in_mode(0);
 }
 
+#[cfg(feature = "op_code_info")]
 #[test]
 #[should_panic]
 fn op_code_info_is_available_in_mode_panics_if_invalid_bitness_128() {

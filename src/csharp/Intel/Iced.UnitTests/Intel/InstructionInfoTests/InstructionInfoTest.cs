@@ -210,7 +210,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			CheckEqual(ref info, ref info2, hasRegs2: false, hasMem2: false);
 
 			Assert.Equal(info.Encoding, instruction.Code.Encoding());
-#if ENCODER
+#if ENCODER && OPCODE_INFO
 			Assert.Equal(code.ToOpCode().Encoding, instruction.Code.Encoding());
 #endif
 			var cf = instruction.Code.CpuidFeatures();

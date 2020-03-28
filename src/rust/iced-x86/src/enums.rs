@@ -617,7 +617,7 @@ impl Default for FlowControl {
 #[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[allow(non_camel_case_types)]
 pub enum OpCodeOperandKind {
 	/// No operand
@@ -839,7 +839,7 @@ pub enum OpCodeOperandKind {
 	/// 4-byte branch offset (`JMPE` instruction)
 	brdisp_4,
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 105] = [
 	"None",
@@ -948,7 +948,7 @@ static GEN_DEBUG_OP_CODE_OPERAND_KIND: [&str; 105] = [
 	"brdisp_2",
 	"brdisp_4",
 ];
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeOperandKind {
 	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -956,7 +956,7 @@ impl fmt::Debug for OpCodeOperandKind {
 		Ok(())
 	}
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for OpCodeOperandKind {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]
@@ -1583,7 +1583,7 @@ impl Default for ConditionCode {
 /// Mandatory prefix
 #[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub enum MandatoryPrefix {
 	/// No mandatory prefix (legacy and 3DNow! tables only)
 	None,
@@ -1596,7 +1596,7 @@ pub enum MandatoryPrefix {
 	/// `F2` prefix
 	PF2,
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_MANDATORY_PREFIX: [&str; 5] = [
 	"None",
@@ -1605,7 +1605,7 @@ static GEN_DEBUG_MANDATORY_PREFIX: [&str; 5] = [
 	"PF3",
 	"PF2",
 ];
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for MandatoryPrefix {
 	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -1613,7 +1613,7 @@ impl fmt::Debug for MandatoryPrefix {
 		Ok(())
 	}
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for MandatoryPrefix {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]
@@ -1628,7 +1628,7 @@ impl Default for MandatoryPrefix {
 /// Opcode table
 #[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum OpCodeTableKind {
 	/// Legacy encoding table
@@ -1646,7 +1646,7 @@ pub enum OpCodeTableKind {
 	/// `XOPA` table (XOP)
 	XOPA,
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 7] = [
 	"Normal",
@@ -1657,7 +1657,7 @@ static GEN_DEBUG_OP_CODE_TABLE_KIND: [&str; 7] = [
 	"XOP9",
 	"XOPA",
 ];
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl fmt::Debug for OpCodeTableKind {
 	#[cfg_attr(not(feature = "javascript"), inline)]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
@@ -1665,7 +1665,7 @@ impl fmt::Debug for OpCodeTableKind {
 		Ok(())
 	}
 }
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for OpCodeTableKind {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(not(feature = "javascript"), inline)]

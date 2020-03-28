@@ -52,7 +52,7 @@ namespace Generator.Encoder.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.EncoderNamespace), "OpCodeOperandKinds.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLine($"#if {CSharpConstants.OpCodeInfoDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
 				using (writer.Indent()) {

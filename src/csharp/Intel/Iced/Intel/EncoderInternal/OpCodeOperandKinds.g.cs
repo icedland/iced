@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if ENCODER
+#if ENCODER && OPCODE_INFO
 namespace Iced.Intel.EncoderInternal {
 	static class OpCodeOperandKinds {
 #if HAS_SPAN

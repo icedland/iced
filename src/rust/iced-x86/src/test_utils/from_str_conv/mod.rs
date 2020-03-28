@@ -38,12 +38,12 @@ mod memory_size_table;
 mod mnemonic_table;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod number_base_table;
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod op_code_operand_kind_table;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod options_props_table;
 mod register_table;
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod tuple_type_table;
 
 use self::code_table::*;
@@ -63,12 +63,12 @@ use self::memory_size_table::*;
 use self::mnemonic_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::number_base_table::*;
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 use self::op_code_operand_kind_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::options_props_table::*;
 use self::register_table::*;
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 use self::tuple_type_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use super::super::formatter::tests::enums::OptionsProps;
@@ -130,7 +130,14 @@ pub(crate) fn to_u64(value: &str) -> Result<u64, String> {
 	}
 }
 
-#[cfg(any(feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(
+	all(feature = "encoder", feature = "op_code_info"),
+	feature = "instr_info",
+	feature = "gas",
+	feature = "intel",
+	feature = "masm",
+	feature = "nasm"
+))]
 pub(crate) fn to_i64(value: &str) -> Result<i64, String> {
 	let mut unsigned_value = value.trim();
 	let mult = if unsigned_value.starts_with('-') {
@@ -156,7 +163,14 @@ pub(crate) fn to_u32(value: &str) -> Result<u32, String> {
 	Err(format!("Invalid number: {}", value))
 }
 
-#[cfg(any(feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(
+	all(feature = "encoder", feature = "op_code_info"),
+	feature = "instr_info",
+	feature = "gas",
+	feature = "intel",
+	feature = "masm",
+	feature = "nasm"
+))]
 pub(crate) fn to_i32(value: &str) -> Result<i32, String> {
 	let value = value.trim();
 	if let Ok(v64) = to_i64(value) {
@@ -272,7 +286,7 @@ pub(crate) fn to_encoding_kind(value: &str) -> Result<EncodingKind, String> {
 	}
 }
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub(crate) fn to_tuple_type(value: &str) -> Result<TupleType, String> {
 	let value = value.trim();
 	match TO_TUPLE_TYPE_HASH.get(value) {
@@ -299,7 +313,7 @@ pub(crate) fn to_flow_control(value: &str) -> Result<FlowControl, String> {
 	}
 }
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub(crate) fn to_op_code_operand_kind(value: &str) -> Result<OpCodeOperandKind, String> {
 	let value = value.trim();
 	match TO_OP_CODE_OPERAND_KIND_HASH.get(value) {

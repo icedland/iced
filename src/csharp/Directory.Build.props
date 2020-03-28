@@ -11,7 +11,7 @@
     <Features>strict;nullablePublicOnly</Features>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)Iced.snk</AssemblyOriginatorKeyFile>
-    <IcedFeatureFlags>DECODER;ENCODER;BLOCK_ENCODER;INSTR_INFO;GAS;INTEL;MASM;NASM</IcedFeatureFlags>
+    <IcedFeatureFlags>DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM</IcedFeatureFlags>
     <DefineConstants>$(IcedDefineConstants);$(IcedFeatureFlags)</DefineConstants>
   </PropertyGroup>
 

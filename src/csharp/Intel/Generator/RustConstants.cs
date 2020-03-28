@@ -48,6 +48,7 @@ namespace Generator {
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";
 		public const string FeatureEncoder = "#[cfg(feature = \"encoder\")]";
+		public const string FeatureOpCodeInfo = "#[cfg(all(feature = \"encoder\", feature = \"op_code_info\"))]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
 		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
 		public const string FeatureJavaScript = "#[cfg(feature = \"javascript\")]";

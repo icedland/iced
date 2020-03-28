@@ -37872,7 +37872,7 @@ impl Code {
 	}
 }
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Code {
 	/// Gets a [`OpCodeInfo`]
 	///

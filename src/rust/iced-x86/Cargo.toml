@@ -17,10 +17,11 @@ maintenance = { status = "actively-developed" }
 
 # These features are documented in the module docs (lib.rs)
 [features]
-default = ["std", "decoder", "encoder", "block_encoder", "instr_info", "gas", "intel", "masm", "nasm"]
+default = ["std", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
 decoder = []
 encoder = []
 block_encoder = ["encoder"]
+op_code_info = ["encoder"]
 instr_info = []
 gas = []
 intel = []

@@ -23,14 +23,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 mod enums;
 pub(crate) mod handlers_table;
+#[cfg(feature = "op_code_info")]
 mod instruction_fmt;
 mod mem_op;
+#[cfg(feature = "op_code_info")]
 mod mnemonic_str_tbl;
+#[cfg(feature = "op_code_info")]
 mod op_code;
 mod op_code_data;
+#[cfg(feature = "op_code_info")]
 mod op_code_fmt;
 mod op_code_handler;
+#[cfg(feature = "op_code_info")]
 pub(crate) mod op_code_tbl;
+#[cfg(feature = "op_code_info")]
 mod op_kind_tables;
 mod ops;
 mod ops_tables;
@@ -40,6 +46,7 @@ pub(crate) mod tests;
 pub use self::enums::*;
 use self::handlers_table::*;
 pub use self::mem_op::*;
+#[cfg(feature = "op_code_info")]
 pub use self::op_code::*;
 use self::op_code_handler::OpCodeHandler;
 use super::iced_constants::IcedConstants;

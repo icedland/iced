@@ -1585,7 +1585,7 @@ namespace Iced.Intel {
 			}
 		}
 
-#if ENCODER
+#if ENCODER && OPCODE_INFO
 		/// <summary>
 		/// Gets the <see cref="OpCodeInfo"/>
 		/// </summary>

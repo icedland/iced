@@ -28,6 +28,7 @@ jobs:
               "DECODER",
               "ENCODER",
               "ENCODER;BLOCK_ENCODER"
+              "ENCODER;OPCODE_INFO"
               "INSTR_INFO",
               "GAS",
               "INTEL",
@@ -44,6 +45,7 @@ jobs:
               "DECODER",
               "DECODER;ENCODER",
               "DECODER;ENCODER;BLOCK_ENCODER",
+              "DECODER;ENCODER;OPCODE_INFO",
               "DECODER;INSTR_INFO",
               "DECODER;GAS",
               "DECODER;INTEL",
@@ -150,7 +152,7 @@ jobs:
           git clean -xdf
           cd src/rust/iced-x86
           echo ==== BUILD DEBUG ====
-          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder instr_info gas intel masm nasm db"
+          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm db"
           cd ../../..
           git clean -xdf
 
@@ -166,6 +168,8 @@ jobs:
           cargo check --color always --no-default-features --features "std encoder"
           echo ==== std encoder block_encoder ====
           cargo check --color always --no-default-features --features "std encoder block_encoder"
+          echo ==== std encoder op_code_info ====
+          cargo check --color always --no-default-features --features "std encoder op_code_info"
           echo ==== std instr_info ====
           cargo check --color always --no-default-features --features "std instr_info"
           echo ==== std gas ====
@@ -183,6 +187,8 @@ jobs:
           cargo check --color always --no-default-features --features "no_std encoder"
           echo ==== no_std encoder block_encoder ====
           cargo check --color always --no-default-features --features "no_std encoder block_encoder"
+          echo ==== no_std encoder op_code_info ====
+          cargo check --color always --no-default-features --features "no_std encoder op_code_info"
           echo ==== no_std instr_info ====
           cargo check --color always --no-default-features --features "no_std instr_info"
           echo ==== no_std gas ====
@@ -200,6 +206,8 @@ jobs:
           cargo check --color always --tests --no-default-features --features "std decoder encoder"
           echo ==== TEST std decoder encoder block_encoder ====
           cargo check --color always --tests --no-default-features --features "std decoder encoder block_encoder"
+          echo ==== TEST std decoder encoder op_code_info ====
+          cargo check --color always --tests --no-default-features --features "std decoder encoder op_code_info"
           echo ==== TEST std decoder instr_info ====
           cargo check --color always --tests --no-default-features --features "std decoder instr_info"
           echo ==== TEST std decoder gas ====
@@ -227,6 +235,8 @@ jobs:
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder"
           echo ==== encoder block_encoder ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder block_encoder"
+          echo ==== encoder op_code_info ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder op_code_info"
           echo ==== instr_info ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instr_info"
           echo ==== gas ====
@@ -237,8 +247,8 @@ jobs:
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "masm"
           echo ==== nasm ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "nasm"
-          echo ==== CLIPPY decoder encoder block_encoder instr_info gas intel masm nasm ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "decoder encoder block_encoder instr_info gas intel masm nasm"
+          echo ==== CLIPPY decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
           
           cd ..
           git clean -xdf

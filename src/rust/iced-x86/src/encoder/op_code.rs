@@ -22,7 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
-use super::enums::*;
 use super::instruction_fmt::*;
 use super::op_code_fmt::*;
 use super::op_kind_tables::*;

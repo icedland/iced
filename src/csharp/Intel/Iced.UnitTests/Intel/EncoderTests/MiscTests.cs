@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if ENCODER && BLOCK_ENCODER
+#if ENCODER
 using System;
 using System.Collections.Generic;
 using Iced.Intel;
@@ -366,6 +366,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Assert.Throws<ArgumentNullException>(() => Encoder.Create(bitness, null));
 		}
 
+#if OPCODE_INFO
 		[Fact]
 		void ToOpCode_throws_if_input_is_invalid() {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MinValue).ToOpCode());
@@ -373,6 +374,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)IcedConstants.NumberOfCodeValues).ToOpCode());
 			Assert.Throws<ArgumentOutOfRangeException>(() => ((Code)int.MaxValue).ToOpCode());
 		}
+#endif
 
 		[Fact]
 		void Verify_MemoryOperand_ctors() {
@@ -498,11 +500,13 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
+#if OPCODE_INFO
 		[Fact]
 		void OpCodeInfo_IsAvailableInMode_throws_if_invalid_bitness() {
 			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
 				Assert.Throws<ArgumentOutOfRangeException>(() => Code.Nopd.ToOpCode().IsAvailableInMode(bitness));
 		}
+#endif
 
 		[Fact]
 		void WriteByte_works() {
