@@ -66,7 +66,7 @@ namespace Generator.Assembler.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				writer.WriteLine(CSharpConstants.PragmaMissingDocsDisable);
@@ -114,7 +114,7 @@ namespace Generator.Assembler.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("public partial class Assembler {");
@@ -185,7 +185,7 @@ namespace Generator.Assembler.CSharp {
 			var filenameTests = Path.Combine(Path.Combine(_generatorOptions.CSharpTestsDir, "Intel", assemblerTestsNameBase, $"{testName}.g.cs"));
 			using (var writerTests = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filenameTests))) {
 				writerTests.WriteFileHeader();
-				writerTests.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writerTests.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
 				writerTests.WriteLine($"namespace {CSharpConstants.IcedUnitTestsNamespace}.{assemblerTestsNameBase} {{");
 				using (writerTests.Indent()) {
 					writerTests.WriteLine("using Iced.Intel;");

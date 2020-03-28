@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if ENCODER
+#if ENCODER && BLOCK_ENCODER
 namespace Iced.Intel {
 	public partial class Assembler {
 		/// <summary>aaa instruction.<br/>

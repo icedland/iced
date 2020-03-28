@@ -17,9 +17,10 @@ maintenance = { status = "actively-developed" }
 
 # These features are documented in the module docs (lib.rs)
 [features]
-default = ["std", "decoder", "encoder", "instr_info", "gas", "intel", "masm", "nasm"]
+default = ["std", "decoder", "encoder", "block_encoder", "instr_info", "gas", "intel", "masm", "nasm"]
 decoder = []
 encoder = []
+block_encoder = ["encoder"]
 instr_info = []
 gas = []
 intel = []
@@ -40,7 +41,7 @@ static_assertions = "0.3.4"
 # It's not really optional, std or no_std must be used and they both require it.
 lazy_static = { version = "1.1.1", optional = true }
 
-# if: no_std and encoder
+# if: no_std and block_encoder
 hashbrown = { version = "0.7.1", optional = true }
 
 # if: javascript

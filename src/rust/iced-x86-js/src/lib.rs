@@ -69,7 +69,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::unused_self)]
 #![warn(clippy::used_underscore_binding)]
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder;
 #[cfg(feature = "decoder")]
 mod decoder;
@@ -80,7 +80,7 @@ mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder::*;
 #[cfg(feature = "decoder")]
 pub use decoder::*;

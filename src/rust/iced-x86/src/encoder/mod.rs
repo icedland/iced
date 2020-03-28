@@ -1373,6 +1373,7 @@ impl Encoder {
 		self.current_rip = self.current_rip.wrapping_add(1);
 	}
 
+	#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(super) fn position(&self) -> usize {
 		self.buffer.len()
@@ -1396,6 +1397,7 @@ impl Encoder {
 		self.buffer = buffer;
 	}
 
+	#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 	#[cfg_attr(not(feature = "javascript"), inline)]
 	pub(super) fn clear_buffer(&mut self) {
 		self.buffer.clear()

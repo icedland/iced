@@ -31,7 +31,7 @@ using Iced.Intel.EncoderInternal;
 namespace Iced.Intel {
 	/// <summary>
 	/// Encodes instructions decoded by the decoder or instructions created by other code.
-	/// See also <see cref="BlockEncoder"/> which can encode any number of instructions.
+	/// See also BlockEncoder which can encode any number of instructions.
 	/// </summary>
 	public sealed class Encoder {
 		// GENERATOR-BEGIN: ImmSizes

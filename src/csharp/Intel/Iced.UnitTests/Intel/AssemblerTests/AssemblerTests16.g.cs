@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if ENCODER
+#if ENCODER && BLOCK_ENCODER
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	using Iced.Intel;
 	using Xunit;

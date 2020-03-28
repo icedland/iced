@@ -1,4 +1,4 @@
-#if ENCODER
+#if ENCODER && BLOCK_ENCODER
 using Iced.Intel;
 using Xunit;
 using static Iced.Intel.AssemblerRegisters;

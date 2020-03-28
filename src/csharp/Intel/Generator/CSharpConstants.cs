@@ -42,6 +42,7 @@ namespace Generator {
 		public const string HasSpanDefine = "HAS_SPAN";
 		public const string DecoderDefine = "DECODER";
 		public const string EncoderDefine = "ENCODER";
+		public const string BlockEncoderDefine = "ENCODER && BLOCK_ENCODER";
 		public const string InstructionInfoDefine = "INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";
 		public const string DecoderOrEncoderOrInstrInfoDefine = "DECODER || ENCODER || INSTR_INFO";

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if ENCODER
+#if ENCODER && BLOCK_ENCODER
 namespace Iced.Intel.BlockEncoderInternal {
 	sealed class CodeWriterImpl : CodeWriter {
 		public uint BytesWritten;

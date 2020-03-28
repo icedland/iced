@@ -1,4 +1,4 @@
-#if ENCODER
+#if ENCODER && BLOCK_ENCODER
 using System;
 using Xunit;
 

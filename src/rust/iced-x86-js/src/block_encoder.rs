@@ -45,7 +45,7 @@ impl BlockEncoder {
 	///
 	/// * `bitness`: 16, 32, or 64
 	/// * `options`: Encoder options (`BlockEncoderOptions`)
-	#[cfg_attr(has_must_use, must_use)]
+	#[must_use]
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, options: u32) -> Self {
 		if bitness != 16 && bitness != 32 && bitness != 64 {

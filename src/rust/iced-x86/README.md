@@ -52,6 +52,7 @@ You can enable/disable these in your `Cargo.toml` file.
 
 - `decoder`: (✔️Enabled by default) Enables the decoder
 - `encoder`: (✔️Enabled by default) Enables the encoder
+- `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. This feature enables `encoder`
 - `instr_info`: (✔️Enabled by default) Enables the instruction info code
 - `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter

@@ -21,9 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#if ENCODER && BLOCK_ENCODER
 using System.ComponentModel;
 
-#if ENCODER
 namespace Iced.Intel {
 	/// <summary>
 	/// Memory operand factory.

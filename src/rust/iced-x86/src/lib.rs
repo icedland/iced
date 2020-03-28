@@ -75,6 +75,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //!
 //! - `decoder`: (✔️Enabled by default) Enables the decoder
 //! - `encoder`: (✔️Enabled by default) Enables the encoder
+//! - `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. This feature enables `encoder`
 //! - `instr_info`: (✔️Enabled by default) Enables the instruction info code
 //! - `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
 //! - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
@@ -1135,7 +1136,7 @@ extern crate lazy_static;
 #[macro_use]
 extern crate static_assertions;
 #[cfg(not(feature = "std"))]
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 extern crate hashbrown;
 #[cfg(feature = "javascript")]
 #[cfg(feature = "instr_info")]
@@ -1143,7 +1144,7 @@ extern crate js_sys;
 #[cfg(feature = "javascript")]
 extern crate wasm_bindgen;
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_enc;
 mod code;
 #[cfg(any(feature = "decoder", feature = "encoder"))]
@@ -1174,7 +1175,7 @@ mod test;
 #[cfg(test)]
 pub(crate) mod test_utils;
 
-#[cfg(feature = "encoder")]
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use self::block_enc::*;
 pub use self::code::*;
 #[cfg(any(feature = "decoder", feature = "encoder"))]

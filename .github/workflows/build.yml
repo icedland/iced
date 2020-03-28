@@ -27,6 +27,7 @@ jobs:
           foreach ($def in
               "DECODER",
               "ENCODER",
+              "ENCODER;BLOCK_ENCODER"
               "INSTR_INFO",
               "GAS",
               "INTEL",
@@ -42,6 +43,7 @@ jobs:
           foreach ($def in
               "DECODER",
               "DECODER;ENCODER",
+              "DECODER;ENCODER;BLOCK_ENCODER",
               "DECODER;INSTR_INFO",
               "DECODER;GAS",
               "DECODER;INTEL",
@@ -148,7 +150,7 @@ jobs:
           git clean -xdf
           cd src/rust/iced-x86
           echo ==== BUILD DEBUG ====
-          cargo check --color always --no-default-features --features "no_std decoder encoder instr_info gas intel masm nasm db"
+          cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder instr_info gas intel masm nasm db"
           cd ../../..
           git clean -xdf
 
@@ -162,6 +164,8 @@ jobs:
           cargo check --color always --no-default-features --features "std decoder"
           echo ==== std encoder ====
           cargo check --color always --no-default-features --features "std encoder"
+          echo ==== std encoder block_encoder ====
+          cargo check --color always --no-default-features --features "std encoder block_encoder"
           echo ==== std instr_info ====
           cargo check --color always --no-default-features --features "std instr_info"
           echo ==== std gas ====
@@ -177,6 +181,8 @@ jobs:
           cargo check --color always --no-default-features --features "no_std decoder"
           echo ==== no_std encoder ====
           cargo check --color always --no-default-features --features "no_std encoder"
+          echo ==== no_std encoder block_encoder ====
+          cargo check --color always --no-default-features --features "no_std encoder block_encoder"
           echo ==== no_std instr_info ====
           cargo check --color always --no-default-features --features "no_std instr_info"
           echo ==== no_std gas ====
@@ -192,6 +198,8 @@ jobs:
           cargo check --color always --tests --no-default-features --features "std decoder"
           echo ==== TEST std decoder encoder ====
           cargo check --color always --tests --no-default-features --features "std decoder encoder"
+          echo ==== TEST std decoder encoder block_encoder ====
+          cargo check --color always --tests --no-default-features --features "std decoder encoder block_encoder"
           echo ==== TEST std decoder instr_info ====
           cargo check --color always --tests --no-default-features --features "std decoder instr_info"
           echo ==== TEST std decoder gas ====
@@ -213,22 +221,24 @@ jobs:
           export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86-js
           
-          echo ==== javascript std db decoder ====
-          cargo check --color always --no-default-features --features "javascript std db decoder"
-          echo ==== javascript std db encoder ====
-          cargo check --color always --no-default-features --features "javascript std db encoder"
-          echo ==== javascript std db instr_info ====
-          cargo check --color always --no-default-features --features "javascript std db instr_info"
-          echo ==== javascript std db gas ====
-          cargo check --color always --no-default-features --features "javascript std db gas"
-          echo ==== javascript std db intel ====
-          cargo check --color always --no-default-features --features "javascript std db intel"
-          echo ==== javascript std db masm ====
-          cargo check --color always --no-default-features --features "javascript std db masm"
-          echo ==== javascript std db nasm ====
-          cargo check --color always --no-default-features --features "javascript std db nasm"
-          echo ==== CLIPPY javascript std db decoder encoder instr_info gas intel masm nasm ====
-          cargo clippy --color always --no-default-features --features "javascript std db decoder encoder instr_info gas intel masm nasm"
+          echo ==== decoder ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "decoder"
+          echo ==== encoder ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder"
+          echo ==== encoder block_encoder ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder block_encoder"
+          echo ==== instr_info ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instr_info"
+          echo ==== gas ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "gas"
+          echo ==== intel ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "intel"
+          echo ==== masm ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "masm"
+          echo ==== nasm ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "nasm"
+          echo ==== CLIPPY decoder encoder block_encoder instr_info gas intel masm nasm ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "decoder encoder block_encoder instr_info gas intel masm nasm"
           
           cd ..
           git clean -xdf
