@@ -27,8 +27,8 @@ jobs:
           foreach ($def in
               "DECODER",
               "ENCODER",
-              "ENCODER;BLOCK_ENCODER"
-              "ENCODER;OPCODE_INFO"
+              "ENCODER;BLOCK_ENCODER",
+              "ENCODER;OPCODE_INFO",
               "INSTR_INFO",
               "GAS",
               "INTEL",
