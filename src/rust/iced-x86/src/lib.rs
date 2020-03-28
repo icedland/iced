@@ -1112,7 +1112,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::same_functions_in_if_condition))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::todo))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
-#![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unused_self))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
 // Must disable #[inline] if wasm_bindgen since it doesn't export methods that are #[inline]d

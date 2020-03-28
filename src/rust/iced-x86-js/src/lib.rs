@@ -65,7 +65,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::same_functions_in_if_condition)]
 #![warn(clippy::todo)]
 #![warn(clippy::unimplemented)]
-#![warn(clippy::unimplemented)]
 #![warn(clippy::unused_self)]
 #![warn(clippy::used_underscore_binding)]
 
