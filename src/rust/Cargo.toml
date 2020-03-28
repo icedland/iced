@@ -1,6 +1,10 @@
 [workspace]
 
+exclude = [
+    # Exclude it so it can override the [profile.release] section
+    "iced-x86-js",
+]
+
 members = [
     "iced-x86",
-    "iced-x86-js",
 ]

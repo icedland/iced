@@ -37,3 +37,12 @@ js-sys = "0.3.36"
 version = "1.0.1"
 path = "../iced-x86"
 default-features = false
+
+[workspace]
+# We can only override [profile.release] if this is the root workspace.
+# So make sure this is the root workspace.
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
