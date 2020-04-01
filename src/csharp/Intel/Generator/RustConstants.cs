@@ -28,6 +28,7 @@ namespace Generator {
 
 		public const string AttributeNoRustFmt = "#" + attrNoRustFmt;
 		public const string AttributeNoRustFmtInner = "#!" + attrNoRustFmt;
+		public const string AttributeCopyClone = "#[derive(Copy, Clone)]";
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
@@ -42,6 +43,7 @@ namespace Generator {
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
 		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
+		public const string AttributeWasmBindgen = "#[wasm_bindgen]";
 
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";

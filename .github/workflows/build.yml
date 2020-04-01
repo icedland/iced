@@ -229,6 +229,8 @@ jobs:
           export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86-js
           
+          echo ==== FORMAT CHECK ====
+          cargo fmt -- --color always --check
           echo ==== decoder ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "decoder"
           echo ==== encoder ====

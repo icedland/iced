@@ -44,6 +44,7 @@ namespace Generator.IO {
 			switch (targetLanguage) {
 			case TargetLanguage.CSharp:
 			case TargetLanguage.Rust:
+			case TargetLanguage.RustJS:
 				numberPrefix = "0x";
 				numberByteFormat = "X2";
 				singleLineCommentPrefix = "// ";

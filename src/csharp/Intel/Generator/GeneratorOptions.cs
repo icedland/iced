@@ -44,6 +44,7 @@ namespace Generator {
 		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
 		public string CSharpTestsDir { get; }
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
+		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
 		readonly string[] langDirs;
 
 		public GeneratorOptions(string baseDir, GeneratorFlags flags) {
@@ -57,6 +58,7 @@ namespace Generator {
 				string path = (TargetLanguage)i switch {
 					TargetLanguage.CSharp => GetAndVerifyPath(baseDir, "csharp", "Intel", "Iced"),
 					TargetLanguage.Rust => GetAndVerifyPath(baseDir, "rust", "iced-x86", "src"),
+					TargetLanguage.RustJS => GetAndVerifyPath(baseDir, "rust", "iced-x86-js", "src"),
 					_ => throw new InvalidOperationException(),
 				};
 				langDirs[i] = path;

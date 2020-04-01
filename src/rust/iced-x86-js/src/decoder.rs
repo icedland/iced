@@ -21,23 +21,23 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use iced_x86::{ConstantOffsets, Decoder, Instruction};
+use super::decoder_options::DecoderOptions;
+use super::instruction::Instruction;
 use std::slice;
 use wasm_bindgen::prelude::*;
 
 /// Decodes 16/32/64-bit x86 instructions
 #[wasm_bindgen]
-#[derive(Debug)]
-pub struct DecoderX86 {
+pub struct Decoder {
 	// The decoder has a reference to this vector and the 'static lifetime is really the lifetime of
 	// this vector. We can't use another lifetime. This vector and the field are read-only.
 	#[allow(dead_code)]
 	__data_do_not_use: Vec<u8>,
-	decoder: Decoder<'static>,
+	decoder: iced_x86::Decoder<'static>,
 }
 
 #[wasm_bindgen]
-impl DecoderX86 {
+impl Decoder {
 	/// Creates a decoder
 	///
 	/// # Panics
@@ -102,20 +102,18 @@ impl DecoderX86 {
 	/// assert!(instr.has_lock_prefix());
 	/// ```
 	#[wasm_bindgen(constructor)]
-	#[must_use]
-	pub fn new(bitness: u32, data: Vec<u8>, options: u32) -> Self {
+	pub fn new(bitness: u32, data: Vec<u8>, options: DecoderOptions) -> Self {
 		// Safe, we only read it, we own the data, and store it in the returned value.
 		// The decoder also doesn't impl Drop (it can't ref possibly freed data in drop()).
 		let decoder_data = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };
-		let decoder = Decoder::new(bitness, decoder_data, options);
-		DecoderX86 { __data_do_not_use: data, decoder }
+		let decoder = iced_x86::Decoder::new(bitness, decoder_data, options as u32);
+		Decoder { __data_do_not_use: data, decoder }
 	}
 
 	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position()`]
 	///
 	/// [`position()`]: #method.position
 	#[wasm_bindgen(getter)]
-	#[must_use]
 	pub fn ip(&self) -> u64 {
 		self.decoder.ip()
 	}
@@ -134,7 +132,6 @@ impl DecoderX86 {
 
 	/// Gets the bitness (16, 32 or 64)
 	#[wasm_bindgen(getter)]
-	#[must_use]
 	pub fn bitness(&self) -> u32 {
 		self.decoder.bitness()
 	}
@@ -144,7 +141,7 @@ impl DecoderX86 {
 	///
 	/// [`set_position()`]: #method.set_position
 	#[wasm_bindgen(getter)]
-	#[must_use]
+	#[wasm_bindgen(js_name = "maxPosition")]
 	pub fn max_position(&self) -> usize {
 		self.decoder.max_position()
 	}
@@ -157,7 +154,6 @@ impl DecoderX86 {
 	/// [`position()`]: #method.position
 	/// [`can_decode()`]: #method.can_decode
 	#[wasm_bindgen(getter)]
-	#[must_use]
 	pub fn position(&self) -> usize {
 		self.decoder.position()
 	}
@@ -246,16 +242,27 @@ impl DecoderX86 {
 	/// assert!(!decoder.can_decode());
 	/// ```
 	#[wasm_bindgen(getter)]
-	#[must_use]
+	#[wasm_bindgen(js_name = "canDecode")]
 	pub fn can_decode(&self) -> bool {
 		self.decoder.can_decode()
 	}
 
 	/// Decodes all instructions and returns an array of `Instruction`s
-	#[must_use]
+	#[wasm_bindgen(js_name = "decodeAll")]
 	pub fn decode_all(&mut self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
-		self.decoder.iter().map(JsValue::from).collect()
+		self.decoder.iter().map(|i| JsValue::from(Instruction(i))).collect()
+	}
+
+	/// Decodes at most `count` instructions and returns them
+	///
+	/// # Arguments
+	///
+	/// - `count`: Max number of instructions to decode
+	#[wasm_bindgen(js_name = "decodeInstructions")]
+	pub fn decode_instructions(&mut self, count: usize) -> js_sys::Array {
+		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
+		self.decoder.iter().take(count).map(|i| JsValue::from(Instruction(i))).collect()
 	}
 
 	/// This method can be called after calling [`decode()`] and [`decode_out()`] to check if the
@@ -264,7 +271,7 @@ impl DecoderX86 {
 	/// [`decode()`]: #method.decode
 	/// [`decode_out()`]: #method.decode_out
 	#[wasm_bindgen(getter)]
-	#[must_use]
+	#[wasm_bindgen(js_name = "invalidNoMoreBytes")]
 	pub fn invalid_no_more_bytes(&self) -> bool {
 		self.decoder.invalid_no_more_bytes()
 	}
@@ -307,9 +314,8 @@ impl DecoderX86 {
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
-	#[must_use]
 	pub fn decode(&mut self) -> Instruction {
-		self.decoder.decode()
+		Instruction(self.decoder.decode())
 	}
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
@@ -358,46 +364,8 @@ impl DecoderX86 {
 	/// assert!(instr.has_lock_prefix());
 	/// assert!(instr.has_xrelease_prefix());
 	/// ```
+	#[wasm_bindgen(js_name = "decodeOut")]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
-		self.decoder.decode_out(instruction);
-	}
-
-	/// Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
-	/// The caller can check if there are any relocations at those addresses.
-	///
-	/// # Arguments
-	///
-	/// * `instruction`: The latest instruction that was decoded by this decoder
-	///
-	/// # Examples
-	///
-	/// ```
-	/// use iced_x86::*;
-	///
-	/// // nop
-	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
-	/// //                  00  01  02  03  04  05  06
-	/// //                \opc\mrm\displacement___\imm
-	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// assert_eq!(Code::Nopd, decoder.decode().code());
-	/// let instr = decoder.decode();
-	/// let co = decoder.get_constant_offsets(&instr);
-	///
-	/// assert!(co.has_displacement());
-	/// assert_eq!(2, co.displacement_offset());
-	/// assert_eq!(4, co.displacement_size());
-	/// assert!(co.has_immediate());
-	/// assert_eq!(6, co.immediate_offset());
-	/// assert_eq!(1, co.immediate_size());
-	/// // It's not an instruction with two immediates (e.g. enter)
-	/// assert!(!co.has_immediate2());
-	/// assert_eq!(0, co.immediate_offset2());
-	/// assert_eq!(0, co.immediate_size2());
-	/// ```
-	#[must_use]
-	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
-		self.decoder.get_constant_offsets(instruction)
+		self.decoder.decode_out(&mut instruction.0);
 	}
 }

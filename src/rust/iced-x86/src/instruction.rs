@@ -128,7 +128,7 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[allow(trivial_casts)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	pub fn eq_all_bits(&self, other: &Instruction) -> bool {
+	pub fn eq_all_bits(&self, other: &Self) -> bool {
 		unsafe {
 			let a: *const u8 = self as *const Self as *const u8;
 			let b: *const u8 = other as *const Self as *const u8;
@@ -2305,9 +2305,7 @@ impl Instruction {
 		}
 		result
 	}
-}
 
-impl Instruction {
 	/// Gets the virtual address of a memory operand
 	///
 	/// # Panics

@@ -140,6 +140,7 @@ Options:
         C#
         CSharp
         Rust
+        RustJS
 --no-formatter
     Don't include any formatter
 --no-gas-formatter
@@ -154,7 +155,7 @@ Options:
 		}
 
 		static bool TryParseCommandLine(string[] args, [NotNullWhen(true)] out CommandLineOptions? options, [NotNullWhen(false)] out string? error) {
-			if (Enum.GetValues(typeof(TargetLanguage)).Length != 2)
+			if (Enum.GetValues(typeof(TargetLanguage)).Length != 3)
 				throw new InvalidOperationException("Enum updated, update help message and this method");
 			options = new CommandLineOptions();
 			for (int i = 0; i < args.Length; i++) {
@@ -180,6 +181,9 @@ Options:
 						break;
 					case "rust":
 						options.Languages.Add(TargetLanguage.Rust);
+						break;
+					case "rustjs":
+						options.Languages.Add(TargetLanguage.RustJS);
 						break;
 					default:
 						error = $"Unknown language: {value}";

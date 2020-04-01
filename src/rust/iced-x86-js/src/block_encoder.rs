@@ -21,14 +21,15 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use iced_x86::{Instruction, InstructionBlock};
+use super::block_encoder_options::BlockEncoderOptions;
+use super::instruction::Instruction;
+use iced_x86::InstructionBlock;
 use wasm_bindgen::prelude::*;
 
 /// Encodes instructions. It can be used to move instructions from one location to another location.
 #[wasm_bindgen]
-#[derive(Debug)]
 pub struct BlockEncoder {
-	instructions: Vec<Instruction>,
+	instructions: Vec<iced_x86::Instruction>,
 	bitness: u32,
 	options: u32,
 }
@@ -45,13 +46,12 @@ impl BlockEncoder {
 	///
 	/// * `bitness`: 16, 32, or 64
 	/// * `options`: Encoder options (`BlockEncoderOptions`)
-	#[must_use]
 	#[wasm_bindgen(constructor)]
-	pub fn new(bitness: u32, options: u32) -> Self {
+	pub fn new(bitness: u32, options: BlockEncoderOptions) -> Self {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			panic!();
 		}
-		BlockEncoder { instructions: Vec::new(), bitness, options }
+		BlockEncoder { instructions: Vec::new(), bitness, options: options as u32 }
 	}
 
 	/// Adds an instruction that will be encoded when `encode()` is called.
@@ -62,7 +62,7 @@ impl BlockEncoder {
 	///
 	/// * `instruction`: Next instruction to encode
 	pub fn add(&mut self, instruction: &Instruction) {
-		self.instructions.push(*instruction);
+		self.instructions.push(instruction.0);
 	}
 
 	/// Encodes all instructions added by `add()`

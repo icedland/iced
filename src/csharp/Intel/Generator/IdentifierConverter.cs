@@ -60,6 +60,15 @@ namespace Generator {
 			}
 			return sb.ToString();
 		}
+
+		protected string ToLowerCamelCase(string name) {
+			sb.Clear();
+			int i = 0;
+			while (i < name.Length && char.IsUpper(name[i]))
+				sb.Append(char.ToLowerInvariant(name[i++]));
+			sb.Append(name, i, name.Length - i);
+			return sb.ToString();
+		}
 	}
 
 	sealed class CSharpIdentifierConverter : IdentifierConverter {
@@ -138,5 +147,20 @@ namespace Generator {
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);
 		public override string Argument(string name) => ToSnakeCase(name);
+	}
+
+	sealed class RustJSIdentifierConverter : IdentifierConverter {
+		public static IdentifierConverter Create() => new RustJSIdentifierConverter();
+		RustJSIdentifierConverter() { }
+		public override string Type(string name) => name;
+		public override string Field(string name) => ToLowerCamelCase(name);
+		public override string EnumField(string name) => name;
+		public override string PropertyDoc(string name) => ToLowerCamelCase(name);
+		public override string MethodDoc(string name) => ToLowerCamelCase(name) + "()";
+		public override string Method(string name) => ToLowerCamelCase(name);
+		public override string Constant(string name) => name;
+		public override string Static(string name) => name;
+		public override string Namespace(string name) => name;
+		public override string Argument(string name) => ToLowerCamelCase(name);
 	}
 }

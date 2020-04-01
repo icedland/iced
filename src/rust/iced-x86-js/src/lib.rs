@@ -23,14 +23,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //! iced-x86 JavaScript bindings
 
+// No #[wasm_bindgen] should be added to iced-x86.
+// 1. We shouldn't have to update it to support JavaScript.
+// 2. It results in smaller wasm/js/ts files since we have better control of what gets included.
+// 3. We can add better docs and rename methods to camelCase.
+
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
 #![warn(deprecated_in_future)]
 #![warn(keyword_idents)]
 #![warn(meta_variable_misuse)]
-#![warn(missing_copy_implementations)]
-#![warn(missing_debug_implementations)]
 #![warn(missing_docs)]
 #![warn(non_ascii_idents)]
 #![warn(trivial_casts)]
@@ -58,7 +61,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::fallible_impl_from)]
 #![warn(clippy::large_digit_groups)]
 #![warn(clippy::missing_errors_doc)]
-#![warn(clippy::must_use_candidate)]
 #![warn(clippy::needless_borrow)]
 #![warn(clippy::print_stdout)]
 #![warn(clippy::redundant_closure_for_method_calls)]
@@ -68,25 +70,96 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::unused_self)]
 #![warn(clippy::used_underscore_binding)]
 
+#[cfg(feature = "instr_info")]
+#[macro_use]
+extern crate static_assertions;
+
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder;
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
+mod block_encoder_options;
+mod code;
+mod code_size;
+#[cfg(feature = "instr_info")]
+mod condition_code;
 #[cfg(feature = "decoder")]
 mod decoder;
+#[cfg(feature = "decoder")]
+mod decoder_options;
 #[cfg(feature = "encoder")]
 mod encoder;
+#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
+mod encoding_kind;
+#[cfg(feature = "instr_info")]
+mod flow_control;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
+mod instruction;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod mandatory_prefix;
+mod memory_size;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod memory_size_options;
+mod mnemonic;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod number_base;
+#[cfg(feature = "instr_info")]
+mod op_access;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod op_code_info;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod op_code_operand_kind;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod op_code_table_kind;
+mod op_kind;
+mod register;
+mod rounding_control;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod tuple_type;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder::*;
+#[cfg(all(feature = "encoder", feature = "block_encoder"))]
+pub use block_encoder_options::*;
+pub use code::*;
+pub use code_size::*;
+#[cfg(feature = "instr_info")]
+pub use condition_code::*;
 #[cfg(feature = "decoder")]
 pub use decoder::*;
+#[cfg(feature = "decoder")]
+pub use decoder_options::*;
 #[cfg(feature = "encoder")]
 pub use encoder::*;
+#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
+pub use encoding_kind::*;
+#[cfg(feature = "instr_info")]
+pub use flow_control::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use formatter::*;
-pub use iced_x86::*;
 #[cfg(feature = "instr_info")]
 pub use info::*;
+pub use instruction::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use mandatory_prefix::*;
+pub use memory_size::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use memory_size_options::*;
+pub use mnemonic::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use number_base::*;
+#[cfg(feature = "instr_info")]
+pub use op_access::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use op_code_info::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use op_code_operand_kind::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use op_code_table_kind::*;
+pub use op_kind::*;
+pub use register::*;
+pub use rounding_control::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use tuple_type::*;

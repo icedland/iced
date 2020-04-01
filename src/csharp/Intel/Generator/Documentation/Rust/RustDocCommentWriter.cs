@@ -32,6 +32,7 @@ using Generator.IO;
 namespace Generator.Documentation.Rust {
 	sealed class RustDocCommentWriter : DocCommentWriter {
 		readonly IdentifierConverter idConverter;
+		readonly string typeSeparator;
 		readonly StringBuilder sb;
 		readonly StringBuilder sb2;
 		readonly List<(string @ref, string url)> refUrls;
@@ -62,8 +63,9 @@ namespace Generator.Documentation.Rust {
 			{ "u512", ("u512", false) },
 		};
 
-		public RustDocCommentWriter(IdentifierConverter idConverter) {
+		public RustDocCommentWriter(IdentifierConverter idConverter, string typeSeparator = "::") {
 			this.idConverter = idConverter;
+			this.typeSeparator = typeSeparator;
 			sb = new StringBuilder();
 			sb2 = new StringBuilder();
 			refUrls = new List<(string @ref, string url)>();
@@ -181,7 +183,7 @@ namespace Generator.Documentation.Rust {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append("::");
+						sb2.Append(typeSeparator);
 					}
 					m = info.kind == TokenKind.EnumFieldReference ? idConverter.EnumField(info.value2) : idConverter.Field(info.value2);
 					sb2.Append(m);
@@ -194,7 +196,7 @@ namespace Generator.Documentation.Rust {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append("::");
+						sb2.Append(typeSeparator);
 					}
 					m = idConverter.PropertyDoc(info.value2);
 					sb2.Append(m);
@@ -207,7 +209,7 @@ namespace Generator.Documentation.Rust {
 					t = idConverter.Type(info.value);
 					if (info.value != typeName) {
 						sb2.Append(t);
-						sb2.Append("::");
+						sb2.Append(typeSeparator);
 					}
 					m = idConverter.MethodDoc(TranslateMethodName(info.value2));
 					sb2.Append(m);
