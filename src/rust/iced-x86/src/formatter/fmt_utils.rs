@@ -84,7 +84,7 @@ fn add_strings(output: &mut FormatterOutput, strings: &[String], count: u32) {
 }
 
 #[cfg_attr(has_must_use, must_use)]
-#[cfg_attr(not(feature = "javascript"), inline)]
+#[inline]
 pub(super) fn is_call(kind: FormatterFlowControl) -> bool {
 	kind == FormatterFlowControl::NearCall || kind == FormatterFlowControl::FarCall
 }
@@ -264,7 +264,7 @@ pub(super) fn is_repe_or_repne_instruction(code: Code) -> bool {
 }
 
 #[cfg_attr(has_must_use, must_use)]
-#[cfg_attr(not(feature = "javascript"), inline)]
+#[inline]
 pub(super) fn is_notrack_prefix_branch(code: Code) -> bool {
 	const_assert_eq!(Code::Jmp_rm32 as u32, Code::Jmp_rm16 as u32 + 1);
 	const_assert_eq!(Code::Jmp_rm64 as u32, Code::Jmp_rm16 as u32 + 2);
@@ -274,7 +274,7 @@ pub(super) fn is_notrack_prefix_branch(code: Code) -> bool {
 }
 
 #[cfg_attr(has_must_use, must_use)]
-#[cfg_attr(not(feature = "javascript"), inline)]
+#[inline]
 pub(super) fn get_segment_register_prefix_kind(register: Register) -> PrefixKind {
 	debug_assert!(
 		register == Register::ES

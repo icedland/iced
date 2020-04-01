@@ -29,7 +29,7 @@ pub struct IcedFeatures;
 impl IcedFeatures {
 	/// `true` if the gas (AT&amp;T) formatter is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_gas() -> bool {
 		cfg!(feature = "gas")
@@ -37,7 +37,7 @@ impl IcedFeatures {
 
 	/// `true` if the Intel (xed) formatter is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_intel() -> bool {
 		cfg!(feature = "intel")
@@ -45,7 +45,7 @@ impl IcedFeatures {
 
 	/// `true` if the masm formatter is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_masm() -> bool {
 		cfg!(feature = "masm")
@@ -53,7 +53,7 @@ impl IcedFeatures {
 
 	/// `true` if the nasm formatter is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_nasm() -> bool {
 		cfg!(feature = "nasm")
@@ -61,7 +61,7 @@ impl IcedFeatures {
 
 	/// `true` if the decoder is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_decoder() -> bool {
 		cfg!(feature = "decoder")
@@ -69,7 +69,7 @@ impl IcedFeatures {
 
 	/// `true` if the encoder is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_encoder() -> bool {
 		cfg!(feature = "encoder")
@@ -77,7 +77,7 @@ impl IcedFeatures {
 
 	/// `true` if the instruction info code is available
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	pub fn has_instruction_info() -> bool {
 		cfg!(feature = "instr_info")

@@ -38,7 +38,7 @@ static GEN_DEBUG_SERIALIZED_DATA_KIND: [&str; 2] = [
 	"ArrayReference",
 ];
 impl fmt::Debug for SerializedDataKind {
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_SERIALIZED_DATA_KIND[*self as usize])?;
 		Ok(())
@@ -46,7 +46,7 @@ impl fmt::Debug for SerializedDataKind {
 }
 impl Default for SerializedDataKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default() -> Self {
 		SerializedDataKind::HandlerReference
 	}
@@ -462,7 +462,7 @@ static GEN_DEBUG_OP_CODE_HANDLER_KIND: [&str; 199] = [
 	"Yv_Xv",
 ];
 impl fmt::Debug for OpCodeHandlerKind {
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
@@ -470,7 +470,7 @@ impl fmt::Debug for OpCodeHandlerKind {
 }
 impl Default for OpCodeHandlerKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default() -> Self {
 		OpCodeHandlerKind::Bitness
 	}
@@ -638,7 +638,7 @@ static GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND: [&str; 75] = [
 	"WV",
 ];
 impl fmt::Debug for EvexOpCodeHandlerKind {
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_EVEX_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
@@ -646,7 +646,7 @@ impl fmt::Debug for EvexOpCodeHandlerKind {
 }
 impl Default for EvexOpCodeHandlerKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default() -> Self {
 		EvexOpCodeHandlerKind::Invalid
 	}
@@ -792,7 +792,7 @@ static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 64] = [
 	"WVIb",
 ];
 impl fmt::Debug for VexOpCodeHandlerKind {
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
 		write!(f, "{}", GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND[*self as usize])?;
 		Ok(())
@@ -800,7 +800,7 @@ impl fmt::Debug for VexOpCodeHandlerKind {
 }
 impl Default for VexOpCodeHandlerKind {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default() -> Self {
 		VexOpCodeHandlerKind::Invalid
 	}

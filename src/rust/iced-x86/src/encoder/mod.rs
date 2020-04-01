@@ -160,7 +160,7 @@ impl Encoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn new(bitness: u32) -> Self {
 		Self::with_capacity(bitness, 0)
 	}
@@ -353,14 +353,14 @@ impl Encoder {
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn set_error_message(&mut self, message: String) {
 		if self.error_message.is_empty() {
 			self.error_message = message;
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn set_error_message_str(&mut self, message: &str) {
 		if self.error_message.is_empty() {
 			self.error_message.push_str(message);
@@ -368,7 +368,7 @@ impl Encoder {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn verify_op_kind(&mut self, operand: u32, expected: OpKind, actual: OpKind) -> bool {
 		if expected == actual {
 			true
@@ -386,7 +386,7 @@ impl Encoder {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn verify_register(&mut self, operand: u32, expected: Register, actual: Register) -> bool {
 		if expected == actual {
 			true
@@ -404,7 +404,7 @@ impl Encoder {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn verify_register_range(&mut self, operand: u32, register: Register, reg_lo: Register, mut reg_hi: Register) -> bool {
 		if self.bitness != 64 && reg_hi as u32 > (reg_lo as u32).wrapping_add(7) {
 			reg_hi = unsafe { mem::transmute((reg_lo as u8).wrapping_add(7)) };
@@ -704,7 +704,7 @@ impl Encoder {
 		self.encoder_flags |= reg_num >> 3; // reg_num <= 15, so no need to mask out anything
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn add_reg_or_mem(
 		&mut self, instruction: &Instruction, operand: u32, reg_lo: Register, reg_hi: Register, allow_mem_op: bool, allow_reg_op: bool,
 	) {
@@ -1369,19 +1369,19 @@ impl Encoder {
 	/// let buffer = encoder.take_buffer();
 	/// assert_eq!(vec![0x90, 0x4C, 0x03, 0xC5, 0xCC], buffer);
 	/// ```
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn write_u8(&mut self, value: u8) {
 		self.write_byte_internal(value as u32);
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn write_byte_internal(&mut self, value: u32) {
 		self.buffer.push(value as u8);
 		self.current_rip = self.current_rip.wrapping_add(1);
 	}
 
 	#[cfg(all(feature = "encoder", feature = "block_encoder"))]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn position(&self) -> usize {
 		self.buffer.len()
 	}
@@ -1391,7 +1391,7 @@ impl Encoder {
 	///
 	/// [`set_buffer()`]: #method.set_buffer
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
 		mem::replace(&mut self.buffer, Vec::new())
 	}
@@ -1399,13 +1399,13 @@ impl Encoder {
 	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].
 	///
 	/// [`take_buffer()`]: #method.take_buffer
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
 		self.buffer = buffer;
 	}
 
 	#[cfg(all(feature = "encoder", feature = "block_encoder"))]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn clear_buffer(&mut self) {
 		self.buffer.clear()
 	}
@@ -1498,7 +1498,7 @@ impl Encoder {
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn prevent_vex2(&self) -> bool {
 		self.prevent_vex2 != 0
 	}
@@ -1508,14 +1508,14 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `new_value`: new value
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_prevent_vex2(&mut self, new_value: bool) {
 		self.prevent_vex2 = if new_value { u32::MAX } else { 0 };
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn vex_wig(&self) -> u32 {
 		(self.internal_vex_wig_lig >> 7) & 1
 	}
@@ -1525,14 +1525,14 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `new_value`: new value (0 or 1)
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_vex_wig(&mut self, new_value: u32) {
 		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !0x80) | ((new_value & 1) << 7);
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn vex_lig(&self) -> u32 {
 		(self.internal_vex_wig_lig >> 2) & 1
 	}
@@ -1542,7 +1542,7 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `new_value`: new value (0 or 1)
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_vex_lig(&mut self, new_value: u32) {
 		self.internal_vex_wig_lig = (self.internal_vex_wig_lig & !4) | ((new_value & 1) << 2);
 		self.internal_vex_lig = (new_value & 1) << 2;
@@ -1550,7 +1550,7 @@ impl Encoder {
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn evex_wig(&self) -> u32 {
 		self.internal_evex_wig >> 7
 	}
@@ -1560,14 +1560,14 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `new_value`: new value (0 or 1)
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_evex_wig(&mut self, new_value: u32) {
 		self.internal_evex_wig = (new_value & 1) << 7;
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn evex_lig(&self) -> u32 {
 		self.internal_evex_lig >> 5
 	}
@@ -1577,14 +1577,14 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `new_value`: new value (0 or 3)
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn set_evex_lig(&mut self, new_value: u32) {
 		self.internal_evex_lig = (new_value & 3) << 5
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn bitness(&self) -> u32 {
 		self.bitness
 	}

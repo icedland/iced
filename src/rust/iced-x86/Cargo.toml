@@ -28,7 +28,6 @@ intel = []
 masm = []
 nasm = []
 db = []
-javascript = ["wasm-bindgen", "js-sys"]
 std = ["lazy_static"]
 # no_std feature is needed since std and no_std require different deps
 no_std = ["lazy_static/spin_no_std", "hashbrown"]
@@ -44,12 +43,6 @@ lazy_static = { version = "1.1.1", optional = true }
 
 # if: no_std and block_encoder
 hashbrown = { version = "0.7.1", optional = true }
-
-# if: javascript
-wasm-bindgen = { version = "0.2.60", optional = true }
-
-# if: javascript
-js-sys = { version = "0.3.37", optional = true }
 
 [build-dependencies]
 rustc_version = "0.2.3"

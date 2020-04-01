@@ -164,7 +164,7 @@ impl<'a> InstrOpInfo<'a> {
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default(mnemonic: &'a FormatterString) -> Self {
 		Self {
 			mnemonic,

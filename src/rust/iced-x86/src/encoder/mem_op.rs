@@ -22,13 +22,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::*;
-#[cfg(feature = "javascript")]
-use wasm_bindgen::prelude::*;
 
 /// Memory operand passed to one of [`Instruction`]'s `with_*()` constructor methods
 ///
 /// [`Instruction`]: struct.Instruction.html
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Debug, Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct MemoryOperand {
 	/// Segment override or [`Register::None`]
@@ -59,7 +56,6 @@ pub struct MemoryOperand {
 	pub is_broadcast: bool,
 }
 
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl MemoryOperand {
 	/// Constructor
 	///
@@ -75,8 +71,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
+	#[inline]
 	pub fn new(
 		base: Register, index: Register, scale: u32, displacement: i32, displ_size: u32, is_broadcast: bool, segment_prefix: Register,
 	) -> Self {
@@ -95,7 +90,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_index_scale_bcst_seg(base: Register, index: Register, scale: u32, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index, scale, displacement: 0, displ_size: 0, is_broadcast }
 	}
@@ -112,7 +107,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_displ_size_bcst_seg(base: Register, displacement: i32, displ_size: u32, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index: Register::None, scale: 1, displacement, displ_size, is_broadcast }
 	}
@@ -130,7 +125,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_index_scale_displ_size_bcst_seg(
 		index: Register, scale: u32, displacement: i32, displ_size: u32, is_broadcast: bool, segment_prefix: Register,
 	) -> Self {
@@ -148,7 +143,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_displ_bcst_seg(base: Register, displacement: i32, is_broadcast: bool, segment_prefix: Register) -> Self {
 		Self { segment_prefix, base, index: Register::None, scale: 1, displacement, displ_size: 1, is_broadcast }
 	}
@@ -165,7 +160,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_index_scale_displ_size(base: Register, index: Register, scale: u32, displacement: i32, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale, displacement, displ_size, is_broadcast: false }
 	}
@@ -180,7 +175,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_index_scale(base: Register, index: Register, scale: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale, displacement: 0, displ_size: 0, is_broadcast: false }
 	}
@@ -194,7 +189,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_index(base: Register, index: Register) -> Self {
 		Self { segment_prefix: Register::None, base, index, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }
 	}
@@ -209,7 +204,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_displ_size(base: Register, displacement: i32, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement, displ_size, is_broadcast: false }
 	}
@@ -225,7 +220,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_index_scale_displ_size(index: Register, scale: u32, displacement: i32, displ_size: u32) -> Self {
 		Self { segment_prefix: Register::None, base: Register::None, index, scale, displacement, displ_size, is_broadcast: false }
 	}
@@ -239,7 +234,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base_displ(base: Register, displacement: i32) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement, displ_size: 1, is_broadcast: false }
 	}
@@ -252,7 +247,7 @@ impl MemoryOperand {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn with_base(base: Register) -> Self {
 		Self { segment_prefix: Register::None, base, index: Register::None, scale: 1, displacement: 0, displ_size: 0, is_broadcast: false }
 	}

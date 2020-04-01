@@ -17,7 +17,7 @@ crate-type = ["cdylib"]
 
 [features]
 default = ["decoder", "masm"]
-base = ["iced-x86/javascript", "iced-x86/std"]
+base = ["iced-x86/std"]
 decoder = ["base", "iced-x86/decoder"]
 encoder = ["base", "iced-x86/encoder", "iced-x86/db"]
 block_encoder = ["base", "iced-x86/block_encoder"]

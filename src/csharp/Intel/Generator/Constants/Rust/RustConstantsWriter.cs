@@ -71,37 +71,6 @@ namespace Generator.Constants.Rust {
 			}
 
 			writer.WriteLine("}");
-
-			// We can't export a struct with pub consts so create an enum for JavaScript
-			if (constantsType.IsPublic) {
-				var typeName = constantsType.Name(idConverter);
-				docWriter.WriteSummary(writer, constantsType.Documentation, constantsType.RawName);
-				writer.WriteLine(RustConstants.FeatureJavaScript);
-				writer.WriteLine(string.Format(RustConstants.AttributeJavaScriptWasmBindGenWithNewName, typeName));
-				foreach (var attr in attributes)
-					writer.WriteLine(attr);
-				writer.WriteLine(RustConstants.AttributeCopyEqOrdHash);
-				if (constantsType.IsPublic && constantsType.IsMissingDocs)
-					writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
-				writer.WriteLine(RustConstants.AttributeAllowNonCamelCaseTypes);
-				writer.WriteLine($"{pub}enum {typeName}JS {{");
-				using (writer.Indent()) {
-					foreach (var constant in constantsType.Constants) {
-						if (ShouldIgnore(constant))
-							continue;
-						if (!constant.IsPublic)
-							continue;
-						docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
-						sb.Clear();
-						sb.Append(idConverter.EnumField(constant.RawName));
-						sb.Append(" = ");
-						sb.Append(GetValue(constant));
-						sb.Append(',');
-						writer.WriteLine(sb.ToString());
-					}
-				}
-				writer.WriteLine("}");
-			}
 		}
 
 		static bool ShouldIgnore(Constant constant) {

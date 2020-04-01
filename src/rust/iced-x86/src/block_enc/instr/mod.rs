@@ -71,17 +71,17 @@ pub(super) struct TargetInstr {
 }
 
 impl TargetInstr {
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn new_instr(instruction: Rc<RefCell<Instr>>) -> Self {
 		Self { instruction: Some(Rc::clone(&instruction)), address: 0, is_owner: false }
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn new_address(address: u64) -> Self {
 		Self { instruction: None, address, is_owner: false }
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub(super) fn new_owner() -> Self {
 		Self { instruction: None, address: 0, is_owner: true }
 	}

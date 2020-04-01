@@ -35,11 +35,8 @@ use super::*;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 use core::fmt;
-#[cfg(feature = "javascript")]
-use wasm_bindgen::prelude::*;
 
 /// A register used by an instruction
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedRegister {
 	register: Register,
@@ -47,7 +44,6 @@ pub struct UsedRegister {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::trivially_copy_pass_by_ref))]
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl UsedRegister {
 	/// Creates a new instance
 	///
@@ -56,24 +52,21 @@ impl UsedRegister {
 	/// * `register`: Register
 	/// * `access`: Register access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
+	#[inline]
 	pub fn new(register: Register, access: OpAccess) -> Self {
 		Self { register, access }
 	}
 
 	/// Gets the register
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn register(&self) -> Register {
 		self.register
 	}
 
 	/// Gets the register access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn access(&self) -> OpAccess {
 		self.access
 	}
@@ -88,7 +81,6 @@ impl fmt::Debug for UsedRegister {
 }
 
 /// A memory location used by an instruction
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Default, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct UsedMemory {
 	displacement: u64,
@@ -101,7 +93,6 @@ pub struct UsedMemory {
 	_pad: u16,
 }
 
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl UsedMemory {
 	/// Creates a new instance
 	///
@@ -115,16 +106,14 @@ impl UsedMemory {
 	/// * `memory_size`: Memory size
 	/// * `access`: Access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(constructor))]
+	#[inline]
 	pub fn new(segment: Register, base: Register, index: Register, scale: u32, displacement: u64, memory_size: MemorySize, access: OpAccess) -> Self {
 		Self { segment, base, index, scale: scale as u8, displacement, memory_size, access, _pad: 0 }
 	}
 
 	/// Effective segment register
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn segment(&self) -> Register {
 		self.segment
 	}
@@ -133,8 +122,7 @@ impl UsedMemory {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn base(&self) -> Register {
 		self.base
 	}
@@ -143,40 +131,35 @@ impl UsedMemory {
 	///
 	/// [`Register::None`]: enum.Register.html#variant.None
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn index(&self) -> Register {
 		self.index
 	}
 
 	/// Index scale (1, 2, 4 or 8)
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn scale(&self) -> u32 {
 		self.scale as u32
 	}
 
 	/// Displacement
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn displacement(&self) -> u64 {
 		self.displacement
 	}
 
 	/// Size of location
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn memory_size(&self) -> MemorySize {
 		self.memory_size
 	}
 
 	/// Memory access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn access(&self) -> OpAccess {
 		self.access
 	}
@@ -229,7 +212,6 @@ impl IIFlags {
 /// Created by an [`InstructionInfoFactory`].
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 #[derive(Debug, Clone)]
 pub struct InstructionInfo {
 	used_registers: Vec<UsedRegister>,
@@ -242,7 +224,6 @@ pub struct InstructionInfo {
 	flags: u8,
 }
 
-#[cfg_attr(feature = "javascript", wasm_bindgen)]
 impl InstructionInfo {
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline(always)]
@@ -268,40 +249,32 @@ impl InstructionInfo {
 		}
 	}
 
-	/// Gets all accessed registers (an array of `UsedRegister` values). This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
+	/// Gets all accessed registers. This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
 	///
 	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg(feature = "javascript")]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(js_name = "used_registers"))]
-	pub fn used_registers_js(&self) -> js_sys::Array {
-		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
-		self.used_registers().iter().cloned().map(JsValue::from).collect()
+	#[inline]
+	pub fn used_registers(&self) -> &[UsedRegister] {
+		self.used_registers.as_slice()
 	}
 
-	/// Gets all accessed memory locations (an array of `UsedMemory` values)
+	/// Gets all accessed memory locations
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg(feature = "javascript")]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(js_name = "used_memory"))]
-	pub fn used_memory_js(&self) -> js_sys::Array {
-		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
-		self.used_memory().iter().cloned().map(JsValue::from).collect()
+	#[inline]
+	pub fn used_memory(&self) -> &[UsedMemory] {
+		self.used_memory_locations.as_slice()
 	}
 
 	/// `true` if the instruction isn't available in real mode or virtual 8086 mode
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn is_protected_mode(&self) -> bool {
 		(self.flags & IIFlags::PROTECTED_MODE) != 0
 	}
 
 	/// `true` if this is a privileged instruction
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn is_privileged(&self) -> bool {
 		(self.flags & IIFlags::PRIVILEGED) != 0
 	}
@@ -311,8 +284,7 @@ impl InstructionInfo {
 	///
 	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn is_stack_instruction(&self) -> bool {
 		(self.flags & IIFlags::STACK_INSTRUCTION) != 0
 	}
@@ -322,74 +294,63 @@ impl InstructionInfo {
 	///
 	/// [`used_registers()`]: #method.used_registers
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn is_save_restore_instruction(&self) -> bool {
 		(self.flags & IIFlags::SAVE_RESTORE) != 0
 	}
 
 	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn encoding(&self) -> EncodingKind {
 		self.encoding
 	}
 
 	/// Gets the CPU or CPUID feature flags
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg(feature = "javascript")]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(js_name = "cpuid_features"))]
-	pub fn cpuid_features_js(&self) -> Vec<i32> {
-		// It's not possible to return a Vec<CpuidFeature>
-		self.cpuid_features().iter().map(|&a| a as i32).collect()
+	#[inline]
+	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
+		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 
 	/// Flow control info
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn flow_control(&self) -> FlowControl {
 		self.flow_control
 	}
 
 	/// Operand #0 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn op0_access(&self) -> OpAccess {
 		self.op_accesses[0]
 	}
 
 	/// Operand #1 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn op1_access(&self) -> OpAccess {
 		self.op_accesses[1]
 	}
 
 	/// Operand #2 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn op2_access(&self) -> OpAccess {
 		self.op_accesses[2]
 	}
 
 	/// Operand #3 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn op3_access(&self) -> OpAccess {
 		self.op_accesses[3]
 	}
 
 	/// Operand #4 access
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn op4_access(&self) -> OpAccess {
 		self.op_accesses[4]
 	}
@@ -415,8 +376,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_read(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_READ.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -427,8 +387,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_written(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_WRITTEN.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -439,8 +398,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_cleared(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_CLEARED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -451,8 +409,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_set(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_SET.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -463,8 +420,7 @@ impl InstructionInfo {
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	/// [`rflags_modified()`]: #method.rflags_modified
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_undefined(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_UNDEFINED.get_unchecked(self.rflags_info) as u32 }
 	}
@@ -473,34 +429,8 @@ impl InstructionInfo {
 	///
 	/// [`RflagsBits`]: struct.RflagsBits.html
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	#[cfg_attr(feature = "javascript", wasm_bindgen(getter))]
+	#[inline]
 	pub fn rflags_modified(&self) -> u32 {
 		unsafe { *super::info::rflags_table::FLAGS_MODIFIED.get_unchecked(self.rflags_info) as u32 }
-	}
-}
-
-impl InstructionInfo {
-	/// Gets all accessed registers. This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
-	///
-	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	pub fn used_registers(&self) -> &[UsedRegister] {
-		self.used_registers.as_slice()
-	}
-
-	/// Gets all accessed memory locations
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	pub fn used_memory(&self) -> &[UsedMemory] {
-		self.used_memory_locations.as_slice()
-	}
-
-	/// Gets the CPU or CPUID feature flags
-	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
-	pub fn cpuid_features(&self) -> &'static [CpuidFeature] {
-		unsafe { *self::cpuid_table::CPUID.get_unchecked(self.cpuid_feature_internal) }
 	}
 }

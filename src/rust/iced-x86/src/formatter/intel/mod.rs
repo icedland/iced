@@ -112,7 +112,7 @@ pub struct IntelFormatter {
 
 impl Default for IntelFormatter {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn default() -> Self {
 		IntelFormatter::new()
 	}
@@ -131,7 +131,7 @@ struct SelfData {
 impl IntelFormatter {
 	/// Creates an Intel (XED) formatter
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn new() -> Self {
 		IntelFormatter::with_options(None, None)
 	}
@@ -1096,7 +1096,7 @@ impl IntelFormatter {
 		output.write("}", FormatterTextKind::Punctuation);
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn get_reg_str(d: &SelfData, mut reg_num: u32) -> &'static str {
 		if d.options.prefer_st0() && reg_num == Registers::REGISTER_ST {
 			reg_num = Register::ST0 as u32;
@@ -1106,7 +1106,7 @@ impl IntelFormatter {
 		reg_str.get(d.options.uppercase_registers() || d.options.uppercase_all())
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_register_internal(
 		d: &SelfData, output: &mut FormatterOutput, instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, reg_num: u32,
 	) {
@@ -1453,13 +1453,13 @@ impl IntelFormatter {
 
 impl Formatter for IntelFormatter {
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn options(&self) -> &FormatterOptions {
 		&self.d.options
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn options_mut(&mut self) -> &mut FormatterOptions {
 		&mut self.d.options
 	}
@@ -1554,111 +1554,111 @@ impl Formatter for IntelFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
 		IntelFormatter::get_reg_str(&self.d, register as u32)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i8(&mut self, value: i8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i8(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i16(&mut self, value: i16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i16(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i32(&mut self, value: i32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i32(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i64(&mut self, value: i64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i64(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u8(&mut self, value: u8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u8(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u16(&mut self, value: u16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u16(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u32(&mut self, value: u32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u32(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u64(&mut self, value: u64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u64(&self.d.options, &number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions) -> &str {
 		self.number_formatter.format_u64(&self.d.options, number_options, value)
 	}

@@ -30,7 +30,7 @@ pub(super) type OpCodeHandlerDecodeFn = fn(*const OpCodeHandler, &mut Decoder, &
 
 #[allow(trivial_casts)]
 #[cfg_attr(has_must_use, must_use)]
-#[cfg_attr(not(feature = "javascript"), inline)]
+#[inline]
 pub(super) fn is_null_instance_handler(handler: *const OpCodeHandler) -> bool {
 	handler as *const u8 == &NULL_HANDLER as *const _ as *const u8
 }

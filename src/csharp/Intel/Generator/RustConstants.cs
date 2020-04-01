@@ -33,7 +33,7 @@ namespace Generator {
 		public const string AttributeAllowNonCamelCaseTypes = "#[allow(non_camel_case_types)]";
 		public const string AttributeMustUse = "#[cfg_attr(has_must_use, must_use)]";
 		public const string AttributeNonExhaustive = "#[cfg_attr(all(not(feature = \"exhaustive_enums\"), has_non_exhaustive), non_exhaustive)]";
-		public const string AttributeInline = "#[cfg_attr(not(feature = \"javascript\"), inline)]";
+		public const string AttributeInline = "#[inline]";
 		public const string AttributeAllowMissingDocs = "#[allow(missing_docs)]";
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 		public const string AttributeAllowMissingDebugImplementations = "#[allow(missing_debug_implementations)]";
@@ -42,8 +42,6 @@ namespace Generator {
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
 		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
-		public const string AttributeJavaScriptWasmBindGen = "#[cfg_attr(feature = \"javascript\", wasm_bindgen)]";
-		public const string AttributeJavaScriptWasmBindGenWithNewName = "#[cfg_attr(feature = \"javascript\", wasm_bindgen(js_name = \"{0}\"))]";
 
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";
@@ -51,6 +49,5 @@ namespace Generator {
 		public const string FeatureOpCodeInfo = "#[cfg(all(feature = \"encoder\", feature = \"op_code_info\"))]";
 		public const string FeatureDecoderOrEncoder = "#[cfg(any(feature = \"decoder\", feature = \"encoder\"))]";
 		public const string FeatureDecoderOrEncoderOrInstrInfo = "#[cfg(any(feature = \"decoder\", feature = \"encoder\", feature = \"instr_info\"))]";
-		public const string FeatureJavaScript = "#[cfg(feature = \"javascript\")]";
 	}
 }

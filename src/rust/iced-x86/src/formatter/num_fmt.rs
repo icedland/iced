@@ -79,7 +79,7 @@ impl NumberFormatter {
 		Self { sb: String::with_capacity(CAP) }
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn write_hexadecimal(
 		sb: &mut String, value: u64, digit_group_size: u32, digit_separator: &str, mut digits: u32, upper: bool, leading_zero: bool,
 	) {
@@ -114,7 +114,7 @@ impl NumberFormatter {
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn write_decimal(sb: &mut String, value: u64, digit_group_size: u32, digit_separator: &str, mut digits: u32) {
 		if digits == 0 {
 			digits = 1;
@@ -143,7 +143,7 @@ impl NumberFormatter {
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn write_octal(sb: &mut String, value: u64, digit_group_size: u32, digit_separator: &str, mut digits: u32, prefix: &str) {
 		if digits == 0 {
 			digits = 1;
@@ -182,7 +182,7 @@ impl NumberFormatter {
 		}
 	}
 
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn write_binary(sb: &mut String, value: u64, digit_group_size: u32, digit_separator: &str, mut digits: u32) {
 		if digits == 0 {
 			digits = 1;
@@ -208,7 +208,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	fn get_flags(leading_zeroes: bool, small_hex_numbers_in_decimal: bool) -> u32 {
 		let mut flags = NumberFormatterFlags::NONE;
 		if leading_zeroes {
@@ -221,7 +221,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_i8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i8) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
@@ -232,7 +232,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_i16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i16) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
@@ -243,7 +243,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_i32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i32) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
@@ -254,7 +254,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_i64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, mut value: i64) -> &str {
 		let mut flags = NumberFormatter::get_flags(options.leading_zeroes, options.small_hex_numbers_in_decimal);
 		if value < 0 {
@@ -265,7 +265,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u8(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u8) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -277,7 +277,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u16(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -289,7 +289,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u32(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -301,7 +301,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u64(&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64) -> &str {
 		self.format_unsigned_integer(
 			formatter_options,
@@ -313,7 +313,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u16_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u16, leading_zeroes: bool,
 	) -> &str {
@@ -327,7 +327,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u32_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u32, leading_zeroes: bool,
 	) -> &str {
@@ -341,7 +341,7 @@ impl NumberFormatter {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn format_u64_zeroes(
 		&mut self, formatter_options: &FormatterOptions, options: &NumberFormattingOptions, value: u64, leading_zeroes: bool,
 	) -> &str {

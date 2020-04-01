@@ -159,7 +159,7 @@ impl InstructionInfoFactory {
 	/// assert_eq!(OpAccess::Read, regs[2].access());
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn info(&mut self, instruction: &Instruction) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, InstructionInfoOptions::NONE)
 	}
@@ -182,7 +182,7 @@ impl InstructionInfoFactory {
 	///
 	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
 	#[cfg_attr(has_must_use, must_use)]
-	#[cfg_attr(not(feature = "javascript"), inline)]
+	#[inline]
 	pub fn info_options(&mut self, instruction: &Instruction, options: u32) -> &InstructionInfo {
 		Self::create(&mut self.info, instruction, options)
 	}
