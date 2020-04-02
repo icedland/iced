@@ -28,6 +28,7 @@ use super::memory_size_options::{iced_to_memory_size_options, memory_size_option
 use super::number_base::{iced_to_number_base, number_base_to_iced, NumberBase};
 #[cfg(feature = "instr_info")]
 use super::op_access::{iced_to_op_access, OpAccess};
+#[cfg(feature = "instruction_api")]
 use super::register::{register_to_iced, Register};
 #[cfg(feature = "gas")]
 use iced_x86::GasFormatter;
@@ -252,6 +253,8 @@ impl Formatter {
 	///
 	/// - `register`: Register
 	#[wasm_bindgen(js_name = "formatRegister")]
+	// This adds the Register enum to the js/ts files, but this API won't be called often so disable it by default.
+	#[cfg(feature = "instruction_api")]
 	pub fn format_register(&mut self, register: Register) -> String {
 		self.formatter.format_register(register_to_iced(register)).to_owned()
 	}

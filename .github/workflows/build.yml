@@ -233,14 +233,22 @@ jobs:
           cargo fmt -- --color always --check
           echo ==== decoder ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "decoder"
+          echo ==== instruction_api decoder ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder"
           echo ==== encoder ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder"
+          echo ==== instruction_api encoder ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api encoder"
           echo ==== encoder block_encoder ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder block_encoder"
           echo ==== encoder op_code_info ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder op_code_info"
+          echo ==== instruction_api encoder op_code_info ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api encoder op_code_info"
           echo ==== instr_info ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instr_info"
+          echo ==== instruction_api instr_info ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api instr_info"
           echo ==== gas ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "gas"
           echo ==== intel ====
@@ -249,8 +257,10 @@ jobs:
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "masm"
           echo ==== nasm ====
           cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "nasm"
-          echo ==== CLIPPY decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
+          echo ==== instruction_api nasm ====
+          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api nasm"
+          echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
           
           cd ..
           git clean -xdf

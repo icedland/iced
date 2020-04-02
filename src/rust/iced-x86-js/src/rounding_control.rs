@@ -42,6 +42,7 @@ pub enum RoundingControl {
 }
 // GENERATOR-END: Enum
 
+#[cfg(feature = "encoder")]
 pub(crate) fn rounding_control_to_iced(value: RoundingControl) -> iced_x86::RoundingControl {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

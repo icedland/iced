@@ -78,9 +78,12 @@ extern crate static_assertions;
 mod block_encoder;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder_options;
+#[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 mod code;
+#[cfg(feature = "instruction_api")]
 mod code_size;
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 mod condition_code;
 #[cfg(feature = "decoder")]
 mod decoder;
@@ -88,44 +91,52 @@ mod decoder;
 mod decoder_options;
 #[cfg(feature = "encoder")]
 mod encoder;
-#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instr_info", feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 mod encoding_kind;
-#[cfg(feature = "instr_info")]
+#[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 mod flow_control;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
 mod instruction;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 mod mandatory_prefix;
+#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod memory_size;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod memory_size_options;
+#[cfg(feature = "instruction_api")]
 mod mnemonic;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod number_base;
 #[cfg(feature = "instr_info")]
 mod op_access;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 mod op_code_info;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 mod op_code_operand_kind;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 mod op_code_table_kind;
+#[cfg(feature = "instruction_api")]
 mod op_kind;
+#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod register;
+#[cfg(feature = "instruction_api")]
 mod rounding_control;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 mod tuple_type;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder::*;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder_options::*;
+#[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 pub use code::*;
+#[cfg(feature = "instruction_api")]
 pub use code_size::*;
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 pub use condition_code::*;
 #[cfg(feature = "decoder")]
 pub use decoder::*;
@@ -133,33 +144,42 @@ pub use decoder::*;
 pub use decoder_options::*;
 #[cfg(feature = "encoder")]
 pub use encoder::*;
-#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(
+	feature = "instr_info",
+	feature = "instruction_api",
+	all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")
+))]
 pub use encoding_kind::*;
-#[cfg(feature = "instr_info")]
+#[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 pub use flow_control::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use formatter::*;
 #[cfg(feature = "instr_info")]
 pub use info::*;
 pub use instruction::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 pub use mandatory_prefix::*;
+#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use memory_size::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use memory_size_options::*;
+#[cfg(feature = "instruction_api")]
 pub use mnemonic::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use number_base::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 pub use op_code_info::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 pub use op_code_operand_kind::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 pub use op_code_table_kind::*;
+#[cfg(feature = "instruction_api")]
 pub use op_kind::*;
+#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use register::*;
+#[cfg(feature = "instruction_api")]
 pub use rounding_control::*;
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
 pub use tuple_type::*;

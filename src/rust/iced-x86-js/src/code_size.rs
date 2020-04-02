@@ -40,6 +40,7 @@ pub enum CodeSize {
 }
 // GENERATOR-END: Enum
 
+#[cfg(feature = "encoder")]
 pub(crate) fn code_size_to_iced(value: CodeSize) -> iced_x86::CodeSize {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

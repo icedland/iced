@@ -42,6 +42,7 @@ pub enum EncodingKind {
 }
 // GENERATOR-END: Enum
 
+#[cfg(any(feature = "instr_info", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 pub(crate) fn iced_to_encoding_kind(value: iced_x86::EncodingKind) -> EncodingKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

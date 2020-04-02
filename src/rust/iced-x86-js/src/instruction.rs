@@ -23,21 +23,47 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(non_snake_case)]
 
-use super::code::{code_to_iced, iced_to_code, Code};
-use super::code_size::{code_size_to_iced, iced_to_code_size, CodeSize};
+#[cfg(feature = "encoder")]
+#[cfg(feature = "instruction_api")]
+use super::code::code_to_iced;
+#[cfg(feature = "instruction_api")]
+use super::code::{iced_to_code, Code};
+#[cfg(feature = "encoder")]
+#[cfg(feature = "instruction_api")]
+use super::code_size::code_size_to_iced;
+#[cfg(feature = "instruction_api")]
+use super::code_size::{iced_to_code_size, CodeSize};
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 use super::condition_code::{iced_to_condition_code, ConditionCode};
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 use super::flow_control::{iced_to_flow_control, FlowControl};
+#[cfg(feature = "instruction_api")]
 use super::memory_size::{iced_to_memory_size, MemorySize};
+#[cfg(feature = "instruction_api")]
 use super::mnemonic::{iced_to_mnemonic, Mnemonic};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(feature = "instruction_api")]
 use super::op_code_info::OpCodeInfo;
-use super::op_kind::{iced_to_op_kind, op_kind_to_iced, OpKind};
-use super::register::{iced_to_register, register_to_iced, Register};
-use super::rounding_control::{iced_to_rounding_control, rounding_control_to_iced, RoundingControl};
+#[cfg(feature = "encoder")]
+#[cfg(feature = "instruction_api")]
+use super::op_kind::op_kind_to_iced;
+#[cfg(feature = "instruction_api")]
+use super::op_kind::{iced_to_op_kind, OpKind};
+#[cfg(feature = "encoder")]
+#[cfg(feature = "instruction_api")]
+use super::register::register_to_iced;
+#[cfg(feature = "instruction_api")]
+use super::register::{iced_to_register, Register};
+#[cfg(feature = "encoder")]
+#[cfg(feature = "instruction_api")]
+use super::rounding_control::rounding_control_to_iced;
+#[cfg(feature = "instruction_api")]
+use super::rounding_control::{iced_to_rounding_control, RoundingControl};
 use wasm_bindgen::prelude::*;
 
 /// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction::with*()` methods.
@@ -49,6 +75,7 @@ pub struct Instruction(pub(crate) iced_x86::Instruction);
 #[wasm_bindgen]
 #[allow(clippy::len_without_is_empty)]
 #[allow(clippy::new_without_default)]
+#[cfg(feature = "instruction_api")]
 impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared). See also the `with_*()` constructor methods.
 	#[wasm_bindgen(constructor)]
@@ -75,6 +102,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_ip16(&mut self, newValue: u16) {
 		self.0.set_ip16(newValue)
 	}
@@ -91,6 +119,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_ip32(&mut self, newValue: u32) {
 		self.0.set_ip32(newValue)
 	}
@@ -107,6 +136,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_ip(&mut self, newValue: u64) {
 		self.0.set_ip(newValue)
 	}
@@ -123,6 +153,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nextIP16(&mut self, newValue: u16) {
 		self.0.set_next_ip16(newValue)
 	}
@@ -139,6 +170,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nextIP32(&mut self, newValue: u32) {
 		self.0.set_next_ip32(newValue)
 	}
@@ -155,6 +187,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nextIP(&mut self, newValue: u64) {
 		self.0.set_next_ip(newValue)
 	}
@@ -173,6 +206,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_codeSize(&mut self, newValue: CodeSize) {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
@@ -191,6 +225,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_code(&mut self, newValue: Code) {
 		self.0.set_code(code_to_iced(newValue))
 	}
@@ -237,6 +272,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_length(&mut self, newValue: usize) {
 		self.0.set_len(newValue)
 	}
@@ -253,6 +289,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasXacquirePrefix(&mut self, newValue: bool) {
 		self.0.set_has_xacquire_prefix(newValue)
 	}
@@ -269,6 +306,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasXreleasePrefix(&mut self, newValue: bool) {
 		self.0.set_has_xrelease_prefix(newValue)
 	}
@@ -285,6 +323,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasRepPrefix(&mut self, newValue: bool) {
 		self.0.set_has_rep_prefix(newValue)
 	}
@@ -301,6 +340,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasRepePrefix(&mut self, newValue: bool) {
 		self.0.set_has_repe_prefix(newValue)
 	}
@@ -317,6 +357,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasRepnePrefix(&mut self, newValue: bool) {
 		self.0.set_has_repne_prefix(newValue)
 	}
@@ -333,6 +374,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_hasLockPrefix(&mut self, newValue: bool) {
 		self.0.set_has_lock_prefix(newValue)
 	}
@@ -355,6 +397,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op0Kind(&mut self, newValue: OpKind) {
 		self.0.set_op0_kind(op_kind_to_iced(newValue))
 	}
@@ -377,6 +420,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op1Kind(&mut self, newValue: OpKind) {
 		self.0.set_op1_kind(op_kind_to_iced(newValue))
 	}
@@ -399,6 +443,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op2Kind(&mut self, newValue: OpKind) {
 		self.0.set_op2_kind(op_kind_to_iced(newValue))
 	}
@@ -421,6 +466,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op3Kind(&mut self, newValue: OpKind) {
 		self.0.set_op3_kind(op_kind_to_iced(newValue))
 	}
@@ -449,6 +495,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[allow(clippy::unused_self)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op4Kind(&mut self, newValue: OpKind) {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
 	}
@@ -496,6 +543,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `opKind`: Operand kind
+	#[cfg(feature = "encoder")]
 	pub fn setOpKind(&mut self, operand: u32, opKind: OpKind) {
 		self.0.set_op_kind(operand, op_kind_to_iced(opKind))
 	}
@@ -542,6 +590,7 @@ impl Instruction {
 	///
 	/// * `newValue`: Segment register prefix
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_segmentPrefix(&mut self, newValue: Register) {
 		self.0.set_segment_prefix(register_to_iced(newValue))
 	}
@@ -585,6 +634,7 @@ impl Instruction {
 	///
 	/// * `newValue`: Displacement size
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryDisplSize(&mut self, newValue: u32) {
 		self.0.set_memory_displ_size(newValue)
 	}
@@ -601,6 +651,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_isBroadcast(&mut self, newValue: bool) {
 		self.0.set_is_broadcast(newValue)
 	}
@@ -641,6 +692,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value (1, 2, 4 or 8)
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryIndexScale(&mut self, newValue: u32) {
 		self.0.set_memory_index_scale(newValue)
 	}
@@ -665,6 +717,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryDisplacement(&mut self, newValue: u32) {
 		self.0.set_memory_displacement(newValue)
 	}
@@ -703,6 +756,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateI32")]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate_i32(&mut self, operand: u32, newValue: i32) {
 		self.0.set_immediate_i32(operand, newValue)
 	}
@@ -718,6 +772,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateU32")]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate_u32(&mut self, operand: u32, newValue: u32) {
 		self.0.set_immediate_u32(operand, newValue)
 	}
@@ -733,6 +788,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateI64")]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate_i64(&mut self, operand: u32, newValue: i64) {
 		self.0.set_immediate_i64(operand, newValue)
 	}
@@ -748,6 +804,7 @@ impl Instruction {
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateU64")]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate_u64(&mut self, operand: u32, newValue: u64) {
 		self.0.set_immediate_u64(operand, newValue)
 	}
@@ -768,6 +825,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate8(&mut self, newValue: u8) {
 		self.0.set_immediate8(newValue)
 	}
@@ -788,6 +846,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate8_2nd(&mut self, newValue: u8) {
 		self.0.set_immediate8_2nd(newValue)
 	}
@@ -808,6 +867,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate16(&mut self, newValue: u16) {
 		self.0.set_immediate16(newValue)
 	}
@@ -828,6 +888,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate32(&mut self, newValue: u32) {
 		self.0.set_immediate32(newValue)
 	}
@@ -848,6 +909,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate64(&mut self, newValue: u64) {
 		self.0.set_immediate64(newValue)
 	}
@@ -868,6 +930,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate8to16(&mut self, newValue: i16) {
 		self.0.set_immediate8to16(newValue)
 	}
@@ -888,6 +951,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate8to32(&mut self, newValue: i32) {
 		self.0.set_immediate8to32(newValue)
 	}
@@ -908,6 +972,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate8to64(&mut self, newValue: i64) {
 		self.0.set_immediate8to64(newValue)
 	}
@@ -928,6 +993,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_immediate32to64(&mut self, newValue: i64) {
 		self.0.set_immediate32to64(newValue)
 	}
@@ -948,6 +1014,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryAddress64(&mut self, newValue: u64) {
 		self.0.set_memory_address64(newValue)
 	}
@@ -968,6 +1035,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nearBranch16(&mut self, newValue: u16) {
 		self.0.set_near_branch16(newValue)
 	}
@@ -988,6 +1056,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nearBranch32(&mut self, newValue: u32) {
 		self.0.set_near_branch32(newValue)
 	}
@@ -1008,6 +1077,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_nearBranch64(&mut self, newValue: u64) {
 		self.0.set_near_branch64(newValue)
 	}
@@ -1040,6 +1110,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_farBranch16(&mut self, newValue: u16) {
 		self.0.set_far_branch16(newValue)
 	}
@@ -1060,6 +1131,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_farBranch32(&mut self, newValue: u32) {
 		self.0.set_far_branch32(newValue)
 	}
@@ -1082,6 +1154,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_farBranchSelector(&mut self, newValue: u16) {
 		self.0.set_far_branch_selector(newValue)
 	}
@@ -1104,6 +1177,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryBase(&mut self, newValue: Register) {
 		self.0.set_memory_base(register_to_iced(newValue))
 	}
@@ -1126,6 +1200,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_memoryIndex(&mut self, newValue: Register) {
 		self.0.set_memory_index(register_to_iced(newValue))
 	}
@@ -1154,6 +1229,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op0Register(&mut self, newValue: Register) {
 		self.0.set_op0_register(register_to_iced(newValue))
 	}
@@ -1182,6 +1258,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op1Register(&mut self, newValue: Register) {
 		self.0.set_op1_register(register_to_iced(newValue))
 	}
@@ -1210,6 +1287,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op2Register(&mut self, newValue: Register) {
 		self.0.set_op2_register(register_to_iced(newValue))
 	}
@@ -1238,6 +1316,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op3Register(&mut self, newValue: Register) {
 		self.0.set_op3_register(register_to_iced(newValue))
 	}
@@ -1270,8 +1349,9 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `newValue`: New value
-	#[allow(clippy::unused_self)]
 	#[wasm_bindgen(setter)]
+	#[allow(clippy::unused_self)]
+	#[cfg(feature = "encoder")]
 	pub fn set_op4Register(&mut self, newValue: Register) {
 		self.0.set_op4_register(register_to_iced(newValue))
 	}
@@ -1319,6 +1399,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: New value
+	#[cfg(feature = "encoder")]
 	pub fn setOpRegister(&mut self, operand: u32, newValue: Register) {
 		self.0.set_op_register(operand, register_to_iced(newValue))
 	}
@@ -1343,6 +1424,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_opMask(&mut self, newValue: Register) {
 		self.0.set_op_mask(register_to_iced(newValue))
 	}
@@ -1369,6 +1451,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_zeroingMasking(&mut self, newValue: bool) {
 		self.0.set_zeroing_masking(newValue)
 	}
@@ -1387,6 +1470,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_mergingMasking(&mut self, newValue: bool) {
 		self.0.set_merging_masking(newValue)
 	}
@@ -1411,6 +1495,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_roundingControl(&mut self, newValue: RoundingControl) {
 		self.0.set_rounding_control(rounding_control_to_iced(newValue))
 	}
@@ -1472,6 +1557,7 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
 	pub fn set_suppressAllExceptions(&mut self, newValue: bool) {
 		self.0.set_suppress_all_exceptions(newValue)
 	}
@@ -1499,6 +1585,7 @@ impl Instruction {
 
 #[wasm_bindgen]
 #[cfg(feature = "instr_info")]
+#[cfg(feature = "instruction_api")]
 impl Instruction {
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
 	/// the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
@@ -2004,6 +2091,7 @@ impl Instruction {
 	/// assert_eq!(ConditionCode::a, instr.condition_code());
 	/// ```
 	#[wasm_bindgen(js_name = "negateConditionCode")]
+	#[cfg(feature = "encoder")]
 	pub fn negate_condition_code(&mut self) {
 		self.0.negate_condition_code()
 	}
@@ -2027,6 +2115,7 @@ impl Instruction {
 	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
 	/// ```
 	#[wasm_bindgen(js_name = "asShortBranch")]
+	#[cfg(feature = "encoder")]
 	pub fn as_short_branch(&mut self) {
 		self.0.as_short_branch()
 	}
@@ -2050,6 +2139,7 @@ impl Instruction {
 	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
 	/// ```
 	#[wasm_bindgen(js_name = "asNearBranch")]
+	#[cfg(feature = "encoder")]
 	pub fn as_near_branch(&mut self) {
 		self.0.as_near_branch()
 	}
@@ -2095,6 +2185,7 @@ impl Instruction {
 
 #[wasm_bindgen]
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[cfg(feature = "instruction_api")]
 impl Instruction {
 	/// Gets the [`OpCodeInfo`]
 	///
@@ -2107,6 +2198,7 @@ impl Instruction {
 }
 
 #[wasm_bindgen]
+#[cfg(feature = "instruction_api")]
 impl Instruction {
 	/// Checks if this instance is equal to another instance. It ignores some fields,
 	/// such as the IP address, code size, etc.

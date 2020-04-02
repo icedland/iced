@@ -33627,6 +33627,7 @@ pub enum Code {
 }
 // GENERATOR-END: Enum
 
+#[cfg(all(feature = "encoder", feature = "instruction_api"))]
 pub(crate) fn code_to_iced(value: Code) -> iced_x86::Code {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u16) }
