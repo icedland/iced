@@ -60,22 +60,22 @@ namespace Generator.Enums.RustJS {
 			toPartialFileInfo.Add(TypeIds.BlockEncoderOptions, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "block_encoder_options.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Code, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "code.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.CodeSize, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "code_size.rs"), RustConstants.AttributeCopyClone));
-			toPartialFileInfo.Add(TypeIds.ConditionCode, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "condition_code.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.FeatureInstrInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.ConditionCode, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "condition_code.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.DecoderOptions, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "decoder_options.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "encoding_kind.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoderOrInstrInfo }));
-			toPartialFileInfo.Add(TypeIds.FlowControl, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "flow_control.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.FeatureInstrInfo }));
-			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "mandatory_prefix.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.FeatureOpCodeInfo }));
+			toPartialFileInfo.Add(TypeIds.EncodingKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "encoding_kind.rs"), new[] { RustConstants.AttributeCopyClone }));
+			toPartialFileInfo.Add(TypeIds.FlowControl, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "flow_control.rs"), new[] { RustConstants.AttributeCopyClone }));
+			toPartialFileInfo.Add(TypeIds.MandatoryPrefix, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "mandatory_prefix.rs"), new[] { RustConstants.AttributeCopyClone }));
 			toPartialFileInfo.Add(TypeIds.MemorySize, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "memory_size.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.MemorySizeOptions, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "memory_size_options.rs"), RustConstants.AttributeCopyClone));
 			toPartialFileInfo.Add(TypeIds.Mnemonic, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "mnemonic.rs"), new[] { RustConstants.AttributeCopyClone }));
 			toPartialFileInfo.Add(TypeIds.NumberBase, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "number_base.rs"), RustConstants.AttributeCopyClone));
 			toPartialFileInfo.Add(TypeIds.OpAccess, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_access.rs"), new[] { RustConstants.AttributeCopyClone }));
-			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_code_operand_kind.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeNonExhaustive, RustConstants.FeatureOpCodeInfo, RustConstants.AttributeAllowNonCamelCaseTypes }));
-			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_code_table_kind.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.FeatureOpCodeInfo, RustConstants.AttributeNonExhaustive }));
+			toPartialFileInfo.Add(TypeIds.OpCodeOperandKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_code_operand_kind.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.OpCodeTableKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_code_table_kind.rs"), new[] { RustConstants.AttributeCopyClone }));
 			toPartialFileInfo.Add(TypeIds.OpKind, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "op_kind.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 			toPartialFileInfo.Add(TypeIds.Register, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "register.rs"), new[] { RustConstants.AttributeCopyClone }));
 			toPartialFileInfo.Add(TypeIds.RoundingControl, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "rounding_control.rs"), RustConstants.AttributeCopyClone));
-			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "tuple_type.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeNonExhaustive, RustConstants.FeatureDecoderOrEncoder, RustConstants.AttributeAllowNonCamelCaseTypes }));
+			toPartialFileInfo.Add(TypeIds.TupleType, new PartialEnumFileInfo("Enum", Path.Combine(generatorOptions.RustJSDir, "tuple_type.rs"), new[] { RustConstants.AttributeCopyClone, RustConstants.AttributeAllowNonCamelCaseTypes }));
 		}
 
 		public override void Generate(EnumType enumType) {

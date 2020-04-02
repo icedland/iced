@@ -28,7 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Flow control
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg(feature = "instr_info")]
 pub enum FlowControl {
 	/// The next instruction that will be executed is the next instruction in the instruction stream
 	Next,

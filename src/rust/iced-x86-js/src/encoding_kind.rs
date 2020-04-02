@@ -28,8 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Instruction encoding
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
-#[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 pub enum EncodingKind {
 	/// Legacy encoding
 	Legacy,

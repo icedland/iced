@@ -28,7 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Instruction condition code (used by `Jcc`, `SETcc`, `CMOVcc`)
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg(feature = "instr_info")]
 #[allow(non_camel_case_types)]
 pub enum ConditionCode {
 	/// The instruction doesn't have a condition code

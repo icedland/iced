@@ -28,8 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Operand kind
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[allow(non_camel_case_types)]
 pub enum OpCodeOperandKind {
 	/// No operand

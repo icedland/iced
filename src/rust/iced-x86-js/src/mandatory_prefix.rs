@@ -28,7 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Mandatory prefix
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub enum MandatoryPrefix {
 	/// No mandatory prefix (legacy and 3DNow! tables only)
 	None,

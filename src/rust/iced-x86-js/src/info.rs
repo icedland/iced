@@ -117,14 +117,14 @@ impl InstructionInfo {
 	#[wasm_bindgen(js_name = "usedRegisters")]
 	pub fn used_registers(&self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
-		self.0.used_registers().iter().cloned().map(|r| JsValue::from(UsedRegister(r))).collect()
+		self.0.used_registers().iter().map(|&r| JsValue::from(UsedRegister(r))).collect()
 	}
 
 	/// Gets all accessed memory locations
 	#[wasm_bindgen(js_name = "usedMemory")]
 	pub fn used_memory(&self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
-		self.0.used_memory().iter().cloned().map(|m| JsValue::from(UsedMemory(m))).collect()
+		self.0.used_memory().iter().map(|&m| JsValue::from(UsedMemory(m))).collect()
 	}
 
 	/// `true` if the instruction isn't available in real mode or virtual 8086 mode

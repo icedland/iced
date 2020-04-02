@@ -430,7 +430,7 @@ impl Instruction {
 	/// [`op_count()`]: #method.op_count
 	/// [`op_kind()`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	pub fn op4Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op4_kind())
 	}
@@ -448,7 +448,7 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	pub fn set_op4Kind(&mut self, newValue: OpKind) {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
 	}
@@ -1250,7 +1250,7 @@ impl Instruction {
 	/// [`Register::None`]: enum.Register.html#variant.None
 	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	pub fn op4Register(&self) -> Register {
 		iced_to_register(self.0.op4_register())
 	}
@@ -1270,7 +1270,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `newValue`: New value
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::unused_self))]
+	#[allow(clippy::unused_self)]
 	#[wasm_bindgen(setter)]
 	pub fn set_op4Register(&mut self, newValue: Register) {
 		self.0.set_op4_register(register_to_iced(newValue))

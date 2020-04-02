@@ -28,8 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Opcode table
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg(all(feature = "encoder", feature = "op_code_info"))]
-#[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum OpCodeTableKind {
 	/// Legacy encoding table
 	Normal,

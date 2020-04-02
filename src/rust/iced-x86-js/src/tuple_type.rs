@@ -28,8 +28,6 @@ use wasm_bindgen::prelude::*;
 /// Tuple type (EVEX) which can be used to get the disp8 scale factor `N`
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
-#[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
-#[cfg(any(feature = "decoder", feature = "encoder"))]
 #[allow(non_camel_case_types)]
 pub enum TupleType {
 	/// `N = 1`
