@@ -151,8 +151,10 @@ jobs:
           export RUSTFLAGS="-D warnings"
           git clean -xdf
           cd src/rust/iced-x86
+          
           echo ==== BUILD DEBUG ====
           cargo check --color always --no-default-features --features "no_std decoder encoder block_encoder op_code_info instr_info gas intel masm nasm db"
+          
           cd ../../..
           git clean -xdf
 
@@ -162,62 +164,54 @@ jobs:
           export PATH="$HOME/.cargo/bin:$PATH"
           export RUSTFLAGS="-D warnings"
           cd src/rust/iced-x86
-          echo ==== std decoder ====
-          cargo check --color always --no-default-features --features "std decoder"
-          echo ==== std encoder ====
-          cargo check --color always --no-default-features --features "std encoder"
-          echo ==== std encoder block_encoder ====
-          cargo check --color always --no-default-features --features "std encoder block_encoder"
-          echo ==== std encoder op_code_info ====
-          cargo check --color always --no-default-features --features "std encoder op_code_info"
-          echo ==== std instr_info ====
-          cargo check --color always --no-default-features --features "std instr_info"
-          echo ==== std gas ====
-          cargo check --color always --no-default-features --features "std gas"
-          echo ==== std intel ====
-          cargo check --color always --no-default-features --features "std intel"
-          echo ==== std masm ====
-          cargo check --color always --no-default-features --features "std masm"
-          echo ==== std nasm ====
-          cargo check --color always --no-default-features --features "std nasm"
           
-          echo ==== no_std decoder ====
-          cargo check --color always --no-default-features --features "no_std decoder"
-          echo ==== no_std encoder ====
-          cargo check --color always --no-default-features --features "no_std encoder"
-          echo ==== no_std encoder block_encoder ====
-          cargo check --color always --no-default-features --features "no_std encoder block_encoder"
-          echo ==== no_std encoder op_code_info ====
-          cargo check --color always --no-default-features --features "no_std encoder op_code_info"
-          echo ==== no_std instr_info ====
-          cargo check --color always --no-default-features --features "no_std instr_info"
-          echo ==== no_std gas ====
-          cargo check --color always --no-default-features --features "no_std gas"
-          echo ==== no_std intel ====
-          cargo check --color always --no-default-features --features "no_std intel"
-          echo ==== no_std masm ====
-          cargo check --color always --no-default-features --features "no_std masm"
-          echo ==== no_std nasm ====
-          cargo check --color always --no-default-features --features "no_std nasm"
+          allFeatures=(
+              "std decoder"
+              "std encoder"
+              "std encoder block_encoder"
+              "std encoder op_code_info"
+              "std instr_info"
+              "std gas"
+              "std intel"
+              "std masm"
+              "std nasm"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== $features ====
+              cargo check --color always --no-default-features --features "$features"
+          done
           
-          echo ==== TEST std decoder ====
-          cargo check --color always --tests --no-default-features --features "std decoder"
-          echo ==== TEST std decoder encoder ====
-          cargo check --color always --tests --no-default-features --features "std decoder encoder"
-          echo ==== TEST std decoder encoder block_encoder ====
-          cargo check --color always --tests --no-default-features --features "std decoder encoder block_encoder"
-          echo ==== TEST std decoder encoder op_code_info ====
-          cargo check --color always --tests --no-default-features --features "std decoder encoder op_code_info"
-          echo ==== TEST std decoder instr_info ====
-          cargo check --color always --tests --no-default-features --features "std decoder instr_info"
-          echo ==== TEST std decoder gas ====
-          cargo check --color always --tests --no-default-features --features "std decoder gas"
-          echo ==== TEST std decoder intel ====
-          cargo check --color always --tests --no-default-features --features "std decoder intel"
-          echo ==== TEST std decoder masm ====
-          cargo check --color always --tests --no-default-features --features "std decoder masm"
-          echo ==== TEST std decoder nasm ====
-          cargo check --color always --tests --no-default-features --features "std decoder nasm"
+          allFeatures=(
+              "no_std decoder"
+              "no_std encoder"
+              "no_std encoder block_encoder"
+              "no_std encoder op_code_info"
+              "no_std instr_info"
+              "no_std gas"
+              "no_std intel"
+              "no_std masm"
+              "no_std nasm"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== $features ====
+              cargo check --color always --no-default-features --features "$features"
+          done
+          
+          allFeatures=(
+              "std decoder"
+              "std decoder encoder"
+              "std decoder encoder block_encoder"
+              "std decoder encoder op_code_info"
+              "std decoder instr_info"
+              "std decoder gas"
+              "std decoder intel"
+              "std decoder masm"
+              "std decoder nasm"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== TEST $features ====
+              cargo check --color always --tests --no-default-features --features "$features"
+          done
           
           cd ..
           git clean -xdf
@@ -231,36 +225,29 @@ jobs:
           
           echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
-          echo ==== decoder ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "decoder"
-          echo ==== instruction_api decoder ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder"
-          echo ==== encoder ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder"
-          echo ==== instruction_api encoder ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api encoder"
-          echo ==== encoder block_encoder ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder block_encoder"
-          echo ==== encoder op_code_info ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "encoder op_code_info"
-          echo ==== instruction_api encoder op_code_info ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api encoder op_code_info"
-          echo ==== instr_info ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instr_info"
-          echo ==== instruction_api instr_info ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api instr_info"
-          echo ==== gas ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "gas"
-          echo ==== intel ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "intel"
-          echo ==== masm ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "masm"
-          echo ==== nasm ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "nasm"
-          echo ==== instruction_api nasm ====
-          cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api nasm"
           echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
           cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
+          
+          allFeatures=(
+              "decoder"
+              "instruction_api decoder"
+              "encoder"
+              "instruction_api encoder"
+              "encoder block_encoder"
+              "encoder op_code_info"
+              "instruction_api encoder op_code_info"
+              "instr_info"
+              "instruction_api instr_info"
+              "gas"
+              "intel"
+              "masm"
+              "nasm"
+              "instruction_api nasm"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== $features ====
+              cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "$features"
+          done
           
           cd ..
           git clean -xdf
