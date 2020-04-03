@@ -226,7 +226,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `REP stosd`
-	/// Yes | `false` | `rep stosd`
+	/// ✔️ | `false` | `rep stosd`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_prefixes(&self) -> bool {
@@ -238,7 +238,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `REP stosd`
-	/// Yes | `false` | `rep stosd`
+	/// ✔️ | `false` | `rep stosd`
 	///
 	/// # Arguments
 	///
@@ -257,7 +257,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `MOV rcx,rax`
-	/// Yes | `false` | `mov rcx,rax`
+	/// ✔️ | `false` | `mov rcx,rax`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_mnemonics(&self) -> bool {
@@ -269,7 +269,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `MOV rcx,rax`
-	/// Yes | `false` | `mov rcx,rax`
+	/// ✔️ | `false` | `mov rcx,rax`
 	///
 	/// # Arguments
 	///
@@ -288,7 +288,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov RCX,[RAX+RDX*8]`
-	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
+	/// ✔️ | `false` | `mov rcx,[rax+rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_registers(&self) -> bool {
@@ -300,7 +300,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov RCX,[RAX+RDX*8]`
-	/// Yes | `false` | `mov rcx,[rax+rdx*8]`
+	/// ✔️ | `false` | `mov rcx,[rax+rdx*8]`
 	///
 	/// # Arguments
 	///
@@ -319,7 +319,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov BYTE PTR [rcx],12h`
-	/// Yes | `false` | `mov byte ptr [rcx],12h`
+	/// ✔️ | `false` | `mov byte ptr [rcx],12h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_keywords(&self) -> bool {
@@ -331,7 +331,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov BYTE PTR [rcx],12h`
-	/// Yes | `false` | `mov byte ptr [rcx],12h`
+	/// ✔️ | `false` | `mov byte ptr [rcx],12h`
 	///
 	/// # Arguments
 	///
@@ -350,7 +350,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+	/// ✔️ | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_decorators(&self) -> bool {
@@ -362,7 +362,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
-	/// Yes | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
+	/// ✔️ | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	///
 	/// # Arguments
 	///
@@ -381,7 +381,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
-	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
+	/// ✔️ | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn uppercase_all(&self) -> bool {
@@ -393,7 +393,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
-	/// Yes | `false` | `mov eax,gs:[rcx*4+0ffh]`
+	/// ✔️ | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	///
 	/// # Arguments
 	///
@@ -412,7 +412,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `0` | `mov•rcx,rbp`
+	/// ✔️ | `0` | `mov•rcx,rbp`
 	/// - | `8` | `mov•••••rcx,rbp`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -425,7 +425,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `0` | `mov•rcx,rbp`
+	/// ✔️ | `0` | `mov•rcx,rbp`
 	/// - | `8` | `mov•••••rcx,rbp`
 	///
 	/// # Arguments
@@ -462,7 +462,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov rax, rcx`
-	/// Yes | `false` | `mov rax,rcx`
+	/// ✔️ | `false` | `mov rax,rcx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_after_operand_separator(&self) -> bool {
@@ -474,7 +474,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov rax, rcx`
-	/// Yes | `false` | `mov rax,rcx`
+	/// ✔️ | `false` | `mov rax,rcx`
 	///
 	/// # Arguments
 	///
@@ -493,7 +493,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[ rcx+rdx ]`
-	/// Yes | `false` | `mov eax,[rcx+rdx]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_after_memory_bracket(&self) -> bool {
@@ -505,7 +505,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[ rcx+rdx ]`
-	/// Yes | `false` | `mov eax,[rcx+rdx]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx]`
 	///
 	/// # Arguments
 	///
@@ -524,7 +524,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
-	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_between_memory_add_operators(&self) -> bool {
@@ -536,7 +536,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
-	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
 	///
@@ -555,7 +555,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
-	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn space_between_memory_mul_operators(&self) -> bool {
@@ -567,7 +567,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
-	/// Yes | `false` | `mov eax,[rcx+rdx*8-80h]`
+	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	///
 	/// # Arguments
 	///
@@ -586,7 +586,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[8*rdx]`
-	/// Yes | `false` | `mov eax,[rdx*8]`
+	/// ✔️ | `false` | `mov eax,[rdx*8]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn scale_before_index(&self) -> bool {
@@ -598,7 +598,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[8*rdx]`
-	/// Yes | `false` | `mov eax,[rdx*8]`
+	/// ✔️ | `false` | `mov eax,[rdx*8]`
 	///
 	/// # Arguments
 	///
@@ -617,7 +617,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rbx+rcx*1]`
-	/// Yes | `false` | `mov eax,[rbx+rcx]`
+	/// ✔️ | `false` | `mov eax,[rbx+rcx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn always_show_scale(&self) -> bool {
@@ -629,7 +629,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rbx+rcx*1]`
-	/// Yes | `false` | `mov eax,[rbx+rcx]`
+	/// ✔️ | `false` | `mov eax,[rbx+rcx]`
 	///
 	/// # Arguments
 	///
@@ -649,7 +649,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ds:[ecx]`
-	/// Yes | `false` | `mov eax,[ecx]`
+	/// ✔️ | `false` | `mov eax,[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn always_show_segment_register(&self) -> bool {
@@ -662,7 +662,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ds:[ecx]`
-	/// Yes | `false` | `mov eax,[ecx]`
+	/// ✔️ | `false` | `mov eax,[ecx]`
 	///
 	/// # Arguments
 	///
@@ -681,7 +681,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx*2+0]`
-	/// Yes | `false` | `mov eax,[rcx*2]`
+	/// ✔️ | `false` | `mov eax,[rcx*2]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn show_zero_displacements(&self) -> bool {
@@ -693,7 +693,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rcx*2+0]`
-	/// Yes | `false` | `mov eax,[rcx*2]`
+	/// ✔️ | `false` | `mov eax,[rcx*2]`
 	///
 	/// # Arguments
 	///
@@ -780,7 +780,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `0x12345678`
-	/// Yes | `4` | `0x1234_5678`
+	/// ✔️ | `4` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn hex_digit_group_size(&self) -> u32 {
@@ -794,7 +794,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `0x12345678`
-	/// Yes | `4` | `0x1234_5678`
+	/// ✔️ | `4` | `0x1234_5678`
 	///
 	/// # Arguments
 	///
@@ -877,7 +877,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345678`
-	/// Yes | `3` | `12_345_678`
+	/// ✔️ | `3` | `12_345_678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn decimal_digit_group_size(&self) -> u32 {
@@ -891,7 +891,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345678`
-	/// Yes | `3` | `12_345_678`
+	/// ✔️ | `3` | `12_345_678`
 	///
 	/// # Arguments
 	///
@@ -974,7 +974,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345670`
-	/// Yes | `4` | `1234_5670`
+	/// ✔️ | `4` | `1234_5670`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn octal_digit_group_size(&self) -> u32 {
@@ -988,7 +988,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345670`
-	/// Yes | `4` | `1234_5670`
+	/// ✔️ | `4` | `1234_5670`
 	///
 	/// # Arguments
 	///
@@ -1071,7 +1071,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `11010111`
-	/// Yes | `4` | `1101_0111`
+	/// ✔️ | `4` | `1101_0111`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn binary_digit_group_size(&self) -> u32 {
@@ -1085,7 +1085,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `11010111`
-	/// Yes | `4` | `1101_0111`
+	/// ✔️ | `4` | `1101_0111`
 	///
 	/// # Arguments
 	///
@@ -1101,7 +1101,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `""` | `0x12345678`
+	/// ✔️ | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1115,7 +1115,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `""` | `0x12345678`
+	/// ✔️ | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
 	///
 	/// # Arguments
@@ -1132,7 +1132,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `""` | `0x12345678`
+	/// ✔️ | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
 	///
 	/// # Arguments
@@ -1150,7 +1150,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `0x0000000A`/`0000000Ah`
-	/// Yes | `false` | `0xA`/`0Ah`
+	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
 	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
@@ -1167,7 +1167,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `0x0000000A`/`0000000Ah`
-	/// Yes | `false` | `0xA`/`0Ah`
+	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
 	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
 	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
@@ -1188,7 +1188,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0xFF`
+	/// ✔️ | `true` | `0xFF`
 	/// - | `false` | `0xff`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1200,7 +1200,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0xFF`
+	/// ✔️ | `true` | `0xFF`
 	/// - | `false` | `0xff`
 	///
 	/// # Arguments
@@ -1219,7 +1219,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `9`
+	/// ✔️ | `true` | `9`
 	/// - | `false` | `0x9`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1231,7 +1231,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `9`
+	/// ✔️ | `true` | `9`
 	/// - | `false` | `0x9`
 	///
 	/// # Arguments
@@ -1250,7 +1250,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0FFh`
+	/// ✔️ | `true` | `0FFh`
 	/// - | `false` | `FFh`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1262,7 +1262,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `0FFh`
+	/// ✔️ | `true` | `0FFh`
 	/// - | `false` | `FFh`
 	///
 	/// # Arguments
@@ -1306,7 +1306,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `je 00000123h`
+	/// ✔️ | `true` | `je 00000123h`
 	/// - | `false` | `je 123h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1318,7 +1318,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `je 00000123h`
+	/// ✔️ | `true` | `je 00000123h`
 	/// - | `false` | `je 123h`
 	///
 	/// # Arguments
@@ -1338,7 +1338,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,-1`
-	/// Yes | `false` | `mov eax,FFFFFFFF`
+	/// ✔️ | `false` | `mov eax,FFFFFFFF`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn signed_immediate_operands(&self) -> bool {
@@ -1350,7 +1350,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,-1`
-	/// Yes | `false` | `mov eax,FFFFFFFF`
+	/// ✔️ | `false` | `mov eax,FFFFFFFF`
 	///
 	/// # Arguments
 	///
@@ -1368,7 +1368,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `mov al,[eax-2000h]`
+	/// ✔️ | `true` | `mov al,[eax-2000h]`
 	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1380,7 +1380,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `mov al,[eax-2000h]`
+	/// ✔️ | `true` | `mov al,[eax-2000h]`
 	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	///
 	/// # Arguments
@@ -1400,7 +1400,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov al,[eax+00000012h]`
-	/// Yes | `false` | `mov al,[eax+12h]`
+	/// ✔️ | `false` | `mov al,[eax+12h]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn displacement_leading_zeroes(&self) -> bool {
@@ -1412,7 +1412,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov al,[eax+00000012h]`
-	/// Yes | `false` | `mov al,[eax+12h]`
+	/// ✔️ | `false` | `mov al,[eax+12h]`
 	///
 	/// # Arguments
 	///
@@ -1458,7 +1458,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rip+12345678h]`
-	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
+	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn rip_relative_addresses(&self) -> bool {
@@ -1470,7 +1470,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[rip+12345678h]`
-	/// Yes | `false` | `mov eax,[1029384756AFBECDh]`
+	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	///
 	/// # Arguments
 	///
@@ -1488,7 +1488,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `je short 1234h`
+	/// ✔️ | `true` | `je short 1234h`
 	/// - | `false` | `je 1234h`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1500,7 +1500,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `je short 1234h`
+	/// ✔️ | `true` | `je short 1234h`
 	/// - | `false` | `je 1234h`
 	///
 	/// # Arguments
@@ -1519,7 +1519,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
+	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1531,7 +1531,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
+	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	///
 	/// # Arguments
@@ -1551,7 +1551,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[myfield (12345678)]`
-	/// Yes | `false` | `mov eax,[myfield]`
+	/// ✔️ | `false` | `mov eax,[myfield]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn show_symbol_address(&self) -> bool {
@@ -1563,7 +1563,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,[myfield (12345678)]`
-	/// Yes | `false` | `mov eax,[myfield]`
+	/// ✔️ | `false` | `mov eax,[myfield]`
 	///
 	/// # Arguments
 	///
@@ -1582,7 +1582,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ecx`
-	/// Yes | `false` | `mov %eax,%ecx`
+	/// ✔️ | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_naked_registers(&self) -> bool {
@@ -1594,7 +1594,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `mov eax,ecx`
-	/// Yes | `false` | `mov %eax,%ecx`
+	/// ✔️ | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
 	///
@@ -1613,7 +1613,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `movl %eax,%ecx`
-	/// Yes | `false` | `mov %eax,%ecx`
+	/// ✔️ | `false` | `mov %eax,%ecx`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_show_mnemonic_size_suffix(&self) -> bool {
@@ -1625,7 +1625,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `movl %eax,%ecx`
-	/// Yes | `false` | `mov %eax,%ecx`
+	/// ✔️ | `false` | `mov %eax,%ecx`
 	///
 	/// # Arguments
 	///
@@ -1644,7 +1644,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `(%eax, %ecx, 2)`
-	/// Yes | `false` | `(%eax,%ecx,2)`
+	/// ✔️ | `false` | `(%eax,%ecx,2)`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn gas_space_after_memory_operand_comma(&self) -> bool {
@@ -1656,7 +1656,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `(%eax, %ecx, 2)`
-	/// Yes | `false` | `(%eax,%ecx,2)`
+	/// ✔️ | `false` | `(%eax,%ecx,2)`
 	///
 	/// # Arguments
 	///
@@ -1674,7 +1674,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `mov eax,ds:[12345678]`
+	/// ✔️ | `true` | `mov eax,ds:[12345678]`
 	/// - | `false` | `mov eax,[12345678]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1686,7 +1686,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `mov eax,ds:[12345678]`
+	/// ✔️ | `true` | `mov eax,ds:[12345678]`
 	/// - | `false` | `mov eax,[12345678]`
 	///
 	/// # Arguments
@@ -1705,7 +1705,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
+	/// ✔️ | `true` | `[ecx+symbol]` / `[symbol]`
 	/// - | `false` | `symbol[ecx]` / `symbol`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1717,7 +1717,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `[ecx+symbol]` / `[symbol]`
+	/// ✔️ | `true` | `[ecx+symbol]` / `[symbol]`
 	/// - | `false` | `symbol[ecx]` / `symbol`
 	///
 	/// # Arguments
@@ -1736,7 +1736,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `[ecx+1234h]`
+	/// ✔️ | `true` | `[ecx+1234h]`
 	/// - | `false` | `1234h[ecx]`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
@@ -1748,7 +1748,7 @@ impl FormatterOptions {
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
-	/// Yes | `true` | `[ecx+1234h]`
+	/// ✔️ | `true` | `[ecx+1234h]`
 	/// - | `false` | `1234h[ecx]`
 	///
 	/// # Arguments
@@ -1768,7 +1768,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `or rcx,byte -1`
-	/// Yes | `false` | `or rcx,-1`
+	/// ✔️ | `false` | `or rcx,-1`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn nasm_show_sign_extended_immediate_size(&self) -> bool {
@@ -1780,7 +1780,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `or rcx,byte -1`
-	/// Yes | `false` | `or rcx,-1`
+	/// ✔️ | `false` | `or rcx,-1`
 	///
 	/// # Arguments
 	///
@@ -1799,7 +1799,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `fadd st(0),st(3)`
-	/// Yes | `false` | `fadd st,st(3)`
+	/// ✔️ | `false` | `fadd st,st(3)`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn prefer_st0(&self) -> bool {
@@ -1811,7 +1811,7 @@ impl FormatterOptions {
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `fadd st(0),st(3)`
-	/// Yes | `false` | `fadd st,st(3)`
+	/// ✔️ | `false` | `fadd st,st(3)`
 	///
 	/// # Arguments
 	///
