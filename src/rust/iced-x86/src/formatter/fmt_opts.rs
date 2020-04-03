@@ -1152,8 +1152,8 @@ impl FormatterOptions {
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
+	/// [`branch_leading_zeroes`]: #method.branch_leading_zeroes
+	/// [`displacement_leading_zeroes`]: #method.displacement_leading_zeroes
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn leading_zeroes(&self) -> bool {
@@ -1169,8 +1169,8 @@ impl FormatterOptions {
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
+	/// [`branch_leading_zeroes`]: #method.branch_leading_zeroes
+	/// [`displacement_leading_zeroes`]: #method.displacement_leading_zeroes
 	///
 	/// # Arguments
 	///

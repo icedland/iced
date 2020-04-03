@@ -60,17 +60,17 @@ impl UsedMemory {
 		iced_to_register(self.0.segment())
 	}
 
-	/// Base register or [`Register::None`] if none
+	/// Base register or [`Register.None`] if none
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
+	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn base(&self) -> Register {
 		iced_to_register(self.0.base())
 	}
 
-	/// Index register or [`Register::None`] if none
+	/// Index register or [`Register.None`] if none
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
+	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn index(&self) -> Register {
 		iced_to_register(self.0.index())
@@ -111,9 +111,9 @@ pub struct InstructionInfo(iced_x86::InstructionInfo);
 
 #[wasm_bindgen]
 impl InstructionInfo {
-	/// Gets all accessed registers. This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
+	/// Gets all accessed registers. This method doesn't return all accessed registers if [`isSaveRestoreInstruction`] is `true`.
 	///
-	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
+	/// [`isSaveRestoreInstruction`]: #method.is_save_restore_instruction
 	#[wasm_bindgen(js_name = "usedRegisters")]
 	pub fn used_registers(&self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
@@ -142,9 +142,9 @@ impl InstructionInfo {
 	}
 
 	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also [`Instruction::stack_pointer_increment()`]
+	/// See also [`Instruction.stackPointerIncrement`]
 	///
-	/// [`Instruction::stack_pointer_increment()`]: struct.Instruction.html#method.stack_pointer_increment
+	/// [`Instruction.stackPointerIncrement`]: struct.Instruction.html#method.stack_pointer_increment
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isStackInstruction")]
 	pub fn is_stack_instruction(&self) -> bool {
@@ -152,9 +152,9 @@ impl InstructionInfo {
 	}
 
 	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
-	/// [`used_registers()`] won't return all accessed registers.
+	/// [`usedRegisters()`] won't return all accessed registers.
 	///
-	/// [`used_registers()`]: #method.used_registers
+	/// [`usedRegisters()`]: #method.used_registers
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isSaveRestoreInstruction")]
 	pub fn is_save_restore_instruction(&self) -> bool {
@@ -232,10 +232,10 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsRead")]
 	pub fn rflags_read(&self) -> u32 {
@@ -243,10 +243,10 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsWritten")]
 	pub fn rflags_written(&self) -> u32 {
@@ -254,10 +254,10 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are always cleared by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsCleared")]
 	pub fn rflags_cleared(&self) -> u32 {
@@ -265,10 +265,10 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are always set by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsSet")]
 	pub fn rflags_set(&self) -> u32 {
@@ -276,19 +276,19 @@ impl InstructionInfo {
 	}
 
 	/// All flags that are undefined after executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsUndefined")]
 	pub fn rflags_undefined(&self) -> u32 {
 		self.0.rflags_undefined()
 	}
 
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
+	/// All flags that are modified by the CPU. This is `rflagsWritten() + rflagsCleared() + rflagsSet() + rflagsUndefined()`. This method returns a [`RflagsBits`] value.
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`RflagsBits`]: enum.RflagsBits.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsModified")]
 	pub fn rflags_modified(&self) -> u32 {
@@ -303,27 +303,27 @@ impl InstructionInfo {
 pub enum InstructionInfoOptions {
 	/// No option is enabled
 	None = 0,
-	/// Don't include memory usage, i.e., [`InstructionInfo::used_memory()`] will return an empty vector. All
-	/// registers that are used by memory operands are still returned by [`InstructionInfo::used_registers()`].
+	/// Don't include memory usage, i.e., [`InstructionInfo.usedMemory()`] will return an empty vector. All
+	/// registers that are used by memory operands are still returned by [`InstructionInfo.usedRegisters()`].
 	///
-	/// [`InstructionInfo::used_memory()`]: struct.InstructionInfo.html#method.used_memory
-	/// [`InstructionInfo::used_registers()`]: struct.InstructionInfo.html#method.used_registers
+	/// [`InstructionInfo.usedMemory()`]: struct.InstructionInfo.html#method.used_memory
+	/// [`InstructionInfo.usedRegisters()`]: struct.InstructionInfo.html#method.used_registers
 	NoMemoryUsage = 0x0000_0001,
-	/// Don't include register usage, i.e., [`InstructionInfo::used_registers()`] will return an empty vector
+	/// Don't include register usage, i.e., [`InstructionInfo.usedRegisters()`] will return an empty vector
 	///
-	/// [`InstructionInfo::used_registers()`]: struct.InstructionInfo.html#method.used_registers
+	/// [`InstructionInfo.usedRegisters()`]: struct.InstructionInfo.html#method.used_registers
 	NoRegisterUsage = 0x0000_0002,
 }
 
 /// Creates [`InstructionInfo`]s.
 ///
 /// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+/// [`Code`] methods such as [`Instruction.flowControl`] instead of getting that info from this struct.
 ///
 /// [`InstructionInfo`]: struct.InstructionInfo.html
 /// [`Instruction`]: struct.Instruction.html
 /// [`Code`]: enum.Code.html
-/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+/// [`Instruction.flowControl`]: struct.Instruction.html#method.flow_control
 #[wasm_bindgen]
 pub struct InstructionInfoFactory(iced_x86::InstructionInfoFactory);
 
@@ -332,11 +332,11 @@ impl InstructionInfoFactory {
 	/// Creates a new instance.
 	///
 	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	/// [`Code`] methods such as [`Instruction.flowControl`] instead of getting that info from this struct.
 	///
 	/// [`Instruction`]: struct.Instruction.html
 	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+	/// [`Instruction.flowControl`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Examples
 	///
@@ -347,7 +347,7 @@ impl InstructionInfoFactory {
 	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
 	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	///
-	/// // This allocates two vectors but they get re-used every time you call info() and info_options().
+	/// // This allocates two vectors but they get re-used every time you call info() and infoOptions().
 	/// let mut info_factory = InstructionInfoFactory::new();
 	///
 	/// for instr in &mut decoder {
@@ -368,17 +368,17 @@ impl InstructionInfoFactory {
 		InstructionInfoFactory(iced_x86::InstructionInfoFactory::new())
 	}
 
-	/// Creates a new [`InstructionInfo`], see also [`info_options()`] if you only need register usage
+	/// Creates a new [`InstructionInfo`], see also [`infoOptions()`] if you only need register usage
 	/// but not memory usage or vice versa.
 	///
 	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	/// [`Code`] methods such as [`Instruction.flowControl`] instead of getting that info from this struct.
 	///
 	/// [`InstructionInfo`]: struct.InstructionInfo.html
-	/// [`info_options()`]: #method.info_options
+	/// [`infoOptions()`]: #method.info_options
 	/// [`Instruction`]: struct.Instruction.html
 	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+	/// [`Instruction.flowControl`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///
@@ -423,13 +423,13 @@ impl InstructionInfoFactory {
 	/// Creates a new [`InstructionInfo`], see also [`info()`].
 	///
 	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
+	/// [`Code`] methods such as [`Instruction.flowControl`] instead of getting that info from this struct.
 	///
 	/// [`InstructionInfo`]: struct.InstructionInfo.html
 	/// [`info()`]: #method.info
 	/// [`Instruction`]: struct.Instruction.html
 	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
+	/// [`Instruction.flowControl`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///

@@ -783,10 +783,6 @@ impl OpCodeInfo {
 	/// ```
 	///
 	/// [`table()`]: #method.table
-	/// [`Code::Ffreep_sti`]: enum.Code.html#variant.Ffreep_sti
-	/// [`Code::Vmrunw`]: enum.Code.html#variant.Vmrunw
-	/// [`Code::Sub_r8_rm8`]: enum.Code.html#variant.Sub_r8_rm8
-	/// [`Code::Cvtpi2ps_xmm_mmm64`]: enum.Code.html#variant.Cvtpi2ps_xmm_mmm64
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn op_code(&self) -> u32 {

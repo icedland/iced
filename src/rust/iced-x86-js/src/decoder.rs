@@ -50,7 +50,7 @@ impl Decoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
-	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD_BRANCHES`
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions.NoInvalidCheck | DecoderOptions.AmdBranches`
 	///
 	/// # Examples
 	///
@@ -81,10 +81,10 @@ impl Decoder {
 	/// ```
 	///
 	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
-	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// Pass in [`DecoderOptions.NoInvalidCheck`] to the constructor and the decoder
 	/// will decode some invalid encodings.
 	///
-	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	/// [`DecoderOptions.NoInvalidCheck`]: enum.DecoderOptions.html#variant.NoInvalidCheck
 	///
 	/// ```
 	/// use iced_x86::*;
@@ -112,17 +112,17 @@ impl Decoder {
 		Decoder { __data_do_not_use: data, decoder }
 	}
 
-	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position()`]
+	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position`]
 	///
-	/// [`position()`]: #method.position
+	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
 	pub fn ip(&self) -> u64 {
 		self.decoder.ip()
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP`, see also [`set_position()`]
+	/// Sets the current `IP`/`EIP`/`RIP`, see also [`position`]
 	///
-	/// [`set_position()`]: #method.set_position
+	/// [`position`]: #method.set_position
 	///
 	/// # Arguments
 	///
@@ -138,32 +138,32 @@ impl Decoder {
 		self.decoder.bitness()
 	}
 
-	/// Gets the max value that can be passed to [`set_position()`]. This is the size of the data that gets
+	/// Gets the max value that can be passed to [`position`]. This is the size of the data that gets
 	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
 	///
-	/// [`set_position()`]: #method.set_position
+	/// [`position`]: #method.set_position
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "maxPosition")]
 	pub fn max_position(&self) -> usize {
 		self.decoder.max_position()
 	}
 
-	/// Gets the current data position. This value is always <= [`max_position()`].
-	/// When [`position()`] == `max_position()`, it's not possible to decode more
-	/// instructions and [`can_decode()`] returns `false`.
+	/// Gets the current data position. This value is always <= [`maxPosition`].
+	/// When [`position`] == [`maxPosition`], it's not possible to decode more
+	/// instructions and [`canDecode`] returns `false`.
 	///
-	/// [`max_position()`]: #method.max_position
-	/// [`position()`]: #method.position
-	/// [`can_decode()`]: #method.can_decode
+	/// [`maxPosition`]: #method.max_position
+	/// [`position`]: #method.position
+	/// [`canDecode`]: #method.can_decode
 	#[wasm_bindgen(getter)]
 	pub fn position(&self) -> usize {
 		self.decoder.position()
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
-	/// This value is always <= [`max_position()`]
+	/// This value is always <= [`maxPosition`]
 	///
-	/// [`max_position()`]: #method.max_position
+	/// [`maxPosition`]: #method.max_position
 	///
 	/// # Panics
 	///
@@ -171,7 +171,7 @@ impl Decoder {
 	///
 	/// # Arguments
 	///
-	/// * `new_value`: New position and must be <= `max_position()`
+	/// * `new_pos`: New position and must be <= [`maxPosition`]
 	///
 	/// # Examples
 	///
@@ -207,17 +207,17 @@ impl Decoder {
 
 	/// Returns `true` if there's at least one more byte to decode. It doesn't verify that the
 	/// next instruction is valid, it only checks if there's at least one more byte to read.
-	/// See also [`position()`] and [`max_position()`]
+	/// See also [`position`] and [`maxPosition`]
 	///
-	/// It's not required to call this method. If this method returns `false`, then [`decode_out()`]
-	/// and [`decode()`] will return an instruction whose [`code()`] == [`Code::INVALID`].
+	/// It's not required to call this method. If this method returns `false`, then [`decodeOut()`]
+	/// and [`decode()`] will return an instruction whose [`code`] == [`Code.INVALID`].
 	///
-	/// [`position()`]: #method.position
-	/// [`max_position()`]: #method.max_position
-	/// [`decode_out()`]: #method.decode_out
+	/// [`position`]: #method.position
+	/// [`maxPosition`]: #method.max_position
+	/// [`decodeOut()`]: #method.decode_out
 	/// [`decode()`]: #method.decode
-	/// [`code()`]: struct.Instruction.html#method.code
-	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
+	/// [`code`]: struct.Instruction.html#method.code
+	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
 	///
 	/// # Examples
 	///
@@ -267,23 +267,23 @@ impl Decoder {
 		self.decoder.iter().take(count).map(|i| JsValue::from(Instruction(i))).collect()
 	}
 
-	/// This method can be called after calling [`decode()`] and [`decode_out()`] to check if the
+	/// This method can be called after calling [`decode()`] and [`decodeOut()`] to check if the
 	/// decoded instruction is invalid because there's no more bytes left or because of bad input data.
 	///
 	/// [`decode()`]: #method.decode
-	/// [`decode_out()`]: #method.decode_out
+	/// [`decodeOut()`]: #method.decode_out
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "invalidNoMoreBytes")]
 	pub fn invalid_no_more_bytes(&self) -> bool {
 		self.decoder.invalid_no_more_bytes()
 	}
 
-	/// Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
+	/// Decodes and returns the next instruction, see also [`decodeOut()`]
 	/// which avoids copying the decoded instruction to the caller's return variable.
-	/// See also [`invalid_no_more_bytes()`].
+	/// See also [`invalidNoMoreBytes`].
 	///
-	/// [`decode_out(&mut Instruction)`]: #method.decode_out
-	/// [`invalid_no_more_bytes()`]: #method.invalid_no_more_bytes
+	/// [`decodeOut()`]: #method.decode_out
+	/// [`invalidNoMoreBytes`]: #method.invalid_no_more_bytes
 	///
 	/// # Examples
 	///
@@ -322,10 +322,10 @@ impl Decoder {
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
 	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
-	/// See also [`invalid_no_more_bytes()`].
+	/// See also [`invalidNoMoreBytes`].
 	///
 	/// [`decode()`]: #method.decode
-	/// [`invalid_no_more_bytes()`]: #method.invalid_no_more_bytes
+	/// [`invalidNoMoreBytes`]: #method.invalid_no_more_bytes
 	///
 	/// # Arguments
 	///

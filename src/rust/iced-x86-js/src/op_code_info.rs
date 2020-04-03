@@ -29,10 +29,9 @@ use super::op_code_table_kind::{iced_to_op_code_table_kind, OpCodeTableKind};
 use super::tuple_type::{iced_to_tuple_type, TupleType};
 use wasm_bindgen::prelude::*;
 
-/// Opcode info, returned by [`Code::op_code()`] and [`Instruction::op_code()`]
+/// Opcode info, returned by [`Instruction.opCode`]
 ///
-/// [`Code::op_code()`]: enum.Code.html#method.op_code
-/// [`Instruction::op_code()`]: struct.Instruction.html#method.op_code
+/// [`Instruction.opCode`]: struct.Instruction.html#method.op_code
 #[wasm_bindgen]
 pub struct OpCodeInfo(pub(crate) &'static iced_x86::OpCodeInfo);
 
@@ -68,7 +67,7 @@ impl OpCodeInfo {
 		iced_to_encoding_kind(self.0.encoding())
 	}
 
-	/// `true` if it's an instruction, `false` if it's eg. [`Code::INVALID`], [`db`], [`dw`], [`dd`], [`dq`]
+	/// `true` if it's an instruction, `false` if it's eg. [`Code.INVALID`], [`db`], [`dw`], [`dd`], [`dq`]
 	///
 	/// # Examples
 	///
@@ -80,7 +79,7 @@ impl OpCodeInfo {
 	/// assert!(!Code::DeclareByte.op_code().is_instruction());
 	/// ```
 	///
-	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
+	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
 	/// [`db`]: enum.Code.html#variant.DeclareByte
 	/// [`dw`]: enum.Code.html#variant.DeclareWord
 	/// [`dd`]: enum.Code.html#variant.DeclareDword
@@ -129,19 +128,19 @@ impl OpCodeInfo {
 		self.0.address_size()
 	}
 
-	/// (VEX/XOP/EVEX) `L` / `L'L` value or default value if [`is_lig()`] is `true`
+	/// (VEX/XOP/EVEX) `L` / `L'L` value or default value if [`isLIG`] is `true`
 	///
-	/// [`is_lig()`]: #method.is_lig
+	/// [`isLIG`]: #method.is_lig
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "L")]
 	pub fn l(&self) -> u32 {
 		self.0.l()
 	}
 
-	/// (VEX/XOP/EVEX) `W` value or default value if [`is_wig()`] or [`is_wig32()`] is `true`
+	/// (VEX/XOP/EVEX) `W` value or default value if [`isWIG`] or [`isWIG32`] is `true`
 	///
-	/// [`is_wig()`]: #method.is_wig
-	/// [`is_wig32()`]: #method.is_wig32
+	/// [`isWIG`]: #method.is_wig
+	/// [`isWIG32`]: #method.is_wig32
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "W")]
 	pub fn w(&self) -> u32 {
@@ -290,7 +289,7 @@ impl OpCodeInfo {
 	}
 
 	/// Gets the opcode. `000000xxh` if it's 1-byte, `0000yyxxh` if it's 2-byte (`yy` != `00`, and `yy` is the first byte and `xx` the second byte).
-	/// It doesn't include the table value, see [`table()`].
+	/// It doesn't include the table value, see [`table`].
 	///
 	/// # Examples
 	///
@@ -303,11 +302,7 @@ impl OpCodeInfo {
 	/// assert_eq!(0x2A, Code::Cvtpi2ps_xmm_mmm64.op_code().op_code());
 	/// ```
 	///
-	/// [`table()`]: #method.table
-	/// [`Code::Ffreep_sti`]: enum.Code.html#variant.Ffreep_sti
-	/// [`Code::Vmrunw`]: enum.Code.html#variant.Vmrunw
-	/// [`Code::Sub_r8_rm8`]: enum.Code.html#variant.Sub_r8_rm8
-	/// [`Code::Cvtpi2ps_xmm_mmm64`]: enum.Code.html#variant.Cvtpi2ps_xmm_mmm64
+	/// [`table`]: #method.table
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "opCode")]
 	pub fn op_code(&self) -> u32 {
@@ -398,9 +393,9 @@ impl OpCodeInfo {
 		self.0.is_available_in_mode(bitness)
 	}
 
-	/// Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also [`instruction_string()`]
+	/// Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also [`instructionString`]
 	///
-	/// [`instruction_string()`]: #method.instruction_string
+	/// [`instructionString`]: #method.instruction_string
 	///
 	/// # Examples
 	///
@@ -416,9 +411,9 @@ impl OpCodeInfo {
 		self.0.op_code_string().to_owned()
 	}
 
-	/// Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also [`op_code_string()`]
+	/// Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also [`opCodeString`]
 	///
-	/// [`op_code_string()`]: #method.op_code_string
+	/// [`opCodeString`]: #method.op_code_string
 	///
 	/// # Examples
 	///

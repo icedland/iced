@@ -472,7 +472,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	/// Gets the current data position. This value is always <= [`max_position()`].
-	/// When [`position()`] == `max_position()`, it's not possible to decode more
+	/// When [`position()`] == [`max_position()`], it's not possible to decode more
 	/// instructions and [`can_decode()`] returns `false`.
 	///
 	/// [`max_position()`]: #method.max_position
@@ -495,7 +495,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// # Arguments
 	///
-	/// * `new_value`: New position and must be <= `max_position()`
+	/// * `new_pos`: New position and must be <= [`max_position()`]
 	///
 	/// # Examples
 	///

@@ -23,12 +23,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use wasm_bindgen::prelude::*;
 
-/// Contains the offsets of the displacement and immediate. Call [`Decoder::get_constant_offsets()`] or
-/// [`Encoder::get_constant_offsets()`] to get the offsets of the constants after the instruction has been
+/// Contains the offsets of the displacement and immediate. Call [`Decoder.getConstantOffsets()`] or
+/// [`Encoder.getConstantOffsets()`] to get the offsets of the constants after the instruction has been
 /// decoded/encoded.
 ///
-/// [`Decoder::get_constant_offsets()`]: struct.Decoder.html#method.get_constant_offsets
-/// [`Encoder::get_constant_offsets()`]: struct.Encoder.html#method.get_constant_offsets
+/// [`Decoder.getConstantOffsets()`]: struct.Decoder.html#method.get_constant_offsets
+/// [`Encoder.getConstantOffsets()`]: struct.Encoder.html#method.get_constant_offsets
 #[wasm_bindgen]
 pub struct ConstantOffsets(pub(crate) iced_x86::ConstantOffsets);
 
@@ -79,30 +79,30 @@ impl ConstantOffsets {
 		self.0.immediate_size2()
 	}
 
-	/// `true` if [`displacement_offset()`] and [`displacement_size()`] are valid
+	/// `true` if [`displacementOffset`] and [`displacementSize`] are valid
 	///
-	/// [`displacement_offset()`]: #method.displacement_offset
-	/// [`displacement_size()`]: #method.displacement_size
+	/// [`displacementOffset`]: #method.displacement_offset
+	/// [`displacementSize`]: #method.displacement_size
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "hasDisplacement")]
 	pub fn has_displacement(&self) -> bool {
 		self.0.has_displacement()
 	}
 
-	/// `true` if [`immediate_offset()`] and [`immediate_size()`] are valid
+	/// `true` if [`immediateOffset`] and [`immediateSize`] are valid
 	///
-	/// [`immediate_offset()`]: #method.immediate_offset
-	/// [`immediate_size()`]: #method.immediate_size
+	/// [`immediateOffset`]: #method.immediate_offset
+	/// [`immediateSize`]: #method.immediate_size
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "hasImmediate")]
 	pub fn has_immediate(&self) -> bool {
 		self.0.has_immediate()
 	}
 
-	/// `true` if [`immediate_offset2()`] and [`immediate_size2()`] are valid
+	/// `true` if [`immediateOffset2`] and [`immediateSize2`] are valid
 	///
-	/// [`immediate_offset2()`]: #method.immediate_offset2
-	/// [`immediate_size2()`]: #method.immediate_size2
+	/// [`immediateOffset2`]: #method.immediate_offset2
+	/// [`immediateSize2`]: #method.immediate_size2
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "hasImmediate2")]
 	pub fn has_immediate2(&self) -> bool {

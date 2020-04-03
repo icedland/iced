@@ -156,17 +156,17 @@ impl Encoder {
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when
-	/// you've encoded all instructions and need the raw instruction bytes. See also [`set_buffer()`].
+	/// you've encoded all instructions and need the raw instruction bytes. See also [`setBuffer()`].
 	///
-	/// [`set_buffer()`]: #method.set_buffer
+	/// [`setBuffer()`]: #method.set_buffer
 	#[wasm_bindgen(js_name = "takeBuffer")]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
 		self.0.take_buffer()
 	}
 
-	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].
+	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`takeBuffer()`].
 	///
-	/// [`take_buffer()`]: #method.take_buffer
+	/// [`takeBuffer()`]: #method.take_buffer
 	#[wasm_bindgen(js_name = "setBuffer")]
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
 		self.0.set_buffer(buffer)

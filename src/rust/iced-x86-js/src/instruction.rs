@@ -66,7 +66,7 @@ use super::rounding_control::rounding_control_to_iced;
 use super::rounding_control::{iced_to_rounding_control, RoundingControl};
 use wasm_bindgen::prelude::*;
 
-/// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction::with*()` methods.
+/// A 16/32/64-bit x86 instruction. Created by [`Decoder`] or by `Instruction.with*()` methods.
 ///
 /// [`Decoder`]: struct.Decoder.html
 #[wasm_bindgen]
@@ -211,9 +211,9 @@ impl Instruction {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
 
-	/// Gets the instruction code, see also [`mnemonic()`]
+	/// Gets the instruction code, see also [`mnemonic`]
 	///
-	/// [`mnemonic()`]: #method.mnemonic
+	/// [`mnemonic`]: #method.mnemonic
 	#[wasm_bindgen(getter)]
 	pub fn code(&self) -> Code {
 		iced_to_code(self.0.code())
@@ -230,9 +230,9 @@ impl Instruction {
 		self.0.set_code(code_to_iced(newValue))
 	}
 
-	/// Gets the mnemonic, see also [`code()`]
+	/// Gets the mnemonic, see also [`code`]
 	///
-	/// [`code()`]: #method.code
+	/// [`code`]: #method.code
 	#[wasm_bindgen(getter)]
 	pub fn mnemonic(&self) -> Mnemonic {
 		iced_to_mnemonic(self.0.mnemonic())
@@ -379,19 +379,19 @@ impl Instruction {
 		self.0.set_has_lock_prefix(newValue)
 	}
 
-	/// Gets operand #0's kind if the operand exists (see [`op_count()`] and [`op_kind()`])
+	/// Gets operand #0's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`op_kind()`]: #method.op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
 	pub fn op0Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op0_kind())
 	}
 
-	/// Sets operand #0's kind if the operand exists (see [`op_count()`] and [`set_op_kind()`])
+	/// Sets operand #0's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`set_op_kind()`]: #method.set_op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.setOpKind
 	///
 	/// # Arguments
 	///
@@ -402,19 +402,19 @@ impl Instruction {
 		self.0.set_op0_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #1's kind if the operand exists (see [`op_count()`] and [`op_kind()`])
+	/// Gets operand #1's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`op_kind()`]: #method.op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
 	pub fn op1Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op1_kind())
 	}
 
-	/// Sets operand #1's kind if the operand exists (see [`op_count()`] and [`set_op_kind()`])
+	/// Sets operand #1's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`set_op_kind()`]: #method.set_op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.setOpKind
 	///
 	/// # Arguments
 	///
@@ -425,19 +425,19 @@ impl Instruction {
 		self.0.set_op1_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #2's kind if the operand exists (see [`op_count()`] and [`op_kind()`])
+	/// Gets operand #2's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`op_kind()`]: #method.op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
 	pub fn op2Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op2_kind())
 	}
 
-	/// Sets operand #2's kind if the operand exists (see [`op_count()`] and [`set_op_kind()`])
+	/// Sets operand #2's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`set_op_kind()`]: #method.set_op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.setOpKind
 	///
 	/// # Arguments
 	///
@@ -448,19 +448,19 @@ impl Instruction {
 		self.0.set_op2_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #3's kind if the operand exists (see [`op_count()`] and [`op_kind()`])
+	/// Gets operand #3's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`op_kind()`]: #method.op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
 	pub fn op3Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op3_kind())
 	}
 
-	/// Sets operand #3's kind if the operand exists (see [`op_count()`] and [`set_op_kind()`])
+	/// Sets operand #3's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`set_op_kind()`]: #method.set_op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.setOpKind
 	///
 	/// # Arguments
 	///
@@ -471,20 +471,20 @@ impl Instruction {
 		self.0.set_op3_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #4's kind if the operand exists (see [`op_count()`] and [`op_kind()`])
+	/// Gets operand #4's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`op_kind()`]: #method.op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
 	#[allow(clippy::unused_self)]
 	pub fn op4Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op4_kind())
 	}
 
-	/// Sets operand #4's kind if the operand exists (see [`op_count()`] and [`set_op_kind()`])
+	/// Sets operand #4's kind if the operand exists (see [`opCount`] and [`opKind`])
 	///
-	/// [`op_count()`]: #method.op_count
-	/// [`set_op_kind()`]: #method.set_op_kind
+	/// [`opCount`]: #method.op_count
+	/// [`opKind`]: #method.setOpKind
 	///
 	/// # Panics
 	///
@@ -500,9 +500,9 @@ impl Instruction {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets an operand's kind if it exists (see [`op_count()`])
+	/// Gets an operand's kind if it exists (see [`opCount`])
 	///
-	/// [`op_count()`]: #method.op_count
+	/// [`opCount`]: #method.op_count
 	///
 	/// # Panics
 	///
@@ -548,43 +548,43 @@ impl Instruction {
 		self.0.set_op_kind(operand, op_kind_to_iced(opKind))
 	}
 
-	/// Checks if the instruction has a segment override prefix, see [`segment_prefix()`]
+	/// Checks if the instruction has a segment override prefix, see [`segmentPrefix`]
 	///
-	/// [`segment_prefix()`]: #method.segment_prefix
+	/// [`segmentPrefix`]: #method.segmentPrefix
 	#[wasm_bindgen(getter)]
 	pub fn hasSegmentPrefix(&self) -> bool {
 		self.0.has_segment_prefix()
 	}
 
-	/// Gets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
-	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
+	/// Gets the segment override prefix or [`Register.None`] if none. See also [`memorySegment`].
+	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`memory_segment()`]: #method.memory_segment
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`memorySegment`]: #method.memory_segment
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
 	#[wasm_bindgen(getter)]
 	pub fn segmentPrefix(&self) -> Register {
 		iced_to_register(self.0.segment_prefix())
 	}
 
-	/// Sets the segment override prefix or [`Register::None`] if none. See also [`memory_segment()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
-	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
+	/// Sets the segment override prefix or [`Register.None`] if none. See also [`memorySegment`].
+	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`memory_segment()`]: #method.memory_segment
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`memorySegment`]: #method.memory_segment
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
 	///
 	/// # Arguments
 	///
@@ -596,14 +596,14 @@ impl Instruction {
 	}
 
 	/// Gets the effective segment register used to reference the memory location.
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
-	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`]
+	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memorySegment")]
 	pub fn memory_segment(&self) -> Register {
@@ -611,24 +611,24 @@ impl Instruction {
 	}
 
 	/// Gets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
-	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
+	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memory_displacement()`]: #method.memory_displacement
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	pub fn memoryDisplSize(&self) -> u32 {
 		self.0.memory_displ_size()
 	}
 
 	/// Sets the size of the memory displacement in bytes. Valid values are `0`, `1` (16/32/64-bit), `2` (16-bit), `4` (32-bit), `8` (64-bit).
-	/// Note that the return value can be 1 and [`memory_displacement()`] may still not fit in
+	/// Note that the return value can be 1 and [`memoryDisplacement`] may still not fit in
 	/// a signed byte if it's an EVEX encoded instruction.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memory_displacement()`]: #method.memory_displacement
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
@@ -656,37 +656,37 @@ impl Instruction {
 		self.0.set_is_broadcast(newValue)
 	}
 
-	/// Gets the size of the memory location that is referenced by the operand. See also [`is_broadcast()`].
-	/// Use this method if the operand has kind [`OpKind::Memory`], [`OpKind::Memory64`],
-	/// [`OpKind::MemorySegSI`], [`OpKind::MemorySegESI`], [`OpKind::MemorySegRSI`],
-	/// [`OpKind::MemoryESDI`], [`OpKind::MemoryESEDI`], [`OpKind::MemoryESRDI`]
+	/// Gets the size of the memory location that is referenced by the operand. See also [`isBroadcast`].
+	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
+	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`],
+	/// [`OpKind.MemoryESDI`], [`OpKind.MemoryESEDI`], [`OpKind.MemoryESRDI`]
 	///
-	/// [`is_broadcast()`]: #method.is_broadcast
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
-	/// [`OpKind::MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
-	/// [`OpKind::MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
-	/// [`OpKind::MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
-	/// [`OpKind::MemoryESDI`]: enum.OpKind.html#variant.MemoryESDI
-	/// [`OpKind::MemoryESEDI`]: enum.OpKind.html#variant.MemoryESEDI
-	/// [`OpKind::MemoryESRDI`]: enum.OpKind.html#variant.MemoryESRDI
+	/// [`isBroadcast`]: #method.isBroadcast
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
+	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
+	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
+	/// [`OpKind.MemoryESDI`]: enum.OpKind.html#variant.MemoryESDI
+	/// [`OpKind.MemoryESEDI`]: enum.OpKind.html#variant.MemoryESEDI
+	/// [`OpKind.MemoryESRDI`]: enum.OpKind.html#variant.MemoryESRDI
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memorySize")]
 	pub fn memory_size(&self) -> MemorySize {
 		iced_to_memory_size(self.0.memory_size())
 	}
 
-	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	pub fn memoryIndexScale(&self) -> u32 {
 		self.0.memory_index_scale()
 	}
 
-	/// Sets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Sets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
@@ -697,21 +697,21 @@ impl Instruction {
 		self.0.set_memory_index_scale(newValue)
 	}
 
-	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memory_displacement64()`]).
-	/// Use this method if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memoryDisplacement64`]).
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memory_displacement64()`]: #method.memory_displacement64
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`memoryDisplacement64`]: #method.memory_displacement64
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	pub fn memoryDisplacement(&self) -> u32 {
 		self.0.memory_displacement()
 	}
 
-	/// Sets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memoryDisplacement64`]).
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memory_displacement64()`]: #method.memory_displacement64
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`memoryDisplacement64`]: #method.memory_displacement64
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
@@ -723,9 +723,9 @@ impl Instruction {
 	}
 
 	/// Gets the memory operand's displacement sign extended to 64 bits.
-	/// Use this method if the operand has kind [`OpKind::Memory`]
+	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement64")]
 	pub fn memory_displacement64(&self) -> u64 {
@@ -809,17 +809,17 @@ impl Instruction {
 		self.0.set_immediate_u64(operand, newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8`]
 	///
-	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
+	/// [`OpKind.Immediate8`]: enum.OpKind.html#variant.Immediate8
 	#[wasm_bindgen(getter)]
 	pub fn immediate8(&self) -> u8 {
 		self.0.immediate8()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8`]
 	///
-	/// [`OpKind::Immediate8`]: enum.OpKind.html#variant.Immediate8
+	/// [`OpKind.Immediate8`]: enum.OpKind.html#variant.Immediate8
 	///
 	/// # Arguments
 	///
@@ -830,17 +830,17 @@ impl Instruction {
 		self.0.set_immediate8(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8_2nd`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8_2nd`]
 	///
-	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
+	/// [`OpKind.Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	#[wasm_bindgen(getter)]
 	pub fn immediate8_2nd(&self) -> u8 {
 		self.0.immediate8_2nd()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8_2nd`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8_2nd`]
 	///
-	/// [`OpKind::Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
+	/// [`OpKind.Immediate8_2nd`]: enum.OpKind.html#variant.Immediate8_2nd
 	///
 	/// # Arguments
 	///
@@ -851,17 +851,17 @@ impl Instruction {
 		self.0.set_immediate8_2nd(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate16`]
 	///
-	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
+	/// [`OpKind.Immediate16`]: enum.OpKind.html#variant.Immediate16
 	#[wasm_bindgen(getter)]
 	pub fn immediate16(&self) -> u16 {
 		self.0.immediate16()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate16`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate16`]
 	///
-	/// [`OpKind::Immediate16`]: enum.OpKind.html#variant.Immediate16
+	/// [`OpKind.Immediate16`]: enum.OpKind.html#variant.Immediate16
 	///
 	/// # Arguments
 	///
@@ -872,17 +872,17 @@ impl Instruction {
 		self.0.set_immediate16(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32`]
 	///
-	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
+	/// [`OpKind.Immediate32`]: enum.OpKind.html#variant.Immediate32
 	#[wasm_bindgen(getter)]
 	pub fn immediate32(&self) -> u32 {
 		self.0.immediate32()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32`]
 	///
-	/// [`OpKind::Immediate32`]: enum.OpKind.html#variant.Immediate32
+	/// [`OpKind.Immediate32`]: enum.OpKind.html#variant.Immediate32
 	///
 	/// # Arguments
 	///
@@ -893,17 +893,17 @@ impl Instruction {
 		self.0.set_immediate32(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
 	///
-	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
 	pub fn immediate64(&self) -> u64 {
 		self.0.immediate64()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
 	///
-	/// [`OpKind::Immediate64`]: enum.OpKind.html#variant.Immediate64
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	///
 	/// # Arguments
 	///
@@ -914,17 +914,17 @@ impl Instruction {
 		self.0.set_immediate64(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to16`]
 	///
-	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
+	/// [`OpKind.Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	#[wasm_bindgen(getter)]
 	pub fn immediate8to16(&self) -> i16 {
 		self.0.immediate8to16()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to16`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to16`]
 	///
-	/// [`OpKind::Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
+	/// [`OpKind.Immediate8to16`]: enum.OpKind.html#variant.Immediate8to16
 	///
 	/// # Arguments
 	///
@@ -935,17 +935,17 @@ impl Instruction {
 		self.0.set_immediate8to16(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to32`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to32`]
 	///
-	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
+	/// [`OpKind.Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	#[wasm_bindgen(getter)]
 	pub fn immediate8to32(&self) -> i32 {
 		self.0.immediate8to32()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to32`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to32`]
 	///
-	/// [`OpKind::Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
+	/// [`OpKind.Immediate8to32`]: enum.OpKind.html#variant.Immediate8to32
 	///
 	/// # Arguments
 	///
@@ -956,17 +956,17 @@ impl Instruction {
 		self.0.set_immediate8to32(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
 	///
-	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
+	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[wasm_bindgen(getter)]
 	pub fn immediate8to64(&self) -> i64 {
 		self.0.immediate8to64()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate8to64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
 	///
-	/// [`OpKind::Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
+	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	///
 	/// # Arguments
 	///
@@ -977,17 +977,17 @@ impl Instruction {
 		self.0.set_immediate8to64(newValue)
 	}
 
-	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32to64`]
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
 	///
-	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
+	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[wasm_bindgen(getter)]
 	pub fn immediate32to64(&self) -> i64 {
 		self.0.immediate32to64()
 	}
 
-	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind::Immediate32to64`]
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
 	///
-	/// [`OpKind::Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
+	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	///
 	/// # Arguments
 	///
@@ -998,17 +998,17 @@ impl Instruction {
 		self.0.set_immediate32to64(newValue)
 	}
 
-	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
+	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
 	///
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
 	pub fn memoryAddress64(&self) -> u64 {
 		self.0.memory_address64()
 	}
 
-	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind::Memory64`]
+	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
 	///
-	/// [`OpKind::Memory64`]: enum.OpKind.html#variant.Memory64
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	///
 	/// # Arguments
 	///
@@ -1019,17 +1019,17 @@ impl Instruction {
 		self.0.set_memory_address64(newValue)
 	}
 
-	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch16`]
 	///
-	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	#[wasm_bindgen(getter)]
 	pub fn nearBranch16(&self) -> u16 {
 		self.0.near_branch16()
 	}
 
-	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch16`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch16`]
 	///
-	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	///
 	/// # Arguments
 	///
@@ -1040,17 +1040,17 @@ impl Instruction {
 		self.0.set_near_branch16(newValue)
 	}
 
-	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch32`]
 	///
-	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	#[wasm_bindgen(getter)]
 	pub fn nearBranch32(&self) -> u32 {
 		self.0.near_branch32()
 	}
 
-	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch32`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch32`]
 	///
-	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	///
 	/// # Arguments
 	///
@@ -1061,17 +1061,17 @@ impl Instruction {
 		self.0.set_near_branch32(newValue)
 	}
 
-	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
 	///
-	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	pub fn nearBranch64(&self) -> u64 {
 		self.0.near_branch64()
 	}
 
-	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::NearBranch64`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
 	///
-	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	///
 	/// # Arguments
 	///
@@ -1083,28 +1083,28 @@ impl Instruction {
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
-	/// (i.e., if [`op0_kind()`] is [`OpKind::NearBranch16`], [`OpKind::NearBranch32`] or [`OpKind::NearBranch64`])
+	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`])
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`OpKind::NearBranch16`]: enum.OpKind.html#variant.NearBranch16
-	/// [`OpKind::NearBranch32`]: enum.OpKind.html#variant.NearBranch32
-	/// [`OpKind::NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	pub fn nearBranchTarget(&self) -> u64 {
 		self.0.near_branch_target()
 	}
 
-	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch16`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.FarBranch16`]
 	///
-	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
+	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	#[wasm_bindgen(getter)]
 	pub fn farBranch16(&self) -> u16 {
 		self.0.far_branch16()
 	}
 
-	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch16`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.FarBranch16`]
 	///
-	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
+	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	///
 	/// # Arguments
 	///
@@ -1115,17 +1115,17 @@ impl Instruction {
 		self.0.set_far_branch16(newValue)
 	}
 
-	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch32`]
+	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.FarBranch32`]
 	///
-	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
+	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[wasm_bindgen(getter)]
 	pub fn farBranch32(&self) -> u32 {
 		self.0.far_branch32()
 	}
 
-	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind::FarBranch32`]
+	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.FarBranch32`]
 	///
-	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
+	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	///
 	/// # Arguments
 	///
@@ -1136,19 +1136,19 @@ impl Instruction {
 		self.0.set_far_branch32(newValue)
 	}
 
-	/// Gets the operand's branch target selector. Use this method if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
+	/// Gets the operand's branch target selector. Use this method if the operand has kind [`OpKind.FarBranch16`] or [`OpKind.FarBranch32`]
 	///
-	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
-	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
+	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
+	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[wasm_bindgen(getter)]
 	pub fn farBranchSelector(&self) -> u16 {
 		self.0.far_branch_selector()
 	}
 
-	/// Sets the operand's branch target selector. Use this method if the operand has kind [`OpKind::FarBranch16`] or [`OpKind::FarBranch32`]
+	/// Sets the operand's branch target selector. Use this method if the operand has kind [`OpKind.FarBranch16`] or [`OpKind.FarBranch32`]
 	///
-	/// [`OpKind::FarBranch16`]: enum.OpKind.html#variant.FarBranch16
-	/// [`OpKind::FarBranch32`]: enum.OpKind.html#variant.FarBranch32
+	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
+	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	///
 	/// # Arguments
 	///
@@ -1159,19 +1159,19 @@ impl Instruction {
 		self.0.set_far_branch_selector(newValue)
 	}
 
-	/// Gets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's base register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	pub fn memoryBase(&self) -> Register {
 		iced_to_register(self.0.memory_base())
 	}
 
-	/// Sets the memory operand's base register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Sets the memory operand's base register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
@@ -1182,19 +1182,19 @@ impl Instruction {
 		self.0.set_memory_base(register_to_iced(newValue))
 	}
 
-	/// Gets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Gets the memory operand's index register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	pub fn memoryIndex(&self) -> Register {
 		iced_to_register(self.0.memory_index())
 	}
 
-	/// Sets the memory operand's index register or [`Register::None`] if none. Use this method if the operand has kind [`OpKind::Memory`]
+	/// Sets the memory operand's index register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Memory`]: enum.OpKind.html#variant.Memory
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
@@ -1205,25 +1205,25 @@ impl Instruction {
 		self.0.set_memory_index(register_to_iced(newValue))
 	}
 
-	/// Gets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #0's register value. Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
 	pub fn op0Register(&self) -> Register {
 		iced_to_register(self.0.op0_register())
 	}
 
-	/// Sets operand #0's register value. Use this method if operand #0 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #0's register value. Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Arguments
 	///
@@ -1234,25 +1234,25 @@ impl Instruction {
 		self.0.set_op0_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #1's register value. Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
 	pub fn op1Register(&self) -> Register {
 		iced_to_register(self.0.op1_register())
 	}
 
-	/// Sets operand #1's register value. Use this method if operand #1 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #1's register value. Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Arguments
 	///
@@ -1263,25 +1263,25 @@ impl Instruction {
 		self.0.set_op1_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #2's register value. Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
 	pub fn op2Register(&self) -> Register {
 		iced_to_register(self.0.op2_register())
 	}
 
-	/// Sets operand #2's register value. Use this method if operand #2 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #2's register value. Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Arguments
 	///
@@ -1292,25 +1292,25 @@ impl Instruction {
 		self.0.set_op2_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #3's register value. Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
 	pub fn op3Register(&self) -> Register {
 		iced_to_register(self.0.op3_register())
 	}
 
-	/// Sets operand #3's register value. Use this method if operand #3 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #3's register value. Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Arguments
 	///
@@ -1321,26 +1321,26 @@ impl Instruction {
 		self.0.set_op3_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Gets operand #4's register value. Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
 	#[allow(clippy::unused_self)]
 	pub fn op4Register(&self) -> Register {
 		iced_to_register(self.0.op4_register())
 	}
 
-	/// Sets operand #4's register value. Use this method if operand #4 ([`op0_kind()`]) has kind [`OpKind::Register`], see [`op_count()`] and [`op_register()`]
+	/// Sets operand #4's register value. Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
-	/// [`op0_kind()`]: #method.op0_kind
-	/// [`op_count()`]: #method.op_count
-	/// [`op_register()`]: #method.op_register
-	/// [`Register::None`]: enum.Register.html#variant.None
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`opCount`]: #method.op_count
+	/// [`opRegister`]: #method.opRegister
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Panics
 	///
@@ -1356,9 +1356,9 @@ impl Instruction {
 		self.0.set_op4_register(register_to_iced(newValue))
 	}
 
-	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
+	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind.Register`]
 	///
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Panics
 	///
@@ -1387,9 +1387,9 @@ impl Instruction {
 		iced_to_register(self.0.op_register(operand))
 	}
 
-	/// Sets the operand's register value. Use this method if the operand has kind [`OpKind::Register`]
+	/// Sets the operand's register value. Use this method if the operand has kind [`OpKind.Register`]
 	///
-	/// [`OpKind::Register`]: enum.OpKind.html#variant.Register
+	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Panics
 	///
@@ -1404,21 +1404,21 @@ impl Instruction {
 		self.0.set_op_register(operand, register_to_iced(newValue))
 	}
 
-	/// Gets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
+	/// Gets the op mask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
 	///
-	/// [`Register::K1`]: enum.Register.html#variant.K1
-	/// [`Register::K7`]: enum.Register.html#variant.K7
-	/// [`Register::None`]: enum.Register.html#variant.None
+	/// [`Register.K1`]: enum.Register.html#variant.K1
+	/// [`Register.K7`]: enum.Register.html#variant.K7
+	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn opMask(&self) -> Register {
 		iced_to_register(self.0.op_mask())
 	}
 
-	/// Sets the op mask register ([`Register::K1`] - [`Register::K7`]) or [`Register::None`] if none
+	/// Sets the op mask register ([`Register.K1`] - [`Register.K7`]) or [`Register.None`] if none
 	///
-	/// [`Register::K1`]: enum.Register.html#variant.K1
-	/// [`Register::K7`]: enum.Register.html#variant.K7
-	/// [`Register::None`]: enum.Register.html#variant.None
+	/// [`Register.K1`]: enum.Register.html#variant.K1
+	/// [`Register.K7`]: enum.Register.html#variant.K7
+	/// [`Register.None`]: enum.Register.html#variant.None
 	///
 	/// # Arguments
 	///
@@ -1429,9 +1429,9 @@ impl Instruction {
 		self.0.set_op_mask(register_to_iced(newValue))
 	}
 
-	/// Checks if there's an op mask register ([`op_mask()`])
+	/// Checks if there's an op mask register ([`opMask`])
 	///
-	/// [`op_mask()`]: #method.op_mask
+	/// [`opMask`]: #method.opMask
 	#[wasm_bindgen(getter)]
 	pub fn hasOpMask(&self) -> bool {
 		self.0.has_op_mask()
@@ -1475,21 +1475,21 @@ impl Instruction {
 		self.0.set_merging_masking(newValue)
 	}
 
-	/// Gets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
-	/// or [`RoundingControl::None`] if the instruction doesn't use it.
+	/// Gets the rounding control ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
-	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
-	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
+	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
+	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn roundingControl(&self) -> RoundingControl {
 		iced_to_rounding_control(self.0.rounding_control())
 	}
 
-	/// Sets the rounding control ([`suppress_all_exceptions()`] is implied but still returns `false`)
-	/// or [`RoundingControl::None`] if the instruction doesn't use it.
+	/// Sets the rounding control ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
-	/// [`suppress_all_exceptions()`]: #method.suppress_all_exceptions
-	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
+	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
+	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	///
 	/// # Arguments
 	///
@@ -1500,26 +1500,26 @@ impl Instruction {
 		self.0.set_rounding_control(rounding_control_to_iced(newValue))
 	}
 
-	/// Checks if this is a VSIB instruction, see also [`is_vsib32()`], [`is_vsib64()`]
+	/// Checks if this is a VSIB instruction, see also [`isVsib32`], [`isVsib64`]
 	///
-	/// [`is_vsib32()`]: #method.is_vsib32
-	/// [`is_vsib64()`]: #method.is_vsib64
+	/// [`isVsib32`]: #method.isVsib32
+	/// [`isVsib64`]: #method.isVsib64
 	#[wasm_bindgen(getter)]
 	pub fn isVsib(&self) -> bool {
 		self.0.is_vsib()
 	}
 
-	/// VSIB instructions only ([`is_vsib()`]): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
+	/// VSIB instructions only ([`isVsib`]): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
 	///
-	/// [`is_vsib()`]: #method.is_vsib
+	/// [`isVsib`]: #method.isVsib
 	#[wasm_bindgen(getter)]
 	pub fn isVsib32(&self) -> bool {
 		self.0.is_vsib32()
 	}
 
-	/// VSIB instructions only ([`is_vsib()`]): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
+	/// VSIB instructions only ([`isVsib`]): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
 	///
-	/// [`is_vsib()`]: #method.is_vsib
+	/// [`isVsib`]: #method.isVsib
 	#[wasm_bindgen(getter)]
 	pub fn isVsib64(&self) -> bool {
 		self.0.is_vsib64()
@@ -1537,21 +1537,21 @@ impl Instruction {
 		self.0.vsib()
 	}
 
-	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
-	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
+	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
-	/// [`rounding_control()`]: #method.rounding_control
-	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
+	/// [`roundingControl`]: #method.roundingControl
+	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn suppressAllExceptions(&self) -> bool {
 		self.0.suppress_all_exceptions()
 	}
 
-	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`rounding_control()`] is
-	/// not [`RoundingControl::None`], SAE is implied but this method will still return `false`.
+	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
+	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
-	/// [`rounding_control()`]: #method.rounding_control
-	/// [`RoundingControl::None`]: enum.RoundingControl.html#variant.None
+	/// [`roundingControl`]: #method.roundingControl
+	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	///
 	/// # Arguments
 	///
@@ -1569,13 +1569,13 @@ impl Instruction {
 		self.0.is_ip_rel_memory_operand()
 	}
 
-	/// Gets the `RIP`/`EIP` releative address (([`next_ip()`] or [`next_ip32()`]) + [`memory_displacement()`]).
-	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`is_ip_rel_memory_operand()`]
+	/// Gets the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
-	/// [`next_ip()`]: #method.next_ip
-	/// [`next_ip32()`]: #method.next_ip32
-	/// [`memory_displacement()`]: #method.memory_displacement
-	/// [`is_ip_rel_memory_operand()`]: #method.is_ip_rel_memory_operand
+	/// [`nextIP`]: #method.nextIP
+	/// [`nextIP32`]: #method.nextIP32
+	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]
 	pub fn ip_rel_memory_address(&self) -> u64 {
@@ -1706,9 +1706,9 @@ impl Instruction {
 	}
 
 	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-	/// See also [`stack_pointer_increment()`]
+	/// See also [`stackPointerIncrement`]
 	///
-	/// [`stack_pointer_increment()`]: #method.stack_pointer_increment
+	/// [`stackPointerIncrement`]: #method.stack_pointer_increment
 	///
 	/// # Examples
 	///
@@ -1743,10 +1743,10 @@ impl Instruction {
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	///
 	/// # Examples
 	///
@@ -1783,10 +1783,10 @@ impl Instruction {
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	///
 	/// # Examples
 	///
@@ -1823,10 +1823,10 @@ impl Instruction {
 	}
 
 	/// All flags that are always cleared by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	///
 	/// # Examples
 	///
@@ -1863,10 +1863,10 @@ impl Instruction {
 	}
 
 	/// All flags that are always set by the CPU.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	///
 	/// # Examples
 	///
@@ -1903,10 +1903,10 @@ impl Instruction {
 	}
 
 	/// All flags that are undefined after executing the instruction.
-	/// This method returns a [`RflagsBits`] value. See also [`rflags_modified()`].
+	/// This method returns a [`RflagsBits`] value. See also [`rflagsModified`].
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
-	/// [`rflags_modified()`]: #method.rflags_modified
+	/// [`RflagsBits`]: enum.RflagsBits.html
+	/// [`rflagsModified`]: #method.rflags_modified
 	///
 	/// # Examples
 	///
@@ -1942,9 +1942,9 @@ impl Instruction {
 		self.0.rflags_undefined()
 	}
 
-	/// All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns a [`RflagsBits`] value.
+	/// All flags that are modified by the CPU. This is `rflagsWritten() + rflagsCleared() + rflagsSet() + rflagsUndefined()`. This method returns a [`RflagsBits`] value.
 	///
-	/// [`RflagsBits`]: struct.RflagsBits.html
+	/// [`RflagsBits`]: enum.RflagsBits.html
 	///
 	/// # Examples
 	///
@@ -2144,9 +2144,9 @@ impl Instruction {
 		self.0.as_near_branch()
 	}
 
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode::None`] is returned
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode.None`] is returned
 	///
-	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
+	/// [`ConditionCode.None`]: enum.ConditionCode.html#variant.None
 	///
 	/// # Examples
 	///

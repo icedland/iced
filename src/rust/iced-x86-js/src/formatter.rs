@@ -131,7 +131,7 @@ impl Formatter {
 	/// - `instruction`: Instruction
 	/// - `options`: Options, see [`FormatMnemonicOptions`]
 	///
-	/// [`FormatMnemonicOptions`]: struct.FormatMnemonicOptions.html
+	/// [`FormatMnemonicOptions`]: enum.FormatMnemonicOptions.html
 	#[wasm_bindgen(js_name = "formatMnemonicOptions")]
 	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32) -> String {
 		let mut output = String::new();
@@ -150,7 +150,7 @@ impl Formatter {
 	}
 
 	/// Returns the operand access but only if it's an operand added by the formatter. If it's an
-	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory::info()`].
+	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory.info()`].
 	///
 	/// # Panics
 	///
@@ -159,11 +159,11 @@ impl Formatter {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
+	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operandCount`]
 	///
 	/// [`Instruction`]: struct.Instruction.html
-	/// [`InstructionInfoFactory::info()`]: struct.InstructionInfoFactory.html#method.info
-	/// [`operand_count()`]: #tymethod.operand_count
+	/// [`InstructionInfoFactory.info()`]: struct.InstructionInfoFactory.html#method.info
+	/// [`operandCount`]: #method.operand_count
 	#[cfg(feature = "instr_info")]
 	#[wasm_bindgen(js_name = "opAccess")]
 	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Option<OpAccess> {
@@ -179,9 +179,9 @@ impl Formatter {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
+	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operandCount`]
 	///
-	/// [`operand_count()`]: #tymethod.operand_count
+	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "getInstructionOperand")]
 	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Option<u32> {
 		self.formatter.get_instruction_operand(&instruction.0, operand)
@@ -212,9 +212,9 @@ impl Formatter {
 	/// # Arguments
 	///
 	/// - `instruction`: Instruction
-	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operand_count()`]
+	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operandCount`]
 	///
-	/// [`operand_count()`]: #tymethod.operand_count
+	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "formatOperand")]
 	pub fn format_operand(&mut self, instruction: &Instruction, operand: u32) -> String {
 		let mut output = String::new();
@@ -795,9 +795,9 @@ impl Formatter {
 		self.formatter.options_mut().set_hex_suffix_string(value);
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -808,9 +808,9 @@ impl Formatter {
 		self.formatter.options().hex_digit_group_size()
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -865,9 +865,9 @@ impl Formatter {
 		self.formatter.options_mut().set_decimal_suffix_string(value);
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -878,9 +878,9 @@ impl Formatter {
 		self.formatter.options().decimal_digit_group_size()
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -935,9 +935,9 @@ impl Formatter {
 		self.formatter.options_mut().set_octal_suffix_string(value);
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -948,9 +948,9 @@ impl Formatter {
 		self.formatter.options().octal_digit_group_size()
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1005,9 +1005,9 @@ impl Formatter {
 		self.formatter.options_mut().set_binary_suffix_string(value);
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1018,9 +1018,9 @@ impl Formatter {
 		self.formatter.options().binary_digit_group_size()
 	}
 
-	/// Size of a digit group, see also [`digit_separator()`]
+	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digit_separator()`]: #method.digit_separator
+	/// [`digitSeparator`]: #method.digitSeparator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1035,9 +1035,9 @@ impl Formatter {
 		self.formatter.options_mut().set_binary_digit_group_size(value);
 	}
 
-	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	/// Digit separator or an empty string. See also eg. [`hexDigitGroupSize`]
 	///
-	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
+	/// [`hexDigitGroupSize`]: #method.hexDigitGroupSize
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1048,9 +1048,9 @@ impl Formatter {
 		self.formatter.options().digit_separator().to_owned()
 	}
 
-	/// Digit separator or an empty string. See also eg. [`hex_digit_group_size()`]
+	/// Digit separator or an empty string. See also eg. [`hexDigitGroupSize`]
 	///
-	/// [`hex_digit_group_size()`]: #method.hex_digit_group_size
+	/// [`hexDigitGroupSize`]: #method.hexDigitGroupSize
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1066,32 +1066,32 @@ impl Formatter {
 	}
 
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
-	/// and [`displacement_leading_zeroes`].
+	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeroes`]
+	/// and [`displacementLeadingZeroes`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
+	/// [`branchLeadingZeroes`]: #method.branchLeadingZeroes
+	/// [`displacementLeadingZeroes`]: #method.displacementLeadingZeroes
 	#[wasm_bindgen(getter)]
 	pub fn leadingZeroes(&self) -> bool {
 		self.formatter.options().leading_zeroes()
 	}
 
 	/// Add leading zeroes to hexadecimal/octal/binary numbers.
-	/// This option has no effect on branch targets and displacements, use [`branch_leading_zeroes`]
-	/// and [`displacement_leading_zeroes`].
+	/// This option has no effect on branch targets and displacements, use [`branchLeadingZeroes`]
+	/// and [`displacementLeadingZeroes`].
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branch_leading_zeroes`]: #structfield.branch_leading_zeroes
-	/// [`displacement_leading_zeroes`]: #structfield.displacement_leading_zeroes
+	/// [`branchLeadingZeroes`]: #method.branchLeadingZeroes
+	/// [`displacementLeadingZeroes`]: #method.displacementLeadingZeroes
 	///
 	/// # Arguments
 	///

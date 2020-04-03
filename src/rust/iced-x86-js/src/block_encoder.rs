@@ -45,7 +45,9 @@ impl BlockEncoder {
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32, or 64
-	/// * `options`: Encoder options (`BlockEncoderOptions`)
+	/// * `options`: Encoder options ([`BlockEncoderOptions`])
+	///
+	/// [`BlockEncoderOptions`]: enum.BlockEncoderOptions.html
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, options: BlockEncoderOptions) -> Self {
 		if bitness != 16 && bitness != 32 && bitness != 64 {
@@ -54,9 +56,11 @@ impl BlockEncoder {
 		BlockEncoder { instructions: Vec::new(), bitness, options: options as u32 }
 	}
 
-	/// Adds an instruction that will be encoded when `encode()` is called.
+	/// Adds an instruction that will be encoded when [`encode()`] is called.
 	/// The input `instruction` can be a decoded instruction or an instruction
-	/// created by the user, eg. `Instruction::with_*()` constructor methods.
+	/// created by the user, eg. `Instruction.with_*()` constructor methods.
+	///
+	/// [`encode()`]: #method.encode
 	///
 	/// # Arguments
 	///
@@ -65,7 +69,9 @@ impl BlockEncoder {
 		self.instructions.push(instruction.0);
 	}
 
-	/// Encodes all instructions added by `add()`
+	/// Encodes all instructions added by [`add()`]
+	///
+	/// [`add()`]: #method.add
 	///
 	/// # Arguments
 	///

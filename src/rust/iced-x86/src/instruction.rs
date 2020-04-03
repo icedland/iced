@@ -851,7 +851,7 @@ impl Instruction {
 		self.mem_displ
 	}
 
-	/// Sets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing.
+	/// Gets the memory operand's displacement. This should be sign extended to 64 bits if it's 64-bit addressing (see [`memory_displacement64()`]).
 	/// Use this method if the operand has kind [`OpKind::Memory`]
 	///
 	/// [`memory_displacement64()`]: #method.memory_displacement64
