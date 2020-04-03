@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(feature = "instr_info")]
+use super::constant_offsets::ConstantOffsets;
 use super::decoder_options::DecoderOptions;
 use super::instruction::Instruction;
 use std::slice;
@@ -367,5 +369,48 @@ impl Decoder {
 	#[wasm_bindgen(js_name = "decodeOut")]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
 		self.decoder.decode_out(&mut instruction.0);
+	}
+}
+
+#[wasm_bindgen]
+#[cfg(feature = "instr_info")]
+impl Decoder {
+	/// Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
+	/// The caller can check if there are any relocations at those addresses.
+	///
+	/// # Arguments
+	///
+	/// * `instruction`: The latest instruction that was decoded by this decoder
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // nop
+	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
+	/// //                  00  01  02  03  04  05  06
+	/// //                \opc\mrm\displacement___\imm
+	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	/// assert_eq!(Code::Nopd, decoder.decode().code());
+	/// let instr = decoder.decode();
+	/// let co = decoder.get_constant_offsets(&instr);
+	///
+	/// assert!(co.has_displacement());
+	/// assert_eq!(2, co.displacement_offset());
+	/// assert_eq!(4, co.displacement_size());
+	/// assert!(co.has_immediate());
+	/// assert_eq!(6, co.immediate_offset());
+	/// assert_eq!(1, co.immediate_size());
+	/// // It's not an instruction with two immediates (e.g. enter)
+	/// assert!(!co.has_immediate2());
+	/// assert_eq!(0, co.immediate_offset2());
+	/// assert_eq!(0, co.immediate_size2());
+	/// ```
+	#[wasm_bindgen(js_name = "getConstantOffsets")]
+	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
+		ConstantOffsets(self.decoder.get_constant_offsets(&instruction.0))
 	}
 }

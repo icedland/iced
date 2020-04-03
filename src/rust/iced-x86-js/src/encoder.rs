@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(non_snake_case)]
 
+use super::constant_offsets::ConstantOffsets;
 use super::instruction::Instruction;
 use wasm_bindgen::prelude::*;
 
@@ -51,9 +52,7 @@ use wasm_bindgen::prelude::*;
 /// ```
 #[wasm_bindgen]
 #[allow(missing_debug_implementations)]
-pub struct Encoder {
-	encoder: iced_x86::Encoder,
-}
+pub struct Encoder(iced_x86::Encoder);
 
 #[wasm_bindgen]
 impl Encoder {
@@ -83,8 +82,7 @@ impl Encoder {
 	/// * `capacity`: Initial capacity of the `u8` buffer
 	#[wasm_bindgen(js_name = "withCapacity")]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
-		let encoder = iced_x86::Encoder::with_capacity(bitness, capacity);
-		Self { encoder }
+		Self(iced_x86::Encoder::with_capacity(bitness, capacity))
 	}
 
 	/// Encodes an instruction and returns the size of the encoded instruction
@@ -120,7 +118,7 @@ impl Encoder {
 	/// assert_eq!(vec![0x75, 0xF2], buffer);
 	/// ```
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
-		match self.encoder.encode(&instruction.0, rip) {
+		match self.0.encode(&instruction.0, rip) {
 			Ok(size) => Ok(size as u32),
 			#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 			Err(error) => Err(js_sys::Error::new(&format!("{} ({})", error, instruction.0)).into()),
@@ -154,7 +152,7 @@ impl Encoder {
 	/// ```
 	#[wasm_bindgen(js_name = "writeU8")]
 	pub fn write_u8(&mut self, value: u8) {
-		self.encoder.write_u8(value)
+		self.0.write_u8(value)
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty vector. Should be called when
@@ -163,7 +161,7 @@ impl Encoder {
 	/// [`set_buffer()`]: #method.set_buffer
 	#[wasm_bindgen(js_name = "takeBuffer")]
 	pub fn take_buffer(&mut self) -> Vec<u8> {
-		self.encoder.take_buffer()
+		self.0.take_buffer()
 	}
 
 	/// Overwrites the buffer with a new vector. The old buffer is dropped. See also [`take_buffer()`].
@@ -171,13 +169,20 @@ impl Encoder {
 	/// [`take_buffer()`]: #method.take_buffer
 	#[wasm_bindgen(js_name = "setBuffer")]
 	pub fn set_buffer(&mut self, buffer: Vec<u8>) {
-		self.encoder.set_buffer(buffer)
+		self.0.set_buffer(buffer)
+	}
+
+	/// Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.
+	/// The caller can use this information to add relocations if needed.
+	#[wasm_bindgen(js_name = "getConstantOffsets")]
+	pub fn get_constant_offsets(&self) -> ConstantOffsets {
+		ConstantOffsets(self.0.get_constant_offsets())
 	}
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 	#[wasm_bindgen(getter)]
 	pub fn preventVEX2(&self) -> bool {
-		self.encoder.prevent_vex2()
+		self.0.prevent_vex2()
 	}
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
@@ -187,13 +192,13 @@ impl Encoder {
 	/// * `new_value`: new value
 	#[wasm_bindgen(setter)]
 	pub fn set_preventVEX2(&mut self, new_value: bool) {
-		self.encoder.set_prevent_vex2(new_value)
+		self.0.set_prevent_vex2(new_value)
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
 	pub fn VEX_WIG(&self) -> u32 {
-		self.encoder.vex_wig()
+		self.0.vex_wig()
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
@@ -203,13 +208,13 @@ impl Encoder {
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
 	pub fn set_VEX_WIG(&mut self, new_value: u32) {
-		self.encoder.set_vex_wig(new_value)
+		self.0.set_vex_wig(new_value)
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
 	pub fn VEX_LIG(&self) -> u32 {
-		self.encoder.vex_lig()
+		self.0.vex_lig()
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
@@ -219,13 +224,13 @@ impl Encoder {
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
 	pub fn set_VEX_LIG(&mut self, new_value: u32) {
-		self.encoder.set_vex_lig(new_value)
+		self.0.set_vex_lig(new_value)
 	}
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
 	pub fn EVEX_WIG(&self) -> u32 {
-		self.encoder.evex_wig()
+		self.0.evex_wig()
 	}
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
@@ -235,13 +240,13 @@ impl Encoder {
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
 	pub fn set_EVEX_WIG(&mut self, new_value: u32) {
-		self.encoder.set_evex_wig(new_value)
+		self.0.set_evex_wig(new_value)
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
 	#[wasm_bindgen(getter)]
 	pub fn EVEX_LIG(&self) -> u32 {
-		self.encoder.evex_lig()
+		self.0.evex_lig()
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
@@ -251,12 +256,12 @@ impl Encoder {
 	/// * `new_value`: new value (0 or 3)
 	#[wasm_bindgen(setter)]
 	pub fn set_EVEX_LIG(&mut self, new_value: u32) {
-		self.encoder.set_evex_lig(new_value)
+		self.0.set_evex_lig(new_value)
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	#[wasm_bindgen(getter)]
 	pub fn bitness(&self) -> u32 {
-		self.encoder.bitness()
+		self.0.bitness()
 	}
 }
