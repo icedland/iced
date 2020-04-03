@@ -98,6 +98,8 @@ mod encoding_kind;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 mod flow_control;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod format_mnemonic_options;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
@@ -122,6 +124,8 @@ mod op_code_table_kind;
 mod op_kind;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod register;
+#[cfg(feature = "instr_info")]
+mod rflags_bits;
 #[cfg(feature = "instruction_api")]
 mod rounding_control;
 #[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
@@ -155,6 +159,8 @@ pub use encoding_kind::*;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 pub use flow_control::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use format_mnemonic_options::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use formatter::*;
 #[cfg(feature = "instr_info")]
 pub use info::*;
@@ -179,6 +185,8 @@ pub use op_code_table_kind::*;
 pub use op_kind::*;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use register::*;
+#[cfg(feature = "instr_info")]
+pub use rflags_bits::*;
 #[cfg(feature = "instruction_api")]
 pub use rounding_control::*;
 #[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
