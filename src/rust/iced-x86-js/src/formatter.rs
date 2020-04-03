@@ -25,7 +25,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::instruction::Instruction;
 use super::memory_size_options::{iced_to_memory_size_options, memory_size_options_to_iced, MemorySizeOptions};
-use super::number_base::{iced_to_number_base, number_base_to_iced, NumberBase};
 #[cfg(feature = "instr_info")]
 use super::op_access::{iced_to_op_access, OpAccess};
 #[cfg(feature = "instruction_api")]
@@ -1180,28 +1179,40 @@ impl Formatter {
 		self.formatter.options_mut().set_add_leading_zero_to_hex_numbers(value);
 	}
 
-	/// Number base
+	/// Number base (`2`, `8`, `10`, `16`)
 	///
-	/// - Default: [`Hexadecimal`]
-	///
-	/// [`Hexadecimal`]: enum.NumberBase.html#variant.Hexadecimal
+	/// - Default: `16`
 	#[wasm_bindgen(getter)]
-	pub fn numberBase(&self) -> NumberBase {
-		iced_to_number_base(self.formatter.options().number_base())
+	pub fn numberBase(&self) -> i32 {
+		match self.formatter.options().number_base() {
+			iced_x86::NumberBase::Binary => 2,
+			iced_x86::NumberBase::Octal => 8,
+			iced_x86::NumberBase::Decimal => 10,
+			iced_x86::NumberBase::Hexadecimal => 16,
+		}
 	}
 
-	/// Number base
+	/// Number base (`2`, `8`, `10`, `16`)
 	///
-	/// - Default: [`Hexadecimal`]
+	/// - Default: `16`
 	///
-	/// [`Hexadecimal`]: enum.NumberBase.html#variant.Hexadecimal
+	/// # Panics
+	///
+	/// Panics if `value` is not `2`, `8`, `10`, `16`
 	///
 	/// # Arguments
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_numberBase(&mut self, value: NumberBase) {
-		self.formatter.options_mut().set_number_base(number_base_to_iced(value));
+	pub fn set_numberBase(&mut self, value: i32) {
+		let base = match value {
+			2 => iced_x86::NumberBase::Binary,
+			8 => iced_x86::NumberBase::Octal,
+			10 => iced_x86::NumberBase::Decimal,
+			16 => iced_x86::NumberBase::Hexadecimal,
+			_ => panic!(),
+		};
+		self.formatter.options_mut().set_number_base(base);
 	}
 
 	/// Add leading zeroes to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`

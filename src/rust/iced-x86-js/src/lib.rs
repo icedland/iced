@@ -108,8 +108,6 @@ mod memory_size;
 mod memory_size_options;
 #[cfg(feature = "instruction_api")]
 mod mnemonic;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-mod number_base;
 #[cfg(feature = "instr_info")]
 mod op_access;
 #[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
@@ -165,8 +163,6 @@ pub use memory_size::*;
 pub use memory_size_options::*;
 #[cfg(feature = "instruction_api")]
 pub use mnemonic::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use number_base::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;
 #[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
