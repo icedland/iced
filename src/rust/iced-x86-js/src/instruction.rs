@@ -72,8 +72,25 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 pub struct Instruction(pub(crate) iced_x86::Instruction);
 
+// ip() and length() are useful when disassembling code so they're always available
 #[wasm_bindgen]
 #[allow(clippy::len_without_is_empty)]
+impl Instruction {
+	/// Gets the 64-bit IP of the instruction
+	#[wasm_bindgen(getter)]
+	pub fn ip(&self) -> u64 {
+		self.0.ip()
+	}
+
+	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
+	/// or create a new one, this method could return the wrong value.
+	#[wasm_bindgen(getter)]
+	pub fn length(&self) -> u32 {
+		self.0.len() as u32
+	}
+}
+
+#[wasm_bindgen]
 #[allow(clippy::new_without_default)]
 #[cfg(feature = "instruction_api")]
 impl Instruction {
@@ -122,12 +139,6 @@ impl Instruction {
 	#[cfg(feature = "encoder")]
 	pub fn set_ip32(&mut self, newValue: u32) {
 		self.0.set_ip32(newValue)
-	}
-
-	/// Gets the 64-bit IP of the instruction
-	#[wasm_bindgen(getter)]
-	pub fn ip(&self) -> u64 {
-		self.0.ip()
 	}
 
 	/// Sets the 64-bit IP of the instruction
@@ -262,13 +273,6 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "opCount")]
 	pub fn op_count(&self) -> u32 {
 		self.0.op_count()
-	}
-
-	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
-	/// or create a new one, this method could return the wrong value.
-	#[wasm_bindgen(getter)]
-	pub fn length(&self) -> u32 {
-		self.0.len() as u32
 	}
 
 	/// Sets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
