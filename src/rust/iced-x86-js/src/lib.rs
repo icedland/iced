@@ -87,6 +87,8 @@ mod code_size;
 mod condition_code;
 #[cfg(any(feature = "encoder", all(feature = "decoder", feature = "instr_info")))]
 mod constant_offsets;
+#[cfg(feature = "instr_info")]
+mod cpuid_feature;
 #[cfg(feature = "decoder")]
 mod decoder;
 #[cfg(feature = "decoder")]
@@ -144,6 +146,8 @@ pub use code_size::*;
 pub use condition_code::*;
 #[cfg(any(feature = "encoder", all(feature = "decoder", feature = "instr_info")))]
 pub use constant_offsets::*;
+#[cfg(feature = "instr_info")]
+pub use cpuid_feature::*;
 #[cfg(feature = "decoder")]
 pub use decoder::*;
 #[cfg(feature = "decoder")]
