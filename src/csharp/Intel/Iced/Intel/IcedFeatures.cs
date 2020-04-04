@@ -107,6 +107,32 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
+		/// <see langword="true"/> if the block encoder is available
+		/// </summary>
+		public static bool HasBlockEncoder {
+			get {
+#if ENCODER && BLOCK_ENCODER
+				return true;
+#else
+				return false;
+#endif
+			}
+		}
+
+		/// <summary>
+		/// <see langword="true"/> if the opcode info is available
+		/// </summary>
+		public static bool HasOpCodeInfo {
+			get {
+#if ENCODER && OPCODE_INFO
+				return true;
+#else
+				return false;
+#endif
+			}
+		}
+
+		/// <summary>
 		/// <see langword="true"/> if the instruction info code is available
 		/// </summary>
 		public static bool HasInstructionInfo {
