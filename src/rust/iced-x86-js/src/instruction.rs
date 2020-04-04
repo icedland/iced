@@ -77,13 +77,13 @@ pub struct Instruction(pub(crate) iced_x86::Instruction);
 #[allow(clippy::new_without_default)]
 #[cfg(feature = "instruction_api")]
 impl Instruction {
-	/// Creates an empty `Instruction` (all fields are cleared). See also the `with_*()` constructor methods.
+	/// Creates an empty `Instruction` (all fields are cleared). See also the `with*()` constructor methods.
 	#[wasm_bindgen(constructor)]
 	pub fn new() -> Self {
 		Self(iced_x86::Instruction::new())
 	}
 
-	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
+	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `equals()` ignores some fields.
 	#[allow(trivial_casts)]
 	#[wasm_bindgen(js_name = "equalsAllBits")]
 	pub fn eq_all_bits(&self, other: &Instruction) -> bool {
@@ -192,14 +192,16 @@ impl Instruction {
 		self.0.set_next_ip(newValue)
 	}
 
-	/// Gets the code size when the instruction was decoded. This value is informational and can
+	/// Gets the code size (a [`CodeSize`] enum value) when the instruction was decoded. This value is informational and can
 	/// be used by a formatter.
+	///
+	/// [`CodeSize`]: enum.CodeSize.html
 	#[wasm_bindgen(getter)]
 	pub fn codeSize(&self) -> CodeSize {
 		iced_to_code_size(self.0.code_size())
 	}
 
-	/// Sets the code size when the instruction was decoded. This value is informational and can
+	/// Gets the code size (a [`CodeSize`] enum value) when the instruction was decoded. This value is informational and can
 	/// be used by a formatter.
 	///
 	/// # Arguments
@@ -211,15 +213,18 @@ impl Instruction {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
 
-	/// Gets the instruction code, see also [`mnemonic`]
+	/// Gets the instruction code (a [`CodeSize`] enum value), see also [`mnemonic`].
 	///
 	/// [`mnemonic`]: #method.mnemonic
+	/// [`Code`]: enum.Code.html
 	#[wasm_bindgen(getter)]
 	pub fn code(&self) -> Code {
 		iced_to_code(self.0.code())
 	}
 
-	/// Sets the instruction code
+	/// Sets the instruction code (a [`CodeSize`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
 	///
 	/// # Arguments
 	///
@@ -230,9 +235,10 @@ impl Instruction {
 		self.0.set_code(code_to_iced(newValue))
 	}
 
-	/// Gets the mnemonic, see also [`code`]
+	/// Gets the mnemonic (a [`Mnemonic`] enum value), see also [`code`]
 	///
 	/// [`code`]: #method.code
+	/// [`Mnemonic`]: enum.Mnemonic.html
 	#[wasm_bindgen(getter)]
 	pub fn mnemonic(&self) -> Mnemonic {
 		iced_to_mnemonic(self.0.mnemonic())
@@ -261,8 +267,8 @@ impl Instruction {
 	/// Gets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
 	/// or create a new one, this method could return the wrong value.
 	#[wasm_bindgen(getter)]
-	pub fn length(&self) -> usize {
-		self.0.len()
+	pub fn length(&self) -> u32 {
+		self.0.len() as u32
 	}
 
 	/// Sets the length of the instruction, 0-15 bytes. This is just informational. If you modify the instruction
@@ -273,8 +279,8 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_length(&mut self, newValue: usize) {
-		self.0.set_len(newValue)
+	pub fn set_length(&mut self, newValue: u32) {
+		self.0.set_len(newValue as usize)
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
@@ -379,8 +385,9 @@ impl Instruction {
 		self.0.set_has_lock_prefix(newValue)
 	}
 
-	/// Gets operand #0's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Gets operand #0's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
@@ -388,8 +395,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op0_kind())
 	}
 
-	/// Sets operand #0's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Sets operand #0's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
@@ -402,8 +410,9 @@ impl Instruction {
 		self.0.set_op0_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #1's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Gets operand #1's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
@@ -411,8 +420,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op1_kind())
 	}
 
-	/// Sets operand #1's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Sets operand #1's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
@@ -425,8 +435,9 @@ impl Instruction {
 		self.0.set_op1_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #2's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Gets operand #2's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
@@ -434,8 +445,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op2_kind())
 	}
 
-	/// Sets operand #2's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Sets operand #2's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
@@ -448,8 +460,9 @@ impl Instruction {
 		self.0.set_op2_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #3's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Gets operand #3's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
@@ -457,8 +470,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op3_kind())
 	}
 
-	/// Sets operand #3's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Sets operand #3's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
@@ -471,8 +485,9 @@ impl Instruction {
 		self.0.set_op3_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets operand #4's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Gets operand #4's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
@@ -481,8 +496,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op4_kind())
 	}
 
-	/// Sets operand #4's kind if the operand exists (see [`opCount`] and [`opKind`])
+	/// Sets operand #4's kind (an [`OpKind`] enum value) if the operand exists (see [`opCount`] and [`opKind`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
@@ -500,8 +516,9 @@ impl Instruction {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
 	}
 
-	/// Gets an operand's kind if it exists (see [`opCount`])
+	/// Gets an operand's kind (an [`OpKind`] enum value) if it exists (see [`opCount`])
 	///
+	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	///
 	/// # Panics
@@ -533,7 +550,9 @@ impl Instruction {
 		iced_to_op_kind(self.0.op_kind(operand))
 	}
 
-	/// Sets an operand's kind
+	/// Sets an operand's kind (an [`OpKind`] enum value)
+	///
+	/// [`OpKind`]: enum.OpKind.html
 	///
 	/// # Panics
 	///
@@ -556,10 +575,11 @@ impl Instruction {
 		self.0.has_segment_prefix()
 	}
 
-	/// Gets the segment override prefix or [`Register.None`] if none. See also [`memorySegment`].
+	/// Gets the segment override prefix (a [`Register`] enum value) or [`Register.None`] if none. See also [`memorySegment`].
 	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`memorySegment`]: #method.memory_segment
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
@@ -573,10 +593,11 @@ impl Instruction {
 		iced_to_register(self.0.segment_prefix())
 	}
 
-	/// Sets the segment override prefix or [`Register.None`] if none. See also [`memorySegment`].
+	/// Sets the segment override prefix (a [`Register`] enum value) or [`Register.None`] if none. See also [`memorySegment`].
 	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`memorySegment`]: #method.memory_segment
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
@@ -595,10 +616,11 @@ impl Instruction {
 		self.0.set_segment_prefix(register_to_iced(newValue))
 	}
 
-	/// Gets the effective segment register used to reference the memory location.
+	/// Gets the effective segment register (a [`Register`] enum value) used to reference the memory location.
 	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
@@ -656,11 +678,12 @@ impl Instruction {
 		self.0.set_is_broadcast(newValue)
 	}
 
-	/// Gets the size of the memory location that is referenced by the operand. See also [`isBroadcast`].
+	/// Gets the size of the memory location (a [`MemorySize`] enum value) that is referenced by the operand. See also [`isBroadcast`].
 	/// Use this method if the operand has kind [`OpKind.Memory`], [`OpKind.Memory64`],
 	/// [`OpKind.MemorySegSI`], [`OpKind.MemorySegESI`], [`OpKind.MemorySegRSI`],
 	/// [`OpKind.MemoryESDI`], [`OpKind.MemoryESEDI`], [`OpKind.MemoryESRDI`]
 	///
+	/// [`MemorySize`]: enum.MemorySize.html
 	/// [`isBroadcast`]: #method.isBroadcast
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
@@ -1159,8 +1182,9 @@ impl Instruction {
 		self.0.set_far_branch_selector(newValue)
 	}
 
-	/// Gets the memory operand's base register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
+	/// Gets the memory operand's base register (a [`Register`] enum value) or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
@@ -1168,8 +1192,9 @@ impl Instruction {
 		iced_to_register(self.0.memory_base())
 	}
 
-	/// Sets the memory operand's base register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
+	/// Sets the memory operand's base register (a [`Register`] enum value) or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
@@ -1182,8 +1207,9 @@ impl Instruction {
 		self.0.set_memory_base(register_to_iced(newValue))
 	}
 
-	/// Gets the memory operand's index register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
+	/// Gets the memory operand's index register (a [`Register`] enum value) or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
@@ -1191,8 +1217,9 @@ impl Instruction {
 		iced_to_register(self.0.memory_index())
 	}
 
-	/// Sets the memory operand's index register or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
+	/// Sets the memory operand's index register (a [`Register`] enum value) or [`Register.None`] if none. Use this method if the operand has kind [`OpKind.Memory`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
@@ -1205,8 +1232,9 @@ impl Instruction {
 		self.0.set_memory_index(register_to_iced(newValue))
 	}
 
-	/// Gets operand #0's register value. Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Gets operand #0's register value (a [`Register`] enum value). Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1217,8 +1245,9 @@ impl Instruction {
 		iced_to_register(self.0.op0_register())
 	}
 
-	/// Sets operand #0's register value. Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Sets operand #0's register value (a [`Register`] enum value). Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1234,8 +1263,9 @@ impl Instruction {
 		self.0.set_op0_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #1's register value. Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Gets operand #1's register value (a [`Register`] enum value). Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1246,8 +1276,9 @@ impl Instruction {
 		iced_to_register(self.0.op1_register())
 	}
 
-	/// Sets operand #1's register value. Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Sets operand #1's register value (a [`Register`] enum value). Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1263,8 +1294,9 @@ impl Instruction {
 		self.0.set_op1_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #2's register value. Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Gets operand #2's register value (a [`Register`] enum value). Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1275,8 +1307,9 @@ impl Instruction {
 		iced_to_register(self.0.op2_register())
 	}
 
-	/// Sets operand #2's register value. Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Sets operand #2's register value (a [`Register`] enum value). Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1292,8 +1325,9 @@ impl Instruction {
 		self.0.set_op2_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #3's register value. Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Gets operand #3's register value (a [`Register`] enum value). Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1304,8 +1338,9 @@ impl Instruction {
 		iced_to_register(self.0.op3_register())
 	}
 
-	/// Sets operand #3's register value. Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Sets operand #3's register value (a [`Register`] enum value). Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1321,8 +1356,9 @@ impl Instruction {
 		self.0.set_op3_register(register_to_iced(newValue))
 	}
 
-	/// Gets operand #4's register value. Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Gets operand #4's register value (a [`Register`] enum value). Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1334,8 +1370,9 @@ impl Instruction {
 		iced_to_register(self.0.op4_register())
 	}
 
-	/// Sets operand #4's register value. Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
+	/// Sets operand #4's register value (a [`Register`] enum value). Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`opCount`]: #method.op_count
 	/// [`opRegister`]: #method.opRegister
@@ -1356,8 +1393,9 @@ impl Instruction {
 		self.0.set_op4_register(register_to_iced(newValue))
 	}
 
-	/// Gets the operand's register value. Use this method if the operand has kind [`OpKind.Register`]
+	/// Gets the operand's register value (a [`Register`] enum value). Use this method if the operand has kind [`OpKind.Register`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Panics
@@ -1387,8 +1425,9 @@ impl Instruction {
 		iced_to_register(self.0.op_register(operand))
 	}
 
-	/// Sets the operand's register value. Use this method if the operand has kind [`OpKind.Register`]
+	/// Sets the operand's register value (a [`Register`] enum value). Use this method if the operand has kind [`OpKind.Register`]
 	///
+	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
 	/// # Panics
@@ -1475,9 +1514,10 @@ impl Instruction {
 		self.0.set_merging_masking(newValue)
 	}
 
-	/// Gets the rounding control ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Gets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
+	/// [`RoundingControl`]: enum.RoundingControl.html
 	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	#[wasm_bindgen(getter)]
@@ -1485,9 +1525,10 @@ impl Instruction {
 		iced_to_rounding_control(self.0.rounding_control())
 	}
 
-	/// Sets the rounding control ([`suppressAllExceptions`] is implied but still returns `false`)
+	/// Sets the rounding control (a [`RoundingControl`] enum value) ([`suppressAllExceptions`] is implied but still returns `false`)
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
+	/// [`RoundingControl`]: enum.RoundingControl.html
 	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	///
@@ -1529,9 +1570,9 @@ impl Instruction {
 	///
 	/// # Returns
 	///
-	/// * `Some(true)` if it's a VSIB instruction with 64-bit indexes
-	/// * `Some(false)` if it's a VSIB instruction with 32-bit indexes
-	/// * `None` if it's not a VSIB instruction.
+	/// * `true` if it's a VSIB instruction with 64-bit indexes
+	/// * `false` if it's a VSIB instruction with 32-bit indexes
+	/// * `undefined` if it's not a VSIB instruction.
 	#[wasm_bindgen(getter)]
 	pub fn vsib(&self) -> Option<bool> {
 		self.0.vsib()
@@ -1609,7 +1650,9 @@ impl Instruction {
 		self.0.stack_pointer_increment()
 	}
 
-	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding (a [`EncodingKind`] enum value), eg. legacy, VEX, EVEX, ...
+	///
+	/// [`EncodingKind`]: enum.EncodingKind.html
 	///
 	/// # Examples
 	///
@@ -1628,7 +1671,9 @@ impl Instruction {
 		iced_to_encoding_kind(self.0.encoding())
 	}
 
-	/// Gets the CPU or CPUID feature flags (an array of `CpuidFeature`)
+	/// Gets the CPU or CPUID feature flags (an array of [`CpuidFeature`] values)
+	///
+	/// [`CpuidFeature`]: enum.CpuidFeature.html
 	///
 	/// # Examples
 	///
@@ -1660,7 +1705,9 @@ impl Instruction {
 		self.0.cpuid_features().iter().map(|&a| a as i32).collect()
 	}
 
-	/// Flow control info
+	/// Flow control info (a [`FlowControl`] enum value)
+	///
+	/// [`FlowControl`]: enum.FlowControl.html
 	///
 	/// # Examples
 	///
@@ -1942,7 +1989,8 @@ impl Instruction {
 		self.0.rflags_undefined()
 	}
 
-	/// All flags that are modified by the CPU. This is `rflagsWritten() + rflagsCleared() + rflagsSet() + rflagsUndefined()`. This method returns a [`RflagsBits`] value.
+	/// All flags that are modified by the CPU. This is `rflagsWritten + rflagsCleared + rflagsSet + rflagsUndefined`.
+	/// This method returns a [`RflagsBits`] value.
 	///
 	/// [`RflagsBits`]: enum.RflagsBits.html
 	///
@@ -2144,8 +2192,9 @@ impl Instruction {
 		self.0.as_near_branch()
 	}
 
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode.None`] is returned
+	/// Gets the condition code (a [`ConditionCode`] enum value) if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode.None`] is returned
 	///
+	/// [`ConditionCode`]: enum.ConditionCode.html
 	/// [`ConditionCode.None`]: enum.ConditionCode.html#variant.None
 	///
 	/// # Examples

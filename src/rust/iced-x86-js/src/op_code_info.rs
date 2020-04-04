@@ -37,7 +37,9 @@ pub struct OpCodeInfo(pub(crate) &'static iced_x86::OpCodeInfo);
 
 #[wasm_bindgen]
 impl OpCodeInfo {
-	/// Gets the code
+	/// Gets the code (a [`Code`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
 	///
 	/// # Examples
 	///
@@ -52,7 +54,9 @@ impl OpCodeInfo {
 		iced_to_code(self.0.code())
 	}
 
-	/// Gets the encoding
+	/// Gets the encoding (a [`EncodingKind`] enum value)
+	///
+	/// [`EncodingKind`]: enum.EncodingKind.html
 	///
 	/// # Examples
 	///
@@ -170,7 +174,9 @@ impl OpCodeInfo {
 		self.0.is_wig32()
 	}
 
-	/// (EVEX) Gets the tuple type
+	/// (EVEX) Gets the tuple type (a [`TupleType`] enum value)
+	///
+	/// [`TupleType`]: enum.TupleType.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "tupleType")]
 	pub fn tuple_type(&self) -> TupleType {
@@ -275,13 +281,17 @@ impl OpCodeInfo {
 		self.0.can_use_notrack_prefix()
 	}
 
-	/// Gets the opcode table
+	/// Gets the opcode table (a [`OpCodeTableKind`] enum value)
+	///
+	/// [`OpCodeTableKind`]: enum.OpCodeTableKind.html
 	#[wasm_bindgen(getter)]
 	pub fn table(&self) -> OpCodeTableKind {
 		iced_to_op_code_table_kind(self.0.table())
 	}
 
-	/// Gets the mandatory prefix
+	/// Gets the mandatory prefix (a [`MandatoryPrefix`] enum value)
+	///
+	/// [`MandatoryPrefix`]: enum.MandatoryPrefix.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "mandatoryPrefix")]
 	pub fn mandatory_prefix(&self) -> MandatoryPrefix {
@@ -330,42 +340,54 @@ impl OpCodeInfo {
 		self.0.op_count()
 	}
 
-	/// Gets operand #0's opkind
+	/// Gets operand #0's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op0Kind")]
 	pub fn op0_kind(&self) -> OpCodeOperandKind {
 		iced_to_op_code_operand_kind(self.0.op0_kind())
 	}
 
-	/// Gets operand #1's opkind
+	/// Gets operand #1's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op1Kind")]
 	pub fn op1_kind(&self) -> OpCodeOperandKind {
 		iced_to_op_code_operand_kind(self.0.op1_kind())
 	}
 
-	/// Gets operand #2's opkind
+	/// Gets operand #2's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op2Kind")]
 	pub fn op2_kind(&self) -> OpCodeOperandKind {
 		iced_to_op_code_operand_kind(self.0.op2_kind())
 	}
 
-	/// Gets operand #3's opkind
+	/// Gets operand #3's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op3Kind")]
 	pub fn op3_kind(&self) -> OpCodeOperandKind {
 		iced_to_op_code_operand_kind(self.0.op3_kind())
 	}
 
-	/// Gets operand #4's opkind
+	/// Gets operand #4's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op4Kind")]
 	pub fn op4_kind(&self) -> OpCodeOperandKind {
 		iced_to_op_code_operand_kind(self.0.op4_kind())
 	}
 
-	/// Gets an operand's opkind
+	/// Gets an operand's opkind (a [`OpCodeOperandKind`] enum value)
+	///
+	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	///
 	/// # Panics
 	///

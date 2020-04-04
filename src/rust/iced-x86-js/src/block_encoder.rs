@@ -58,7 +58,7 @@ impl BlockEncoder {
 
 	/// Adds an instruction that will be encoded when [`encode()`] is called.
 	/// The input `instruction` can be a decoded instruction or an instruction
-	/// created by the user, eg. `Instruction.with_*()` constructor methods.
+	/// created by the user, eg. `Instruction.with*()` constructor methods.
 	///
 	/// [`encode()`]: #method.encode
 	///

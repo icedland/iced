@@ -35,13 +35,17 @@ pub struct UsedRegister(iced_x86::UsedRegister);
 
 #[wasm_bindgen]
 impl UsedRegister {
-	/// Gets the register
+	/// Gets the register (a [`Register`] enum value)
+	///
+	/// [`Register`]: struct.Register.html
 	#[wasm_bindgen(getter)]
 	pub fn register(&self) -> Register {
 		iced_to_register(self.0.register())
 	}
 
-	/// Gets the register access
+	/// Gets the register access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	pub fn access(&self) -> OpAccess {
 		iced_to_op_access(self.0.access())
@@ -54,22 +58,26 @@ pub struct UsedMemory(iced_x86::UsedMemory);
 
 #[wasm_bindgen]
 impl UsedMemory {
-	/// Effective segment register
+	/// Effective segment register (a [`Register`] enum value)
+	///
+	/// [`Register`]: struct.Register.html
 	#[wasm_bindgen(getter)]
 	pub fn segment(&self) -> Register {
 		iced_to_register(self.0.segment())
 	}
 
-	/// Base register or [`Register.None`] if none
+	/// Base register (a [`Register`] enum value) or [`Register.None`] if none
 	///
+	/// [`Register`]: struct.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn base(&self) -> Register {
 		iced_to_register(self.0.base())
 	}
 
-	/// Index register or [`Register.None`] if none
+	/// Index register (a [`Register`] enum value) or [`Register.None`] if none
 	///
+	/// [`Register`]: struct.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
 	pub fn index(&self) -> Register {
@@ -88,14 +96,18 @@ impl UsedMemory {
 		self.0.displacement()
 	}
 
-	/// Size of location
+	/// Size of location (a [`MemorySize`] enum value)
+	///
+	/// [`MemorySize`]: enum.MemorySize.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memorySize")]
 	pub fn memory_size(&self) -> MemorySize {
 		iced_to_memory_size(self.0.memory_size())
 	}
 
-	/// Memory access
+	/// Memory access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	pub fn access(&self) -> OpAccess {
 		iced_to_op_access(self.0.access())
@@ -111,8 +123,10 @@ pub struct InstructionInfo(iced_x86::InstructionInfo);
 
 #[wasm_bindgen]
 impl InstructionInfo {
-	/// Gets all accessed registers. This method doesn't return all accessed registers if [`isSaveRestoreInstruction`] is `true`.
+	/// Gets all accessed registers (an array of [`UsedRegister`] classes).
+	/// This method doesn't return all accessed registers if [`isSaveRestoreInstruction`] is `true`.
 	///
+	/// [`UsedRegister`]: struct.UsedRegister.html
 	/// [`isSaveRestoreInstruction`]: #method.is_save_restore_instruction
 	#[wasm_bindgen(js_name = "usedRegisters")]
 	pub fn used_registers(&self) -> js_sys::Array {
@@ -120,7 +134,9 @@ impl InstructionInfo {
 		self.0.used_registers().iter().map(|&r| JsValue::from(UsedRegister(r))).collect()
 	}
 
-	/// Gets all accessed memory locations
+	/// Gets all accessed memory locations (an array of [`UsedMemory`] classes).
+	///
+	/// [`UsedMemory`]: struct.UsedMemory.html
 	#[wasm_bindgen(js_name = "usedMemory")]
 	pub fn used_memory(&self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
@@ -161,13 +177,17 @@ impl InstructionInfo {
 		self.0.is_save_restore_instruction()
 	}
 
-	/// Instruction encoding, eg. legacy, VEX, EVEX, ...
+	/// Instruction encoding (an [`EncodingKind`] enum value), eg. legacy, VEX, EVEX, ...
+	///
+	/// [`EncodingKind`]: enum.EncodingKind.html
 	#[wasm_bindgen(getter)]
 	pub fn encoding(&self) -> EncodingKind {
 		iced_to_encoding_kind(self.0.encoding())
 	}
 
-	/// Gets the CPU or CPUID feature flags (an array of `CpuidFeature`)
+	/// Gets the CPU or CPUID feature flags (an array of [`CpuidFeature`] values)
+	///
+	/// [`CpuidFeature`]: enum.CpuidFeature.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cpuidFeatures")]
 	pub fn cpuid_features(&self) -> Vec<i32> {
@@ -175,49 +195,63 @@ impl InstructionInfo {
 		self.0.cpuid_features().iter().map(|&a| a as i32).collect()
 	}
 
-	/// Flow control info
+	/// Flow control info (a [`FlowControl`] enum value)
+	///
+	/// [`FlowControl`]: enum.FlowControl.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "flowControl")]
 	pub fn flow_control(&self) -> FlowControl {
 		iced_to_flow_control(self.0.flow_control())
 	}
 
-	/// Operand #0 access
+	/// Operand #0 access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op0Access")]
 	pub fn op0_access(&self) -> OpAccess {
 		iced_to_op_access(self.0.op0_access())
 	}
 
-	/// Operand #1 access
+	/// Operand #1 access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op1Access")]
 	pub fn op1_access(&self) -> OpAccess {
 		iced_to_op_access(self.0.op1_access())
 	}
 
-	/// Operand #2 access
+	/// Operand #2 access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op2Access")]
 	pub fn op2_access(&self) -> OpAccess {
 		iced_to_op_access(self.0.op2_access())
 	}
 
-	/// Operand #3 access
+	/// Operand #3 access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op3Access")]
 	pub fn op3_access(&self) -> OpAccess {
 		iced_to_op_access(self.0.op3_access())
 	}
 
-	/// Operand #4 access
+	/// Operand #4 access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "op4Access")]
 	pub fn op4_access(&self) -> OpAccess {
 		iced_to_op_access(self.0.op4_access())
 	}
 
-	/// Gets operand access
+	/// Gets operand access (an [`OpAccess`] enum value)
+	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	///
 	/// # Panics
 	///
@@ -286,7 +320,8 @@ impl InstructionInfo {
 		self.0.rflags_undefined()
 	}
 
-	/// All flags that are modified by the CPU. This is `rflagsWritten() + rflagsCleared() + rflagsSet() + rflagsUndefined()`. This method returns a [`RflagsBits`] value.
+	/// All flags that are modified by the CPU. This is `rflagsWritten + rflagsCleared + rflagsSet + rflagsUndefined`.
+	/// This method returns a [`RflagsBits`] value.
 	///
 	/// [`RflagsBits`]: enum.RflagsBits.html
 	#[wasm_bindgen(getter)]

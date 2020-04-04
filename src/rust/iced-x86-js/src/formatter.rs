@@ -149,7 +149,7 @@ impl Formatter {
 		self.formatter.operand_count(&instruction.0)
 	}
 
-	/// Returns the operand access but only if it's an operand added by the formatter. If it's an
+	/// Returns the operand access ([`OpAccess`]) but only if it's an operand added by the formatter. If it's an
 	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory.info()`].
 	///
 	/// # Panics
@@ -161,6 +161,7 @@ impl Formatter {
 	/// - `instruction`: Instruction
 	/// - `operand`: Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See [`operandCount`]
 	///
+	/// [`OpAccess`]: enum.OpAccess.html
 	/// [`Instruction`]: struct.Instruction.html
 	/// [`InstructionInfoFactory.info()`]: struct.InstructionInfoFactory.html#method.info
 	/// [`operandCount`]: #method.operand_count
@@ -250,7 +251,9 @@ impl Formatter {
 	///
 	/// # Arguments
 	///
-	/// - `register`: Register
+	/// - `register`: Register (a [`Register`] enum value)
+	///
+	/// [`Register`]: enum.Register.html
 	#[wasm_bindgen(js_name = "formatRegister")]
 	// This adds the Register enum to the js/ts files, but this API won't be called often so disable it by default.
 	#[cfg(feature = "instruction_api")]
@@ -1183,7 +1186,7 @@ impl Formatter {
 	///
 	/// - Default: `16`
 	#[wasm_bindgen(getter)]
-	pub fn numberBase(&self) -> i32 {
+	pub fn numberBase(&self) -> u32 {
 		match self.formatter.options().number_base() {
 			iced_x86::NumberBase::Binary => 2,
 			iced_x86::NumberBase::Octal => 8,
@@ -1204,7 +1207,7 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_numberBase(&mut self, value: i32) {
+	pub fn set_numberBase(&mut self, value: u32) {
 		let base = match value {
 			2 => iced_x86::NumberBase::Binary,
 			8 => iced_x86::NumberBase::Octal,
@@ -1319,22 +1322,24 @@ impl Formatter {
 		self.formatter.options_mut().set_displacement_leading_zeroes(value);
 	}
 
-	/// Options that control if the memory size (eg. `DWORD PTR`) is shown or not.
+	/// Options (a [`MemorySizeOptions`] flags value) that control if the memory size (eg. `DWORD PTR`) is shown or not.
 	/// This is ignored by the gas (AT&T) formatter.
 	///
 	/// - Default: [`Default`]
 	///
+	/// [`MemorySizeOptions`]: enum.MemorySizeOptions.html
 	/// [`Default`]: enum.MemorySizeOptions.html#variant.Default
 	#[wasm_bindgen(getter)]
 	pub fn memorySizeOptions(&self) -> MemorySizeOptions {
 		iced_to_memory_size_options(self.formatter.options().memory_size_options())
 	}
 
-	/// Options that control if the memory size (eg. `DWORD PTR`) is shown or not.
+	/// Options (a [`MemorySizeOptions`] flags value) that control if the memory size (eg. `DWORD PTR`) is shown or not.
 	/// This is ignored by the gas (AT&T) formatter.
 	///
 	/// - Default: [`Default`]
 	///
+	/// [`MemorySizeOptions`]: enum.MemorySizeOptions.html
 	/// [`Default`]: enum.MemorySizeOptions.html#variant.Default
 	///
 	/// # Arguments

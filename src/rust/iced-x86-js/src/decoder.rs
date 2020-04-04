@@ -50,7 +50,9 @@ impl Decoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
-	/// * `options`: Decoder options, `0` or eg. `DecoderOptions.NoInvalidCheck | DecoderOptions.AmdBranches`
+	/// * `options`: Decoder options (a [`DecoderOptions`] flags value), `0` or eg. `DecoderOptions.NoInvalidCheck | DecoderOptions.AmdBranches`
+	///
+	/// [`DecoderOptions`]: enum.DecoderOptions.html
 	///
 	/// # Examples
 	///
@@ -249,14 +251,19 @@ impl Decoder {
 		self.decoder.can_decode()
 	}
 
-	/// Decodes all instructions and returns an array of `Instruction`s
+	/// Decodes all instructions and returns an array of [`Instruction`]s
+	///
+	/// [`Instruction`]: struct.Instruction.html
 	#[wasm_bindgen(js_name = "decodeAll")]
 	pub fn decode_all(&mut self) -> js_sys::Array {
 		//TODO: https://github.com/rustwasm/wasm-bindgen/issues/111
 		self.decoder.iter().map(|i| JsValue::from(Instruction(i))).collect()
 	}
 
-	/// Decodes at most `count` instructions and returns them
+	/// Decodes at most `count` instructions and returns an array of [`Instruction`]s.
+	/// It returns less than `count` instructions if there's nothing left to decode.
+	///
+	/// [`Instruction`]: struct.Instruction.html
 	///
 	/// # Arguments
 	///
