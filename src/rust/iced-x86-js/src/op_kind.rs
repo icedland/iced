@@ -171,12 +171,13 @@ pub enum OpKind {
 }
 // GENERATOR-END: Enum
 
-#[cfg(feature = "encoder")]
+#[allow(dead_code)]
 pub(crate) fn op_kind_to_iced(value: OpKind) -> iced_x86::OpKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
+#[allow(dead_code)]
 pub(crate) fn iced_to_op_kind(value: iced_x86::OpKind) -> OpKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

@@ -46,6 +46,7 @@ pub enum OpCodeTableKind {
 }
 // GENERATOR-END: Enum
 
+#[allow(dead_code)]
 pub(crate) fn iced_to_op_code_table_kind(value: iced_x86::OpCodeTableKind) -> OpCodeTableKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

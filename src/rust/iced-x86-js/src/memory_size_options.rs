@@ -40,11 +40,13 @@ pub enum MemorySizeOptions {
 }
 // GENERATOR-END: Enum
 
+#[allow(dead_code)]
 pub(crate) fn memory_size_options_to_iced(value: MemorySizeOptions) -> iced_x86::MemorySizeOptions {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
+#[allow(dead_code)]
 pub(crate) fn iced_to_memory_size_options(value: iced_x86::MemorySizeOptions) -> MemorySizeOptions {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }

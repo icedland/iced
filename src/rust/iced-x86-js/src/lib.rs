@@ -95,7 +95,7 @@ mod decoder;
 mod decoder_options;
 #[cfg(feature = "encoder")]
 mod encoder;
-#[cfg(any(feature = "instr_info", feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instr_info", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 mod encoding_kind;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 mod flow_control;
@@ -110,6 +110,8 @@ mod instruction;
 mod mandatory_prefix;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod memory_size;
+#[cfg(feature = "instr_info")]
+mod memory_size_ext;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod memory_size_options;
 #[cfg(feature = "instruction_api")]
@@ -126,6 +128,8 @@ mod op_code_table_kind;
 mod op_kind;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod register;
+#[cfg(feature = "instr_info")]
+mod register_ext;
 #[cfg(feature = "instr_info")]
 mod rflags_bits;
 #[cfg(feature = "instruction_api")]
@@ -154,11 +158,7 @@ pub use decoder::*;
 pub use decoder_options::*;
 #[cfg(feature = "encoder")]
 pub use encoder::*;
-#[cfg(any(
-	feature = "instr_info",
-	feature = "instruction_api",
-	all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")
-))]
+#[cfg(any(feature = "instr_info", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 pub use encoding_kind::*;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 pub use flow_control::*;
@@ -173,6 +173,8 @@ pub use instruction::*;
 pub use mandatory_prefix::*;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use memory_size::*;
+#[cfg(feature = "instr_info")]
+pub use memory_size_ext::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use memory_size_options::*;
 #[cfg(feature = "instruction_api")]
@@ -189,6 +191,8 @@ pub use op_code_table_kind::*;
 pub use op_kind::*;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use register::*;
+#[cfg(feature = "instr_info")]
+pub use register_ext::*;
 #[cfg(feature = "instr_info")]
 pub use rflags_bits::*;
 #[cfg(feature = "instruction_api")]

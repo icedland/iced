@@ -251,6 +251,7 @@ pub enum OpCodeOperandKind {
 }
 // GENERATOR-END: Enum
 
+#[allow(dead_code)]
 pub(crate) fn iced_to_op_code_operand_kind(value: iced_x86::OpCodeOperandKind) -> OpCodeOperandKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
