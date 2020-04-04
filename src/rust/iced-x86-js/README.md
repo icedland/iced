@@ -20,35 +20,35 @@ Rust crate: https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.m
 
 You can override which features to build to reduce the size of the wasm/ts/js files, see [Feature flags](#feature-flags).
 
-This example assumes you need features `decoder` and `masm` and use a JavaScript bundler eg. webpack:
+This example assumes you need features `decoder` and `masm` and use a JavaScript bundler eg. webpack (change `bundler` to `nodejs` for Node.js support):
 
 ```sh
 cd src/rust/iced-x86-js
 wasm-pack build --target bundler -- --no-default-features --features "decoder masm"
 ```
 
-`--target` docs [are here](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html).
+`--target` docs [are here](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html) (`bundler`, `web`, `nodejs`, `no-modules`).
 
-The result is stored in the `pkg/` sub dir.
+Add `--no-typescript` (before `--`) to disable creating ts files.
 
-The js files aren't minified.
+The result is stored in the `pkg/` sub dir. The js file isn't minified.
 
 # Feature flags
 
 Here's a list of all features you can enable when building the wasm file
 
-- `instruction_api`: Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
+- `instruction_api`: (✔️Enabled by default) Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
 - `decoder`: (✔️Enabled by default) Enables the decoder. Required to disassemble code.
-- `encoder`: Enables the encoder
-- `block_encoder`: Enables the `BlockEncoder`. Requires `encoder`
-- `op_code_info`: Get instruction metadata, see the `Instruction.opCode` property. Requires `encoder`
-- `instr_info`: Enables instruction info code (read/written regs/mem, flags, control flow info etc)
-- `gas`: Enables the GNU Assembler (AT&T) formatter
-- `intel`: Enables the Intel (XED) formatter
+- `encoder`: (✔️Enabled by default) Enables the encoder
+- `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. Requires `encoder`
+- `op_code_info`: (✔️Enabled by default) Get instruction metadata, see the `Instruction.opCode` property. Requires `encoder`
+- `instr_info`: (✔️Enabled by default) Enables instruction info code (read/written regs/mem, flags, control flow info etc)
+- `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
+- `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
-- `nasm`: Enables the nasm formatter
+- `nasm`: (✔️Enabled by default) Enables the nasm formatter
 
-By default, `"decoder masm"` is enabled which is all you need to disassemble code.
+`"decoder masm"` is all you need to disassemble code.
 
 `"decoder masm instruction_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
 
