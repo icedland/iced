@@ -426,7 +426,6 @@ impl IntoIter {
 		self.to_op_code_table_kind.get(value).cloned().ok_or_else(|| format!("Invalid opcode table value: '{}'", value))
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	fn to_op_code(value: &str) -> Result<u32, String> {
 		match u32::from_str_radix(value, 16) {
 			Ok(value) => Ok(value),

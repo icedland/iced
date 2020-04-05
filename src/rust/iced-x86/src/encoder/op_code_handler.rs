@@ -32,7 +32,6 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::{i8, mem, u32};
 
-#[cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #[repr(C)]
 pub(crate) struct OpCodeHandler {
 	pub(super) encode: fn(self_ptr: *const OpCodeHandler, encoder: &mut Encoder, instruction: &Instruction),

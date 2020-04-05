@@ -1095,7 +1095,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::match_ref_pats))] // Not supported if < 1.26.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::needless_lifetimes))] // Not supported if < 1.31.0
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::ptr_offset_with_cast))] // Not supported if < 1.26.0
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::verbose_bit_mask))]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::cargo_common_metadata))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::clone_on_ref_ptr))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::dbg_macro))]
@@ -1112,10 +1115,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::must_use_candidate))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::needless_borrow))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::print_stdout))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::redundant_closure_for_method_calls))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::same_functions_in_if_condition))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::todo))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unimplemented))]
+#![cfg_attr(feature = "cargo-clippy", warn(clippy::unreadable_literal))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::unused_self))]
 #![cfg_attr(feature = "cargo-clippy", warn(clippy::used_underscore_binding))]
 #![cfg_attr(not(feature = "std"), no_std)]

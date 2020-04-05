@@ -199,8 +199,6 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine(RustConstants.AttributeMustUse);
 			writer.WriteLine(inline ? RustConstants.AttributeInline : RustConstants.AttributeAllowMissingInlineInPublicItems);
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
-			if (method.Args.Count > 7)
-				writer.WriteLine(RustConstants.AttributeAllowTooManyArguments);
 		}
 
 		void WriteMethod(FileWriter writer, CreateMethod method, string name) {

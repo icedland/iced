@@ -23,11 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 //! iced-x86 JavaScript bindings
 
-// No #[wasm_bindgen] should be added to iced-x86.
-// 1. We shouldn't have to update it to support JavaScript.
-// 2. It results in smaller wasm/js/ts files since we have better control of what gets included.
-// 3. We can add better docs and rename methods to camelCase.
-
 #![allow(unknown_lints)]
 #![warn(absolute_paths_not_starting_with_crate)]
 #![warn(anonymous_parameters)]
@@ -48,7 +43,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::cognitive_complexity)]
 #![allow(clippy::collapsible_if)]
+#![allow(clippy::too_many_arguments)]
+#![allow(clippy::type_complexity)]
 #![allow(clippy::verbose_bit_mask)]
+#![allow(clippy::wrong_self_convention)]
 #![warn(clippy::cargo_common_metadata)]
 #![warn(clippy::clone_on_ref_ptr)]
 #![warn(clippy::dbg_macro)]
@@ -63,10 +61,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::missing_errors_doc)]
 #![warn(clippy::needless_borrow)]
 #![warn(clippy::print_stdout)]
+#![warn(clippy::redundant_closure)]
 #![warn(clippy::redundant_closure_for_method_calls)]
 #![warn(clippy::same_functions_in_if_condition)]
 #![warn(clippy::todo)]
 #![warn(clippy::unimplemented)]
+#![warn(clippy::unreadable_literal)]
 #![warn(clippy::unused_self)]
 #![warn(clippy::used_underscore_binding)]
 

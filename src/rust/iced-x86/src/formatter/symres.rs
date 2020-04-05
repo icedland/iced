@@ -62,7 +62,6 @@ impl<'a> Default for SymResString<'a> {
 	}
 }
 impl<'a> SymResString<'a> {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub(super) fn to_owned<'b>(self) -> SymResString<'b> {
 		match self {
 			SymResString::Str(s) => SymResString::String(String::from(s)),
@@ -112,7 +111,6 @@ impl<'a> SymResTextPart<'a> {
 		Self { text: SymResString::String(text), color }
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub(super) fn to_owned<'b>(self) -> SymResTextPart<'b> {
 		SymResTextPart { text: self.text.to_owned(), color: self.color }
 	}
@@ -180,7 +178,6 @@ impl<'a> SymResTextInfo<'a> {
 		SymResTextInfo::TextVec(text)
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub(super) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymResTextInfo<'b> {
 		match self {
 			SymResTextInfo::Text(part) => SymResTextInfo::Text(part.to_owned()),
@@ -380,7 +377,6 @@ impl<'a> SymbolResult<'a> {
 		Self { address, text, flags, symbol_size: Some(size) }
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	pub(super) fn to_owned<'b>(self, vec: &'b mut Vec<SymResTextPart<'b>>) -> SymbolResult<'b> {
 		SymbolResult { address: self.address, text: self.text.to_owned(vec), flags: self.flags, symbol_size: self.symbol_size }
 	}

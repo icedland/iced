@@ -39,7 +39,6 @@ namespace Generator {
 		public const string AttributeAllowMissingCopyImplementations = "#[allow(missing_copy_implementations)]";
 		public const string AttributeAllowMissingDebugImplementations = "#[allow(missing_debug_implementations)]";
 		public const string AttributeAllowMissingInlineInPublicItems = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::missing_inline_in_public_items))]";
-		public const string AttributeAllowTooManyArguments = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::too_many_arguments))]";
 		public const string AttributeAllowTrivialCasts = "#[allow(trivial_casts)]";
 		public const string AttributeAllowCastPtrAlignment = "#[cfg_attr(feature = \"cargo-clippy\", allow(clippy::cast_ptr_alignment))]";
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";

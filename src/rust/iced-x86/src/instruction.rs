@@ -6196,7 +6196,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6235,7 +6234,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6276,7 +6274,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6319,7 +6316,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6364,7 +6360,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6411,7 +6406,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6460,7 +6454,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6511,7 +6504,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6564,7 +6556,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareByte);
@@ -6843,7 +6834,6 @@ impl Instruction {
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::too_many_arguments))]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		let mut instruction = Self::default();
 		super::instruction_internal::internal_set_code(&mut instruction, Code::DeclareWord);

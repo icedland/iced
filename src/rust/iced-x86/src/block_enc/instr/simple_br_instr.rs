@@ -164,7 +164,6 @@ impl SimpleBranchInstr {
 		false
 	}
 
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::wrong_self_convention))]
 	fn as_native_branch_code(code: Code, bitness: u32) -> Code {
 		let (c16, c32, c64) = match code {
 			Code::Loopne_rel8_16_CX | Code::Loopne_rel8_32_CX => (Code::Loopne_rel8_16_CX, Code::Loopne_rel8_32_CX, Code::INVALID),

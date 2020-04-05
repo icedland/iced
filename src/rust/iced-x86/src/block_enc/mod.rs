@@ -137,7 +137,6 @@ pub struct BlockEncoder {
 	options: u32, // BlockEncoderOptions
 	// .1 is 'instructions' and is barely used by Block. Had to move
 	// it here because of borrowck.
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::type_complexity))]
 	blocks: Vec<(Rc<RefCell<Block>>, Vec<Rc<RefCell<Instr>>>)>,
 	null_encoder: Encoder,
 	to_instr: HashMap<u64, Rc<RefCell<Instr>>>,
