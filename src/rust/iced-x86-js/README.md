@@ -102,7 +102,7 @@ const exampleCode = new Uint8Array([
     0x18, 0x57, 0x0A, 0x00, 0x48, 0x33, 0xC4, 0x48, 0x89, 0x85, 0xF0, 0x00, 0x00, 0x00, 0x4C, 0x8B,
     0x05, 0x2F, 0x24, 0x0A, 0x00, 0x48, 0x8D, 0x05, 0x78, 0x7C, 0x04, 0x00, 0x33, 0xFF
 ]);
-const hexBytseColumnByteLength = 10;
+const hexBytesColumnByteLength = 10;
 
 const decoder = new Decoder(exampleBitness, exampleCode, DecoderOptions.None);
 decoder.ip = exampleRip;
@@ -129,7 +129,7 @@ instructions.forEach(instruction => {
     exampleCode.slice(startIndex, startIndex + instruction.length).forEach(b => {
         line += ("0" + b.toString(16)).substr(-2).toUpperCase();
     });
-    for (let i = instruction.length; i < hexBytseColumnByteLength; i++)
+    for (let i = instruction.length; i < hexBytesColumnByteLength; i++)
         line += "  ";
     line += " ";
     line += disasm;
