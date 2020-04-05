@@ -37,15 +37,15 @@ impl ConstantOffsets {
 	/// The offset of the displacement, if any
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "displacementOffset")]
-	pub fn displacement_offset(&self) -> usize {
-		self.0.displacement_offset()
+	pub fn displacement_offset(&self) -> u32 {
+		self.0.displacement_offset() as u32
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "displacementSize")]
-	pub fn displacement_size(&self) -> usize {
-		self.0.displacement_size()
+	pub fn displacement_size(&self) -> u32 {
+		self.0.displacement_size() as u32
 	}
 
 	/// The offset of the first immediate, if any.
@@ -54,29 +54,29 @@ impl ConstantOffsets {
 	/// of the instruction stream, eg. `SHL AL,1`.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "immediateOffset")]
-	pub fn immediate_offset(&self) -> usize {
-		self.0.immediate_offset()
+	pub fn immediate_offset(&self) -> u32 {
+		self.0.immediate_offset() as u32
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "immediateSize")]
-	pub fn immediate_size(&self) -> usize {
-		self.0.immediate_size()
+	pub fn immediate_size(&self) -> u32 {
+		self.0.immediate_size() as u32
 	}
 
 	/// The offset of the second immediate, if any.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "immediateOffset2")]
-	pub fn immediate_offset2(&self) -> usize {
-		self.0.immediate_offset2()
+	pub fn immediate_offset2(&self) -> u32 {
+		self.0.immediate_offset2() as u32
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "immediateSize2")]
-	pub fn immediate_size2(&self) -> usize {
-		self.0.immediate_size2()
+	pub fn immediate_size2(&self) -> u32 {
+		self.0.immediate_size2() as u32
 	}
 
 	/// `true` if [`displacementOffset`] and [`displacementSize`] are valid

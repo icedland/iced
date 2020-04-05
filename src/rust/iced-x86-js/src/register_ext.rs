@@ -95,8 +95,8 @@ impl RegisterExt {
 	/// assert_eq!(3, Register::TR3.number());
 	/// assert_eq!(1, Register::RIP.number());
 	/// ```
-	pub fn number(value: Register) -> usize {
-		register_to_iced(value).number()
+	pub fn number(value: Register) -> u32 {
+		register_to_iced(value).number() as u32
 	}
 
 	/// Gets the full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
@@ -197,8 +197,8 @@ impl RegisterExt {
 	/// assert_eq!(4, Register::TR3.size());
 	/// assert_eq!(8, Register::RIP.size());
 	/// ```
-	pub fn size(value: Register) -> usize {
-		register_to_iced(value).size()
+	pub fn size(value: Register) -> u32 {
+		register_to_iced(value).size() as u32
 	}
 }
 

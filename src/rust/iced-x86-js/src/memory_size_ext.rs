@@ -48,8 +48,8 @@ impl MemorySizeExt {
 	/// assert_eq!(32, MemorySize::Packed256_UInt16.size());
 	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.size());
 	/// ```
-	pub fn size(value: MemorySize) -> usize {
-		memory_size_to_iced(value).size()
+	pub fn size(value: MemorySize) -> u32 {
+		memory_size_to_iced(value).size() as u32
 	}
 
 	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to [`MemorySizeExt.size()`].
@@ -70,8 +70,8 @@ impl MemorySizeExt {
 	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.element_size());
 	/// ```
 	#[wasm_bindgen(js_name = "elementSize")]
-	pub fn element_size(value: MemorySize) -> usize {
-		memory_size_to_iced(value).element_size()
+	pub fn element_size(value: MemorySize) -> u32 {
+		memory_size_to_iced(value).element_size() as u32
 	}
 
 	/// Gets the element type if it's packed data or `value` if it's not packed data
@@ -156,8 +156,8 @@ impl MemorySizeExt {
 	/// assert_eq!(1, MemorySize::Broadcast512_UInt64.element_count());
 	/// ```
 	#[wasm_bindgen(js_name = "elementCount")]
-	pub fn element_count(value: MemorySize) -> usize {
-		memory_size_to_iced(value).element_count()
+	pub fn element_count(value: MemorySize) -> u32 {
+		memory_size_to_iced(value).element_count() as u32
 	}
 
 	/// Checks if it is a broadcast memory type
