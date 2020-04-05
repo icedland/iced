@@ -227,6 +227,8 @@ jobs:
           cargo fmt -- --color always --check
           echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
           cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
+          echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm bigint ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm bigint"
           
           allFeatures=(
               "decoder"

@@ -90,8 +90,25 @@ impl UsedMemory {
 		self.0.scale()
 	}
 
+	/// Displacement (low 32 bits).
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn displacement_lo(&self) -> u32 {
+		self.0.displacement() as u32
+	}
+
+	/// Displacement (high 32 bits).
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn displacement_hi(&self) -> u32 {
+		(self.0.displacement() >> 32) as u32
+	}
+
 	/// Displacement
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn displacement(&self) -> u64 {
 		self.0.displacement()
 	}

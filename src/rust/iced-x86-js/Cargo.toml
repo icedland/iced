@@ -28,6 +28,7 @@ gas = ["base", "iced-x86/gas"]
 intel = ["base", "iced-x86/intel"]
 masm = ["base", "iced-x86/masm"]
 nasm = ["base", "iced-x86/nasm"]
+bigint = ["base"]
 
 [dependencies]
 static_assertions = "1.1.0"

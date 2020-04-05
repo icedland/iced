@@ -114,12 +114,63 @@ impl Decoder {
 		Decoder { __data_do_not_use: data, decoder }
 	}
 
+	/// Gets the low 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`position`]: #method.position
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_lo(&self) -> u32 {
+		self.decoder.ip() as u32
+	}
+
+	/// Gets the high 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`position`]: #method.position
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_hi(&self) -> u32 {
+		(self.decoder.ip() >> 32) as u32
+	}
+
 	/// Gets the current `IP`/`EIP`/`RIP` value, see also [`position`]
 	///
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn ip(&self) -> u64 {
 		self.decoder.ip()
+	}
+
+	/// Sets the low 32 bits of the current `IP`/`EIP`/`RIP`, see also [`position`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`position`]: #method.set_position
+	///
+	/// # Arguments
+	///
+	/// * `lo`: Low 32 bits of the new IP
+	#[wasm_bindgen(setter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_ip_lo(&mut self, lo: u32) {
+		let ip = (self.decoder.ip() & !0xFFFF_FFFF) | (lo as u64);
+		self.decoder.set_ip(ip);
+	}
+
+	/// Sets the high 32 bits of the current `IP`/`EIP`/`RIP`, see also [`position`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`position`]: #method.set_position
+	///
+	/// # Arguments
+	///
+	/// * `hi`: High 32 bits of the new IP
+	#[wasm_bindgen(setter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_ip_hi(&mut self, hi: u32) {
+		let ip = ((hi as u64) << 32) | (self.decoder.ip() as u32 as u64);
+		self.decoder.set_ip(ip);
 	}
 
 	/// Sets the current `IP`/`EIP`/`RIP`, see also [`position`]
@@ -130,6 +181,7 @@ impl Decoder {
 	///
 	/// * `new_value`: New IP
 	#[wasm_bindgen(setter)]
+	#[cfg(feature = "bigint")]
 	pub fn set_ip(&mut self, new_value: u64) {
 		self.decoder.set_ip(new_value)
 	}

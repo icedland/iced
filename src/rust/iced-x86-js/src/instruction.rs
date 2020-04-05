@@ -76,8 +76,25 @@ pub struct Instruction(pub(crate) iced_x86::Instruction);
 #[wasm_bindgen]
 #[allow(clippy::len_without_is_empty)]
 impl Instruction {
+	/// Gets the low 32 bits of the 64-bit IP of the instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_lo(&self) -> u32 {
+		self.0.ip() as u32
+	}
+
+	/// Gets the high 32 bits of the 64-bit IP of the instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_hi(&self) -> u32 {
+		(self.0.ip() >> 32) as u32
+	}
+
 	/// Gets the 64-bit IP of the instruction
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn ip(&self) -> u64 {
 		self.0.ip()
 	}
@@ -141,6 +158,34 @@ impl Instruction {
 		self.0.set_ip32(newValue)
 	}
 
+	/// Sets the low 32 bits of the 64-bit IP of the instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Arguments
+	///
+	/// * `lo`: Low 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_ip_lo(&mut self, lo: u32) {
+		let ip = (self.0.ip() & !0xFFFF_FFFF) | (lo as u64);
+		self.0.set_ip(ip)
+	}
+
+	/// Sets the high 32 bits of the 64-bit IP of the instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Arguments
+	///
+	/// * `hi`: High 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_ip_hi(&mut self, hi: u32) {
+		let ip = ((hi as u64) << 32) | (self.0.ip() as u32 as u64);
+		self.0.set_ip(ip)
+	}
+
 	/// Sets the 64-bit IP of the instruction
 	///
 	/// # Arguments
@@ -148,6 +193,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_ip(&mut self, newValue: u64) {
 		self.0.set_ip(newValue)
 	}
@@ -186,10 +232,55 @@ impl Instruction {
 		self.0.set_next_ip32(newValue)
 	}
 
+	/// Gets the low 32 bits of the 64-bit IP of the next instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nextIP_lo(&self) -> u32 {
+		self.0.next_ip() as u32
+	}
+
+	/// Gets the high 32 bits of the 64-bit IP of the next instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nextIP_hi(&self) -> u32 {
+		(self.0.next_ip() >> 32) as u32
+	}
+
 	/// Gets the 64-bit IP of the next instruction
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn nextIP(&self) -> u64 {
 		self.0.next_ip()
+	}
+
+	/// Sets the low 32 bits of the 64-bit IP of the next instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: new value
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_nextIP_lo(&mut self, lo: u32) {
+		let ip = (self.0.next_ip() & !0xFFFF_FFFF) | (lo as u64);
+		self.0.set_next_ip(ip);
+	}
+
+	/// Sets the high 32 bits of the 64-bit IP of the next instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: new value
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_nextIP_hi(&mut self, hi: u32) {
+		let ip = ((hi as u64) << 32) | (self.0.next_ip() as u32 as u64);
+		self.0.set_next_ip(ip);
 	}
 
 	/// Sets the 64-bit IP of the next instruction
@@ -199,6 +290,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_nextIP(&mut self, newValue: u64) {
 		self.0.set_next_ip(newValue)
 	}
@@ -749,14 +841,69 @@ impl Instruction {
 		self.0.set_memory_displacement(newValue)
 	}
 
+	/// Gets the low 32 bits of the memory operand's displacement sign extended to 64 bits.
+	/// Use this method if the operand has kind [`OpKind.Memory`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memoryDisplacement64_lo")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn memory_displacement64_lo(&self) -> u32 {
+		self.0.memory_displacement64() as u32
+	}
+
+	/// Gets the high 32 bits of the memory operand's displacement sign extended to 64 bits.
+	/// Use this method if the operand has kind [`OpKind.Memory`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memoryDisplacement64_hi")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn memory_displacement64_hi(&self) -> u32 {
+		(self.0.memory_displacement64() >> 32) as u32
+	}
+
 	/// Gets the memory operand's displacement sign extended to 64 bits.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "memoryDisplacement64")]
+	#[cfg(feature = "bigint")]
 	pub fn memory_displacement64(&self) -> u64 {
 		self.0.memory_displacement64()
+	}
+
+	/// Gets the low 32 bits of an operand's immediate value.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate_lo(&self, operand: u32) -> u32 {
+		self.0.immediate(operand) as u32
+	}
+
+	/// Gets the high 32 bits of an operand's immediate value.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate_hi(&self, operand: u32) -> u32 {
+		(self.0.immediate(operand) >> 32) as u32
 	}
 
 	/// Gets an operand's immediate value
@@ -768,6 +915,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	#[cfg(feature = "bigint")]
 	pub fn immediate(&self, operand: u32) -> u64 {
 		self.0.immediate(operand)
 	}
@@ -804,6 +952,26 @@ impl Instruction {
 		self.0.set_immediate_u32(operand, newValue)
 	}
 
+	/// Sets an operand's immediate value.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	/// - `hi`: High 32 bits of immediate
+	/// - `lo`: Low 32 bits of immediate
+	#[wasm_bindgen(js_name = "setImmediateI64")]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate_i64(&mut self, operand: u32, hi: u32, lo: u32) {
+		let new_value = (((hi as u64) << 32) | (lo as u64)) as i64;
+		self.0.set_immediate_i64(operand, new_value)
+	}
+
 	/// Sets an operand's immediate value
 	///
 	/// # Panics
@@ -816,8 +984,29 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateI64")]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_immediate_i64(&mut self, operand: u32, newValue: i64) {
 		self.0.set_immediate_i64(operand, newValue)
+	}
+
+	/// Sets an operand's immediate value.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Panics
+	///
+	/// Panics if `operand` is invalid or if it's not an immediate operand
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	/// - `hi`: High 32 bits of immediate
+	/// - `lo`: Low 32 bits of immediate
+	#[wasm_bindgen(js_name = "setImmediateU64")]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate_u64(&mut self, operand: u32, hi: u32, lo: u32) {
+		let new_value = ((hi as u64) << 32) | (lo as u64);
+		self.0.set_immediate_u64(operand, new_value)
 	}
 
 	/// Sets an operand's immediate value
@@ -832,6 +1021,7 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateU64")]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_immediate_u64(&mut self, operand: u32, newValue: u64) {
 		self.0.set_immediate_u64(operand, newValue)
 	}
@@ -920,12 +1110,65 @@ impl Instruction {
 		self.0.set_immediate32(newValue)
 	}
 
+	/// Gets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate64_lo(&self) -> u32 {
+		self.0.immediate64() as u32
+	}
+
+	/// Gets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate64_hi(&self) -> u32 {
+		(self.0.immediate64() >> 32) as u32
+	}
+
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn immediate64(&self) -> u64 {
 		self.0.immediate64()
+	}
+
+	/// Sets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
+	///
+	/// # Arguments
+	///
+	/// * `lo`: Low 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate64_lo(&mut self, lo: u32) {
+		let new_value = (self.0.immediate64() & !0xFFFF_FFFF) | (lo as u64);
+		self.0.set_immediate64(new_value);
+	}
+
+	/// Sets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
+	///
+	/// # Arguments
+	///
+	/// * `hi`: High 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate64_hi(&mut self, hi: u32) {
+		let new_value = ((hi as u64) << 32) | (self.0.immediate64() as u32 as u64);
+		self.0.set_immediate64(new_value);
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`]
@@ -937,6 +1180,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_immediate64(&mut self, newValue: u64) {
 		self.0.set_immediate64(newValue)
 	}
@@ -983,12 +1227,38 @@ impl Instruction {
 		self.0.set_immediate8to32(newValue)
 	}
 
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate8to64(&self) -> i32 {
+		self.0.immediate8to64() as i32
+	}
+
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
 	///
 	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn immediate8to64(&self) -> i64 {
 		self.0.immediate8to64()
+	}
+
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate8to64(&mut self, newValue: i32) {
+		self.0.set_immediate8to64(newValue as i64)
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`]
@@ -1000,16 +1270,43 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_immediate8to64(&mut self, newValue: i64) {
 		self.0.set_immediate8to64(newValue)
+	}
+
+	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn immediate32to64(&self) -> i32 {
+		self.0.immediate32to64() as i32
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
 	///
 	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn immediate32to64(&self) -> i64 {
 		self.0.immediate32to64()
+	}
+
+	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_immediate32to64(&mut self, newValue: i32) {
+		self.0.set_immediate32to64(newValue as i64)
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`]
@@ -1021,16 +1318,70 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_immediate32to64(&mut self, newValue: i64) {
 		self.0.set_immediate32to64(newValue)
+	}
+
+	/// Gets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn memoryAddress64_lo(&self) -> u32 {
+		self.0.memory_address64() as u32
+	}
+
+	/// Gets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn memoryAddress64_hi(&self) -> u32 {
+		(self.0.memory_address64() >> 32) as u32
 	}
 
 	/// Gets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn memoryAddress64(&self) -> u64 {
 		self.0.memory_address64()
+	}
+
+	/// Sets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	///
+	/// # Arguments
+	///
+	/// * `lo`: Low 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_memoryAddress64_lo(&mut self, lo: u32) {
+		let new_value = (self.0.memory_address64() & !0xFFFF_FFFF) | (lo as u64);
+		self.0.set_memory_address64(new_value);
+	}
+
+	/// Sets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
+	///
+	/// # Arguments
+	///
+	/// * `hi`: High 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_memoryAddress64_hi(&mut self, hi: u32) {
+		let new_value = ((hi as u64) << 32) | (self.0.memory_address64() as u32 as u64);
+		self.0.set_memory_address64(new_value)
 	}
 
 	/// Sets the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`]
@@ -1042,6 +1393,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_memoryAddress64(&mut self, newValue: u64) {
 		self.0.set_memory_address64(newValue)
 	}
@@ -1088,12 +1440,65 @@ impl Instruction {
 		self.0.set_near_branch32(newValue)
 	}
 
+	/// Gets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nearBranch64_lo(&self) -> u32 {
+		self.0.near_branch64() as u32
+	}
+
+	/// Gets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nearBranch64_hi(&self) -> u32 {
+		(self.0.near_branch64() >> 32) as u32
+	}
+
 	/// Gets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn nearBranch64(&self) -> u64 {
 		self.0.near_branch64()
+	}
+
+	/// Sets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	///
+	/// # Arguments
+	///
+	/// * `lo`: Low 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_nearBranch64_lo(&mut self, lo: u32) {
+		let new_value = (self.0.near_branch64() & !0xFFFF_FFFF) | (lo as u64);
+		self.0.set_near_branch64(new_value)
+	}
+
+	/// Sets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	///
+	/// # Arguments
+	///
+	/// * `hi`: High 32 bits
+	#[wasm_bindgen(setter)]
+	#[cfg(feature = "encoder")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_nearBranch64_hi(&mut self, hi: u32) {
+		let new_value = ((hi as u64) << 32) | (self.0.near_branch64() as u32 as u64);
+		self.0.set_near_branch64(new_value)
 	}
 
 	/// Sets the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`]
@@ -1105,8 +1510,37 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
+	#[cfg(feature = "bigint")]
 	pub fn set_nearBranch64(&mut self, newValue: u64) {
 		self.0.set_near_branch64(newValue)
+	}
+
+	/// Gets the low 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
+	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nearBranchTarget_lo(&self) -> u32 {
+		self.0.near_branch_target() as u32
+	}
+
+	/// Gets the high 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
+	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`op0Kind`]: #method.op0Kind
+	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
+	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
+	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
+	#[wasm_bindgen(getter)]
+	#[cfg(not(feature = "bigint"))]
+	pub fn nearBranchTarget_hi(&self) -> u32 {
+		(self.0.near_branch_target() >> 32) as u32
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
@@ -1117,6 +1551,7 @@ impl Instruction {
 	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[cfg(feature = "bigint")]
 	pub fn nearBranchTarget(&self) -> u64 {
 		self.0.near_branch_target()
 	}
@@ -1614,6 +2049,36 @@ impl Instruction {
 		self.0.is_ip_rel_memory_operand()
 	}
 
+	/// Gets the low 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`nextIP`]: #method.nextIP
+	/// [`nextIP32`]: #method.nextIP32
+	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipRelMemoryAddress_lo")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_rel_memory_address_lo(&self) -> u32 {
+		self.0.ip_rel_memory_address() as u32
+	}
+
+	/// Gets the high 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
+	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// [`nextIP`]: #method.nextIP
+	/// [`nextIP32`]: #method.nextIP32
+	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipRelMemoryAddress_hi")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn ip_rel_memory_address_hi(&self) -> u32 {
+		(self.0.ip_rel_memory_address() >> 32) as u32
+	}
+
 	/// Gets the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
@@ -1623,6 +2088,7 @@ impl Instruction {
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]
+	#[cfg(feature = "bigint")]
 	pub fn ip_rel_memory_address(&self) -> u64 {
 		self.0.ip_rel_memory_address()
 	}

@@ -85,6 +85,46 @@ impl Encoder {
 		Self(iced_x86::Encoder::with_capacity(bitness, capacity))
 	}
 
+	/// Encodes an instruction and returns the size of the encoded instruction.
+	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// # Errors
+	///
+	/// Returns an error message on failure.
+	///
+	/// # Arguments
+	///
+	/// * `instruction`: Instruction to encode
+	/// * `rip_hi`: High 32 bits of the `RIP` of the encoded instruction
+	/// * `rip_lo`: Low 32 bits of the `RIP` of the encoded instruction
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // je short $+4
+	/// let bytes = b"\x75\x02";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// decoder.set_ip(0x1234_5678);
+	/// let instr = decoder.decode();
+	///
+	/// let mut encoder = Encoder::new(64);
+	/// // Use a different IP (orig rip + 0x10)
+	/// match encoder.encode(&instr, 0x1234_5688) {
+	///     Ok(len) => assert_eq!(2, len),
+	///     Err(err) => panic!("{}", err),
+	/// }
+	/// // We're done, take ownership of the buffer
+	/// let buffer = encoder.take_buffer();
+	/// assert_eq!(vec![0x75, 0xF2], buffer);
+	/// ```
+	#[cfg(not(feature = "bigint"))]
+	pub fn encode(&mut self, instruction: &Instruction, rip_hi: u32, rip_lo: u32) -> Result<u32, JsValue> {
+		let rip = ((rip_hi as u64) << 32) | (rip_lo as u64);
+		self.encode_core(instruction, rip)
+	}
+
 	/// Encodes an instruction and returns the size of the encoded instruction
 	///
 	/// # Errors
@@ -117,7 +157,12 @@ impl Encoder {
 	/// let buffer = encoder.take_buffer();
 	/// assert_eq!(vec![0x75, 0xF2], buffer);
 	/// ```
+	#[cfg(feature = "bigint")]
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
+		self.encode_core(instruction, rip)
+	}
+
+	fn encode_core(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
 		match self.0.encode(&instruction.0, rip) {
 			Ok(size) => Ok(size as u32),
 			#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
