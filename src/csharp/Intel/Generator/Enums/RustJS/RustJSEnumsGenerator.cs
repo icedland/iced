@@ -91,13 +91,15 @@ namespace Generator.Enums.RustJS {
 			WriteEnumCore(writer, info, enumType);
 
 		void WriteEnumCore(FileWriter writer, PartialEnumFileInfo info, EnumType enumType) {
+			// Don't add the Code comments since they're generated (less useful comments) and will generate bigger ts/js files
+			bool writeComments = enumType.TypeId != TypeIds.Code;
 			docWriter.WriteSummary(writer, enumType.Documentation, enumType.RawName);
 			var enumTypeName = enumType.Name(idConverter);
 			if (enumType.IsPublic)
 				writer.WriteLine(RustConstants.AttributeWasmBindgen);
 			foreach (var attr in info.Attributes)
 				writer.WriteLine(attr);
-			if (enumType.IsPublic && enumType.IsMissingDocs)
+			if (!writeComments || (enumType.IsPublic && enumType.IsMissingDocs))
 				writer.WriteLine(RustConstants.AttributeAllowMissingDocs);
 			if (!enumType.IsPublic)
 				writer.WriteLine(RustConstants.AttributeAllowDeadCode);
@@ -106,7 +108,8 @@ namespace Generator.Enums.RustJS {
 			using (writer.Indent()) {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
-					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					if (writeComments)
+						docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");
 					else if (expectedValue != value.Value)
