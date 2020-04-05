@@ -133,7 +133,7 @@ impl Formatter {
 	///
 	/// [`FormatMnemonicOptions`]: enum.FormatMnemonicOptions.html
 	#[wasm_bindgen(js_name = "formatMnemonicOptions")]
-	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32) -> String {
+	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32 /*flags: FormatMnemonicOptions*/) -> String {
 		let mut output = String::new();
 		self.formatter.format_mnemonic_options(&instruction.0, &mut output, options);
 		output

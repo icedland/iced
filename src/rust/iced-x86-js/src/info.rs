@@ -490,10 +490,10 @@ impl InstructionInfoFactory {
 	///
 	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
 	#[wasm_bindgen(js_name = "infoOptions")]
-	pub fn info_options(&mut self, instruction: &Instruction, options: InstructionInfoOptions) -> InstructionInfo {
+	pub fn info_options(&mut self, instruction: &Instruction, options: u32 /*flags: InstructionInfoOptions*/) -> InstructionInfo {
 		const_assert_eq!(iced_x86::InstructionInfoOptions::NONE, InstructionInfoOptions::None as u32);
 		const_assert_eq!(iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE, InstructionInfoOptions::NoMemoryUsage as u32);
 		const_assert_eq!(iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE, InstructionInfoOptions::NoRegisterUsage as u32);
-		InstructionInfo((*self.0.info_options(&instruction.0, options as u32)).clone())
+		InstructionInfo((*self.0.info_options(&instruction.0, options)).clone())
 	}
 }
