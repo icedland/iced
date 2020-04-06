@@ -266,7 +266,7 @@ while (decoder.canDecode) {
     const instr = decoder.decode();
     origInstructions.push(instr);
     totalBytes += instr.length;
-    if (instr.code == Code.INVALID)
+    if (instr.code === Code.INVALID)
         throw new Error("Found garbage");
     if (totalBytes >= requiredBytes)
         break;
@@ -276,7 +276,7 @@ while (decoder.canDecode) {
             break;
 
         case FlowControl.UnconditionalBranch:
-            if (instr.op0Kind == OpKind.NearBranch64) {
+            if (instr.op0Kind === OpKind.NearBranch64) {
                 const target_lo = instr.nearBranchTarget_lo;
                 const target_hi = instr.nearBranchTarget_hi;
                 // You could check if it's just jumping forward a few bytes and follow it
@@ -299,7 +299,7 @@ while (decoder.canDecode) {
 if (totalBytes < requiredBytes)
     throw new Error("Not enough bytes!");
 const lastInstr = origInstructions[origInstructions.length - 1];
-if (lastInstr.FlowControl != FlowControl.Return) {
+if (lastInstr.flowControl !== FlowControl.Return) {
     // Instruction.createBranch(Code.Jmp_rel32_64, lastInstr.nextIP)
     let jmp = new Instruction();
     jmp.code = Code.Jmp_rel32_64;
@@ -319,7 +319,9 @@ if (lastInstr.FlowControl != FlowControl.Return) {
 // Note that a block is not the same thing as a basic block. A block can contain any
 // number of instructions, including any number of branch instructions. One block
 // should be enough unless you must relocate different blocks to different locations.
-const relocatedBaseAddress_lo = exampleRip_lo + 0x200000;
+let relocatedBaseAddress_lo = (exampleRip_lo + 0x200000) & 0xFFFFFFFF;
+if (relocatedBaseAddress_lo < 0)
+    relocatedBaseAddress_lo += 0x100000000;
 const relocatedBaseAddress_hi = exampleRip_hi + (relocatedBaseAddress_lo < exampleRip_lo ? 1 : 0);
 const blockEncoder = new BlockEncoder(exampleBitness, BlockEncoderOptions.None);
 origInstructions.forEach(instruction => { blockEncoder.add(instruction); });
