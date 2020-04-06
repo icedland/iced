@@ -442,7 +442,7 @@ impl<'a> Decoder<'a> {
 		self.ip
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP`, see also [`set_position()`]
+	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`set_position()`]
 	///
 	/// [`set_position()`]: #method.set_position
 	///

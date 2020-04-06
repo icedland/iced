@@ -142,7 +142,7 @@ impl Decoder {
 		self.decoder.ip()
 	}
 
-	/// Sets the low 32 bits of the current `IP`/`EIP`/`RIP`, see also [`position`].
+	/// Sets the low 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
 	/// [`position`]: #method.set_position
@@ -157,7 +157,7 @@ impl Decoder {
 		self.decoder.set_ip(ip);
 	}
 
-	/// Sets the high 32 bits of the current `IP`/`EIP`/`RIP`, see also [`position`].
+	/// Sets the high 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
 	/// [`position`]: #method.set_position
@@ -172,7 +172,7 @@ impl Decoder {
 		self.decoder.set_ip(ip);
 	}
 
-	/// Sets the current `IP`/`EIP`/`RIP`, see also [`position`]
+	/// Sets the current `IP`/`EIP`/`RIP` value, see also [`position`]
 	///
 	/// [`position`]: #method.set_position
 	///
@@ -191,8 +191,8 @@ impl Decoder {
 		self.decoder.bitness()
 	}
 
-	/// Gets the max value that can be passed to [`position`]. This is the size of the data that gets
-	/// decoded to instructions and it's the length of the slice that was passed to the constructor.
+	/// Gets the max value that can be written to [`position`]. This is the size of the data that gets
+	/// decoded to instructions and it's the length of the array that was passed to the constructor.
 	///
 	/// [`position`]: #method.set_position
 	#[wasm_bindgen(getter)]
@@ -312,7 +312,7 @@ impl Decoder {
 	}
 
 	/// Decodes at most `count` instructions and returns an array of [`Instruction`]s.
-	/// It returns less than `count` instructions if there's nothing left to decode.
+	/// It returns less than `count` instructions if there's not enough data left to decode.
 	///
 	/// [`Instruction`]: struct.Instruction.html
 	///

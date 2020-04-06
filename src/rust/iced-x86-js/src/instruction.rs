@@ -316,7 +316,7 @@ impl Instruction {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
 
-	/// Gets the instruction code (a [`CodeSize`] enum value), see also [`mnemonic`].
+	/// Gets the instruction code (a [`Code`] enum value), see also [`mnemonic`].
 	///
 	/// [`mnemonic`]: #method.mnemonic
 	/// [`Code`]: enum.Code.html
@@ -325,7 +325,7 @@ impl Instruction {
 		iced_to_code(self.0.code())
 	}
 
-	/// Sets the instruction code (a [`CodeSize`] enum value)
+	/// Sets the instruction code (a [`Code`] enum value)
 	///
 	/// [`Code`]: enum.Code.html
 	///

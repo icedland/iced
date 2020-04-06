@@ -68,7 +68,7 @@ impl BlockEncoder {
 		self.instructions.push(instruction.0);
 	}
 
-	/// Encodes all instructions added by [`add()`].
+	/// Encodes all instructions added by [`add()`] and returns the encoded bytes.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
 	/// [`add()`]: #method.add
@@ -83,7 +83,7 @@ impl BlockEncoder {
 		self.encode_core(rip)
 	}
 
-	/// Encodes all instructions added by [`add()`]
+	/// Encodes all instructions added by [`add()`] and returns the encoded bytes
 	///
 	/// [`add()`]: #method.add
 	///
