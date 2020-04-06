@@ -29,14 +29,6 @@ use super::memory_size_options::{iced_to_memory_size_options, memory_size_option
 use super::op_access::{iced_to_op_access, OpAccess};
 #[cfg(feature = "instruction_api")]
 use super::register::{register_to_iced, Register};
-#[cfg(feature = "gas")]
-use iced_x86::GasFormatter;
-#[cfg(feature = "intel")]
-use iced_x86::IntelFormatter;
-#[cfg(feature = "masm")]
-use iced_x86::MasmFormatter;
-#[cfg(feature = "nasm")]
-use iced_x86::NasmFormatter;
 use wasm_bindgen::prelude::*;
 
 /// Formatter syntax (GNU Assembler, Intel XED, masm, nasm)
@@ -87,16 +79,34 @@ impl Formatter {
 	#[wasm_bindgen(constructor)]
 	pub fn new(syntax: FormatterSyntax) -> Self {
 		let formatter: Box<dyn iced_x86::Formatter> = match syntax {
-			#[cfg(feature = "gas")]
-			FormatterSyntax::Gas => Box::new(GasFormatter::new()),
-			#[cfg(feature = "intel")]
-			FormatterSyntax::Intel => Box::new(IntelFormatter::new()),
-			#[cfg(feature = "masm")]
-			FormatterSyntax::Masm => Box::new(MasmFormatter::new()),
-			#[cfg(feature = "nasm")]
-			FormatterSyntax::Nasm => Box::new(NasmFormatter::new()),
-			#[allow(unreachable_patterns)]
-			_ => panic!(),
+			FormatterSyntax::Gas => {
+				if cfg!(feature = "gas") {
+					Box::new(iced_x86::GasFormatter::new())
+				} else {
+					panic!()
+				}
+			}
+			FormatterSyntax::Intel => {
+				if cfg!(feature = "intel") {
+					Box::new(iced_x86::IntelFormatter::new())
+				} else {
+					panic!()
+				}
+			}
+			FormatterSyntax::Masm => {
+				if cfg!(feature = "masm") {
+					Box::new(iced_x86::MasmFormatter::new())
+				} else {
+					panic!()
+				}
+			}
+			FormatterSyntax::Nasm => {
+				if cfg!(feature = "nasm") {
+					Box::new(iced_x86::NasmFormatter::new())
+				} else {
+					panic!()
+				}
+			}
 		};
 		Self { formatter }
 	}
