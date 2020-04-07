@@ -80,6 +80,8 @@ mod block_encoder;
 mod block_encoder_options;
 #[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 mod code;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+mod code_ext;
 #[cfg(feature = "instruction_api")]
 mod code_size;
 #[cfg(feature = "instr_info")]
@@ -143,6 +145,8 @@ pub use block_encoder::*;
 pub use block_encoder_options::*;
 #[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
 pub use code::*;
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
+pub use code_ext::*;
 #[cfg(feature = "instruction_api")]
 pub use code_size::*;
 #[cfg(feature = "instr_info")]
