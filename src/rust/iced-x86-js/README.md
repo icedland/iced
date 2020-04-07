@@ -47,7 +47,7 @@ Here's a list of all features you can enable when building the wasm file
 - `intel`: (✔️Enabled by default) Enables the Intel (XED) formatter
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
-- `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type)
+- `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
 
 `"decoder masm"` is all you need to disassemble code.
 
@@ -143,7 +143,7 @@ instructions.forEach(instruction => {
 });
 
 // Free wasm memory
-instructions.forEach(instruction => { instruction.free(); });
+instructions.forEach(instruction => instruction.free());
 formatter.free();
 decoder.free();
 ```
@@ -324,7 +324,7 @@ if (relocatedBaseAddress_lo < 0)
     relocatedBaseAddress_lo += 0x100000000;
 const relocatedBaseAddress_hi = exampleRip_hi + (relocatedBaseAddress_lo < exampleRip_lo ? 1 : 0);
 const blockEncoder = new BlockEncoder(exampleBitness, BlockEncoderOptions.None);
-origInstructions.forEach(instruction => { blockEncoder.add(instruction); });
+origInstructions.forEach(instruction => blockEncoder.add(instruction));
 const newCode = blockEncoder.encode(relocatedBaseAddress_hi, relocatedBaseAddress_lo);
 
 // Patch the original code. Pretend that we use some OS API to write to memory...
@@ -353,7 +353,7 @@ disassemble(newCode, relocatedBaseAddress_hi, relocatedBaseAddress_lo);
 
 // Free wasm memory
 blockEncoder.free();
-origInstructions.forEach(instruction => { instruction.free(); });
+origInstructions.forEach(instruction => instruction.free());
 decoder.free();
 ```
 
@@ -623,7 +623,7 @@ while (decoder.canDecode) {
     console.log("    Encoding: %s", encodingKindToString(instr.encoding));
     console.log("    Mnemonic: %s", mnemonicToString(instr.mnemonic));
     console.log("    Code: %s", codeToString(instr.code));
-    console.log("    CpuidFeature: %s", cpuidFeaturesToString(instr.cpuidFeatures));
+    console.log("    CpuidFeature: %s", cpuidFeaturesToString(instr.cpuidFeatures()));
     console.log("    FlowControl: %s", flowControlToString(instr.flowControl));
     if (offsets.hasDisplacement)
         console.log("    Displacement offset = %d, size = %d", offsets.displacementOffset, offsets.displacementSize);

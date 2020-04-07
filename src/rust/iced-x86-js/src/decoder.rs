@@ -41,9 +41,9 @@ pub struct Decoder {
 impl Decoder {
 	/// Creates a decoder
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Throws if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///
@@ -55,30 +55,36 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions, Mnemonic } = require("iced-x86-js");
 	///
 	/// // xchg [rdx+rsi+16h],ah
 	/// // xacquire lock add dword ptr [rax],5Ah
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
-	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
 	///
-	/// let instr1 = decoder.decode();
-	/// assert_eq!(Code::Xchg_rm8_r8, instr1.code());
-	/// assert_eq!(Mnemonic::Xchg, instr1.mnemonic());
-	/// assert_eq!(4, instr1.len());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Xchg_rm8_r8);
+	/// assert.equal(instr.mnemonic, Mnemonic.Xchg);
+	/// assert.equal(instr.length, 4);
 	///
-	/// let instr2 = decoder.decode();
-	/// assert_eq!(Code::Add_rm32_imm8, instr2.code());
-	/// assert_eq!(Mnemonic::Add, instr2.mnemonic());
-	/// assert_eq!(5, instr2.len());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.code, Code.Add_rm32_imm8);
+	/// assert.equal(instr.mnemonic, Mnemonic.Add);
+	/// assert.equal(instr.length, 5);
 	///
-	/// let instr3 = decoder.decode();
-	/// assert_eq!(Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512, instr3.code());
-	/// assert_eq!(Mnemonic::Vmovdqu64, instr3.mnemonic());
-	/// assert_eq!(6, instr3.len());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.code, Code.EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert.equal(instr.mnemonic, Mnemonic.Vmovdqu64);
+	/// assert.equal(instr.length, 6);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	///
 	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
@@ -87,22 +93,31 @@ impl Decoder {
 	///
 	/// [`DecoderOptions.NoInvalidCheck`]: enum.DecoderOptions.html#variant.NoInvalidCheck
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // lock add esi,ecx   ; lock not allowed
-	/// let bytes = b"\xF0\x01\xCE";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
-	/// assert_eq!(Code::INVALID, instr.code());
+	/// const bytes = new Uint8Array([0xF0, 0x01, 0xCE]);
+	/// const decoder1 = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder1.ip_lo = 0x12345678;
+	/// decoder1.ip_hi = 0x00000000;
+	/// const instr1 = decoder1.decode();
+	/// assert.equal(instr1.code, Code.INVALID);
 	///
 	/// // We want to decode some instructions with invalid encodings
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NO_INVALID_CHECK);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
-	/// assert_eq!(Code::Add_rm32_r32, instr.code());
-	/// assert!(instr.has_lock_prefix());
+	/// const decoder2 = new Decoder(64, bytes, DecoderOptions.NoInvalidCheck);
+	/// decoder2.ip_lo = 0x12345678;
+	/// decoder2.ip_hi = 0x00000000;
+	/// const instr2 = decoder2.decode();
+	/// assert.equal(instr2.code, Code.Add_rm32_r32);
+	/// assert.ok(instr2.hasLockPrefix);
+	///
+	/// // Free wasm memory
+	/// decoder1.free();
+	/// decoder2.free();
+	/// instr1.free();
+	/// instr2.free();
 	/// ```
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, data: Vec<u8>, options: u32 /*flags: DecoderOptions*/) -> Self {
@@ -218,9 +233,9 @@ impl Decoder {
 	///
 	/// [`maxPosition`]: #method.max_position
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if the new position is invalid.
+	/// Throws if the new position is invalid.
 	///
 	/// # Arguments
 	///
@@ -228,30 +243,38 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // nop and pause
-	/// let bytes = b"\x90\xF3\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// const bytes = new Uint8Array([0x90, 0xF3, 0x90]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
 	///
-	/// assert_eq!(0, decoder.position());
-	/// assert_eq!(3, decoder.max_position());
-	/// let instr = decoder.decode();
-	/// assert_eq!(1, decoder.position());
-	/// assert_eq!(Code::Nopd, instr.code());
+	/// assert.equal(decoder.position, 0);
+	/// assert.equal(decoder.maxPosition, 3);
+	/// const instr = decoder.decode();
+	/// assert.equal(decoder.position, 1);
+	/// assert.equal(instr.code, Code.Nopd);
 	///
-	/// let instr = decoder.decode();
-	/// assert_eq!(3, decoder.position());
-	/// assert_eq!(Code::Pause, instr.code());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(decoder.position, 3);
+	/// assert.equal(instr.code, Code.Pause);
 	///
 	/// // Start all over again
-	/// decoder.set_position(0);
-	/// assert_eq!(0, decoder.position());
-	/// assert_eq!(Code::Nopd, decoder.decode().code());
-	/// assert_eq!(Code::Pause, decoder.decode().code());
-	/// assert_eq!(3, decoder.position());
+	/// decoder.position = 0;
+	/// assert.equal(decoder.position, 0);
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.code, Code.Nopd);
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.code, Code.Pause);
+	/// assert.equal(decoder.position, 3);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(setter)]
 	pub fn set_position(&mut self, new_pos: usize) {
@@ -274,27 +297,33 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // nop and an incomplete instruction
-	/// let bytes = b"\x90\xF3\x0F";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
+	/// const bytes = new Uint8Array([0x90, 0xF3, 0x0F]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
 	///
 	/// // 3 bytes left to read
-	/// assert!(decoder.can_decode());
-	/// let instr = decoder.decode();
-	/// assert_eq!(Code::Nopd, instr.code());
+	/// assert.ok(decoder.canDecode);
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Nopd);
 	///
 	/// // 2 bytes left to read
-	/// assert!(decoder.can_decode());
-	/// let instr = decoder.decode();
+	/// assert.ok(decoder.canDecode);
+	/// decoder.decodeOut(instr);
 	/// // Not enough bytes left to decode a full instruction
-	/// assert_eq!(Code::INVALID, instr.code());
+	/// assert.equal(instr.code, Code.INVALID);
 	///
 	/// // 0 bytes left to read
-	/// assert!(!decoder.can_decode());
+	/// assert.ok(!decoder.canDecode);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "canDecode")]
@@ -337,7 +366,7 @@ impl Decoder {
 	}
 
 	/// Decodes and returns the next instruction, see also [`decodeOut()`]
-	/// which avoids copying the decoded instruction to the caller's return variable.
+	/// which avoids allocating a new instruction.
 	/// See also [`invalidNoMoreBytes`].
 	///
 	/// [`decodeOut()`]: #method.decode_out
@@ -345,41 +374,47 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86-js");
 	///
 	/// // xrelease lock add [rax],ebx
-	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
+	/// const instr = decoder.decode();
 	///
-	/// assert_eq!(Code::Add_rm32_r32, instr.code());
-	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
-	/// assert_eq!(4, instr.len());
-	/// assert_eq!(2, instr.op_count());
+	/// assert.equal(instr.code, Code.Add_rm32_r32);
+	/// assert.equal(instr.mnemonic, Mnemonic.Add);
+	/// assert.equal(instr.length, 4);
+	/// assert.equal(instr.opCount, 2);
 	///
-	/// assert_eq!(OpKind::Memory, instr.op0_kind());
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
-	/// assert_eq!(Register::DS, instr.memory_segment());
-	/// assert_eq!(Register::None, instr.segment_prefix());
-	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
+	/// assert.equal(instr.op0Kind, OpKind.Memory);
+	/// assert.equal(instr.memoryBase, Register.RAX);
+	/// assert.equal(instr.memoryIndex, Register.None);
+	/// assert.equal(instr.memoryIndexScale, 1);
+	/// assert.equal(instr.memoryDisplacement, 0);
+	/// assert.equal(instr.memorySegment, Register.DS);
+	/// assert.equal(instr.segmentPrefix, Register.None);
+	/// assert.equal(instr.memorySize, MemorySize.UInt32);
 	///
-	/// assert_eq!(OpKind::Register, instr.op1_kind());
-	/// assert_eq!(Register::EBX, instr.op1_register());
+	/// assert.equal(instr.op1Kind, OpKind.Register);
+	/// assert.equal(instr.op1Register, Register.EBX);
 	///
-	/// assert!(instr.has_lock_prefix());
-	/// assert!(instr.has_xrelease_prefix());
+	/// assert.ok(instr.hasLockPrefix);
+	/// assert.ok(instr.hasXreleasePrefix);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	pub fn decode(&mut self) -> Instruction {
 		Instruction(self.decoder.decode())
 	}
 
 	/// Decodes the next instruction. The difference between this method and [`decode()`] is that this
-	/// method doesn't need to copy the result to the caller's return variable (saves 32-bytes of copying).
+	/// method doesn't need to allocate a new instruction.
 	/// See also [`invalidNoMoreBytes`].
 	///
 	/// [`decode()`]: #method.decode
@@ -391,38 +426,41 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions, Instruction, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86-js");
 	///
 	/// // xrelease lock add [rax],ebx
-	/// let bytes = b"\xF0\xF3\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// // or use core::mem::MaybeUninit:
-	/// //    let mut instr = unsafe { core::mem::MaybeUninit::uninit().assume_init() };
-	/// // to not clear `instr` more than once (`decode_out()` initializes all its fields).
-	/// let mut instr = Instruction::default();
-	/// decoder.decode_out(&mut instr);
+	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
+	/// const instr = new Instruction();
+	/// decoder.decodeOut(instr);
 	///
-	/// assert_eq!(Code::Add_rm32_r32, instr.code());
-	/// assert_eq!(Mnemonic::Add, instr.mnemonic());
-	/// assert_eq!(4, instr.len());
-	/// assert_eq!(2, instr.op_count());
+	/// assert.equal(instr.code, Code.Add_rm32_r32);
+	/// assert.equal(instr.mnemonic, Mnemonic.Add);
+	/// assert.equal(instr.length, 4);
+	/// assert.equal(instr.opCount, 2);
 	///
-	/// assert_eq!(OpKind::Memory, instr.op0_kind());
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(1, instr.memory_index_scale());
-	/// assert_eq!(0, instr.memory_displacement());
-	/// assert_eq!(Register::DS, instr.memory_segment());
-	/// assert_eq!(Register::None, instr.segment_prefix());
-	/// assert_eq!(MemorySize::UInt32, instr.memory_size());
+	/// assert.equal(instr.op0Kind, OpKind.Memory);
+	/// assert.equal(instr.memoryBase, Register.RAX);
+	/// assert.equal(instr.memoryIndex, Register.None);
+	/// assert.equal(instr.memoryIndexScale, 1);
+	/// assert.equal(instr.memoryDisplacement, 0);
+	/// assert.equal(instr.memorySegment, Register.DS);
+	/// assert.equal(instr.segmentPrefix, Register.None);
+	/// assert.equal(instr.memorySize, MemorySize.UInt32);
 	///
-	/// assert_eq!(OpKind::Register, instr.op1_kind());
-	/// assert_eq!(Register::EBX, instr.op1_register());
+	/// assert.equal(instr.op1Kind, OpKind.Register);
+	/// assert.equal(instr.op1Register, Register.EBX);
 	///
-	/// assert!(instr.has_lock_prefix());
-	/// assert!(instr.has_xrelease_prefix());
+	/// assert.ok(instr.hasLockPrefix);
+	/// assert.ok(instr.hasXreleasePrefix);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "decodeOut")]
 	pub fn decode_out(&mut self, instruction: &mut Instruction) {
@@ -442,30 +480,39 @@ impl Decoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // nop
 	/// // xor dword ptr [rax-5AA5EDCCh],5Ah
-	/// //                  00  01  02  03  04  05  06
-	/// //                \opc\mrm\displacement___\imm
-	/// let bytes = b"\x90\x83\xB3\x34\x12\x5A\xA5\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// assert_eq!(Code::Nopd, decoder.decode().code());
-	/// let instr = decoder.decode();
-	/// let co = decoder.get_constant_offsets(&instr);
+	/// const bytes = new Uint8Array(
+	///     //     00    01    02    03    04    05    06
+	///     //     opc   modrm displacement__________  imm
+	///     [0x90, 0x83, 0xB3, 0x34, 0x12, 0x5A, 0xA5, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Nopd);
+	/// decoder.decodeOut(instr);
+	/// const co = decoder.getConstantOffsets(instr);
 	///
-	/// assert!(co.has_displacement());
-	/// assert_eq!(2, co.displacement_offset());
-	/// assert_eq!(4, co.displacement_size());
-	/// assert!(co.has_immediate());
-	/// assert_eq!(6, co.immediate_offset());
-	/// assert_eq!(1, co.immediate_size());
+	/// assert.ok(co.hasDisplacement);
+	/// assert.equal(co.displacementOffset, 2);
+	/// assert.equal(co.displacementSize, 4);
+	/// assert.ok(co.hasImmediate);
+	/// assert.equal(co.immediateOffset, 6);
+	/// assert.equal(co.immediateSize, 1);
 	/// // It's not an instruction with two immediates (e.g. enter)
-	/// assert!(!co.has_immediate2());
-	/// assert_eq!(0, co.immediate_offset2());
-	/// assert_eq!(0, co.immediate_size2());
+	/// assert.ok(!co.hasImmediate2);
+	/// assert.equal(co.immediateOffset2, 0);
+	/// assert.equal(co.immediateSize2, 0);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
+	/// co.free();
 	/// ```
 	#[wasm_bindgen(js_name = "getConstantOffsets")]
 	pub fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {

@@ -350,15 +350,20 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // add [rax],ebx
-	/// let bytes = b"\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x01, 0x18]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
+	/// assert.equal(instr.opCount, 2);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "opCount")]
@@ -596,9 +601,9 @@ impl Instruction {
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.setOpKind
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `newValue` is invalid.
+	/// Throws if `newValue` is invalid.
 	///
 	/// # Arguments
 	///
@@ -614,9 +619,9 @@ impl Instruction {
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -624,20 +629,25 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86-js");
 	///
 	/// // add [rax],ebx
-	/// let bytes = b"\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x01, 0x18]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(Register::RAX, instr.memory_base());
-	/// assert_eq!(Register::None, instr.memory_index());
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert.equal(instr.opCount, 2);
+	/// assert.equal(instr.opKind(0), OpKind.Memory);
+	/// assert.equal(instr.memoryBase, Register.RAX);
+	/// assert.equal(instr.memoryIndex, Register.None);
+	/// assert.equal(instr.opKind(1), OpKind.Register);
+	/// assert.equal(instr.opRegister(1), Register.EBX);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	pub fn opKind(&self, operand: u32) -> OpKind {
 		iced_to_op_kind(self.0.op_kind(operand))
@@ -647,9 +657,9 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -876,9 +886,9 @@ impl Instruction {
 	/// Gets the low 32 bits of an operand's immediate value.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -891,9 +901,9 @@ impl Instruction {
 	/// Gets the high 32 bits of an operand's immediate value.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -905,9 +915,9 @@ impl Instruction {
 
 	/// Gets an operand's immediate value
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -919,9 +929,9 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -935,9 +945,9 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -952,9 +962,9 @@ impl Instruction {
 	/// Sets an operand's immediate value.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -971,9 +981,9 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -989,9 +999,9 @@ impl Instruction {
 	/// Sets an operand's immediate value.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -1008,9 +1018,9 @@ impl Instruction {
 
 	/// Sets an operand's immediate value
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid or if it's not an immediate operand
+	/// Throws if `operand` is invalid or if it's not an immediate operand
 	///
 	/// # Arguments
 	///
@@ -1814,9 +1824,9 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `newValue` is invalid
+	/// Throws if `newValue` is invalid
 	///
 	/// # Arguments
 	///
@@ -1832,9 +1842,9 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -1842,18 +1852,23 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86-js");
 	///
 	/// // add [rax],ebx
-	/// let bytes = b"\x01\x18";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x01, 0x18]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// assert_eq!(2, instr.op_count());
-	/// assert_eq!(OpKind::Memory, instr.op_kind(0));
-	/// assert_eq!(OpKind::Register, instr.op_kind(1));
-	/// assert_eq!(Register::EBX, instr.op_register(1));
+	/// assert.equal(instr.opCount, 2);
+	/// assert.equal(instr.opKind(0), OpKind.Memory);
+	/// assert.equal(instr.opKind(1), OpKind.Register);
+	/// assert.equal(instr.opRegister(1), Register.EBX);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	pub fn opRegister(&self, operand: u32) -> Register {
 		iced_to_register(self.0.op_register(operand))
@@ -1864,9 +1879,9 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -2098,16 +2113,21 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // pushfq
-	/// let bytes = b"\x9C";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x9C]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// assert!(instr.is_stack_instruction());
-	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// assert.ok(instr.isStackInstruction);
+	/// assert.equal(instr.stackPointerIncrement, -8);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "stackPointerIncrement")]
@@ -2121,15 +2141,20 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, EncodingKind } = require("iced-x86-js");
 	///
 	/// // vmovaps xmm1,xmm5
-	/// let bytes = b"\xC5\xF8\x28\xCD";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0xC5, 0xF8, 0x28, 0xCD]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// assert_eq!(EncodingKind::VEX, instr.encoding());
+	/// assert.equal(instr.encoding, EncodingKind.VEX);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	pub fn encoding(&self) -> EncodingKind {
@@ -2142,26 +2167,31 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, CpuidFeature } = require("iced-x86-js");
 	///
 	/// // vmovaps xmm1,xmm5
 	/// // vmovaps xmm10{k3}{z},xmm19
-	/// let bytes = b"\xC5\xF8\x28\xCD\x62\x31\x7C\x8B\x28\xD3";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0xC5, 0xF8, 0x28, 0xCD, 0x62, 0x31, 0x7C, 0x8B, 0x28, 0xD3]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // vmovaps xmm1,xmm5
-	/// let instr = decoder.decode();
-	/// let cpuid = instr.cpuid_features();
-	/// assert_eq!(1, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX, cpuid[0]);
+	/// const instr = decoder.decode();
+	/// let cpuid = instr.cpuidFeatures();
+	/// assert.equal(cpuid.length, 1);
+	/// assert.equal(cpuid[0], CpuidFeature.AVX);
 	///
 	/// // vmovaps xmm10{k3}{z},xmm19
-	/// let instr = decoder.decode();
-	/// let cpuid = instr.cpuid_features();
-	/// assert_eq!(2, cpuid.len());
-	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
-	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
+	/// decoder.decodeOut(instr);
+	/// cpuid = instr.cpuidFeatures();
+	/// assert.equal(cpuid.length, 2);
+	/// assert.equal(cpuid[0], CpuidFeature.AVX512VL);
+	/// assert.equal(cpuid[1], CpuidFeature.AVX512F);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "cpuidFeatures")]
 	pub fn cpuid_features(&self) -> Vec<i32> {
@@ -2175,26 +2205,31 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, FlowControl } = require("iced-x86-js");
 	///
 	/// // or ecx,esi
 	/// // ud0 rcx,rsi
 	/// // call rcx
-	/// let bytes = b"\x0B\xCE\x48\x0F\xFF\xCE\xFF\xD1";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x0B, 0xCE, 0x48, 0x0F, 0xFF, 0xCE, 0xFF, 0xD1]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // or ecx,esi
-	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::Next, instr.flow_control());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.flowControl, FlowControl.Next);
 	///
 	/// // ud0 rcx,rsi
-	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::Exception, instr.flow_control());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.flowControl, FlowControl.Exception);
 	///
 	/// // call rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(FlowControl::IndirectCall, instr.flow_control());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.flowControl, FlowControl.IndirectCall);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "flowControl")]
@@ -2223,22 +2258,27 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // or ecx,esi
 	/// // push rax
-	/// let bytes = b"\x0B\xCE\x50";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x0B, 0xCE, 0x50]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // or ecx,esi
-	/// let instr = decoder.decode();
-	/// assert!(!instr.is_stack_instruction());
+	/// const instr = decoder.decode();
+	/// assert.ok(!instr.isStackInstruction);
 	///
 	/// // push rax
-	/// let instr = decoder.decode();
-	/// assert!(instr.is_stack_instruction());
-	/// assert_eq!(-8, instr.stack_pointer_increment());
+	/// decoder.decodeOut(instr);
+	/// assert.ok(instr.isStackInstruction);
+	/// assert.equal(instr.stackPointerIncrement, -8);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isStackInstruction")]
@@ -2261,31 +2301,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsRead")]
@@ -2301,31 +2346,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsWritten")]
@@ -2341,31 +2391,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsCleared")]
@@ -2381,31 +2436,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsSet")]
@@ -2421,31 +2481,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsUndefined")]
@@ -2460,31 +2525,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
-	/// let bytes = b"\x48\x11\xCE\x48\x83\xF7\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x48, 0x11, 0xCE, 0x48, 0x83, 0xF7, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // adc rsi,rcx
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::CF, instr.rflags_read());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.rflagsRead, RflagsBits.CF);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.None);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.None);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
 	///
 	/// // xor rdi,5Ah
-	/// let instr = decoder.decode();
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_read());
-	/// assert_eq!(RflagsBits::SF | RflagsBits::ZF | RflagsBits::PF, instr.rflags_written());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::CF, instr.rflags_cleared());
-	/// assert_eq!(RflagsBits::NONE, instr.rflags_set());
-	/// assert_eq!(RflagsBits::AF, instr.rflags_undefined());
-	/// assert_eq!(RflagsBits::OF | RflagsBits::SF | RflagsBits::ZF | RflagsBits::AF | RflagsBits::CF | RflagsBits::PF, instr.rflags_modified());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.rflagsRead, RflagsBits.None);
+	/// assert.equal(instr.rflagsWritten, RflagsBits.SF | RflagsBits.ZF | RflagsBits.PF);
+	/// assert.equal(instr.rflagsCleared, RflagsBits.OF | RflagsBits.CF);
+	/// assert.equal(instr.rflagsSet, RflagsBits.None);
+	/// assert.equal(instr.rflagsUndefined, RflagsBits.AF);
+	/// assert.equal(instr.rflagsModified, RflagsBits.OF | RflagsBits.SF | RflagsBits.ZF | RflagsBits.AF | RflagsBits.CF | RflagsBits.PF);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "rflagsModified")]
@@ -2588,19 +2658,24 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, ConditionCode, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // setbe al
-	/// let bytes = b"\x0F\x96\xC0";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x0F, 0x96, 0xC0]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
-	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Setbe_rm8, instr.code());
-	/// assert_eq!(ConditionCode::be, instr.condition_code());
-	/// instr.negate_condition_code();
-	/// assert_eq!(Code::Seta_rm8, instr.code());
-	/// assert_eq!(ConditionCode::a, instr.condition_code());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Setbe_rm8);
+	/// assert.equal(instr.conditionCode, ConditionCode.be);
+	/// instr.negateConditionCode();
+	/// assert.equal(instr.code, Code.Seta_rm8);
+	/// assert.equal(instr.conditionCode, ConditionCode.a);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "negateConditionCode")]
 	#[cfg(feature = "encoder")]
@@ -2612,19 +2687,24 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // jbe near ptr label
-	/// let bytes = b"\x0F\x86\x5A\xA5\x12\x34";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x0F, 0x86, 0x5A, 0xA5, 0x12, 0x34]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
-	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
-	/// instr.as_short_branch();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
-	/// instr.as_short_branch();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Jbe_rel32_64);
+	/// instr.asShortBranch();
+	/// assert.equal(instr.code, Code.Jbe_rel8_64);
+	/// instr.asShortBranch();
+	/// assert.equal(instr.code, Code.Jbe_rel8_64);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "asShortBranch")]
 	#[cfg(feature = "encoder")]
@@ -2636,19 +2716,24 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // jbe short label
-	/// let bytes = b"\x76\x5A";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x76, 0x5A]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
-	/// let mut instr = decoder.decode();
-	/// assert_eq!(Code::Jbe_rel8_64, instr.code());
-	/// instr.as_near_branch();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
-	/// instr.as_near_branch();
-	/// assert_eq!(Code::Jbe_rel32_64, instr.code());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.code, Code.Jbe_rel8_64);
+	/// instr.asNearBranch();
+	/// assert.equal(instr.code, Code.Jbe_rel32_64);
+	/// instr.asNearBranch();
+	/// assert.equal(instr.code, Code.Jbe_rel32_64);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "asNearBranch")]
 	#[cfg(feature = "encoder")]
@@ -2663,31 +2748,36 @@ impl Instruction {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { ConditionCode, Decoder, DecoderOptions } = require("iced-x86-js");
 	///
 	/// // setbe al
 	/// // jl short label
 	/// // cmovne ecx,esi
 	/// // nop
-	/// let bytes = b"\x0F\x96\xC0\x7C\x5A\x0F\x45\xCE\x90";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x0F, 0x96, 0xC0, 0x7C, 0x5A, 0x0F, 0x45, 0xCE, 0x90]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
 	/// // setbe al
-	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::be, instr.condition_code());
+	/// const instr = decoder.decode();
+	/// assert.equal(instr.conditionCode, ConditionCode.be);
 	///
 	/// // jl short label
-	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::l, instr.condition_code());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.conditionCode, ConditionCode.l);
 	///
 	/// // cmovne ecx,esi
-	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::ne, instr.condition_code());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.conditionCode, ConditionCode.ne);
 	///
 	/// // nop
-	/// let instr = decoder.decode();
-	/// assert_eq!(ConditionCode::None, instr.condition_code());
+	/// decoder.decodeOut(instr);
+	/// assert.equal(instr.conditionCode, ConditionCode.None);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "conditionCode")]

@@ -60,18 +60,23 @@ impl Formatter {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, Formatter, FormatterSyntax } = require("iced-x86-js");
 	///
-	/// let bytes = b"\x62\xF2\x4F\xDD\x72\x50\x01";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x62, 0xF2, 0x4F, 0xDD, 0x72, 0x50, 0x01]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const instr = decoder.decode();
 	///
-	/// let mut output = String::new();
-	/// let mut formatter = Formatter::new(FormatterSyntax::Masm);
-	/// formatter.options_mut().set_uppercase_mnemonics(true);
-	/// formatter.format(&instr, &mut output);
-	/// assert_eq!("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", output);
+	/// const formatter = new Formatter(FormatterSyntax.Masm);
+	/// formatter.uppercaseMnemonics = true;
+	/// const disasm = formatter.format(instr);
+	/// assert.equal("VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]", disasm);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
+	/// formatter.free();
 	/// ```
 	///
 	/// [`FormatterSyntax`]: enum.FormatterSyntax.html
@@ -161,9 +166,9 @@ impl Formatter {
 	/// Returns the operand access ([`OpAccess`]) but only if it's an operand added by the formatter. If it's an
 	/// operand that is part of [`Instruction`], you should call eg. [`InstructionInfoFactory.info()`].
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -182,9 +187,9 @@ impl Formatter {
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `None` if it's an operand added by the formatter
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -199,9 +204,9 @@ impl Formatter {
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `None` if the instruction operand isn't used by the formatter
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `instructionOperand` is invalid
+	/// Throws if `instructionOperand` is invalid
 	///
 	/// # Arguments
 	///
@@ -215,9 +220,9 @@ impl Formatter {
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
 	/// A formatter can add and remove operands.
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -1238,9 +1243,9 @@ impl Formatter {
 	///
 	/// - Default: `16`
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `value` is not `2`, `8`, `10`, `16`
+	/// Throws if `value` is not `2`, `8`, `10`, `16`
 	///
 	/// # Arguments
 	///

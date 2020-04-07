@@ -269,9 +269,9 @@ impl InstructionInfo {
 	///
 	/// [`OpAccess`]: enum.OpAccess.html
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -391,27 +391,43 @@ impl InstructionInfoFactory {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, Instruction, InstructionInfoFactory } = require("iced-x86-js");
 	///
 	/// // add [rdi+r12*8-5AA5EDCCh],esi
-	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// const bytes = new Uint8Array([0x42, 0x01, 0xB4, 0xE7, 0x34, 0x12, 0x5A, 0xA5]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	///
-	/// // This allocates two vectors but they get re-used every time you call info() and infoOptions().
-	/// let mut info_factory = InstructionInfoFactory::new();
+	/// const infoFactory = new InstructionInfoFactory();
+	/// const instr = new Instruction();
+	/// while (decoder.canDecode) {
+	///     // Decode the next instruction, overwriting `instr`
+	///     decoder.decodeOut(instr);
 	///
-	/// for instr in &mut decoder {
-	///     // There's also info_options() if you only need reg usage or only mem usage.
+	///     // There's also infoOptions() if you only need reg usage or only mem usage.
 	///     // info() returns both.
-	///     let info = info_factory.info(&instr);
-	///     for mem_info in info.used_memory().iter() {
-	///         println!("{:?}", mem_info);
+	///     const info = infoFactory.info(instr);
+	///     for (const memInfo of info.usedMemory()) {
+	///         // Do something here with the `UsedMemory` instance...
+	///         // ...
+	/// 
+	///         // Free wasm memory
+	///         memInfo.free();
 	///     }
-	///     for reg_info in info.used_registers().iter() {
-	///         println!("{:?}", reg_info);
+	///     for (const regInfo of info.usedRegisters()) {
+	///         // Do something here with the `UsedRegister` instance...
+	///         // ...
+	/// 
+	///         // Free wasm memory
+	///         regInfo.free();
 	///     }
 	/// }
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
+	/// infoFactory.free();
 	/// ```
 	#[wasm_bindgen(constructor)]
 	#[allow(clippy::new_without_default)]
@@ -437,35 +453,45 @@ impl InstructionInfoFactory {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, InstructionInfoFactory, MemorySize, OpAccess, Register } = require("iced-x86-js");
 	///
 	/// // add [rdi+r12*8-5AA5EDCCh],esi
-	/// let bytes = b"\x42\x01\xB4\xE7\x34\x12\x5A\xA5";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// let mut info_factory = InstructionInfoFactory::new();
+	/// const bytes = new Uint8Array([0x42, 0x01, 0xB4, 0xE7, 0x34, 0x12, 0x5A, 0xA5]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// const infoFactory = new InstructionInfoFactory();
 	///
-	/// let instr = decoder.decode();
-	/// let info = info_factory.info(&instr);
+	/// const instr = decoder.decode();
+	/// const info = infoFactory.info(instr);
 	///
-	/// assert_eq!(1, info.used_memory().len());
-	/// let mem = info.used_memory()[0];
-	/// assert_eq!(Register::DS, mem.segment());
-	/// assert_eq!(Register::RDI, mem.base());
-	/// assert_eq!(Register::R12, mem.index());
-	/// assert_eq!(8, mem.scale());
-	/// assert_eq!(0xFFFFFFFFA55A1234, mem.displacement());
-	/// assert_eq!(MemorySize::UInt32, mem.memory_size());
-	/// assert_eq!(OpAccess::ReadWrite, mem.access());
+	/// const usedMem = info.usedMemory();
+	/// assert.equal(usedMem.length, 1);
+	/// const mem = usedMem[0];
+	/// assert.equal(mem.segment, Register.DS);
+	/// assert.equal(mem.base, Register.RDI);
+	/// assert.equal(mem.index, Register.R12);
+	/// assert.equal(mem.scale, 8);
+	/// assert.equal(mem.displacement_lo, 0xA55A1234);
+	/// assert.equal(mem.displacement_hi, 0xFFFFFFFF);
+	/// assert.equal(mem.memorySize, MemorySize.UInt32);
+	/// assert.equal(mem.access, OpAccess.ReadWrite);
 	///
-	/// let regs = info.used_registers();
-	/// assert_eq!(3, regs.len());
-	/// assert_eq!(Register::RDI, regs[0].register());
-	/// assert_eq!(OpAccess::Read, regs[0].access());
-	/// assert_eq!(Register::R12, regs[1].register());
-	/// assert_eq!(OpAccess::Read, regs[1].access());
-	/// assert_eq!(Register::ESI, regs[2].register());
-	/// assert_eq!(OpAccess::Read, regs[2].access());
+	/// const usedRegs = info.usedRegisters();
+	/// assert.equal(usedRegs.length, 3);
+	/// assert.equal(usedRegs[0].register, Register.RDI);
+	/// assert.equal(usedRegs[0].access, OpAccess.Read);
+	/// assert.equal(usedRegs[1].register, Register.R12);
+	/// assert.equal(usedRegs[1].access, OpAccess.Read);
+	/// assert.equal(usedRegs[2].register, Register.ESI);
+	/// assert.equal(usedRegs[2].access, OpAccess.Read);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// instr.free();
+	/// infoFactory.free();
+	/// usedMem.forEach(m => m.free());
+	/// usedRegs.forEach(r => r.free());
 	/// ```
 	pub fn info(&mut self, instruction: &Instruction) -> InstructionInfo {
 		InstructionInfo((*self.0.info(&instruction.0)).clone())

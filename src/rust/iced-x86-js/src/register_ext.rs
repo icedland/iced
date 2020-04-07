@@ -42,24 +42,26 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(Register::ES, Register::GS.base());
-	/// assert_eq!(Register::AL, Register::SIL.base());
-	/// assert_eq!(Register::AX, Register::SP.base());
-	/// assert_eq!(Register::EAX, Register::R13D.base());
-	/// assert_eq!(Register::RAX, Register::RBP.base());
-	/// assert_eq!(Register::MM0, Register::MM6.base());
-	/// assert_eq!(Register::XMM0, Register::XMM28.base());
-	/// assert_eq!(Register::YMM0, Register::YMM12.base());
-	/// assert_eq!(Register::ZMM0, Register::ZMM31.base());
-	/// assert_eq!(Register::K0, Register::K3.base());
-	/// assert_eq!(Register::BND0, Register::BND1.base());
-	/// assert_eq!(Register::ST0, Register::ST7.base());
-	/// assert_eq!(Register::CR0, Register::CR8.base());
-	/// assert_eq!(Register::DR0, Register::DR6.base());
-	/// assert_eq!(Register::TR0, Register::TR3.base());
-	/// assert_eq!(Register::EIP, Register::RIP.base());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.equal(RegisterExt.base(Register.GS), Register.ES);
+	/// assert.equal(RegisterExt.base(Register.SIL), Register.AL);
+	/// assert.equal(RegisterExt.base(Register.SP), Register.AX);
+	/// assert.equal(RegisterExt.base(Register.R13D), Register.EAX);
+	/// assert.equal(RegisterExt.base(Register.RBP), Register.RAX);
+	/// assert.equal(RegisterExt.base(Register.MM6), Register.MM0);
+	/// assert.equal(RegisterExt.base(Register.XMM28), Register.XMM0);
+	/// assert.equal(RegisterExt.base(Register.YMM12), Register.YMM0);
+	/// assert.equal(RegisterExt.base(Register.ZMM31), Register.ZMM0);
+	/// assert.equal(RegisterExt.base(Register.K3), Register.K0);
+	/// assert.equal(RegisterExt.base(Register.BND1), Register.BND0);
+	/// assert.equal(RegisterExt.base(Register.ST7), Register.ST0);
+	/// assert.equal(RegisterExt.base(Register.CR8), Register.CR0);
+	/// assert.equal(RegisterExt.base(Register.DR6), Register.DR0);
+	/// assert.equal(RegisterExt.base(Register.TR3), Register.TR0);
+	/// assert.equal(RegisterExt.base(Register.RIP), Register.EIP);
 	/// ```
 	pub fn base(value: Register) -> Register {
 		iced_to_register(register_to_iced(value).base())
@@ -76,24 +78,26 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(5, Register::GS.number());
-	/// assert_eq!(10, Register::SIL.number());
-	/// assert_eq!(4, Register::SP.number());
-	/// assert_eq!(13, Register::R13D.number());
-	/// assert_eq!(5, Register::RBP.number());
-	/// assert_eq!(6, Register::MM6.number());
-	/// assert_eq!(28, Register::XMM28.number());
-	/// assert_eq!(12, Register::YMM12.number());
-	/// assert_eq!(31, Register::ZMM31.number());
-	/// assert_eq!(3, Register::K3.number());
-	/// assert_eq!(1, Register::BND1.number());
-	/// assert_eq!(7, Register::ST7.number());
-	/// assert_eq!(8, Register::CR8.number());
-	/// assert_eq!(6, Register::DR6.number());
-	/// assert_eq!(3, Register::TR3.number());
-	/// assert_eq!(1, Register::RIP.number());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.equal(RegisterExt.number(Register.GS), 5);
+	/// assert.equal(RegisterExt.number(Register.SIL), 10);
+	/// assert.equal(RegisterExt.number(Register.SP), 4);
+	/// assert.equal(RegisterExt.number(Register.R13D), 13);
+	/// assert.equal(RegisterExt.number(Register.RBP), 5);
+	/// assert.equal(RegisterExt.number(Register.MM6), 6);
+	/// assert.equal(RegisterExt.number(Register.XMM28), 28);
+	/// assert.equal(RegisterExt.number(Register.YMM12), 12);
+	/// assert.equal(RegisterExt.number(Register.ZMM31), 31);
+	/// assert.equal(RegisterExt.number(Register.K3), 3);
+	/// assert.equal(RegisterExt.number(Register.BND1), 1);
+	/// assert.equal(RegisterExt.number(Register.ST7), 7);
+	/// assert.equal(RegisterExt.number(Register.CR8), 8);
+	/// assert.equal(RegisterExt.number(Register.DR6), 6);
+	/// assert.equal(RegisterExt.number(Register.TR3), 3);
+	/// assert.equal(RegisterExt.number(Register.RIP), 1);
 	/// ```
 	pub fn number(value: Register) -> u32 {
 		register_to_iced(value).number() as u32
@@ -109,24 +113,26 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(Register::GS, Register::GS.full_register());
-	/// assert_eq!(Register::RSI, Register::SIL.full_register());
-	/// assert_eq!(Register::RSP, Register::SP.full_register());
-	/// assert_eq!(Register::R13, Register::R13D.full_register());
-	/// assert_eq!(Register::RBP, Register::RBP.full_register());
-	/// assert_eq!(Register::MM6, Register::MM6.full_register());
-	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register());
-	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register());
-	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register());
-	/// assert_eq!(Register::K3, Register::K3.full_register());
-	/// assert_eq!(Register::BND1, Register::BND1.full_register());
-	/// assert_eq!(Register::ST7, Register::ST7.full_register());
-	/// assert_eq!(Register::CR8, Register::CR8.full_register());
-	/// assert_eq!(Register::DR6, Register::DR6.full_register());
-	/// assert_eq!(Register::TR3, Register::TR3.full_register());
-	/// assert_eq!(Register::RIP, Register::RIP.full_register());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.equal(RegisterExt.fullRegister(Register.GS), Register.GS);
+	/// assert.equal(RegisterExt.fullRegister(Register.SIL), Register.RSI);
+	/// assert.equal(RegisterExt.fullRegister(Register.SP), Register.RSP);
+	/// assert.equal(RegisterExt.fullRegister(Register.R13D), Register.R13);
+	/// assert.equal(RegisterExt.fullRegister(Register.RBP), Register.RBP);
+	/// assert.equal(RegisterExt.fullRegister(Register.MM6), Register.MM6);
+	/// assert.equal(RegisterExt.fullRegister(Register.XMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister(Register.YMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister(Register.ZMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister(Register.K3), Register.K3);
+	/// assert.equal(RegisterExt.fullRegister(Register.BND1), Register.BND1);
+	/// assert.equal(RegisterExt.fullRegister(Register.ST7), Register.ST7);
+	/// assert.equal(RegisterExt.fullRegister(Register.CR8), Register.CR8);
+	/// assert.equal(RegisterExt.fullRegister(Register.DR6), Register.DR6);
+	/// assert.equal(RegisterExt.fullRegister(Register.TR3), Register.TR3);
+	/// assert.equal(RegisterExt.fullRegister(Register.RIP), Register.RIP);
 	/// ```
 	#[wasm_bindgen(js_name = "fullRegister")]
 	pub fn full_register(value: Register) -> Register {
@@ -144,24 +150,26 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(Register::GS, Register::GS.full_register32());
-	/// assert_eq!(Register::ESI, Register::SIL.full_register32());
-	/// assert_eq!(Register::ESP, Register::SP.full_register32());
-	/// assert_eq!(Register::R13D, Register::R13D.full_register32());
-	/// assert_eq!(Register::EBP, Register::RBP.full_register32());
-	/// assert_eq!(Register::MM6, Register::MM6.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::XMM10.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::YMM10.full_register32());
-	/// assert_eq!(Register::ZMM10, Register::ZMM10.full_register32());
-	/// assert_eq!(Register::K3, Register::K3.full_register32());
-	/// assert_eq!(Register::BND1, Register::BND1.full_register32());
-	/// assert_eq!(Register::ST7, Register::ST7.full_register32());
-	/// assert_eq!(Register::CR8, Register::CR8.full_register32());
-	/// assert_eq!(Register::DR6, Register::DR6.full_register32());
-	/// assert_eq!(Register::TR3, Register::TR3.full_register32());
-	/// assert_eq!(Register::RIP, Register::RIP.full_register32());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.equal(RegisterExt.fullRegister32(Register.GS), Register.GS);
+	/// assert.equal(RegisterExt.fullRegister32(Register.SIL), Register.ESI);
+	/// assert.equal(RegisterExt.fullRegister32(Register.SP), Register.ESP);
+	/// assert.equal(RegisterExt.fullRegister32(Register.R13D), Register.R13D);
+	/// assert.equal(RegisterExt.fullRegister32(Register.RBP), Register.EBP);
+	/// assert.equal(RegisterExt.fullRegister32(Register.MM6), Register.MM6);
+	/// assert.equal(RegisterExt.fullRegister32(Register.XMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister32(Register.YMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister32(Register.ZMM10), Register.ZMM10);
+	/// assert.equal(RegisterExt.fullRegister32(Register.K3), Register.K3);
+	/// assert.equal(RegisterExt.fullRegister32(Register.BND1), Register.BND1);
+	/// assert.equal(RegisterExt.fullRegister32(Register.ST7), Register.ST7);
+	/// assert.equal(RegisterExt.fullRegister32(Register.CR8), Register.CR8);
+	/// assert.equal(RegisterExt.fullRegister32(Register.DR6), Register.DR6);
+	/// assert.equal(RegisterExt.fullRegister32(Register.TR3), Register.TR3);
+	/// assert.equal(RegisterExt.fullRegister32(Register.RIP), Register.RIP);
 	/// ```
 	#[wasm_bindgen(js_name = "fullRegister32")]
 	pub fn full_register32(value: Register) -> Register {
@@ -178,24 +186,26 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(2, Register::GS.size());
-	/// assert_eq!(1, Register::SIL.size());
-	/// assert_eq!(2, Register::SP.size());
-	/// assert_eq!(4, Register::R13D.size());
-	/// assert_eq!(8, Register::RBP.size());
-	/// assert_eq!(8, Register::MM6.size());
-	/// assert_eq!(16, Register::XMM10.size());
-	/// assert_eq!(32, Register::YMM10.size());
-	/// assert_eq!(64, Register::ZMM10.size());
-	/// assert_eq!(8, Register::K3.size());
-	/// assert_eq!(16, Register::BND1.size());
-	/// assert_eq!(10, Register::ST7.size());
-	/// assert_eq!(8, Register::CR8.size());
-	/// assert_eq!(8, Register::DR6.size());
-	/// assert_eq!(4, Register::TR3.size());
-	/// assert_eq!(8, Register::RIP.size());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.equal(RegisterExt.size(Register.GS), 2);
+	/// assert.equal(RegisterExt.size(Register.SIL), 1);
+	/// assert.equal(RegisterExt.size(Register.SP), 2);
+	/// assert.equal(RegisterExt.size(Register.R13D), 4);
+	/// assert.equal(RegisterExt.size(Register.RBP), 8);
+	/// assert.equal(RegisterExt.size(Register.MM6), 8);
+	/// assert.equal(RegisterExt.size(Register.XMM10), 16);
+	/// assert.equal(RegisterExt.size(Register.YMM10), 32);
+	/// assert.equal(RegisterExt.size(Register.ZMM10), 64);
+	/// assert.equal(RegisterExt.size(Register.K3), 8);
+	/// assert.equal(RegisterExt.size(Register.BND1), 16);
+	/// assert.equal(RegisterExt.size(Register.ST7), 10);
+	/// assert.equal(RegisterExt.size(Register.CR8), 8);
+	/// assert.equal(RegisterExt.size(Register.DR6), 8);
+	/// assert.equal(RegisterExt.size(Register.TR3), 4);
+	/// assert.equal(RegisterExt.size(Register.RIP), 8);
 	/// ```
 	pub fn size(value: Register) -> u32 {
 		register_to_iced(value).size() as u32
@@ -214,10 +224,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(Register::GS.is_segment_register());
-	/// assert!(!Register::RCX.is_segment_register());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(RegisterExt.isSegmentRegister(Register.GS));
+	/// assert.ok(!RegisterExt.isSegmentRegister(Register.RCX));
 	/// ```
 	#[wasm_bindgen(js_name = "isSegmentRegister")]
 	pub fn is_segment_register(value: Register) -> bool {
@@ -234,14 +246,16 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::GS.is_gpr());
-	/// assert!(Register::CH.is_gpr());
-	/// assert!(Register::DX.is_gpr());
-	/// assert!(Register::R13D.is_gpr());
-	/// assert!(Register::RSP.is_gpr());
-	/// assert!(!Register::XMM0.is_gpr());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isGPR(Register.GS));
+	/// assert.ok(RegisterExt.isGPR(Register.CH));
+	/// assert.ok(RegisterExt.isGPR(Register.DX));
+	/// assert.ok(RegisterExt.isGPR(Register.R13D));
+	/// assert.ok(RegisterExt.isGPR(Register.RSP));
+	/// assert.ok(!RegisterExt.isGPR(Register.XMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isGPR")]
 	pub fn is_gpr(value: Register) -> bool {
@@ -258,14 +272,16 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::GS.is_gpr8());
-	/// assert!(Register::CH.is_gpr8());
-	/// assert!(!Register::DX.is_gpr8());
-	/// assert!(!Register::R13D.is_gpr8());
-	/// assert!(!Register::RSP.is_gpr8());
-	/// assert!(!Register::XMM0.is_gpr8());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isGPR8(Register.GS));
+	/// assert.ok(RegisterExt.isGPR8(Register.CH));
+	/// assert.ok(!RegisterExt.isGPR8(Register.DX));
+	/// assert.ok(!RegisterExt.isGPR8(Register.R13D));
+	/// assert.ok(!RegisterExt.isGPR8(Register.RSP));
+	/// assert.ok(!RegisterExt.isGPR8(Register.XMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isGPR8")]
 	pub fn is_gpr8(value: Register) -> bool {
@@ -282,14 +298,16 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::GS.is_gpr16());
-	/// assert!(!Register::CH.is_gpr16());
-	/// assert!(Register::DX.is_gpr16());
-	/// assert!(!Register::R13D.is_gpr16());
-	/// assert!(!Register::RSP.is_gpr16());
-	/// assert!(!Register::XMM0.is_gpr16());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isGPR16(Register.GS));
+	/// assert.ok(!RegisterExt.isGPR16(Register.CH));
+	/// assert.ok(RegisterExt.isGPR16(Register.DX));
+	/// assert.ok(!RegisterExt.isGPR16(Register.R13D));
+	/// assert.ok(!RegisterExt.isGPR16(Register.RSP));
+	/// assert.ok(!RegisterExt.isGPR16(Register.XMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isGPR16")]
 	pub fn is_gpr16(value: Register) -> bool {
@@ -306,14 +324,16 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::GS.is_gpr32());
-	/// assert!(!Register::CH.is_gpr32());
-	/// assert!(!Register::DX.is_gpr32());
-	/// assert!(Register::R13D.is_gpr32());
-	/// assert!(!Register::RSP.is_gpr32());
-	/// assert!(!Register::XMM0.is_gpr32());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isGPR32(Register.GS));
+	/// assert.ok(!RegisterExt.isGPR32(Register.CH));
+	/// assert.ok(!RegisterExt.isGPR32(Register.DX));
+	/// assert.ok(RegisterExt.isGPR32(Register.R13D));
+	/// assert.ok(!RegisterExt.isGPR32(Register.RSP));
+	/// assert.ok(!RegisterExt.isGPR32(Register.XMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isGPR32")]
 	pub fn is_gpr32(value: Register) -> bool {
@@ -330,14 +350,16 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::GS.is_gpr64());
-	/// assert!(!Register::CH.is_gpr64());
-	/// assert!(!Register::DX.is_gpr64());
-	/// assert!(!Register::R13D.is_gpr64());
-	/// assert!(Register::RSP.is_gpr64());
-	/// assert!(!Register::XMM0.is_gpr64());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isGPR64(Register.GS));
+	/// assert.ok(!RegisterExt.isGPR64(Register.CH));
+	/// assert.ok(!RegisterExt.isGPR64(Register.DX));
+	/// assert.ok(!RegisterExt.isGPR64(Register.R13D));
+	/// assert.ok(RegisterExt.isGPR64(Register.RSP));
+	/// assert.ok(!RegisterExt.isGPR64(Register.XMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isGPR64")]
 	pub fn is_gpr64(value: Register) -> bool {
@@ -354,13 +376,15 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_xmm());
-	/// assert!(!Register::RSP.is_xmm());
-	/// assert!(Register::XMM0.is_xmm());
-	/// assert!(!Register::YMM0.is_xmm());
-	/// assert!(!Register::ZMM0.is_xmm());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isXMM(Register.R13D));
+	/// assert.ok(!RegisterExt.isXMM(Register.RSP));
+	/// assert.ok(RegisterExt.isXMM(Register.XMM0));
+	/// assert.ok(!RegisterExt.isXMM(Register.YMM0));
+	/// assert.ok(!RegisterExt.isXMM(Register.ZMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isXMM")]
 	pub fn is_xmm(value: Register) -> bool {
@@ -377,13 +401,15 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_ymm());
-	/// assert!(!Register::RSP.is_ymm());
-	/// assert!(!Register::XMM0.is_ymm());
-	/// assert!(Register::YMM0.is_ymm());
-	/// assert!(!Register::ZMM0.is_ymm());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isYMM(Register.R13D));
+	/// assert.ok(!RegisterExt.isYMM(Register.RSP));
+	/// assert.ok(!RegisterExt.isYMM(Register.XMM0));
+	/// assert.ok(RegisterExt.isYMM(Register.YMM0));
+	/// assert.ok(!RegisterExt.isYMM(Register.ZMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isYMM")]
 	pub fn is_ymm(value: Register) -> bool {
@@ -400,13 +426,15 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_zmm());
-	/// assert!(!Register::RSP.is_zmm());
-	/// assert!(!Register::XMM0.is_zmm());
-	/// assert!(!Register::YMM0.is_zmm());
-	/// assert!(Register::ZMM0.is_zmm());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isZMM(Register.R13D));
+	/// assert.ok(!RegisterExt.isZMM(Register.RSP));
+	/// assert.ok(!RegisterExt.isZMM(Register.XMM0));
+	/// assert.ok(!RegisterExt.isZMM(Register.YMM0));
+	/// assert.ok(RegisterExt.isZMM(Register.ZMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isZMM")]
 	pub fn is_zmm(value: Register) -> bool {
@@ -423,13 +451,15 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_vector_register());
-	/// assert!(!Register::RSP.is_vector_register());
-	/// assert!(Register::XMM0.is_vector_register());
-	/// assert!(Register::YMM0.is_vector_register());
-	/// assert!(Register::ZMM0.is_vector_register());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isVectorRegister(Register.R13D));
+	/// assert.ok(!RegisterExt.isVectorRegister(Register.RSP));
+	/// assert.ok(RegisterExt.isVectorRegister(Register.XMM0));
+	/// assert.ok(RegisterExt.isVectorRegister(Register.YMM0));
+	/// assert.ok(RegisterExt.isVectorRegister(Register.ZMM0));
 	/// ```
 	#[wasm_bindgen(js_name = "isVectorRegister")]
 	pub fn is_vector_register(value: Register) -> bool {
@@ -446,10 +476,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(Register::EIP.is_ip());
-	/// assert!(Register::RIP.is_ip());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(RegisterExt.isIP(Register.EIP));
+	/// assert.ok(RegisterExt.isIP(Register.RIP));
 	/// ```
 	#[wasm_bindgen(js_name = "isIP")]
 	pub fn is_ip(value: Register) -> bool {
@@ -466,10 +498,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_k());
-	/// assert!(Register::K3.is_k());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isK(Register.R13D));
+	/// assert.ok(RegisterExt.isK(Register.K3));
 	/// ```
 	#[wasm_bindgen(js_name = "isK")]
 	pub fn is_k(value: Register) -> bool {
@@ -486,10 +520,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_cr());
-	/// assert!(Register::CR3.is_cr());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isCR(Register.R13D));
+	/// assert.ok(RegisterExt.isCR(Register.CR3));
 	/// ```
 	#[wasm_bindgen(js_name = "isCR")]
 	pub fn is_cr(value: Register) -> bool {
@@ -506,10 +542,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_dr());
-	/// assert!(Register::DR3.is_dr());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isDR(Register.R13D));
+	/// assert.ok(RegisterExt.isDR(Register.DR3));
 	/// ```
 	#[wasm_bindgen(js_name = "isDR")]
 	pub fn is_dr(value: Register) -> bool {
@@ -526,10 +564,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_tr());
-	/// assert!(Register::TR3.is_tr());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isTR(Register.R13D));
+	/// assert.ok(RegisterExt.isTR(Register.TR3));
 	/// ```
 	#[wasm_bindgen(js_name = "isTR")]
 	pub fn is_tr(value: Register) -> bool {
@@ -546,10 +586,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_st());
-	/// assert!(Register::ST3.is_st());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isST(Register.R13D));
+	/// assert.ok(RegisterExt.isST(Register.ST3));
 	/// ```
 	#[wasm_bindgen(js_name = "isST")]
 	pub fn is_st(value: Register) -> bool {
@@ -566,10 +608,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_bnd());
-	/// assert!(Register::BND3.is_bnd());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isBND(Register.R13D));
+	/// assert.ok(RegisterExt.isBND(Register.BND3));
 	/// ```
 	#[wasm_bindgen(js_name = "isBND")]
 	pub fn is_bnd(value: Register) -> bool {
@@ -586,10 +630,12 @@ impl RegisterExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!Register::R13D.is_mm());
-	/// assert!(Register::MM3.is_mm());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Register, RegisterExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!RegisterExt.isMM(Register.R13D));
+	/// assert.ok(RegisterExt.isMM(Register.MM3));
 	/// ```
 	#[wasm_bindgen(js_name = "isMM")]
 	pub fn is_mm(value: Register) -> bool {

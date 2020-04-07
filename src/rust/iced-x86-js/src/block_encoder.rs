@@ -37,9 +37,9 @@ pub struct BlockEncoder {
 impl BlockEncoder {
 	/// Constructor
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Throws if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///

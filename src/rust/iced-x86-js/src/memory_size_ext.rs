@@ -42,11 +42,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(4, MemorySize::UInt32.size());
-	/// assert_eq!(32, MemorySize::Packed256_UInt16.size());
-	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.size());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.equal(MemorySizeExt.size(MemorySize.UInt32), 4);
+	/// assert.equal(MemorySizeExt.size(MemorySize.Packed256_UInt16), 32);
+	/// assert.equal(MemorySizeExt.size(MemorySize.Broadcast512_UInt64), 8);
 	/// ```
 	pub fn size(value: MemorySize) -> u32 {
 		memory_size_to_iced(value).size() as u32
@@ -63,11 +65,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(4, MemorySize::UInt32.element_size());
-	/// assert_eq!(2, MemorySize::Packed256_UInt16.element_size());
-	/// assert_eq!(8, MemorySize::Broadcast512_UInt64.element_size());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.equal(MemorySizeExt.elementSize(MemorySize.UInt32), 4);
+	/// assert.equal(MemorySizeExt.elementSize(MemorySize.Packed256_UInt16), 2);
+	/// assert.equal(MemorySizeExt.elementSize(MemorySize.Broadcast512_UInt64), 8);
 	/// ```
 	#[wasm_bindgen(js_name = "elementSize")]
 	pub fn element_size(value: MemorySize) -> u32 {
@@ -84,11 +88,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(MemorySize::UInt32, MemorySize::UInt32.element_type());
-	/// assert_eq!(MemorySize::UInt16, MemorySize::Packed256_UInt16.element_type());
-	/// assert_eq!(MemorySize::UInt64, MemorySize::Broadcast512_UInt64.element_type());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.equal(MemorySizeExt.elementType(MemorySize.UInt32), MemorySize.UInt32);
+	/// assert.equal(MemorySizeExt.elementType(MemorySize.Packed256_UInt16), MemorySize.UInt16);
+	/// assert.equal(MemorySizeExt.elementType(MemorySize.Broadcast512_UInt64), MemorySize.UInt64);
 	/// ```
 	#[wasm_bindgen(js_name = "elementType")]
 	pub fn element_type(value: MemorySize) -> MemorySize {
@@ -105,11 +111,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!MemorySize::UInt32.is_signed());
-	/// assert!(MemorySize::Int32.is_signed());
-	/// assert!(MemorySize::Float64.is_signed());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!MemorySizeExt.isSigned(MemorySize.UInt32));
+	/// assert.ok(MemorySizeExt.isSigned(MemorySize.Int32));
+	/// assert.ok(MemorySizeExt.isSigned(MemorySize.Float64));
 	/// ```
 	#[wasm_bindgen(js_name = "isSigned")]
 	pub fn is_signed(value: MemorySize) -> bool {
@@ -127,11 +135,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!MemorySize::UInt32.is_packed());
-	/// assert!(MemorySize::Packed256_UInt16.is_packed());
-	/// assert!(!MemorySize::Broadcast512_UInt64.is_packed());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!MemorySizeExt.isPacked(MemorySize.UInt32));
+	/// assert.ok(MemorySizeExt.isPacked(MemorySize.Packed256_UInt16));
+	/// assert.ok(!MemorySizeExt.isPacked(MemorySize.Broadcast512_UInt64));
 	/// ```
 	#[wasm_bindgen(js_name = "isPacked")]
 	pub fn is_packed(value: MemorySize) -> bool {
@@ -149,11 +159,13 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert_eq!(1, MemorySize::UInt32.element_count());
-	/// assert_eq!(16, MemorySize::Packed256_UInt16.element_count());
-	/// assert_eq!(1, MemorySize::Broadcast512_UInt64.element_count());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.equal(MemorySizeExt.elementCount(MemorySize.UInt32), 1);
+	/// assert.equal(MemorySizeExt.elementCount(MemorySize.Packed256_UInt16), 16);
+	/// assert.equal(MemorySizeExt.elementCount(MemorySize.Broadcast512_UInt64), 1);
 	/// ```
 	#[wasm_bindgen(js_name = "elementCount")]
 	pub fn element_count(value: MemorySize) -> u32 {
@@ -170,10 +182,12 @@ impl MemorySizeExt {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
-	/// assert!(!MemorySize::Packed64_Float16.is_broadcast());
-	/// assert!(MemorySize::Broadcast512_UInt64.is_broadcast());
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { MemorySize, MemorySizeExt } = require("iced-x86-js");
+	///
+	/// assert.ok(!MemorySizeExt.isBroadcast(MemorySize.Packed64_Float16));
+	/// assert.ok(MemorySizeExt.isBroadcast(MemorySize.Broadcast512_UInt64));
 	/// ```
 	#[wasm_bindgen(js_name = "isBroadcast")]
 	pub fn is_broadcast(value: MemorySize) -> bool {

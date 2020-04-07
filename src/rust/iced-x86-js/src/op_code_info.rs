@@ -43,11 +43,15 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86-js");
 	///
-	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!(Code::EVEX_Vmovapd_ymm_k1z_ymmm256, op_code.code());
+	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.equal(opCode.code, Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	///
+	/// // Free wasm memory
+	/// opCode.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	pub fn code(&self) -> Code {
@@ -60,11 +64,15 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt, EncodingKind } = require("iced-x86-js");
 	///
-	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!(EncodingKind::EVEX, op_code.encoding());
+	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.equal(opCode.encoding, EncodingKind.EVEX);
+	///
+	/// // Free wasm memory
+	/// opCode.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	pub fn encoding(&self) -> EncodingKind {
@@ -75,12 +83,21 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86-js");
 	///
-	/// assert!(Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code().is_instruction());
-	/// assert!(!Code::INVALID.op_code().is_instruction());
-	/// assert!(!Code::DeclareByte.op_code().is_instruction());
+	/// const opCode1 = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.ok(opCode1.isInstruction);
+	/// const opCode2 = CodeExt.opCode(Code.INVALID);
+	/// assert.ok(!opCode2.isInstruction);
+	/// const opCode3 = CodeExt.opCode(Code.DeclareByte);
+	/// assert.ok(!opCode3.isInstruction);
+	///
+	/// // Free wasm memory
+	/// opCode1.free();
+	/// opCode2.free();
+	/// opCode3.free();
 	/// ```
 	///
 	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
@@ -303,13 +320,24 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86-js");
 	///
-	/// assert_eq!(0xDFC0, Code::Ffreep_sti.op_code().op_code());
-	/// assert_eq!(0x01D8, Code::Vmrunw.op_code().op_code());
-	/// assert_eq!(0x2A, Code::Sub_r8_rm8.op_code().op_code());
-	/// assert_eq!(0x2A, Code::Cvtpi2ps_xmm_mmm64.op_code().op_code());
+	/// const opCode1 = CodeExt.opCode(Code.Ffreep_sti);
+	/// assert.equal(opCode1.opCode, 0xDFC0);
+	/// const opCode2 = CodeExt.opCode(Code.Vmrunw);
+	/// assert.equal(opCode2.opCode, 0x01D8);
+	/// const opCode3 = CodeExt.opCode(Code.Sub_r8_rm8);
+	/// assert.equal(opCode3.opCode, 0x2A);
+	/// const opCode4 = CodeExt.opCode(Code.Cvtpi2ps_xmm_mmm64);
+	/// assert.equal(opCode4.opCode, 0x2A);
+	///
+	/// // Free wasm memory
+	/// opCode1.free();
+	/// opCode2.free();
+	/// opCode3.free();
+	/// opCode4.free();
 	/// ```
 	///
 	/// [`table`]: #method.table
@@ -389,9 +417,9 @@ impl OpCodeInfo {
 	///
 	/// [`OpCodeOperandKind`]: enum.OpCodeOperandKind.html
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `operand` is invalid
+	/// Throws if `operand` is invalid
 	///
 	/// # Arguments
 	///
@@ -403,9 +431,9 @@ impl OpCodeInfo {
 
 	/// Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Throws if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///
@@ -421,11 +449,15 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86-js");
 	///
-	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!("EVEX.256.66.0F.W1 28 /r", op_code.op_code_string());
+	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.equal(opCode.opCodeString, "EVEX.256.66.0F.W1 28 /r");
+	///
+	/// // Free wasm memory
+	/// opCode.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "opCodeString")]
@@ -439,11 +471,15 @@ impl OpCodeInfo {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, CodeExt } = require("iced-x86-js");
 	///
-	/// let op_code = Code::EVEX_Vmovapd_ymm_k1z_ymmm256.op_code();
-	/// assert_eq!("VMOVAPD ymm1 {k1}{z}, ymm2/m256", op_code.instruction_string());
+	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
+	/// assert.equal("VMOVAPD ymm1 {k1}{z}, ymm2/m256", opCode.instructionString);
+	///
+	/// // Free wasm memory
+	/// opCode.free();
 	/// ```
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "instructionString")]

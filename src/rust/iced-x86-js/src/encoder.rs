@@ -32,23 +32,32 @@ use wasm_bindgen::prelude::*;
 ///
 /// [`BlockEncoder`]: struct.BlockEncoder.html
 ///
-/// ```
-/// use iced_x86::*;
+/// ```js
+/// const assert = require("assert").strict;
+/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
 ///
 /// // xchg [rdx+rsi+16h],ah
-/// let bytes = b"\x86\x64\x32\x16";
-/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-/// decoder.set_ip(0x1234_5678);
-/// let instr = decoder.decode();
+/// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16]);
+/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+/// decoder.ip_lo = 0x12345678;
+/// decoder.ip_hi = 0x00000000;
+/// const instr = decoder.decode();
 ///
-/// let mut encoder = Encoder::new(64);
-/// match encoder.encode(&instr, 0x5555_5555) {
-///     Ok(len) => assert_eq!(4, len),
-///     Err(err) => panic!("{}", err),
-/// }
+/// const encoder = new Encoder(64);
+/// const len = encoder.encode(instr, 0x00000000, 0x55555555);
+/// assert.equal(len, 4);
 /// // We're done, take ownership of the buffer
-/// let buffer = encoder.take_buffer();
-/// assert_eq!(vec![0x86, 0x64, 0x32, 0x16], buffer);
+/// const buffer = encoder.takeBuffer();
+/// assert.equal(buffer.length, 4);
+/// assert.equal(buffer[0], 0x86);
+/// assert.equal(buffer[1], 0x64);
+/// assert.equal(buffer[2], 0x32);
+/// assert.equal(buffer[3], 0x16);
+///
+/// // Free wasm memory
+/// decoder.free();
+/// instr.free();
+/// encoder.free();
 /// ```
 #[wasm_bindgen]
 pub struct Encoder(iced_x86::Encoder);
@@ -57,9 +66,9 @@ pub struct Encoder(iced_x86::Encoder);
 impl Encoder {
 	/// Creates an encoder
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Throws if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///
@@ -71,9 +80,9 @@ impl Encoder {
 
 	/// Creates an encoder with an initial buffer capacity
 	///
-	/// # Panics
+	/// # Throws
 	///
-	/// Panics if `bitness` is not one of 16, 32, 64.
+	/// Throws if `bitness` is not one of 16, 32, 64.
 	///
 	/// # Arguments
 	///
@@ -87,9 +96,9 @@ impl Encoder {
 	/// Encodes an instruction and returns the size of the encoded instruction.
 	/// Enable the `bigint` feature to support `BigInt`.
 	///
-	/// # Errors
+	/// # Throws
 	///
-	/// Returns an error message on failure.
+	/// Throws an error on failure.
 	///
 	/// # Arguments
 	///
@@ -99,24 +108,31 @@ impl Encoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
 	///
 	/// // je short $+4
-	/// let bytes = b"\x75\x02";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x75, 0x02]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
+	/// const instr = decoder.decode();
 	///
-	/// let mut encoder = Encoder::new(64);
+	/// const encoder = new Encoder(64);
 	/// // Use a different IP (orig rip + 0x10)
-	/// match encoder.encode(&instr, 0x1234_5688) {
-	///     Ok(len) => assert_eq!(2, len),
-	///     Err(err) => panic!("{}", err),
-	/// }
+	/// const len = encoder.encode(instr, 0x00000000, 0x12345688);
+	/// assert.equal(len, 2);
 	/// // We're done, take ownership of the buffer
-	/// let buffer = encoder.take_buffer();
-	/// assert_eq!(vec![0x75, 0xF2], buffer);
+	/// const buffer = encoder.takeBuffer();
+	/// assert.equal(buffer.length, 2);
+	/// assert.equal(buffer[0], 0x75);
+	/// assert.equal(buffer[1], 0xF2);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// encoder.free();
+	/// instr.free();
 	/// ```
 	#[cfg(not(feature = "bigint"))]
 	pub fn encode(&mut self, instruction: &Instruction, rip_hi: u32, rip_lo: u32) -> Result<u32, JsValue> {
@@ -126,9 +142,9 @@ impl Encoder {
 
 	/// Encodes an instruction and returns the size of the encoded instruction
 	///
-	/// # Errors
+	/// # Throws
 	///
-	/// Returns an error message on failure.
+	/// Throws an error on failure.
 	///
 	/// # Arguments
 	///
@@ -137,24 +153,31 @@ impl Encoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
 	///
 	/// // je short $+4
-	/// let bytes = b"\x75\x02";
-	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
-	/// decoder.set_ip(0x1234_5678);
-	/// let instr = decoder.decode();
+	/// const bytes = new Uint8Array([0x75, 0x02]);
+	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	/// decoder.ip_lo = 0x12345678;
+	/// decoder.ip_hi = 0x00000000;
+	/// const instr = decoder.decode();
 	///
-	/// let mut encoder = Encoder::new(64);
+	/// const encoder = new Encoder(64);
 	/// // Use a different IP (orig rip + 0x10)
-	/// match encoder.encode(&instr, 0x1234_5688) {
-	///     Ok(len) => assert_eq!(2, len),
-	///     Err(err) => panic!("{}", err),
-	/// }
+	/// const len = encoder.encode(instr, 0x00000000, 0x12345688);
+	/// assert.equal(len, 2);
 	/// // We're done, take ownership of the buffer
-	/// let buffer = encoder.take_buffer();
-	/// assert_eq!(vec![0x75, 0xF2], buffer);
+	/// const buffer = encoder.takeBuffer();
+	/// assert.equal(buffer.length, 2);
+	/// assert.equal(buffer[0], 0x75);
+	/// assert.equal(buffer[1], 0xF2);
+	///
+	/// // Free wasm memory
+	/// decoder.free();
+	/// encoder.free();
+	/// instr.free();
 	/// ```
 	#[cfg(feature = "bigint")]
 	pub fn encode(&mut self, instruction: &Instruction, rip: u64) -> Result<u32, JsValue> {
@@ -179,20 +202,28 @@ impl Encoder {
 	///
 	/// # Examples
 	///
-	/// ```
-	/// use iced_x86::*;
+	/// ```js
+	/// const assert = require("assert").strict;
+	/// const { Code, Encoder, Instruction, Register } = require("iced-x86-js");
 	///
-	/// let mut encoder = Encoder::new(64);
-	/// let instr = Instruction::with_reg_reg(Code::Add_r64_rm64, Register::R8, Register::RBP);
-	/// encoder.write_u8(0x90);
-	/// match encoder.encode(&instr, 0x5555_5555) {
-	///     Ok(len) => assert_eq!(3, len),
-	///     Err(err) => panic!("{}", err),
-	/// }
-	/// encoder.write_u8(0xCC);
+	/// const encoder = new Encoder(64);
+	/// const instr = Instruction.with_reg_reg(Code.Add_r64_rm64, Register.R8, Register.RBP);
+	/// encoder.writeU8(0x90);
+	/// const len = encoder.encode(instr, 0x00000000, 0x55555555);
+	/// assert.equal(len, 3);
+	/// encoder.writeU8(0xCC);
 	/// // We're done, take ownership of the buffer
-	/// let buffer = encoder.take_buffer();
-	/// assert_eq!(vec![0x90, 0x4C, 0x03, 0xC5, 0xCC], buffer);
+	/// const buffer = encoder.takeBuffer();
+	/// assert.equal(buffer.length, 5);
+	/// assert.equal(buffer[0], 0x90);
+	/// assert.equal(buffer[1], 0x4C);
+	/// assert.equal(buffer[2], 0x03);
+	/// assert.equal(buffer[3], 0xC5);
+	/// assert.equal(buffer[4], 0xCC);
+	///
+	/// // Free wasm memory
+	/// encoder.free();
+	/// instr.free();
 	/// ```
 	#[wasm_bindgen(js_name = "writeU8")]
 	pub fn write_u8(&mut self, value: u8) {
