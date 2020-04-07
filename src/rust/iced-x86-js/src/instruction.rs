@@ -2163,7 +2163,6 @@ impl Instruction {
 	/// assert_eq!(CpuidFeature::AVX512VL, cpuid[0]);
 	/// assert_eq!(CpuidFeature::AVX512F, cpuid[1]);
 	/// ```
-	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cpuidFeatures")]
 	pub fn cpuid_features(&self) -> Vec<i32> {
 		// It's not possible to return a Vec<CpuidFeature>

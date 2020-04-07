@@ -205,7 +205,6 @@ impl InstructionInfo {
 	/// Gets the CPU or CPUID feature flags (an array of [`CpuidFeature`] values)
 	///
 	/// [`CpuidFeature`]: enum.CpuidFeature.html
-	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cpuidFeatures")]
 	pub fn cpuid_features(&self) -> Vec<i32> {
 		// It's not possible to return a Vec<CpuidFeature>
