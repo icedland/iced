@@ -118,7 +118,6 @@ impl Instruction {
 #[cfg(feature = "instruction_api")]
 impl Instruction {
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `equals()` ignores some fields.
-	#[allow(trivial_casts)]
 	#[wasm_bindgen(js_name = "equalsAllBits")]
 	pub fn eq_all_bits(&self, other: &Instruction) -> bool {
 		self.0.eq_all_bits(&other.0)
@@ -587,7 +586,6 @@ impl Instruction {
 	/// [`opCount`]: #method.op_count
 	/// [`opKind`]: #method.opKind
 	#[wasm_bindgen(getter)]
-	#[allow(clippy::unused_self)]
 	pub fn op4Kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op4_kind())
 	}
@@ -606,7 +604,6 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
-	#[allow(clippy::unused_self)]
 	#[cfg(feature = "encoder")]
 	pub fn set_op4Kind(&mut self, newValue: OpKind) {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
@@ -1804,7 +1801,6 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	#[allow(clippy::unused_self)]
 	pub fn op4Register(&self) -> Register {
 		iced_to_register(self.0.op4_register())
 	}
@@ -1826,7 +1822,6 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
-	#[allow(clippy::unused_self)]
 	#[cfg(feature = "encoder")]
 	pub fn set_op4Register(&mut self, newValue: Register) {
 		self.0.set_op4_register(register_to_iced(newValue))

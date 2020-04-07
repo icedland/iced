@@ -46,7 +46,6 @@ pub enum FormatterSyntax {
 
 /// X86 formatter that supports GNU Assembler, Intel XED, masm and nasm syntax
 #[wasm_bindgen]
-#[allow(missing_debug_implementations)]
 pub struct Formatter {
 	formatter: Box<dyn iced_x86::Formatter>,
 }

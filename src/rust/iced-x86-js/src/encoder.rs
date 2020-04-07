@@ -51,7 +51,6 @@ use wasm_bindgen::prelude::*;
 /// assert_eq!(vec![0x86, 0x64, 0x32, 0x16], buffer);
 /// ```
 #[wasm_bindgen]
-#[allow(missing_debug_implementations)]
 pub struct Encoder(iced_x86::Encoder);
 
 #[wasm_bindgen]
