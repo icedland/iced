@@ -75,7 +75,14 @@ pub struct Instruction(pub(crate) iced_x86::Instruction);
 // ip() and length() are useful when disassembling code so they're always available
 #[wasm_bindgen]
 #[allow(clippy::len_without_is_empty)]
+#[allow(clippy::new_without_default)]
 impl Instruction {
+	/// Creates an empty `Instruction` (all fields are cleared). See also the `with*()` constructor methods.
+	#[wasm_bindgen(constructor)]
+	pub fn new() -> Self {
+		Self(iced_x86::Instruction::new())
+	}
+
 	/// Gets the low 32 bits of the 64-bit IP of the instruction.
 	/// Enable the `bigint` feature to support `BigInt`.
 	#[wasm_bindgen(getter)]
@@ -108,15 +115,8 @@ impl Instruction {
 }
 
 #[wasm_bindgen]
-#[allow(clippy::new_without_default)]
 #[cfg(feature = "instruction_api")]
 impl Instruction {
-	/// Creates an empty `Instruction` (all fields are cleared). See also the `with*()` constructor methods.
-	#[wasm_bindgen(constructor)]
-	pub fn new() -> Self {
-		Self(iced_x86::Instruction::new())
-	}
-
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `equals()` ignores some fields.
 	#[allow(trivial_casts)]
 	#[wasm_bindgen(js_name = "equalsAllBits")]
