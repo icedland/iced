@@ -44,7 +44,7 @@ namespace Generator.Enums.Encoder {
 	}
 
 	static class BlockEncoderOptionsEnum {
-		const string documentation = "Encoder options";
+		const string documentation = "#(r:BlockEncoder)# options";
 
 		static EnumValue[] GetValues() =>
 			typeof(BlockEncoderOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(BlockEncoderOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
