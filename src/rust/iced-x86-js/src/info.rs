@@ -411,14 +411,14 @@ impl InstructionInfoFactory {
 	///     for (const memInfo of info.usedMemory()) {
 	///         // Do something here with the `UsedMemory` instance...
 	///         // ...
-	/// 
+	///
 	///         // Free wasm memory
 	///         memInfo.free();
 	///     }
 	///     for (const regInfo of info.usedRegisters()) {
 	///         // Do something here with the `UsedRegister` instance...
 	///         // ...
-	/// 
+	///
 	///         // Free wasm memory
 	///         regInfo.free();
 	///     }
