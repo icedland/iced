@@ -609,11 +609,11 @@ while (decoder.canDecode) {
     // instruction decode() returned.
     const offsets = decoder.getConstantOffsets(instr);
 
-    // For quick hacks, it's fine to call toDisplay() to format an instruction,
+    // For quick hacks, it's fine to call toString() to format an instruction,
     // but for real code, use a formatter. See other examples.
     const address = ("0000000" + instr.ip_hi.toString(16)).substr(-8).toUpperCase() +
                     ("0000000" + instr.ip_lo.toString(16)).substr(-8).toUpperCase();
-    console.log("%s %s", address, instr.toDisplay());
+    console.log("%s %s", address, instr.toString());
 
     const opCode = instr.opCode;
     const info = infoFactory.info(instr);

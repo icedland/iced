@@ -2809,16 +2809,19 @@ impl Instruction {
 		self.0.eq(&other.0)
 	}
 
-	/// Gets the default disassembly string
-	#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-	#[wasm_bindgen(js_name = "toDisplay")]
-	pub fn to_string_js(&self) -> String {
-		self.0.to_string()
-	}
-
 	/// Clones this instance
 	#[wasm_bindgen(js_name = "clone")]
 	pub fn clone_js(&self) -> Self {
 		Self(self.0)
+	}
+}
+
+#[wasm_bindgen]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+impl Instruction {
+	/// Gets the default disassembly string
+	#[wasm_bindgen(js_name = "toString")]
+	pub fn to_string_js(&self) -> String {
+		self.0.to_string()
 	}
 }
