@@ -1568,9 +1568,13 @@ pub enum Mnemonic {
 	Xsha256 = 1535,
 	Xstore = 1536,
 	Xtest = 1537,
+	Rmpadjust = 1538,
+	Rmpupdate = 1539,
+	Psmash = 1540,
+	Pvalidate = 1541,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1538] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1542] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3109,6 +3113,10 @@ static GEN_DEBUG_MNEMONIC: [&str; 1538] = [
 	"Xsha256",
 	"Xstore",
 	"Xtest",
+	"Rmpadjust",
+	"Rmpupdate",
+	"Psmash",
+	"Pvalidate",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

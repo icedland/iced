@@ -4236,6 +4236,12 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], 2),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], 2),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], 2),
+				(code[nameof(Code.Rmpadjust)], 0),
+				(code[nameof(Code.Rmpupdate)], 0),
+				(code[nameof(Code.Psmash)], 0),
+				(code[nameof(Code.Pvalidatew)], 0),
+				(code[nameof(Code.Pvalidated)], 0),
+				(code[nameof(Code.Pvalidateq)], 0),
 			};
 
 			if (result.Length != code.Values.Length)

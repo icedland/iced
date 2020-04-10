@@ -438,3 +438,7 @@ Xsaves64_mem
 Xsha1_64
 Xsha256_64
 Xstore_64
+Rmpadjust
+Rmpupdate
+Psmash
+Pvalidateq

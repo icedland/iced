@@ -289,6 +289,8 @@ namespace Iced.Intel {
 		XSAVEOPT = 128,
 		/// <summary>CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES[bit 3]</summary>
 		XSAVES = 129,
+		/// <summary>CPUID.8000001FH:EAX.SNP[bit 4]</summary>
+		SNP = 130,
 	}
 }
 #endif

@@ -4237,6 +4237,12 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed64_Int16,// D3NOW_Pmulhrw_mm_mmm64
 			(byte)MemorySize.Packed64_UInt32,// D3NOW_Pswapd_mm_mmm64
 			(byte)MemorySize.Packed64_UInt8,// D3NOW_Pavgusb_mm_mmm64
+			0,// Rmpadjust
+			0,// Rmpupdate
+			0,// Psmash
+			0,// Pvalidatew
+			0,// Pvalidated
+			0,// Pvalidateq
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8440,6 +8446,12 @@ namespace Iced.Intel {
 			0,// D3NOW_Pmulhrw_mm_mmm64
 			0,// D3NOW_Pswapd_mm_mmm64
 			0,// D3NOW_Pavgusb_mm_mmm64
+			0,// Rmpadjust
+			0,// Rmpupdate
+			0,// Psmash
+			0,// Pvalidatew
+			0,// Pvalidated
+			0,// Pvalidateq
 		};
 	}
 }

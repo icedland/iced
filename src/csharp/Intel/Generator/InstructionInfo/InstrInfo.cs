@@ -153,6 +153,10 @@ namespace Generator.InstructionInfo {
 		Xcrypt,
 		Xsha,
 		Xstore,
+		Rmpadjust,
+		Rmpupdate,
+		Psmash,
+		Pvalidate,
 	}
 
 	sealed class InstrInfo {

@@ -1953,6 +1953,49 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Rmpadjust:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.ReadWrite);
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RDX, OpAccess.Read);
+				}
+				break;
+
+			case CodeInfo.Rmpupdate:
+				baseReg = instruction.SegmentPrefix;
+				if (baseReg == Register.None)
+					baseReg = Register.DS;
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RAX, OpAccess.ReadWrite);
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddMemorySegmentRegister(flags, baseReg, OpAccess.Read);
+				}
+				if ((flags & Flags.NoMemoryUsage) == 0)
+					AddMemory(baseReg, Register.RCX, Register.None, 1, 0, MemorySize.UInt128, OpAccess.Read);
+				break;
+
+			case CodeInfo.Psmash:
+				if ((flags & Flags.NoRegisterUsage) == 0)
+					AddRegister(flags, Register.RAX, OpAccess.ReadWrite);
+				break;
+
+			case CodeInfo.Pvalidate:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					code = instruction.Code;
+					if (code == Code.Pvalidateq)
+						AddRegister(flags, Register.RAX, OpAccess.ReadWrite);
+					else if (code == Code.Pvalidated)
+						AddRegister(flags, Register.EAX, OpAccess.ReadWrite);
+					else {
+						Debug.Assert(code == Code.Pvalidatew);
+						AddRegister(flags, Register.AX, OpAccess.Read);
+						AddRegister(flags, Register.EAX, OpAccess.Write);
+					}
+					AddRegister(flags, Register.ECX, OpAccess.Read);
+					AddRegister(flags, Register.EDX, OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

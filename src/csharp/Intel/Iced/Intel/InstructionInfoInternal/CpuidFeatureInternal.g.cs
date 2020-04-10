@@ -154,6 +154,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		SKINIT_or_SVML,
 		SMAP,
 		SMX,
+		SNP,
 		SSE,
 		SSE2,
 		SSE3,

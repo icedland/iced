@@ -1568,6 +1568,10 @@ pub enum Mnemonic {
 	Xsha256 = 1535,
 	Xstore = 1536,
 	Xtest = 1537,
+	Rmpadjust = 1538,
+	Rmpupdate = 1539,
+	Psmash = 1540,
+	Pvalidate = 1541,
 }
 // GENERATOR-END: Enum
 

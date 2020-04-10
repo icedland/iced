@@ -4240,6 +4240,12 @@ namespace Generator.Enums {
 		D3NOW_Pmulhrw_mm_mmm64,
 		D3NOW_Pswapd_mm_mmm64,
 		D3NOW_Pavgusb_mm_mmm64,
+		Rmpadjust,
+		Rmpupdate,
+		Psmash,
+		Pvalidatew,
+		Pvalidated,
+		Pvalidateq,
 	}
 
 	static class CodeEnum {

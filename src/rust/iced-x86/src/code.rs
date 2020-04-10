@@ -33630,9 +33630,57 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	D3NOW_Pavgusb_mm_mmm64 = 4202,
+	/// `RMPADJUST`
+	///
+	/// `F3 0F 01 FE`
+	///
+	/// `SNP`
+	///
+	/// `64-bit`
+	Rmpadjust = 4203,
+	/// `RMPUPDATE`
+	///
+	/// `F2 0F 01 FE`
+	///
+	/// `SNP`
+	///
+	/// `64-bit`
+	Rmpupdate = 4204,
+	/// `PSMASH`
+	///
+	/// `F3 0F 01 FF`
+	///
+	/// `SNP`
+	///
+	/// `64-bit`
+	Psmash = 4205,
+	/// `PVALIDATE`
+	///
+	/// `a16 F2 0F 01 FF`
+	///
+	/// `SNP`
+	///
+	/// `16/32-bit`
+	Pvalidatew = 4206,
+	/// `PVALIDATE`
+	///
+	/// `a32 F2 0F 01 FF`
+	///
+	/// `SNP`
+	///
+	/// `16/32/64-bit`
+	Pvalidated = 4207,
+	/// `PVALIDATE`
+	///
+	/// `F2 0F 01 FF`
+	///
+	/// `SNP`
+	///
+	/// `64-bit`
+	Pvalidateq = 4208,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4203] = [
+static GEN_DEBUG_CODE: [&str; 4209] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37836,6 +37884,12 @@ static GEN_DEBUG_CODE: [&str; 4203] = [
 	"D3NOW_Pmulhrw_mm_mmm64",
 	"D3NOW_Pswapd_mm_mmm64",
 	"D3NOW_Pavgusb_mm_mmm64",
+	"Rmpadjust",
+	"Rmpupdate",
+	"Psmash",
+	"Pvalidatew",
+	"Pvalidated",
+	"Pvalidateq",
 ];
 impl fmt::Debug for Code {
 	#[inline]

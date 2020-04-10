@@ -4231,6 +4231,12 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pmulhrw,// D3NOW_Pmulhrw_mm_mmm64
 			(ushort)Mnemonic.Pswapd,// D3NOW_Pswapd_mm_mmm64
 			(ushort)Mnemonic.Pavgusb,// D3NOW_Pavgusb_mm_mmm64
+			(ushort)Mnemonic.Rmpadjust,// Rmpadjust
+			(ushort)Mnemonic.Rmpupdate,// Rmpupdate
+			(ushort)Mnemonic.Psmash,// Psmash
+			(ushort)Mnemonic.Pvalidate,// Pvalidatew
+			(ushort)Mnemonic.Pvalidate,// Pvalidated
+			(ushort)Mnemonic.Pvalidate,// Pvalidateq
 		};
 	}
 }

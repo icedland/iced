@@ -1564,26 +1564,17 @@ namespace Generator.Enums {
 		Xsha256,
 		Xstore,
 		Xtest,
+		Rmpadjust,
+		Rmpupdate,
+		Psmash,
+		Pvalidate,
 	}
 
 	static class MnemonicEnum {
 		const string documentation = "Mnemonic";
 
-		static EnumValue[] GetValues() {
-			var result = typeof(Mnemonic).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Mnemonic)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-			Array.Sort(result, (a, b) => {
-				if (a == b)
-					return 0;
-				if (a.RawName == nameof(Mnemonic.INVALID))
-					return -1;
-				if (b.RawName == nameof(Mnemonic.INVALID))
-					return 1;
-				return StringComparer.OrdinalIgnoreCase.Compare(a.RawName, b.RawName);
-			});
-
-			return result;
-		}
+		static EnumValue[] GetValues() =>
+			typeof(Mnemonic).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Mnemonic)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
 		public static readonly EnumType Instance = new EnumType(TypeIds.Mnemonic, documentation, GetValues(), EnumTypeFlags.Public);
 	}

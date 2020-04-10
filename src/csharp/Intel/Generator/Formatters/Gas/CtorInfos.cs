@@ -4231,6 +4231,12 @@ namespace Generator.Formatters.Gas {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], "pmulhrw" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], "pswapd" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], "pavgusb" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpadjust)], "rmpadjust" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpupdate)], "rmpupdate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Psmash)], "psmash" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate", 16 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate", 32 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate", 64 },
 		});
 	}
 }

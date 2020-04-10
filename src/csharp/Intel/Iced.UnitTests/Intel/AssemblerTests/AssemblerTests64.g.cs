@@ -9908,6 +9908,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void psmash() {
+			TestAssembler(c => c.psmash(), Instruction.Create(Code.Psmash));
+		}
+
+		[Fact]
 		public void psrad_regMM_regMM() {
 			TestAssembler(c => c.psrad(mm1, mm7), Instruction.Create(Code.Psrad_mm_mmm64, mm1, mm7));
 		}
@@ -10563,6 +10568,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void pushfq() {
 			TestAssembler(c => c.pushfq(), Instruction.Create(Code.Pushfq));
+		}
+
+		[Fact]
+		public void pvalidate() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.pvalidate(), Instruction.Create(Code.Pvalidateq));
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
 		}
 
 		[Fact]
@@ -11322,6 +11334,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ /* if (Bitness == 64) */
 				TestAssembler(c => c.retf((ushort)16567), Instruction.Create(Code.Retfq_imm16, (uint)(ushort)16567));
 			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
+		public void rmpadjust() {
+			TestAssembler(c => c.rmpadjust(), Instruction.Create(Code.Rmpadjust));
+		}
+
+		[Fact]
+		public void rmpupdate() {
+			TestAssembler(c => c.rmpupdate(), Instruction.Create(Code.Rmpupdate));
 		}
 
 		[Fact]

@@ -1671,9 +1671,28 @@ namespace Iced.Intel.DecoderInternal {
 					0xDD, 0x06,// Rdpru
 
 				// 62 = 0x3E
-				0x05,// Dup
-					0x02,// 2
-					0x06,// Null
+				0x14,// MandatoryPrefix_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xEB, 0x20,// Rmpadjust
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xEC, 0x20,// Rmpupdate
+
+				// 63 = 0x3F
+				0x14,// MandatoryPrefix_NoModRM
+					0x03,// Invalid_NoModRM
+					0x03,// Invalid_NoModRM
+					0x00,// Bitness
+						0x03,// Invalid_NoModRM
+						0xA4,// Simple
+							0xED, 0x20,// Psmash
+					0xAB,// Simple5
+						0xEE, 0x20,// Pvalidatew
 
 				// handlers_Grp_0FA6_lo
 				0x01,// ArrayReference

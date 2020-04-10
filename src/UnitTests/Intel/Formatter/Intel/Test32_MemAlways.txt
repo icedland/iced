@@ -701,3 +701,5 @@ rep xcryptofb
 addr16 rep xcryptofb
 xcryptofb
 addr16 xcryptofb
+pvalidate ax
+pvalidate eax

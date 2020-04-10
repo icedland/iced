@@ -533,3 +533,5 @@ DD 30, Fnsave_m94byte
 67 0F01 FA, Monitorxd
 0F01 FC, Clzerow
 67 0F01 FC, Clzerod
+F2 0F 01 FF, Pvalidatew
+67 F2 0F 01 FF, Pvalidated

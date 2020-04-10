@@ -4236,6 +4236,12 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], memSize[nameof(MemorySize.Packed64_Int16)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], memSize[nameof(MemorySize.Packed64_UInt32)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], memSize[nameof(MemorySize.Packed64_UInt8)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Rmpadjust)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Rmpupdate)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Psmash)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Pvalidatew)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Pvalidated)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Pvalidateq)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 			};
 			if (result.Length != code.Values.Length)
 				throw new InvalidOperationException();

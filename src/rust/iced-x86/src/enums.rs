@@ -1235,10 +1235,12 @@ pub enum CpuidFeature {
 	XSAVEOPT = 128,
 	/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES\[bit 3\]
 	XSAVES = 129,
+	/// CPUID.8000001FH:EAX.SNP\[bit 4\]
+	SNP = 130,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 130] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 131] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1369,6 +1371,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 130] = [
 	"XSAVEC",
 	"XSAVEOPT",
 	"XSAVES",
+	"SNP",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

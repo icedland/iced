@@ -4236,6 +4236,12 @@ namespace Generator.Encoder {
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], 0xB7, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], 0xBB, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
 				new D3nowOpCodeInfo(CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], 0xBF, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Rmpadjust)], MandatoryPrefix.PF3, OpCodeTableKind.T0F, 0x01FE, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Rmpupdate)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FE, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Psmash)], MandatoryPrefix.PF3, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidatew)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.Size16, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidated)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.Size32, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidateq)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 			};
 			if (data.Length != CodeEnum.Instance.Values.Length)
 				throw new InvalidOperationException();

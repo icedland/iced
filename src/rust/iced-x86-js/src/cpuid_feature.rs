@@ -300,5 +300,7 @@ pub enum CpuidFeature {
 	XSAVEOPT = 128,
 	/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES\[bit 3\]
 	XSAVES = 129,
+	/// CPUID.8000001FH:EAX.SNP\[bit 4\]
+	SNP = 130,
 }
 // GENERATOR-END: Enum

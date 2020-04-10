@@ -4237,6 +4237,12 @@ namespace Generator.Decoder {
 				(code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], mnemonic[nameof(Mnemonic.Pmulhrw)]),
 				(code[nameof(Code.D3NOW_Pswapd_mm_mmm64)], mnemonic[nameof(Mnemonic.Pswapd)]),
 				(code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], mnemonic[nameof(Mnemonic.Pavgusb)]),
+				(code[nameof(Code.Rmpadjust)], mnemonic[nameof(Mnemonic.Rmpadjust)]),
+				(code[nameof(Code.Rmpupdate)], mnemonic[nameof(Mnemonic.Rmpupdate)]),
+				(code[nameof(Code.Psmash)], mnemonic[nameof(Mnemonic.Psmash)]),
+				(code[nameof(Code.Pvalidatew)], mnemonic[nameof(Mnemonic.Pvalidate)]),
+				(code[nameof(Code.Pvalidated)], mnemonic[nameof(Mnemonic.Pvalidate)]),
+				(code[nameof(Code.Pvalidateq)], mnemonic[nameof(Mnemonic.Pvalidate)]),
 			};
 
 			if (result.Length != code.Values.Length)

@@ -8356,3 +8356,8 @@ vcvtusi2sd xmm18,xmm14,{rn-sae},ebx
 vcvtusi2sd xmm10,xmm22,{rd-sae},ebx
 vcvtusi2sd xmm2,xmm6,{ru-sae},r11d
 vcvtusi2sd xmm2,xmm6,{rz-sae},ebx
+rmpadjust
+rmpupdate
+psmash
+a32 pvalidate
+pvalidate

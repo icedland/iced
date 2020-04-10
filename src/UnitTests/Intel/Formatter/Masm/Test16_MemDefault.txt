@@ -533,3 +533,5 @@ monitorx ax,ecx,edx
 monitorx eax,ecx,edx
 clzero
 clzero
+pvalidate
+pvalidate

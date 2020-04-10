@@ -254,6 +254,10 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Xcrypt,
 		Xsha,
 		Xstore,
+		Rmpadjust,
+		Rmpupdate,
+		Psmash,
+		Pvalidate,
 	}
 	// GENERATOR-END: CodeInfo
 

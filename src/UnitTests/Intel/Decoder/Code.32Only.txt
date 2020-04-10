@@ -205,3 +205,4 @@ Xor_rm8_imm8_82
 Xsha1_16
 Xsha256_16
 Xstore_16
+Pvalidatew

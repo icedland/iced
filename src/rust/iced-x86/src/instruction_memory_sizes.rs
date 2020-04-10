@@ -4233,6 +4233,12 @@ pub(super) static SIZES: [MemorySize; (IcedConstants::NUMBER_OF_CODE_VALUES * 2)
 	MemorySize::Packed64_Int16,// D3NOW_Pmulhrw_mm_mmm64
 	MemorySize::Packed64_UInt32,// D3NOW_Pswapd_mm_mmm64
 	MemorySize::Packed64_UInt8,// D3NOW_Pavgusb_mm_mmm64
+	MemorySize::Unknown,// Rmpadjust
+	MemorySize::Unknown,// Rmpupdate
+	MemorySize::Unknown,// Psmash
+	MemorySize::Unknown,// Pvalidatew
+	MemorySize::Unknown,// Pvalidated
+	MemorySize::Unknown,// Pvalidateq
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8436,4 +8442,10 @@ pub(super) static SIZES: [MemorySize; (IcedConstants::NUMBER_OF_CODE_VALUES * 2)
 	MemorySize::Unknown,// D3NOW_Pmulhrw_mm_mmm64
 	MemorySize::Unknown,// D3NOW_Pswapd_mm_mmm64
 	MemorySize::Unknown,// D3NOW_Pavgusb_mm_mmm64
+	MemorySize::Unknown,// Rmpadjust
+	MemorySize::Unknown,// Rmpupdate
+	MemorySize::Unknown,// Psmash
+	MemorySize::Unknown,// Pvalidatew
+	MemorySize::Unknown,// Pvalidated
+	MemorySize::Unknown,// Pvalidateq
 ];

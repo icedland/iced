@@ -4231,4 +4231,10 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Pmulhrw,// D3NOW_Pmulhrw_mm_mmm64
 	Mnemonic::Pswapd,// D3NOW_Pswapd_mm_mmm64
 	Mnemonic::Pavgusb,// D3NOW_Pavgusb_mm_mmm64
+	Mnemonic::Rmpadjust,// Rmpadjust
+	Mnemonic::Rmpupdate,// Rmpupdate
+	Mnemonic::Psmash,// Psmash
+	Mnemonic::Pvalidate,// Pvalidatew
+	Mnemonic::Pvalidate,// Pvalidated
+	Mnemonic::Pvalidate,// Pvalidateq
 ];

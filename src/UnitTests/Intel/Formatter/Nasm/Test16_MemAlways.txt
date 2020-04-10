@@ -533,3 +533,5 @@ monitorx
 a32 monitorx
 clzero
 a32 clzero
+pvalidate
+a32 pvalidate

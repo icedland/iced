@@ -8356,3 +8356,8 @@ F3 0FA7 E8, XcryptOfb_64
 62 714F30 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 62 D14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+F3 0F 01 FE, Rmpadjust
+F2 0F 01 FE, Rmpupdate
+F3 0F 01 FF, Psmash
+67 F2 0F 01 FF, Pvalidated
+F2 0F 01 FF, Pvalidateq

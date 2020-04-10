@@ -4231,6 +4231,12 @@ namespace Generator.Formatters.Masm {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2)], CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], "pmulhrw", InstrOpInfoFlagsEnum.Instance[nameof(InstrOpInfoFlagsEnum.Enum.MemSize_Mmx)] },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2)], CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], "pswapd", InstrOpInfoFlagsEnum.Instance[nameof(InstrOpInfoFlagsEnum.Enum.MemSize_Mmx)] },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_2)], CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], "pavgusb", InstrOpInfoFlagsEnum.Instance[nameof(InstrOpInfoFlagsEnum.Enum.MemSize_Mmx)] },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpadjust)], "rmpadjust" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpupdate)], "rmpupdate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Psmash)], "psmash" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate" },
 		});
 	}
 }

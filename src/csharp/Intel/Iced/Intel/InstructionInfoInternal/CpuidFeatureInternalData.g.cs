@@ -181,6 +181,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x69,// SKINIT_or_SVML
 				0x6A,// SMAP
 				0x6B,// SMX
+				0x82,// SNP
 				0x6C,// SSE
 				0x6D,// SSE2
 				0x6E,// SSE3

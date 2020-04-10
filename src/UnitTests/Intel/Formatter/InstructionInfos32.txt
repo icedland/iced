@@ -701,3 +701,5 @@ F3 0FA7 E8, XcryptOfb_32
 67 F3 0FA7 E8, XcryptOfb_16
 0FA7 E8, XcryptOfb_32
 67 0FA7 E8, XcryptOfb_16
+67 F2 0F 01 FF, Pvalidatew
+F2 0F 01 FF, Pvalidated

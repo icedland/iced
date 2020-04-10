@@ -409,10 +409,14 @@ pub(crate) enum CodeInfo {
 	Xcrypt,
 	Xsha,
 	Xstore,
+	Rmpadjust,
+	Rmpupdate,
+	Psmash,
+	Pvalidate,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 97] = [
+static GEN_DEBUG_CODE_INFO: [&str; 101] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -510,6 +514,10 @@ static GEN_DEBUG_CODE_INFO: [&str; 97] = [
 	"Xcrypt",
 	"Xsha",
 	"Xstore",
+	"Rmpadjust",
+	"Rmpupdate",
+	"Psmash",
+	"Pvalidate",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -800,6 +808,7 @@ pub(crate) enum CpuidFeatureInternal {
 	SKINIT_or_SVML,
 	SMAP,
 	SMX,
+	SNP,
 	SSE,
 	SSE2,
 	SSE3,
@@ -825,7 +834,7 @@ pub(crate) enum CpuidFeatureInternal {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 148] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 149] = [
 	"ADX",
 	"AES",
 	"AES_and_AVX",
@@ -952,6 +961,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 148] = [
 	"SKINIT_or_SVML",
 	"SMAP",
 	"SMX",
+	"SNP",
 	"SSE",
 	"SSE2",
 	"SSE3",

@@ -4231,6 +4231,12 @@ namespace Generator.Formatters.Intel {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)], "pmulhrw" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pswapd_mm_mmm64)], "pswapd" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.D3NOW_Pavgusb_mm_mmm64)], "pavgusb" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpadjust)], "rmpadjust" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Rmpupdate)], "rmpupdate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Psmash)], "psmash" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate", RegisterEnum.Instance[nameof(Register.AX)] },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate", RegisterEnum.Instance[nameof(Register.EAX)] },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate", RegisterEnum.Instance[nameof(Register.RAX)] },
 		});
 	}
 }

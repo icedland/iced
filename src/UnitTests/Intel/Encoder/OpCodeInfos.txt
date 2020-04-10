@@ -22,6 +22,10 @@
 #
 
 INVALID, legacy, , legacy, 00, <invalid>, <invalid>, notinstr 16b 32b 64b
+DeclareByte, legacy, , legacy, 00, <db>, <db>, notinstr 16b 32b 64b
+DeclareWord, legacy, , legacy, 00, <dw>, <dw>, notinstr 16b 32b 64b
+DeclareDword, legacy, , legacy, 00, <dd>, <dd>, notinstr 16b 32b 64b
+DeclareQword, legacy, , legacy, 00, <dq>, <dq>, notinstr 16b 32b 64b
 Add_rm8_r8, legacy, , legacy, 00, 00 /r, ADD r/m8| r8, 16b 32b 64b op=r8_or_mem;r8_reg lock xacquire xrelease
 Add_rm16_r16, legacy, , legacy, 01, o16 01 /r, ADD r/m16| r16, 16b 32b 64b o16 op=r16_or_mem;r16_reg lock xacquire xrelease
 Add_rm32_r32, legacy, , legacy, 01, o32 01 /r, ADD r/m32| r32, 16b 32b 64b o32 op=r32_or_mem;r32_reg lock xacquire xrelease
@@ -4220,7 +4224,9 @@ D3NOW_Pfrcpit2_mm_mmm64, 3DNow!, , 0F, B6, 0F 0F /r B6, PFRCPIT2 mm1| mm2/m64, 1
 D3NOW_Pmulhrw_mm_mmm64, 3DNow!, , 0F, B7, 0F 0F /r B7, PMULHRW mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
 D3NOW_Pswapd_mm_mmm64, 3DNow!, , 0F, BB, 0F 0F /r BB, PSWAPD mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
 D3NOW_Pavgusb_mm_mmm64, 3DNow!, , 0F, BF, 0F 0F /r BF, PAVGUSB mm1| mm2/m64, 16b 32b 64b op=mm_reg;mm_or_mem
-DeclareByte, legacy, , legacy, 00, <db>, <db>, notinstr 16b 32b 64b
-DeclareWord, legacy, , legacy, 00, <dw>, <dw>, notinstr 16b 32b 64b
-DeclareDword, legacy, , legacy, 00, <dd>, <dd>, notinstr 16b 32b 64b
-DeclareQword, legacy, , legacy, 00, <dq>, <dq>, notinstr 16b 32b 64b
+Rmpadjust, legacy, F3, 0F, 01FE, F3 0F 01 FE, RMPADJUST, 64b
+Rmpupdate, legacy, F2, 0F, 01FE, F2 0F 01 FE, RMPUPDATE, 64b
+Psmash, legacy, F3, 0F, 01FF, F3 0F 01 FF, PSMASH, 64b
+Pvalidatew, legacy, F2, 0F, 01FF, a16 F2 0F 01 FF, PVALIDATE, 16b 32b a16
+Pvalidated, legacy, F2, 0F, 01FF, a32 F2 0F 01 FF, PVALIDATE, 16b 32b 64b a32
+Pvalidateq, legacy, F2, 0F, 01FF, F2 0F 01 FF, PVALIDATE, 64b

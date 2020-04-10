@@ -33622,5 +33622,53 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		D3NOW_Pavgusb_mm_mmm64 = 4202,
+		/// <summary><c>RMPADJUST</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Rmpadjust = 4203,
+		/// <summary><c>RMPUPDATE</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Rmpupdate = 4204,
+		/// <summary><c>PSMASH</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Psmash = 4205,
+		/// <summary><c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>a16 F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Pvalidatew = 4206,
+		/// <summary><c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>a32 F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Pvalidated = 4207,
+		/// <summary><c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Pvalidateq = 4208,
 	}
 }

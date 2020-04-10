@@ -2915,6 +2915,52 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Rmpadjust => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::ReadWrite);
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RDX, OpAccess::Read);
+				}
+			}
+
+			CodeInfo::Rmpupdate => {
+				let mut seg = instruction.segment_prefix();
+				if seg == Register::None {
+					seg = Register::DS;
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::ReadWrite);
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_memory_segment_register(flags, info, seg, OpAccess::Read);
+				}
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, seg, Register::RCX, Register::None, 1, 0, MemorySize::UInt128, OpAccess::Read);
+				}
+			}
+
+			CodeInfo::Psmash => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RAX, OpAccess::ReadWrite);
+				}
+			}
+
+			CodeInfo::Pvalidate => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					code = instruction.code();
+					if code == Code::Pvalidateq {
+						Self::add_register(flags, info, Register::RAX, OpAccess::ReadWrite);
+					} else if code == Code::Pvalidated {
+						Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
+					} else {
+						debug_assert_eq!(Code::Pvalidatew, code);
+						Self::add_register(flags, info, Register::AX, OpAccess::Read);
+						Self::add_register(flags, info, Register::EAX, OpAccess::Write);
+					};
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

@@ -4234,6 +4234,12 @@ pub enum Code {
 	D3NOW_Pmulhrw_mm_mmm64 = 4200,
 	D3NOW_Pswapd_mm_mmm64 = 4201,
 	D3NOW_Pavgusb_mm_mmm64 = 4202,
+	Rmpadjust = 4203,
+	Rmpupdate = 4204,
+	Psmash = 4205,
+	Pvalidatew = 4206,
+	Pvalidated = 4207,
+	Pvalidateq = 4208,
 }
 // GENERATOR-END: Enum
 

@@ -9473,6 +9473,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void pvalidate() {
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void pxor_regMM_regMM() {
 			TestAssembler(c => c.pxor(mm1, mm7), Instruction.Create(Code.Pxor_mm_mmm64, mm1, mm7));
 		}

@@ -28670,6 +28670,20 @@ namespace Iced.Intel {
 			op = Code.Psllw_xmm_imm8;
 			AddInstruction(Instruction.Create(op, dst, (uint)imm));
 		}
+		/// <summary>psmash instruction.<br/>
+		/// <br/>
+		/// <c>PSMASH</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void psmash() {
+			Code op;
+			op = Code.Psmash;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>psrad instruction.<br/>
 		/// <br/>
 		/// <c>PSRAD mm, mm/m64</c><br/>
@@ -30600,6 +30614,38 @@ namespace Iced.Intel {
 		public void pushfq() {
 			Code op;
 			op = Code.Pushfq;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>pvalidate instruction.<br/>
+		/// <br/>
+		/// <c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>a32 F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>PVALIDATE</c><br/>
+		/// <br/>
+		/// <c>a16 F2 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void pvalidate() {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Pvalidateq;
+			} else op = Bitness >= 32 ? Code.Pvalidated : Code.Pvalidatew;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>pxor instruction.<br/>
@@ -32869,6 +32915,34 @@ namespace Iced.Intel {
 				op = Code.Retfq_imm16;
 			} else op = Bitness >= 32 ? Code.Retfd_imm16 : Code.Retfw_imm16;
 			AddInstruction(Instruction.Create(op, (uint)imm));
+		}
+		/// <summary>rmpadjust instruction.<br/>
+		/// <br/>
+		/// <c>RMPADJUST</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void rmpadjust() {
+			Code op;
+			op = Code.Rmpadjust;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>rmpupdate instruction.<br/>
+		/// <br/>
+		/// <c>RMPUPDATE</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>SNP</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void rmpupdate() {
+			Code op;
+			op = Code.Rmpupdate;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>rol instruction.<br/>
 		/// <br/>
