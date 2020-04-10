@@ -647,7 +647,7 @@ namespace Generator.Assembler.CSharp {
 		}
 
 		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo) {
-			if ((opCodeInfo.Flags & bitnessFlags) == 0 || (bitness == 16 && (methodName == "bndmov" || methodName == "bndldx" || methodName == "bndstx"))) {
+			if ((opCodeInfo.Flags & bitnessFlags) == 0) {
 				writer.WriteLine("{");
 				using (writer.Indent()) {
 					writer.WriteLine($"// Skipping {opCodeInfo.Code.RawName} - Not supported for {bitnessFlags}");
@@ -661,6 +661,35 @@ namespace Generator.Assembler.CSharp {
 
 			var assemblerArgs = new List<string>();
 			var instructionCreateArgs = new List<string>();
+			int forceBitness = 0;
+			// Special case for movdir64b, the memory operand should match the register size
+			// TODO: Ideally this should be handled in the base class
+			switch ((Code)opCodeInfo.Code.Value) {
+			case Code.Bndmov_bndm64_bnd:
+			case Code.Bndmov_bnd_bndm64:
+			case Code.Bndldx_bnd_mib:
+			case Code.Bndstx_mib_bnd:
+				if (bitness == 16)
+					forceBitness = 32;
+				break;
+
+			case Code.Movdir64b_r16_m512:
+			case Code.Enqcmds_r16_m512:
+			case Code.Enqcmd_r16_m512:
+				forceBitness = 16;
+				break;
+			case Code.Movdir64b_r32_m512:
+			case Code.Enqcmds_r32_m512:
+			case Code.Enqcmd_r32_m512:
+				forceBitness = 32;
+				break;
+			case Code.Movdir64b_r64_m512:
+			case Code.Enqcmds_r64_m512:
+			case Code.Enqcmd_r64_m512:
+				forceBitness = 64;
+				break;
+			}
+
 			for (var i = 0; i < argValues.Count; i++) {
 				var renderArg = args[i];
 				var isMemory = renderArg.Kind == ArgKind.Memory;
@@ -668,27 +697,7 @@ namespace Generator.Assembler.CSharp {
 				var argValueForInstructionCreate = argValueForAssembler;
 
 				if (argValueForAssembler is null) {
-					var localBitness = bitness;
-
-					// Special case for movdir64b, the memory operand should match the register size
-					// TODO: Ideally this should be handled in the base class
-					switch ((Code)opCodeInfo.Code.Value) {
-					case Code.Movdir64b_r16_m512:
-					case Code.Enqcmds_r16_m512:
-					case Code.Enqcmd_r16_m512:
-						localBitness = 16;
-						break;
-					case Code.Movdir64b_r32_m512:
-					case Code.Enqcmds_r32_m512:
-					case Code.Enqcmd_r32_m512:
-						localBitness = 32;
-						break;
-					case Code.Movdir64b_r64_m512:
-					case Code.Enqcmds_r64_m512:
-					case Code.Enqcmd_r64_m512:
-						localBitness = 64;
-						break;
-					}
+					var localBitness = forceBitness > 0 ? forceBitness : bitness;
 
 					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, true, i, renderArg);
 					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, false, i, renderArg);
@@ -1181,7 +1190,7 @@ namespace Generator.Assembler.CSharp {
 				var selector = node.Selector;
 				Debug.Assert(selector is object);
 				var condition = GetArgConditionForOpCodeKind(selector.ArgIndex >= 0 ? args[selector.ArgIndex] : default, selector.Kind, selector.ArgIndex, group.Flags);
-				if (selector.IsConditionInlineable && !IsMemOffs46Selector(selector.Kind)) {
+				if (selector.IsConditionInlineable && !IsMemOffs64Selector(selector.Kind)) {
 					writer.Write($"op = {condition} ? ");
 					GenerateOpCodeSelector(writer, group, false, selector.IfTrue, args);
 					writer.Write(" : ");
@@ -1193,7 +1202,7 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 						GenerateOpCodeSelector(writer, group, true, selector.IfTrue, args);
 
-						if (IsMemOffs46Selector(selector.Kind)) {
+						if (IsMemOffs64Selector(selector.Kind)) {
 							var argIndex = selector.ArgIndex;
 							if (argIndex == 1) {
 								writer.WriteLine($"AddInstruction(Instruction.CreateMemory64(op, {args[0].Name}, (ulong){args[1].Name}.Displacement, {args[1].Name}.Prefix));");

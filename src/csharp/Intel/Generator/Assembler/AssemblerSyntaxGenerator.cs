@@ -743,7 +743,6 @@ namespace Generator.Assembler {
 					}
 				}
 
-
 				// Handle disambiguation for auto-broadcast select
 				if ((argFlags & OpCodeArgFlags.HasBroadcast) != 0) {
 					int memoryIndex = GetBroadcastMemory(argFlags, opcodes, signature, out var broadcastSelectorKind, out var evexBroadcastOpCode);
@@ -785,7 +784,8 @@ namespace Generator.Assembler {
 				// - bitness
 				if (selectors.Count <= 1) {
 					// Special case for push imm, select first by bitness and after by imm
-					if (group.Name == "push" && group.Signature.ArgCount == 1 && IsArgKindImmediate(group.Signature.GetArgKind(0)) && opcodes.Count > 2) {
+					bool isPushImm = group.Name == "push" && group.Signature.ArgCount == 1 && IsArgKindImmediate(group.Signature.GetArgKind(0));
+					if (isPushImm && opcodes.Count > 2) {
 						// bitness
 						selectors = BuildSelectorsPerBitness(@group, argFlags, opcodes);
 						return BuildSelectorGraphFromSelectors(group, group.Signature, argFlags, selectors);
@@ -798,9 +798,13 @@ namespace Generator.Assembler {
 						var indices = CollectByOperandKindPredicate(opcodes, IsImmediateByteSigned, opcodesWithImmediateByteSigned, opcodesOthers);
 
 						var selectorKind = OpCodeSelectorKind.ImmediateByteSigned8;
-						int memSize = GetMemoryAddressSizeInBits(opcodes[0]);
-						if (memSize > 1) {
-							switch (memSize) {
+						int opSize;
+						if (isPushImm)
+							opSize = GetImmediateSizeInBits(opcodes[0]);
+						else
+							opSize = GetMemoryAddressSizeInBits(opcodes[0]);
+						if (opSize > 1) {
+							switch (opSize) {
 							case 32:
 								selectorKind = OpCodeSelectorKind.ImmediateByteSigned8To32;
 								break;
@@ -982,10 +986,8 @@ namespace Generator.Assembler {
 				Debug.Assert(memoryIndex >= 0);
 			}
 
-
 			return memoryIndex;
 		}
-
 
 		static bool ShouldDiscardDuplicatedOpCode(Signature signature, OpCodeInfo opCode) {
 			bool testDiscard = false;
@@ -1028,31 +1030,25 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-
 		static int GetBitness(LegacyOpCodeInfo legacy) {
 			int bitness = 64;
 			var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
 			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize;
 			switch (sizeFlags) {
-			case OpCodeFlags.Mode16:
-				bitness = 16;
-				break;
 			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32:
 				bitness = operandSize == OperandSize.None || operandSize == OperandSize.Size16 ? 16 : 32;
 				break;
 			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
 				bitness = operandSize == OperandSize.Size16 ? 16 : 32;
 				break;
-
 			case OpCodeFlags.Mode64:
 				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 : 64;
 				break;
 			default:
-				break;
+				throw new InvalidOperationException();
 			}
 			return bitness;
 		}
-
 
 		static List<int> CollectByOperandKindPredicate(List<OpCodeInfo> opcodes, Func<OpCodeOperandKind, bool?> predicate, List<OpCodeInfo> opcodesMatchingPredicate, List<OpCodeInfo> opcodesNotMatchingPredicate) {
 			var argIndices = new List<int>();
@@ -1191,7 +1187,29 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-		protected static int GetMemoryAddressSizeInBits(OpCodeInfo opCodeInfo) {
+		static int GetImmediateSizeInBits(OpCodeInfo opCodeInfo) {
+			switch (opCodeInfo.OpKind(0)) {
+			case OpCodeOperandKind.imm2_m2z:
+				return 2;
+			case OpCodeOperandKind.imm8:
+				return 8;
+			case OpCodeOperandKind.imm8_const_1:
+				return 0;
+			case OpCodeOperandKind.imm8sex16:
+			case OpCodeOperandKind.imm16:
+				return 16;
+			case OpCodeOperandKind.imm8sex32:
+			case OpCodeOperandKind.imm32:
+				return 32;
+			case OpCodeOperandKind.imm32sex64:
+			case OpCodeOperandKind.imm64:
+				return 64;
+			default:
+				return 0;
+			}
+		}
+
+		static int GetMemoryAddressSizeInBits(OpCodeInfo opCodeInfo) {
 			var memSize = (MemorySize)InstructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
 			switch (memSize) {
 			case MemorySize.Fword6:
@@ -2149,10 +2167,9 @@ namespace Generator.Assembler {
 		}
 
 		protected static bool IsSelectorSupportedByBitness(int bitness, OpCodeSelectorKind kind, out bool continueElse) {
-			continueElse = true;
 			switch (kind) {
 			case OpCodeSelectorKind.Bitness64:
-				continueElse = false;
+				continueElse = bitness < 64;
 				return bitness == 64;
 			case OpCodeSelectorKind.MemOffs64_RAX:
 			case OpCodeSelectorKind.MemOffs64_EAX:
@@ -2161,7 +2178,7 @@ namespace Generator.Assembler {
 				continueElse = true;
 				return bitness == 64;
 			case OpCodeSelectorKind.Bitness32:
-				continueElse = false;
+				continueElse = bitness < 32;
 				return bitness >= 32;
 			case OpCodeSelectorKind.Bitness16:
 				continueElse = false;
@@ -2172,11 +2189,13 @@ namespace Generator.Assembler {
 			case OpCodeSelectorKind.MemOffs_AL:
 				continueElse = true;
 				return bitness < 64;
+			default:
+				continueElse = true;
+				return true;
 			}
-			return true;
 		}
 
-		protected static bool IsMemOffs46Selector(OpCodeSelectorKind kind) {
+		protected static bool IsMemOffs64Selector(OpCodeSelectorKind kind) {
 			switch (kind) {
 			case OpCodeSelectorKind.MemOffs64_RAX:
 			case OpCodeSelectorKind.MemOffs64_EAX:

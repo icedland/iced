@@ -30540,7 +30540,7 @@ namespace Iced.Intel {
 			if (Bitness >= 32) {
 				op = imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF) ? Code.Pushd_imm8 : Code.Pushd_imm32;
 			} else if (Bitness >= 16) {
-				op = imm <= (uint)sbyte.MaxValue || (0xFFFF_FF80 <= imm && imm <= 0xFFFF_FFFF) ? Code.Pushw_imm8 : Code.Push_imm16;
+				op = imm <= (uint)sbyte.MaxValue || (0xFF80 <= imm && imm <= 0xFFFF) ? Code.Pushw_imm8 : Code.Push_imm16;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Push, imm);
 			}
