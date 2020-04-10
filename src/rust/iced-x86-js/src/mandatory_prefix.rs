@@ -30,15 +30,15 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum MandatoryPrefix {
 	/// No mandatory prefix (legacy and 3DNow! tables only)
-	None,
+	None = 0,
 	/// Empty mandatory prefix (no `66`, `F3` or `F2` prefix)
-	PNP,
+	PNP = 1,
 	/// `66` prefix
-	P66,
+	P66 = 2,
 	/// `F3` prefix
-	PF3,
+	PF3 = 3,
 	/// `F2` prefix
-	PF2,
+	PF2 = 4,
 }
 // GENERATOR-END: Enum
 

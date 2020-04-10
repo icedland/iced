@@ -752,13 +752,13 @@ namespace Iced.Intel {
 	/// <summary>Number base</summary>
 	public enum NumberBase {
 		/// <summary>Hex numbers (base 16)</summary>
-		Hexadecimal,
+		Hexadecimal = 0,
 		/// <summary>Decimal numbers (base 10)</summary>
-		Decimal,
+		Decimal = 1,
 		/// <summary>Octal numbers (base 8)</summary>
-		Octal,
+		Octal = 2,
 		/// <summary>Binary numbers (base 2)</summary>
-		Binary,
+		Binary = 3,
 	}
 	// GENERATOR-END: NumberBase
 
@@ -767,13 +767,13 @@ namespace Iced.Intel {
 	/// <summary>Memory size options used by the formatters</summary>
 	public enum MemorySizeOptions {
 		/// <summary>Show memory size if the assembler requires it, else don&apos;t show anything</summary>
-		Default,
+		Default = 0,
 		/// <summary>Always show the memory size, even if the assembler doesn&apos;t need it</summary>
-		Always,
+		Always = 1,
 		/// <summary>Show memory size if a human can&apos;t figure out the size of the operand</summary>
-		Minimum,
+		Minimum = 2,
 		/// <summary>Never show memory size</summary>
-		Never,
+		Never = 3,
 	}
 	// GENERATOR-END: MemorySizeOptions
 }

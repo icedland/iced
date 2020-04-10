@@ -29,13 +29,13 @@ use core::fmt;
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum CodeSize {
 	/// Unknown size
-	Unknown,
+	Unknown = 0,
 	/// 16-bit code
-	Code16,
+	Code16 = 1,
 	/// 32-bit code
-	Code32,
+	Code32 = 2,
 	/// 64-bit code
-	Code64,
+	Code64 = 3,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_CODE_SIZE: [&str; 4] = [
@@ -66,15 +66,15 @@ impl Default for CodeSize {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum RoundingControl {
 	/// No rounding mode
-	None,
+	None = 0,
 	/// Round to nearest (even)
-	RoundToNearest,
+	RoundToNearest = 1,
 	/// Round down (toward -inf)
-	RoundDown,
+	RoundDown = 2,
 	/// Round up (toward +inf)
-	RoundUp,
+	RoundUp = 3,
 	/// Round toward zero (truncate)
-	RoundTowardZero,
+	RoundTowardZero = 4,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_ROUNDING_CONTROL: [&str; 5] = [
@@ -117,120 +117,120 @@ pub enum OpKind {
 	/// [`Instruction::op3_register()`]: struct.Instruction.html#method.op3_register
 	/// [`Instruction::op4_register()`]: struct.Instruction.html#method.op4_register
 	/// [`Instruction::op_register()`]: struct.Instruction.html#method.op_register
-	Register,
+	Register = 0,
 	/// Near 16-bit branch. This operand kind uses [`Instruction::near_branch16()`]
 	///
 	/// [`Instruction::near_branch16()`]: struct.Instruction.html#method.near_branch16
-	NearBranch16,
+	NearBranch16 = 1,
 	/// Near 32-bit branch. This operand kind uses [`Instruction::near_branch32()`]
 	///
 	/// [`Instruction::near_branch32()`]: struct.Instruction.html#method.near_branch32
-	NearBranch32,
+	NearBranch32 = 2,
 	/// Near 64-bit branch. This operand kind uses [`Instruction::near_branch64()`]
 	///
 	/// [`Instruction::near_branch64()`]: struct.Instruction.html#method.near_branch64
-	NearBranch64,
+	NearBranch64 = 3,
 	/// Far 16-bit branch. This operand kind uses [`Instruction::far_branch16()`] and [`Instruction::far_branch_selector()`]
 	///
 	/// [`Instruction::far_branch16()`]: struct.Instruction.html#method.far_branch16
 	/// [`Instruction::far_branch_selector()`]: struct.Instruction.html#method.far_branch_selector
-	FarBranch16,
+	FarBranch16 = 4,
 	/// Far 32-bit branch. This operand kind uses [`Instruction::far_branch32()`] and [`Instruction::far_branch_selector()`]
 	///
 	/// [`Instruction::far_branch32()`]: struct.Instruction.html#method.far_branch32
 	/// [`Instruction::far_branch_selector()`]: struct.Instruction.html#method.far_branch_selector
-	FarBranch32,
+	FarBranch32 = 5,
 	/// 8-bit constant. This operand kind uses [`Instruction::immediate8()`]
 	///
 	/// [`Instruction::immediate8()`]: struct.Instruction.html#method.immediate8
-	Immediate8,
+	Immediate8 = 6,
 	/// 8-bit constant used by the `ENTER`, `EXTRQ`, `INSERTQ` instructions. This operand kind uses [`Instruction::immediate8_2nd()`]
 	///
 	/// [`Instruction::immediate8_2nd()`]: struct.Instruction.html#method.immediate8_2nd
-	Immediate8_2nd,
+	Immediate8_2nd = 7,
 	/// 16-bit constant. This operand kind uses [`Instruction::immediate16()`]
 	///
 	/// [`Instruction::immediate16()`]: struct.Instruction.html#method.immediate16
-	Immediate16,
+	Immediate16 = 8,
 	/// 32-bit constant. This operand kind uses [`Instruction::immediate32()`]
 	///
 	/// [`Instruction::immediate32()`]: struct.Instruction.html#method.immediate32
-	Immediate32,
+	Immediate32 = 9,
 	/// 64-bit constant. This operand kind uses [`Instruction::immediate64()`]
 	///
 	/// [`Instruction::immediate64()`]: struct.Instruction.html#method.immediate64
-	Immediate64,
+	Immediate64 = 10,
 	/// An 8-bit value sign extended to 16 bits. This operand kind uses [`Instruction::immediate8to16()`]
 	///
 	/// [`Instruction::immediate8to16()`]: struct.Instruction.html#method.immediate8to16
-	Immediate8to16,
+	Immediate8to16 = 11,
 	/// An 8-bit value sign extended to 32 bits. This operand kind uses [`Instruction::immediate8to32()`]
 	///
 	/// [`Instruction::immediate8to32()`]: struct.Instruction.html#method.immediate8to32
-	Immediate8to32,
+	Immediate8to32 = 12,
 	/// An 8-bit value sign extended to 64 bits. This operand kind uses [`Instruction::immediate8to64()`]
 	///
 	/// [`Instruction::immediate8to64()`]: struct.Instruction.html#method.immediate8to64
-	Immediate8to64,
+	Immediate8to64 = 13,
 	/// A 32-bit value sign extended to 64 bits. This operand kind uses [`Instruction::immediate32to64()`]
 	///
 	/// [`Instruction::immediate32to64()`]: struct.Instruction.html#method.immediate32to64
-	Immediate32to64,
+	Immediate32to64 = 14,
 	/// `seg:[SI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegSI,
+	MemorySegSI = 15,
 	/// `seg:[ESI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegESI,
+	MemorySegESI = 16,
 	/// `seg:[RSI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegRSI,
+	MemorySegRSI = 17,
 	/// `seg:[DI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegDI,
+	MemorySegDI = 18,
 	/// `seg:[EDI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegEDI,
+	MemorySegEDI = 19,
 	/// `seg:[RDI]`. This operand kind uses [`Instruction::memory_size()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	MemorySegRDI,
+	MemorySegRDI = 20,
 	/// `ES:[DI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
-	MemoryESDI,
+	MemoryESDI = 21,
 	/// `ES:[EDI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
-	MemoryESEDI,
+	MemoryESEDI = 22,
 	/// `ES:[RDI]`. This operand kind uses [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
-	MemoryESRDI,
+	MemoryESRDI = 23,
 	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses [`Instruction::memory_address64()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`], [`Instruction::memory_size()`]
 	///
 	/// [`Instruction::memory_address64()`]: struct.Instruction.html#method.memory_address64
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
 	/// [`Instruction::memory_size()`]: struct.Instruction.html#method.memory_size
-	Memory64,
+	Memory64 = 24,
 	/// Memory operand.
 	///
 	/// This operand kind uses [`Instruction::memory_displ_size()`], [`Instruction::memory_size()`], [`Instruction::memory_index_scale()`], [`Instruction::memory_displacement()`], [`Instruction::memory_base()`], [`Instruction::memory_index()`], [`Instruction::memory_segment()`], [`Instruction::segment_prefix()`]
@@ -243,7 +243,7 @@ pub enum OpKind {
 	/// [`Instruction::memory_index()`]: struct.Instruction.html#method.memory_index
 	/// [`Instruction::memory_segment()`]: struct.Instruction.html#method.memory_segment
 	/// [`Instruction::segment_prefix()`]: struct.Instruction.html#method.segment_prefix
-	Memory,
+	Memory = 25,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_OP_KIND: [&str; 26] = [
@@ -372,15 +372,15 @@ impl Default for MandatoryPrefixByte {
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 pub enum EncodingKind {
 	/// Legacy encoding
-	Legacy,
+	Legacy = 0,
 	/// VEX encoding
-	VEX,
+	VEX = 1,
 	/// EVEX encoding
-	EVEX,
+	EVEX = 2,
 	/// XOP encoding
-	XOP,
+	XOP = 3,
 	/// 3DNow! encoding
-	D3NOW,
+	D3NOW = 4,
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -418,73 +418,73 @@ impl Default for EncodingKind {
 #[allow(non_camel_case_types)]
 pub enum TupleType {
 	/// `N = 1`
-	None,
+	None = 0,
 	/// `N = b ? (W ? 8 : 4) : 16`
-	Full_128,
+	Full_128 = 1,
 	/// `N = b ? (W ? 8 : 4) : 32`
-	Full_256,
+	Full_256 = 2,
 	/// `N = b ? (W ? 8 : 4) : 64`
-	Full_512,
+	Full_512 = 3,
 	/// `N = b ? 4 : 8`
-	Half_128,
+	Half_128 = 4,
 	/// `N = b ? 4 : 16`
-	Half_256,
+	Half_256 = 5,
 	/// `N = b ? 4 : 32`
-	Half_512,
+	Half_512 = 6,
 	/// `N = 16`
-	Full_Mem_128,
+	Full_Mem_128 = 7,
 	/// `N = 32`
-	Full_Mem_256,
+	Full_Mem_256 = 8,
 	/// `N = 64`
-	Full_Mem_512,
+	Full_Mem_512 = 9,
 	/// `N = W ? 8 : 4`
-	Tuple1_Scalar,
+	Tuple1_Scalar = 10,
 	/// `N = 1`
-	Tuple1_Scalar_1,
+	Tuple1_Scalar_1 = 11,
 	/// `N = 2`
-	Tuple1_Scalar_2,
+	Tuple1_Scalar_2 = 12,
 	/// `N = 4`
-	Tuple1_Scalar_4,
+	Tuple1_Scalar_4 = 13,
 	/// `N = 8`
-	Tuple1_Scalar_8,
+	Tuple1_Scalar_8 = 14,
 	/// `N = 4`
-	Tuple1_Fixed_4,
+	Tuple1_Fixed_4 = 15,
 	/// `N = 8`
-	Tuple1_Fixed_8,
+	Tuple1_Fixed_8 = 16,
 	/// `N = W ? 16 : 8`
-	Tuple2,
+	Tuple2 = 17,
 	/// `N = W ? 32 : 16`
-	Tuple4,
+	Tuple4 = 18,
 	/// `N = W ? error : 32`
-	Tuple8,
+	Tuple8 = 19,
 	/// `N = 16`
-	Tuple1_4X,
+	Tuple1_4X = 20,
 	/// `N = 8`
-	Half_Mem_128,
+	Half_Mem_128 = 21,
 	/// `N = 16`
-	Half_Mem_256,
+	Half_Mem_256 = 22,
 	/// `N = 32`
-	Half_Mem_512,
+	Half_Mem_512 = 23,
 	/// `N = 4`
-	Quarter_Mem_128,
+	Quarter_Mem_128 = 24,
 	/// `N = 8`
-	Quarter_Mem_256,
+	Quarter_Mem_256 = 25,
 	/// `N = 16`
-	Quarter_Mem_512,
+	Quarter_Mem_512 = 26,
 	/// `N = 2`
-	Eighth_Mem_128,
+	Eighth_Mem_128 = 27,
 	/// `N = 4`
-	Eighth_Mem_256,
+	Eighth_Mem_256 = 28,
 	/// `N = 8`
-	Eighth_Mem_512,
+	Eighth_Mem_512 = 29,
 	/// `N = 16`
-	Mem128,
+	Mem128 = 30,
 	/// `N = 8`
-	MOVDDUP_128,
+	MOVDDUP_128 = 31,
 	/// `N = 32`
-	MOVDDUP_256,
+	MOVDDUP_256 = 32,
 	/// `N = 64`
-	MOVDDUP_512,
+	MOVDDUP_512 = 33,
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -549,27 +549,27 @@ impl Default for TupleType {
 #[cfg(feature = "instr_info")]
 pub enum FlowControl {
 	/// The next instruction that will be executed is the next instruction in the instruction stream
-	Next,
+	Next = 0,
 	/// It's an unconditional branch instruction: `JMP NEAR`, `JMP FAR`
-	UnconditionalBranch,
+	UnconditionalBranch = 1,
 	/// It's an unconditional indirect branch: `JMP NEAR reg`, `JMP NEAR [mem]`, `JMP FAR [mem]`
-	IndirectBranch,
+	IndirectBranch = 2,
 	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
-	ConditionalBranch,
+	ConditionalBranch = 3,
 	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`
-	Return,
+	Return = 4,
 	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`
-	Call,
+	Call = 5,
 	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
-	IndirectCall,
+	IndirectCall = 6,
 	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
-	Interrupt,
+	Interrupt = 7,
 	/// It's `XBEGIN`, `XABORT` or `XEND`
-	XbeginXabortXend,
+	XbeginXabortXend = 8,
 	/// It's an invalid instruction, eg. [`Code::INVALID`], `UD0`, `UD1`, `UD2`
 	///
 	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
-	Exception,
+	Exception = 9,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -612,223 +612,223 @@ impl Default for FlowControl {
 #[allow(non_camel_case_types)]
 pub enum OpCodeOperandKind {
 	/// No operand
-	None,
+	None = 0,
 	/// Far branch 16-bit offset, 16-bit segment/selector
-	farbr2_2,
+	farbr2_2 = 1,
 	/// Far branch 32-bit offset, 16-bit segment/selector
-	farbr4_2,
+	farbr4_2 = 2,
 	/// Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
-	mem_offs,
+	mem_offs = 3,
 	/// Memory (modrm)
-	mem,
+	mem = 4,
 	/// Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
 	/// 64-bit mode: 64-bit addressing is forced
-	mem_mpx,
+	mem_mpx = 5,
 	/// Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
 	/// 64-bit mode: 64-bit addressing is forced and must not be RIP relative
-	mem_mib,
+	mem_mib = 6,
 	/// Memory (modrm), vsib32, xmm registers
-	mem_vsib32x,
+	mem_vsib32x = 7,
 	/// Memory (modrm), vsib64, xmm registers
-	mem_vsib64x,
+	mem_vsib64x = 8,
 	/// Memory (modrm), vsib32, ymm registers
-	mem_vsib32y,
+	mem_vsib32y = 9,
 	/// Memory (modrm), vsib64, ymm registers
-	mem_vsib64y,
+	mem_vsib64y = 10,
 	/// Memory (modrm), vsib32, zmm registers
-	mem_vsib32z,
+	mem_vsib32z = 11,
 	/// Memory (modrm), vsib64, zmm registers
-	mem_vsib64z,
+	mem_vsib64z = 12,
 	/// 8-bit GPR or memory
-	r8_or_mem,
+	r8_or_mem = 13,
 	/// 16-bit GPR or memory
-	r16_or_mem,
+	r16_or_mem = 14,
 	/// 32-bit GPR or memory
-	r32_or_mem,
+	r32_or_mem = 15,
 	/// 32-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	r32_or_mem_mpx,
+	r32_or_mem_mpx = 16,
 	/// 64-bit GPR or memory
-	r64_or_mem,
+	r64_or_mem = 17,
 	/// 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	r64_or_mem_mpx,
+	r64_or_mem_mpx = 18,
 	/// MM register or memory
-	mm_or_mem,
+	mm_or_mem = 19,
 	/// XMM register or memory
-	xmm_or_mem,
+	xmm_or_mem = 20,
 	/// YMM register or memory
-	ymm_or_mem,
+	ymm_or_mem = 21,
 	/// ZMM register or memory
-	zmm_or_mem,
+	zmm_or_mem = 22,
 	/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	bnd_or_mem_mpx,
+	bnd_or_mem_mpx = 23,
 	/// K register or memory
-	k_or_mem,
+	k_or_mem = 24,
 	/// 8-bit GPR encoded in the `reg` field of the modrm byte
-	r8_reg,
+	r8_reg = 25,
 	/// 8-bit GPR encoded in the low 3 bits of the opcode
-	r8_opcode,
+	r8_opcode = 26,
 	/// 16-bit GPR encoded in the `reg` field of the modrm byte
-	r16_reg,
+	r16_reg = 27,
 	/// 16-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r16_reg_mem,
+	r16_reg_mem = 28,
 	/// 16-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r16_rm,
+	r16_rm = 29,
 	/// 16-bit GPR encoded in the low 3 bits of the opcode
-	r16_opcode,
+	r16_opcode = 30,
 	/// 32-bit GPR encoded in the `reg` field of the modrm byte
-	r32_reg,
+	r32_reg = 31,
 	/// 32-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r32_reg_mem,
+	r32_reg_mem = 32,
 	/// 32-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r32_rm,
+	r32_rm = 33,
 	/// 32-bit GPR encoded in the low 3 bits of the opcode
-	r32_opcode,
+	r32_opcode = 34,
 	/// 32-bit GPR encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	r32_vvvv,
+	r32_vvvv = 35,
 	/// 64-bit GPR encoded in the `reg` field of the modrm byte
-	r64_reg,
+	r64_reg = 36,
 	/// 64-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r64_reg_mem,
+	r64_reg_mem = 37,
 	/// 64-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r64_rm,
+	r64_rm = 38,
 	/// 64-bit GPR encoded in the low 3 bits of the opcode
-	r64_opcode,
+	r64_opcode = 39,
 	/// 64-bit GPR encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	r64_vvvv,
+	r64_vvvv = 40,
 	/// Segment register encoded in the `reg` field of the modrm byte
-	seg_reg,
+	seg_reg = 41,
 	/// K register encoded in the `reg` field of the modrm byte
-	k_reg,
+	k_reg = 42,
 	/// K register (+1) encoded in the `reg` field of the modrm byte
-	kp1_reg,
+	kp1_reg = 43,
 	/// K register encoded in the `mod + r/m` fields of the modrm byte
-	k_rm,
+	k_rm = 44,
 	/// K register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	k_vvvv,
+	k_vvvv = 45,
 	/// MM register encoded in the `reg` field of the modrm byte
-	mm_reg,
+	mm_reg = 46,
 	/// MM register encoded in the `mod + r/m` fields of the modrm byte
-	mm_rm,
+	mm_rm = 47,
 	/// XMM register encoded in the `reg` field of the modrm byte
-	xmm_reg,
+	xmm_reg = 48,
 	/// XMM register encoded in the `mod + r/m` fields of the modrm byte
-	xmm_rm,
+	xmm_rm = 49,
 	/// XMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	xmm_vvvv,
+	xmm_vvvv = 50,
 	/// XMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	xmmp3_vvvv,
+	xmmp3_vvvv = 51,
 	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
-	xmm_is4,
+	xmm_is4 = 52,
 	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
-	xmm_is5,
+	xmm_is5 = 53,
 	/// YMM register encoded in the `reg` field of the modrm byte
-	ymm_reg,
+	ymm_reg = 54,
 	/// YMM register encoded in the `mod + r/m` fields of the modrm byte
-	ymm_rm,
+	ymm_rm = 55,
 	/// YMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	ymm_vvvv,
+	ymm_vvvv = 56,
 	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
-	ymm_is4,
+	ymm_is4 = 57,
 	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
-	ymm_is5,
+	ymm_is5 = 58,
 	/// ZMM register encoded in the `reg` field of the modrm byte
-	zmm_reg,
+	zmm_reg = 59,
 	/// ZMM register encoded in the `mod + r/m` fields of the modrm byte
-	zmm_rm,
+	zmm_rm = 60,
 	/// ZMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	zmm_vvvv,
+	zmm_vvvv = 61,
 	/// ZMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	zmmp3_vvvv,
+	zmmp3_vvvv = 62,
 	/// CR register encoded in the `reg` field of the modrm byte
-	cr_reg,
+	cr_reg = 63,
 	/// DR register encoded in the `reg` field of the modrm byte
-	dr_reg,
+	dr_reg = 64,
 	/// TR register encoded in the `reg` field of the modrm byte
-	tr_reg,
+	tr_reg = 65,
 	/// BND register encoded in the `reg` field of the modrm byte
-	bnd_reg,
+	bnd_reg = 66,
 	/// ES register
-	es,
+	es = 67,
 	/// CS register
-	cs,
+	cs = 68,
 	/// SS register
-	ss,
+	ss = 69,
 	/// DS register
-	ds,
+	ds = 70,
 	/// FS register
-	fs,
+	fs = 71,
 	/// GS register
-	gs,
+	gs = 72,
 	/// AL register
-	al,
+	al = 73,
 	/// CL register
-	cl,
+	cl = 74,
 	/// AX register
-	ax,
+	ax = 75,
 	/// DX register
-	dx,
+	dx = 76,
 	/// EAX register
-	eax,
+	eax = 77,
 	/// RAX register
-	rax,
+	rax = 78,
 	/// ST0 register
-	st0,
+	st0 = 79,
 	/// ST(i) register encoded in the low 3 bits of the opcode
-	sti_opcode,
+	sti_opcode = 80,
 	/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. `VPERMIL2PS`)
-	imm2_m2z,
+	imm2_m2z = 81,
 	/// 8-bit immediate
-	imm8,
+	imm8 = 82,
 	/// Constant 1 (8-bit immediate)
-	imm8_const_1,
+	imm8_const_1 = 83,
 	/// 8-bit immediate sign extended to 16 bits
-	imm8sex16,
+	imm8sex16 = 84,
 	/// 8-bit immediate sign extended to 32 bits
-	imm8sex32,
+	imm8sex32 = 85,
 	/// 8-bit immediate sign extended to 64 bits
-	imm8sex64,
+	imm8sex64 = 86,
 	/// 16-bit immediate
-	imm16,
+	imm16 = 87,
 	/// 32-bit immediate
-	imm32,
+	imm32 = 88,
 	/// 32-bit immediate sign extended to 64 bits
-	imm32sex64,
+	imm32sex64 = 89,
 	/// 64-bit immediate
-	imm64,
+	imm64 = 90,
 	/// `seg:[rSI]` memory operand (string instructions)
-	seg_rSI,
+	seg_rSI = 91,
 	/// `es:[rDI]` memory operand (string instructions)
-	es_rDI,
+	es_rDI = 92,
 	/// `seg:[rDI]` memory operand (`(V)MASKMOVQ` instructions)
-	seg_rDI,
+	seg_rDI = 93,
 	/// `seg:[rBX+al]` memory operand (`XLATB` instruction)
-	seg_rBX_al,
+	seg_rBX_al = 94,
 	/// 16-bit branch, 1-byte signed relative offset
-	br16_1,
+	br16_1 = 95,
 	/// 32-bit branch, 1-byte signed relative offset
-	br32_1,
+	br32_1 = 96,
 	/// 64-bit branch, 1-byte signed relative offset
-	br64_1,
+	br64_1 = 97,
 	/// 16-bit branch, 2-byte signed relative offset
-	br16_2,
+	br16_2 = 98,
 	/// 32-bit branch, 4-byte signed relative offset
-	br32_4,
+	br32_4 = 99,
 	/// 64-bit branch, 4-byte signed relative offset
-	br64_4,
+	br64_4 = 100,
 	/// `XBEGIN`, 2-byte signed relative offset
-	xbegin_2,
+	xbegin_2 = 101,
 	/// `XBEGIN`, 4-byte signed relative offset
-	xbegin_4,
+	xbegin_4 = 102,
 	/// 2-byte branch offset (`JMPE` instruction)
-	brdisp_2,
+	brdisp_2 = 103,
 	/// 4-byte branch offset (`JMPE` instruction)
-	brdisp_4,
+	brdisp_4 = 104,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -966,275 +966,275 @@ impl Default for OpCodeOperandKind {
 #[allow(non_camel_case_types)]
 pub enum CpuidFeature {
 	/// 8086 or later
-	INTEL8086,
+	INTEL8086 = 0,
 	/// 8086 only
-	INTEL8086_ONLY,
+	INTEL8086_ONLY = 1,
 	/// 80186 or later
-	INTEL186,
+	INTEL186 = 2,
 	/// 80286 or later
-	INTEL286,
+	INTEL286 = 3,
 	/// 80286 only
-	INTEL286_ONLY,
+	INTEL286_ONLY = 4,
 	/// 80386 or later
-	INTEL386,
+	INTEL386 = 5,
 	/// 80386 only
-	INTEL386_ONLY,
+	INTEL386_ONLY = 6,
 	/// 80386 A0-B0 stepping only (`XBTS`, `IBTS` instructions)
-	INTEL386_A0_ONLY,
+	INTEL386_A0_ONLY = 7,
 	/// Intel486 or later
-	INTEL486,
+	INTEL486 = 8,
 	/// Intel486 A stepping only (`CMPXCHG`)
-	INTEL486_A_ONLY,
+	INTEL486_A_ONLY = 9,
 	/// 80386 and Intel486 only
-	INTEL386_486_ONLY,
+	INTEL386_486_ONLY = 10,
 	/// IA-64
-	IA64,
+	IA64 = 11,
 	/// CPUID.80000001H:EDX.LM\[bit 29\]
-	X64,
+	X64 = 12,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.ADX\[bit 19\]
-	ADX,
+	ADX = 13,
 	/// CPUID.01H:ECX.AES\[bit 25\]
-	AES,
+	AES = 14,
 	/// CPUID.01H:ECX.AVX\[bit 28\]
-	AVX,
+	AVX = 15,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX2\[bit 5\]
-	AVX2,
+	AVX2 = 16,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.AVX512_4FMAPS\[bit 3\]
-	AVX512_4FMAPS,
+	AVX512_4FMAPS = 17,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.AVX512_4VNNIW\[bit 2\]
-	AVX512_4VNNIW,
+	AVX512_4VNNIW = 18,
 	/// CPUID.(EAX=07H, ECX=1):EAX\[bit 5\]
-	AVX512_BF16,
+	AVX512_BF16 = 19,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_BITALG\[bit 12\]
-	AVX512_BITALG,
+	AVX512_BITALG = 20,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512_IFMA\[bit 21\]
-	AVX512_IFMA,
+	AVX512_IFMA = 21,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VBMI\[bit 1\]
-	AVX512_VBMI,
+	AVX512_VBMI = 22,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VBMI2\[bit 6\]
-	AVX512_VBMI2,
+	AVX512_VBMI2 = 23,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VNNI\[bit 11\]
-	AVX512_VNNI,
+	AVX512_VNNI = 24,
 	/// CPUID.(EAX=07H, ECX=0):EDX\[bit 08\]
-	AVX512_VP2INTERSECT,
+	AVX512_VP2INTERSECT = 25,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VPOPCNTDQ\[bit 14\]
-	AVX512_VPOPCNTDQ,
+	AVX512_VPOPCNTDQ = 26,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512BW\[bit 30\]
-	AVX512BW,
+	AVX512BW = 27,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512CD\[bit 28\]
-	AVX512CD,
+	AVX512CD = 28,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512DQ\[bit 17\]
-	AVX512DQ,
+	AVX512DQ = 29,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512ER\[bit 27\]
-	AVX512ER,
+	AVX512ER = 30,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512F\[bit 16\]
-	AVX512F,
+	AVX512F = 31,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512PF\[bit 26\]
-	AVX512PF,
+	AVX512PF = 32,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.AVX512VL\[bit 31\]
-	AVX512VL,
+	AVX512VL = 33,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.BMI1\[bit 3\]
-	BMI1,
+	BMI1 = 34,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.BMI2\[bit 8\]
-	BMI2,
+	BMI2 = 35,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.CET_IBT\[bit 20\]
-	CET_IBT,
+	CET_IBT = 36,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.CET_SS\[bit 7\]
-	CET_SS,
+	CET_SS = 37,
 	/// `CL1INVMB` instruction (Intel SCC = Single-Chip Computer)
-	CL1INVMB,
+	CL1INVMB = 38,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.CLDEMOTE\[bit 25\]
-	CLDEMOTE,
+	CLDEMOTE = 39,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.CLFLUSHOPT\[bit 23\]
-	CLFLUSHOPT,
+	CLFLUSHOPT = 40,
 	/// CPUID.01H:EDX.CLFSH\[bit 19\]
-	CLFSH,
+	CLFSH = 41,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.CLWB\[bit 24\]
-	CLWB,
+	CLWB = 42,
 	/// CPUID.80000008H:EBX.CLZERO\[bit 0\]
-	CLZERO,
+	CLZERO = 43,
 	/// CPUID.01H:EDX.CMOV\[bit 15\]
-	CMOV,
+	CMOV = 44,
 	/// CPUID.01H:ECX.CMPXCHG16B\[bit 13\]
-	CMPXCHG16B,
+	CMPXCHG16B = 45,
 	/// `RFLAGS.ID` can be toggled
-	CPUID,
+	CPUID = 46,
 	/// CPUID.01H:EDX.CX8\[bit 8\]
-	CX8,
+	CX8 = 47,
 	/// CPUID.80000001H:EDX.3DNOW\[bit 31\]
-	D3NOW,
+	D3NOW = 48,
 	/// CPUID.80000001H:EDX.3DNOWEXT\[bit 30\]
-	D3NOWEXT,
+	D3NOWEXT = 49,
 	/// CPUID.(EAX=12H, ECX=0H):EAX.OSS\[bit 5\]
-	ENCLV,
+	ENCLV = 50,
 	/// CPUID.(EAX=07H, ECX=0):ECX\[bit 29\]
-	ENQCMD,
+	ENQCMD = 51,
 	/// CPUID.01H:ECX.F16C\[bit 29\]
-	F16C,
+	F16C = 52,
 	/// CPUID.01H:ECX.FMA\[bit 12\]
-	FMA,
+	FMA = 53,
 	/// CPUID.80000001H:ECX.FMA4\[bit 16\]
-	FMA4,
+	FMA4 = 54,
 	/// 8087 or later (CPUID.01H:EDX.FPU\[bit 0\])
-	FPU,
+	FPU = 55,
 	/// 80287 or later
-	FPU287,
+	FPU287 = 56,
 	/// 80287XL only
-	FPU287XL_ONLY,
+	FPU287XL_ONLY = 57,
 	/// 80387 or later
-	FPU387,
+	FPU387 = 58,
 	/// 80387SL only
-	FPU387SL_ONLY,
+	FPU387SL_ONLY = 59,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.FSGSBASE\[bit 0\]
-	FSGSBASE,
+	FSGSBASE = 60,
 	/// CPUID.01H:EDX.FXSR\[bit 24\]
-	FXSR,
+	FXSR = 61,
 	/// AMD Geode LX/GX CPU
-	GEODE,
+	GEODE = 62,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.GFNI\[bit 8\]
-	GFNI,
+	GFNI = 63,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.HLE\[bit 4\]
-	HLE,
+	HLE = 64,
 	/// [`HLE`] or [`RTM`]
 	///
 	/// [`HLE`]: enum.CpuidFeature.html#variant.HLE
 	/// [`RTM`]: enum.CpuidFeature.html#variant.RTM
-	HLE_or_RTM,
+	HLE_or_RTM = 65,
 	/// [`VMX`] and IA32_VMX_EPT_VPID_CAP\[bit 20\]
 	///
 	/// [`VMX`]: enum.CpuidFeature.html#variant.VMX
-	INVEPT,
+	INVEPT = 66,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.INVPCID\[bit 10\]
-	INVPCID,
+	INVPCID = 67,
 	/// [`VMX`] and IA32_VMX_EPT_VPID_CAP\[bit 32\]
 	///
 	/// [`VMX`]: enum.CpuidFeature.html#variant.VMX
-	INVVPID,
+	INVVPID = 68,
 	/// CPUID.80000001H:ECX.LWP\[bit 15\]
-	LWP,
+	LWP = 69,
 	/// CPUID.80000001H:ECX.LZCNT\[bit 5\]
-	LZCNT,
+	LZCNT = 70,
 	/// CPUID.80000008H:EBX.MCOMMIT\[bit 8\]
-	MCOMMIT,
+	MCOMMIT = 71,
 	/// CPUID.01H:EDX.MMX\[bit 23\]
-	MMX,
+	MMX = 72,
 	/// CPUID.01H:ECX.MONITOR\[bit 3\]
-	MONITOR,
+	MONITOR = 73,
 	/// CPUID.80000001H:ECX.MONITORX\[bit 29\]
-	MONITORX,
+	MONITORX = 74,
 	/// CPUID.01H:ECX.MOVBE\[bit 22\]
-	MOVBE,
+	MOVBE = 75,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.MOVDIR64B\[bit 28\]
-	MOVDIR64B,
+	MOVDIR64B = 76,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.MOVDIRI\[bit 27\]
-	MOVDIRI,
+	MOVDIRI = 77,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.MPX\[bit 14\]
-	MPX,
+	MPX = 78,
 	/// CPUID.01H:EDX.MSR\[bit 5\]
-	MSR,
+	MSR = 79,
 	/// Multi-byte nops (`0F1F /0`): CPUID.01H.EAX\[Bits 11:8\] = 0110B or 1111B
-	MULTIBYTENOP,
+	MULTIBYTENOP = 80,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.ACE\[Bits 7:6\] = 11B (\[6\] = exists, \[7\] = enabled)
-	PADLOCK_ACE,
+	PADLOCK_ACE = 81,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PHE\[Bits 11:10\] = 11B (\[10\] = exists, \[11\] = enabled)
-	PADLOCK_PHE,
+	PADLOCK_PHE = 82,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.PMM\[Bits 13:12\] = 11B (\[12\] = exists, \[13\] = enabled)
-	PADLOCK_PMM,
+	PADLOCK_PMM = 83,
 	/// CPUID.0C0000000H:EAX >= 0C0000001H AND CPUID.0C0000001H:EDX.RNG\[Bits 3:2\] = 11B (\[2\] = exists, \[3\] = enabled)
-	PADLOCK_RNG,
+	PADLOCK_RNG = 84,
 	/// `PAUSE` instruction (Pentium 4 or later)
-	PAUSE,
+	PAUSE = 85,
 	/// CPUID.01H:ECX.PCLMULQDQ\[bit 1\]
-	PCLMULQDQ,
+	PCLMULQDQ = 86,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.PCOMMIT\[bit 22\]
-	PCOMMIT,
+	PCOMMIT = 87,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.PCONFIG\[bit 18\]
-	PCONFIG,
+	PCONFIG = 88,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.PKU\[bit 3\]
-	PKU,
+	PKU = 89,
 	/// CPUID.01H:ECX.POPCNT\[bit 23\]
-	POPCNT,
+	POPCNT = 90,
 	/// CPUID.80000001H:ECX.PREFETCHW\[bit 8\]
-	PREFETCHW,
+	PREFETCHW = 91,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.PREFETCHWT1\[bit 0\]
-	PREFETCHWT1,
+	PREFETCHWT1 = 92,
 	/// CPUID.(EAX=14H, ECX=0H):EBX.PTWRITE\[bit 4\]
-	PTWRITE,
+	PTWRITE = 93,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.RDPID\[bit 22\]
-	RDPID,
+	RDPID = 94,
 	/// `RDPMC` instruction (Pentium MMX or later, or Pentium Pro or later)
-	RDPMC,
+	RDPMC = 95,
 	/// CPUID.80000008H:EBX.RDPRU\[bit 4\]
-	RDPRU,
+	RDPRU = 96,
 	/// CPUID.01H:ECX.RDRAND\[bit 30\]
-	RDRAND,
+	RDRAND = 97,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.RDSEED\[bit 18\]
-	RDSEED,
+	RDSEED = 98,
 	/// CPUID.80000001H:EDX.RDTSCP\[bit 27\]
-	RDTSCP,
+	RDTSCP = 99,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.RTM\[bit 11\]
-	RTM,
+	RTM = 100,
 	/// CPUID.01H:EDX.SEP\[bit 11\]
-	SEP,
+	SEP = 101,
 	/// CPUID.(EAX=12H, ECX=0H):EAX.SGX1\[bit 0\]
-	SGX1,
+	SGX1 = 102,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.SHA\[bit 29\]
-	SHA,
+	SHA = 103,
 	/// CPUID.80000001H:ECX.SKINIT\[bit 12\]
-	SKINIT,
+	SKINIT = 104,
 	/// [`SKINIT`] or [`SVML`]
 	///
 	/// [`SKINIT`]: enum.CpuidFeature.html#variant.SKINIT
 	/// [`SVML`]: enum.CpuidFeature.html#variant.SVML
-	SKINIT_or_SVML,
+	SKINIT_or_SVML = 105,
 	/// CPUID.(EAX=07H, ECX=0H):EBX.SMAP\[bit 20\]
-	SMAP,
+	SMAP = 106,
 	/// CPUID.01H:ECX.SMX\[bit 6\]
-	SMX,
+	SMX = 107,
 	/// CPUID.01H:EDX.SSE\[bit 25\]
-	SSE,
+	SSE = 108,
 	/// CPUID.01H:EDX.SSE2\[bit 26\]
-	SSE2,
+	SSE2 = 109,
 	/// CPUID.01H:ECX.SSE3\[bit 0\]
-	SSE3,
+	SSE3 = 110,
 	/// CPUID.01H:ECX.SSE4_1\[bit 19\]
-	SSE4_1,
+	SSE4_1 = 111,
 	/// CPUID.01H:ECX.SSE4_2\[bit 20\]
-	SSE4_2,
+	SSE4_2 = 112,
 	/// CPUID.80000001H:ECX.SSE4A\[bit 6\]
-	SSE4A,
+	SSE4A = 113,
 	/// CPUID.01H:ECX.SSSE3\[bit 9\]
-	SSSE3,
+	SSSE3 = 114,
 	/// CPUID.80000001H:ECX.SVM\[bit 2\]
-	SVM,
+	SVM = 115,
 	/// CPUID.8000000AH:EDX.SVML\[bit 2\]
-	SVML,
+	SVML = 116,
 	/// CPUID.80000001H:EDX.SYSCALL\[bit 11\]
-	SYSCALL,
+	SYSCALL = 117,
 	/// CPUID.80000001H:ECX.TBM\[bit 21\]
-	TBM,
+	TBM = 118,
 	/// CPUID.01H:EDX.TSC\[bit 4\]
-	TSC,
+	TSC = 119,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.VAES\[bit 9\]
-	VAES,
+	VAES = 120,
 	/// CPUID.01H:ECX.VMX\[bit 5\]
-	VMX,
+	VMX = 121,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.VPCLMULQDQ\[bit 10\]
-	VPCLMULQDQ,
+	VPCLMULQDQ = 122,
 	/// CPUID.(EAX=07H, ECX=0H):ECX.WAITPKG\[bit 5\]
-	WAITPKG,
+	WAITPKG = 123,
 	/// CPUID.(EAX=80000008H, ECX=0H):EBX.WBNOINVD\[bit 9\]
-	WBNOINVD,
+	WBNOINVD = 124,
 	/// CPUID.80000001H:ECX.XOP\[bit 11\]
-	XOP,
+	XOP = 125,
 	/// CPUID.01H:ECX.XSAVE\[bit 26\]
-	XSAVE,
+	XSAVE = 126,
 	/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVEC\[bit 1\]
-	XSAVEC,
+	XSAVEC = 127,
 	/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVEOPT\[bit 0\]
-	XSAVEOPT,
+	XSAVEOPT = 128,
 	/// CPUID.(EAX=0DH, ECX=1H):EAX.XSAVES\[bit 3\]
-	XSAVES,
+	XSAVES = 129,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -1418,21 +1418,21 @@ impl RflagsBits {
 #[cfg(feature = "instr_info")]
 pub enum OpAccess {
 	/// Nothing is read and nothing is written
-	None,
+	None = 0,
 	/// The value is read
-	Read,
+	Read = 1,
 	/// The value is sometimes read and sometimes not
-	CondRead,
+	CondRead = 2,
 	/// The value is completely overwritten
-	Write,
+	Write = 3,
 	/// Conditional write, sometimes it's written and sometimes it's not modified
-	CondWrite,
+	CondWrite = 4,
 	/// The value is read and written
-	ReadWrite,
+	ReadWrite = 5,
 	/// The value is read and sometimes written
-	ReadCondWrite,
+	ReadCondWrite = 6,
 	/// The memory operand doesn't refer to memory (eg. `LEA` instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. `INVLPG`, `PREFETCHNTA`, `VGATHERPF0DPS`, etc.
-	NoMemAccess,
+	NoMemAccess = 7,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -1472,39 +1472,39 @@ impl Default for OpAccess {
 #[allow(non_camel_case_types)]
 pub enum ConditionCode {
 	/// The instruction doesn't have a condition code
-	None,
+	None = 0,
 	/// Overflow (`OF=1`)
-	o,
+	o = 1,
 	/// Not overflow (`OF=0`)
-	no,
+	no = 2,
 	/// Below (unsigned) (`CF=1`)
-	b,
+	b = 3,
 	/// Above or equal (unsigned) (`CF=0`)
-	ae,
+	ae = 4,
 	/// Equal / zero (`ZF=1`)
-	e,
+	e = 5,
 	/// Not equal / zero (`ZF=0`)
-	ne,
+	ne = 6,
 	/// Below or equal (unsigned) (`CF=1 or ZF=1`)
-	be,
+	be = 7,
 	/// Above (unsigned) (`CF=0 and ZF=0`)
-	a,
+	a = 8,
 	/// Signed (`SF=1`)
-	s,
+	s = 9,
 	/// Not signed (`SF=0`)
-	ns,
+	ns = 10,
 	/// Parity (`PF=1`)
-	p,
+	p = 11,
 	/// Not parity (`PF=0`)
-	np,
+	np = 12,
 	/// Less (signed) (`SF!=OF`)
-	l,
+	l = 13,
 	/// Greater than or equal (signed) (`SF=OF`)
-	ge,
+	ge = 14,
 	/// Less than or equal (signed) (`ZF=1 or SF!=OF`)
-	le,
+	le = 15,
 	/// Greater (signed) (`ZF=0 and SF=OF`)
-	g,
+	g = 16,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -1552,15 +1552,15 @@ impl Default for ConditionCode {
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub enum MandatoryPrefix {
 	/// No mandatory prefix (legacy and 3DNow! tables only)
-	None,
+	None = 0,
 	/// Empty mandatory prefix (no `66`, `F3` or `F2` prefix)
-	PNP,
+	PNP = 1,
 	/// `66` prefix
-	P66,
+	P66 = 2,
 	/// `F3` prefix
-	PF3,
+	PF3 = 3,
 	/// `F2` prefix
-	PF2,
+	PF2 = 4,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
@@ -1597,19 +1597,19 @@ impl Default for MandatoryPrefix {
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum OpCodeTableKind {
 	/// Legacy encoding table
-	Normal,
+	Normal = 0,
 	/// `0Fxx` table (legacy, VEX, EVEX)
-	T0F,
+	T0F = 1,
 	/// `0F38xx` table (legacy, VEX, EVEX)
-	T0F38,
+	T0F38 = 2,
 	/// `0F3Axx` table (legacy, VEX, EVEX)
-	T0F3A,
+	T0F3A = 3,
 	/// `XOP8` table (XOP)
-	XOP8,
+	XOP8 = 4,
 	/// `XOP9` table (XOP)
-	XOP9,
+	XOP9 = 5,
 	/// `XOPA` table (XOP)
-	XOPA,
+	XOPA = 6,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]

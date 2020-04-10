@@ -1291,11 +1291,11 @@ impl Default for EvexOpKind {
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum RepPrefixKind {
 	/// No `REP`/`REPE`/`REPNE` prefix
-	None,
+	None = 0,
 	/// `REP`/`REPE` prefix
-	Repe,
+	Repe = 1,
 	/// `REPNE` prefix
-	Repne,
+	Repne = 2,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_REP_PREFIX_KIND: [&str; 3] = [

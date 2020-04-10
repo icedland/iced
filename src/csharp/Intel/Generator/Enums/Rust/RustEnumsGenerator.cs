@@ -212,7 +212,7 @@ namespace Generator.Enums.Rust {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
-					if (expectedValue != value.Value)
+					if (expectedValue != value.Value || enumType.IsPublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
 						writer.WriteLine($"{value.Name(idConverter)},");

@@ -30,13 +30,13 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum CodeSize {
 	/// Unknown size
-	Unknown,
+	Unknown = 0,
 	/// 16-bit code
-	Code16,
+	Code16 = 1,
 	/// 32-bit code
-	Code32,
+	Code32 = 2,
 	/// 64-bit code
-	Code64,
+	Code64 = 3,
 }
 // GENERATOR-END: Enum
 

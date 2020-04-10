@@ -29,13 +29,13 @@ use core::fmt;
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum NumberBase {
 	/// Hex numbers (base 16)
-	Hexadecimal,
+	Hexadecimal = 0,
 	/// Decimal numbers (base 10)
-	Decimal,
+	Decimal = 1,
 	/// Octal numbers (base 8)
-	Octal,
+	Octal = 2,
 	/// Binary numbers (base 2)
-	Binary,
+	Binary = 3,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_NUMBER_BASE: [&str; 4] = [
@@ -66,13 +66,13 @@ impl Default for NumberBase {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum MemorySizeOptions {
 	/// Show memory size if the assembler requires it, else don't show anything
-	Default,
+	Default = 0,
 	/// Always show the memory size, even if the assembler doesn't need it
-	Always,
+	Always = 1,
 	/// Show memory size if a human can't figure out the size of the operand
-	Minimum,
+	Minimum = 2,
 	/// Never show memory size
-	Never,
+	Never = 3,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_MEMORY_SIZE_OPTIONS: [&str; 4] = [
@@ -119,24 +119,24 @@ impl FormatMnemonicOptions {
 #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[allow(missing_docs)]
 pub enum PrefixKind {
-	ES,
-	CS,
-	SS,
-	DS,
-	FS,
-	GS,
-	Lock,
-	Rep,
-	Repe,
-	Repne,
-	OperandSize,
-	AddressSize,
-	HintNotTaken,
-	HintTaken,
-	Bnd,
-	Notrack,
-	Xacquire,
-	Xrelease,
+	ES = 0,
+	CS = 1,
+	SS = 2,
+	DS = 3,
+	FS = 4,
+	GS = 5,
+	Lock = 6,
+	Rep = 7,
+	Repe = 8,
+	Repne = 9,
+	OperandSize = 10,
+	AddressSize = 11,
+	HintNotTaken = 12,
+	HintTaken = 13,
+	Bnd = 14,
+	Notrack = 15,
+	Xacquire = 16,
+	Xrelease = 17,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_PREFIX_KIND: [&str; 18] = [
@@ -182,13 +182,13 @@ impl Default for PrefixKind {
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum DecoratorKind {
 	/// Broadcast decorator, eg. `{1to4}`
-	Broadcast,
+	Broadcast = 0,
 	/// Rounding control, eg. `{rd-sae}`
-	RoundingControl,
+	RoundingControl = 1,
 	/// Suppress all exceptions: `{sae}`
-	SuppressAllExceptions,
+	SuppressAllExceptions = 2,
 	/// Zeroing masking: `{z}`
-	ZeroingMasking,
+	ZeroingMasking = 3,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_DECORATOR_KIND: [&str; 4] = [
@@ -220,14 +220,14 @@ impl Default for DecoratorKind {
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 #[allow(missing_docs)]
 pub enum NumberKind {
-	Int8,
-	UInt8,
-	Int16,
-	UInt16,
-	Int32,
-	UInt32,
-	Int64,
-	UInt64,
+	Int8 = 0,
+	UInt8 = 1,
+	Int16 = 2,
+	UInt16 = 3,
+	Int32 = 4,
+	UInt32 = 5,
+	Int64 = 6,
+	UInt64 = 7,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_NUMBER_KIND: [&str; 8] = [
@@ -263,37 +263,37 @@ impl Default for NumberKind {
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum FormatterTextKind {
 	/// Normal text
-	Text,
+	Text = 0,
 	/// Assembler directive
-	Directive,
+	Directive = 1,
 	/// Any prefix
-	Prefix,
+	Prefix = 2,
 	/// Any mnemonic
-	Mnemonic,
+	Mnemonic = 3,
 	/// Any keyword
-	Keyword,
+	Keyword = 4,
 	/// Any operator
-	Operator,
+	Operator = 5,
 	/// Any punctuation
-	Punctuation,
+	Punctuation = 6,
 	/// Number
-	Number,
+	Number = 7,
 	/// Any register
-	Register,
+	Register = 8,
 	/// A decorator, eg. `sae` in `{sae}`
-	Decorator,
+	Decorator = 9,
 	/// Selector value (eg. far `JMP`/`CALL`)
-	SelectorValue,
+	SelectorValue = 10,
 	/// Label address (eg. `JE XXXXXX`)
-	LabelAddress,
+	LabelAddress = 11,
 	/// Function address (eg. `CALL XXXXXX`)
-	FunctionAddress,
+	FunctionAddress = 12,
 	/// Data symbol
-	Data,
+	Data = 13,
 	/// Label symbol
-	Label,
+	Label = 14,
 	/// Function symbol
-	Function,
+	Function = 15,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_FORMATTER_TEXT_KIND: [&str; 16] = [

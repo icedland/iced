@@ -112,7 +112,7 @@ namespace Generator.Enums.RustJS {
 						docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = {NumberFormatter.FormatHexUInt32WithSep(value.Value)},");
-					else if (expectedValue != value.Value)
+					else if (expectedValue != value.Value || enumType.IsPublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
 						writer.WriteLine($"{value.Name(idConverter)},");

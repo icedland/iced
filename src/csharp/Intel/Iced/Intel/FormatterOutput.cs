@@ -171,24 +171,24 @@ namespace Iced.Intel {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary>Prefix</summary>
 	public enum PrefixKind {
-		ES,
-		CS,
-		SS,
-		DS,
-		FS,
-		GS,
-		Lock,
-		Rep,
-		Repe,
-		Repne,
-		OperandSize,
-		AddressSize,
-		HintNotTaken,
-		HintTaken,
-		Bnd,
-		Notrack,
-		Xacquire,
-		Xrelease,
+		ES = 0,
+		CS = 1,
+		SS = 2,
+		DS = 3,
+		FS = 4,
+		GS = 5,
+		Lock = 6,
+		Rep = 7,
+		Repe = 8,
+		Repne = 9,
+		OperandSize = 10,
+		AddressSize = 11,
+		HintNotTaken = 12,
+		HintTaken = 13,
+		Bnd = 14,
+		Notrack = 15,
+		Xacquire = 16,
+		Xrelease = 17,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	// GENERATOR-END: PrefixKind
@@ -198,13 +198,13 @@ namespace Iced.Intel {
 	/// <summary>Decorator</summary>
 	public enum DecoratorKind {
 		/// <summary>Broadcast decorator, eg. <c>{1to4}</c></summary>
-		Broadcast,
+		Broadcast = 0,
 		/// <summary>Rounding control, eg. <c>{rd-sae}</c></summary>
-		RoundingControl,
+		RoundingControl = 1,
 		/// <summary>Suppress all exceptions: <c>{sae}</c></summary>
-		SuppressAllExceptions,
+		SuppressAllExceptions = 2,
 		/// <summary>Zeroing masking: <c>{z}</c></summary>
-		ZeroingMasking,
+		ZeroingMasking = 3,
 	}
 	// GENERATOR-END: DecoratorKind
 
@@ -213,14 +213,14 @@ namespace Iced.Intel {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	/// <summary>Number kind</summary>
 	public enum NumberKind {
-		Int8,
-		UInt8,
-		Int16,
-		UInt16,
-		Int32,
-		UInt32,
-		Int64,
-		UInt64,
+		Int8 = 0,
+		UInt8 = 1,
+		Int16 = 2,
+		UInt16 = 3,
+		Int32 = 4,
+		UInt32 = 5,
+		Int64 = 6,
+		UInt64 = 7,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	// GENERATOR-END: NumberKind

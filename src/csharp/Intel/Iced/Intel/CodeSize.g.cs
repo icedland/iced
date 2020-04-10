@@ -29,12 +29,12 @@ namespace Iced.Intel {
 	/// <summary>The code size (16/32/64) that was used when an instruction was decoded</summary>
 	public enum CodeSize {
 		/// <summary>Unknown size</summary>
-		Unknown,
+		Unknown = 0,
 		/// <summary>16-bit code</summary>
-		Code16,
+		Code16 = 1,
 		/// <summary>32-bit code</summary>
-		Code32,
+		Code32 = 2,
 		/// <summary>64-bit code</summary>
-		Code64,
+		Code64 = 3,
 	}
 }

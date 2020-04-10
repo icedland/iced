@@ -31,11 +31,11 @@ namespace Iced.Intel {
 	/// <summary><c>REP</c>/<c>REPE</c>/<c>REPNE</c> prefix</summary>
 	public enum RepPrefixKind {
 		/// <summary>No <c>REP</c>/<c>REPE</c>/<c>REPNE</c> prefix</summary>
-		None,
+		None = 0,
 		/// <summary><c>REP</c>/<c>REPE</c> prefix</summary>
-		Repe,
+		Repe = 1,
 		/// <summary><c>REPNE</c> prefix</summary>
-		Repne,
+		Repne = 2,
 	}
 	// GENERATOR-END: RepPrefixKind
 

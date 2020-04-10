@@ -210,7 +210,7 @@ namespace Generator.Enums.CSharp {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
-					else if (expectedValue != value.Value)
+					else if (expectedValue != value.Value || enumType.IsPublic)
 						writer.WriteLine($"{value.Name(idConverter)} = {value.Value},");
 					else
 						writer.WriteLine($"{value.Name(idConverter)},");

@@ -30,7 +30,7 @@ use core::fmt;
 #[cfg_attr(all(not(feature = "exhaustive_enums"), has_non_exhaustive), non_exhaustive)]
 pub enum RelocKind {
 	/// 64-bit offset. Only used if it's 64-bit code.
-	Offset64,
+	Offset64 = 0,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_RELOC_KIND: [&str; 1] = [

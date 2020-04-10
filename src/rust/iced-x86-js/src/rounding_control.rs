@@ -30,15 +30,15 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum RoundingControl {
 	/// No rounding mode
-	None,
+	None = 0,
 	/// Round to nearest (even)
-	RoundToNearest,
+	RoundToNearest = 1,
 	/// Round down (toward -inf)
-	RoundDown,
+	RoundDown = 2,
 	/// Round up (toward +inf)
-	RoundUp,
+	RoundUp = 3,
 	/// Round toward zero (truncate)
-	RoundTowardZero,
+	RoundTowardZero = 4,
 }
 // GENERATOR-END: Enum
 

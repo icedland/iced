@@ -34,7 +34,7 @@ namespace Iced.Intel {
 	/// <summary>Relocation kind</summary>
 	public enum RelocKind {
 		/// <summary>64-bit offset. Only used if it&apos;s 64-bit code.</summary>
-		Offset64,
+		Offset64 = 0,
 	}
 	// GENERATOR-END: RelocKind
 

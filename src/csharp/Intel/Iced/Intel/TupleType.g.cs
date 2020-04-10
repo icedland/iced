@@ -30,73 +30,73 @@ namespace Iced.Intel {
 	/// <summary>Tuple type (EVEX) which can be used to get the disp8 scale factor <c>N</c></summary>
 	public enum TupleType {
 		/// <summary><c>N = 1</c></summary>
-		None,
+		None = 0,
 		/// <summary><c>N = b ? (W ? 8 : 4) : 16</c></summary>
-		Full_128,
+		Full_128 = 1,
 		/// <summary><c>N = b ? (W ? 8 : 4) : 32</c></summary>
-		Full_256,
+		Full_256 = 2,
 		/// <summary><c>N = b ? (W ? 8 : 4) : 64</c></summary>
-		Full_512,
+		Full_512 = 3,
 		/// <summary><c>N = b ? 4 : 8</c></summary>
-		Half_128,
+		Half_128 = 4,
 		/// <summary><c>N = b ? 4 : 16</c></summary>
-		Half_256,
+		Half_256 = 5,
 		/// <summary><c>N = b ? 4 : 32</c></summary>
-		Half_512,
+		Half_512 = 6,
 		/// <summary><c>N = 16</c></summary>
-		Full_Mem_128,
+		Full_Mem_128 = 7,
 		/// <summary><c>N = 32</c></summary>
-		Full_Mem_256,
+		Full_Mem_256 = 8,
 		/// <summary><c>N = 64</c></summary>
-		Full_Mem_512,
+		Full_Mem_512 = 9,
 		/// <summary><c>N = W ? 8 : 4</c></summary>
-		Tuple1_Scalar,
+		Tuple1_Scalar = 10,
 		/// <summary><c>N = 1</c></summary>
-		Tuple1_Scalar_1,
+		Tuple1_Scalar_1 = 11,
 		/// <summary><c>N = 2</c></summary>
-		Tuple1_Scalar_2,
+		Tuple1_Scalar_2 = 12,
 		/// <summary><c>N = 4</c></summary>
-		Tuple1_Scalar_4,
+		Tuple1_Scalar_4 = 13,
 		/// <summary><c>N = 8</c></summary>
-		Tuple1_Scalar_8,
+		Tuple1_Scalar_8 = 14,
 		/// <summary><c>N = 4</c></summary>
-		Tuple1_Fixed_4,
+		Tuple1_Fixed_4 = 15,
 		/// <summary><c>N = 8</c></summary>
-		Tuple1_Fixed_8,
+		Tuple1_Fixed_8 = 16,
 		/// <summary><c>N = W ? 16 : 8</c></summary>
-		Tuple2,
+		Tuple2 = 17,
 		/// <summary><c>N = W ? 32 : 16</c></summary>
-		Tuple4,
+		Tuple4 = 18,
 		/// <summary><c>N = W ? error : 32</c></summary>
-		Tuple8,
+		Tuple8 = 19,
 		/// <summary><c>N = 16</c></summary>
-		Tuple1_4X,
+		Tuple1_4X = 20,
 		/// <summary><c>N = 8</c></summary>
-		Half_Mem_128,
+		Half_Mem_128 = 21,
 		/// <summary><c>N = 16</c></summary>
-		Half_Mem_256,
+		Half_Mem_256 = 22,
 		/// <summary><c>N = 32</c></summary>
-		Half_Mem_512,
+		Half_Mem_512 = 23,
 		/// <summary><c>N = 4</c></summary>
-		Quarter_Mem_128,
+		Quarter_Mem_128 = 24,
 		/// <summary><c>N = 8</c></summary>
-		Quarter_Mem_256,
+		Quarter_Mem_256 = 25,
 		/// <summary><c>N = 16</c></summary>
-		Quarter_Mem_512,
+		Quarter_Mem_512 = 26,
 		/// <summary><c>N = 2</c></summary>
-		Eighth_Mem_128,
+		Eighth_Mem_128 = 27,
 		/// <summary><c>N = 4</c></summary>
-		Eighth_Mem_256,
+		Eighth_Mem_256 = 28,
 		/// <summary><c>N = 8</c></summary>
-		Eighth_Mem_512,
+		Eighth_Mem_512 = 29,
 		/// <summary><c>N = 16</c></summary>
-		Mem128,
+		Mem128 = 30,
 		/// <summary><c>N = 8</c></summary>
-		MOVDDUP_128,
+		MOVDDUP_128 = 31,
 		/// <summary><c>N = 32</c></summary>
-		MOVDDUP_256,
+		MOVDDUP_256 = 32,
 		/// <summary><c>N = 64</c></summary>
-		MOVDDUP_512,
+		MOVDDUP_512 = 33,
 	}
 }
 #endif

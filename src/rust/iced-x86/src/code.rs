@@ -37,15 +37,15 @@ use core::mem;
 #[allow(non_camel_case_types)]
 pub enum Code {
 	/// It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.
-	INVALID,
+	INVALID = 0,
 	/// A `db`/`.byte` asm directive that can store 1-16 bytes
-	DeclareByte,
+	DeclareByte = 1,
 	/// A `dw`/`.word` asm directive that can store 1-8 words
-	DeclareWord,
+	DeclareWord = 2,
 	/// A `dd`/`.int` asm directive that can store 1-4 dwords
-	DeclareDword,
+	DeclareDword = 3,
 	/// A `dq`/`.quad` asm directive that can store 1-2 qwords
-	DeclareQword,
+	DeclareQword = 4,
 	/// `ADD r/m8, r8`
 	///
 	/// `00 /r`
@@ -53,7 +53,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_rm8_r8,
+	Add_rm8_r8 = 5,
 	/// `ADD r/m16, r16`
 	///
 	/// `o16 01 /r`
@@ -61,7 +61,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_rm16_r16,
+	Add_rm16_r16 = 6,
 	/// `ADD r/m32, r32`
 	///
 	/// `o32 01 /r`
@@ -69,7 +69,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Add_rm32_r32,
+	Add_rm32_r32 = 7,
 	/// `ADD r/m64, r64`
 	///
 	/// `REX.W 01 /r`
@@ -77,7 +77,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Add_rm64_r64,
+	Add_rm64_r64 = 8,
 	/// `ADD r8, r/m8`
 	///
 	/// `02 /r`
@@ -85,7 +85,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_r8_rm8,
+	Add_r8_rm8 = 9,
 	/// `ADD r16, r/m16`
 	///
 	/// `o16 03 /r`
@@ -93,7 +93,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_r16_rm16,
+	Add_r16_rm16 = 10,
 	/// `ADD r32, r/m32`
 	///
 	/// `o32 03 /r`
@@ -101,7 +101,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Add_r32_rm32,
+	Add_r32_rm32 = 11,
 	/// `ADD r64, r/m64`
 	///
 	/// `REX.W 03 /r`
@@ -109,7 +109,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Add_r64_rm64,
+	Add_r64_rm64 = 12,
 	/// `ADD AL, imm8`
 	///
 	/// `04 ib`
@@ -117,7 +117,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_AL_imm8,
+	Add_AL_imm8 = 13,
 	/// `ADD AX, imm16`
 	///
 	/// `o16 05 iw`
@@ -125,7 +125,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_AX_imm16,
+	Add_AX_imm16 = 14,
 	/// `ADD EAX, imm32`
 	///
 	/// `o32 05 id`
@@ -133,7 +133,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Add_EAX_imm32,
+	Add_EAX_imm32 = 15,
 	/// `ADD RAX, imm32`
 	///
 	/// `REX.W 05 id`
@@ -141,7 +141,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Add_RAX_imm32,
+	Add_RAX_imm32 = 16,
 	/// `PUSH ES`
 	///
 	/// `o16 06`
@@ -149,7 +149,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Pushw_ES,
+	Pushw_ES = 17,
 	/// `PUSH ES`
 	///
 	/// `o32 06`
@@ -157,7 +157,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_ES,
+	Pushd_ES = 18,
 	/// `POP ES`
 	///
 	/// `o16 07`
@@ -165,7 +165,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Popw_ES,
+	Popw_ES = 19,
 	/// `POP ES`
 	///
 	/// `o32 07`
@@ -173,7 +173,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popd_ES,
+	Popd_ES = 20,
 	/// `OR r/m8, r8`
 	///
 	/// `08 /r`
@@ -181,7 +181,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_rm8_r8,
+	Or_rm8_r8 = 21,
 	/// `OR r/m16, r16`
 	///
 	/// `o16 09 /r`
@@ -189,7 +189,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_rm16_r16,
+	Or_rm16_r16 = 22,
 	/// `OR r/m32, r32`
 	///
 	/// `o32 09 /r`
@@ -197,7 +197,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Or_rm32_r32,
+	Or_rm32_r32 = 23,
 	/// `OR r/m64, r64`
 	///
 	/// `REX.W 09 /r`
@@ -205,7 +205,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Or_rm64_r64,
+	Or_rm64_r64 = 24,
 	/// `OR r8, r/m8`
 	///
 	/// `0A /r`
@@ -213,7 +213,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_r8_rm8,
+	Or_r8_rm8 = 25,
 	/// `OR r16, r/m16`
 	///
 	/// `o16 0B /r`
@@ -221,7 +221,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_r16_rm16,
+	Or_r16_rm16 = 26,
 	/// `OR r32, r/m32`
 	///
 	/// `o32 0B /r`
@@ -229,7 +229,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Or_r32_rm32,
+	Or_r32_rm32 = 27,
 	/// `OR r64, r/m64`
 	///
 	/// `REX.W 0B /r`
@@ -237,7 +237,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Or_r64_rm64,
+	Or_r64_rm64 = 28,
 	/// `OR AL, imm8`
 	///
 	/// `0C ib`
@@ -245,7 +245,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_AL_imm8,
+	Or_AL_imm8 = 29,
 	/// `OR AX, imm16`
 	///
 	/// `o16 0D iw`
@@ -253,7 +253,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_AX_imm16,
+	Or_AX_imm16 = 30,
 	/// `OR EAX, imm32`
 	///
 	/// `o32 0D id`
@@ -261,7 +261,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Or_EAX_imm32,
+	Or_EAX_imm32 = 31,
 	/// `OR RAX, imm32`
 	///
 	/// `REX.W 0D id`
@@ -269,7 +269,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Or_RAX_imm32,
+	Or_RAX_imm32 = 32,
 	/// `PUSH CS`
 	///
 	/// `o16 0E`
@@ -277,7 +277,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Pushw_CS,
+	Pushw_CS = 33,
 	/// `PUSH CS`
 	///
 	/// `o32 0E`
@@ -285,7 +285,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_CS,
+	Pushd_CS = 34,
 	/// `POP CS`
 	///
 	/// `o16 0F`
@@ -293,7 +293,7 @@ pub enum Code {
 	/// `8086`
 	///
 	/// `16/32-bit`
-	Popw_CS,
+	Popw_CS = 35,
 	/// `ADC r/m8, r8`
 	///
 	/// `10 /r`
@@ -301,7 +301,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm8_r8,
+	Adc_rm8_r8 = 36,
 	/// `ADC r/m16, r16`
 	///
 	/// `o16 11 /r`
@@ -309,7 +309,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm16_r16,
+	Adc_rm16_r16 = 37,
 	/// `ADC r/m32, r32`
 	///
 	/// `o32 11 /r`
@@ -317,7 +317,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm32_r32,
+	Adc_rm32_r32 = 38,
 	/// `ADC r/m64, r64`
 	///
 	/// `REX.W 11 /r`
@@ -325,7 +325,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Adc_rm64_r64,
+	Adc_rm64_r64 = 39,
 	/// `ADC r8, r/m8`
 	///
 	/// `12 /r`
@@ -333,7 +333,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_r8_rm8,
+	Adc_r8_rm8 = 40,
 	/// `ADC r16, r/m16`
 	///
 	/// `o16 13 /r`
@@ -341,7 +341,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_r16_rm16,
+	Adc_r16_rm16 = 41,
 	/// `ADC r32, r/m32`
 	///
 	/// `o32 13 /r`
@@ -349,7 +349,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Adc_r32_rm32,
+	Adc_r32_rm32 = 42,
 	/// `ADC r64, r/m64`
 	///
 	/// `REX.W 13 /r`
@@ -357,7 +357,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Adc_r64_rm64,
+	Adc_r64_rm64 = 43,
 	/// `ADC AL, imm8`
 	///
 	/// `14 ib`
@@ -365,7 +365,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_AL_imm8,
+	Adc_AL_imm8 = 44,
 	/// `ADC AX, imm16`
 	///
 	/// `o16 15 iw`
@@ -373,7 +373,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_AX_imm16,
+	Adc_AX_imm16 = 45,
 	/// `ADC EAX, imm32`
 	///
 	/// `o32 15 id`
@@ -381,7 +381,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Adc_EAX_imm32,
+	Adc_EAX_imm32 = 46,
 	/// `ADC RAX, imm32`
 	///
 	/// `REX.W 15 id`
@@ -389,7 +389,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Adc_RAX_imm32,
+	Adc_RAX_imm32 = 47,
 	/// `PUSH SS`
 	///
 	/// `o16 16`
@@ -397,7 +397,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Pushw_SS,
+	Pushw_SS = 48,
 	/// `PUSH SS`
 	///
 	/// `o32 16`
@@ -405,7 +405,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_SS,
+	Pushd_SS = 49,
 	/// `POP SS`
 	///
 	/// `o16 17`
@@ -413,7 +413,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Popw_SS,
+	Popw_SS = 50,
 	/// `POP SS`
 	///
 	/// `o32 17`
@@ -421,7 +421,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popd_SS,
+	Popd_SS = 51,
 	/// `SBB r/m8, r8`
 	///
 	/// `18 /r`
@@ -429,7 +429,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm8_r8,
+	Sbb_rm8_r8 = 52,
 	/// `SBB r/m16, r16`
 	///
 	/// `o16 19 /r`
@@ -437,7 +437,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm16_r16,
+	Sbb_rm16_r16 = 53,
 	/// `SBB r/m32, r32`
 	///
 	/// `o32 19 /r`
@@ -445,7 +445,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm32_r32,
+	Sbb_rm32_r32 = 54,
 	/// `SBB r/m64, r64`
 	///
 	/// `REX.W 19 /r`
@@ -453,7 +453,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sbb_rm64_r64,
+	Sbb_rm64_r64 = 55,
 	/// `SBB r8, r/m8`
 	///
 	/// `1A /r`
@@ -461,7 +461,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_r8_rm8,
+	Sbb_r8_rm8 = 56,
 	/// `SBB r16, r/m16`
 	///
 	/// `o16 1B /r`
@@ -469,7 +469,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_r16_rm16,
+	Sbb_r16_rm16 = 57,
 	/// `SBB r32, r/m32`
 	///
 	/// `o32 1B /r`
@@ -477,7 +477,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sbb_r32_rm32,
+	Sbb_r32_rm32 = 58,
 	/// `SBB r64, r/m64`
 	///
 	/// `REX.W 1B /r`
@@ -485,7 +485,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sbb_r64_rm64,
+	Sbb_r64_rm64 = 59,
 	/// `SBB AL, imm8`
 	///
 	/// `1C ib`
@@ -493,7 +493,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_AL_imm8,
+	Sbb_AL_imm8 = 60,
 	/// `SBB AX, imm16`
 	///
 	/// `o16 1D iw`
@@ -501,7 +501,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_AX_imm16,
+	Sbb_AX_imm16 = 61,
 	/// `SBB EAX, imm32`
 	///
 	/// `o32 1D id`
@@ -509,7 +509,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sbb_EAX_imm32,
+	Sbb_EAX_imm32 = 62,
 	/// `SBB RAX, imm32`
 	///
 	/// `REX.W 1D id`
@@ -517,7 +517,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sbb_RAX_imm32,
+	Sbb_RAX_imm32 = 63,
 	/// `PUSH DS`
 	///
 	/// `o16 1E`
@@ -525,7 +525,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Pushw_DS,
+	Pushw_DS = 64,
 	/// `PUSH DS`
 	///
 	/// `o32 1E`
@@ -533,7 +533,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_DS,
+	Pushd_DS = 65,
 	/// `POP DS`
 	///
 	/// `o16 1F`
@@ -541,7 +541,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Popw_DS,
+	Popw_DS = 66,
 	/// `POP DS`
 	///
 	/// `o32 1F`
@@ -549,7 +549,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popd_DS,
+	Popd_DS = 67,
 	/// `AND r/m8, r8`
 	///
 	/// `20 /r`
@@ -557,7 +557,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_rm8_r8,
+	And_rm8_r8 = 68,
 	/// `AND r/m16, r16`
 	///
 	/// `o16 21 /r`
@@ -565,7 +565,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_rm16_r16,
+	And_rm16_r16 = 69,
 	/// `AND r/m32, r32`
 	///
 	/// `o32 21 /r`
@@ -573,7 +573,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	And_rm32_r32,
+	And_rm32_r32 = 70,
 	/// `AND r/m64, r64`
 	///
 	/// `REX.W 21 /r`
@@ -581,7 +581,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	And_rm64_r64,
+	And_rm64_r64 = 71,
 	/// `AND r8, r/m8`
 	///
 	/// `22 /r`
@@ -589,7 +589,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_r8_rm8,
+	And_r8_rm8 = 72,
 	/// `AND r16, r/m16`
 	///
 	/// `o16 23 /r`
@@ -597,7 +597,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_r16_rm16,
+	And_r16_rm16 = 73,
 	/// `AND r32, r/m32`
 	///
 	/// `o32 23 /r`
@@ -605,7 +605,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	And_r32_rm32,
+	And_r32_rm32 = 74,
 	/// `AND r64, r/m64`
 	///
 	/// `REX.W 23 /r`
@@ -613,7 +613,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	And_r64_rm64,
+	And_r64_rm64 = 75,
 	/// `AND AL, imm8`
 	///
 	/// `24 ib`
@@ -621,7 +621,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_AL_imm8,
+	And_AL_imm8 = 76,
 	/// `AND AX, imm16`
 	///
 	/// `o16 25 iw`
@@ -629,7 +629,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_AX_imm16,
+	And_AX_imm16 = 77,
 	/// `AND EAX, imm32`
 	///
 	/// `o32 25 id`
@@ -637,7 +637,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	And_EAX_imm32,
+	And_EAX_imm32 = 78,
 	/// `AND RAX, imm32`
 	///
 	/// `REX.W 25 id`
@@ -645,7 +645,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	And_RAX_imm32,
+	And_RAX_imm32 = 79,
 	/// `DAA`
 	///
 	/// `27`
@@ -653,7 +653,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Daa,
+	Daa = 80,
 	/// `SUB r/m8, r8`
 	///
 	/// `28 /r`
@@ -661,7 +661,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm8_r8,
+	Sub_rm8_r8 = 81,
 	/// `SUB r/m16, r16`
 	///
 	/// `o16 29 /r`
@@ -669,7 +669,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm16_r16,
+	Sub_rm16_r16 = 82,
 	/// `SUB r/m32, r32`
 	///
 	/// `o32 29 /r`
@@ -677,7 +677,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm32_r32,
+	Sub_rm32_r32 = 83,
 	/// `SUB r/m64, r64`
 	///
 	/// `REX.W 29 /r`
@@ -685,7 +685,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sub_rm64_r64,
+	Sub_rm64_r64 = 84,
 	/// `SUB r8, r/m8`
 	///
 	/// `2A /r`
@@ -693,7 +693,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_r8_rm8,
+	Sub_r8_rm8 = 85,
 	/// `SUB r16, r/m16`
 	///
 	/// `o16 2B /r`
@@ -701,7 +701,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_r16_rm16,
+	Sub_r16_rm16 = 86,
 	/// `SUB r32, r/m32`
 	///
 	/// `o32 2B /r`
@@ -709,7 +709,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sub_r32_rm32,
+	Sub_r32_rm32 = 87,
 	/// `SUB r64, r/m64`
 	///
 	/// `REX.W 2B /r`
@@ -717,7 +717,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sub_r64_rm64,
+	Sub_r64_rm64 = 88,
 	/// `SUB AL, imm8`
 	///
 	/// `2C ib`
@@ -725,7 +725,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_AL_imm8,
+	Sub_AL_imm8 = 89,
 	/// `SUB AX, imm16`
 	///
 	/// `o16 2D iw`
@@ -733,7 +733,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_AX_imm16,
+	Sub_AX_imm16 = 90,
 	/// `SUB EAX, imm32`
 	///
 	/// `o32 2D id`
@@ -741,7 +741,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sub_EAX_imm32,
+	Sub_EAX_imm32 = 91,
 	/// `SUB RAX, imm32`
 	///
 	/// `REX.W 2D id`
@@ -749,7 +749,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sub_RAX_imm32,
+	Sub_RAX_imm32 = 92,
 	/// `DAS`
 	///
 	/// `2F`
@@ -757,7 +757,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Das,
+	Das = 93,
 	/// `XOR r/m8, r8`
 	///
 	/// `30 /r`
@@ -765,7 +765,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm8_r8,
+	Xor_rm8_r8 = 94,
 	/// `XOR r/m16, r16`
 	///
 	/// `o16 31 /r`
@@ -773,7 +773,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm16_r16,
+	Xor_rm16_r16 = 95,
 	/// `XOR r/m32, r32`
 	///
 	/// `o32 31 /r`
@@ -781,7 +781,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm32_r32,
+	Xor_rm32_r32 = 96,
 	/// `XOR r/m64, r64`
 	///
 	/// `REX.W 31 /r`
@@ -789,7 +789,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xor_rm64_r64,
+	Xor_rm64_r64 = 97,
 	/// `XOR r8, r/m8`
 	///
 	/// `32 /r`
@@ -797,7 +797,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_r8_rm8,
+	Xor_r8_rm8 = 98,
 	/// `XOR r16, r/m16`
 	///
 	/// `o16 33 /r`
@@ -805,7 +805,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_r16_rm16,
+	Xor_r16_rm16 = 99,
 	/// `XOR r32, r/m32`
 	///
 	/// `o32 33 /r`
@@ -813,7 +813,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xor_r32_rm32,
+	Xor_r32_rm32 = 100,
 	/// `XOR r64, r/m64`
 	///
 	/// `REX.W 33 /r`
@@ -821,7 +821,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xor_r64_rm64,
+	Xor_r64_rm64 = 101,
 	/// `XOR AL, imm8`
 	///
 	/// `34 ib`
@@ -829,7 +829,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_AL_imm8,
+	Xor_AL_imm8 = 102,
 	/// `XOR AX, imm16`
 	///
 	/// `o16 35 iw`
@@ -837,7 +837,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_AX_imm16,
+	Xor_AX_imm16 = 103,
 	/// `XOR EAX, imm32`
 	///
 	/// `o32 35 id`
@@ -845,7 +845,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xor_EAX_imm32,
+	Xor_EAX_imm32 = 104,
 	/// `XOR RAX, imm32`
 	///
 	/// `REX.W 35 id`
@@ -853,7 +853,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xor_RAX_imm32,
+	Xor_RAX_imm32 = 105,
 	/// `AAA`
 	///
 	/// `37`
@@ -861,7 +861,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Aaa,
+	Aaa = 106,
 	/// `CMP r/m8, r8`
 	///
 	/// `38 /r`
@@ -869,7 +869,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm8_r8,
+	Cmp_rm8_r8 = 107,
 	/// `CMP r/m16, r16`
 	///
 	/// `o16 39 /r`
@@ -877,7 +877,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm16_r16,
+	Cmp_rm16_r16 = 108,
 	/// `CMP r/m32, r32`
 	///
 	/// `o32 39 /r`
@@ -885,7 +885,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm32_r32,
+	Cmp_rm32_r32 = 109,
 	/// `CMP r/m64, r64`
 	///
 	/// `REX.W 39 /r`
@@ -893,7 +893,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmp_rm64_r64,
+	Cmp_rm64_r64 = 110,
 	/// `CMP r8, r/m8`
 	///
 	/// `3A /r`
@@ -901,7 +901,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_r8_rm8,
+	Cmp_r8_rm8 = 111,
 	/// `CMP r16, r/m16`
 	///
 	/// `o16 3B /r`
@@ -909,7 +909,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_r16_rm16,
+	Cmp_r16_rm16 = 112,
 	/// `CMP r32, r/m32`
 	///
 	/// `o32 3B /r`
@@ -917,7 +917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmp_r32_rm32,
+	Cmp_r32_rm32 = 113,
 	/// `CMP r64, r/m64`
 	///
 	/// `REX.W 3B /r`
@@ -925,7 +925,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmp_r64_rm64,
+	Cmp_r64_rm64 = 114,
 	/// `CMP AL, imm8`
 	///
 	/// `3C ib`
@@ -933,7 +933,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_AL_imm8,
+	Cmp_AL_imm8 = 115,
 	/// `CMP AX, imm16`
 	///
 	/// `o16 3D iw`
@@ -941,7 +941,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_AX_imm16,
+	Cmp_AX_imm16 = 116,
 	/// `CMP EAX, imm32`
 	///
 	/// `o32 3D id`
@@ -949,7 +949,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmp_EAX_imm32,
+	Cmp_EAX_imm32 = 117,
 	/// `CMP RAX, imm32`
 	///
 	/// `REX.W 3D id`
@@ -957,7 +957,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmp_RAX_imm32,
+	Cmp_RAX_imm32 = 118,
 	/// `AAS`
 	///
 	/// `3F`
@@ -965,7 +965,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Aas,
+	Aas = 119,
 	/// `INC r16`
 	///
 	/// `o16 40+rw`
@@ -973,7 +973,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Inc_r16,
+	Inc_r16 = 120,
 	/// `INC r32`
 	///
 	/// `o32 40+rd`
@@ -981,7 +981,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Inc_r32,
+	Inc_r32 = 121,
 	/// `DEC r16`
 	///
 	/// `o16 48+rw`
@@ -989,7 +989,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Dec_r16,
+	Dec_r16 = 122,
 	/// `DEC r32`
 	///
 	/// `o32 48+rd`
@@ -997,7 +997,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Dec_r32,
+	Dec_r32 = 123,
 	/// `PUSH r16`
 	///
 	/// `o16 50+rw`
@@ -1005,7 +1005,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Push_r16,
+	Push_r16 = 124,
 	/// `PUSH r32`
 	///
 	/// `o32 50+rd`
@@ -1013,7 +1013,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Push_r32,
+	Push_r32 = 125,
 	/// `PUSH r64`
 	///
 	/// `50+ro`
@@ -1021,7 +1021,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Push_r64,
+	Push_r64 = 126,
 	/// `POP r16`
 	///
 	/// `o16 58+rw`
@@ -1029,7 +1029,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Pop_r16,
+	Pop_r16 = 127,
 	/// `POP r32`
 	///
 	/// `o32 58+rd`
@@ -1037,7 +1037,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pop_r32,
+	Pop_r32 = 128,
 	/// `POP r64`
 	///
 	/// `58+ro`
@@ -1045,7 +1045,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pop_r64,
+	Pop_r64 = 129,
 	/// `PUSHA`
 	///
 	/// `o16 60`
@@ -1053,7 +1053,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32-bit`
-	Pushaw,
+	Pushaw = 130,
 	/// `PUSHAD`
 	///
 	/// `o32 60`
@@ -1061,7 +1061,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushad,
+	Pushad = 131,
 	/// `POPA`
 	///
 	/// `o16 61`
@@ -1069,7 +1069,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32-bit`
-	Popaw,
+	Popaw = 132,
 	/// `POPAD`
 	///
 	/// `o32 61`
@@ -1077,7 +1077,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popad,
+	Popad = 133,
 	/// `BOUND r16, m16&16`
 	///
 	/// `o16 62 /r`
@@ -1085,7 +1085,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32-bit`
-	Bound_r16_m1616,
+	Bound_r16_m1616 = 134,
 	/// `BOUND r32, m32&32`
 	///
 	/// `o32 62 /r`
@@ -1093,7 +1093,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Bound_r32_m3232,
+	Bound_r32_m3232 = 135,
 	/// `ARPL r/m16, r16`
 	///
 	/// `o16 63 /r`
@@ -1101,7 +1101,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32-bit`
-	Arpl_rm16_r16,
+	Arpl_rm16_r16 = 136,
 	/// `ARPL r32/m16, r32`
 	///
 	/// `o32 63 /r`
@@ -1109,7 +1109,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Arpl_r32m16_r32,
+	Arpl_r32m16_r32 = 137,
 	/// `MOVSXD r16, r/m16`
 	///
 	/// `o16 63 /r`
@@ -1117,7 +1117,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsxd_r16_rm16,
+	Movsxd_r16_rm16 = 138,
 	/// `MOVSXD r32, r/m32`
 	///
 	/// `o32 63 /r`
@@ -1125,7 +1125,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsxd_r32_rm32,
+	Movsxd_r32_rm32 = 139,
 	/// `MOVSXD r64, r/m32`
 	///
 	/// `REX.W 63 /r`
@@ -1133,7 +1133,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsxd_r64_rm32,
+	Movsxd_r64_rm32 = 140,
 	/// `PUSH imm16`
 	///
 	/// `o16 68 iw`
@@ -1141,7 +1141,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Push_imm16,
+	Push_imm16 = 141,
 	/// `PUSH imm32`
 	///
 	/// `o32 68 id`
@@ -1149,7 +1149,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_imm32,
+	Pushd_imm32 = 142,
 	/// `PUSH imm32`
 	///
 	/// `68 id`
@@ -1157,7 +1157,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pushq_imm32,
+	Pushq_imm32 = 143,
 	/// `IMUL r16, r/m16, imm16`
 	///
 	/// `o16 69 /r iw`
@@ -1165,7 +1165,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Imul_r16_rm16_imm16,
+	Imul_r16_rm16_imm16 = 144,
 	/// `IMUL r32, r/m32, imm32`
 	///
 	/// `o32 69 /r id`
@@ -1173,7 +1173,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Imul_r32_rm32_imm32,
+	Imul_r32_rm32_imm32 = 145,
 	/// `IMUL r64, r/m64, imm32`
 	///
 	/// `REX.W 69 /r id`
@@ -1181,7 +1181,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Imul_r64_rm64_imm32,
+	Imul_r64_rm64_imm32 = 146,
 	/// `PUSH imm8`
 	///
 	/// `o16 6A ib`
@@ -1189,7 +1189,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Pushw_imm8,
+	Pushw_imm8 = 147,
 	/// `PUSH imm8`
 	///
 	/// `o32 6A ib`
@@ -1197,7 +1197,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_imm8,
+	Pushd_imm8 = 148,
 	/// `PUSH imm8`
 	///
 	/// `6A ib`
@@ -1205,7 +1205,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pushq_imm8,
+	Pushq_imm8 = 149,
 	/// `IMUL r16, r/m16, imm8`
 	///
 	/// `o16 6B /r ib`
@@ -1213,7 +1213,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Imul_r16_rm16_imm8,
+	Imul_r16_rm16_imm8 = 150,
 	/// `IMUL r32, r/m32, imm8`
 	///
 	/// `o32 6B /r ib`
@@ -1221,7 +1221,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Imul_r32_rm32_imm8,
+	Imul_r32_rm32_imm8 = 151,
 	/// `IMUL r64, r/m64, imm8`
 	///
 	/// `REX.W 6B /r ib`
@@ -1229,7 +1229,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Imul_r64_rm64_imm8,
+	Imul_r64_rm64_imm8 = 152,
 	/// `INSB`
 	///
 	/// `6C`
@@ -1237,7 +1237,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Insb_m8_DX,
+	Insb_m8_DX = 153,
 	/// `INSW`
 	///
 	/// `o16 6D`
@@ -1245,7 +1245,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Insw_m16_DX,
+	Insw_m16_DX = 154,
 	/// `INSD`
 	///
 	/// `o32 6D`
@@ -1253,7 +1253,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Insd_m32_DX,
+	Insd_m32_DX = 155,
 	/// `OUTSB`
 	///
 	/// `6E`
@@ -1261,7 +1261,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Outsb_DX_m8,
+	Outsb_DX_m8 = 156,
 	/// `OUTSW`
 	///
 	/// `o16 6F`
@@ -1269,7 +1269,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Outsw_DX_m16,
+	Outsw_DX_m16 = 157,
 	/// `OUTSD`
 	///
 	/// `o32 6F`
@@ -1277,7 +1277,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Outsd_DX_m32,
+	Outsd_DX_m32 = 158,
 	/// `JO rel8`
 	///
 	/// `o16 70 cb`
@@ -1285,7 +1285,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jo_rel8_16,
+	Jo_rel8_16 = 159,
 	/// `JO rel8`
 	///
 	/// `o32 70 cb`
@@ -1293,7 +1293,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jo_rel8_32,
+	Jo_rel8_32 = 160,
 	/// `JO rel8`
 	///
 	/// `70 cb`
@@ -1301,7 +1301,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jo_rel8_64,
+	Jo_rel8_64 = 161,
 	/// `JNO rel8`
 	///
 	/// `o16 71 cb`
@@ -1309,7 +1309,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jno_rel8_16,
+	Jno_rel8_16 = 162,
 	/// `JNO rel8`
 	///
 	/// `o32 71 cb`
@@ -1317,7 +1317,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jno_rel8_32,
+	Jno_rel8_32 = 163,
 	/// `JNO rel8`
 	///
 	/// `71 cb`
@@ -1325,7 +1325,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jno_rel8_64,
+	Jno_rel8_64 = 164,
 	/// `JB rel8`
 	///
 	/// `o16 72 cb`
@@ -1333,7 +1333,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jb_rel8_16,
+	Jb_rel8_16 = 165,
 	/// `JB rel8`
 	///
 	/// `o32 72 cb`
@@ -1341,7 +1341,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jb_rel8_32,
+	Jb_rel8_32 = 166,
 	/// `JB rel8`
 	///
 	/// `72 cb`
@@ -1349,7 +1349,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jb_rel8_64,
+	Jb_rel8_64 = 167,
 	/// `JAE rel8`
 	///
 	/// `o16 73 cb`
@@ -1357,7 +1357,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jae_rel8_16,
+	Jae_rel8_16 = 168,
 	/// `JAE rel8`
 	///
 	/// `o32 73 cb`
@@ -1365,7 +1365,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jae_rel8_32,
+	Jae_rel8_32 = 169,
 	/// `JAE rel8`
 	///
 	/// `73 cb`
@@ -1373,7 +1373,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jae_rel8_64,
+	Jae_rel8_64 = 170,
 	/// `JE rel8`
 	///
 	/// `o16 74 cb`
@@ -1381,7 +1381,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Je_rel8_16,
+	Je_rel8_16 = 171,
 	/// `JE rel8`
 	///
 	/// `o32 74 cb`
@@ -1389,7 +1389,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Je_rel8_32,
+	Je_rel8_32 = 172,
 	/// `JE rel8`
 	///
 	/// `74 cb`
@@ -1397,7 +1397,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Je_rel8_64,
+	Je_rel8_64 = 173,
 	/// `JNE rel8`
 	///
 	/// `o16 75 cb`
@@ -1405,7 +1405,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jne_rel8_16,
+	Jne_rel8_16 = 174,
 	/// `JNE rel8`
 	///
 	/// `o32 75 cb`
@@ -1413,7 +1413,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jne_rel8_32,
+	Jne_rel8_32 = 175,
 	/// `JNE rel8`
 	///
 	/// `75 cb`
@@ -1421,7 +1421,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jne_rel8_64,
+	Jne_rel8_64 = 176,
 	/// `JBE rel8`
 	///
 	/// `o16 76 cb`
@@ -1429,7 +1429,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jbe_rel8_16,
+	Jbe_rel8_16 = 177,
 	/// `JBE rel8`
 	///
 	/// `o32 76 cb`
@@ -1437,7 +1437,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jbe_rel8_32,
+	Jbe_rel8_32 = 178,
 	/// `JBE rel8`
 	///
 	/// `76 cb`
@@ -1445,7 +1445,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jbe_rel8_64,
+	Jbe_rel8_64 = 179,
 	/// `JA rel8`
 	///
 	/// `o16 77 cb`
@@ -1453,7 +1453,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Ja_rel8_16,
+	Ja_rel8_16 = 180,
 	/// `JA rel8`
 	///
 	/// `o32 77 cb`
@@ -1461,7 +1461,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Ja_rel8_32,
+	Ja_rel8_32 = 181,
 	/// `JA rel8`
 	///
 	/// `77 cb`
@@ -1469,7 +1469,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ja_rel8_64,
+	Ja_rel8_64 = 182,
 	/// `JS rel8`
 	///
 	/// `o16 78 cb`
@@ -1477,7 +1477,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Js_rel8_16,
+	Js_rel8_16 = 183,
 	/// `JS rel8`
 	///
 	/// `o32 78 cb`
@@ -1485,7 +1485,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Js_rel8_32,
+	Js_rel8_32 = 184,
 	/// `JS rel8`
 	///
 	/// `78 cb`
@@ -1493,7 +1493,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Js_rel8_64,
+	Js_rel8_64 = 185,
 	/// `JNS rel8`
 	///
 	/// `o16 79 cb`
@@ -1501,7 +1501,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jns_rel8_16,
+	Jns_rel8_16 = 186,
 	/// `JNS rel8`
 	///
 	/// `o32 79 cb`
@@ -1509,7 +1509,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jns_rel8_32,
+	Jns_rel8_32 = 187,
 	/// `JNS rel8`
 	///
 	/// `79 cb`
@@ -1517,7 +1517,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jns_rel8_64,
+	Jns_rel8_64 = 188,
 	/// `JP rel8`
 	///
 	/// `o16 7A cb`
@@ -1525,7 +1525,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jp_rel8_16,
+	Jp_rel8_16 = 189,
 	/// `JP rel8`
 	///
 	/// `o32 7A cb`
@@ -1533,7 +1533,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jp_rel8_32,
+	Jp_rel8_32 = 190,
 	/// `JP rel8`
 	///
 	/// `7A cb`
@@ -1541,7 +1541,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jp_rel8_64,
+	Jp_rel8_64 = 191,
 	/// `JNP rel8`
 	///
 	/// `o16 7B cb`
@@ -1549,7 +1549,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jnp_rel8_16,
+	Jnp_rel8_16 = 192,
 	/// `JNP rel8`
 	///
 	/// `o32 7B cb`
@@ -1557,7 +1557,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jnp_rel8_32,
+	Jnp_rel8_32 = 193,
 	/// `JNP rel8`
 	///
 	/// `7B cb`
@@ -1565,7 +1565,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jnp_rel8_64,
+	Jnp_rel8_64 = 194,
 	/// `JL rel8`
 	///
 	/// `o16 7C cb`
@@ -1573,7 +1573,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jl_rel8_16,
+	Jl_rel8_16 = 195,
 	/// `JL rel8`
 	///
 	/// `o32 7C cb`
@@ -1581,7 +1581,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jl_rel8_32,
+	Jl_rel8_32 = 196,
 	/// `JL rel8`
 	///
 	/// `7C cb`
@@ -1589,7 +1589,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jl_rel8_64,
+	Jl_rel8_64 = 197,
 	/// `JGE rel8`
 	///
 	/// `o16 7D cb`
@@ -1597,7 +1597,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jge_rel8_16,
+	Jge_rel8_16 = 198,
 	/// `JGE rel8`
 	///
 	/// `o32 7D cb`
@@ -1605,7 +1605,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jge_rel8_32,
+	Jge_rel8_32 = 199,
 	/// `JGE rel8`
 	///
 	/// `7D cb`
@@ -1613,7 +1613,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jge_rel8_64,
+	Jge_rel8_64 = 200,
 	/// `JLE rel8`
 	///
 	/// `o16 7E cb`
@@ -1621,7 +1621,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jle_rel8_16,
+	Jle_rel8_16 = 201,
 	/// `JLE rel8`
 	///
 	/// `o32 7E cb`
@@ -1629,7 +1629,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jle_rel8_32,
+	Jle_rel8_32 = 202,
 	/// `JLE rel8`
 	///
 	/// `7E cb`
@@ -1637,7 +1637,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jle_rel8_64,
+	Jle_rel8_64 = 203,
 	/// `JG rel8`
 	///
 	/// `o16 7F cb`
@@ -1645,7 +1645,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jg_rel8_16,
+	Jg_rel8_16 = 204,
 	/// `JG rel8`
 	///
 	/// `o32 7F cb`
@@ -1653,7 +1653,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jg_rel8_32,
+	Jg_rel8_32 = 205,
 	/// `JG rel8`
 	///
 	/// `7F cb`
@@ -1661,7 +1661,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jg_rel8_64,
+	Jg_rel8_64 = 206,
 	/// `ADD r/m8, imm8`
 	///
 	/// `80 /0 ib`
@@ -1669,7 +1669,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_rm8_imm8,
+	Add_rm8_imm8 = 207,
 	/// `OR r/m8, imm8`
 	///
 	/// `80 /1 ib`
@@ -1677,7 +1677,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_rm8_imm8,
+	Or_rm8_imm8 = 208,
 	/// `ADC r/m8, imm8`
 	///
 	/// `80 /2 ib`
@@ -1685,7 +1685,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm8_imm8,
+	Adc_rm8_imm8 = 209,
 	/// `SBB r/m8, imm8`
 	///
 	/// `80 /3 ib`
@@ -1693,7 +1693,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm8_imm8,
+	Sbb_rm8_imm8 = 210,
 	/// `AND r/m8, imm8`
 	///
 	/// `80 /4 ib`
@@ -1701,7 +1701,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_rm8_imm8,
+	And_rm8_imm8 = 211,
 	/// `SUB r/m8, imm8`
 	///
 	/// `80 /5 ib`
@@ -1709,7 +1709,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm8_imm8,
+	Sub_rm8_imm8 = 212,
 	/// `XOR r/m8, imm8`
 	///
 	/// `80 /6 ib`
@@ -1717,7 +1717,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm8_imm8,
+	Xor_rm8_imm8 = 213,
 	/// `CMP r/m8, imm8`
 	///
 	/// `80 /7 ib`
@@ -1725,7 +1725,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm8_imm8,
+	Cmp_rm8_imm8 = 214,
 	/// `ADD r/m16, imm16`
 	///
 	/// `o16 81 /0 iw`
@@ -1733,7 +1733,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_rm16_imm16,
+	Add_rm16_imm16 = 215,
 	/// `ADD r/m32, imm32`
 	///
 	/// `o32 81 /0 id`
@@ -1741,7 +1741,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Add_rm32_imm32,
+	Add_rm32_imm32 = 216,
 	/// `ADD r/m64, imm32`
 	///
 	/// `REX.W 81 /0 id`
@@ -1749,7 +1749,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Add_rm64_imm32,
+	Add_rm64_imm32 = 217,
 	/// `OR r/m16, imm16`
 	///
 	/// `o16 81 /1 iw`
@@ -1757,7 +1757,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_rm16_imm16,
+	Or_rm16_imm16 = 218,
 	/// `OR r/m32, imm32`
 	///
 	/// `o32 81 /1 id`
@@ -1765,7 +1765,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Or_rm32_imm32,
+	Or_rm32_imm32 = 219,
 	/// `OR r/m64, imm32`
 	///
 	/// `REX.W 81 /1 id`
@@ -1773,7 +1773,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Or_rm64_imm32,
+	Or_rm64_imm32 = 220,
 	/// `ADC r/m16, imm16`
 	///
 	/// `o16 81 /2 iw`
@@ -1781,7 +1781,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm16_imm16,
+	Adc_rm16_imm16 = 221,
 	/// `ADC r/m32, imm32`
 	///
 	/// `o32 81 /2 id`
@@ -1789,7 +1789,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm32_imm32,
+	Adc_rm32_imm32 = 222,
 	/// `ADC r/m64, imm32`
 	///
 	/// `REX.W 81 /2 id`
@@ -1797,7 +1797,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Adc_rm64_imm32,
+	Adc_rm64_imm32 = 223,
 	/// `SBB r/m16, imm16`
 	///
 	/// `o16 81 /3 iw`
@@ -1805,7 +1805,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm16_imm16,
+	Sbb_rm16_imm16 = 224,
 	/// `SBB r/m32, imm32`
 	///
 	/// `o32 81 /3 id`
@@ -1813,7 +1813,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm32_imm32,
+	Sbb_rm32_imm32 = 225,
 	/// `SBB r/m64, imm32`
 	///
 	/// `REX.W 81 /3 id`
@@ -1821,7 +1821,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sbb_rm64_imm32,
+	Sbb_rm64_imm32 = 226,
 	/// `AND r/m16, imm16`
 	///
 	/// `o16 81 /4 iw`
@@ -1829,7 +1829,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_rm16_imm16,
+	And_rm16_imm16 = 227,
 	/// `AND r/m32, imm32`
 	///
 	/// `o32 81 /4 id`
@@ -1837,7 +1837,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	And_rm32_imm32,
+	And_rm32_imm32 = 228,
 	/// `AND r/m64, imm32`
 	///
 	/// `REX.W 81 /4 id`
@@ -1845,7 +1845,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	And_rm64_imm32,
+	And_rm64_imm32 = 229,
 	/// `SUB r/m16, imm16`
 	///
 	/// `o16 81 /5 iw`
@@ -1853,7 +1853,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm16_imm16,
+	Sub_rm16_imm16 = 230,
 	/// `SUB r/m32, imm32`
 	///
 	/// `o32 81 /5 id`
@@ -1861,7 +1861,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm32_imm32,
+	Sub_rm32_imm32 = 231,
 	/// `SUB r/m64, imm32`
 	///
 	/// `REX.W 81 /5 id`
@@ -1869,7 +1869,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sub_rm64_imm32,
+	Sub_rm64_imm32 = 232,
 	/// `XOR r/m16, imm16`
 	///
 	/// `o16 81 /6 iw`
@@ -1877,7 +1877,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm16_imm16,
+	Xor_rm16_imm16 = 233,
 	/// `XOR r/m32, imm32`
 	///
 	/// `o32 81 /6 id`
@@ -1885,7 +1885,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm32_imm32,
+	Xor_rm32_imm32 = 234,
 	/// `XOR r/m64, imm32`
 	///
 	/// `REX.W 81 /6 id`
@@ -1893,7 +1893,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xor_rm64_imm32,
+	Xor_rm64_imm32 = 235,
 	/// `CMP r/m16, imm16`
 	///
 	/// `o16 81 /7 iw`
@@ -1901,7 +1901,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm16_imm16,
+	Cmp_rm16_imm16 = 236,
 	/// `CMP r/m32, imm32`
 	///
 	/// `o32 81 /7 id`
@@ -1909,7 +1909,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm32_imm32,
+	Cmp_rm32_imm32 = 237,
 	/// `CMP r/m64, imm32`
 	///
 	/// `REX.W 81 /7 id`
@@ -1917,7 +1917,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmp_rm64_imm32,
+	Cmp_rm64_imm32 = 238,
 	/// `ADD r/m8, imm8`
 	///
 	/// `82 /0 ib`
@@ -1925,7 +1925,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Add_rm8_imm8_82,
+	Add_rm8_imm8_82 = 239,
 	/// `OR r/m8, imm8`
 	///
 	/// `82 /1 ib`
@@ -1933,7 +1933,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Or_rm8_imm8_82,
+	Or_rm8_imm8_82 = 240,
 	/// `ADC r/m8, imm8`
 	///
 	/// `82 /2 ib`
@@ -1941,7 +1941,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Adc_rm8_imm8_82,
+	Adc_rm8_imm8_82 = 241,
 	/// `SBB r/m8, imm8`
 	///
 	/// `82 /3 ib`
@@ -1949,7 +1949,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Sbb_rm8_imm8_82,
+	Sbb_rm8_imm8_82 = 242,
 	/// `AND r/m8, imm8`
 	///
 	/// `82 /4 ib`
@@ -1957,7 +1957,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	And_rm8_imm8_82,
+	And_rm8_imm8_82 = 243,
 	/// `SUB r/m8, imm8`
 	///
 	/// `82 /5 ib`
@@ -1965,7 +1965,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Sub_rm8_imm8_82,
+	Sub_rm8_imm8_82 = 244,
 	/// `XOR r/m8, imm8`
 	///
 	/// `82 /6 ib`
@@ -1973,7 +1973,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Xor_rm8_imm8_82,
+	Xor_rm8_imm8_82 = 245,
 	/// `CMP r/m8, imm8`
 	///
 	/// `82 /7 ib`
@@ -1981,7 +1981,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Cmp_rm8_imm8_82,
+	Cmp_rm8_imm8_82 = 246,
 	/// `ADD r/m16, imm8`
 	///
 	/// `o16 83 /0 ib`
@@ -1989,7 +1989,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Add_rm16_imm8,
+	Add_rm16_imm8 = 247,
 	/// `ADD r/m32, imm8`
 	///
 	/// `o32 83 /0 ib`
@@ -1997,7 +1997,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Add_rm32_imm8,
+	Add_rm32_imm8 = 248,
 	/// `ADD r/m64, imm8`
 	///
 	/// `REX.W 83 /0 ib`
@@ -2005,7 +2005,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Add_rm64_imm8,
+	Add_rm64_imm8 = 249,
 	/// `OR r/m16, imm8`
 	///
 	/// `o16 83 /1 ib`
@@ -2013,7 +2013,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Or_rm16_imm8,
+	Or_rm16_imm8 = 250,
 	/// `OR r/m32, imm8`
 	///
 	/// `o32 83 /1 ib`
@@ -2021,7 +2021,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Or_rm32_imm8,
+	Or_rm32_imm8 = 251,
 	/// `OR r/m64, imm8`
 	///
 	/// `REX.W 83 /1 ib`
@@ -2029,7 +2029,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Or_rm64_imm8,
+	Or_rm64_imm8 = 252,
 	/// `ADC r/m16, imm8`
 	///
 	/// `o16 83 /2 ib`
@@ -2037,7 +2037,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm16_imm8,
+	Adc_rm16_imm8 = 253,
 	/// `ADC r/m32, imm8`
 	///
 	/// `o32 83 /2 ib`
@@ -2045,7 +2045,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Adc_rm32_imm8,
+	Adc_rm32_imm8 = 254,
 	/// `ADC r/m64, imm8`
 	///
 	/// `REX.W 83 /2 ib`
@@ -2053,7 +2053,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Adc_rm64_imm8,
+	Adc_rm64_imm8 = 255,
 	/// `SBB r/m16, imm8`
 	///
 	/// `o16 83 /3 ib`
@@ -2061,7 +2061,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm16_imm8,
+	Sbb_rm16_imm8 = 256,
 	/// `SBB r/m32, imm8`
 	///
 	/// `o32 83 /3 ib`
@@ -2069,7 +2069,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sbb_rm32_imm8,
+	Sbb_rm32_imm8 = 257,
 	/// `SBB r/m64, imm8`
 	///
 	/// `REX.W 83 /3 ib`
@@ -2077,7 +2077,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sbb_rm64_imm8,
+	Sbb_rm64_imm8 = 258,
 	/// `AND r/m16, imm8`
 	///
 	/// `o16 83 /4 ib`
@@ -2085,7 +2085,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	And_rm16_imm8,
+	And_rm16_imm8 = 259,
 	/// `AND r/m32, imm8`
 	///
 	/// `o32 83 /4 ib`
@@ -2093,7 +2093,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	And_rm32_imm8,
+	And_rm32_imm8 = 260,
 	/// `AND r/m64, imm8`
 	///
 	/// `REX.W 83 /4 ib`
@@ -2101,7 +2101,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	And_rm64_imm8,
+	And_rm64_imm8 = 261,
 	/// `SUB r/m16, imm8`
 	///
 	/// `o16 83 /5 ib`
@@ -2109,7 +2109,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm16_imm8,
+	Sub_rm16_imm8 = 262,
 	/// `SUB r/m32, imm8`
 	///
 	/// `o32 83 /5 ib`
@@ -2117,7 +2117,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sub_rm32_imm8,
+	Sub_rm32_imm8 = 263,
 	/// `SUB r/m64, imm8`
 	///
 	/// `REX.W 83 /5 ib`
@@ -2125,7 +2125,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sub_rm64_imm8,
+	Sub_rm64_imm8 = 264,
 	/// `XOR r/m16, imm8`
 	///
 	/// `o16 83 /6 ib`
@@ -2133,7 +2133,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm16_imm8,
+	Xor_rm16_imm8 = 265,
 	/// `XOR r/m32, imm8`
 	///
 	/// `o32 83 /6 ib`
@@ -2141,7 +2141,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xor_rm32_imm8,
+	Xor_rm32_imm8 = 266,
 	/// `XOR r/m64, imm8`
 	///
 	/// `REX.W 83 /6 ib`
@@ -2149,7 +2149,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xor_rm64_imm8,
+	Xor_rm64_imm8 = 267,
 	/// `CMP r/m16, imm8`
 	///
 	/// `o16 83 /7 ib`
@@ -2157,7 +2157,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm16_imm8,
+	Cmp_rm16_imm8 = 268,
 	/// `CMP r/m32, imm8`
 	///
 	/// `o32 83 /7 ib`
@@ -2165,7 +2165,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmp_rm32_imm8,
+	Cmp_rm32_imm8 = 269,
 	/// `CMP r/m64, imm8`
 	///
 	/// `REX.W 83 /7 ib`
@@ -2173,7 +2173,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmp_rm64_imm8,
+	Cmp_rm64_imm8 = 270,
 	/// `TEST r/m8, r8`
 	///
 	/// `84 /r`
@@ -2181,7 +2181,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm8_r8,
+	Test_rm8_r8 = 271,
 	/// `TEST r/m16, r16`
 	///
 	/// `o16 85 /r`
@@ -2189,7 +2189,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm16_r16,
+	Test_rm16_r16 = 272,
 	/// `TEST r/m32, r32`
 	///
 	/// `o32 85 /r`
@@ -2197,7 +2197,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Test_rm32_r32,
+	Test_rm32_r32 = 273,
 	/// `TEST r/m64, r64`
 	///
 	/// `REX.W 85 /r`
@@ -2205,7 +2205,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Test_rm64_r64,
+	Test_rm64_r64 = 274,
 	/// `XCHG r/m8, r8`
 	///
 	/// `86 /r`
@@ -2213,7 +2213,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xchg_rm8_r8,
+	Xchg_rm8_r8 = 275,
 	/// `XCHG r/m16, r16`
 	///
 	/// `o16 87 /r`
@@ -2221,7 +2221,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xchg_rm16_r16,
+	Xchg_rm16_r16 = 276,
 	/// `XCHG r/m32, r32`
 	///
 	/// `o32 87 /r`
@@ -2229,7 +2229,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xchg_rm32_r32,
+	Xchg_rm32_r32 = 277,
 	/// `XCHG r/m64, r64`
 	///
 	/// `REX.W 87 /r`
@@ -2237,7 +2237,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xchg_rm64_r64,
+	Xchg_rm64_r64 = 278,
 	/// `MOV r/m8, r8`
 	///
 	/// `88 /r`
@@ -2245,7 +2245,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm8_r8,
+	Mov_rm8_r8 = 279,
 	/// `MOV r/m16, r16`
 	///
 	/// `o16 89 /r`
@@ -2253,7 +2253,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm16_r16,
+	Mov_rm16_r16 = 280,
 	/// `MOV r/m32, r32`
 	///
 	/// `o32 89 /r`
@@ -2261,7 +2261,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm32_r32,
+	Mov_rm32_r32 = 281,
 	/// `MOV r/m64, r64`
 	///
 	/// `REX.W 89 /r`
@@ -2269,7 +2269,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_rm64_r64,
+	Mov_rm64_r64 = 282,
 	/// `MOV r8, r/m8`
 	///
 	/// `8A /r`
@@ -2277,7 +2277,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_r8_rm8,
+	Mov_r8_rm8 = 283,
 	/// `MOV r16, r/m16`
 	///
 	/// `o16 8B /r`
@@ -2285,7 +2285,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_r16_rm16,
+	Mov_r16_rm16 = 284,
 	/// `MOV r32, r/m32`
 	///
 	/// `o32 8B /r`
@@ -2293,7 +2293,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_r32_rm32,
+	Mov_r32_rm32 = 285,
 	/// `MOV r64, r/m64`
 	///
 	/// `REX.W 8B /r`
@@ -2301,7 +2301,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_r64_rm64,
+	Mov_r64_rm64 = 286,
 	/// `MOV r/m16, Sreg`
 	///
 	/// `o16 8C /r`
@@ -2309,7 +2309,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm16_Sreg,
+	Mov_rm16_Sreg = 287,
 	/// `MOV r32/m16, Sreg`
 	///
 	/// `o32 8C /r`
@@ -2317,7 +2317,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_r32m16_Sreg,
+	Mov_r32m16_Sreg = 288,
 	/// `MOV r64/m16, Sreg`
 	///
 	/// `REX.W 8C /r`
@@ -2325,7 +2325,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_r64m16_Sreg,
+	Mov_r64m16_Sreg = 289,
 	/// `LEA r16, m`
 	///
 	/// `o16 8D /r`
@@ -2333,7 +2333,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Lea_r16_m,
+	Lea_r16_m = 290,
 	/// `LEA r32, m`
 	///
 	/// `o32 8D /r`
@@ -2341,7 +2341,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lea_r32_m,
+	Lea_r32_m = 291,
 	/// `LEA r64, m`
 	///
 	/// `REX.W 8D /r`
@@ -2349,7 +2349,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lea_r64_m,
+	Lea_r64_m = 292,
 	/// `MOV Sreg, r/m16`
 	///
 	/// `o16 8E /r`
@@ -2357,7 +2357,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_Sreg_rm16,
+	Mov_Sreg_rm16 = 293,
 	/// `MOV Sreg, r32/m16`
 	///
 	/// `o32 8E /r`
@@ -2365,7 +2365,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_Sreg_r32m16,
+	Mov_Sreg_r32m16 = 294,
 	/// `MOV Sreg, r64/m16`
 	///
 	/// `REX.W 8E /r`
@@ -2373,7 +2373,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_Sreg_r64m16,
+	Mov_Sreg_r64m16 = 295,
 	/// `POP r/m16`
 	///
 	/// `o16 8F /0`
@@ -2381,7 +2381,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Pop_rm16,
+	Pop_rm16 = 296,
 	/// `POP r/m32`
 	///
 	/// `o32 8F /0`
@@ -2389,7 +2389,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pop_rm32,
+	Pop_rm32 = 297,
 	/// `POP r/m64`
 	///
 	/// `8F /0`
@@ -2397,7 +2397,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pop_rm64,
+	Pop_rm64 = 298,
 	/// `NOP`
 	///
 	/// `o16 90`
@@ -2405,7 +2405,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Nopw,
+	Nopw = 299,
 	/// `NOP`
 	///
 	/// `o32 90`
@@ -2413,7 +2413,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Nopd,
+	Nopd = 300,
 	/// `NOP`
 	///
 	/// `REX.W 90`
@@ -2421,7 +2421,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `64-bit`
-	Nopq,
+	Nopq = 301,
 	/// `XCHG r16, AX`
 	///
 	/// `o16 90+rw`
@@ -2429,7 +2429,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xchg_r16_AX,
+	Xchg_r16_AX = 302,
 	/// `XCHG r32, EAX`
 	///
 	/// `o32 90+rd`
@@ -2437,7 +2437,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Xchg_r32_EAX,
+	Xchg_r32_EAX = 303,
 	/// `XCHG r64, RAX`
 	///
 	/// `REX.W 90+ro`
@@ -2445,7 +2445,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xchg_r64_RAX,
+	Xchg_r64_RAX = 304,
 	/// `PAUSE`
 	///
 	/// `F3 90`
@@ -2453,7 +2453,7 @@ pub enum Code {
 	/// `Pentium 4 or later`
 	///
 	/// `16/32/64-bit`
-	Pause,
+	Pause = 305,
 	/// `CBW`
 	///
 	/// `o16 98`
@@ -2461,7 +2461,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cbw,
+	Cbw = 306,
 	/// `CWDE`
 	///
 	/// `o32 98`
@@ -2469,7 +2469,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cwde,
+	Cwde = 307,
 	/// `CDQE`
 	///
 	/// `REX.W 98`
@@ -2477,7 +2477,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cdqe,
+	Cdqe = 308,
 	/// `CWD`
 	///
 	/// `o16 99`
@@ -2485,7 +2485,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cwd,
+	Cwd = 309,
 	/// `CDQ`
 	///
 	/// `o32 99`
@@ -2493,7 +2493,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cdq,
+	Cdq = 310,
 	/// `CQO`
 	///
 	/// `REX.W 99`
@@ -2501,7 +2501,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cqo,
+	Cqo = 311,
 	/// `CALL ptr16:16`
 	///
 	/// `o16 9A cd`
@@ -2509,7 +2509,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Call_ptr1616,
+	Call_ptr1616 = 312,
 	/// `CALL ptr16:32`
 	///
 	/// `o32 9A cp`
@@ -2517,7 +2517,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Call_ptr1632,
+	Call_ptr1632 = 313,
 	/// `WAIT`
 	///
 	/// `9B`
@@ -2525,7 +2525,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Wait,
+	Wait = 314,
 	/// `PUSHF`
 	///
 	/// `o16 9C`
@@ -2533,7 +2533,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Pushfw,
+	Pushfw = 315,
 	/// `PUSHFD`
 	///
 	/// `o32 9C`
@@ -2541,7 +2541,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushfd,
+	Pushfd = 316,
 	/// `PUSHFQ`
 	///
 	/// `9C`
@@ -2549,7 +2549,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pushfq,
+	Pushfq = 317,
 	/// `POPF`
 	///
 	/// `o16 9D`
@@ -2557,7 +2557,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Popfw,
+	Popfw = 318,
 	/// `POPFD`
 	///
 	/// `o32 9D`
@@ -2565,7 +2565,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popfd,
+	Popfd = 319,
 	/// `POPFQ`
 	///
 	/// `9D`
@@ -2573,7 +2573,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Popfq,
+	Popfq = 320,
 	/// `SAHF`
 	///
 	/// `9E`
@@ -2581,7 +2581,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sahf,
+	Sahf = 321,
 	/// `LAHF`
 	///
 	/// `9F`
@@ -2589,7 +2589,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Lahf,
+	Lahf = 322,
 	/// `MOV AL, moffs8`
 	///
 	/// `A0 mo`
@@ -2597,7 +2597,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_AL_moffs8,
+	Mov_AL_moffs8 = 323,
 	/// `MOV AX, moffs16`
 	///
 	/// `o16 A1 mo`
@@ -2605,7 +2605,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_AX_moffs16,
+	Mov_AX_moffs16 = 324,
 	/// `MOV EAX, moffs32`
 	///
 	/// `o32 A1 mo`
@@ -2613,7 +2613,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_EAX_moffs32,
+	Mov_EAX_moffs32 = 325,
 	/// `MOV RAX, moffs64`
 	///
 	/// `REX.W A1 mo`
@@ -2621,7 +2621,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_RAX_moffs64,
+	Mov_RAX_moffs64 = 326,
 	/// `MOV moffs8, AL`
 	///
 	/// `A2 mo`
@@ -2629,7 +2629,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_moffs8_AL,
+	Mov_moffs8_AL = 327,
 	/// `MOV moffs16, AX`
 	///
 	/// `o16 A3 mo`
@@ -2637,7 +2637,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_moffs16_AX,
+	Mov_moffs16_AX = 328,
 	/// `MOV moffs32, EAX`
 	///
 	/// `o32 A3 mo`
@@ -2645,7 +2645,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_moffs32_EAX,
+	Mov_moffs32_EAX = 329,
 	/// `MOV moffs64, RAX`
 	///
 	/// `REX.W A3 mo`
@@ -2653,7 +2653,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_moffs64_RAX,
+	Mov_moffs64_RAX = 330,
 	/// `MOVSB`
 	///
 	/// `A4`
@@ -2661,7 +2661,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Movsb_m8_m8,
+	Movsb_m8_m8 = 331,
 	/// `MOVSW`
 	///
 	/// `o16 A5`
@@ -2669,7 +2669,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Movsw_m16_m16,
+	Movsw_m16_m16 = 332,
 	/// `MOVSD`
 	///
 	/// `o32 A5`
@@ -2677,7 +2677,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movsd_m32_m32,
+	Movsd_m32_m32 = 333,
 	/// `MOVSQ`
 	///
 	/// `REX.W A5`
@@ -2685,7 +2685,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsq_m64_m64,
+	Movsq_m64_m64 = 334,
 	/// `CMPSB`
 	///
 	/// `A6`
@@ -2693,7 +2693,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmpsb_m8_m8,
+	Cmpsb_m8_m8 = 335,
 	/// `CMPSW`
 	///
 	/// `o16 A7`
@@ -2701,7 +2701,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmpsw_m16_m16,
+	Cmpsw_m16_m16 = 336,
 	/// `CMPSD`
 	///
 	/// `o32 A7`
@@ -2709,7 +2709,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Cmpsd_m32_m32,
+	Cmpsd_m32_m32 = 337,
 	/// `CMPSQ`
 	///
 	/// `REX.W A7`
@@ -2717,7 +2717,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmpsq_m64_m64,
+	Cmpsq_m64_m64 = 338,
 	/// `TEST AL, imm8`
 	///
 	/// `A8 ib`
@@ -2725,7 +2725,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_AL_imm8,
+	Test_AL_imm8 = 339,
 	/// `TEST AX, imm16`
 	///
 	/// `o16 A9 iw`
@@ -2733,7 +2733,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_AX_imm16,
+	Test_AX_imm16 = 340,
 	/// `TEST EAX, imm32`
 	///
 	/// `o32 A9 id`
@@ -2741,7 +2741,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Test_EAX_imm32,
+	Test_EAX_imm32 = 341,
 	/// `TEST RAX, imm32`
 	///
 	/// `REX.W A9 id`
@@ -2749,7 +2749,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Test_RAX_imm32,
+	Test_RAX_imm32 = 342,
 	/// `STOSB`
 	///
 	/// `AA`
@@ -2757,7 +2757,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Stosb_m8_AL,
+	Stosb_m8_AL = 343,
 	/// `STOSW`
 	///
 	/// `o16 AB`
@@ -2765,7 +2765,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Stosw_m16_AX,
+	Stosw_m16_AX = 344,
 	/// `STOSD`
 	///
 	/// `o32 AB`
@@ -2773,7 +2773,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Stosd_m32_EAX,
+	Stosd_m32_EAX = 345,
 	/// `STOSQ`
 	///
 	/// `REX.W AB`
@@ -2781,7 +2781,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Stosq_m64_RAX,
+	Stosq_m64_RAX = 346,
 	/// `LODSB`
 	///
 	/// `AC`
@@ -2789,7 +2789,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Lodsb_AL_m8,
+	Lodsb_AL_m8 = 347,
 	/// `LODSW`
 	///
 	/// `o16 AD`
@@ -2797,7 +2797,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Lodsw_AX_m16,
+	Lodsw_AX_m16 = 348,
 	/// `LODSD`
 	///
 	/// `o32 AD`
@@ -2805,7 +2805,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lodsd_EAX_m32,
+	Lodsd_EAX_m32 = 349,
 	/// `LODSQ`
 	///
 	/// `REX.W AD`
@@ -2813,7 +2813,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lodsq_RAX_m64,
+	Lodsq_RAX_m64 = 350,
 	/// `SCASB`
 	///
 	/// `AE`
@@ -2821,7 +2821,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Scasb_AL_m8,
+	Scasb_AL_m8 = 351,
 	/// `SCASW`
 	///
 	/// `o16 AF`
@@ -2829,7 +2829,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Scasw_AX_m16,
+	Scasw_AX_m16 = 352,
 	/// `SCASD`
 	///
 	/// `o32 AF`
@@ -2837,7 +2837,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Scasd_EAX_m32,
+	Scasd_EAX_m32 = 353,
 	/// `SCASQ`
 	///
 	/// `REX.W AF`
@@ -2845,7 +2845,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Scasq_RAX_m64,
+	Scasq_RAX_m64 = 354,
 	/// `MOV r8, imm8`
 	///
 	/// `B0+rb ib`
@@ -2853,7 +2853,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_r8_imm8,
+	Mov_r8_imm8 = 355,
 	/// `MOV r16, imm16`
 	///
 	/// `o16 B8+rw iw`
@@ -2861,7 +2861,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_r16_imm16,
+	Mov_r16_imm16 = 356,
 	/// `MOV r32, imm32`
 	///
 	/// `o32 B8+rd id`
@@ -2869,7 +2869,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_r32_imm32,
+	Mov_r32_imm32 = 357,
 	/// `MOV r64, imm64`
 	///
 	/// `REX.W B8+ro io`
@@ -2877,7 +2877,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_r64_imm64,
+	Mov_r64_imm64 = 358,
 	/// `ROL r/m8, imm8`
 	///
 	/// `C0 /0 ib`
@@ -2885,7 +2885,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm8_imm8,
+	Rol_rm8_imm8 = 359,
 	/// `ROR r/m8, imm8`
 	///
 	/// `C0 /1 ib`
@@ -2893,7 +2893,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm8_imm8,
+	Ror_rm8_imm8 = 360,
 	/// `RCL r/m8, imm8`
 	///
 	/// `C0 /2 ib`
@@ -2901,7 +2901,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm8_imm8,
+	Rcl_rm8_imm8 = 361,
 	/// `RCR r/m8, imm8`
 	///
 	/// `C0 /3 ib`
@@ -2909,7 +2909,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm8_imm8,
+	Rcr_rm8_imm8 = 362,
 	/// `SHL r/m8, imm8`
 	///
 	/// `C0 /4 ib`
@@ -2917,7 +2917,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm8_imm8,
+	Shl_rm8_imm8 = 363,
 	/// `SHR r/m8, imm8`
 	///
 	/// `C0 /5 ib`
@@ -2925,7 +2925,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm8_imm8,
+	Shr_rm8_imm8 = 364,
 	/// `SAL r/m8, imm8`
 	///
 	/// `C0 /6 ib`
@@ -2933,7 +2933,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm8_imm8,
+	Sal_rm8_imm8 = 365,
 	/// `SAR r/m8, imm8`
 	///
 	/// `C0 /7 ib`
@@ -2941,7 +2941,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm8_imm8,
+	Sar_rm8_imm8 = 366,
 	/// `ROL r/m16, imm8`
 	///
 	/// `o16 C1 /0 ib`
@@ -2949,7 +2949,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm16_imm8,
+	Rol_rm16_imm8 = 367,
 	/// `ROL r/m32, imm8`
 	///
 	/// `o32 C1 /0 ib`
@@ -2957,7 +2957,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm32_imm8,
+	Rol_rm32_imm8 = 368,
 	/// `ROL r/m64, imm8`
 	///
 	/// `REX.W C1 /0 ib`
@@ -2965,7 +2965,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rol_rm64_imm8,
+	Rol_rm64_imm8 = 369,
 	/// `ROR r/m16, imm8`
 	///
 	/// `o16 C1 /1 ib`
@@ -2973,7 +2973,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm16_imm8,
+	Ror_rm16_imm8 = 370,
 	/// `ROR r/m32, imm8`
 	///
 	/// `o32 C1 /1 ib`
@@ -2981,7 +2981,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm32_imm8,
+	Ror_rm32_imm8 = 371,
 	/// `ROR r/m64, imm8`
 	///
 	/// `REX.W C1 /1 ib`
@@ -2989,7 +2989,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ror_rm64_imm8,
+	Ror_rm64_imm8 = 372,
 	/// `RCL r/m16, imm8`
 	///
 	/// `o16 C1 /2 ib`
@@ -2997,7 +2997,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm16_imm8,
+	Rcl_rm16_imm8 = 373,
 	/// `RCL r/m32, imm8`
 	///
 	/// `o32 C1 /2 ib`
@@ -3005,7 +3005,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm32_imm8,
+	Rcl_rm32_imm8 = 374,
 	/// `RCL r/m64, imm8`
 	///
 	/// `REX.W C1 /2 ib`
@@ -3013,7 +3013,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcl_rm64_imm8,
+	Rcl_rm64_imm8 = 375,
 	/// `RCR r/m16, imm8`
 	///
 	/// `o16 C1 /3 ib`
@@ -3021,7 +3021,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm16_imm8,
+	Rcr_rm16_imm8 = 376,
 	/// `RCR r/m32, imm8`
 	///
 	/// `o32 C1 /3 ib`
@@ -3029,7 +3029,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm32_imm8,
+	Rcr_rm32_imm8 = 377,
 	/// `RCR r/m64, imm8`
 	///
 	/// `REX.W C1 /3 ib`
@@ -3037,7 +3037,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcr_rm64_imm8,
+	Rcr_rm64_imm8 = 378,
 	/// `SHL r/m16, imm8`
 	///
 	/// `o16 C1 /4 ib`
@@ -3045,7 +3045,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm16_imm8,
+	Shl_rm16_imm8 = 379,
 	/// `SHL r/m32, imm8`
 	///
 	/// `o32 C1 /4 ib`
@@ -3053,7 +3053,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm32_imm8,
+	Shl_rm32_imm8 = 380,
 	/// `SHL r/m64, imm8`
 	///
 	/// `REX.W C1 /4 ib`
@@ -3061,7 +3061,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shl_rm64_imm8,
+	Shl_rm64_imm8 = 381,
 	/// `SHR r/m16, imm8`
 	///
 	/// `o16 C1 /5 ib`
@@ -3069,7 +3069,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm16_imm8,
+	Shr_rm16_imm8 = 382,
 	/// `SHR r/m32, imm8`
 	///
 	/// `o32 C1 /5 ib`
@@ -3077,7 +3077,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm32_imm8,
+	Shr_rm32_imm8 = 383,
 	/// `SHR r/m64, imm8`
 	///
 	/// `REX.W C1 /5 ib`
@@ -3085,7 +3085,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shr_rm64_imm8,
+	Shr_rm64_imm8 = 384,
 	/// `SAL r/m16, imm8`
 	///
 	/// `o16 C1 /6 ib`
@@ -3093,7 +3093,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm16_imm8,
+	Sal_rm16_imm8 = 385,
 	/// `SAL r/m32, imm8`
 	///
 	/// `o32 C1 /6 ib`
@@ -3101,7 +3101,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm32_imm8,
+	Sal_rm32_imm8 = 386,
 	/// `SAL r/m64, imm8`
 	///
 	/// `REX.W C1 /6 ib`
@@ -3109,7 +3109,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sal_rm64_imm8,
+	Sal_rm64_imm8 = 387,
 	/// `SAR r/m16, imm8`
 	///
 	/// `o16 C1 /7 ib`
@@ -3117,7 +3117,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm16_imm8,
+	Sar_rm16_imm8 = 388,
 	/// `SAR r/m32, imm8`
 	///
 	/// `o32 C1 /7 ib`
@@ -3125,7 +3125,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm32_imm8,
+	Sar_rm32_imm8 = 389,
 	/// `SAR r/m64, imm8`
 	///
 	/// `REX.W C1 /7 ib`
@@ -3133,7 +3133,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sar_rm64_imm8,
+	Sar_rm64_imm8 = 390,
 	/// `RET imm16`
 	///
 	/// `o16 C2 iw`
@@ -3141,7 +3141,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Retnw_imm16,
+	Retnw_imm16 = 391,
 	/// `RET imm16`
 	///
 	/// `o32 C2 iw`
@@ -3149,7 +3149,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Retnd_imm16,
+	Retnd_imm16 = 392,
 	/// `RET imm16`
 	///
 	/// `C2 iw`
@@ -3157,7 +3157,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Retnq_imm16,
+	Retnq_imm16 = 393,
 	/// `RET`
 	///
 	/// `o16 C3`
@@ -3165,7 +3165,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Retnw,
+	Retnw = 394,
 	/// `RET`
 	///
 	/// `o32 C3`
@@ -3173,7 +3173,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Retnd,
+	Retnd = 395,
 	/// `RET`
 	///
 	/// `C3`
@@ -3181,7 +3181,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Retnq,
+	Retnq = 396,
 	/// `LES r16, m16:16`
 	///
 	/// `o16 C4 /r`
@@ -3189,7 +3189,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Les_r16_m1616,
+	Les_r16_m1616 = 397,
 	/// `LES r32, m16:32`
 	///
 	/// `o32 C4 /r`
@@ -3197,7 +3197,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Les_r32_m1632,
+	Les_r32_m1632 = 398,
 	/// `LDS r16, m16:16`
 	///
 	/// `o16 C5 /r`
@@ -3205,7 +3205,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Lds_r16_m1616,
+	Lds_r16_m1616 = 399,
 	/// `LDS r32, m16:32`
 	///
 	/// `o32 C5 /r`
@@ -3213,7 +3213,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Lds_r32_m1632,
+	Lds_r32_m1632 = 400,
 	/// `MOV r/m8, imm8`
 	///
 	/// `C6 /0 ib`
@@ -3221,7 +3221,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm8_imm8,
+	Mov_rm8_imm8 = 401,
 	/// `XABORT imm8`
 	///
 	/// `C6 F8 ib`
@@ -3229,7 +3229,7 @@ pub enum Code {
 	/// `RTM`
 	///
 	/// `16/32/64-bit`
-	Xabort_imm8,
+	Xabort_imm8 = 402,
 	/// `MOV r/m16, imm16`
 	///
 	/// `o16 C7 /0 iw`
@@ -3237,7 +3237,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm16_imm16,
+	Mov_rm16_imm16 = 403,
 	/// `MOV r/m32, imm32`
 	///
 	/// `o32 C7 /0 id`
@@ -3245,7 +3245,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mov_rm32_imm32,
+	Mov_rm32_imm32 = 404,
 	/// `MOV r/m64, imm32`
 	///
 	/// `REX.W C7 /0 id`
@@ -3253,7 +3253,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_rm64_imm32,
+	Mov_rm64_imm32 = 405,
 	/// `XBEGIN rel16`
 	///
 	/// `o16 C7 F8 cw`
@@ -3261,7 +3261,7 @@ pub enum Code {
 	/// `RTM`
 	///
 	/// `16/32/64-bit`
-	Xbegin_rel16,
+	Xbegin_rel16 = 406,
 	/// `XBEGIN rel32`
 	///
 	/// `o32 C7 F8 cd`
@@ -3269,7 +3269,7 @@ pub enum Code {
 	/// `RTM`
 	///
 	/// `16/32/64-bit`
-	Xbegin_rel32,
+	Xbegin_rel32 = 407,
 	/// `ENTER imm16, imm8`
 	///
 	/// `o16 C8 iw ib`
@@ -3277,7 +3277,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Enterw_imm16_imm8,
+	Enterw_imm16_imm8 = 408,
 	/// `ENTER imm16, imm8`
 	///
 	/// `o32 C8 iw ib`
@@ -3285,7 +3285,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Enterd_imm16_imm8,
+	Enterd_imm16_imm8 = 409,
 	/// `ENTER imm16, imm8`
 	///
 	/// `C8 iw ib`
@@ -3293,7 +3293,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Enterq_imm16_imm8,
+	Enterq_imm16_imm8 = 410,
 	/// `LEAVE`
 	///
 	/// `o16 C9`
@@ -3301,7 +3301,7 @@ pub enum Code {
 	/// `186+`
 	///
 	/// `16/32/64-bit`
-	Leavew,
+	Leavew = 411,
 	/// `LEAVE`
 	///
 	/// `o32 C9`
@@ -3309,7 +3309,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Leaved,
+	Leaved = 412,
 	/// `LEAVE`
 	///
 	/// `C9`
@@ -3317,7 +3317,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Leaveq,
+	Leaveq = 413,
 	/// `RET imm16`
 	///
 	/// `o16 CA iw`
@@ -3325,7 +3325,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Retfw_imm16,
+	Retfw_imm16 = 414,
 	/// `RET imm16`
 	///
 	/// `o32 CA iw`
@@ -3333,7 +3333,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Retfd_imm16,
+	Retfd_imm16 = 415,
 	/// `RET imm16`
 	///
 	/// `REX.W CA iw`
@@ -3341,7 +3341,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Retfq_imm16,
+	Retfq_imm16 = 416,
 	/// `RET`
 	///
 	/// `o16 CB`
@@ -3349,7 +3349,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Retfw,
+	Retfw = 417,
 	/// `RET`
 	///
 	/// `o32 CB`
@@ -3357,7 +3357,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Retfd,
+	Retfd = 418,
 	/// `RET`
 	///
 	/// `REX.W CB`
@@ -3365,7 +3365,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Retfq,
+	Retfq = 419,
 	/// `INT3`
 	///
 	/// `CC`
@@ -3373,7 +3373,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Int3,
+	Int3 = 420,
 	/// `INT imm8`
 	///
 	/// `CD ib`
@@ -3381,7 +3381,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Int_imm8,
+	Int_imm8 = 421,
 	/// `INTO`
 	///
 	/// `CE`
@@ -3389,7 +3389,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Into,
+	Into = 422,
 	/// `IRET`
 	///
 	/// `o16 CF`
@@ -3397,7 +3397,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Iretw,
+	Iretw = 423,
 	/// `IRETD`
 	///
 	/// `o32 CF`
@@ -3405,7 +3405,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Iretd,
+	Iretd = 424,
 	/// `IRETQ`
 	///
 	/// `REX.W CF`
@@ -3413,7 +3413,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Iretq,
+	Iretq = 425,
 	/// `ROL r/m8, 1`
 	///
 	/// `D0 /0`
@@ -3421,7 +3421,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm8_1,
+	Rol_rm8_1 = 426,
 	/// `ROR r/m8, 1`
 	///
 	/// `D0 /1`
@@ -3429,7 +3429,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm8_1,
+	Ror_rm8_1 = 427,
 	/// `RCL r/m8, 1`
 	///
 	/// `D0 /2`
@@ -3437,7 +3437,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm8_1,
+	Rcl_rm8_1 = 428,
 	/// `RCR r/m8, 1`
 	///
 	/// `D0 /3`
@@ -3445,7 +3445,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm8_1,
+	Rcr_rm8_1 = 429,
 	/// `SHL r/m8, 1`
 	///
 	/// `D0 /4`
@@ -3453,7 +3453,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm8_1,
+	Shl_rm8_1 = 430,
 	/// `SHR r/m8, 1`
 	///
 	/// `D0 /5`
@@ -3461,7 +3461,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm8_1,
+	Shr_rm8_1 = 431,
 	/// `SAL r/m8, 1`
 	///
 	/// `D0 /6`
@@ -3469,7 +3469,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm8_1,
+	Sal_rm8_1 = 432,
 	/// `SAR r/m8, 1`
 	///
 	/// `D0 /7`
@@ -3477,7 +3477,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm8_1,
+	Sar_rm8_1 = 433,
 	/// `ROL r/m16, 1`
 	///
 	/// `o16 D1 /0`
@@ -3485,7 +3485,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm16_1,
+	Rol_rm16_1 = 434,
 	/// `ROL r/m32, 1`
 	///
 	/// `o32 D1 /0`
@@ -3493,7 +3493,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm32_1,
+	Rol_rm32_1 = 435,
 	/// `ROL r/m64, 1`
 	///
 	/// `REX.W D1 /0`
@@ -3501,7 +3501,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rol_rm64_1,
+	Rol_rm64_1 = 436,
 	/// `ROR r/m16, 1`
 	///
 	/// `o16 D1 /1`
@@ -3509,7 +3509,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm16_1,
+	Ror_rm16_1 = 437,
 	/// `ROR r/m32, 1`
 	///
 	/// `o32 D1 /1`
@@ -3517,7 +3517,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm32_1,
+	Ror_rm32_1 = 438,
 	/// `ROR r/m64, 1`
 	///
 	/// `REX.W D1 /1`
@@ -3525,7 +3525,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ror_rm64_1,
+	Ror_rm64_1 = 439,
 	/// `RCL r/m16, 1`
 	///
 	/// `o16 D1 /2`
@@ -3533,7 +3533,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm16_1,
+	Rcl_rm16_1 = 440,
 	/// `RCL r/m32, 1`
 	///
 	/// `o32 D1 /2`
@@ -3541,7 +3541,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm32_1,
+	Rcl_rm32_1 = 441,
 	/// `RCL r/m64, 1`
 	///
 	/// `REX.W D1 /2`
@@ -3549,7 +3549,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcl_rm64_1,
+	Rcl_rm64_1 = 442,
 	/// `RCR r/m16, 1`
 	///
 	/// `o16 D1 /3`
@@ -3557,7 +3557,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm16_1,
+	Rcr_rm16_1 = 443,
 	/// `RCR r/m32, 1`
 	///
 	/// `o32 D1 /3`
@@ -3565,7 +3565,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm32_1,
+	Rcr_rm32_1 = 444,
 	/// `RCR r/m64, 1`
 	///
 	/// `REX.W D1 /3`
@@ -3573,7 +3573,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcr_rm64_1,
+	Rcr_rm64_1 = 445,
 	/// `SHL r/m16, 1`
 	///
 	/// `o16 D1 /4`
@@ -3581,7 +3581,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm16_1,
+	Shl_rm16_1 = 446,
 	/// `SHL r/m32, 1`
 	///
 	/// `o32 D1 /4`
@@ -3589,7 +3589,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm32_1,
+	Shl_rm32_1 = 447,
 	/// `SHL r/m64, 1`
 	///
 	/// `REX.W D1 /4`
@@ -3597,7 +3597,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shl_rm64_1,
+	Shl_rm64_1 = 448,
 	/// `SHR r/m16, 1`
 	///
 	/// `o16 D1 /5`
@@ -3605,7 +3605,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm16_1,
+	Shr_rm16_1 = 449,
 	/// `SHR r/m32, 1`
 	///
 	/// `o32 D1 /5`
@@ -3613,7 +3613,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm32_1,
+	Shr_rm32_1 = 450,
 	/// `SHR r/m64, 1`
 	///
 	/// `REX.W D1 /5`
@@ -3621,7 +3621,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shr_rm64_1,
+	Shr_rm64_1 = 451,
 	/// `SAL r/m16, 1`
 	///
 	/// `o16 D1 /6`
@@ -3629,7 +3629,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm16_1,
+	Sal_rm16_1 = 452,
 	/// `SAL r/m32, 1`
 	///
 	/// `o32 D1 /6`
@@ -3637,7 +3637,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm32_1,
+	Sal_rm32_1 = 453,
 	/// `SAL r/m64, 1`
 	///
 	/// `REX.W D1 /6`
@@ -3645,7 +3645,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sal_rm64_1,
+	Sal_rm64_1 = 454,
 	/// `SAR r/m16, 1`
 	///
 	/// `o16 D1 /7`
@@ -3653,7 +3653,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm16_1,
+	Sar_rm16_1 = 455,
 	/// `SAR r/m32, 1`
 	///
 	/// `o32 D1 /7`
@@ -3661,7 +3661,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm32_1,
+	Sar_rm32_1 = 456,
 	/// `SAR r/m64, 1`
 	///
 	/// `REX.W D1 /7`
@@ -3669,7 +3669,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sar_rm64_1,
+	Sar_rm64_1 = 457,
 	/// `ROL r/m8, CL`
 	///
 	/// `D2 /0`
@@ -3677,7 +3677,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm8_CL,
+	Rol_rm8_CL = 458,
 	/// `ROR r/m8, CL`
 	///
 	/// `D2 /1`
@@ -3685,7 +3685,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm8_CL,
+	Ror_rm8_CL = 459,
 	/// `RCL r/m8, CL`
 	///
 	/// `D2 /2`
@@ -3693,7 +3693,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm8_CL,
+	Rcl_rm8_CL = 460,
 	/// `RCR r/m8, CL`
 	///
 	/// `D2 /3`
@@ -3701,7 +3701,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm8_CL,
+	Rcr_rm8_CL = 461,
 	/// `SHL r/m8, CL`
 	///
 	/// `D2 /4`
@@ -3709,7 +3709,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm8_CL,
+	Shl_rm8_CL = 462,
 	/// `SHR r/m8, CL`
 	///
 	/// `D2 /5`
@@ -3717,7 +3717,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm8_CL,
+	Shr_rm8_CL = 463,
 	/// `SAL r/m8, CL`
 	///
 	/// `D2 /6`
@@ -3725,7 +3725,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm8_CL,
+	Sal_rm8_CL = 464,
 	/// `SAR r/m8, CL`
 	///
 	/// `D2 /7`
@@ -3733,7 +3733,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm8_CL,
+	Sar_rm8_CL = 465,
 	/// `ROL r/m16, CL`
 	///
 	/// `o16 D3 /0`
@@ -3741,7 +3741,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm16_CL,
+	Rol_rm16_CL = 466,
 	/// `ROL r/m32, CL`
 	///
 	/// `o32 D3 /0`
@@ -3749,7 +3749,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rol_rm32_CL,
+	Rol_rm32_CL = 467,
 	/// `ROL r/m64, CL`
 	///
 	/// `REX.W D3 /0`
@@ -3757,7 +3757,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rol_rm64_CL,
+	Rol_rm64_CL = 468,
 	/// `ROR r/m16, CL`
 	///
 	/// `o16 D3 /1`
@@ -3765,7 +3765,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm16_CL,
+	Ror_rm16_CL = 469,
 	/// `ROR r/m32, CL`
 	///
 	/// `o32 D3 /1`
@@ -3773,7 +3773,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ror_rm32_CL,
+	Ror_rm32_CL = 470,
 	/// `ROR r/m64, CL`
 	///
 	/// `REX.W D3 /1`
@@ -3781,7 +3781,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ror_rm64_CL,
+	Ror_rm64_CL = 471,
 	/// `RCL r/m16, CL`
 	///
 	/// `o16 D3 /2`
@@ -3789,7 +3789,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm16_CL,
+	Rcl_rm16_CL = 472,
 	/// `RCL r/m32, CL`
 	///
 	/// `o32 D3 /2`
@@ -3797,7 +3797,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcl_rm32_CL,
+	Rcl_rm32_CL = 473,
 	/// `RCL r/m64, CL`
 	///
 	/// `REX.W D3 /2`
@@ -3805,7 +3805,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcl_rm64_CL,
+	Rcl_rm64_CL = 474,
 	/// `RCR r/m16, CL`
 	///
 	/// `o16 D3 /3`
@@ -3813,7 +3813,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm16_CL,
+	Rcr_rm16_CL = 475,
 	/// `RCR r/m32, CL`
 	///
 	/// `o32 D3 /3`
@@ -3821,7 +3821,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rcr_rm32_CL,
+	Rcr_rm32_CL = 476,
 	/// `RCR r/m64, CL`
 	///
 	/// `REX.W D3 /3`
@@ -3829,7 +3829,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Rcr_rm64_CL,
+	Rcr_rm64_CL = 477,
 	/// `SHL r/m16, CL`
 	///
 	/// `o16 D3 /4`
@@ -3837,7 +3837,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm16_CL,
+	Shl_rm16_CL = 478,
 	/// `SHL r/m32, CL`
 	///
 	/// `o32 D3 /4`
@@ -3845,7 +3845,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shl_rm32_CL,
+	Shl_rm32_CL = 479,
 	/// `SHL r/m64, CL`
 	///
 	/// `REX.W D3 /4`
@@ -3853,7 +3853,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shl_rm64_CL,
+	Shl_rm64_CL = 480,
 	/// `SHR r/m16, CL`
 	///
 	/// `o16 D3 /5`
@@ -3861,7 +3861,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm16_CL,
+	Shr_rm16_CL = 481,
 	/// `SHR r/m32, CL`
 	///
 	/// `o32 D3 /5`
@@ -3869,7 +3869,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shr_rm32_CL,
+	Shr_rm32_CL = 482,
 	/// `SHR r/m64, CL`
 	///
 	/// `REX.W D3 /5`
@@ -3877,7 +3877,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shr_rm64_CL,
+	Shr_rm64_CL = 483,
 	/// `SAL r/m16, CL`
 	///
 	/// `o16 D3 /6`
@@ -3885,7 +3885,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm16_CL,
+	Sal_rm16_CL = 484,
 	/// `SAL r/m32, CL`
 	///
 	/// `o32 D3 /6`
@@ -3893,7 +3893,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sal_rm32_CL,
+	Sal_rm32_CL = 485,
 	/// `SAL r/m64, CL`
 	///
 	/// `REX.W D3 /6`
@@ -3901,7 +3901,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sal_rm64_CL,
+	Sal_rm64_CL = 486,
 	/// `SAR r/m16, CL`
 	///
 	/// `o16 D3 /7`
@@ -3909,7 +3909,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm16_CL,
+	Sar_rm16_CL = 487,
 	/// `SAR r/m32, CL`
 	///
 	/// `o32 D3 /7`
@@ -3917,7 +3917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sar_rm32_CL,
+	Sar_rm32_CL = 488,
 	/// `SAR r/m64, CL`
 	///
 	/// `REX.W D3 /7`
@@ -3925,7 +3925,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sar_rm64_CL,
+	Sar_rm64_CL = 489,
 	/// `AAM imm8`
 	///
 	/// `D4 ib`
@@ -3933,7 +3933,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Aam_imm8,
+	Aam_imm8 = 490,
 	/// `AAD imm8`
 	///
 	/// `D5 ib`
@@ -3941,7 +3941,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Aad_imm8,
+	Aad_imm8 = 491,
 	/// `SALC`
 	///
 	/// `D6`
@@ -3949,7 +3949,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Salc,
+	Salc = 492,
 	/// `XLATB`
 	///
 	/// `D7`
@@ -3957,7 +3957,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Xlat_m8,
+	Xlat_m8 = 493,
 	/// `FADD m32fp`
 	///
 	/// `D8 /0`
@@ -3965,7 +3965,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fadd_m32fp,
+	Fadd_m32fp = 494,
 	/// `FMUL m32fp`
 	///
 	/// `D8 /1`
@@ -3973,7 +3973,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fmul_m32fp,
+	Fmul_m32fp = 495,
 	/// `FCOM m32fp`
 	///
 	/// `D8 /2`
@@ -3981,7 +3981,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcom_m32fp,
+	Fcom_m32fp = 496,
 	/// `FCOMP m32fp`
 	///
 	/// `D8 /3`
@@ -3989,7 +3989,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcomp_m32fp,
+	Fcomp_m32fp = 497,
 	/// `FSUB m32fp`
 	///
 	/// `D8 /4`
@@ -3997,7 +3997,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsub_m32fp,
+	Fsub_m32fp = 498,
 	/// `FSUBR m32fp`
 	///
 	/// `D8 /5`
@@ -4005,7 +4005,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubr_m32fp,
+	Fsubr_m32fp = 499,
 	/// `FDIV m32fp`
 	///
 	/// `D8 /6`
@@ -4013,7 +4013,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdiv_m32fp,
+	Fdiv_m32fp = 500,
 	/// `FDIVR m32fp`
 	///
 	/// `D8 /7`
@@ -4021,7 +4021,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivr_m32fp,
+	Fdivr_m32fp = 501,
 	/// `FADD ST(0), ST(i)`
 	///
 	/// `D8 C0+i`
@@ -4029,7 +4029,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fadd_st0_sti,
+	Fadd_st0_sti = 502,
 	/// `FMUL ST(0), ST(i)`
 	///
 	/// `D8 C8+i`
@@ -4037,7 +4037,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fmul_st0_sti,
+	Fmul_st0_sti = 503,
 	/// `FCOM ST(i)`
 	///
 	/// `D8 D0+i`
@@ -4045,7 +4045,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcom_st0_sti,
+	Fcom_st0_sti = 504,
 	/// `FCOMP ST(i)`
 	///
 	/// `D8 D8+i`
@@ -4053,7 +4053,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcomp_st0_sti,
+	Fcomp_st0_sti = 505,
 	/// `FSUB ST(0), ST(i)`
 	///
 	/// `D8 E0+i`
@@ -4061,7 +4061,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsub_st0_sti,
+	Fsub_st0_sti = 506,
 	/// `FSUBR ST(0), ST(i)`
 	///
 	/// `D8 E8+i`
@@ -4069,7 +4069,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubr_st0_sti,
+	Fsubr_st0_sti = 507,
 	/// `FDIV ST(0), ST(i)`
 	///
 	/// `D8 F0+i`
@@ -4077,7 +4077,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdiv_st0_sti,
+	Fdiv_st0_sti = 508,
 	/// `FDIVR ST(0), ST(i)`
 	///
 	/// `D8 F8+i`
@@ -4085,7 +4085,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivr_st0_sti,
+	Fdivr_st0_sti = 509,
 	/// `FLD m32fp`
 	///
 	/// `D9 /0`
@@ -4093,7 +4093,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld_m32fp,
+	Fld_m32fp = 510,
 	/// `FST m32fp`
 	///
 	/// `D9 /2`
@@ -4101,7 +4101,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fst_m32fp,
+	Fst_m32fp = 511,
 	/// `FSTP m32fp`
 	///
 	/// `D9 /3`
@@ -4109,7 +4109,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_m32fp,
+	Fstp_m32fp = 512,
 	/// `FLDENV m14byte`
 	///
 	/// `o16 D9 /4`
@@ -4117,7 +4117,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldenv_m14byte,
+	Fldenv_m14byte = 513,
 	/// `FLDENV m28byte`
 	///
 	/// `o32 D9 /4`
@@ -4125,7 +4125,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldenv_m28byte,
+	Fldenv_m28byte = 514,
 	/// `FLDCW m2byte`
 	///
 	/// `D9 /5`
@@ -4133,7 +4133,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldcw_m2byte,
+	Fldcw_m2byte = 515,
 	/// `FNSTENV m14byte`
 	///
 	/// `o16 D9 /6`
@@ -4141,7 +4141,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnstenv_m14byte,
+	Fnstenv_m14byte = 516,
 	/// `FSTENV m14byte`
 	///
 	/// `9B o16 D9 /6`
@@ -4149,7 +4149,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstenv_m14byte,
+	Fstenv_m14byte = 517,
 	/// `FNSTENV m28byte`
 	///
 	/// `o32 D9 /6`
@@ -4157,7 +4157,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnstenv_m28byte,
+	Fnstenv_m28byte = 518,
 	/// `FSTENV m28byte`
 	///
 	/// `9B o32 D9 /6`
@@ -4165,7 +4165,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstenv_m28byte,
+	Fstenv_m28byte = 519,
 	/// `FNSTCW m2byte`
 	///
 	/// `D9 /7`
@@ -4173,7 +4173,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnstcw_m2byte,
+	Fnstcw_m2byte = 520,
 	/// `FSTCW m2byte`
 	///
 	/// `9B D9 /7`
@@ -4181,7 +4181,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstcw_m2byte,
+	Fstcw_m2byte = 521,
 	/// `FLD ST(i)`
 	///
 	/// `D9 C0+i`
@@ -4189,7 +4189,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld_st0_sti,
+	Fld_st0_sti = 522,
 	/// `FXCH ST(i)`
 	///
 	/// `D9 C8+i`
@@ -4197,7 +4197,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fxch_st0_sti,
+	Fxch_st0_sti = 523,
 	/// `FNOP`
 	///
 	/// `D9 D0`
@@ -4205,7 +4205,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnop,
+	Fnop = 524,
 	/// `FSTPNCE ST(i)`
 	///
 	/// `D9 D8+i`
@@ -4213,7 +4213,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstpnce_sti,
+	Fstpnce_sti = 525,
 	/// `FCHS`
 	///
 	/// `D9 E0`
@@ -4221,7 +4221,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fchs,
+	Fchs = 526,
 	/// `FABS`
 	///
 	/// `D9 E1`
@@ -4229,7 +4229,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fabs,
+	Fabs = 527,
 	/// `FTST`
 	///
 	/// `D9 E4`
@@ -4237,7 +4237,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ftst,
+	Ftst = 528,
 	/// `FXAM`
 	///
 	/// `D9 E5`
@@ -4245,7 +4245,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fxam,
+	Fxam = 529,
 	/// `FLD1`
 	///
 	/// `D9 E8`
@@ -4253,7 +4253,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld1,
+	Fld1 = 530,
 	/// `FLDL2T`
 	///
 	/// `D9 E9`
@@ -4261,7 +4261,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldl2t,
+	Fldl2t = 531,
 	/// `FLDL2E`
 	///
 	/// `D9 EA`
@@ -4269,7 +4269,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldl2e,
+	Fldl2e = 532,
 	/// `FLDPI`
 	///
 	/// `D9 EB`
@@ -4277,7 +4277,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldpi,
+	Fldpi = 533,
 	/// `FLDLG2`
 	///
 	/// `D9 EC`
@@ -4285,7 +4285,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldlg2,
+	Fldlg2 = 534,
 	/// `FLDLN2`
 	///
 	/// `D9 ED`
@@ -4293,7 +4293,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldln2,
+	Fldln2 = 535,
 	/// `FLDZ`
 	///
 	/// `D9 EE`
@@ -4301,7 +4301,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fldz,
+	Fldz = 536,
 	/// `F2XM1`
 	///
 	/// `D9 F0`
@@ -4309,7 +4309,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	F2xm1,
+	F2xm1 = 537,
 	/// `FYL2X`
 	///
 	/// `D9 F1`
@@ -4317,7 +4317,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fyl2x,
+	Fyl2x = 538,
 	/// `FPTAN`
 	///
 	/// `D9 F2`
@@ -4325,7 +4325,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fptan,
+	Fptan = 539,
 	/// `FPATAN`
 	///
 	/// `D9 F3`
@@ -4333,7 +4333,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fpatan,
+	Fpatan = 540,
 	/// `FXTRACT`
 	///
 	/// `D9 F4`
@@ -4341,7 +4341,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fxtract,
+	Fxtract = 541,
 	/// `FPREM1`
 	///
 	/// `D9 F5`
@@ -4349,7 +4349,7 @@ pub enum Code {
 	/// `387+`
 	///
 	/// `16/32/64-bit`
-	Fprem1,
+	Fprem1 = 542,
 	/// `FDECSTP`
 	///
 	/// `D9 F6`
@@ -4357,7 +4357,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdecstp,
+	Fdecstp = 543,
 	/// `FINCSTP`
 	///
 	/// `D9 F7`
@@ -4365,7 +4365,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fincstp,
+	Fincstp = 544,
 	/// `FPREM`
 	///
 	/// `D9 F8`
@@ -4373,7 +4373,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fprem,
+	Fprem = 545,
 	/// `FYL2XP1`
 	///
 	/// `D9 F9`
@@ -4381,7 +4381,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fyl2xp1,
+	Fyl2xp1 = 546,
 	/// `FSQRT`
 	///
 	/// `D9 FA`
@@ -4389,7 +4389,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsqrt,
+	Fsqrt = 547,
 	/// `FSINCOS`
 	///
 	/// `D9 FB`
@@ -4397,7 +4397,7 @@ pub enum Code {
 	/// `387+`
 	///
 	/// `16/32/64-bit`
-	Fsincos,
+	Fsincos = 548,
 	/// `FRNDINT`
 	///
 	/// `D9 FC`
@@ -4405,7 +4405,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Frndint,
+	Frndint = 549,
 	/// `FSCALE`
 	///
 	/// `D9 FD`
@@ -4413,7 +4413,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fscale,
+	Fscale = 550,
 	/// `FSIN`
 	///
 	/// `D9 FE`
@@ -4421,7 +4421,7 @@ pub enum Code {
 	/// `387+`
 	///
 	/// `16/32/64-bit`
-	Fsin,
+	Fsin = 551,
 	/// `FCOS`
 	///
 	/// `D9 FF`
@@ -4429,7 +4429,7 @@ pub enum Code {
 	/// `387+`
 	///
 	/// `16/32/64-bit`
-	Fcos,
+	Fcos = 552,
 	/// `FIADD m32int`
 	///
 	/// `DA /0`
@@ -4437,7 +4437,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fiadd_m32int,
+	Fiadd_m32int = 553,
 	/// `FIMUL m32int`
 	///
 	/// `DA /1`
@@ -4445,7 +4445,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fimul_m32int,
+	Fimul_m32int = 554,
 	/// `FICOM m32int`
 	///
 	/// `DA /2`
@@ -4453,7 +4453,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ficom_m32int,
+	Ficom_m32int = 555,
 	/// `FICOMP m32int`
 	///
 	/// `DA /3`
@@ -4461,7 +4461,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ficomp_m32int,
+	Ficomp_m32int = 556,
 	/// `FISUB m32int`
 	///
 	/// `DA /4`
@@ -4469,7 +4469,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fisub_m32int,
+	Fisub_m32int = 557,
 	/// `FISUBR m32int`
 	///
 	/// `DA /5`
@@ -4477,7 +4477,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fisubr_m32int,
+	Fisubr_m32int = 558,
 	/// `FIDIV m32int`
 	///
 	/// `DA /6`
@@ -4485,7 +4485,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fidiv_m32int,
+	Fidiv_m32int = 559,
 	/// `FIDIVR m32int`
 	///
 	/// `DA /7`
@@ -4493,7 +4493,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fidivr_m32int,
+	Fidivr_m32int = 560,
 	/// `FCMOVB ST(0), ST(i)`
 	///
 	/// `DA C0+i`
@@ -4501,7 +4501,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovb_st0_sti,
+	Fcmovb_st0_sti = 561,
 	/// `FCMOVE ST(0), ST(i)`
 	///
 	/// `DA C8+i`
@@ -4509,7 +4509,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmove_st0_sti,
+	Fcmove_st0_sti = 562,
 	/// `FCMOVBE ST(0), ST(i)`
 	///
 	/// `DA D0+i`
@@ -4517,7 +4517,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovbe_st0_sti,
+	Fcmovbe_st0_sti = 563,
 	/// `FCMOVU ST(0), ST(i)`
 	///
 	/// `DA D8+i`
@@ -4525,7 +4525,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovu_st0_sti,
+	Fcmovu_st0_sti = 564,
 	/// `FUCOMPP`
 	///
 	/// `DA E9`
@@ -4533,7 +4533,7 @@ pub enum Code {
 	/// `387+`
 	///
 	/// `16/32/64-bit`
-	Fucompp,
+	Fucompp = 565,
 	/// `FILD m32int`
 	///
 	/// `DB /0`
@@ -4541,7 +4541,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fild_m32int,
+	Fild_m32int = 566,
 	/// `FISTTP m32int`
 	///
 	/// `DB /1`
@@ -4549,7 +4549,7 @@ pub enum Code {
 	/// `8087+ and SSE3`
 	///
 	/// `16/32/64-bit`
-	Fisttp_m32int,
+	Fisttp_m32int = 567,
 	/// `FIST m32int`
 	///
 	/// `DB /2`
@@ -4557,7 +4557,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fist_m32int,
+	Fist_m32int = 568,
 	/// `FISTP m32int`
 	///
 	/// `DB /3`
@@ -4565,7 +4565,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fistp_m32int,
+	Fistp_m32int = 569,
 	/// `FLD m80fp`
 	///
 	/// `DB /5`
@@ -4573,7 +4573,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld_m80fp,
+	Fld_m80fp = 570,
 	/// `FSTP m80fp`
 	///
 	/// `DB /7`
@@ -4581,7 +4581,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_m80fp,
+	Fstp_m80fp = 571,
 	/// `FCMOVNB ST(0), ST(i)`
 	///
 	/// `DB C0+i`
@@ -4589,7 +4589,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovnb_st0_sti,
+	Fcmovnb_st0_sti = 572,
 	/// `FCMOVNE ST(0), ST(i)`
 	///
 	/// `DB C8+i`
@@ -4597,7 +4597,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovne_st0_sti,
+	Fcmovne_st0_sti = 573,
 	/// `FCMOVNBE ST(0), ST(i)`
 	///
 	/// `DB D0+i`
@@ -4605,7 +4605,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovnbe_st0_sti,
+	Fcmovnbe_st0_sti = 574,
 	/// `FCMOVNU ST(0), ST(i)`
 	///
 	/// `DB D8+i`
@@ -4613,7 +4613,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcmovnu_st0_sti,
+	Fcmovnu_st0_sti = 575,
 	/// `FNENI`
 	///
 	/// `DB E0`
@@ -4621,7 +4621,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fneni,
+	Fneni = 576,
 	/// `FENI`
 	///
 	/// `9B DB E0`
@@ -4629,7 +4629,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Feni,
+	Feni = 577,
 	/// `FNDISI`
 	///
 	/// `DB E1`
@@ -4637,7 +4637,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fndisi,
+	Fndisi = 578,
 	/// `FDISI`
 	///
 	/// `9B DB E1`
@@ -4645,7 +4645,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdisi,
+	Fdisi = 579,
 	/// `FNCLEX`
 	///
 	/// `DB E2`
@@ -4653,7 +4653,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnclex,
+	Fnclex = 580,
 	/// `FCLEX`
 	///
 	/// `9B DB E2`
@@ -4661,7 +4661,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fclex,
+	Fclex = 581,
 	/// `FNINIT`
 	///
 	/// `DB E3`
@@ -4669,7 +4669,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fninit,
+	Fninit = 582,
 	/// `FINIT`
 	///
 	/// `9B DB E3`
@@ -4677,7 +4677,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Finit,
+	Finit = 583,
 	/// `FNSETPM`
 	///
 	/// `DB E4`
@@ -4685,7 +4685,7 @@ pub enum Code {
 	/// `287+`
 	///
 	/// `16/32/64-bit`
-	Fnsetpm,
+	Fnsetpm = 584,
 	/// `FSETPM`
 	///
 	/// `9B DB E4`
@@ -4693,7 +4693,7 @@ pub enum Code {
 	/// `287+`
 	///
 	/// `16/32/64-bit`
-	Fsetpm,
+	Fsetpm = 585,
 	/// `FRSTPM`
 	///
 	/// `DB E5`
@@ -4701,7 +4701,7 @@ pub enum Code {
 	/// `287 XL`
 	///
 	/// `16/32-bit`
-	Frstpm,
+	Frstpm = 586,
 	/// `FUCOMI ST, ST(i)`
 	///
 	/// `DB E8+i`
@@ -4709,7 +4709,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fucomi_st0_sti,
+	Fucomi_st0_sti = 587,
 	/// `FCOMI ST, ST(i)`
 	///
 	/// `DB F0+i`
@@ -4717,7 +4717,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcomi_st0_sti,
+	Fcomi_st0_sti = 588,
 	/// `FADD m64fp`
 	///
 	/// `DC /0`
@@ -4725,7 +4725,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fadd_m64fp,
+	Fadd_m64fp = 589,
 	/// `FMUL m64fp`
 	///
 	/// `DC /1`
@@ -4733,7 +4733,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fmul_m64fp,
+	Fmul_m64fp = 590,
 	/// `FCOM m64fp`
 	///
 	/// `DC /2`
@@ -4741,7 +4741,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcom_m64fp,
+	Fcom_m64fp = 591,
 	/// `FCOMP m64fp`
 	///
 	/// `DC /3`
@@ -4749,7 +4749,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcomp_m64fp,
+	Fcomp_m64fp = 592,
 	/// `FSUB m64fp`
 	///
 	/// `DC /4`
@@ -4757,7 +4757,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsub_m64fp,
+	Fsub_m64fp = 593,
 	/// `FSUBR m64fp`
 	///
 	/// `DC /5`
@@ -4765,7 +4765,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubr_m64fp,
+	Fsubr_m64fp = 594,
 	/// `FDIV m64fp`
 	///
 	/// `DC /6`
@@ -4773,7 +4773,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdiv_m64fp,
+	Fdiv_m64fp = 595,
 	/// `FDIVR m64fp`
 	///
 	/// `DC /7`
@@ -4781,7 +4781,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivr_m64fp,
+	Fdivr_m64fp = 596,
 	/// `FADD ST(i), ST(0)`
 	///
 	/// `DC C0+i`
@@ -4789,7 +4789,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fadd_sti_st0,
+	Fadd_sti_st0 = 597,
 	/// `FMUL ST(i), ST(0)`
 	///
 	/// `DC C8+i`
@@ -4797,7 +4797,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fmul_sti_st0,
+	Fmul_sti_st0 = 598,
 	/// `FCOM ST(i)`
 	///
 	/// `DC D0+i`
@@ -4805,7 +4805,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcom_st0_sti_DCD0,
+	Fcom_st0_sti_DCD0 = 599,
 	/// `FCOMP ST(i)`
 	///
 	/// `DC D8+i`
@@ -4813,7 +4813,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcomp_st0_sti_DCD8,
+	Fcomp_st0_sti_DCD8 = 600,
 	/// `FSUBR ST(i), ST(0)`
 	///
 	/// `DC E0+i`
@@ -4821,7 +4821,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubr_sti_st0,
+	Fsubr_sti_st0 = 601,
 	/// `FSUB ST(i), ST(0)`
 	///
 	/// `DC E8+i`
@@ -4829,7 +4829,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsub_sti_st0,
+	Fsub_sti_st0 = 602,
 	/// `FDIVR ST(i), ST(0)`
 	///
 	/// `DC F0+i`
@@ -4837,7 +4837,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivr_sti_st0,
+	Fdivr_sti_st0 = 603,
 	/// `FDIV ST(i), ST(0)`
 	///
 	/// `DC F8+i`
@@ -4845,7 +4845,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdiv_sti_st0,
+	Fdiv_sti_st0 = 604,
 	/// `FLD m64fp`
 	///
 	/// `DD /0`
@@ -4853,7 +4853,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fld_m64fp,
+	Fld_m64fp = 605,
 	/// `FISTTP m64int`
 	///
 	/// `DD /1`
@@ -4861,7 +4861,7 @@ pub enum Code {
 	/// `8087+ and SSE3`
 	///
 	/// `16/32/64-bit`
-	Fisttp_m64int,
+	Fisttp_m64int = 606,
 	/// `FST m64fp`
 	///
 	/// `DD /2`
@@ -4869,7 +4869,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fst_m64fp,
+	Fst_m64fp = 607,
 	/// `FSTP m64fp`
 	///
 	/// `DD /3`
@@ -4877,7 +4877,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_m64fp,
+	Fstp_m64fp = 608,
 	/// `FRSTOR m94byte`
 	///
 	/// `o16 DD /4`
@@ -4885,7 +4885,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Frstor_m94byte,
+	Frstor_m94byte = 609,
 	/// `FRSTOR m108byte`
 	///
 	/// `o32 DD /4`
@@ -4893,7 +4893,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Frstor_m108byte,
+	Frstor_m108byte = 610,
 	/// `FNSAVE m94byte`
 	///
 	/// `o16 DD /6`
@@ -4901,7 +4901,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnsave_m94byte,
+	Fnsave_m94byte = 611,
 	/// `FSAVE m94byte`
 	///
 	/// `9B o16 DD /6`
@@ -4909,7 +4909,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsave_m94byte,
+	Fsave_m94byte = 612,
 	/// `FNSAVE m108byte`
 	///
 	/// `o32 DD /6`
@@ -4917,7 +4917,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnsave_m108byte,
+	Fnsave_m108byte = 613,
 	/// `FSAVE m108byte`
 	///
 	/// `9B o32 DD /6`
@@ -4925,7 +4925,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsave_m108byte,
+	Fsave_m108byte = 614,
 	/// `FNSTSW m2byte`
 	///
 	/// `DD /7`
@@ -4933,7 +4933,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fnstsw_m2byte,
+	Fnstsw_m2byte = 615,
 	/// `FSTSW m2byte`
 	///
 	/// `9B DD /7`
@@ -4941,7 +4941,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstsw_m2byte,
+	Fstsw_m2byte = 616,
 	/// `FFREE ST(i)`
 	///
 	/// `DD C0+i`
@@ -4949,7 +4949,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ffree_sti,
+	Ffree_sti = 617,
 	/// `FXCH ST(i)`
 	///
 	/// `DD C8+i`
@@ -4957,7 +4957,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fxch_st0_sti_DDC8,
+	Fxch_st0_sti_DDC8 = 618,
 	/// `FST ST(i)`
 	///
 	/// `DD D0+i`
@@ -4965,7 +4965,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fst_sti,
+	Fst_sti = 619,
 	/// `FSTP ST(i)`
 	///
 	/// `DD D8+i`
@@ -4973,7 +4973,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_sti,
+	Fstp_sti = 620,
 	/// `FUCOM ST(i)`
 	///
 	/// `DD E0+i`
@@ -4981,7 +4981,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fucom_st0_sti,
+	Fucom_st0_sti = 621,
 	/// `FUCOMP ST(i)`
 	///
 	/// `DD E8+i`
@@ -4989,7 +4989,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fucomp_st0_sti,
+	Fucomp_st0_sti = 622,
 	/// `FIADD m16int`
 	///
 	/// `DE /0`
@@ -4997,7 +4997,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fiadd_m16int,
+	Fiadd_m16int = 623,
 	/// `FIMUL m16int`
 	///
 	/// `DE /1`
@@ -5005,7 +5005,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fimul_m16int,
+	Fimul_m16int = 624,
 	/// `FICOM m16int`
 	///
 	/// `DE /2`
@@ -5013,7 +5013,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ficom_m16int,
+	Ficom_m16int = 625,
 	/// `FICOMP m16int`
 	///
 	/// `DE /3`
@@ -5021,7 +5021,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ficomp_m16int,
+	Ficomp_m16int = 626,
 	/// `FISUB m16int`
 	///
 	/// `DE /4`
@@ -5029,7 +5029,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fisub_m16int,
+	Fisub_m16int = 627,
 	/// `FISUBR m16int`
 	///
 	/// `DE /5`
@@ -5037,7 +5037,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fisubr_m16int,
+	Fisubr_m16int = 628,
 	/// `FIDIV m16int`
 	///
 	/// `DE /6`
@@ -5045,7 +5045,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fidiv_m16int,
+	Fidiv_m16int = 629,
 	/// `FIDIVR m16int`
 	///
 	/// `DE /7`
@@ -5053,7 +5053,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fidivr_m16int,
+	Fidivr_m16int = 630,
 	/// `FADDP ST(i), ST(0)`
 	///
 	/// `DE C0+i`
@@ -5061,7 +5061,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Faddp_sti_st0,
+	Faddp_sti_st0 = 631,
 	/// `FMULP ST(i), ST(0)`
 	///
 	/// `DE C8+i`
@@ -5069,7 +5069,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fmulp_sti_st0,
+	Fmulp_sti_st0 = 632,
 	/// `FCOMP ST(i)`
 	///
 	/// `DE D0+i`
@@ -5077,7 +5077,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcomp_st0_sti_DED0,
+	Fcomp_st0_sti_DED0 = 633,
 	/// `FCOMPP`
 	///
 	/// `DE D9`
@@ -5085,7 +5085,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fcompp,
+	Fcompp = 634,
 	/// `FSUBRP ST(i), ST(0)`
 	///
 	/// `DE E0+i`
@@ -5093,7 +5093,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubrp_sti_st0,
+	Fsubrp_sti_st0 = 635,
 	/// `FSUBP ST(i), ST(0)`
 	///
 	/// `DE E8+i`
@@ -5101,7 +5101,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fsubp_sti_st0,
+	Fsubp_sti_st0 = 636,
 	/// `FDIVRP ST(i), ST(0)`
 	///
 	/// `DE F0+i`
@@ -5109,7 +5109,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivrp_sti_st0,
+	Fdivrp_sti_st0 = 637,
 	/// `FDIVP ST(i), ST(0)`
 	///
 	/// `DE F8+i`
@@ -5117,7 +5117,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fdivp_sti_st0,
+	Fdivp_sti_st0 = 638,
 	/// `FILD m16int`
 	///
 	/// `DF /0`
@@ -5125,7 +5125,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fild_m16int,
+	Fild_m16int = 639,
 	/// `FISTTP m16int`
 	///
 	/// `DF /1`
@@ -5133,7 +5133,7 @@ pub enum Code {
 	/// `8087+ and SSE3`
 	///
 	/// `16/32/64-bit`
-	Fisttp_m16int,
+	Fisttp_m16int = 640,
 	/// `FIST m16int`
 	///
 	/// `DF /2`
@@ -5141,7 +5141,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fist_m16int,
+	Fist_m16int = 641,
 	/// `FISTP m16int`
 	///
 	/// `DF /3`
@@ -5149,7 +5149,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fistp_m16int,
+	Fistp_m16int = 642,
 	/// `FBLD m80bcd`
 	///
 	/// `DF /4`
@@ -5157,7 +5157,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fbld_m80bcd,
+	Fbld_m80bcd = 643,
 	/// `FILD m64int`
 	///
 	/// `DF /5`
@@ -5165,7 +5165,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fild_m64int,
+	Fild_m64int = 644,
 	/// `FBSTP m80bcd`
 	///
 	/// `DF /6`
@@ -5173,7 +5173,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fbstp_m80bcd,
+	Fbstp_m80bcd = 645,
 	/// `FISTP m64int`
 	///
 	/// `DF /7`
@@ -5181,7 +5181,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fistp_m64int,
+	Fistp_m64int = 646,
 	/// `FFREEP ST(i)`
 	///
 	/// `DF C0+i`
@@ -5189,7 +5189,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Ffreep_sti,
+	Ffreep_sti = 647,
 	/// `FXCH ST(i)`
 	///
 	/// `DF C8+i`
@@ -5197,7 +5197,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fxch_st0_sti_DFC8,
+	Fxch_st0_sti_DFC8 = 648,
 	/// `FSTP ST(i)`
 	///
 	/// `DF D0+i`
@@ -5205,7 +5205,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_sti_DFD0,
+	Fstp_sti_DFD0 = 649,
 	/// `FSTP ST(i)`
 	///
 	/// `DF D8+i`
@@ -5213,7 +5213,7 @@ pub enum Code {
 	/// `8087+`
 	///
 	/// `16/32/64-bit`
-	Fstp_sti_DFD8,
+	Fstp_sti_DFD8 = 650,
 	/// `FNSTSW AX`
 	///
 	/// `DF E0`
@@ -5221,7 +5221,7 @@ pub enum Code {
 	/// `287+`
 	///
 	/// `16/32/64-bit`
-	Fnstsw_AX,
+	Fnstsw_AX = 651,
 	/// `FSTSW AX`
 	///
 	/// `9B DF E0`
@@ -5229,7 +5229,7 @@ pub enum Code {
 	/// `287+`
 	///
 	/// `16/32/64-bit`
-	Fstsw_AX,
+	Fstsw_AX = 652,
 	/// `FSTDW AX`
 	///
 	/// `DF E1`
@@ -5237,7 +5237,7 @@ pub enum Code {
 	/// `387 SL`
 	///
 	/// `16/32-bit`
-	Fstdw_AX,
+	Fstdw_AX = 653,
 	/// `FSTSG AX`
 	///
 	/// `DF E2`
@@ -5245,7 +5245,7 @@ pub enum Code {
 	/// `387 SL`
 	///
 	/// `16/32-bit`
-	Fstsg_AX,
+	Fstsg_AX = 654,
 	/// `FUCOMIP ST, ST(i)`
 	///
 	/// `DF E8+i`
@@ -5253,7 +5253,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fucomip_st0_sti,
+	Fucomip_st0_sti = 655,
 	/// `FCOMIP ST, ST(i)`
 	///
 	/// `DF F0+i`
@@ -5261,7 +5261,7 @@ pub enum Code {
 	/// `8087+ and CMOV`
 	///
 	/// `16/32/64-bit`
-	Fcomip_st0_sti,
+	Fcomip_st0_sti = 656,
 	/// `LOOPNE rel8`
 	///
 	/// `a16 o16 E0 cb`
@@ -5269,7 +5269,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Loopne_rel8_16_CX,
+	Loopne_rel8_16_CX = 657,
 	/// `LOOPNE rel8`
 	///
 	/// `a16 o32 E0 cb`
@@ -5277,7 +5277,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loopne_rel8_32_CX,
+	Loopne_rel8_32_CX = 658,
 	/// `LOOPNE rel8`
 	///
 	/// `a32 o16 E0 cb`
@@ -5285,7 +5285,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Loopne_rel8_16_ECX,
+	Loopne_rel8_16_ECX = 659,
 	/// `LOOPNE rel8`
 	///
 	/// `a32 o32 E0 cb`
@@ -5293,7 +5293,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loopne_rel8_32_ECX,
+	Loopne_rel8_32_ECX = 660,
 	/// `LOOPNE rel8`
 	///
 	/// `a32 E0 cb`
@@ -5301,7 +5301,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loopne_rel8_64_ECX,
+	Loopne_rel8_64_ECX = 661,
 	/// `LOOPNE rel8`
 	///
 	/// `o16 E0 cb`
@@ -5309,7 +5309,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loopne_rel8_16_RCX,
+	Loopne_rel8_16_RCX = 662,
 	/// `LOOPNE rel8`
 	///
 	/// `E0 cb`
@@ -5317,7 +5317,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loopne_rel8_64_RCX,
+	Loopne_rel8_64_RCX = 663,
 	/// `LOOPE rel8`
 	///
 	/// `a16 o16 E1 cb`
@@ -5325,7 +5325,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Loope_rel8_16_CX,
+	Loope_rel8_16_CX = 664,
 	/// `LOOPE rel8`
 	///
 	/// `a16 o32 E1 cb`
@@ -5333,7 +5333,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loope_rel8_32_CX,
+	Loope_rel8_32_CX = 665,
 	/// `LOOPE rel8`
 	///
 	/// `a32 o16 E1 cb`
@@ -5341,7 +5341,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Loope_rel8_16_ECX,
+	Loope_rel8_16_ECX = 666,
 	/// `LOOPE rel8`
 	///
 	/// `a32 o32 E1 cb`
@@ -5349,7 +5349,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loope_rel8_32_ECX,
+	Loope_rel8_32_ECX = 667,
 	/// `LOOPE rel8`
 	///
 	/// `a32 E1 cb`
@@ -5357,7 +5357,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loope_rel8_64_ECX,
+	Loope_rel8_64_ECX = 668,
 	/// `LOOPE rel8`
 	///
 	/// `o16 E1 cb`
@@ -5365,7 +5365,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loope_rel8_16_RCX,
+	Loope_rel8_16_RCX = 669,
 	/// `LOOPE rel8`
 	///
 	/// `E1 cb`
@@ -5373,7 +5373,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loope_rel8_64_RCX,
+	Loope_rel8_64_RCX = 670,
 	/// `LOOP rel8`
 	///
 	/// `a16 o16 E2 cb`
@@ -5381,7 +5381,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Loop_rel8_16_CX,
+	Loop_rel8_16_CX = 671,
 	/// `LOOP rel8`
 	///
 	/// `a16 o32 E2 cb`
@@ -5389,7 +5389,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loop_rel8_32_CX,
+	Loop_rel8_32_CX = 672,
 	/// `LOOP rel8`
 	///
 	/// `a32 o16 E2 cb`
@@ -5397,7 +5397,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Loop_rel8_16_ECX,
+	Loop_rel8_16_ECX = 673,
 	/// `LOOP rel8`
 	///
 	/// `a32 o32 E2 cb`
@@ -5405,7 +5405,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Loop_rel8_32_ECX,
+	Loop_rel8_32_ECX = 674,
 	/// `LOOP rel8`
 	///
 	/// `a32 E2 cb`
@@ -5413,7 +5413,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loop_rel8_64_ECX,
+	Loop_rel8_64_ECX = 675,
 	/// `LOOP rel8`
 	///
 	/// `o16 E2 cb`
@@ -5421,7 +5421,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loop_rel8_16_RCX,
+	Loop_rel8_16_RCX = 676,
 	/// `LOOP rel8`
 	///
 	/// `E2 cb`
@@ -5429,7 +5429,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Loop_rel8_64_RCX,
+	Loop_rel8_64_RCX = 677,
 	/// `JCXZ rel8`
 	///
 	/// `a16 o16 E3 cb`
@@ -5437,7 +5437,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Jcxz_rel8_16,
+	Jcxz_rel8_16 = 678,
 	/// `JCXZ rel8`
 	///
 	/// `a16 o32 E3 cb`
@@ -5445,7 +5445,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jcxz_rel8_32,
+	Jcxz_rel8_32 = 679,
 	/// `JECXZ rel8`
 	///
 	/// `a32 o16 E3 cb`
@@ -5453,7 +5453,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jecxz_rel8_16,
+	Jecxz_rel8_16 = 680,
 	/// `JECXZ rel8`
 	///
 	/// `a32 o32 E3 cb`
@@ -5461,7 +5461,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jecxz_rel8_32,
+	Jecxz_rel8_32 = 681,
 	/// `JECXZ rel8`
 	///
 	/// `a32 E3 cb`
@@ -5469,7 +5469,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jecxz_rel8_64,
+	Jecxz_rel8_64 = 682,
 	/// `JRCXZ rel8`
 	///
 	/// `o16 E3 cb`
@@ -5477,7 +5477,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jrcxz_rel8_16,
+	Jrcxz_rel8_16 = 683,
 	/// `JRCXZ rel8`
 	///
 	/// `E3 cb`
@@ -5485,7 +5485,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jrcxz_rel8_64,
+	Jrcxz_rel8_64 = 684,
 	/// `IN AL, imm8`
 	///
 	/// `E4 ib`
@@ -5493,7 +5493,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	In_AL_imm8,
+	In_AL_imm8 = 685,
 	/// `IN AX, imm8`
 	///
 	/// `o16 E5 ib`
@@ -5501,7 +5501,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	In_AX_imm8,
+	In_AX_imm8 = 686,
 	/// `IN EAX, imm8`
 	///
 	/// `o32 E5 ib`
@@ -5509,7 +5509,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	In_EAX_imm8,
+	In_EAX_imm8 = 687,
 	/// `OUT imm8, AL`
 	///
 	/// `E6 ib`
@@ -5517,7 +5517,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Out_imm8_AL,
+	Out_imm8_AL = 688,
 	/// `OUT imm8, AX`
 	///
 	/// `o16 E7 ib`
@@ -5525,7 +5525,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Out_imm8_AX,
+	Out_imm8_AX = 689,
 	/// `OUT imm8, EAX`
 	///
 	/// `o32 E7 ib`
@@ -5533,7 +5533,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Out_imm8_EAX,
+	Out_imm8_EAX = 690,
 	/// `CALL rel16`
 	///
 	/// `o16 E8 cw`
@@ -5541,7 +5541,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Call_rel16,
+	Call_rel16 = 691,
 	/// `CALL rel32`
 	///
 	/// `o32 E8 cd`
@@ -5549,7 +5549,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Call_rel32_32,
+	Call_rel32_32 = 692,
 	/// `CALL rel32`
 	///
 	/// `E8 cd`
@@ -5557,7 +5557,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Call_rel32_64,
+	Call_rel32_64 = 693,
 	/// `JMP rel16`
 	///
 	/// `o16 E9 cw`
@@ -5565,7 +5565,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jmp_rel16,
+	Jmp_rel16 = 694,
 	/// `JMP rel32`
 	///
 	/// `o32 E9 cd`
@@ -5573,7 +5573,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jmp_rel32_32,
+	Jmp_rel32_32 = 695,
 	/// `JMP rel32`
 	///
 	/// `E9 cd`
@@ -5581,7 +5581,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jmp_rel32_64,
+	Jmp_rel32_64 = 696,
 	/// `JMP ptr16:16`
 	///
 	/// `o16 EA cd`
@@ -5589,7 +5589,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32-bit`
-	Jmp_ptr1616,
+	Jmp_ptr1616 = 697,
 	/// `JMP ptr16:32`
 	///
 	/// `o32 EA cp`
@@ -5597,7 +5597,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jmp_ptr1632,
+	Jmp_ptr1632 = 698,
 	/// `JMP rel8`
 	///
 	/// `o16 EB cb`
@@ -5605,7 +5605,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jmp_rel8_16,
+	Jmp_rel8_16 = 699,
 	/// `JMP rel8`
 	///
 	/// `o32 EB cb`
@@ -5613,7 +5613,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jmp_rel8_32,
+	Jmp_rel8_32 = 700,
 	/// `JMP rel8`
 	///
 	/// `EB cb`
@@ -5621,7 +5621,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jmp_rel8_64,
+	Jmp_rel8_64 = 701,
 	/// `IN AL, DX`
 	///
 	/// `EC`
@@ -5629,7 +5629,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	In_AL_DX,
+	In_AL_DX = 702,
 	/// `IN AX, DX`
 	///
 	/// `o16 ED`
@@ -5637,7 +5637,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	In_AX_DX,
+	In_AX_DX = 703,
 	/// `IN EAX, DX`
 	///
 	/// `o32 ED`
@@ -5645,7 +5645,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	In_EAX_DX,
+	In_EAX_DX = 704,
 	/// `OUT DX, AL`
 	///
 	/// `EE`
@@ -5653,7 +5653,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Out_DX_AL,
+	Out_DX_AL = 705,
 	/// `OUT DX, AX`
 	///
 	/// `o16 EF`
@@ -5661,7 +5661,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Out_DX_AX,
+	Out_DX_AX = 706,
 	/// `OUT DX, EAX`
 	///
 	/// `o32 EF`
@@ -5669,7 +5669,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Out_DX_EAX,
+	Out_DX_EAX = 707,
 	/// `INT1`
 	///
 	/// `F1`
@@ -5677,7 +5677,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Int1,
+	Int1 = 708,
 	/// `HLT`
 	///
 	/// `F4`
@@ -5685,7 +5685,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Hlt,
+	Hlt = 709,
 	/// `CMC`
 	///
 	/// `F5`
@@ -5693,7 +5693,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cmc,
+	Cmc = 710,
 	/// `TEST r/m8, imm8`
 	///
 	/// `F6 /0 ib`
@@ -5701,7 +5701,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm8_imm8,
+	Test_rm8_imm8 = 711,
 	/// `TEST r/m8, imm8`
 	///
 	/// `F6 /1 ib`
@@ -5709,7 +5709,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm8_imm8_F6r1,
+	Test_rm8_imm8_F6r1 = 712,
 	/// `NOT r/m8`
 	///
 	/// `F6 /2`
@@ -5717,7 +5717,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Not_rm8,
+	Not_rm8 = 713,
 	/// `NEG r/m8`
 	///
 	/// `F6 /3`
@@ -5725,7 +5725,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Neg_rm8,
+	Neg_rm8 = 714,
 	/// `MUL r/m8`
 	///
 	/// `F6 /4`
@@ -5733,7 +5733,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mul_rm8,
+	Mul_rm8 = 715,
 	/// `IMUL r/m8`
 	///
 	/// `F6 /5`
@@ -5741,7 +5741,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Imul_rm8,
+	Imul_rm8 = 716,
 	/// `DIV r/m8`
 	///
 	/// `F6 /6`
@@ -5749,7 +5749,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Div_rm8,
+	Div_rm8 = 717,
 	/// `IDIV r/m8`
 	///
 	/// `F6 /7`
@@ -5757,7 +5757,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Idiv_rm8,
+	Idiv_rm8 = 718,
 	/// `TEST r/m16, imm16`
 	///
 	/// `o16 F7 /0 iw`
@@ -5765,7 +5765,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm16_imm16,
+	Test_rm16_imm16 = 719,
 	/// `TEST r/m32, imm32`
 	///
 	/// `o32 F7 /0 id`
@@ -5773,7 +5773,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Test_rm32_imm32,
+	Test_rm32_imm32 = 720,
 	/// `TEST r/m64, imm32`
 	///
 	/// `REX.W F7 /0 id`
@@ -5781,7 +5781,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Test_rm64_imm32,
+	Test_rm64_imm32 = 721,
 	/// `TEST r/m16, imm16`
 	///
 	/// `o16 F7 /1 iw`
@@ -5789,7 +5789,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Test_rm16_imm16_F7r1,
+	Test_rm16_imm16_F7r1 = 722,
 	/// `TEST r/m32, imm32`
 	///
 	/// `o32 F7 /1 id`
@@ -5797,7 +5797,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Test_rm32_imm32_F7r1,
+	Test_rm32_imm32_F7r1 = 723,
 	/// `TEST r/m64, imm32`
 	///
 	/// `REX.W F7 /1 id`
@@ -5805,7 +5805,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Test_rm64_imm32_F7r1,
+	Test_rm64_imm32_F7r1 = 724,
 	/// `NOT r/m16`
 	///
 	/// `o16 F7 /2`
@@ -5813,7 +5813,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Not_rm16,
+	Not_rm16 = 725,
 	/// `NOT r/m32`
 	///
 	/// `o32 F7 /2`
@@ -5821,7 +5821,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Not_rm32,
+	Not_rm32 = 726,
 	/// `NOT r/m64`
 	///
 	/// `REX.W F7 /2`
@@ -5829,7 +5829,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Not_rm64,
+	Not_rm64 = 727,
 	/// `NEG r/m16`
 	///
 	/// `o16 F7 /3`
@@ -5837,7 +5837,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Neg_rm16,
+	Neg_rm16 = 728,
 	/// `NEG r/m32`
 	///
 	/// `o32 F7 /3`
@@ -5845,7 +5845,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Neg_rm32,
+	Neg_rm32 = 729,
 	/// `NEG r/m64`
 	///
 	/// `REX.W F7 /3`
@@ -5853,7 +5853,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Neg_rm64,
+	Neg_rm64 = 730,
 	/// `MUL r/m16`
 	///
 	/// `o16 F7 /4`
@@ -5861,7 +5861,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Mul_rm16,
+	Mul_rm16 = 731,
 	/// `MUL r/m32`
 	///
 	/// `o32 F7 /4`
@@ -5869,7 +5869,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Mul_rm32,
+	Mul_rm32 = 732,
 	/// `MUL r/m64`
 	///
 	/// `REX.W F7 /4`
@@ -5877,7 +5877,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mul_rm64,
+	Mul_rm64 = 733,
 	/// `IMUL r/m16`
 	///
 	/// `o16 F7 /5`
@@ -5885,7 +5885,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Imul_rm16,
+	Imul_rm16 = 734,
 	/// `IMUL r/m32`
 	///
 	/// `o32 F7 /5`
@@ -5893,7 +5893,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Imul_rm32,
+	Imul_rm32 = 735,
 	/// `IMUL r/m64`
 	///
 	/// `REX.W F7 /5`
@@ -5901,7 +5901,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Imul_rm64,
+	Imul_rm64 = 736,
 	/// `DIV r/m16`
 	///
 	/// `o16 F7 /6`
@@ -5909,7 +5909,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Div_rm16,
+	Div_rm16 = 737,
 	/// `DIV r/m32`
 	///
 	/// `o32 F7 /6`
@@ -5917,7 +5917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Div_rm32,
+	Div_rm32 = 738,
 	/// `DIV r/m64`
 	///
 	/// `REX.W F7 /6`
@@ -5925,7 +5925,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Div_rm64,
+	Div_rm64 = 739,
 	/// `IDIV r/m16`
 	///
 	/// `o16 F7 /7`
@@ -5933,7 +5933,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Idiv_rm16,
+	Idiv_rm16 = 740,
 	/// `IDIV r/m32`
 	///
 	/// `o32 F7 /7`
@@ -5941,7 +5941,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Idiv_rm32,
+	Idiv_rm32 = 741,
 	/// `IDIV r/m64`
 	///
 	/// `REX.W F7 /7`
@@ -5949,7 +5949,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Idiv_rm64,
+	Idiv_rm64 = 742,
 	/// `CLC`
 	///
 	/// `F8`
@@ -5957,7 +5957,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Clc,
+	Clc = 743,
 	/// `STC`
 	///
 	/// `F9`
@@ -5965,7 +5965,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Stc,
+	Stc = 744,
 	/// `CLI`
 	///
 	/// `FA`
@@ -5973,7 +5973,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cli,
+	Cli = 745,
 	/// `STI`
 	///
 	/// `FB`
@@ -5981,7 +5981,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Sti,
+	Sti = 746,
 	/// `CLD`
 	///
 	/// `FC`
@@ -5989,7 +5989,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Cld,
+	Cld = 747,
 	/// `STD`
 	///
 	/// `FD`
@@ -5997,7 +5997,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Std,
+	Std = 748,
 	/// `INC r/m8`
 	///
 	/// `FE /0`
@@ -6005,7 +6005,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Inc_rm8,
+	Inc_rm8 = 749,
 	/// `DEC r/m8`
 	///
 	/// `FE /1`
@@ -6013,7 +6013,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Dec_rm8,
+	Dec_rm8 = 750,
 	/// `INC r/m16`
 	///
 	/// `o16 FF /0`
@@ -6021,7 +6021,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Inc_rm16,
+	Inc_rm16 = 751,
 	/// `INC r/m32`
 	///
 	/// `o32 FF /0`
@@ -6029,7 +6029,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Inc_rm32,
+	Inc_rm32 = 752,
 	/// `INC r/m64`
 	///
 	/// `REX.W FF /0`
@@ -6037,7 +6037,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Inc_rm64,
+	Inc_rm64 = 753,
 	/// `DEC r/m16`
 	///
 	/// `o16 FF /1`
@@ -6045,7 +6045,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Dec_rm16,
+	Dec_rm16 = 754,
 	/// `DEC r/m32`
 	///
 	/// `o32 FF /1`
@@ -6053,7 +6053,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Dec_rm32,
+	Dec_rm32 = 755,
 	/// `DEC r/m64`
 	///
 	/// `REX.W FF /1`
@@ -6061,7 +6061,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Dec_rm64,
+	Dec_rm64 = 756,
 	/// `CALL r/m16`
 	///
 	/// `o16 FF /2`
@@ -6069,7 +6069,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Call_rm16,
+	Call_rm16 = 757,
 	/// `CALL r/m32`
 	///
 	/// `o32 FF /2`
@@ -6077,7 +6077,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Call_rm32,
+	Call_rm32 = 758,
 	/// `CALL r/m64`
 	///
 	/// `FF /2`
@@ -6085,7 +6085,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Call_rm64,
+	Call_rm64 = 759,
 	/// `CALL m16:16`
 	///
 	/// `o16 FF /3`
@@ -6093,7 +6093,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Call_m1616,
+	Call_m1616 = 760,
 	/// `CALL m16:32`
 	///
 	/// `o32 FF /3`
@@ -6101,7 +6101,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Call_m1632,
+	Call_m1632 = 761,
 	/// `CALL m16:64`
 	///
 	/// `REX.W FF /3`
@@ -6109,7 +6109,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Call_m1664,
+	Call_m1664 = 762,
 	/// `JMP r/m16`
 	///
 	/// `o16 FF /4`
@@ -6117,7 +6117,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jmp_rm16,
+	Jmp_rm16 = 763,
 	/// `JMP r/m32`
 	///
 	/// `o32 FF /4`
@@ -6125,7 +6125,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jmp_rm32,
+	Jmp_rm32 = 764,
 	/// `JMP r/m64`
 	///
 	/// `FF /4`
@@ -6133,7 +6133,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jmp_rm64,
+	Jmp_rm64 = 765,
 	/// `JMP m16:16`
 	///
 	/// `o16 FF /5`
@@ -6141,7 +6141,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Jmp_m1616,
+	Jmp_m1616 = 766,
 	/// `JMP m16:32`
 	///
 	/// `o32 FF /5`
@@ -6149,7 +6149,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jmp_m1632,
+	Jmp_m1632 = 767,
 	/// `JMP m16:64`
 	///
 	/// `REX.W FF /5`
@@ -6157,7 +6157,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jmp_m1664,
+	Jmp_m1664 = 768,
 	/// `PUSH r/m16`
 	///
 	/// `o16 FF /6`
@@ -6165,7 +6165,7 @@ pub enum Code {
 	/// `8086+`
 	///
 	/// `16/32/64-bit`
-	Push_rm16,
+	Push_rm16 = 769,
 	/// `PUSH r/m32`
 	///
 	/// `o32 FF /6`
@@ -6173,7 +6173,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Push_rm32,
+	Push_rm32 = 770,
 	/// `PUSH r/m64`
 	///
 	/// `FF /6`
@@ -6181,7 +6181,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Push_rm64,
+	Push_rm64 = 771,
 	/// `SLDT r/m16`
 	///
 	/// `o16 0F 00 /0`
@@ -6189,7 +6189,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Sldt_rm16,
+	Sldt_rm16 = 772,
 	/// `SLDT r32/m16`
 	///
 	/// `o32 0F 00 /0`
@@ -6197,7 +6197,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sldt_r32m16,
+	Sldt_r32m16 = 773,
 	/// `SLDT r64/m16`
 	///
 	/// `REX.W 0F 00 /0`
@@ -6205,7 +6205,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sldt_r64m16,
+	Sldt_r64m16 = 774,
 	/// `STR r/m16`
 	///
 	/// `o16 0F 00 /1`
@@ -6213,7 +6213,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Str_rm16,
+	Str_rm16 = 775,
 	/// `STR r32/m16`
 	///
 	/// `o32 0F 00 /1`
@@ -6221,7 +6221,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Str_r32m16,
+	Str_r32m16 = 776,
 	/// `STR r64/m16`
 	///
 	/// `REX.W 0F 00 /1`
@@ -6229,7 +6229,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Str_r64m16,
+	Str_r64m16 = 777,
 	/// `LLDT r/m16`
 	///
 	/// `o16 0F 00 /2`
@@ -6237,7 +6237,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Lldt_rm16,
+	Lldt_rm16 = 778,
 	/// `LLDT r32/m16`
 	///
 	/// `o32 0F 00 /2`
@@ -6245,7 +6245,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lldt_r32m16,
+	Lldt_r32m16 = 779,
 	/// `LLDT r64/m16`
 	///
 	/// `REX.W 0F 00 /2`
@@ -6253,7 +6253,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lldt_r64m16,
+	Lldt_r64m16 = 780,
 	/// `LTR r/m16`
 	///
 	/// `o16 0F 00 /3`
@@ -6261,7 +6261,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Ltr_rm16,
+	Ltr_rm16 = 781,
 	/// `LTR r32/m16`
 	///
 	/// `o32 0F 00 /3`
@@ -6269,7 +6269,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ltr_r32m16,
+	Ltr_r32m16 = 782,
 	/// `LTR r64/m16`
 	///
 	/// `REX.W 0F 00 /3`
@@ -6277,7 +6277,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ltr_r64m16,
+	Ltr_r64m16 = 783,
 	/// `VERR r/m16`
 	///
 	/// `o16 0F 00 /4`
@@ -6285,7 +6285,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Verr_rm16,
+	Verr_rm16 = 784,
 	/// `VERR r32/m16`
 	///
 	/// `o32 0F 00 /4`
@@ -6293,7 +6293,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Verr_r32m16,
+	Verr_r32m16 = 785,
 	/// `VERR r64/m16`
 	///
 	/// `REX.W 0F 00 /4`
@@ -6301,7 +6301,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Verr_r64m16,
+	Verr_r64m16 = 786,
 	/// `VERW r/m16`
 	///
 	/// `o16 0F 00 /5`
@@ -6309,7 +6309,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Verw_rm16,
+	Verw_rm16 = 787,
 	/// `VERW r32/m16`
 	///
 	/// `o32 0F 00 /5`
@@ -6317,7 +6317,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Verw_r32m16,
+	Verw_r32m16 = 788,
 	/// `VERW r64/m16`
 	///
 	/// `REX.W 0F 00 /5`
@@ -6325,7 +6325,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Verw_r64m16,
+	Verw_r64m16 = 789,
 	/// `JMPE r/m16`
 	///
 	/// `o16 0F 00 /6`
@@ -6333,7 +6333,7 @@ pub enum Code {
 	/// `IA-64`
 	///
 	/// `16/32-bit`
-	Jmpe_rm16,
+	Jmpe_rm16 = 790,
 	/// `JMPE r/m32`
 	///
 	/// `o32 0F 00 /6`
@@ -6341,7 +6341,7 @@ pub enum Code {
 	/// `IA-64`
 	///
 	/// `16/32-bit`
-	Jmpe_rm32,
+	Jmpe_rm32 = 791,
 	/// `SGDT m`
 	///
 	/// `o16 0F 01 /0`
@@ -6349,7 +6349,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32-bit`
-	Sgdt_m1632_16,
+	Sgdt_m1632_16 = 792,
 	/// `SGDT m`
 	///
 	/// `o32 0F 01 /0`
@@ -6357,7 +6357,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Sgdt_m1632,
+	Sgdt_m1632 = 793,
 	/// `SGDT m`
 	///
 	/// `0F 01 /0`
@@ -6365,7 +6365,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sgdt_m1664,
+	Sgdt_m1664 = 794,
 	/// `SIDT m`
 	///
 	/// `o16 0F 01 /1`
@@ -6373,7 +6373,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32-bit`
-	Sidt_m1632_16,
+	Sidt_m1632_16 = 795,
 	/// `SIDT m`
 	///
 	/// `o32 0F 01 /1`
@@ -6381,7 +6381,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Sidt_m1632,
+	Sidt_m1632 = 796,
 	/// `SIDT m`
 	///
 	/// `0F 01 /1`
@@ -6389,7 +6389,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Sidt_m1664,
+	Sidt_m1664 = 797,
 	/// `LGDT m16&32`
 	///
 	/// `o16 0F 01 /2`
@@ -6397,7 +6397,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32-bit`
-	Lgdt_m1632_16,
+	Lgdt_m1632_16 = 798,
 	/// `LGDT m16&32`
 	///
 	/// `o32 0F 01 /2`
@@ -6405,7 +6405,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Lgdt_m1632,
+	Lgdt_m1632 = 799,
 	/// `LGDT m16&64`
 	///
 	/// `0F 01 /2`
@@ -6413,7 +6413,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lgdt_m1664,
+	Lgdt_m1664 = 800,
 	/// `LIDT m16&32`
 	///
 	/// `o16 0F 01 /3`
@@ -6421,7 +6421,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32-bit`
-	Lidt_m1632_16,
+	Lidt_m1632_16 = 801,
 	/// `LIDT m16&32`
 	///
 	/// `o32 0F 01 /3`
@@ -6429,7 +6429,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Lidt_m1632,
+	Lidt_m1632 = 802,
 	/// `LIDT m16&64`
 	///
 	/// `0F 01 /3`
@@ -6437,7 +6437,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lidt_m1664,
+	Lidt_m1664 = 803,
 	/// `SMSW r/m16`
 	///
 	/// `o16 0F 01 /4`
@@ -6445,7 +6445,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Smsw_rm16,
+	Smsw_rm16 = 804,
 	/// `SMSW r32/m16`
 	///
 	/// `o32 0F 01 /4`
@@ -6453,7 +6453,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Smsw_r32m16,
+	Smsw_r32m16 = 805,
 	/// `SMSW r64/m16`
 	///
 	/// `REX.W 0F 01 /4`
@@ -6461,7 +6461,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Smsw_r64m16,
+	Smsw_r64m16 = 806,
 	/// `RSTORSSP m64`
 	///
 	/// `F3 0F 01 /5`
@@ -6469,7 +6469,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Rstorssp_m64,
+	Rstorssp_m64 = 807,
 	/// `LMSW r/m16`
 	///
 	/// `o16 0F 01 /6`
@@ -6477,7 +6477,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Lmsw_rm16,
+	Lmsw_rm16 = 808,
 	/// `LMSW r32/m16`
 	///
 	/// `o32 0F 01 /6`
@@ -6485,7 +6485,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lmsw_r32m16,
+	Lmsw_r32m16 = 809,
 	/// `LMSW r64/m16`
 	///
 	/// `REX.W 0F 01 /6`
@@ -6493,7 +6493,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lmsw_r64m16,
+	Lmsw_r64m16 = 810,
 	/// `INVLPG m`
 	///
 	/// `0F 01 /7`
@@ -6501,7 +6501,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Invlpg_m,
+	Invlpg_m = 811,
 	/// `ENCLV`
 	///
 	/// `NP 0F 01 C0`
@@ -6509,7 +6509,7 @@ pub enum Code {
 	/// `ENCLV`
 	///
 	/// `16/32/64-bit`
-	Enclv,
+	Enclv = 812,
 	/// `VMCALL`
 	///
 	/// `NP 0F 01 C1`
@@ -6517,7 +6517,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmcall,
+	Vmcall = 813,
 	/// `VMLAUNCH`
 	///
 	/// `NP 0F 01 C2`
@@ -6525,7 +6525,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmlaunch,
+	Vmlaunch = 814,
 	/// `VMRESUME`
 	///
 	/// `NP 0F 01 C3`
@@ -6533,7 +6533,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmresume,
+	Vmresume = 815,
 	/// `VMXOFF`
 	///
 	/// `NP 0F 01 C4`
@@ -6541,7 +6541,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmxoff,
+	Vmxoff = 816,
 	/// `PCONFIG`
 	///
 	/// `NP 0F 01 C5`
@@ -6549,7 +6549,7 @@ pub enum Code {
 	/// `PCONFIG`
 	///
 	/// `16/32/64-bit`
-	Pconfig,
+	Pconfig = 817,
 	/// `MONITOR`
 	///
 	/// `a16 NP 0F 01 C8`
@@ -6557,7 +6557,7 @@ pub enum Code {
 	/// `MONITOR`
 	///
 	/// `16/32-bit`
-	Monitorw,
+	Monitorw = 818,
 	/// `MONITOR`
 	///
 	/// `a32 NP 0F 01 C8`
@@ -6565,7 +6565,7 @@ pub enum Code {
 	/// `MONITOR`
 	///
 	/// `16/32/64-bit`
-	Monitord,
+	Monitord = 819,
 	/// `MONITOR`
 	///
 	/// `NP 0F 01 C8`
@@ -6573,7 +6573,7 @@ pub enum Code {
 	/// `MONITOR`
 	///
 	/// `64-bit`
-	Monitorq,
+	Monitorq = 820,
 	/// `MWAIT`
 	///
 	/// `NP 0F 01 C9`
@@ -6581,7 +6581,7 @@ pub enum Code {
 	/// `MONITOR`
 	///
 	/// `16/32/64-bit`
-	Mwait,
+	Mwait = 821,
 	/// `CLAC`
 	///
 	/// `NP 0F 01 CA`
@@ -6589,7 +6589,7 @@ pub enum Code {
 	/// `SMAP`
 	///
 	/// `16/32/64-bit`
-	Clac,
+	Clac = 822,
 	/// `STAC`
 	///
 	/// `NP 0F 01 CB`
@@ -6597,7 +6597,7 @@ pub enum Code {
 	/// `SMAP`
 	///
 	/// `16/32/64-bit`
-	Stac,
+	Stac = 823,
 	/// `ENCLS`
 	///
 	/// `NP 0F 01 CF`
@@ -6605,7 +6605,7 @@ pub enum Code {
 	/// `SGX1`
 	///
 	/// `16/32/64-bit`
-	Encls,
+	Encls = 824,
 	/// `XGETBV`
 	///
 	/// `NP 0F 01 D0`
@@ -6613,7 +6613,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `16/32/64-bit`
-	Xgetbv,
+	Xgetbv = 825,
 	/// `XSETBV`
 	///
 	/// `NP 0F 01 D1`
@@ -6621,7 +6621,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `16/32/64-bit`
-	Xsetbv,
+	Xsetbv = 826,
 	/// `VMFUNC`
 	///
 	/// `NP 0F 01 D4`
@@ -6629,7 +6629,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmfunc,
+	Vmfunc = 827,
 	/// `XEND`
 	///
 	/// `NP 0F 01 D5`
@@ -6637,7 +6637,7 @@ pub enum Code {
 	/// `RTM`
 	///
 	/// `16/32/64-bit`
-	Xend,
+	Xend = 828,
 	/// `XTEST`
 	///
 	/// `NP 0F 01 D6`
@@ -6645,7 +6645,7 @@ pub enum Code {
 	/// `HLE or RTM`
 	///
 	/// `16/32/64-bit`
-	Xtest,
+	Xtest = 829,
 	/// `ENCLU`
 	///
 	/// `NP 0F 01 D7`
@@ -6653,7 +6653,7 @@ pub enum Code {
 	/// `SGX1`
 	///
 	/// `16/32/64-bit`
-	Enclu,
+	Enclu = 830,
 	/// `VMRUN`
 	///
 	/// `a16 0F 01 D8`
@@ -6661,7 +6661,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32-bit`
-	Vmrunw,
+	Vmrunw = 831,
 	/// `VMRUN`
 	///
 	/// `a32 0F 01 D8`
@@ -6669,7 +6669,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Vmrund,
+	Vmrund = 832,
 	/// `VMRUN`
 	///
 	/// `0F 01 D8`
@@ -6677,7 +6677,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `64-bit`
-	Vmrunq,
+	Vmrunq = 833,
 	/// `VMMCALL`
 	///
 	/// `0F 01 D9`
@@ -6685,7 +6685,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Vmmcall,
+	Vmmcall = 834,
 	/// `VMLOAD`
 	///
 	/// `a16 0F 01 DA`
@@ -6693,7 +6693,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32-bit`
-	Vmloadw,
+	Vmloadw = 835,
 	/// `VMLOAD`
 	///
 	/// `a32 0F 01 DA`
@@ -6701,7 +6701,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Vmloadd,
+	Vmloadd = 836,
 	/// `VMLOAD`
 	///
 	/// `0F 01 DA`
@@ -6709,7 +6709,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `64-bit`
-	Vmloadq,
+	Vmloadq = 837,
 	/// `VMSAVE`
 	///
 	/// `a16 0F 01 DB`
@@ -6717,7 +6717,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32-bit`
-	Vmsavew,
+	Vmsavew = 838,
 	/// `VMSAVE`
 	///
 	/// `a32 0F 01 DB`
@@ -6725,7 +6725,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Vmsaved,
+	Vmsaved = 839,
 	/// `VMSAVE`
 	///
 	/// `0F 01 DB`
@@ -6733,7 +6733,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `64-bit`
-	Vmsaveq,
+	Vmsaveq = 840,
 	/// `STGI`
 	///
 	/// `0F 01 DC`
@@ -6741,7 +6741,7 @@ pub enum Code {
 	/// `SKINIT or SVML`
 	///
 	/// `16/32/64-bit`
-	Stgi,
+	Stgi = 841,
 	/// `CLGI`
 	///
 	/// `0F 01 DD`
@@ -6749,7 +6749,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Clgi,
+	Clgi = 842,
 	/// `SKINIT`
 	///
 	/// `0F 01 DE`
@@ -6757,7 +6757,7 @@ pub enum Code {
 	/// `SKINIT or SVML`
 	///
 	/// `16/32/64-bit`
-	Skinit,
+	Skinit = 843,
 	/// `INVLPGA`
 	///
 	/// `a16 0F 01 DF`
@@ -6765,7 +6765,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32-bit`
-	Invlpgaw,
+	Invlpgaw = 844,
 	/// `INVLPGA`
 	///
 	/// `a32 0F 01 DF`
@@ -6773,7 +6773,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `16/32/64-bit`
-	Invlpgad,
+	Invlpgad = 845,
 	/// `INVLPGA`
 	///
 	/// `0F 01 DF`
@@ -6781,7 +6781,7 @@ pub enum Code {
 	/// `SVM`
 	///
 	/// `64-bit`
-	Invlpgaq,
+	Invlpgaq = 846,
 	/// `SETSSBSY`
 	///
 	/// `F3 0F 01 E8`
@@ -6789,7 +6789,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Setssbsy,
+	Setssbsy = 847,
 	/// `SAVEPREVSSP`
 	///
 	/// `F3 0F 01 EA`
@@ -6797,7 +6797,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Saveprevssp,
+	Saveprevssp = 848,
 	/// `RDPKRU`
 	///
 	/// `NP 0F 01 EE`
@@ -6805,7 +6805,7 @@ pub enum Code {
 	/// `PKU`
 	///
 	/// `16/32/64-bit`
-	Rdpkru,
+	Rdpkru = 849,
 	/// `WRPKRU`
 	///
 	/// `NP 0F 01 EF`
@@ -6813,7 +6813,7 @@ pub enum Code {
 	/// `PKU`
 	///
 	/// `16/32/64-bit`
-	Wrpkru,
+	Wrpkru = 850,
 	/// `SWAPGS`
 	///
 	/// `0F 01 F8`
@@ -6821,7 +6821,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Swapgs,
+	Swapgs = 851,
 	/// `RDTSCP`
 	///
 	/// `0F 01 F9`
@@ -6829,7 +6829,7 @@ pub enum Code {
 	/// `RDTSCP`
 	///
 	/// `16/32/64-bit`
-	Rdtscp,
+	Rdtscp = 852,
 	/// `MONITORX`
 	///
 	/// `a16 NP 0F 01 FA`
@@ -6837,7 +6837,7 @@ pub enum Code {
 	/// `MONITORX`
 	///
 	/// `16/32-bit`
-	Monitorxw,
+	Monitorxw = 853,
 	/// `MONITORX`
 	///
 	/// `a32 NP 0F 01 FA`
@@ -6845,7 +6845,7 @@ pub enum Code {
 	/// `MONITORX`
 	///
 	/// `16/32/64-bit`
-	Monitorxd,
+	Monitorxd = 854,
 	/// `MONITORX`
 	///
 	/// `NP 0F 01 FA`
@@ -6853,7 +6853,7 @@ pub enum Code {
 	/// `MONITORX`
 	///
 	/// `64-bit`
-	Monitorxq,
+	Monitorxq = 855,
 	/// `MCOMMIT`
 	///
 	/// `F3 0F 01 FA`
@@ -6861,7 +6861,7 @@ pub enum Code {
 	/// `MCOMMIT`
 	///
 	/// `16/32/64-bit`
-	Mcommit,
+	Mcommit = 856,
 	/// `MWAITX`
 	///
 	/// `0F 01 FB`
@@ -6869,7 +6869,7 @@ pub enum Code {
 	/// `MONITORX`
 	///
 	/// `16/32/64-bit`
-	Mwaitx,
+	Mwaitx = 857,
 	/// `CLZERO`
 	///
 	/// `a16 0F 01 FC`
@@ -6877,7 +6877,7 @@ pub enum Code {
 	/// `CLZERO`
 	///
 	/// `16/32-bit`
-	Clzerow,
+	Clzerow = 858,
 	/// `CLZERO`
 	///
 	/// `a32 0F 01 FC`
@@ -6885,7 +6885,7 @@ pub enum Code {
 	/// `CLZERO`
 	///
 	/// `16/32/64-bit`
-	Clzerod,
+	Clzerod = 859,
 	/// `CLZERO`
 	///
 	/// `0F 01 FC`
@@ -6893,7 +6893,7 @@ pub enum Code {
 	/// `CLZERO`
 	///
 	/// `64-bit`
-	Clzeroq,
+	Clzeroq = 860,
 	/// `RDPRU`
 	///
 	/// `0F 01 FD`
@@ -6901,7 +6901,7 @@ pub enum Code {
 	/// `RDPRU`
 	///
 	/// `16/32/64-bit`
-	Rdpru,
+	Rdpru = 861,
 	/// `LAR r16, r/m16`
 	///
 	/// `o16 0F 02 /r`
@@ -6909,7 +6909,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Lar_r16_rm16,
+	Lar_r16_rm16 = 862,
 	/// `LAR r32, r32/m16`
 	///
 	/// `o32 0F 02 /r`
@@ -6917,7 +6917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lar_r32_r32m16,
+	Lar_r32_r32m16 = 863,
 	/// `LAR r64, r64/m16`
 	///
 	/// `REX.W 0F 02 /r`
@@ -6925,7 +6925,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lar_r64_r64m16,
+	Lar_r64_r64m16 = 864,
 	/// `LSL r16, r/m16`
 	///
 	/// `o16 0F 03 /r`
@@ -6933,7 +6933,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Lsl_r16_rm16,
+	Lsl_r16_rm16 = 865,
 	/// `LSL r32, r32/m16`
 	///
 	/// `o32 0F 03 /r`
@@ -6941,7 +6941,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lsl_r32_r32m16,
+	Lsl_r32_r32m16 = 866,
 	/// `LSL r64, r64/m16`
 	///
 	/// `REX.W 0F 03 /r`
@@ -6949,7 +6949,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lsl_r64_r64m16,
+	Lsl_r64_r64m16 = 867,
 	/// `LOADALL`
 	///
 	/// `0F 04`
@@ -6957,7 +6957,7 @@ pub enum Code {
 	/// `286`
 	///
 	/// `16/32-bit`
-	Loadallreset286,
+	Loadallreset286 = 868,
 	/// `LOADALL`
 	///
 	/// `0F 05`
@@ -6965,7 +6965,7 @@ pub enum Code {
 	/// `286`
 	///
 	/// `16/32-bit`
-	Loadall286,
+	Loadall286 = 869,
 	/// `SYSCALL`
 	///
 	/// `0F 05`
@@ -6973,7 +6973,7 @@ pub enum Code {
 	/// `SYSCALL`
 	///
 	/// `16/32/64-bit`
-	Syscall,
+	Syscall = 870,
 	/// `CLTS`
 	///
 	/// `0F 06`
@@ -6981,7 +6981,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Clts,
+	Clts = 871,
 	/// `LOADALL`
 	///
 	/// `0F 07`
@@ -6989,7 +6989,7 @@ pub enum Code {
 	/// `386`
 	///
 	/// `16/32-bit`
-	Loadall386,
+	Loadall386 = 872,
 	/// `SYSRET`
 	///
 	/// `0F 07`
@@ -6997,7 +6997,7 @@ pub enum Code {
 	/// `SYSCALL`
 	///
 	/// `16/32/64-bit`
-	Sysretd,
+	Sysretd = 873,
 	/// `SYSRET`
 	///
 	/// `REX.W 0F 07`
@@ -7005,7 +7005,7 @@ pub enum Code {
 	/// `SYSCALL`
 	///
 	/// `64-bit`
-	Sysretq,
+	Sysretq = 874,
 	/// `INVD`
 	///
 	/// `0F 08`
@@ -7013,7 +7013,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Invd,
+	Invd = 875,
 	/// `WBINVD`
 	///
 	/// `0F 09`
@@ -7021,7 +7021,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Wbinvd,
+	Wbinvd = 876,
 	/// `WBNOINVD`
 	///
 	/// `F3 0F 09`
@@ -7029,7 +7029,7 @@ pub enum Code {
 	/// `WBNOINVD`
 	///
 	/// `16/32/64-bit`
-	Wbnoinvd,
+	Wbnoinvd = 877,
 	/// `CL1INVMB`
 	///
 	/// `0F 0A`
@@ -7037,7 +7037,7 @@ pub enum Code {
 	/// `CL1INVMB`
 	///
 	/// `16/32/64-bit`
-	Cl1invmb,
+	Cl1invmb = 878,
 	/// `UD2`
 	///
 	/// `0F 0B`
@@ -7045,7 +7045,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Ud2,
+	Ud2 = 879,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 0D /r`
@@ -7053,7 +7053,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F0D,
+	ReservedNop_rm16_r16_0F0D = 880,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 0D /r`
@@ -7061,7 +7061,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F0D,
+	ReservedNop_rm32_r32_0F0D = 881,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 0D /r`
@@ -7069,7 +7069,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F0D,
+	ReservedNop_rm64_r64_0F0D = 882,
 	/// `PREFETCH m8`
 	///
 	/// `0F 0D /0`
@@ -7077,7 +7077,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	Prefetch_m8,
+	Prefetch_m8 = 883,
 	/// `PREFETCHW m8`
 	///
 	/// `0F 0D /1`
@@ -7085,7 +7085,7 @@ pub enum Code {
 	/// `PREFETCHW`
 	///
 	/// `16/32/64-bit`
-	Prefetchw_m8,
+	Prefetchw_m8 = 884,
 	/// `PREFETCHWT1 m8`
 	///
 	/// `0F 0D /2`
@@ -7093,7 +7093,7 @@ pub enum Code {
 	/// `PREFETCHWT1`
 	///
 	/// `16/32/64-bit`
-	Prefetchwt1_m8,
+	Prefetchwt1_m8 = 885,
 	/// `FEMMS`
 	///
 	/// `0F 0E`
@@ -7101,7 +7101,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	Femms,
+	Femms = 886,
 	/// `UMOV r/m8, r8`
 	///
 	/// `0F 10 /r`
@@ -7109,7 +7109,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_rm8_r8,
+	Umov_rm8_r8 = 887,
 	/// `UMOV r/m16, r16`
 	///
 	/// `o16 0F 11 /r`
@@ -7117,7 +7117,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_rm16_r16,
+	Umov_rm16_r16 = 888,
 	/// `UMOV r/m32, r32`
 	///
 	/// `o32 0F 11 /r`
@@ -7125,7 +7125,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_rm32_r32,
+	Umov_rm32_r32 = 889,
 	/// `UMOV r8, r/m8`
 	///
 	/// `0F 12 /r`
@@ -7133,7 +7133,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_r8_rm8,
+	Umov_r8_rm8 = 890,
 	/// `UMOV r16, r/m16`
 	///
 	/// `o16 0F 13 /r`
@@ -7141,7 +7141,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_r16_rm16,
+	Umov_r16_rm16 = 891,
 	/// `UMOV r32, r/m32`
 	///
 	/// `o32 0F 13 /r`
@@ -7149,7 +7149,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Umov_r32_rm32,
+	Umov_r32_rm32 = 892,
 	/// `MOVUPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 10 /r`
@@ -7157,7 +7157,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movups_xmm_xmmm128,
+	Movups_xmm_xmmm128 = 893,
 	/// `VMOVUPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 10 /r`
@@ -7165,7 +7165,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovups_xmm_xmmm128,
+	VEX_Vmovups_xmm_xmmm128 = 894,
 	/// `VMOVUPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 10 /r`
@@ -7173,7 +7173,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovups_ymm_ymmm256,
+	VEX_Vmovups_ymm_ymmm256 = 895,
 	/// `VMOVUPS xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.0F.W0 10 /r`
@@ -7181,7 +7181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_xmm_k1z_xmmm128,
+	EVEX_Vmovups_xmm_k1z_xmmm128 = 896,
 	/// `VMOVUPS ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.0F.W0 10 /r`
@@ -7189,7 +7189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_ymm_k1z_ymmm256,
+	EVEX_Vmovups_ymm_k1z_ymmm256 = 897,
 	/// `VMOVUPS zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.0F.W0 10 /r`
@@ -7197,7 +7197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_zmm_k1z_zmmm512,
+	EVEX_Vmovups_zmm_k1z_zmmm512 = 898,
 	/// `MOVUPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 10 /r`
@@ -7205,7 +7205,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movupd_xmm_xmmm128,
+	Movupd_xmm_xmmm128 = 899,
 	/// `VMOVUPD xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 10 /r`
@@ -7213,7 +7213,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovupd_xmm_xmmm128,
+	VEX_Vmovupd_xmm_xmmm128 = 900,
 	/// `VMOVUPD ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 10 /r`
@@ -7221,7 +7221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovupd_ymm_ymmm256,
+	VEX_Vmovupd_ymm_ymmm256 = 901,
 	/// `VMOVUPD xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F.W1 10 /r`
@@ -7229,7 +7229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_xmm_k1z_xmmm128,
+	EVEX_Vmovupd_xmm_k1z_xmmm128 = 902,
 	/// `VMOVUPD ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F.W1 10 /r`
@@ -7237,7 +7237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_ymm_k1z_ymmm256,
+	EVEX_Vmovupd_ymm_k1z_ymmm256 = 903,
 	/// `VMOVUPD zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F.W1 10 /r`
@@ -7245,7 +7245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_zmm_k1z_zmmm512,
+	EVEX_Vmovupd_zmm_k1z_zmmm512 = 904,
 	/// `MOVSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 10 /r`
@@ -7253,7 +7253,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movss_xmm_xmmm32,
+	Movss_xmm_xmmm32 = 905,
 	/// `VMOVSS xmm1, xmm2, xmm3`
 	///
 	/// `VEX.LIG.F3.0F.WIG 10 /r`
@@ -7261,7 +7261,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovss_xmm_xmm_xmm,
+	VEX_Vmovss_xmm_xmm_xmm = 906,
 	/// `VMOVSS xmm1, m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 10 /r`
@@ -7269,7 +7269,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovss_xmm_m32,
+	VEX_Vmovss_xmm_m32 = 907,
 	/// `VMOVSS xmm1 {k1}{z}, xmm2, xmm3`
 	///
 	/// `EVEX.LIG.F3.0F.W0 10 /r`
@@ -7277,7 +7277,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovss_xmm_k1z_xmm_xmm,
+	EVEX_Vmovss_xmm_k1z_xmm_xmm = 908,
 	/// `VMOVSS xmm1 {k1}{z}, m32`
 	///
 	/// `EVEX.LIG.F3.0F.W0 10 /r`
@@ -7285,7 +7285,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovss_xmm_k1z_m32,
+	EVEX_Vmovss_xmm_k1z_m32 = 909,
 	/// `MOVSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 10 /r`
@@ -7293,7 +7293,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movsd_xmm_xmmm64,
+	Movsd_xmm_xmmm64 = 910,
 	/// `VMOVSD xmm1, xmm2, xmm3`
 	///
 	/// `VEX.LIG.F2.0F.WIG 10 /r`
@@ -7301,7 +7301,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsd_xmm_xmm_xmm,
+	VEX_Vmovsd_xmm_xmm_xmm = 911,
 	/// `VMOVSD xmm1, m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 10 /r`
@@ -7309,7 +7309,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsd_xmm_m64,
+	VEX_Vmovsd_xmm_m64 = 912,
 	/// `VMOVSD xmm1 {k1}{z}, xmm2, xmm3`
 	///
 	/// `EVEX.LIG.F2.0F.W1 10 /r`
@@ -7317,7 +7317,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsd_xmm_k1z_xmm_xmm,
+	EVEX_Vmovsd_xmm_k1z_xmm_xmm = 913,
 	/// `VMOVSD xmm1 {k1}{z}, m64`
 	///
 	/// `EVEX.LIG.F2.0F.W1 10 /r`
@@ -7325,7 +7325,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsd_xmm_k1z_m64,
+	EVEX_Vmovsd_xmm_k1z_m64 = 914,
 	/// `MOVUPS xmm2/m128, xmm1`
 	///
 	/// `NP 0F 11 /r`
@@ -7333,7 +7333,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movups_xmmm128_xmm,
+	Movups_xmmm128_xmm = 915,
 	/// `VMOVUPS xmm2/m128, xmm1`
 	///
 	/// `VEX.128.0F.WIG 11 /r`
@@ -7341,7 +7341,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovups_xmmm128_xmm,
+	VEX_Vmovups_xmmm128_xmm = 916,
 	/// `VMOVUPS ymm2/m256, ymm1`
 	///
 	/// `VEX.256.0F.WIG 11 /r`
@@ -7349,7 +7349,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovups_ymmm256_ymm,
+	VEX_Vmovups_ymmm256_ymm = 917,
 	/// `VMOVUPS xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.0F.W0 11 /r`
@@ -7357,7 +7357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_xmmm128_k1z_xmm,
+	EVEX_Vmovups_xmmm128_k1z_xmm = 918,
 	/// `VMOVUPS ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.0F.W0 11 /r`
@@ -7365,7 +7365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_ymmm256_k1z_ymm,
+	EVEX_Vmovups_ymmm256_k1z_ymm = 919,
 	/// `VMOVUPS zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.0F.W0 11 /r`
@@ -7373,7 +7373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovups_zmmm512_k1z_zmm,
+	EVEX_Vmovups_zmmm512_k1z_zmm = 920,
 	/// `MOVUPD xmm2/m128, xmm1`
 	///
 	/// `66 0F 11 /r`
@@ -7381,7 +7381,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movupd_xmmm128_xmm,
+	Movupd_xmmm128_xmm = 921,
 	/// `VMOVUPD xmm2/m128, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 11 /r`
@@ -7389,7 +7389,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovupd_xmmm128_xmm,
+	VEX_Vmovupd_xmmm128_xmm = 922,
 	/// `VMOVUPD ymm2/m256, ymm1`
 	///
 	/// `VEX.256.66.0F.WIG 11 /r`
@@ -7397,7 +7397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovupd_ymmm256_ymm,
+	VEX_Vmovupd_ymmm256_ymm = 923,
 	/// `VMOVUPD xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 11 /r`
@@ -7405,7 +7405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_xmmm128_k1z_xmm,
+	EVEX_Vmovupd_xmmm128_k1z_xmm = 924,
 	/// `VMOVUPD ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.66.0F.W1 11 /r`
@@ -7413,7 +7413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_ymmm256_k1z_ymm,
+	EVEX_Vmovupd_ymmm256_k1z_ymm = 925,
 	/// `VMOVUPD zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.66.0F.W1 11 /r`
@@ -7421,7 +7421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovupd_zmmm512_k1z_zmm,
+	EVEX_Vmovupd_zmmm512_k1z_zmm = 926,
 	/// `MOVSS xmm2/m32, xmm1`
 	///
 	/// `F3 0F 11 /r`
@@ -7429,7 +7429,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movss_xmmm32_xmm,
+	Movss_xmmm32_xmm = 927,
 	/// `VMOVSS xmm1, xmm2, xmm3`
 	///
 	/// `VEX.LIG.F3.0F.WIG 11 /r`
@@ -7437,7 +7437,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovss_xmm_xmm_xmm_0F11,
+	VEX_Vmovss_xmm_xmm_xmm_0F11 = 928,
 	/// `VMOVSS m32, xmm1`
 	///
 	/// `VEX.LIG.F3.0F.WIG 11 /r`
@@ -7445,7 +7445,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovss_m32_xmm,
+	VEX_Vmovss_m32_xmm = 929,
 	/// `VMOVSS xmm1 {k1}{z}, xmm2, xmm3`
 	///
 	/// `EVEX.LIG.F3.0F.W0 11 /r`
@@ -7453,7 +7453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
+	EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11 = 930,
 	/// `VMOVSS m32 {k1}, xmm1`
 	///
 	/// `EVEX.LIG.F3.0F.W0 11 /r`
@@ -7461,7 +7461,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovss_m32_k1_xmm,
+	EVEX_Vmovss_m32_k1_xmm = 931,
 	/// `MOVSD xmm1/m64, xmm2`
 	///
 	/// `F2 0F 11 /r`
@@ -7469,7 +7469,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movsd_xmmm64_xmm,
+	Movsd_xmmm64_xmm = 932,
 	/// `VMOVSD xmm1, xmm2, xmm3`
 	///
 	/// `VEX.LIG.F2.0F.WIG 11 /r`
@@ -7477,7 +7477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsd_xmm_xmm_xmm_0F11,
+	VEX_Vmovsd_xmm_xmm_xmm_0F11 = 933,
 	/// `VMOVSD m64, xmm1`
 	///
 	/// `VEX.LIG.F2.0F.WIG 11 /r`
@@ -7485,7 +7485,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsd_m64_xmm,
+	VEX_Vmovsd_m64_xmm = 934,
 	/// `VMOVSD xmm1 {k1}{z}, xmm2, xmm3`
 	///
 	/// `EVEX.LIG.F2.0F.W1 11 /r`
@@ -7493,7 +7493,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
+	EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11 = 935,
 	/// `VMOVSD m64 {k1}, xmm1`
 	///
 	/// `EVEX.LIG.F2.0F.W1 11 /r`
@@ -7501,7 +7501,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsd_m64_k1_xmm,
+	EVEX_Vmovsd_m64_k1_xmm = 936,
 	/// `MOVHLPS xmm1, xmm2`
 	///
 	/// `NP 0F 12 /r`
@@ -7509,7 +7509,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movhlps_xmm_xmm,
+	Movhlps_xmm_xmm = 937,
 	/// `MOVLPS xmm1, m64`
 	///
 	/// `NP 0F 12 /r`
@@ -7517,7 +7517,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movlps_xmm_m64,
+	Movlps_xmm_m64 = 938,
 	/// `VMOVHLPS xmm1, xmm2, xmm3`
 	///
 	/// `VEX.128.0F.WIG 12 /r`
@@ -7525,7 +7525,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovhlps_xmm_xmm_xmm,
+	VEX_Vmovhlps_xmm_xmm_xmm = 939,
 	/// `VMOVLPS xmm2, xmm1, m64`
 	///
 	/// `VEX.128.0F.WIG 12 /r`
@@ -7533,7 +7533,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovlps_xmm_xmm_m64,
+	VEX_Vmovlps_xmm_xmm_m64 = 940,
 	/// `VMOVHLPS xmm1, xmm2, xmm3`
 	///
 	/// `EVEX.128.0F.W0 12 /r`
@@ -7541,7 +7541,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovhlps_xmm_xmm_xmm,
+	EVEX_Vmovhlps_xmm_xmm_xmm = 941,
 	/// `VMOVLPS xmm2, xmm1, m64`
 	///
 	/// `EVEX.128.0F.W0 12 /r`
@@ -7549,7 +7549,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovlps_xmm_xmm_m64,
+	EVEX_Vmovlps_xmm_xmm_m64 = 942,
 	/// `MOVLPD xmm1, m64`
 	///
 	/// `66 0F 12 /r`
@@ -7557,7 +7557,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movlpd_xmm_m64,
+	Movlpd_xmm_m64 = 943,
 	/// `VMOVLPD xmm2, xmm1, m64`
 	///
 	/// `VEX.128.66.0F.WIG 12 /r`
@@ -7565,7 +7565,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovlpd_xmm_xmm_m64,
+	VEX_Vmovlpd_xmm_xmm_m64 = 944,
 	/// `VMOVLPD xmm2, xmm1, m64`
 	///
 	/// `EVEX.128.66.0F.W1 12 /r`
@@ -7573,7 +7573,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovlpd_xmm_xmm_m64,
+	EVEX_Vmovlpd_xmm_xmm_m64 = 945,
 	/// `MOVSLDUP xmm1, xmm2/m128`
 	///
 	/// `F3 0F 12 /r`
@@ -7581,7 +7581,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Movsldup_xmm_xmmm128,
+	Movsldup_xmm_xmmm128 = 946,
 	/// `VMOVSLDUP xmm1, xmm2/m128`
 	///
 	/// `VEX.128.F3.0F.WIG 12 /r`
@@ -7589,7 +7589,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsldup_xmm_xmmm128,
+	VEX_Vmovsldup_xmm_xmmm128 = 947,
 	/// `VMOVSLDUP ymm1, ymm2/m256`
 	///
 	/// `VEX.256.F3.0F.WIG 12 /r`
@@ -7597,7 +7597,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovsldup_ymm_ymmm256,
+	VEX_Vmovsldup_ymm_ymmm256 = 948,
 	/// `VMOVSLDUP xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F3.0F.W0 12 /r`
@@ -7605,7 +7605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsldup_xmm_k1z_xmmm128,
+	EVEX_Vmovsldup_xmm_k1z_xmmm128 = 949,
 	/// `VMOVSLDUP ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F3.0F.W0 12 /r`
@@ -7613,7 +7613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsldup_ymm_k1z_ymmm256,
+	EVEX_Vmovsldup_ymm_k1z_ymmm256 = 950,
 	/// `VMOVSLDUP zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F3.0F.W0 12 /r`
@@ -7621,7 +7621,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovsldup_zmm_k1z_zmmm512,
+	EVEX_Vmovsldup_zmm_k1z_zmmm512 = 951,
 	/// `MOVDDUP xmm1, xmm2/m64`
 	///
 	/// `F2 0F 12 /r`
@@ -7629,7 +7629,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Movddup_xmm_xmmm64,
+	Movddup_xmm_xmmm64 = 952,
 	/// `VMOVDDUP xmm1, xmm2/m64`
 	///
 	/// `VEX.128.F2.0F.WIG 12 /r`
@@ -7637,7 +7637,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovddup_xmm_xmmm64,
+	VEX_Vmovddup_xmm_xmmm64 = 953,
 	/// `VMOVDDUP ymm1, ymm2/m256`
 	///
 	/// `VEX.256.F2.0F.WIG 12 /r`
@@ -7645,7 +7645,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovddup_ymm_ymmm256,
+	VEX_Vmovddup_ymm_ymmm256 = 954,
 	/// `VMOVDDUP xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.F2.0F.W1 12 /r`
@@ -7653,7 +7653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovddup_xmm_k1z_xmmm64,
+	EVEX_Vmovddup_xmm_k1z_xmmm64 = 955,
 	/// `VMOVDDUP ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F2.0F.W1 12 /r`
@@ -7661,7 +7661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovddup_ymm_k1z_ymmm256,
+	EVEX_Vmovddup_ymm_k1z_ymmm256 = 956,
 	/// `VMOVDDUP zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F2.0F.W1 12 /r`
@@ -7669,7 +7669,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovddup_zmm_k1z_zmmm512,
+	EVEX_Vmovddup_zmm_k1z_zmmm512 = 957,
 	/// `MOVLPS m64, xmm1`
 	///
 	/// `NP 0F 13 /r`
@@ -7677,7 +7677,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movlps_m64_xmm,
+	Movlps_m64_xmm = 958,
 	/// `VMOVLPS m64, xmm1`
 	///
 	/// `VEX.128.0F.WIG 13 /r`
@@ -7685,7 +7685,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovlps_m64_xmm,
+	VEX_Vmovlps_m64_xmm = 959,
 	/// `VMOVLPS m64, xmm1`
 	///
 	/// `EVEX.128.0F.W0 13 /r`
@@ -7693,7 +7693,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovlps_m64_xmm,
+	EVEX_Vmovlps_m64_xmm = 960,
 	/// `MOVLPD m64, xmm1`
 	///
 	/// `66 0F 13 /r`
@@ -7701,7 +7701,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movlpd_m64_xmm,
+	Movlpd_m64_xmm = 961,
 	/// `VMOVLPD m64, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 13 /r`
@@ -7709,7 +7709,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovlpd_m64_xmm,
+	VEX_Vmovlpd_m64_xmm = 962,
 	/// `VMOVLPD m64, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 13 /r`
@@ -7717,7 +7717,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovlpd_m64_xmm,
+	EVEX_Vmovlpd_m64_xmm = 963,
 	/// `UNPCKLPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 14 /r`
@@ -7725,7 +7725,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Unpcklps_xmm_xmmm128,
+	Unpcklps_xmm_xmmm128 = 964,
 	/// `VUNPCKLPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 14 /r`
@@ -7733,7 +7733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpcklps_xmm_xmm_xmmm128,
+	VEX_Vunpcklps_xmm_xmm_xmmm128 = 965,
 	/// `VUNPCKLPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 14 /r`
@@ -7741,7 +7741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpcklps_ymm_ymm_ymmm256,
+	VEX_Vunpcklps_ymm_ymm_ymmm256 = 966,
 	/// `VUNPCKLPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 14 /r`
@@ -7749,7 +7749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vunpcklps_xmm_k1z_xmm_xmmm128b32 = 967,
 	/// `VUNPCKLPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 14 /r`
@@ -7757,7 +7757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vunpcklps_ymm_k1z_ymm_ymmm256b32 = 968,
 	/// `VUNPCKLPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 14 /r`
@@ -7765,7 +7765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vunpcklps_zmm_k1z_zmm_zmmm512b32 = 969,
 	/// `UNPCKLPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 14 /r`
@@ -7773,7 +7773,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Unpcklpd_xmm_xmmm128,
+	Unpcklpd_xmm_xmmm128 = 970,
 	/// `VUNPCKLPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 14 /r`
@@ -7781,7 +7781,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpcklpd_xmm_xmm_xmmm128,
+	VEX_Vunpcklpd_xmm_xmm_xmmm128 = 971,
 	/// `VUNPCKLPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 14 /r`
@@ -7789,7 +7789,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpcklpd_ymm_ymm_ymmm256,
+	VEX_Vunpcklpd_ymm_ymm_ymmm256 = 972,
 	/// `VUNPCKLPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 14 /r`
@@ -7797,7 +7797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vunpcklpd_xmm_k1z_xmm_xmmm128b64 = 973,
 	/// `VUNPCKLPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 14 /r`
@@ -7805,7 +7805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vunpcklpd_ymm_k1z_ymm_ymmm256b64 = 974,
 	/// `VUNPCKLPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 14 /r`
@@ -7813,7 +7813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpcklpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vunpcklpd_zmm_k1z_zmm_zmmm512b64 = 975,
 	/// `UNPCKHPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 15 /r`
@@ -7821,7 +7821,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Unpckhps_xmm_xmmm128,
+	Unpckhps_xmm_xmmm128 = 976,
 	/// `VUNPCKHPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 15 /r`
@@ -7829,7 +7829,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpckhps_xmm_xmm_xmmm128,
+	VEX_Vunpckhps_xmm_xmm_xmmm128 = 977,
 	/// `VUNPCKHPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 15 /r`
@@ -7837,7 +7837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpckhps_ymm_ymm_ymmm256,
+	VEX_Vunpckhps_ymm_ymm_ymmm256 = 978,
 	/// `VUNPCKHPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 15 /r`
@@ -7845,7 +7845,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vunpckhps_xmm_k1z_xmm_xmmm128b32 = 979,
 	/// `VUNPCKHPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 15 /r`
@@ -7853,7 +7853,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vunpckhps_ymm_k1z_ymm_ymmm256b32 = 980,
 	/// `VUNPCKHPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 15 /r`
@@ -7861,7 +7861,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vunpckhps_zmm_k1z_zmm_zmmm512b32 = 981,
 	/// `UNPCKHPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 15 /r`
@@ -7869,7 +7869,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Unpckhpd_xmm_xmmm128,
+	Unpckhpd_xmm_xmmm128 = 982,
 	/// `VUNPCKHPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 15 /r`
@@ -7877,7 +7877,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpckhpd_xmm_xmm_xmmm128,
+	VEX_Vunpckhpd_xmm_xmm_xmmm128 = 983,
 	/// `VUNPCKHPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 15 /r`
@@ -7885,7 +7885,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vunpckhpd_ymm_ymm_ymmm256,
+	VEX_Vunpckhpd_ymm_ymm_ymmm256 = 984,
 	/// `VUNPCKHPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 15 /r`
@@ -7893,7 +7893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vunpckhpd_xmm_k1z_xmm_xmmm128b64 = 985,
 	/// `VUNPCKHPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 15 /r`
@@ -7901,7 +7901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vunpckhpd_ymm_k1z_ymm_ymmm256b64 = 986,
 	/// `VUNPCKHPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 15 /r`
@@ -7909,7 +7909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vunpckhpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vunpckhpd_zmm_k1z_zmm_zmmm512b64 = 987,
 	/// `MOVLHPS xmm1, xmm2`
 	///
 	/// `NP 0F 16 /r`
@@ -7917,7 +7917,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movlhps_xmm_xmm,
+	Movlhps_xmm_xmm = 988,
 	/// `VMOVLHPS xmm1, xmm2, xmm3`
 	///
 	/// `VEX.128.0F.WIG 16 /r`
@@ -7925,7 +7925,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovlhps_xmm_xmm_xmm,
+	VEX_Vmovlhps_xmm_xmm_xmm = 989,
 	/// `VMOVLHPS xmm1, xmm2, xmm3`
 	///
 	/// `EVEX.128.0F.W0 16 /r`
@@ -7933,7 +7933,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovlhps_xmm_xmm_xmm,
+	EVEX_Vmovlhps_xmm_xmm_xmm = 990,
 	/// `MOVHPS xmm1, m64`
 	///
 	/// `NP 0F 16 /r`
@@ -7941,7 +7941,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movhps_xmm_m64,
+	Movhps_xmm_m64 = 991,
 	/// `VMOVHPS xmm2, xmm1, m64`
 	///
 	/// `VEX.128.0F.WIG 16 /r`
@@ -7949,7 +7949,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovhps_xmm_xmm_m64,
+	VEX_Vmovhps_xmm_xmm_m64 = 992,
 	/// `VMOVHPS xmm2, xmm1, m64`
 	///
 	/// `EVEX.128.0F.W0 16 /r`
@@ -7957,7 +7957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovhps_xmm_xmm_m64,
+	EVEX_Vmovhps_xmm_xmm_m64 = 993,
 	/// `MOVHPD xmm1, m64`
 	///
 	/// `66 0F 16 /r`
@@ -7965,7 +7965,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movhpd_xmm_m64,
+	Movhpd_xmm_m64 = 994,
 	/// `VMOVHPD xmm2, xmm1, m64`
 	///
 	/// `VEX.128.66.0F.WIG 16 /r`
@@ -7973,7 +7973,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovhpd_xmm_xmm_m64,
+	VEX_Vmovhpd_xmm_xmm_m64 = 995,
 	/// `VMOVHPD xmm2, xmm1, m64`
 	///
 	/// `EVEX.128.66.0F.W1 16 /r`
@@ -7981,7 +7981,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovhpd_xmm_xmm_m64,
+	EVEX_Vmovhpd_xmm_xmm_m64 = 996,
 	/// `MOVSHDUP xmm1, xmm2/m128`
 	///
 	/// `F3 0F 16 /r`
@@ -7989,7 +7989,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Movshdup_xmm_xmmm128,
+	Movshdup_xmm_xmmm128 = 997,
 	/// `VMOVSHDUP xmm1, xmm2/m128`
 	///
 	/// `VEX.128.F3.0F.WIG 16 /r`
@@ -7997,7 +7997,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovshdup_xmm_xmmm128,
+	VEX_Vmovshdup_xmm_xmmm128 = 998,
 	/// `VMOVSHDUP ymm1, ymm2/m256`
 	///
 	/// `VEX.256.F3.0F.WIG 16 /r`
@@ -8005,7 +8005,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovshdup_ymm_ymmm256,
+	VEX_Vmovshdup_ymm_ymmm256 = 999,
 	/// `VMOVSHDUP xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F3.0F.W0 16 /r`
@@ -8013,7 +8013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovshdup_xmm_k1z_xmmm128,
+	EVEX_Vmovshdup_xmm_k1z_xmmm128 = 1000,
 	/// `VMOVSHDUP ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F3.0F.W0 16 /r`
@@ -8021,7 +8021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovshdup_ymm_k1z_ymmm256,
+	EVEX_Vmovshdup_ymm_k1z_ymmm256 = 1001,
 	/// `VMOVSHDUP zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F3.0F.W0 16 /r`
@@ -8029,7 +8029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovshdup_zmm_k1z_zmmm512,
+	EVEX_Vmovshdup_zmm_k1z_zmmm512 = 1002,
 	/// `MOVHPS m64, xmm1`
 	///
 	/// `NP 0F 17 /r`
@@ -8037,7 +8037,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movhps_m64_xmm,
+	Movhps_m64_xmm = 1003,
 	/// `VMOVHPS m64, xmm1`
 	///
 	/// `VEX.128.0F.WIG 17 /r`
@@ -8045,7 +8045,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovhps_m64_xmm,
+	VEX_Vmovhps_m64_xmm = 1004,
 	/// `VMOVHPS m64, xmm1`
 	///
 	/// `EVEX.128.0F.W0 17 /r`
@@ -8053,7 +8053,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovhps_m64_xmm,
+	EVEX_Vmovhps_m64_xmm = 1005,
 	/// `MOVHPD m64, xmm1`
 	///
 	/// `66 0F 17 /r`
@@ -8061,7 +8061,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movhpd_m64_xmm,
+	Movhpd_m64_xmm = 1006,
 	/// `VMOVHPD m64, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 17 /r`
@@ -8069,7 +8069,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovhpd_m64_xmm,
+	VEX_Vmovhpd_m64_xmm = 1007,
 	/// `VMOVHPD m64, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 17 /r`
@@ -8077,7 +8077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovhpd_m64_xmm,
+	EVEX_Vmovhpd_m64_xmm = 1008,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 18 /r`
@@ -8085,7 +8085,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F18,
+	ReservedNop_rm16_r16_0F18 = 1009,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 18 /r`
@@ -8093,7 +8093,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F18,
+	ReservedNop_rm32_r32_0F18 = 1010,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 18 /r`
@@ -8101,7 +8101,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F18,
+	ReservedNop_rm64_r64_0F18 = 1011,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 19 /r`
@@ -8109,7 +8109,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F19,
+	ReservedNop_rm16_r16_0F19 = 1012,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 19 /r`
@@ -8117,7 +8117,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F19,
+	ReservedNop_rm32_r32_0F19 = 1013,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 19 /r`
@@ -8125,7 +8125,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F19,
+	ReservedNop_rm64_r64_0F19 = 1014,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1A /r`
@@ -8133,7 +8133,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1A,
+	ReservedNop_rm16_r16_0F1A = 1015,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1A /r`
@@ -8141,7 +8141,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1A,
+	ReservedNop_rm32_r32_0F1A = 1016,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1A /r`
@@ -8149,7 +8149,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1A,
+	ReservedNop_rm64_r64_0F1A = 1017,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1B /r`
@@ -8157,7 +8157,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1B,
+	ReservedNop_rm16_r16_0F1B = 1018,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1B /r`
@@ -8165,7 +8165,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1B,
+	ReservedNop_rm32_r32_0F1B = 1019,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1B /r`
@@ -8173,7 +8173,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1B,
+	ReservedNop_rm64_r64_0F1B = 1020,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1C /r`
@@ -8181,7 +8181,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1C,
+	ReservedNop_rm16_r16_0F1C = 1021,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1C /r`
@@ -8189,7 +8189,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1C,
+	ReservedNop_rm32_r32_0F1C = 1022,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1C /r`
@@ -8197,7 +8197,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1C,
+	ReservedNop_rm64_r64_0F1C = 1023,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1D /r`
@@ -8205,7 +8205,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1D,
+	ReservedNop_rm16_r16_0F1D = 1024,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1D /r`
@@ -8213,7 +8213,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1D,
+	ReservedNop_rm32_r32_0F1D = 1025,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1D /r`
@@ -8221,7 +8221,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1D,
+	ReservedNop_rm64_r64_0F1D = 1026,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1E /r`
@@ -8229,7 +8229,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1E,
+	ReservedNop_rm16_r16_0F1E = 1027,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1E /r`
@@ -8237,7 +8237,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1E,
+	ReservedNop_rm32_r32_0F1E = 1028,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1E /r`
@@ -8245,7 +8245,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1E,
+	ReservedNop_rm64_r64_0F1E = 1029,
 	/// `RESERVEDNOP r/m16, r16`
 	///
 	/// `o16 0F 1F /r`
@@ -8253,7 +8253,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm16_r16_0F1F,
+	ReservedNop_rm16_r16_0F1F = 1030,
 	/// `RESERVEDNOP r/m32, r32`
 	///
 	/// `o32 0F 1F /r`
@@ -8261,7 +8261,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	ReservedNop_rm32_r32_0F1F,
+	ReservedNop_rm32_r32_0F1F = 1031,
 	/// `RESERVEDNOP r/m64, r64`
 	///
 	/// `REX.W 0F 1F /r`
@@ -8269,7 +8269,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	ReservedNop_rm64_r64_0F1F,
+	ReservedNop_rm64_r64_0F1F = 1032,
 	/// `PREFETCHNTA m8`
 	///
 	/// `0F 18 /0`
@@ -8277,7 +8277,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Prefetchnta_m8,
+	Prefetchnta_m8 = 1033,
 	/// `PREFETCHT0 m8`
 	///
 	/// `0F 18 /1`
@@ -8285,7 +8285,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Prefetcht0_m8,
+	Prefetcht0_m8 = 1034,
 	/// `PREFETCHT1 m8`
 	///
 	/// `0F 18 /2`
@@ -8293,7 +8293,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Prefetcht1_m8,
+	Prefetcht1_m8 = 1035,
 	/// `PREFETCHT2 m8`
 	///
 	/// `0F 18 /3`
@@ -8301,7 +8301,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Prefetcht2_m8,
+	Prefetcht2_m8 = 1036,
 	/// `BNDLDX bnd, mib`
 	///
 	/// `NP 0F 1A /r`
@@ -8309,7 +8309,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32/64-bit`
-	Bndldx_bnd_mib,
+	Bndldx_bnd_mib = 1037,
 	/// `BNDMOV bnd1, bnd2/m64`
 	///
 	/// `66 0F 1A /r`
@@ -8317,7 +8317,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndmov_bnd_bndm64,
+	Bndmov_bnd_bndm64 = 1038,
 	/// `BNDMOV bnd1, bnd2/m128`
 	///
 	/// `66 0F 1A /r`
@@ -8325,7 +8325,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndmov_bnd_bndm128,
+	Bndmov_bnd_bndm128 = 1039,
 	/// `BNDCL bnd, r/m32`
 	///
 	/// `F3 0F 1A /r`
@@ -8333,7 +8333,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndcl_bnd_rm32,
+	Bndcl_bnd_rm32 = 1040,
 	/// `BNDCL bnd, r/m64`
 	///
 	/// `F3 0F 1A /r`
@@ -8341,7 +8341,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndcl_bnd_rm64,
+	Bndcl_bnd_rm64 = 1041,
 	/// `BNDCU bnd, r/m32`
 	///
 	/// `F2 0F 1A /r`
@@ -8349,7 +8349,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndcu_bnd_rm32,
+	Bndcu_bnd_rm32 = 1042,
 	/// `BNDCU bnd, r/m64`
 	///
 	/// `F2 0F 1A /r`
@@ -8357,7 +8357,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndcu_bnd_rm64,
+	Bndcu_bnd_rm64 = 1043,
 	/// `BNDSTX mib, bnd`
 	///
 	/// `NP 0F 1B /r`
@@ -8365,7 +8365,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32/64-bit`
-	Bndstx_mib_bnd,
+	Bndstx_mib_bnd = 1044,
 	/// `BNDMOV bnd1/m64, bnd2`
 	///
 	/// `66 0F 1B /r`
@@ -8373,7 +8373,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndmov_bndm64_bnd,
+	Bndmov_bndm64_bnd = 1045,
 	/// `BNDMOV bnd1/m128, bnd2`
 	///
 	/// `66 0F 1B /r`
@@ -8381,7 +8381,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndmov_bndm128_bnd,
+	Bndmov_bndm128_bnd = 1046,
 	/// `BNDMK bnd, m32`
 	///
 	/// `F3 0F 1B /r`
@@ -8389,7 +8389,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndmk_bnd_m32,
+	Bndmk_bnd_m32 = 1047,
 	/// `BNDMK bnd, m64`
 	///
 	/// `F3 0F 1B /r`
@@ -8397,7 +8397,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndmk_bnd_m64,
+	Bndmk_bnd_m64 = 1048,
 	/// `BNDCN bnd, r/m32`
 	///
 	/// `F2 0F 1B /r`
@@ -8405,7 +8405,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `16/32-bit`
-	Bndcn_bnd_rm32,
+	Bndcn_bnd_rm32 = 1049,
 	/// `BNDCN bnd, r/m64`
 	///
 	/// `F2 0F 1B /r`
@@ -8413,7 +8413,7 @@ pub enum Code {
 	/// `MPX`
 	///
 	/// `64-bit`
-	Bndcn_bnd_rm64,
+	Bndcn_bnd_rm64 = 1050,
 	/// `CLDEMOTE m8`
 	///
 	/// `NP 0F 1C /0`
@@ -8421,7 +8421,7 @@ pub enum Code {
 	/// `CLDEMOTE`
 	///
 	/// `16/32/64-bit`
-	Cldemote_m8,
+	Cldemote_m8 = 1051,
 	/// `RDSSPD r32`
 	///
 	/// `F3 0F 1E /1`
@@ -8429,7 +8429,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Rdsspd_r32,
+	Rdsspd_r32 = 1052,
 	/// `RDSSPQ r64`
 	///
 	/// `F3 REX.W 0F 1E /1`
@@ -8437,7 +8437,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `64-bit`
-	Rdsspq_r64,
+	Rdsspq_r64 = 1053,
 	/// `ENDBR64`
 	///
 	/// `F3 0F 1E FA`
@@ -8445,7 +8445,7 @@ pub enum Code {
 	/// `CET_IBT`
 	///
 	/// `16/32/64-bit`
-	Endbr64,
+	Endbr64 = 1054,
 	/// `ENDBR32`
 	///
 	/// `F3 0F 1E FB`
@@ -8453,7 +8453,7 @@ pub enum Code {
 	/// `CET_IBT`
 	///
 	/// `16/32/64-bit`
-	Endbr32,
+	Endbr32 = 1055,
 	/// `NOP r/m16`
 	///
 	/// `o16 0F 1F /0`
@@ -8461,7 +8461,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	Nop_rm16,
+	Nop_rm16 = 1056,
 	/// `NOP r/m32`
 	///
 	/// `o32 0F 1F /0`
@@ -8469,7 +8469,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `16/32/64-bit`
-	Nop_rm32,
+	Nop_rm32 = 1057,
 	/// `NOP r/m64`
 	///
 	/// `REX.W 0F 1F /0`
@@ -8477,7 +8477,7 @@ pub enum Code {
 	/// `CPUID.01H.EAX[Bits 11:8] = 0110B or 1111B`
 	///
 	/// `64-bit`
-	Nop_rm64,
+	Nop_rm64 = 1058,
 	/// `MOV r32, cr`
 	///
 	/// `0F 20 /r`
@@ -8485,7 +8485,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Mov_r32_cr,
+	Mov_r32_cr = 1059,
 	/// `MOV r64, cr`
 	///
 	/// `0F 20 /r`
@@ -8493,7 +8493,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_r64_cr,
+	Mov_r64_cr = 1060,
 	/// `MOV r32, dr`
 	///
 	/// `0F 21 /r`
@@ -8501,7 +8501,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Mov_r32_dr,
+	Mov_r32_dr = 1061,
 	/// `MOV r64, dr`
 	///
 	/// `0F 21 /r`
@@ -8509,7 +8509,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_r64_dr,
+	Mov_r64_dr = 1062,
 	/// `MOV cr, r32`
 	///
 	/// `0F 22 /r`
@@ -8517,7 +8517,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Mov_cr_r32,
+	Mov_cr_r32 = 1063,
 	/// `MOV cr, r64`
 	///
 	/// `0F 22 /r`
@@ -8525,7 +8525,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_cr_r64,
+	Mov_cr_r64 = 1064,
 	/// `MOV dr, r32`
 	///
 	/// `0F 23 /r`
@@ -8533,7 +8533,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Mov_dr_r32,
+	Mov_dr_r32 = 1065,
 	/// `MOV dr, r64`
 	///
 	/// `0F 23 /r`
@@ -8541,7 +8541,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Mov_dr_r64,
+	Mov_dr_r64 = 1066,
 	/// `MOV r32, tr`
 	///
 	/// `0F 24 /r`
@@ -8549,7 +8549,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Mov_r32_tr,
+	Mov_r32_tr = 1067,
 	/// `MOV tr, r32`
 	///
 	/// `0F 26 /r`
@@ -8557,7 +8557,7 @@ pub enum Code {
 	/// `386/486`
 	///
 	/// `16/32-bit`
-	Mov_tr_r32,
+	Mov_tr_r32 = 1068,
 	/// `MOVAPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 28 /r`
@@ -8565,7 +8565,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movaps_xmm_xmmm128,
+	Movaps_xmm_xmmm128 = 1069,
 	/// `VMOVAPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 28 /r`
@@ -8573,7 +8573,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovaps_xmm_xmmm128,
+	VEX_Vmovaps_xmm_xmmm128 = 1070,
 	/// `VMOVAPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 28 /r`
@@ -8581,7 +8581,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovaps_ymm_ymmm256,
+	VEX_Vmovaps_ymm_ymmm256 = 1071,
 	/// `VMOVAPS xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.0F.W0 28 /r`
@@ -8589,7 +8589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_xmm_k1z_xmmm128,
+	EVEX_Vmovaps_xmm_k1z_xmmm128 = 1072,
 	/// `VMOVAPS ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.0F.W0 28 /r`
@@ -8597,7 +8597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_ymm_k1z_ymmm256,
+	EVEX_Vmovaps_ymm_k1z_ymmm256 = 1073,
 	/// `VMOVAPS zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.0F.W0 28 /r`
@@ -8605,7 +8605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_zmm_k1z_zmmm512,
+	EVEX_Vmovaps_zmm_k1z_zmmm512 = 1074,
 	/// `MOVAPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 28 /r`
@@ -8613,7 +8613,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movapd_xmm_xmmm128,
+	Movapd_xmm_xmmm128 = 1075,
 	/// `VMOVAPD xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 28 /r`
@@ -8621,7 +8621,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovapd_xmm_xmmm128,
+	VEX_Vmovapd_xmm_xmmm128 = 1076,
 	/// `VMOVAPD ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 28 /r`
@@ -8629,7 +8629,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovapd_ymm_ymmm256,
+	VEX_Vmovapd_ymm_ymmm256 = 1077,
 	/// `VMOVAPD xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F.W1 28 /r`
@@ -8637,7 +8637,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_xmm_k1z_xmmm128,
+	EVEX_Vmovapd_xmm_k1z_xmmm128 = 1078,
 	/// `VMOVAPD ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F.W1 28 /r`
@@ -8645,7 +8645,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_ymm_k1z_ymmm256,
+	EVEX_Vmovapd_ymm_k1z_ymmm256 = 1079,
 	/// `VMOVAPD zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F.W1 28 /r`
@@ -8653,7 +8653,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_zmm_k1z_zmmm512,
+	EVEX_Vmovapd_zmm_k1z_zmmm512 = 1080,
 	/// `MOVAPS xmm2/m128, xmm1`
 	///
 	/// `NP 0F 29 /r`
@@ -8661,7 +8661,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movaps_xmmm128_xmm,
+	Movaps_xmmm128_xmm = 1081,
 	/// `VMOVAPS xmm2/m128, xmm1`
 	///
 	/// `VEX.128.0F.WIG 29 /r`
@@ -8669,7 +8669,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovaps_xmmm128_xmm,
+	VEX_Vmovaps_xmmm128_xmm = 1082,
 	/// `VMOVAPS ymm2/m256, ymm1`
 	///
 	/// `VEX.256.0F.WIG 29 /r`
@@ -8677,7 +8677,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovaps_ymmm256_ymm,
+	VEX_Vmovaps_ymmm256_ymm = 1083,
 	/// `VMOVAPS xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.0F.W0 29 /r`
@@ -8685,7 +8685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_xmmm128_k1z_xmm,
+	EVEX_Vmovaps_xmmm128_k1z_xmm = 1084,
 	/// `VMOVAPS ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.0F.W0 29 /r`
@@ -8693,7 +8693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_ymmm256_k1z_ymm,
+	EVEX_Vmovaps_ymmm256_k1z_ymm = 1085,
 	/// `VMOVAPS zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.0F.W0 29 /r`
@@ -8701,7 +8701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovaps_zmmm512_k1z_zmm,
+	EVEX_Vmovaps_zmmm512_k1z_zmm = 1086,
 	/// `MOVAPD xmm2/m128, xmm1`
 	///
 	/// `66 0F 29 /r`
@@ -8709,7 +8709,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movapd_xmmm128_xmm,
+	Movapd_xmmm128_xmm = 1087,
 	/// `VMOVAPD xmm2/m128, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 29 /r`
@@ -8717,7 +8717,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovapd_xmmm128_xmm,
+	VEX_Vmovapd_xmmm128_xmm = 1088,
 	/// `VMOVAPD ymm2/m256, ymm1`
 	///
 	/// `VEX.256.66.0F.WIG 29 /r`
@@ -8725,7 +8725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovapd_ymmm256_ymm,
+	VEX_Vmovapd_ymmm256_ymm = 1089,
 	/// `VMOVAPD xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 29 /r`
@@ -8733,7 +8733,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_xmmm128_k1z_xmm,
+	EVEX_Vmovapd_xmmm128_k1z_xmm = 1090,
 	/// `VMOVAPD ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.66.0F.W1 29 /r`
@@ -8741,7 +8741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_ymmm256_k1z_ymm,
+	EVEX_Vmovapd_ymmm256_k1z_ymm = 1091,
 	/// `VMOVAPD zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.66.0F.W1 29 /r`
@@ -8749,7 +8749,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovapd_zmmm512_k1z_zmm,
+	EVEX_Vmovapd_zmmm512_k1z_zmm = 1092,
 	/// `CVTPI2PS xmm, mm/m64`
 	///
 	/// `NP 0F 2A /r`
@@ -8757,7 +8757,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvtpi2ps_xmm_mmm64,
+	Cvtpi2ps_xmm_mmm64 = 1093,
 	/// `CVTPI2PD xmm, mm/m64`
 	///
 	/// `66 0F 2A /r`
@@ -8765,7 +8765,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtpi2pd_xmm_mmm64,
+	Cvtpi2pd_xmm_mmm64 = 1094,
 	/// `CVTSI2SS xmm1, r/m32`
 	///
 	/// `F3 0F 2A /r`
@@ -8773,7 +8773,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvtsi2ss_xmm_rm32,
+	Cvtsi2ss_xmm_rm32 = 1095,
 	/// `CVTSI2SS xmm1, r/m64`
 	///
 	/// `F3 REX.W 0F 2A /r`
@@ -8781,7 +8781,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Cvtsi2ss_xmm_rm64,
+	Cvtsi2ss_xmm_rm64 = 1096,
 	/// `VCVTSI2SS xmm1, xmm2, r/m32`
 	///
 	/// `VEX.LIG.F3.0F.W0 2A /r`
@@ -8789,7 +8789,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtsi2ss_xmm_xmm_rm32,
+	VEX_Vcvtsi2ss_xmm_xmm_rm32 = 1097,
 	/// `VCVTSI2SS xmm1, xmm2, r/m64`
 	///
 	/// `VEX.LIG.F3.0F.W1 2A /r`
@@ -8797,7 +8797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvtsi2ss_xmm_xmm_rm64,
+	VEX_Vcvtsi2ss_xmm_xmm_rm64 = 1098,
 	/// `VCVTSI2SS xmm1, xmm2, r/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 2A /r`
@@ -8805,7 +8805,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtsi2ss_xmm_xmm_rm32_er,
+	EVEX_Vcvtsi2ss_xmm_xmm_rm32_er = 1099,
 	/// `VCVTSI2SS xmm1, xmm2, r/m64{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 2A /r`
@@ -8813,7 +8813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtsi2ss_xmm_xmm_rm64_er,
+	EVEX_Vcvtsi2ss_xmm_xmm_rm64_er = 1100,
 	/// `CVTSI2SD xmm1, r/m32`
 	///
 	/// `F2 0F 2A /r`
@@ -8821,7 +8821,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtsi2sd_xmm_rm32,
+	Cvtsi2sd_xmm_rm32 = 1101,
 	/// `CVTSI2SD xmm1, r/m64`
 	///
 	/// `F2 REX.W 0F 2A /r`
@@ -8829,7 +8829,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Cvtsi2sd_xmm_rm64,
+	Cvtsi2sd_xmm_rm64 = 1102,
 	/// `VCVTSI2SD xmm1, xmm2, r/m32`
 	///
 	/// `VEX.LIG.F2.0F.W0 2A /r`
@@ -8837,7 +8837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtsi2sd_xmm_xmm_rm32,
+	VEX_Vcvtsi2sd_xmm_xmm_rm32 = 1103,
 	/// `VCVTSI2SD xmm1, xmm2, r/m64`
 	///
 	/// `VEX.LIG.F2.0F.W1 2A /r`
@@ -8845,7 +8845,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvtsi2sd_xmm_xmm_rm64,
+	VEX_Vcvtsi2sd_xmm_xmm_rm64 = 1104,
 	/// `VCVTSI2SD xmm1, xmm2, r/m32`
 	///
 	/// `EVEX.LIG.F2.0F.W0 2A /r`
@@ -8853,7 +8853,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtsi2sd_xmm_xmm_rm32_er,
+	EVEX_Vcvtsi2sd_xmm_xmm_rm32_er = 1105,
 	/// `VCVTSI2SD xmm1, xmm2, r/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 2A /r`
@@ -8861,7 +8861,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtsi2sd_xmm_xmm_rm64_er,
+	EVEX_Vcvtsi2sd_xmm_xmm_rm64_er = 1106,
 	/// `MOVNTPS m128, xmm1`
 	///
 	/// `NP 0F 2B /r`
@@ -8869,7 +8869,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movntps_m128_xmm,
+	Movntps_m128_xmm = 1107,
 	/// `VMOVNTPS m128, xmm1`
 	///
 	/// `VEX.128.0F.WIG 2B /r`
@@ -8877,7 +8877,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntps_m128_xmm,
+	VEX_Vmovntps_m128_xmm = 1108,
 	/// `VMOVNTPS m256, ymm1`
 	///
 	/// `VEX.256.0F.WIG 2B /r`
@@ -8885,7 +8885,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntps_m256_ymm,
+	VEX_Vmovntps_m256_ymm = 1109,
 	/// `VMOVNTPS m128, xmm1`
 	///
 	/// `EVEX.128.0F.W0 2B /r`
@@ -8893,7 +8893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntps_m128_xmm,
+	EVEX_Vmovntps_m128_xmm = 1110,
 	/// `VMOVNTPS m256, ymm1`
 	///
 	/// `EVEX.256.0F.W0 2B /r`
@@ -8901,7 +8901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntps_m256_ymm,
+	EVEX_Vmovntps_m256_ymm = 1111,
 	/// `VMOVNTPS m512, zmm1`
 	///
 	/// `EVEX.512.0F.W0 2B /r`
@@ -8909,7 +8909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntps_m512_zmm,
+	EVEX_Vmovntps_m512_zmm = 1112,
 	/// `MOVNTPD m128, xmm1`
 	///
 	/// `66 0F 2B /r`
@@ -8917,7 +8917,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movntpd_m128_xmm,
+	Movntpd_m128_xmm = 1113,
 	/// `VMOVNTPD m128, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 2B /r`
@@ -8925,7 +8925,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntpd_m128_xmm,
+	VEX_Vmovntpd_m128_xmm = 1114,
 	/// `VMOVNTPD m256, ymm1`
 	///
 	/// `VEX.256.66.0F.WIG 2B /r`
@@ -8933,7 +8933,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntpd_m256_ymm,
+	VEX_Vmovntpd_m256_ymm = 1115,
 	/// `VMOVNTPD m128, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 2B /r`
@@ -8941,7 +8941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntpd_m128_xmm,
+	EVEX_Vmovntpd_m128_xmm = 1116,
 	/// `VMOVNTPD m256, ymm1`
 	///
 	/// `EVEX.256.66.0F.W1 2B /r`
@@ -8949,7 +8949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntpd_m256_ymm,
+	EVEX_Vmovntpd_m256_ymm = 1117,
 	/// `VMOVNTPD m512, zmm1`
 	///
 	/// `EVEX.512.66.0F.W1 2B /r`
@@ -8957,7 +8957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntpd_m512_zmm,
+	EVEX_Vmovntpd_m512_zmm = 1118,
 	/// `MOVNTSS m32, xmm1`
 	///
 	/// `F3 0F 2B /r`
@@ -8965,7 +8965,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Movntss_m32_xmm,
+	Movntss_m32_xmm = 1119,
 	/// `MOVNTSD m64, xmm1`
 	///
 	/// `F2 0F 2B /r`
@@ -8973,7 +8973,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Movntsd_m64_xmm,
+	Movntsd_m64_xmm = 1120,
 	/// `CVTTPS2PI mm, xmm/m64`
 	///
 	/// `NP 0F 2C /r`
@@ -8981,7 +8981,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvttps2pi_mm_xmmm64,
+	Cvttps2pi_mm_xmmm64 = 1121,
 	/// `CVTTPD2PI mm, xmm/m128`
 	///
 	/// `66 0F 2C /r`
@@ -8989,7 +8989,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvttpd2pi_mm_xmmm128,
+	Cvttpd2pi_mm_xmmm128 = 1122,
 	/// `CVTTSS2SI r32, xmm1/m32`
 	///
 	/// `F3 0F 2C /r`
@@ -8997,7 +8997,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvttss2si_r32_xmmm32,
+	Cvttss2si_r32_xmmm32 = 1123,
 	/// `CVTTSS2SI r64, xmm1/m32`
 	///
 	/// `F3 REX.W 0F 2C /r`
@@ -9005,7 +9005,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Cvttss2si_r64_xmmm32,
+	Cvttss2si_r64_xmmm32 = 1124,
 	/// `VCVTTSS2SI r32, xmm1/m32`
 	///
 	/// `VEX.LIG.F3.0F.W0 2C /r`
@@ -9013,7 +9013,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttss2si_r32_xmmm32,
+	VEX_Vcvttss2si_r32_xmmm32 = 1125,
 	/// `VCVTTSS2SI r64, xmm1/m32`
 	///
 	/// `VEX.LIG.F3.0F.W1 2C /r`
@@ -9021,7 +9021,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvttss2si_r64_xmmm32,
+	VEX_Vcvttss2si_r64_xmmm32 = 1126,
 	/// `VCVTTSS2SI r32, xmm1/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 2C /r`
@@ -9029,7 +9029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttss2si_r32_xmmm32_sae,
+	EVEX_Vcvttss2si_r32_xmmm32_sae = 1127,
 	/// `VCVTTSS2SI r64, xmm1/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 2C /r`
@@ -9037,7 +9037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvttss2si_r64_xmmm32_sae,
+	EVEX_Vcvttss2si_r64_xmmm32_sae = 1128,
 	/// `CVTTSD2SI r32, xmm1/m64`
 	///
 	/// `F2 0F 2C /r`
@@ -9045,7 +9045,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvttsd2si_r32_xmmm64,
+	Cvttsd2si_r32_xmmm64 = 1129,
 	/// `CVTTSD2SI r64, xmm1/m64`
 	///
 	/// `F2 REX.W 0F 2C /r`
@@ -9053,7 +9053,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Cvttsd2si_r64_xmmm64,
+	Cvttsd2si_r64_xmmm64 = 1130,
 	/// `VCVTTSD2SI r32, xmm1/m64`
 	///
 	/// `VEX.LIG.F2.0F.W0 2C /r`
@@ -9061,7 +9061,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttsd2si_r32_xmmm64,
+	VEX_Vcvttsd2si_r32_xmmm64 = 1131,
 	/// `VCVTTSD2SI r64, xmm1/m64`
 	///
 	/// `VEX.LIG.F2.0F.W1 2C /r`
@@ -9069,7 +9069,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvttsd2si_r64_xmmm64,
+	VEX_Vcvttsd2si_r64_xmmm64 = 1132,
 	/// `VCVTTSD2SI r32, xmm1/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 2C /r`
@@ -9077,7 +9077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttsd2si_r32_xmmm64_sae,
+	EVEX_Vcvttsd2si_r32_xmmm64_sae = 1133,
 	/// `VCVTTSD2SI r64, xmm1/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 2C /r`
@@ -9085,7 +9085,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvttsd2si_r64_xmmm64_sae,
+	EVEX_Vcvttsd2si_r64_xmmm64_sae = 1134,
 	/// `CVTPS2PI mm, xmm/m64`
 	///
 	/// `NP 0F 2D /r`
@@ -9093,7 +9093,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvtps2pi_mm_xmmm64,
+	Cvtps2pi_mm_xmmm64 = 1135,
 	/// `CVTPD2PI mm, xmm/m128`
 	///
 	/// `66 0F 2D /r`
@@ -9101,7 +9101,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtpd2pi_mm_xmmm128,
+	Cvtpd2pi_mm_xmmm128 = 1136,
 	/// `CVTSS2SI r32, xmm1/m32`
 	///
 	/// `F3 0F 2D /r`
@@ -9109,7 +9109,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cvtss2si_r32_xmmm32,
+	Cvtss2si_r32_xmmm32 = 1137,
 	/// `CVTSS2SI r64, xmm1/m32`
 	///
 	/// `F3 REX.W 0F 2D /r`
@@ -9117,7 +9117,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Cvtss2si_r64_xmmm32,
+	Cvtss2si_r64_xmmm32 = 1138,
 	/// `VCVTSS2SI r32, xmm1/m32`
 	///
 	/// `VEX.LIG.F3.0F.W0 2D /r`
@@ -9125,7 +9125,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtss2si_r32_xmmm32,
+	VEX_Vcvtss2si_r32_xmmm32 = 1139,
 	/// `VCVTSS2SI r64, xmm1/m32`
 	///
 	/// `VEX.LIG.F3.0F.W1 2D /r`
@@ -9133,7 +9133,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvtss2si_r64_xmmm32,
+	VEX_Vcvtss2si_r64_xmmm32 = 1140,
 	/// `VCVTSS2SI r32, xmm1/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 2D /r`
@@ -9141,7 +9141,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtss2si_r32_xmmm32_er,
+	EVEX_Vcvtss2si_r32_xmmm32_er = 1141,
 	/// `VCVTSS2SI r64, xmm1/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 2D /r`
@@ -9149,7 +9149,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtss2si_r64_xmmm32_er,
+	EVEX_Vcvtss2si_r64_xmmm32_er = 1142,
 	/// `CVTSD2SI r32, xmm1/m64`
 	///
 	/// `F2 0F 2D /r`
@@ -9157,7 +9157,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtsd2si_r32_xmmm64,
+	Cvtsd2si_r32_xmmm64 = 1143,
 	/// `CVTSD2SI r64, xmm1/m64`
 	///
 	/// `F2 REX.W 0F 2D /r`
@@ -9165,7 +9165,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Cvtsd2si_r64_xmmm64,
+	Cvtsd2si_r64_xmmm64 = 1144,
 	/// `VCVTSD2SI r32, xmm1/m64`
 	///
 	/// `VEX.LIG.F2.0F.W0 2D /r`
@@ -9173,7 +9173,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtsd2si_r32_xmmm64,
+	VEX_Vcvtsd2si_r32_xmmm64 = 1145,
 	/// `VCVTSD2SI r64, xmm1/m64`
 	///
 	/// `VEX.LIG.F2.0F.W1 2D /r`
@@ -9181,7 +9181,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vcvtsd2si_r64_xmmm64,
+	VEX_Vcvtsd2si_r64_xmmm64 = 1146,
 	/// `VCVTSD2SI r32, xmm1/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 2D /r`
@@ -9189,7 +9189,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtsd2si_r32_xmmm64_er,
+	EVEX_Vcvtsd2si_r32_xmmm64_er = 1147,
 	/// `VCVTSD2SI r64, xmm1/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 2D /r`
@@ -9197,7 +9197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtsd2si_r64_xmmm64_er,
+	EVEX_Vcvtsd2si_r64_xmmm64_er = 1148,
 	/// `UCOMISS xmm1, xmm2/m32`
 	///
 	/// `NP 0F 2E /r`
@@ -9205,7 +9205,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Ucomiss_xmm_xmmm32,
+	Ucomiss_xmm_xmmm32 = 1149,
 	/// `VUCOMISS xmm1, xmm2/m32`
 	///
 	/// `VEX.LIG.0F.WIG 2E /r`
@@ -9213,7 +9213,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vucomiss_xmm_xmmm32,
+	VEX_Vucomiss_xmm_xmmm32 = 1150,
 	/// `VUCOMISS xmm1, xmm2/m32{sae}`
 	///
 	/// `EVEX.LIG.0F.W0 2E /r`
@@ -9221,7 +9221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vucomiss_xmm_xmmm32_sae,
+	EVEX_Vucomiss_xmm_xmmm32_sae = 1151,
 	/// `UCOMISD xmm1, xmm2/m64`
 	///
 	/// `66 0F 2E /r`
@@ -9229,7 +9229,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Ucomisd_xmm_xmmm64,
+	Ucomisd_xmm_xmmm64 = 1152,
 	/// `VUCOMISD xmm1, xmm2/m64`
 	///
 	/// `VEX.LIG.66.0F.WIG 2E /r`
@@ -9237,7 +9237,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vucomisd_xmm_xmmm64,
+	VEX_Vucomisd_xmm_xmmm64 = 1153,
 	/// `VUCOMISD xmm1, xmm2/m64{sae}`
 	///
 	/// `EVEX.LIG.66.0F.W1 2E /r`
@@ -9245,7 +9245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vucomisd_xmm_xmmm64_sae,
+	EVEX_Vucomisd_xmm_xmmm64_sae = 1154,
 	/// `COMISS xmm1, xmm2/m32`
 	///
 	/// `NP 0F 2F /r`
@@ -9253,7 +9253,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Comiss_xmm_xmmm32,
+	Comiss_xmm_xmmm32 = 1155,
 	/// `COMISD xmm1, xmm2/m64`
 	///
 	/// `66 0F 2F /r`
@@ -9261,7 +9261,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Comisd_xmm_xmmm64,
+	Comisd_xmm_xmmm64 = 1156,
 	/// `VCOMISS xmm1, xmm2/m32`
 	///
 	/// `VEX.LIG.0F.WIG 2F /r`
@@ -9269,7 +9269,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcomiss_xmm_xmmm32,
+	VEX_Vcomiss_xmm_xmmm32 = 1157,
 	/// `VCOMISD xmm1, xmm2/m64`
 	///
 	/// `VEX.LIG.66.0F.WIG 2F /r`
@@ -9277,7 +9277,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcomisd_xmm_xmmm64,
+	VEX_Vcomisd_xmm_xmmm64 = 1158,
 	/// `VCOMISS xmm1, xmm2/m32{sae}`
 	///
 	/// `EVEX.LIG.0F.W0 2F /r`
@@ -9285,7 +9285,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcomiss_xmm_xmmm32_sae,
+	EVEX_Vcomiss_xmm_xmmm32_sae = 1159,
 	/// `VCOMISD xmm1, xmm2/m64{sae}`
 	///
 	/// `EVEX.LIG.66.0F.W1 2F /r`
@@ -9293,7 +9293,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcomisd_xmm_xmmm64_sae,
+	EVEX_Vcomisd_xmm_xmmm64_sae = 1160,
 	/// `WRMSR`
 	///
 	/// `0F 30`
@@ -9301,7 +9301,7 @@ pub enum Code {
 	/// `MSR`
 	///
 	/// `16/32/64-bit`
-	Wrmsr,
+	Wrmsr = 1161,
 	/// `RDTSC`
 	///
 	/// `0F 31`
@@ -9309,7 +9309,7 @@ pub enum Code {
 	/// `TSC`
 	///
 	/// `16/32/64-bit`
-	Rdtsc,
+	Rdtsc = 1162,
 	/// `RDMSR`
 	///
 	/// `0F 32`
@@ -9317,7 +9317,7 @@ pub enum Code {
 	/// `MSR`
 	///
 	/// `16/32/64-bit`
-	Rdmsr,
+	Rdmsr = 1163,
 	/// `RDPMC`
 	///
 	/// `0F 33`
@@ -9325,7 +9325,7 @@ pub enum Code {
 	/// `Pentium MMX or later, or Pentium Pro or later`
 	///
 	/// `16/32/64-bit`
-	Rdpmc,
+	Rdpmc = 1164,
 	/// `SYSENTER`
 	///
 	/// `0F 34`
@@ -9333,7 +9333,7 @@ pub enum Code {
 	/// `SEP`
 	///
 	/// `16/32/64-bit`
-	Sysenter,
+	Sysenter = 1165,
 	/// `SYSEXIT`
 	///
 	/// `0F 35`
@@ -9341,7 +9341,7 @@ pub enum Code {
 	/// `SEP`
 	///
 	/// `16/32/64-bit`
-	Sysexitd,
+	Sysexitd = 1166,
 	/// `SYSEXIT`
 	///
 	/// `REX.W 0F 35`
@@ -9349,7 +9349,7 @@ pub enum Code {
 	/// `SEP`
 	///
 	/// `64-bit`
-	Sysexitq,
+	Sysexitq = 1167,
 	/// `GETSEC`
 	///
 	/// `NP 0F 37`
@@ -9357,7 +9357,7 @@ pub enum Code {
 	/// `SMX`
 	///
 	/// `16/32/64-bit`
-	Getsec,
+	Getsec = 1168,
 	/// `CMOVO r16, r/m16`
 	///
 	/// `o16 0F 40 /r`
@@ -9365,7 +9365,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovo_r16_rm16,
+	Cmovo_r16_rm16 = 1169,
 	/// `CMOVO r32, r/m32`
 	///
 	/// `o32 0F 40 /r`
@@ -9373,7 +9373,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovo_r32_rm32,
+	Cmovo_r32_rm32 = 1170,
 	/// `CMOVO r64, r/m64`
 	///
 	/// `REX.W 0F 40 /r`
@@ -9381,7 +9381,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovo_r64_rm64,
+	Cmovo_r64_rm64 = 1171,
 	/// `CMOVNO r16, r/m16`
 	///
 	/// `o16 0F 41 /r`
@@ -9389,7 +9389,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovno_r16_rm16,
+	Cmovno_r16_rm16 = 1172,
 	/// `CMOVNO r32, r/m32`
 	///
 	/// `o32 0F 41 /r`
@@ -9397,7 +9397,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovno_r32_rm32,
+	Cmovno_r32_rm32 = 1173,
 	/// `CMOVNO r64, r/m64`
 	///
 	/// `REX.W 0F 41 /r`
@@ -9405,7 +9405,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovno_r64_rm64,
+	Cmovno_r64_rm64 = 1174,
 	/// `CMOVB r16, r/m16`
 	///
 	/// `o16 0F 42 /r`
@@ -9413,7 +9413,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovb_r16_rm16,
+	Cmovb_r16_rm16 = 1175,
 	/// `CMOVB r32, r/m32`
 	///
 	/// `o32 0F 42 /r`
@@ -9421,7 +9421,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovb_r32_rm32,
+	Cmovb_r32_rm32 = 1176,
 	/// `CMOVB r64, r/m64`
 	///
 	/// `REX.W 0F 42 /r`
@@ -9429,7 +9429,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovb_r64_rm64,
+	Cmovb_r64_rm64 = 1177,
 	/// `CMOVAE r16, r/m16`
 	///
 	/// `o16 0F 43 /r`
@@ -9437,7 +9437,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovae_r16_rm16,
+	Cmovae_r16_rm16 = 1178,
 	/// `CMOVAE r32, r/m32`
 	///
 	/// `o32 0F 43 /r`
@@ -9445,7 +9445,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovae_r32_rm32,
+	Cmovae_r32_rm32 = 1179,
 	/// `CMOVAE r64, r/m64`
 	///
 	/// `REX.W 0F 43 /r`
@@ -9453,7 +9453,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovae_r64_rm64,
+	Cmovae_r64_rm64 = 1180,
 	/// `CMOVE r16, r/m16`
 	///
 	/// `o16 0F 44 /r`
@@ -9461,7 +9461,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmove_r16_rm16,
+	Cmove_r16_rm16 = 1181,
 	/// `CMOVE r32, r/m32`
 	///
 	/// `o32 0F 44 /r`
@@ -9469,7 +9469,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmove_r32_rm32,
+	Cmove_r32_rm32 = 1182,
 	/// `CMOVE r64, r/m64`
 	///
 	/// `REX.W 0F 44 /r`
@@ -9477,7 +9477,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmove_r64_rm64,
+	Cmove_r64_rm64 = 1183,
 	/// `CMOVNE r16, r/m16`
 	///
 	/// `o16 0F 45 /r`
@@ -9485,7 +9485,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovne_r16_rm16,
+	Cmovne_r16_rm16 = 1184,
 	/// `CMOVNE r32, r/m32`
 	///
 	/// `o32 0F 45 /r`
@@ -9493,7 +9493,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovne_r32_rm32,
+	Cmovne_r32_rm32 = 1185,
 	/// `CMOVNE r64, r/m64`
 	///
 	/// `REX.W 0F 45 /r`
@@ -9501,7 +9501,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovne_r64_rm64,
+	Cmovne_r64_rm64 = 1186,
 	/// `CMOVBE r16, r/m16`
 	///
 	/// `o16 0F 46 /r`
@@ -9509,7 +9509,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovbe_r16_rm16,
+	Cmovbe_r16_rm16 = 1187,
 	/// `CMOVBE r32, r/m32`
 	///
 	/// `o32 0F 46 /r`
@@ -9517,7 +9517,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovbe_r32_rm32,
+	Cmovbe_r32_rm32 = 1188,
 	/// `CMOVBE r64, r/m64`
 	///
 	/// `REX.W 0F 46 /r`
@@ -9525,7 +9525,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovbe_r64_rm64,
+	Cmovbe_r64_rm64 = 1189,
 	/// `CMOVA r16, r/m16`
 	///
 	/// `o16 0F 47 /r`
@@ -9533,7 +9533,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmova_r16_rm16,
+	Cmova_r16_rm16 = 1190,
 	/// `CMOVA r32, r/m32`
 	///
 	/// `o32 0F 47 /r`
@@ -9541,7 +9541,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmova_r32_rm32,
+	Cmova_r32_rm32 = 1191,
 	/// `CMOVA r64, r/m64`
 	///
 	/// `REX.W 0F 47 /r`
@@ -9549,7 +9549,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmova_r64_rm64,
+	Cmova_r64_rm64 = 1192,
 	/// `CMOVS r16, r/m16`
 	///
 	/// `o16 0F 48 /r`
@@ -9557,7 +9557,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovs_r16_rm16,
+	Cmovs_r16_rm16 = 1193,
 	/// `CMOVS r32, r/m32`
 	///
 	/// `o32 0F 48 /r`
@@ -9565,7 +9565,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovs_r32_rm32,
+	Cmovs_r32_rm32 = 1194,
 	/// `CMOVS r64, r/m64`
 	///
 	/// `REX.W 0F 48 /r`
@@ -9573,7 +9573,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovs_r64_rm64,
+	Cmovs_r64_rm64 = 1195,
 	/// `CMOVNS r16, r/m16`
 	///
 	/// `o16 0F 49 /r`
@@ -9581,7 +9581,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovns_r16_rm16,
+	Cmovns_r16_rm16 = 1196,
 	/// `CMOVNS r32, r/m32`
 	///
 	/// `o32 0F 49 /r`
@@ -9589,7 +9589,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovns_r32_rm32,
+	Cmovns_r32_rm32 = 1197,
 	/// `CMOVNS r64, r/m64`
 	///
 	/// `REX.W 0F 49 /r`
@@ -9597,7 +9597,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovns_r64_rm64,
+	Cmovns_r64_rm64 = 1198,
 	/// `CMOVP r16, r/m16`
 	///
 	/// `o16 0F 4A /r`
@@ -9605,7 +9605,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovp_r16_rm16,
+	Cmovp_r16_rm16 = 1199,
 	/// `CMOVP r32, r/m32`
 	///
 	/// `o32 0F 4A /r`
@@ -9613,7 +9613,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovp_r32_rm32,
+	Cmovp_r32_rm32 = 1200,
 	/// `CMOVP r64, r/m64`
 	///
 	/// `REX.W 0F 4A /r`
@@ -9621,7 +9621,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovp_r64_rm64,
+	Cmovp_r64_rm64 = 1201,
 	/// `CMOVNP r16, r/m16`
 	///
 	/// `o16 0F 4B /r`
@@ -9629,7 +9629,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovnp_r16_rm16,
+	Cmovnp_r16_rm16 = 1202,
 	/// `CMOVNP r32, r/m32`
 	///
 	/// `o32 0F 4B /r`
@@ -9637,7 +9637,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovnp_r32_rm32,
+	Cmovnp_r32_rm32 = 1203,
 	/// `CMOVNP r64, r/m64`
 	///
 	/// `REX.W 0F 4B /r`
@@ -9645,7 +9645,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovnp_r64_rm64,
+	Cmovnp_r64_rm64 = 1204,
 	/// `CMOVL r16, r/m16`
 	///
 	/// `o16 0F 4C /r`
@@ -9653,7 +9653,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovl_r16_rm16,
+	Cmovl_r16_rm16 = 1205,
 	/// `CMOVL r32, r/m32`
 	///
 	/// `o32 0F 4C /r`
@@ -9661,7 +9661,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovl_r32_rm32,
+	Cmovl_r32_rm32 = 1206,
 	/// `CMOVL r64, r/m64`
 	///
 	/// `REX.W 0F 4C /r`
@@ -9669,7 +9669,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovl_r64_rm64,
+	Cmovl_r64_rm64 = 1207,
 	/// `CMOVGE r16, r/m16`
 	///
 	/// `o16 0F 4D /r`
@@ -9677,7 +9677,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovge_r16_rm16,
+	Cmovge_r16_rm16 = 1208,
 	/// `CMOVGE r32, r/m32`
 	///
 	/// `o32 0F 4D /r`
@@ -9685,7 +9685,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovge_r32_rm32,
+	Cmovge_r32_rm32 = 1209,
 	/// `CMOVGE r64, r/m64`
 	///
 	/// `REX.W 0F 4D /r`
@@ -9693,7 +9693,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovge_r64_rm64,
+	Cmovge_r64_rm64 = 1210,
 	/// `CMOVLE r16, r/m16`
 	///
 	/// `o16 0F 4E /r`
@@ -9701,7 +9701,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovle_r16_rm16,
+	Cmovle_r16_rm16 = 1211,
 	/// `CMOVLE r32, r/m32`
 	///
 	/// `o32 0F 4E /r`
@@ -9709,7 +9709,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovle_r32_rm32,
+	Cmovle_r32_rm32 = 1212,
 	/// `CMOVLE r64, r/m64`
 	///
 	/// `REX.W 0F 4E /r`
@@ -9717,7 +9717,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovle_r64_rm64,
+	Cmovle_r64_rm64 = 1213,
 	/// `CMOVG r16, r/m16`
 	///
 	/// `o16 0F 4F /r`
@@ -9725,7 +9725,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovg_r16_rm16,
+	Cmovg_r16_rm16 = 1214,
 	/// `CMOVG r32, r/m32`
 	///
 	/// `o32 0F 4F /r`
@@ -9733,7 +9733,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `16/32/64-bit`
-	Cmovg_r32_rm32,
+	Cmovg_r32_rm32 = 1215,
 	/// `CMOVG r64, r/m64`
 	///
 	/// `REX.W 0F 4F /r`
@@ -9741,7 +9741,7 @@ pub enum Code {
 	/// `CMOV`
 	///
 	/// `64-bit`
-	Cmovg_r64_rm64,
+	Cmovg_r64_rm64 = 1216,
 	/// `KANDW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 41 /r`
@@ -9749,7 +9749,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandw_k_k_k,
+	VEX_Kandw_k_k_k = 1217,
 	/// `KANDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 41 /r`
@@ -9757,7 +9757,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandq_k_k_k,
+	VEX_Kandq_k_k_k = 1218,
 	/// `KANDB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 41 /r`
@@ -9765,7 +9765,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandb_k_k_k,
+	VEX_Kandb_k_k_k = 1219,
 	/// `KANDD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 41 /r`
@@ -9773,7 +9773,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandd_k_k_k,
+	VEX_Kandd_k_k_k = 1220,
 	/// `KANDNW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 42 /r`
@@ -9781,7 +9781,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnw_k_k_k,
+	VEX_Kandnw_k_k_k = 1221,
 	/// `KANDNQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 42 /r`
@@ -9789,7 +9789,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnq_k_k_k,
+	VEX_Kandnq_k_k_k = 1222,
 	/// `KANDNB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 42 /r`
@@ -9797,7 +9797,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnb_k_k_k,
+	VEX_Kandnb_k_k_k = 1223,
 	/// `KANDND k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 42 /r`
@@ -9805,7 +9805,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnd_k_k_k,
+	VEX_Kandnd_k_k_k = 1224,
 	/// `KNOTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 44 /r`
@@ -9813,7 +9813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotw_k_k,
+	VEX_Knotw_k_k = 1225,
 	/// `KNOTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 44 /r`
@@ -9821,7 +9821,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotq_k_k,
+	VEX_Knotq_k_k = 1226,
 	/// `KNOTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 44 /r`
@@ -9829,7 +9829,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotb_k_k,
+	VEX_Knotb_k_k = 1227,
 	/// `KNOTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 44 /r`
@@ -9837,7 +9837,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotd_k_k,
+	VEX_Knotd_k_k = 1228,
 	/// `KORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 45 /r`
@@ -9845,7 +9845,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Korw_k_k_k,
+	VEX_Korw_k_k_k = 1229,
 	/// `KORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 45 /r`
@@ -9853,7 +9853,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Korq_k_k_k,
+	VEX_Korq_k_k_k = 1230,
 	/// `KORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 45 /r`
@@ -9861,7 +9861,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Korb_k_k_k,
+	VEX_Korb_k_k_k = 1231,
 	/// `KORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 45 /r`
@@ -9869,7 +9869,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kord_k_k_k,
+	VEX_Kord_k_k_k = 1232,
 	/// `KXNORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 46 /r`
@@ -9877,7 +9877,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorw_k_k_k,
+	VEX_Kxnorw_k_k_k = 1233,
 	/// `KXNORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 46 /r`
@@ -9885,7 +9885,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorq_k_k_k,
+	VEX_Kxnorq_k_k_k = 1234,
 	/// `KXNORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 46 /r`
@@ -9893,7 +9893,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorb_k_k_k,
+	VEX_Kxnorb_k_k_k = 1235,
 	/// `KXNORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 46 /r`
@@ -9901,7 +9901,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnord_k_k_k,
+	VEX_Kxnord_k_k_k = 1236,
 	/// `KXORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 47 /r`
@@ -9909,7 +9909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorw_k_k_k,
+	VEX_Kxorw_k_k_k = 1237,
 	/// `KXORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 47 /r`
@@ -9917,7 +9917,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorq_k_k_k,
+	VEX_Kxorq_k_k_k = 1238,
 	/// `KXORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 47 /r`
@@ -9925,7 +9925,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorb_k_k_k,
+	VEX_Kxorb_k_k_k = 1239,
 	/// `KXORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 47 /r`
@@ -9933,7 +9933,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxord_k_k_k,
+	VEX_Kxord_k_k_k = 1240,
 	/// `KADDW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 4A /r`
@@ -9941,7 +9941,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddw_k_k_k,
+	VEX_Kaddw_k_k_k = 1241,
 	/// `KADDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 4A /r`
@@ -9949,7 +9949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddq_k_k_k,
+	VEX_Kaddq_k_k_k = 1242,
 	/// `KADDB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 4A /r`
@@ -9957,7 +9957,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddb_k_k_k,
+	VEX_Kaddb_k_k_k = 1243,
 	/// `KADDD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 4A /r`
@@ -9965,7 +9965,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddd_k_k_k,
+	VEX_Kaddd_k_k_k = 1244,
 	/// `KUNPCKWD k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 4B /r`
@@ -9973,7 +9973,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckwd_k_k_k,
+	VEX_Kunpckwd_k_k_k = 1245,
 	/// `KUNPCKDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 4B /r`
@@ -9981,7 +9981,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckdq_k_k_k,
+	VEX_Kunpckdq_k_k_k = 1246,
 	/// `KUNPCKBW k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 4B /r`
@@ -9989,7 +9989,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckbw_k_k_k,
+	VEX_Kunpckbw_k_k_k = 1247,
 	/// `MOVMSKPS r32, xmm`
 	///
 	/// `NP 0F 50 /r`
@@ -9997,7 +9997,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movmskps_r32_xmm,
+	Movmskps_r32_xmm = 1248,
 	/// `MOVMSKPS r64, xmm`
 	///
 	/// `NP REX.W 0F 50 /r`
@@ -10005,7 +10005,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Movmskps_r64_xmm,
+	Movmskps_r64_xmm = 1249,
 	/// `VMOVMSKPS r32, xmm2`
 	///
 	/// `VEX.128.0F.W0 50 /r`
@@ -10013,7 +10013,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovmskps_r32_xmm,
+	VEX_Vmovmskps_r32_xmm = 1250,
 	/// `VMOVMSKPS r64, xmm2`
 	///
 	/// `VEX.128.0F.W1 50 /r`
@@ -10021,7 +10021,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovmskps_r64_xmm,
+	VEX_Vmovmskps_r64_xmm = 1251,
 	/// `VMOVMSKPS r32, ymm2`
 	///
 	/// `VEX.256.0F.W0 50 /r`
@@ -10029,7 +10029,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovmskps_r32_ymm,
+	VEX_Vmovmskps_r32_ymm = 1252,
 	/// `VMOVMSKPS r64, ymm2`
 	///
 	/// `VEX.256.0F.W1 50 /r`
@@ -10037,7 +10037,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovmskps_r64_ymm,
+	VEX_Vmovmskps_r64_ymm = 1253,
 	/// `MOVMSKPD r32, xmm`
 	///
 	/// `66 0F 50 /r`
@@ -10045,7 +10045,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movmskpd_r32_xmm,
+	Movmskpd_r32_xmm = 1254,
 	/// `MOVMSKPD r64, xmm`
 	///
 	/// `66 REX.W 0F 50 /r`
@@ -10053,7 +10053,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Movmskpd_r64_xmm,
+	Movmskpd_r64_xmm = 1255,
 	/// `VMOVMSKPD r32, xmm2`
 	///
 	/// `VEX.128.66.0F.W0 50 /r`
@@ -10061,7 +10061,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovmskpd_r32_xmm,
+	VEX_Vmovmskpd_r32_xmm = 1256,
 	/// `VMOVMSKPD r64, xmm2`
 	///
 	/// `VEX.128.66.0F.W1 50 /r`
@@ -10069,7 +10069,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovmskpd_r64_xmm,
+	VEX_Vmovmskpd_r64_xmm = 1257,
 	/// `VMOVMSKPD r32, ymm2`
 	///
 	/// `VEX.256.66.0F.W0 50 /r`
@@ -10077,7 +10077,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovmskpd_r32_ymm,
+	VEX_Vmovmskpd_r32_ymm = 1258,
 	/// `VMOVMSKPD r64, ymm2`
 	///
 	/// `VEX.256.66.0F.W1 50 /r`
@@ -10085,7 +10085,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovmskpd_r64_ymm,
+	VEX_Vmovmskpd_r64_ymm = 1259,
 	/// `SQRTPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 51 /r`
@@ -10093,7 +10093,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sqrtps_xmm_xmmm128,
+	Sqrtps_xmm_xmmm128 = 1260,
 	/// `VSQRTPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 51 /r`
@@ -10101,7 +10101,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtps_xmm_xmmm128,
+	VEX_Vsqrtps_xmm_xmmm128 = 1261,
 	/// `VSQRTPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 51 /r`
@@ -10109,7 +10109,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtps_ymm_ymmm256,
+	VEX_Vsqrtps_ymm_ymmm256 = 1262,
 	/// `VSQRTPS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 51 /r`
@@ -10117,7 +10117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtps_xmm_k1z_xmmm128b32,
+	EVEX_Vsqrtps_xmm_k1z_xmmm128b32 = 1263,
 	/// `VSQRTPS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 51 /r`
@@ -10125,7 +10125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtps_ymm_k1z_ymmm256b32,
+	EVEX_Vsqrtps_ymm_k1z_ymmm256b32 = 1264,
 	/// `VSQRTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 51 /r`
@@ -10133,7 +10133,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er,
+	EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er = 1265,
 	/// `SQRTPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 51 /r`
@@ -10141,7 +10141,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Sqrtpd_xmm_xmmm128,
+	Sqrtpd_xmm_xmmm128 = 1266,
 	/// `VSQRTPD xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 51 /r`
@@ -10149,7 +10149,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtpd_xmm_xmmm128,
+	VEX_Vsqrtpd_xmm_xmmm128 = 1267,
 	/// `VSQRTPD ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 51 /r`
@@ -10157,7 +10157,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtpd_ymm_ymmm256,
+	VEX_Vsqrtpd_ymm_ymmm256 = 1268,
 	/// `VSQRTPD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 51 /r`
@@ -10165,7 +10165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtpd_xmm_k1z_xmmm128b64,
+	EVEX_Vsqrtpd_xmm_k1z_xmmm128b64 = 1269,
 	/// `VSQRTPD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 51 /r`
@@ -10173,7 +10173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtpd_ymm_k1z_ymmm256b64,
+	EVEX_Vsqrtpd_ymm_k1z_ymmm256b64 = 1270,
 	/// `VSQRTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 51 /r`
@@ -10181,7 +10181,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er,
+	EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er = 1271,
 	/// `SQRTSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 51 /r`
@@ -10189,7 +10189,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sqrtss_xmm_xmmm32,
+	Sqrtss_xmm_xmmm32 = 1272,
 	/// `VSQRTSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 51 /r`
@@ -10197,7 +10197,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtss_xmm_xmm_xmmm32,
+	VEX_Vsqrtss_xmm_xmm_xmmm32 = 1273,
 	/// `VSQRTSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 51 /r`
@@ -10205,7 +10205,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er = 1274,
 	/// `SQRTSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 51 /r`
@@ -10213,7 +10213,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Sqrtsd_xmm_xmmm64,
+	Sqrtsd_xmm_xmmm64 = 1275,
 	/// `VSQRTSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 51 /r`
@@ -10221,7 +10221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsqrtsd_xmm_xmm_xmmm64,
+	VEX_Vsqrtsd_xmm_xmm_xmmm64 = 1276,
 	/// `VSQRTSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 51 /r`
@@ -10229,7 +10229,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er = 1277,
 	/// `RSQRTPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 52 /r`
@@ -10237,7 +10237,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Rsqrtps_xmm_xmmm128,
+	Rsqrtps_xmm_xmmm128 = 1278,
 	/// `VRSQRTPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 52 /r`
@@ -10245,7 +10245,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrsqrtps_xmm_xmmm128,
+	VEX_Vrsqrtps_xmm_xmmm128 = 1279,
 	/// `VRSQRTPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 52 /r`
@@ -10253,7 +10253,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrsqrtps_ymm_ymmm256,
+	VEX_Vrsqrtps_ymm_ymmm256 = 1280,
 	/// `RSQRTSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 52 /r`
@@ -10261,7 +10261,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Rsqrtss_xmm_xmmm32,
+	Rsqrtss_xmm_xmmm32 = 1281,
 	/// `VRSQRTSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 52 /r`
@@ -10269,7 +10269,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrsqrtss_xmm_xmm_xmmm32,
+	VEX_Vrsqrtss_xmm_xmm_xmmm32 = 1282,
 	/// `RCPPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 53 /r`
@@ -10277,7 +10277,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Rcpps_xmm_xmmm128,
+	Rcpps_xmm_xmmm128 = 1283,
 	/// `VRCPPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 53 /r`
@@ -10285,7 +10285,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrcpps_xmm_xmmm128,
+	VEX_Vrcpps_xmm_xmmm128 = 1284,
 	/// `VRCPPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 53 /r`
@@ -10293,7 +10293,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrcpps_ymm_ymmm256,
+	VEX_Vrcpps_ymm_ymmm256 = 1285,
 	/// `RCPSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 53 /r`
@@ -10301,7 +10301,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Rcpss_xmm_xmmm32,
+	Rcpss_xmm_xmmm32 = 1286,
 	/// `VRCPSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 53 /r`
@@ -10309,7 +10309,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vrcpss_xmm_xmm_xmmm32,
+	VEX_Vrcpss_xmm_xmm_xmmm32 = 1287,
 	/// `ANDPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 54 /r`
@@ -10317,7 +10317,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Andps_xmm_xmmm128,
+	Andps_xmm_xmmm128 = 1288,
 	/// `VANDPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 54 /r`
@@ -10325,7 +10325,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandps_xmm_xmm_xmmm128,
+	VEX_Vandps_xmm_xmm_xmmm128 = 1289,
 	/// `VANDPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 54 /r`
@@ -10333,7 +10333,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandps_ymm_ymm_ymmm256,
+	VEX_Vandps_ymm_ymm_ymmm256 = 1290,
 	/// `VANDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 54 /r`
@@ -10341,7 +10341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vandps_xmm_k1z_xmm_xmmm128b32 = 1291,
 	/// `VANDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 54 /r`
@@ -10349,7 +10349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vandps_ymm_k1z_ymm_ymmm256b32 = 1292,
 	/// `VANDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 54 /r`
@@ -10357,7 +10357,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vandps_zmm_k1z_zmm_zmmm512b32 = 1293,
 	/// `ANDPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 54 /r`
@@ -10365,7 +10365,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Andpd_xmm_xmmm128,
+	Andpd_xmm_xmmm128 = 1294,
 	/// `VANDPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 54 /r`
@@ -10373,7 +10373,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandpd_xmm_xmm_xmmm128,
+	VEX_Vandpd_xmm_xmm_xmmm128 = 1295,
 	/// `VANDPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 54 /r`
@@ -10381,7 +10381,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandpd_ymm_ymm_ymmm256,
+	VEX_Vandpd_ymm_ymm_ymmm256 = 1296,
 	/// `VANDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 54 /r`
@@ -10389,7 +10389,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vandpd_xmm_k1z_xmm_xmmm128b64 = 1297,
 	/// `VANDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 54 /r`
@@ -10397,7 +10397,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vandpd_ymm_k1z_ymm_ymmm256b64 = 1298,
 	/// `VANDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 54 /r`
@@ -10405,7 +10405,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vandpd_zmm_k1z_zmm_zmmm512b64 = 1299,
 	/// `ANDNPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 55 /r`
@@ -10413,7 +10413,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Andnps_xmm_xmmm128,
+	Andnps_xmm_xmmm128 = 1300,
 	/// `VANDNPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 55 /r`
@@ -10421,7 +10421,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandnps_xmm_xmm_xmmm128,
+	VEX_Vandnps_xmm_xmm_xmmm128 = 1301,
 	/// `VANDNPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 55 /r`
@@ -10429,7 +10429,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandnps_ymm_ymm_ymmm256,
+	VEX_Vandnps_ymm_ymm_ymmm256 = 1302,
 	/// `VANDNPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 55 /r`
@@ -10437,7 +10437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vandnps_xmm_k1z_xmm_xmmm128b32 = 1303,
 	/// `VANDNPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 55 /r`
@@ -10445,7 +10445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vandnps_ymm_k1z_ymm_ymmm256b32 = 1304,
 	/// `VANDNPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 55 /r`
@@ -10453,7 +10453,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vandnps_zmm_k1z_zmm_zmmm512b32 = 1305,
 	/// `ANDNPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 55 /r`
@@ -10461,7 +10461,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Andnpd_xmm_xmmm128,
+	Andnpd_xmm_xmmm128 = 1306,
 	/// `VANDNPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 55 /r`
@@ -10469,7 +10469,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandnpd_xmm_xmm_xmmm128,
+	VEX_Vandnpd_xmm_xmm_xmmm128 = 1307,
 	/// `VANDNPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 55 /r`
@@ -10477,7 +10477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vandnpd_ymm_ymm_ymmm256,
+	VEX_Vandnpd_ymm_ymm_ymmm256 = 1308,
 	/// `VANDNPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 55 /r`
@@ -10485,7 +10485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vandnpd_xmm_k1z_xmm_xmmm128b64 = 1309,
 	/// `VANDNPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 55 /r`
@@ -10493,7 +10493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vandnpd_ymm_k1z_ymm_ymmm256b64 = 1310,
 	/// `VANDNPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 55 /r`
@@ -10501,7 +10501,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vandnpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vandnpd_zmm_k1z_zmm_zmmm512b64 = 1311,
 	/// `ORPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 56 /r`
@@ -10509,7 +10509,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Orps_xmm_xmmm128,
+	Orps_xmm_xmmm128 = 1312,
 	/// `VORPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 56 /r`
@@ -10517,7 +10517,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vorps_xmm_xmm_xmmm128,
+	VEX_Vorps_xmm_xmm_xmmm128 = 1313,
 	/// `VORPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 56 /r`
@@ -10525,7 +10525,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vorps_ymm_ymm_ymmm256,
+	VEX_Vorps_ymm_ymm_ymmm256 = 1314,
 	/// `VORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 56 /r`
@@ -10533,7 +10533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vorps_xmm_k1z_xmm_xmmm128b32 = 1315,
 	/// `VORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 56 /r`
@@ -10541,7 +10541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vorps_ymm_k1z_ymm_ymmm256b32 = 1316,
 	/// `VORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 56 /r`
@@ -10549,7 +10549,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vorps_zmm_k1z_zmm_zmmm512b32 = 1317,
 	/// `ORPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 56 /r`
@@ -10557,7 +10557,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Orpd_xmm_xmmm128,
+	Orpd_xmm_xmmm128 = 1318,
 	/// `VORPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 56 /r`
@@ -10565,7 +10565,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vorpd_xmm_xmm_xmmm128,
+	VEX_Vorpd_xmm_xmm_xmmm128 = 1319,
 	/// `VORPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 56 /r`
@@ -10573,7 +10573,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vorpd_ymm_ymm_ymmm256,
+	VEX_Vorpd_ymm_ymm_ymmm256 = 1320,
 	/// `VORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 56 /r`
@@ -10581,7 +10581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vorpd_xmm_k1z_xmm_xmmm128b64 = 1321,
 	/// `VORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 56 /r`
@@ -10589,7 +10589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vorpd_ymm_k1z_ymm_ymmm256b64 = 1322,
 	/// `VORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 56 /r`
@@ -10597,7 +10597,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vorpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vorpd_zmm_k1z_zmm_zmmm512b64 = 1323,
 	/// `XORPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 57 /r`
@@ -10605,7 +10605,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Xorps_xmm_xmmm128,
+	Xorps_xmm_xmmm128 = 1324,
 	/// `VXORPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 57 /r`
@@ -10613,7 +10613,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vxorps_xmm_xmm_xmmm128,
+	VEX_Vxorps_xmm_xmm_xmmm128 = 1325,
 	/// `VXORPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 57 /r`
@@ -10621,7 +10621,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vxorps_ymm_ymm_ymmm256,
+	VEX_Vxorps_ymm_ymm_ymmm256 = 1326,
 	/// `VXORPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 57 /r`
@@ -10629,7 +10629,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vxorps_xmm_k1z_xmm_xmmm128b32 = 1327,
 	/// `VXORPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 57 /r`
@@ -10637,7 +10637,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vxorps_ymm_k1z_ymm_ymmm256b32 = 1328,
 	/// `VXORPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.0F.W0 57 /r`
@@ -10645,7 +10645,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vxorps_zmm_k1z_zmm_zmmm512b32 = 1329,
 	/// `XORPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 57 /r`
@@ -10653,7 +10653,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Xorpd_xmm_xmmm128,
+	Xorpd_xmm_xmmm128 = 1330,
 	/// `VXORPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 57 /r`
@@ -10661,7 +10661,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vxorpd_xmm_xmm_xmmm128,
+	VEX_Vxorpd_xmm_xmm_xmmm128 = 1331,
 	/// `VXORPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 57 /r`
@@ -10669,7 +10669,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vxorpd_ymm_ymm_ymmm256,
+	VEX_Vxorpd_ymm_ymm_ymmm256 = 1332,
 	/// `VXORPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 57 /r`
@@ -10677,7 +10677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vxorpd_xmm_k1z_xmm_xmmm128b64 = 1333,
 	/// `VXORPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 57 /r`
@@ -10685,7 +10685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vxorpd_ymm_k1z_ymm_ymmm256b64 = 1334,
 	/// `VXORPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 57 /r`
@@ -10693,7 +10693,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vxorpd_zmm_k1z_zmm_zmmm512b64 = 1335,
 	/// `ADDPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 58 /r`
@@ -10701,7 +10701,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Addps_xmm_xmmm128,
+	Addps_xmm_xmmm128 = 1336,
 	/// `VADDPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 58 /r`
@@ -10709,7 +10709,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddps_xmm_xmm_xmmm128,
+	VEX_Vaddps_xmm_xmm_xmmm128 = 1337,
 	/// `VADDPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 58 /r`
@@ -10717,7 +10717,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddps_ymm_ymm_ymmm256,
+	VEX_Vaddps_ymm_ymm_ymmm256 = 1338,
 	/// `VADDPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 58 /r`
@@ -10725,7 +10725,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vaddps_xmm_k1z_xmm_xmmm128b32 = 1339,
 	/// `VADDPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 58 /r`
@@ -10733,7 +10733,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vaddps_ymm_k1z_ymm_ymmm256b32 = 1340,
 	/// `VADDPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 58 /r`
@@ -10741,7 +10741,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er = 1341,
 	/// `ADDPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 58 /r`
@@ -10749,7 +10749,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Addpd_xmm_xmmm128,
+	Addpd_xmm_xmmm128 = 1342,
 	/// `VADDPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 58 /r`
@@ -10757,7 +10757,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddpd_xmm_xmm_xmmm128,
+	VEX_Vaddpd_xmm_xmm_xmmm128 = 1343,
 	/// `VADDPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 58 /r`
@@ -10765,7 +10765,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddpd_ymm_ymm_ymmm256,
+	VEX_Vaddpd_ymm_ymm_ymmm256 = 1344,
 	/// `VADDPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 58 /r`
@@ -10773,7 +10773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vaddpd_xmm_k1z_xmm_xmmm128b64 = 1345,
 	/// `VADDPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 58 /r`
@@ -10781,7 +10781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vaddpd_ymm_k1z_ymm_ymmm256b64 = 1346,
 	/// `VADDPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 58 /r`
@@ -10789,7 +10789,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er = 1347,
 	/// `ADDSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 58 /r`
@@ -10797,7 +10797,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Addss_xmm_xmmm32,
+	Addss_xmm_xmmm32 = 1348,
 	/// `VADDSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 58 /r`
@@ -10805,7 +10805,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddss_xmm_xmm_xmmm32,
+	VEX_Vaddss_xmm_xmm_xmmm32 = 1349,
 	/// `VADDSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 58 /r`
@@ -10813,7 +10813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er = 1350,
 	/// `ADDSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 58 /r`
@@ -10821,7 +10821,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Addsd_xmm_xmmm64,
+	Addsd_xmm_xmmm64 = 1351,
 	/// `VADDSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 58 /r`
@@ -10829,7 +10829,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddsd_xmm_xmm_xmmm64,
+	VEX_Vaddsd_xmm_xmm_xmmm64 = 1352,
 	/// `VADDSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 58 /r`
@@ -10837,7 +10837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er = 1353,
 	/// `MULPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 59 /r`
@@ -10845,7 +10845,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Mulps_xmm_xmmm128,
+	Mulps_xmm_xmmm128 = 1354,
 	/// `VMULPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 59 /r`
@@ -10853,7 +10853,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulps_xmm_xmm_xmmm128,
+	VEX_Vmulps_xmm_xmm_xmmm128 = 1355,
 	/// `VMULPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 59 /r`
@@ -10861,7 +10861,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulps_ymm_ymm_ymmm256,
+	VEX_Vmulps_ymm_ymm_ymmm256 = 1356,
 	/// `VMULPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 59 /r`
@@ -10869,7 +10869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vmulps_xmm_k1z_xmm_xmmm128b32 = 1357,
 	/// `VMULPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 59 /r`
@@ -10877,7 +10877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vmulps_ymm_k1z_ymm_ymmm256b32 = 1358,
 	/// `VMULPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 59 /r`
@@ -10885,7 +10885,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er = 1359,
 	/// `MULPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 59 /r`
@@ -10893,7 +10893,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mulpd_xmm_xmmm128,
+	Mulpd_xmm_xmmm128 = 1360,
 	/// `VMULPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 59 /r`
@@ -10901,7 +10901,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulpd_xmm_xmm_xmmm128,
+	VEX_Vmulpd_xmm_xmm_xmmm128 = 1361,
 	/// `VMULPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 59 /r`
@@ -10909,7 +10909,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulpd_ymm_ymm_ymmm256,
+	VEX_Vmulpd_ymm_ymm_ymmm256 = 1362,
 	/// `VMULPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 59 /r`
@@ -10917,7 +10917,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vmulpd_xmm_k1z_xmm_xmmm128b64 = 1363,
 	/// `VMULPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 59 /r`
@@ -10925,7 +10925,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vmulpd_ymm_k1z_ymm_ymmm256b64 = 1364,
 	/// `VMULPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 59 /r`
@@ -10933,7 +10933,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er = 1365,
 	/// `MULSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 59 /r`
@@ -10941,7 +10941,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Mulss_xmm_xmmm32,
+	Mulss_xmm_xmmm32 = 1366,
 	/// `VMULSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 59 /r`
@@ -10949,7 +10949,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulss_xmm_xmm_xmmm32,
+	VEX_Vmulss_xmm_xmm_xmmm32 = 1367,
 	/// `VMULSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 59 /r`
@@ -10957,7 +10957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er = 1368,
 	/// `MULSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 59 /r`
@@ -10965,7 +10965,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mulsd_xmm_xmmm64,
+	Mulsd_xmm_xmmm64 = 1369,
 	/// `VMULSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 59 /r`
@@ -10973,7 +10973,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmulsd_xmm_xmm_xmmm64,
+	VEX_Vmulsd_xmm_xmm_xmmm64 = 1370,
 	/// `VMULSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 59 /r`
@@ -10981,7 +10981,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er = 1371,
 	/// `CVTPS2PD xmm1, xmm2/m64`
 	///
 	/// `NP 0F 5A /r`
@@ -10989,7 +10989,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtps2pd_xmm_xmmm64,
+	Cvtps2pd_xmm_xmmm64 = 1372,
 	/// `VCVTPS2PD xmm1, xmm2/m64`
 	///
 	/// `VEX.128.0F.WIG 5A /r`
@@ -10997,7 +10997,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2pd_xmm_xmmm64,
+	VEX_Vcvtps2pd_xmm_xmmm64 = 1373,
 	/// `VCVTPS2PD ymm1, xmm2/m128`
 	///
 	/// `VEX.256.0F.WIG 5A /r`
@@ -11005,7 +11005,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2pd_ymm_xmmm128,
+	VEX_Vcvtps2pd_ymm_xmmm128 = 1374,
 	/// `VCVTPS2PD xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5A /r`
@@ -11013,7 +11013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32,
+	EVEX_Vcvtps2pd_xmm_k1z_xmmm64b32 = 1375,
 	/// `VCVTPS2PD ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5A /r`
@@ -11021,7 +11021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32,
+	EVEX_Vcvtps2pd_ymm_k1z_xmmm128b32 = 1376,
 	/// `VCVTPS2PD zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}`
 	///
 	/// `EVEX.512.0F.W0 5A /r`
@@ -11029,7 +11029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae,
+	EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae = 1377,
 	/// `CVTPD2PS xmm1, xmm2/m128`
 	///
 	/// `66 0F 5A /r`
@@ -11037,7 +11037,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtpd2ps_xmm_xmmm128,
+	Cvtpd2ps_xmm_xmmm128 = 1378,
 	/// `VCVTPD2PS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5A /r`
@@ -11045,7 +11045,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtpd2ps_xmm_xmmm128,
+	VEX_Vcvtpd2ps_xmm_xmmm128 = 1379,
 	/// `VCVTPD2PS xmm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5A /r`
@@ -11053,7 +11053,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtpd2ps_xmm_ymmm256,
+	VEX_Vcvtpd2ps_xmm_ymmm256 = 1380,
 	/// `VCVTPD2PS xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 5A /r`
@@ -11061,7 +11061,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64 = 1381,
 	/// `VCVTPD2PS xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 5A /r`
@@ -11069,7 +11069,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64,
+	EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64 = 1382,
 	/// `VCVTPD2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 5A /r`
@@ -11077,7 +11077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er,
+	EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er = 1383,
 	/// `CVTSS2SD xmm1, xmm2/m32`
 	///
 	/// `F3 0F 5A /r`
@@ -11085,7 +11085,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtss2sd_xmm_xmmm32,
+	Cvtss2sd_xmm_xmmm32 = 1384,
 	/// `VCVTSS2SD xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 5A /r`
@@ -11093,7 +11093,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtss2sd_xmm_xmm_xmmm32,
+	VEX_Vcvtss2sd_xmm_xmm_xmmm32 = 1385,
 	/// `VCVTSS2SD xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 5A /r`
@@ -11101,7 +11101,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae = 1386,
 	/// `CVTSD2SS xmm1, xmm2/m64`
 	///
 	/// `F2 0F 5A /r`
@@ -11109,7 +11109,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtsd2ss_xmm_xmmm64,
+	Cvtsd2ss_xmm_xmmm64 = 1387,
 	/// `VCVTSD2SS xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 5A /r`
@@ -11117,7 +11117,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtsd2ss_xmm_xmm_xmmm64,
+	VEX_Vcvtsd2ss_xmm_xmm_xmmm64 = 1388,
 	/// `VCVTSD2SS xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 5A /r`
@@ -11125,7 +11125,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er = 1389,
 	/// `CVTDQ2PS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 5B /r`
@@ -11133,7 +11133,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtdq2ps_xmm_xmmm128,
+	Cvtdq2ps_xmm_xmmm128 = 1390,
 	/// `VCVTDQ2PS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.0F.WIG 5B /r`
@@ -11141,7 +11141,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtdq2ps_xmm_xmmm128,
+	VEX_Vcvtdq2ps_xmm_xmmm128 = 1391,
 	/// `VCVTDQ2PS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.0F.WIG 5B /r`
@@ -11149,7 +11149,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtdq2ps_ymm_ymmm256,
+	VEX_Vcvtdq2ps_ymm_ymmm256 = 1392,
 	/// `VCVTDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5B /r`
@@ -11157,7 +11157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32,
+	EVEX_Vcvtdq2ps_xmm_k1z_xmmm128b32 = 1393,
 	/// `VCVTDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5B /r`
@@ -11165,7 +11165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32,
+	EVEX_Vcvtdq2ps_ymm_k1z_ymmm256b32 = 1394,
 	/// `VCVTDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 5B /r`
@@ -11173,7 +11173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er,
+	EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er = 1395,
 	/// `VCVTQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.0F.W1 5B /r`
@@ -11181,7 +11181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64 = 1396,
 	/// `VCVTQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.0F.W1 5B /r`
@@ -11189,7 +11189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64,
+	EVEX_Vcvtqq2ps_xmm_k1z_ymmm256b64 = 1397,
 	/// `VCVTQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.0F.W1 5B /r`
@@ -11197,7 +11197,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er,
+	EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er = 1398,
 	/// `CVTPS2DQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 5B /r`
@@ -11205,7 +11205,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtps2dq_xmm_xmmm128,
+	Cvtps2dq_xmm_xmmm128 = 1399,
 	/// `VCVTPS2DQ xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5B /r`
@@ -11213,7 +11213,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2dq_xmm_xmmm128,
+	VEX_Vcvtps2dq_xmm_xmmm128 = 1400,
 	/// `VCVTPS2DQ ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5B /r`
@@ -11221,7 +11221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2dq_ymm_ymmm256,
+	VEX_Vcvtps2dq_ymm_ymmm256 = 1401,
 	/// `VCVTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 5B /r`
@@ -11229,7 +11229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32,
+	EVEX_Vcvtps2dq_xmm_k1z_xmmm128b32 = 1402,
 	/// `VCVTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 5B /r`
@@ -11237,7 +11237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32,
+	EVEX_Vcvtps2dq_ymm_k1z_ymmm256b32 = 1403,
 	/// `VCVTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W0 5B /r`
@@ -11245,7 +11245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er,
+	EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er = 1404,
 	/// `CVTTPS2DQ xmm1, xmm2/m128`
 	///
 	/// `F3 0F 5B /r`
@@ -11253,7 +11253,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvttps2dq_xmm_xmmm128,
+	Cvttps2dq_xmm_xmmm128 = 1405,
 	/// `VCVTTPS2DQ xmm1, xmm2/m128`
 	///
 	/// `VEX.128.F3.0F.WIG 5B /r`
@@ -11261,7 +11261,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttps2dq_xmm_xmmm128,
+	VEX_Vcvttps2dq_xmm_xmmm128 = 1406,
 	/// `VCVTTPS2DQ ymm1, ymm2/m256`
 	///
 	/// `VEX.256.F3.0F.WIG 5B /r`
@@ -11269,7 +11269,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttps2dq_ymm_ymmm256,
+	VEX_Vcvttps2dq_ymm_ymmm256 = 1407,
 	/// `VCVTTPS2DQ xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.F3.0F.W0 5B /r`
@@ -11277,7 +11277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32,
+	EVEX_Vcvttps2dq_xmm_k1z_xmmm128b32 = 1408,
 	/// `VCVTTPS2DQ ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.F3.0F.W0 5B /r`
@@ -11285,7 +11285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32,
+	EVEX_Vcvttps2dq_ymm_k1z_ymmm256b32 = 1409,
 	/// `VCVTTPS2DQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.F3.0F.W0 5B /r`
@@ -11293,7 +11293,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae = 1410,
 	/// `SUBPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 5C /r`
@@ -11301,7 +11301,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Subps_xmm_xmmm128,
+	Subps_xmm_xmmm128 = 1411,
 	/// `VSUBPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 5C /r`
@@ -11309,7 +11309,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubps_xmm_xmm_xmmm128,
+	VEX_Vsubps_xmm_xmm_xmmm128 = 1412,
 	/// `VSUBPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 5C /r`
@@ -11317,7 +11317,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubps_ymm_ymm_ymmm256,
+	VEX_Vsubps_ymm_ymm_ymmm256 = 1413,
 	/// `VSUBPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5C /r`
@@ -11325,7 +11325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vsubps_xmm_k1z_xmm_xmmm128b32 = 1414,
 	/// `VSUBPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5C /r`
@@ -11333,7 +11333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vsubps_ymm_k1z_ymm_ymmm256b32 = 1415,
 	/// `VSUBPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 5C /r`
@@ -11341,7 +11341,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er = 1416,
 	/// `SUBPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 5C /r`
@@ -11349,7 +11349,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Subpd_xmm_xmmm128,
+	Subpd_xmm_xmmm128 = 1417,
 	/// `VSUBPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5C /r`
@@ -11357,7 +11357,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubpd_xmm_xmm_xmmm128,
+	VEX_Vsubpd_xmm_xmm_xmmm128 = 1418,
 	/// `VSUBPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5C /r`
@@ -11365,7 +11365,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubpd_ymm_ymm_ymmm256,
+	VEX_Vsubpd_ymm_ymm_ymmm256 = 1419,
 	/// `VSUBPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 5C /r`
@@ -11373,7 +11373,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vsubpd_xmm_k1z_xmm_xmmm128b64 = 1420,
 	/// `VSUBPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 5C /r`
@@ -11381,7 +11381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vsubpd_ymm_k1z_ymm_ymmm256b64 = 1421,
 	/// `VSUBPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 5C /r`
@@ -11389,7 +11389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er = 1422,
 	/// `SUBSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 5C /r`
@@ -11397,7 +11397,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Subss_xmm_xmmm32,
+	Subss_xmm_xmmm32 = 1423,
 	/// `VSUBSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 5C /r`
@@ -11405,7 +11405,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubss_xmm_xmm_xmmm32,
+	VEX_Vsubss_xmm_xmm_xmmm32 = 1424,
 	/// `VSUBSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 5C /r`
@@ -11413,7 +11413,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er = 1425,
 	/// `SUBSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 5C /r`
@@ -11421,7 +11421,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Subsd_xmm_xmmm64,
+	Subsd_xmm_xmmm64 = 1426,
 	/// `VSUBSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 5C /r`
@@ -11429,7 +11429,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vsubsd_xmm_xmm_xmmm64,
+	VEX_Vsubsd_xmm_xmm_xmmm64 = 1427,
 	/// `VSUBSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 5C /r`
@@ -11437,7 +11437,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er = 1428,
 	/// `MINPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 5D /r`
@@ -11445,7 +11445,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Minps_xmm_xmmm128,
+	Minps_xmm_xmmm128 = 1429,
 	/// `VMINPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 5D /r`
@@ -11453,7 +11453,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminps_xmm_xmm_xmmm128,
+	VEX_Vminps_xmm_xmm_xmmm128 = 1430,
 	/// `VMINPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 5D /r`
@@ -11461,7 +11461,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminps_ymm_ymm_ymmm256,
+	VEX_Vminps_ymm_ymm_ymmm256 = 1431,
 	/// `VMINPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5D /r`
@@ -11469,7 +11469,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vminps_xmm_k1z_xmm_xmmm128b32 = 1432,
 	/// `VMINPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5D /r`
@@ -11477,7 +11477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vminps_ymm_k1z_ymm_ymmm256b32 = 1433,
 	/// `VMINPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.0F.W0 5D /r`
@@ -11485,7 +11485,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae,
+	EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae = 1434,
 	/// `MINPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 5D /r`
@@ -11493,7 +11493,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Minpd_xmm_xmmm128,
+	Minpd_xmm_xmmm128 = 1435,
 	/// `VMINPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5D /r`
@@ -11501,7 +11501,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminpd_xmm_xmm_xmmm128,
+	VEX_Vminpd_xmm_xmm_xmmm128 = 1436,
 	/// `VMINPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5D /r`
@@ -11509,7 +11509,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminpd_ymm_ymm_ymmm256,
+	VEX_Vminpd_ymm_ymm_ymmm256 = 1437,
 	/// `VMINPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 5D /r`
@@ -11517,7 +11517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vminpd_xmm_k1z_xmm_xmmm128b64 = 1438,
 	/// `VMINPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 5D /r`
@@ -11525,7 +11525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vminpd_ymm_k1z_ymm_ymmm256b64 = 1439,
 	/// `VMINPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W1 5D /r`
@@ -11533,7 +11533,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae,
+	EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae = 1440,
 	/// `MINSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 5D /r`
@@ -11541,7 +11541,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Minss_xmm_xmmm32,
+	Minss_xmm_xmmm32 = 1441,
 	/// `VMINSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 5D /r`
@@ -11549,7 +11549,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminss_xmm_xmm_xmmm32,
+	VEX_Vminss_xmm_xmm_xmmm32 = 1442,
 	/// `VMINSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 5D /r`
@@ -11557,7 +11557,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae = 1443,
 	/// `MINSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 5D /r`
@@ -11565,7 +11565,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Minsd_xmm_xmmm64,
+	Minsd_xmm_xmmm64 = 1444,
 	/// `VMINSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 5D /r`
@@ -11573,7 +11573,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vminsd_xmm_xmm_xmmm64,
+	VEX_Vminsd_xmm_xmm_xmmm64 = 1445,
 	/// `VMINSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 5D /r`
@@ -11581,7 +11581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae,
+	EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae = 1446,
 	/// `DIVPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 5E /r`
@@ -11589,7 +11589,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Divps_xmm_xmmm128,
+	Divps_xmm_xmmm128 = 1447,
 	/// `VDIVPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 5E /r`
@@ -11597,7 +11597,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivps_xmm_xmm_xmmm128,
+	VEX_Vdivps_xmm_xmm_xmmm128 = 1448,
 	/// `VDIVPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 5E /r`
@@ -11605,7 +11605,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivps_ymm_ymm_ymmm256,
+	VEX_Vdivps_ymm_ymm_ymmm256 = 1449,
 	/// `VDIVPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5E /r`
@@ -11613,7 +11613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vdivps_xmm_k1z_xmm_xmmm128b32 = 1450,
 	/// `VDIVPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5E /r`
@@ -11621,7 +11621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vdivps_ymm_k1z_ymm_ymmm256b32 = 1451,
 	/// `VDIVPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 5E /r`
@@ -11629,7 +11629,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er = 1452,
 	/// `DIVPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 5E /r`
@@ -11637,7 +11637,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Divpd_xmm_xmmm128,
+	Divpd_xmm_xmmm128 = 1453,
 	/// `VDIVPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5E /r`
@@ -11645,7 +11645,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivpd_xmm_xmm_xmmm128,
+	VEX_Vdivpd_xmm_xmm_xmmm128 = 1454,
 	/// `VDIVPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5E /r`
@@ -11653,7 +11653,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivpd_ymm_ymm_ymmm256,
+	VEX_Vdivpd_ymm_ymm_ymmm256 = 1455,
 	/// `VDIVPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 5E /r`
@@ -11661,7 +11661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vdivpd_xmm_k1z_xmm_xmmm128b64 = 1456,
 	/// `VDIVPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 5E /r`
@@ -11669,7 +11669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vdivpd_ymm_k1z_ymm_ymmm256b64 = 1457,
 	/// `VDIVPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 5E /r`
@@ -11677,7 +11677,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er = 1458,
 	/// `DIVSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 5E /r`
@@ -11685,7 +11685,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Divss_xmm_xmmm32,
+	Divss_xmm_xmmm32 = 1459,
 	/// `VDIVSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 5E /r`
@@ -11693,7 +11693,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivss_xmm_xmm_xmmm32,
+	VEX_Vdivss_xmm_xmm_xmmm32 = 1460,
 	/// `VDIVSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 5E /r`
@@ -11701,7 +11701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er = 1461,
 	/// `DIVSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 5E /r`
@@ -11709,7 +11709,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Divsd_xmm_xmmm64,
+	Divsd_xmm_xmmm64 = 1462,
 	/// `VDIVSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 5E /r`
@@ -11717,7 +11717,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdivsd_xmm_xmm_xmmm64,
+	VEX_Vdivsd_xmm_xmm_xmmm64 = 1463,
 	/// `VDIVSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 5E /r`
@@ -11725,7 +11725,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er = 1464,
 	/// `MAXPS xmm1, xmm2/m128`
 	///
 	/// `NP 0F 5F /r`
@@ -11733,7 +11733,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Maxps_xmm_xmmm128,
+	Maxps_xmm_xmmm128 = 1465,
 	/// `VMAXPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.0F.WIG 5F /r`
@@ -11741,7 +11741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxps_xmm_xmm_xmmm128,
+	VEX_Vmaxps_xmm_xmm_xmmm128 = 1466,
 	/// `VMAXPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.0F.WIG 5F /r`
@@ -11749,7 +11749,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxps_ymm_ymm_ymmm256,
+	VEX_Vmaxps_ymm_ymm_ymmm256 = 1467,
 	/// `VMAXPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 5F /r`
@@ -11757,7 +11757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vmaxps_xmm_k1z_xmm_xmmm128b32 = 1468,
 	/// `VMAXPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 5F /r`
@@ -11765,7 +11765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vmaxps_ymm_k1z_ymm_ymmm256b32 = 1469,
 	/// `VMAXPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.0F.W0 5F /r`
@@ -11773,7 +11773,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae,
+	EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae = 1470,
 	/// `MAXPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 5F /r`
@@ -11781,7 +11781,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Maxpd_xmm_xmmm128,
+	Maxpd_xmm_xmmm128 = 1471,
 	/// `VMAXPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 5F /r`
@@ -11789,7 +11789,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxpd_xmm_xmm_xmmm128,
+	VEX_Vmaxpd_xmm_xmm_xmmm128 = 1472,
 	/// `VMAXPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 5F /r`
@@ -11797,7 +11797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxpd_ymm_ymm_ymmm256,
+	VEX_Vmaxpd_ymm_ymm_ymmm256 = 1473,
 	/// `VMAXPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 5F /r`
@@ -11805,7 +11805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vmaxpd_xmm_k1z_xmm_xmmm128b64 = 1474,
 	/// `VMAXPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 5F /r`
@@ -11813,7 +11813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vmaxpd_ymm_k1z_ymm_ymmm256b64 = 1475,
 	/// `VMAXPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W1 5F /r`
@@ -11821,7 +11821,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae,
+	EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae = 1476,
 	/// `MAXSS xmm1, xmm2/m32`
 	///
 	/// `F3 0F 5F /r`
@@ -11829,7 +11829,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Maxss_xmm_xmmm32,
+	Maxss_xmm_xmmm32 = 1477,
 	/// `VMAXSS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.F3.0F.WIG 5F /r`
@@ -11837,7 +11837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxss_xmm_xmm_xmmm32,
+	VEX_Vmaxss_xmm_xmm_xmmm32 = 1478,
 	/// `VMAXSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 5F /r`
@@ -11845,7 +11845,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae = 1479,
 	/// `MAXSD xmm1, xmm2/m64`
 	///
 	/// `F2 0F 5F /r`
@@ -11853,7 +11853,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Maxsd_xmm_xmmm64,
+	Maxsd_xmm_xmmm64 = 1480,
 	/// `VMAXSD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.F2.0F.WIG 5F /r`
@@ -11861,7 +11861,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaxsd_xmm_xmm_xmmm64,
+	VEX_Vmaxsd_xmm_xmm_xmmm64 = 1481,
 	/// `VMAXSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 5F /r`
@@ -11869,7 +11869,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae,
+	EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae = 1482,
 	/// `PUNPCKLBW mm, mm/m32`
 	///
 	/// `NP 0F 60 /r`
@@ -11877,7 +11877,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpcklbw_mm_mmm32,
+	Punpcklbw_mm_mmm32 = 1483,
 	/// `PUNPCKLBW xmm1, xmm2/m128`
 	///
 	/// `66 0F 60 /r`
@@ -11885,7 +11885,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpcklbw_xmm_xmmm128,
+	Punpcklbw_xmm_xmmm128 = 1484,
 	/// `VPUNPCKLBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 60 /r`
@@ -11893,7 +11893,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklbw_xmm_xmm_xmmm128,
+	VEX_Vpunpcklbw_xmm_xmm_xmmm128 = 1485,
 	/// `VPUNPCKLBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 60 /r`
@@ -11901,7 +11901,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklbw_ymm_ymm_ymmm256,
+	VEX_Vpunpcklbw_ymm_ymm_ymmm256 = 1486,
 	/// `VPUNPCKLBW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 60 /r`
@@ -11909,7 +11909,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpunpcklbw_xmm_k1z_xmm_xmmm128 = 1487,
 	/// `VPUNPCKLBW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 60 /r`
@@ -11917,7 +11917,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpunpcklbw_ymm_k1z_ymm_ymmm256 = 1488,
 	/// `VPUNPCKLBW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 60 /r`
@@ -11925,7 +11925,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklbw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpunpcklbw_zmm_k1z_zmm_zmmm512 = 1489,
 	/// `PUNPCKLWD mm, mm/m32`
 	///
 	/// `NP 0F 61 /r`
@@ -11933,7 +11933,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpcklwd_mm_mmm32,
+	Punpcklwd_mm_mmm32 = 1490,
 	/// `PUNPCKLWD xmm1, xmm2/m128`
 	///
 	/// `66 0F 61 /r`
@@ -11941,7 +11941,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpcklwd_xmm_xmmm128,
+	Punpcklwd_xmm_xmmm128 = 1491,
 	/// `VPUNPCKLWD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 61 /r`
@@ -11949,7 +11949,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklwd_xmm_xmm_xmmm128,
+	VEX_Vpunpcklwd_xmm_xmm_xmmm128 = 1492,
 	/// `VPUNPCKLWD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 61 /r`
@@ -11957,7 +11957,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklwd_ymm_ymm_ymmm256,
+	VEX_Vpunpcklwd_ymm_ymm_ymmm256 = 1493,
 	/// `VPUNPCKLWD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 61 /r`
@@ -11965,7 +11965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpunpcklwd_xmm_k1z_xmm_xmmm128 = 1494,
 	/// `VPUNPCKLWD ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 61 /r`
@@ -11973,7 +11973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpunpcklwd_ymm_k1z_ymm_ymmm256 = 1495,
 	/// `VPUNPCKLWD zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 61 /r`
@@ -11981,7 +11981,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklwd_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpunpcklwd_zmm_k1z_zmm_zmmm512 = 1496,
 	/// `PUNPCKLDQ mm, mm/m32`
 	///
 	/// `NP 0F 62 /r`
@@ -11989,7 +11989,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpckldq_mm_mmm32,
+	Punpckldq_mm_mmm32 = 1497,
 	/// `PUNPCKLDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 62 /r`
@@ -11997,7 +11997,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpckldq_xmm_xmmm128,
+	Punpckldq_xmm_xmmm128 = 1498,
 	/// `VPUNPCKLDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 62 /r`
@@ -12005,7 +12005,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckldq_xmm_xmm_xmmm128,
+	VEX_Vpunpckldq_xmm_xmm_xmmm128 = 1499,
 	/// `VPUNPCKLDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 62 /r`
@@ -12013,7 +12013,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckldq_ymm_ymm_ymmm256,
+	VEX_Vpunpckldq_ymm_ymm_ymmm256 = 1500,
 	/// `VPUNPCKLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 62 /r`
@@ -12021,7 +12021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpunpckldq_xmm_k1z_xmm_xmmm128b32 = 1501,
 	/// `VPUNPCKLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 62 /r`
@@ -12029,7 +12029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpunpckldq_ymm_k1z_ymm_ymmm256b32 = 1502,
 	/// `VPUNPCKLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 62 /r`
@@ -12037,7 +12037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckldq_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpunpckldq_zmm_k1z_zmm_zmmm512b32 = 1503,
 	/// `PACKSSWB mm1, mm2/m64`
 	///
 	/// `NP 0F 63 /r`
@@ -12045,7 +12045,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Packsswb_mm_mmm64,
+	Packsswb_mm_mmm64 = 1504,
 	/// `PACKSSWB xmm1, xmm2/m128`
 	///
 	/// `66 0F 63 /r`
@@ -12053,7 +12053,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Packsswb_xmm_xmmm128,
+	Packsswb_xmm_xmmm128 = 1505,
 	/// `VPACKSSWB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 63 /r`
@@ -12061,7 +12061,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpacksswb_xmm_xmm_xmmm128,
+	VEX_Vpacksswb_xmm_xmm_xmmm128 = 1506,
 	/// `VPACKSSWB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 63 /r`
@@ -12069,7 +12069,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpacksswb_ymm_ymm_ymmm256,
+	VEX_Vpacksswb_ymm_ymm_ymmm256 = 1507,
 	/// `VPACKSSWB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 63 /r`
@@ -12077,7 +12077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpacksswb_xmm_k1z_xmm_xmmm128 = 1508,
 	/// `VPACKSSWB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 63 /r`
@@ -12085,7 +12085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpacksswb_ymm_k1z_ymm_ymmm256 = 1509,
 	/// `VPACKSSWB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 63 /r`
@@ -12093,7 +12093,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpacksswb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpacksswb_zmm_k1z_zmm_zmmm512 = 1510,
 	/// `PCMPGTB mm, mm/m64`
 	///
 	/// `NP 0F 64 /r`
@@ -12101,7 +12101,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtb_mm_mmm64,
+	Pcmpgtb_mm_mmm64 = 1511,
 	/// `PCMPGTB xmm1, xmm2/m128`
 	///
 	/// `66 0F 64 /r`
@@ -12109,7 +12109,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtb_xmm_xmmm128,
+	Pcmpgtb_xmm_xmmm128 = 1512,
 	/// `VPCMPGTB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 64 /r`
@@ -12117,7 +12117,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtb_xmm_xmm_xmmm128,
+	VEX_Vpcmpgtb_xmm_xmm_xmmm128 = 1513,
 	/// `VPCMPGTB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 64 /r`
@@ -12125,7 +12125,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtb_ymm_ymm_ymmm256,
+	VEX_Vpcmpgtb_ymm_ymm_ymmm256 = 1514,
 	/// `VPCMPGTB k1 {k2}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 64 /r`
@@ -12133,7 +12133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_xmm_xmmm128,
+	EVEX_Vpcmpgtb_k_k1_xmm_xmmm128 = 1515,
 	/// `VPCMPGTB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 64 /r`
@@ -12141,7 +12141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_ymm_ymmm256,
+	EVEX_Vpcmpgtb_k_k1_ymm_ymmm256 = 1516,
 	/// `VPCMPGTB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 64 /r`
@@ -12149,7 +12149,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_zmm_zmmm512,
+	EVEX_Vpcmpgtb_k_k1_zmm_zmmm512 = 1517,
 	/// `PCMPGTW mm, mm/m64`
 	///
 	/// `NP 0F 65 /r`
@@ -12157,7 +12157,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtw_mm_mmm64,
+	Pcmpgtw_mm_mmm64 = 1518,
 	/// `PCMPGTW xmm1, xmm2/m128`
 	///
 	/// `66 0F 65 /r`
@@ -12165,7 +12165,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtw_xmm_xmmm128,
+	Pcmpgtw_xmm_xmmm128 = 1519,
 	/// `VPCMPGTW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 65 /r`
@@ -12173,7 +12173,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtw_xmm_xmm_xmmm128,
+	VEX_Vpcmpgtw_xmm_xmm_xmmm128 = 1520,
 	/// `VPCMPGTW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 65 /r`
@@ -12181,7 +12181,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtw_ymm_ymm_ymmm256,
+	VEX_Vpcmpgtw_ymm_ymm_ymmm256 = 1521,
 	/// `VPCMPGTW k1 {k2}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 65 /r`
@@ -12189,7 +12189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_xmm_xmmm128,
+	EVEX_Vpcmpgtw_k_k1_xmm_xmmm128 = 1522,
 	/// `VPCMPGTW k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 65 /r`
@@ -12197,7 +12197,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_ymm_ymmm256,
+	EVEX_Vpcmpgtw_k_k1_ymm_ymmm256 = 1523,
 	/// `VPCMPGTW k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 65 /r`
@@ -12205,7 +12205,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_zmm_zmmm512,
+	EVEX_Vpcmpgtw_k_k1_zmm_zmmm512 = 1524,
 	/// `PCMPGTD mm, mm/m64`
 	///
 	/// `NP 0F 66 /r`
@@ -12213,7 +12213,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtd_mm_mmm64,
+	Pcmpgtd_mm_mmm64 = 1525,
 	/// `PCMPGTD xmm1, xmm2/m128`
 	///
 	/// `66 0F 66 /r`
@@ -12221,7 +12221,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtd_xmm_xmmm128,
+	Pcmpgtd_xmm_xmmm128 = 1526,
 	/// `VPCMPGTD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 66 /r`
@@ -12229,7 +12229,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtd_xmm_xmm_xmmm128,
+	VEX_Vpcmpgtd_xmm_xmm_xmmm128 = 1527,
 	/// `VPCMPGTD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 66 /r`
@@ -12237,7 +12237,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtd_ymm_ymm_ymmm256,
+	VEX_Vpcmpgtd_ymm_ymm_ymmm256 = 1528,
 	/// `VPCMPGTD k1 {k2}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 66 /r`
@@ -12245,7 +12245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32,
+	EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32 = 1529,
 	/// `VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 66 /r`
@@ -12253,7 +12253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32,
+	EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32 = 1530,
 	/// `VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 66 /r`
@@ -12261,7 +12261,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32,
+	EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32 = 1531,
 	/// `PACKUSWB mm, mm/m64`
 	///
 	/// `NP 0F 67 /r`
@@ -12269,7 +12269,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Packuswb_mm_mmm64,
+	Packuswb_mm_mmm64 = 1532,
 	/// `PACKUSWB xmm1, xmm2/m128`
 	///
 	/// `66 0F 67 /r`
@@ -12277,7 +12277,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Packuswb_xmm_xmmm128,
+	Packuswb_xmm_xmmm128 = 1533,
 	/// `VPACKUSWB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 67 /r`
@@ -12285,7 +12285,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackuswb_xmm_xmm_xmmm128,
+	VEX_Vpackuswb_xmm_xmm_xmmm128 = 1534,
 	/// `VPACKUSWB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 67 /r`
@@ -12293,7 +12293,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackuswb_ymm_ymm_ymmm256,
+	VEX_Vpackuswb_ymm_ymm_ymmm256 = 1535,
 	/// `VPACKUSWB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 67 /r`
@@ -12301,7 +12301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpackuswb_xmm_k1z_xmm_xmmm128 = 1536,
 	/// `VPACKUSWB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 67 /r`
@@ -12309,7 +12309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpackuswb_ymm_k1z_ymm_ymmm256 = 1537,
 	/// `VPACKUSWB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 67 /r`
@@ -12317,7 +12317,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackuswb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpackuswb_zmm_k1z_zmm_zmmm512 = 1538,
 	/// `PUNPCKHBW mm, mm/m64`
 	///
 	/// `NP 0F 68 /r`
@@ -12325,7 +12325,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpckhbw_mm_mmm64,
+	Punpckhbw_mm_mmm64 = 1539,
 	/// `PUNPCKHBW xmm1, xmm2/m128`
 	///
 	/// `66 0F 68 /r`
@@ -12333,7 +12333,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpckhbw_xmm_xmmm128,
+	Punpckhbw_xmm_xmmm128 = 1540,
 	/// `VPUNPCKHBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 68 /r`
@@ -12341,7 +12341,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhbw_xmm_xmm_xmmm128,
+	VEX_Vpunpckhbw_xmm_xmm_xmmm128 = 1541,
 	/// `VPUNPCKHBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 68 /r`
@@ -12349,7 +12349,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhbw_ymm_ymm_ymmm256,
+	VEX_Vpunpckhbw_ymm_ymm_ymmm256 = 1542,
 	/// `VPUNPCKHBW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 68 /r`
@@ -12357,7 +12357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpunpckhbw_xmm_k1z_xmm_xmmm128 = 1543,
 	/// `VPUNPCKHBW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 68 /r`
@@ -12365,7 +12365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpunpckhbw_ymm_k1z_ymm_ymmm256 = 1544,
 	/// `VPUNPCKHBW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 68 /r`
@@ -12373,7 +12373,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhbw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpunpckhbw_zmm_k1z_zmm_zmmm512 = 1545,
 	/// `PUNPCKHWD mm, mm/m64`
 	///
 	/// `NP 0F 69 /r`
@@ -12381,7 +12381,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpckhwd_mm_mmm64,
+	Punpckhwd_mm_mmm64 = 1546,
 	/// `PUNPCKHWD xmm1, xmm2/m128`
 	///
 	/// `66 0F 69 /r`
@@ -12389,7 +12389,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpckhwd_xmm_xmmm128,
+	Punpckhwd_xmm_xmmm128 = 1547,
 	/// `VPUNPCKHWD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 69 /r`
@@ -12397,7 +12397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhwd_xmm_xmm_xmmm128,
+	VEX_Vpunpckhwd_xmm_xmm_xmmm128 = 1548,
 	/// `VPUNPCKHWD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 69 /r`
@@ -12405,7 +12405,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhwd_ymm_ymm_ymmm256,
+	VEX_Vpunpckhwd_ymm_ymm_ymmm256 = 1549,
 	/// `VPUNPCKHWD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 69 /r`
@@ -12413,7 +12413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpunpckhwd_xmm_k1z_xmm_xmmm128 = 1550,
 	/// `VPUNPCKHWD ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 69 /r`
@@ -12421,7 +12421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpunpckhwd_ymm_k1z_ymm_ymmm256 = 1551,
 	/// `VPUNPCKHWD zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 69 /r`
@@ -12429,7 +12429,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhwd_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpunpckhwd_zmm_k1z_zmm_zmmm512 = 1552,
 	/// `PUNPCKHDQ mm, mm/m64`
 	///
 	/// `NP 0F 6A /r`
@@ -12437,7 +12437,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Punpckhdq_mm_mmm64,
+	Punpckhdq_mm_mmm64 = 1553,
 	/// `PUNPCKHDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 6A /r`
@@ -12445,7 +12445,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpckhdq_xmm_xmmm128,
+	Punpckhdq_xmm_xmmm128 = 1554,
 	/// `VPUNPCKHDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 6A /r`
@@ -12453,7 +12453,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhdq_xmm_xmm_xmmm128,
+	VEX_Vpunpckhdq_xmm_xmm_xmmm128 = 1555,
 	/// `VPUNPCKHDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 6A /r`
@@ -12461,7 +12461,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhdq_ymm_ymm_ymmm256,
+	VEX_Vpunpckhdq_ymm_ymm_ymmm256 = 1556,
 	/// `VPUNPCKHDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 6A /r`
@@ -12469,7 +12469,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpunpckhdq_xmm_k1z_xmm_xmmm128b32 = 1557,
 	/// `VPUNPCKHDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 6A /r`
@@ -12477,7 +12477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpunpckhdq_ymm_k1z_ymm_ymmm256b32 = 1558,
 	/// `VPUNPCKHDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 6A /r`
@@ -12485,7 +12485,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhdq_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpunpckhdq_zmm_k1z_zmm_zmmm512b32 = 1559,
 	/// `PACKSSDW mm1, mm2/m64`
 	///
 	/// `NP 0F 6B /r`
@@ -12493,7 +12493,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Packssdw_mm_mmm64,
+	Packssdw_mm_mmm64 = 1560,
 	/// `PACKSSDW xmm1, xmm2/m128`
 	///
 	/// `66 0F 6B /r`
@@ -12501,7 +12501,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Packssdw_xmm_xmmm128,
+	Packssdw_xmm_xmmm128 = 1561,
 	/// `VPACKSSDW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 6B /r`
@@ -12509,7 +12509,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackssdw_xmm_xmm_xmmm128,
+	VEX_Vpackssdw_xmm_xmm_xmmm128 = 1562,
 	/// `VPACKSSDW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 6B /r`
@@ -12517,7 +12517,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackssdw_ymm_ymm_ymmm256,
+	VEX_Vpackssdw_ymm_ymm_ymmm256 = 1563,
 	/// `VPACKSSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 6B /r`
@@ -12525,7 +12525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpackssdw_xmm_k1z_xmm_xmmm128b32 = 1564,
 	/// `VPACKSSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 6B /r`
@@ -12533,7 +12533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpackssdw_ymm_k1z_ymm_ymmm256b32 = 1565,
 	/// `VPACKSSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 6B /r`
@@ -12541,7 +12541,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackssdw_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpackssdw_zmm_k1z_zmm_zmmm512b32 = 1566,
 	/// `PUNPCKLQDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 6C /r`
@@ -12549,7 +12549,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpcklqdq_xmm_xmmm128,
+	Punpcklqdq_xmm_xmmm128 = 1567,
 	/// `VPUNPCKLQDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 6C /r`
@@ -12557,7 +12557,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklqdq_xmm_xmm_xmmm128,
+	VEX_Vpunpcklqdq_xmm_xmm_xmmm128 = 1568,
 	/// `VPUNPCKLQDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 6C /r`
@@ -12565,7 +12565,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpcklqdq_ymm_ymm_ymmm256,
+	VEX_Vpunpcklqdq_ymm_ymm_ymmm256 = 1569,
 	/// `VPUNPCKLQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 6C /r`
@@ -12573,7 +12573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpunpcklqdq_xmm_k1z_xmm_xmmm128b64 = 1570,
 	/// `VPUNPCKLQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 6C /r`
@@ -12581,7 +12581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpunpcklqdq_ymm_k1z_ymm_ymmm256b64 = 1571,
 	/// `VPUNPCKLQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 6C /r`
@@ -12589,7 +12589,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpcklqdq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpunpcklqdq_zmm_k1z_zmm_zmmm512b64 = 1572,
 	/// `PUNPCKHQDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 6D /r`
@@ -12597,7 +12597,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Punpckhqdq_xmm_xmmm128,
+	Punpckhqdq_xmm_xmmm128 = 1573,
 	/// `VPUNPCKHQDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 6D /r`
@@ -12605,7 +12605,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhqdq_xmm_xmm_xmmm128,
+	VEX_Vpunpckhqdq_xmm_xmm_xmmm128 = 1574,
 	/// `VPUNPCKHQDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 6D /r`
@@ -12613,7 +12613,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpunpckhqdq_ymm_ymm_ymmm256,
+	VEX_Vpunpckhqdq_ymm_ymm_ymmm256 = 1575,
 	/// `VPUNPCKHQDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 6D /r`
@@ -12621,7 +12621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpunpckhqdq_xmm_k1z_xmm_xmmm128b64 = 1576,
 	/// `VPUNPCKHQDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 6D /r`
@@ -12629,7 +12629,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpunpckhqdq_ymm_k1z_ymm_ymmm256b64 = 1577,
 	/// `VPUNPCKHQDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 6D /r`
@@ -12637,7 +12637,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpunpckhqdq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpunpckhqdq_zmm_k1z_zmm_zmmm512b64 = 1578,
 	/// `MOVD mm, r/m32`
 	///
 	/// `NP 0F 6E /r`
@@ -12645,7 +12645,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Movd_mm_rm32,
+	Movd_mm_rm32 = 1579,
 	/// `MOVQ mm, r/m64`
 	///
 	/// `NP REX.W 0F 6E /r`
@@ -12653,7 +12653,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `64-bit`
-	Movq_mm_rm64,
+	Movq_mm_rm64 = 1580,
 	/// `MOVD xmm, r/m32`
 	///
 	/// `66 0F 6E /r`
@@ -12661,7 +12661,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movd_xmm_rm32,
+	Movd_xmm_rm32 = 1581,
 	/// `MOVQ xmm, r/m64`
 	///
 	/// `66 REX.W 0F 6E /r`
@@ -12669,7 +12669,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Movq_xmm_rm64,
+	Movq_xmm_rm64 = 1582,
 	/// `VMOVD xmm1, r/m32`
 	///
 	/// `VEX.128.66.0F.W0 6E /r`
@@ -12677,7 +12677,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovd_xmm_rm32,
+	VEX_Vmovd_xmm_rm32 = 1583,
 	/// `VMOVQ xmm1, r/m64`
 	///
 	/// `VEX.128.66.0F.W1 6E /r`
@@ -12685,7 +12685,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovq_xmm_rm64,
+	VEX_Vmovq_xmm_rm64 = 1584,
 	/// `VMOVD xmm1, r/m32`
 	///
 	/// `EVEX.128.66.0F.W0 6E /r`
@@ -12693,7 +12693,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovd_xmm_rm32,
+	EVEX_Vmovd_xmm_rm32 = 1585,
 	/// `VMOVQ xmm1, r/m64`
 	///
 	/// `EVEX.128.66.0F.W1 6E /r`
@@ -12701,7 +12701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vmovq_xmm_rm64,
+	EVEX_Vmovq_xmm_rm64 = 1586,
 	/// `MOVQ mm, mm/m64`
 	///
 	/// `NP 0F 6F /r`
@@ -12709,7 +12709,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Movq_mm_mmm64,
+	Movq_mm_mmm64 = 1587,
 	/// `MOVDQA xmm1, xmm2/m128`
 	///
 	/// `66 0F 6F /r`
@@ -12717,7 +12717,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movdqa_xmm_xmmm128,
+	Movdqa_xmm_xmmm128 = 1588,
 	/// `VMOVDQA xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG 6F /r`
@@ -12725,7 +12725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqa_xmm_xmmm128,
+	VEX_Vmovdqa_xmm_xmmm128 = 1589,
 	/// `VMOVDQA ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG 6F /r`
@@ -12733,7 +12733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqa_ymm_ymmm256,
+	VEX_Vmovdqa_ymm_ymmm256 = 1590,
 	/// `VMOVDQA32 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F.W0 6F /r`
@@ -12741,7 +12741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_xmm_k1z_xmmm128,
+	EVEX_Vmovdqa32_xmm_k1z_xmmm128 = 1591,
 	/// `VMOVDQA32 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F.W0 6F /r`
@@ -12749,7 +12749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_ymm_k1z_ymmm256,
+	EVEX_Vmovdqa32_ymm_k1z_ymmm256 = 1592,
 	/// `VMOVDQA32 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F.W0 6F /r`
@@ -12757,7 +12757,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_zmm_k1z_zmmm512,
+	EVEX_Vmovdqa32_zmm_k1z_zmmm512 = 1593,
 	/// `VMOVDQA64 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F.W1 6F /r`
@@ -12765,7 +12765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_xmm_k1z_xmmm128,
+	EVEX_Vmovdqa64_xmm_k1z_xmmm128 = 1594,
 	/// `VMOVDQA64 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F.W1 6F /r`
@@ -12773,7 +12773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_ymm_k1z_ymmm256,
+	EVEX_Vmovdqa64_ymm_k1z_ymmm256 = 1595,
 	/// `VMOVDQA64 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F.W1 6F /r`
@@ -12781,7 +12781,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_zmm_k1z_zmmm512,
+	EVEX_Vmovdqa64_zmm_k1z_zmmm512 = 1596,
 	/// `MOVDQU xmm1, xmm2/m128`
 	///
 	/// `F3 0F 6F /r`
@@ -12789,7 +12789,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movdqu_xmm_xmmm128,
+	Movdqu_xmm_xmmm128 = 1597,
 	/// `VMOVDQU xmm1, xmm2/m128`
 	///
 	/// `VEX.128.F3.0F.WIG 6F /r`
@@ -12797,7 +12797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqu_xmm_xmmm128,
+	VEX_Vmovdqu_xmm_xmmm128 = 1598,
 	/// `VMOVDQU ymm1, ymm2/m256`
 	///
 	/// `VEX.256.F3.0F.WIG 6F /r`
@@ -12805,7 +12805,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqu_ymm_ymmm256,
+	VEX_Vmovdqu_ymm_ymmm256 = 1599,
 	/// `VMOVDQU32 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F3.0F.W0 6F /r`
@@ -12813,7 +12813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_xmm_k1z_xmmm128,
+	EVEX_Vmovdqu32_xmm_k1z_xmmm128 = 1600,
 	/// `VMOVDQU32 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F3.0F.W0 6F /r`
@@ -12821,7 +12821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_ymm_k1z_ymmm256,
+	EVEX_Vmovdqu32_ymm_k1z_ymmm256 = 1601,
 	/// `VMOVDQU32 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F3.0F.W0 6F /r`
@@ -12829,7 +12829,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_zmm_k1z_zmmm512,
+	EVEX_Vmovdqu32_zmm_k1z_zmmm512 = 1602,
 	/// `VMOVDQU64 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F3.0F.W1 6F /r`
@@ -12837,7 +12837,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_xmm_k1z_xmmm128,
+	EVEX_Vmovdqu64_xmm_k1z_xmmm128 = 1603,
 	/// `VMOVDQU64 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F3.0F.W1 6F /r`
@@ -12845,7 +12845,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_ymm_k1z_ymmm256,
+	EVEX_Vmovdqu64_ymm_k1z_ymmm256 = 1604,
 	/// `VMOVDQU64 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F3.0F.W1 6F /r`
@@ -12853,7 +12853,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_zmm_k1z_zmmm512,
+	EVEX_Vmovdqu64_zmm_k1z_zmmm512 = 1605,
 	/// `VMOVDQU8 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F2.0F.W0 6F /r`
@@ -12861,7 +12861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_xmm_k1z_xmmm128,
+	EVEX_Vmovdqu8_xmm_k1z_xmmm128 = 1606,
 	/// `VMOVDQU8 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F2.0F.W0 6F /r`
@@ -12869,7 +12869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_ymm_k1z_ymmm256,
+	EVEX_Vmovdqu8_ymm_k1z_ymmm256 = 1607,
 	/// `VMOVDQU8 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F2.0F.W0 6F /r`
@@ -12877,7 +12877,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_zmm_k1z_zmmm512,
+	EVEX_Vmovdqu8_zmm_k1z_zmmm512 = 1608,
 	/// `VMOVDQU16 xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.F2.0F.W1 6F /r`
@@ -12885,7 +12885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_xmm_k1z_xmmm128,
+	EVEX_Vmovdqu16_xmm_k1z_xmmm128 = 1609,
 	/// `VMOVDQU16 ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.F2.0F.W1 6F /r`
@@ -12893,7 +12893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_ymm_k1z_ymmm256,
+	EVEX_Vmovdqu16_ymm_k1z_ymmm256 = 1610,
 	/// `VMOVDQU16 zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.F2.0F.W1 6F /r`
@@ -12901,7 +12901,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_zmm_k1z_zmmm512,
+	EVEX_Vmovdqu16_zmm_k1z_zmmm512 = 1611,
 	/// `PSHUFW mm1, mm2/m64, imm8`
 	///
 	/// `NP 0F 70 /r ib`
@@ -12909,7 +12909,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pshufw_mm_mmm64_imm8,
+	Pshufw_mm_mmm64_imm8 = 1612,
 	/// `PSHUFD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 70 /r ib`
@@ -12917,7 +12917,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pshufd_xmm_xmmm128_imm8,
+	Pshufd_xmm_xmmm128_imm8 = 1613,
 	/// `VPSHUFD xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 70 /r ib`
@@ -12925,7 +12925,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufd_xmm_xmmm128_imm8,
+	VEX_Vpshufd_xmm_xmmm128_imm8 = 1614,
 	/// `VPSHUFD ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 70 /r ib`
@@ -12933,7 +12933,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufd_ymm_ymmm256_imm8,
+	VEX_Vpshufd_ymm_ymmm256_imm8 = 1615,
 	/// `VPSHUFD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 70 /r ib`
@@ -12941,7 +12941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vpshufd_xmm_k1z_xmmm128b32_imm8 = 1616,
 	/// `VPSHUFD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 70 /r ib`
@@ -12949,7 +12949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vpshufd_ymm_k1z_ymmm256b32_imm8 = 1617,
 	/// `VPSHUFD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 70 /r ib`
@@ -12957,7 +12957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vpshufd_zmm_k1z_zmmm512b32_imm8 = 1618,
 	/// `PSHUFHW xmm1, xmm2/m128, imm8`
 	///
 	/// `F3 0F 70 /r ib`
@@ -12965,7 +12965,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pshufhw_xmm_xmmm128_imm8,
+	Pshufhw_xmm_xmmm128_imm8 = 1619,
 	/// `VPSHUFHW xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.F3.0F.WIG 70 /r ib`
@@ -12973,7 +12973,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufhw_xmm_xmmm128_imm8,
+	VEX_Vpshufhw_xmm_xmmm128_imm8 = 1620,
 	/// `VPSHUFHW ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.F3.0F.WIG 70 /r ib`
@@ -12981,7 +12981,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufhw_ymm_ymmm256_imm8,
+	VEX_Vpshufhw_ymm_ymmm256_imm8 = 1621,
 	/// `VPSHUFHW xmm1 {k1}{z}, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.F3.0F.WIG 70 /r ib`
@@ -12989,7 +12989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8,
+	EVEX_Vpshufhw_xmm_k1z_xmmm128_imm8 = 1622,
 	/// `VPSHUFHW ymm1 {k1}{z}, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.F3.0F.WIG 70 /r ib`
@@ -12997,7 +12997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8,
+	EVEX_Vpshufhw_ymm_k1z_ymmm256_imm8 = 1623,
 	/// `VPSHUFHW zmm1 {k1}{z}, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.F3.0F.WIG 70 /r ib`
@@ -13005,7 +13005,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8,
+	EVEX_Vpshufhw_zmm_k1z_zmmm512_imm8 = 1624,
 	/// `PSHUFLW xmm1, xmm2/m128, imm8`
 	///
 	/// `F2 0F 70 /r ib`
@@ -13013,7 +13013,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pshuflw_xmm_xmmm128_imm8,
+	Pshuflw_xmm_xmmm128_imm8 = 1625,
 	/// `VPSHUFLW xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.F2.0F.WIG 70 /r ib`
@@ -13021,7 +13021,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshuflw_xmm_xmmm128_imm8,
+	VEX_Vpshuflw_xmm_xmmm128_imm8 = 1626,
 	/// `VPSHUFLW ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.F2.0F.WIG 70 /r ib`
@@ -13029,7 +13029,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshuflw_ymm_ymmm256_imm8,
+	VEX_Vpshuflw_ymm_ymmm256_imm8 = 1627,
 	/// `VPSHUFLW xmm1 {k1}{z}, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.F2.0F.WIG 70 /r ib`
@@ -13037,7 +13037,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8,
+	EVEX_Vpshuflw_xmm_k1z_xmmm128_imm8 = 1628,
 	/// `VPSHUFLW ymm1 {k1}{z}, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.F2.0F.WIG 70 /r ib`
@@ -13045,7 +13045,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8,
+	EVEX_Vpshuflw_ymm_k1z_ymmm256_imm8 = 1629,
 	/// `VPSHUFLW zmm1 {k1}{z}, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.F2.0F.WIG 70 /r ib`
@@ -13053,7 +13053,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8,
+	EVEX_Vpshuflw_zmm_k1z_zmmm512_imm8 = 1630,
 	/// `PSRLW mm, imm8`
 	///
 	/// `NP 0F 71 /2 ib`
@@ -13061,7 +13061,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrlw_mm_imm8,
+	Psrlw_mm_imm8 = 1631,
 	/// `PSRLW xmm1, imm8`
 	///
 	/// `66 0F 71 /2 ib`
@@ -13069,7 +13069,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrlw_xmm_imm8,
+	Psrlw_xmm_imm8 = 1632,
 	/// `VPSRLW xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 71 /2 ib`
@@ -13077,7 +13077,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlw_xmm_xmm_imm8,
+	VEX_Vpsrlw_xmm_xmm_imm8 = 1633,
 	/// `VPSRLW ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 71 /2 ib`
@@ -13085,7 +13085,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlw_ymm_ymm_imm8,
+	VEX_Vpsrlw_ymm_ymm_imm8 = 1634,
 	/// `VPSRLW xmm1 {k1}{z}, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.66.0F.WIG 71 /2 ib`
@@ -13093,7 +13093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8,
+	EVEX_Vpsrlw_xmm_k1z_xmmm128_imm8 = 1635,
 	/// `VPSRLW ymm1 {k1}{z}, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.66.0F.WIG 71 /2 ib`
@@ -13101,7 +13101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8,
+	EVEX_Vpsrlw_ymm_k1z_ymmm256_imm8 = 1636,
 	/// `VPSRLW zmm1 {k1}{z}, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.66.0F.WIG 71 /2 ib`
@@ -13109,7 +13109,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8,
+	EVEX_Vpsrlw_zmm_k1z_zmmm512_imm8 = 1637,
 	/// `PSRAW mm, imm8`
 	///
 	/// `NP 0F 71 /4 ib`
@@ -13117,7 +13117,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psraw_mm_imm8,
+	Psraw_mm_imm8 = 1638,
 	/// `PSRAW xmm1, imm8`
 	///
 	/// `66 0F 71 /4 ib`
@@ -13125,7 +13125,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psraw_xmm_imm8,
+	Psraw_xmm_imm8 = 1639,
 	/// `VPSRAW xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 71 /4 ib`
@@ -13133,7 +13133,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsraw_xmm_xmm_imm8,
+	VEX_Vpsraw_xmm_xmm_imm8 = 1640,
 	/// `VPSRAW ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 71 /4 ib`
@@ -13141,7 +13141,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsraw_ymm_ymm_imm8,
+	VEX_Vpsraw_ymm_ymm_imm8 = 1641,
 	/// `VPSRAW xmm1 {k1}{z}, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.66.0F.WIG 71 /4 ib`
@@ -13149,7 +13149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_xmm_k1z_xmmm128_imm8,
+	EVEX_Vpsraw_xmm_k1z_xmmm128_imm8 = 1642,
 	/// `VPSRAW ymm1 {k1}{z}, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.66.0F.WIG 71 /4 ib`
@@ -13157,7 +13157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_ymm_k1z_ymmm256_imm8,
+	EVEX_Vpsraw_ymm_k1z_ymmm256_imm8 = 1643,
 	/// `VPSRAW zmm1 {k1}{z}, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.66.0F.WIG 71 /4 ib`
@@ -13165,7 +13165,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_zmm_k1z_zmmm512_imm8,
+	EVEX_Vpsraw_zmm_k1z_zmmm512_imm8 = 1644,
 	/// `PSLLW mm1, imm8`
 	///
 	/// `NP 0F 71 /6 ib`
@@ -13173,7 +13173,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psllw_mm_imm8,
+	Psllw_mm_imm8 = 1645,
 	/// `PSLLW xmm1, imm8`
 	///
 	/// `66 0F 71 /6 ib`
@@ -13181,7 +13181,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psllw_xmm_imm8,
+	Psllw_xmm_imm8 = 1646,
 	/// `VPSLLW xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 71 /6 ib`
@@ -13189,7 +13189,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllw_xmm_xmm_imm8,
+	VEX_Vpsllw_xmm_xmm_imm8 = 1647,
 	/// `VPSLLW ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 71 /6 ib`
@@ -13197,7 +13197,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllw_ymm_ymm_imm8,
+	VEX_Vpsllw_ymm_ymm_imm8 = 1648,
 	/// `VPSLLW xmm1 {k1}{z}, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.66.0F.WIG 71 /6 ib`
@@ -13205,7 +13205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_xmm_k1z_xmmm128_imm8,
+	EVEX_Vpsllw_xmm_k1z_xmmm128_imm8 = 1649,
 	/// `VPSLLW ymm1 {k1}{z}, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.66.0F.WIG 71 /6 ib`
@@ -13213,7 +13213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_ymm_k1z_ymmm256_imm8,
+	EVEX_Vpsllw_ymm_k1z_ymmm256_imm8 = 1650,
 	/// `VPSLLW zmm1 {k1}{z}, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.66.0F.WIG 71 /6 ib`
@@ -13221,7 +13221,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_zmm_k1z_zmmm512_imm8,
+	EVEX_Vpsllw_zmm_k1z_zmmm512_imm8 = 1651,
 	/// `VPRORD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 72 /0 ib`
@@ -13229,7 +13229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprord_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vprord_xmm_k1z_xmmm128b32_imm8 = 1652,
 	/// `VPRORD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 72 /0 ib`
@@ -13237,7 +13237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprord_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vprord_ymm_k1z_ymmm256b32_imm8 = 1653,
 	/// `VPRORD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 72 /0 ib`
@@ -13245,7 +13245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprord_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vprord_zmm_k1z_zmmm512b32_imm8 = 1654,
 	/// `VPRORQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 72 /0 ib`
@@ -13253,7 +13253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8 = 1655,
 	/// `VPRORQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 72 /0 ib`
@@ -13261,7 +13261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8 = 1656,
 	/// `VPRORQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 72 /0 ib`
@@ -13269,7 +13269,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vprorq_zmm_k1z_zmmm512b64_imm8 = 1657,
 	/// `VPROLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 72 /1 ib`
@@ -13277,7 +13277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprold_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vprold_xmm_k1z_xmmm128b32_imm8 = 1658,
 	/// `VPROLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 72 /1 ib`
@@ -13285,7 +13285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprold_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vprold_ymm_k1z_ymmm256b32_imm8 = 1659,
 	/// `VPROLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 72 /1 ib`
@@ -13293,7 +13293,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprold_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vprold_zmm_k1z_zmmm512b32_imm8 = 1660,
 	/// `VPROLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 72 /1 ib`
@@ -13301,7 +13301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8 = 1661,
 	/// `VPROLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 72 /1 ib`
@@ -13309,7 +13309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8 = 1662,
 	/// `VPROLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 72 /1 ib`
@@ -13317,7 +13317,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vprolq_zmm_k1z_zmmm512b64_imm8 = 1663,
 	/// `PSRLD mm, imm8`
 	///
 	/// `NP 0F 72 /2 ib`
@@ -13325,7 +13325,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrld_mm_imm8,
+	Psrld_mm_imm8 = 1664,
 	/// `PSRLD xmm1, imm8`
 	///
 	/// `66 0F 72 /2 ib`
@@ -13333,7 +13333,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrld_xmm_imm8,
+	Psrld_xmm_imm8 = 1665,
 	/// `VPSRLD xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 72 /2 ib`
@@ -13341,7 +13341,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrld_xmm_xmm_imm8,
+	VEX_Vpsrld_xmm_xmm_imm8 = 1666,
 	/// `VPSRLD ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 72 /2 ib`
@@ -13349,7 +13349,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrld_ymm_ymm_imm8,
+	VEX_Vpsrld_ymm_ymm_imm8 = 1667,
 	/// `VPSRLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 72 /2 ib`
@@ -13357,7 +13357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vpsrld_xmm_k1z_xmmm128b32_imm8 = 1668,
 	/// `VPSRLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 72 /2 ib`
@@ -13365,7 +13365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vpsrld_ymm_k1z_ymmm256b32_imm8 = 1669,
 	/// `VPSRLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 72 /2 ib`
@@ -13373,7 +13373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vpsrld_zmm_k1z_zmmm512b32_imm8 = 1670,
 	/// `PSRAD mm, imm8`
 	///
 	/// `NP 0F 72 /4 ib`
@@ -13381,7 +13381,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrad_mm_imm8,
+	Psrad_mm_imm8 = 1671,
 	/// `PSRAD xmm1, imm8`
 	///
 	/// `66 0F 72 /4 ib`
@@ -13389,7 +13389,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrad_xmm_imm8,
+	Psrad_xmm_imm8 = 1672,
 	/// `VPSRAD xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 72 /4 ib`
@@ -13397,7 +13397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrad_xmm_xmm_imm8,
+	VEX_Vpsrad_xmm_xmm_imm8 = 1673,
 	/// `VPSRAD ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 72 /4 ib`
@@ -13405,7 +13405,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrad_ymm_ymm_imm8,
+	VEX_Vpsrad_ymm_ymm_imm8 = 1674,
 	/// `VPSRAD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 72 /4 ib`
@@ -13413,7 +13413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vpsrad_xmm_k1z_xmmm128b32_imm8 = 1675,
 	/// `VPSRAD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 72 /4 ib`
@@ -13421,7 +13421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vpsrad_ymm_k1z_ymmm256b32_imm8 = 1676,
 	/// `VPSRAD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 72 /4 ib`
@@ -13429,7 +13429,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vpsrad_zmm_k1z_zmmm512b32_imm8 = 1677,
 	/// `VPSRAQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 72 /4 ib`
@@ -13437,7 +13437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8 = 1678,
 	/// `VPSRAQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 72 /4 ib`
@@ -13445,7 +13445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8 = 1679,
 	/// `VPSRAQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 72 /4 ib`
@@ -13453,7 +13453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpsraq_zmm_k1z_zmmm512b64_imm8 = 1680,
 	/// `PSLLD mm, imm8`
 	///
 	/// `NP 0F 72 /6 ib`
@@ -13461,7 +13461,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pslld_mm_imm8,
+	Pslld_mm_imm8 = 1681,
 	/// `PSLLD xmm1, imm8`
 	///
 	/// `66 0F 72 /6 ib`
@@ -13469,7 +13469,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pslld_xmm_imm8,
+	Pslld_xmm_imm8 = 1682,
 	/// `VPSLLD xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 72 /6 ib`
@@ -13477,7 +13477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslld_xmm_xmm_imm8,
+	VEX_Vpslld_xmm_xmm_imm8 = 1683,
 	/// `VPSLLD ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 72 /6 ib`
@@ -13485,7 +13485,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslld_ymm_ymm_imm8,
+	VEX_Vpslld_ymm_ymm_imm8 = 1684,
 	/// `VPSLLD xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 72 /6 ib`
@@ -13493,7 +13493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vpslld_xmm_k1z_xmmm128b32_imm8 = 1685,
 	/// `VPSLLD ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W0 72 /6 ib`
@@ -13501,7 +13501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vpslld_ymm_k1z_ymmm256b32_imm8 = 1686,
 	/// `VPSLLD zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W0 72 /6 ib`
@@ -13509,7 +13509,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vpslld_zmm_k1z_zmmm512b32_imm8 = 1687,
 	/// `PSRLQ mm, imm8`
 	///
 	/// `NP 0F 73 /2 ib`
@@ -13517,7 +13517,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrlq_mm_imm8,
+	Psrlq_mm_imm8 = 1688,
 	/// `PSRLQ xmm1, imm8`
 	///
 	/// `66 0F 73 /2 ib`
@@ -13525,7 +13525,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrlq_xmm_imm8,
+	Psrlq_xmm_imm8 = 1689,
 	/// `VPSRLQ xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 73 /2 ib`
@@ -13533,7 +13533,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlq_xmm_xmm_imm8,
+	VEX_Vpsrlq_xmm_xmm_imm8 = 1690,
 	/// `VPSRLQ ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 73 /2 ib`
@@ -13541,7 +13541,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlq_ymm_ymm_imm8,
+	VEX_Vpsrlq_ymm_ymm_imm8 = 1691,
 	/// `VPSRLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 73 /2 ib`
@@ -13549,7 +13549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8 = 1692,
 	/// `VPSRLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 73 /2 ib`
@@ -13557,7 +13557,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpsrlq_ymm_k1z_ymmm256b64_imm8 = 1693,
 	/// `VPSRLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 73 /2 ib`
@@ -13565,7 +13565,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpsrlq_zmm_k1z_zmmm512b64_imm8 = 1694,
 	/// `PSRLDQ xmm1, imm8`
 	///
 	/// `66 0F 73 /3 ib`
@@ -13573,7 +13573,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrldq_xmm_imm8,
+	Psrldq_xmm_imm8 = 1695,
 	/// `VPSRLDQ xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 73 /3 ib`
@@ -13581,7 +13581,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrldq_xmm_xmm_imm8,
+	VEX_Vpsrldq_xmm_xmm_imm8 = 1696,
 	/// `VPSRLDQ ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 73 /3 ib`
@@ -13589,7 +13589,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrldq_ymm_ymm_imm8,
+	VEX_Vpsrldq_ymm_ymm_imm8 = 1697,
 	/// `VPSRLDQ xmm1, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.66.0F.WIG 73 /3 ib`
@@ -13597,7 +13597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrldq_xmm_xmmm128_imm8,
+	EVEX_Vpsrldq_xmm_xmmm128_imm8 = 1698,
 	/// `VPSRLDQ ymm1, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.66.0F.WIG 73 /3 ib`
@@ -13605,7 +13605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrldq_ymm_ymmm256_imm8,
+	EVEX_Vpsrldq_ymm_ymmm256_imm8 = 1699,
 	/// `VPSRLDQ zmm1, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.66.0F.WIG 73 /3 ib`
@@ -13613,7 +13613,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrldq_zmm_zmmm512_imm8,
+	EVEX_Vpsrldq_zmm_zmmm512_imm8 = 1700,
 	/// `PSLLQ mm, imm8`
 	///
 	/// `NP 0F 73 /6 ib`
@@ -13621,7 +13621,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psllq_mm_imm8,
+	Psllq_mm_imm8 = 1701,
 	/// `PSLLQ xmm1, imm8`
 	///
 	/// `66 0F 73 /6 ib`
@@ -13629,7 +13629,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psllq_xmm_imm8,
+	Psllq_xmm_imm8 = 1702,
 	/// `VPSLLQ xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 73 /6 ib`
@@ -13637,7 +13637,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllq_xmm_xmm_imm8,
+	VEX_Vpsllq_xmm_xmm_imm8 = 1703,
 	/// `VPSLLQ ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 73 /6 ib`
@@ -13645,7 +13645,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllq_ymm_ymm_imm8,
+	VEX_Vpsllq_ymm_ymm_imm8 = 1704,
 	/// `VPSLLQ xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 73 /6 ib`
@@ -13653,7 +13653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vpsllq_xmm_k1z_xmmm128b64_imm8 = 1705,
 	/// `VPSLLQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 73 /6 ib`
@@ -13661,7 +13661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpsllq_ymm_k1z_ymmm256b64_imm8 = 1706,
 	/// `VPSLLQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 73 /6 ib`
@@ -13669,7 +13669,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpsllq_zmm_k1z_zmmm512b64_imm8 = 1707,
 	/// `PSLLDQ xmm1, imm8`
 	///
 	/// `66 0F 73 /7 ib`
@@ -13677,7 +13677,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pslldq_xmm_imm8,
+	Pslldq_xmm_imm8 = 1708,
 	/// `VPSLLDQ xmm1, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F.WIG 73 /7 ib`
@@ -13685,7 +13685,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslldq_xmm_xmm_imm8,
+	VEX_Vpslldq_xmm_xmm_imm8 = 1709,
 	/// `VPSLLDQ ymm1, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F.WIG 73 /7 ib`
@@ -13693,7 +13693,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslldq_ymm_ymm_imm8,
+	VEX_Vpslldq_ymm_ymm_imm8 = 1710,
 	/// `VPSLLDQ xmm1, xmm2/m128, imm8`
 	///
 	/// `EVEX.128.66.0F.WIG 73 /7 ib`
@@ -13701,7 +13701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslldq_xmm_xmmm128_imm8,
+	EVEX_Vpslldq_xmm_xmmm128_imm8 = 1711,
 	/// `VPSLLDQ ymm1, ymm2/m256, imm8`
 	///
 	/// `EVEX.256.66.0F.WIG 73 /7 ib`
@@ -13709,7 +13709,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslldq_ymm_ymmm256_imm8,
+	EVEX_Vpslldq_ymm_ymmm256_imm8 = 1712,
 	/// `VPSLLDQ zmm1, zmm2/m512, imm8`
 	///
 	/// `EVEX.512.66.0F.WIG 73 /7 ib`
@@ -13717,7 +13717,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslldq_zmm_zmmm512_imm8,
+	EVEX_Vpslldq_zmm_zmmm512_imm8 = 1713,
 	/// `PCMPEQB mm, mm/m64`
 	///
 	/// `NP 0F 74 /r`
@@ -13725,7 +13725,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqb_mm_mmm64,
+	Pcmpeqb_mm_mmm64 = 1714,
 	/// `PCMPEQB xmm1, xmm2/m128`
 	///
 	/// `66 0F 74 /r`
@@ -13733,7 +13733,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqb_xmm_xmmm128,
+	Pcmpeqb_xmm_xmmm128 = 1715,
 	/// `VPCMPEQB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 74 /r`
@@ -13741,7 +13741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqb_xmm_xmm_xmmm128,
+	VEX_Vpcmpeqb_xmm_xmm_xmmm128 = 1716,
 	/// `VPCMPEQB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 74 /r`
@@ -13749,7 +13749,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqb_ymm_ymm_ymmm256,
+	VEX_Vpcmpeqb_ymm_ymm_ymmm256 = 1717,
 	/// `VPCMPEQB k1 {k2}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 74 /r`
@@ -13757,7 +13757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_xmm_xmmm128,
+	EVEX_Vpcmpeqb_k_k1_xmm_xmmm128 = 1718,
 	/// `VPCMPEQB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 74 /r`
@@ -13765,7 +13765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_ymm_ymmm256,
+	EVEX_Vpcmpeqb_k_k1_ymm_ymmm256 = 1719,
 	/// `VPCMPEQB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 74 /r`
@@ -13773,7 +13773,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_zmm_zmmm512,
+	EVEX_Vpcmpeqb_k_k1_zmm_zmmm512 = 1720,
 	/// `PCMPEQW mm, mm/m64`
 	///
 	/// `NP 0F 75 /r`
@@ -13781,7 +13781,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqw_mm_mmm64,
+	Pcmpeqw_mm_mmm64 = 1721,
 	/// `PCMPEQW xmm1, xmm2/m128`
 	///
 	/// `66 0F 75 /r`
@@ -13789,7 +13789,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqw_xmm_xmmm128,
+	Pcmpeqw_xmm_xmmm128 = 1722,
 	/// `VPCMPEQW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 75 /r`
@@ -13797,7 +13797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqw_xmm_xmm_xmmm128,
+	VEX_Vpcmpeqw_xmm_xmm_xmmm128 = 1723,
 	/// `VPCMPEQW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 75 /r`
@@ -13805,7 +13805,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqw_ymm_ymm_ymmm256,
+	VEX_Vpcmpeqw_ymm_ymm_ymmm256 = 1724,
 	/// `VPCMPEQW k1 {k2}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG 75 /r`
@@ -13813,7 +13813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_xmm_xmmm128,
+	EVEX_Vpcmpeqw_k_k1_xmm_xmmm128 = 1725,
 	/// `VPCMPEQW k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 75 /r`
@@ -13821,7 +13821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_ymm_ymmm256,
+	EVEX_Vpcmpeqw_k_k1_ymm_ymmm256 = 1726,
 	/// `VPCMPEQW k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 75 /r`
@@ -13829,7 +13829,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_zmm_zmmm512,
+	EVEX_Vpcmpeqw_k_k1_zmm_zmmm512 = 1727,
 	/// `PCMPEQD mm, mm/m64`
 	///
 	/// `NP 0F 76 /r`
@@ -13837,7 +13837,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqd_mm_mmm64,
+	Pcmpeqd_mm_mmm64 = 1728,
 	/// `PCMPEQD xmm1, xmm2/m128`
 	///
 	/// `66 0F 76 /r`
@@ -13845,7 +13845,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqd_xmm_xmmm128,
+	Pcmpeqd_xmm_xmmm128 = 1729,
 	/// `VPCMPEQD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 76 /r`
@@ -13853,7 +13853,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqd_xmm_xmm_xmmm128,
+	VEX_Vpcmpeqd_xmm_xmm_xmmm128 = 1730,
 	/// `VPCMPEQD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 76 /r`
@@ -13861,7 +13861,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqd_ymm_ymm_ymmm256,
+	VEX_Vpcmpeqd_ymm_ymm_ymmm256 = 1731,
 	/// `VPCMPEQD k1 {k2}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 76 /r`
@@ -13869,7 +13869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32,
+	EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32 = 1732,
 	/// `VPCMPEQD k1 {k2}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 76 /r`
@@ -13877,7 +13877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32,
+	EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32 = 1733,
 	/// `VPCMPEQD k1 {k2}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 76 /r`
@@ -13885,7 +13885,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32,
+	EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32 = 1734,
 	/// `EMMS`
 	///
 	/// `NP 0F 77`
@@ -13893,7 +13893,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Emms,
+	Emms = 1735,
 	/// `VZEROUPPER`
 	///
 	/// `VEX.128.0F.WIG 77`
@@ -13901,7 +13901,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vzeroupper,
+	VEX_Vzeroupper = 1736,
 	/// `VZEROALL`
 	///
 	/// `VEX.256.0F.WIG 77`
@@ -13909,7 +13909,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vzeroall,
+	VEX_Vzeroall = 1737,
 	/// `VMREAD r/m32, r32`
 	///
 	/// `NP 0F 78 /r`
@@ -13917,7 +13917,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32-bit`
-	Vmread_rm32_r32,
+	Vmread_rm32_r32 = 1738,
 	/// `VMREAD r/m64, r64`
 	///
 	/// `NP 0F 78 /r`
@@ -13925,7 +13925,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `64-bit`
-	Vmread_rm64_r64,
+	Vmread_rm64_r64 = 1739,
 	/// `VCVTTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 78 /r`
@@ -13933,7 +13933,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32,
+	EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32 = 1740,
 	/// `VCVTTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 78 /r`
@@ -13941,7 +13941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32,
+	EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32 = 1741,
 	/// `VCVTTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.0F.W0 78 /r`
@@ -13949,7 +13949,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae = 1742,
 	/// `VCVTTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.0F.W1 78 /r`
@@ -13957,7 +13957,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64 = 1743,
 	/// `VCVTTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.0F.W1 78 /r`
@@ -13965,7 +13965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64,
+	EVEX_Vcvttpd2udq_xmm_k1z_ymmm256b64 = 1744,
 	/// `VCVTTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.0F.W1 78 /r`
@@ -13973,7 +13973,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae,
+	EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae = 1745,
 	/// `EXTRQ xmm1, imm8, imm8`
 	///
 	/// `66 0F 78 /0 ib ib`
@@ -13981,7 +13981,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Extrq_xmm_imm8_imm8,
+	Extrq_xmm_imm8_imm8 = 1746,
 	/// `VCVTTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 78 /r`
@@ -13989,7 +13989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32,
+	EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32 = 1747,
 	/// `VCVTTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 78 /r`
@@ -13997,7 +13997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32,
+	EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32 = 1748,
 	/// `VCVTTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W0 78 /r`
@@ -14005,7 +14005,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae,
+	EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae = 1749,
 	/// `VCVTTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 78 /r`
@@ -14013,7 +14013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64 = 1750,
 	/// `VCVTTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 78 /r`
@@ -14021,7 +14021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64,
+	EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64 = 1751,
 	/// `VCVTTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W1 78 /r`
@@ -14029,7 +14029,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae = 1752,
 	/// `VCVTTSS2USI r32, xmm1/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 78 /r`
@@ -14037,7 +14037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttss2usi_r32_xmmm32_sae,
+	EVEX_Vcvttss2usi_r32_xmmm32_sae = 1753,
 	/// `VCVTTSS2USI r64, xmm1/m32{sae}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 78 /r`
@@ -14045,7 +14045,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvttss2usi_r64_xmmm32_sae,
+	EVEX_Vcvttss2usi_r64_xmmm32_sae = 1754,
 	/// `INSERTQ xmm1, xmm2, imm8, imm8`
 	///
 	/// `F2 0F 78 /r ib ib`
@@ -14053,7 +14053,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Insertq_xmm_xmm_imm8_imm8,
+	Insertq_xmm_xmm_imm8_imm8 = 1755,
 	/// `VCVTTSD2USI r32, xmm1/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 78 /r`
@@ -14061,7 +14061,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttsd2usi_r32_xmmm64_sae,
+	EVEX_Vcvttsd2usi_r32_xmmm64_sae = 1756,
 	/// `VCVTTSD2USI r64, xmm1/m64{sae}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 78 /r`
@@ -14069,7 +14069,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvttsd2usi_r64_xmmm64_sae,
+	EVEX_Vcvttsd2usi_r64_xmmm64_sae = 1757,
 	/// `VMWRITE r32, r/m32`
 	///
 	/// `NP 0F 79 /r`
@@ -14077,7 +14077,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32-bit`
-	Vmwrite_r32_rm32,
+	Vmwrite_r32_rm32 = 1758,
 	/// `VMWRITE r64, r/m64`
 	///
 	/// `NP 0F 79 /r`
@@ -14085,7 +14085,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `64-bit`
-	Vmwrite_r64_rm64,
+	Vmwrite_r64_rm64 = 1759,
 	/// `VCVTPS2UDQ xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.0F.W0 79 /r`
@@ -14093,7 +14093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32,
+	EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32 = 1760,
 	/// `VCVTPS2UDQ ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.0F.W0 79 /r`
@@ -14101,7 +14101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32,
+	EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32 = 1761,
 	/// `VCVTPS2UDQ zmm1 {k1}{z}, zmm2/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.0F.W0 79 /r`
@@ -14109,7 +14109,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er,
+	EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er = 1762,
 	/// `VCVTPD2UDQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.0F.W1 79 /r`
@@ -14117,7 +14117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64 = 1763,
 	/// `VCVTPD2UDQ xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.0F.W1 79 /r`
@@ -14125,7 +14125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64,
+	EVEX_Vcvtpd2udq_xmm_k1z_ymmm256b64 = 1764,
 	/// `VCVTPD2UDQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.0F.W1 79 /r`
@@ -14133,7 +14133,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er,
+	EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er = 1765,
 	/// `EXTRQ xmm1, xmm2`
 	///
 	/// `66 0F 79 /r`
@@ -14141,7 +14141,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Extrq_xmm_xmm,
+	Extrq_xmm_xmm = 1766,
 	/// `VCVTPS2UQQ xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 79 /r`
@@ -14149,7 +14149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32,
+	EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32 = 1767,
 	/// `VCVTPS2UQQ ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 79 /r`
@@ -14157,7 +14157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32,
+	EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32 = 1768,
 	/// `VCVTPS2UQQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W0 79 /r`
@@ -14165,7 +14165,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er,
+	EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er = 1769,
 	/// `VCVTPD2UQQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 79 /r`
@@ -14173,7 +14173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64 = 1770,
 	/// `VCVTPD2UQQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 79 /r`
@@ -14181,7 +14181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64,
+	EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64 = 1771,
 	/// `VCVTPD2UQQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 79 /r`
@@ -14189,7 +14189,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er,
+	EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er = 1772,
 	/// `VCVTSS2USI r32, xmm1/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 79 /r`
@@ -14197,7 +14197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtss2usi_r32_xmmm32_er,
+	EVEX_Vcvtss2usi_r32_xmmm32_er = 1773,
 	/// `VCVTSS2USI r64, xmm1/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 79 /r`
@@ -14205,7 +14205,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtss2usi_r64_xmmm32_er,
+	EVEX_Vcvtss2usi_r64_xmmm32_er = 1774,
 	/// `INSERTQ xmm1, xmm2`
 	///
 	/// `F2 0F 79 /r`
@@ -14213,7 +14213,7 @@ pub enum Code {
 	/// `SSE4A`
 	///
 	/// `16/32/64-bit`
-	Insertq_xmm_xmm,
+	Insertq_xmm_xmm = 1775,
 	/// `VCVTSD2USI r32, xmm1/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W0 79 /r`
@@ -14221,7 +14221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtsd2usi_r32_xmmm64_er,
+	EVEX_Vcvtsd2usi_r32_xmmm64_er = 1776,
 	/// `VCVTSD2USI r64, xmm1/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 79 /r`
@@ -14229,7 +14229,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtsd2usi_r64_xmmm64_er,
+	EVEX_Vcvtsd2usi_r64_xmmm64_er = 1777,
 	/// `VCVTTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 7A /r`
@@ -14237,7 +14237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32,
+	EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32 = 1778,
 	/// `VCVTTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 7A /r`
@@ -14245,7 +14245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32,
+	EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32 = 1779,
 	/// `VCVTTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W0 7A /r`
@@ -14253,7 +14253,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae,
+	EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae = 1780,
 	/// `VCVTTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 7A /r`
@@ -14261,7 +14261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64 = 1781,
 	/// `VCVTTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 7A /r`
@@ -14269,7 +14269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64,
+	EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64 = 1782,
 	/// `VCVTTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W1 7A /r`
@@ -14277,7 +14277,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae = 1783,
 	/// `VCVTUDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.F3.0F.W0 7A /r`
@@ -14285,7 +14285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32,
+	EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32 = 1784,
 	/// `VCVTUDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.F3.0F.W0 7A /r`
@@ -14293,7 +14293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32,
+	EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32 = 1785,
 	/// `VCVTUDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.512.F3.0F.W0 7A /r`
@@ -14301,7 +14301,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32,
+	EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32 = 1786,
 	/// `VCVTUQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F.W1 7A /r`
@@ -14309,7 +14309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64 = 1787,
 	/// `VCVTUQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.F3.0F.W1 7A /r`
@@ -14317,7 +14317,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64,
+	EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64 = 1788,
 	/// `VCVTUQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.F3.0F.W1 7A /r`
@@ -14325,7 +14325,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er,
+	EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er = 1789,
 	/// `VCVTUDQ2PS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.F2.0F.W0 7A /r`
@@ -14333,7 +14333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32,
+	EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32 = 1790,
 	/// `VCVTUDQ2PS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.F2.0F.W0 7A /r`
@@ -14341,7 +14341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32,
+	EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32 = 1791,
 	/// `VCVTUDQ2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.F2.0F.W0 7A /r`
@@ -14349,7 +14349,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er,
+	EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er = 1792,
 	/// `VCVTUQQ2PS xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F2.0F.W1 7A /r`
@@ -14357,7 +14357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64 = 1793,
 	/// `VCVTUQQ2PS xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.F2.0F.W1 7A /r`
@@ -14365,7 +14365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64,
+	EVEX_Vcvtuqq2ps_xmm_k1z_ymmm256b64 = 1794,
 	/// `VCVTUQQ2PS ymm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.F2.0F.W1 7A /r`
@@ -14373,7 +14373,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er,
+	EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er = 1795,
 	/// `VCVTPS2QQ xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 7B /r`
@@ -14381,7 +14381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32,
+	EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32 = 1796,
 	/// `VCVTPS2QQ ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 7B /r`
@@ -14389,7 +14389,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32,
+	EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32 = 1797,
 	/// `VCVTPS2QQ zmm1 {k1}{z}, ymm2/m256/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W0 7B /r`
@@ -14397,7 +14397,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er,
+	EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er = 1798,
 	/// `VCVTPD2QQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 7B /r`
@@ -14405,7 +14405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64 = 1799,
 	/// `VCVTPD2QQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 7B /r`
@@ -14413,7 +14413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64,
+	EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64 = 1800,
 	/// `VCVTPD2QQ zmm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F.W1 7B /r`
@@ -14421,7 +14421,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er,
+	EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er = 1801,
 	/// `VCVTUSI2SS xmm1, xmm2, r/m32{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W0 7B /r`
@@ -14429,7 +14429,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtusi2ss_xmm_xmm_rm32_er,
+	EVEX_Vcvtusi2ss_xmm_xmm_rm32_er = 1802,
 	/// `VCVTUSI2SS xmm1, xmm2, r/m64{er}`
 	///
 	/// `EVEX.LIG.F3.0F.W1 7B /r`
@@ -14437,7 +14437,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtusi2ss_xmm_xmm_rm64_er,
+	EVEX_Vcvtusi2ss_xmm_xmm_rm64_er = 1803,
 	/// `VCVTUSI2SD xmm1, xmm2, r/m32`
 	///
 	/// `EVEX.LIG.F2.0F.W0 7B /r`
@@ -14445,7 +14445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtusi2sd_xmm_xmm_rm32_er,
+	EVEX_Vcvtusi2sd_xmm_xmm_rm32_er = 1804,
 	/// `VCVTUSI2SD xmm1, xmm2, r/m64{er}`
 	///
 	/// `EVEX.LIG.F2.0F.W1 7B /r`
@@ -14453,7 +14453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vcvtusi2sd_xmm_xmm_rm64_er,
+	EVEX_Vcvtusi2sd_xmm_xmm_rm64_er = 1805,
 	/// `HADDPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 7C /r`
@@ -14461,7 +14461,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Haddpd_xmm_xmmm128,
+	Haddpd_xmm_xmmm128 = 1806,
 	/// `VHADDPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 7C /r`
@@ -14469,7 +14469,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhaddpd_xmm_xmm_xmmm128,
+	VEX_Vhaddpd_xmm_xmm_xmmm128 = 1807,
 	/// `VHADDPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 7C /r`
@@ -14477,7 +14477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhaddpd_ymm_ymm_ymmm256,
+	VEX_Vhaddpd_ymm_ymm_ymmm256 = 1808,
 	/// `HADDPS xmm1, xmm2/m128`
 	///
 	/// `F2 0F 7C /r`
@@ -14485,7 +14485,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Haddps_xmm_xmmm128,
+	Haddps_xmm_xmmm128 = 1809,
 	/// `VHADDPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.F2.0F.WIG 7C /r`
@@ -14493,7 +14493,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhaddps_xmm_xmm_xmmm128,
+	VEX_Vhaddps_xmm_xmm_xmmm128 = 1810,
 	/// `VHADDPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.F2.0F.WIG 7C /r`
@@ -14501,7 +14501,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhaddps_ymm_ymm_ymmm256,
+	VEX_Vhaddps_ymm_ymm_ymmm256 = 1811,
 	/// `HSUBPD xmm1, xmm2/m128`
 	///
 	/// `66 0F 7D /r`
@@ -14509,7 +14509,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Hsubpd_xmm_xmmm128,
+	Hsubpd_xmm_xmmm128 = 1812,
 	/// `VHSUBPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG 7D /r`
@@ -14517,7 +14517,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhsubpd_xmm_xmm_xmmm128,
+	VEX_Vhsubpd_xmm_xmm_xmmm128 = 1813,
 	/// `VHSUBPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG 7D /r`
@@ -14525,7 +14525,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhsubpd_ymm_ymm_ymmm256,
+	VEX_Vhsubpd_ymm_ymm_ymmm256 = 1814,
 	/// `HSUBPS xmm1, xmm2/m128`
 	///
 	/// `F2 0F 7D /r`
@@ -14533,7 +14533,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Hsubps_xmm_xmmm128,
+	Hsubps_xmm_xmmm128 = 1815,
 	/// `VHSUBPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.F2.0F.WIG 7D /r`
@@ -14541,7 +14541,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhsubps_xmm_xmm_xmmm128,
+	VEX_Vhsubps_xmm_xmm_xmmm128 = 1816,
 	/// `VHSUBPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.F2.0F.WIG 7D /r`
@@ -14549,7 +14549,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vhsubps_ymm_ymm_ymmm256,
+	VEX_Vhsubps_ymm_ymm_ymmm256 = 1817,
 	/// `MOVD r/m32, mm`
 	///
 	/// `NP 0F 7E /r`
@@ -14557,7 +14557,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Movd_rm32_mm,
+	Movd_rm32_mm = 1818,
 	/// `MOVQ r/m64, mm`
 	///
 	/// `NP REX.W 0F 7E /r`
@@ -14565,7 +14565,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `64-bit`
-	Movq_rm64_mm,
+	Movq_rm64_mm = 1819,
 	/// `MOVD r/m32, xmm`
 	///
 	/// `66 0F 7E /r`
@@ -14573,7 +14573,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movd_rm32_xmm,
+	Movd_rm32_xmm = 1820,
 	/// `MOVQ r/m64, xmm`
 	///
 	/// `66 REX.W 0F 7E /r`
@@ -14581,7 +14581,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Movq_rm64_xmm,
+	Movq_rm64_xmm = 1821,
 	/// `VMOVD r/m32, xmm1`
 	///
 	/// `VEX.128.66.0F.W0 7E /r`
@@ -14589,7 +14589,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovd_rm32_xmm,
+	VEX_Vmovd_rm32_xmm = 1822,
 	/// `VMOVQ r/m64, xmm1`
 	///
 	/// `VEX.128.66.0F.W1 7E /r`
@@ -14597,7 +14597,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vmovq_rm64_xmm,
+	VEX_Vmovq_rm64_xmm = 1823,
 	/// `VMOVD r/m32, xmm1`
 	///
 	/// `EVEX.128.66.0F.W0 7E /r`
@@ -14605,7 +14605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovd_rm32_xmm,
+	EVEX_Vmovd_rm32_xmm = 1824,
 	/// `VMOVQ r/m64, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 7E /r`
@@ -14613,7 +14613,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vmovq_rm64_xmm,
+	EVEX_Vmovq_rm64_xmm = 1825,
 	/// `MOVQ xmm1, xmm2/m64`
 	///
 	/// `F3 0F 7E /r`
@@ -14621,7 +14621,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movq_xmm_xmmm64,
+	Movq_xmm_xmmm64 = 1826,
 	/// `VMOVQ xmm1, xmm2/m64`
 	///
 	/// `VEX.128.F3.0F.WIG 7E /r`
@@ -14629,7 +14629,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovq_xmm_xmmm64,
+	VEX_Vmovq_xmm_xmmm64 = 1827,
 	/// `VMOVQ xmm1, xmm2/m64`
 	///
 	/// `EVEX.128.F3.0F.W1 7E /r`
@@ -14637,7 +14637,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovq_xmm_xmmm64,
+	EVEX_Vmovq_xmm_xmmm64 = 1828,
 	/// `MOVQ mm/m64, mm`
 	///
 	/// `NP 0F 7F /r`
@@ -14645,7 +14645,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Movq_mmm64_mm,
+	Movq_mmm64_mm = 1829,
 	/// `MOVDQA xmm2/m128, xmm1`
 	///
 	/// `66 0F 7F /r`
@@ -14653,7 +14653,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movdqa_xmmm128_xmm,
+	Movdqa_xmmm128_xmm = 1830,
 	/// `VMOVDQA xmm2/m128, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG 7F /r`
@@ -14661,7 +14661,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqa_xmmm128_xmm,
+	VEX_Vmovdqa_xmmm128_xmm = 1831,
 	/// `VMOVDQA ymm2/m256, ymm1`
 	///
 	/// `VEX.256.66.0F.WIG 7F /r`
@@ -14669,7 +14669,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqa_ymmm256_ymm,
+	VEX_Vmovdqa_ymmm256_ymm = 1832,
 	/// `VMOVDQA32 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.66.0F.W0 7F /r`
@@ -14677,7 +14677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_xmmm128_k1z_xmm,
+	EVEX_Vmovdqa32_xmmm128_k1z_xmm = 1833,
 	/// `VMOVDQA32 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.66.0F.W0 7F /r`
@@ -14685,7 +14685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_ymmm256_k1z_ymm,
+	EVEX_Vmovdqa32_ymmm256_k1z_ymm = 1834,
 	/// `VMOVDQA32 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.66.0F.W0 7F /r`
@@ -14693,7 +14693,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa32_zmmm512_k1z_zmm,
+	EVEX_Vmovdqa32_zmmm512_k1z_zmm = 1835,
 	/// `VMOVDQA64 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.66.0F.W1 7F /r`
@@ -14701,7 +14701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_xmmm128_k1z_xmm,
+	EVEX_Vmovdqa64_xmmm128_k1z_xmm = 1836,
 	/// `VMOVDQA64 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.66.0F.W1 7F /r`
@@ -14709,7 +14709,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_ymmm256_k1z_ymm,
+	EVEX_Vmovdqa64_ymmm256_k1z_ymm = 1837,
 	/// `VMOVDQA64 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.66.0F.W1 7F /r`
@@ -14717,7 +14717,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqa64_zmmm512_k1z_zmm,
+	EVEX_Vmovdqa64_zmmm512_k1z_zmm = 1838,
 	/// `MOVDQU xmm2/m128, xmm1`
 	///
 	/// `F3 0F 7F /r`
@@ -14725,7 +14725,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movdqu_xmmm128_xmm,
+	Movdqu_xmmm128_xmm = 1839,
 	/// `VMOVDQU xmm2/m128, xmm1`
 	///
 	/// `VEX.128.F3.0F.WIG 7F /r`
@@ -14733,7 +14733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqu_xmmm128_xmm,
+	VEX_Vmovdqu_xmmm128_xmm = 1840,
 	/// `VMOVDQU ymm2/m256, ymm1`
 	///
 	/// `VEX.256.F3.0F.WIG 7F /r`
@@ -14741,7 +14741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovdqu_ymmm256_ymm,
+	VEX_Vmovdqu_ymmm256_ymm = 1841,
 	/// `VMOVDQU32 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.F3.0F.W0 7F /r`
@@ -14749,7 +14749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_xmmm128_k1z_xmm,
+	EVEX_Vmovdqu32_xmmm128_k1z_xmm = 1842,
 	/// `VMOVDQU32 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.F3.0F.W0 7F /r`
@@ -14757,7 +14757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_ymmm256_k1z_ymm,
+	EVEX_Vmovdqu32_ymmm256_k1z_ymm = 1843,
 	/// `VMOVDQU32 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.F3.0F.W0 7F /r`
@@ -14765,7 +14765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu32_zmmm512_k1z_zmm,
+	EVEX_Vmovdqu32_zmmm512_k1z_zmm = 1844,
 	/// `VMOVDQU64 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.F3.0F.W1 7F /r`
@@ -14773,7 +14773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_xmmm128_k1z_xmm,
+	EVEX_Vmovdqu64_xmmm128_k1z_xmm = 1845,
 	/// `VMOVDQU64 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.F3.0F.W1 7F /r`
@@ -14781,7 +14781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_ymmm256_k1z_ymm,
+	EVEX_Vmovdqu64_ymmm256_k1z_ymm = 1846,
 	/// `VMOVDQU64 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.F3.0F.W1 7F /r`
@@ -14789,7 +14789,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu64_zmmm512_k1z_zmm,
+	EVEX_Vmovdqu64_zmmm512_k1z_zmm = 1847,
 	/// `VMOVDQU8 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.F2.0F.W0 7F /r`
@@ -14797,7 +14797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_xmmm128_k1z_xmm,
+	EVEX_Vmovdqu8_xmmm128_k1z_xmm = 1848,
 	/// `VMOVDQU8 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.F2.0F.W0 7F /r`
@@ -14805,7 +14805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_ymmm256_k1z_ymm,
+	EVEX_Vmovdqu8_ymmm256_k1z_ymm = 1849,
 	/// `VMOVDQU8 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.F2.0F.W0 7F /r`
@@ -14813,7 +14813,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu8_zmmm512_k1z_zmm,
+	EVEX_Vmovdqu8_zmmm512_k1z_zmm = 1850,
 	/// `VMOVDQU16 xmm2/m128 {k1}{z}, xmm1`
 	///
 	/// `EVEX.128.F2.0F.W1 7F /r`
@@ -14821,7 +14821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_xmmm128_k1z_xmm,
+	EVEX_Vmovdqu16_xmmm128_k1z_xmm = 1851,
 	/// `VMOVDQU16 ymm2/m256 {k1}{z}, ymm1`
 	///
 	/// `EVEX.256.F2.0F.W1 7F /r`
@@ -14829,7 +14829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_ymmm256_k1z_ymm,
+	EVEX_Vmovdqu16_ymmm256_k1z_ymm = 1852,
 	/// `VMOVDQU16 zmm2/m512 {k1}{z}, zmm1`
 	///
 	/// `EVEX.512.F2.0F.W1 7F /r`
@@ -14837,7 +14837,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovdqu16_zmmm512_k1z_zmm,
+	EVEX_Vmovdqu16_zmmm512_k1z_zmm = 1853,
 	/// `JO rel16`
 	///
 	/// `o16 0F 80 cw`
@@ -14845,7 +14845,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jo_rel16,
+	Jo_rel16 = 1854,
 	/// `JO rel32`
 	///
 	/// `o32 0F 80 cd`
@@ -14853,7 +14853,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jo_rel32_32,
+	Jo_rel32_32 = 1855,
 	/// `JO rel32`
 	///
 	/// `0F 80 cd`
@@ -14861,7 +14861,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jo_rel32_64,
+	Jo_rel32_64 = 1856,
 	/// `JNO rel16`
 	///
 	/// `o16 0F 81 cw`
@@ -14869,7 +14869,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jno_rel16,
+	Jno_rel16 = 1857,
 	/// `JNO rel32`
 	///
 	/// `o32 0F 81 cd`
@@ -14877,7 +14877,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jno_rel32_32,
+	Jno_rel32_32 = 1858,
 	/// `JNO rel32`
 	///
 	/// `0F 81 cd`
@@ -14885,7 +14885,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jno_rel32_64,
+	Jno_rel32_64 = 1859,
 	/// `JB rel16`
 	///
 	/// `o16 0F 82 cw`
@@ -14893,7 +14893,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jb_rel16,
+	Jb_rel16 = 1860,
 	/// `JB rel32`
 	///
 	/// `o32 0F 82 cd`
@@ -14901,7 +14901,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jb_rel32_32,
+	Jb_rel32_32 = 1861,
 	/// `JB rel32`
 	///
 	/// `0F 82 cd`
@@ -14909,7 +14909,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jb_rel32_64,
+	Jb_rel32_64 = 1862,
 	/// `JAE rel16`
 	///
 	/// `o16 0F 83 cw`
@@ -14917,7 +14917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jae_rel16,
+	Jae_rel16 = 1863,
 	/// `JAE rel32`
 	///
 	/// `o32 0F 83 cd`
@@ -14925,7 +14925,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jae_rel32_32,
+	Jae_rel32_32 = 1864,
 	/// `JAE rel32`
 	///
 	/// `0F 83 cd`
@@ -14933,7 +14933,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jae_rel32_64,
+	Jae_rel32_64 = 1865,
 	/// `JE rel16`
 	///
 	/// `o16 0F 84 cw`
@@ -14941,7 +14941,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Je_rel16,
+	Je_rel16 = 1866,
 	/// `JE rel32`
 	///
 	/// `o32 0F 84 cd`
@@ -14949,7 +14949,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Je_rel32_32,
+	Je_rel32_32 = 1867,
 	/// `JE rel32`
 	///
 	/// `0F 84 cd`
@@ -14957,7 +14957,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Je_rel32_64,
+	Je_rel32_64 = 1868,
 	/// `JNE rel16`
 	///
 	/// `o16 0F 85 cw`
@@ -14965,7 +14965,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jne_rel16,
+	Jne_rel16 = 1869,
 	/// `JNE rel32`
 	///
 	/// `o32 0F 85 cd`
@@ -14973,7 +14973,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jne_rel32_32,
+	Jne_rel32_32 = 1870,
 	/// `JNE rel32`
 	///
 	/// `0F 85 cd`
@@ -14981,7 +14981,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jne_rel32_64,
+	Jne_rel32_64 = 1871,
 	/// `JBE rel16`
 	///
 	/// `o16 0F 86 cw`
@@ -14989,7 +14989,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jbe_rel16,
+	Jbe_rel16 = 1872,
 	/// `JBE rel32`
 	///
 	/// `o32 0F 86 cd`
@@ -14997,7 +14997,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jbe_rel32_32,
+	Jbe_rel32_32 = 1873,
 	/// `JBE rel32`
 	///
 	/// `0F 86 cd`
@@ -15005,7 +15005,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jbe_rel32_64,
+	Jbe_rel32_64 = 1874,
 	/// `JA rel16`
 	///
 	/// `o16 0F 87 cw`
@@ -15013,7 +15013,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ja_rel16,
+	Ja_rel16 = 1875,
 	/// `JA rel32`
 	///
 	/// `o32 0F 87 cd`
@@ -15021,7 +15021,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Ja_rel32_32,
+	Ja_rel32_32 = 1876,
 	/// `JA rel32`
 	///
 	/// `0F 87 cd`
@@ -15029,7 +15029,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ja_rel32_64,
+	Ja_rel32_64 = 1877,
 	/// `JS rel16`
 	///
 	/// `o16 0F 88 cw`
@@ -15037,7 +15037,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Js_rel16,
+	Js_rel16 = 1878,
 	/// `JS rel32`
 	///
 	/// `o32 0F 88 cd`
@@ -15045,7 +15045,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Js_rel32_32,
+	Js_rel32_32 = 1879,
 	/// `JS rel32`
 	///
 	/// `0F 88 cd`
@@ -15053,7 +15053,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Js_rel32_64,
+	Js_rel32_64 = 1880,
 	/// `JNS rel16`
 	///
 	/// `o16 0F 89 cw`
@@ -15061,7 +15061,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jns_rel16,
+	Jns_rel16 = 1881,
 	/// `JNS rel32`
 	///
 	/// `o32 0F 89 cd`
@@ -15069,7 +15069,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jns_rel32_32,
+	Jns_rel32_32 = 1882,
 	/// `JNS rel32`
 	///
 	/// `0F 89 cd`
@@ -15077,7 +15077,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jns_rel32_64,
+	Jns_rel32_64 = 1883,
 	/// `JP rel16`
 	///
 	/// `o16 0F 8A cw`
@@ -15085,7 +15085,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jp_rel16,
+	Jp_rel16 = 1884,
 	/// `JP rel32`
 	///
 	/// `o32 0F 8A cd`
@@ -15093,7 +15093,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jp_rel32_32,
+	Jp_rel32_32 = 1885,
 	/// `JP rel32`
 	///
 	/// `0F 8A cd`
@@ -15101,7 +15101,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jp_rel32_64,
+	Jp_rel32_64 = 1886,
 	/// `JNP rel16`
 	///
 	/// `o16 0F 8B cw`
@@ -15109,7 +15109,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jnp_rel16,
+	Jnp_rel16 = 1887,
 	/// `JNP rel32`
 	///
 	/// `o32 0F 8B cd`
@@ -15117,7 +15117,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jnp_rel32_32,
+	Jnp_rel32_32 = 1888,
 	/// `JNP rel32`
 	///
 	/// `0F 8B cd`
@@ -15125,7 +15125,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jnp_rel32_64,
+	Jnp_rel32_64 = 1889,
 	/// `JL rel16`
 	///
 	/// `o16 0F 8C cw`
@@ -15133,7 +15133,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jl_rel16,
+	Jl_rel16 = 1890,
 	/// `JL rel32`
 	///
 	/// `o32 0F 8C cd`
@@ -15141,7 +15141,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jl_rel32_32,
+	Jl_rel32_32 = 1891,
 	/// `JL rel32`
 	///
 	/// `0F 8C cd`
@@ -15149,7 +15149,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jl_rel32_64,
+	Jl_rel32_64 = 1892,
 	/// `JGE rel16`
 	///
 	/// `o16 0F 8D cw`
@@ -15157,7 +15157,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jge_rel16,
+	Jge_rel16 = 1893,
 	/// `JGE rel32`
 	///
 	/// `o32 0F 8D cd`
@@ -15165,7 +15165,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jge_rel32_32,
+	Jge_rel32_32 = 1894,
 	/// `JGE rel32`
 	///
 	/// `0F 8D cd`
@@ -15173,7 +15173,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jge_rel32_64,
+	Jge_rel32_64 = 1895,
 	/// `JLE rel16`
 	///
 	/// `o16 0F 8E cw`
@@ -15181,7 +15181,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jle_rel16,
+	Jle_rel16 = 1896,
 	/// `JLE rel32`
 	///
 	/// `o32 0F 8E cd`
@@ -15189,7 +15189,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jle_rel32_32,
+	Jle_rel32_32 = 1897,
 	/// `JLE rel32`
 	///
 	/// `0F 8E cd`
@@ -15197,7 +15197,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jle_rel32_64,
+	Jle_rel32_64 = 1898,
 	/// `JG rel16`
 	///
 	/// `o16 0F 8F cw`
@@ -15205,7 +15205,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Jg_rel16,
+	Jg_rel16 = 1899,
 	/// `JG rel32`
 	///
 	/// `o32 0F 8F cd`
@@ -15213,7 +15213,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Jg_rel32_32,
+	Jg_rel32_32 = 1900,
 	/// `JG rel32`
 	///
 	/// `0F 8F cd`
@@ -15221,7 +15221,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Jg_rel32_64,
+	Jg_rel32_64 = 1901,
 	/// `SETO r/m8`
 	///
 	/// `0F 90 /r`
@@ -15229,7 +15229,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Seto_rm8,
+	Seto_rm8 = 1902,
 	/// `SETNO r/m8`
 	///
 	/// `0F 91 /r`
@@ -15237,7 +15237,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setno_rm8,
+	Setno_rm8 = 1903,
 	/// `SETB r/m8`
 	///
 	/// `0F 92 /r`
@@ -15245,7 +15245,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setb_rm8,
+	Setb_rm8 = 1904,
 	/// `SETAE r/m8`
 	///
 	/// `0F 93 /r`
@@ -15253,7 +15253,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setae_rm8,
+	Setae_rm8 = 1905,
 	/// `SETE r/m8`
 	///
 	/// `0F 94 /r`
@@ -15261,7 +15261,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sete_rm8,
+	Sete_rm8 = 1906,
 	/// `SETNE r/m8`
 	///
 	/// `0F 95 /r`
@@ -15269,7 +15269,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setne_rm8,
+	Setne_rm8 = 1907,
 	/// `SETBE r/m8`
 	///
 	/// `0F 96 /r`
@@ -15277,7 +15277,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setbe_rm8,
+	Setbe_rm8 = 1908,
 	/// `SETA r/m8`
 	///
 	/// `0F 97 /r`
@@ -15285,7 +15285,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Seta_rm8,
+	Seta_rm8 = 1909,
 	/// `SETS r/m8`
 	///
 	/// `0F 98 /r`
@@ -15293,7 +15293,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Sets_rm8,
+	Sets_rm8 = 1910,
 	/// `SETNS r/m8`
 	///
 	/// `0F 99 /r`
@@ -15301,7 +15301,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setns_rm8,
+	Setns_rm8 = 1911,
 	/// `SETP r/m8`
 	///
 	/// `0F 9A /r`
@@ -15309,7 +15309,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setp_rm8,
+	Setp_rm8 = 1912,
 	/// `SETNP r/m8`
 	///
 	/// `0F 9B /r`
@@ -15317,7 +15317,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setnp_rm8,
+	Setnp_rm8 = 1913,
 	/// `SETL r/m8`
 	///
 	/// `0F 9C /r`
@@ -15325,7 +15325,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setl_rm8,
+	Setl_rm8 = 1914,
 	/// `SETGE r/m8`
 	///
 	/// `0F 9D /r`
@@ -15333,7 +15333,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setge_rm8,
+	Setge_rm8 = 1915,
 	/// `SETLE r/m8`
 	///
 	/// `0F 9E /r`
@@ -15341,7 +15341,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setle_rm8,
+	Setle_rm8 = 1916,
 	/// `SETG r/m8`
 	///
 	/// `0F 9F /r`
@@ -15349,7 +15349,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Setg_rm8,
+	Setg_rm8 = 1917,
 	/// `KMOVW k1, k2/m16`
 	///
 	/// `VEX.L0.0F.W0 90 /r`
@@ -15357,7 +15357,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_k_km16,
+	VEX_Kmovw_k_km16 = 1918,
 	/// `KMOVQ k1, k2/m64`
 	///
 	/// `VEX.L0.0F.W1 90 /r`
@@ -15365,7 +15365,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovq_k_km64,
+	VEX_Kmovq_k_km64 = 1919,
 	/// `KMOVB k1, k2/m8`
 	///
 	/// `VEX.L0.66.0F.W0 90 /r`
@@ -15373,7 +15373,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_k_km8,
+	VEX_Kmovb_k_km8 = 1920,
 	/// `KMOVD k1, k2/m32`
 	///
 	/// `VEX.L0.66.0F.W1 90 /r`
@@ -15381,7 +15381,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_k_km32,
+	VEX_Kmovd_k_km32 = 1921,
 	/// `KMOVW m16, k1`
 	///
 	/// `VEX.L0.0F.W0 91 /r`
@@ -15389,7 +15389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_m16_k,
+	VEX_Kmovw_m16_k = 1922,
 	/// `KMOVQ m64, k1`
 	///
 	/// `VEX.L0.0F.W1 91 /r`
@@ -15397,7 +15397,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovq_m64_k,
+	VEX_Kmovq_m64_k = 1923,
 	/// `KMOVB m8, k1`
 	///
 	/// `VEX.L0.66.0F.W0 91 /r`
@@ -15405,7 +15405,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_m8_k,
+	VEX_Kmovb_m8_k = 1924,
 	/// `KMOVD m32, k1`
 	///
 	/// `VEX.L0.66.0F.W1 91 /r`
@@ -15413,7 +15413,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_m32_k,
+	VEX_Kmovd_m32_k = 1925,
 	/// `KMOVW k1, r32`
 	///
 	/// `VEX.L0.0F.W0 92 /r`
@@ -15421,7 +15421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_k_r32,
+	VEX_Kmovw_k_r32 = 1926,
 	/// `KMOVB k1, r32`
 	///
 	/// `VEX.L0.66.0F.W0 92 /r`
@@ -15429,7 +15429,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_k_r32,
+	VEX_Kmovb_k_r32 = 1927,
 	/// `KMOVD k1, r32`
 	///
 	/// `VEX.L0.F2.0F.W0 92 /r`
@@ -15437,7 +15437,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_k_r32,
+	VEX_Kmovd_k_r32 = 1928,
 	/// `KMOVQ k1, r64`
 	///
 	/// `VEX.L0.F2.0F.W1 92 /r`
@@ -15445,7 +15445,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	VEX_Kmovq_k_r64,
+	VEX_Kmovq_k_r64 = 1929,
 	/// `KMOVW r32, k1`
 	///
 	/// `VEX.L0.0F.W0 93 /r`
@@ -15453,7 +15453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_r32_k,
+	VEX_Kmovw_r32_k = 1930,
 	/// `KMOVB r32, k1`
 	///
 	/// `VEX.L0.66.0F.W0 93 /r`
@@ -15461,7 +15461,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_r32_k,
+	VEX_Kmovb_r32_k = 1931,
 	/// `KMOVD r32, k1`
 	///
 	/// `VEX.L0.F2.0F.W0 93 /r`
@@ -15469,7 +15469,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_r32_k,
+	VEX_Kmovd_r32_k = 1932,
 	/// `KMOVQ r64, k1`
 	///
 	/// `VEX.L0.F2.0F.W1 93 /r`
@@ -15477,7 +15477,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	VEX_Kmovq_r64_k,
+	VEX_Kmovq_r64_k = 1933,
 	/// `KORTESTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 98 /r`
@@ -15485,7 +15485,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestw_k_k,
+	VEX_Kortestw_k_k = 1934,
 	/// `KORTESTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 98 /r`
@@ -15493,7 +15493,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestq_k_k,
+	VEX_Kortestq_k_k = 1935,
 	/// `KORTESTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 98 /r`
@@ -15501,7 +15501,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestb_k_k,
+	VEX_Kortestb_k_k = 1936,
 	/// `KORTESTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 98 /r`
@@ -15509,7 +15509,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestd_k_k,
+	VEX_Kortestd_k_k = 1937,
 	/// `KTESTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 99 /r`
@@ -15517,7 +15517,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestw_k_k,
+	VEX_Ktestw_k_k = 1938,
 	/// `KTESTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 99 /r`
@@ -15525,7 +15525,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestq_k_k,
+	VEX_Ktestq_k_k = 1939,
 	/// `KTESTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 99 /r`
@@ -15533,7 +15533,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestb_k_k,
+	VEX_Ktestb_k_k = 1940,
 	/// `KTESTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 99 /r`
@@ -15541,7 +15541,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestd_k_k,
+	VEX_Ktestd_k_k = 1941,
 	/// `PUSH FS`
 	///
 	/// `o16 0F A0`
@@ -15549,7 +15549,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Pushw_FS,
+	Pushw_FS = 1942,
 	/// `PUSH FS`
 	///
 	/// `o32 0F A0`
@@ -15557,7 +15557,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_FS,
+	Pushd_FS = 1943,
 	/// `PUSH FS`
 	///
 	/// `0F A0`
@@ -15565,7 +15565,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pushq_FS,
+	Pushq_FS = 1944,
 	/// `POP FS`
 	///
 	/// `o16 0F A1`
@@ -15573,7 +15573,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Popw_FS,
+	Popw_FS = 1945,
 	/// `POP FS`
 	///
 	/// `o32 0F A1`
@@ -15581,7 +15581,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popd_FS,
+	Popd_FS = 1946,
 	/// `POP FS`
 	///
 	/// `0F A1`
@@ -15589,7 +15589,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Popq_FS,
+	Popq_FS = 1947,
 	/// `CPUID`
 	///
 	/// `0F A2`
@@ -15597,7 +15597,7 @@ pub enum Code {
 	/// `CPUID`
 	///
 	/// `16/32/64-bit`
-	Cpuid,
+	Cpuid = 1948,
 	/// `BT r/m16, r16`
 	///
 	/// `o16 0F A3 /r`
@@ -15605,7 +15605,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bt_rm16_r16,
+	Bt_rm16_r16 = 1949,
 	/// `BT r/m32, r32`
 	///
 	/// `o32 0F A3 /r`
@@ -15613,7 +15613,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bt_rm32_r32,
+	Bt_rm32_r32 = 1950,
 	/// `BT r/m64, r64`
 	///
 	/// `REX.W 0F A3 /r`
@@ -15621,7 +15621,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bt_rm64_r64,
+	Bt_rm64_r64 = 1951,
 	/// `SHLD r/m16, r16, imm8`
 	///
 	/// `o16 0F A4 /r ib`
@@ -15629,7 +15629,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shld_rm16_r16_imm8,
+	Shld_rm16_r16_imm8 = 1952,
 	/// `SHLD r/m32, r32, imm8`
 	///
 	/// `o32 0F A4 /r ib`
@@ -15637,7 +15637,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shld_rm32_r32_imm8,
+	Shld_rm32_r32_imm8 = 1953,
 	/// `SHLD r/m64, r64, imm8`
 	///
 	/// `REX.W 0F A4 /r ib`
@@ -15645,7 +15645,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shld_rm64_r64_imm8,
+	Shld_rm64_r64_imm8 = 1954,
 	/// `SHLD r/m16, r16, CL`
 	///
 	/// `o16 0F A5 /r`
@@ -15653,7 +15653,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shld_rm16_r16_CL,
+	Shld_rm16_r16_CL = 1955,
 	/// `SHLD r/m32, r32, CL`
 	///
 	/// `o32 0F A5 /r`
@@ -15661,7 +15661,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shld_rm32_r32_CL,
+	Shld_rm32_r32_CL = 1956,
 	/// `SHLD r/m64, r64, CL`
 	///
 	/// `REX.W 0F A5 /r`
@@ -15669,7 +15669,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shld_rm64_r64_CL,
+	Shld_rm64_r64_CL = 1957,
 	/// `MONTMUL`
 	///
 	/// `a16 0F A6 C0`
@@ -15677,7 +15677,7 @@ pub enum Code {
 	/// `PADLOCK_PMM`
 	///
 	/// `16/32-bit`
-	Montmul_16,
+	Montmul_16 = 1958,
 	/// `MONTMUL`
 	///
 	/// `a32 0F A6 C0`
@@ -15685,7 +15685,7 @@ pub enum Code {
 	/// `PADLOCK_PMM`
 	///
 	/// `16/32/64-bit`
-	Montmul_32,
+	Montmul_32 = 1959,
 	/// `MONTMUL`
 	///
 	/// `0F A6 C0`
@@ -15693,7 +15693,7 @@ pub enum Code {
 	/// `PADLOCK_PMM`
 	///
 	/// `64-bit`
-	Montmul_64,
+	Montmul_64 = 1960,
 	/// `XSHA1`
 	///
 	/// `a16 0F A6 C8`
@@ -15701,7 +15701,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `16/32-bit`
-	Xsha1_16,
+	Xsha1_16 = 1961,
 	/// `XSHA1`
 	///
 	/// `a32 0F A6 C8`
@@ -15709,7 +15709,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `16/32/64-bit`
-	Xsha1_32,
+	Xsha1_32 = 1962,
 	/// `XSHA1`
 	///
 	/// `0F A6 C8`
@@ -15717,7 +15717,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `64-bit`
-	Xsha1_64,
+	Xsha1_64 = 1963,
 	/// `XSHA256`
 	///
 	/// `a16 0F A6 D0`
@@ -15725,7 +15725,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `16/32-bit`
-	Xsha256_16,
+	Xsha256_16 = 1964,
 	/// `XSHA256`
 	///
 	/// `a32 0F A6 D0`
@@ -15733,7 +15733,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `16/32/64-bit`
-	Xsha256_32,
+	Xsha256_32 = 1965,
 	/// `XSHA256`
 	///
 	/// `0F A6 D0`
@@ -15741,7 +15741,7 @@ pub enum Code {
 	/// `PADLOCK_PHE`
 	///
 	/// `64-bit`
-	Xsha256_64,
+	Xsha256_64 = 1966,
 	/// `XBTS r16, r/m16`
 	///
 	/// `o16 0F A6 /r`
@@ -15749,7 +15749,7 @@ pub enum Code {
 	/// `386 A0`
 	///
 	/// `16/32-bit`
-	Xbts_r16_rm16,
+	Xbts_r16_rm16 = 1967,
 	/// `XBTS r32, r/m32`
 	///
 	/// `o32 0F A6 /r`
@@ -15757,7 +15757,7 @@ pub enum Code {
 	/// `386 A0`
 	///
 	/// `16/32-bit`
-	Xbts_r32_rm32,
+	Xbts_r32_rm32 = 1968,
 	/// `XSTORE`
 	///
 	/// `a16 0F A7 C0`
@@ -15765,7 +15765,7 @@ pub enum Code {
 	/// `PADLOCK_RNG`
 	///
 	/// `16/32-bit`
-	Xstore_16,
+	Xstore_16 = 1969,
 	/// `XSTORE`
 	///
 	/// `a32 0F A7 C0`
@@ -15773,7 +15773,7 @@ pub enum Code {
 	/// `PADLOCK_RNG`
 	///
 	/// `16/32/64-bit`
-	Xstore_32,
+	Xstore_32 = 1970,
 	/// `XSTORE`
 	///
 	/// `0F A7 C0`
@@ -15781,7 +15781,7 @@ pub enum Code {
 	/// `PADLOCK_RNG`
 	///
 	/// `64-bit`
-	Xstore_64,
+	Xstore_64 = 1971,
 	/// `XCRYPTECB`
 	///
 	/// `a16 0F A7 C8`
@@ -15789,7 +15789,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptEcb_16,
+	XcryptEcb_16 = 1972,
 	/// `XCRYPTECB`
 	///
 	/// `a32 0F A7 C8`
@@ -15797,7 +15797,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptEcb_32,
+	XcryptEcb_32 = 1973,
 	/// `XCRYPTECB`
 	///
 	/// `0F A7 C8`
@@ -15805,7 +15805,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptEcb_64,
+	XcryptEcb_64 = 1974,
 	/// `XCRYPTCBC`
 	///
 	/// `a16 0F A7 D0`
@@ -15813,7 +15813,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCbc_16,
+	XcryptCbc_16 = 1975,
 	/// `XCRYPTCBC`
 	///
 	/// `a32 0F A7 D0`
@@ -15821,7 +15821,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCbc_32,
+	XcryptCbc_32 = 1976,
 	/// `XCRYPTCBC`
 	///
 	/// `0F A7 D0`
@@ -15829,7 +15829,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCbc_64,
+	XcryptCbc_64 = 1977,
 	/// `XCRYPTCTR`
 	///
 	/// `a16 0F A7 D8`
@@ -15837,7 +15837,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCtr_16,
+	XcryptCtr_16 = 1978,
 	/// `XCRYPTCTR`
 	///
 	/// `a32 0F A7 D8`
@@ -15845,7 +15845,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCtr_32,
+	XcryptCtr_32 = 1979,
 	/// `XCRYPTCTR`
 	///
 	/// `0F A7 D8`
@@ -15853,7 +15853,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCtr_64,
+	XcryptCtr_64 = 1980,
 	/// `XCRYPTCFB`
 	///
 	/// `a16 0F A7 E0`
@@ -15861,7 +15861,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptCfb_16,
+	XcryptCfb_16 = 1981,
 	/// `XCRYPTCFB`
 	///
 	/// `a32 0F A7 E0`
@@ -15869,7 +15869,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptCfb_32,
+	XcryptCfb_32 = 1982,
 	/// `XCRYPTCFB`
 	///
 	/// `0F A7 E0`
@@ -15877,7 +15877,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptCfb_64,
+	XcryptCfb_64 = 1983,
 	/// `XCRYPTOFB`
 	///
 	/// `a16 0F A7 E8`
@@ -15885,7 +15885,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32-bit`
-	XcryptOfb_16,
+	XcryptOfb_16 = 1984,
 	/// `XCRYPTOFB`
 	///
 	/// `a32 0F A7 E8`
@@ -15893,7 +15893,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `16/32/64-bit`
-	XcryptOfb_32,
+	XcryptOfb_32 = 1985,
 	/// `XCRYPTOFB`
 	///
 	/// `0F A7 E8`
@@ -15901,7 +15901,7 @@ pub enum Code {
 	/// `PADLOCK_ACE`
 	///
 	/// `64-bit`
-	XcryptOfb_64,
+	XcryptOfb_64 = 1986,
 	/// `IBTS r/m16, r16`
 	///
 	/// `o16 0F A7 /r`
@@ -15909,7 +15909,7 @@ pub enum Code {
 	/// `386 A0`
 	///
 	/// `16/32-bit`
-	Ibts_rm16_r16,
+	Ibts_rm16_r16 = 1987,
 	/// `IBTS r/m32, r32`
 	///
 	/// `o32 0F A7 /r`
@@ -15917,7 +15917,7 @@ pub enum Code {
 	/// `386 A0`
 	///
 	/// `16/32-bit`
-	Ibts_rm32_r32,
+	Ibts_rm32_r32 = 1988,
 	/// `CMPXCHG r/m8, r8`
 	///
 	/// `0F A6 /r`
@@ -15925,7 +15925,7 @@ pub enum Code {
 	/// `486 A`
 	///
 	/// `16/32-bit`
-	Cmpxchg486_rm8_r8,
+	Cmpxchg486_rm8_r8 = 1989,
 	/// `CMPXCHG r/m16, r16`
 	///
 	/// `o16 0F A7 /r`
@@ -15933,7 +15933,7 @@ pub enum Code {
 	/// `486 A`
 	///
 	/// `16/32-bit`
-	Cmpxchg486_rm16_r16,
+	Cmpxchg486_rm16_r16 = 1990,
 	/// `CMPXCHG r/m32, r32`
 	///
 	/// `o32 0F A7 /r`
@@ -15941,7 +15941,7 @@ pub enum Code {
 	/// `486 A`
 	///
 	/// `16/32-bit`
-	Cmpxchg486_rm32_r32,
+	Cmpxchg486_rm32_r32 = 1991,
 	/// `PUSH GS`
 	///
 	/// `o16 0F A8`
@@ -15949,7 +15949,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Pushw_GS,
+	Pushw_GS = 1992,
 	/// `PUSH GS`
 	///
 	/// `o32 0F A8`
@@ -15957,7 +15957,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Pushd_GS,
+	Pushd_GS = 1993,
 	/// `PUSH GS`
 	///
 	/// `0F A8`
@@ -15965,7 +15965,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Pushq_GS,
+	Pushq_GS = 1994,
 	/// `POP GS`
 	///
 	/// `o16 0F A9`
@@ -15973,7 +15973,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Popw_GS,
+	Popw_GS = 1995,
 	/// `POP GS`
 	///
 	/// `o32 0F A9`
@@ -15981,7 +15981,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32-bit`
-	Popd_GS,
+	Popd_GS = 1996,
 	/// `POP GS`
 	///
 	/// `0F A9`
@@ -15989,7 +15989,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Popq_GS,
+	Popq_GS = 1997,
 	/// `RSM`
 	///
 	/// `0F AA`
@@ -15997,7 +15997,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Rsm,
+	Rsm = 1998,
 	/// `BTS r/m16, r16`
 	///
 	/// `o16 0F AB /r`
@@ -16005,7 +16005,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bts_rm16_r16,
+	Bts_rm16_r16 = 1999,
 	/// `BTS r/m32, r32`
 	///
 	/// `o32 0F AB /r`
@@ -16013,7 +16013,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bts_rm32_r32,
+	Bts_rm32_r32 = 2000,
 	/// `BTS r/m64, r64`
 	///
 	/// `REX.W 0F AB /r`
@@ -16021,7 +16021,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bts_rm64_r64,
+	Bts_rm64_r64 = 2001,
 	/// `SHRD r/m16, r16, imm8`
 	///
 	/// `o16 0F AC /r ib`
@@ -16029,7 +16029,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shrd_rm16_r16_imm8,
+	Shrd_rm16_r16_imm8 = 2002,
 	/// `SHRD r/m32, r32, imm8`
 	///
 	/// `o32 0F AC /r ib`
@@ -16037,7 +16037,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shrd_rm32_r32_imm8,
+	Shrd_rm32_r32_imm8 = 2003,
 	/// `SHRD r/m64, r64, imm8`
 	///
 	/// `REX.W 0F AC /r ib`
@@ -16045,7 +16045,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shrd_rm64_r64_imm8,
+	Shrd_rm64_r64_imm8 = 2004,
 	/// `SHRD r/m16, r16, CL`
 	///
 	/// `o16 0F AD /r`
@@ -16053,7 +16053,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shrd_rm16_r16_CL,
+	Shrd_rm16_r16_CL = 2005,
 	/// `SHRD r/m32, r32, CL`
 	///
 	/// `o32 0F AD /r`
@@ -16061,7 +16061,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Shrd_rm32_r32_CL,
+	Shrd_rm32_r32_CL = 2006,
 	/// `SHRD r/m64, r64, CL`
 	///
 	/// `REX.W 0F AD /r`
@@ -16069,7 +16069,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Shrd_rm64_r64_CL,
+	Shrd_rm64_r64_CL = 2007,
 	/// `FXSAVE m512byte`
 	///
 	/// `NP 0F AE /0`
@@ -16077,7 +16077,7 @@ pub enum Code {
 	/// `FXSR`
 	///
 	/// `16/32/64-bit`
-	Fxsave_m512byte,
+	Fxsave_m512byte = 2008,
 	/// `FXSAVE64 m512byte`
 	///
 	/// `NP REX.W 0F AE /0`
@@ -16085,7 +16085,7 @@ pub enum Code {
 	/// `FXSR`
 	///
 	/// `64-bit`
-	Fxsave64_m512byte,
+	Fxsave64_m512byte = 2009,
 	/// `RDFSBASE r32`
 	///
 	/// `F3 0F AE /0`
@@ -16093,7 +16093,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Rdfsbase_r32,
+	Rdfsbase_r32 = 2010,
 	/// `RDFSBASE r64`
 	///
 	/// `F3 REX.W 0F AE /0`
@@ -16101,7 +16101,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Rdfsbase_r64,
+	Rdfsbase_r64 = 2011,
 	/// `FXRSTOR m512byte`
 	///
 	/// `NP 0F AE /1`
@@ -16109,7 +16109,7 @@ pub enum Code {
 	/// `FXSR`
 	///
 	/// `16/32/64-bit`
-	Fxrstor_m512byte,
+	Fxrstor_m512byte = 2012,
 	/// `FXRSTOR64 m512byte`
 	///
 	/// `NP REX.W 0F AE /1`
@@ -16117,7 +16117,7 @@ pub enum Code {
 	/// `FXSR`
 	///
 	/// `64-bit`
-	Fxrstor64_m512byte,
+	Fxrstor64_m512byte = 2013,
 	/// `RDGSBASE r32`
 	///
 	/// `F3 0F AE /1`
@@ -16125,7 +16125,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Rdgsbase_r32,
+	Rdgsbase_r32 = 2014,
 	/// `RDGSBASE r64`
 	///
 	/// `F3 REX.W 0F AE /1`
@@ -16133,7 +16133,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Rdgsbase_r64,
+	Rdgsbase_r64 = 2015,
 	/// `LDMXCSR m32`
 	///
 	/// `NP 0F AE /2`
@@ -16141,7 +16141,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Ldmxcsr_m32,
+	Ldmxcsr_m32 = 2016,
 	/// `WRFSBASE r32`
 	///
 	/// `F3 0F AE /2`
@@ -16149,7 +16149,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Wrfsbase_r32,
+	Wrfsbase_r32 = 2017,
 	/// `WRFSBASE r64`
 	///
 	/// `F3 REX.W 0F AE /2`
@@ -16157,7 +16157,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Wrfsbase_r64,
+	Wrfsbase_r64 = 2018,
 	/// `VLDMXCSR m32`
 	///
 	/// `VEX.LZ.0F.WIG AE /2`
@@ -16165,7 +16165,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vldmxcsr_m32,
+	VEX_Vldmxcsr_m32 = 2019,
 	/// `STMXCSR m32`
 	///
 	/// `NP 0F AE /3`
@@ -16173,7 +16173,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Stmxcsr_m32,
+	Stmxcsr_m32 = 2020,
 	/// `WRGSBASE r32`
 	///
 	/// `F3 0F AE /3`
@@ -16181,7 +16181,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Wrgsbase_r32,
+	Wrgsbase_r32 = 2021,
 	/// `WRGSBASE r64`
 	///
 	/// `F3 REX.W 0F AE /3`
@@ -16189,7 +16189,7 @@ pub enum Code {
 	/// `FSGSBASE`
 	///
 	/// `64-bit`
-	Wrgsbase_r64,
+	Wrgsbase_r64 = 2022,
 	/// `VSTMXCSR m32`
 	///
 	/// `VEX.LZ.0F.WIG AE /3`
@@ -16197,7 +16197,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vstmxcsr_m32,
+	VEX_Vstmxcsr_m32 = 2023,
 	/// `XSAVE mem`
 	///
 	/// `NP 0F AE /4`
@@ -16205,7 +16205,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `16/32/64-bit`
-	Xsave_mem,
+	Xsave_mem = 2024,
 	/// `XSAVE64 mem`
 	///
 	/// `NP REX.W 0F AE /4`
@@ -16213,7 +16213,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `64-bit`
-	Xsave64_mem,
+	Xsave64_mem = 2025,
 	/// `PTWRITE r/m32`
 	///
 	/// `F3 0F AE /4`
@@ -16221,7 +16221,7 @@ pub enum Code {
 	/// `PTWRITE`
 	///
 	/// `16/32/64-bit`
-	Ptwrite_rm32,
+	Ptwrite_rm32 = 2026,
 	/// `PTWRITE r/m64`
 	///
 	/// `F3 REX.W 0F AE /4`
@@ -16229,7 +16229,7 @@ pub enum Code {
 	/// `PTWRITE`
 	///
 	/// `64-bit`
-	Ptwrite_rm64,
+	Ptwrite_rm64 = 2027,
 	/// `XRSTOR mem`
 	///
 	/// `NP 0F AE /5`
@@ -16237,7 +16237,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `16/32/64-bit`
-	Xrstor_mem,
+	Xrstor_mem = 2028,
 	/// `XRSTOR64 mem`
 	///
 	/// `NP REX.W 0F AE /5`
@@ -16245,7 +16245,7 @@ pub enum Code {
 	/// `XSAVE`
 	///
 	/// `64-bit`
-	Xrstor64_mem,
+	Xrstor64_mem = 2029,
 	/// `INCSSPD r32`
 	///
 	/// `F3 0F AE /5`
@@ -16253,7 +16253,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Incsspd_r32,
+	Incsspd_r32 = 2030,
 	/// `INCSSPQ r64`
 	///
 	/// `F3 REX.W 0F AE /5`
@@ -16261,7 +16261,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `64-bit`
-	Incsspq_r64,
+	Incsspq_r64 = 2031,
 	/// `XSAVEOPT mem`
 	///
 	/// `NP 0F AE /6`
@@ -16269,7 +16269,7 @@ pub enum Code {
 	/// `XSAVEOPT`
 	///
 	/// `16/32/64-bit`
-	Xsaveopt_mem,
+	Xsaveopt_mem = 2032,
 	/// `XSAVEOPT64 mem`
 	///
 	/// `NP REX.W 0F AE /6`
@@ -16277,7 +16277,7 @@ pub enum Code {
 	/// `XSAVEOPT`
 	///
 	/// `64-bit`
-	Xsaveopt64_mem,
+	Xsaveopt64_mem = 2033,
 	/// `CLWB m8`
 	///
 	/// `66 0F AE /6`
@@ -16285,7 +16285,7 @@ pub enum Code {
 	/// `CLWB`
 	///
 	/// `16/32/64-bit`
-	Clwb_m8,
+	Clwb_m8 = 2034,
 	/// `TPAUSE r32, <edx>, <eax>`
 	///
 	/// `66 0F AE /6`
@@ -16293,7 +16293,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `16/32/64-bit`
-	Tpause_r32,
+	Tpause_r32 = 2035,
 	/// `TPAUSE r64, <edx>, <eax>`
 	///
 	/// `66 REX.W 0F AE /6`
@@ -16301,7 +16301,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `64-bit`
-	Tpause_r64,
+	Tpause_r64 = 2036,
 	/// `CLRSSBSY m64`
 	///
 	/// `F3 0F AE /6`
@@ -16309,7 +16309,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Clrssbsy_m64,
+	Clrssbsy_m64 = 2037,
 	/// `UMONITOR r16`
 	///
 	/// `a16 F3 0F AE /6`
@@ -16317,7 +16317,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `16/32-bit`
-	Umonitor_r16,
+	Umonitor_r16 = 2038,
 	/// `UMONITOR r32`
 	///
 	/// `a32 F3 0F AE /6`
@@ -16325,7 +16325,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `16/32/64-bit`
-	Umonitor_r32,
+	Umonitor_r32 = 2039,
 	/// `UMONITOR r64`
 	///
 	/// `F3 0F AE /6`
@@ -16333,7 +16333,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `64-bit`
-	Umonitor_r64,
+	Umonitor_r64 = 2040,
 	/// `UMWAIT r32, <edx>, <eax>`
 	///
 	/// `F2 0F AE /6`
@@ -16341,7 +16341,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `16/32/64-bit`
-	Umwait_r32,
+	Umwait_r32 = 2041,
 	/// `UMWAIT r64, <edx>, <eax>`
 	///
 	/// `F2 REX.W 0F AE /6`
@@ -16349,7 +16349,7 @@ pub enum Code {
 	/// `WAITPKG`
 	///
 	/// `64-bit`
-	Umwait_r64,
+	Umwait_r64 = 2042,
 	/// `CLFLUSH m8`
 	///
 	/// `NP 0F AE /7`
@@ -16357,7 +16357,7 @@ pub enum Code {
 	/// `CLFSH`
 	///
 	/// `16/32/64-bit`
-	Clflush_m8,
+	Clflush_m8 = 2043,
 	/// `CLFLUSHOPT m8`
 	///
 	/// `66 0F AE /7`
@@ -16365,7 +16365,7 @@ pub enum Code {
 	/// `CLFLUSHOPT`
 	///
 	/// `16/32/64-bit`
-	Clflushopt_m8,
+	Clflushopt_m8 = 2044,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE E8`
@@ -16373,7 +16373,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence,
+	Lfence = 2045,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE E9`
@@ -16381,7 +16381,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_E9,
+	Lfence_E9 = 2046,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE EA`
@@ -16389,7 +16389,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_EA,
+	Lfence_EA = 2047,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE EB`
@@ -16397,7 +16397,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_EB,
+	Lfence_EB = 2048,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE EC`
@@ -16405,7 +16405,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_EC,
+	Lfence_EC = 2049,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE ED`
@@ -16413,7 +16413,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_ED,
+	Lfence_ED = 2050,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE EE`
@@ -16421,7 +16421,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_EE,
+	Lfence_EE = 2051,
 	/// `LFENCE`
 	///
 	/// `NP 0F AE EF`
@@ -16429,7 +16429,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Lfence_EF,
+	Lfence_EF = 2052,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F0`
@@ -16437,7 +16437,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence,
+	Mfence = 2053,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F1`
@@ -16445,7 +16445,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F1,
+	Mfence_F1 = 2054,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F2`
@@ -16453,7 +16453,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F2,
+	Mfence_F2 = 2055,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F3`
@@ -16461,7 +16461,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F3,
+	Mfence_F3 = 2056,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F4`
@@ -16469,7 +16469,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F4,
+	Mfence_F4 = 2057,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F5`
@@ -16477,7 +16477,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F5,
+	Mfence_F5 = 2058,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F6`
@@ -16485,7 +16485,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F6,
+	Mfence_F6 = 2059,
 	/// `MFENCE`
 	///
 	/// `NP 0F AE F7`
@@ -16493,7 +16493,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Mfence_F7,
+	Mfence_F7 = 2060,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE F8`
@@ -16501,7 +16501,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence,
+	Sfence = 2061,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE F9`
@@ -16509,7 +16509,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_F9,
+	Sfence_F9 = 2062,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FA`
@@ -16517,7 +16517,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FA,
+	Sfence_FA = 2063,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FB`
@@ -16525,7 +16525,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FB,
+	Sfence_FB = 2064,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FC`
@@ -16533,7 +16533,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FC,
+	Sfence_FC = 2065,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FD`
@@ -16541,7 +16541,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FD,
+	Sfence_FD = 2066,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FE`
@@ -16549,7 +16549,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FE,
+	Sfence_FE = 2067,
 	/// `SFENCE`
 	///
 	/// `NP 0F AE FF`
@@ -16557,7 +16557,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Sfence_FF,
+	Sfence_FF = 2068,
 	/// `PCOMMIT`
 	///
 	/// `66 0F AE F8`
@@ -16565,7 +16565,7 @@ pub enum Code {
 	/// `PCOMMIT`
 	///
 	/// `16/32/64-bit`
-	Pcommit,
+	Pcommit = 2069,
 	/// `IMUL r16, r/m16`
 	///
 	/// `o16 0F AF /r`
@@ -16573,7 +16573,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Imul_r16_rm16,
+	Imul_r16_rm16 = 2070,
 	/// `IMUL r32, r/m32`
 	///
 	/// `o32 0F AF /r`
@@ -16581,7 +16581,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Imul_r32_rm32,
+	Imul_r32_rm32 = 2071,
 	/// `IMUL r64, r/m64`
 	///
 	/// `REX.W 0F AF /r`
@@ -16589,7 +16589,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Imul_r64_rm64,
+	Imul_r64_rm64 = 2072,
 	/// `CMPXCHG r/m8, r8`
 	///
 	/// `0F B0 /r`
@@ -16597,7 +16597,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Cmpxchg_rm8_r8,
+	Cmpxchg_rm8_r8 = 2073,
 	/// `CMPXCHG r/m16, r16`
 	///
 	/// `o16 0F B1 /r`
@@ -16605,7 +16605,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Cmpxchg_rm16_r16,
+	Cmpxchg_rm16_r16 = 2074,
 	/// `CMPXCHG r/m32, r32`
 	///
 	/// `o32 0F B1 /r`
@@ -16613,7 +16613,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Cmpxchg_rm32_r32,
+	Cmpxchg_rm32_r32 = 2075,
 	/// `CMPXCHG r/m64, r64`
 	///
 	/// `REX.W 0F B1 /r`
@@ -16621,7 +16621,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Cmpxchg_rm64_r64,
+	Cmpxchg_rm64_r64 = 2076,
 	/// `LSS r16, m16:16`
 	///
 	/// `o16 0F B2 /r`
@@ -16629,7 +16629,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lss_r16_m1616,
+	Lss_r16_m1616 = 2077,
 	/// `LSS r32, m16:32`
 	///
 	/// `o32 0F B2 /r`
@@ -16637,7 +16637,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lss_r32_m1632,
+	Lss_r32_m1632 = 2078,
 	/// `LSS r64, m16:64`
 	///
 	/// `REX.W 0F B2 /r`
@@ -16645,7 +16645,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lss_r64_m1664,
+	Lss_r64_m1664 = 2079,
 	/// `BTR r/m16, r16`
 	///
 	/// `o16 0F B3 /r`
@@ -16653,7 +16653,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btr_rm16_r16,
+	Btr_rm16_r16 = 2080,
 	/// `BTR r/m32, r32`
 	///
 	/// `o32 0F B3 /r`
@@ -16661,7 +16661,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btr_rm32_r32,
+	Btr_rm32_r32 = 2081,
 	/// `BTR r/m64, r64`
 	///
 	/// `REX.W 0F B3 /r`
@@ -16669,7 +16669,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Btr_rm64_r64,
+	Btr_rm64_r64 = 2082,
 	/// `LFS r16, m16:16`
 	///
 	/// `o16 0F B4 /r`
@@ -16677,7 +16677,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lfs_r16_m1616,
+	Lfs_r16_m1616 = 2083,
 	/// `LFS r32, m16:32`
 	///
 	/// `o32 0F B4 /r`
@@ -16685,7 +16685,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lfs_r32_m1632,
+	Lfs_r32_m1632 = 2084,
 	/// `LFS r64, m16:64`
 	///
 	/// `REX.W 0F B4 /r`
@@ -16693,7 +16693,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lfs_r64_m1664,
+	Lfs_r64_m1664 = 2085,
 	/// `LGS r16, m16:16`
 	///
 	/// `o16 0F B5 /r`
@@ -16701,7 +16701,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lgs_r16_m1616,
+	Lgs_r16_m1616 = 2086,
 	/// `LGS r32, m16:32`
 	///
 	/// `o32 0F B5 /r`
@@ -16709,7 +16709,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Lgs_r32_m1632,
+	Lgs_r32_m1632 = 2087,
 	/// `LGS r64, m16:64`
 	///
 	/// `REX.W 0F B5 /r`
@@ -16717,7 +16717,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Lgs_r64_m1664,
+	Lgs_r64_m1664 = 2088,
 	/// `MOVZX r16, r/m8`
 	///
 	/// `o16 0F B6 /r`
@@ -16725,7 +16725,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movzx_r16_rm8,
+	Movzx_r16_rm8 = 2089,
 	/// `MOVZX r32, r/m8`
 	///
 	/// `o32 0F B6 /r`
@@ -16733,7 +16733,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movzx_r32_rm8,
+	Movzx_r32_rm8 = 2090,
 	/// `MOVZX r64, r/m8`
 	///
 	/// `REX.W 0F B6 /r`
@@ -16741,7 +16741,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movzx_r64_rm8,
+	Movzx_r64_rm8 = 2091,
 	/// `MOVZX r16, r/m16`
 	///
 	/// `o16 0F B7 /r`
@@ -16749,7 +16749,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movzx_r16_rm16,
+	Movzx_r16_rm16 = 2092,
 	/// `MOVZX r32, r/m16`
 	///
 	/// `o32 0F B7 /r`
@@ -16757,7 +16757,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movzx_r32_rm16,
+	Movzx_r32_rm16 = 2093,
 	/// `MOVZX r64, r/m16`
 	///
 	/// `REX.W 0F B7 /r`
@@ -16765,7 +16765,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movzx_r64_rm16,
+	Movzx_r64_rm16 = 2094,
 	/// `JMPE disp16`
 	///
 	/// `o16 0F B8 cw`
@@ -16773,7 +16773,7 @@ pub enum Code {
 	/// `IA-64`
 	///
 	/// `16/32-bit`
-	Jmpe_disp16,
+	Jmpe_disp16 = 2095,
 	/// `JMPE disp32`
 	///
 	/// `o32 0F B8 cd`
@@ -16781,7 +16781,7 @@ pub enum Code {
 	/// `IA-64`
 	///
 	/// `16/32-bit`
-	Jmpe_disp32,
+	Jmpe_disp32 = 2096,
 	/// `POPCNT r16, r/m16`
 	///
 	/// `o16 F3 0F B8 /r`
@@ -16789,7 +16789,7 @@ pub enum Code {
 	/// `POPCNT`
 	///
 	/// `16/32/64-bit`
-	Popcnt_r16_rm16,
+	Popcnt_r16_rm16 = 2097,
 	/// `POPCNT r32, r/m32`
 	///
 	/// `o32 F3 0F B8 /r`
@@ -16797,7 +16797,7 @@ pub enum Code {
 	/// `POPCNT`
 	///
 	/// `16/32/64-bit`
-	Popcnt_r32_rm32,
+	Popcnt_r32_rm32 = 2098,
 	/// `POPCNT r64, r/m64`
 	///
 	/// `F3 REX.W 0F B8 /r`
@@ -16805,7 +16805,7 @@ pub enum Code {
 	/// `POPCNT`
 	///
 	/// `64-bit`
-	Popcnt_r64_rm64,
+	Popcnt_r64_rm64 = 2099,
 	/// `UD1 r16, r/m16`
 	///
 	/// `o16 0F B9 /r`
@@ -16813,7 +16813,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Ud1_r16_rm16,
+	Ud1_r16_rm16 = 2100,
 	/// `UD1 r32, r/m32`
 	///
 	/// `o32 0F B9 /r`
@@ -16821,7 +16821,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ud1_r32_rm32,
+	Ud1_r32_rm32 = 2101,
 	/// `UD1 r64, r/m64`
 	///
 	/// `REX.W 0F B9 /r`
@@ -16829,7 +16829,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ud1_r64_rm64,
+	Ud1_r64_rm64 = 2102,
 	/// `BT r/m16, imm8`
 	///
 	/// `o16 0F BA /4 ib`
@@ -16837,7 +16837,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bt_rm16_imm8,
+	Bt_rm16_imm8 = 2103,
 	/// `BT r/m32, imm8`
 	///
 	/// `o32 0F BA /4 ib`
@@ -16845,7 +16845,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bt_rm32_imm8,
+	Bt_rm32_imm8 = 2104,
 	/// `BT r/m64, imm8`
 	///
 	/// `REX.W 0F BA /4 ib`
@@ -16853,7 +16853,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bt_rm64_imm8,
+	Bt_rm64_imm8 = 2105,
 	/// `BTS r/m16, imm8`
 	///
 	/// `o16 0F BA /5 ib`
@@ -16861,7 +16861,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bts_rm16_imm8,
+	Bts_rm16_imm8 = 2106,
 	/// `BTS r/m32, imm8`
 	///
 	/// `o32 0F BA /5 ib`
@@ -16869,7 +16869,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bts_rm32_imm8,
+	Bts_rm32_imm8 = 2107,
 	/// `BTS r/m64, imm8`
 	///
 	/// `REX.W 0F BA /5 ib`
@@ -16877,7 +16877,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bts_rm64_imm8,
+	Bts_rm64_imm8 = 2108,
 	/// `BTR r/m16, imm8`
 	///
 	/// `o16 0F BA /6 ib`
@@ -16885,7 +16885,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btr_rm16_imm8,
+	Btr_rm16_imm8 = 2109,
 	/// `BTR r/m32, imm8`
 	///
 	/// `o32 0F BA /6 ib`
@@ -16893,7 +16893,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btr_rm32_imm8,
+	Btr_rm32_imm8 = 2110,
 	/// `BTR r/m64, imm8`
 	///
 	/// `REX.W 0F BA /6 ib`
@@ -16901,7 +16901,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Btr_rm64_imm8,
+	Btr_rm64_imm8 = 2111,
 	/// `BTC r/m16, imm8`
 	///
 	/// `o16 0F BA /7 ib`
@@ -16909,7 +16909,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btc_rm16_imm8,
+	Btc_rm16_imm8 = 2112,
 	/// `BTC r/m32, imm8`
 	///
 	/// `o32 0F BA /7 ib`
@@ -16917,7 +16917,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btc_rm32_imm8,
+	Btc_rm32_imm8 = 2113,
 	/// `BTC r/m64, imm8`
 	///
 	/// `REX.W 0F BA /7 ib`
@@ -16925,7 +16925,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Btc_rm64_imm8,
+	Btc_rm64_imm8 = 2114,
 	/// `BTC r/m16, r16`
 	///
 	/// `o16 0F BB /r`
@@ -16933,7 +16933,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btc_rm16_r16,
+	Btc_rm16_r16 = 2115,
 	/// `BTC r/m32, r32`
 	///
 	/// `o32 0F BB /r`
@@ -16941,7 +16941,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Btc_rm32_r32,
+	Btc_rm32_r32 = 2116,
 	/// `BTC r/m64, r64`
 	///
 	/// `REX.W 0F BB /r`
@@ -16949,7 +16949,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Btc_rm64_r64,
+	Btc_rm64_r64 = 2117,
 	/// `BSF r16, r/m16`
 	///
 	/// `o16 0F BC /r`
@@ -16957,7 +16957,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bsf_r16_rm16,
+	Bsf_r16_rm16 = 2118,
 	/// `BSF r32, r/m32`
 	///
 	/// `o32 0F BC /r`
@@ -16965,7 +16965,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bsf_r32_rm32,
+	Bsf_r32_rm32 = 2119,
 	/// `BSF r64, r/m64`
 	///
 	/// `REX.W 0F BC /r`
@@ -16973,7 +16973,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bsf_r64_rm64,
+	Bsf_r64_rm64 = 2120,
 	/// `TZCNT r16, r/m16`
 	///
 	/// `o16 F3 0F BC /r`
@@ -16981,7 +16981,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	Tzcnt_r16_rm16,
+	Tzcnt_r16_rm16 = 2121,
 	/// `TZCNT r32, r/m32`
 	///
 	/// `o32 F3 0F BC /r`
@@ -16989,7 +16989,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	Tzcnt_r32_rm32,
+	Tzcnt_r32_rm32 = 2122,
 	/// `TZCNT r64, r/m64`
 	///
 	/// `F3 REX.W 0F BC /r`
@@ -16997,7 +16997,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	Tzcnt_r64_rm64,
+	Tzcnt_r64_rm64 = 2123,
 	/// `BSR r16, r/m16`
 	///
 	/// `o16 0F BD /r`
@@ -17005,7 +17005,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bsr_r16_rm16,
+	Bsr_r16_rm16 = 2124,
 	/// `BSR r32, r/m32`
 	///
 	/// `o32 0F BD /r`
@@ -17013,7 +17013,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Bsr_r32_rm32,
+	Bsr_r32_rm32 = 2125,
 	/// `BSR r64, r/m64`
 	///
 	/// `REX.W 0F BD /r`
@@ -17021,7 +17021,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bsr_r64_rm64,
+	Bsr_r64_rm64 = 2126,
 	/// `LZCNT r16, r/m16`
 	///
 	/// `o16 F3 0F BD /r`
@@ -17029,7 +17029,7 @@ pub enum Code {
 	/// `LZCNT`
 	///
 	/// `16/32/64-bit`
-	Lzcnt_r16_rm16,
+	Lzcnt_r16_rm16 = 2127,
 	/// `LZCNT r32, r/m32`
 	///
 	/// `o32 F3 0F BD /r`
@@ -17037,7 +17037,7 @@ pub enum Code {
 	/// `LZCNT`
 	///
 	/// `16/32/64-bit`
-	Lzcnt_r32_rm32,
+	Lzcnt_r32_rm32 = 2128,
 	/// `LZCNT r64, r/m64`
 	///
 	/// `F3 REX.W 0F BD /r`
@@ -17045,7 +17045,7 @@ pub enum Code {
 	/// `LZCNT`
 	///
 	/// `64-bit`
-	Lzcnt_r64_rm64,
+	Lzcnt_r64_rm64 = 2129,
 	/// `MOVSX r16, r/m8`
 	///
 	/// `o16 0F BE /r`
@@ -17053,7 +17053,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movsx_r16_rm8,
+	Movsx_r16_rm8 = 2130,
 	/// `MOVSX r32, r/m8`
 	///
 	/// `o32 0F BE /r`
@@ -17061,7 +17061,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movsx_r32_rm8,
+	Movsx_r32_rm8 = 2131,
 	/// `MOVSX r64, r/m8`
 	///
 	/// `REX.W 0F BE /r`
@@ -17069,7 +17069,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsx_r64_rm8,
+	Movsx_r64_rm8 = 2132,
 	/// `MOVSX r16, r/m16`
 	///
 	/// `o16 0F BF /r`
@@ -17077,7 +17077,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movsx_r16_rm16,
+	Movsx_r16_rm16 = 2133,
 	/// `MOVSX r32, r/m16`
 	///
 	/// `o32 0F BF /r`
@@ -17085,7 +17085,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Movsx_r32_rm16,
+	Movsx_r32_rm16 = 2134,
 	/// `MOVSX r64, r/m16`
 	///
 	/// `REX.W 0F BF /r`
@@ -17093,7 +17093,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Movsx_r64_rm16,
+	Movsx_r64_rm16 = 2135,
 	/// `XADD r/m8, r8`
 	///
 	/// `0F C0 /r`
@@ -17101,7 +17101,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Xadd_rm8_r8,
+	Xadd_rm8_r8 = 2136,
 	/// `XADD r/m16, r16`
 	///
 	/// `o16 0F C1 /r`
@@ -17109,7 +17109,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Xadd_rm16_r16,
+	Xadd_rm16_r16 = 2137,
 	/// `XADD r/m32, r32`
 	///
 	/// `o32 0F C1 /r`
@@ -17117,7 +17117,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Xadd_rm32_r32,
+	Xadd_rm32_r32 = 2138,
 	/// `XADD r/m64, r64`
 	///
 	/// `REX.W 0F C1 /r`
@@ -17125,7 +17125,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Xadd_rm64_r64,
+	Xadd_rm64_r64 = 2139,
 	/// `CMPPS xmm1, xmm2/m128, imm8`
 	///
 	/// `NP 0F C2 /r ib`
@@ -17133,7 +17133,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cmpps_xmm_xmmm128_imm8,
+	Cmpps_xmm_xmmm128_imm8 = 2140,
 	/// `VCMPPS xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.0F.WIG C2 /r ib`
@@ -17141,7 +17141,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmpps_xmm_xmm_xmmm128_imm8,
+	VEX_Vcmpps_xmm_xmm_xmmm128_imm8 = 2141,
 	/// `VCMPPS ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.0F.WIG C2 /r ib`
@@ -17149,7 +17149,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmpps_ymm_ymm_ymmm256_imm8,
+	VEX_Vcmpps_ymm_ymm_ymmm256_imm8 = 2142,
 	/// `VCMPPS k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.0F.W0 C2 /r ib`
@@ -17157,7 +17157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8,
+	EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8 = 2143,
 	/// `VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.0F.W0 C2 /r ib`
@@ -17165,7 +17165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8,
+	EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8 = 2144,
 	/// `VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.0F.W0 C2 /r ib`
@@ -17173,7 +17173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae,
+	EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae = 2145,
 	/// `CMPPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F C2 /r ib`
@@ -17181,7 +17181,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cmppd_xmm_xmmm128_imm8,
+	Cmppd_xmm_xmmm128_imm8 = 2146,
 	/// `VCMPPD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F.WIG C2 /r ib`
@@ -17189,7 +17189,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmppd_xmm_xmm_xmmm128_imm8,
+	VEX_Vcmppd_xmm_xmm_xmmm128_imm8 = 2147,
 	/// `VCMPPD ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F.WIG C2 /r ib`
@@ -17197,7 +17197,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmppd_ymm_ymm_ymmm256_imm8,
+	VEX_Vcmppd_ymm_ymm_ymmm256_imm8 = 2148,
 	/// `VCMPPD k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 C2 /r ib`
@@ -17205,7 +17205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8,
+	EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8 = 2149,
 	/// `VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 C2 /r ib`
@@ -17213,7 +17213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8,
+	EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8 = 2150,
 	/// `VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 C2 /r ib`
@@ -17221,7 +17221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae,
+	EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae = 2151,
 	/// `CMPSS xmm1, xmm2/m32, imm8`
 	///
 	/// `F3 0F C2 /r ib`
@@ -17229,7 +17229,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Cmpss_xmm_xmmm32_imm8,
+	Cmpss_xmm_xmmm32_imm8 = 2152,
 	/// `VCMPSS xmm1, xmm2, xmm3/m32, imm8`
 	///
 	/// `VEX.LIG.F3.0F.WIG C2 /r ib`
@@ -17237,7 +17237,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmpss_xmm_xmm_xmmm32_imm8,
+	VEX_Vcmpss_xmm_xmm_xmmm32_imm8 = 2153,
 	/// `VCMPSS k1 {k2}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.F3.0F.W0 C2 /r ib`
@@ -17245,7 +17245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae,
+	EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae = 2154,
 	/// `CMPSD xmm1, xmm2/m64, imm8`
 	///
 	/// `F2 0F C2 /r ib`
@@ -17253,7 +17253,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cmpsd_xmm_xmmm64_imm8,
+	Cmpsd_xmm_xmmm64_imm8 = 2155,
 	/// `VCMPSD xmm1, xmm2, xmm3/m64, imm8`
 	///
 	/// `VEX.LIG.F2.0F.WIG C2 /r ib`
@@ -17261,7 +17261,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcmpsd_xmm_xmm_xmmm64_imm8,
+	VEX_Vcmpsd_xmm_xmm_xmmm64_imm8 = 2156,
 	/// `VCMPSD k1 {k2}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.F2.0F.W1 C2 /r ib`
@@ -17269,7 +17269,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae,
+	EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae = 2157,
 	/// `MOVNTI m32, r32`
 	///
 	/// `NP 0F C3 /r`
@@ -17277,7 +17277,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movnti_m32_r32,
+	Movnti_m32_r32 = 2158,
 	/// `MOVNTI m64, r64`
 	///
 	/// `NP REX.W 0F C3 /r`
@@ -17285,7 +17285,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Movnti_m64_r64,
+	Movnti_m64_r64 = 2159,
 	/// `PINSRW mm, r32/m16, imm8`
 	///
 	/// `NP 0F C4 /r ib`
@@ -17293,7 +17293,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pinsrw_mm_r32m16_imm8,
+	Pinsrw_mm_r32m16_imm8 = 2160,
 	/// `PINSRW mm, r64/m16, imm8`
 	///
 	/// `NP REX.W 0F C4 /r ib`
@@ -17301,7 +17301,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Pinsrw_mm_r64m16_imm8,
+	Pinsrw_mm_r64m16_imm8 = 2161,
 	/// `PINSRW xmm, r32/m16, imm8`
 	///
 	/// `66 0F C4 /r ib`
@@ -17309,7 +17309,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pinsrw_xmm_r32m16_imm8,
+	Pinsrw_xmm_r32m16_imm8 = 2162,
 	/// `PINSRW xmm, r64/m16, imm8`
 	///
 	/// `66 REX.W 0F C4 /r ib`
@@ -17317,7 +17317,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Pinsrw_xmm_r64m16_imm8,
+	Pinsrw_xmm_r64m16_imm8 = 2163,
 	/// `VPINSRW xmm1, xmm2, r32/m16, imm8`
 	///
 	/// `VEX.128.66.0F.W0 C4 /r ib`
@@ -17325,7 +17325,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpinsrw_xmm_xmm_r32m16_imm8,
+	VEX_Vpinsrw_xmm_xmm_r32m16_imm8 = 2164,
 	/// `VPINSRW xmm1, xmm2, r64/m16, imm8`
 	///
 	/// `VEX.128.66.0F.W1 C4 /r ib`
@@ -17333,7 +17333,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpinsrw_xmm_xmm_r64m16_imm8,
+	VEX_Vpinsrw_xmm_xmm_r64m16_imm8 = 2165,
 	/// `VPINSRW xmm1, xmm2, r32/m16, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 C4 /r ib`
@@ -17341,7 +17341,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpinsrw_xmm_xmm_r32m16_imm8,
+	EVEX_Vpinsrw_xmm_xmm_r32m16_imm8 = 2166,
 	/// `VPINSRW xmm1, xmm2, r64/m16, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 C4 /r ib`
@@ -17349,7 +17349,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	EVEX_Vpinsrw_xmm_xmm_r64m16_imm8,
+	EVEX_Vpinsrw_xmm_xmm_r64m16_imm8 = 2167,
 	/// `PEXTRW r32, mm, imm8`
 	///
 	/// `NP 0F C5 /r ib`
@@ -17357,7 +17357,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pextrw_r32_mm_imm8,
+	Pextrw_r32_mm_imm8 = 2168,
 	/// `PEXTRW r64, mm, imm8`
 	///
 	/// `NP REX.W 0F C5 /r ib`
@@ -17365,7 +17365,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Pextrw_r64_mm_imm8,
+	Pextrw_r64_mm_imm8 = 2169,
 	/// `PEXTRW r32, xmm, imm8`
 	///
 	/// `66 0F C5 /r ib`
@@ -17373,7 +17373,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pextrw_r32_xmm_imm8,
+	Pextrw_r32_xmm_imm8 = 2170,
 	/// `PEXTRW r64, xmm, imm8`
 	///
 	/// `66 REX.W 0F C5 /r ib`
@@ -17381,7 +17381,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Pextrw_r64_xmm_imm8,
+	Pextrw_r64_xmm_imm8 = 2171,
 	/// `VPEXTRW r32, xmm1, imm8`
 	///
 	/// `VEX.128.66.0F.W0 C5 /r ib`
@@ -17389,7 +17389,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpextrw_r32_xmm_imm8,
+	VEX_Vpextrw_r32_xmm_imm8 = 2172,
 	/// `VPEXTRW r64, xmm1, imm8`
 	///
 	/// `VEX.128.66.0F.W1 C5 /r ib`
@@ -17397,7 +17397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpextrw_r64_xmm_imm8,
+	VEX_Vpextrw_r64_xmm_imm8 = 2173,
 	/// `VPEXTRW r32, xmm1, imm8`
 	///
 	/// `EVEX.128.66.0F.W0 C5 /r ib`
@@ -17405,7 +17405,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpextrw_r32_xmm_imm8,
+	EVEX_Vpextrw_r32_xmm_imm8 = 2174,
 	/// `VPEXTRW r64, xmm1, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 C5 /r ib`
@@ -17413,7 +17413,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	EVEX_Vpextrw_r64_xmm_imm8,
+	EVEX_Vpextrw_r64_xmm_imm8 = 2175,
 	/// `SHUFPS xmm1, xmm2/m128, imm8`
 	///
 	/// `NP 0F C6 /r ib`
@@ -17421,7 +17421,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Shufps_xmm_xmmm128_imm8,
+	Shufps_xmm_xmmm128_imm8 = 2176,
 	/// `VSHUFPS xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.0F.WIG C6 /r ib`
@@ -17429,7 +17429,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vshufps_xmm_xmm_xmmm128_imm8,
+	VEX_Vshufps_xmm_xmm_xmmm128_imm8 = 2177,
 	/// `VSHUFPS ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.0F.WIG C6 /r ib`
@@ -17437,7 +17437,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vshufps_ymm_ymm_ymmm256_imm8,
+	VEX_Vshufps_ymm_ymm_ymmm256_imm8 = 2178,
 	/// `VSHUFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.0F.W0 C6 /r ib`
@@ -17445,7 +17445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vshufps_xmm_k1z_xmm_xmmm128b32_imm8 = 2179,
 	/// `VSHUFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.0F.W0 C6 /r ib`
@@ -17453,7 +17453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vshufps_ymm_k1z_ymm_ymmm256b32_imm8 = 2180,
 	/// `VSHUFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.0F.W0 C6 /r ib`
@@ -17461,7 +17461,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8 = 2181,
 	/// `SHUFPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F C6 /r ib`
@@ -17469,7 +17469,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Shufpd_xmm_xmmm128_imm8,
+	Shufpd_xmm_xmmm128_imm8 = 2182,
 	/// `VSHUFPD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F.WIG C6 /r ib`
@@ -17477,7 +17477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vshufpd_xmm_xmm_xmmm128_imm8,
+	VEX_Vshufpd_xmm_xmm_xmmm128_imm8 = 2183,
 	/// `VSHUFPD ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F.WIG C6 /r ib`
@@ -17485,7 +17485,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vshufpd_ymm_ymm_ymmm256_imm8,
+	VEX_Vshufpd_ymm_ymm_ymmm256_imm8 = 2184,
 	/// `VSHUFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F.W1 C6 /r ib`
@@ -17493,7 +17493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vshufpd_xmm_k1z_xmm_xmmm128b64_imm8 = 2185,
 	/// `VSHUFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 C6 /r ib`
@@ -17501,7 +17501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vshufpd_ymm_k1z_ymm_ymmm256b64_imm8 = 2186,
 	/// `VSHUFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 C6 /r ib`
@@ -17509,7 +17509,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vshufpd_zmm_k1z_zmm_zmmm512b64_imm8 = 2187,
 	/// `CMPXCHG8B m64`
 	///
 	/// `0F C7 /1`
@@ -17517,7 +17517,7 @@ pub enum Code {
 	/// `CX8`
 	///
 	/// `16/32/64-bit`
-	Cmpxchg8b_m64,
+	Cmpxchg8b_m64 = 2188,
 	/// `CMPXCHG16B m128`
 	///
 	/// `REX.W 0F C7 /1`
@@ -17525,7 +17525,7 @@ pub enum Code {
 	/// `CMPXCHG16B`
 	///
 	/// `64-bit`
-	Cmpxchg16b_m128,
+	Cmpxchg16b_m128 = 2189,
 	/// `XRSTORS mem`
 	///
 	/// `NP 0F C7 /3`
@@ -17533,7 +17533,7 @@ pub enum Code {
 	/// `XSAVES`
 	///
 	/// `16/32/64-bit`
-	Xrstors_mem,
+	Xrstors_mem = 2190,
 	/// `XRSTORS64 mem`
 	///
 	/// `NP REX.W 0F C7 /3`
@@ -17541,7 +17541,7 @@ pub enum Code {
 	/// `XSAVES`
 	///
 	/// `64-bit`
-	Xrstors64_mem,
+	Xrstors64_mem = 2191,
 	/// `XSAVEC mem`
 	///
 	/// `NP 0F C7 /4`
@@ -17549,7 +17549,7 @@ pub enum Code {
 	/// `XSAVEC`
 	///
 	/// `16/32/64-bit`
-	Xsavec_mem,
+	Xsavec_mem = 2192,
 	/// `XSAVEC64 mem`
 	///
 	/// `NP REX.W 0F C7 /4`
@@ -17557,7 +17557,7 @@ pub enum Code {
 	/// `XSAVEC`
 	///
 	/// `64-bit`
-	Xsavec64_mem,
+	Xsavec64_mem = 2193,
 	/// `XSAVES mem`
 	///
 	/// `NP 0F C7 /5`
@@ -17565,7 +17565,7 @@ pub enum Code {
 	/// `XSAVES`
 	///
 	/// `16/32/64-bit`
-	Xsaves_mem,
+	Xsaves_mem = 2194,
 	/// `XSAVES64 mem`
 	///
 	/// `NP REX.W 0F C7 /5`
@@ -17573,7 +17573,7 @@ pub enum Code {
 	/// `XSAVES`
 	///
 	/// `64-bit`
-	Xsaves64_mem,
+	Xsaves64_mem = 2195,
 	/// `VMPTRLD m64`
 	///
 	/// `NP 0F C7 /6`
@@ -17581,7 +17581,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmptrld_m64,
+	Vmptrld_m64 = 2196,
 	/// `VMCLEAR m64`
 	///
 	/// `66 0F C7 /6`
@@ -17589,7 +17589,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmclear_m64,
+	Vmclear_m64 = 2197,
 	/// `VMXON m64`
 	///
 	/// `F3 0F C7 /6`
@@ -17597,7 +17597,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmxon_m64,
+	Vmxon_m64 = 2198,
 	/// `RDRAND r16`
 	///
 	/// `o16 0F C7 /6`
@@ -17605,7 +17605,7 @@ pub enum Code {
 	/// `RDRAND`
 	///
 	/// `16/32/64-bit`
-	Rdrand_r16,
+	Rdrand_r16 = 2199,
 	/// `RDRAND r32`
 	///
 	/// `o32 0F C7 /6`
@@ -17613,7 +17613,7 @@ pub enum Code {
 	/// `RDRAND`
 	///
 	/// `16/32/64-bit`
-	Rdrand_r32,
+	Rdrand_r32 = 2200,
 	/// `RDRAND r64`
 	///
 	/// `REX.W 0F C7 /6`
@@ -17621,7 +17621,7 @@ pub enum Code {
 	/// `RDRAND`
 	///
 	/// `64-bit`
-	Rdrand_r64,
+	Rdrand_r64 = 2201,
 	/// `VMPTRST m64`
 	///
 	/// `NP 0F C7 /7`
@@ -17629,7 +17629,7 @@ pub enum Code {
 	/// `VMX`
 	///
 	/// `16/32/64-bit`
-	Vmptrst_m64,
+	Vmptrst_m64 = 2202,
 	/// `RDSEED r16`
 	///
 	/// `o16 0F C7 /7`
@@ -17637,7 +17637,7 @@ pub enum Code {
 	/// `RDSEED`
 	///
 	/// `16/32/64-bit`
-	Rdseed_r16,
+	Rdseed_r16 = 2203,
 	/// `RDSEED r32`
 	///
 	/// `o32 0F C7 /7`
@@ -17645,7 +17645,7 @@ pub enum Code {
 	/// `RDSEED`
 	///
 	/// `16/32/64-bit`
-	Rdseed_r32,
+	Rdseed_r32 = 2204,
 	/// `RDSEED r64`
 	///
 	/// `REX.W 0F C7 /7`
@@ -17653,7 +17653,7 @@ pub enum Code {
 	/// `RDSEED`
 	///
 	/// `64-bit`
-	Rdseed_r64,
+	Rdseed_r64 = 2205,
 	/// `RDPID r32`
 	///
 	/// `F3 0F C7 /7`
@@ -17661,7 +17661,7 @@ pub enum Code {
 	/// `RDPID`
 	///
 	/// `16/32-bit`
-	Rdpid_r32,
+	Rdpid_r32 = 2206,
 	/// `RDPID r64`
 	///
 	/// `F3 0F C7 /7`
@@ -17669,7 +17669,7 @@ pub enum Code {
 	/// `RDPID`
 	///
 	/// `64-bit`
-	Rdpid_r64,
+	Rdpid_r64 = 2207,
 	/// `BSWAP r16`
 	///
 	/// `o16 0F C8+rw`
@@ -17677,7 +17677,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Bswap_r16,
+	Bswap_r16 = 2208,
 	/// `BSWAP r32`
 	///
 	/// `o32 0F C8+rd`
@@ -17685,7 +17685,7 @@ pub enum Code {
 	/// `486+`
 	///
 	/// `16/32/64-bit`
-	Bswap_r32,
+	Bswap_r32 = 2209,
 	/// `BSWAP r64`
 	///
 	/// `REX.W 0F C8+ro`
@@ -17693,7 +17693,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Bswap_r64,
+	Bswap_r64 = 2210,
 	/// `ADDSUBPD xmm1, xmm2/m128`
 	///
 	/// `66 0F D0 /r`
@@ -17701,7 +17701,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Addsubpd_xmm_xmmm128,
+	Addsubpd_xmm_xmmm128 = 2211,
 	/// `VADDSUBPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D0 /r`
@@ -17709,7 +17709,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddsubpd_xmm_xmm_xmmm128,
+	VEX_Vaddsubpd_xmm_xmm_xmmm128 = 2212,
 	/// `VADDSUBPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG D0 /r`
@@ -17717,7 +17717,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddsubpd_ymm_ymm_ymmm256,
+	VEX_Vaddsubpd_ymm_ymm_ymmm256 = 2213,
 	/// `ADDSUBPS xmm1, xmm2/m128`
 	///
 	/// `F2 0F D0 /r`
@@ -17725,7 +17725,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Addsubps_xmm_xmmm128,
+	Addsubps_xmm_xmmm128 = 2214,
 	/// `VADDSUBPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.F2.0F.WIG D0 /r`
@@ -17733,7 +17733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddsubps_xmm_xmm_xmmm128,
+	VEX_Vaddsubps_xmm_xmm_xmmm128 = 2215,
 	/// `VADDSUBPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.F2.0F.WIG D0 /r`
@@ -17741,7 +17741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaddsubps_ymm_ymm_ymmm256,
+	VEX_Vaddsubps_ymm_ymm_ymmm256 = 2216,
 	/// `PSRLW mm, mm/m64`
 	///
 	/// `NP 0F D1 /r`
@@ -17749,7 +17749,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrlw_mm_mmm64,
+	Psrlw_mm_mmm64 = 2217,
 	/// `PSRLW xmm1, xmm2/m128`
 	///
 	/// `66 0F D1 /r`
@@ -17757,7 +17757,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrlw_xmm_xmmm128,
+	Psrlw_xmm_xmmm128 = 2218,
 	/// `VPSRLW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D1 /r`
@@ -17765,7 +17765,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlw_xmm_xmm_xmmm128,
+	VEX_Vpsrlw_xmm_xmm_xmmm128 = 2219,
 	/// `VPSRLW ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG D1 /r`
@@ -17773,7 +17773,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlw_ymm_ymm_xmmm128,
+	VEX_Vpsrlw_ymm_ymm_xmmm128 = 2220,
 	/// `VPSRLW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG D1 /r`
@@ -17781,7 +17781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsrlw_xmm_k1z_xmm_xmmm128 = 2221,
 	/// `VPSRLW ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.WIG D1 /r`
@@ -17789,7 +17789,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsrlw_ymm_k1z_ymm_xmmm128 = 2222,
 	/// `VPSRLW zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.WIG D1 /r`
@@ -17797,7 +17797,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlw_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsrlw_zmm_k1z_zmm_xmmm128 = 2223,
 	/// `PSRLD mm, mm/m64`
 	///
 	/// `NP 0F D2 /r`
@@ -17805,7 +17805,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrld_mm_mmm64,
+	Psrld_mm_mmm64 = 2224,
 	/// `PSRLD xmm1, xmm2/m128`
 	///
 	/// `66 0F D2 /r`
@@ -17813,7 +17813,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrld_xmm_xmmm128,
+	Psrld_xmm_xmmm128 = 2225,
 	/// `VPSRLD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D2 /r`
@@ -17821,7 +17821,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrld_xmm_xmm_xmmm128,
+	VEX_Vpsrld_xmm_xmm_xmmm128 = 2226,
 	/// `VPSRLD ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG D2 /r`
@@ -17829,7 +17829,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrld_ymm_ymm_xmmm128,
+	VEX_Vpsrld_ymm_ymm_xmmm128 = 2227,
 	/// `VPSRLD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W0 D2 /r`
@@ -17837,7 +17837,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsrld_xmm_k1z_xmm_xmmm128 = 2228,
 	/// `VPSRLD ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W0 D2 /r`
@@ -17845,7 +17845,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsrld_ymm_k1z_ymm_xmmm128 = 2229,
 	/// `VPSRLD zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W0 D2 /r`
@@ -17853,7 +17853,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrld_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsrld_zmm_k1z_zmm_xmmm128 = 2230,
 	/// `PSRLQ mm, mm/m64`
 	///
 	/// `NP 0F D3 /r`
@@ -17861,7 +17861,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrlq_mm_mmm64,
+	Psrlq_mm_mmm64 = 2231,
 	/// `PSRLQ xmm1, xmm2/m128`
 	///
 	/// `66 0F D3 /r`
@@ -17869,7 +17869,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrlq_xmm_xmmm128,
+	Psrlq_xmm_xmmm128 = 2232,
 	/// `VPSRLQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D3 /r`
@@ -17877,7 +17877,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlq_xmm_xmm_xmmm128,
+	VEX_Vpsrlq_xmm_xmm_xmmm128 = 2233,
 	/// `VPSRLQ ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG D3 /r`
@@ -17885,7 +17885,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlq_ymm_ymm_xmmm128,
+	VEX_Vpsrlq_ymm_ymm_xmmm128 = 2234,
 	/// `VPSRLQ xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W1 D3 /r`
@@ -17893,7 +17893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsrlq_xmm_k1z_xmm_xmmm128 = 2235,
 	/// `VPSRLQ ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W1 D3 /r`
@@ -17901,7 +17901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsrlq_ymm_k1z_ymm_xmmm128 = 2236,
 	/// `VPSRLQ zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W1 D3 /r`
@@ -17909,7 +17909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlq_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsrlq_zmm_k1z_zmm_xmmm128 = 2237,
 	/// `PADDQ mm, mm/m64`
 	///
 	/// `NP 0F D4 /r`
@@ -17917,7 +17917,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddq_mm_mmm64,
+	Paddq_mm_mmm64 = 2238,
 	/// `PADDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F D4 /r`
@@ -17925,7 +17925,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddq_xmm_xmmm128,
+	Paddq_xmm_xmmm128 = 2239,
 	/// `VPADDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D4 /r`
@@ -17933,7 +17933,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddq_xmm_xmm_xmmm128,
+	VEX_Vpaddq_xmm_xmm_xmmm128 = 2240,
 	/// `VPADDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG D4 /r`
@@ -17941,7 +17941,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddq_ymm_ymm_ymmm256,
+	VEX_Vpaddq_ymm_ymm_ymmm256 = 2241,
 	/// `VPADDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 D4 /r`
@@ -17949,7 +17949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpaddq_xmm_k1z_xmm_xmmm128b64 = 2242,
 	/// `VPADDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 D4 /r`
@@ -17957,7 +17957,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpaddq_ymm_k1z_ymm_ymmm256b64 = 2243,
 	/// `VPADDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 D4 /r`
@@ -17965,7 +17965,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpaddq_zmm_k1z_zmm_zmmm512b64 = 2244,
 	/// `PMULLW mm, mm/m64`
 	///
 	/// `NP 0F D5 /r`
@@ -17973,7 +17973,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pmullw_mm_mmm64,
+	Pmullw_mm_mmm64 = 2245,
 	/// `PMULLW xmm1, xmm2/m128`
 	///
 	/// `66 0F D5 /r`
@@ -17981,7 +17981,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmullw_xmm_xmmm128,
+	Pmullw_xmm_xmmm128 = 2246,
 	/// `VPMULLW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D5 /r`
@@ -17989,7 +17989,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmullw_xmm_xmm_xmmm128,
+	VEX_Vpmullw_xmm_xmm_xmmm128 = 2247,
 	/// `VPMULLW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG D5 /r`
@@ -17997,7 +17997,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmullw_ymm_ymm_ymmm256,
+	VEX_Vpmullw_ymm_ymm_ymmm256 = 2248,
 	/// `VPMULLW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG D5 /r`
@@ -18005,7 +18005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmullw_xmm_k1z_xmm_xmmm128 = 2249,
 	/// `VPMULLW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG D5 /r`
@@ -18013,7 +18013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmullw_ymm_k1z_ymm_ymmm256 = 2250,
 	/// `VPMULLW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG D5 /r`
@@ -18021,7 +18021,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmullw_zmm_k1z_zmm_zmmm512 = 2251,
 	/// `MOVQ xmm2/m64, xmm1`
 	///
 	/// `66 0F D6 /r`
@@ -18029,7 +18029,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movq_xmmm64_xmm,
+	Movq_xmmm64_xmm = 2252,
 	/// `VMOVQ xmm1/m64, xmm2`
 	///
 	/// `VEX.128.66.0F.WIG D6 /r`
@@ -18037,7 +18037,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovq_xmmm64_xmm,
+	VEX_Vmovq_xmmm64_xmm = 2253,
 	/// `VMOVQ xmm1/m64, xmm2`
 	///
 	/// `EVEX.128.66.0F.W1 D6 /r`
@@ -18045,7 +18045,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovq_xmmm64_xmm,
+	EVEX_Vmovq_xmmm64_xmm = 2254,
 	/// `MOVQ2DQ xmm, mm`
 	///
 	/// `F3 0F D6 /r`
@@ -18053,7 +18053,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movq2dq_xmm_mm,
+	Movq2dq_xmm_mm = 2255,
 	/// `MOVDQ2Q mm, xmm`
 	///
 	/// `F2 0F D6 /r`
@@ -18061,7 +18061,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movdq2q_mm_xmm,
+	Movdq2q_mm_xmm = 2256,
 	/// `PMOVMSKB r32, mm`
 	///
 	/// `NP 0F D7 /r`
@@ -18069,7 +18069,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pmovmskb_r32_mm,
+	Pmovmskb_r32_mm = 2257,
 	/// `PMOVMSKB r64, mm`
 	///
 	/// `NP REX.W 0F D7 /r`
@@ -18077,7 +18077,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `64-bit`
-	Pmovmskb_r64_mm,
+	Pmovmskb_r64_mm = 2258,
 	/// `PMOVMSKB r32, xmm`
 	///
 	/// `66 0F D7 /r`
@@ -18085,7 +18085,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmovmskb_r32_xmm,
+	Pmovmskb_r32_xmm = 2259,
 	/// `PMOVMSKB r64, xmm`
 	///
 	/// `66 REX.W 0F D7 /r`
@@ -18093,7 +18093,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `64-bit`
-	Pmovmskb_r64_xmm,
+	Pmovmskb_r64_xmm = 2260,
 	/// `VPMOVMSKB r32, xmm1`
 	///
 	/// `VEX.128.66.0F.W0 D7 /r`
@@ -18101,7 +18101,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovmskb_r32_xmm,
+	VEX_Vpmovmskb_r32_xmm = 2261,
 	/// `VPMOVMSKB r64, xmm1`
 	///
 	/// `VEX.128.66.0F.W1 D7 /r`
@@ -18109,7 +18109,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpmovmskb_r64_xmm,
+	VEX_Vpmovmskb_r64_xmm = 2262,
 	/// `VPMOVMSKB r32, ymm1`
 	///
 	/// `VEX.256.66.0F.W0 D7 /r`
@@ -18117,7 +18117,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovmskb_r32_ymm,
+	VEX_Vpmovmskb_r32_ymm = 2263,
 	/// `VPMOVMSKB r64, ymm1`
 	///
 	/// `VEX.256.66.0F.W1 D7 /r`
@@ -18125,7 +18125,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `64-bit`
-	VEX_Vpmovmskb_r64_ymm,
+	VEX_Vpmovmskb_r64_ymm = 2264,
 	/// `PSUBUSB mm, mm/m64`
 	///
 	/// `NP 0F D8 /r`
@@ -18133,7 +18133,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubusb_mm_mmm64,
+	Psubusb_mm_mmm64 = 2265,
 	/// `PSUBUSB xmm1, xmm2/m128`
 	///
 	/// `66 0F D8 /r`
@@ -18141,7 +18141,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubusb_xmm_xmmm128,
+	Psubusb_xmm_xmmm128 = 2266,
 	/// `VPSUBUSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D8 /r`
@@ -18149,7 +18149,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubusb_xmm_xmm_xmmm128,
+	VEX_Vpsubusb_xmm_xmm_xmmm128 = 2267,
 	/// `VPSUBUSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG D8 /r`
@@ -18157,7 +18157,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubusb_ymm_ymm_ymmm256,
+	VEX_Vpsubusb_ymm_ymm_ymmm256 = 2268,
 	/// `VPSUBUSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG D8 /r`
@@ -18165,7 +18165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubusb_xmm_k1z_xmm_xmmm128 = 2269,
 	/// `VPSUBUSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG D8 /r`
@@ -18173,7 +18173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubusb_ymm_k1z_ymm_ymmm256 = 2270,
 	/// `VPSUBUSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG D8 /r`
@@ -18181,7 +18181,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubusb_zmm_k1z_zmm_zmmm512 = 2271,
 	/// `PSUBUSW mm, mm/m64`
 	///
 	/// `NP 0F D9 /r`
@@ -18189,7 +18189,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubusw_mm_mmm64,
+	Psubusw_mm_mmm64 = 2272,
 	/// `PSUBUSW xmm1, xmm2/m128`
 	///
 	/// `66 0F D9 /r`
@@ -18197,7 +18197,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubusw_xmm_xmmm128,
+	Psubusw_xmm_xmmm128 = 2273,
 	/// `VPSUBUSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG D9 /r`
@@ -18205,7 +18205,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubusw_xmm_xmm_xmmm128,
+	VEX_Vpsubusw_xmm_xmm_xmmm128 = 2274,
 	/// `VPSUBUSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG D9 /r`
@@ -18213,7 +18213,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubusw_ymm_ymm_ymmm256,
+	VEX_Vpsubusw_ymm_ymm_ymmm256 = 2275,
 	/// `VPSUBUSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG D9 /r`
@@ -18221,7 +18221,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubusw_xmm_k1z_xmm_xmmm128 = 2276,
 	/// `VPSUBUSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG D9 /r`
@@ -18229,7 +18229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubusw_ymm_k1z_ymm_ymmm256 = 2277,
 	/// `VPSUBUSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG D9 /r`
@@ -18237,7 +18237,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubusw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubusw_zmm_k1z_zmm_zmmm512 = 2278,
 	/// `PMINUB mm1, mm2/m64`
 	///
 	/// `NP 0F DA /r`
@@ -18245,7 +18245,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pminub_mm_mmm64,
+	Pminub_mm_mmm64 = 2279,
 	/// `PMINUB xmm1, xmm2/m128`
 	///
 	/// `66 0F DA /r`
@@ -18253,7 +18253,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pminub_xmm_xmmm128,
+	Pminub_xmm_xmmm128 = 2280,
 	/// `VPMINUB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DA /r`
@@ -18261,7 +18261,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminub_xmm_xmm_xmmm128,
+	VEX_Vpminub_xmm_xmm_xmmm128 = 2281,
 	/// `VPMINUB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DA /r`
@@ -18269,7 +18269,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminub_ymm_ymm_ymmm256,
+	VEX_Vpminub_ymm_ymm_ymmm256 = 2282,
 	/// `VPMINUB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG DA /r`
@@ -18277,7 +18277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminub_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpminub_xmm_k1z_xmm_xmmm128 = 2283,
 	/// `VPMINUB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG DA /r`
@@ -18285,7 +18285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminub_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpminub_ymm_k1z_ymm_ymmm256 = 2284,
 	/// `VPMINUB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG DA /r`
@@ -18293,7 +18293,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminub_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpminub_zmm_k1z_zmm_zmmm512 = 2285,
 	/// `PAND mm, mm/m64`
 	///
 	/// `NP 0F DB /r`
@@ -18301,7 +18301,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pand_mm_mmm64,
+	Pand_mm_mmm64 = 2286,
 	/// `PAND xmm1, xmm2/m128`
 	///
 	/// `66 0F DB /r`
@@ -18309,7 +18309,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pand_xmm_xmmm128,
+	Pand_xmm_xmmm128 = 2287,
 	/// `VPAND xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DB /r`
@@ -18317,7 +18317,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpand_xmm_xmm_xmmm128,
+	VEX_Vpand_xmm_xmm_xmmm128 = 2288,
 	/// `VPAND ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DB /r`
@@ -18325,7 +18325,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpand_ymm_ymm_ymmm256,
+	VEX_Vpand_ymm_ymm_ymmm256 = 2289,
 	/// `VPANDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 DB /r`
@@ -18333,7 +18333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32 = 2290,
 	/// `VPANDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 DB /r`
@@ -18341,7 +18341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32 = 2291,
 	/// `VPANDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 DB /r`
@@ -18349,7 +18349,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpandd_zmm_k1z_zmm_zmmm512b32 = 2292,
 	/// `VPANDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 DB /r`
@@ -18357,7 +18357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64 = 2293,
 	/// `VPANDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 DB /r`
@@ -18365,7 +18365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64 = 2294,
 	/// `VPANDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 DB /r`
@@ -18373,7 +18373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpandq_zmm_k1z_zmm_zmmm512b64 = 2295,
 	/// `PADDUSB mm, mm/m64`
 	///
 	/// `NP 0F DC /r`
@@ -18381,7 +18381,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddusb_mm_mmm64,
+	Paddusb_mm_mmm64 = 2296,
 	/// `PADDUSB xmm1, xmm2/m128`
 	///
 	/// `66 0F DC /r`
@@ -18389,7 +18389,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddusb_xmm_xmmm128,
+	Paddusb_xmm_xmmm128 = 2297,
 	/// `VPADDUSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DC /r`
@@ -18397,7 +18397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddusb_xmm_xmm_xmmm128,
+	VEX_Vpaddusb_xmm_xmm_xmmm128 = 2298,
 	/// `VPADDUSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DC /r`
@@ -18405,7 +18405,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddusb_ymm_ymm_ymmm256,
+	VEX_Vpaddusb_ymm_ymm_ymmm256 = 2299,
 	/// `VPADDUSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG DC /r`
@@ -18413,7 +18413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddusb_xmm_k1z_xmm_xmmm128 = 2300,
 	/// `VPADDUSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG DC /r`
@@ -18421,7 +18421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddusb_ymm_k1z_ymm_ymmm256 = 2301,
 	/// `VPADDUSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG DC /r`
@@ -18429,7 +18429,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddusb_zmm_k1z_zmm_zmmm512 = 2302,
 	/// `PADDUSW mm, mm/m64`
 	///
 	/// `NP 0F DD /r`
@@ -18437,7 +18437,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddusw_mm_mmm64,
+	Paddusw_mm_mmm64 = 2303,
 	/// `PADDUSW xmm1, xmm2/m128`
 	///
 	/// `66 0F DD /r`
@@ -18445,7 +18445,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddusw_xmm_xmmm128,
+	Paddusw_xmm_xmmm128 = 2304,
 	/// `VPADDUSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DD /r`
@@ -18453,7 +18453,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddusw_xmm_xmm_xmmm128,
+	VEX_Vpaddusw_xmm_xmm_xmmm128 = 2305,
 	/// `VPADDUSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DD /r`
@@ -18461,7 +18461,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddusw_ymm_ymm_ymmm256,
+	VEX_Vpaddusw_ymm_ymm_ymmm256 = 2306,
 	/// `VPADDUSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG DD /r`
@@ -18469,7 +18469,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddusw_xmm_k1z_xmm_xmmm128 = 2307,
 	/// `VPADDUSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG DD /r`
@@ -18477,7 +18477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddusw_ymm_k1z_ymm_ymmm256 = 2308,
 	/// `VPADDUSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG DD /r`
@@ -18485,7 +18485,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddusw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddusw_zmm_k1z_zmm_zmmm512 = 2309,
 	/// `PMAXUB mm1, mm2/m64`
 	///
 	/// `NP 0F DE /r`
@@ -18493,7 +18493,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pmaxub_mm_mmm64,
+	Pmaxub_mm_mmm64 = 2310,
 	/// `PMAXUB xmm1, xmm2/m128`
 	///
 	/// `66 0F DE /r`
@@ -18501,7 +18501,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmaxub_xmm_xmmm128,
+	Pmaxub_xmm_xmmm128 = 2311,
 	/// `VPMAXUB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DE /r`
@@ -18509,7 +18509,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxub_xmm_xmm_xmmm128,
+	VEX_Vpmaxub_xmm_xmm_xmmm128 = 2312,
 	/// `VPMAXUB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DE /r`
@@ -18517,7 +18517,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxub_ymm_ymm_ymmm256,
+	VEX_Vpmaxub_ymm_ymm_ymmm256 = 2313,
 	/// `VPMAXUB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG DE /r`
@@ -18525,7 +18525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaxub_xmm_k1z_xmm_xmmm128 = 2314,
 	/// `VPMAXUB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG DE /r`
@@ -18533,7 +18533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaxub_ymm_k1z_ymm_ymmm256 = 2315,
 	/// `VPMAXUB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG DE /r`
@@ -18541,7 +18541,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxub_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaxub_zmm_k1z_zmm_zmmm512 = 2316,
 	/// `PANDN mm, mm/m64`
 	///
 	/// `NP 0F DF /r`
@@ -18549,7 +18549,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pandn_mm_mmm64,
+	Pandn_mm_mmm64 = 2317,
 	/// `PANDN xmm1, xmm2/m128`
 	///
 	/// `66 0F DF /r`
@@ -18557,7 +18557,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pandn_xmm_xmmm128,
+	Pandn_xmm_xmmm128 = 2318,
 	/// `VPANDN xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG DF /r`
@@ -18565,7 +18565,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpandn_xmm_xmm_xmmm128,
+	VEX_Vpandn_xmm_xmm_xmmm128 = 2319,
 	/// `VPANDN ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG DF /r`
@@ -18573,7 +18573,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpandn_ymm_ymm_ymmm256,
+	VEX_Vpandn_ymm_ymm_ymmm256 = 2320,
 	/// `VPANDND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 DF /r`
@@ -18581,7 +18581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32 = 2321,
 	/// `VPANDND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 DF /r`
@@ -18589,7 +18589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32 = 2322,
 	/// `VPANDND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 DF /r`
@@ -18597,7 +18597,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpandnd_zmm_k1z_zmm_zmmm512b32 = 2323,
 	/// `VPANDNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 DF /r`
@@ -18605,7 +18605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64 = 2324,
 	/// `VPANDNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 DF /r`
@@ -18613,7 +18613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64 = 2325,
 	/// `VPANDNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 DF /r`
@@ -18621,7 +18621,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpandnq_zmm_k1z_zmm_zmmm512b64 = 2326,
 	/// `PAVGB mm1, mm2/m64`
 	///
 	/// `NP 0F E0 /r`
@@ -18629,7 +18629,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pavgb_mm_mmm64,
+	Pavgb_mm_mmm64 = 2327,
 	/// `PAVGB xmm1, xmm2/m128`
 	///
 	/// `66 0F E0 /r`
@@ -18637,7 +18637,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pavgb_xmm_xmmm128,
+	Pavgb_xmm_xmmm128 = 2328,
 	/// `VPAVGB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E0 /r`
@@ -18645,7 +18645,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpavgb_xmm_xmm_xmmm128,
+	VEX_Vpavgb_xmm_xmm_xmmm128 = 2329,
 	/// `VPAVGB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E0 /r`
@@ -18653,7 +18653,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpavgb_ymm_ymm_ymmm256,
+	VEX_Vpavgb_ymm_ymm_ymmm256 = 2330,
 	/// `VPAVGB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E0 /r`
@@ -18661,7 +18661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpavgb_xmm_k1z_xmm_xmmm128 = 2331,
 	/// `VPAVGB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E0 /r`
@@ -18669,7 +18669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpavgb_ymm_k1z_ymm_ymmm256 = 2332,
 	/// `VPAVGB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E0 /r`
@@ -18677,7 +18677,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpavgb_zmm_k1z_zmm_zmmm512 = 2333,
 	/// `PSRAW mm, mm/m64`
 	///
 	/// `NP 0F E1 /r`
@@ -18685,7 +18685,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psraw_mm_mmm64,
+	Psraw_mm_mmm64 = 2334,
 	/// `PSRAW xmm1, xmm2/m128`
 	///
 	/// `66 0F E1 /r`
@@ -18693,7 +18693,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psraw_xmm_xmmm128,
+	Psraw_xmm_xmmm128 = 2335,
 	/// `VPSRAW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E1 /r`
@@ -18701,7 +18701,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsraw_xmm_xmm_xmmm128,
+	VEX_Vpsraw_xmm_xmm_xmmm128 = 2336,
 	/// `VPSRAW ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG E1 /r`
@@ -18709,7 +18709,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsraw_ymm_ymm_xmmm128,
+	VEX_Vpsraw_ymm_ymm_xmmm128 = 2337,
 	/// `VPSRAW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E1 /r`
@@ -18717,7 +18717,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsraw_xmm_k1z_xmm_xmmm128 = 2338,
 	/// `VPSRAW ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.WIG E1 /r`
@@ -18725,7 +18725,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsraw_ymm_k1z_ymm_xmmm128 = 2339,
 	/// `VPSRAW zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.WIG E1 /r`
@@ -18733,7 +18733,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraw_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsraw_zmm_k1z_zmm_xmmm128 = 2340,
 	/// `PSRAD mm, mm/m64`
 	///
 	/// `NP 0F E2 /r`
@@ -18741,7 +18741,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psrad_mm_mmm64,
+	Psrad_mm_mmm64 = 2341,
 	/// `PSRAD xmm1, xmm2/m128`
 	///
 	/// `66 0F E2 /r`
@@ -18749,7 +18749,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psrad_xmm_xmmm128,
+	Psrad_xmm_xmmm128 = 2342,
 	/// `VPSRAD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E2 /r`
@@ -18757,7 +18757,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrad_xmm_xmm_xmmm128,
+	VEX_Vpsrad_xmm_xmm_xmmm128 = 2343,
 	/// `VPSRAD ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG E2 /r`
@@ -18765,7 +18765,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrad_ymm_ymm_xmmm128,
+	VEX_Vpsrad_ymm_ymm_xmmm128 = 2344,
 	/// `VPSRAD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W0 E2 /r`
@@ -18773,7 +18773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsrad_xmm_k1z_xmm_xmmm128 = 2345,
 	/// `VPSRAD ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W0 E2 /r`
@@ -18781,7 +18781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsrad_ymm_k1z_ymm_xmmm128 = 2346,
 	/// `VPSRAD zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W0 E2 /r`
@@ -18789,7 +18789,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrad_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsrad_zmm_k1z_zmm_xmmm128 = 2347,
 	/// `VPSRAQ xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W1 E2 /r`
@@ -18797,7 +18797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsraq_xmm_k1z_xmm_xmmm128 = 2348,
 	/// `VPSRAQ ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W1 E2 /r`
@@ -18805,7 +18805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsraq_ymm_k1z_ymm_xmmm128 = 2349,
 	/// `VPSRAQ zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W1 E2 /r`
@@ -18813,7 +18813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsraq_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsraq_zmm_k1z_zmm_xmmm128 = 2350,
 	/// `PAVGW mm1, mm2/m64`
 	///
 	/// `NP 0F E3 /r`
@@ -18821,7 +18821,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pavgw_mm_mmm64,
+	Pavgw_mm_mmm64 = 2351,
 	/// `PAVGW xmm1, xmm2/m128`
 	///
 	/// `66 0F E3 /r`
@@ -18829,7 +18829,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pavgw_xmm_xmmm128,
+	Pavgw_xmm_xmmm128 = 2352,
 	/// `VPAVGW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E3 /r`
@@ -18837,7 +18837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpavgw_xmm_xmm_xmmm128,
+	VEX_Vpavgw_xmm_xmm_xmmm128 = 2353,
 	/// `VPAVGW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E3 /r`
@@ -18845,7 +18845,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpavgw_ymm_ymm_ymmm256,
+	VEX_Vpavgw_ymm_ymm_ymmm256 = 2354,
 	/// `VPAVGW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E3 /r`
@@ -18853,7 +18853,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpavgw_xmm_k1z_xmm_xmmm128 = 2355,
 	/// `VPAVGW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E3 /r`
@@ -18861,7 +18861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpavgw_ymm_k1z_ymm_ymmm256 = 2356,
 	/// `VPAVGW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E3 /r`
@@ -18869,7 +18869,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpavgw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpavgw_zmm_k1z_zmm_zmmm512 = 2357,
 	/// `PMULHUW mm1, mm2/m64`
 	///
 	/// `NP 0F E4 /r`
@@ -18877,7 +18877,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pmulhuw_mm_mmm64,
+	Pmulhuw_mm_mmm64 = 2358,
 	/// `PMULHUW xmm1, xmm2/m128`
 	///
 	/// `66 0F E4 /r`
@@ -18885,7 +18885,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmulhuw_xmm_xmmm128,
+	Pmulhuw_xmm_xmmm128 = 2359,
 	/// `VPMULHUW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E4 /r`
@@ -18893,7 +18893,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhuw_xmm_xmm_xmmm128,
+	VEX_Vpmulhuw_xmm_xmm_xmmm128 = 2360,
 	/// `VPMULHUW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E4 /r`
@@ -18901,7 +18901,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhuw_ymm_ymm_ymmm256,
+	VEX_Vpmulhuw_ymm_ymm_ymmm256 = 2361,
 	/// `VPMULHUW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E4 /r`
@@ -18909,7 +18909,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmulhuw_xmm_k1z_xmm_xmmm128 = 2362,
 	/// `VPMULHUW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E4 /r`
@@ -18917,7 +18917,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmulhuw_ymm_k1z_ymm_ymmm256 = 2363,
 	/// `VPMULHUW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E4 /r`
@@ -18925,7 +18925,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhuw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmulhuw_zmm_k1z_zmm_zmmm512 = 2364,
 	/// `PMULHW mm, mm/m64`
 	///
 	/// `NP 0F E5 /r`
@@ -18933,7 +18933,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pmulhw_mm_mmm64,
+	Pmulhw_mm_mmm64 = 2365,
 	/// `PMULHW xmm1, xmm2/m128`
 	///
 	/// `66 0F E5 /r`
@@ -18941,7 +18941,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmulhw_xmm_xmmm128,
+	Pmulhw_xmm_xmmm128 = 2366,
 	/// `VPMULHW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E5 /r`
@@ -18949,7 +18949,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhw_xmm_xmm_xmmm128,
+	VEX_Vpmulhw_xmm_xmm_xmmm128 = 2367,
 	/// `VPMULHW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E5 /r`
@@ -18957,7 +18957,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhw_ymm_ymm_ymmm256,
+	VEX_Vpmulhw_ymm_ymm_ymmm256 = 2368,
 	/// `VPMULHW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E5 /r`
@@ -18965,7 +18965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmulhw_xmm_k1z_xmm_xmmm128 = 2369,
 	/// `VPMULHW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E5 /r`
@@ -18973,7 +18973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmulhw_ymm_k1z_ymm_ymmm256 = 2370,
 	/// `VPMULHW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E5 /r`
@@ -18981,7 +18981,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmulhw_zmm_k1z_zmm_zmmm512 = 2371,
 	/// `CVTTPD2DQ xmm1, xmm2/m128`
 	///
 	/// `66 0F E6 /r`
@@ -18989,7 +18989,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvttpd2dq_xmm_xmmm128,
+	Cvttpd2dq_xmm_xmmm128 = 2372,
 	/// `VCVTTPD2DQ xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F.WIG E6 /r`
@@ -18997,7 +18997,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttpd2dq_xmm_xmmm128,
+	VEX_Vcvttpd2dq_xmm_xmmm128 = 2373,
 	/// `VCVTTPD2DQ xmm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F.WIG E6 /r`
@@ -19005,7 +19005,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvttpd2dq_xmm_ymmm256,
+	VEX_Vcvttpd2dq_xmm_ymmm256 = 2374,
 	/// `VCVTTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 E6 /r`
@@ -19013,7 +19013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64 = 2375,
 	/// `VCVTTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 E6 /r`
@@ -19021,7 +19021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64,
+	EVEX_Vcvttpd2dq_xmm_k1z_ymmm256b64 = 2376,
 	/// `VCVTTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F.W1 E6 /r`
@@ -19029,7 +19029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae,
+	EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae = 2377,
 	/// `CVTDQ2PD xmm1, xmm2/m64`
 	///
 	/// `F3 0F E6 /r`
@@ -19037,7 +19037,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtdq2pd_xmm_xmmm64,
+	Cvtdq2pd_xmm_xmmm64 = 2378,
 	/// `VCVTDQ2PD xmm1, xmm2/m64`
 	///
 	/// `VEX.128.F3.0F.WIG E6 /r`
@@ -19045,7 +19045,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtdq2pd_xmm_xmmm64,
+	VEX_Vcvtdq2pd_xmm_xmmm64 = 2379,
 	/// `VCVTDQ2PD ymm1, xmm2/m128`
 	///
 	/// `VEX.256.F3.0F.WIG E6 /r`
@@ -19053,7 +19053,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtdq2pd_ymm_xmmm128,
+	VEX_Vcvtdq2pd_ymm_xmmm128 = 2380,
 	/// `VCVTDQ2PD xmm1 {k1}{z}, xmm2/m64/m32bcst`
 	///
 	/// `EVEX.128.F3.0F.W0 E6 /r`
@@ -19061,7 +19061,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32,
+	EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32 = 2381,
 	/// `VCVTDQ2PD ymm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.256.F3.0F.W0 E6 /r`
@@ -19069,7 +19069,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32,
+	EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32 = 2382,
 	/// `VCVTDQ2PD zmm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.512.F3.0F.W0 E6 /r`
@@ -19077,7 +19077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32,
+	EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32 = 2383,
 	/// `VCVTQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F.W1 E6 /r`
@@ -19085,7 +19085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64 = 2384,
 	/// `VCVTQQ2PD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.F3.0F.W1 E6 /r`
@@ -19093,7 +19093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64,
+	EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64 = 2385,
 	/// `VCVTQQ2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.F3.0F.W1 E6 /r`
@@ -19101,7 +19101,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er,
+	EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er = 2386,
 	/// `CVTPD2DQ xmm1, xmm2/m128`
 	///
 	/// `F2 0F E6 /r`
@@ -19109,7 +19109,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Cvtpd2dq_xmm_xmmm128,
+	Cvtpd2dq_xmm_xmmm128 = 2387,
 	/// `VCVTPD2DQ xmm1, xmm2/m128`
 	///
 	/// `VEX.128.F2.0F.WIG E6 /r`
@@ -19117,7 +19117,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtpd2dq_xmm_xmmm128,
+	VEX_Vcvtpd2dq_xmm_xmmm128 = 2388,
 	/// `VCVTPD2DQ xmm1, ymm2/m256`
 	///
 	/// `VEX.256.F2.0F.WIG E6 /r`
@@ -19125,7 +19125,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtpd2dq_xmm_ymmm256,
+	VEX_Vcvtpd2dq_xmm_ymmm256 = 2389,
 	/// `VCVTPD2DQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F2.0F.W1 E6 /r`
@@ -19133,7 +19133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64,
+	EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64 = 2390,
 	/// `VCVTPD2DQ xmm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.F2.0F.W1 E6 /r`
@@ -19141,7 +19141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64,
+	EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64 = 2391,
 	/// `VCVTPD2DQ ymm1 {k1}{z}, zmm2/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.F2.0F.W1 E6 /r`
@@ -19149,7 +19149,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er,
+	EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er = 2392,
 	/// `MOVNTQ m64, mm`
 	///
 	/// `NP 0F E7 /r`
@@ -19157,7 +19157,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Movntq_m64_mm,
+	Movntq_m64_mm = 2393,
 	/// `MOVNTDQ m128, xmm1`
 	///
 	/// `66 0F E7 /r`
@@ -19165,7 +19165,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Movntdq_m128_xmm,
+	Movntdq_m128_xmm = 2394,
 	/// `VMOVNTDQ m128, xmm1`
 	///
 	/// `VEX.128.66.0F.WIG E7 /r`
@@ -19173,7 +19173,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntdq_m128_xmm,
+	VEX_Vmovntdq_m128_xmm = 2395,
 	/// `VMOVNTDQ m256, ymm1`
 	///
 	/// `VEX.256.66.0F.WIG E7 /r`
@@ -19181,7 +19181,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntdq_m256_ymm,
+	VEX_Vmovntdq_m256_ymm = 2396,
 	/// `VMOVNTDQ m128, xmm1`
 	///
 	/// `EVEX.128.66.0F.W0 E7 /r`
@@ -19189,7 +19189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdq_m128_xmm,
+	EVEX_Vmovntdq_m128_xmm = 2397,
 	/// `VMOVNTDQ m256, ymm1`
 	///
 	/// `EVEX.256.66.0F.W0 E7 /r`
@@ -19197,7 +19197,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdq_m256_ymm,
+	EVEX_Vmovntdq_m256_ymm = 2398,
 	/// `VMOVNTDQ m512, zmm1`
 	///
 	/// `EVEX.512.66.0F.W0 E7 /r`
@@ -19205,7 +19205,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdq_m512_zmm,
+	EVEX_Vmovntdq_m512_zmm = 2399,
 	/// `PSUBSB mm, mm/m64`
 	///
 	/// `NP 0F E8 /r`
@@ -19213,7 +19213,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubsb_mm_mmm64,
+	Psubsb_mm_mmm64 = 2400,
 	/// `PSUBSB xmm1, xmm2/m128`
 	///
 	/// `66 0F E8 /r`
@@ -19221,7 +19221,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubsb_xmm_xmmm128,
+	Psubsb_xmm_xmmm128 = 2401,
 	/// `VPSUBSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E8 /r`
@@ -19229,7 +19229,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubsb_xmm_xmm_xmmm128,
+	VEX_Vpsubsb_xmm_xmm_xmmm128 = 2402,
 	/// `VPSUBSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E8 /r`
@@ -19237,7 +19237,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubsb_ymm_ymm_ymmm256,
+	VEX_Vpsubsb_ymm_ymm_ymmm256 = 2403,
 	/// `VPSUBSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E8 /r`
@@ -19245,7 +19245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubsb_xmm_k1z_xmm_xmmm128 = 2404,
 	/// `VPSUBSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E8 /r`
@@ -19253,7 +19253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubsb_ymm_k1z_ymm_ymmm256 = 2405,
 	/// `VPSUBSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E8 /r`
@@ -19261,7 +19261,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubsb_zmm_k1z_zmm_zmmm512 = 2406,
 	/// `PSUBSW mm, mm/m64`
 	///
 	/// `NP 0F E9 /r`
@@ -19269,7 +19269,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubsw_mm_mmm64,
+	Psubsw_mm_mmm64 = 2407,
 	/// `PSUBSW xmm1, xmm2/m128`
 	///
 	/// `66 0F E9 /r`
@@ -19277,7 +19277,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubsw_xmm_xmmm128,
+	Psubsw_xmm_xmmm128 = 2408,
 	/// `VPSUBSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG E9 /r`
@@ -19285,7 +19285,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubsw_xmm_xmm_xmmm128,
+	VEX_Vpsubsw_xmm_xmm_xmmm128 = 2409,
 	/// `VPSUBSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG E9 /r`
@@ -19293,7 +19293,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubsw_ymm_ymm_ymmm256,
+	VEX_Vpsubsw_ymm_ymm_ymmm256 = 2410,
 	/// `VPSUBSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG E9 /r`
@@ -19301,7 +19301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubsw_xmm_k1z_xmm_xmmm128 = 2411,
 	/// `VPSUBSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG E9 /r`
@@ -19309,7 +19309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubsw_ymm_k1z_ymm_ymmm256 = 2412,
 	/// `VPSUBSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG E9 /r`
@@ -19317,7 +19317,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubsw_zmm_k1z_zmm_zmmm512 = 2413,
 	/// `PMINSW mm1, mm2/m64`
 	///
 	/// `NP 0F EA /r`
@@ -19325,7 +19325,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pminsw_mm_mmm64,
+	Pminsw_mm_mmm64 = 2414,
 	/// `PMINSW xmm1, xmm2/m128`
 	///
 	/// `66 0F EA /r`
@@ -19333,7 +19333,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pminsw_xmm_xmmm128,
+	Pminsw_xmm_xmmm128 = 2415,
 	/// `VPMINSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG EA /r`
@@ -19341,7 +19341,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsw_xmm_xmm_xmmm128,
+	VEX_Vpminsw_xmm_xmm_xmmm128 = 2416,
 	/// `VPMINSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG EA /r`
@@ -19349,7 +19349,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsw_ymm_ymm_ymmm256,
+	VEX_Vpminsw_ymm_ymm_ymmm256 = 2417,
 	/// `VPMINSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG EA /r`
@@ -19357,7 +19357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpminsw_xmm_k1z_xmm_xmmm128 = 2418,
 	/// `VPMINSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG EA /r`
@@ -19365,7 +19365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpminsw_ymm_k1z_ymm_ymmm256 = 2419,
 	/// `VPMINSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG EA /r`
@@ -19373,7 +19373,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpminsw_zmm_k1z_zmm_zmmm512 = 2420,
 	/// `POR mm, mm/m64`
 	///
 	/// `NP 0F EB /r`
@@ -19381,7 +19381,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Por_mm_mmm64,
+	Por_mm_mmm64 = 2421,
 	/// `POR xmm1, xmm2/m128`
 	///
 	/// `66 0F EB /r`
@@ -19389,7 +19389,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Por_xmm_xmmm128,
+	Por_xmm_xmmm128 = 2422,
 	/// `VPOR xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG EB /r`
@@ -19397,7 +19397,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpor_xmm_xmm_xmmm128,
+	VEX_Vpor_xmm_xmm_xmmm128 = 2423,
 	/// `VPOR ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG EB /r`
@@ -19405,7 +19405,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpor_ymm_ymm_ymmm256,
+	VEX_Vpor_ymm_ymm_ymmm256 = 2424,
 	/// `VPORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 EB /r`
@@ -19413,7 +19413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpord_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpord_xmm_k1z_xmm_xmmm128b32 = 2425,
 	/// `VPORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 EB /r`
@@ -19421,7 +19421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpord_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpord_ymm_k1z_ymm_ymmm256b32 = 2426,
 	/// `VPORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 EB /r`
@@ -19429,7 +19429,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpord_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpord_zmm_k1z_zmm_zmmm512b32 = 2427,
 	/// `VPORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 EB /r`
@@ -19437,7 +19437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vporq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vporq_xmm_k1z_xmm_xmmm128b64 = 2428,
 	/// `VPORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 EB /r`
@@ -19445,7 +19445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vporq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vporq_ymm_k1z_ymm_ymmm256b64 = 2429,
 	/// `VPORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 EB /r`
@@ -19453,7 +19453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vporq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vporq_zmm_k1z_zmm_zmmm512b64 = 2430,
 	/// `PADDSB mm, mm/m64`
 	///
 	/// `NP 0F EC /r`
@@ -19461,7 +19461,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddsb_mm_mmm64,
+	Paddsb_mm_mmm64 = 2431,
 	/// `PADDSB xmm1, xmm2/m128`
 	///
 	/// `66 0F EC /r`
@@ -19469,7 +19469,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddsb_xmm_xmmm128,
+	Paddsb_xmm_xmmm128 = 2432,
 	/// `VPADDSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG EC /r`
@@ -19477,7 +19477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddsb_xmm_xmm_xmmm128,
+	VEX_Vpaddsb_xmm_xmm_xmmm128 = 2433,
 	/// `VPADDSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG EC /r`
@@ -19485,7 +19485,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddsb_ymm_ymm_ymmm256,
+	VEX_Vpaddsb_ymm_ymm_ymmm256 = 2434,
 	/// `VPADDSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG EC /r`
@@ -19493,7 +19493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddsb_xmm_k1z_xmm_xmmm128 = 2435,
 	/// `VPADDSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG EC /r`
@@ -19501,7 +19501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddsb_ymm_k1z_ymm_ymmm256 = 2436,
 	/// `VPADDSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG EC /r`
@@ -19509,7 +19509,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddsb_zmm_k1z_zmm_zmmm512 = 2437,
 	/// `PADDSW mm, mm/m64`
 	///
 	/// `NP 0F ED /r`
@@ -19517,7 +19517,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddsw_mm_mmm64,
+	Paddsw_mm_mmm64 = 2438,
 	/// `PADDSW xmm1, xmm2/m128`
 	///
 	/// `66 0F ED /r`
@@ -19525,7 +19525,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddsw_xmm_xmmm128,
+	Paddsw_xmm_xmmm128 = 2439,
 	/// `VPADDSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG ED /r`
@@ -19533,7 +19533,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddsw_xmm_xmm_xmmm128,
+	VEX_Vpaddsw_xmm_xmm_xmmm128 = 2440,
 	/// `VPADDSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG ED /r`
@@ -19541,7 +19541,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddsw_ymm_ymm_ymmm256,
+	VEX_Vpaddsw_ymm_ymm_ymmm256 = 2441,
 	/// `VPADDSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG ED /r`
@@ -19549,7 +19549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddsw_xmm_k1z_xmm_xmmm128 = 2442,
 	/// `VPADDSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG ED /r`
@@ -19557,7 +19557,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddsw_ymm_k1z_ymm_ymmm256 = 2443,
 	/// `VPADDSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG ED /r`
@@ -19565,7 +19565,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddsw_zmm_k1z_zmm_zmmm512 = 2444,
 	/// `PMAXSW mm1, mm2/m64`
 	///
 	/// `NP 0F EE /r`
@@ -19573,7 +19573,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Pmaxsw_mm_mmm64,
+	Pmaxsw_mm_mmm64 = 2445,
 	/// `PMAXSW xmm1, xmm2/m128`
 	///
 	/// `66 0F EE /r`
@@ -19581,7 +19581,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmaxsw_xmm_xmmm128,
+	Pmaxsw_xmm_xmmm128 = 2446,
 	/// `VPMAXSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG EE /r`
@@ -19589,7 +19589,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsw_xmm_xmm_xmmm128,
+	VEX_Vpmaxsw_xmm_xmm_xmmm128 = 2447,
 	/// `VPMAXSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG EE /r`
@@ -19597,7 +19597,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsw_ymm_ymm_ymmm256,
+	VEX_Vpmaxsw_ymm_ymm_ymmm256 = 2448,
 	/// `VPMAXSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG EE /r`
@@ -19605,7 +19605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaxsw_xmm_k1z_xmm_xmmm128 = 2449,
 	/// `VPMAXSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG EE /r`
@@ -19613,7 +19613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaxsw_ymm_k1z_ymm_ymmm256 = 2450,
 	/// `VPMAXSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG EE /r`
@@ -19621,7 +19621,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaxsw_zmm_k1z_zmm_zmmm512 = 2451,
 	/// `PXOR mm, mm/m64`
 	///
 	/// `NP 0F EF /r`
@@ -19629,7 +19629,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pxor_mm_mmm64,
+	Pxor_mm_mmm64 = 2452,
 	/// `PXOR xmm1, xmm2/m128`
 	///
 	/// `66 0F EF /r`
@@ -19637,7 +19637,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pxor_xmm_xmmm128,
+	Pxor_xmm_xmmm128 = 2453,
 	/// `VPXOR xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG EF /r`
@@ -19645,7 +19645,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpxor_xmm_xmm_xmmm128,
+	VEX_Vpxor_xmm_xmm_xmmm128 = 2454,
 	/// `VPXOR ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG EF /r`
@@ -19653,7 +19653,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpxor_ymm_ymm_ymmm256,
+	VEX_Vpxor_ymm_ymm_ymmm256 = 2455,
 	/// `VPXORD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 EF /r`
@@ -19661,7 +19661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32 = 2456,
 	/// `VPXORD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 EF /r`
@@ -19669,7 +19669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32 = 2457,
 	/// `VPXORD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 EF /r`
@@ -19677,7 +19677,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpxord_zmm_k1z_zmm_zmmm512b32 = 2458,
 	/// `VPXORQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 EF /r`
@@ -19685,7 +19685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64 = 2459,
 	/// `VPXORQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 EF /r`
@@ -19693,7 +19693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64 = 2460,
 	/// `VPXORQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 EF /r`
@@ -19701,7 +19701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpxorq_zmm_k1z_zmm_zmmm512b64 = 2461,
 	/// `LDDQU xmm1, m128`
 	///
 	/// `F2 0F F0 /r`
@@ -19709,7 +19709,7 @@ pub enum Code {
 	/// `SSE3`
 	///
 	/// `16/32/64-bit`
-	Lddqu_xmm_m128,
+	Lddqu_xmm_m128 = 2462,
 	/// `VLDDQU xmm1, m128`
 	///
 	/// `VEX.128.F2.0F.WIG F0 /r`
@@ -19717,7 +19717,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vlddqu_xmm_m128,
+	VEX_Vlddqu_xmm_m128 = 2463,
 	/// `VLDDQU ymm1, m256`
 	///
 	/// `VEX.256.F2.0F.WIG F0 /r`
@@ -19725,7 +19725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vlddqu_ymm_m256,
+	VEX_Vlddqu_ymm_m256 = 2464,
 	/// `PSLLW mm, mm/m64`
 	///
 	/// `NP 0F F1 /r`
@@ -19733,7 +19733,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psllw_mm_mmm64,
+	Psllw_mm_mmm64 = 2465,
 	/// `PSLLW xmm1, xmm2/m128`
 	///
 	/// `66 0F F1 /r`
@@ -19741,7 +19741,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psllw_xmm_xmmm128,
+	Psllw_xmm_xmmm128 = 2466,
 	/// `VPSLLW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F1 /r`
@@ -19749,7 +19749,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllw_xmm_xmm_xmmm128,
+	VEX_Vpsllw_xmm_xmm_xmmm128 = 2467,
 	/// `VPSLLW ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG F1 /r`
@@ -19757,7 +19757,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllw_ymm_ymm_xmmm128,
+	VEX_Vpsllw_ymm_ymm_xmmm128 = 2468,
 	/// `VPSLLW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG F1 /r`
@@ -19765,7 +19765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsllw_xmm_k1z_xmm_xmmm128 = 2469,
 	/// `VPSLLW ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.WIG F1 /r`
@@ -19773,7 +19773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsllw_ymm_k1z_ymm_xmmm128 = 2470,
 	/// `VPSLLW zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.WIG F1 /r`
@@ -19781,7 +19781,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllw_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsllw_zmm_k1z_zmm_xmmm128 = 2471,
 	/// `PSLLD mm, mm/m64`
 	///
 	/// `NP 0F F2 /r`
@@ -19789,7 +19789,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pslld_mm_mmm64,
+	Pslld_mm_mmm64 = 2472,
 	/// `PSLLD xmm1, xmm2/m128`
 	///
 	/// `66 0F F2 /r`
@@ -19797,7 +19797,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pslld_xmm_xmmm128,
+	Pslld_xmm_xmmm128 = 2473,
 	/// `VPSLLD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F2 /r`
@@ -19805,7 +19805,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslld_xmm_xmm_xmmm128,
+	VEX_Vpslld_xmm_xmm_xmmm128 = 2474,
 	/// `VPSLLD ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG F2 /r`
@@ -19813,7 +19813,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpslld_ymm_ymm_xmmm128,
+	VEX_Vpslld_ymm_ymm_xmmm128 = 2475,
 	/// `VPSLLD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W0 F2 /r`
@@ -19821,7 +19821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpslld_xmm_k1z_xmm_xmmm128 = 2476,
 	/// `VPSLLD ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W0 F2 /r`
@@ -19829,7 +19829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpslld_ymm_k1z_ymm_xmmm128 = 2477,
 	/// `VPSLLD zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W0 F2 /r`
@@ -19837,7 +19837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpslld_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpslld_zmm_k1z_zmm_xmmm128 = 2478,
 	/// `PSLLQ mm, mm/m64`
 	///
 	/// `NP 0F F3 /r`
@@ -19845,7 +19845,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psllq_mm_mmm64,
+	Psllq_mm_mmm64 = 2479,
 	/// `PSLLQ xmm1, xmm2/m128`
 	///
 	/// `66 0F F3 /r`
@@ -19853,7 +19853,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psllq_xmm_xmmm128,
+	Psllq_xmm_xmmm128 = 2480,
 	/// `VPSLLQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F3 /r`
@@ -19861,7 +19861,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllq_xmm_xmm_xmmm128,
+	VEX_Vpsllq_xmm_xmm_xmmm128 = 2481,
 	/// `VPSLLQ ymm1, ymm2, xmm3/m128`
 	///
 	/// `VEX.256.66.0F.WIG F3 /r`
@@ -19869,7 +19869,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllq_ymm_ymm_xmmm128,
+	VEX_Vpsllq_ymm_ymm_xmmm128 = 2482,
 	/// `VPSLLQ xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.W1 F3 /r`
@@ -19877,7 +19877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsllq_xmm_k1z_xmm_xmmm128 = 2483,
 	/// `VPSLLQ ymm1 {k1}{z}, ymm2, xmm3/m128`
 	///
 	/// `EVEX.256.66.0F.W1 F3 /r`
@@ -19885,7 +19885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_ymm_k1z_ymm_xmmm128,
+	EVEX_Vpsllq_ymm_k1z_ymm_xmmm128 = 2484,
 	/// `VPSLLQ zmm1 {k1}{z}, zmm2, xmm3/m128`
 	///
 	/// `EVEX.512.66.0F.W1 F3 /r`
@@ -19893,7 +19893,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllq_zmm_k1z_zmm_xmmm128,
+	EVEX_Vpsllq_zmm_k1z_zmm_xmmm128 = 2485,
 	/// `PMULUDQ mm1, mm2/m64`
 	///
 	/// `NP 0F F4 /r`
@@ -19901,7 +19901,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmuludq_mm_mmm64,
+	Pmuludq_mm_mmm64 = 2486,
 	/// `PMULUDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F F4 /r`
@@ -19909,7 +19909,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmuludq_xmm_xmmm128,
+	Pmuludq_xmm_xmmm128 = 2487,
 	/// `VPMULUDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F4 /r`
@@ -19917,7 +19917,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmuludq_xmm_xmm_xmmm128,
+	VEX_Vpmuludq_xmm_xmm_xmmm128 = 2488,
 	/// `VPMULUDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG F4 /r`
@@ -19925,7 +19925,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmuludq_ymm_ymm_ymmm256,
+	VEX_Vpmuludq_ymm_ymm_ymmm256 = 2489,
 	/// `VPMULUDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 F4 /r`
@@ -19933,7 +19933,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmuludq_xmm_k1z_xmm_xmmm128b64 = 2490,
 	/// `VPMULUDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 F4 /r`
@@ -19941,7 +19941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmuludq_ymm_k1z_ymm_ymmm256b64 = 2491,
 	/// `VPMULUDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 F4 /r`
@@ -19949,7 +19949,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuludq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmuludq_zmm_k1z_zmm_zmmm512b64 = 2492,
 	/// `PMADDWD mm, mm/m64`
 	///
 	/// `NP 0F F5 /r`
@@ -19957,7 +19957,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Pmaddwd_mm_mmm64,
+	Pmaddwd_mm_mmm64 = 2493,
 	/// `PMADDWD xmm1, xmm2/m128`
 	///
 	/// `66 0F F5 /r`
@@ -19965,7 +19965,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Pmaddwd_xmm_xmmm128,
+	Pmaddwd_xmm_xmmm128 = 2494,
 	/// `VPMADDWD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F5 /r`
@@ -19973,7 +19973,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaddwd_xmm_xmm_xmmm128,
+	VEX_Vpmaddwd_xmm_xmm_xmmm128 = 2495,
 	/// `VPMADDWD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG F5 /r`
@@ -19981,7 +19981,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaddwd_ymm_ymm_ymmm256,
+	VEX_Vpmaddwd_ymm_ymm_ymmm256 = 2496,
 	/// `VPMADDWD xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG F5 /r`
@@ -19989,7 +19989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaddwd_xmm_k1z_xmm_xmmm128 = 2497,
 	/// `VPMADDWD ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG F5 /r`
@@ -19997,7 +19997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaddwd_ymm_k1z_ymm_ymmm256 = 2498,
 	/// `VPMADDWD zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG F5 /r`
@@ -20005,7 +20005,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddwd_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaddwd_zmm_k1z_zmm_zmmm512 = 2499,
 	/// `PSADBW mm1, mm2/m64`
 	///
 	/// `NP 0F F6 /r`
@@ -20013,7 +20013,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Psadbw_mm_mmm64,
+	Psadbw_mm_mmm64 = 2500,
 	/// `PSADBW xmm1, xmm2/m128`
 	///
 	/// `66 0F F6 /r`
@@ -20021,7 +20021,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psadbw_xmm_xmmm128,
+	Psadbw_xmm_xmmm128 = 2501,
 	/// `VPSADBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F6 /r`
@@ -20029,7 +20029,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsadbw_xmm_xmm_xmmm128,
+	VEX_Vpsadbw_xmm_xmm_xmmm128 = 2502,
 	/// `VPSADBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG F6 /r`
@@ -20037,7 +20037,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsadbw_ymm_ymm_ymmm256,
+	VEX_Vpsadbw_ymm_ymm_ymmm256 = 2503,
 	/// `VPSADBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG F6 /r`
@@ -20045,7 +20045,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsadbw_xmm_xmm_xmmm128,
+	EVEX_Vpsadbw_xmm_xmm_xmmm128 = 2504,
 	/// `VPSADBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG F6 /r`
@@ -20053,7 +20053,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsadbw_ymm_ymm_ymmm256,
+	EVEX_Vpsadbw_ymm_ymm_ymmm256 = 2505,
 	/// `VPSADBW zmm1, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG F6 /r`
@@ -20061,7 +20061,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsadbw_zmm_zmm_zmmm512,
+	EVEX_Vpsadbw_zmm_zmm_zmmm512 = 2506,
 	/// `MASKMOVQ mm1, mm2`
 	///
 	/// `NP 0F F7 /r`
@@ -20069,7 +20069,7 @@ pub enum Code {
 	/// `SSE`
 	///
 	/// `16/32/64-bit`
-	Maskmovq_rDI_mm_mm,
+	Maskmovq_rDI_mm_mm = 2507,
 	/// `MASKMOVDQU xmm1, xmm2`
 	///
 	/// `66 0F F7 /r`
@@ -20077,7 +20077,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Maskmovdqu_rDI_xmm_xmm,
+	Maskmovdqu_rDI_xmm_xmm = 2508,
 	/// `VMASKMOVDQU xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F.WIG F7 /r`
@@ -20085,7 +20085,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovdqu_rDI_xmm_xmm,
+	VEX_Vmaskmovdqu_rDI_xmm_xmm = 2509,
 	/// `PSUBB mm, mm/m64`
 	///
 	/// `NP 0F F8 /r`
@@ -20093,7 +20093,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubb_mm_mmm64,
+	Psubb_mm_mmm64 = 2510,
 	/// `PSUBB xmm1, xmm2/m128`
 	///
 	/// `66 0F F8 /r`
@@ -20101,7 +20101,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubb_xmm_xmmm128,
+	Psubb_xmm_xmmm128 = 2511,
 	/// `VPSUBB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F8 /r`
@@ -20109,7 +20109,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubb_xmm_xmm_xmmm128,
+	VEX_Vpsubb_xmm_xmm_xmmm128 = 2512,
 	/// `VPSUBB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG F8 /r`
@@ -20117,7 +20117,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubb_ymm_ymm_ymmm256,
+	VEX_Vpsubb_ymm_ymm_ymmm256 = 2513,
 	/// `VPSUBB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG F8 /r`
@@ -20125,7 +20125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubb_xmm_k1z_xmm_xmmm128 = 2514,
 	/// `VPSUBB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG F8 /r`
@@ -20133,7 +20133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubb_ymm_k1z_ymm_ymmm256 = 2515,
 	/// `VPSUBB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG F8 /r`
@@ -20141,7 +20141,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubb_zmm_k1z_zmm_zmmm512 = 2516,
 	/// `PSUBW mm, mm/m64`
 	///
 	/// `NP 0F F9 /r`
@@ -20149,7 +20149,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubw_mm_mmm64,
+	Psubw_mm_mmm64 = 2517,
 	/// `PSUBW xmm1, xmm2/m128`
 	///
 	/// `66 0F F9 /r`
@@ -20157,7 +20157,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubw_xmm_xmmm128,
+	Psubw_xmm_xmmm128 = 2518,
 	/// `VPSUBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG F9 /r`
@@ -20165,7 +20165,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubw_xmm_xmm_xmmm128,
+	VEX_Vpsubw_xmm_xmm_xmmm128 = 2519,
 	/// `VPSUBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG F9 /r`
@@ -20173,7 +20173,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubw_ymm_ymm_ymmm256,
+	VEX_Vpsubw_ymm_ymm_ymmm256 = 2520,
 	/// `VPSUBW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG F9 /r`
@@ -20181,7 +20181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsubw_xmm_k1z_xmm_xmmm128 = 2521,
 	/// `VPSUBW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG F9 /r`
@@ -20189,7 +20189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsubw_ymm_k1z_ymm_ymmm256 = 2522,
 	/// `VPSUBW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG F9 /r`
@@ -20197,7 +20197,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsubw_zmm_k1z_zmm_zmmm512 = 2523,
 	/// `PSUBD mm, mm/m64`
 	///
 	/// `NP 0F FA /r`
@@ -20205,7 +20205,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Psubd_mm_mmm64,
+	Psubd_mm_mmm64 = 2524,
 	/// `PSUBD xmm1, xmm2/m128`
 	///
 	/// `66 0F FA /r`
@@ -20213,7 +20213,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubd_xmm_xmmm128,
+	Psubd_xmm_xmmm128 = 2525,
 	/// `VPSUBD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG FA /r`
@@ -20221,7 +20221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubd_xmm_xmm_xmmm128,
+	VEX_Vpsubd_xmm_xmm_xmmm128 = 2526,
 	/// `VPSUBD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG FA /r`
@@ -20229,7 +20229,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubd_ymm_ymm_ymmm256,
+	VEX_Vpsubd_ymm_ymm_ymmm256 = 2527,
 	/// `VPSUBD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 FA /r`
@@ -20237,7 +20237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpsubd_xmm_k1z_xmm_xmmm128b32 = 2528,
 	/// `VPSUBD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 FA /r`
@@ -20245,7 +20245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpsubd_ymm_k1z_ymm_ymmm256b32 = 2529,
 	/// `VPSUBD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 FA /r`
@@ -20253,7 +20253,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpsubd_zmm_k1z_zmm_zmmm512b32 = 2530,
 	/// `PSUBQ mm1, mm2/m64`
 	///
 	/// `NP 0F FB /r`
@@ -20261,7 +20261,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubq_mm_mmm64,
+	Psubq_mm_mmm64 = 2531,
 	/// `PSUBQ xmm1, xmm2/m128`
 	///
 	/// `66 0F FB /r`
@@ -20269,7 +20269,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Psubq_xmm_xmmm128,
+	Psubq_xmm_xmmm128 = 2532,
 	/// `VPSUBQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG FB /r`
@@ -20277,7 +20277,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubq_xmm_xmm_xmmm128,
+	VEX_Vpsubq_xmm_xmm_xmmm128 = 2533,
 	/// `VPSUBQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG FB /r`
@@ -20285,7 +20285,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsubq_ymm_ymm_ymmm256,
+	VEX_Vpsubq_ymm_ymm_ymmm256 = 2534,
 	/// `VPSUBQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F.W1 FB /r`
@@ -20293,7 +20293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpsubq_xmm_k1z_xmm_xmmm128b64 = 2535,
 	/// `VPSUBQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F.W1 FB /r`
@@ -20301,7 +20301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpsubq_ymm_k1z_ymm_ymmm256b64 = 2536,
 	/// `VPSUBQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F.W1 FB /r`
@@ -20309,7 +20309,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpsubq_zmm_k1z_zmm_zmmm512b64 = 2537,
 	/// `PADDB mm, mm/m64`
 	///
 	/// `NP 0F FC /r`
@@ -20317,7 +20317,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddb_mm_mmm64,
+	Paddb_mm_mmm64 = 2538,
 	/// `PADDB xmm1, xmm2/m128`
 	///
 	/// `66 0F FC /r`
@@ -20325,7 +20325,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddb_xmm_xmmm128,
+	Paddb_xmm_xmmm128 = 2539,
 	/// `VPADDB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG FC /r`
@@ -20333,7 +20333,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddb_xmm_xmm_xmmm128,
+	VEX_Vpaddb_xmm_xmm_xmmm128 = 2540,
 	/// `VPADDB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG FC /r`
@@ -20341,7 +20341,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddb_ymm_ymm_ymmm256,
+	VEX_Vpaddb_ymm_ymm_ymmm256 = 2541,
 	/// `VPADDB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG FC /r`
@@ -20349,7 +20349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddb_xmm_k1z_xmm_xmmm128 = 2542,
 	/// `VPADDB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG FC /r`
@@ -20357,7 +20357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddb_ymm_k1z_ymm_ymmm256 = 2543,
 	/// `VPADDB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG FC /r`
@@ -20365,7 +20365,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddb_zmm_k1z_zmm_zmmm512 = 2544,
 	/// `PADDW mm, mm/m64`
 	///
 	/// `NP 0F FD /r`
@@ -20373,7 +20373,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddw_mm_mmm64,
+	Paddw_mm_mmm64 = 2545,
 	/// `PADDW xmm1, xmm2/m128`
 	///
 	/// `66 0F FD /r`
@@ -20381,7 +20381,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddw_xmm_xmmm128,
+	Paddw_xmm_xmmm128 = 2546,
 	/// `VPADDW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG FD /r`
@@ -20389,7 +20389,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddw_xmm_xmm_xmmm128,
+	VEX_Vpaddw_xmm_xmm_xmmm128 = 2547,
 	/// `VPADDW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG FD /r`
@@ -20397,7 +20397,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddw_ymm_ymm_ymmm256,
+	VEX_Vpaddw_ymm_ymm_ymmm256 = 2548,
 	/// `VPADDW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F.WIG FD /r`
@@ -20405,7 +20405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpaddw_xmm_k1z_xmm_xmmm128 = 2549,
 	/// `VPADDW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG FD /r`
@@ -20413,7 +20413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpaddw_ymm_k1z_ymm_ymmm256 = 2550,
 	/// `VPADDW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG FD /r`
@@ -20421,7 +20421,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpaddw_zmm_k1z_zmm_zmmm512 = 2551,
 	/// `PADDD mm, mm/m64`
 	///
 	/// `NP 0F FE /r`
@@ -20429,7 +20429,7 @@ pub enum Code {
 	/// `MMX`
 	///
 	/// `16/32/64-bit`
-	Paddd_mm_mmm64,
+	Paddd_mm_mmm64 = 2552,
 	/// `PADDD xmm1, xmm2/m128`
 	///
 	/// `66 0F FE /r`
@@ -20437,7 +20437,7 @@ pub enum Code {
 	/// `SSE2`
 	///
 	/// `16/32/64-bit`
-	Paddd_xmm_xmmm128,
+	Paddd_xmm_xmmm128 = 2553,
 	/// `VPADDD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F.WIG FE /r`
@@ -20445,7 +20445,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddd_xmm_xmm_xmmm128,
+	VEX_Vpaddd_xmm_xmm_xmmm128 = 2554,
 	/// `VPADDD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F.WIG FE /r`
@@ -20453,7 +20453,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpaddd_ymm_ymm_ymmm256,
+	VEX_Vpaddd_ymm_ymm_ymmm256 = 2555,
 	/// `VPADDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F.W0 FE /r`
@@ -20461,7 +20461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpaddd_xmm_k1z_xmm_xmmm128b32 = 2556,
 	/// `VPADDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 FE /r`
@@ -20469,7 +20469,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpaddd_ymm_k1z_ymm_ymmm256b32 = 2557,
 	/// `VPADDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 FE /r`
@@ -20477,7 +20477,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpaddd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpaddd_zmm_k1z_zmm_zmmm512b32 = 2558,
 	/// `UD0 r16, r/m16`
 	///
 	/// `o16 0F FF /r`
@@ -20485,7 +20485,7 @@ pub enum Code {
 	/// `286+`
 	///
 	/// `16/32/64-bit`
-	Ud0_r16_rm16,
+	Ud0_r16_rm16 = 2559,
 	/// `UD0 r32, r/m32`
 	///
 	/// `o32 0F FF /r`
@@ -20493,7 +20493,7 @@ pub enum Code {
 	/// `386+`
 	///
 	/// `16/32/64-bit`
-	Ud0_r32_rm32,
+	Ud0_r32_rm32 = 2560,
 	/// `UD0 r64, r/m64`
 	///
 	/// `REX.W 0F FF /r`
@@ -20501,7 +20501,7 @@ pub enum Code {
 	/// `X64`
 	///
 	/// `64-bit`
-	Ud0_r64_rm64,
+	Ud0_r64_rm64 = 2561,
 	/// `PSHUFB mm1, mm2/m64`
 	///
 	/// `NP 0F 38 00 /r`
@@ -20509,7 +20509,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pshufb_mm_mmm64,
+	Pshufb_mm_mmm64 = 2562,
 	/// `PSHUFB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 00 /r`
@@ -20517,7 +20517,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pshufb_xmm_xmmm128,
+	Pshufb_xmm_xmmm128 = 2563,
 	/// `VPSHUFB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 00 /r`
@@ -20525,7 +20525,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufb_xmm_xmm_xmmm128,
+	VEX_Vpshufb_xmm_xmm_xmmm128 = 2564,
 	/// `VPSHUFB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 00 /r`
@@ -20533,7 +20533,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpshufb_ymm_ymm_ymmm256,
+	VEX_Vpshufb_ymm_ymm_ymmm256 = 2565,
 	/// `VPSHUFB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 00 /r`
@@ -20541,7 +20541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpshufb_xmm_k1z_xmm_xmmm128 = 2566,
 	/// `VPSHUFB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 00 /r`
@@ -20549,7 +20549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpshufb_ymm_k1z_ymm_ymmm256 = 2567,
 	/// `VPSHUFB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 00 /r`
@@ -20557,7 +20557,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpshufb_zmm_k1z_zmm_zmmm512 = 2568,
 	/// `PHADDW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 01 /r`
@@ -20565,7 +20565,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddw_mm_mmm64,
+	Phaddw_mm_mmm64 = 2569,
 	/// `PHADDW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 01 /r`
@@ -20573,7 +20573,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddw_xmm_xmmm128,
+	Phaddw_xmm_xmmm128 = 2570,
 	/// `VPHADDW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 01 /r`
@@ -20581,7 +20581,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddw_xmm_xmm_xmmm128,
+	VEX_Vphaddw_xmm_xmm_xmmm128 = 2571,
 	/// `VPHADDW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 01 /r`
@@ -20589,7 +20589,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddw_ymm_ymm_ymmm256,
+	VEX_Vphaddw_ymm_ymm_ymmm256 = 2572,
 	/// `PHADDD mm1, mm2/m64`
 	///
 	/// `NP 0F 38 02 /r`
@@ -20597,7 +20597,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddd_mm_mmm64,
+	Phaddd_mm_mmm64 = 2573,
 	/// `PHADDD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 02 /r`
@@ -20605,7 +20605,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddd_xmm_xmmm128,
+	Phaddd_xmm_xmmm128 = 2574,
 	/// `VPHADDD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 02 /r`
@@ -20613,7 +20613,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddd_xmm_xmm_xmmm128,
+	VEX_Vphaddd_xmm_xmm_xmmm128 = 2575,
 	/// `VPHADDD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 02 /r`
@@ -20621,7 +20621,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddd_ymm_ymm_ymmm256,
+	VEX_Vphaddd_ymm_ymm_ymmm256 = 2576,
 	/// `PHADDSW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 03 /r`
@@ -20629,7 +20629,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddsw_mm_mmm64,
+	Phaddsw_mm_mmm64 = 2577,
 	/// `PHADDSW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 03 /r`
@@ -20637,7 +20637,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phaddsw_xmm_xmmm128,
+	Phaddsw_xmm_xmmm128 = 2578,
 	/// `VPHADDSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 03 /r`
@@ -20645,7 +20645,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddsw_xmm_xmm_xmmm128,
+	VEX_Vphaddsw_xmm_xmm_xmmm128 = 2579,
 	/// `VPHADDSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 03 /r`
@@ -20653,7 +20653,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphaddsw_ymm_ymm_ymmm256,
+	VEX_Vphaddsw_ymm_ymm_ymmm256 = 2580,
 	/// `PMADDUBSW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 04 /r`
@@ -20661,7 +20661,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pmaddubsw_mm_mmm64,
+	Pmaddubsw_mm_mmm64 = 2581,
 	/// `PMADDUBSW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 04 /r`
@@ -20669,7 +20669,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pmaddubsw_xmm_xmmm128,
+	Pmaddubsw_xmm_xmmm128 = 2582,
 	/// `VPMADDUBSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 04 /r`
@@ -20677,7 +20677,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaddubsw_xmm_xmm_xmmm128,
+	VEX_Vpmaddubsw_xmm_xmm_xmmm128 = 2583,
 	/// `VPMADDUBSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 04 /r`
@@ -20685,7 +20685,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaddubsw_ymm_ymm_ymmm256,
+	VEX_Vpmaddubsw_ymm_ymm_ymmm256 = 2584,
 	/// `VPMADDUBSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 04 /r`
@@ -20693,7 +20693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaddubsw_xmm_k1z_xmm_xmmm128 = 2585,
 	/// `VPMADDUBSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 04 /r`
@@ -20701,7 +20701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaddubsw_ymm_k1z_ymm_ymmm256 = 2586,
 	/// `VPMADDUBSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 04 /r`
@@ -20709,7 +20709,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaddubsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaddubsw_zmm_k1z_zmm_zmmm512 = 2587,
 	/// `PHSUBW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 05 /r`
@@ -20717,7 +20717,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubw_mm_mmm64,
+	Phsubw_mm_mmm64 = 2588,
 	/// `PHSUBW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 05 /r`
@@ -20725,7 +20725,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubw_xmm_xmmm128,
+	Phsubw_xmm_xmmm128 = 2589,
 	/// `VPHSUBW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 05 /r`
@@ -20733,7 +20733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubw_xmm_xmm_xmmm128,
+	VEX_Vphsubw_xmm_xmm_xmmm128 = 2590,
 	/// `VPHSUBW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 05 /r`
@@ -20741,7 +20741,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubw_ymm_ymm_ymmm256,
+	VEX_Vphsubw_ymm_ymm_ymmm256 = 2591,
 	/// `PHSUBD mm1, mm2/m64`
 	///
 	/// `NP 0F 38 06 /r`
@@ -20749,7 +20749,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubd_mm_mmm64,
+	Phsubd_mm_mmm64 = 2592,
 	/// `PHSUBD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 06 /r`
@@ -20757,7 +20757,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubd_xmm_xmmm128,
+	Phsubd_xmm_xmmm128 = 2593,
 	/// `VPHSUBD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 06 /r`
@@ -20765,7 +20765,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubd_xmm_xmm_xmmm128,
+	VEX_Vphsubd_xmm_xmm_xmmm128 = 2594,
 	/// `VPHSUBD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 06 /r`
@@ -20773,7 +20773,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubd_ymm_ymm_ymmm256,
+	VEX_Vphsubd_ymm_ymm_ymmm256 = 2595,
 	/// `PHSUBSW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 07 /r`
@@ -20781,7 +20781,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubsw_mm_mmm64,
+	Phsubsw_mm_mmm64 = 2596,
 	/// `PHSUBSW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 07 /r`
@@ -20789,7 +20789,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Phsubsw_xmm_xmmm128,
+	Phsubsw_xmm_xmmm128 = 2597,
 	/// `VPHSUBSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 07 /r`
@@ -20797,7 +20797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubsw_xmm_xmm_xmmm128,
+	VEX_Vphsubsw_xmm_xmm_xmmm128 = 2598,
 	/// `VPHSUBSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 07 /r`
@@ -20805,7 +20805,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphsubsw_ymm_ymm_ymmm256,
+	VEX_Vphsubsw_ymm_ymm_ymmm256 = 2599,
 	/// `PSIGNB mm1, mm2/m64`
 	///
 	/// `NP 0F 38 08 /r`
@@ -20813,7 +20813,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignb_mm_mmm64,
+	Psignb_mm_mmm64 = 2600,
 	/// `PSIGNB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 08 /r`
@@ -20821,7 +20821,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignb_xmm_xmmm128,
+	Psignb_xmm_xmmm128 = 2601,
 	/// `VPSIGNB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 08 /r`
@@ -20829,7 +20829,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignb_xmm_xmm_xmmm128,
+	VEX_Vpsignb_xmm_xmm_xmmm128 = 2602,
 	/// `VPSIGNB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 08 /r`
@@ -20837,7 +20837,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignb_ymm_ymm_ymmm256,
+	VEX_Vpsignb_ymm_ymm_ymmm256 = 2603,
 	/// `PSIGNW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 09 /r`
@@ -20845,7 +20845,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignw_mm_mmm64,
+	Psignw_mm_mmm64 = 2604,
 	/// `PSIGNW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 09 /r`
@@ -20853,7 +20853,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignw_xmm_xmmm128,
+	Psignw_xmm_xmmm128 = 2605,
 	/// `VPSIGNW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 09 /r`
@@ -20861,7 +20861,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignw_xmm_xmm_xmmm128,
+	VEX_Vpsignw_xmm_xmm_xmmm128 = 2606,
 	/// `VPSIGNW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 09 /r`
@@ -20869,7 +20869,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignw_ymm_ymm_ymmm256,
+	VEX_Vpsignw_ymm_ymm_ymmm256 = 2607,
 	/// `PSIGND mm1, mm2/m64`
 	///
 	/// `NP 0F 38 0A /r`
@@ -20877,7 +20877,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignd_mm_mmm64,
+	Psignd_mm_mmm64 = 2608,
 	/// `PSIGND xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 0A /r`
@@ -20885,7 +20885,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Psignd_xmm_xmmm128,
+	Psignd_xmm_xmmm128 = 2609,
 	/// `VPSIGND xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 0A /r`
@@ -20893,7 +20893,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignd_xmm_xmm_xmmm128,
+	VEX_Vpsignd_xmm_xmm_xmmm128 = 2610,
 	/// `VPSIGND ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 0A /r`
@@ -20901,7 +20901,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsignd_ymm_ymm_ymmm256,
+	VEX_Vpsignd_ymm_ymm_ymmm256 = 2611,
 	/// `PMULHRSW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 0B /r`
@@ -20909,7 +20909,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pmulhrsw_mm_mmm64,
+	Pmulhrsw_mm_mmm64 = 2612,
 	/// `PMULHRSW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 0B /r`
@@ -20917,7 +20917,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pmulhrsw_xmm_xmmm128,
+	Pmulhrsw_xmm_xmmm128 = 2613,
 	/// `VPMULHRSW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 0B /r`
@@ -20925,7 +20925,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhrsw_xmm_xmm_xmmm128,
+	VEX_Vpmulhrsw_xmm_xmm_xmmm128 = 2614,
 	/// `VPMULHRSW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 0B /r`
@@ -20933,7 +20933,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulhrsw_ymm_ymm_ymmm256,
+	VEX_Vpmulhrsw_ymm_ymm_ymmm256 = 2615,
 	/// `VPMULHRSW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 0B /r`
@@ -20941,7 +20941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmulhrsw_xmm_k1z_xmm_xmmm128 = 2616,
 	/// `VPMULHRSW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 0B /r`
@@ -20949,7 +20949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmulhrsw_ymm_k1z_ymm_ymmm256 = 2617,
 	/// `VPMULHRSW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 0B /r`
@@ -20957,7 +20957,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulhrsw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmulhrsw_zmm_k1z_zmm_zmmm512 = 2618,
 	/// `VPERMILPS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 0C /r`
@@ -20965,7 +20965,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilps_xmm_xmm_xmmm128,
+	VEX_Vpermilps_xmm_xmm_xmmm128 = 2619,
 	/// `VPERMILPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 0C /r`
@@ -20973,7 +20973,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilps_ymm_ymm_ymmm256,
+	VEX_Vpermilps_ymm_ymm_ymmm256 = 2620,
 	/// `VPERMILPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 0C /r`
@@ -20981,7 +20981,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpermilps_xmm_k1z_xmm_xmmm128b32 = 2621,
 	/// `VPERMILPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 0C /r`
@@ -20989,7 +20989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermilps_ymm_k1z_ymm_ymmm256b32 = 2622,
 	/// `VPERMILPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 0C /r`
@@ -20997,7 +20997,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermilps_zmm_k1z_zmm_zmmm512b32 = 2623,
 	/// `VPERMILPD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 0D /r`
@@ -21005,7 +21005,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilpd_xmm_xmm_xmmm128,
+	VEX_Vpermilpd_xmm_xmm_xmmm128 = 2624,
 	/// `VPERMILPD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 0D /r`
@@ -21013,7 +21013,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilpd_ymm_ymm_ymmm256,
+	VEX_Vpermilpd_ymm_ymm_ymmm256 = 2625,
 	/// `VPERMILPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 0D /r`
@@ -21021,7 +21021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpermilpd_xmm_k1z_xmm_xmmm128b64 = 2626,
 	/// `VPERMILPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 0D /r`
@@ -21029,7 +21029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermilpd_ymm_k1z_ymm_ymmm256b64 = 2627,
 	/// `VPERMILPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 0D /r`
@@ -21037,7 +21037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermilpd_zmm_k1z_zmm_zmmm512b64 = 2628,
 	/// `VTESTPS xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.W0 0E /r`
@@ -21045,7 +21045,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vtestps_xmm_xmmm128,
+	VEX_Vtestps_xmm_xmmm128 = 2629,
 	/// `VTESTPS ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.W0 0E /r`
@@ -21053,7 +21053,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vtestps_ymm_ymmm256,
+	VEX_Vtestps_ymm_ymmm256 = 2630,
 	/// `VTESTPD xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.W0 0F /r`
@@ -21061,7 +21061,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vtestpd_xmm_xmmm128,
+	VEX_Vtestpd_xmm_xmmm128 = 2631,
 	/// `VTESTPD ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.W0 0F /r`
@@ -21069,7 +21069,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vtestpd_ymm_ymmm256,
+	VEX_Vtestpd_ymm_ymmm256 = 2632,
 	/// `PBLENDVB xmm1, xmm2/m128, <XMM0>`
 	///
 	/// `66 0F 38 10 /r`
@@ -21077,7 +21077,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pblendvb_xmm_xmmm128,
+	Pblendvb_xmm_xmmm128 = 2633,
 	/// `VPSRLVW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 10 /r`
@@ -21085,7 +21085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128 = 2634,
 	/// `VPSRLVW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 10 /r`
@@ -21093,7 +21093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256 = 2635,
 	/// `VPSRLVW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 10 /r`
@@ -21101,7 +21101,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsrlvw_zmm_k1z_zmm_zmmm512 = 2636,
 	/// `VPMOVUSWB xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 10 /r`
@@ -21109,7 +21109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovuswb_xmmm64_k1z_xmm,
+	EVEX_Vpmovuswb_xmmm64_k1z_xmm = 2637,
 	/// `VPMOVUSWB xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 10 /r`
@@ -21117,7 +21117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovuswb_xmmm128_k1z_ymm,
+	EVEX_Vpmovuswb_xmmm128_k1z_ymm = 2638,
 	/// `VPMOVUSWB ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 10 /r`
@@ -21125,7 +21125,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovuswb_ymmm256_k1z_zmm,
+	EVEX_Vpmovuswb_ymmm256_k1z_zmm = 2639,
 	/// `VPSRAVW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 11 /r`
@@ -21133,7 +21133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsravw_xmm_k1z_xmm_xmmm128 = 2640,
 	/// `VPSRAVW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 11 /r`
@@ -21141,7 +21141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsravw_ymm_k1z_ymm_ymmm256 = 2641,
 	/// `VPSRAVW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 11 /r`
@@ -21149,7 +21149,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsravw_zmm_k1z_zmm_zmmm512 = 2642,
 	/// `VPMOVUSDB xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 11 /r`
@@ -21157,7 +21157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdb_xmmm32_k1z_xmm,
+	EVEX_Vpmovusdb_xmmm32_k1z_xmm = 2643,
 	/// `VPMOVUSDB xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 11 /r`
@@ -21165,7 +21165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdb_xmmm64_k1z_ymm,
+	EVEX_Vpmovusdb_xmmm64_k1z_ymm = 2644,
 	/// `VPMOVUSDB xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 11 /r`
@@ -21173,7 +21173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdb_xmmm128_k1z_zmm,
+	EVEX_Vpmovusdb_xmmm128_k1z_zmm = 2645,
 	/// `VPSLLVW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 12 /r`
@@ -21181,7 +21181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128 = 2646,
 	/// `VPSLLVW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 12 /r`
@@ -21189,7 +21189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256 = 2647,
 	/// `VPSLLVW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 12 /r`
@@ -21197,7 +21197,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpsllvw_zmm_k1z_zmm_zmmm512 = 2648,
 	/// `VPMOVUSQB xmm1/m16 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 12 /r`
@@ -21205,7 +21205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqb_xmmm16_k1z_xmm,
+	EVEX_Vpmovusqb_xmmm16_k1z_xmm = 2649,
 	/// `VPMOVUSQB xmm1/m32 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 12 /r`
@@ -21213,7 +21213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqb_xmmm32_k1z_ymm,
+	EVEX_Vpmovusqb_xmmm32_k1z_ymm = 2650,
 	/// `VPMOVUSQB xmm1/m64 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 12 /r`
@@ -21221,7 +21221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqb_xmmm64_k1z_zmm,
+	EVEX_Vpmovusqb_xmmm64_k1z_zmm = 2651,
 	/// `VCVTPH2PS xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.W0 13 /r`
@@ -21229,7 +21229,7 @@ pub enum Code {
 	/// `F16C`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtph2ps_xmm_xmmm64,
+	VEX_Vcvtph2ps_xmm_xmmm64 = 2652,
 	/// `VCVTPH2PS ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.W0 13 /r`
@@ -21237,7 +21237,7 @@ pub enum Code {
 	/// `F16C`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtph2ps_ymm_xmmm128,
+	VEX_Vcvtph2ps_ymm_xmmm128 = 2653,
 	/// `VCVTPH2PS xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.W0 13 /r`
@@ -21245,7 +21245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtph2ps_xmm_k1z_xmmm64,
+	EVEX_Vcvtph2ps_xmm_k1z_xmmm64 = 2654,
 	/// `VCVTPH2PS ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.W0 13 /r`
@@ -21253,7 +21253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtph2ps_ymm_k1z_xmmm128,
+	EVEX_Vcvtph2ps_ymm_k1z_xmmm128 = 2655,
 	/// `VCVTPH2PS zmm1 {k1}{z}, ymm2/m256{sae}`
 	///
 	/// `EVEX.512.66.0F38.W0 13 /r`
@@ -21261,7 +21261,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae,
+	EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae = 2656,
 	/// `VPMOVUSDW xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 13 /r`
@@ -21269,7 +21269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdw_xmmm64_k1z_xmm,
+	EVEX_Vpmovusdw_xmmm64_k1z_xmm = 2657,
 	/// `VPMOVUSDW xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 13 /r`
@@ -21277,7 +21277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdw_xmmm128_k1z_ymm,
+	EVEX_Vpmovusdw_xmmm128_k1z_ymm = 2658,
 	/// `VPMOVUSDW ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 13 /r`
@@ -21285,7 +21285,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusdw_ymmm256_k1z_zmm,
+	EVEX_Vpmovusdw_ymmm256_k1z_zmm = 2659,
 	/// `BLENDVPS xmm1, xmm2/m128, <XMM0>`
 	///
 	/// `66 0F 38 14 /r`
@@ -21293,7 +21293,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Blendvps_xmm_xmmm128,
+	Blendvps_xmm_xmmm128 = 2660,
 	/// `VPRORVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 14 /r`
@@ -21301,7 +21301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32 = 2661,
 	/// `VPRORVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 14 /r`
@@ -21309,7 +21309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32 = 2662,
 	/// `VPRORVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 14 /r`
@@ -21317,7 +21317,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vprorvd_zmm_k1z_zmm_zmmm512b32 = 2663,
 	/// `VPRORVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 14 /r`
@@ -21325,7 +21325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64 = 2664,
 	/// `VPRORVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 14 /r`
@@ -21333,7 +21333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64 = 2665,
 	/// `VPRORVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 14 /r`
@@ -21341,7 +21341,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vprorvq_zmm_k1z_zmm_zmmm512b64 = 2666,
 	/// `VPMOVUSQW xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 14 /r`
@@ -21349,7 +21349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqw_xmmm32_k1z_xmm,
+	EVEX_Vpmovusqw_xmmm32_k1z_xmm = 2667,
 	/// `VPMOVUSQW xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 14 /r`
@@ -21357,7 +21357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqw_xmmm64_k1z_ymm,
+	EVEX_Vpmovusqw_xmmm64_k1z_ymm = 2668,
 	/// `VPMOVUSQW xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 14 /r`
@@ -21365,7 +21365,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqw_xmmm128_k1z_zmm,
+	EVEX_Vpmovusqw_xmmm128_k1z_zmm = 2669,
 	/// `BLENDVPD xmm1, xmm2/m128, <XMM0>`
 	///
 	/// `66 0F 38 15 /r`
@@ -21373,7 +21373,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Blendvpd_xmm_xmmm128,
+	Blendvpd_xmm_xmmm128 = 2670,
 	/// `VPROLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 15 /r`
@@ -21381,7 +21381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32 = 2671,
 	/// `VPROLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 15 /r`
@@ -21389,7 +21389,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32 = 2672,
 	/// `VPROLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 15 /r`
@@ -21397,7 +21397,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vprolvd_zmm_k1z_zmm_zmmm512b32 = 2673,
 	/// `VPROLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 15 /r`
@@ -21405,7 +21405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64 = 2674,
 	/// `VPROLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 15 /r`
@@ -21413,7 +21413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64 = 2675,
 	/// `VPROLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 15 /r`
@@ -21421,7 +21421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vprolvq_zmm_k1z_zmm_zmmm512b64 = 2676,
 	/// `VPMOVUSQD xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 15 /r`
@@ -21429,7 +21429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqd_xmmm64_k1z_xmm,
+	EVEX_Vpmovusqd_xmmm64_k1z_xmm = 2677,
 	/// `VPMOVUSQD xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 15 /r`
@@ -21437,7 +21437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqd_xmmm128_k1z_ymm,
+	EVEX_Vpmovusqd_xmmm128_k1z_ymm = 2678,
 	/// `VPMOVUSQD ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 15 /r`
@@ -21445,7 +21445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovusqd_ymmm256_k1z_zmm,
+	EVEX_Vpmovusqd_ymmm256_k1z_zmm = 2679,
 	/// `VPERMPS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 16 /r`
@@ -21453,7 +21453,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermps_ymm_ymm_ymmm256,
+	VEX_Vpermps_ymm_ymm_ymmm256 = 2680,
 	/// `VPERMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 16 /r`
@@ -21461,7 +21461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32 = 2681,
 	/// `VPERMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 16 /r`
@@ -21469,7 +21469,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermps_zmm_k1z_zmm_zmmm512b32 = 2682,
 	/// `VPERMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 16 /r`
@@ -21477,7 +21477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64 = 2683,
 	/// `VPERMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 16 /r`
@@ -21485,7 +21485,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64 = 2684,
 	/// `PTEST xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 17 /r`
@@ -21493,7 +21493,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Ptest_xmm_xmmm128,
+	Ptest_xmm_xmmm128 = 2685,
 	/// `VPTEST xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 17 /r`
@@ -21501,7 +21501,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vptest_xmm_xmmm128,
+	VEX_Vptest_xmm_xmmm128 = 2686,
 	/// `VPTEST ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 17 /r`
@@ -21509,7 +21509,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vptest_ymm_ymmm256,
+	VEX_Vptest_ymm_ymmm256 = 2687,
 	/// `VBROADCASTSS xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.W0 18 /r`
@@ -21517,7 +21517,7 @@ pub enum Code {
 	/// `AVX (reg,mem) or AVX2 (reg,reg)`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_xmm_xmmm32,
+	VEX_Vbroadcastss_xmm_xmmm32 = 2688,
 	/// `VBROADCASTSS ymm1, xmm2/m32`
 	///
 	/// `VEX.256.66.0F38.W0 18 /r`
@@ -21525,7 +21525,7 @@ pub enum Code {
 	/// `AVX (reg,mem) or AVX2 (reg,reg)`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastss_ymm_xmmm32,
+	VEX_Vbroadcastss_ymm_xmmm32 = 2689,
 	/// `VBROADCASTSS xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.W0 18 /r`
@@ -21533,7 +21533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastss_xmm_k1z_xmmm32,
+	EVEX_Vbroadcastss_xmm_k1z_xmmm32 = 2690,
 	/// `VBROADCASTSS ymm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.256.66.0F38.W0 18 /r`
@@ -21541,7 +21541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastss_ymm_k1z_xmmm32,
+	EVEX_Vbroadcastss_ymm_k1z_xmmm32 = 2691,
 	/// `VBROADCASTSS zmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.512.66.0F38.W0 18 /r`
@@ -21549,7 +21549,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastss_zmm_k1z_xmmm32,
+	EVEX_Vbroadcastss_zmm_k1z_xmmm32 = 2692,
 	/// `VBROADCASTSD ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.W0 19 /r`
@@ -21557,7 +21557,7 @@ pub enum Code {
 	/// `AVX (reg,mem) or AVX2 (reg,reg)`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastsd_ymm_xmmm64,
+	VEX_Vbroadcastsd_ymm_xmmm64 = 2693,
 	/// `VBROADCASTF32X2 ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.W0 19 /r`
@@ -21565,7 +21565,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64,
+	EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64 = 2694,
 	/// `VBROADCASTF32X2 zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.W0 19 /r`
@@ -21573,7 +21573,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64,
+	EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64 = 2695,
 	/// `VBROADCASTSD ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.W1 19 /r`
@@ -21581,7 +21581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastsd_ymm_k1z_xmmm64,
+	EVEX_Vbroadcastsd_ymm_k1z_xmmm64 = 2696,
 	/// `VBROADCASTSD zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.W1 19 /r`
@@ -21589,7 +21589,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastsd_zmm_k1z_xmmm64,
+	EVEX_Vbroadcastsd_zmm_k1z_xmmm64 = 2697,
 	/// `VBROADCASTF128 ymm1, m128`
 	///
 	/// `VEX.256.66.0F38.W0 1A /r`
@@ -21597,7 +21597,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcastf128_ymm_m128,
+	VEX_Vbroadcastf128_ymm_m128 = 2698,
 	/// `VBROADCASTF32X4 ymm1 {k1}{z}, m128`
 	///
 	/// `EVEX.256.66.0F38.W0 1A /r`
@@ -21605,7 +21605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf32x4_ymm_k1z_m128,
+	EVEX_Vbroadcastf32x4_ymm_k1z_m128 = 2699,
 	/// `VBROADCASTF32X4 zmm1 {k1}{z}, m128`
 	///
 	/// `EVEX.512.66.0F38.W0 1A /r`
@@ -21613,7 +21613,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf32x4_zmm_k1z_m128,
+	EVEX_Vbroadcastf32x4_zmm_k1z_m128 = 2700,
 	/// `VBROADCASTF64X2 ymm1 {k1}{z}, m128`
 	///
 	/// `EVEX.256.66.0F38.W1 1A /r`
@@ -21621,7 +21621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf64x2_ymm_k1z_m128,
+	EVEX_Vbroadcastf64x2_ymm_k1z_m128 = 2701,
 	/// `VBROADCASTF64X2 zmm1 {k1}{z}, m128`
 	///
 	/// `EVEX.512.66.0F38.W1 1A /r`
@@ -21629,7 +21629,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf64x2_zmm_k1z_m128,
+	EVEX_Vbroadcastf64x2_zmm_k1z_m128 = 2702,
 	/// `VBROADCASTF32X8 zmm1 {k1}{z}, m256`
 	///
 	/// `EVEX.512.66.0F38.W0 1B /r`
@@ -21637,7 +21637,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf32x8_zmm_k1z_m256,
+	EVEX_Vbroadcastf32x8_zmm_k1z_m256 = 2703,
 	/// `VBROADCASTF64X4 zmm1 {k1}{z}, m256`
 	///
 	/// `EVEX.512.66.0F38.W1 1B /r`
@@ -21645,7 +21645,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcastf64x4_zmm_k1z_m256,
+	EVEX_Vbroadcastf64x4_zmm_k1z_m256 = 2704,
 	/// `PABSB mm1, mm2/m64`
 	///
 	/// `NP 0F 38 1C /r`
@@ -21653,7 +21653,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsb_mm_mmm64,
+	Pabsb_mm_mmm64 = 2705,
 	/// `PABSB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 1C /r`
@@ -21661,7 +21661,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsb_xmm_xmmm128,
+	Pabsb_xmm_xmmm128 = 2706,
 	/// `VPABSB xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 1C /r`
@@ -21669,7 +21669,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsb_xmm_xmmm128,
+	VEX_Vpabsb_xmm_xmmm128 = 2707,
 	/// `VPABSB ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 1C /r`
@@ -21677,7 +21677,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsb_ymm_ymmm256,
+	VEX_Vpabsb_ymm_ymmm256 = 2708,
 	/// `VPABSB xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 1C /r`
@@ -21685,7 +21685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsb_xmm_k1z_xmmm128,
+	EVEX_Vpabsb_xmm_k1z_xmmm128 = 2709,
 	/// `VPABSB ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 1C /r`
@@ -21693,7 +21693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsb_ymm_k1z_ymmm256,
+	EVEX_Vpabsb_ymm_k1z_ymmm256 = 2710,
 	/// `VPABSB zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 1C /r`
@@ -21701,7 +21701,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsb_zmm_k1z_zmmm512,
+	EVEX_Vpabsb_zmm_k1z_zmmm512 = 2711,
 	/// `PABSW mm1, mm2/m64`
 	///
 	/// `NP 0F 38 1D /r`
@@ -21709,7 +21709,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsw_mm_mmm64,
+	Pabsw_mm_mmm64 = 2712,
 	/// `PABSW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 1D /r`
@@ -21717,7 +21717,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsw_xmm_xmmm128,
+	Pabsw_xmm_xmmm128 = 2713,
 	/// `VPABSW xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 1D /r`
@@ -21725,7 +21725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsw_xmm_xmmm128,
+	VEX_Vpabsw_xmm_xmmm128 = 2714,
 	/// `VPABSW ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 1D /r`
@@ -21733,7 +21733,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsw_ymm_ymmm256,
+	VEX_Vpabsw_ymm_ymmm256 = 2715,
 	/// `VPABSW xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 1D /r`
@@ -21741,7 +21741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsw_xmm_k1z_xmmm128,
+	EVEX_Vpabsw_xmm_k1z_xmmm128 = 2716,
 	/// `VPABSW ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 1D /r`
@@ -21749,7 +21749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsw_ymm_k1z_ymmm256,
+	EVEX_Vpabsw_ymm_k1z_ymmm256 = 2717,
 	/// `VPABSW zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 1D /r`
@@ -21757,7 +21757,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsw_zmm_k1z_zmmm512,
+	EVEX_Vpabsw_zmm_k1z_zmmm512 = 2718,
 	/// `PABSD mm1, mm2/m64`
 	///
 	/// `NP 0F 38 1E /r`
@@ -21765,7 +21765,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsd_mm_mmm64,
+	Pabsd_mm_mmm64 = 2719,
 	/// `PABSD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 1E /r`
@@ -21773,7 +21773,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Pabsd_xmm_xmmm128,
+	Pabsd_xmm_xmmm128 = 2720,
 	/// `VPABSD xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 1E /r`
@@ -21781,7 +21781,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsd_xmm_xmmm128,
+	VEX_Vpabsd_xmm_xmmm128 = 2721,
 	/// `VPABSD ymm1, ymm2/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 1E /r`
@@ -21789,7 +21789,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpabsd_ymm_ymmm256,
+	VEX_Vpabsd_ymm_ymmm256 = 2722,
 	/// `VPABSD xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 1E /r`
@@ -21797,7 +21797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsd_xmm_k1z_xmmm128b32,
+	EVEX_Vpabsd_xmm_k1z_xmmm128b32 = 2723,
 	/// `VPABSD ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 1E /r`
@@ -21805,7 +21805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsd_ymm_k1z_ymmm256b32,
+	EVEX_Vpabsd_ymm_k1z_ymmm256b32 = 2724,
 	/// `VPABSD zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 1E /r`
@@ -21813,7 +21813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsd_zmm_k1z_zmmm512b32,
+	EVEX_Vpabsd_zmm_k1z_zmmm512b32 = 2725,
 	/// `VPABSQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 1F /r`
@@ -21821,7 +21821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsq_xmm_k1z_xmmm128b64,
+	EVEX_Vpabsq_xmm_k1z_xmmm128b64 = 2726,
 	/// `VPABSQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 1F /r`
@@ -21829,7 +21829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsq_ymm_k1z_ymmm256b64,
+	EVEX_Vpabsq_ymm_k1z_ymmm256b64 = 2727,
 	/// `VPABSQ zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 1F /r`
@@ -21837,7 +21837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpabsq_zmm_k1z_zmmm512b64,
+	EVEX_Vpabsq_zmm_k1z_zmmm512b64 = 2728,
 	/// `PMOVSXBW xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 20 /r`
@@ -21845,7 +21845,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxbw_xmm_xmmm64,
+	Pmovsxbw_xmm_xmmm64 = 2729,
 	/// `VPMOVSXBW xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 20 /r`
@@ -21853,7 +21853,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbw_xmm_xmmm64,
+	VEX_Vpmovsxbw_xmm_xmmm64 = 2730,
 	/// `VPMOVSXBW ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 20 /r`
@@ -21861,7 +21861,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbw_ymm_xmmm128,
+	VEX_Vpmovsxbw_ymm_xmmm128 = 2731,
 	/// `VPMOVSXBW xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.WIG 20 /r`
@@ -21869,7 +21869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbw_xmm_k1z_xmmm64,
+	EVEX_Vpmovsxbw_xmm_k1z_xmmm64 = 2732,
 	/// `VPMOVSXBW ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.WIG 20 /r`
@@ -21877,7 +21877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbw_ymm_k1z_xmmm128,
+	EVEX_Vpmovsxbw_ymm_k1z_xmmm128 = 2733,
 	/// `VPMOVSXBW zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.WIG 20 /r`
@@ -21885,7 +21885,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbw_zmm_k1z_ymmm256,
+	EVEX_Vpmovsxbw_zmm_k1z_ymmm256 = 2734,
 	/// `VPMOVSWB xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 20 /r`
@@ -21893,7 +21893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovswb_xmmm64_k1z_xmm,
+	EVEX_Vpmovswb_xmmm64_k1z_xmm = 2735,
 	/// `VPMOVSWB xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 20 /r`
@@ -21901,7 +21901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovswb_xmmm128_k1z_ymm,
+	EVEX_Vpmovswb_xmmm128_k1z_ymm = 2736,
 	/// `VPMOVSWB ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 20 /r`
@@ -21909,7 +21909,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovswb_ymmm256_k1z_zmm,
+	EVEX_Vpmovswb_ymmm256_k1z_zmm = 2737,
 	/// `PMOVSXBD xmm1, xmm2/m32`
 	///
 	/// `66 0F 38 21 /r`
@@ -21917,7 +21917,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxbd_xmm_xmmm32,
+	Pmovsxbd_xmm_xmmm32 = 2738,
 	/// `VPMOVSXBD xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.WIG 21 /r`
@@ -21925,7 +21925,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbd_xmm_xmmm32,
+	VEX_Vpmovsxbd_xmm_xmmm32 = 2739,
 	/// `VPMOVSXBD ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.WIG 21 /r`
@@ -21933,7 +21933,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbd_ymm_xmmm64,
+	VEX_Vpmovsxbd_ymm_xmmm64 = 2740,
 	/// `VPMOVSXBD xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.WIG 21 /r`
@@ -21941,7 +21941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbd_xmm_k1z_xmmm32,
+	EVEX_Vpmovsxbd_xmm_k1z_xmmm32 = 2741,
 	/// `VPMOVSXBD ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.WIG 21 /r`
@@ -21949,7 +21949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbd_ymm_k1z_xmmm64,
+	EVEX_Vpmovsxbd_ymm_k1z_xmmm64 = 2742,
 	/// `VPMOVSXBD zmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.512.66.0F38.WIG 21 /r`
@@ -21957,7 +21957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbd_zmm_k1z_xmmm128,
+	EVEX_Vpmovsxbd_zmm_k1z_xmmm128 = 2743,
 	/// `VPMOVSDB xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 21 /r`
@@ -21965,7 +21965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdb_xmmm32_k1z_xmm,
+	EVEX_Vpmovsdb_xmmm32_k1z_xmm = 2744,
 	/// `VPMOVSDB xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 21 /r`
@@ -21973,7 +21973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdb_xmmm64_k1z_ymm,
+	EVEX_Vpmovsdb_xmmm64_k1z_ymm = 2745,
 	/// `VPMOVSDB xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 21 /r`
@@ -21981,7 +21981,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdb_xmmm128_k1z_zmm,
+	EVEX_Vpmovsdb_xmmm128_k1z_zmm = 2746,
 	/// `PMOVSXBQ xmm1, xmm2/m16`
 	///
 	/// `66 0F 38 22 /r`
@@ -21989,7 +21989,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxbq_xmm_xmmm16,
+	Pmovsxbq_xmm_xmmm16 = 2747,
 	/// `VPMOVSXBQ xmm1, xmm2/m16`
 	///
 	/// `VEX.128.66.0F38.WIG 22 /r`
@@ -21997,7 +21997,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbq_xmm_xmmm16,
+	VEX_Vpmovsxbq_xmm_xmmm16 = 2748,
 	/// `VPMOVSXBQ ymm1, xmm2/m32`
 	///
 	/// `VEX.256.66.0F38.WIG 22 /r`
@@ -22005,7 +22005,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxbq_ymm_xmmm32,
+	VEX_Vpmovsxbq_ymm_xmmm32 = 2749,
 	/// `VPMOVSXBQ xmm1 {k1}{z}, xmm2/m16`
 	///
 	/// `EVEX.128.66.0F38.WIG 22 /r`
@@ -22013,7 +22013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbq_xmm_k1z_xmmm16,
+	EVEX_Vpmovsxbq_xmm_k1z_xmmm16 = 2750,
 	/// `VPMOVSXBQ ymm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.256.66.0F38.WIG 22 /r`
@@ -22021,7 +22021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbq_ymm_k1z_xmmm32,
+	EVEX_Vpmovsxbq_ymm_k1z_xmmm32 = 2751,
 	/// `VPMOVSXBQ zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.WIG 22 /r`
@@ -22029,7 +22029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxbq_zmm_k1z_xmmm64,
+	EVEX_Vpmovsxbq_zmm_k1z_xmmm64 = 2752,
 	/// `VPMOVSQB xmm1/m16 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 22 /r`
@@ -22037,7 +22037,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqb_xmmm16_k1z_xmm,
+	EVEX_Vpmovsqb_xmmm16_k1z_xmm = 2753,
 	/// `VPMOVSQB xmm1/m32 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 22 /r`
@@ -22045,7 +22045,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqb_xmmm32_k1z_ymm,
+	EVEX_Vpmovsqb_xmmm32_k1z_ymm = 2754,
 	/// `VPMOVSQB xmm1/m64 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 22 /r`
@@ -22053,7 +22053,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqb_xmmm64_k1z_zmm,
+	EVEX_Vpmovsqb_xmmm64_k1z_zmm = 2755,
 	/// `PMOVSXWD xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 23 /r`
@@ -22061,7 +22061,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxwd_xmm_xmmm64,
+	Pmovsxwd_xmm_xmmm64 = 2756,
 	/// `VPMOVSXWD xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 23 /r`
@@ -22069,7 +22069,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxwd_xmm_xmmm64,
+	VEX_Vpmovsxwd_xmm_xmmm64 = 2757,
 	/// `VPMOVSXWD ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 23 /r`
@@ -22077,7 +22077,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxwd_ymm_xmmm128,
+	VEX_Vpmovsxwd_ymm_xmmm128 = 2758,
 	/// `VPMOVSXWD xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.WIG 23 /r`
@@ -22085,7 +22085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwd_xmm_k1z_xmmm64,
+	EVEX_Vpmovsxwd_xmm_k1z_xmmm64 = 2759,
 	/// `VPMOVSXWD ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.WIG 23 /r`
@@ -22093,7 +22093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwd_ymm_k1z_xmmm128,
+	EVEX_Vpmovsxwd_ymm_k1z_xmmm128 = 2760,
 	/// `VPMOVSXWD zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.WIG 23 /r`
@@ -22101,7 +22101,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwd_zmm_k1z_ymmm256,
+	EVEX_Vpmovsxwd_zmm_k1z_ymmm256 = 2761,
 	/// `VPMOVSDW xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 23 /r`
@@ -22109,7 +22109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdw_xmmm64_k1z_xmm,
+	EVEX_Vpmovsdw_xmmm64_k1z_xmm = 2762,
 	/// `VPMOVSDW xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 23 /r`
@@ -22117,7 +22117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdw_xmmm128_k1z_ymm,
+	EVEX_Vpmovsdw_xmmm128_k1z_ymm = 2763,
 	/// `VPMOVSDW ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 23 /r`
@@ -22125,7 +22125,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsdw_ymmm256_k1z_zmm,
+	EVEX_Vpmovsdw_ymmm256_k1z_zmm = 2764,
 	/// `PMOVSXWQ xmm1, xmm2/m32`
 	///
 	/// `66 0F 38 24 /r`
@@ -22133,7 +22133,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxwq_xmm_xmmm32,
+	Pmovsxwq_xmm_xmmm32 = 2765,
 	/// `VPMOVSXWQ xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.WIG 24 /r`
@@ -22141,7 +22141,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxwq_xmm_xmmm32,
+	VEX_Vpmovsxwq_xmm_xmmm32 = 2766,
 	/// `VPMOVSXWQ ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.WIG 24 /r`
@@ -22149,7 +22149,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxwq_ymm_xmmm64,
+	VEX_Vpmovsxwq_ymm_xmmm64 = 2767,
 	/// `VPMOVSXWQ xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.WIG 24 /r`
@@ -22157,7 +22157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwq_xmm_k1z_xmmm32,
+	EVEX_Vpmovsxwq_xmm_k1z_xmmm32 = 2768,
 	/// `VPMOVSXWQ ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.WIG 24 /r`
@@ -22165,7 +22165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwq_ymm_k1z_xmmm64,
+	EVEX_Vpmovsxwq_ymm_k1z_xmmm64 = 2769,
 	/// `VPMOVSXWQ zmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.512.66.0F38.WIG 24 /r`
@@ -22173,7 +22173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxwq_zmm_k1z_xmmm128,
+	EVEX_Vpmovsxwq_zmm_k1z_xmmm128 = 2770,
 	/// `VPMOVSQW xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 24 /r`
@@ -22181,7 +22181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqw_xmmm32_k1z_xmm,
+	EVEX_Vpmovsqw_xmmm32_k1z_xmm = 2771,
 	/// `VPMOVSQW xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 24 /r`
@@ -22189,7 +22189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqw_xmmm64_k1z_ymm,
+	EVEX_Vpmovsqw_xmmm64_k1z_ymm = 2772,
 	/// `VPMOVSQW xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 24 /r`
@@ -22197,7 +22197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqw_xmmm128_k1z_zmm,
+	EVEX_Vpmovsqw_xmmm128_k1z_zmm = 2773,
 	/// `PMOVSXDQ xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 25 /r`
@@ -22205,7 +22205,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovsxdq_xmm_xmmm64,
+	Pmovsxdq_xmm_xmmm64 = 2774,
 	/// `VPMOVSXDQ xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 25 /r`
@@ -22213,7 +22213,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxdq_xmm_xmmm64,
+	VEX_Vpmovsxdq_xmm_xmmm64 = 2775,
 	/// `VPMOVSXDQ ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 25 /r`
@@ -22221,7 +22221,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovsxdq_ymm_xmmm128,
+	VEX_Vpmovsxdq_ymm_xmmm128 = 2776,
 	/// `VPMOVSXDQ xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.W0 25 /r`
@@ -22229,7 +22229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxdq_xmm_k1z_xmmm64,
+	EVEX_Vpmovsxdq_xmm_k1z_xmmm64 = 2777,
 	/// `VPMOVSXDQ ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.W0 25 /r`
@@ -22237,7 +22237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxdq_ymm_k1z_xmmm128,
+	EVEX_Vpmovsxdq_ymm_k1z_xmmm128 = 2778,
 	/// `VPMOVSXDQ zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.W0 25 /r`
@@ -22245,7 +22245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsxdq_zmm_k1z_ymmm256,
+	EVEX_Vpmovsxdq_zmm_k1z_ymmm256 = 2779,
 	/// `VPMOVSQD xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 25 /r`
@@ -22253,7 +22253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqd_xmmm64_k1z_xmm,
+	EVEX_Vpmovsqd_xmmm64_k1z_xmm = 2780,
 	/// `VPMOVSQD xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 25 /r`
@@ -22261,7 +22261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqd_xmmm128_k1z_ymm,
+	EVEX_Vpmovsqd_xmmm128_k1z_ymm = 2781,
 	/// `VPMOVSQD ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 25 /r`
@@ -22269,7 +22269,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovsqd_ymmm256_k1z_zmm,
+	EVEX_Vpmovsqd_ymmm256_k1z_zmm = 2782,
 	/// `VPTESTMB k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 26 /r`
@@ -22277,7 +22277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_xmm_xmmm128,
+	EVEX_Vptestmb_k_k1_xmm_xmmm128 = 2783,
 	/// `VPTESTMB k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 26 /r`
@@ -22285,7 +22285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_ymm_ymmm256,
+	EVEX_Vptestmb_k_k1_ymm_ymmm256 = 2784,
 	/// `VPTESTMB k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 26 /r`
@@ -22293,7 +22293,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_zmm_zmmm512,
+	EVEX_Vptestmb_k_k1_zmm_zmmm512 = 2785,
 	/// `VPTESTMW k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 26 /r`
@@ -22301,7 +22301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_xmm_xmmm128,
+	EVEX_Vptestmw_k_k1_xmm_xmmm128 = 2786,
 	/// `VPTESTMW k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 26 /r`
@@ -22309,7 +22309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_ymm_ymmm256,
+	EVEX_Vptestmw_k_k1_ymm_ymmm256 = 2787,
 	/// `VPTESTMW k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 26 /r`
@@ -22317,7 +22317,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_zmm_zmmm512,
+	EVEX_Vptestmw_k_k1_zmm_zmmm512 = 2788,
 	/// `VPTESTNMB k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.F3.0F38.W0 26 /r`
@@ -22325,7 +22325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_xmm_xmmm128,
+	EVEX_Vptestnmb_k_k1_xmm_xmmm128 = 2789,
 	/// `VPTESTNMB k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.F3.0F38.W0 26 /r`
@@ -22333,7 +22333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_ymm_ymmm256,
+	EVEX_Vptestnmb_k_k1_ymm_ymmm256 = 2790,
 	/// `VPTESTNMB k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.F3.0F38.W0 26 /r`
@@ -22341,7 +22341,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_zmm_zmmm512,
+	EVEX_Vptestnmb_k_k1_zmm_zmmm512 = 2791,
 	/// `VPTESTNMW k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.F3.0F38.W1 26 /r`
@@ -22349,7 +22349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_xmm_xmmm128,
+	EVEX_Vptestnmw_k_k1_xmm_xmmm128 = 2792,
 	/// `VPTESTNMW k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.F3.0F38.W1 26 /r`
@@ -22357,7 +22357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_ymm_ymmm256,
+	EVEX_Vptestnmw_k_k1_ymm_ymmm256 = 2793,
 	/// `VPTESTNMW k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.F3.0F38.W1 26 /r`
@@ -22365,7 +22365,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_zmm_zmmm512,
+	EVEX_Vptestnmw_k_k1_zmm_zmmm512 = 2794,
 	/// `VPTESTMD k2 {k1}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 27 /r`
@@ -22373,7 +22373,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_xmm_xmmm128b32,
+	EVEX_Vptestmd_k_k1_xmm_xmmm128b32 = 2795,
 	/// `VPTESTMD k2 {k1}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 27 /r`
@@ -22381,7 +22381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_ymm_ymmm256b32,
+	EVEX_Vptestmd_k_k1_ymm_ymmm256b32 = 2796,
 	/// `VPTESTMD k2 {k1}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 27 /r`
@@ -22389,7 +22389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_zmm_zmmm512b32,
+	EVEX_Vptestmd_k_k1_zmm_zmmm512b32 = 2797,
 	/// `VPTESTMQ k2 {k1}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 27 /r`
@@ -22397,7 +22397,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_xmm_xmmm128b64,
+	EVEX_Vptestmq_k_k1_xmm_xmmm128b64 = 2798,
 	/// `VPTESTMQ k2 {k1}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 27 /r`
@@ -22405,7 +22405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_ymm_ymmm256b64,
+	EVEX_Vptestmq_k_k1_ymm_ymmm256b64 = 2799,
 	/// `VPTESTMQ k2 {k1}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 27 /r`
@@ -22413,7 +22413,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_zmm_zmmm512b64,
+	EVEX_Vptestmq_k_k1_zmm_zmmm512b64 = 2800,
 	/// `VPTESTNMD k2 {k1}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.F3.0F38.W0 27 /r`
@@ -22421,7 +22421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_xmm_xmmm128b32,
+	EVEX_Vptestnmd_k_k1_xmm_xmmm128b32 = 2801,
 	/// `VPTESTNMD k2 {k1}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.F3.0F38.W0 27 /r`
@@ -22429,7 +22429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_ymm_ymmm256b32,
+	EVEX_Vptestnmd_k_k1_ymm_ymmm256b32 = 2802,
 	/// `VPTESTNMD k2 {k1}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.F3.0F38.W0 27 /r`
@@ -22437,7 +22437,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_zmm_zmmm512b32,
+	EVEX_Vptestnmd_k_k1_zmm_zmmm512b32 = 2803,
 	/// `VPTESTNMQ k2 {k1}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F38.W1 27 /r`
@@ -22445,7 +22445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_xmm_xmmm128b64,
+	EVEX_Vptestnmq_k_k1_xmm_xmmm128b64 = 2804,
 	/// `VPTESTNMQ k2 {k1}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.F3.0F38.W1 27 /r`
@@ -22453,7 +22453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_ymm_ymmm256b64,
+	EVEX_Vptestnmq_k_k1_ymm_ymmm256b64 = 2805,
 	/// `VPTESTNMQ k2 {k1}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.F3.0F38.W1 27 /r`
@@ -22461,7 +22461,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_zmm_zmmm512b64,
+	EVEX_Vptestnmq_k_k1_zmm_zmmm512b64 = 2806,
 	/// `PMULDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 28 /r`
@@ -22469,7 +22469,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmuldq_xmm_xmmm128,
+	Pmuldq_xmm_xmmm128 = 2807,
 	/// `VPMULDQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 28 /r`
@@ -22477,7 +22477,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmuldq_xmm_xmm_xmmm128,
+	VEX_Vpmuldq_xmm_xmm_xmmm128 = 2808,
 	/// `VPMULDQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 28 /r`
@@ -22485,7 +22485,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmuldq_ymm_ymm_ymmm256,
+	VEX_Vpmuldq_ymm_ymm_ymmm256 = 2809,
 	/// `VPMULDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 28 /r`
@@ -22493,7 +22493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64 = 2810,
 	/// `VPMULDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 28 /r`
@@ -22501,7 +22501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64 = 2811,
 	/// `VPMULDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 28 /r`
@@ -22509,7 +22509,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64 = 2812,
 	/// `VPMOVM2B xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W0 28 /r`
@@ -22517,7 +22517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_xmm_k,
+	EVEX_Vpmovm2b_xmm_k = 2813,
 	/// `VPMOVM2B ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 28 /r`
@@ -22525,7 +22525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_ymm_k,
+	EVEX_Vpmovm2b_ymm_k = 2814,
 	/// `VPMOVM2B zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 28 /r`
@@ -22533,7 +22533,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_zmm_k,
+	EVEX_Vpmovm2b_zmm_k = 2815,
 	/// `VPMOVM2W xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W1 28 /r`
@@ -22541,7 +22541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_xmm_k,
+	EVEX_Vpmovm2w_xmm_k = 2816,
 	/// `VPMOVM2W ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 28 /r`
@@ -22549,7 +22549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_ymm_k,
+	EVEX_Vpmovm2w_ymm_k = 2817,
 	/// `VPMOVM2W zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 28 /r`
@@ -22557,7 +22557,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_zmm_k,
+	EVEX_Vpmovm2w_zmm_k = 2818,
 	/// `PCMPEQQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 29 /r`
@@ -22565,7 +22565,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pcmpeqq_xmm_xmmm128,
+	Pcmpeqq_xmm_xmmm128 = 2819,
 	/// `VPCMPEQQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 29 /r`
@@ -22573,7 +22573,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqq_xmm_xmm_xmmm128,
+	VEX_Vpcmpeqq_xmm_xmm_xmmm128 = 2820,
 	/// `VPCMPEQQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 29 /r`
@@ -22581,7 +22581,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpeqq_ymm_ymm_ymmm256,
+	VEX_Vpcmpeqq_ymm_ymm_ymmm256 = 2821,
 	/// `VPCMPEQQ k1 {k2}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 29 /r`
@@ -22589,7 +22589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64,
+	EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64 = 2822,
 	/// `VPCMPEQQ k1 {k2}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 29 /r`
@@ -22597,7 +22597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64,
+	EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64 = 2823,
 	/// `VPCMPEQQ k1 {k2}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 29 /r`
@@ -22605,7 +22605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64,
+	EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64 = 2824,
 	/// `VPMOVB2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W0 29 /r`
@@ -22613,7 +22613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_xmm,
+	EVEX_Vpmovb2m_k_xmm = 2825,
 	/// `VPMOVB2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W0 29 /r`
@@ -22621,7 +22621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_ymm,
+	EVEX_Vpmovb2m_k_ymm = 2826,
 	/// `VPMOVB2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W0 29 /r`
@@ -22629,7 +22629,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_zmm,
+	EVEX_Vpmovb2m_k_zmm = 2827,
 	/// `VPMOVW2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W1 29 /r`
@@ -22637,7 +22637,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_xmm,
+	EVEX_Vpmovw2m_k_xmm = 2828,
 	/// `VPMOVW2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W1 29 /r`
@@ -22645,7 +22645,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_ymm,
+	EVEX_Vpmovw2m_k_ymm = 2829,
 	/// `VPMOVW2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W1 29 /r`
@@ -22653,7 +22653,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_zmm,
+	EVEX_Vpmovw2m_k_zmm = 2830,
 	/// `MOVNTDQA xmm1, m128`
 	///
 	/// `66 0F 38 2A /r`
@@ -22661,7 +22661,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Movntdqa_xmm_m128,
+	Movntdqa_xmm_m128 = 2831,
 	/// `VMOVNTDQA xmm1, m128`
 	///
 	/// `VEX.128.66.0F38.WIG 2A /r`
@@ -22669,7 +22669,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntdqa_xmm_m128,
+	VEX_Vmovntdqa_xmm_m128 = 2832,
 	/// `VMOVNTDQA ymm1, m256`
 	///
 	/// `VEX.256.66.0F38.WIG 2A /r`
@@ -22677,7 +22677,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmovntdqa_ymm_m256,
+	VEX_Vmovntdqa_ymm_m256 = 2833,
 	/// `VMOVNTDQA xmm1, m128`
 	///
 	/// `EVEX.128.66.0F38.W0 2A /r`
@@ -22685,7 +22685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdqa_xmm_m128,
+	EVEX_Vmovntdqa_xmm_m128 = 2834,
 	/// `VMOVNTDQA ymm1, m256`
 	///
 	/// `EVEX.256.66.0F38.W0 2A /r`
@@ -22693,7 +22693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdqa_ymm_m256,
+	EVEX_Vmovntdqa_ymm_m256 = 2835,
 	/// `VMOVNTDQA zmm1, m512`
 	///
 	/// `EVEX.512.66.0F38.W0 2A /r`
@@ -22701,7 +22701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vmovntdqa_zmm_m512,
+	EVEX_Vmovntdqa_zmm_m512 = 2836,
 	/// `VPBROADCASTMB2Q xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W1 2A /r`
@@ -22709,7 +22709,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_xmm_k,
+	EVEX_Vpbroadcastmb2q_xmm_k = 2837,
 	/// `VPBROADCASTMB2Q ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 2A /r`
@@ -22717,7 +22717,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_ymm_k,
+	EVEX_Vpbroadcastmb2q_ymm_k = 2838,
 	/// `VPBROADCASTMB2Q zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 2A /r`
@@ -22725,7 +22725,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_zmm_k,
+	EVEX_Vpbroadcastmb2q_zmm_k = 2839,
 	/// `PACKUSDW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 2B /r`
@@ -22733,7 +22733,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Packusdw_xmm_xmmm128,
+	Packusdw_xmm_xmmm128 = 2840,
 	/// `VPACKUSDW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 2B /r`
@@ -22741,7 +22741,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackusdw_xmm_xmm_xmmm128,
+	VEX_Vpackusdw_xmm_xmm_xmmm128 = 2841,
 	/// `VPACKUSDW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 2B /r`
@@ -22749,7 +22749,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpackusdw_ymm_ymm_ymmm256,
+	VEX_Vpackusdw_ymm_ymm_ymmm256 = 2842,
 	/// `VPACKUSDW xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 2B /r`
@@ -22757,7 +22757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpackusdw_xmm_k1z_xmm_xmmm128b32 = 2843,
 	/// `VPACKUSDW ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 2B /r`
@@ -22765,7 +22765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpackusdw_ymm_k1z_ymm_ymmm256b32 = 2844,
 	/// `VPACKUSDW zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 2B /r`
@@ -22773,7 +22773,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpackusdw_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpackusdw_zmm_k1z_zmm_zmmm512b32 = 2845,
 	/// `VMASKMOVPS xmm1, xmm2, m128`
 	///
 	/// `VEX.128.66.0F38.W0 2C /r`
@@ -22781,7 +22781,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovps_xmm_xmm_m128,
+	VEX_Vmaskmovps_xmm_xmm_m128 = 2846,
 	/// `VMASKMOVPS ymm1, ymm2, m256`
 	///
 	/// `VEX.256.66.0F38.W0 2C /r`
@@ -22789,7 +22789,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovps_ymm_ymm_m256,
+	VEX_Vmaskmovps_ymm_ymm_m256 = 2847,
 	/// `VSCALEFPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 2C /r`
@@ -22797,7 +22797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32 = 2848,
 	/// `VSCALEFPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 2C /r`
@@ -22805,7 +22805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32 = 2849,
 	/// `VSCALEFPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 2C /r`
@@ -22813,7 +22813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er = 2850,
 	/// `VSCALEFPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 2C /r`
@@ -22821,7 +22821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64 = 2851,
 	/// `VSCALEFPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 2C /r`
@@ -22829,7 +22829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64 = 2852,
 	/// `VSCALEFPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 2C /r`
@@ -22837,7 +22837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er = 2853,
 	/// `VMASKMOVPD xmm1, xmm2, m128`
 	///
 	/// `VEX.128.66.0F38.W0 2D /r`
@@ -22845,7 +22845,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovpd_xmm_xmm_m128,
+	VEX_Vmaskmovpd_xmm_xmm_m128 = 2854,
 	/// `VMASKMOVPD ymm1, ymm2, m256`
 	///
 	/// `VEX.256.66.0F38.W0 2D /r`
@@ -22853,7 +22853,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovpd_ymm_ymm_m256,
+	VEX_Vmaskmovpd_ymm_ymm_m256 = 2855,
 	/// `VSCALEFSS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 2D /r`
@@ -22861,7 +22861,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er = 2856,
 	/// `VSCALEFSD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 2D /r`
@@ -22869,7 +22869,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er = 2857,
 	/// `VMASKMOVPS m128, xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 2E /r`
@@ -22877,7 +22877,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovps_m128_xmm_xmm,
+	VEX_Vmaskmovps_m128_xmm_xmm = 2858,
 	/// `VMASKMOVPS m256, ymm1, ymm2`
 	///
 	/// `VEX.256.66.0F38.W0 2E /r`
@@ -22885,7 +22885,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovps_m256_ymm_ymm,
+	VEX_Vmaskmovps_m256_ymm_ymm = 2859,
 	/// `VMASKMOVPD m128, xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 2F /r`
@@ -22893,7 +22893,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovpd_m128_xmm_xmm,
+	VEX_Vmaskmovpd_m128_xmm_xmm = 2860,
 	/// `VMASKMOVPD m256, ymm1, ymm2`
 	///
 	/// `VEX.256.66.0F38.W0 2F /r`
@@ -22901,7 +22901,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmaskmovpd_m256_ymm_ymm,
+	VEX_Vmaskmovpd_m256_ymm_ymm = 2861,
 	/// `PMOVZXBW xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 30 /r`
@@ -22909,7 +22909,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxbw_xmm_xmmm64,
+	Pmovzxbw_xmm_xmmm64 = 2862,
 	/// `VPMOVZXBW xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 30 /r`
@@ -22917,7 +22917,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbw_xmm_xmmm64,
+	VEX_Vpmovzxbw_xmm_xmmm64 = 2863,
 	/// `VPMOVZXBW ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 30 /r`
@@ -22925,7 +22925,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbw_ymm_xmmm128,
+	VEX_Vpmovzxbw_ymm_xmmm128 = 2864,
 	/// `VPMOVZXBW xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.WIG 30 /r`
@@ -22933,7 +22933,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbw_xmm_k1z_xmmm64,
+	EVEX_Vpmovzxbw_xmm_k1z_xmmm64 = 2865,
 	/// `VPMOVZXBW ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.WIG 30 /r`
@@ -22941,7 +22941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbw_ymm_k1z_xmmm128,
+	EVEX_Vpmovzxbw_ymm_k1z_xmmm128 = 2866,
 	/// `VPMOVZXBW zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.WIG 30 /r`
@@ -22949,7 +22949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbw_zmm_k1z_ymmm256,
+	EVEX_Vpmovzxbw_zmm_k1z_ymmm256 = 2867,
 	/// `VPMOVWB xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 30 /r`
@@ -22957,7 +22957,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovwb_xmmm64_k1z_xmm,
+	EVEX_Vpmovwb_xmmm64_k1z_xmm = 2868,
 	/// `VPMOVWB xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 30 /r`
@@ -22965,7 +22965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovwb_xmmm128_k1z_ymm,
+	EVEX_Vpmovwb_xmmm128_k1z_ymm = 2869,
 	/// `VPMOVWB ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 30 /r`
@@ -22973,7 +22973,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovwb_ymmm256_k1z_zmm,
+	EVEX_Vpmovwb_ymmm256_k1z_zmm = 2870,
 	/// `PMOVZXBD xmm1, xmm2/m32`
 	///
 	/// `66 0F 38 31 /r`
@@ -22981,7 +22981,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxbd_xmm_xmmm32,
+	Pmovzxbd_xmm_xmmm32 = 2871,
 	/// `VPMOVZXBD xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.WIG 31 /r`
@@ -22989,7 +22989,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbd_xmm_xmmm32,
+	VEX_Vpmovzxbd_xmm_xmmm32 = 2872,
 	/// `VPMOVZXBD ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.WIG 31 /r`
@@ -22997,7 +22997,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbd_ymm_xmmm64,
+	VEX_Vpmovzxbd_ymm_xmmm64 = 2873,
 	/// `VPMOVZXBD xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.WIG 31 /r`
@@ -23005,7 +23005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbd_xmm_k1z_xmmm32,
+	EVEX_Vpmovzxbd_xmm_k1z_xmmm32 = 2874,
 	/// `VPMOVZXBD ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.WIG 31 /r`
@@ -23013,7 +23013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbd_ymm_k1z_xmmm64,
+	EVEX_Vpmovzxbd_ymm_k1z_xmmm64 = 2875,
 	/// `VPMOVZXBD zmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.512.66.0F38.WIG 31 /r`
@@ -23021,7 +23021,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbd_zmm_k1z_xmmm128,
+	EVEX_Vpmovzxbd_zmm_k1z_xmmm128 = 2876,
 	/// `VPMOVDB xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 31 /r`
@@ -23029,7 +23029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdb_xmmm32_k1z_xmm,
+	EVEX_Vpmovdb_xmmm32_k1z_xmm = 2877,
 	/// `VPMOVDB xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 31 /r`
@@ -23037,7 +23037,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdb_xmmm64_k1z_ymm,
+	EVEX_Vpmovdb_xmmm64_k1z_ymm = 2878,
 	/// `VPMOVDB xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 31 /r`
@@ -23045,7 +23045,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdb_xmmm128_k1z_zmm,
+	EVEX_Vpmovdb_xmmm128_k1z_zmm = 2879,
 	/// `PMOVZXBQ xmm1, xmm2/m16`
 	///
 	/// `66 0F 38 32 /r`
@@ -23053,7 +23053,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxbq_xmm_xmmm16,
+	Pmovzxbq_xmm_xmmm16 = 2880,
 	/// `VPMOVZXBQ xmm1, xmm2/m16`
 	///
 	/// `VEX.128.66.0F38.WIG 32 /r`
@@ -23061,7 +23061,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbq_xmm_xmmm16,
+	VEX_Vpmovzxbq_xmm_xmmm16 = 2881,
 	/// `VPMOVZXBQ ymm1, xmm2/m32`
 	///
 	/// `VEX.256.66.0F38.WIG 32 /r`
@@ -23069,7 +23069,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxbq_ymm_xmmm32,
+	VEX_Vpmovzxbq_ymm_xmmm32 = 2882,
 	/// `VPMOVZXBQ xmm1 {k1}{z}, xmm2/m16`
 	///
 	/// `EVEX.128.66.0F38.WIG 32 /r`
@@ -23077,7 +23077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbq_xmm_k1z_xmmm16,
+	EVEX_Vpmovzxbq_xmm_k1z_xmmm16 = 2883,
 	/// `VPMOVZXBQ ymm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.256.66.0F38.WIG 32 /r`
@@ -23085,7 +23085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbq_ymm_k1z_xmmm32,
+	EVEX_Vpmovzxbq_ymm_k1z_xmmm32 = 2884,
 	/// `VPMOVZXBQ zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.WIG 32 /r`
@@ -23093,7 +23093,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxbq_zmm_k1z_xmmm64,
+	EVEX_Vpmovzxbq_zmm_k1z_xmmm64 = 2885,
 	/// `VPMOVQB xmm1/m16 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 32 /r`
@@ -23101,7 +23101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqb_xmmm16_k1z_xmm,
+	EVEX_Vpmovqb_xmmm16_k1z_xmm = 2886,
 	/// `VPMOVQB xmm1/m32 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 32 /r`
@@ -23109,7 +23109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqb_xmmm32_k1z_ymm,
+	EVEX_Vpmovqb_xmmm32_k1z_ymm = 2887,
 	/// `VPMOVQB xmm1/m64 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 32 /r`
@@ -23117,7 +23117,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqb_xmmm64_k1z_zmm,
+	EVEX_Vpmovqb_xmmm64_k1z_zmm = 2888,
 	/// `PMOVZXWD xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 33 /r`
@@ -23125,7 +23125,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxwd_xmm_xmmm64,
+	Pmovzxwd_xmm_xmmm64 = 2889,
 	/// `VPMOVZXWD xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 33 /r`
@@ -23133,7 +23133,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxwd_xmm_xmmm64,
+	VEX_Vpmovzxwd_xmm_xmmm64 = 2890,
 	/// `VPMOVZXWD ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 33 /r`
@@ -23141,7 +23141,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxwd_ymm_xmmm128,
+	VEX_Vpmovzxwd_ymm_xmmm128 = 2891,
 	/// `VPMOVZXWD xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.WIG 33 /r`
@@ -23149,7 +23149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwd_xmm_k1z_xmmm64,
+	EVEX_Vpmovzxwd_xmm_k1z_xmmm64 = 2892,
 	/// `VPMOVZXWD ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.WIG 33 /r`
@@ -23157,7 +23157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwd_ymm_k1z_xmmm128,
+	EVEX_Vpmovzxwd_ymm_k1z_xmmm128 = 2893,
 	/// `VPMOVZXWD zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.WIG 33 /r`
@@ -23165,7 +23165,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwd_zmm_k1z_ymmm256,
+	EVEX_Vpmovzxwd_zmm_k1z_ymmm256 = 2894,
 	/// `VPMOVDW xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 33 /r`
@@ -23173,7 +23173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdw_xmmm64_k1z_xmm,
+	EVEX_Vpmovdw_xmmm64_k1z_xmm = 2895,
 	/// `VPMOVDW xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 33 /r`
@@ -23181,7 +23181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdw_xmmm128_k1z_ymm,
+	EVEX_Vpmovdw_xmmm128_k1z_ymm = 2896,
 	/// `VPMOVDW ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 33 /r`
@@ -23189,7 +23189,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovdw_ymmm256_k1z_zmm,
+	EVEX_Vpmovdw_ymmm256_k1z_zmm = 2897,
 	/// `PMOVZXWQ xmm1, xmm2/m32`
 	///
 	/// `66 0F 38 34 /r`
@@ -23197,7 +23197,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxwq_xmm_xmmm32,
+	Pmovzxwq_xmm_xmmm32 = 2898,
 	/// `VPMOVZXWQ xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.WIG 34 /r`
@@ -23205,7 +23205,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxwq_xmm_xmmm32,
+	VEX_Vpmovzxwq_xmm_xmmm32 = 2899,
 	/// `VPMOVZXWQ ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.WIG 34 /r`
@@ -23213,7 +23213,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxwq_ymm_xmmm64,
+	VEX_Vpmovzxwq_ymm_xmmm64 = 2900,
 	/// `VPMOVZXWQ xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.WIG 34 /r`
@@ -23221,7 +23221,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwq_xmm_k1z_xmmm32,
+	EVEX_Vpmovzxwq_xmm_k1z_xmmm32 = 2901,
 	/// `VPMOVZXWQ ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.WIG 34 /r`
@@ -23229,7 +23229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwq_ymm_k1z_xmmm64,
+	EVEX_Vpmovzxwq_ymm_k1z_xmmm64 = 2902,
 	/// `VPMOVZXWQ zmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.512.66.0F38.WIG 34 /r`
@@ -23237,7 +23237,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxwq_zmm_k1z_xmmm128,
+	EVEX_Vpmovzxwq_zmm_k1z_xmmm128 = 2903,
 	/// `VPMOVQW xmm1/m32 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 34 /r`
@@ -23245,7 +23245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqw_xmmm32_k1z_xmm,
+	EVEX_Vpmovqw_xmmm32_k1z_xmm = 2904,
 	/// `VPMOVQW xmm1/m64 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 34 /r`
@@ -23253,7 +23253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqw_xmmm64_k1z_ymm,
+	EVEX_Vpmovqw_xmmm64_k1z_ymm = 2905,
 	/// `VPMOVQW xmm1/m128 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 34 /r`
@@ -23261,7 +23261,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqw_xmmm128_k1z_zmm,
+	EVEX_Vpmovqw_xmmm128_k1z_zmm = 2906,
 	/// `PMOVZXDQ xmm1, xmm2/m64`
 	///
 	/// `66 0F 38 35 /r`
@@ -23269,7 +23269,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmovzxdq_xmm_xmmm64,
+	Pmovzxdq_xmm_xmmm64 = 2907,
 	/// `VPMOVZXDQ xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.WIG 35 /r`
@@ -23277,7 +23277,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxdq_xmm_xmmm64,
+	VEX_Vpmovzxdq_xmm_xmmm64 = 2908,
 	/// `VPMOVZXDQ ymm1, xmm2/m128`
 	///
 	/// `VEX.256.66.0F38.WIG 35 /r`
@@ -23285,7 +23285,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmovzxdq_ymm_xmmm128,
+	VEX_Vpmovzxdq_ymm_xmmm128 = 2909,
 	/// `VPMOVZXDQ xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.W0 35 /r`
@@ -23293,7 +23293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxdq_xmm_k1z_xmmm64,
+	EVEX_Vpmovzxdq_xmm_k1z_xmmm64 = 2910,
 	/// `VPMOVZXDQ ymm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.256.66.0F38.W0 35 /r`
@@ -23301,7 +23301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxdq_ymm_k1z_xmmm128,
+	EVEX_Vpmovzxdq_ymm_k1z_xmmm128 = 2911,
 	/// `VPMOVZXDQ zmm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.512.66.0F38.W0 35 /r`
@@ -23309,7 +23309,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovzxdq_zmm_k1z_ymmm256,
+	EVEX_Vpmovzxdq_zmm_k1z_ymmm256 = 2912,
 	/// `VPMOVQD xmm1/m64 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.F3.0F38.W0 35 /r`
@@ -23317,7 +23317,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqd_xmmm64_k1z_xmm,
+	EVEX_Vpmovqd_xmmm64_k1z_xmm = 2913,
 	/// `VPMOVQD xmm1/m128 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.F3.0F38.W0 35 /r`
@@ -23325,7 +23325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqd_xmmm128_k1z_ymm,
+	EVEX_Vpmovqd_xmmm128_k1z_ymm = 2914,
 	/// `VPMOVQD ymm1/m256 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.F3.0F38.W0 35 /r`
@@ -23333,7 +23333,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovqd_ymmm256_k1z_zmm,
+	EVEX_Vpmovqd_ymmm256_k1z_zmm = 2915,
 	/// `VPERMD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 36 /r`
@@ -23341,7 +23341,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermd_ymm_ymm_ymmm256,
+	VEX_Vpermd_ymm_ymm_ymmm256 = 2916,
 	/// `VPERMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 36 /r`
@@ -23349,7 +23349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32 = 2917,
 	/// `VPERMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 36 /r`
@@ -23357,7 +23357,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermd_zmm_k1z_zmm_zmmm512b32 = 2918,
 	/// `VPERMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 36 /r`
@@ -23365,7 +23365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64 = 2919,
 	/// `VPERMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 36 /r`
@@ -23373,7 +23373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64 = 2920,
 	/// `PCMPGTQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 37 /r`
@@ -23381,7 +23381,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Pcmpgtq_xmm_xmmm128,
+	Pcmpgtq_xmm_xmmm128 = 2921,
 	/// `VPCMPGTQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 37 /r`
@@ -23389,7 +23389,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtq_xmm_xmm_xmmm128,
+	VEX_Vpcmpgtq_xmm_xmm_xmmm128 = 2922,
 	/// `VPCMPGTQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 37 /r`
@@ -23397,7 +23397,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpgtq_ymm_ymm_ymmm256,
+	VEX_Vpcmpgtq_ymm_ymm_ymmm256 = 2923,
 	/// `VPCMPGTQ k1 {k2}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 37 /r`
@@ -23405,7 +23405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64,
+	EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64 = 2924,
 	/// `VPCMPGTQ k1 {k2}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 37 /r`
@@ -23413,7 +23413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64,
+	EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64 = 2925,
 	/// `VPCMPGTQ k1 {k2}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 37 /r`
@@ -23421,7 +23421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64,
+	EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64 = 2926,
 	/// `PMINSB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 38 /r`
@@ -23429,7 +23429,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pminsb_xmm_xmmm128,
+	Pminsb_xmm_xmmm128 = 2927,
 	/// `VPMINSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 38 /r`
@@ -23437,7 +23437,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsb_xmm_xmm_xmmm128,
+	VEX_Vpminsb_xmm_xmm_xmmm128 = 2928,
 	/// `VPMINSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 38 /r`
@@ -23445,7 +23445,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsb_ymm_ymm_ymmm256,
+	VEX_Vpminsb_ymm_ymm_ymmm256 = 2929,
 	/// `VPMINSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 38 /r`
@@ -23453,7 +23453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpminsb_xmm_k1z_xmm_xmmm128 = 2930,
 	/// `VPMINSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 38 /r`
@@ -23461,7 +23461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpminsb_ymm_k1z_ymm_ymmm256 = 2931,
 	/// `VPMINSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 38 /r`
@@ -23469,7 +23469,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpminsb_zmm_k1z_zmm_zmmm512 = 2932,
 	/// `VPMOVM2D xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W0 38 /r`
@@ -23477,7 +23477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_xmm_k,
+	EVEX_Vpmovm2d_xmm_k = 2933,
 	/// `VPMOVM2D ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 38 /r`
@@ -23485,7 +23485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_ymm_k,
+	EVEX_Vpmovm2d_ymm_k = 2934,
 	/// `VPMOVM2D zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 38 /r`
@@ -23493,7 +23493,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_zmm_k,
+	EVEX_Vpmovm2d_zmm_k = 2935,
 	/// `VPMOVM2Q xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W1 38 /r`
@@ -23501,7 +23501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_xmm_k,
+	EVEX_Vpmovm2q_xmm_k = 2936,
 	/// `VPMOVM2Q ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 38 /r`
@@ -23509,7 +23509,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_ymm_k,
+	EVEX_Vpmovm2q_ymm_k = 2937,
 	/// `VPMOVM2Q zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 38 /r`
@@ -23517,7 +23517,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_zmm_k,
+	EVEX_Vpmovm2q_zmm_k = 2938,
 	/// `PMINSD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 39 /r`
@@ -23525,7 +23525,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pminsd_xmm_xmmm128,
+	Pminsd_xmm_xmmm128 = 2939,
 	/// `VPMINSD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 39 /r`
@@ -23533,7 +23533,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsd_xmm_xmm_xmmm128,
+	VEX_Vpminsd_xmm_xmm_xmmm128 = 2940,
 	/// `VPMINSD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 39 /r`
@@ -23541,7 +23541,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminsd_ymm_ymm_ymmm256,
+	VEX_Vpminsd_ymm_ymm_ymmm256 = 2941,
 	/// `VPMINSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 39 /r`
@@ -23549,7 +23549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpminsd_xmm_k1z_xmm_xmmm128b32 = 2942,
 	/// `VPMINSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 39 /r`
@@ -23557,7 +23557,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpminsd_ymm_k1z_ymm_ymmm256b32 = 2943,
 	/// `VPMINSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 39 /r`
@@ -23565,7 +23565,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpminsd_zmm_k1z_zmm_zmmm512b32 = 2944,
 	/// `VPMINSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 39 /r`
@@ -23573,7 +23573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64 = 2945,
 	/// `VPMINSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 39 /r`
@@ -23581,7 +23581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64 = 2946,
 	/// `VPMINSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 39 /r`
@@ -23589,7 +23589,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64 = 2947,
 	/// `VPMOVD2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W0 39 /r`
@@ -23597,7 +23597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_xmm,
+	EVEX_Vpmovd2m_k_xmm = 2948,
 	/// `VPMOVD2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W0 39 /r`
@@ -23605,7 +23605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_ymm,
+	EVEX_Vpmovd2m_k_ymm = 2949,
 	/// `VPMOVD2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W0 39 /r`
@@ -23613,7 +23613,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_zmm,
+	EVEX_Vpmovd2m_k_zmm = 2950,
 	/// `VPMOVQ2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W1 39 /r`
@@ -23621,7 +23621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_xmm,
+	EVEX_Vpmovq2m_k_xmm = 2951,
 	/// `VPMOVQ2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W1 39 /r`
@@ -23629,7 +23629,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_ymm,
+	EVEX_Vpmovq2m_k_ymm = 2952,
 	/// `VPMOVQ2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W1 39 /r`
@@ -23637,7 +23637,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_zmm,
+	EVEX_Vpmovq2m_k_zmm = 2953,
 	/// `PMINUW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3A /r`
@@ -23645,7 +23645,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pminuw_xmm_xmmm128,
+	Pminuw_xmm_xmmm128 = 2954,
 	/// `VPMINUW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3A /r`
@@ -23653,7 +23653,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminuw_xmm_xmm_xmmm128,
+	VEX_Vpminuw_xmm_xmm_xmmm128 = 2955,
 	/// `VPMINUW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3A /r`
@@ -23661,7 +23661,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminuw_ymm_ymm_ymmm256,
+	VEX_Vpminuw_ymm_ymm_ymmm256 = 2956,
 	/// `VPMINUW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 3A /r`
@@ -23669,7 +23669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpminuw_xmm_k1z_xmm_xmmm128 = 2957,
 	/// `VPMINUW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 3A /r`
@@ -23677,7 +23677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpminuw_ymm_k1z_ymm_ymmm256 = 2958,
 	/// `VPMINUW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 3A /r`
@@ -23685,7 +23685,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpminuw_zmm_k1z_zmm_zmmm512 = 2959,
 	/// `VPBROADCASTMW2D xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W0 3A /r`
@@ -23693,7 +23693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_xmm_k,
+	EVEX_Vpbroadcastmw2d_xmm_k = 2960,
 	/// `VPBROADCASTMW2D ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 3A /r`
@@ -23701,7 +23701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_ymm_k,
+	EVEX_Vpbroadcastmw2d_ymm_k = 2961,
 	/// `VPBROADCASTMW2D zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 3A /r`
@@ -23709,7 +23709,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_zmm_k,
+	EVEX_Vpbroadcastmw2d_zmm_k = 2962,
 	/// `PMINUD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3B /r`
@@ -23717,7 +23717,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pminud_xmm_xmmm128,
+	Pminud_xmm_xmmm128 = 2963,
 	/// `VPMINUD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3B /r`
@@ -23725,7 +23725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminud_xmm_xmm_xmmm128,
+	VEX_Vpminud_xmm_xmm_xmmm128 = 2964,
 	/// `VPMINUD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3B /r`
@@ -23733,7 +23733,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpminud_ymm_ymm_ymmm256,
+	VEX_Vpminud_ymm_ymm_ymmm256 = 2965,
 	/// `VPMINUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 3B /r`
@@ -23741,7 +23741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpminud_xmm_k1z_xmm_xmmm128b32 = 2966,
 	/// `VPMINUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 3B /r`
@@ -23749,7 +23749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpminud_ymm_k1z_ymm_ymmm256b32 = 2967,
 	/// `VPMINUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 3B /r`
@@ -23757,7 +23757,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminud_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpminud_zmm_k1z_zmm_zmmm512b32 = 2968,
 	/// `VPMINUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 3B /r`
@@ -23765,7 +23765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64 = 2969,
 	/// `VPMINUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 3B /r`
@@ -23773,7 +23773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64 = 2970,
 	/// `VPMINUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 3B /r`
@@ -23781,7 +23781,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpminuq_zmm_k1z_zmm_zmmm512b64 = 2971,
 	/// `PMAXSB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3C /r`
@@ -23789,7 +23789,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmaxsb_xmm_xmmm128,
+	Pmaxsb_xmm_xmmm128 = 2972,
 	/// `VPMAXSB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3C /r`
@@ -23797,7 +23797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsb_xmm_xmm_xmmm128,
+	VEX_Vpmaxsb_xmm_xmm_xmmm128 = 2973,
 	/// `VPMAXSB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3C /r`
@@ -23805,7 +23805,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsb_ymm_ymm_ymmm256,
+	VEX_Vpmaxsb_ymm_ymm_ymmm256 = 2974,
 	/// `VPMAXSB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 3C /r`
@@ -23813,7 +23813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaxsb_xmm_k1z_xmm_xmmm128 = 2975,
 	/// `VPMAXSB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 3C /r`
@@ -23821,7 +23821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaxsb_ymm_k1z_ymm_ymmm256 = 2976,
 	/// `VPMAXSB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 3C /r`
@@ -23829,7 +23829,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaxsb_zmm_k1z_zmm_zmmm512 = 2977,
 	/// `PMAXSD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3D /r`
@@ -23837,7 +23837,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmaxsd_xmm_xmmm128,
+	Pmaxsd_xmm_xmmm128 = 2978,
 	/// `VPMAXSD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3D /r`
@@ -23845,7 +23845,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsd_xmm_xmm_xmmm128,
+	VEX_Vpmaxsd_xmm_xmm_xmmm128 = 2979,
 	/// `VPMAXSD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3D /r`
@@ -23853,7 +23853,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxsd_ymm_ymm_ymmm256,
+	VEX_Vpmaxsd_ymm_ymm_ymmm256 = 2980,
 	/// `VPMAXSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 3D /r`
@@ -23861,7 +23861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpmaxsd_xmm_k1z_xmm_xmmm128b32 = 2981,
 	/// `VPMAXSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 3D /r`
@@ -23869,7 +23869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpmaxsd_ymm_k1z_ymm_ymmm256b32 = 2982,
 	/// `VPMAXSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 3D /r`
@@ -23877,7 +23877,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpmaxsd_zmm_k1z_zmm_zmmm512b32 = 2983,
 	/// `VPMAXSQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 3D /r`
@@ -23885,7 +23885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64 = 2984,
 	/// `VPMAXSQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 3D /r`
@@ -23893,7 +23893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64 = 2985,
 	/// `VPMAXSQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 3D /r`
@@ -23901,7 +23901,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmaxsq_zmm_k1z_zmm_zmmm512b64 = 2986,
 	/// `PMAXUW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3E /r`
@@ -23909,7 +23909,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmaxuw_xmm_xmmm128,
+	Pmaxuw_xmm_xmmm128 = 2987,
 	/// `VPMAXUW xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3E /r`
@@ -23917,7 +23917,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxuw_xmm_xmm_xmmm128,
+	VEX_Vpmaxuw_xmm_xmm_xmmm128 = 2988,
 	/// `VPMAXUW ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3E /r`
@@ -23925,7 +23925,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxuw_ymm_ymm_ymmm256,
+	VEX_Vpmaxuw_ymm_ymm_ymmm256 = 2989,
 	/// `VPMAXUW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG 3E /r`
@@ -23933,7 +23933,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpmaxuw_xmm_k1z_xmm_xmmm128 = 2990,
 	/// `VPMAXUW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG 3E /r`
@@ -23941,7 +23941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpmaxuw_ymm_k1z_ymm_ymmm256 = 2991,
 	/// `VPMAXUW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG 3E /r`
@@ -23949,7 +23949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpmaxuw_zmm_k1z_zmm_zmmm512 = 2992,
 	/// `PMAXUD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3F /r`
@@ -23957,7 +23957,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmaxud_xmm_xmmm128,
+	Pmaxud_xmm_xmmm128 = 2993,
 	/// `VPMAXUD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 3F /r`
@@ -23965,7 +23965,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxud_xmm_xmm_xmmm128,
+	VEX_Vpmaxud_xmm_xmm_xmmm128 = 2994,
 	/// `VPMAXUD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 3F /r`
@@ -23973,7 +23973,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaxud_ymm_ymm_ymmm256,
+	VEX_Vpmaxud_ymm_ymm_ymmm256 = 2995,
 	/// `VPMAXUD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 3F /r`
@@ -23981,7 +23981,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpmaxud_xmm_k1z_xmm_xmmm128b32 = 2996,
 	/// `VPMAXUD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 3F /r`
@@ -23989,7 +23989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpmaxud_ymm_k1z_ymm_ymmm256b32 = 2997,
 	/// `VPMAXUD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 3F /r`
@@ -23997,7 +23997,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxud_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpmaxud_zmm_k1z_zmm_zmmm512b32 = 2998,
 	/// `VPMAXUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 3F /r`
@@ -24005,7 +24005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64 = 2999,
 	/// `VPMAXUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 3F /r`
@@ -24013,7 +24013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64 = 3000,
 	/// `VPMAXUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 3F /r`
@@ -24021,7 +24021,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmaxuq_zmm_k1z_zmm_zmmm512b64 = 3001,
 	/// `PMULLD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 40 /r`
@@ -24029,7 +24029,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pmulld_xmm_xmmm128,
+	Pmulld_xmm_xmmm128 = 3002,
 	/// `VPMULLD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 40 /r`
@@ -24037,7 +24037,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulld_xmm_xmm_xmmm128,
+	VEX_Vpmulld_xmm_xmm_xmmm128 = 3003,
 	/// `VPMULLD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG 40 /r`
@@ -24045,7 +24045,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmulld_ymm_ymm_ymmm256,
+	VEX_Vpmulld_ymm_ymm_ymmm256 = 3004,
 	/// `VPMULLD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 40 /r`
@@ -24053,7 +24053,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpmulld_xmm_k1z_xmm_xmmm128b32 = 3005,
 	/// `VPMULLD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 40 /r`
@@ -24061,7 +24061,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpmulld_ymm_k1z_ymm_ymmm256b32 = 3006,
 	/// `VPMULLD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 40 /r`
@@ -24069,7 +24069,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmulld_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpmulld_zmm_k1z_zmm_zmmm512b32 = 3007,
 	/// `VPMULLQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 40 /r`
@@ -24077,7 +24077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64 = 3008,
 	/// `VPMULLQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 40 /r`
@@ -24085,7 +24085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64 = 3009,
 	/// `VPMULLQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 40 /r`
@@ -24093,7 +24093,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmullq_zmm_k1z_zmm_zmmm512b64 = 3010,
 	/// `PHMINPOSUW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 41 /r`
@@ -24101,7 +24101,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Phminposuw_xmm_xmmm128,
+	Phminposuw_xmm_xmmm128 = 3011,
 	/// `VPHMINPOSUW xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG 41 /r`
@@ -24109,7 +24109,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vphminposuw_xmm_xmmm128,
+	VEX_Vphminposuw_xmm_xmmm128 = 3012,
 	/// `VGETEXPPS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 42 /r`
@@ -24117,7 +24117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexpps_xmm_k1z_xmmm128b32,
+	EVEX_Vgetexpps_xmm_k1z_xmmm128b32 = 3013,
 	/// `VGETEXPPS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 42 /r`
@@ -24125,7 +24125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexpps_ymm_k1z_ymmm256b32,
+	EVEX_Vgetexpps_ymm_k1z_ymmm256b32 = 3014,
 	/// `VGETEXPPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W0 42 /r`
@@ -24133,7 +24133,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae = 3015,
 	/// `VGETEXPPD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 42 /r`
@@ -24141,7 +24141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexppd_xmm_k1z_xmmm128b64,
+	EVEX_Vgetexppd_xmm_k1z_xmmm128b64 = 3016,
 	/// `VGETEXPPD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 42 /r`
@@ -24149,7 +24149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexppd_ymm_k1z_ymmm256b64,
+	EVEX_Vgetexppd_ymm_k1z_ymmm256b64 = 3017,
 	/// `VGETEXPPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W1 42 /r`
@@ -24157,7 +24157,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae = 3018,
 	/// `VGETEXPSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 43 /r`
@@ -24165,7 +24165,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae = 3019,
 	/// `VGETEXPSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 43 /r`
@@ -24173,7 +24173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae,
+	EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae = 3020,
 	/// `VPLZCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 44 /r`
@@ -24181,7 +24181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntd_xmm_k1z_xmmm128b32,
+	EVEX_Vplzcntd_xmm_k1z_xmmm128b32 = 3021,
 	/// `VPLZCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 44 /r`
@@ -24189,7 +24189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntd_ymm_k1z_ymmm256b32,
+	EVEX_Vplzcntd_ymm_k1z_ymmm256b32 = 3022,
 	/// `VPLZCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 44 /r`
@@ -24197,7 +24197,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntd_zmm_k1z_zmmm512b32,
+	EVEX_Vplzcntd_zmm_k1z_zmmm512b32 = 3023,
 	/// `VPLZCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 44 /r`
@@ -24205,7 +24205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntq_xmm_k1z_xmmm128b64,
+	EVEX_Vplzcntq_xmm_k1z_xmmm128b64 = 3024,
 	/// `VPLZCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 44 /r`
@@ -24213,7 +24213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntq_ymm_k1z_ymmm256b64,
+	EVEX_Vplzcntq_ymm_k1z_ymmm256b64 = 3025,
 	/// `VPLZCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 44 /r`
@@ -24221,7 +24221,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vplzcntq_zmm_k1z_zmmm512b64,
+	EVEX_Vplzcntq_zmm_k1z_zmmm512b64 = 3026,
 	/// `VPSRLVD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 45 /r`
@@ -24229,7 +24229,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlvd_xmm_xmm_xmmm128,
+	VEX_Vpsrlvd_xmm_xmm_xmmm128 = 3027,
 	/// `VPSRLVD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 45 /r`
@@ -24237,7 +24237,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlvd_ymm_ymm_ymmm256,
+	VEX_Vpsrlvd_ymm_ymm_ymmm256 = 3028,
 	/// `VPSRLVQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 45 /r`
@@ -24245,7 +24245,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlvq_xmm_xmm_xmmm128,
+	VEX_Vpsrlvq_xmm_xmm_xmmm128 = 3029,
 	/// `VPSRLVQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 45 /r`
@@ -24253,7 +24253,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsrlvq_ymm_ymm_ymmm256,
+	VEX_Vpsrlvq_ymm_ymm_ymmm256 = 3030,
 	/// `VPSRLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 45 /r`
@@ -24261,7 +24261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32 = 3031,
 	/// `VPSRLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 45 /r`
@@ -24269,7 +24269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32 = 3032,
 	/// `VPSRLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 45 /r`
@@ -24277,7 +24277,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpsrlvd_zmm_k1z_zmm_zmmm512b32 = 3033,
 	/// `VPSRLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 45 /r`
@@ -24285,7 +24285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64 = 3034,
 	/// `VPSRLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 45 /r`
@@ -24293,7 +24293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64 = 3035,
 	/// `VPSRLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 45 /r`
@@ -24301,7 +24301,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpsrlvq_zmm_k1z_zmm_zmmm512b64 = 3036,
 	/// `VPSRAVD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 46 /r`
@@ -24309,7 +24309,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsravd_xmm_xmm_xmmm128,
+	VEX_Vpsravd_xmm_xmm_xmmm128 = 3037,
 	/// `VPSRAVD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 46 /r`
@@ -24317,7 +24317,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsravd_ymm_ymm_ymmm256,
+	VEX_Vpsravd_ymm_ymm_ymmm256 = 3038,
 	/// `VPSRAVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 46 /r`
@@ -24325,7 +24325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpsravd_xmm_k1z_xmm_xmmm128b32 = 3039,
 	/// `VPSRAVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 46 /r`
@@ -24333,7 +24333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpsravd_ymm_k1z_ymm_ymmm256b32 = 3040,
 	/// `VPSRAVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 46 /r`
@@ -24341,7 +24341,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpsravd_zmm_k1z_zmm_zmmm512b32 = 3041,
 	/// `VPSRAVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 46 /r`
@@ -24349,7 +24349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64 = 3042,
 	/// `VPSRAVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 46 /r`
@@ -24357,7 +24357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64 = 3043,
 	/// `VPSRAVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 46 /r`
@@ -24365,7 +24365,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpsravq_zmm_k1z_zmm_zmmm512b64 = 3044,
 	/// `VPSLLVD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 47 /r`
@@ -24373,7 +24373,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllvd_xmm_xmm_xmmm128,
+	VEX_Vpsllvd_xmm_xmm_xmmm128 = 3045,
 	/// `VPSLLVD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 47 /r`
@@ -24381,7 +24381,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllvd_ymm_ymm_ymmm256,
+	VEX_Vpsllvd_ymm_ymm_ymmm256 = 3046,
 	/// `VPSLLVQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 47 /r`
@@ -24389,7 +24389,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllvq_xmm_xmm_xmmm128,
+	VEX_Vpsllvq_xmm_xmm_xmmm128 = 3047,
 	/// `VPSLLVQ ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 47 /r`
@@ -24397,7 +24397,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpsllvq_ymm_ymm_ymmm256,
+	VEX_Vpsllvq_ymm_ymm_ymmm256 = 3048,
 	/// `VPSLLVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 47 /r`
@@ -24405,7 +24405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32 = 3049,
 	/// `VPSLLVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 47 /r`
@@ -24413,7 +24413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32 = 3050,
 	/// `VPSLLVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 47 /r`
@@ -24421,7 +24421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpsllvd_zmm_k1z_zmm_zmmm512b32 = 3051,
 	/// `VPSLLVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 47 /r`
@@ -24429,7 +24429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64 = 3052,
 	/// `VPSLLVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 47 /r`
@@ -24437,7 +24437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64 = 3053,
 	/// `VPSLLVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 47 /r`
@@ -24445,7 +24445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpsllvq_zmm_k1z_zmm_zmmm512b64 = 3054,
 	/// `VRCP14PS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 4C /r`
@@ -24453,7 +24453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14ps_xmm_k1z_xmmm128b32,
+	EVEX_Vrcp14ps_xmm_k1z_xmmm128b32 = 3055,
 	/// `VRCP14PS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 4C /r`
@@ -24461,7 +24461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14ps_ymm_k1z_ymmm256b32,
+	EVEX_Vrcp14ps_ymm_k1z_ymmm256b32 = 3056,
 	/// `VRCP14PS zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 4C /r`
@@ -24469,7 +24469,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14ps_zmm_k1z_zmmm512b32,
+	EVEX_Vrcp14ps_zmm_k1z_zmmm512b32 = 3057,
 	/// `VRCP14PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 4C /r`
@@ -24477,7 +24477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14pd_xmm_k1z_xmmm128b64,
+	EVEX_Vrcp14pd_xmm_k1z_xmmm128b64 = 3058,
 	/// `VRCP14PD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 4C /r`
@@ -24485,7 +24485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14pd_ymm_k1z_ymmm256b64,
+	EVEX_Vrcp14pd_ymm_k1z_ymmm256b64 = 3059,
 	/// `VRCP14PD zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 4C /r`
@@ -24493,7 +24493,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14pd_zmm_k1z_zmmm512b64,
+	EVEX_Vrcp14pd_zmm_k1z_zmmm512b64 = 3060,
 	/// `VRCP14SS xmm1 {k1}{z}, xmm2, xmm3/m32`
 	///
 	/// `EVEX.LIG.66.0F38.W0 4D /r`
@@ -24501,7 +24501,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32,
+	EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32 = 3061,
 	/// `VRCP14SD xmm1 {k1}{z}, xmm2, xmm3/m64`
 	///
 	/// `EVEX.LIG.66.0F38.W1 4D /r`
@@ -24509,7 +24509,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64,
+	EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64 = 3062,
 	/// `VRSQRT14PS xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 4E /r`
@@ -24517,7 +24517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32,
+	EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32 = 3063,
 	/// `VRSQRT14PS ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 4E /r`
@@ -24525,7 +24525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32,
+	EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32 = 3064,
 	/// `VRSQRT14PS zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 4E /r`
@@ -24533,7 +24533,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32,
+	EVEX_Vrsqrt14ps_zmm_k1z_zmmm512b32 = 3065,
 	/// `VRSQRT14PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 4E /r`
@@ -24541,7 +24541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64,
+	EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64 = 3066,
 	/// `VRSQRT14PD ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 4E /r`
@@ -24549,7 +24549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64,
+	EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64 = 3067,
 	/// `VRSQRT14PD zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 4E /r`
@@ -24557,7 +24557,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64,
+	EVEX_Vrsqrt14pd_zmm_k1z_zmmm512b64 = 3068,
 	/// `VRSQRT14SS xmm1 {k1}{z}, xmm2, xmm3/m32`
 	///
 	/// `EVEX.LIG.66.0F38.W0 4F /r`
@@ -24565,7 +24565,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32,
+	EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32 = 3069,
 	/// `VRSQRT14SD xmm1 {k1}{z}, xmm2, xmm3/m64`
 	///
 	/// `EVEX.LIG.66.0F38.W1 4F /r`
@@ -24573,7 +24573,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64,
+	EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64 = 3070,
 	/// `VPDPBUSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 50 /r`
@@ -24581,7 +24581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32 = 3071,
 	/// `VPDPBUSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 50 /r`
@@ -24589,7 +24589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32 = 3072,
 	/// `VPDPBUSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 50 /r`
@@ -24597,7 +24597,7 @@ pub enum Code {
 	/// `AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpdpbusd_zmm_k1z_zmm_zmmm512b32 = 3073,
 	/// `VPDPBUSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 51 /r`
@@ -24605,7 +24605,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32 = 3074,
 	/// `VPDPBUSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 51 /r`
@@ -24613,7 +24613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32 = 3075,
 	/// `VPDPBUSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 51 /r`
@@ -24621,7 +24621,7 @@ pub enum Code {
 	/// `AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32 = 3076,
 	/// `VPDPWSSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 52 /r`
@@ -24629,7 +24629,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32 = 3077,
 	/// `VPDPWSSD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 52 /r`
@@ -24637,7 +24637,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32 = 3078,
 	/// `VPDPWSSD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 52 /r`
@@ -24645,7 +24645,7 @@ pub enum Code {
 	/// `AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpdpwssd_zmm_k1z_zmm_zmmm512b32 = 3079,
 	/// `VDPBF16PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.F3.0F38.W0 52 /r`
@@ -24653,7 +24653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32 = 3080,
 	/// `VDPBF16PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.F3.0F38.W0 52 /r`
@@ -24661,7 +24661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32 = 3081,
 	/// `VDPBF16PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.F3.0F38.W0 52 /r`
@@ -24669,7 +24669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32 = 3082,
 	/// `VP4DPWSSD zmm1 {k1}{z}, zmm2+3, m128`
 	///
 	/// `EVEX.512.F2.0F38.W0 52 /r`
@@ -24677,7 +24677,7 @@ pub enum Code {
 	/// `AVX512_4VNNIW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128,
+	EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128 = 3083,
 	/// `VPDPWSSDS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 53 /r`
@@ -24685,7 +24685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32 = 3084,
 	/// `VPDPWSSDS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 53 /r`
@@ -24693,7 +24693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32 = 3085,
 	/// `VPDPWSSDS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 53 /r`
@@ -24701,7 +24701,7 @@ pub enum Code {
 	/// `AVX512_VNNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpdpwssds_zmm_k1z_zmm_zmmm512b32 = 3086,
 	/// `VP4DPWSSDS zmm1 {k1}{z}, zmm2+3, m128`
 	///
 	/// `EVEX.512.F2.0F38.W0 53 /r`
@@ -24709,7 +24709,7 @@ pub enum Code {
 	/// `AVX512_4VNNIW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128,
+	EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128 = 3087,
 	/// `VPOPCNTB xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 54 /r`
@@ -24717,7 +24717,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntb_xmm_k1z_xmmm128,
+	EVEX_Vpopcntb_xmm_k1z_xmmm128 = 3088,
 	/// `VPOPCNTB ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 54 /r`
@@ -24725,7 +24725,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntb_ymm_k1z_ymmm256,
+	EVEX_Vpopcntb_ymm_k1z_ymmm256 = 3089,
 	/// `VPOPCNTB zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 54 /r`
@@ -24733,7 +24733,7 @@ pub enum Code {
 	/// `AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntb_zmm_k1z_zmmm512,
+	EVEX_Vpopcntb_zmm_k1z_zmmm512 = 3090,
 	/// `VPOPCNTW xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 54 /r`
@@ -24741,7 +24741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntw_xmm_k1z_xmmm128,
+	EVEX_Vpopcntw_xmm_k1z_xmmm128 = 3091,
 	/// `VPOPCNTW ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 54 /r`
@@ -24749,7 +24749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntw_ymm_k1z_ymmm256,
+	EVEX_Vpopcntw_ymm_k1z_ymmm256 = 3092,
 	/// `VPOPCNTW zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 54 /r`
@@ -24757,7 +24757,7 @@ pub enum Code {
 	/// `AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntw_zmm_k1z_zmmm512,
+	EVEX_Vpopcntw_zmm_k1z_zmmm512 = 3093,
 	/// `VPOPCNTD xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 55 /r`
@@ -24765,7 +24765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntd_xmm_k1z_xmmm128b32,
+	EVEX_Vpopcntd_xmm_k1z_xmmm128b32 = 3094,
 	/// `VPOPCNTD ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 55 /r`
@@ -24773,7 +24773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntd_ymm_k1z_ymmm256b32,
+	EVEX_Vpopcntd_ymm_k1z_ymmm256b32 = 3095,
 	/// `VPOPCNTD zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 55 /r`
@@ -24781,7 +24781,7 @@ pub enum Code {
 	/// `AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntd_zmm_k1z_zmmm512b32,
+	EVEX_Vpopcntd_zmm_k1z_zmmm512b32 = 3096,
 	/// `VPOPCNTQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 55 /r`
@@ -24789,7 +24789,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntq_xmm_k1z_xmmm128b64,
+	EVEX_Vpopcntq_xmm_k1z_xmmm128b64 = 3097,
 	/// `VPOPCNTQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 55 /r`
@@ -24797,7 +24797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntq_ymm_k1z_ymmm256b64,
+	EVEX_Vpopcntq_ymm_k1z_ymmm256b64 = 3098,
 	/// `VPOPCNTQ zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 55 /r`
@@ -24805,7 +24805,7 @@ pub enum Code {
 	/// `AVX512_VPOPCNTDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpopcntq_zmm_k1z_zmmm512b64,
+	EVEX_Vpopcntq_zmm_k1z_zmmm512b64 = 3099,
 	/// `VPBROADCASTD xmm1, xmm2/m32`
 	///
 	/// `VEX.128.66.0F38.W0 58 /r`
@@ -24813,7 +24813,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastd_xmm_xmmm32,
+	VEX_Vpbroadcastd_xmm_xmmm32 = 3100,
 	/// `VPBROADCASTD ymm1, xmm2/m32`
 	///
 	/// `VEX.256.66.0F38.W0 58 /r`
@@ -24821,7 +24821,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastd_ymm_xmmm32,
+	VEX_Vpbroadcastd_ymm_xmmm32 = 3101,
 	/// `VPBROADCASTD xmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.128.66.0F38.W0 58 /r`
@@ -24829,7 +24829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_xmm_k1z_xmmm32,
+	EVEX_Vpbroadcastd_xmm_k1z_xmmm32 = 3102,
 	/// `VPBROADCASTD ymm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.256.66.0F38.W0 58 /r`
@@ -24837,7 +24837,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_ymm_k1z_xmmm32,
+	EVEX_Vpbroadcastd_ymm_k1z_xmmm32 = 3103,
 	/// `VPBROADCASTD zmm1 {k1}{z}, xmm2/m32`
 	///
 	/// `EVEX.512.66.0F38.W0 58 /r`
@@ -24845,7 +24845,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_zmm_k1z_xmmm32,
+	EVEX_Vpbroadcastd_zmm_k1z_xmmm32 = 3104,
 	/// `VPBROADCASTQ xmm1, xmm2/m64`
 	///
 	/// `VEX.128.66.0F38.W0 59 /r`
@@ -24853,7 +24853,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastq_xmm_xmmm64,
+	VEX_Vpbroadcastq_xmm_xmmm64 = 3105,
 	/// `VPBROADCASTQ ymm1, xmm2/m64`
 	///
 	/// `VEX.256.66.0F38.W0 59 /r`
@@ -24861,7 +24861,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastq_ymm_xmmm64,
+	VEX_Vpbroadcastq_ymm_xmmm64 = 3106,
 	/// `VBROADCASTI32X2 xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.W0 59 /r`
@@ -24869,7 +24869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64,
+	EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64 = 3107,
 	/// `VBROADCASTI32X2 ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.W0 59 /r`
@@ -24877,7 +24877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64,
+	EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64 = 3108,
 	/// `VBROADCASTI32X2 zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.W0 59 /r`
@@ -24885,7 +24885,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64,
+	EVEX_Vbroadcasti32x2_zmm_k1z_xmmm64 = 3109,
 	/// `VPBROADCASTQ xmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.128.66.0F38.W1 59 /r`
@@ -24893,7 +24893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastq_xmm_k1z_xmmm64,
+	EVEX_Vpbroadcastq_xmm_k1z_xmmm64 = 3110,
 	/// `VPBROADCASTQ ymm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.256.66.0F38.W1 59 /r`
@@ -24901,7 +24901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastq_ymm_k1z_xmmm64,
+	EVEX_Vpbroadcastq_ymm_k1z_xmmm64 = 3111,
 	/// `VPBROADCASTQ zmm1 {k1}{z}, xmm2/m64`
 	///
 	/// `EVEX.512.66.0F38.W1 59 /r`
@@ -24909,7 +24909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastq_zmm_k1z_xmmm64,
+	EVEX_Vpbroadcastq_zmm_k1z_xmmm64 = 3112,
 	/// `VBROADCASTI128 ymm1, m128`
 	///
 	/// `VEX.256.66.0F38.W0 5A /r`
@@ -24917,7 +24917,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vbroadcasti128_ymm_m128,
+	VEX_Vbroadcasti128_ymm_m128 = 3113,
 	/// `VBROADCASTI32X4 ymm1 {k1}{z}, m128`
 	///
 	/// `EVEX.256.66.0F38.W0 5A /r`
@@ -24925,7 +24925,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x4_ymm_k1z_m128,
+	EVEX_Vbroadcasti32x4_ymm_k1z_m128 = 3114,
 	/// `VBROADCASTI32X4 zmm1 {k1}{z}, m128`
 	///
 	/// `EVEX.512.66.0F38.W0 5A /r`
@@ -24933,7 +24933,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x4_zmm_k1z_m128,
+	EVEX_Vbroadcasti32x4_zmm_k1z_m128 = 3115,
 	/// `VBROADCASTI64X2 ymm1 {k1}{z}, m128`
 	///
 	/// `EVEX.256.66.0F38.W1 5A /r`
@@ -24941,7 +24941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti64x2_ymm_k1z_m128,
+	EVEX_Vbroadcasti64x2_ymm_k1z_m128 = 3116,
 	/// `VBROADCASTI64X2 zmm1 {k1}{z}, m128`
 	///
 	/// `EVEX.512.66.0F38.W1 5A /r`
@@ -24949,7 +24949,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti64x2_zmm_k1z_m128,
+	EVEX_Vbroadcasti64x2_zmm_k1z_m128 = 3117,
 	/// `VBROADCASTI32X8 zmm1 {k1}{z}, m256`
 	///
 	/// `EVEX.512.66.0F38.W0 5B /r`
@@ -24957,7 +24957,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti32x8_zmm_k1z_m256,
+	EVEX_Vbroadcasti32x8_zmm_k1z_m256 = 3118,
 	/// `VBROADCASTI64X4 zmm1 {k1}{z}, m256`
 	///
 	/// `EVEX.512.66.0F38.W1 5B /r`
@@ -24965,7 +24965,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vbroadcasti64x4_zmm_k1z_m256,
+	EVEX_Vbroadcasti64x4_zmm_k1z_m256 = 3119,
 	/// `VPEXPANDB xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 62 /r`
@@ -24973,7 +24973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandb_xmm_k1z_xmmm128,
+	EVEX_Vpexpandb_xmm_k1z_xmmm128 = 3120,
 	/// `VPEXPANDB ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 62 /r`
@@ -24981,7 +24981,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandb_ymm_k1z_ymmm256,
+	EVEX_Vpexpandb_ymm_k1z_ymmm256 = 3121,
 	/// `VPEXPANDB zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 62 /r`
@@ -24989,7 +24989,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandb_zmm_k1z_zmmm512,
+	EVEX_Vpexpandb_zmm_k1z_zmmm512 = 3122,
 	/// `VPEXPANDW xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 62 /r`
@@ -24997,7 +24997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandw_xmm_k1z_xmmm128,
+	EVEX_Vpexpandw_xmm_k1z_xmmm128 = 3123,
 	/// `VPEXPANDW ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 62 /r`
@@ -25005,7 +25005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandw_ymm_k1z_ymmm256,
+	EVEX_Vpexpandw_ymm_k1z_ymmm256 = 3124,
 	/// `VPEXPANDW zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 62 /r`
@@ -25013,7 +25013,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandw_zmm_k1z_zmmm512,
+	EVEX_Vpexpandw_zmm_k1z_zmmm512 = 3125,
 	/// `VPCOMPRESSB xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W0 63 /r`
@@ -25021,7 +25021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressb_xmmm128_k1z_xmm,
+	EVEX_Vpcompressb_xmmm128_k1z_xmm = 3126,
 	/// `VPCOMPRESSB ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W0 63 /r`
@@ -25029,7 +25029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressb_ymmm256_k1z_ymm,
+	EVEX_Vpcompressb_ymmm256_k1z_ymm = 3127,
 	/// `VPCOMPRESSB zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W0 63 /r`
@@ -25037,7 +25037,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressb_zmmm512_k1z_zmm,
+	EVEX_Vpcompressb_zmmm512_k1z_zmm = 3128,
 	/// `VPCOMPRESSW xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W1 63 /r`
@@ -25045,7 +25045,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressw_xmmm128_k1z_xmm,
+	EVEX_Vpcompressw_xmmm128_k1z_xmm = 3129,
 	/// `VPCOMPRESSW ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W1 63 /r`
@@ -25053,7 +25053,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressw_ymmm256_k1z_ymm,
+	EVEX_Vpcompressw_ymmm256_k1z_ymm = 3130,
 	/// `VPCOMPRESSW zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W1 63 /r`
@@ -25061,7 +25061,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressw_zmmm512_k1z_zmm,
+	EVEX_Vpcompressw_zmmm512_k1z_zmm = 3131,
 	/// `VPBLENDMD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 64 /r`
@@ -25069,7 +25069,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32 = 3132,
 	/// `VPBLENDMD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 64 /r`
@@ -25077,7 +25077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32 = 3133,
 	/// `VPBLENDMD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 64 /r`
@@ -25085,7 +25085,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpblendmd_zmm_k1z_zmm_zmmm512b32 = 3134,
 	/// `VPBLENDMQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 64 /r`
@@ -25093,7 +25093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64 = 3135,
 	/// `VPBLENDMQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 64 /r`
@@ -25101,7 +25101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64 = 3136,
 	/// `VPBLENDMQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 64 /r`
@@ -25109,7 +25109,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpblendmq_zmm_k1z_zmm_zmmm512b64 = 3137,
 	/// `VBLENDMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 65 /r`
@@ -25117,7 +25117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32 = 3138,
 	/// `VBLENDMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 65 /r`
@@ -25125,7 +25125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32 = 3139,
 	/// `VBLENDMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 65 /r`
@@ -25133,7 +25133,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vblendmps_zmm_k1z_zmm_zmmm512b32 = 3140,
 	/// `VBLENDMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 65 /r`
@@ -25141,7 +25141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64 = 3141,
 	/// `VBLENDMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 65 /r`
@@ -25149,7 +25149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64 = 3142,
 	/// `VBLENDMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 65 /r`
@@ -25157,7 +25157,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vblendmpd_zmm_k1z_zmm_zmmm512b64 = 3143,
 	/// `VPBLENDMB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 66 /r`
@@ -25165,7 +25165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128 = 3144,
 	/// `VPBLENDMB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 66 /r`
@@ -25173,7 +25173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256 = 3145,
 	/// `VPBLENDMB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 66 /r`
@@ -25181,7 +25181,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpblendmb_zmm_k1z_zmm_zmmm512 = 3146,
 	/// `VPBLENDMW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 66 /r`
@@ -25189,7 +25189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128 = 3147,
 	/// `VPBLENDMW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 66 /r`
@@ -25197,7 +25197,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256 = 3148,
 	/// `VPBLENDMW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 66 /r`
@@ -25205,7 +25205,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpblendmw_zmm_k1z_zmm_zmmm512 = 3149,
 	/// `VP2INTERSECTD k1+1, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.F2.0F38.W0 68 /r`
@@ -25213,7 +25213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectd_kp1_xmm_xmmm128b32,
+	EVEX_Vp2intersectd_kp1_xmm_xmmm128b32 = 3150,
 	/// `VP2INTERSECTD k1+1, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.F2.0F38.W0 68 /r`
@@ -25221,7 +25221,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectd_kp1_ymm_ymmm256b32,
+	EVEX_Vp2intersectd_kp1_ymm_ymmm256b32 = 3151,
 	/// `VP2INTERSECTD k1+1, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.F2.0F38.W0 68 /r`
@@ -25229,7 +25229,7 @@ pub enum Code {
 	/// `AVX512F and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectd_kp1_zmm_zmmm512b32,
+	EVEX_Vp2intersectd_kp1_zmm_zmmm512b32 = 3152,
 	/// `VP2INTERSECTQ k1+1, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.F2.0F38.W1 68 /r`
@@ -25237,7 +25237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectq_kp1_xmm_xmmm128b64,
+	EVEX_Vp2intersectq_kp1_xmm_xmmm128b64 = 3153,
 	/// `VP2INTERSECTQ k1+1, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.F2.0F38.W1 68 /r`
@@ -25245,7 +25245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectq_kp1_ymm_ymmm256b64,
+	EVEX_Vp2intersectq_kp1_ymm_ymmm256b64 = 3154,
 	/// `VP2INTERSECTQ k1+1, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.F2.0F38.W1 68 /r`
@@ -25253,7 +25253,7 @@ pub enum Code {
 	/// `AVX512F and AVX512_VP2INTERSECT`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vp2intersectq_kp1_zmm_zmmm512b64,
+	EVEX_Vp2intersectq_kp1_zmm_zmmm512b64 = 3155,
 	/// `VPSHLDVW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 70 /r`
@@ -25261,7 +25261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128 = 3156,
 	/// `VPSHLDVW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 70 /r`
@@ -25269,7 +25269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256 = 3157,
 	/// `VPSHLDVW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 70 /r`
@@ -25277,7 +25277,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpshldvw_zmm_k1z_zmm_zmmm512 = 3158,
 	/// `VPSHLDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 71 /r`
@@ -25285,7 +25285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32 = 3159,
 	/// `VPSHLDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 71 /r`
@@ -25293,7 +25293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32 = 3160,
 	/// `VPSHLDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 71 /r`
@@ -25301,7 +25301,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpshldvd_zmm_k1z_zmm_zmmm512b32 = 3161,
 	/// `VPSHLDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 71 /r`
@@ -25309,7 +25309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64 = 3162,
 	/// `VPSHLDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 71 /r`
@@ -25317,7 +25317,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64 = 3163,
 	/// `VPSHLDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 71 /r`
@@ -25325,7 +25325,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpshldvq_zmm_k1z_zmm_zmmm512b64 = 3164,
 	/// `VPSHRDVW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 72 /r`
@@ -25333,7 +25333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128 = 3165,
 	/// `VPSHRDVW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 72 /r`
@@ -25341,7 +25341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256 = 3166,
 	/// `VPSHRDVW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 72 /r`
@@ -25349,7 +25349,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpshrdvw_zmm_k1z_zmm_zmmm512 = 3167,
 	/// `VCVTNEPS2BF16 xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.F3.0F38.W0 72 /r`
@@ -25357,7 +25357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32,
+	EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32 = 3168,
 	/// `VCVTNEPS2BF16 xmm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.F3.0F38.W0 72 /r`
@@ -25365,7 +25365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32,
+	EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32 = 3169,
 	/// `VCVTNEPS2BF16 ymm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.F3.0F38.W0 72 /r`
@@ -25373,7 +25373,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32,
+	EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32 = 3170,
 	/// `VCVTNE2PS2BF16 xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.F2.0F38.W0 72 /r`
@@ -25381,7 +25381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32 = 3171,
 	/// `VCVTNE2PS2BF16 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.F2.0F38.W0 72 /r`
@@ -25389,7 +25389,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32 = 3172,
 	/// `VCVTNE2PS2BF16 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.F2.0F38.W0 72 /r`
@@ -25397,7 +25397,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32 = 3173,
 	/// `VPSHRDVD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 73 /r`
@@ -25405,7 +25405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32 = 3174,
 	/// `VPSHRDVD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 73 /r`
@@ -25413,7 +25413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32 = 3175,
 	/// `VPSHRDVD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 73 /r`
@@ -25421,7 +25421,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpshrdvd_zmm_k1z_zmm_zmmm512b32 = 3176,
 	/// `VPSHRDVQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 73 /r`
@@ -25429,7 +25429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64 = 3177,
 	/// `VPSHRDVQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 73 /r`
@@ -25437,7 +25437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64 = 3178,
 	/// `VPSHRDVQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 73 /r`
@@ -25445,7 +25445,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpshrdvq_zmm_k1z_zmm_zmmm512b64 = 3179,
 	/// `VPERMI2B xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 75 /r`
@@ -25453,7 +25453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128 = 3180,
 	/// `VPERMI2B ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 75 /r`
@@ -25461,7 +25461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256 = 3181,
 	/// `VPERMI2B zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 75 /r`
@@ -25469,7 +25469,7 @@ pub enum Code {
 	/// `AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermi2b_zmm_k1z_zmm_zmmm512 = 3182,
 	/// `VPERMI2W xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 75 /r`
@@ -25477,7 +25477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128 = 3183,
 	/// `VPERMI2W ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 75 /r`
@@ -25485,7 +25485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256 = 3184,
 	/// `VPERMI2W zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 75 /r`
@@ -25493,7 +25493,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermi2w_zmm_k1z_zmm_zmmm512 = 3185,
 	/// `VPERMI2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 76 /r`
@@ -25501,7 +25501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32 = 3186,
 	/// `VPERMI2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 76 /r`
@@ -25509,7 +25509,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32 = 3187,
 	/// `VPERMI2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 76 /r`
@@ -25517,7 +25517,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermi2d_zmm_k1z_zmm_zmmm512b32 = 3188,
 	/// `VPERMI2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 76 /r`
@@ -25525,7 +25525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64 = 3189,
 	/// `VPERMI2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 76 /r`
@@ -25533,7 +25533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64 = 3190,
 	/// `VPERMI2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 76 /r`
@@ -25541,7 +25541,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermi2q_zmm_k1z_zmm_zmmm512b64 = 3191,
 	/// `VPERMI2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 77 /r`
@@ -25549,7 +25549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32 = 3192,
 	/// `VPERMI2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 77 /r`
@@ -25557,7 +25557,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32 = 3193,
 	/// `VPERMI2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 77 /r`
@@ -25565,7 +25565,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermi2ps_zmm_k1z_zmm_zmmm512b32 = 3194,
 	/// `VPERMI2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 77 /r`
@@ -25573,7 +25573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64 = 3195,
 	/// `VPERMI2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 77 /r`
@@ -25581,7 +25581,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64 = 3196,
 	/// `VPERMI2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 77 /r`
@@ -25589,7 +25589,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermi2pd_zmm_k1z_zmm_zmmm512b64 = 3197,
 	/// `VPBROADCASTB xmm1, xmm2/m8`
 	///
 	/// `VEX.128.66.0F38.W0 78 /r`
@@ -25597,7 +25597,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastb_xmm_xmmm8,
+	VEX_Vpbroadcastb_xmm_xmmm8 = 3198,
 	/// `VPBROADCASTB ymm1, xmm2/m8`
 	///
 	/// `VEX.256.66.0F38.W0 78 /r`
@@ -25605,7 +25605,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastb_ymm_xmmm8,
+	VEX_Vpbroadcastb_ymm_xmmm8 = 3199,
 	/// `VPBROADCASTB xmm1 {k1}{z}, xmm2/m8`
 	///
 	/// `EVEX.128.66.0F38.W0 78 /r`
@@ -25613,7 +25613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_xmm_k1z_xmmm8,
+	EVEX_Vpbroadcastb_xmm_k1z_xmmm8 = 3200,
 	/// `VPBROADCASTB ymm1 {k1}{z}, xmm2/m8`
 	///
 	/// `EVEX.256.66.0F38.W0 78 /r`
@@ -25621,7 +25621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_ymm_k1z_xmmm8,
+	EVEX_Vpbroadcastb_ymm_k1z_xmmm8 = 3201,
 	/// `VPBROADCASTB zmm1 {k1}{z}, xmm2/m8`
 	///
 	/// `EVEX.512.66.0F38.W0 78 /r`
@@ -25629,7 +25629,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_zmm_k1z_xmmm8,
+	EVEX_Vpbroadcastb_zmm_k1z_xmmm8 = 3202,
 	/// `VPBROADCASTW xmm1, xmm2/m16`
 	///
 	/// `VEX.128.66.0F38.W0 79 /r`
@@ -25637,7 +25637,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastw_xmm_xmmm16,
+	VEX_Vpbroadcastw_xmm_xmmm16 = 3203,
 	/// `VPBROADCASTW ymm1, xmm2/m16`
 	///
 	/// `VEX.256.66.0F38.W0 79 /r`
@@ -25645,7 +25645,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpbroadcastw_ymm_xmmm16,
+	VEX_Vpbroadcastw_ymm_xmmm16 = 3204,
 	/// `VPBROADCASTW xmm1 {k1}{z}, xmm2/m16`
 	///
 	/// `EVEX.128.66.0F38.W0 79 /r`
@@ -25653,7 +25653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_xmm_k1z_xmmm16,
+	EVEX_Vpbroadcastw_xmm_k1z_xmmm16 = 3205,
 	/// `VPBROADCASTW ymm1 {k1}{z}, xmm2/m16`
 	///
 	/// `EVEX.256.66.0F38.W0 79 /r`
@@ -25661,7 +25661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_ymm_k1z_xmmm16,
+	EVEX_Vpbroadcastw_ymm_k1z_xmmm16 = 3206,
 	/// `VPBROADCASTW zmm1 {k1}{z}, xmm2/m16`
 	///
 	/// `EVEX.512.66.0F38.W0 79 /r`
@@ -25669,7 +25669,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_zmm_k1z_xmmm16,
+	EVEX_Vpbroadcastw_zmm_k1z_xmmm16 = 3207,
 	/// `VPBROADCASTB xmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.128.66.0F38.W0 7A /r`
@@ -25677,7 +25677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_xmm_k1z_r32,
+	EVEX_Vpbroadcastb_xmm_k1z_r32 = 3208,
 	/// `VPBROADCASTB ymm1 {k1}{z}, r32`
 	///
 	/// `EVEX.256.66.0F38.W0 7A /r`
@@ -25685,7 +25685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_ymm_k1z_r32,
+	EVEX_Vpbroadcastb_ymm_k1z_r32 = 3209,
 	/// `VPBROADCASTB zmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.512.66.0F38.W0 7A /r`
@@ -25693,7 +25693,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastb_zmm_k1z_r32,
+	EVEX_Vpbroadcastb_zmm_k1z_r32 = 3210,
 	/// `VPBROADCASTW xmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.128.66.0F38.W0 7B /r`
@@ -25701,7 +25701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_xmm_k1z_r32,
+	EVEX_Vpbroadcastw_xmm_k1z_r32 = 3211,
 	/// `VPBROADCASTW ymm1 {k1}{z}, r32`
 	///
 	/// `EVEX.256.66.0F38.W0 7B /r`
@@ -25709,7 +25709,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_ymm_k1z_r32,
+	EVEX_Vpbroadcastw_ymm_k1z_r32 = 3212,
 	/// `VPBROADCASTW zmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.512.66.0F38.W0 7B /r`
@@ -25717,7 +25717,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastw_zmm_k1z_r32,
+	EVEX_Vpbroadcastw_zmm_k1z_r32 = 3213,
 	/// `VPBROADCASTD xmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.128.66.0F38.W0 7C /r`
@@ -25725,7 +25725,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_xmm_k1z_r32,
+	EVEX_Vpbroadcastd_xmm_k1z_r32 = 3214,
 	/// `VPBROADCASTD ymm1 {k1}{z}, r32`
 	///
 	/// `EVEX.256.66.0F38.W0 7C /r`
@@ -25733,7 +25733,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_ymm_k1z_r32,
+	EVEX_Vpbroadcastd_ymm_k1z_r32 = 3215,
 	/// `VPBROADCASTD zmm1 {k1}{z}, r32`
 	///
 	/// `EVEX.512.66.0F38.W0 7C /r`
@@ -25741,7 +25741,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastd_zmm_k1z_r32,
+	EVEX_Vpbroadcastd_zmm_k1z_r32 = 3216,
 	/// `VPBROADCASTQ xmm1 {k1}{z}, r64`
 	///
 	/// `EVEX.128.66.0F38.W1 7C /r`
@@ -25749,7 +25749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vpbroadcastq_xmm_k1z_r64,
+	EVEX_Vpbroadcastq_xmm_k1z_r64 = 3217,
 	/// `VPBROADCASTQ ymm1 {k1}{z}, r64`
 	///
 	/// `EVEX.256.66.0F38.W1 7C /r`
@@ -25757,7 +25757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vpbroadcastq_ymm_k1z_r64,
+	EVEX_Vpbroadcastq_ymm_k1z_r64 = 3218,
 	/// `VPBROADCASTQ zmm1 {k1}{z}, r64`
 	///
 	/// `EVEX.512.66.0F38.W1 7C /r`
@@ -25765,7 +25765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vpbroadcastq_zmm_k1z_r64,
+	EVEX_Vpbroadcastq_zmm_k1z_r64 = 3219,
 	/// `VPERMT2B xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 7D /r`
@@ -25773,7 +25773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128 = 3220,
 	/// `VPERMT2B ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 7D /r`
@@ -25781,7 +25781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256 = 3221,
 	/// `VPERMT2B zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 7D /r`
@@ -25789,7 +25789,7 @@ pub enum Code {
 	/// `AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermt2b_zmm_k1z_zmm_zmmm512 = 3222,
 	/// `VPERMT2W xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 7D /r`
@@ -25797,7 +25797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128 = 3223,
 	/// `VPERMT2W ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 7D /r`
@@ -25805,7 +25805,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256 = 3224,
 	/// `VPERMT2W zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 7D /r`
@@ -25813,7 +25813,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermt2w_zmm_k1z_zmm_zmmm512 = 3225,
 	/// `VPERMT2D xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 7E /r`
@@ -25821,7 +25821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32 = 3226,
 	/// `VPERMT2D ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 7E /r`
@@ -25829,7 +25829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32 = 3227,
 	/// `VPERMT2D zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 7E /r`
@@ -25837,7 +25837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermt2d_zmm_k1z_zmm_zmmm512b32 = 3228,
 	/// `VPERMT2Q xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 7E /r`
@@ -25845,7 +25845,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64 = 3229,
 	/// `VPERMT2Q ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 7E /r`
@@ -25853,7 +25853,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64 = 3230,
 	/// `VPERMT2Q zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 7E /r`
@@ -25861,7 +25861,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermt2q_zmm_k1z_zmm_zmmm512b64 = 3231,
 	/// `VPERMT2PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 7F /r`
@@ -25869,7 +25869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32 = 3232,
 	/// `VPERMT2PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 7F /r`
@@ -25877,7 +25877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32 = 3233,
 	/// `VPERMT2PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 7F /r`
@@ -25885,7 +25885,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32,
+	EVEX_Vpermt2ps_zmm_k1z_zmm_zmmm512b32 = 3234,
 	/// `VPERMT2PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 7F /r`
@@ -25893,7 +25893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64 = 3235,
 	/// `VPERMT2PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 7F /r`
@@ -25901,7 +25901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64 = 3236,
 	/// `VPERMT2PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 7F /r`
@@ -25909,7 +25909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpermt2pd_zmm_k1z_zmm_zmmm512b64 = 3237,
 	/// `INVEPT r32, m128`
 	///
 	/// `66 0F 38 80 /r`
@@ -25917,7 +25917,7 @@ pub enum Code {
 	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `16/32-bit`
-	Invept_r32_m128,
+	Invept_r32_m128 = 3238,
 	/// `INVEPT r64, m128`
 	///
 	/// `66 0F 38 80 /r`
@@ -25925,7 +25925,7 @@ pub enum Code {
 	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 20]`
 	///
 	/// `64-bit`
-	Invept_r64_m128,
+	Invept_r64_m128 = 3239,
 	/// `INVVPID r32, m128`
 	///
 	/// `66 0F 38 81 /r`
@@ -25933,7 +25933,7 @@ pub enum Code {
 	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `16/32-bit`
-	Invvpid_r32_m128,
+	Invvpid_r32_m128 = 3240,
 	/// `INVVPID r64, m128`
 	///
 	/// `66 0F 38 81 /r`
@@ -25941,7 +25941,7 @@ pub enum Code {
 	/// `VMX and IA32_VMX_EPT_VPID_CAP[bit 32]`
 	///
 	/// `64-bit`
-	Invvpid_r64_m128,
+	Invvpid_r64_m128 = 3241,
 	/// `INVPCID r32, m128`
 	///
 	/// `66 0F 38 82 /r`
@@ -25949,7 +25949,7 @@ pub enum Code {
 	/// `INVPCID`
 	///
 	/// `16/32-bit`
-	Invpcid_r32_m128,
+	Invpcid_r32_m128 = 3242,
 	/// `INVPCID r64, m128`
 	///
 	/// `66 0F 38 82 /r`
@@ -25957,7 +25957,7 @@ pub enum Code {
 	/// `INVPCID`
 	///
 	/// `64-bit`
-	Invpcid_r64_m128,
+	Invpcid_r64_m128 = 3243,
 	/// `VPMULTISHIFTQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 83 /r`
@@ -25965,7 +25965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64 = 3244,
 	/// `VPMULTISHIFTQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 83 /r`
@@ -25973,7 +25973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64 = 3245,
 	/// `VPMULTISHIFTQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 83 /r`
@@ -25981,7 +25981,7 @@ pub enum Code {
 	/// `AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmultishiftqb_zmm_k1z_zmm_zmmm512b64 = 3246,
 	/// `VEXPANDPS xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 88 /r`
@@ -25989,7 +25989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandps_xmm_k1z_xmmm128,
+	EVEX_Vexpandps_xmm_k1z_xmmm128 = 3247,
 	/// `VEXPANDPS ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 88 /r`
@@ -25997,7 +25997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandps_ymm_k1z_ymmm256,
+	EVEX_Vexpandps_ymm_k1z_ymmm256 = 3248,
 	/// `VEXPANDPS zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 88 /r`
@@ -26005,7 +26005,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandps_zmm_k1z_zmmm512,
+	EVEX_Vexpandps_zmm_k1z_zmmm512 = 3249,
 	/// `VEXPANDPD xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 88 /r`
@@ -26013,7 +26013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandpd_xmm_k1z_xmmm128,
+	EVEX_Vexpandpd_xmm_k1z_xmmm128 = 3250,
 	/// `VEXPANDPD ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 88 /r`
@@ -26021,7 +26021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandpd_ymm_k1z_ymmm256,
+	EVEX_Vexpandpd_ymm_k1z_ymmm256 = 3251,
 	/// `VEXPANDPD zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 88 /r`
@@ -26029,7 +26029,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexpandpd_zmm_k1z_zmmm512,
+	EVEX_Vexpandpd_zmm_k1z_zmmm512 = 3252,
 	/// `VPEXPANDD xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 89 /r`
@@ -26037,7 +26037,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandd_xmm_k1z_xmmm128,
+	EVEX_Vpexpandd_xmm_k1z_xmmm128 = 3253,
 	/// `VPEXPANDD ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 89 /r`
@@ -26045,7 +26045,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandd_ymm_k1z_ymmm256,
+	EVEX_Vpexpandd_ymm_k1z_ymmm256 = 3254,
 	/// `VPEXPANDD zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 89 /r`
@@ -26053,7 +26053,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandd_zmm_k1z_zmmm512,
+	EVEX_Vpexpandd_zmm_k1z_zmmm512 = 3255,
 	/// `VPEXPANDQ xmm1 {k1}{z}, xmm2/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 89 /r`
@@ -26061,7 +26061,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandq_xmm_k1z_xmmm128,
+	EVEX_Vpexpandq_xmm_k1z_xmmm128 = 3256,
 	/// `VPEXPANDQ ymm1 {k1}{z}, ymm2/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 89 /r`
@@ -26069,7 +26069,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandq_ymm_k1z_ymmm256,
+	EVEX_Vpexpandq_ymm_k1z_ymmm256 = 3257,
 	/// `VPEXPANDQ zmm1 {k1}{z}, zmm2/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 89 /r`
@@ -26077,7 +26077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpexpandq_zmm_k1z_zmmm512,
+	EVEX_Vpexpandq_zmm_k1z_zmmm512 = 3258,
 	/// `VCOMPRESSPS xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W0 8A /r`
@@ -26085,7 +26085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompressps_xmmm128_k1z_xmm,
+	EVEX_Vcompressps_xmmm128_k1z_xmm = 3259,
 	/// `VCOMPRESSPS ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W0 8A /r`
@@ -26093,7 +26093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompressps_ymmm256_k1z_ymm,
+	EVEX_Vcompressps_ymmm256_k1z_ymm = 3260,
 	/// `VCOMPRESSPS zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W0 8A /r`
@@ -26101,7 +26101,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompressps_zmmm512_k1z_zmm,
+	EVEX_Vcompressps_zmmm512_k1z_zmm = 3261,
 	/// `VCOMPRESSPD xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W1 8A /r`
@@ -26109,7 +26109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompresspd_xmmm128_k1z_xmm,
+	EVEX_Vcompresspd_xmmm128_k1z_xmm = 3262,
 	/// `VCOMPRESSPD ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W1 8A /r`
@@ -26117,7 +26117,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompresspd_ymmm256_k1z_ymm,
+	EVEX_Vcompresspd_ymmm256_k1z_ymm = 3263,
 	/// `VCOMPRESSPD zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W1 8A /r`
@@ -26125,7 +26125,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcompresspd_zmmm512_k1z_zmm,
+	EVEX_Vcompresspd_zmmm512_k1z_zmm = 3264,
 	/// `VPCOMPRESSD xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W0 8B /r`
@@ -26133,7 +26133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressd_xmmm128_k1z_xmm,
+	EVEX_Vpcompressd_xmmm128_k1z_xmm = 3265,
 	/// `VPCOMPRESSD ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W0 8B /r`
@@ -26141,7 +26141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressd_ymmm256_k1z_ymm,
+	EVEX_Vpcompressd_ymmm256_k1z_ymm = 3266,
 	/// `VPCOMPRESSD zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W0 8B /r`
@@ -26149,7 +26149,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressd_zmmm512_k1z_zmm,
+	EVEX_Vpcompressd_zmmm512_k1z_zmm = 3267,
 	/// `VPCOMPRESSQ xmm1/m128 {k1}{z}, xmm2`
 	///
 	/// `EVEX.128.66.0F38.W1 8B /r`
@@ -26157,7 +26157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressq_xmmm128_k1z_xmm,
+	EVEX_Vpcompressq_xmmm128_k1z_xmm = 3268,
 	/// `VPCOMPRESSQ ymm1/m256 {k1}{z}, ymm2`
 	///
 	/// `EVEX.256.66.0F38.W1 8B /r`
@@ -26165,7 +26165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressq_ymmm256_k1z_ymm,
+	EVEX_Vpcompressq_ymmm256_k1z_ymm = 3269,
 	/// `VPCOMPRESSQ zmm1/m512 {k1}{z}, zmm2`
 	///
 	/// `EVEX.512.66.0F38.W1 8B /r`
@@ -26173,7 +26173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcompressq_zmmm512_k1z_zmm,
+	EVEX_Vpcompressq_zmmm512_k1z_zmm = 3270,
 	/// `VPMASKMOVD xmm1, xmm2, m128`
 	///
 	/// `VEX.128.66.0F38.W0 8C /r`
@@ -26181,7 +26181,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovd_xmm_xmm_m128,
+	VEX_Vpmaskmovd_xmm_xmm_m128 = 3271,
 	/// `VPMASKMOVD ymm1, ymm2, m256`
 	///
 	/// `VEX.256.66.0F38.W0 8C /r`
@@ -26189,7 +26189,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovd_ymm_ymm_m256,
+	VEX_Vpmaskmovd_ymm_ymm_m256 = 3272,
 	/// `VPMASKMOVQ xmm1, xmm2, m128`
 	///
 	/// `VEX.128.66.0F38.W1 8C /r`
@@ -26197,7 +26197,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovq_xmm_xmm_m128,
+	VEX_Vpmaskmovq_xmm_xmm_m128 = 3273,
 	/// `VPMASKMOVQ ymm1, ymm2, m256`
 	///
 	/// `VEX.256.66.0F38.W1 8C /r`
@@ -26205,7 +26205,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovq_ymm_ymm_m256,
+	VEX_Vpmaskmovq_ymm_ymm_m256 = 3274,
 	/// `VPERMB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 8D /r`
@@ -26213,7 +26213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermb_xmm_k1z_xmm_xmmm128 = 3275,
 	/// `VPERMB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 8D /r`
@@ -26221,7 +26221,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermb_ymm_k1z_ymm_ymmm256 = 3276,
 	/// `VPERMB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 8D /r`
@@ -26229,7 +26229,7 @@ pub enum Code {
 	/// `AVX512_VBMI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermb_zmm_k1z_zmm_zmmm512 = 3277,
 	/// `VPERMW xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 8D /r`
@@ -26237,7 +26237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermw_xmm_k1z_xmm_xmmm128,
+	EVEX_Vpermw_xmm_k1z_xmm_xmmm128 = 3278,
 	/// `VPERMW ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 8D /r`
@@ -26245,7 +26245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermw_ymm_k1z_ymm_ymmm256,
+	EVEX_Vpermw_ymm_k1z_ymm_ymmm256 = 3279,
 	/// `VPERMW zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 8D /r`
@@ -26253,7 +26253,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermw_zmm_k1z_zmm_zmmm512,
+	EVEX_Vpermw_zmm_k1z_zmm_zmmm512 = 3280,
 	/// `VPMASKMOVD m128, xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 8E /r`
@@ -26261,7 +26261,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovd_m128_xmm_xmm,
+	VEX_Vpmaskmovd_m128_xmm_xmm = 3281,
 	/// `VPMASKMOVD m256, ymm1, ymm2`
 	///
 	/// `VEX.256.66.0F38.W0 8E /r`
@@ -26269,7 +26269,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovd_m256_ymm_ymm,
+	VEX_Vpmaskmovd_m256_ymm_ymm = 3282,
 	/// `VPMASKMOVQ m128, xmm1, xmm2`
 	///
 	/// `VEX.128.66.0F38.W1 8E /r`
@@ -26277,7 +26277,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovq_m128_xmm_xmm,
+	VEX_Vpmaskmovq_m128_xmm_xmm = 3283,
 	/// `VPMASKMOVQ m256, ymm1, ymm2`
 	///
 	/// `VEX.256.66.0F38.W1 8E /r`
@@ -26285,7 +26285,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpmaskmovq_m256_ymm_ymm,
+	VEX_Vpmaskmovq_m256_ymm_ymm = 3284,
 	/// `VPSHUFBITQMB k1 {k2}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 8F /r`
@@ -26293,7 +26293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128,
+	EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128 = 3285,
 	/// `VPSHUFBITQMB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 8F /r`
@@ -26301,7 +26301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256,
+	EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256 = 3286,
 	/// `VPSHUFBITQMB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 8F /r`
@@ -26309,7 +26309,7 @@ pub enum Code {
 	/// `AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512,
+	EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512 = 3287,
 	/// `VPGATHERDD xmm1, vm32x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 90 /r`
@@ -26317,7 +26317,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherdd_xmm_vm32x_xmm,
+	VEX_Vpgatherdd_xmm_vm32x_xmm = 3288,
 	/// `VPGATHERDD ymm1, vm32y, ymm2`
 	///
 	/// `VEX.256.66.0F38.W0 90 /r`
@@ -26325,7 +26325,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherdd_ymm_vm32y_ymm,
+	VEX_Vpgatherdd_ymm_vm32y_ymm = 3289,
 	/// `VPGATHERDQ xmm1, vm32x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W1 90 /r`
@@ -26333,7 +26333,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherdq_xmm_vm32x_xmm,
+	VEX_Vpgatherdq_xmm_vm32x_xmm = 3290,
 	/// `VPGATHERDQ ymm1, vm32x, ymm2`
 	///
 	/// `VEX.256.66.0F38.W1 90 /r`
@@ -26341,7 +26341,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherdq_ymm_vm32x_ymm,
+	VEX_Vpgatherdq_ymm_vm32x_ymm = 3291,
 	/// `VPGATHERDD xmm1 {k1}, vm32x`
 	///
 	/// `EVEX.128.66.0F38.W0 90 /vsib`
@@ -26349,7 +26349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdd_xmm_k1_vm32x,
+	EVEX_Vpgatherdd_xmm_k1_vm32x = 3292,
 	/// `VPGATHERDD ymm1 {k1}, vm32y`
 	///
 	/// `EVEX.256.66.0F38.W0 90 /vsib`
@@ -26357,7 +26357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdd_ymm_k1_vm32y,
+	EVEX_Vpgatherdd_ymm_k1_vm32y = 3293,
 	/// `VPGATHERDD zmm1 {k1}, vm32z`
 	///
 	/// `EVEX.512.66.0F38.W0 90 /vsib`
@@ -26365,7 +26365,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdd_zmm_k1_vm32z,
+	EVEX_Vpgatherdd_zmm_k1_vm32z = 3294,
 	/// `VPGATHERDQ xmm1 {k1}, vm32x`
 	///
 	/// `EVEX.128.66.0F38.W1 90 /vsib`
@@ -26373,7 +26373,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdq_xmm_k1_vm32x,
+	EVEX_Vpgatherdq_xmm_k1_vm32x = 3295,
 	/// `VPGATHERDQ ymm1 {k1}, vm32x`
 	///
 	/// `EVEX.256.66.0F38.W1 90 /vsib`
@@ -26381,7 +26381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdq_ymm_k1_vm32x,
+	EVEX_Vpgatherdq_ymm_k1_vm32x = 3296,
 	/// `VPGATHERDQ zmm1 {k1}, vm32y`
 	///
 	/// `EVEX.512.66.0F38.W1 90 /vsib`
@@ -26389,7 +26389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherdq_zmm_k1_vm32y,
+	EVEX_Vpgatherdq_zmm_k1_vm32y = 3297,
 	/// `VPGATHERQD xmm1, vm64x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 91 /r`
@@ -26397,7 +26397,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherqd_xmm_vm64x_xmm,
+	VEX_Vpgatherqd_xmm_vm64x_xmm = 3298,
 	/// `VPGATHERQD xmm1, vm64y, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 91 /r`
@@ -26405,7 +26405,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherqd_xmm_vm64y_xmm,
+	VEX_Vpgatherqd_xmm_vm64y_xmm = 3299,
 	/// `VPGATHERQQ xmm1, vm64x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W1 91 /r`
@@ -26413,7 +26413,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherqq_xmm_vm64x_xmm,
+	VEX_Vpgatherqq_xmm_vm64x_xmm = 3300,
 	/// `VPGATHERQQ ymm1, vm64y, ymm2`
 	///
 	/// `VEX.256.66.0F38.W1 91 /r`
@@ -26421,7 +26421,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpgatherqq_ymm_vm64y_ymm,
+	VEX_Vpgatherqq_ymm_vm64y_ymm = 3301,
 	/// `VPGATHERQD xmm1 {k1}, vm64x`
 	///
 	/// `EVEX.128.66.0F38.W0 91 /vsib`
@@ -26429,7 +26429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqd_xmm_k1_vm64x,
+	EVEX_Vpgatherqd_xmm_k1_vm64x = 3302,
 	/// `VPGATHERQD xmm1 {k1}, vm64y`
 	///
 	/// `EVEX.256.66.0F38.W0 91 /vsib`
@@ -26437,7 +26437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqd_xmm_k1_vm64y,
+	EVEX_Vpgatherqd_xmm_k1_vm64y = 3303,
 	/// `VPGATHERQD ymm1 {k1}, vm64z`
 	///
 	/// `EVEX.512.66.0F38.W0 91 /vsib`
@@ -26445,7 +26445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqd_ymm_k1_vm64z,
+	EVEX_Vpgatherqd_ymm_k1_vm64z = 3304,
 	/// `VPGATHERQQ xmm1 {k1}, vm64x`
 	///
 	/// `EVEX.128.66.0F38.W1 91 /vsib`
@@ -26453,7 +26453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqq_xmm_k1_vm64x,
+	EVEX_Vpgatherqq_xmm_k1_vm64x = 3305,
 	/// `VPGATHERQQ ymm1 {k1}, vm64y`
 	///
 	/// `EVEX.256.66.0F38.W1 91 /vsib`
@@ -26461,7 +26461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqq_ymm_k1_vm64y,
+	EVEX_Vpgatherqq_ymm_k1_vm64y = 3306,
 	/// `VPGATHERQQ zmm1 {k1}, vm64z`
 	///
 	/// `EVEX.512.66.0F38.W1 91 /vsib`
@@ -26469,7 +26469,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpgatherqq_zmm_k1_vm64z,
+	EVEX_Vpgatherqq_zmm_k1_vm64z = 3307,
 	/// `VGATHERDPS xmm1, vm32x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 92 /r`
@@ -26477,7 +26477,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherdps_xmm_vm32x_xmm,
+	VEX_Vgatherdps_xmm_vm32x_xmm = 3308,
 	/// `VGATHERDPS ymm1, vm32y, ymm2`
 	///
 	/// `VEX.256.66.0F38.W0 92 /r`
@@ -26485,7 +26485,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherdps_ymm_vm32y_ymm,
+	VEX_Vgatherdps_ymm_vm32y_ymm = 3309,
 	/// `VGATHERDPD xmm1, vm32x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W1 92 /r`
@@ -26493,7 +26493,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherdpd_xmm_vm32x_xmm,
+	VEX_Vgatherdpd_xmm_vm32x_xmm = 3310,
 	/// `VGATHERDPD ymm1, vm32x, ymm2`
 	///
 	/// `VEX.256.66.0F38.W1 92 /r`
@@ -26501,7 +26501,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherdpd_ymm_vm32x_ymm,
+	VEX_Vgatherdpd_ymm_vm32x_ymm = 3311,
 	/// `VGATHERDPS xmm1 {k1}, vm32x`
 	///
 	/// `EVEX.128.66.0F38.W0 92 /vsib`
@@ -26509,7 +26509,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdps_xmm_k1_vm32x,
+	EVEX_Vgatherdps_xmm_k1_vm32x = 3312,
 	/// `VGATHERDPS ymm1 {k1}, vm32y`
 	///
 	/// `EVEX.256.66.0F38.W0 92 /vsib`
@@ -26517,7 +26517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdps_ymm_k1_vm32y,
+	EVEX_Vgatherdps_ymm_k1_vm32y = 3313,
 	/// `VGATHERDPS zmm1 {k1}, vm32z`
 	///
 	/// `EVEX.512.66.0F38.W0 92 /vsib`
@@ -26525,7 +26525,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdps_zmm_k1_vm32z,
+	EVEX_Vgatherdps_zmm_k1_vm32z = 3314,
 	/// `VGATHERDPD xmm1 {k1}, vm32x`
 	///
 	/// `EVEX.128.66.0F38.W1 92 /vsib`
@@ -26533,7 +26533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdpd_xmm_k1_vm32x,
+	EVEX_Vgatherdpd_xmm_k1_vm32x = 3315,
 	/// `VGATHERDPD ymm1 {k1}, vm32x`
 	///
 	/// `EVEX.256.66.0F38.W1 92 /vsib`
@@ -26541,7 +26541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdpd_ymm_k1_vm32x,
+	EVEX_Vgatherdpd_ymm_k1_vm32x = 3316,
 	/// `VGATHERDPD zmm1 {k1}, vm32y`
 	///
 	/// `EVEX.512.66.0F38.W1 92 /vsib`
@@ -26549,7 +26549,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherdpd_zmm_k1_vm32y,
+	EVEX_Vgatherdpd_zmm_k1_vm32y = 3317,
 	/// `VGATHERQPS xmm1, vm64x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 93 /r`
@@ -26557,7 +26557,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherqps_xmm_vm64x_xmm,
+	VEX_Vgatherqps_xmm_vm64x_xmm = 3318,
 	/// `VGATHERQPS xmm1, vm64y, xmm2`
 	///
 	/// `VEX.256.66.0F38.W0 93 /r`
@@ -26565,7 +26565,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherqps_xmm_vm64y_xmm,
+	VEX_Vgatherqps_xmm_vm64y_xmm = 3319,
 	/// `VGATHERQPD xmm1, vm64x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W1 93 /r`
@@ -26573,7 +26573,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherqpd_xmm_vm64x_xmm,
+	VEX_Vgatherqpd_xmm_vm64x_xmm = 3320,
 	/// `VGATHERQPD ymm1, vm64y, ymm2`
 	///
 	/// `VEX.256.66.0F38.W1 93 /r`
@@ -26581,7 +26581,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgatherqpd_ymm_vm64y_ymm,
+	VEX_Vgatherqpd_ymm_vm64y_ymm = 3321,
 	/// `VGATHERQPS xmm1 {k1}, vm64x`
 	///
 	/// `EVEX.128.66.0F38.W0 93 /vsib`
@@ -26589,7 +26589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqps_xmm_k1_vm64x,
+	EVEX_Vgatherqps_xmm_k1_vm64x = 3322,
 	/// `VGATHERQPS xmm1 {k1}, vm64y`
 	///
 	/// `EVEX.256.66.0F38.W0 93 /vsib`
@@ -26597,7 +26597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqps_xmm_k1_vm64y,
+	EVEX_Vgatherqps_xmm_k1_vm64y = 3323,
 	/// `VGATHERQPS ymm1 {k1}, vm64z`
 	///
 	/// `EVEX.512.66.0F38.W0 93 /vsib`
@@ -26605,7 +26605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqps_ymm_k1_vm64z,
+	EVEX_Vgatherqps_ymm_k1_vm64z = 3324,
 	/// `VGATHERQPD xmm1 {k1}, vm64x`
 	///
 	/// `EVEX.128.66.0F38.W1 93 /vsib`
@@ -26613,7 +26613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqpd_xmm_k1_vm64x,
+	EVEX_Vgatherqpd_xmm_k1_vm64x = 3325,
 	/// `VGATHERQPD ymm1 {k1}, vm64y`
 	///
 	/// `EVEX.256.66.0F38.W1 93 /vsib`
@@ -26621,7 +26621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqpd_ymm_k1_vm64y,
+	EVEX_Vgatherqpd_ymm_k1_vm64y = 3326,
 	/// `VGATHERQPD zmm1 {k1}, vm64z`
 	///
 	/// `EVEX.512.66.0F38.W1 93 /vsib`
@@ -26629,7 +26629,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherqpd_zmm_k1_vm64z,
+	EVEX_Vgatherqpd_zmm_k1_vm64z = 3327,
 	/// `VFMADDSUB132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 96 /r`
@@ -26637,7 +26637,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub132ps_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub132ps_xmm_xmm_xmmm128 = 3328,
 	/// `VFMADDSUB132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 96 /r`
@@ -26645,7 +26645,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub132ps_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub132ps_ymm_ymm_ymmm256 = 3329,
 	/// `VFMADDSUB132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 96 /r`
@@ -26653,7 +26653,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub132pd_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub132pd_xmm_xmm_xmmm128 = 3330,
 	/// `VFMADDSUB132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 96 /r`
@@ -26661,7 +26661,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub132pd_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub132pd_ymm_ymm_ymmm256 = 3331,
 	/// `VFMADDSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 96 /r`
@@ -26669,7 +26669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32 = 3332,
 	/// `VFMADDSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 96 /r`
@@ -26677,7 +26677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32 = 3333,
 	/// `VFMADDSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 96 /r`
@@ -26685,7 +26685,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er = 3334,
 	/// `VFMADDSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 96 /r`
@@ -26693,7 +26693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64 = 3335,
 	/// `VFMADDSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 96 /r`
@@ -26701,7 +26701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64 = 3336,
 	/// `VFMADDSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 96 /r`
@@ -26709,7 +26709,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er = 3337,
 	/// `VFMSUBADD132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 97 /r`
@@ -26717,7 +26717,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd132ps_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd132ps_xmm_xmm_xmmm128 = 3338,
 	/// `VFMSUBADD132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 97 /r`
@@ -26725,7 +26725,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd132ps_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd132ps_ymm_ymm_ymmm256 = 3339,
 	/// `VFMSUBADD132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 97 /r`
@@ -26733,7 +26733,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd132pd_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd132pd_xmm_xmm_xmmm128 = 3340,
 	/// `VFMSUBADD132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 97 /r`
@@ -26741,7 +26741,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd132pd_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd132pd_ymm_ymm_ymmm256 = 3341,
 	/// `VFMSUBADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 97 /r`
@@ -26749,7 +26749,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32 = 3342,
 	/// `VFMSUBADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 97 /r`
@@ -26757,7 +26757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32 = 3343,
 	/// `VFMSUBADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 97 /r`
@@ -26765,7 +26765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er = 3344,
 	/// `VFMSUBADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 97 /r`
@@ -26773,7 +26773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64 = 3345,
 	/// `VFMSUBADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 97 /r`
@@ -26781,7 +26781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64 = 3346,
 	/// `VFMSUBADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 97 /r`
@@ -26789,7 +26789,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er = 3347,
 	/// `VFMADD132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 98 /r`
@@ -26797,7 +26797,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132ps_xmm_xmm_xmmm128,
+	VEX_Vfmadd132ps_xmm_xmm_xmmm128 = 3348,
 	/// `VFMADD132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 98 /r`
@@ -26805,7 +26805,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132ps_ymm_ymm_ymmm256,
+	VEX_Vfmadd132ps_ymm_ymm_ymmm256 = 3349,
 	/// `VFMADD132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 98 /r`
@@ -26813,7 +26813,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132pd_xmm_xmm_xmmm128,
+	VEX_Vfmadd132pd_xmm_xmm_xmmm128 = 3350,
 	/// `VFMADD132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 98 /r`
@@ -26821,7 +26821,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132pd_ymm_ymm_ymmm256,
+	VEX_Vfmadd132pd_ymm_ymm_ymmm256 = 3351,
 	/// `VFMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 98 /r`
@@ -26829,7 +26829,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32 = 3352,
 	/// `VFMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 98 /r`
@@ -26837,7 +26837,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32 = 3353,
 	/// `VFMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 98 /r`
@@ -26845,7 +26845,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er = 3354,
 	/// `VFMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 98 /r`
@@ -26853,7 +26853,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64 = 3355,
 	/// `VFMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 98 /r`
@@ -26861,7 +26861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64 = 3356,
 	/// `VFMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 98 /r`
@@ -26869,7 +26869,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er = 3357,
 	/// `VFMADD132SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 99 /r`
@@ -26877,7 +26877,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132ss_xmm_xmm_xmmm32,
+	VEX_Vfmadd132ss_xmm_xmm_xmmm32 = 3358,
 	/// `VFMADD132SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 99 /r`
@@ -26885,7 +26885,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd132sd_xmm_xmm_xmmm64,
+	VEX_Vfmadd132sd_xmm_xmm_xmmm64 = 3359,
 	/// `VFMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 99 /r`
@@ -26893,7 +26893,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er = 3360,
 	/// `VFMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 99 /r`
@@ -26901,7 +26901,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er = 3361,
 	/// `VFMSUB132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 9A /r`
@@ -26909,7 +26909,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132ps_xmm_xmm_xmmm128,
+	VEX_Vfmsub132ps_xmm_xmm_xmmm128 = 3362,
 	/// `VFMSUB132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 9A /r`
@@ -26917,7 +26917,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132ps_ymm_ymm_ymmm256,
+	VEX_Vfmsub132ps_ymm_ymm_ymmm256 = 3363,
 	/// `VFMSUB132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 9A /r`
@@ -26925,7 +26925,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132pd_xmm_xmm_xmmm128,
+	VEX_Vfmsub132pd_xmm_xmm_xmmm128 = 3364,
 	/// `VFMSUB132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 9A /r`
@@ -26933,7 +26933,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132pd_ymm_ymm_ymmm256,
+	VEX_Vfmsub132pd_ymm_ymm_ymmm256 = 3365,
 	/// `VFMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 9A /r`
@@ -26941,7 +26941,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32 = 3366,
 	/// `VFMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 9A /r`
@@ -26949,7 +26949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32 = 3367,
 	/// `VFMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 9A /r`
@@ -26957,7 +26957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er = 3368,
 	/// `VFMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 9A /r`
@@ -26965,7 +26965,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64 = 3369,
 	/// `VFMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 9A /r`
@@ -26973,7 +26973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64 = 3370,
 	/// `VFMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 9A /r`
@@ -26981,7 +26981,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er = 3371,
 	/// `V4FMADDPS zmm1 {k1}{z}, zmm2+3, m128`
 	///
 	/// `EVEX.512.F2.0F38.W0 9A /r`
@@ -26989,7 +26989,7 @@ pub enum Code {
 	/// `AVX512_4FMAPS`
 	///
 	/// `16/32/64-bit`
-	EVEX_V4fmaddps_zmm_k1z_zmmp3_m128,
+	EVEX_V4fmaddps_zmm_k1z_zmmp3_m128 = 3372,
 	/// `VFMSUB132SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 9B /r`
@@ -26997,7 +26997,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132ss_xmm_xmm_xmmm32,
+	VEX_Vfmsub132ss_xmm_xmm_xmmm32 = 3373,
 	/// `VFMSUB132SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 9B /r`
@@ -27005,7 +27005,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub132sd_xmm_xmm_xmmm64,
+	VEX_Vfmsub132sd_xmm_xmm_xmmm64 = 3374,
 	/// `VFMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 9B /r`
@@ -27013,7 +27013,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er = 3375,
 	/// `VFMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 9B /r`
@@ -27021,7 +27021,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er = 3376,
 	/// `V4FMADDSS xmm1 {k1}{z}, xmm2+3, m128`
 	///
 	/// `EVEX.LIG.F2.0F38.W0 9B /r`
@@ -27029,7 +27029,7 @@ pub enum Code {
 	/// `AVX512_4FMAPS`
 	///
 	/// `16/32/64-bit`
-	EVEX_V4fmaddss_xmm_k1z_xmmp3_m128,
+	EVEX_V4fmaddss_xmm_k1z_xmmp3_m128 = 3377,
 	/// `VFNMADD132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 9C /r`
@@ -27037,7 +27037,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132ps_xmm_xmm_xmmm128,
+	VEX_Vfnmadd132ps_xmm_xmm_xmmm128 = 3378,
 	/// `VFNMADD132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 9C /r`
@@ -27045,7 +27045,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132ps_ymm_ymm_ymmm256,
+	VEX_Vfnmadd132ps_ymm_ymm_ymmm256 = 3379,
 	/// `VFNMADD132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 9C /r`
@@ -27053,7 +27053,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132pd_xmm_xmm_xmmm128,
+	VEX_Vfnmadd132pd_xmm_xmm_xmmm128 = 3380,
 	/// `VFNMADD132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 9C /r`
@@ -27061,7 +27061,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132pd_ymm_ymm_ymmm256,
+	VEX_Vfnmadd132pd_ymm_ymm_ymmm256 = 3381,
 	/// `VFNMADD132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 9C /r`
@@ -27069,7 +27069,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32 = 3382,
 	/// `VFNMADD132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 9C /r`
@@ -27077,7 +27077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32 = 3383,
 	/// `VFNMADD132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 9C /r`
@@ -27085,7 +27085,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er = 3384,
 	/// `VFNMADD132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 9C /r`
@@ -27093,7 +27093,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64 = 3385,
 	/// `VFNMADD132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 9C /r`
@@ -27101,7 +27101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64 = 3386,
 	/// `VFNMADD132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 9C /r`
@@ -27109,7 +27109,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er = 3387,
 	/// `VFNMADD132SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 9D /r`
@@ -27117,7 +27117,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132ss_xmm_xmm_xmmm32,
+	VEX_Vfnmadd132ss_xmm_xmm_xmmm32 = 3388,
 	/// `VFNMADD132SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 9D /r`
@@ -27125,7 +27125,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd132sd_xmm_xmm_xmmm64,
+	VEX_Vfnmadd132sd_xmm_xmm_xmmm64 = 3389,
 	/// `VFNMADD132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 9D /r`
@@ -27133,7 +27133,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er = 3390,
 	/// `VFNMADD132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 9D /r`
@@ -27141,7 +27141,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er = 3391,
 	/// `VFNMSUB132PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 9E /r`
@@ -27149,7 +27149,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132ps_xmm_xmm_xmmm128,
+	VEX_Vfnmsub132ps_xmm_xmm_xmmm128 = 3392,
 	/// `VFNMSUB132PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 9E /r`
@@ -27157,7 +27157,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132ps_ymm_ymm_ymmm256,
+	VEX_Vfnmsub132ps_ymm_ymm_ymmm256 = 3393,
 	/// `VFNMSUB132PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 9E /r`
@@ -27165,7 +27165,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132pd_xmm_xmm_xmmm128,
+	VEX_Vfnmsub132pd_xmm_xmm_xmmm128 = 3394,
 	/// `VFNMSUB132PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 9E /r`
@@ -27173,7 +27173,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132pd_ymm_ymm_ymmm256,
+	VEX_Vfnmsub132pd_ymm_ymm_ymmm256 = 3395,
 	/// `VFNMSUB132PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 9E /r`
@@ -27181,7 +27181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32 = 3396,
 	/// `VFNMSUB132PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 9E /r`
@@ -27189,7 +27189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32 = 3397,
 	/// `VFNMSUB132PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 9E /r`
@@ -27197,7 +27197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er = 3398,
 	/// `VFNMSUB132PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 9E /r`
@@ -27205,7 +27205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64 = 3399,
 	/// `VFNMSUB132PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 9E /r`
@@ -27213,7 +27213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64 = 3400,
 	/// `VFNMSUB132PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 9E /r`
@@ -27221,7 +27221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er = 3401,
 	/// `VFNMSUB132SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 9F /r`
@@ -27229,7 +27229,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132ss_xmm_xmm_xmmm32,
+	VEX_Vfnmsub132ss_xmm_xmm_xmmm32 = 3402,
 	/// `VFNMSUB132SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 9F /r`
@@ -27237,7 +27237,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub132sd_xmm_xmm_xmmm64,
+	VEX_Vfnmsub132sd_xmm_xmm_xmmm64 = 3403,
 	/// `VFNMSUB132SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 9F /r`
@@ -27245,7 +27245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er = 3404,
 	/// `VFNMSUB132SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 9F /r`
@@ -27253,7 +27253,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er = 3405,
 	/// `VPSCATTERDD vm32x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W0 A0 /vsib`
@@ -27261,7 +27261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdd_vm32x_k1_xmm,
+	EVEX_Vpscatterdd_vm32x_k1_xmm = 3406,
 	/// `VPSCATTERDD vm32y {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W0 A0 /vsib`
@@ -27269,7 +27269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdd_vm32y_k1_ymm,
+	EVEX_Vpscatterdd_vm32y_k1_ymm = 3407,
 	/// `VPSCATTERDD vm32z {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W0 A0 /vsib`
@@ -27277,7 +27277,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdd_vm32z_k1_zmm,
+	EVEX_Vpscatterdd_vm32z_k1_zmm = 3408,
 	/// `VPSCATTERDQ vm32x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W1 A0 /vsib`
@@ -27285,7 +27285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdq_vm32x_k1_xmm,
+	EVEX_Vpscatterdq_vm32x_k1_xmm = 3409,
 	/// `VPSCATTERDQ vm32x {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W1 A0 /vsib`
@@ -27293,7 +27293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdq_vm32x_k1_ymm,
+	EVEX_Vpscatterdq_vm32x_k1_ymm = 3410,
 	/// `VPSCATTERDQ vm32y {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W1 A0 /vsib`
@@ -27301,7 +27301,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterdq_vm32y_k1_zmm,
+	EVEX_Vpscatterdq_vm32y_k1_zmm = 3411,
 	/// `VPSCATTERQD vm64x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W0 A1 /vsib`
@@ -27309,7 +27309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqd_vm64x_k1_xmm,
+	EVEX_Vpscatterqd_vm64x_k1_xmm = 3412,
 	/// `VPSCATTERQD vm64y {k1}, xmm1`
 	///
 	/// `EVEX.256.66.0F38.W0 A1 /vsib`
@@ -27317,7 +27317,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqd_vm64y_k1_xmm,
+	EVEX_Vpscatterqd_vm64y_k1_xmm = 3413,
 	/// `VPSCATTERQD vm64z {k1}, ymm1`
 	///
 	/// `EVEX.512.66.0F38.W0 A1 /vsib`
@@ -27325,7 +27325,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqd_vm64z_k1_ymm,
+	EVEX_Vpscatterqd_vm64z_k1_ymm = 3414,
 	/// `VPSCATTERQQ vm64x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W1 A1 /vsib`
@@ -27333,7 +27333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqq_vm64x_k1_xmm,
+	EVEX_Vpscatterqq_vm64x_k1_xmm = 3415,
 	/// `VPSCATTERQQ vm64y {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W1 A1 /vsib`
@@ -27341,7 +27341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqq_vm64y_k1_ymm,
+	EVEX_Vpscatterqq_vm64y_k1_ymm = 3416,
 	/// `VPSCATTERQQ vm64z {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W1 A1 /vsib`
@@ -27349,7 +27349,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpscatterqq_vm64z_k1_zmm,
+	EVEX_Vpscatterqq_vm64z_k1_zmm = 3417,
 	/// `VSCATTERDPS vm32x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W0 A2 /vsib`
@@ -27357,7 +27357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdps_vm32x_k1_xmm,
+	EVEX_Vscatterdps_vm32x_k1_xmm = 3418,
 	/// `VSCATTERDPS vm32y {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W0 A2 /vsib`
@@ -27365,7 +27365,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdps_vm32y_k1_ymm,
+	EVEX_Vscatterdps_vm32y_k1_ymm = 3419,
 	/// `VSCATTERDPS vm32z {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W0 A2 /vsib`
@@ -27373,7 +27373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdps_vm32z_k1_zmm,
+	EVEX_Vscatterdps_vm32z_k1_zmm = 3420,
 	/// `VSCATTERDPD vm32x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W1 A2 /vsib`
@@ -27381,7 +27381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdpd_vm32x_k1_xmm,
+	EVEX_Vscatterdpd_vm32x_k1_xmm = 3421,
 	/// `VSCATTERDPD vm32x {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W1 A2 /vsib`
@@ -27389,7 +27389,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdpd_vm32x_k1_ymm,
+	EVEX_Vscatterdpd_vm32x_k1_ymm = 3422,
 	/// `VSCATTERDPD vm32y {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W1 A2 /vsib`
@@ -27397,7 +27397,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterdpd_vm32y_k1_zmm,
+	EVEX_Vscatterdpd_vm32y_k1_zmm = 3423,
 	/// `VSCATTERQPS vm64x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W0 A3 /vsib`
@@ -27405,7 +27405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqps_vm64x_k1_xmm,
+	EVEX_Vscatterqps_vm64x_k1_xmm = 3424,
 	/// `VSCATTERQPS vm64y {k1}, xmm1`
 	///
 	/// `EVEX.256.66.0F38.W0 A3 /vsib`
@@ -27413,7 +27413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqps_vm64y_k1_xmm,
+	EVEX_Vscatterqps_vm64y_k1_xmm = 3425,
 	/// `VSCATTERQPS vm64z {k1}, ymm1`
 	///
 	/// `EVEX.512.66.0F38.W0 A3 /vsib`
@@ -27421,7 +27421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqps_vm64z_k1_ymm,
+	EVEX_Vscatterqps_vm64z_k1_ymm = 3426,
 	/// `VSCATTERQPD vm64x {k1}, xmm1`
 	///
 	/// `EVEX.128.66.0F38.W1 A3 /vsib`
@@ -27429,7 +27429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqpd_vm64x_k1_xmm,
+	EVEX_Vscatterqpd_vm64x_k1_xmm = 3427,
 	/// `VSCATTERQPD vm64y {k1}, ymm1`
 	///
 	/// `EVEX.256.66.0F38.W1 A3 /vsib`
@@ -27437,7 +27437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqpd_vm64y_k1_ymm,
+	EVEX_Vscatterqpd_vm64y_k1_ymm = 3428,
 	/// `VSCATTERQPD vm64z {k1}, zmm1`
 	///
 	/// `EVEX.512.66.0F38.W1 A3 /vsib`
@@ -27445,7 +27445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterqpd_vm64z_k1_zmm,
+	EVEX_Vscatterqpd_vm64z_k1_zmm = 3429,
 	/// `VFMADDSUB213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 A6 /r`
@@ -27453,7 +27453,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub213ps_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub213ps_xmm_xmm_xmmm128 = 3430,
 	/// `VFMADDSUB213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 A6 /r`
@@ -27461,7 +27461,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub213ps_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub213ps_ymm_ymm_ymmm256 = 3431,
 	/// `VFMADDSUB213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 A6 /r`
@@ -27469,7 +27469,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub213pd_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub213pd_xmm_xmm_xmmm128 = 3432,
 	/// `VFMADDSUB213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 A6 /r`
@@ -27477,7 +27477,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub213pd_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub213pd_ymm_ymm_ymmm256 = 3433,
 	/// `VFMADDSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 A6 /r`
@@ -27485,7 +27485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32 = 3434,
 	/// `VFMADDSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 A6 /r`
@@ -27493,7 +27493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32 = 3435,
 	/// `VFMADDSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 A6 /r`
@@ -27501,7 +27501,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er = 3436,
 	/// `VFMADDSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 A6 /r`
@@ -27509,7 +27509,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64 = 3437,
 	/// `VFMADDSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 A6 /r`
@@ -27517,7 +27517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64 = 3438,
 	/// `VFMADDSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 A6 /r`
@@ -27525,7 +27525,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er = 3439,
 	/// `VFMSUBADD213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 A7 /r`
@@ -27533,7 +27533,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd213ps_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd213ps_xmm_xmm_xmmm128 = 3440,
 	/// `VFMSUBADD213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 A7 /r`
@@ -27541,7 +27541,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd213ps_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd213ps_ymm_ymm_ymmm256 = 3441,
 	/// `VFMSUBADD213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 A7 /r`
@@ -27549,7 +27549,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd213pd_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd213pd_xmm_xmm_xmmm128 = 3442,
 	/// `VFMSUBADD213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 A7 /r`
@@ -27557,7 +27557,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd213pd_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd213pd_ymm_ymm_ymmm256 = 3443,
 	/// `VFMSUBADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 A7 /r`
@@ -27565,7 +27565,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32 = 3444,
 	/// `VFMSUBADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 A7 /r`
@@ -27573,7 +27573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32 = 3445,
 	/// `VFMSUBADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 A7 /r`
@@ -27581,7 +27581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er = 3446,
 	/// `VFMSUBADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 A7 /r`
@@ -27589,7 +27589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64 = 3447,
 	/// `VFMSUBADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 A7 /r`
@@ -27597,7 +27597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64 = 3448,
 	/// `VFMSUBADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 A7 /r`
@@ -27605,7 +27605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er = 3449,
 	/// `VFMADD213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 A8 /r`
@@ -27613,7 +27613,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213ps_xmm_xmm_xmmm128,
+	VEX_Vfmadd213ps_xmm_xmm_xmmm128 = 3450,
 	/// `VFMADD213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 A8 /r`
@@ -27621,7 +27621,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213ps_ymm_ymm_ymmm256,
+	VEX_Vfmadd213ps_ymm_ymm_ymmm256 = 3451,
 	/// `VFMADD213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 A8 /r`
@@ -27629,7 +27629,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213pd_xmm_xmm_xmmm128,
+	VEX_Vfmadd213pd_xmm_xmm_xmmm128 = 3452,
 	/// `VFMADD213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 A8 /r`
@@ -27637,7 +27637,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213pd_ymm_ymm_ymmm256,
+	VEX_Vfmadd213pd_ymm_ymm_ymmm256 = 3453,
 	/// `VFMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 A8 /r`
@@ -27645,7 +27645,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32 = 3454,
 	/// `VFMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 A8 /r`
@@ -27653,7 +27653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32 = 3455,
 	/// `VFMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 A8 /r`
@@ -27661,7 +27661,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er = 3456,
 	/// `VFMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 A8 /r`
@@ -27669,7 +27669,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64 = 3457,
 	/// `VFMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 A8 /r`
@@ -27677,7 +27677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64 = 3458,
 	/// `VFMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 A8 /r`
@@ -27685,7 +27685,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er = 3459,
 	/// `VFMADD213SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 A9 /r`
@@ -27693,7 +27693,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213ss_xmm_xmm_xmmm32,
+	VEX_Vfmadd213ss_xmm_xmm_xmmm32 = 3460,
 	/// `VFMADD213SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 A9 /r`
@@ -27701,7 +27701,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd213sd_xmm_xmm_xmmm64,
+	VEX_Vfmadd213sd_xmm_xmm_xmmm64 = 3461,
 	/// `VFMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 A9 /r`
@@ -27709,7 +27709,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er = 3462,
 	/// `VFMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 A9 /r`
@@ -27717,7 +27717,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er = 3463,
 	/// `VFMSUB213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 AA /r`
@@ -27725,7 +27725,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213ps_xmm_xmm_xmmm128,
+	VEX_Vfmsub213ps_xmm_xmm_xmmm128 = 3464,
 	/// `VFMSUB213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 AA /r`
@@ -27733,7 +27733,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213ps_ymm_ymm_ymmm256,
+	VEX_Vfmsub213ps_ymm_ymm_ymmm256 = 3465,
 	/// `VFMSUB213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 AA /r`
@@ -27741,7 +27741,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213pd_xmm_xmm_xmmm128,
+	VEX_Vfmsub213pd_xmm_xmm_xmmm128 = 3466,
 	/// `VFMSUB213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 AA /r`
@@ -27749,7 +27749,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213pd_ymm_ymm_ymmm256,
+	VEX_Vfmsub213pd_ymm_ymm_ymmm256 = 3467,
 	/// `VFMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 AA /r`
@@ -27757,7 +27757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32 = 3468,
 	/// `VFMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 AA /r`
@@ -27765,7 +27765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32 = 3469,
 	/// `VFMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 AA /r`
@@ -27773,7 +27773,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er = 3470,
 	/// `VFMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 AA /r`
@@ -27781,7 +27781,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64 = 3471,
 	/// `VFMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 AA /r`
@@ -27789,7 +27789,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64 = 3472,
 	/// `VFMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 AA /r`
@@ -27797,7 +27797,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er = 3473,
 	/// `V4FNMADDPS zmm1 {k1}{z}, zmm2+3, m128`
 	///
 	/// `EVEX.512.F2.0F38.W0 AA /r`
@@ -27805,7 +27805,7 @@ pub enum Code {
 	/// `AVX512_4FMAPS`
 	///
 	/// `16/32/64-bit`
-	EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128,
+	EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128 = 3474,
 	/// `VFMSUB213SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 AB /r`
@@ -27813,7 +27813,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213ss_xmm_xmm_xmmm32,
+	VEX_Vfmsub213ss_xmm_xmm_xmmm32 = 3475,
 	/// `VFMSUB213SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 AB /r`
@@ -27821,7 +27821,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub213sd_xmm_xmm_xmmm64,
+	VEX_Vfmsub213sd_xmm_xmm_xmmm64 = 3476,
 	/// `VFMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 AB /r`
@@ -27829,7 +27829,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er = 3477,
 	/// `VFMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 AB /r`
@@ -27837,7 +27837,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er = 3478,
 	/// `V4FNMADDSS xmm1 {k1}{z}, xmm2+3, m128`
 	///
 	/// `EVEX.LIG.F2.0F38.W0 AB /r`
@@ -27845,7 +27845,7 @@ pub enum Code {
 	/// `AVX512_4FMAPS`
 	///
 	/// `16/32/64-bit`
-	EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128,
+	EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128 = 3479,
 	/// `VFNMADD213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 AC /r`
@@ -27853,7 +27853,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213ps_xmm_xmm_xmmm128,
+	VEX_Vfnmadd213ps_xmm_xmm_xmmm128 = 3480,
 	/// `VFNMADD213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 AC /r`
@@ -27861,7 +27861,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213ps_ymm_ymm_ymmm256,
+	VEX_Vfnmadd213ps_ymm_ymm_ymmm256 = 3481,
 	/// `VFNMADD213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 AC /r`
@@ -27869,7 +27869,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213pd_xmm_xmm_xmmm128,
+	VEX_Vfnmadd213pd_xmm_xmm_xmmm128 = 3482,
 	/// `VFNMADD213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 AC /r`
@@ -27877,7 +27877,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213pd_ymm_ymm_ymmm256,
+	VEX_Vfnmadd213pd_ymm_ymm_ymmm256 = 3483,
 	/// `VFNMADD213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 AC /r`
@@ -27885,7 +27885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32 = 3484,
 	/// `VFNMADD213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 AC /r`
@@ -27893,7 +27893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32 = 3485,
 	/// `VFNMADD213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 AC /r`
@@ -27901,7 +27901,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er = 3486,
 	/// `VFNMADD213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 AC /r`
@@ -27909,7 +27909,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64 = 3487,
 	/// `VFNMADD213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 AC /r`
@@ -27917,7 +27917,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64 = 3488,
 	/// `VFNMADD213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 AC /r`
@@ -27925,7 +27925,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er = 3489,
 	/// `VFNMADD213SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 AD /r`
@@ -27933,7 +27933,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213ss_xmm_xmm_xmmm32,
+	VEX_Vfnmadd213ss_xmm_xmm_xmmm32 = 3490,
 	/// `VFNMADD213SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 AD /r`
@@ -27941,7 +27941,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd213sd_xmm_xmm_xmmm64,
+	VEX_Vfnmadd213sd_xmm_xmm_xmmm64 = 3491,
 	/// `VFNMADD213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 AD /r`
@@ -27949,7 +27949,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er = 3492,
 	/// `VFNMADD213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 AD /r`
@@ -27957,7 +27957,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er = 3493,
 	/// `VFNMSUB213PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 AE /r`
@@ -27965,7 +27965,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213ps_xmm_xmm_xmmm128,
+	VEX_Vfnmsub213ps_xmm_xmm_xmmm128 = 3494,
 	/// `VFNMSUB213PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 AE /r`
@@ -27973,7 +27973,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213ps_ymm_ymm_ymmm256,
+	VEX_Vfnmsub213ps_ymm_ymm_ymmm256 = 3495,
 	/// `VFNMSUB213PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 AE /r`
@@ -27981,7 +27981,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213pd_xmm_xmm_xmmm128,
+	VEX_Vfnmsub213pd_xmm_xmm_xmmm128 = 3496,
 	/// `VFNMSUB213PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 AE /r`
@@ -27989,7 +27989,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213pd_ymm_ymm_ymmm256,
+	VEX_Vfnmsub213pd_ymm_ymm_ymmm256 = 3497,
 	/// `VFNMSUB213PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 AE /r`
@@ -27997,7 +27997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32 = 3498,
 	/// `VFNMSUB213PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 AE /r`
@@ -28005,7 +28005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32 = 3499,
 	/// `VFNMSUB213PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 AE /r`
@@ -28013,7 +28013,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er = 3500,
 	/// `VFNMSUB213PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 AE /r`
@@ -28021,7 +28021,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64 = 3501,
 	/// `VFNMSUB213PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 AE /r`
@@ -28029,7 +28029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64 = 3502,
 	/// `VFNMSUB213PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 AE /r`
@@ -28037,7 +28037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er = 3503,
 	/// `VFNMSUB213SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 AF /r`
@@ -28045,7 +28045,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213ss_xmm_xmm_xmmm32,
+	VEX_Vfnmsub213ss_xmm_xmm_xmmm32 = 3504,
 	/// `VFNMSUB213SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 AF /r`
@@ -28053,7 +28053,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub213sd_xmm_xmm_xmmm64,
+	VEX_Vfnmsub213sd_xmm_xmm_xmmm64 = 3505,
 	/// `VFNMSUB213SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 AF /r`
@@ -28061,7 +28061,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er = 3506,
 	/// `VFNMSUB213SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 AF /r`
@@ -28069,7 +28069,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er = 3507,
 	/// `VPMADD52LUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 B4 /r`
@@ -28077,7 +28077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64 = 3508,
 	/// `VPMADD52LUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 B4 /r`
@@ -28085,7 +28085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64 = 3509,
 	/// `VPMADD52LUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 B4 /r`
@@ -28093,7 +28093,7 @@ pub enum Code {
 	/// `AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmadd52luq_zmm_k1z_zmm_zmmm512b64 = 3510,
 	/// `VPMADD52HUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 B5 /r`
@@ -28101,7 +28101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64 = 3511,
 	/// `VPMADD52HUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 B5 /r`
@@ -28109,7 +28109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64 = 3512,
 	/// `VPMADD52HUQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 B5 /r`
@@ -28117,7 +28117,7 @@ pub enum Code {
 	/// `AVX512_IFMA`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64,
+	EVEX_Vpmadd52huq_zmm_k1z_zmm_zmmm512b64 = 3513,
 	/// `VFMADDSUB231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 B6 /r`
@@ -28125,7 +28125,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub231ps_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub231ps_xmm_xmm_xmmm128 = 3514,
 	/// `VFMADDSUB231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 B6 /r`
@@ -28133,7 +28133,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub231ps_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub231ps_ymm_ymm_ymmm256 = 3515,
 	/// `VFMADDSUB231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 B6 /r`
@@ -28141,7 +28141,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub231pd_xmm_xmm_xmmm128,
+	VEX_Vfmaddsub231pd_xmm_xmm_xmmm128 = 3516,
 	/// `VFMADDSUB231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 B6 /r`
@@ -28149,7 +28149,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsub231pd_ymm_ymm_ymmm256,
+	VEX_Vfmaddsub231pd_ymm_ymm_ymmm256 = 3517,
 	/// `VFMADDSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 B6 /r`
@@ -28157,7 +28157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32 = 3518,
 	/// `VFMADDSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 B6 /r`
@@ -28165,7 +28165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32 = 3519,
 	/// `VFMADDSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 B6 /r`
@@ -28173,7 +28173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er = 3520,
 	/// `VFMADDSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 B6 /r`
@@ -28181,7 +28181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64 = 3521,
 	/// `VFMADDSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 B6 /r`
@@ -28189,7 +28189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64 = 3522,
 	/// `VFMADDSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 B6 /r`
@@ -28197,7 +28197,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er = 3523,
 	/// `VFMSUBADD231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 B7 /r`
@@ -28205,7 +28205,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd231ps_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd231ps_xmm_xmm_xmmm128 = 3524,
 	/// `VFMSUBADD231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 B7 /r`
@@ -28213,7 +28213,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd231ps_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd231ps_ymm_ymm_ymmm256 = 3525,
 	/// `VFMSUBADD231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 B7 /r`
@@ -28221,7 +28221,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd231pd_xmm_xmm_xmmm128,
+	VEX_Vfmsubadd231pd_xmm_xmm_xmmm128 = 3526,
 	/// `VFMSUBADD231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 B7 /r`
@@ -28229,7 +28229,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubadd231pd_ymm_ymm_ymmm256,
+	VEX_Vfmsubadd231pd_ymm_ymm_ymmm256 = 3527,
 	/// `VFMSUBADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 B7 /r`
@@ -28237,7 +28237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32 = 3528,
 	/// `VFMSUBADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 B7 /r`
@@ -28245,7 +28245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32 = 3529,
 	/// `VFMSUBADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 B7 /r`
@@ -28253,7 +28253,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er = 3530,
 	/// `VFMSUBADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 B7 /r`
@@ -28261,7 +28261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64 = 3531,
 	/// `VFMSUBADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 B7 /r`
@@ -28269,7 +28269,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64 = 3532,
 	/// `VFMSUBADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 B7 /r`
@@ -28277,7 +28277,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er = 3533,
 	/// `VFMADD231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 B8 /r`
@@ -28285,7 +28285,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231ps_xmm_xmm_xmmm128,
+	VEX_Vfmadd231ps_xmm_xmm_xmmm128 = 3534,
 	/// `VFMADD231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 B8 /r`
@@ -28293,7 +28293,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231ps_ymm_ymm_ymmm256,
+	VEX_Vfmadd231ps_ymm_ymm_ymmm256 = 3535,
 	/// `VFMADD231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 B8 /r`
@@ -28301,7 +28301,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231pd_xmm_xmm_xmmm128,
+	VEX_Vfmadd231pd_xmm_xmm_xmmm128 = 3536,
 	/// `VFMADD231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 B8 /r`
@@ -28309,7 +28309,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231pd_ymm_ymm_ymmm256,
+	VEX_Vfmadd231pd_ymm_ymm_ymmm256 = 3537,
 	/// `VFMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 B8 /r`
@@ -28317,7 +28317,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32 = 3538,
 	/// `VFMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 B8 /r`
@@ -28325,7 +28325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32 = 3539,
 	/// `VFMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 B8 /r`
@@ -28333,7 +28333,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er = 3540,
 	/// `VFMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 B8 /r`
@@ -28341,7 +28341,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64 = 3541,
 	/// `VFMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 B8 /r`
@@ -28349,7 +28349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64 = 3542,
 	/// `VFMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 B8 /r`
@@ -28357,7 +28357,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er = 3543,
 	/// `VFMADD231SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 B9 /r`
@@ -28365,7 +28365,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231ss_xmm_xmm_xmmm32,
+	VEX_Vfmadd231ss_xmm_xmm_xmmm32 = 3544,
 	/// `VFMADD231SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 B9 /r`
@@ -28373,7 +28373,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmadd231sd_xmm_xmm_xmmm64,
+	VEX_Vfmadd231sd_xmm_xmm_xmmm64 = 3545,
 	/// `VFMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 B9 /r`
@@ -28381,7 +28381,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er = 3546,
 	/// `VFMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 B9 /r`
@@ -28389,7 +28389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er = 3547,
 	/// `VFMSUB231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 BA /r`
@@ -28397,7 +28397,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231ps_xmm_xmm_xmmm128,
+	VEX_Vfmsub231ps_xmm_xmm_xmmm128 = 3548,
 	/// `VFMSUB231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 BA /r`
@@ -28405,7 +28405,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231ps_ymm_ymm_ymmm256,
+	VEX_Vfmsub231ps_ymm_ymm_ymmm256 = 3549,
 	/// `VFMSUB231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 BA /r`
@@ -28413,7 +28413,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231pd_xmm_xmm_xmmm128,
+	VEX_Vfmsub231pd_xmm_xmm_xmmm128 = 3550,
 	/// `VFMSUB231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 BA /r`
@@ -28421,7 +28421,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231pd_ymm_ymm_ymmm256,
+	VEX_Vfmsub231pd_ymm_ymm_ymmm256 = 3551,
 	/// `VFMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 BA /r`
@@ -28429,7 +28429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32 = 3552,
 	/// `VFMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 BA /r`
@@ -28437,7 +28437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32 = 3553,
 	/// `VFMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 BA /r`
@@ -28445,7 +28445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er = 3554,
 	/// `VFMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 BA /r`
@@ -28453,7 +28453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64 = 3555,
 	/// `VFMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 BA /r`
@@ -28461,7 +28461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64 = 3556,
 	/// `VFMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 BA /r`
@@ -28469,7 +28469,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er = 3557,
 	/// `VFMSUB231SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 BB /r`
@@ -28477,7 +28477,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231ss_xmm_xmm_xmmm32,
+	VEX_Vfmsub231ss_xmm_xmm_xmmm32 = 3558,
 	/// `VFMSUB231SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 BB /r`
@@ -28485,7 +28485,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsub231sd_xmm_xmm_xmmm64,
+	VEX_Vfmsub231sd_xmm_xmm_xmmm64 = 3559,
 	/// `VFMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 BB /r`
@@ -28493,7 +28493,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er = 3560,
 	/// `VFMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 BB /r`
@@ -28501,7 +28501,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er = 3561,
 	/// `VFNMADD231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 BC /r`
@@ -28509,7 +28509,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231ps_xmm_xmm_xmmm128,
+	VEX_Vfnmadd231ps_xmm_xmm_xmmm128 = 3562,
 	/// `VFNMADD231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 BC /r`
@@ -28517,7 +28517,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231ps_ymm_ymm_ymmm256,
+	VEX_Vfnmadd231ps_ymm_ymm_ymmm256 = 3563,
 	/// `VFNMADD231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 BC /r`
@@ -28525,7 +28525,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231pd_xmm_xmm_xmmm128,
+	VEX_Vfnmadd231pd_xmm_xmm_xmmm128 = 3564,
 	/// `VFNMADD231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 BC /r`
@@ -28533,7 +28533,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231pd_ymm_ymm_ymmm256,
+	VEX_Vfnmadd231pd_ymm_ymm_ymmm256 = 3565,
 	/// `VFNMADD231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 BC /r`
@@ -28541,7 +28541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32 = 3566,
 	/// `VFNMADD231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 BC /r`
@@ -28549,7 +28549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32 = 3567,
 	/// `VFNMADD231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 BC /r`
@@ -28557,7 +28557,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er = 3568,
 	/// `VFNMADD231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 BC /r`
@@ -28565,7 +28565,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64 = 3569,
 	/// `VFNMADD231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 BC /r`
@@ -28573,7 +28573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64 = 3570,
 	/// `VFNMADD231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 BC /r`
@@ -28581,7 +28581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er = 3571,
 	/// `VFNMADD231SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 BD /r`
@@ -28589,7 +28589,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231ss_xmm_xmm_xmmm32,
+	VEX_Vfnmadd231ss_xmm_xmm_xmmm32 = 3572,
 	/// `VFNMADD231SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 BD /r`
@@ -28597,7 +28597,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmadd231sd_xmm_xmm_xmmm64,
+	VEX_Vfnmadd231sd_xmm_xmm_xmmm64 = 3573,
 	/// `VFNMADD231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 BD /r`
@@ -28605,7 +28605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er = 3574,
 	/// `VFNMADD231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 BD /r`
@@ -28613,7 +28613,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er = 3575,
 	/// `VFNMSUB231PS xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 BE /r`
@@ -28621,7 +28621,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231ps_xmm_xmm_xmmm128,
+	VEX_Vfnmsub231ps_xmm_xmm_xmmm128 = 3576,
 	/// `VFNMSUB231PS ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 BE /r`
@@ -28629,7 +28629,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231ps_ymm_ymm_ymmm256,
+	VEX_Vfnmsub231ps_ymm_ymm_ymmm256 = 3577,
 	/// `VFNMSUB231PD xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W1 BE /r`
@@ -28637,7 +28637,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231pd_xmm_xmm_xmmm128,
+	VEX_Vfnmsub231pd_xmm_xmm_xmmm128 = 3578,
 	/// `VFNMSUB231PD ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W1 BE /r`
@@ -28645,7 +28645,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231pd_ymm_ymm_ymmm256,
+	VEX_Vfnmsub231pd_ymm_ymm_ymmm256 = 3579,
 	/// `VFNMSUB231PS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 BE /r`
@@ -28653,7 +28653,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32,
+	EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32 = 3580,
 	/// `VFNMSUB231PS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 BE /r`
@@ -28661,7 +28661,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32,
+	EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32 = 3581,
 	/// `VFNMSUB231PS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W0 BE /r`
@@ -28669,7 +28669,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er,
+	EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er = 3582,
 	/// `VFNMSUB231PD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 BE /r`
@@ -28677,7 +28677,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64,
+	EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64 = 3583,
 	/// `VFNMSUB231PD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 BE /r`
@@ -28685,7 +28685,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64,
+	EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64 = 3584,
 	/// `VFNMSUB231PD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{er}`
 	///
 	/// `EVEX.512.66.0F38.W1 BE /r`
@@ -28693,7 +28693,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er,
+	EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er = 3585,
 	/// `VFNMSUB231SS xmm1, xmm2, xmm3/m32`
 	///
 	/// `VEX.LIG.66.0F38.W0 BF /r`
@@ -28701,7 +28701,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231ss_xmm_xmm_xmmm32,
+	VEX_Vfnmsub231ss_xmm_xmm_xmmm32 = 3586,
 	/// `VFNMSUB231SD xmm1, xmm2, xmm3/m64`
 	///
 	/// `VEX.LIG.66.0F38.W1 BF /r`
@@ -28709,7 +28709,7 @@ pub enum Code {
 	/// `FMA`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsub231sd_xmm_xmm_xmmm64,
+	VEX_Vfnmsub231sd_xmm_xmm_xmmm64 = 3587,
 	/// `VFNMSUB231SS xmm1 {k1}{z}, xmm2, xmm3/m32{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 BF /r`
@@ -28717,7 +28717,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er,
+	EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er = 3588,
 	/// `VFNMSUB231SD xmm1 {k1}{z}, xmm2, xmm3/m64{er}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 BF /r`
@@ -28725,7 +28725,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er,
+	EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er = 3589,
 	/// `VPCONFLICTD xmm1 {k1}{z}, xmm2/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 C4 /r`
@@ -28733,7 +28733,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictd_xmm_k1z_xmmm128b32,
+	EVEX_Vpconflictd_xmm_k1z_xmmm128b32 = 3590,
 	/// `VPCONFLICTD ymm1 {k1}{z}, ymm2/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 C4 /r`
@@ -28741,7 +28741,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictd_ymm_k1z_ymmm256b32,
+	EVEX_Vpconflictd_ymm_k1z_ymmm256b32 = 3591,
 	/// `VPCONFLICTD zmm1 {k1}{z}, zmm2/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 C4 /r`
@@ -28749,7 +28749,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictd_zmm_k1z_zmmm512b32,
+	EVEX_Vpconflictd_zmm_k1z_zmmm512b32 = 3592,
 	/// `VPCONFLICTQ xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 C4 /r`
@@ -28757,7 +28757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictq_xmm_k1z_xmmm128b64,
+	EVEX_Vpconflictq_xmm_k1z_xmmm128b64 = 3593,
 	/// `VPCONFLICTQ ymm1 {k1}{z}, ymm2/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 C4 /r`
@@ -28765,7 +28765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictq_ymm_k1z_ymmm256b64,
+	EVEX_Vpconflictq_ymm_k1z_ymmm256b64 = 3594,
 	/// `VPCONFLICTQ zmm1 {k1}{z}, zmm2/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 C4 /r`
@@ -28773,7 +28773,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpconflictq_zmm_k1z_zmmm512b64,
+	EVEX_Vpconflictq_zmm_k1z_zmmm512b64 = 3595,
 	/// `VGATHERPF0DPS vm32z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C6 /1 /vsib`
@@ -28781,7 +28781,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf0dps_vm32z_k1,
+	EVEX_Vgatherpf0dps_vm32z_k1 = 3596,
 	/// `VGATHERPF0DPD vm32y {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C6 /1 /vsib`
@@ -28789,7 +28789,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf0dpd_vm32y_k1,
+	EVEX_Vgatherpf0dpd_vm32y_k1 = 3597,
 	/// `VGATHERPF1DPS vm32z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C6 /2 /vsib`
@@ -28797,7 +28797,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf1dps_vm32z_k1,
+	EVEX_Vgatherpf1dps_vm32z_k1 = 3598,
 	/// `VGATHERPF1DPD vm32y {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C6 /2 /vsib`
@@ -28805,7 +28805,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf1dpd_vm32y_k1,
+	EVEX_Vgatherpf1dpd_vm32y_k1 = 3599,
 	/// `VSCATTERPF0DPS vm32z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C6 /5 /vsib`
@@ -28813,7 +28813,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf0dps_vm32z_k1,
+	EVEX_Vscatterpf0dps_vm32z_k1 = 3600,
 	/// `VSCATTERPF0DPD vm32y {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C6 /5 /vsib`
@@ -28821,7 +28821,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf0dpd_vm32y_k1,
+	EVEX_Vscatterpf0dpd_vm32y_k1 = 3601,
 	/// `VSCATTERPF1DPS vm32z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C6 /6 /vsib`
@@ -28829,7 +28829,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf1dps_vm32z_k1,
+	EVEX_Vscatterpf1dps_vm32z_k1 = 3602,
 	/// `VSCATTERPF1DPD vm32y {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C6 /6 /vsib`
@@ -28837,7 +28837,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf1dpd_vm32y_k1,
+	EVEX_Vscatterpf1dpd_vm32y_k1 = 3603,
 	/// `VGATHERPF0QPS vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C7 /1 /vsib`
@@ -28845,7 +28845,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf0qps_vm64z_k1,
+	EVEX_Vgatherpf0qps_vm64z_k1 = 3604,
 	/// `VGATHERPF0QPD vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C7 /1 /vsib`
@@ -28853,7 +28853,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf0qpd_vm64z_k1,
+	EVEX_Vgatherpf0qpd_vm64z_k1 = 3605,
 	/// `VGATHERPF1QPS vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C7 /2 /vsib`
@@ -28861,7 +28861,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf1qps_vm64z_k1,
+	EVEX_Vgatherpf1qps_vm64z_k1 = 3606,
 	/// `VGATHERPF1QPD vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C7 /2 /vsib`
@@ -28869,7 +28869,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgatherpf1qpd_vm64z_k1,
+	EVEX_Vgatherpf1qpd_vm64z_k1 = 3607,
 	/// `VSCATTERPF0QPS vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C7 /5 /vsib`
@@ -28877,7 +28877,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf0qps_vm64z_k1,
+	EVEX_Vscatterpf0qps_vm64z_k1 = 3608,
 	/// `VSCATTERPF0QPD vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C7 /5 /vsib`
@@ -28885,7 +28885,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf0qpd_vm64z_k1,
+	EVEX_Vscatterpf0qpd_vm64z_k1 = 3609,
 	/// `VSCATTERPF1QPS vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W0 C7 /6 /vsib`
@@ -28893,7 +28893,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf1qps_vm64z_k1,
+	EVEX_Vscatterpf1qps_vm64z_k1 = 3610,
 	/// `VSCATTERPF1QPD vm64z {k1}`
 	///
 	/// `EVEX.512.66.0F38.W1 C7 /6 /vsib`
@@ -28901,7 +28901,7 @@ pub enum Code {
 	/// `AVX512PF`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vscatterpf1qpd_vm64z_k1,
+	EVEX_Vscatterpf1qpd_vm64z_k1 = 3611,
 	/// `SHA1NEXTE xmm1, xmm2/m128`
 	///
 	/// `NP 0F 38 C8 /r`
@@ -28909,7 +28909,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha1nexte_xmm_xmmm128,
+	Sha1nexte_xmm_xmmm128 = 3612,
 	/// `VEXP2PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W0 C8 /r`
@@ -28917,7 +28917,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae = 3613,
 	/// `VEXP2PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W1 C8 /r`
@@ -28925,7 +28925,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae = 3614,
 	/// `SHA1MSG1 xmm1, xmm2/m128`
 	///
 	/// `NP 0F 38 C9 /r`
@@ -28933,7 +28933,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha1msg1_xmm_xmmm128,
+	Sha1msg1_xmm_xmmm128 = 3615,
 	/// `SHA1MSG2 xmm1, xmm2/m128`
 	///
 	/// `NP 0F 38 CA /r`
@@ -28941,7 +28941,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha1msg2_xmm_xmmm128,
+	Sha1msg2_xmm_xmmm128 = 3616,
 	/// `VRCP28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W0 CA /r`
@@ -28949,7 +28949,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae = 3617,
 	/// `VRCP28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W1 CA /r`
@@ -28957,7 +28957,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae = 3618,
 	/// `SHA256RNDS2 xmm1, xmm2/m128, <XMM0>`
 	///
 	/// `NP 0F 38 CB /r`
@@ -28965,7 +28965,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha256rnds2_xmm_xmmm128,
+	Sha256rnds2_xmm_xmmm128 = 3619,
 	/// `VRCP28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 CB /r`
@@ -28973,7 +28973,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae = 3620,
 	/// `VRCP28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 CB /r`
@@ -28981,7 +28981,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae,
+	EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae = 3621,
 	/// `SHA256MSG1 xmm1, xmm2/m128`
 	///
 	/// `NP 0F 38 CC /r`
@@ -28989,7 +28989,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha256msg1_xmm_xmmm128,
+	Sha256msg1_xmm_xmmm128 = 3622,
 	/// `VRSQRT28PS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W0 CC /r`
@@ -28997,7 +28997,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae,
+	EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae = 3623,
 	/// `VRSQRT28PD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}`
 	///
 	/// `EVEX.512.66.0F38.W1 CC /r`
@@ -29005,7 +29005,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae,
+	EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae = 3624,
 	/// `SHA256MSG2 xmm1, xmm2/m128`
 	///
 	/// `NP 0F 38 CD /r`
@@ -29013,7 +29013,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha256msg2_xmm_xmmm128,
+	Sha256msg2_xmm_xmmm128 = 3625,
 	/// `VRSQRT28SS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W0 CD /r`
@@ -29021,7 +29021,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae,
+	EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae = 3626,
 	/// `VRSQRT28SD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}`
 	///
 	/// `EVEX.LIG.66.0F38.W1 CD /r`
@@ -29029,7 +29029,7 @@ pub enum Code {
 	/// `AVX512ER`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae,
+	EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae = 3627,
 	/// `GF2P8MULB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 CF /r`
@@ -29037,7 +29037,7 @@ pub enum Code {
 	/// `GFNI`
 	///
 	/// `16/32/64-bit`
-	Gf2p8mulb_xmm_xmmm128,
+	Gf2p8mulb_xmm_xmmm128 = 3628,
 	/// `VGF2P8MULB xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.W0 CF /r`
@@ -29045,7 +29045,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8mulb_xmm_xmm_xmmm128,
+	VEX_Vgf2p8mulb_xmm_xmm_xmmm128 = 3629,
 	/// `VGF2P8MULB ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.W0 CF /r`
@@ -29053,7 +29053,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8mulb_ymm_ymm_ymmm256,
+	VEX_Vgf2p8mulb_ymm_ymm_ymmm256 = 3630,
 	/// `VGF2P8MULB xmm1 {k1}{z}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W0 CF /r`
@@ -29061,7 +29061,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128,
+	EVEX_Vgf2p8mulb_xmm_k1z_xmm_xmmm128 = 3631,
 	/// `VGF2P8MULB ymm1 {k1}{z}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 CF /r`
@@ -29069,7 +29069,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256,
+	EVEX_Vgf2p8mulb_ymm_k1z_ymm_ymmm256 = 3632,
 	/// `VGF2P8MULB zmm1 {k1}{z}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 CF /r`
@@ -29077,7 +29077,7 @@ pub enum Code {
 	/// `AVX512F and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512,
+	EVEX_Vgf2p8mulb_zmm_k1z_zmm_zmmm512 = 3633,
 	/// `AESIMC xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 DB /r`
@@ -29085,7 +29085,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aesimc_xmm_xmmm128,
+	Aesimc_xmm_xmmm128 = 3634,
 	/// `VAESIMC xmm1, xmm2/m128`
 	///
 	/// `VEX.128.66.0F38.WIG DB /r`
@@ -29093,7 +29093,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesimc_xmm_xmmm128,
+	VEX_Vaesimc_xmm_xmmm128 = 3635,
 	/// `AESENC xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 DC /r`
@@ -29101,7 +29101,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aesenc_xmm_xmmm128,
+	Aesenc_xmm_xmmm128 = 3636,
 	/// `VAESENC xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG DC /r`
@@ -29109,7 +29109,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesenc_xmm_xmm_xmmm128,
+	VEX_Vaesenc_xmm_xmm_xmmm128 = 3637,
 	/// `VAESENC ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG DC /r`
@@ -29117,7 +29117,7 @@ pub enum Code {
 	/// `VAES`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesenc_ymm_ymm_ymmm256,
+	VEX_Vaesenc_ymm_ymm_ymmm256 = 3638,
 	/// `VAESENC xmm1, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG DC /r`
@@ -29125,7 +29125,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenc_xmm_xmm_xmmm128,
+	EVEX_Vaesenc_xmm_xmm_xmmm128 = 3639,
 	/// `VAESENC ymm1, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG DC /r`
@@ -29133,7 +29133,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenc_ymm_ymm_ymmm256,
+	EVEX_Vaesenc_ymm_ymm_ymmm256 = 3640,
 	/// `VAESENC zmm1, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG DC /r`
@@ -29141,7 +29141,7 @@ pub enum Code {
 	/// `AVX512F and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenc_zmm_zmm_zmmm512,
+	EVEX_Vaesenc_zmm_zmm_zmmm512 = 3641,
 	/// `AESENCLAST xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 DD /r`
@@ -29149,7 +29149,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aesenclast_xmm_xmmm128,
+	Aesenclast_xmm_xmmm128 = 3642,
 	/// `VAESENCLAST xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG DD /r`
@@ -29157,7 +29157,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesenclast_xmm_xmm_xmmm128,
+	VEX_Vaesenclast_xmm_xmm_xmmm128 = 3643,
 	/// `VAESENCLAST ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG DD /r`
@@ -29165,7 +29165,7 @@ pub enum Code {
 	/// `VAES`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesenclast_ymm_ymm_ymmm256,
+	VEX_Vaesenclast_ymm_ymm_ymmm256 = 3644,
 	/// `VAESENCLAST xmm1, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG DD /r`
@@ -29173,7 +29173,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenclast_xmm_xmm_xmmm128,
+	EVEX_Vaesenclast_xmm_xmm_xmmm128 = 3645,
 	/// `VAESENCLAST ymm1, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG DD /r`
@@ -29181,7 +29181,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenclast_ymm_ymm_ymmm256,
+	EVEX_Vaesenclast_ymm_ymm_ymmm256 = 3646,
 	/// `VAESENCLAST zmm1, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG DD /r`
@@ -29189,7 +29189,7 @@ pub enum Code {
 	/// `AVX512F and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesenclast_zmm_zmm_zmmm512,
+	EVEX_Vaesenclast_zmm_zmm_zmmm512 = 3647,
 	/// `AESDEC xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 DE /r`
@@ -29197,7 +29197,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aesdec_xmm_xmmm128,
+	Aesdec_xmm_xmmm128 = 3648,
 	/// `VAESDEC xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG DE /r`
@@ -29205,7 +29205,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesdec_xmm_xmm_xmmm128,
+	VEX_Vaesdec_xmm_xmm_xmmm128 = 3649,
 	/// `VAESDEC ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG DE /r`
@@ -29213,7 +29213,7 @@ pub enum Code {
 	/// `VAES`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesdec_ymm_ymm_ymmm256,
+	VEX_Vaesdec_ymm_ymm_ymmm256 = 3650,
 	/// `VAESDEC xmm1, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG DE /r`
@@ -29221,7 +29221,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdec_xmm_xmm_xmmm128,
+	EVEX_Vaesdec_xmm_xmm_xmmm128 = 3651,
 	/// `VAESDEC ymm1, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG DE /r`
@@ -29229,7 +29229,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdec_ymm_ymm_ymmm256,
+	EVEX_Vaesdec_ymm_ymm_ymmm256 = 3652,
 	/// `VAESDEC zmm1, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG DE /r`
@@ -29237,7 +29237,7 @@ pub enum Code {
 	/// `AVX512F and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdec_zmm_zmm_zmmm512,
+	EVEX_Vaesdec_zmm_zmm_zmmm512 = 3653,
 	/// `AESDECLAST xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 DF /r`
@@ -29245,7 +29245,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aesdeclast_xmm_xmmm128,
+	Aesdeclast_xmm_xmmm128 = 3654,
 	/// `VAESDECLAST xmm1, xmm2, xmm3/m128`
 	///
 	/// `VEX.128.66.0F38.WIG DF /r`
@@ -29253,7 +29253,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesdeclast_xmm_xmm_xmmm128,
+	VEX_Vaesdeclast_xmm_xmm_xmmm128 = 3655,
 	/// `VAESDECLAST ymm1, ymm2, ymm3/m256`
 	///
 	/// `VEX.256.66.0F38.WIG DF /r`
@@ -29261,7 +29261,7 @@ pub enum Code {
 	/// `VAES`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaesdeclast_ymm_ymm_ymmm256,
+	VEX_Vaesdeclast_ymm_ymm_ymmm256 = 3656,
 	/// `VAESDECLAST xmm1, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.WIG DF /r`
@@ -29269,7 +29269,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdeclast_xmm_xmm_xmmm128,
+	EVEX_Vaesdeclast_xmm_xmm_xmmm128 = 3657,
 	/// `VAESDECLAST ymm1, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.WIG DF /r`
@@ -29277,7 +29277,7 @@ pub enum Code {
 	/// `AVX512VL and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdeclast_ymm_ymm_ymmm256,
+	EVEX_Vaesdeclast_ymm_ymm_ymmm256 = 3658,
 	/// `VAESDECLAST zmm1, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.WIG DF /r`
@@ -29285,7 +29285,7 @@ pub enum Code {
 	/// `AVX512F and VAES`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vaesdeclast_zmm_zmm_zmmm512,
+	EVEX_Vaesdeclast_zmm_zmm_zmmm512 = 3659,
 	/// `MOVBE r16, m16`
 	///
 	/// `o16 0F 38 F0 /r`
@@ -29293,7 +29293,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `16/32/64-bit`
-	Movbe_r16_m16,
+	Movbe_r16_m16 = 3660,
 	/// `MOVBE r32, m32`
 	///
 	/// `o32 0F 38 F0 /r`
@@ -29301,7 +29301,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `16/32/64-bit`
-	Movbe_r32_m32,
+	Movbe_r32_m32 = 3661,
 	/// `MOVBE r64, m64`
 	///
 	/// `REX.W 0F 38 F0 /r`
@@ -29309,7 +29309,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `64-bit`
-	Movbe_r64_m64,
+	Movbe_r64_m64 = 3662,
 	/// `CRC32 r32, r/m8`
 	///
 	/// `F2 0F 38 F0 /r`
@@ -29317,7 +29317,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Crc32_r32_rm8,
+	Crc32_r32_rm8 = 3663,
 	/// `CRC32 r64, r/m8`
 	///
 	/// `F2 REX.W 0F 38 F0 /r`
@@ -29325,7 +29325,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `64-bit`
-	Crc32_r64_rm8,
+	Crc32_r64_rm8 = 3664,
 	/// `MOVBE m16, r16`
 	///
 	/// `o16 0F 38 F1 /r`
@@ -29333,7 +29333,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `16/32/64-bit`
-	Movbe_m16_r16,
+	Movbe_m16_r16 = 3665,
 	/// `MOVBE m32, r32`
 	///
 	/// `o32 0F 38 F1 /r`
@@ -29341,7 +29341,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `16/32/64-bit`
-	Movbe_m32_r32,
+	Movbe_m32_r32 = 3666,
 	/// `MOVBE m64, r64`
 	///
 	/// `REX.W 0F 38 F1 /r`
@@ -29349,7 +29349,7 @@ pub enum Code {
 	/// `MOVBE`
 	///
 	/// `64-bit`
-	Movbe_m64_r64,
+	Movbe_m64_r64 = 3667,
 	/// `CRC32 r32, r/m16`
 	///
 	/// `o16 F2 0F 38 F1 /r`
@@ -29357,7 +29357,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Crc32_r32_rm16,
+	Crc32_r32_rm16 = 3668,
 	/// `CRC32 r32, r/m32`
 	///
 	/// `o32 F2 0F 38 F1 /r`
@@ -29365,7 +29365,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Crc32_r32_rm32,
+	Crc32_r32_rm32 = 3669,
 	/// `CRC32 r64, r/m64`
 	///
 	/// `F2 REX.W 0F 38 F1 /r`
@@ -29373,7 +29373,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `64-bit`
-	Crc32_r64_rm64,
+	Crc32_r64_rm64 = 3670,
 	/// `ANDN r32a, r32b, r/m32`
 	///
 	/// `VEX.LZ.0F38.W0 F2 /r`
@@ -29381,7 +29381,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	VEX_Andn_r32_r32_rm32,
+	VEX_Andn_r32_r32_rm32 = 3671,
 	/// `ANDN r64a, r64b, r/m64`
 	///
 	/// `VEX.LZ.0F38.W1 F2 /r`
@@ -29389,7 +29389,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	VEX_Andn_r64_r64_rm64,
+	VEX_Andn_r64_r64_rm64 = 3672,
 	/// `BLSR r32, r/m32`
 	///
 	/// `VEX.LZ.0F38.W0 F3 /1`
@@ -29397,7 +29397,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	VEX_Blsr_r32_rm32,
+	VEX_Blsr_r32_rm32 = 3673,
 	/// `BLSR r64, r/m64`
 	///
 	/// `VEX.LZ.0F38.W1 F3 /1`
@@ -29405,7 +29405,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	VEX_Blsr_r64_rm64,
+	VEX_Blsr_r64_rm64 = 3674,
 	/// `BLSMSK r32, r/m32`
 	///
 	/// `VEX.LZ.0F38.W0 F3 /2`
@@ -29413,7 +29413,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	VEX_Blsmsk_r32_rm32,
+	VEX_Blsmsk_r32_rm32 = 3675,
 	/// `BLSMSK r64, r/m64`
 	///
 	/// `VEX.LZ.0F38.W1 F3 /2`
@@ -29421,7 +29421,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	VEX_Blsmsk_r64_rm64,
+	VEX_Blsmsk_r64_rm64 = 3676,
 	/// `BLSI r32, r/m32`
 	///
 	/// `VEX.LZ.0F38.W0 F3 /3`
@@ -29429,7 +29429,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	VEX_Blsi_r32_rm32,
+	VEX_Blsi_r32_rm32 = 3677,
 	/// `BLSI r64, r/m64`
 	///
 	/// `VEX.LZ.0F38.W1 F3 /3`
@@ -29437,7 +29437,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	VEX_Blsi_r64_rm64,
+	VEX_Blsi_r64_rm64 = 3678,
 	/// `BZHI r32a, r/m32, r32b`
 	///
 	/// `VEX.LZ.0F38.W0 F5 /r`
@@ -29445,7 +29445,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Bzhi_r32_rm32_r32,
+	VEX_Bzhi_r32_rm32_r32 = 3679,
 	/// `BZHI r64a, r/m64, r64b`
 	///
 	/// `VEX.LZ.0F38.W1 F5 /r`
@@ -29453,7 +29453,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Bzhi_r64_rm64_r64,
+	VEX_Bzhi_r64_rm64_r64 = 3680,
 	/// `WRUSSD m32, r32`
 	///
 	/// `66 0F 38 F5 /r`
@@ -29461,7 +29461,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Wrussd_m32_r32,
+	Wrussd_m32_r32 = 3681,
 	/// `WRUSSQ m64, r64`
 	///
 	/// `66 REX.W 0F 38 F5 /r`
@@ -29469,7 +29469,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `64-bit`
-	Wrussq_m64_r64,
+	Wrussq_m64_r64 = 3682,
 	/// `PEXT r32a, r32b, r/m32`
 	///
 	/// `VEX.LZ.F3.0F38.W0 F5 /r`
@@ -29477,7 +29477,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Pext_r32_r32_rm32,
+	VEX_Pext_r32_r32_rm32 = 3683,
 	/// `PEXT r64a, r64b, r/m64`
 	///
 	/// `VEX.LZ.F3.0F38.W1 F5 /r`
@@ -29485,7 +29485,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Pext_r64_r64_rm64,
+	VEX_Pext_r64_r64_rm64 = 3684,
 	/// `PDEP r32a, r32b, r/m32`
 	///
 	/// `VEX.LZ.F2.0F38.W0 F5 /r`
@@ -29493,7 +29493,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Pdep_r32_r32_rm32,
+	VEX_Pdep_r32_r32_rm32 = 3685,
 	/// `PDEP r64a, r64b, r/m64`
 	///
 	/// `VEX.LZ.F2.0F38.W1 F5 /r`
@@ -29501,7 +29501,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Pdep_r64_r64_rm64,
+	VEX_Pdep_r64_r64_rm64 = 3686,
 	/// `WRSSD m32, r32`
 	///
 	/// `NP 0F 38 F6 /r`
@@ -29509,7 +29509,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `16/32/64-bit`
-	Wrssd_m32_r32,
+	Wrssd_m32_r32 = 3687,
 	/// `WRSSQ m64, r64`
 	///
 	/// `NP REX.W 0F 38 F6 /r`
@@ -29517,7 +29517,7 @@ pub enum Code {
 	/// `CET_SS`
 	///
 	/// `64-bit`
-	Wrssq_m64_r64,
+	Wrssq_m64_r64 = 3688,
 	/// `ADCX r32, r/m32`
 	///
 	/// `66 0F 38 F6 /r`
@@ -29525,7 +29525,7 @@ pub enum Code {
 	/// `ADX`
 	///
 	/// `16/32/64-bit`
-	Adcx_r32_rm32,
+	Adcx_r32_rm32 = 3689,
 	/// `ADCX r64, r/m64`
 	///
 	/// `66 REX.W 0F 38 F6 /r`
@@ -29533,7 +29533,7 @@ pub enum Code {
 	/// `ADX`
 	///
 	/// `64-bit`
-	Adcx_r64_rm64,
+	Adcx_r64_rm64 = 3690,
 	/// `ADOX r32, r/m32`
 	///
 	/// `F3 0F 38 F6 /r`
@@ -29541,7 +29541,7 @@ pub enum Code {
 	/// `ADX`
 	///
 	/// `16/32/64-bit`
-	Adox_r32_rm32,
+	Adox_r32_rm32 = 3691,
 	/// `ADOX r64, r/m64`
 	///
 	/// `F3 REX.W 0F 38 F6 /r`
@@ -29549,7 +29549,7 @@ pub enum Code {
 	/// `ADX`
 	///
 	/// `64-bit`
-	Adox_r64_rm64,
+	Adox_r64_rm64 = 3692,
 	/// `MULX r32a, r32b, r/m32`
 	///
 	/// `VEX.LZ.F2.0F38.W0 F6 /r`
@@ -29557,7 +29557,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Mulx_r32_r32_rm32,
+	VEX_Mulx_r32_r32_rm32 = 3693,
 	/// `MULX r64a, r64b, r/m64`
 	///
 	/// `VEX.LZ.F2.0F38.W1 F6 /r`
@@ -29565,7 +29565,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Mulx_r64_r64_rm64,
+	VEX_Mulx_r64_r64_rm64 = 3694,
 	/// `BEXTR r32a, r/m32, r32b`
 	///
 	/// `VEX.LZ.0F38.W0 F7 /r`
@@ -29573,7 +29573,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `16/32/64-bit`
-	VEX_Bextr_r32_rm32_r32,
+	VEX_Bextr_r32_rm32_r32 = 3695,
 	/// `BEXTR r64a, r/m64, r64b`
 	///
 	/// `VEX.LZ.0F38.W1 F7 /r`
@@ -29581,7 +29581,7 @@ pub enum Code {
 	/// `BMI1`
 	///
 	/// `64-bit`
-	VEX_Bextr_r64_rm64_r64,
+	VEX_Bextr_r64_rm64_r64 = 3696,
 	/// `SHLX r32a, r/m32, r32b`
 	///
 	/// `VEX.LZ.66.0F38.W0 F7 /r`
@@ -29589,7 +29589,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Shlx_r32_rm32_r32,
+	VEX_Shlx_r32_rm32_r32 = 3697,
 	/// `SHLX r64a, r/m64, r64b`
 	///
 	/// `VEX.LZ.66.0F38.W1 F7 /r`
@@ -29597,7 +29597,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Shlx_r64_rm64_r64,
+	VEX_Shlx_r64_rm64_r64 = 3698,
 	/// `SARX r32a, r/m32, r32b`
 	///
 	/// `VEX.LZ.F3.0F38.W0 F7 /r`
@@ -29605,7 +29605,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Sarx_r32_rm32_r32,
+	VEX_Sarx_r32_rm32_r32 = 3699,
 	/// `SARX r64a, r/m64, r64b`
 	///
 	/// `VEX.LZ.F3.0F38.W1 F7 /r`
@@ -29613,7 +29613,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Sarx_r64_rm64_r64,
+	VEX_Sarx_r64_rm64_r64 = 3700,
 	/// `SHRX r32a, r/m32, r32b`
 	///
 	/// `VEX.LZ.F2.0F38.W0 F7 /r`
@@ -29621,7 +29621,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Shrx_r32_rm32_r32,
+	VEX_Shrx_r32_rm32_r32 = 3701,
 	/// `SHRX r64a, r/m64, r64b`
 	///
 	/// `VEX.LZ.F2.0F38.W1 F7 /r`
@@ -29629,7 +29629,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Shrx_r64_rm64_r64,
+	VEX_Shrx_r64_rm64_r64 = 3702,
 	/// `MOVDIR64B r16, m512`
 	///
 	/// `a16 66 0F 38 F8 /r`
@@ -29637,7 +29637,7 @@ pub enum Code {
 	/// `MOVDIR64B`
 	///
 	/// `16/32-bit`
-	Movdir64b_r16_m512,
+	Movdir64b_r16_m512 = 3703,
 	/// `MOVDIR64B r32, m512`
 	///
 	/// `a32 66 0F 38 F8 /r`
@@ -29645,7 +29645,7 @@ pub enum Code {
 	/// `MOVDIR64B`
 	///
 	/// `16/32/64-bit`
-	Movdir64b_r32_m512,
+	Movdir64b_r32_m512 = 3704,
 	/// `MOVDIR64B r64, m512`
 	///
 	/// `66 0F 38 F8 /r`
@@ -29653,7 +29653,7 @@ pub enum Code {
 	/// `MOVDIR64B`
 	///
 	/// `64-bit`
-	Movdir64b_r64_m512,
+	Movdir64b_r64_m512 = 3705,
 	/// `ENQCMDS r16, m512`
 	///
 	/// `a16 F3 0F 38 F8 /r`
@@ -29661,7 +29661,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `16/32-bit`
-	Enqcmds_r16_m512,
+	Enqcmds_r16_m512 = 3706,
 	/// `ENQCMDS r32, m512`
 	///
 	/// `a32 F3 0F 38 F8 /r`
@@ -29669,7 +29669,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `16/32/64-bit`
-	Enqcmds_r32_m512,
+	Enqcmds_r32_m512 = 3707,
 	/// `ENQCMDS r64, m512`
 	///
 	/// `F3 0F 38 F8 /r`
@@ -29677,7 +29677,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `64-bit`
-	Enqcmds_r64_m512,
+	Enqcmds_r64_m512 = 3708,
 	/// `ENQCMD r16, m512`
 	///
 	/// `a16 F2 0F 38 F8 /r`
@@ -29685,7 +29685,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `16/32-bit`
-	Enqcmd_r16_m512,
+	Enqcmd_r16_m512 = 3709,
 	/// `ENQCMD r32, m512`
 	///
 	/// `a32 F2 0F 38 F8 /r`
@@ -29693,7 +29693,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `16/32/64-bit`
-	Enqcmd_r32_m512,
+	Enqcmd_r32_m512 = 3710,
 	/// `ENQCMD r64, m512`
 	///
 	/// `F2 0F 38 F8 /r`
@@ -29701,7 +29701,7 @@ pub enum Code {
 	/// `ENQCMD`
 	///
 	/// `64-bit`
-	Enqcmd_r64_m512,
+	Enqcmd_r64_m512 = 3711,
 	/// `MOVDIRI m32, r32`
 	///
 	/// `NP 0F 38 F9 /r`
@@ -29709,7 +29709,7 @@ pub enum Code {
 	/// `MOVDIRI`
 	///
 	/// `16/32/64-bit`
-	Movdiri_m32_r32,
+	Movdiri_m32_r32 = 3712,
 	/// `MOVDIRI m64, r64`
 	///
 	/// `NP REX.W 0F 38 F9 /r`
@@ -29717,7 +29717,7 @@ pub enum Code {
 	/// `MOVDIRI`
 	///
 	/// `64-bit`
-	Movdiri_m64_r64,
+	Movdiri_m64_r64 = 3713,
 	/// `VPERMQ ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W1 00 /r ib`
@@ -29725,7 +29725,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermq_ymm_ymmm256_imm8,
+	VEX_Vpermq_ymm_ymmm256_imm8 = 3714,
 	/// `VPERMQ ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 00 /r ib`
@@ -29733,7 +29733,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8 = 3715,
 	/// `VPERMQ zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 00 /r ib`
@@ -29741,7 +29741,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpermq_zmm_k1z_zmmm512b64_imm8 = 3716,
 	/// `VPERMPD ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W1 01 /r ib`
@@ -29749,7 +29749,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermpd_ymm_ymmm256_imm8,
+	VEX_Vpermpd_ymm_ymmm256_imm8 = 3717,
 	/// `VPERMPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 01 /r ib`
@@ -29757,7 +29757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8 = 3718,
 	/// `VPERMPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 01 /r ib`
@@ -29765,7 +29765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpermpd_zmm_k1z_zmmm512b64_imm8 = 3719,
 	/// `VPBLENDD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 02 /r ib`
@@ -29773,7 +29773,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendd_xmm_xmm_xmmm128_imm8,
+	VEX_Vpblendd_xmm_xmm_xmmm128_imm8 = 3720,
 	/// `VPBLENDD ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 02 /r ib`
@@ -29781,7 +29781,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendd_ymm_ymm_ymmm256_imm8,
+	VEX_Vpblendd_ymm_ymm_ymmm256_imm8 = 3721,
 	/// `VALIGND xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 03 /r ib`
@@ -29789,7 +29789,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8 = 3722,
 	/// `VALIGND ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 03 /r ib`
@@ -29797,7 +29797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8 = 3723,
 	/// `VALIGND zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 03 /r ib`
@@ -29805,7 +29805,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Valignd_zmm_k1z_zmm_zmmm512b32_imm8 = 3724,
 	/// `VALIGNQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 03 /r ib`
@@ -29813,7 +29813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8 = 3725,
 	/// `VALIGNQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 03 /r ib`
@@ -29821,7 +29821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8 = 3726,
 	/// `VALIGNQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 03 /r ib`
@@ -29829,7 +29829,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Valignq_zmm_k1z_zmm_zmmm512b64_imm8 = 3727,
 	/// `VPERMILPS xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 04 /r ib`
@@ -29837,7 +29837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilps_xmm_xmmm128_imm8,
+	VEX_Vpermilps_xmm_xmmm128_imm8 = 3728,
 	/// `VPERMILPS ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 04 /r ib`
@@ -29845,7 +29845,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilps_ymm_ymmm256_imm8,
+	VEX_Vpermilps_ymm_ymmm256_imm8 = 3729,
 	/// `VPERMILPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 04 /r ib`
@@ -29853,7 +29853,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vpermilps_xmm_k1z_xmmm128b32_imm8 = 3730,
 	/// `VPERMILPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 04 /r ib`
@@ -29861,7 +29861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vpermilps_ymm_k1z_ymmm256b32_imm8 = 3731,
 	/// `VPERMILPS zmm1 {k1}{z}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 04 /r ib`
@@ -29869,7 +29869,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8,
+	EVEX_Vpermilps_zmm_k1z_zmmm512b32_imm8 = 3732,
 	/// `VPERMILPD xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 05 /r ib`
@@ -29877,7 +29877,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilpd_xmm_xmmm128_imm8,
+	VEX_Vpermilpd_xmm_xmmm128_imm8 = 3733,
 	/// `VPERMILPD ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 05 /r ib`
@@ -29885,7 +29885,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermilpd_ymm_ymmm256_imm8,
+	VEX_Vpermilpd_ymm_ymmm256_imm8 = 3734,
 	/// `VPERMILPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 05 /r ib`
@@ -29893,7 +29893,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vpermilpd_xmm_k1z_xmmm128b64_imm8 = 3735,
 	/// `VPERMILPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 05 /r ib`
@@ -29901,7 +29901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vpermilpd_ymm_k1z_ymmm256b64_imm8 = 3736,
 	/// `VPERMILPD zmm1 {k1}{z}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 05 /r ib`
@@ -29909,7 +29909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8,
+	EVEX_Vpermilpd_zmm_k1z_zmmm512b64_imm8 = 3737,
 	/// `VPERM2F128 ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 06 /r ib`
@@ -29917,7 +29917,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vperm2f128_ymm_ymm_ymmm256_imm8,
+	VEX_Vperm2f128_ymm_ymm_ymmm256_imm8 = 3738,
 	/// `ROUNDPS xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 08 /r ib`
@@ -29925,7 +29925,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Roundps_xmm_xmmm128_imm8,
+	Roundps_xmm_xmmm128_imm8 = 3739,
 	/// `VROUNDPS xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 08 /r ib`
@@ -29933,7 +29933,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundps_xmm_xmmm128_imm8,
+	VEX_Vroundps_xmm_xmmm128_imm8 = 3740,
 	/// `VROUNDPS ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 08 /r ib`
@@ -29941,7 +29941,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundps_ymm_ymmm256_imm8,
+	VEX_Vroundps_ymm_ymmm256_imm8 = 3741,
 	/// `VRNDSCALEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 08 /r ib`
@@ -29949,7 +29949,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8 = 3742,
 	/// `VRNDSCALEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 08 /r ib`
@@ -29957,7 +29957,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8 = 3743,
 	/// `VRNDSCALEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 08 /r ib`
@@ -29965,7 +29965,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae,
+	EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae = 3744,
 	/// `ROUNDPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 09 /r ib`
@@ -29973,7 +29973,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Roundpd_xmm_xmmm128_imm8,
+	Roundpd_xmm_xmmm128_imm8 = 3745,
 	/// `VROUNDPD xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 09 /r ib`
@@ -29981,7 +29981,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundpd_xmm_xmmm128_imm8,
+	VEX_Vroundpd_xmm_xmmm128_imm8 = 3746,
 	/// `VROUNDPD ymm1, ymm2/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 09 /r ib`
@@ -29989,7 +29989,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundpd_ymm_ymmm256_imm8,
+	VEX_Vroundpd_ymm_ymmm256_imm8 = 3747,
 	/// `VRNDSCALEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 09 /r ib`
@@ -29997,7 +29997,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8 = 3748,
 	/// `VRNDSCALEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 09 /r ib`
@@ -30005,7 +30005,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8 = 3749,
 	/// `VRNDSCALEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 09 /r ib`
@@ -30013,7 +30013,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae,
+	EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae = 3750,
 	/// `ROUNDSS xmm1, xmm2/m32, imm8`
 	///
 	/// `66 0F 3A 0A /r ib`
@@ -30021,7 +30021,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Roundss_xmm_xmmm32_imm8,
+	Roundss_xmm_xmmm32_imm8 = 3751,
 	/// `VROUNDSS xmm1, xmm2, xmm3/m32, imm8`
 	///
 	/// `VEX.LIG.66.0F3A.WIG 0A /r ib`
@@ -30029,7 +30029,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundss_xmm_xmm_xmmm32_imm8,
+	VEX_Vroundss_xmm_xmm_xmmm32_imm8 = 3752,
 	/// `VRNDSCALESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 0A /r ib`
@@ -30037,7 +30037,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae,
+	EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae = 3753,
 	/// `ROUNDSD xmm1, xmm2/m64, imm8`
 	///
 	/// `66 0F 3A 0B /r ib`
@@ -30045,7 +30045,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Roundsd_xmm_xmmm64_imm8,
+	Roundsd_xmm_xmmm64_imm8 = 3754,
 	/// `VROUNDSD xmm1, xmm2, xmm3/m64, imm8`
 	///
 	/// `VEX.LIG.66.0F3A.WIG 0B /r ib`
@@ -30053,7 +30053,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vroundsd_xmm_xmm_xmmm64_imm8,
+	VEX_Vroundsd_xmm_xmm_xmmm64_imm8 = 3755,
 	/// `VRNDSCALESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 0B /r ib`
@@ -30061,7 +30061,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae,
+	EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae = 3756,
 	/// `BLENDPS xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 0C /r ib`
@@ -30069,7 +30069,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Blendps_xmm_xmmm128_imm8,
+	Blendps_xmm_xmmm128_imm8 = 3757,
 	/// `VBLENDPS xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 0C /r ib`
@@ -30077,7 +30077,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendps_xmm_xmm_xmmm128_imm8,
+	VEX_Vblendps_xmm_xmm_xmmm128_imm8 = 3758,
 	/// `VBLENDPS ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 0C /r ib`
@@ -30085,7 +30085,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendps_ymm_ymm_ymmm256_imm8,
+	VEX_Vblendps_ymm_ymm_ymmm256_imm8 = 3759,
 	/// `BLENDPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 0D /r ib`
@@ -30093,7 +30093,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Blendpd_xmm_xmmm128_imm8,
+	Blendpd_xmm_xmmm128_imm8 = 3760,
 	/// `VBLENDPD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 0D /r ib`
@@ -30101,7 +30101,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendpd_xmm_xmm_xmmm128_imm8,
+	VEX_Vblendpd_xmm_xmm_xmmm128_imm8 = 3761,
 	/// `VBLENDPD ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 0D /r ib`
@@ -30109,7 +30109,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendpd_ymm_ymm_ymmm256_imm8,
+	VEX_Vblendpd_ymm_ymm_ymmm256_imm8 = 3762,
 	/// `PBLENDW xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 0E /r ib`
@@ -30117,7 +30117,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pblendw_xmm_xmmm128_imm8,
+	Pblendw_xmm_xmmm128_imm8 = 3763,
 	/// `VPBLENDW xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 0E /r ib`
@@ -30125,7 +30125,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendw_xmm_xmm_xmmm128_imm8,
+	VEX_Vpblendw_xmm_xmm_xmmm128_imm8 = 3764,
 	/// `VPBLENDW ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 0E /r ib`
@@ -30133,7 +30133,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendw_ymm_ymm_ymmm256_imm8,
+	VEX_Vpblendw_ymm_ymm_ymmm256_imm8 = 3765,
 	/// `PALIGNR mm1, mm2/m64, imm8`
 	///
 	/// `NP 0F 3A 0F /r ib`
@@ -30141,7 +30141,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Palignr_mm_mmm64_imm8,
+	Palignr_mm_mmm64_imm8 = 3766,
 	/// `PALIGNR xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 0F /r ib`
@@ -30149,7 +30149,7 @@ pub enum Code {
 	/// `SSSE3`
 	///
 	/// `16/32/64-bit`
-	Palignr_xmm_xmmm128_imm8,
+	Palignr_xmm_xmmm128_imm8 = 3767,
 	/// `VPALIGNR xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 0F /r ib`
@@ -30157,7 +30157,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpalignr_xmm_xmm_xmmm128_imm8,
+	VEX_Vpalignr_xmm_xmm_xmmm128_imm8 = 3768,
 	/// `VPALIGNR ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 0F /r ib`
@@ -30165,7 +30165,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpalignr_ymm_ymm_ymmm256_imm8,
+	VEX_Vpalignr_ymm_ymm_ymmm256_imm8 = 3769,
 	/// `VPALIGNR xmm1 {k1}{z}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.WIG 0F /r ib`
@@ -30173,7 +30173,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8,
+	EVEX_Vpalignr_xmm_k1z_xmm_xmmm128_imm8 = 3770,
 	/// `VPALIGNR ymm1 {k1}{z}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.WIG 0F /r ib`
@@ -30181,7 +30181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8,
+	EVEX_Vpalignr_ymm_k1z_ymm_ymmm256_imm8 = 3771,
 	/// `VPALIGNR zmm1 {k1}{z}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.WIG 0F /r ib`
@@ -30189,7 +30189,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8,
+	EVEX_Vpalignr_zmm_k1z_zmm_zmmm512_imm8 = 3772,
 	/// `PEXTRB r32/m8, xmm2, imm8`
 	///
 	/// `66 0F 3A 14 /r ib`
@@ -30197,7 +30197,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pextrb_r32m8_xmm_imm8,
+	Pextrb_r32m8_xmm_imm8 = 3773,
 	/// `PEXTRB r64/m8, xmm2, imm8`
 	///
 	/// `66 REX.W 0F 3A 14 /r ib`
@@ -30205,7 +30205,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Pextrb_r64m8_xmm_imm8,
+	Pextrb_r64m8_xmm_imm8 = 3774,
 	/// `VPEXTRB r32/m8, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 14 /r ib`
@@ -30213,7 +30213,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpextrb_r32m8_xmm_imm8,
+	VEX_Vpextrb_r32m8_xmm_imm8 = 3775,
 	/// `VPEXTRB r64/m8, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 14 /r ib`
@@ -30221,7 +30221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpextrb_r64m8_xmm_imm8,
+	VEX_Vpextrb_r64m8_xmm_imm8 = 3776,
 	/// `VPEXTRB r32/m8, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 14 /r ib`
@@ -30229,7 +30229,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpextrb_r32m8_xmm_imm8,
+	EVEX_Vpextrb_r32m8_xmm_imm8 = 3777,
 	/// `VPEXTRB r64/m8, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 14 /r ib`
@@ -30237,7 +30237,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	EVEX_Vpextrb_r64m8_xmm_imm8,
+	EVEX_Vpextrb_r64m8_xmm_imm8 = 3778,
 	/// `PEXTRW r32/m16, xmm, imm8`
 	///
 	/// `66 0F 3A 15 /r ib`
@@ -30245,7 +30245,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pextrw_r32m16_xmm_imm8,
+	Pextrw_r32m16_xmm_imm8 = 3779,
 	/// `PEXTRW r64/m16, xmm, imm8`
 	///
 	/// `66 REX.W 0F 3A 15 /r ib`
@@ -30253,7 +30253,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Pextrw_r64m16_xmm_imm8,
+	Pextrw_r64m16_xmm_imm8 = 3780,
 	/// `VPEXTRW r32/m16, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 15 /r ib`
@@ -30261,7 +30261,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpextrw_r32m16_xmm_imm8,
+	VEX_Vpextrw_r32m16_xmm_imm8 = 3781,
 	/// `VPEXTRW r64/m16, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 15 /r ib`
@@ -30269,7 +30269,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpextrw_r64m16_xmm_imm8,
+	VEX_Vpextrw_r64m16_xmm_imm8 = 3782,
 	/// `VPEXTRW r32/m16, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 15 /r ib`
@@ -30277,7 +30277,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpextrw_r32m16_xmm_imm8,
+	EVEX_Vpextrw_r32m16_xmm_imm8 = 3783,
 	/// `VPEXTRW r64/m16, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 15 /r ib`
@@ -30285,7 +30285,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	EVEX_Vpextrw_r64m16_xmm_imm8,
+	EVEX_Vpextrw_r64m16_xmm_imm8 = 3784,
 	/// `PEXTRD r/m32, xmm2, imm8`
 	///
 	/// `66 0F 3A 16 /r ib`
@@ -30293,7 +30293,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pextrd_rm32_xmm_imm8,
+	Pextrd_rm32_xmm_imm8 = 3785,
 	/// `PEXTRQ r/m64, xmm2, imm8`
 	///
 	/// `66 REX.W 0F 3A 16 /r ib`
@@ -30301,7 +30301,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Pextrq_rm64_xmm_imm8,
+	Pextrq_rm64_xmm_imm8 = 3786,
 	/// `VPEXTRD r/m32, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 16 /r ib`
@@ -30309,7 +30309,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpextrd_rm32_xmm_imm8,
+	VEX_Vpextrd_rm32_xmm_imm8 = 3787,
 	/// `VPEXTRQ r/m64, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 16 /r ib`
@@ -30317,7 +30317,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpextrq_rm64_xmm_imm8,
+	VEX_Vpextrq_rm64_xmm_imm8 = 3788,
 	/// `VPEXTRD r/m32, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 16 /r ib`
@@ -30325,7 +30325,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpextrd_rm32_xmm_imm8,
+	EVEX_Vpextrd_rm32_xmm_imm8 = 3789,
 	/// `VPEXTRQ r/m64, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 16 /r ib`
@@ -30333,7 +30333,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `64-bit`
-	EVEX_Vpextrq_rm64_xmm_imm8,
+	EVEX_Vpextrq_rm64_xmm_imm8 = 3790,
 	/// `EXTRACTPS r/m32, xmm1, imm8`
 	///
 	/// `66 0F 3A 17 /r ib`
@@ -30341,7 +30341,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Extractps_rm32_xmm_imm8,
+	Extractps_rm32_xmm_imm8 = 3791,
 	/// `EXTRACTPS r64/m32, xmm1, imm8`
 	///
 	/// `66 REX.W 0F 3A 17 /r ib`
@@ -30349,7 +30349,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Extractps_r64m32_xmm_imm8,
+	Extractps_r64m32_xmm_imm8 = 3792,
 	/// `VEXTRACTPS r/m32, xmm1, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 17 /r ib`
@@ -30357,7 +30357,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vextractps_rm32_xmm_imm8,
+	VEX_Vextractps_rm32_xmm_imm8 = 3793,
 	/// `VEXTRACTPS r64/m32, xmm1, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 17 /r ib`
@@ -30365,7 +30365,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vextractps_r64m32_xmm_imm8,
+	VEX_Vextractps_r64m32_xmm_imm8 = 3794,
 	/// `VEXTRACTPS r/m32, xmm1, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 17 /r ib`
@@ -30373,7 +30373,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractps_rm32_xmm_imm8,
+	EVEX_Vextractps_rm32_xmm_imm8 = 3795,
 	/// `VEXTRACTPS r64/m32, xmm1, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 17 /r ib`
@@ -30381,7 +30381,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `64-bit`
-	EVEX_Vextractps_r64m32_xmm_imm8,
+	EVEX_Vextractps_r64m32_xmm_imm8 = 3796,
 	/// `VINSERTF128 ymm1, ymm2, xmm3/m128, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 18 /r ib`
@@ -30389,7 +30389,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vinsertf128_ymm_ymm_xmmm128_imm8,
+	VEX_Vinsertf128_ymm_ymm_xmmm128_imm8 = 3797,
 	/// `VINSERTF32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 18 /r ib`
@@ -30397,7 +30397,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8,
+	EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8 = 3798,
 	/// `VINSERTF32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 18 /r ib`
@@ -30405,7 +30405,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8,
+	EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8 = 3799,
 	/// `VINSERTF64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 18 /r ib`
@@ -30413,7 +30413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8,
+	EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8 = 3800,
 	/// `VINSERTF64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 18 /r ib`
@@ -30421,7 +30421,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8,
+	EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8 = 3801,
 	/// `VEXTRACTF128 xmm1/m128, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 19 /r ib`
@@ -30429,7 +30429,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vextractf128_xmmm128_ymm_imm8,
+	VEX_Vextractf128_xmmm128_ymm_imm8 = 3802,
 	/// `VEXTRACTF32X4 xmm1/m128 {k1}{z}, ymm2, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 19 /r ib`
@@ -30437,7 +30437,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8,
+	EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8 = 3803,
 	/// `VEXTRACTF32X4 xmm1/m128 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 19 /r ib`
@@ -30445,7 +30445,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8,
+	EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8 = 3804,
 	/// `VEXTRACTF64X2 xmm1/m128 {k1}{z}, ymm2, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 19 /r ib`
@@ -30453,7 +30453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8,
+	EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8 = 3805,
 	/// `VEXTRACTF64X2 xmm1/m128 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 19 /r ib`
@@ -30461,7 +30461,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8,
+	EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8 = 3806,
 	/// `VINSERTF32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1A /r ib`
@@ -30469,7 +30469,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8,
+	EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8 = 3807,
 	/// `VINSERTF64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1A /r ib`
@@ -30477,7 +30477,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8,
+	EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8 = 3808,
 	/// `VEXTRACTF32X8 ymm1/m256 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1B /r ib`
@@ -30485,7 +30485,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8,
+	EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8 = 3809,
 	/// `VEXTRACTF64X4 ymm1/m256 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1B /r ib`
@@ -30493,7 +30493,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8,
+	EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8 = 3810,
 	/// `VCVTPS2PH xmm1/m64, xmm2, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 1D /r ib`
@@ -30501,7 +30501,7 @@ pub enum Code {
 	/// `F16C`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2ph_xmmm64_xmm_imm8,
+	VEX_Vcvtps2ph_xmmm64_xmm_imm8 = 3811,
 	/// `VCVTPS2PH xmm1/m128, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 1D /r ib`
@@ -30509,7 +30509,7 @@ pub enum Code {
 	/// `F16C`
 	///
 	/// `16/32/64-bit`
-	VEX_Vcvtps2ph_xmmm128_ymm_imm8,
+	VEX_Vcvtps2ph_xmmm128_ymm_imm8 = 3812,
 	/// `VCVTPS2PH xmm1/m64 {k1}{z}, xmm2, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 1D /r ib`
@@ -30517,7 +30517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8,
+	EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8 = 3813,
 	/// `VCVTPS2PH xmm1/m128 {k1}{z}, ymm2, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 1D /r ib`
@@ -30525,7 +30525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8,
+	EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8 = 3814,
 	/// `VCVTPS2PH ymm1/m256 {k1}{z}, zmm2{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1D /r ib`
@@ -30533,7 +30533,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae,
+	EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae = 3815,
 	/// `VPCMPUD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 1E /r ib`
@@ -30541,7 +30541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8,
+	EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8 = 3816,
 	/// `VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 1E /r ib`
@@ -30549,7 +30549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8,
+	EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8 = 3817,
 	/// `VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1E /r ib`
@@ -30557,7 +30557,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8,
+	EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8 = 3818,
 	/// `VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 1E /r ib`
@@ -30565,7 +30565,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8,
+	EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8 = 3819,
 	/// `VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 1E /r ib`
@@ -30573,7 +30573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8,
+	EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8 = 3820,
 	/// `VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1E /r ib`
@@ -30581,7 +30581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8,
+	EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8 = 3821,
 	/// `VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 1F /r ib`
@@ -30589,7 +30589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8,
+	EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8 = 3822,
 	/// `VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 1F /r ib`
@@ -30597,7 +30597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8,
+	EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8 = 3823,
 	/// `VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1F /r ib`
@@ -30605,7 +30605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8,
+	EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8 = 3824,
 	/// `VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 1F /r ib`
@@ -30613,7 +30613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8,
+	EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8 = 3825,
 	/// `VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 1F /r ib`
@@ -30621,7 +30621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8,
+	EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8 = 3826,
 	/// `VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1F /r ib`
@@ -30629,7 +30629,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8,
+	EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8 = 3827,
 	/// `PINSRB xmm1, r32/m8, imm8`
 	///
 	/// `66 0F 3A 20 /r ib`
@@ -30637,7 +30637,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pinsrb_xmm_r32m8_imm8,
+	Pinsrb_xmm_r32m8_imm8 = 3828,
 	/// `PINSRB xmm1, r64/m8, imm8`
 	///
 	/// `66 REX.W 0F 3A 20 /r ib`
@@ -30645,7 +30645,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Pinsrb_xmm_r64m8_imm8,
+	Pinsrb_xmm_r64m8_imm8 = 3829,
 	/// `VPINSRB xmm1, xmm2, r32/m8, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 20 /r ib`
@@ -30653,7 +30653,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpinsrb_xmm_xmm_r32m8_imm8,
+	VEX_Vpinsrb_xmm_xmm_r32m8_imm8 = 3830,
 	/// `VPINSRB xmm1, xmm2, r64/m8, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 20 /r ib`
@@ -30661,7 +30661,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpinsrb_xmm_xmm_r64m8_imm8,
+	VEX_Vpinsrb_xmm_xmm_r64m8_imm8 = 3831,
 	/// `VPINSRB xmm1, xmm2, r32/m8, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 20 /r ib`
@@ -30669,7 +30669,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpinsrb_xmm_xmm_r32m8_imm8,
+	EVEX_Vpinsrb_xmm_xmm_r32m8_imm8 = 3832,
 	/// `VPINSRB xmm1, xmm2, r64/m8, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 20 /r ib`
@@ -30677,7 +30677,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	EVEX_Vpinsrb_xmm_xmm_r64m8_imm8,
+	EVEX_Vpinsrb_xmm_xmm_r64m8_imm8 = 3833,
 	/// `INSERTPS xmm1, xmm2/m32, imm8`
 	///
 	/// `66 0F 3A 21 /r ib`
@@ -30685,7 +30685,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Insertps_xmm_xmmm32_imm8,
+	Insertps_xmm_xmmm32_imm8 = 3834,
 	/// `VINSERTPS xmm1, xmm2, xmm3/m32, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 21 /r ib`
@@ -30693,7 +30693,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vinsertps_xmm_xmm_xmmm32_imm8,
+	VEX_Vinsertps_xmm_xmm_xmmm32_imm8 = 3835,
 	/// `VINSERTPS xmm1, xmm2, xmm3/m32, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 21 /r ib`
@@ -30701,7 +30701,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinsertps_xmm_xmm_xmmm32_imm8,
+	EVEX_Vinsertps_xmm_xmm_xmmm32_imm8 = 3836,
 	/// `PINSRD xmm1, r/m32, imm8`
 	///
 	/// `66 0F 3A 22 /r ib`
@@ -30709,7 +30709,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Pinsrd_xmm_rm32_imm8,
+	Pinsrd_xmm_rm32_imm8 = 3837,
 	/// `PINSRQ xmm1, r/m64, imm8`
 	///
 	/// `66 REX.W 0F 3A 22 /r ib`
@@ -30717,7 +30717,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `64-bit`
-	Pinsrq_xmm_rm64_imm8,
+	Pinsrq_xmm_rm64_imm8 = 3838,
 	/// `VPINSRD xmm1, xmm2, r/m32, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 22 /r ib`
@@ -30725,7 +30725,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpinsrd_xmm_xmm_rm32_imm8,
+	VEX_Vpinsrd_xmm_xmm_rm32_imm8 = 3839,
 	/// `VPINSRQ xmm1, xmm2, r/m64, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 22 /r ib`
@@ -30733,7 +30733,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpinsrq_xmm_xmm_rm64_imm8,
+	VEX_Vpinsrq_xmm_xmm_rm64_imm8 = 3840,
 	/// `VPINSRD xmm1, xmm2, r/m32, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 22 /r ib`
@@ -30741,7 +30741,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpinsrd_xmm_xmm_rm32_imm8,
+	EVEX_Vpinsrd_xmm_xmm_rm32_imm8 = 3841,
 	/// `VPINSRQ xmm1, xmm2, r/m64, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 22 /r ib`
@@ -30749,7 +30749,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `64-bit`
-	EVEX_Vpinsrq_xmm_xmm_rm64_imm8,
+	EVEX_Vpinsrq_xmm_xmm_rm64_imm8 = 3842,
 	/// `VSHUFF32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 23 /r ib`
@@ -30757,7 +30757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8 = 3843,
 	/// `VSHUFF32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 23 /r ib`
@@ -30765,7 +30765,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8 = 3844,
 	/// `VSHUFF64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 23 /r ib`
@@ -30773,7 +30773,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8 = 3845,
 	/// `VSHUFF64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 23 /r ib`
@@ -30781,7 +30781,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8 = 3846,
 	/// `VPTERNLOGD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 25 /r ib`
@@ -30789,7 +30789,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8 = 3847,
 	/// `VPTERNLOGD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 25 /r ib`
@@ -30797,7 +30797,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8 = 3848,
 	/// `VPTERNLOGD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 25 /r ib`
@@ -30805,7 +30805,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vpternlogd_zmm_k1z_zmm_zmmm512b32_imm8 = 3849,
 	/// `VPTERNLOGQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 25 /r ib`
@@ -30813,7 +30813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8 = 3850,
 	/// `VPTERNLOGQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 25 /r ib`
@@ -30821,7 +30821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8 = 3851,
 	/// `VPTERNLOGQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 25 /r ib`
@@ -30829,7 +30829,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vpternlogq_zmm_k1z_zmm_zmmm512b64_imm8 = 3852,
 	/// `VGETMANTPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 26 /r ib`
@@ -30837,7 +30837,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8 = 3853,
 	/// `VGETMANTPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 26 /r ib`
@@ -30845,7 +30845,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8 = 3854,
 	/// `VGETMANTPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 26 /r ib`
@@ -30853,7 +30853,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae,
+	EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae = 3855,
 	/// `VGETMANTPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 26 /r ib`
@@ -30861,7 +30861,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8 = 3856,
 	/// `VGETMANTPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 26 /r ib`
@@ -30869,7 +30869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8 = 3857,
 	/// `VGETMANTPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 26 /r ib`
@@ -30877,7 +30877,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae,
+	EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae = 3858,
 	/// `VGETMANTSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 27 /r ib`
@@ -30885,7 +30885,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae,
+	EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae = 3859,
 	/// `VGETMANTSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 27 /r ib`
@@ -30893,7 +30893,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae,
+	EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae = 3860,
 	/// `KSHIFTRB k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 30 /r ib`
@@ -30901,7 +30901,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrb_k_k_imm8,
+	VEX_Kshiftrb_k_k_imm8 = 3861,
 	/// `KSHIFTRW k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 30 /r ib`
@@ -30909,7 +30909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrw_k_k_imm8,
+	VEX_Kshiftrw_k_k_imm8 = 3862,
 	/// `KSHIFTRD k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 31 /r ib`
@@ -30917,7 +30917,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrd_k_k_imm8,
+	VEX_Kshiftrd_k_k_imm8 = 3863,
 	/// `KSHIFTRQ k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 31 /r ib`
@@ -30925,7 +30925,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrq_k_k_imm8,
+	VEX_Kshiftrq_k_k_imm8 = 3864,
 	/// `KSHIFTLB k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 32 /r ib`
@@ -30933,7 +30933,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlb_k_k_imm8,
+	VEX_Kshiftlb_k_k_imm8 = 3865,
 	/// `KSHIFTLW k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 32 /r ib`
@@ -30941,7 +30941,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlw_k_k_imm8,
+	VEX_Kshiftlw_k_k_imm8 = 3866,
 	/// `KSHIFTLD k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 33 /r ib`
@@ -30949,7 +30949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftld_k_k_imm8,
+	VEX_Kshiftld_k_k_imm8 = 3867,
 	/// `KSHIFTLQ k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 33 /r ib`
@@ -30957,7 +30957,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlq_k_k_imm8,
+	VEX_Kshiftlq_k_k_imm8 = 3868,
 	/// `VINSERTI128 ymm1, ymm2, xmm3/m128, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 38 /r ib`
@@ -30965,7 +30965,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vinserti128_ymm_ymm_xmmm128_imm8,
+	VEX_Vinserti128_ymm_ymm_xmmm128_imm8 = 3869,
 	/// `VINSERTI32X4 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 38 /r ib`
@@ -30973,7 +30973,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8,
+	EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8 = 3870,
 	/// `VINSERTI32X4 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 38 /r ib`
@@ -30981,7 +30981,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8,
+	EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8 = 3871,
 	/// `VINSERTI64X2 ymm1 {k1}{z}, ymm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 38 /r ib`
@@ -30989,7 +30989,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8,
+	EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8 = 3872,
 	/// `VINSERTI64X2 zmm1 {k1}{z}, zmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 38 /r ib`
@@ -30997,7 +30997,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8,
+	EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8 = 3873,
 	/// `VEXTRACTI128 xmm1/m128, ymm2, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 39 /r ib`
@@ -31005,7 +31005,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vextracti128_xmmm128_ymm_imm8,
+	VEX_Vextracti128_xmmm128_ymm_imm8 = 3874,
 	/// `VEXTRACTI32X4 xmm1/m128 {k1}{z}, ymm2, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 39 /r ib`
@@ -31013,7 +31013,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8,
+	EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8 = 3875,
 	/// `VEXTRACTI32X4 xmm1/m128 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 39 /r ib`
@@ -31021,7 +31021,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8,
+	EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8 = 3876,
 	/// `VEXTRACTI64X2 xmm1/m128 {k1}{z}, ymm2, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 39 /r ib`
@@ -31029,7 +31029,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8,
+	EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8 = 3877,
 	/// `VEXTRACTI64X2 xmm1/m128 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 39 /r ib`
@@ -31037,7 +31037,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8,
+	EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8 = 3878,
 	/// `VINSERTI32X8 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3A /r ib`
@@ -31045,7 +31045,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8,
+	EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8 = 3879,
 	/// `VINSERTI64X4 zmm1 {k1}{z}, zmm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3A /r ib`
@@ -31053,7 +31053,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8,
+	EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8 = 3880,
 	/// `VEXTRACTI32X8 ymm1/m256 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3B /r ib`
@@ -31061,7 +31061,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8,
+	EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8 = 3881,
 	/// `VEXTRACTI64X4 ymm1/m256 {k1}{z}, zmm2, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3B /r ib`
@@ -31069,7 +31069,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8,
+	EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8 = 3882,
 	/// `VPCMPUB k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 3E /r ib`
@@ -31077,7 +31077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8,
+	EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8 = 3883,
 	/// `VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 3E /r ib`
@@ -31085,7 +31085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8,
+	EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8 = 3884,
 	/// `VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3E /r ib`
@@ -31093,7 +31093,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8,
+	EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8 = 3885,
 	/// `VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 3E /r ib`
@@ -31101,7 +31101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8,
+	EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8 = 3886,
 	/// `VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 3E /r ib`
@@ -31109,7 +31109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8,
+	EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8 = 3887,
 	/// `VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3E /r ib`
@@ -31117,7 +31117,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8,
+	EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8 = 3888,
 	/// `VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 3F /r ib`
@@ -31125,7 +31125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8,
+	EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8 = 3889,
 	/// `VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 3F /r ib`
@@ -31133,7 +31133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8,
+	EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8 = 3890,
 	/// `VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3F /r ib`
@@ -31141,7 +31141,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8,
+	EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8 = 3891,
 	/// `VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 3F /r ib`
@@ -31149,7 +31149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8,
+	EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8 = 3892,
 	/// `VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 3F /r ib`
@@ -31157,7 +31157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8,
+	EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8 = 3893,
 	/// `VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3F /r ib`
@@ -31165,7 +31165,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8,
+	EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8 = 3894,
 	/// `DPPS xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 40 /r ib`
@@ -31173,7 +31173,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Dpps_xmm_xmmm128_imm8,
+	Dpps_xmm_xmmm128_imm8 = 3895,
 	/// `VDPPS xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 40 /r ib`
@@ -31181,7 +31181,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdpps_xmm_xmm_xmmm128_imm8,
+	VEX_Vdpps_xmm_xmm_xmmm128_imm8 = 3896,
 	/// `VDPPS ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 40 /r ib`
@@ -31189,7 +31189,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdpps_ymm_ymm_ymmm256_imm8,
+	VEX_Vdpps_ymm_ymm_ymmm256_imm8 = 3897,
 	/// `DPPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 41 /r ib`
@@ -31197,7 +31197,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Dppd_xmm_xmmm128_imm8,
+	Dppd_xmm_xmmm128_imm8 = 3898,
 	/// `VDPPD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 41 /r ib`
@@ -31205,7 +31205,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vdppd_xmm_xmm_xmmm128_imm8,
+	VEX_Vdppd_xmm_xmm_xmmm128_imm8 = 3899,
 	/// `MPSADBW xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 42 /r ib`
@@ -31213,7 +31213,7 @@ pub enum Code {
 	/// `SSE4.1`
 	///
 	/// `16/32/64-bit`
-	Mpsadbw_xmm_xmmm128_imm8,
+	Mpsadbw_xmm_xmmm128_imm8 = 3900,
 	/// `VMPSADBW xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 42 /r ib`
@@ -31221,7 +31221,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmpsadbw_xmm_xmm_xmmm128_imm8,
+	VEX_Vmpsadbw_xmm_xmm_xmmm128_imm8 = 3901,
 	/// `VMPSADBW ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 42 /r ib`
@@ -31229,7 +31229,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8,
+	VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8 = 3902,
 	/// `VDBPSADBW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 42 /r ib`
@@ -31237,7 +31237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8,
+	EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8 = 3903,
 	/// `VDBPSADBW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 42 /r ib`
@@ -31245,7 +31245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8,
+	EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8 = 3904,
 	/// `VDBPSADBW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 42 /r ib`
@@ -31253,7 +31253,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8,
+	EVEX_Vdbpsadbw_zmm_k1z_zmm_zmmm512_imm8 = 3905,
 	/// `VSHUFI32X4 ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 43 /r ib`
@@ -31261,7 +31261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8 = 3906,
 	/// `VSHUFI32X4 zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 43 /r ib`
@@ -31269,7 +31269,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8 = 3907,
 	/// `VSHUFI64X2 ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 43 /r ib`
@@ -31277,7 +31277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8 = 3908,
 	/// `VSHUFI64X2 zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 43 /r ib`
@@ -31285,7 +31285,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8 = 3909,
 	/// `PCLMULQDQ xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 44 /r ib`
@@ -31293,7 +31293,7 @@ pub enum Code {
 	/// `PCLMULQDQ`
 	///
 	/// `16/32/64-bit`
-	Pclmulqdq_xmm_xmmm128_imm8,
+	Pclmulqdq_xmm_xmmm128_imm8 = 3910,
 	/// `VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 44 /r ib`
@@ -31301,7 +31301,7 @@ pub enum Code {
 	/// `PCLMULQDQ and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8,
+	VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 = 3911,
 	/// `VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.WIG 44 /r ib`
@@ -31309,7 +31309,7 @@ pub enum Code {
 	/// `VPCLMULQDQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8,
+	VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 = 3912,
 	/// `VPCLMULQDQ xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.WIG 44 /r ib`
@@ -31317,7 +31317,7 @@ pub enum Code {
 	/// `AVX512VL and VPCLMULQDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8,
+	EVEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8 = 3913,
 	/// `VPCLMULQDQ ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.WIG 44 /r ib`
@@ -31325,7 +31325,7 @@ pub enum Code {
 	/// `AVX512VL and VPCLMULQDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8,
+	EVEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8 = 3914,
 	/// `VPCLMULQDQ zmm1, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.WIG 44 /r ib`
@@ -31333,7 +31333,7 @@ pub enum Code {
 	/// `AVX512F and VPCLMULQDQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8,
+	EVEX_Vpclmulqdq_zmm_zmm_zmmm512_imm8 = 3915,
 	/// `VPERM2I128 ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 46 /r ib`
@@ -31341,7 +31341,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vperm2i128_ymm_ymm_ymmm256_imm8,
+	VEX_Vperm2i128_ymm_ymm_ymmm256_imm8 = 3916,
 	/// `VPERMIL2PS xmm1, xmm2, xmm3/m128, xmm4, imm2`
 	///
 	/// `VEX.128.66.0F3A.W0 48 /r /is5`
@@ -31349,7 +31349,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2,
+	VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2 = 3917,
 	/// `VPERMIL2PS ymm1, ymm2, ymm3/m256, ymm4, imm2`
 	///
 	/// `VEX.256.66.0F3A.W0 48 /r /is5`
@@ -31357,7 +31357,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2,
+	VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2 = 3918,
 	/// `VPERMIL2PS xmm1, xmm2, xmm3, xmm4/m128, imm2`
 	///
 	/// `VEX.128.66.0F3A.W1 48 /r /is5`
@@ -31365,7 +31365,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2,
+	VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2 = 3919,
 	/// `VPERMIL2PS ymm1, ymm2, ymm3, ymm4/m256, imm2`
 	///
 	/// `VEX.256.66.0F3A.W1 48 /r /is5`
@@ -31373,7 +31373,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2,
+	VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2 = 3920,
 	/// `VPERMIL2PD xmm1, xmm2, xmm3/m128, xmm4, imm2`
 	///
 	/// `VEX.128.66.0F3A.W0 49 /r /is5`
@@ -31381,7 +31381,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2,
+	VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2 = 3921,
 	/// `VPERMIL2PD ymm1, ymm2, ymm3/m256, ymm4, imm2`
 	///
 	/// `VEX.256.66.0F3A.W0 49 /r /is5`
@@ -31389,7 +31389,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2,
+	VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2 = 3922,
 	/// `VPERMIL2PD xmm1, xmm2, xmm3, xmm4/m128, imm2`
 	///
 	/// `VEX.128.66.0F3A.W1 49 /r /is5`
@@ -31397,7 +31397,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2,
+	VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2 = 3923,
 	/// `VPERMIL2PD ymm1, ymm2, ymm3, ymm4/m256, imm2`
 	///
 	/// `VEX.256.66.0F3A.W1 49 /r /is5`
@@ -31405,7 +31405,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2,
+	VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2 = 3924,
 	/// `VBLENDVPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 4A /r /is4`
@@ -31413,7 +31413,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendvps_xmm_xmm_xmmm128_xmm,
+	VEX_Vblendvps_xmm_xmm_xmmm128_xmm = 3925,
 	/// `VBLENDVPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 4A /r /is4`
@@ -31421,7 +31421,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendvps_ymm_ymm_ymmm256_ymm,
+	VEX_Vblendvps_ymm_ymm_ymmm256_ymm = 3926,
 	/// `VBLENDVPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 4B /r /is4`
@@ -31429,7 +31429,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendvpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vblendvpd_xmm_xmm_xmmm128_xmm = 3927,
 	/// `VBLENDVPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 4B /r /is4`
@@ -31437,7 +31437,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vblendvpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vblendvpd_ymm_ymm_ymmm256_ymm = 3928,
 	/// `VPBLENDVB xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 4C /r /is4`
@@ -31445,7 +31445,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendvb_xmm_xmm_xmmm128_xmm,
+	VEX_Vpblendvb_xmm_xmm_xmmm128_xmm = 3929,
 	/// `VPBLENDVB ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 4C /r /is4`
@@ -31453,7 +31453,7 @@ pub enum Code {
 	/// `AVX2`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpblendvb_ymm_ymm_ymmm256_ymm,
+	VEX_Vpblendvb_ymm_ymm_ymmm256_ymm = 3930,
 	/// `VRANGEPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 50 /r ib`
@@ -31461,7 +31461,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8 = 3931,
 	/// `VRANGEPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 50 /r ib`
@@ -31469,7 +31469,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8 = 3932,
 	/// `VRANGEPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 50 /r ib`
@@ -31477,7 +31477,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae,
+	EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae = 3933,
 	/// `VRANGEPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 50 /r ib`
@@ -31485,7 +31485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8 = 3934,
 	/// `VRANGEPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 50 /r ib`
@@ -31493,7 +31493,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8 = 3935,
 	/// `VRANGEPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 50 /r ib`
@@ -31501,7 +31501,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae,
+	EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae = 3936,
 	/// `VRANGESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 51 /r ib`
@@ -31509,7 +31509,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae,
+	EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae = 3937,
 	/// `VRANGESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 51 /r ib`
@@ -31517,7 +31517,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae,
+	EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae = 3938,
 	/// `VFIXUPIMMPS xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 54 /r ib`
@@ -31525,7 +31525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8 = 3939,
 	/// `VFIXUPIMMPS ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 54 /r ib`
@@ -31533,7 +31533,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8 = 3940,
 	/// `VFIXUPIMMPS zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 54 /r ib`
@@ -31541,7 +31541,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae,
+	EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae = 3941,
 	/// `VFIXUPIMMPD xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 54 /r ib`
@@ -31549,7 +31549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8 = 3942,
 	/// `VFIXUPIMMPD ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 54 /r ib`
@@ -31557,7 +31557,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8 = 3943,
 	/// `VFIXUPIMMPD zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 54 /r ib`
@@ -31565,7 +31565,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae,
+	EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae = 3944,
 	/// `VFIXUPIMMSS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 55 /r ib`
@@ -31573,7 +31573,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae,
+	EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae = 3945,
 	/// `VFIXUPIMMSD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 55 /r ib`
@@ -31581,7 +31581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae,
+	EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae = 3946,
 	/// `VREDUCEPS xmm1 {k1}{z}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 56 /r ib`
@@ -31589,7 +31589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8,
+	EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8 = 3947,
 	/// `VREDUCEPS ymm1 {k1}{z}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 56 /r ib`
@@ -31597,7 +31597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8,
+	EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8 = 3948,
 	/// `VREDUCEPS zmm1 {k1}{z}, zmm2/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 56 /r ib`
@@ -31605,7 +31605,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae,
+	EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae = 3949,
 	/// `VREDUCEPD xmm1 {k1}{z}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 56 /r ib`
@@ -31613,7 +31613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8,
+	EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8 = 3950,
 	/// `VREDUCEPD ymm1 {k1}{z}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 56 /r ib`
@@ -31621,7 +31621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8,
+	EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8 = 3951,
 	/// `VREDUCEPD zmm1 {k1}{z}, zmm2/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 56 /r ib`
@@ -31629,7 +31629,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae,
+	EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae = 3952,
 	/// `VREDUCESS xmm1 {k1}{z}, xmm2, xmm3/m32{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 57 /r ib`
@@ -31637,7 +31637,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae,
+	EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae = 3953,
 	/// `VREDUCESD xmm1 {k1}{z}, xmm2, xmm3/m64{sae}, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 57 /r ib`
@@ -31645,7 +31645,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae,
+	EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae = 3954,
 	/// `VFMADDSUBPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 5C /r /is4`
@@ -31653,7 +31653,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm = 3955,
 	/// `VFMADDSUBPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 5C /r /is4`
@@ -31661,7 +31661,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm = 3956,
 	/// `VFMADDSUBPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 5C /r /is4`
@@ -31669,7 +31669,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128 = 3957,
 	/// `VFMADDSUBPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 5C /r /is4`
@@ -31677,7 +31677,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256 = 3958,
 	/// `VFMADDSUBPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 5D /r /is4`
@@ -31685,7 +31685,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm = 3959,
 	/// `VFMADDSUBPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 5D /r /is4`
@@ -31693,7 +31693,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm = 3960,
 	/// `VFMADDSUBPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 5D /r /is4`
@@ -31701,7 +31701,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128 = 3961,
 	/// `VFMADDSUBPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 5D /r /is4`
@@ -31709,7 +31709,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256 = 3962,
 	/// `VFMSUBADDPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 5E /r /is4`
@@ -31717,7 +31717,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm = 3963,
 	/// `VFMSUBADDPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 5E /r /is4`
@@ -31725,7 +31725,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm = 3964,
 	/// `VFMSUBADDPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 5E /r /is4`
@@ -31733,7 +31733,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128 = 3965,
 	/// `VFMSUBADDPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 5E /r /is4`
@@ -31741,7 +31741,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256 = 3966,
 	/// `VFMSUBADDPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 5F /r /is4`
@@ -31749,7 +31749,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm = 3967,
 	/// `VFMSUBADDPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 5F /r /is4`
@@ -31757,7 +31757,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm = 3968,
 	/// `VFMSUBADDPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 5F /r /is4`
@@ -31765,7 +31765,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128 = 3969,
 	/// `VFMSUBADDPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 5F /r /is4`
@@ -31773,7 +31773,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256 = 3970,
 	/// `PCMPESTRM xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 60 /r ib`
@@ -31781,7 +31781,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Pcmpestrm_xmm_xmmm128_imm8,
+	Pcmpestrm_xmm_xmmm128_imm8 = 3971,
 	/// `PCMPESTRM64 xmm1, xmm2/m128, imm8`
 	///
 	/// `66 REX.W 0F 3A 60 /r ib`
@@ -31789,7 +31789,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `64-bit`
-	Pcmpestrm64_xmm_xmmm128_imm8,
+	Pcmpestrm64_xmm_xmmm128_imm8 = 3972,
 	/// `VPCMPESTRM xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 60 /r ib`
@@ -31797,7 +31797,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpestrm_xmm_xmmm128_imm8,
+	VEX_Vpcmpestrm_xmm_xmmm128_imm8 = 3973,
 	/// `VPCMPESTRM64 xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 60 /r ib`
@@ -31805,7 +31805,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpcmpestrm64_xmm_xmmm128_imm8,
+	VEX_Vpcmpestrm64_xmm_xmmm128_imm8 = 3974,
 	/// `PCMPESTRI xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 61 /r ib`
@@ -31813,7 +31813,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Pcmpestri_xmm_xmmm128_imm8,
+	Pcmpestri_xmm_xmmm128_imm8 = 3975,
 	/// `PCMPESTRI64 xmm1, xmm2/m128, imm8`
 	///
 	/// `66 REX.W 0F 3A 61 /r ib`
@@ -31821,7 +31821,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `64-bit`
-	Pcmpestri64_xmm_xmmm128_imm8,
+	Pcmpestri64_xmm_xmmm128_imm8 = 3976,
 	/// `VPCMPESTRI xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W0 61 /r ib`
@@ -31829,7 +31829,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpestri_xmm_xmmm128_imm8,
+	VEX_Vpcmpestri_xmm_xmmm128_imm8 = 3977,
 	/// `VPCMPESTRI64 xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 61 /r ib`
@@ -31837,7 +31837,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `64-bit`
-	VEX_Vpcmpestri64_xmm_xmmm128_imm8,
+	VEX_Vpcmpestri64_xmm_xmmm128_imm8 = 3978,
 	/// `PCMPISTRM xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 62 /r ib`
@@ -31845,7 +31845,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Pcmpistrm_xmm_xmmm128_imm8,
+	Pcmpistrm_xmm_xmmm128_imm8 = 3979,
 	/// `VPCMPISTRM xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 62 /r ib`
@@ -31853,7 +31853,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpistrm_xmm_xmmm128_imm8,
+	VEX_Vpcmpistrm_xmm_xmmm128_imm8 = 3980,
 	/// `PCMPISTRI xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 63 /r ib`
@@ -31861,7 +31861,7 @@ pub enum Code {
 	/// `SSE4.2`
 	///
 	/// `16/32/64-bit`
-	Pcmpistri_xmm_xmmm128_imm8,
+	Pcmpistri_xmm_xmmm128_imm8 = 3981,
 	/// `VPCMPISTRI xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG 63 /r ib`
@@ -31869,7 +31869,7 @@ pub enum Code {
 	/// `AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vpcmpistri_xmm_xmmm128_imm8,
+	VEX_Vpcmpistri_xmm_xmmm128_imm8 = 3982,
 	/// `VFPCLASSPS k2 {k1}, xmm2/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 66 /r ib`
@@ -31877,7 +31877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_xmmm128b32_imm8,
+	EVEX_Vfpclassps_k_k1_xmmm128b32_imm8 = 3983,
 	/// `VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 66 /r ib`
@@ -31885,7 +31885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_ymmm256b32_imm8,
+	EVEX_Vfpclassps_k_k1_ymmm256b32_imm8 = 3984,
 	/// `VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 66 /r ib`
@@ -31893,7 +31893,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_zmmm512b32_imm8,
+	EVEX_Vfpclassps_k_k1_zmmm512b32_imm8 = 3985,
 	/// `VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 66 /r ib`
@@ -31901,7 +31901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8,
+	EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8 = 3986,
 	/// `VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 66 /r ib`
@@ -31909,7 +31909,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8,
+	EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8 = 3987,
 	/// `VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 66 /r ib`
@@ -31917,7 +31917,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8,
+	EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8 = 3988,
 	/// `VFPCLASSSS k2 {k1}, xmm2/m32, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 67 /r ib`
@@ -31925,7 +31925,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassss_k_k1_xmmm32_imm8,
+	EVEX_Vfpclassss_k_k1_xmmm32_imm8 = 3989,
 	/// `VFPCLASSSD k2 {k1}, xmm2/m64, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 67 /r ib`
@@ -31933,7 +31933,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasssd_k_k1_xmmm64_imm8,
+	EVEX_Vfpclasssd_k_k1_xmmm64_imm8 = 3990,
 	/// `VFMADDPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 68 /r /is4`
@@ -31941,7 +31941,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmaddps_xmm_xmm_xmmm128_xmm = 3991,
 	/// `VFMADDPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 68 /r /is4`
@@ -31949,7 +31949,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmaddps_ymm_ymm_ymmm256_ymm = 3992,
 	/// `VFMADDPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 68 /r /is4`
@@ -31957,7 +31957,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmaddps_xmm_xmm_xmm_xmmm128 = 3993,
 	/// `VFMADDPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 68 /r /is4`
@@ -31965,7 +31965,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmaddps_ymm_ymm_ymm_ymmm256 = 3994,
 	/// `VFMADDPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 69 /r /is4`
@@ -31973,7 +31973,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm = 3995,
 	/// `VFMADDPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 69 /r /is4`
@@ -31981,7 +31981,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm = 3996,
 	/// `VFMADDPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 69 /r /is4`
@@ -31989,7 +31989,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128 = 3997,
 	/// `VFMADDPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 69 /r /is4`
@@ -31997,7 +31997,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256 = 3998,
 	/// `VFMADDSS xmm1, xmm2, xmm3/m32, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 6A /r /is4`
@@ -32005,7 +32005,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddss_xmm_xmm_xmmm32_xmm,
+	VEX_Vfmaddss_xmm_xmm_xmmm32_xmm = 3999,
 	/// `VFMADDSS xmm1, xmm2, xmm3, xmm4/m32`
 	///
 	/// `VEX.LIG.66.0F3A.W1 6A /r /is4`
@@ -32013,7 +32013,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddss_xmm_xmm_xmm_xmmm32,
+	VEX_Vfmaddss_xmm_xmm_xmm_xmmm32 = 4000,
 	/// `VFMADDSD xmm1, xmm2, xmm3/m64, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 6B /r /is4`
@@ -32021,7 +32021,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm,
+	VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm = 4001,
 	/// `VFMADDSD xmm1, xmm2, xmm3, xmm4/m64`
 	///
 	/// `VEX.LIG.66.0F3A.W1 6B /r /is4`
@@ -32029,7 +32029,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64,
+	VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64 = 4002,
 	/// `VFMSUBPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 6C /r /is4`
@@ -32037,7 +32037,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmsubps_xmm_xmm_xmmm128_xmm = 4003,
 	/// `VFMSUBPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 6C /r /is4`
@@ -32045,7 +32045,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmsubps_ymm_ymm_ymmm256_ymm = 4004,
 	/// `VFMSUBPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 6C /r /is4`
@@ -32053,7 +32053,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmsubps_xmm_xmm_xmm_xmmm128 = 4005,
 	/// `VFMSUBPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 6C /r /is4`
@@ -32061,7 +32061,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmsubps_ymm_ymm_ymm_ymmm256 = 4006,
 	/// `VFMSUBPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 6D /r /is4`
@@ -32069,7 +32069,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm = 4007,
 	/// `VFMSUBPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 6D /r /is4`
@@ -32077,7 +32077,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm = 4008,
 	/// `VFMSUBPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 6D /r /is4`
@@ -32085,7 +32085,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128 = 4009,
 	/// `VFMSUBPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 6D /r /is4`
@@ -32093,7 +32093,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256 = 4010,
 	/// `VFMSUBSS xmm1, xmm2, xmm3/m32, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 6E /r /is4`
@@ -32101,7 +32101,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubss_xmm_xmm_xmmm32_xmm,
+	VEX_Vfmsubss_xmm_xmm_xmmm32_xmm = 4011,
 	/// `VFMSUBSS xmm1, xmm2, xmm3, xmm4/m32`
 	///
 	/// `VEX.LIG.66.0F3A.W1 6E /r /is4`
@@ -32109,7 +32109,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubss_xmm_xmm_xmm_xmmm32,
+	VEX_Vfmsubss_xmm_xmm_xmm_xmmm32 = 4012,
 	/// `VFMSUBSD xmm1, xmm2, xmm3/m64, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 6F /r /is4`
@@ -32117,7 +32117,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm,
+	VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm = 4013,
 	/// `VFMSUBSD xmm1, xmm2, xmm3, xmm4/m64`
 	///
 	/// `VEX.LIG.66.0F3A.W1 6F /r /is4`
@@ -32125,7 +32125,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64,
+	VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64 = 4014,
 	/// `VPSHLDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 70 /r ib`
@@ -32133,7 +32133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8,
+	EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8 = 4015,
 	/// `VPSHLDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 70 /r ib`
@@ -32141,7 +32141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8,
+	EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8 = 4016,
 	/// `VPSHLDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 70 /r ib`
@@ -32149,7 +32149,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8,
+	EVEX_Vpshldw_zmm_k1z_zmm_zmmm512_imm8 = 4017,
 	/// `VPSHLDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 71 /r ib`
@@ -32157,7 +32157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8 = 4018,
 	/// `VPSHLDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 71 /r ib`
@@ -32165,7 +32165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8 = 4019,
 	/// `VPSHLDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 71 /r ib`
@@ -32173,7 +32173,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vpshldd_zmm_k1z_zmm_zmmm512b32_imm8 = 4020,
 	/// `VPSHLDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 71 /r ib`
@@ -32181,7 +32181,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8 = 4021,
 	/// `VPSHLDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 71 /r ib`
@@ -32189,7 +32189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8 = 4022,
 	/// `VPSHLDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 71 /r ib`
@@ -32197,7 +32197,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vpshldq_zmm_k1z_zmm_zmmm512b64_imm8 = 4023,
 	/// `VPSHRDW xmm1 {k1}{z}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 72 /r ib`
@@ -32205,7 +32205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8,
+	EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8 = 4024,
 	/// `VPSHRDW ymm1 {k1}{z}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 72 /r ib`
@@ -32213,7 +32213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8,
+	EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8 = 4025,
 	/// `VPSHRDW zmm1 {k1}{z}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 72 /r ib`
@@ -32221,7 +32221,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8,
+	EVEX_Vpshrdw_zmm_k1z_zmm_zmmm512_imm8 = 4026,
 	/// `VPSHRDD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 73 /r ib`
@@ -32229,7 +32229,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8,
+	EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8 = 4027,
 	/// `VPSHRDD ymm1 {k1}{z}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 73 /r ib`
@@ -32237,7 +32237,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8,
+	EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8 = 4028,
 	/// `VPSHRDD zmm1 {k1}{z}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 73 /r ib`
@@ -32245,7 +32245,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8,
+	EVEX_Vpshrdd_zmm_k1z_zmm_zmmm512b32_imm8 = 4029,
 	/// `VPSHRDQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 73 /r ib`
@@ -32253,7 +32253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8 = 4030,
 	/// `VPSHRDQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 73 /r ib`
@@ -32261,7 +32261,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8 = 4031,
 	/// `VPSHRDQ zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 73 /r ib`
@@ -32269,7 +32269,7 @@ pub enum Code {
 	/// `AVX512_VBMI2`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8 = 4032,
 	/// `VFNMADDPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 78 /r /is4`
@@ -32277,7 +32277,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm = 4033,
 	/// `VFNMADDPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 78 /r /is4`
@@ -32285,7 +32285,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm = 4034,
 	/// `VFNMADDPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 78 /r /is4`
@@ -32293,7 +32293,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128 = 4035,
 	/// `VFNMADDPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 78 /r /is4`
@@ -32301,7 +32301,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256 = 4036,
 	/// `VFNMADDPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 79 /r /is4`
@@ -32309,7 +32309,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm = 4037,
 	/// `VFNMADDPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 79 /r /is4`
@@ -32317,7 +32317,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm = 4038,
 	/// `VFNMADDPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 79 /r /is4`
@@ -32325,7 +32325,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128 = 4039,
 	/// `VFNMADDPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 79 /r /is4`
@@ -32333,7 +32333,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256 = 4040,
 	/// `VFNMADDSS xmm1, xmm2, xmm3/m32, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 7A /r /is4`
@@ -32341,7 +32341,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm,
+	VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm = 4041,
 	/// `VFNMADDSS xmm1, xmm2, xmm3, xmm4/m32`
 	///
 	/// `VEX.LIG.66.0F3A.W1 7A /r /is4`
@@ -32349,7 +32349,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32,
+	VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32 = 4042,
 	/// `VFNMADDSD xmm1, xmm2, xmm3/m64, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 7B /r /is4`
@@ -32357,7 +32357,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm,
+	VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm = 4043,
 	/// `VFNMADDSD xmm1, xmm2, xmm3, xmm4/m64`
 	///
 	/// `VEX.LIG.66.0F3A.W1 7B /r /is4`
@@ -32365,7 +32365,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64,
+	VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64 = 4044,
 	/// `VFNMSUBPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 7C /r /is4`
@@ -32373,7 +32373,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm,
+	VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm = 4045,
 	/// `VFNMSUBPS ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 7C /r /is4`
@@ -32381,7 +32381,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm,
+	VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm = 4046,
 	/// `VFNMSUBPS xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 7C /r /is4`
@@ -32389,7 +32389,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128,
+	VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128 = 4047,
 	/// `VFNMSUBPS ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 7C /r /is4`
@@ -32397,7 +32397,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256,
+	VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256 = 4048,
 	/// `VFNMSUBPD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 7D /r /is4`
@@ -32405,7 +32405,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm,
+	VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm = 4049,
 	/// `VFNMSUBPD ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `VEX.256.66.0F3A.W0 7D /r /is4`
@@ -32413,7 +32413,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm,
+	VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm = 4050,
 	/// `VFNMSUBPD xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `VEX.128.66.0F3A.W1 7D /r /is4`
@@ -32421,7 +32421,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128,
+	VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128 = 4051,
 	/// `VFNMSUBPD ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `VEX.256.66.0F3A.W1 7D /r /is4`
@@ -32429,7 +32429,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256,
+	VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256 = 4052,
 	/// `VFNMSUBSS xmm1, xmm2, xmm3/m32, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 7E /r /is4`
@@ -32437,7 +32437,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm,
+	VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm = 4053,
 	/// `VFNMSUBSS xmm1, xmm2, xmm3, xmm4/m32`
 	///
 	/// `VEX.LIG.66.0F3A.W1 7E /r /is4`
@@ -32445,7 +32445,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32,
+	VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32 = 4054,
 	/// `VFNMSUBSD xmm1, xmm2, xmm3/m64, xmm4`
 	///
 	/// `VEX.LIG.66.0F3A.W0 7F /r /is4`
@@ -32453,7 +32453,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm,
+	VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm = 4055,
 	/// `VFNMSUBSD xmm1, xmm2, xmm3, xmm4/m64`
 	///
 	/// `VEX.LIG.66.0F3A.W1 7F /r /is4`
@@ -32461,7 +32461,7 @@ pub enum Code {
 	/// `FMA4`
 	///
 	/// `16/32/64-bit`
-	VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64,
+	VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64 = 4056,
 	/// `SHA1RNDS4 xmm1, xmm2/m128, imm8`
 	///
 	/// `NP 0F 3A CC /r ib`
@@ -32469,7 +32469,7 @@ pub enum Code {
 	/// `SHA`
 	///
 	/// `16/32/64-bit`
-	Sha1rnds4_xmm_xmmm128_imm8,
+	Sha1rnds4_xmm_xmmm128_imm8 = 4057,
 	/// `GF2P8AFFINEQB xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A CE /r ib`
@@ -32477,7 +32477,7 @@ pub enum Code {
 	/// `GFNI`
 	///
 	/// `16/32/64-bit`
-	Gf2p8affineqb_xmm_xmmm128_imm8,
+	Gf2p8affineqb_xmm_xmmm128_imm8 = 4058,
 	/// `VGF2P8AFFINEQB xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 CE /r ib`
@@ -32485,7 +32485,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8,
+	VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8 = 4059,
 	/// `VGF2P8AFFINEQB ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W1 CE /r ib`
@@ -32493,7 +32493,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8,
+	VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8 = 4060,
 	/// `VGF2P8AFFINEQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 CE /r ib`
@@ -32501,7 +32501,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vgf2p8affineqb_xmm_k1z_xmm_xmmm128b64_imm8 = 4061,
 	/// `VGF2P8AFFINEQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 CE /r ib`
@@ -32509,7 +32509,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vgf2p8affineqb_ymm_k1z_ymm_ymmm256b64_imm8 = 4062,
 	/// `VGF2P8AFFINEQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 CE /r ib`
@@ -32517,7 +32517,7 @@ pub enum Code {
 	/// `AVX512F and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vgf2p8affineqb_zmm_k1z_zmm_zmmm512b64_imm8 = 4063,
 	/// `GF2P8AFFINEINVQB xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A CF /r ib`
@@ -32525,7 +32525,7 @@ pub enum Code {
 	/// `GFNI`
 	///
 	/// `16/32/64-bit`
-	Gf2p8affineinvqb_xmm_xmmm128_imm8,
+	Gf2p8affineinvqb_xmm_xmmm128_imm8 = 4064,
 	/// `VGF2P8AFFINEINVQB xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.W1 CF /r ib`
@@ -32533,7 +32533,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8,
+	VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8 = 4065,
 	/// `VGF2P8AFFINEINVQB ymm1, ymm2, ymm3/m256, imm8`
 	///
 	/// `VEX.256.66.0F3A.W1 CF /r ib`
@@ -32541,7 +32541,7 @@ pub enum Code {
 	/// `AVX and GFNI`
 	///
 	/// `16/32/64-bit`
-	VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8,
+	VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8 = 4066,
 	/// `VGF2P8AFFINEINVQB xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 CF /r ib`
@@ -32549,7 +32549,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8,
+	EVEX_Vgf2p8affineinvqb_xmm_k1z_xmm_xmmm128b64_imm8 = 4067,
 	/// `VGF2P8AFFINEINVQB ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 CF /r ib`
@@ -32557,7 +32557,7 @@ pub enum Code {
 	/// `AVX512VL and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8,
+	EVEX_Vgf2p8affineinvqb_ymm_k1z_ymm_ymmm256b64_imm8 = 4068,
 	/// `VGF2P8AFFINEINVQB zmm1 {k1}{z}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 CF /r ib`
@@ -32565,7 +32565,7 @@ pub enum Code {
 	/// `AVX512F and GFNI`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8,
+	EVEX_Vgf2p8affineinvqb_zmm_k1z_zmm_zmmm512b64_imm8 = 4069,
 	/// `AESKEYGENASSIST xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A DF /r ib`
@@ -32573,7 +32573,7 @@ pub enum Code {
 	/// `AES`
 	///
 	/// `16/32/64-bit`
-	Aeskeygenassist_xmm_xmmm128_imm8,
+	Aeskeygenassist_xmm_xmmm128_imm8 = 4070,
 	/// `VAESKEYGENASSIST xmm1, xmm2/m128, imm8`
 	///
 	/// `VEX.128.66.0F3A.WIG DF /r ib`
@@ -32581,7 +32581,7 @@ pub enum Code {
 	/// `AES and AVX`
 	///
 	/// `16/32/64-bit`
-	VEX_Vaeskeygenassist_xmm_xmmm128_imm8,
+	VEX_Vaeskeygenassist_xmm_xmmm128_imm8 = 4071,
 	/// `RORX r32, r/m32, imm8`
 	///
 	/// `VEX.LZ.F2.0F3A.W0 F0 /r ib`
@@ -32589,7 +32589,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `16/32/64-bit`
-	VEX_Rorx_r32_rm32_imm8,
+	VEX_Rorx_r32_rm32_imm8 = 4072,
 	/// `RORX r64, r/m64, imm8`
 	///
 	/// `VEX.LZ.F2.0F3A.W1 F0 /r ib`
@@ -32597,7 +32597,7 @@ pub enum Code {
 	/// `BMI2`
 	///
 	/// `64-bit`
-	VEX_Rorx_r64_rm64_imm8,
+	VEX_Rorx_r64_rm64_imm8 = 4073,
 	/// `VPMACSSWW xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 85 /r /is4`
@@ -32605,7 +32605,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacssww_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacssww_xmm_xmm_xmmm128_xmm = 4074,
 	/// `VPMACSSWD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 86 /r /is4`
@@ -32613,7 +32613,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm = 4075,
 	/// `VPMACSSDQL xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 87 /r /is4`
@@ -32621,7 +32621,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm = 4076,
 	/// `VPMACSSDD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 8E /r /is4`
@@ -32629,7 +32629,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm = 4077,
 	/// `VPMACSSDQH xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 8F /r /is4`
@@ -32637,7 +32637,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm = 4078,
 	/// `VPMACSWW xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 95 /r /is4`
@@ -32645,7 +32645,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacsww_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacsww_xmm_xmm_xmmm128_xmm = 4079,
 	/// `VPMACSWD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 96 /r /is4`
@@ -32653,7 +32653,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacswd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacswd_xmm_xmm_xmmm128_xmm = 4080,
 	/// `VPMACSDQL xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 97 /r /is4`
@@ -32661,7 +32661,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm = 4081,
 	/// `VPMACSDD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 9E /r /is4`
@@ -32669,7 +32669,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm = 4082,
 	/// `VPMACSDQH xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 9F /r /is4`
@@ -32677,7 +32677,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm = 4083,
 	/// `VPCMOV xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 A2 /r /is4`
@@ -32685,7 +32685,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcmov_xmm_xmm_xmmm128_xmm,
+	XOP_Vpcmov_xmm_xmm_xmmm128_xmm = 4084,
 	/// `VPCMOV ymm1, ymm2, ymm3/m256, ymm4`
 	///
 	/// `XOP.256.X8.W0 A2 /r /is4`
@@ -32693,7 +32693,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcmov_ymm_ymm_ymmm256_ymm,
+	XOP_Vpcmov_ymm_ymm_ymmm256_ymm = 4085,
 	/// `VPCMOV xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `XOP.128.X8.W1 A2 /r /is4`
@@ -32701,7 +32701,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcmov_xmm_xmm_xmm_xmmm128,
+	XOP_Vpcmov_xmm_xmm_xmm_xmmm128 = 4086,
 	/// `VPCMOV ymm1, ymm2, ymm3, ymm4/m256`
 	///
 	/// `XOP.256.X8.W1 A2 /r /is4`
@@ -32709,7 +32709,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcmov_ymm_ymm_ymm_ymmm256,
+	XOP_Vpcmov_ymm_ymm_ymm_ymmm256 = 4087,
 	/// `VPPERM xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 A3 /r /is4`
@@ -32717,7 +32717,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpperm_xmm_xmm_xmmm128_xmm,
+	XOP_Vpperm_xmm_xmm_xmmm128_xmm = 4088,
 	/// `VPPERM xmm1, xmm2, xmm3, xmm4/m128`
 	///
 	/// `XOP.128.X8.W1 A3 /r /is4`
@@ -32725,7 +32725,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpperm_xmm_xmm_xmm_xmmm128,
+	XOP_Vpperm_xmm_xmm_xmm_xmmm128 = 4089,
 	/// `VPMADCSSWD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 A6 /r /is4`
@@ -32733,7 +32733,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm = 4090,
 	/// `VPMADCSWD xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `XOP.128.X8.W0 B6 /r /is4`
@@ -32741,7 +32741,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm,
+	XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm = 4091,
 	/// `VPROTB xmm1, xmm2/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 C0 /r ib`
@@ -32749,7 +32749,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotb_xmm_xmmm128_imm8,
+	XOP_Vprotb_xmm_xmmm128_imm8 = 4092,
 	/// `VPROTW xmm1, xmm2/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 C1 /r ib`
@@ -32757,7 +32757,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotw_xmm_xmmm128_imm8,
+	XOP_Vprotw_xmm_xmmm128_imm8 = 4093,
 	/// `VPROTD xmm1, xmm2/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 C2 /r ib`
@@ -32765,7 +32765,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotd_xmm_xmmm128_imm8,
+	XOP_Vprotd_xmm_xmmm128_imm8 = 4094,
 	/// `VPROTQ xmm1, xmm2/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 C3 /r ib`
@@ -32773,7 +32773,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotq_xmm_xmmm128_imm8,
+	XOP_Vprotq_xmm_xmmm128_imm8 = 4095,
 	/// `VPCOMB xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 CC /r ib`
@@ -32781,7 +32781,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomb_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomb_xmm_xmm_xmmm128_imm8 = 4096,
 	/// `VPCOMW xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 CD /r ib`
@@ -32789,7 +32789,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomw_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomw_xmm_xmm_xmmm128_imm8 = 4097,
 	/// `VPCOMD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 CE /r ib`
@@ -32797,7 +32797,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomd_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomd_xmm_xmm_xmmm128_imm8 = 4098,
 	/// `VPCOMQ xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 CF /r ib`
@@ -32805,7 +32805,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomq_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomq_xmm_xmm_xmmm128_imm8 = 4099,
 	/// `VPCOMUB xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 EC /r ib`
@@ -32813,7 +32813,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomub_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomub_xmm_xmm_xmmm128_imm8 = 4100,
 	/// `VPCOMUW xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 ED /r ib`
@@ -32821,7 +32821,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomuw_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomuw_xmm_xmm_xmmm128_imm8 = 4101,
 	/// `VPCOMUD xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 EE /r ib`
@@ -32829,7 +32829,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomud_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomud_xmm_xmm_xmmm128_imm8 = 4102,
 	/// `VPCOMUQ xmm1, xmm2, xmm3/m128, imm8`
 	///
 	/// `XOP.128.X8.W0 EF /r ib`
@@ -32837,7 +32837,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpcomuq_xmm_xmm_xmmm128_imm8,
+	XOP_Vpcomuq_xmm_xmm_xmmm128_imm8 = 4103,
 	/// `BLCFILL r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /1`
@@ -32845,7 +32845,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blcfill_r32_rm32,
+	XOP_Blcfill_r32_rm32 = 4104,
 	/// `BLCFILL r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /1`
@@ -32853,7 +32853,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blcfill_r64_rm64,
+	XOP_Blcfill_r64_rm64 = 4105,
 	/// `BLSFILL r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /2`
@@ -32861,7 +32861,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blsfill_r32_rm32,
+	XOP_Blsfill_r32_rm32 = 4106,
 	/// `BLSFILL r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /2`
@@ -32869,7 +32869,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blsfill_r64_rm64,
+	XOP_Blsfill_r64_rm64 = 4107,
 	/// `BLCS r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /3`
@@ -32877,7 +32877,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blcs_r32_rm32,
+	XOP_Blcs_r32_rm32 = 4108,
 	/// `BLCS r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /3`
@@ -32885,7 +32885,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blcs_r64_rm64,
+	XOP_Blcs_r64_rm64 = 4109,
 	/// `TZMSK r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /4`
@@ -32893,7 +32893,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Tzmsk_r32_rm32,
+	XOP_Tzmsk_r32_rm32 = 4110,
 	/// `TZMSK r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /4`
@@ -32901,7 +32901,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Tzmsk_r64_rm64,
+	XOP_Tzmsk_r64_rm64 = 4111,
 	/// `BLCIC r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /5`
@@ -32909,7 +32909,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blcic_r32_rm32,
+	XOP_Blcic_r32_rm32 = 4112,
 	/// `BLCIC r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /5`
@@ -32917,7 +32917,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blcic_r64_rm64,
+	XOP_Blcic_r64_rm64 = 4113,
 	/// `BLSIC r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /6`
@@ -32925,7 +32925,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blsic_r32_rm32,
+	XOP_Blsic_r32_rm32 = 4114,
 	/// `BLSIC r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /6`
@@ -32933,7 +32933,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blsic_r64_rm64,
+	XOP_Blsic_r64_rm64 = 4115,
 	/// `T1MSKC r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 01 /7`
@@ -32941,7 +32941,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_T1mskc_r32_rm32,
+	XOP_T1mskc_r32_rm32 = 4116,
 	/// `T1MSKC r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 01 /7`
@@ -32949,7 +32949,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_T1mskc_r64_rm64,
+	XOP_T1mskc_r64_rm64 = 4117,
 	/// `BLCMSK r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 02 /1`
@@ -32957,7 +32957,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blcmsk_r32_rm32,
+	XOP_Blcmsk_r32_rm32 = 4118,
 	/// `BLCMSK r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 02 /1`
@@ -32965,7 +32965,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blcmsk_r64_rm64,
+	XOP_Blcmsk_r64_rm64 = 4119,
 	/// `BLCI r32, r/m32`
 	///
 	/// `XOP.L0.X9.W0 02 /6`
@@ -32973,7 +32973,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Blci_r32_rm32,
+	XOP_Blci_r32_rm32 = 4120,
 	/// `BLCI r64, r/m64`
 	///
 	/// `XOP.L0.X9.W1 02 /6`
@@ -32981,7 +32981,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Blci_r64_rm64,
+	XOP_Blci_r64_rm64 = 4121,
 	/// `LLWPCB r32`
 	///
 	/// `XOP.L0.X9.W0 12 /0`
@@ -32989,7 +32989,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `16/32/64-bit`
-	XOP_Llwpcb_r32,
+	XOP_Llwpcb_r32 = 4122,
 	/// `LLWPCB r64`
 	///
 	/// `XOP.L0.X9.W1 12 /0`
@@ -32997,7 +32997,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `64-bit`
-	XOP_Llwpcb_r64,
+	XOP_Llwpcb_r64 = 4123,
 	/// `SLWPCB r32`
 	///
 	/// `XOP.L0.X9.W0 12 /1`
@@ -33005,7 +33005,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `16/32/64-bit`
-	XOP_Slwpcb_r32,
+	XOP_Slwpcb_r32 = 4124,
 	/// `SLWPCB r64`
 	///
 	/// `XOP.L0.X9.W1 12 /1`
@@ -33013,7 +33013,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `64-bit`
-	XOP_Slwpcb_r64,
+	XOP_Slwpcb_r64 = 4125,
 	/// `VFRCZPS xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 80 /r`
@@ -33021,7 +33021,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczps_xmm_xmmm128,
+	XOP_Vfrczps_xmm_xmmm128 = 4126,
 	/// `VFRCZPS ymm1, ymm2/m256`
 	///
 	/// `XOP.256.X9.W0 80 /r`
@@ -33029,7 +33029,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczps_ymm_ymmm256,
+	XOP_Vfrczps_ymm_ymmm256 = 4127,
 	/// `VFRCZPD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 81 /r`
@@ -33037,7 +33037,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczpd_xmm_xmmm128,
+	XOP_Vfrczpd_xmm_xmmm128 = 4128,
 	/// `VFRCZPD ymm1, ymm2/m256`
 	///
 	/// `XOP.256.X9.W0 81 /r`
@@ -33045,7 +33045,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczpd_ymm_ymmm256,
+	XOP_Vfrczpd_ymm_ymmm256 = 4129,
 	/// `VFRCZSS xmm1, xmm2/m32`
 	///
 	/// `XOP.128.X9.W0 82 /r`
@@ -33053,7 +33053,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczss_xmm_xmmm32,
+	XOP_Vfrczss_xmm_xmmm32 = 4130,
 	/// `VFRCZSD xmm1, xmm2/m64`
 	///
 	/// `XOP.128.X9.W0 83 /r`
@@ -33061,7 +33061,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vfrczsd_xmm_xmmm64,
+	XOP_Vfrczsd_xmm_xmmm64 = 4131,
 	/// `VPROTB xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 90 /r`
@@ -33069,7 +33069,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotb_xmm_xmmm128_xmm,
+	XOP_Vprotb_xmm_xmmm128_xmm = 4132,
 	/// `VPROTB xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 90 /r`
@@ -33077,7 +33077,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotb_xmm_xmm_xmmm128,
+	XOP_Vprotb_xmm_xmm_xmmm128 = 4133,
 	/// `VPROTW xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 91 /r`
@@ -33085,7 +33085,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotw_xmm_xmmm128_xmm,
+	XOP_Vprotw_xmm_xmmm128_xmm = 4134,
 	/// `VPROTW xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 91 /r`
@@ -33093,7 +33093,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotw_xmm_xmm_xmmm128,
+	XOP_Vprotw_xmm_xmm_xmmm128 = 4135,
 	/// `VPROTD xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 92 /r`
@@ -33101,7 +33101,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotd_xmm_xmmm128_xmm,
+	XOP_Vprotd_xmm_xmmm128_xmm = 4136,
 	/// `VPROTD xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 92 /r`
@@ -33109,7 +33109,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotd_xmm_xmm_xmmm128,
+	XOP_Vprotd_xmm_xmm_xmmm128 = 4137,
 	/// `VPROTQ xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 93 /r`
@@ -33117,7 +33117,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotq_xmm_xmmm128_xmm,
+	XOP_Vprotq_xmm_xmmm128_xmm = 4138,
 	/// `VPROTQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 93 /r`
@@ -33125,7 +33125,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vprotq_xmm_xmm_xmmm128,
+	XOP_Vprotq_xmm_xmm_xmmm128 = 4139,
 	/// `VPSHLB xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 94 /r`
@@ -33133,7 +33133,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlb_xmm_xmmm128_xmm,
+	XOP_Vpshlb_xmm_xmmm128_xmm = 4140,
 	/// `VPSHLB xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 94 /r`
@@ -33141,7 +33141,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlb_xmm_xmm_xmmm128,
+	XOP_Vpshlb_xmm_xmm_xmmm128 = 4141,
 	/// `VPSHLW xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 95 /r`
@@ -33149,7 +33149,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlw_xmm_xmmm128_xmm,
+	XOP_Vpshlw_xmm_xmmm128_xmm = 4142,
 	/// `VPSHLW xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 95 /r`
@@ -33157,7 +33157,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlw_xmm_xmm_xmmm128,
+	XOP_Vpshlw_xmm_xmm_xmmm128 = 4143,
 	/// `VPSHLD xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 96 /r`
@@ -33165,7 +33165,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshld_xmm_xmmm128_xmm,
+	XOP_Vpshld_xmm_xmmm128_xmm = 4144,
 	/// `VPSHLD xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 96 /r`
@@ -33173,7 +33173,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshld_xmm_xmm_xmmm128,
+	XOP_Vpshld_xmm_xmm_xmmm128 = 4145,
 	/// `VPSHLQ xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 97 /r`
@@ -33181,7 +33181,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlq_xmm_xmmm128_xmm,
+	XOP_Vpshlq_xmm_xmmm128_xmm = 4146,
 	/// `VPSHLQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 97 /r`
@@ -33189,7 +33189,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshlq_xmm_xmm_xmmm128,
+	XOP_Vpshlq_xmm_xmm_xmmm128 = 4147,
 	/// `VPSHAB xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 98 /r`
@@ -33197,7 +33197,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshab_xmm_xmmm128_xmm,
+	XOP_Vpshab_xmm_xmmm128_xmm = 4148,
 	/// `VPSHAB xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 98 /r`
@@ -33205,7 +33205,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshab_xmm_xmm_xmmm128,
+	XOP_Vpshab_xmm_xmm_xmmm128 = 4149,
 	/// `VPSHAW xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 99 /r`
@@ -33213,7 +33213,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshaw_xmm_xmmm128_xmm,
+	XOP_Vpshaw_xmm_xmmm128_xmm = 4150,
 	/// `VPSHAW xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 99 /r`
@@ -33221,7 +33221,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshaw_xmm_xmm_xmmm128,
+	XOP_Vpshaw_xmm_xmm_xmmm128 = 4151,
 	/// `VPSHAD xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 9A /r`
@@ -33229,7 +33229,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshad_xmm_xmmm128_xmm,
+	XOP_Vpshad_xmm_xmmm128_xmm = 4152,
 	/// `VPSHAD xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 9A /r`
@@ -33237,7 +33237,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshad_xmm_xmm_xmmm128,
+	XOP_Vpshad_xmm_xmm_xmmm128 = 4153,
 	/// `VPSHAQ xmm1, xmm2/m128, xmm3`
 	///
 	/// `XOP.128.X9.W0 9B /r`
@@ -33245,7 +33245,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshaq_xmm_xmmm128_xmm,
+	XOP_Vpshaq_xmm_xmmm128_xmm = 4154,
 	/// `VPSHAQ xmm1, xmm2, xmm3/m128`
 	///
 	/// `XOP.128.X9.W1 9B /r`
@@ -33253,7 +33253,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vpshaq_xmm_xmm_xmmm128,
+	XOP_Vpshaq_xmm_xmm_xmmm128 = 4155,
 	/// `VPHADDBW xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 C1 /r`
@@ -33261,7 +33261,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddbw_xmm_xmmm128,
+	XOP_Vphaddbw_xmm_xmmm128 = 4156,
 	/// `VPHADDBD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 C2 /r`
@@ -33269,7 +33269,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddbd_xmm_xmmm128,
+	XOP_Vphaddbd_xmm_xmmm128 = 4157,
 	/// `VPHADDBQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 C3 /r`
@@ -33277,7 +33277,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddbq_xmm_xmmm128,
+	XOP_Vphaddbq_xmm_xmmm128 = 4158,
 	/// `VPHADDWD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 C6 /r`
@@ -33285,7 +33285,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddwd_xmm_xmmm128,
+	XOP_Vphaddwd_xmm_xmmm128 = 4159,
 	/// `VPHADDWQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 C7 /r`
@@ -33293,7 +33293,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddwq_xmm_xmmm128,
+	XOP_Vphaddwq_xmm_xmmm128 = 4160,
 	/// `VPHADDDQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 CB /r`
@@ -33301,7 +33301,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphadddq_xmm_xmmm128,
+	XOP_Vphadddq_xmm_xmmm128 = 4161,
 	/// `VPHADDUBW xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 D1 /r`
@@ -33309,7 +33309,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddubw_xmm_xmmm128,
+	XOP_Vphaddubw_xmm_xmmm128 = 4162,
 	/// `VPHADDUBD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 D2 /r`
@@ -33317,7 +33317,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddubd_xmm_xmmm128,
+	XOP_Vphaddubd_xmm_xmmm128 = 4163,
 	/// `VPHADDUBQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 D3 /r`
@@ -33325,7 +33325,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddubq_xmm_xmmm128,
+	XOP_Vphaddubq_xmm_xmmm128 = 4164,
 	/// `VPHADDUWD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 D6 /r`
@@ -33333,7 +33333,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphadduwd_xmm_xmmm128,
+	XOP_Vphadduwd_xmm_xmmm128 = 4165,
 	/// `VPHADDUWQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 D7 /r`
@@ -33341,7 +33341,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphadduwq_xmm_xmmm128,
+	XOP_Vphadduwq_xmm_xmmm128 = 4166,
 	/// `VPHADDUDQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 DB /r`
@@ -33349,7 +33349,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphaddudq_xmm_xmmm128,
+	XOP_Vphaddudq_xmm_xmmm128 = 4167,
 	/// `VPHSUBBW xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 E1 /r`
@@ -33357,7 +33357,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphsubbw_xmm_xmmm128,
+	XOP_Vphsubbw_xmm_xmmm128 = 4168,
 	/// `VPHSUBWD xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 E2 /r`
@@ -33365,7 +33365,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphsubwd_xmm_xmmm128,
+	XOP_Vphsubwd_xmm_xmmm128 = 4169,
 	/// `VPHSUBDQ xmm1, xmm2/m128`
 	///
 	/// `XOP.128.X9.W0 E3 /r`
@@ -33373,7 +33373,7 @@ pub enum Code {
 	/// `XOP`
 	///
 	/// `16/32/64-bit`
-	XOP_Vphsubdq_xmm_xmmm128,
+	XOP_Vphsubdq_xmm_xmmm128 = 4170,
 	/// `BEXTR r32, r/m32, imm32`
 	///
 	/// `XOP.L0.XA.W0 10 /r id`
@@ -33381,7 +33381,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `16/32/64-bit`
-	XOP_Bextr_r32_rm32_imm32,
+	XOP_Bextr_r32_rm32_imm32 = 4171,
 	/// `BEXTR r64, r/m64, imm32`
 	///
 	/// `XOP.L0.XA.W1 10 /r id`
@@ -33389,7 +33389,7 @@ pub enum Code {
 	/// `TBM`
 	///
 	/// `64-bit`
-	XOP_Bextr_r64_rm64_imm32,
+	XOP_Bextr_r64_rm64_imm32 = 4172,
 	/// `LWPINS r32, r/m32, imm32`
 	///
 	/// `XOP.L0.XA.W0 12 /0 id`
@@ -33397,7 +33397,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `16/32/64-bit`
-	XOP_Lwpins_r32_rm32_imm32,
+	XOP_Lwpins_r32_rm32_imm32 = 4173,
 	/// `LWPINS r64, r/m32, imm32`
 	///
 	/// `XOP.L0.XA.W1 12 /0 id`
@@ -33405,7 +33405,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `64-bit`
-	XOP_Lwpins_r64_rm32_imm32,
+	XOP_Lwpins_r64_rm32_imm32 = 4174,
 	/// `LWPVAL r32, r/m32, imm32`
 	///
 	/// `XOP.L0.XA.W0 12 /1 id`
@@ -33413,7 +33413,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `16/32/64-bit`
-	XOP_Lwpval_r32_rm32_imm32,
+	XOP_Lwpval_r32_rm32_imm32 = 4175,
 	/// `LWPVAL r64, r/m32, imm32`
 	///
 	/// `XOP.L0.XA.W1 12 /1 id`
@@ -33421,7 +33421,7 @@ pub enum Code {
 	/// `LWP`
 	///
 	/// `64-bit`
-	XOP_Lwpval_r64_rm32_imm32,
+	XOP_Lwpval_r64_rm32_imm32 = 4176,
 	/// `PI2FW mm1, mm2/m64`
 	///
 	/// `0F 0F /r 0C`
@@ -33429,7 +33429,7 @@ pub enum Code {
 	/// `3DNOWEXT`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pi2fw_mm_mmm64,
+	D3NOW_Pi2fw_mm_mmm64 = 4177,
 	/// `PI2FD mm1, mm2/m64`
 	///
 	/// `0F 0F /r 0D`
@@ -33437,7 +33437,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pi2fd_mm_mmm64,
+	D3NOW_Pi2fd_mm_mmm64 = 4178,
 	/// `PF2IW mm1, mm2/m64`
 	///
 	/// `0F 0F /r 1C`
@@ -33445,7 +33445,7 @@ pub enum Code {
 	/// `3DNOWEXT`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pf2iw_mm_mmm64,
+	D3NOW_Pf2iw_mm_mmm64 = 4179,
 	/// `PF2ID mm1, mm2/m64`
 	///
 	/// `0F 0F /r 1D`
@@ -33453,7 +33453,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pf2id_mm_mmm64,
+	D3NOW_Pf2id_mm_mmm64 = 4180,
 	/// `PFRCPV mm1, mm2/m64`
 	///
 	/// `0F 0F /r 86`
@@ -33461,7 +33461,7 @@ pub enum Code {
 	/// `AMD Geode LX/GX`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrcpv_mm_mmm64,
+	D3NOW_Pfrcpv_mm_mmm64 = 4181,
 	/// `PFRSQRTV mm1, mm2/m64`
 	///
 	/// `0F 0F /r 87`
@@ -33469,7 +33469,7 @@ pub enum Code {
 	/// `AMD Geode LX/GX`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrsqrtv_mm_mmm64,
+	D3NOW_Pfrsqrtv_mm_mmm64 = 4182,
 	/// `PFNACC mm1, mm2/m64`
 	///
 	/// `0F 0F /r 8A`
@@ -33477,7 +33477,7 @@ pub enum Code {
 	/// `3DNOWEXT`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfnacc_mm_mmm64,
+	D3NOW_Pfnacc_mm_mmm64 = 4183,
 	/// `PFPNACC mm1, mm2/m64`
 	///
 	/// `0F 0F /r 8E`
@@ -33485,7 +33485,7 @@ pub enum Code {
 	/// `3DNOWEXT`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfpnacc_mm_mmm64,
+	D3NOW_Pfpnacc_mm_mmm64 = 4184,
 	/// `PFCMPGE mm1, mm2/m64`
 	///
 	/// `0F 0F /r 90`
@@ -33493,7 +33493,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfcmpge_mm_mmm64,
+	D3NOW_Pfcmpge_mm_mmm64 = 4185,
 	/// `PFMIN mm1, mm2/m64`
 	///
 	/// `0F 0F /r 94`
@@ -33501,7 +33501,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfmin_mm_mmm64,
+	D3NOW_Pfmin_mm_mmm64 = 4186,
 	/// `PFRCP mm1, mm2/m64`
 	///
 	/// `0F 0F /r 96`
@@ -33509,7 +33509,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrcp_mm_mmm64,
+	D3NOW_Pfrcp_mm_mmm64 = 4187,
 	/// `PFRSQRT mm1, mm2/m64`
 	///
 	/// `0F 0F /r 97`
@@ -33517,7 +33517,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrsqrt_mm_mmm64,
+	D3NOW_Pfrsqrt_mm_mmm64 = 4188,
 	/// `PFSUB mm1, mm2/m64`
 	///
 	/// `0F 0F /r 9A`
@@ -33525,7 +33525,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfsub_mm_mmm64,
+	D3NOW_Pfsub_mm_mmm64 = 4189,
 	/// `PFADD mm1, mm2/m64`
 	///
 	/// `0F 0F /r 9E`
@@ -33533,7 +33533,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfadd_mm_mmm64,
+	D3NOW_Pfadd_mm_mmm64 = 4190,
 	/// `PFCMPGT mm1, mm2/m64`
 	///
 	/// `0F 0F /r A0`
@@ -33541,7 +33541,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfcmpgt_mm_mmm64,
+	D3NOW_Pfcmpgt_mm_mmm64 = 4191,
 	/// `PFMAX mm1, mm2/m64`
 	///
 	/// `0F 0F /r A4`
@@ -33549,7 +33549,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfmax_mm_mmm64,
+	D3NOW_Pfmax_mm_mmm64 = 4192,
 	/// `PFRCPIT1 mm1, mm2/m64`
 	///
 	/// `0F 0F /r A6`
@@ -33557,7 +33557,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrcpit1_mm_mmm64,
+	D3NOW_Pfrcpit1_mm_mmm64 = 4193,
 	/// `PFRSQIT1 mm1, mm2/m64`
 	///
 	/// `0F 0F /r A7`
@@ -33565,7 +33565,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrsqit1_mm_mmm64,
+	D3NOW_Pfrsqit1_mm_mmm64 = 4194,
 	/// `PFSUBR mm1, mm2/m64`
 	///
 	/// `0F 0F /r AA`
@@ -33573,7 +33573,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfsubr_mm_mmm64,
+	D3NOW_Pfsubr_mm_mmm64 = 4195,
 	/// `PFACC mm1, mm2/m64`
 	///
 	/// `0F 0F /r AE`
@@ -33581,7 +33581,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfacc_mm_mmm64,
+	D3NOW_Pfacc_mm_mmm64 = 4196,
 	/// `PFCMPEQ mm1, mm2/m64`
 	///
 	/// `0F 0F /r B0`
@@ -33589,7 +33589,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfcmpeq_mm_mmm64,
+	D3NOW_Pfcmpeq_mm_mmm64 = 4197,
 	/// `PFMUL mm1, mm2/m64`
 	///
 	/// `0F 0F /r B4`
@@ -33597,7 +33597,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfmul_mm_mmm64,
+	D3NOW_Pfmul_mm_mmm64 = 4198,
 	/// `PFRCPIT2 mm1, mm2/m64`
 	///
 	/// `0F 0F /r B6`
@@ -33605,7 +33605,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pfrcpit2_mm_mmm64,
+	D3NOW_Pfrcpit2_mm_mmm64 = 4199,
 	/// `PMULHRW mm1, mm2/m64`
 	///
 	/// `0F 0F /r B7`
@@ -33613,7 +33613,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pmulhrw_mm_mmm64,
+	D3NOW_Pmulhrw_mm_mmm64 = 4200,
 	/// `PSWAPD mm1, mm2/m64`
 	///
 	/// `0F 0F /r BB`
@@ -33621,7 +33621,7 @@ pub enum Code {
 	/// `3DNOWEXT`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pswapd_mm_mmm64,
+	D3NOW_Pswapd_mm_mmm64 = 4201,
 	/// `PAVGUSB mm1, mm2/m64`
 	///
 	/// `0F 0F /r BF`
@@ -33629,7 +33629,7 @@ pub enum Code {
 	/// `3DNOW`
 	///
 	/// `16/32/64-bit`
-	D3NOW_Pavgusb_mm_mmm64,
+	D3NOW_Pavgusb_mm_mmm64 = 4202,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 static GEN_DEBUG_CODE: [&str; 4203] = [

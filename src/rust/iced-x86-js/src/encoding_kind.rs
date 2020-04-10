@@ -30,15 +30,15 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum EncodingKind {
 	/// Legacy encoding
-	Legacy,
+	Legacy = 0,
 	/// VEX encoding
-	VEX,
+	VEX = 1,
 	/// EVEX encoding
-	EVEX,
+	EVEX = 2,
 	/// XOP encoding
-	XOP,
+	XOP = 3,
 	/// 3DNow! encoding
-	D3NOW,
+	D3NOW = 4,
 }
 // GENERATOR-END: Enum
 

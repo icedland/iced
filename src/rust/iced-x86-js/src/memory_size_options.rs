@@ -30,13 +30,13 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum MemorySizeOptions {
 	/// Show memory size if the assembler requires it, else don't show anything
-	Default,
+	Default = 0,
 	/// Always show the memory size, even if the assembler doesn't need it
-	Always,
+	Always = 1,
 	/// Show memory size if a human can't figure out the size of the operand
-	Minimum,
+	Minimum = 2,
 	/// Never show memory size
-	Never,
+	Never = 3,
 }
 // GENERATOR-END: Enum
 

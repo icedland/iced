@@ -31,223 +31,223 @@ use wasm_bindgen::prelude::*;
 #[allow(non_camel_case_types)]
 pub enum OpCodeOperandKind {
 	/// No operand
-	None,
+	None = 0,
 	/// Far branch 16-bit offset, 16-bit segment/selector
-	farbr2_2,
+	farbr2_2 = 1,
 	/// Far branch 32-bit offset, 16-bit segment/selector
-	farbr4_2,
+	farbr4_2 = 2,
 	/// Memory offset without a modrm byte (eg. `MOV AL,[offset]`)
-	mem_offs,
+	mem_offs = 3,
 	/// Memory (modrm)
-	mem,
+	mem = 4,
 	/// Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
 	/// 64-bit mode: 64-bit addressing is forced
-	mem_mpx,
+	mem_mpx = 5,
 	/// Memory (modrm), MPX:
 	///
 	/// 16/32-bit mode: must be 32-bit addressing
 	///
 	/// 64-bit mode: 64-bit addressing is forced and must not be RIP relative
-	mem_mib,
+	mem_mib = 6,
 	/// Memory (modrm), vsib32, xmm registers
-	mem_vsib32x,
+	mem_vsib32x = 7,
 	/// Memory (modrm), vsib64, xmm registers
-	mem_vsib64x,
+	mem_vsib64x = 8,
 	/// Memory (modrm), vsib32, ymm registers
-	mem_vsib32y,
+	mem_vsib32y = 9,
 	/// Memory (modrm), vsib64, ymm registers
-	mem_vsib64y,
+	mem_vsib64y = 10,
 	/// Memory (modrm), vsib32, zmm registers
-	mem_vsib32z,
+	mem_vsib32z = 11,
 	/// Memory (modrm), vsib64, zmm registers
-	mem_vsib64z,
+	mem_vsib64z = 12,
 	/// 8-bit GPR or memory
-	r8_or_mem,
+	r8_or_mem = 13,
 	/// 16-bit GPR or memory
-	r16_or_mem,
+	r16_or_mem = 14,
 	/// 32-bit GPR or memory
-	r32_or_mem,
+	r32_or_mem = 15,
 	/// 32-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	r32_or_mem_mpx,
+	r32_or_mem_mpx = 16,
 	/// 64-bit GPR or memory
-	r64_or_mem,
+	r64_or_mem = 17,
 	/// 64-bit GPR or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	r64_or_mem_mpx,
+	r64_or_mem_mpx = 18,
 	/// MM register or memory
-	mm_or_mem,
+	mm_or_mem = 19,
 	/// XMM register or memory
-	xmm_or_mem,
+	xmm_or_mem = 20,
 	/// YMM register or memory
-	ymm_or_mem,
+	ymm_or_mem = 21,
 	/// ZMM register or memory
-	zmm_or_mem,
+	zmm_or_mem = 22,
 	/// BND register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
-	bnd_or_mem_mpx,
+	bnd_or_mem_mpx = 23,
 	/// K register or memory
-	k_or_mem,
+	k_or_mem = 24,
 	/// 8-bit GPR encoded in the `reg` field of the modrm byte
-	r8_reg,
+	r8_reg = 25,
 	/// 8-bit GPR encoded in the low 3 bits of the opcode
-	r8_opcode,
+	r8_opcode = 26,
 	/// 16-bit GPR encoded in the `reg` field of the modrm byte
-	r16_reg,
+	r16_reg = 27,
 	/// 16-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r16_reg_mem,
+	r16_reg_mem = 28,
 	/// 16-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r16_rm,
+	r16_rm = 29,
 	/// 16-bit GPR encoded in the low 3 bits of the opcode
-	r16_opcode,
+	r16_opcode = 30,
 	/// 32-bit GPR encoded in the `reg` field of the modrm byte
-	r32_reg,
+	r32_reg = 31,
 	/// 32-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r32_reg_mem,
+	r32_reg_mem = 32,
 	/// 32-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r32_rm,
+	r32_rm = 33,
 	/// 32-bit GPR encoded in the low 3 bits of the opcode
-	r32_opcode,
+	r32_opcode = 34,
 	/// 32-bit GPR encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	r32_vvvv,
+	r32_vvvv = 35,
 	/// 64-bit GPR encoded in the `reg` field of the modrm byte
-	r64_reg,
+	r64_reg = 36,
 	/// 64-bit GPR encoded in the `reg` field of the modrm byte. This is a memory operand and it uses the address size prefix (`67h`) not the operand size prefix (`66h`).
-	r64_reg_mem,
+	r64_reg_mem = 37,
 	/// 64-bit GPR encoded in the `mod + r/m` fields of the modrm byte
-	r64_rm,
+	r64_rm = 38,
 	/// 64-bit GPR encoded in the low 3 bits of the opcode
-	r64_opcode,
+	r64_opcode = 39,
 	/// 64-bit GPR encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	r64_vvvv,
+	r64_vvvv = 40,
 	/// Segment register encoded in the `reg` field of the modrm byte
-	seg_reg,
+	seg_reg = 41,
 	/// K register encoded in the `reg` field of the modrm byte
-	k_reg,
+	k_reg = 42,
 	/// K register (+1) encoded in the `reg` field of the modrm byte
-	kp1_reg,
+	kp1_reg = 43,
 	/// K register encoded in the `mod + r/m` fields of the modrm byte
-	k_rm,
+	k_rm = 44,
 	/// K register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	k_vvvv,
+	k_vvvv = 45,
 	/// MM register encoded in the `reg` field of the modrm byte
-	mm_reg,
+	mm_reg = 46,
 	/// MM register encoded in the `mod + r/m` fields of the modrm byte
-	mm_rm,
+	mm_rm = 47,
 	/// XMM register encoded in the `reg` field of the modrm byte
-	xmm_reg,
+	xmm_reg = 48,
 	/// XMM register encoded in the `mod + r/m` fields of the modrm byte
-	xmm_rm,
+	xmm_rm = 49,
 	/// XMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	xmm_vvvv,
+	xmm_vvvv = 50,
 	/// XMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	xmmp3_vvvv,
+	xmmp3_vvvv = 51,
 	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
-	xmm_is4,
+	xmm_is4 = 52,
 	/// XMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only XMM0-XMM15)
-	xmm_is5,
+	xmm_is5 = 53,
 	/// YMM register encoded in the `reg` field of the modrm byte
-	ymm_reg,
+	ymm_reg = 54,
 	/// YMM register encoded in the `mod + r/m` fields of the modrm byte
-	ymm_rm,
+	ymm_rm = 55,
 	/// YMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	ymm_vvvv,
+	ymm_vvvv = 56,
 	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
-	ymm_is4,
+	ymm_is4 = 57,
 	/// YMM register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only YMM0-YMM15)
-	ymm_is5,
+	ymm_is5 = 58,
 	/// ZMM register encoded in the `reg` field of the modrm byte
-	zmm_reg,
+	zmm_reg = 59,
 	/// ZMM register encoded in the `mod + r/m` fields of the modrm byte
-	zmm_rm,
+	zmm_rm = 60,
 	/// ZMM register encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	zmm_vvvv,
+	zmm_vvvv = 61,
 	/// ZMM register (+3) encoded in the the `V'vvvv` field (VEX/EVEX/XOP)
-	zmmp3_vvvv,
+	zmmp3_vvvv = 62,
 	/// CR register encoded in the `reg` field of the modrm byte
-	cr_reg,
+	cr_reg = 63,
 	/// DR register encoded in the `reg` field of the modrm byte
-	dr_reg,
+	dr_reg = 64,
 	/// TR register encoded in the `reg` field of the modrm byte
-	tr_reg,
+	tr_reg = 65,
 	/// BND register encoded in the `reg` field of the modrm byte
-	bnd_reg,
+	bnd_reg = 66,
 	/// ES register
-	es,
+	es = 67,
 	/// CS register
-	cs,
+	cs = 68,
 	/// SS register
-	ss,
+	ss = 69,
 	/// DS register
-	ds,
+	ds = 70,
 	/// FS register
-	fs,
+	fs = 71,
 	/// GS register
-	gs,
+	gs = 72,
 	/// AL register
-	al,
+	al = 73,
 	/// CL register
-	cl,
+	cl = 74,
 	/// AX register
-	ax,
+	ax = 75,
 	/// DX register
-	dx,
+	dx = 76,
 	/// EAX register
-	eax,
+	eax = 77,
 	/// RAX register
-	rax,
+	rax = 78,
 	/// ST0 register
-	st0,
+	st0 = 79,
 	/// ST(i) register encoded in the low 3 bits of the opcode
-	sti_opcode,
+	sti_opcode = 80,
 	/// 2-bit immediate (m2z field, low 2 bits of the /is5 immediate, eg. `VPERMIL2PS`)
-	imm2_m2z,
+	imm2_m2z = 81,
 	/// 8-bit immediate
-	imm8,
+	imm8 = 82,
 	/// Constant 1 (8-bit immediate)
-	imm8_const_1,
+	imm8_const_1 = 83,
 	/// 8-bit immediate sign extended to 16 bits
-	imm8sex16,
+	imm8sex16 = 84,
 	/// 8-bit immediate sign extended to 32 bits
-	imm8sex32,
+	imm8sex32 = 85,
 	/// 8-bit immediate sign extended to 64 bits
-	imm8sex64,
+	imm8sex64 = 86,
 	/// 16-bit immediate
-	imm16,
+	imm16 = 87,
 	/// 32-bit immediate
-	imm32,
+	imm32 = 88,
 	/// 32-bit immediate sign extended to 64 bits
-	imm32sex64,
+	imm32sex64 = 89,
 	/// 64-bit immediate
-	imm64,
+	imm64 = 90,
 	/// `seg:[rSI]` memory operand (string instructions)
-	seg_rSI,
+	seg_rSI = 91,
 	/// `es:[rDI]` memory operand (string instructions)
-	es_rDI,
+	es_rDI = 92,
 	/// `seg:[rDI]` memory operand (`(V)MASKMOVQ` instructions)
-	seg_rDI,
+	seg_rDI = 93,
 	/// `seg:[rBX+al]` memory operand (`XLATB` instruction)
-	seg_rBX_al,
+	seg_rBX_al = 94,
 	/// 16-bit branch, 1-byte signed relative offset
-	br16_1,
+	br16_1 = 95,
 	/// 32-bit branch, 1-byte signed relative offset
-	br32_1,
+	br32_1 = 96,
 	/// 64-bit branch, 1-byte signed relative offset
-	br64_1,
+	br64_1 = 97,
 	/// 16-bit branch, 2-byte signed relative offset
-	br16_2,
+	br16_2 = 98,
 	/// 32-bit branch, 4-byte signed relative offset
-	br32_4,
+	br32_4 = 99,
 	/// 64-bit branch, 4-byte signed relative offset
-	br64_4,
+	br64_4 = 100,
 	/// `XBEGIN`, 2-byte signed relative offset
-	xbegin_2,
+	xbegin_2 = 101,
 	/// `XBEGIN`, 4-byte signed relative offset
-	xbegin_4,
+	xbegin_4 = 102,
 	/// 2-byte branch offset (`JMPE` instruction)
-	brdisp_2,
+	brdisp_2 = 103,
 	/// 4-byte branch offset (`JMPE` instruction)
-	brdisp_4,
+	brdisp_4 = 104,
 }
 // GENERATOR-END: Enum
 

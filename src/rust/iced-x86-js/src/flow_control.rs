@@ -30,27 +30,27 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum FlowControl {
 	/// The next instruction that will be executed is the next instruction in the instruction stream
-	Next,
+	Next = 0,
 	/// It's an unconditional branch instruction: `JMP NEAR`, `JMP FAR`
-	UnconditionalBranch,
+	UnconditionalBranch = 1,
 	/// It's an unconditional indirect branch: `JMP NEAR reg`, `JMP NEAR [mem]`, `JMP FAR [mem]`
-	IndirectBranch,
+	IndirectBranch = 2,
 	/// It's a conditional branch instruction: `Jcc SHORT`, `Jcc NEAR`, `LOOP`, `LOOPcc`, `JRCXZ`
-	ConditionalBranch,
+	ConditionalBranch = 3,
 	/// It's a return instruction: `RET NEAR`, `RET FAR`, `IRET`, `SYSRET`, `SYSEXIT`, `RSM`, `VMLAUNCH`, `VMRESUME`, `VMRUN`, `SKINIT`
-	Return,
+	Return = 4,
 	/// It's a call instruction: `CALL NEAR`, `CALL FAR`, `SYSCALL`, `SYSENTER`, `VMCALL`, `VMMCALL`
-	Call,
+	Call = 5,
 	/// It's an indirect call instruction: `CALL NEAR reg`, `CALL NEAR [mem]`, `CALL FAR [mem]`
-	IndirectCall,
+	IndirectCall = 6,
 	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
-	Interrupt,
+	Interrupt = 7,
 	/// It's `XBEGIN`, `XABORT` or `XEND`
-	XbeginXabortXend,
+	XbeginXabortXend = 8,
 	/// It's an invalid instruction, eg. [`Code.INVALID`], `UD0`, `UD1`, `UD2`
 	///
 	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
-	Exception,
+	Exception = 9,
 }
 // GENERATOR-END: Enum
 

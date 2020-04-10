@@ -30,37 +30,37 @@ namespace Iced.Intel {
 	/// <summary>Formatter text kind</summary>
 	public enum FormatterTextKind {
 		/// <summary>Normal text</summary>
-		Text,
+		Text = 0,
 		/// <summary>Assembler directive</summary>
-		Directive,
+		Directive = 1,
 		/// <summary>Any prefix</summary>
-		Prefix,
+		Prefix = 2,
 		/// <summary>Any mnemonic</summary>
-		Mnemonic,
+		Mnemonic = 3,
 		/// <summary>Any keyword</summary>
-		Keyword,
+		Keyword = 4,
 		/// <summary>Any operator</summary>
-		Operator,
+		Operator = 5,
 		/// <summary>Any punctuation</summary>
-		Punctuation,
+		Punctuation = 6,
 		/// <summary>Number</summary>
-		Number,
+		Number = 7,
 		/// <summary>Any register</summary>
-		Register,
+		Register = 8,
 		/// <summary>A decorator, eg. <c>sae</c> in <c>{sae}</c></summary>
-		Decorator,
+		Decorator = 9,
 		/// <summary>Selector value (eg. far <c>JMP</c>/<c>CALL</c>)</summary>
-		SelectorValue,
+		SelectorValue = 10,
 		/// <summary>Label address (eg. <c>JE XXXXXX</c>)</summary>
-		LabelAddress,
+		LabelAddress = 11,
 		/// <summary>Function address (eg. <c>CALL XXXXXX</c>)</summary>
-		FunctionAddress,
+		FunctionAddress = 12,
 		/// <summary>Data symbol</summary>
-		Data,
+		Data = 13,
 		/// <summary>Label symbol</summary>
-		Label,
+		Label = 14,
 		/// <summary>Function symbol</summary>
-		Function,
+		Function = 15,
 	}
 }
 #endif

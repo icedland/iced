@@ -30,15 +30,15 @@ namespace Iced.Intel {
 	/// <summary>Instruction encoding</summary>
 	public enum EncodingKind {
 		/// <summary>Legacy encoding</summary>
-		Legacy,
+		Legacy = 0,
 		/// <summary>VEX encoding</summary>
-		VEX,
+		VEX = 1,
 		/// <summary>EVEX encoding</summary>
-		EVEX,
+		EVEX = 2,
 		/// <summary>XOP encoding</summary>
-		XOP,
+		XOP = 3,
 		/// <summary>3DNow! encoding</summary>
-		D3NOW,
+		D3NOW = 4,
 	}
 }
 #endif

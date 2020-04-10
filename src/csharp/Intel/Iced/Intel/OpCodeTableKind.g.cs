@@ -30,19 +30,19 @@ namespace Iced.Intel {
 	/// <summary>Opcode table</summary>
 	public enum OpCodeTableKind {
 		/// <summary>Legacy encoding table</summary>
-		Normal,
+		Normal = 0,
 		/// <summary><c>0Fxx</c> table (legacy, VEX, EVEX)</summary>
-		T0F,
+		T0F = 1,
 		/// <summary><c>0F38xx</c> table (legacy, VEX, EVEX)</summary>
-		T0F38,
+		T0F38 = 2,
 		/// <summary><c>0F3Axx</c> table (legacy, VEX, EVEX)</summary>
-		T0F3A,
+		T0F3A = 3,
 		/// <summary><c>XOP8</c> table (XOP)</summary>
-		XOP8,
+		XOP8 = 4,
 		/// <summary><c>XOP9</c> table (XOP)</summary>
-		XOP9,
+		XOP9 = 5,
 		/// <summary><c>XOPA</c> table (XOP)</summary>
-		XOPA,
+		XOPA = 6,
 	}
 }
 #endif

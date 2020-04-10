@@ -30,21 +30,21 @@ namespace Iced.Intel {
 	/// <summary>Operand, register and memory access</summary>
 	public enum OpAccess {
 		/// <summary>Nothing is read and nothing is written</summary>
-		None,
+		None = 0,
 		/// <summary>The value is read</summary>
-		Read,
+		Read = 1,
 		/// <summary>The value is sometimes read and sometimes not</summary>
-		CondRead,
+		CondRead = 2,
 		/// <summary>The value is completely overwritten</summary>
-		Write,
+		Write = 3,
 		/// <summary>Conditional write, sometimes it&apos;s written and sometimes it&apos;s not modified</summary>
-		CondWrite,
+		CondWrite = 4,
 		/// <summary>The value is read and written</summary>
-		ReadWrite,
+		ReadWrite = 5,
 		/// <summary>The value is read and sometimes written</summary>
-		ReadCondWrite,
+		ReadCondWrite = 6,
 		/// <summary>The memory operand doesn&apos;t refer to memory (eg. <c>LEA</c> instruction) or it&apos;s an instruction that doesn&apos;t read the data to a register or doesn&apos;t write to the memory location, it just prefetches/invalidates it, eg. <c>INVLPG</c>, <c>PREFETCHNTA</c>, <c>VGATHERPF0DPS</c>, etc.</summary>
-		NoMemAccess,
+		NoMemAccess = 7,
 	}
 }
 #endif

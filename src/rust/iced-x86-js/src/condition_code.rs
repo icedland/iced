@@ -31,39 +31,39 @@ use wasm_bindgen::prelude::*;
 #[allow(non_camel_case_types)]
 pub enum ConditionCode {
 	/// The instruction doesn't have a condition code
-	None,
+	None = 0,
 	/// Overflow (`OF=1`)
-	o,
+	o = 1,
 	/// Not overflow (`OF=0`)
-	no,
+	no = 2,
 	/// Below (unsigned) (`CF=1`)
-	b,
+	b = 3,
 	/// Above or equal (unsigned) (`CF=0`)
-	ae,
+	ae = 4,
 	/// Equal / zero (`ZF=1`)
-	e,
+	e = 5,
 	/// Not equal / zero (`ZF=0`)
-	ne,
+	ne = 6,
 	/// Below or equal (unsigned) (`CF=1 or ZF=1`)
-	be,
+	be = 7,
 	/// Above (unsigned) (`CF=0 and ZF=0`)
-	a,
+	a = 8,
 	/// Signed (`SF=1`)
-	s,
+	s = 9,
 	/// Not signed (`SF=0`)
-	ns,
+	ns = 10,
 	/// Parity (`PF=1`)
-	p,
+	p = 11,
 	/// Not parity (`PF=0`)
-	np,
+	np = 12,
 	/// Less (signed) (`SF!=OF`)
-	l,
+	l = 13,
 	/// Greater than or equal (signed) (`SF=OF`)
-	ge,
+	ge = 14,
 	/// Less than or equal (signed) (`ZF=1 or SF!=OF`)
-	le,
+	le = 15,
 	/// Greater (signed) (`ZF=0 and SF=OF`)
-	g,
+	g = 16,
 }
 // GENERATOR-END: Enum
 

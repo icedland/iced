@@ -41,120 +41,120 @@ pub enum OpKind {
 	/// [`Instruction.op3Register`]: struct.Instruction.html#method.op3Register
 	/// [`Instruction.op4Register`]: struct.Instruction.html#method.op4Register
 	/// [`Instruction.opRegister()`]: struct.Instruction.html#method.opRegister
-	Register,
+	Register = 0,
 	/// Near 16-bit branch. This operand kind uses [`Instruction.nearBranch16`]
 	///
 	/// [`Instruction.nearBranch16`]: struct.Instruction.html#method.nearBranch16
-	NearBranch16,
+	NearBranch16 = 1,
 	/// Near 32-bit branch. This operand kind uses [`Instruction.nearBranch32`]
 	///
 	/// [`Instruction.nearBranch32`]: struct.Instruction.html#method.nearBranch32
-	NearBranch32,
+	NearBranch32 = 2,
 	/// Near 64-bit branch. This operand kind uses [`Instruction.nearBranch64`]
 	///
 	/// [`Instruction.nearBranch64`]: struct.Instruction.html#method.nearBranch64
-	NearBranch64,
+	NearBranch64 = 3,
 	/// Far 16-bit branch. This operand kind uses [`Instruction.farBranch16`] and [`Instruction.farBranchSelector`]
 	///
 	/// [`Instruction.farBranch16`]: struct.Instruction.html#method.farBranch16
 	/// [`Instruction.farBranchSelector`]: struct.Instruction.html#method.farBranchSelector
-	FarBranch16,
+	FarBranch16 = 4,
 	/// Far 32-bit branch. This operand kind uses [`Instruction.farBranch32`] and [`Instruction.farBranchSelector`]
 	///
 	/// [`Instruction.farBranch32`]: struct.Instruction.html#method.farBranch32
 	/// [`Instruction.farBranchSelector`]: struct.Instruction.html#method.farBranchSelector
-	FarBranch32,
+	FarBranch32 = 5,
 	/// 8-bit constant. This operand kind uses [`Instruction.immediate8`]
 	///
 	/// [`Instruction.immediate8`]: struct.Instruction.html#method.immediate8
-	Immediate8,
+	Immediate8 = 6,
 	/// 8-bit constant used by the `ENTER`, `EXTRQ`, `INSERTQ` instructions. This operand kind uses [`Instruction.immediate8_2nd`]
 	///
 	/// [`Instruction.immediate8_2nd`]: struct.Instruction.html#method.immediate8_2nd
-	Immediate8_2nd,
+	Immediate8_2nd = 7,
 	/// 16-bit constant. This operand kind uses [`Instruction.immediate16`]
 	///
 	/// [`Instruction.immediate16`]: struct.Instruction.html#method.immediate16
-	Immediate16,
+	Immediate16 = 8,
 	/// 32-bit constant. This operand kind uses [`Instruction.immediate32`]
 	///
 	/// [`Instruction.immediate32`]: struct.Instruction.html#method.immediate32
-	Immediate32,
+	Immediate32 = 9,
 	/// 64-bit constant. This operand kind uses [`Instruction.immediate64`]
 	///
 	/// [`Instruction.immediate64`]: struct.Instruction.html#method.immediate64
-	Immediate64,
+	Immediate64 = 10,
 	/// An 8-bit value sign extended to 16 bits. This operand kind uses [`Instruction.immediate8to16`]
 	///
 	/// [`Instruction.immediate8to16`]: struct.Instruction.html#method.immediate8to16
-	Immediate8to16,
+	Immediate8to16 = 11,
 	/// An 8-bit value sign extended to 32 bits. This operand kind uses [`Instruction.immediate8to32`]
 	///
 	/// [`Instruction.immediate8to32`]: struct.Instruction.html#method.immediate8to32
-	Immediate8to32,
+	Immediate8to32 = 12,
 	/// An 8-bit value sign extended to 64 bits. This operand kind uses [`Instruction.immediate8to64`]
 	///
 	/// [`Instruction.immediate8to64`]: struct.Instruction.html#method.immediate8to64
-	Immediate8to64,
+	Immediate8to64 = 13,
 	/// A 32-bit value sign extended to 64 bits. This operand kind uses [`Instruction.immediate32to64`]
 	///
 	/// [`Instruction.immediate32to64`]: struct.Instruction.html#method.immediate32to64
-	Immediate32to64,
+	Immediate32to64 = 14,
 	/// `seg:[SI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegSI,
+	MemorySegSI = 15,
 	/// `seg:[ESI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegESI,
+	MemorySegESI = 16,
 	/// `seg:[RSI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegRSI,
+	MemorySegRSI = 17,
 	/// `seg:[DI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegDI,
+	MemorySegDI = 18,
 	/// `seg:[EDI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegEDI,
+	MemorySegEDI = 19,
 	/// `seg:[RDI]`. This operand kind uses [`Instruction.memorySize`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	MemorySegRDI,
+	MemorySegRDI = 20,
 	/// `ES:[DI]`. This operand kind uses [`Instruction.memorySize`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
-	MemoryESDI,
+	MemoryESDI = 21,
 	/// `ES:[EDI]`. This operand kind uses [`Instruction.memorySize`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
-	MemoryESEDI,
+	MemoryESEDI = 22,
 	/// `ES:[RDI]`. This operand kind uses [`Instruction.memorySize`]
 	///
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
-	MemoryESRDI,
+	MemoryESRDI = 23,
 	/// 64-bit offset `[xxxxxxxxxxxxxxxx]`. This operand kind uses [`Instruction.memoryAddress64`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`], [`Instruction.memorySize`]
 	///
 	/// [`Instruction.memoryAddress64`]: struct.Instruction.html#method.memoryAddress64
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
 	/// [`Instruction.memorySize`]: struct.Instruction.html#method.memorySize
-	Memory64,
+	Memory64 = 24,
 	/// Memory operand.
 	///
 	/// This operand kind uses [`Instruction.memoryDisplSize`], [`Instruction.memorySize`], [`Instruction.memoryIndexScale`], [`Instruction.memoryDisplacement`], [`Instruction.memoryBase`], [`Instruction.memoryIndex`], [`Instruction.memorySegment`], [`Instruction.segmentPrefix`]
@@ -167,7 +167,7 @@ pub enum OpKind {
 	/// [`Instruction.memoryIndex`]: struct.Instruction.html#method.memoryIndex
 	/// [`Instruction.memorySegment`]: struct.Instruction.html#method.memorySegment
 	/// [`Instruction.segmentPrefix`]: struct.Instruction.html#method.segmentPrefix
-	Memory,
+	Memory = 25,
 }
 // GENERATOR-END: Enum
 

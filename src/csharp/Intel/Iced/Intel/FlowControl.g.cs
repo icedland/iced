@@ -30,25 +30,25 @@ namespace Iced.Intel {
 	/// <summary>Flow control</summary>
 	public enum FlowControl {
 		/// <summary>The next instruction that will be executed is the next instruction in the instruction stream</summary>
-		Next,
+		Next = 0,
 		/// <summary>It&apos;s an unconditional branch instruction: <c>JMP NEAR</c>, <c>JMP FAR</c></summary>
-		UnconditionalBranch,
+		UnconditionalBranch = 1,
 		/// <summary>It&apos;s an unconditional indirect branch: <c>JMP NEAR reg</c>, <c>JMP NEAR [mem]</c>, <c>JMP FAR [mem]</c></summary>
-		IndirectBranch,
+		IndirectBranch = 2,
 		/// <summary>It&apos;s a conditional branch instruction: <c>Jcc SHORT</c>, <c>Jcc NEAR</c>, <c>LOOP</c>, <c>LOOPcc</c>, <c>JRCXZ</c></summary>
-		ConditionalBranch,
+		ConditionalBranch = 3,
 		/// <summary>It&apos;s a return instruction: <c>RET NEAR</c>, <c>RET FAR</c>, <c>IRET</c>, <c>SYSRET</c>, <c>SYSEXIT</c>, <c>RSM</c>, <c>VMLAUNCH</c>, <c>VMRESUME</c>, <c>VMRUN</c>, <c>SKINIT</c></summary>
-		Return,
+		Return = 4,
 		/// <summary>It&apos;s a call instruction: <c>CALL NEAR</c>, <c>CALL FAR</c>, <c>SYSCALL</c>, <c>SYSENTER</c>, <c>VMCALL</c>, <c>VMMCALL</c></summary>
-		Call,
+		Call = 5,
 		/// <summary>It&apos;s an indirect call instruction: <c>CALL NEAR reg</c>, <c>CALL NEAR [mem]</c>, <c>CALL FAR [mem]</c></summary>
-		IndirectCall,
+		IndirectCall = 6,
 		/// <summary>It&apos;s an interrupt instruction: <c>INT n</c>, <c>INT3</c>, <c>INT1</c>, <c>INTO</c></summary>
-		Interrupt,
+		Interrupt = 7,
 		/// <summary>It&apos;s <c>XBEGIN</c>, <c>XABORT</c> or <c>XEND</c></summary>
-		XbeginXabortXend,
+		XbeginXabortXend = 8,
 		/// <summary>It&apos;s an invalid instruction, eg. <see cref="Code.INVALID"/>, <c>UD0</c>, <c>UD1</c>, <c>UD2</c></summary>
-		Exception,
+		Exception = 9,
 	}
 }
 #endif

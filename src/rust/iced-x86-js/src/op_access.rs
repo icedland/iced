@@ -30,21 +30,21 @@ use wasm_bindgen::prelude::*;
 #[derive(Copy, Clone)]
 pub enum OpAccess {
 	/// Nothing is read and nothing is written
-	None,
+	None = 0,
 	/// The value is read
-	Read,
+	Read = 1,
 	/// The value is sometimes read and sometimes not
-	CondRead,
+	CondRead = 2,
 	/// The value is completely overwritten
-	Write,
+	Write = 3,
 	/// Conditional write, sometimes it's written and sometimes it's not modified
-	CondWrite,
+	CondWrite = 4,
 	/// The value is read and written
-	ReadWrite,
+	ReadWrite = 5,
 	/// The value is read and sometimes written
-	ReadCondWrite,
+	ReadCondWrite = 6,
 	/// The memory operand doesn't refer to memory (eg. `LEA` instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. `INVLPG`, `PREFETCHNTA`, `VGATHERPF0DPS`, etc.
-	NoMemAccess,
+	NoMemAccess = 7,
 }
 // GENERATOR-END: Enum
 
