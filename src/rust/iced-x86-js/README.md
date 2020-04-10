@@ -11,12 +11,12 @@ x86/x64 disassembler for JavaScript (WebAssembly).
 
 Rust crate: https://github.com/0xd4d/iced/blob/master/src/rust/iced-x86/README.md
 
-## Required tools
+## Building the code
+
+Prerequisites:
 
 - `Rust`: https://www.rust-lang.org/tools/install
 - `wasm-pack`: https://rustwasm.github.io/wasm-pack/installer/
-
-## Build
 
 You can override which features to build to reduce the size of the wasm/ts/js files, see [Feature flags](#feature-flags).
 
@@ -29,9 +29,18 @@ wasm-pack build --target bundler -- --no-default-features --features "decoder ma
 
 `--target` docs [are here](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html) (`bundler`, `web`, `nodejs`, `no-modules`).
 
-Add `--no-typescript` (before `--`) to disable creating ts files.
-
 The result is stored in the `pkg/` sub dir. The js file isn't minified.
+
+## Optimize wasm for speed
+
+Edit `Cargo.toml` and change `opt-level = "z"` to [`opt-level = 3`](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) (no double quotes).
+
+```toml
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+```
 
 ## Feature flags
 
@@ -52,17 +61,6 @@ Here's a list of all features you can enable when building the wasm file
 `"decoder masm"` is all you need to disassemble code.
 
 `"decoder masm instruction_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
-
-## Optimize wasm for speed
-
-Edit `Cargo.toml` and change `opt-level = "z"` to [`opt-level = 3`](https://doc.rust-lang.org/nightly/cargo/reference/profiles.html#opt-level) (no double quotes).
-
-```toml
-[profile.release]
-codegen-units = 1
-lto = true
-opt-level = 3
-```
 
 ## How-tos
 
@@ -127,12 +125,12 @@ instructions.forEach(instruction => {
     const disasm = formatter.format(instruction);
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
-    let line = ("0000000" + instruction.ip_hi.toString(16)).substr(-8).toUpperCase() +
-               ("0000000" + instruction.ip_lo.toString(16)).substr(-8).toUpperCase();
+    let line = ("0000000" + instruction.ip_hi.toString(16)).substring(-8).toUpperCase() +
+               ("0000000" + instruction.ip_lo.toString(16)).substring(-8).toUpperCase();
     line += " ";
     const startIndex = instruction.ip_lo - exampleRip_lo;
     exampleCode.slice(startIndex, startIndex + instruction.length).forEach(b => {
-        line += ("0" + b.toString(16)).substr(-2).toUpperCase();
+        line += ("0" + b.toString(16)).substring(-2).toUpperCase();
     });
     for (let i = instruction.length; i < hexBytesColumnByteLength; i++)
         line += "  ";
@@ -234,8 +232,8 @@ function disassemble(code, rip_hi, rip_lo) {
         // Decode the next instruction, overwriting an already created instruction
         decoder.decodeOut(instruction);
         const disasm = formatter.format(instruction);
-        const address = ("0000000" + instruction.ip_hi.toString(16)).substr(-8).toUpperCase() +
-                        ("0000000" + instruction.ip_lo.toString(16)).substr(-8).toUpperCase();
+        const address = ("0000000" + instruction.ip_hi.toString(16)).substring(-8).toUpperCase() +
+                        ("0000000" + instruction.ip_lo.toString(16)).substring(-8).toUpperCase();
         console.log("%s %s", address, disasm)
     }
     console.log();
@@ -319,9 +317,7 @@ if (lastInstr.flowControl !== FlowControl.Return) {
 // Note that a block is not the same thing as a basic block. A block can contain any
 // number of instructions, including any number of branch instructions. One block
 // should be enough unless you must relocate different blocks to different locations.
-let relocatedBaseAddress_lo = (exampleRip_lo + 0x200000) & 0xFFFFFFFF;
-if (relocatedBaseAddress_lo < 0)
-    relocatedBaseAddress_lo += 0x100000000;
+let relocatedBaseAddress_lo = ((exampleRip_lo + 0x200000) & 0xFFFFFFFF) >>> 0;
 const relocatedBaseAddress_hi = exampleRip_hi + (relocatedBaseAddress_lo < exampleRip_lo ? 1 : 0);
 const blockEncoder = new BlockEncoder(exampleBitness, BlockEncoderOptions.None);
 origInstructions.forEach(instruction => blockEncoder.add(instruction));
@@ -611,8 +607,8 @@ while (decoder.canDecode) {
 
     // For quick hacks, it's fine to call toString() to format an instruction,
     // but for real code, use a formatter. See other examples.
-    const address = ("0000000" + instr.ip_hi.toString(16)).substr(-8).toUpperCase() +
-                    ("0000000" + instr.ip_lo.toString(16)).substr(-8).toUpperCase();
+    const address = ("0000000" + instr.ip_hi.toString(16)).substring(-8).toUpperCase() +
+                    ("0000000" + instr.ip_lo.toString(16)).substring(-8).toUpperCase();
     console.log("%s %s", address, instr.toString());
 
     const opCode = instr.opCode;
@@ -840,7 +836,7 @@ function usedMemoryToString(memInfo) {
         else if (memInfo.displacement_hi === 0)
             sb += "0x" + memInfo.displacement_lo.toString(16).toUpperCase();
         else
-            sb += "0x" + memInfo.displacement_hi.toString(16).toUpperCase() + ("0000000" + memInfo.displacement_lo.toString(16)).substr(-8).toUpperCase();
+            sb += "0x" + memInfo.displacement_hi.toString(16).toUpperCase() + ("0000000" + memInfo.displacement_lo.toString(16)).substring(-8).toUpperCase();
     }
     sb += ";" + memorySizeToString(memInfo.memorySize) + ";" + opAccessToString(memInfo.access) + "]";
     return sb;
