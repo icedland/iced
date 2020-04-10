@@ -129,7 +129,8 @@ impl Decoder {
 	}
 
 	/// Gets the low 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
@@ -139,7 +140,8 @@ impl Decoder {
 	}
 
 	/// Gets the high 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
@@ -158,7 +160,8 @@ impl Decoder {
 	}
 
 	/// Sets the low 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.set_position
 	///
@@ -173,7 +176,8 @@ impl Decoder {
 	}
 
 	/// Sets the high 32 bits of the current `IP`/`EIP`/`RIP` value, see also [`position`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`position`]: #method.set_position
 	///

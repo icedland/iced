@@ -91,7 +91,8 @@ impl UsedMemory {
 	}
 
 	/// Displacement (low 32 bits).
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn displacement_lo(&self) -> u32 {
@@ -99,7 +100,8 @@ impl UsedMemory {
 	}
 
 	/// Displacement (high 32 bits).
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn displacement_hi(&self) -> u32 {

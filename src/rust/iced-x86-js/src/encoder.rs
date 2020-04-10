@@ -94,7 +94,8 @@ impl Encoder {
 	}
 
 	/// Encodes an instruction and returns the size of the encoded instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Throws
 	///

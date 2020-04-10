@@ -306,7 +306,8 @@ impl Formatter {
 	}
 
 	/// Formats a `i64`.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///
@@ -361,7 +362,8 @@ impl Formatter {
 	}
 
 	/// Formats a `u64`.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///

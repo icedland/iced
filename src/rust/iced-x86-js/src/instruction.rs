@@ -84,7 +84,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of the 64-bit IP of the instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn ip_lo(&self) -> u32 {
@@ -92,7 +93,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of the 64-bit IP of the instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn ip_hi(&self) -> u32 {
@@ -158,7 +160,8 @@ impl Instruction {
 	}
 
 	/// Sets the low 32 bits of the 64-bit IP of the instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///
@@ -172,7 +175,8 @@ impl Instruction {
 	}
 
 	/// Sets the high 32 bits of the 64-bit IP of the instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///
@@ -232,7 +236,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of the 64-bit IP of the next instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn nextIP_lo(&self) -> u32 {
@@ -240,7 +245,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of the 64-bit IP of the next instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
 	pub fn nextIP_hi(&self) -> u32 {
@@ -255,7 +261,8 @@ impl Instruction {
 	}
 
 	/// Sets the low 32 bits of the 64-bit IP of the next instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///
@@ -269,7 +276,8 @@ impl Instruction {
 	}
 
 	/// Sets the high 32 bits of the 64-bit IP of the next instruction.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Arguments
 	///
@@ -850,7 +858,8 @@ impl Instruction {
 
 	/// Gets the low 32 bits of the memory operand's displacement sign extended to 64 bits.
 	/// Use this method if the operand has kind [`OpKind.Memory`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
@@ -862,7 +871,8 @@ impl Instruction {
 
 	/// Gets the high 32 bits of the memory operand's displacement sign extended to 64 bits.
 	/// Use this method if the operand has kind [`OpKind.Memory`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
@@ -884,7 +894,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of an operand's immediate value.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Throws
 	///
@@ -899,7 +910,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of an operand's immediate value.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Throws
 	///
@@ -960,7 +972,8 @@ impl Instruction {
 	}
 
 	/// Sets an operand's immediate value.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Throws
 	///
@@ -997,7 +1010,8 @@ impl Instruction {
 	}
 
 	/// Sets an operand's immediate value.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// # Throws
 	///
@@ -1118,7 +1132,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
@@ -1128,7 +1143,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
@@ -1147,7 +1163,8 @@ impl Instruction {
 	}
 
 	/// Sets the low 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	///
@@ -1163,7 +1180,8 @@ impl Instruction {
 	}
 
 	/// Sets the high 32 bits of the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	///
@@ -1235,7 +1253,8 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	#[wasm_bindgen(getter)]
@@ -1254,7 +1273,8 @@ impl Instruction {
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate8to64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate8to64`]: enum.OpKind.html#variant.Immediate8to64
 	///
@@ -1283,7 +1303,8 @@ impl Instruction {
 	}
 
 	/// Gets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	#[wasm_bindgen(getter)]
@@ -1302,7 +1323,8 @@ impl Instruction {
 	}
 
 	/// Sets the operand's immediate value. Use this method if the operand has kind [`OpKind.Immediate32to64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Immediate32to64`]: enum.OpKind.html#variant.Immediate32to64
 	///
@@ -1331,7 +1353,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
@@ -1341,7 +1364,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
@@ -1360,7 +1384,8 @@ impl Instruction {
 	}
 
 	/// Sets the low 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	///
@@ -1376,7 +1401,8 @@ impl Instruction {
 	}
 
 	/// Sets the high 32 bits of the operand's 64-bit address value. Use this method if the operand has kind [`OpKind.Memory64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	///
@@ -1448,7 +1474,8 @@ impl Instruction {
 	}
 
 	/// Gets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
@@ -1458,7 +1485,8 @@ impl Instruction {
 	}
 
 	/// Gets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
@@ -1477,7 +1505,8 @@ impl Instruction {
 	}
 
 	/// Sets the low 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	///
@@ -1493,7 +1522,8 @@ impl Instruction {
 	}
 
 	/// Sets the high 32 bits of the operand's branch target. Use this method if the operand has kind [`OpKind.NearBranch64`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	///
@@ -1524,7 +1554,8 @@ impl Instruction {
 
 	/// Gets the low 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
 	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
@@ -1538,7 +1569,8 @@ impl Instruction {
 
 	/// Gets the high 32 bits of the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
 	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`]).
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`op0Kind`]: #method.op0Kind
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
@@ -2061,7 +2093,8 @@ impl Instruction {
 
 	/// Gets the low 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`nextIP`]: #method.nextIP
 	/// [`nextIP32`]: #method.nextIP32
@@ -2076,7 +2109,8 @@ impl Instruction {
 
 	/// Gets the high 32 bits of the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`].
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`nextIP`]: #method.nextIP
 	/// [`nextIP32`]: #method.nextIP32

@@ -69,7 +69,8 @@ impl BlockEncoder {
 	}
 
 	/// Encodes all instructions added by [`add()`] and returns the encoded bytes.
-	/// Enable the `bigint` feature to support `BigInt`.
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
 	/// [`add()`]: #method.add
 	///
