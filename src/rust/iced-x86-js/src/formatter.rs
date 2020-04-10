@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(non_snake_case)]
 
+use super::format_mnemonic_options::FormatMnemonicOptions;
 use super::instruction::Instruction;
 use super::memory_size_options::{iced_to_memory_size_options, memory_size_options_to_iced, MemorySizeOptions};
 #[cfg(feature = "instr_info")]
@@ -83,34 +84,22 @@ impl Formatter {
 	#[wasm_bindgen(constructor)]
 	pub fn new(syntax: FormatterSyntax) -> Self {
 		let formatter: Box<dyn iced_x86::Formatter> = match syntax {
-			FormatterSyntax::Gas => {
-				if cfg!(feature = "gas") {
-					Box::new(iced_x86::GasFormatter::new())
-				} else {
-					panic!()
-				}
-			}
-			FormatterSyntax::Intel => {
-				if cfg!(feature = "intel") {
-					Box::new(iced_x86::IntelFormatter::new())
-				} else {
-					panic!()
-				}
-			}
-			FormatterSyntax::Masm => {
-				if cfg!(feature = "masm") {
-					Box::new(iced_x86::MasmFormatter::new())
-				} else {
-					panic!()
-				}
-			}
-			FormatterSyntax::Nasm => {
-				if cfg!(feature = "nasm") {
-					Box::new(iced_x86::NasmFormatter::new())
-				} else {
-					panic!()
-				}
-			}
+			#[cfg(feature = "gas")]
+			FormatterSyntax::Gas => Box::new(iced_x86::GasFormatter::new()),
+			#[cfg(not(feature = "gas"))]
+			FormatterSyntax::Gas => panic!(),
+			#[cfg(feature = "intel")]
+			FormatterSyntax::Intel => Box::new(iced_x86::IntelFormatter::new()),
+			#[cfg(not(feature = "intel"))]
+			FormatterSyntax::Intel => panic!(),
+			#[cfg(feature = "masm")]
+			FormatterSyntax::Masm => Box::new(iced_x86::MasmFormatter::new()),
+			#[cfg(not(feature = "masm"))]
+			FormatterSyntax::Masm => panic!(),
+			#[cfg(feature = "nasm")]
+			FormatterSyntax::Nasm => Box::new(iced_x86::NasmFormatter::new()),
+			#[cfg(not(feature = "nasm"))]
+			FormatterSyntax::Nasm => panic!(),
 		};
 		Self { formatter }
 	}
@@ -148,6 +137,8 @@ impl Formatter {
 	/// [`FormatMnemonicOptions`]: enum.FormatMnemonicOptions.html
 	#[wasm_bindgen(js_name = "formatMnemonicOptions")]
 	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32 /*flags: FormatMnemonicOptions*/) -> String {
+		// It's not part of the method sig so make sure it's still compiled by referencing it here
+		const_assert_eq!(0, FormatMnemonicOptions::None as u32);
 		let mut output = String::new();
 		self.formatter.format_mnemonic_options(&instruction.0, &mut output, options);
 		output

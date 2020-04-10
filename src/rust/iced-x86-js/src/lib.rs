@@ -70,7 +70,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #![warn(clippy::unused_self)]
 #![warn(clippy::used_underscore_binding)]
 
-#[cfg(feature = "instr_info")]
+#[cfg(any(
+	feature = "instr_info",
+	feature = "decoder",
+	feature = "gas",
+	feature = "intel",
+	feature = "masm",
+	feature = "nasm",
+	all(feature = "encoder", feature = "block_encoder")
+))]
 #[macro_use]
 extern crate static_assertions;
 
@@ -78,7 +86,7 @@ extern crate static_assertions;
 mod block_encoder;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder_options;
-#[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info")))]
 mod code;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod code_ext;
@@ -97,7 +105,7 @@ mod decoder;
 mod decoder_options;
 #[cfg(feature = "encoder")]
 mod encoder;
-#[cfg(any(feature = "instr_info", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 mod encoding_kind;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 mod flow_control;
@@ -108,7 +116,7 @@ mod formatter;
 #[cfg(feature = "instr_info")]
 mod info;
 mod instruction;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod mandatory_prefix;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod memory_size;
@@ -120,11 +128,11 @@ mod memory_size_options;
 mod mnemonic;
 #[cfg(feature = "instr_info")]
 mod op_access;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod op_code_info;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod op_code_operand_kind;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod op_code_table_kind;
 #[cfg(feature = "instruction_api")]
 mod op_kind;
@@ -136,14 +144,14 @@ mod register_ext;
 mod rflags_bits;
 #[cfg(feature = "instruction_api")]
 mod rounding_control;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod tuple_type;
 
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder::*;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder_options::*;
-#[cfg(any(feature = "instruction_api", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info")))]
 pub use code::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use code_ext::*;
@@ -162,7 +170,7 @@ pub use decoder::*;
 pub use decoder_options::*;
 #[cfg(feature = "encoder")]
 pub use encoder::*;
-#[cfg(any(feature = "instr_info", all(feature = "instruction_api", feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instr_info", all(feature = "encoder", feature = "op_code_info")))]
 pub use encoding_kind::*;
 #[cfg(any(feature = "instr_info", all(feature = "instr_info", feature = "instruction_api")))]
 pub use flow_control::*;
@@ -173,7 +181,7 @@ pub use formatter::*;
 #[cfg(feature = "instr_info")]
 pub use info::*;
 pub use instruction::*;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use mandatory_prefix::*;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use memory_size::*;
@@ -185,11 +193,11 @@ pub use memory_size_options::*;
 pub use mnemonic::*;
 #[cfg(feature = "instr_info")]
 pub use op_access::*;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use op_code_info::*;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use op_code_operand_kind::*;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use op_code_table_kind::*;
 #[cfg(feature = "instruction_api")]
 pub use op_kind::*;
@@ -201,5 +209,5 @@ pub use register_ext::*;
 pub use rflags_bits::*;
 #[cfg(feature = "instruction_api")]
 pub use rounding_control::*;
-#[cfg(all(feature = "instruction_api", feature = "encoder", feature = "op_code_info"))]
+#[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use tuple_type::*;

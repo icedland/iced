@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::block_encoder_options::BlockEncoderOptions;
 use super::instruction::Instruction;
 use iced_x86::InstructionBlock;
 use wasm_bindgen::prelude::*;
@@ -49,6 +50,8 @@ impl BlockEncoder {
 	/// [`BlockEncoderOptions`]: enum.BlockEncoderOptions.html
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, options: u32 /*flags: BlockEncoderOptions*/) -> Self {
+		// It's not part of the method sig so make sure it's still compiled by referencing it here
+		const_assert_eq!(0, BlockEncoderOptions::None as u32);
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			panic!();
 		}
