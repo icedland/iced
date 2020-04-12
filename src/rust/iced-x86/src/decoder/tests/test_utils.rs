@@ -68,19 +68,19 @@ impl DecoderTestInfo {
 }
 
 lazy_static! {
-	static ref NOT_DECODED: HashSet<Code> = { read_code_values("Code.NotDecoded.txt") };
+	static ref NOT_DECODED: HashSet<Code> = read_code_values("Code.NotDecoded.txt");
 }
 lazy_static! {
-	static ref NOT_DECODED32_ONLY: HashSet<Code> = { read_code_values("Code.NotDecoded32Only.txt") };
+	static ref NOT_DECODED32_ONLY: HashSet<Code> = read_code_values("Code.NotDecoded32Only.txt");
 }
 lazy_static! {
-	static ref NOT_DECODED64_ONLY: HashSet<Code> = { read_code_values("Code.NotDecoded64Only.txt") };
+	static ref NOT_DECODED64_ONLY: HashSet<Code> = read_code_values("Code.NotDecoded64Only.txt");
 }
 lazy_static! {
-	static ref CODE32_ONLY: HashSet<Code> = { read_code_values("Code.32Only.txt") };
+	static ref CODE32_ONLY: HashSet<Code> = read_code_values("Code.32Only.txt");
 }
 lazy_static! {
-	static ref CODE64_ONLY: HashSet<Code> = { read_code_values("Code.64Only.txt") };
+	static ref CODE64_ONLY: HashSet<Code> = read_code_values("Code.64Only.txt");
 }
 
 fn read_code_values(name: &str) -> HashSet<Code> {

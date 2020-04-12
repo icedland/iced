@@ -31,10 +31,10 @@ use alloc::vec::Vec;
 use core::{cmp, mem};
 
 lazy_static! {
-	static ref SPACES_TABLE: Vec<String> = { create_strings(' ', 20) };
+	static ref SPACES_TABLE: Vec<String> = create_strings(' ', 20);
 }
 lazy_static! {
-	static ref TABS_TABLE: Vec<String> = { create_strings('\t', 6) };
+	static ref TABS_TABLE: Vec<String> = create_strings('\t', 6);
 }
 
 fn create_strings(c: char, cap: usize) -> Vec<String> {

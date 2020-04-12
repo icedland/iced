@@ -40,23 +40,23 @@ pub(super) struct InstructionInfo {
 }
 
 lazy_static! {
-	static ref INFOS_16: Vec<InstructionInfo> = { read_infos(16, false) };
+	static ref INFOS_16: Vec<InstructionInfo> = read_infos(16, false);
 }
 lazy_static! {
-	static ref INFOS_32: Vec<InstructionInfo> = { read_infos(32, false) };
+	static ref INFOS_32: Vec<InstructionInfo> = read_infos(32, false);
 }
 lazy_static! {
-	static ref INFOS_64: Vec<InstructionInfo> = { read_infos(64, false) };
+	static ref INFOS_64: Vec<InstructionInfo> = read_infos(64, false);
 }
 
 lazy_static! {
-	static ref INFOS_MISC_16: Vec<InstructionInfo> = { read_infos(16, true) };
+	static ref INFOS_MISC_16: Vec<InstructionInfo> = read_infos(16, true);
 }
 lazy_static! {
-	static ref INFOS_MISC_32: Vec<InstructionInfo> = { read_infos(32, true) };
+	static ref INFOS_MISC_32: Vec<InstructionInfo> = read_infos(32, true);
 }
 lazy_static! {
-	static ref INFOS_MISC_64: Vec<InstructionInfo> = { read_infos(64, true) };
+	static ref INFOS_MISC_64: Vec<InstructionInfo> = read_infos(64, true);
 }
 
 pub(super) fn get_infos(bitness: u32, is_misc: bool) -> &'static Vec<InstructionInfo> {

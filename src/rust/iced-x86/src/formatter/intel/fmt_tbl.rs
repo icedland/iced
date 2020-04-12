@@ -37,7 +37,7 @@ use alloc::vec::Vec;
 use core::mem;
 
 lazy_static! {
-	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync + Send>> = { read() };
+	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync + Send>> = read();
 }
 
 fn add_prefix(s: &str, c: char) -> String {

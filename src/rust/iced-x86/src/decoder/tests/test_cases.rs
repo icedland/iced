@@ -79,31 +79,31 @@ pub(crate) fn get_mem_test_cases(bitness: u32) -> &'static Vec<DecoderMemoryTest
 }
 
 lazy_static! {
-	static ref TEST_CASES_16: Vec<DecoderTestCase> = { read_decoder_test_cases(16) };
+	static ref TEST_CASES_16: Vec<DecoderTestCase> = read_decoder_test_cases(16);
 }
 lazy_static! {
-	static ref TEST_CASES_32: Vec<DecoderTestCase> = { read_decoder_test_cases(32) };
+	static ref TEST_CASES_32: Vec<DecoderTestCase> = read_decoder_test_cases(32);
 }
 lazy_static! {
-	static ref TEST_CASES_64: Vec<DecoderTestCase> = { read_decoder_test_cases(64) };
-}
-
-lazy_static! {
-	static ref MISC_TEST_CASES_16: Vec<DecoderTestCase> = { read_decoder_misc_test_cases(16) };
-}
-lazy_static! {
-	static ref MISC_TEST_CASES_32: Vec<DecoderTestCase> = { read_decoder_misc_test_cases(32) };
-}
-lazy_static! {
-	static ref MISC_TEST_CASES_64: Vec<DecoderTestCase> = { read_decoder_misc_test_cases(64) };
+	static ref TEST_CASES_64: Vec<DecoderTestCase> = read_decoder_test_cases(64);
 }
 
 lazy_static! {
-	static ref TEST_CASES_MEM_16: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(16) };
+	static ref MISC_TEST_CASES_16: Vec<DecoderTestCase> = read_decoder_misc_test_cases(16);
 }
 lazy_static! {
-	static ref TEST_CASES_MEM_32: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(32) };
+	static ref MISC_TEST_CASES_32: Vec<DecoderTestCase> = read_decoder_misc_test_cases(32);
 }
 lazy_static! {
-	static ref TEST_CASES_MEM_64: Vec<DecoderMemoryTestCase> = { read_decoder_mem_test_cases(64) };
+	static ref MISC_TEST_CASES_64: Vec<DecoderTestCase> = read_decoder_misc_test_cases(64);
+}
+
+lazy_static! {
+	static ref TEST_CASES_MEM_16: Vec<DecoderMemoryTestCase> = read_decoder_mem_test_cases(16);
+}
+lazy_static! {
+	static ref TEST_CASES_MEM_32: Vec<DecoderMemoryTestCase> = read_decoder_mem_test_cases(32);
+}
+lazy_static! {
+	static ref TEST_CASES_MEM_64: Vec<DecoderMemoryTestCase> = read_decoder_mem_test_cases(64);
 }
