@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 using Generator.Enums.Encoder;
 using Generator.IO;
@@ -70,9 +71,9 @@ namespace Generator.Encoder {
 	}
 
 	sealed class CreateMethod {
-		public readonly string Doc;
+		public readonly List<string> Docs;
 		public readonly List<MethodArg> Args = new List<MethodArg>();
-		public CreateMethod(string doc) => Doc = doc;
+		public CreateMethod(params string[] docs) => Docs = docs.ToList();
 	}
 
 	abstract class InstrCreateGen {

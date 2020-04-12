@@ -49,7 +49,8 @@ namespace Generator.Encoder.CSharp {
 			const string typeName = "Instruction";
 			docWriter.BeginWrite(writer);
 			docWriter.WriteLine(writer, "<summary>");
-			docWriter.WriteDocLine(writer, method.Doc, typeName);
+			foreach (var doc in method.Docs)
+				docWriter.WriteDocLine(writer, doc, typeName);
 			docWriter.WriteLine(writer, "</summary>");
 			for (int i = 0; i < method.Args.Count; i++) {
 				var arg = method.Args[i];

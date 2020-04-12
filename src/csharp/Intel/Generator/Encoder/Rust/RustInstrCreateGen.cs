@@ -24,7 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Generator.Documentation.Rust;
 using Generator.Enums;
 using Generator.Enums.Encoder;
@@ -36,164 +35,22 @@ namespace Generator.Encoder.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly GeneratorOptions generatorOptions;
 		readonly RustDocCommentWriter docWriter;
-		readonly StringBuilder sb;
+		readonly InstrCreateGenImpl gen;
+		readonly GenCreateNameArgs genNames;
 
 		public RustInstrCreateGen(GeneratorOptions generatorOptions) {
 			idConverter = RustIdentifierConverter.Create();
 			this.generatorOptions = generatorOptions;
 			docWriter = new RustDocCommentWriter(idConverter);
-			sb = new StringBuilder();
+			gen = new InstrCreateGenImpl(idConverter, docWriter);
+			genNames = GenCreateNameArgs.RustNames;
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
 			(TargetLanguage.Rust, "Create", Path.Combine(generatorOptions.RustDir, "instruction.rs"));
 
-		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) {
-			const string typeName = "Instruction";
-			docWriter.BeginWrite(writer);
-			docWriter.WriteDocLine(writer, method.Doc, typeName);
-			docWriter.WriteLine(writer, string.Empty);
-			if (!(writePanics is null)) {
-				docWriter.WriteLine(writer, "# Panics");
-				docWriter.WriteLine(writer, string.Empty);
-				writePanics();
-				docWriter.WriteLine(writer, string.Empty);
-			}
-			docWriter.WriteLine(writer, "# Arguments");
-			docWriter.WriteLine(writer, string.Empty);
-			for (int i = 0; i < method.Args.Count; i++) {
-				var arg = method.Args[i];
-				docWriter.Write($"* `{idConverter.Argument(arg.Name)}`: ");
-				docWriter.WriteDocLine(writer, arg.Doc, typeName);
-			}
-			docWriter.EndWrite(writer);
-		}
-
-		void WriteMethodDeclArgs(FileWriter writer, CreateMethod method) {
-			bool comma = false;
-			foreach (var arg in method.Args) {
-				if (comma)
-					writer.Write(", ");
-				comma = true;
-				writer.Write(idConverter.Argument(arg.Name));
-				writer.Write(": ");
-				switch (arg.Type) {
-				case MethodArgType.Code:
-					writer.Write(CodeEnum.Instance.Name(idConverter));
-					break;
-				case MethodArgType.Register:
-					writer.Write(RegisterEnum.Instance.Name(idConverter));
-					break;
-				case MethodArgType.RepPrefixKind:
-					writer.Write(RepPrefixKindEnum.Instance.Name(idConverter));
-					break;
-				case MethodArgType.Memory:
-					writer.Write("MemoryOperand");
-					break;
-				case MethodArgType.UInt8:
-					writer.Write("u8");
-					break;
-				case MethodArgType.UInt16:
-					writer.Write("u16");
-					break;
-				case MethodArgType.Int32:
-					writer.Write("i32");
-					break;
-				case MethodArgType.PreferedInt32:
-				case MethodArgType.UInt32:
-					writer.Write("u32");
-					break;
-				case MethodArgType.Int64:
-					writer.Write("i64");
-					break;
-				case MethodArgType.UInt64:
-					writer.Write("u64");
-					break;
-				case MethodArgType.ArrayIndex:
-				case MethodArgType.ArrayLength:
-					writer.Write("usize");
-					break;
-				case MethodArgType.ByteSlice:
-					writer.Write("&[u8]");
-					break;
-				case MethodArgType.WordSlice:
-					writer.Write("&[u16]");
-					break;
-				case MethodArgType.DwordSlice:
-					writer.Write("&[u32]");
-					break;
-				case MethodArgType.QwordSlice:
-					writer.Write("&[u64]");
-					break;
-				case MethodArgType.ByteArray:
-				case MethodArgType.WordArray:
-				case MethodArgType.DwordArray:
-				case MethodArgType.QwordArray:
-				case MethodArgType.BytePtr:
-				case MethodArgType.WordPtr:
-				case MethodArgType.DwordPtr:
-				case MethodArgType.QwordPtr:
-				default:
-					throw new InvalidOperationException();
-				}
-			}
-		}
-
-		string GetCreateName(CreateMethod method) {
-			if (method.Args.Count == 0 || method.Args[0].Type != MethodArgType.Code)
-				throw new InvalidOperationException();
-
-			sb.Clear();
-			sb.Append("with");
-			var args = method.Args;
-			for (int i = 1; i < args.Count; i++) {
-				var arg = args[i];
-				switch (arg.Type) {
-				case MethodArgType.Register:
-					sb.Append("_reg");
-					break;
-				case MethodArgType.Memory:
-					sb.Append("_mem");
-					break;
-				case MethodArgType.Int32:
-					sb.Append("_i32");
-					break;
-				case MethodArgType.UInt32:
-					sb.Append("_u32");
-					break;
-				case MethodArgType.Int64:
-					sb.Append("_i64");
-					break;
-				case MethodArgType.UInt64:
-					sb.Append("_u64");
-					break;
-
-				case MethodArgType.Code:
-				case MethodArgType.RepPrefixKind:
-				case MethodArgType.UInt8:
-				case MethodArgType.UInt16:
-				case MethodArgType.PreferedInt32:
-				case MethodArgType.ArrayIndex:
-				case MethodArgType.ArrayLength:
-				case MethodArgType.ByteArray:
-				case MethodArgType.WordArray:
-				case MethodArgType.DwordArray:
-				case MethodArgType.QwordArray:
-				case MethodArgType.ByteSlice:
-				case MethodArgType.WordSlice:
-				case MethodArgType.DwordSlice:
-				case MethodArgType.QwordSlice:
-				case MethodArgType.BytePtr:
-				case MethodArgType.WordPtr:
-				case MethodArgType.DwordPtr:
-				case MethodArgType.QwordPtr:
-				default:
-					throw new InvalidOperationException();
-				}
-			}
-
-			return sb.ToString();
-		}
+		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) =>
+			gen.WriteDocs(writer, method, "Panics", writePanics);
 
 		void WriteMethodAttributes(FileWriter writer, CreateMethod method, bool inline) {
 			writer.WriteLine(RustConstants.AttributeMustUse);
@@ -204,7 +61,7 @@ namespace Generator.Encoder.Rust {
 		void WriteMethod(FileWriter writer, CreateMethod method, string name) {
 			WriteMethodAttributes(writer, method, false);
 			writer.Write($"pub fn {name}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 		}
 
@@ -228,29 +85,12 @@ namespace Generator.Encoder.Rust {
 			writer.WriteLine("instruction");
 		}
 
-		static bool HasImmediateArg_8_16_32(CreateMethod method) {
-			foreach (var arg in method.Args) {
-				switch (arg.Type) {
-				case MethodArgType.UInt8:
-				case MethodArgType.UInt16:
-				case MethodArgType.Int32:
-				case MethodArgType.UInt32:
-					return true;
-
-				case MethodArgType.Int64:
-				case MethodArgType.UInt64:
-					break;
-				}
-			}
-			return false;
-		}
-
 		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group) {
 			Action? writePanics = null;
-			if (HasImmediateArg_8_16_32(method))
+			if (InstrCreateGenImpl.HasImmediateArg_8_16_32(method))
 				writePanics = () => docWriter.WriteLine(writer, $"Panics if the immediate is invalid");
 			WriteDocs(writer, method, writePanics);
-			WriteMethod(writer, method, GetCreateName(method));
+			WriteMethod(writer, method, gen.GetCreateName(method, genNames));
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, method);
 				var args = method.Args;
@@ -450,7 +290,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_string_reg_segrsi(");
@@ -496,7 +336,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_string_reg_esrdi(");
@@ -538,7 +378,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_string_esrdi_reg(");
@@ -580,7 +420,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_string_segrsi_esrdi(");
@@ -622,7 +462,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_string_esrdi_segrsi(");
@@ -664,7 +504,7 @@ namespace Generator.Encoder.Rust {
 			var methodName = idConverter.Method("With" + methodBaseName);
 			WriteMethodAttributes(writer, method, true);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				writer.Write("super::instruction_internal::with_maskmov(");
@@ -722,7 +562,7 @@ namespace Generator.Encoder.Rust {
 			WriteDocs(writer, method, () => WriteDeclareDataPanic(writer));
 			WriteMethodAttributes(writer, method, false);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				WriteInitializeInstruction(writer, code);
@@ -749,7 +589,7 @@ namespace Generator.Encoder.Rust {
 			WriteDocs(writer, method, () => WriteDataPanic(writer, method, $"is not 1-{16 / elemSize}"));
 			WriteMethodAttributes(writer, method, false);
 			writer.Write($"pub fn {methodName}(");
-			WriteMethodDeclArgs(writer, method);
+			gen.WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") -> Self {");
 			using (writer.Indent()) {
 				var dataName = idConverter.Argument(method.Args[0].Name);
@@ -802,7 +642,7 @@ namespace Generator.Encoder.Rust {
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
 					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_word_slice_u8(");
-					WriteMethodDeclArgs(writer, method);
+					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");
 					using (writer.Indent()) {
 						var dataName = idConverter.Argument(method.Args[0].Name);
@@ -849,7 +689,7 @@ namespace Generator.Encoder.Rust {
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
 					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_dword_slice_u8(");
-					WriteMethodDeclArgs(writer, method);
+					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");
 					using (writer.Indent()) {
 						var dataName = idConverter.Argument(method.Args[0].Name);
@@ -896,7 +736,7 @@ namespace Generator.Encoder.Rust {
 					writer.WriteLine(RustConstants.AttributeAllowTrivialCasts);
 					writer.WriteLine(RustConstants.AttributeAllowCastPtrAlignment);
 					writer.Write($"pub fn with_declare_qword_slice_u8(");
-					WriteMethodDeclArgs(writer, method);
+					gen.WriteMethodDeclArgs(writer, method);
 					writer.WriteLine(") -> Self {");
 					using (writer.Indent()) {
 						var dataName = idConverter.Argument(method.Args[0].Name);

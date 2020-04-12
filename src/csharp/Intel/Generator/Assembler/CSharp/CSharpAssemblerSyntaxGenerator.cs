@@ -34,7 +34,7 @@ using Generator.Enums.Encoder;
 using Generator.IO;
 
 namespace Generator.Assembler.CSharp {
-	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
+	[Generator(TargetLanguage.CSharp, GeneratorNames.CodeAssembler)]
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
 		readonly GeneratorOptions _generatorOptions;
 		readonly CSharpDocCommentWriter _docWriter;

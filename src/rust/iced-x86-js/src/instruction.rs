@@ -23,11 +23,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(non_snake_case)]
 
-#[cfg(feature = "encoder")]
-#[cfg(feature = "instruction_api")]
+#[cfg(any(all(feature = "encoder", feature = "instruction_api"), feature = "instr_create"))]
 use super::code::code_to_iced;
 #[cfg(feature = "instruction_api")]
-use super::code::{iced_to_code, Code};
+use super::code::iced_to_code;
+#[cfg(any(feature = "instruction_api", feature = "instr_create"))]
+use super::code::Code;
 #[cfg(feature = "encoder")]
 #[cfg(feature = "instruction_api")]
 use super::code_size::code_size_to_iced;
@@ -42,6 +43,8 @@ use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
 #[cfg(feature = "instr_info")]
 #[cfg(feature = "instruction_api")]
 use super::flow_control::{iced_to_flow_control, FlowControl};
+#[cfg(feature = "instr_create")]
+use super::memory_operand::MemoryOperand;
 #[cfg(feature = "instruction_api")]
 use super::memory_size::{iced_to_memory_size, MemorySize};
 #[cfg(feature = "instruction_api")]
@@ -54,11 +57,14 @@ use super::op_code_info::OpCodeInfo;
 use super::op_kind::op_kind_to_iced;
 #[cfg(feature = "instruction_api")]
 use super::op_kind::{iced_to_op_kind, OpKind};
-#[cfg(feature = "encoder")]
 #[cfg(feature = "instruction_api")]
+use super::register::iced_to_register;
+#[cfg(any(all(feature = "encoder", feature = "instruction_api"), feature = "instr_create"))]
 use super::register::register_to_iced;
-#[cfg(feature = "instruction_api")]
-use super::register::{iced_to_register, Register};
+#[cfg(any(feature = "instruction_api", feature = "instr_create"))]
+use super::register::Register;
+#[cfg(feature = "instr_create")]
+use super::rep_prefix_kind::{rep_prefix_kind_to_iced, RepPrefixKind};
 #[cfg(feature = "encoder")]
 #[cfg(feature = "instruction_api")]
 use super::rounding_control::rounding_control_to_iced;
@@ -77,7 +83,7 @@ pub struct Instruction(pub(crate) iced_x86::Instruction);
 #[allow(clippy::len_without_is_empty)]
 #[allow(clippy::new_without_default)]
 impl Instruction {
-	/// Creates an empty `Instruction` (all fields are cleared). See also the `with*()` constructor methods.
+	/// Creates an empty `Instruction` (all fields are cleared). See also the `create*()` constructor methods.
 	#[wasm_bindgen(constructor)]
 	pub fn new() -> Self {
 		Self(iced_x86::Instruction::new())
@@ -2858,4 +2864,3158 @@ impl Instruction {
 	pub fn to_string_js(&self) -> String {
 		self.0.to_string()
 	}
+}
+
+#[wasm_bindgen]
+#[cfg(feature = "instr_create")]
+impl Instruction {
+	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
+	/// Can only be called if [`code`] is [`Code.DeclareByte`], [`Code.DeclareWord`], [`Code.DeclareDword`], [`Code.DeclareQword`]
+	///
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	#[wasm_bindgen(getter)]
+	pub fn declareDataLength(&self) -> u32 {
+		self.0.declare_data_len() as u32
+	}
+
+	/// Sets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
+	/// Can only be called if [`code`] is [`Code.DeclareByte`], [`Code.DeclareWord`], [`Code.DeclareDword`], [`Code.DeclareQword`]
+	///
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Arguments
+	///
+	/// * `newValue`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
+	#[wasm_bindgen(setter)]
+	pub fn set_declareDataLength(&mut self, newValue: u32) {
+		self.0.set_declare_data_len(newValue as usize)
+	}
+
+	/// Sets a new `db` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareByte`]
+	///
+	/// [`declareDataLength()`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-15)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareByteValueI8")]
+	pub fn set_declare_byte_value_i8(&mut self, index: u32, newValue: i8) {
+		self.0.set_declare_byte_value(index as usize, newValue as u8)
+	}
+
+	/// Sets a new `db` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareByte`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-15)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareByteValue")]
+	pub fn set_declare_byte_value(&mut self, index: u32, newValue: u8) {
+		self.0.set_declare_byte_value(index as usize, newValue)
+	}
+
+	/// Gets a `db` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareByte`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-15)
+	#[wasm_bindgen(js_name = "getDeclareByteValue")]
+	pub fn get_declare_byte_value(&self, index: u32) -> u8 {
+		self.0.get_declare_byte_value(index as usize)
+	}
+
+	/// Sets a new `dw` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareWord`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-7)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareWordValueI16")]
+	pub fn set_declare_word_value_i16(&mut self, index: u32, newValue: i16) {
+		self.0.set_declare_word_value_i16(index as usize, newValue)
+	}
+
+	/// Sets a new `dw` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareWord`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-7)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareWordValue")]
+	pub fn set_declare_word_value(&mut self, index: u32, newValue: u16) {
+		self.0.set_declare_word_value(index as usize, newValue)
+	}
+
+	/// Gets a `dw` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareWord`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-7)
+	#[wasm_bindgen(js_name = "getDeclareWordValue")]
+	pub fn get_declare_word_value(&self, index: u32) -> u16 {
+		self.0.get_declare_word_value(index as usize)
+	}
+
+	/// Sets a new `dd` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareDword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-3)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareDwordValueI32")]
+	pub fn set_declare_dword_value_i32(&mut self, index: u32, newValue: i32) {
+		self.0.set_declare_dword_value_i32(index as usize, newValue)
+	}
+
+	/// Sets a new `dd` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareDword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-3)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareDwordValue")]
+	pub fn set_declare_dword_value(&mut self, index: u32, newValue: u32) {
+		self.0.set_declare_dword_value(index as usize, newValue)
+	}
+
+	/// Gets a `dd` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareDword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-3)
+	#[wasm_bindgen(js_name = "getDeclareDwordValue")]
+	pub fn get_declare_dword_value(&self, index: u32) -> u32 {
+		self.0.get_declare_dword_value(index as usize)
+	}
+
+	/// Sets a new `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	/// * `newValue_hi`: High 32 bits of new value
+	/// * `newValue_lo`: Low 32 bits of new value
+	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValue_hi: u32, newValue_lo: u32) {
+		let new_value = (((newValue_hi as u64) << 32) | (newValue_lo as u64)) as i64;
+		self.0.set_declare_qword_value_i64(index as usize, new_value)
+	}
+
+	/// Sets a new `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
+	#[cfg(feature = "bigint")]
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValue: i64) {
+		self.0.set_declare_qword_value_i64(index as usize, newValue)
+	}
+
+	/// Sets a new `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	/// * `newValue_hi`: High 32 bits of new value
+	/// * `newValue_lo`: Low 32 bits of new value
+	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn set_declare_qword_value(&mut self, index: u32, newValue_hi: u32, newValue_lo: u32) {
+		let new_value = ((newValue_hi as u64) << 32) | (newValue_lo as u64);
+		self.0.set_declare_qword_value(index as usize, new_value)
+	}
+
+	/// Sets a new `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
+	#[cfg(feature = "bigint")]
+	pub fn set_declare_qword_value(&mut self, index: u32, newValue: u64) {
+		self.0.set_declare_qword_value(index as usize, newValue)
+	}
+
+	/// Gets a `dq` value (high 32 bits), see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	#[wasm_bindgen(js_name = "getDeclareQwordValue_hi")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn get_declare_qword_value_hi(&self, index: u32) -> u32 {
+		(self.0.get_declare_qword_value(index as usize) >> 32) as u32
+	}
+
+	/// Gets a `dq` value (low 32 bits), see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	#[wasm_bindgen(js_name = "getDeclareQwordValue_lo")]
+	#[cfg(not(feature = "bigint"))]
+	pub fn get_declare_qword_value_lo(&self, index: u32) -> u32 {
+		self.0.get_declare_qword_value(index as usize) as u32
+	}
+
+	/// Gets a `dq` value, see also [`declareDataLength`].
+	/// Can only be called if [`code`] is [`Code.DeclareQword`]
+	///
+	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`code`]: #method.code
+	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
+	///
+	/// # Throws
+	///
+	/// Throws if `index` is invalid
+	///
+	/// # Arguments
+	///
+	/// * `index`: Index (0-1)
+	#[wasm_bindgen(js_name = "getDeclareQwordValue")]
+	#[cfg(feature = "bigint")]
+	pub fn get_declare_qword_value(&self, index: u32) -> u64 {
+		self.0.get_declare_qword_value(index as usize)
+	}
+
+	// GENERATOR-BEGIN: Create
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// Creates an instruction with no operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "create")]
+	pub fn with(code: Code) -> Self {
+		Self(iced_x86::Instruction::with(code_to_iced(code)))
+	}
+
+	/// Creates an instruction with 1 operand
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createReg")]
+	pub fn with_reg(code: Code, register: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg(code_to_iced(code), register_to_iced(register)))
+	}
+
+	/// Creates an instruction with 1 operand
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate`: op0: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createI32")]
+	pub fn with_i32(code: Code, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_i32(code_to_iced(code), immediate))
+	}
+
+	/// Creates an instruction with 1 operand
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate`: op0: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createU32")]
+	pub fn with_u32(code: Code, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_u32(code_to_iced(code), immediate))
+	}
+
+	/// Creates an instruction with 1 operand
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMem")]
+	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
+		Self(iced_x86::Instruction::with_mem(code_to_iced(code), memory.0))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegReg")]
+	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegI32")]
+	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_i32(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegU32")]
+	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_u32(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createRegI64")]
+	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Self {
+		Self(iced_x86::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate_hi`: High 32 bits (op1: Immediate value)
+	/// * `immediate_lo`: Low 32 bits (op1: Immediate value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createRegI64")]
+	pub fn with_reg_i64(code: Code, register: Register, immediate_hi: u32, immediate_lo: u32) -> Self {
+		let immediate = (((immediate_hi as u64) << 32) | (immediate_lo as u64)) as i64;
+		Self(iced_x86::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createRegU64")]
+	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Self {
+		Self(iced_x86::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate_hi`: High 32 bits (op1: Immediate value)
+	/// * `immediate_lo`: Low 32 bits (op1: Immediate value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createRegU64")]
+	pub fn with_reg_u64(code: Code, register: Register, immediate_hi: u32, immediate_lo: u32) -> Self {
+		let immediate = ((immediate_hi as u64) << 32) | (immediate_lo as u64);
+		Self(iced_x86::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `memory`: op1: Memory operand
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegMem")]
+	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
+		Self(iced_x86::Instruction::with_reg_mem(code_to_iced(code), register_to_iced(register), memory.0))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate`: op0: Immediate value
+	/// * `register`: op1: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createI32Reg")]
+	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Self {
+		Self(iced_x86::Instruction::with_i32_reg(code_to_iced(code), immediate, register_to_iced(register)))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate`: op0: Immediate value
+	/// * `register`: op1: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createU32Reg")]
+	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Self {
+		Self(iced_x86::Instruction::with_u32_reg(code_to_iced(code), immediate, register_to_iced(register)))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate1`: op0: Immediate value
+	/// * `immediate2`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createI32I32")]
+	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Self {
+		Self(iced_x86::Instruction::with_i32_i32(code_to_iced(code), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `immediate1`: op0: Immediate value
+	/// * `immediate2`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createU32U32")]
+	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Self {
+		Self(iced_x86::Instruction::with_u32_u32(code_to_iced(code), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `register`: op1: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemReg")]
+	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
+		Self(iced_x86::Instruction::with_mem_reg(code_to_iced(code), memory.0, register_to_iced(register)))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemI32")]
+	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_mem_i32(code_to_iced(code), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 2 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `immediate`: op1: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemU32")]
+	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_mem_u32(code_to_iced(code), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegReg")]
+	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegI32")]
+	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegU32")]
+	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMem")]
+	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate1`: op1: Immediate value
+	/// * `immediate2`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegI32I32")]
+	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_i32_i32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `immediate1`: op1: Immediate value
+	/// * `immediate2`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegU32U32")]
+	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_u32_u32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `memory`: op1: Memory operand
+	/// * `register2`: op2: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegMemReg")]
+	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_mem_reg(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `memory`: op1: Memory operand
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegMemI32")]
+	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_mem_i32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: op0: Register (a [`Register`] enum value)
+	/// * `memory`: op1: Memory operand
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegMemU32")]
+	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_mem_u32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `register1`: op1: Register (a [`Register`] enum value)
+	/// * `register2`: op2: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemRegReg")]
+	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
+		Self(iced_x86::Instruction::with_mem_reg_reg(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `register`: op1: Register (a [`Register`] enum value)
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemRegI32")]
+	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_mem_reg_i32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 3 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `memory`: op0: Memory operand
+	/// * `register`: op1: Register (a [`Register`] enum value)
+	/// * `immediate`: op2: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMemRegU32")]
+	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_mem_reg_u32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `register4`: op3: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegReg")]
+	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `immediate`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegI32")]
+	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `immediate`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegU32")]
+	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `memory`: op3: Memory operand
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegMem")]
+	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `immediate1`: op2: Immediate value
+	/// * `immediate2`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegI32I32")]
+	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_i32_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `immediate1`: op2: Immediate value
+	/// * `immediate2`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegU32U32")]
+	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_u32_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	/// * `register3`: op3: Register (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMemReg")]
+	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	/// * `immediate`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMemI32")]
+	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 4 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	/// * `immediate`: op3: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMemU32")]
+	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `register4`: op3: Register (a [`Register`] enum value)
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegRegI32")]
+	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `register4`: op3: Register (a [`Register`] enum value)
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegRegU32")]
+	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `memory`: op3: Memory operand
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegMemI32")]
+	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `register3`: op2: Register (a [`Register`] enum value)
+	/// * `memory`: op3: Memory operand
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegRegMemU32")]
+	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	/// * `register3`: op3: Register (a [`Register`] enum value)
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMemRegI32")]
+	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
+	}
+
+	/// Creates an instruction with 5 operands
+	///
+	/// # Throws
+	///
+	/// Throws if the immediate is invalid
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register1`: op0: Register (a [`Register`] enum value)
+	/// * `register2`: op1: Register (a [`Register`] enum value)
+	/// * `memory`: op2: Memory operand
+	/// * `register3`: op3: Register (a [`Register`] enum value)
+	/// * `immediate`: op4: Immediate value
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRegRegMemRegU32")]
+	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Self {
+		Self(iced_x86::Instruction::with_reg_reg_mem_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
+	}
+
+	/// Creates a new near/short branch instruction
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `target`: Target address
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createBranch")]
+	pub fn with_branch(code: Code, target: u64) -> Self {
+		Self(iced_x86::Instruction::with_branch(code_to_iced(code), target))
+	}
+
+	/// Creates a new near/short branch instruction
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `target_hi`: High 32 bits (Target address)
+	/// * `target_lo`: Low 32 bits (Target address)
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createBranch")]
+	pub fn with_branch(code: Code, target_hi: u32, target_lo: u32) -> Self {
+		let target = ((target_hi as u64) << 32) | (target_lo as u64);
+		Self(iced_x86::Instruction::with_branch(code_to_iced(code), target))
+	}
+
+	/// Creates a new far branch instruction
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `selector`: Selector/segment value
+	/// * `offset`: Offset
+	///
+	/// [`Code`]: enum.Code.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createFarBranch")]
+	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
+		Self(iced_x86::Instruction::with_far_branch(code_to_iced(code), selector, offset))
+	}
+
+	/// Creates a new `XBEGIN` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32, or 64
+	/// * `target`: Target address
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createXbegin")]
+	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
+		Self(iced_x86::Instruction::with_xbegin(bitness, target))
+	}
+
+	/// Creates a new `XBEGIN` instruction
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Throws
+	///
+	/// Throws if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32, or 64
+	/// * `target_hi`: High 32 bits (Target address)
+	/// * `target_lo`: Low 32 bits (Target address)
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createXbegin")]
+	pub fn with_xbegin(bitness: u32, target_hi: u32, target_lo: u32) -> Self {
+		let target = ((target_hi as u64) << 32) | (target_lo as u64);
+		Self(iced_x86::Instruction::with_xbegin(bitness, target))
+	}
+
+	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
+	/// * `address`: 64-bit address
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createRegMem64")]
+	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segmentPrefix: Register) -> Self {
+		Self(iced_x86::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
+	/// * `address_hi`: High 32 bits (64-bit address)
+	/// * `address_lo`: Low 32 bits (64-bit address)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createRegMem64")]
+	pub fn with_reg_mem64(code: Code, register: Register, address_hi: u32, address_lo: u32, segmentPrefix: Register) -> Self {
+		let address = ((address_hi as u64) << 32) | (address_lo as u64);
+		Self(iced_x86::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `address`: 64-bit address
+	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createMem64Reg")]
+	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segmentPrefix: Register) -> Self {
+		Self(iced_x86::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `code`: Code value (a [`Code`] enum value)
+	/// * `address_hi`: High 32 bits (64-bit address)
+	/// * `address_lo`: Low 32 bits (64-bit address)
+	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Code`]: enum.Code.html
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createMem64Reg")]
+	pub fn with_mem64_reg(code: Code, address_hi: u32, address_lo: u32, register: Register, segmentPrefix: Register) -> Self {
+		let address = ((address_hi as u64) << 32) | (address_lo as u64);
+		Self(iced_x86::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates a `OUTSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createOutsb")]
+	pub fn with_outsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_outsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP OUTSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepOutsb")]
+	pub fn with_rep_outsb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_outsb(addressSize))
+	}
+
+	/// Creates a `OUTSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createOutsw")]
+	pub fn with_outsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_outsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP OUTSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepOutsw")]
+	pub fn with_rep_outsw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_outsw(addressSize))
+	}
+
+	/// Creates a `OUTSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createOutsd")]
+	pub fn with_outsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_outsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP OUTSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepOutsd")]
+	pub fn with_rep_outsd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_outsd(addressSize))
+	}
+
+	/// Creates a `LODSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createLodsb")]
+	pub fn with_lodsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_lodsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP LODSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepLodsb")]
+	pub fn with_rep_lodsb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_lodsb(addressSize))
+	}
+
+	/// Creates a `LODSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createLodsw")]
+	pub fn with_lodsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_lodsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP LODSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepLodsw")]
+	pub fn with_rep_lodsw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_lodsw(addressSize))
+	}
+
+	/// Creates a `LODSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createLodsd")]
+	pub fn with_lodsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_lodsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP LODSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepLodsd")]
+	pub fn with_rep_lodsd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_lodsd(addressSize))
+	}
+
+	/// Creates a `LODSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createLodsq")]
+	pub fn with_lodsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_lodsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP LODSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepLodsq")]
+	pub fn with_rep_lodsq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_lodsq(addressSize))
+	}
+
+	/// Creates a `SCASB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createScasb")]
+	pub fn with_scasb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_scasb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE SCASB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeScasb")]
+	pub fn with_repe_scasb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_scasb(addressSize))
+	}
+
+	/// Creates a `REPNE SCASB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneScasb")]
+	pub fn with_repne_scasb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_scasb(addressSize))
+	}
+
+	/// Creates a `SCASW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createScasw")]
+	pub fn with_scasw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_scasw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE SCASW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeScasw")]
+	pub fn with_repe_scasw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_scasw(addressSize))
+	}
+
+	/// Creates a `REPNE SCASW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneScasw")]
+	pub fn with_repne_scasw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_scasw(addressSize))
+	}
+
+	/// Creates a `SCASD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createScasd")]
+	pub fn with_scasd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_scasd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE SCASD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeScasd")]
+	pub fn with_repe_scasd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_scasd(addressSize))
+	}
+
+	/// Creates a `REPNE SCASD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneScasd")]
+	pub fn with_repne_scasd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_scasd(addressSize))
+	}
+
+	/// Creates a `SCASQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createScasq")]
+	pub fn with_scasq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_scasq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE SCASQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeScasq")]
+	pub fn with_repe_scasq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_scasq(addressSize))
+	}
+
+	/// Creates a `REPNE SCASQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneScasq")]
+	pub fn with_repne_scasq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_scasq(addressSize))
+	}
+
+	/// Creates a `INSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createInsb")]
+	pub fn with_insb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_insb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP INSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepInsb")]
+	pub fn with_rep_insb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_insb(addressSize))
+	}
+
+	/// Creates a `INSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createInsw")]
+	pub fn with_insw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_insw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP INSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepInsw")]
+	pub fn with_rep_insw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_insw(addressSize))
+	}
+
+	/// Creates a `INSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createInsd")]
+	pub fn with_insd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_insd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP INSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepInsd")]
+	pub fn with_rep_insd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_insd(addressSize))
+	}
+
+	/// Creates a `STOSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createStosb")]
+	pub fn with_stosb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_stosb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP STOSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepStosb")]
+	pub fn with_rep_stosb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_stosb(addressSize))
+	}
+
+	/// Creates a `STOSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createStosw")]
+	pub fn with_stosw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_stosw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP STOSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepStosw")]
+	pub fn with_rep_stosw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_stosw(addressSize))
+	}
+
+	/// Creates a `STOSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createStosd")]
+	pub fn with_stosd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_stosd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP STOSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepStosd")]
+	pub fn with_rep_stosd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_stosd(addressSize))
+	}
+
+	/// Creates a `STOSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createStosq")]
+	pub fn with_stosq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_stosq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP STOSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepStosq")]
+	pub fn with_rep_stosq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_stosq(addressSize))
+	}
+
+	/// Creates a `CMPSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createCmpsb")]
+	pub fn with_cmpsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_cmpsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE CMPSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeCmpsb")]
+	pub fn with_repe_cmpsb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_cmpsb(addressSize))
+	}
+
+	/// Creates a `REPNE CMPSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneCmpsb")]
+	pub fn with_repne_cmpsb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_cmpsb(addressSize))
+	}
+
+	/// Creates a `CMPSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createCmpsw")]
+	pub fn with_cmpsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_cmpsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE CMPSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeCmpsw")]
+	pub fn with_repe_cmpsw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_cmpsw(addressSize))
+	}
+
+	/// Creates a `REPNE CMPSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneCmpsw")]
+	pub fn with_repne_cmpsw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_cmpsw(addressSize))
+	}
+
+	/// Creates a `CMPSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createCmpsd")]
+	pub fn with_cmpsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_cmpsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE CMPSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeCmpsd")]
+	pub fn with_repe_cmpsd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_cmpsd(addressSize))
+	}
+
+	/// Creates a `REPNE CMPSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneCmpsd")]
+	pub fn with_repne_cmpsd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_cmpsd(addressSize))
+	}
+
+	/// Creates a `CMPSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createCmpsq")]
+	pub fn with_cmpsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_cmpsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REPE CMPSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepeCmpsq")]
+	pub fn with_repe_cmpsq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repe_cmpsq(addressSize))
+	}
+
+	/// Creates a `REPNE CMPSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepneCmpsq")]
+	pub fn with_repne_cmpsq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_repne_cmpsq(addressSize))
+	}
+
+	/// Creates a `MOVSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMovsb")]
+	pub fn with_movsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_movsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP MOVSB` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepMovsb")]
+	pub fn with_rep_movsb(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_movsb(addressSize))
+	}
+
+	/// Creates a `MOVSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMovsw")]
+	pub fn with_movsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_movsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP MOVSW` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepMovsw")]
+	pub fn with_rep_movsw(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_movsw(addressSize))
+	}
+
+	/// Creates a `MOVSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMovsd")]
+	pub fn with_movsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_movsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP MOVSD` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepMovsd")]
+	pub fn with_rep_movsd(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_movsd(addressSize))
+	}
+
+	/// Creates a `MOVSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	/// * `repPrefix`: Rep prefix or [`RepPrefixKind.None`] (a [`RepPrefixKind`] enum value)
+	///
+	/// [`Register.None`]: enum.Register.html#variant.None
+	/// [`Register`]: enum.Register.html
+	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
+	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMovsq")]
+	pub fn with_movsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+		Self(iced_x86::Instruction::with_movsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+	}
+
+	/// Creates a `REP MOVSQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createRepMovsq")]
+	pub fn with_rep_movsq(addressSize: u32) -> Self {
+		Self(iced_x86::Instruction::with_rep_movsq(addressSize))
+	}
+
+	/// Creates a `MASKMOVQ` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `register1`: Register (a [`Register`] enum value)
+	/// * `register2`: Register (a [`Register`] enum value)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMaskmovq")]
+	pub fn with_maskmovq(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+		Self(iced_x86::Instruction::with_maskmovq(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates a `MASKMOVDQU` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `register1`: Register (a [`Register`] enum value)
+	/// * `register2`: Register (a [`Register`] enum value)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createMaskmovdqu")]
+	pub fn with_maskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+		Self(iced_x86::Instruction::with_maskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates a `VMASKMOVDQU` instruction
+	///
+	/// # Throws
+	///
+	/// Throws if `addressSize` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `addressSize`: 16, 32, or 64
+	/// * `register1`: Register (a [`Register`] enum value)
+	/// * `register2`: Register (a [`Register`] enum value)
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
+	///
+	/// [`Register`]: enum.Register.html
+	/// [`Register.None`]: enum.Register.html#variant.None
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createVmaskmovdqu")]
+	pub fn with_vmaskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+		Self(iced_x86::Instruction::with_vmaskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_1")]
+	pub fn with_declare_byte_1(b0: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_1(b0))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_2")]
+	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_2(b0, b1))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_3")]
+	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_3(b0, b1, b2))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_4")]
+	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_4(b0, b1, b2, b3))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_5")]
+	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_5(b0, b1, b2, b3, b4))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_6")]
+	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_6(b0, b1, b2, b3, b4, b5))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_7")]
+	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_8")]
+	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_9")]
+	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_10")]
+	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_11")]
+	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	/// * `b11`: Byte 11
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_12")]
+	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	/// * `b11`: Byte 11
+	/// * `b12`: Byte 12
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_13")]
+	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	/// * `b11`: Byte 11
+	/// * `b12`: Byte 12
+	/// * `b13`: Byte 13
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_14")]
+	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	/// * `b11`: Byte 11
+	/// * `b12`: Byte 12
+	/// * `b13`: Byte 13
+	/// * `b14`: Byte 14
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_15")]
+	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `b0`: Byte 0
+	/// * `b1`: Byte 1
+	/// * `b2`: Byte 2
+	/// * `b3`: Byte 3
+	/// * `b4`: Byte 4
+	/// * `b5`: Byte 5
+	/// * `b6`: Byte 6
+	/// * `b7`: Byte 7
+	/// * `b8`: Byte 8
+	/// * `b9`: Byte 9
+	/// * `b10`: Byte 10
+	/// * `b11`: Byte 11
+	/// * `b12`: Byte 12
+	/// * `b13`: Byte 13
+	/// * `b14`: Byte 14
+	/// * `b15`: Byte 15
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte_16")]
+	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15))
+	}
+
+	/// Creates a `db`/`.byte` asm directive
+	///
+	/// # Throws
+	///
+	/// Throws if `data.length` is not 1-16
+	///
+	/// # Arguments
+	///
+	/// * `data`: Data
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareByte")]
+	pub fn with_declare_byte(data: &[u8]) -> Self {
+		Self(iced_x86::Instruction::with_declare_byte(data))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_1")]
+	pub fn with_declare_word_1(w0: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_1(w0))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_2")]
+	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_2(w0, w1))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_3")]
+	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_3(w0, w1, w2))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	/// * `w3`: Word 3
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_4")]
+	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_4(w0, w1, w2, w3))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	/// * `w3`: Word 3
+	/// * `w4`: Word 4
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_5")]
+	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_5(w0, w1, w2, w3, w4))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	/// * `w3`: Word 3
+	/// * `w4`: Word 4
+	/// * `w5`: Word 5
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_6")]
+	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_6(w0, w1, w2, w3, w4, w5))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	/// * `w3`: Word 3
+	/// * `w4`: Word 4
+	/// * `w5`: Word 5
+	/// * `w6`: Word 6
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_7")]
+	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_7(w0, w1, w2, w3, w4, w5, w6))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `w0`: Word 0
+	/// * `w1`: Word 1
+	/// * `w2`: Word 2
+	/// * `w3`: Word 3
+	/// * `w4`: Word 4
+	/// * `w5`: Word 5
+	/// * `w6`: Word 6
+	/// * `w7`: Word 7
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord_8")]
+	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
+		Self(iced_x86::Instruction::with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7))
+	}
+
+	/// Creates a `dw`/`.word` asm directive
+	///
+	/// # Throws
+	///
+	/// Throws if `data.length` is not 1-8
+	///
+	/// # Arguments
+	///
+	/// * `data`: Data
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareWord")]
+	pub fn with_declare_word(data: &[u16]) -> Self {
+		Self(iced_x86::Instruction::with_declare_word(data))
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `d0`: Dword 0
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareDword_1")]
+	pub fn with_declare_dword_1(d0: u32) -> Self {
+		Self(iced_x86::Instruction::with_declare_dword_1(d0))
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `d0`: Dword 0
+	/// * `d1`: Dword 1
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareDword_2")]
+	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
+		Self(iced_x86::Instruction::with_declare_dword_2(d0, d1))
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `d0`: Dword 0
+	/// * `d1`: Dword 1
+	/// * `d2`: Dword 2
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareDword_3")]
+	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
+		Self(iced_x86::Instruction::with_declare_dword_3(d0, d1, d2))
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `d0`: Dword 0
+	/// * `d1`: Dword 1
+	/// * `d2`: Dword 2
+	/// * `d3`: Dword 3
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareDword_4")]
+	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
+		Self(iced_x86::Instruction::with_declare_dword_4(d0, d1, d2, d3))
+	}
+
+	/// Creates a `dd`/`.int` asm directive
+	///
+	/// # Throws
+	///
+	/// Throws if `data.length` is not 1-4
+	///
+	/// # Arguments
+	///
+	/// * `data`: Data
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[wasm_bindgen(js_name = "createDeclareDword")]
+	pub fn with_declare_dword(data: &[u32]) -> Self {
+		Self(iced_x86::Instruction::with_declare_dword(data))
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `q0`: Qword 0
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createDeclareQword_1")]
+	pub fn with_declare_qword_1(q0: u64) -> Self {
+		Self(iced_x86::Instruction::with_declare_qword_1(q0))
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `q0_hi`: High 32 bits (Qword 0)
+	/// * `q0_lo`: Low 32 bits (Qword 0)
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createDeclareQword_1")]
+	pub fn with_declare_qword_1(q0_hi: u32, q0_lo: u32) -> Self {
+		let q0 = ((q0_hi as u64) << 32) | (q0_lo as u64);
+		Self(iced_x86::Instruction::with_declare_qword_1(q0))
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// # Arguments
+	///
+	/// * `q0`: Qword 0
+	/// * `q1`: Qword 1
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createDeclareQword_2")]
+	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
+		Self(iced_x86::Instruction::with_declare_qword_2(q0, q1))
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
+	///
+	/// # Arguments
+	///
+	/// * `q0_hi`: High 32 bits (Qword 0)
+	/// * `q0_lo`: Low 32 bits (Qword 0)
+	/// * `q1_hi`: High 32 bits (Qword 1)
+	/// * `q1_lo`: Low 32 bits (Qword 1)
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "bigint"))]
+	#[wasm_bindgen(js_name = "createDeclareQword_2")]
+	pub fn with_declare_qword_2(q0_hi: u32, q0_lo: u32, q1_hi: u32, q1_lo: u32) -> Self {
+		let q0 = ((q0_hi as u64) << 32) | (q0_lo as u64);
+		let q1 = ((q1_hi as u64) << 32) | (q1_lo as u64);
+		Self(iced_x86::Instruction::with_declare_qword_2(q0, q1))
+	}
+
+	/// Creates a `dq`/`.quad` asm directive
+	///
+	/// # Throws
+	///
+	/// Throws if `data.length` is not 1-2
+	///
+	/// # Arguments
+	///
+	/// * `data`: Data
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(feature = "bigint")]
+	#[wasm_bindgen(js_name = "createDeclareQword")]
+	pub fn with_declare_qword(data: &[u64]) -> Self {
+		Self(iced_x86::Instruction::with_declare_qword(data))
+	}
+	// GENERATOR-END: Create
 }

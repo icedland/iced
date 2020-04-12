@@ -225,10 +225,10 @@ jobs:
           
           echo ==== FORMAT CHECK ====
           cargo fmt -- --color always --check
-          echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm"
-          echo ==== CLIPPY instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm bigint ====
-          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder op_code_info instr_info gas intel masm nasm bigint"
+          echo ==== CLIPPY instruction_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm"
+          echo ==== CLIPPY instruction_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm bigint ====
+          cargo clippy --color always --target wasm32-unknown-unknown --no-default-features --features "instruction_api decoder encoder block_encoder instr_create op_code_info instr_info gas intel masm nasm bigint"
           
           allFeatures=(
               "decoder"
@@ -236,6 +236,8 @@ jobs:
               "encoder"
               "instruction_api encoder"
               "encoder block_encoder"
+              "instr_create"
+              "encoder instr_create"
               "encoder op_code_info"
               "instruction_api encoder op_code_info"
               "instr_info"

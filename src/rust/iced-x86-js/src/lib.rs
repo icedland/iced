@@ -86,7 +86,7 @@ extern crate static_assertions;
 mod block_encoder;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder_options;
-#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info"), feature = "instr_create"))]
 mod code;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod code_ext;
@@ -118,6 +118,8 @@ mod info;
 mod instruction;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod mandatory_prefix;
+#[cfg(feature = "instr_create")]
+mod memory_operand;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 mod memory_size;
 #[cfg(feature = "instr_info")]
@@ -136,10 +138,12 @@ mod op_code_operand_kind;
 mod op_code_table_kind;
 #[cfg(feature = "instruction_api")]
 mod op_kind;
-#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
+#[cfg(any(feature = "instruction_api", feature = "instr_info", feature = "instr_create"))]
 mod register;
 #[cfg(feature = "instr_info")]
 mod register_ext;
+#[cfg(feature = "instr_create")]
+mod rep_prefix_kind;
 #[cfg(feature = "instr_info")]
 mod rflags_bits;
 #[cfg(feature = "instruction_api")]
@@ -151,7 +155,7 @@ mod tuple_type;
 pub use block_encoder::*;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder_options::*;
-#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info")))]
+#[cfg(any(feature = "instruction_api", all(feature = "encoder", feature = "op_code_info"), feature = "instr_create"))]
 pub use code::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use code_ext::*;
@@ -183,6 +187,8 @@ pub use info::*;
 pub use instruction::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use mandatory_prefix::*;
+#[cfg(feature = "instr_create")]
+pub use memory_operand::*;
 #[cfg(any(feature = "instruction_api", feature = "instr_info"))]
 pub use memory_size::*;
 #[cfg(feature = "instr_info")]
@@ -201,10 +207,12 @@ pub use op_code_operand_kind::*;
 pub use op_code_table_kind::*;
 #[cfg(feature = "instruction_api")]
 pub use op_kind::*;
-#[cfg(any(feature = "instruction_api", feature = "instr_info"))]
+#[cfg(any(feature = "instruction_api", feature = "instr_info", feature = "instr_create"))]
 pub use register::*;
 #[cfg(feature = "instr_info")]
 pub use register_ext::*;
+#[cfg(feature = "instr_create")]
+pub use rep_prefix_kind::*;
 #[cfg(feature = "instr_info")]
 pub use rflags_bits::*;
 #[cfg(feature = "instruction_api")]

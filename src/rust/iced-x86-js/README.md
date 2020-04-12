@@ -50,6 +50,7 @@ Here's a list of all features you can enable when building the wasm file
 - `decoder`: (✔️Enabled by default) Enables the decoder. Required to disassemble code.
 - `encoder`: (✔️Enabled by default) Enables the encoder
 - `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. Requires `encoder`
+- `instr_create`: (✔️Enabled by default) Enables `Instruction.create*()` methods
 - `op_code_info`: (✔️Enabled by default) Get instruction metadata, see the `Instruction.opCode` property. Requires `encoder`
 - `instr_info`: (✔️Enabled by default) Enables instruction info code (read/written regs/mem, flags, control flow info etc)
 - `gas`: (✔️Enabled by default) Enables the GNU Assembler (AT&T) formatter
@@ -125,12 +126,12 @@ instructions.forEach(instruction => {
     const disasm = formatter.format(instruction);
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
-    let line = ("0000000" + instruction.ip_hi.toString(16)).substring(-8).toUpperCase() +
-               ("0000000" + instruction.ip_lo.toString(16)).substring(-8).toUpperCase();
+    let line = ("0000000" + instruction.ip_hi.toString(16)).substr(-8).toUpperCase() +
+               ("0000000" + instruction.ip_lo.toString(16)).substr(-8).toUpperCase();
     line += " ";
     const startIndex = instruction.ip_lo - exampleRip_lo;
     exampleCode.slice(startIndex, startIndex + instruction.length).forEach(b => {
-        line += ("0" + b.toString(16)).substring(-2).toUpperCase();
+        line += ("0" + b.toString(16)).substr(-2).toUpperCase();
     });
     for (let i = instruction.length; i < hexBytesColumnByteLength; i++)
         line += "  ";
@@ -151,7 +152,7 @@ decoder.free();
 Uses instruction info API and the encoder to patch a function to jump to the programmer's function.
 
 ```js
-// iced-x86 features needed: --features "decoder nasm instruction_api encoder block_encoder instr_info"
+// iced-x86 features needed: --features "decoder nasm instruction_api encoder instr_create block_encoder instr_info"
 const {
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, FlowControl, Formatter,
     FormatterSyntax, Instruction, OpKind
@@ -232,8 +233,8 @@ function disassemble(code, rip_hi, rip_lo) {
         // Decode the next instruction, overwriting an already created instruction
         decoder.decodeOut(instruction);
         const disasm = formatter.format(instruction);
-        const address = ("0000000" + instruction.ip_hi.toString(16)).substring(-8).toUpperCase() +
-                        ("0000000" + instruction.ip_lo.toString(16)).substring(-8).toUpperCase();
+        const address = ("0000000" + instruction.ip_hi.toString(16)).substr(-8).toUpperCase() +
+                        ("0000000" + instruction.ip_lo.toString(16)).substr(-8).toUpperCase();
         console.log("%s %s", address, disasm)
     }
     console.log();
@@ -298,12 +299,7 @@ if (totalBytes < requiredBytes)
     throw new Error("Not enough bytes!");
 const lastInstr = origInstructions[origInstructions.length - 1];
 if (lastInstr.flowControl !== FlowControl.Return) {
-    // Instruction.createBranch(Code.Jmp_rel32_64, lastInstr.nextIP)
-    let jmp = new Instruction();
-    jmp.code = Code.Jmp_rel32_64;
-    jmp.op0Kind = OpKind.NearBranch64;
-    jmp.nearBranch64_lo = lastInstr.nextIP_lo;
-    jmp.nearBranch64_hi = lastInstr.nextIP_hi;
+    const jmp = Instruction.createBranch(Code.Jmp_rel32_64, lastInstr.nextIP_hi, lastInstr.nextIP_lo);
     origInstructions.push(jmp);
 }
 
@@ -607,8 +603,8 @@ while (decoder.canDecode) {
 
     // For quick hacks, it's fine to call toString() to format an instruction,
     // but for real code, use a formatter. See other examples.
-    const address = ("0000000" + instr.ip_hi.toString(16)).substring(-8).toUpperCase() +
-                    ("0000000" + instr.ip_lo.toString(16)).substring(-8).toUpperCase();
+    const address = ("0000000" + instr.ip_hi.toString(16)).substr(-8).toUpperCase() +
+                    ("0000000" + instr.ip_lo.toString(16)).substr(-8).toUpperCase();
     console.log("%s %s", address, instr.toString());
 
     const opCode = instr.opCode;
@@ -836,7 +832,7 @@ function usedMemoryToString(memInfo) {
         else if (memInfo.displacement_hi === 0)
             sb += "0x" + memInfo.displacement_lo.toString(16).toUpperCase();
         else
-            sb += "0x" + memInfo.displacement_hi.toString(16).toUpperCase() + ("0000000" + memInfo.displacement_lo.toString(16)).substring(-8).toUpperCase();
+            sb += "0x" + memInfo.displacement_hi.toString(16).toUpperCase() + ("0000000" + memInfo.displacement_lo.toString(16)).substr(-8).toUpperCase();
     }
     sb += ";" + memorySizeToString(memInfo.memorySize) + ";" + opAccessToString(memInfo.access) + "]";
     return sb;

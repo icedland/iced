@@ -208,7 +208,7 @@ impl Encoder {
 	/// const { Code, Encoder, Instruction, Register } = require("iced-x86-js");
 	///
 	/// const encoder = new Encoder(64);
-	/// const instr = Instruction.with_reg_reg(Code.Add_r64_rm64, Register.R8, Register.RBP);
+	/// const instr = Instruction.createRegReg(Code.Add_r64_rm64, Register.R8, Register.RBP);
 	/// encoder.writeU8(0x90);
 	/// const len = encoder.encode(instr, 0x00000000, 0x55555555);
 	/// assert.equal(len, 3);
