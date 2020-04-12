@@ -46,7 +46,7 @@ opt-level = 3
 
 Here's a list of all features you can enable when building the wasm file
 
-- `instruction_api`: (✔️Enabled by default) Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
+- `instr_api`: (✔️Enabled by default) Enables `Instruction` methods and properties to get eg. mnemonic, operands, etc.
 - `decoder`: (✔️Enabled by default) Enables the decoder. Required to disassemble code.
 - `encoder`: (✔️Enabled by default) Enables the encoder
 - `block_encoder`: (✔️Enabled by default) Enables the `BlockEncoder`. Requires `encoder`
@@ -61,7 +61,7 @@ Here's a list of all features you can enable when building the wasm file
 
 `"decoder masm"` is all you need to disassemble code.
 
-`"decoder masm instruction_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
+`"decoder masm instr_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
 
 ## How-tos
 
@@ -152,7 +152,7 @@ decoder.free();
 Uses instruction info API and the encoder to patch a function to jump to the programmer's function.
 
 ```js
-// iced-x86 features needed: --features "decoder nasm instruction_api encoder instr_create block_encoder instr_info"
+// iced-x86 features needed: --features "decoder nasm instr_api encoder instr_create block_encoder instr_info"
 const {
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, FlowControl, Formatter,
     FormatterSyntax, Instruction, OpKind
@@ -355,7 +355,7 @@ Shows how to get used registers/memory and other info. It uses `Instruction` met
 and an `InstructionInfoFactory` to get this info.
 
 ```js
-// iced-x86 features needed: --features "decoder masm instruction_api encoder op_code_info instr_info"
+// iced-x86 features needed: --features "decoder masm instr_api encoder op_code_info instr_info"
 const {
     Code, ConditionCode, CpuidFeature, Decoder, DecoderOptions, EncodingKind, FlowControl,
     Instruction, InstructionInfoFactory, MemorySize, MemorySizeExt, Mnemonic, OpAccess,

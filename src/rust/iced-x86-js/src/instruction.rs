@@ -23,52 +23,52 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![allow(non_snake_case)]
 
-#[cfg(any(all(feature = "encoder", feature = "instruction_api"), feature = "instr_create"))]
+#[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
 use super::code::code_to_iced;
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::code::iced_to_code;
-#[cfg(any(feature = "instruction_api", feature = "instr_create"))]
+#[cfg(any(feature = "instr_api", feature = "instr_create"))]
 use super::code::Code;
 #[cfg(feature = "encoder")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::code_size::code_size_to_iced;
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::code_size::{iced_to_code_size, CodeSize};
 #[cfg(feature = "instr_info")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::condition_code::{iced_to_condition_code, ConditionCode};
 #[cfg(feature = "instr_info")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::encoding_kind::{iced_to_encoding_kind, EncodingKind};
 #[cfg(feature = "instr_info")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::flow_control::{iced_to_flow_control, FlowControl};
 #[cfg(feature = "instr_create")]
 use super::memory_operand::MemoryOperand;
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::memory_size::{iced_to_memory_size, MemorySize};
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::mnemonic::{iced_to_mnemonic, Mnemonic};
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::op_code_info::OpCodeInfo;
 #[cfg(feature = "encoder")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::op_kind::op_kind_to_iced;
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::op_kind::{iced_to_op_kind, OpKind};
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::register::iced_to_register;
-#[cfg(any(all(feature = "encoder", feature = "instruction_api"), feature = "instr_create"))]
+#[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
 use super::register::register_to_iced;
-#[cfg(any(feature = "instruction_api", feature = "instr_create"))]
+#[cfg(any(feature = "instr_api", feature = "instr_create"))]
 use super::register::Register;
 #[cfg(feature = "instr_create")]
 use super::rep_prefix_kind::{rep_prefix_kind_to_iced, RepPrefixKind};
 #[cfg(feature = "encoder")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::rounding_control::rounding_control_to_iced;
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::rounding_control::{iced_to_rounding_control, RoundingControl};
 use wasm_bindgen::prelude::*;
 
@@ -123,7 +123,7 @@ impl Instruction {
 }
 
 #[wasm_bindgen]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 impl Instruction {
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `equals()` ignores some fields.
 	#[wasm_bindgen(js_name = "equalsAllBits")]
@@ -2146,7 +2146,7 @@ impl Instruction {
 
 #[wasm_bindgen]
 #[cfg(feature = "instr_info")]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 impl Instruction {
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
 	/// the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
@@ -2828,7 +2828,7 @@ impl Instruction {
 
 #[wasm_bindgen]
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 impl Instruction {
 	/// Gets the [`OpCodeInfo`]
 	///
@@ -2841,7 +2841,7 @@ impl Instruction {
 }
 
 #[wasm_bindgen]
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 impl Instruction {
 	/// Checks if this instance is equal to another instance. It ignores some fields,
 	/// such as the IP address, code size, etc.

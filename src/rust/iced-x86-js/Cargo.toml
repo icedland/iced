@@ -16,9 +16,9 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [features]
-default = ["instruction_api", "decoder", "encoder", "block_encoder", "instr_create", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
+default = ["instr_api", "decoder", "encoder", "block_encoder", "instr_create", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
 base = ["iced-x86/std"]
-instruction_api = ["base"]
+instr_api = ["base"]
 decoder = ["base", "iced-x86/decoder"]
 encoder = ["base", "iced-x86/encoder", "iced-x86/db"]
 block_encoder = ["base", "iced-x86/block_encoder"]

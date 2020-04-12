@@ -28,7 +28,7 @@ use super::instruction::Instruction;
 use super::memory_size_options::{iced_to_memory_size_options, memory_size_options_to_iced, MemorySizeOptions};
 #[cfg(feature = "instr_info")]
 use super::op_access::{iced_to_op_access, OpAccess};
-#[cfg(feature = "instruction_api")]
+#[cfg(feature = "instr_api")]
 use super::register::{register_to_iced, Register};
 use wasm_bindgen::prelude::*;
 
@@ -261,7 +261,7 @@ impl Formatter {
 	/// [`Register`]: enum.Register.html
 	#[wasm_bindgen(js_name = "formatRegister")]
 	// This adds the Register enum to the js/ts files, but this API won't be called often so disable it by default.
-	#[cfg(feature = "instruction_api")]
+	#[cfg(feature = "instr_api")]
 	pub fn format_register(&mut self, register: Register) -> String {
 		self.formatter.format_register(register_to_iced(register)).to_owned()
 	}
