@@ -39,8 +39,8 @@ use wasm_bindgen::prelude::*;
 /// // xchg [rdx+rsi+16h],ah
 /// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16]);
 /// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-/// decoder.ip_lo = 0x12345678;
-/// decoder.ip_hi = 0x00000000;
+/// decoder.ipLo = 0x12345678;
+/// decoder.ipHi = 0x00000000;
 /// const instr = decoder.decode();
 ///
 /// const encoder = new Encoder(64);
@@ -104,8 +104,8 @@ impl Encoder {
 	/// # Arguments
 	///
 	/// * `instruction`: Instruction to encode
-	/// * `rip_hi`: High 32 bits of the `RIP` of the encoded instruction
-	/// * `rip_lo`: Low 32 bits of the `RIP` of the encoded instruction
+	/// * `ripHi`: High 32 bits of the `RIP` of the encoded instruction
+	/// * `ripLo`: Low 32 bits of the `RIP` of the encoded instruction
 	///
 	/// # Examples
 	///
@@ -116,8 +116,8 @@ impl Encoder {
 	/// // je short $+4
 	/// const bytes = new Uint8Array([0x75, 0x02]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	/// const instr = decoder.decode();
 	///
 	/// const encoder = new Encoder(64);
@@ -136,8 +136,8 @@ impl Encoder {
 	/// instr.free();
 	/// ```
 	#[cfg(not(feature = "bigint"))]
-	pub fn encode(&mut self, instruction: &Instruction, rip_hi: u32, rip_lo: u32) -> Result<u32, JsValue> {
-		let rip = ((rip_hi as u64) << 32) | (rip_lo as u64);
+	pub fn encode(&mut self, instruction: &Instruction, ripHi: u32, ripLo: u32) -> Result<u32, JsValue> {
+		let rip = ((ripHi as u64) << 32) | (ripLo as u64);
 		self.encode_core(instruction, rip)
 	}
 
@@ -161,8 +161,8 @@ impl Encoder {
 	/// // je short $+4
 	/// const bytes = new Uint8Array([0x75, 0x02]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	/// const instr = decoder.decode();
 	///
 	/// const encoder = new Encoder(64);

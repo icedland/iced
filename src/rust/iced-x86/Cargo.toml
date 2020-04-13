@@ -9,7 +9,7 @@ repository = "https://github.com/0xd4d/iced"
 readme = "README.md"
 # At most 5 keywords can be used
 keywords = ["disassembler", "assembler", "x86", "amd64", "x86_64"]
-categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support"]
+categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support", "wasm"]
 
 [badges]
 codecov = { repository = "0xd4d/iced", branch = "master", service = "github" }

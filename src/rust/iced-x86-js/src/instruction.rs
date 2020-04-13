@@ -94,7 +94,7 @@ impl Instruction {
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ip_lo(&self) -> u32 {
+	pub fn ipLo(&self) -> u32 {
 		self.0.ip() as u32
 	}
 
@@ -103,7 +103,7 @@ impl Instruction {
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ip_hi(&self) -> u32 {
+	pub fn ipHi(&self) -> u32 {
 		(self.0.ip() >> 32) as u32
 	}
 
@@ -175,7 +175,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_lo(&mut self, lo: u32) {
+	pub fn set_ipLo(&mut self, lo: u32) {
 		let ip = (self.0.ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_ip(ip)
 	}
@@ -190,7 +190,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_hi(&mut self, hi: u32) {
+	pub fn set_ipHi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.0.ip() as u32 as u64);
 		self.0.set_ip(ip)
 	}
@@ -246,7 +246,7 @@ impl Instruction {
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nextIP_lo(&self) -> u32 {
+	pub fn nextIPLo(&self) -> u32 {
 		self.0.next_ip() as u32
 	}
 
@@ -255,7 +255,7 @@ impl Instruction {
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nextIP_hi(&self) -> u32 {
+	pub fn nextIPHi(&self) -> u32 {
 		(self.0.next_ip() >> 32) as u32
 	}
 
@@ -276,7 +276,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nextIP_lo(&mut self, lo: u32) {
+	pub fn set_nextIPLo(&mut self, lo: u32) {
 		let ip = (self.0.next_ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_next_ip(ip);
 	}
@@ -291,7 +291,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nextIP_hi(&mut self, hi: u32) {
+	pub fn set_nextIPHi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.0.next_ip() as u32 as u64);
 		self.0.set_next_ip(ip);
 	}
@@ -869,7 +869,7 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryDisplacement64_lo")]
+	#[wasm_bindgen(js_name = "memoryDisplacement64Lo")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn memory_displacement64_lo(&self) -> u32 {
 		self.0.memory_displacement64() as u32
@@ -882,7 +882,7 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "memoryDisplacement64_hi")]
+	#[wasm_bindgen(js_name = "memoryDisplacement64Hi")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn memory_displacement64_hi(&self) -> u32 {
 		(self.0.memory_displacement64() >> 32) as u32
@@ -911,7 +911,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate_lo(&self, operand: u32) -> u32 {
+	pub fn immediateLo(&self, operand: u32) -> u32 {
 		self.0.immediate(operand) as u32
 	}
 
@@ -927,7 +927,7 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate_hi(&self, operand: u32) -> u32 {
+	pub fn immediateHi(&self, operand: u32) -> u32 {
 		(self.0.immediate(operand) >> 32) as u32
 	}
 
@@ -1144,7 +1144,7 @@ impl Instruction {
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64_lo(&self) -> u32 {
+	pub fn immediate64Lo(&self) -> u32 {
 		self.0.immediate64() as u32
 	}
 
@@ -1155,7 +1155,7 @@ impl Instruction {
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64_hi(&self) -> u32 {
+	pub fn immediate64Hi(&self) -> u32 {
 		(self.0.immediate64() >> 32) as u32
 	}
 
@@ -1180,7 +1180,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64_lo(&mut self, lo: u32) {
+	pub fn set_immediate64Lo(&mut self, lo: u32) {
 		let new_value = (self.0.immediate64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_immediate64(new_value);
 	}
@@ -1197,7 +1197,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64_hi(&mut self, hi: u32) {
+	pub fn set_immediate64Hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.immediate64() as u32 as u64);
 		self.0.set_immediate64(new_value);
 	}
@@ -1365,7 +1365,7 @@ impl Instruction {
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn memoryAddress64_lo(&self) -> u32 {
+	pub fn memoryAddress64Lo(&self) -> u32 {
 		self.0.memory_address64() as u32
 	}
 
@@ -1376,7 +1376,7 @@ impl Instruction {
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn memoryAddress64_hi(&self) -> u32 {
+	pub fn memoryAddress64Hi(&self) -> u32 {
 		(self.0.memory_address64() >> 32) as u32
 	}
 
@@ -1401,7 +1401,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_memoryAddress64_lo(&mut self, lo: u32) {
+	pub fn set_memoryAddress64Lo(&mut self, lo: u32) {
 		let new_value = (self.0.memory_address64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_memory_address64(new_value);
 	}
@@ -1418,7 +1418,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_memoryAddress64_hi(&mut self, hi: u32) {
+	pub fn set_memoryAddress64Hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.memory_address64() as u32 as u64);
 		self.0.set_memory_address64(new_value)
 	}
@@ -1486,7 +1486,7 @@ impl Instruction {
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranch64_lo(&self) -> u32 {
+	pub fn nearBranch64Lo(&self) -> u32 {
 		self.0.near_branch64() as u32
 	}
 
@@ -1497,7 +1497,7 @@ impl Instruction {
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranch64_hi(&self) -> u32 {
+	pub fn nearBranch64Hi(&self) -> u32 {
 		(self.0.near_branch64() >> 32) as u32
 	}
 
@@ -1522,7 +1522,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nearBranch64_lo(&mut self, lo: u32) {
+	pub fn set_nearBranch64Lo(&mut self, lo: u32) {
 		let new_value = (self.0.near_branch64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_near_branch64(new_value)
 	}
@@ -1539,7 +1539,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nearBranch64_hi(&mut self, hi: u32) {
+	pub fn set_nearBranch64Hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.near_branch64() as u32 as u64);
 		self.0.set_near_branch64(new_value)
 	}
@@ -1569,7 +1569,7 @@ impl Instruction {
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranchTarget_lo(&self) -> u32 {
+	pub fn nearBranchTargetLo(&self) -> u32 {
 		self.0.near_branch_target() as u32
 	}
 
@@ -1584,7 +1584,7 @@ impl Instruction {
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranchTarget_hi(&self) -> u32 {
+	pub fn nearBranchTargetHi(&self) -> u32 {
 		(self.0.near_branch_target() >> 32) as u32
 	}
 
@@ -2107,7 +2107,7 @@ impl Instruction {
 	/// [`memoryDisplacement`]: #method.memoryDisplacement
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipRelMemoryAddress_lo")]
+	#[wasm_bindgen(js_name = "ipRelMemoryAddressLo")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn ip_rel_memory_address_lo(&self) -> u32 {
 		self.0.ip_rel_memory_address() as u32
@@ -2123,7 +2123,7 @@ impl Instruction {
 	/// [`memoryDisplacement`]: #method.memoryDisplacement
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
-	#[wasm_bindgen(js_name = "ipRelMemoryAddress_hi")]
+	#[wasm_bindgen(js_name = "ipRelMemoryAddressHi")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn ip_rel_memory_address_hi(&self) -> u32 {
 		(self.0.ip_rel_memory_address() >> 32) as u32
@@ -3092,12 +3092,12 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	/// * `newValue_hi`: High 32 bits of new value
-	/// * `newValue_lo`: Low 32 bits of new value
+	/// * `newValueHi`: High 32 bits of new value
+	/// * `newValueLo`: Low 32 bits of new value
 	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValue_hi: u32, newValue_lo: u32) {
-		let new_value = (((newValue_hi as u64) << 32) | (newValue_lo as u64)) as i64;
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValueHi: u32, newValueLo: u32) {
+		let new_value = (((newValueHi as u64) << 32) | (newValueLo as u64)) as i64;
 		self.0.set_declare_qword_value_i64(index as usize, new_value)
 	}
 
@@ -3138,12 +3138,12 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	/// * `newValue_hi`: High 32 bits of new value
-	/// * `newValue_lo`: Low 32 bits of new value
+	/// * `newValueHi`: High 32 bits of new value
+	/// * `newValueLo`: Low 32 bits of new value
 	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value(&mut self, index: u32, newValue_hi: u32, newValue_lo: u32) {
-		let new_value = ((newValue_hi as u64) << 32) | (newValue_lo as u64);
+	pub fn set_declare_qword_value(&mut self, index: u32, newValueHi: u32, newValueLo: u32) {
+		let new_value = ((newValueHi as u64) << 32) | (newValueLo as u64);
 		self.0.set_declare_qword_value(index as usize, new_value)
 	}
 
@@ -3184,7 +3184,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	#[wasm_bindgen(js_name = "getDeclareQwordValue_hi")]
+	#[wasm_bindgen(js_name = "getDeclareQwordValueHi")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn get_declare_qword_value_hi(&self, index: u32) -> u32 {
 		(self.0.get_declare_qword_value(index as usize) >> 32) as u32
@@ -3206,7 +3206,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `index`: Index (0-1)
-	#[wasm_bindgen(js_name = "getDeclareQwordValue_lo")]
+	#[wasm_bindgen(js_name = "getDeclareQwordValueLo")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn get_declare_qword_value_lo(&self, index: u32) -> u32 {
 		self.0.get_declare_qword_value(index as usize) as u32
@@ -3241,7 +3241,7 @@ impl Instruction {
 	/// * `code`: Code value (a [`Code`] enum value)
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "create")]
 	pub fn with(code: Code) -> Self {
 		Self(iced_x86::Instruction::with(code_to_iced(code)))
@@ -3256,7 +3256,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createReg")]
 	pub fn with_reg(code: Code, register: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg(code_to_iced(code), register_to_iced(register)))
@@ -3274,7 +3274,7 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32")]
 	pub fn with_i32(code: Code, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_i32(code_to_iced(code), immediate))
@@ -3292,7 +3292,7 @@ impl Instruction {
 	/// * `immediate`: op0: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32")]
 	pub fn with_u32(code: Code, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_u32(code_to_iced(code), immediate))
@@ -3306,7 +3306,7 @@ impl Instruction {
 	/// * `memory`: op0: Memory operand
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMem")]
 	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
 		Self(iced_x86::Instruction::with_mem(code_to_iced(code), memory.0))
@@ -3322,7 +3322,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegReg")]
 	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)))
@@ -3342,7 +3342,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32")]
 	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_i32(code_to_iced(code), register_to_iced(register), immediate))
@@ -3362,7 +3362,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32")]
 	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_u32(code_to_iced(code), register_to_iced(register), immediate))
@@ -3378,7 +3378,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Self {
@@ -3393,16 +3393,16 @@ impl Instruction {
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
 	/// * `register`: op0: Register (a [`Register`] enum value)
-	/// * `immediate_hi`: High 32 bits (op1: Immediate value)
-	/// * `immediate_lo`: Low 32 bits (op1: Immediate value)
+	/// * `immediateHi`: op1: Immediate value (high 32 bits)
+	/// * `immediateLo`: op1: Immediate value (low 32 bits)
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegI64")]
-	pub fn with_reg_i64(code: Code, register: Register, immediate_hi: u32, immediate_lo: u32) -> Self {
-		let immediate = (((immediate_hi as u64) << 32) | (immediate_lo as u64)) as i64;
+	pub fn with_reg_i64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
+		let immediate = (((immediateHi as u64) << 32) | (immediateLo as u64)) as i64;
 		Self(iced_x86::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
@@ -3416,7 +3416,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Self {
@@ -3431,16 +3431,16 @@ impl Instruction {
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
 	/// * `register`: op0: Register (a [`Register`] enum value)
-	/// * `immediate_hi`: High 32 bits (op1: Immediate value)
-	/// * `immediate_lo`: Low 32 bits (op1: Immediate value)
+	/// * `immediateHi`: op1: Immediate value (high 32 bits)
+	/// * `immediateLo`: op1: Immediate value (low 32 bits)
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegU64")]
-	pub fn with_reg_u64(code: Code, register: Register, immediate_hi: u32, immediate_lo: u32) -> Self {
-		let immediate = ((immediate_hi as u64) << 32) | (immediate_lo as u64);
+	pub fn with_reg_u64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
+		let immediate = ((immediateHi as u64) << 32) | (immediateLo as u64);
 		Self(iced_x86::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
@@ -3454,7 +3454,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMem")]
 	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
 		Self(iced_x86::Instruction::with_reg_mem(code_to_iced(code), register_to_iced(register), memory.0))
@@ -3474,7 +3474,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32Reg")]
 	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Self {
 		Self(iced_x86::Instruction::with_i32_reg(code_to_iced(code), immediate, register_to_iced(register)))
@@ -3494,7 +3494,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32Reg")]
 	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Self {
 		Self(iced_x86::Instruction::with_u32_reg(code_to_iced(code), immediate, register_to_iced(register)))
@@ -3513,7 +3513,7 @@ impl Instruction {
 	/// * `immediate2`: op1: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32I32")]
 	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Self {
 		Self(iced_x86::Instruction::with_i32_i32(code_to_iced(code), immediate1, immediate2))
@@ -3532,7 +3532,7 @@ impl Instruction {
 	/// * `immediate2`: op1: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32U32")]
 	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Self {
 		Self(iced_x86::Instruction::with_u32_u32(code_to_iced(code), immediate1, immediate2))
@@ -3548,7 +3548,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemReg")]
 	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
 		Self(iced_x86::Instruction::with_mem_reg(code_to_iced(code), memory.0, register_to_iced(register)))
@@ -3567,7 +3567,7 @@ impl Instruction {
 	/// * `immediate`: op1: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemI32")]
 	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_mem_i32(code_to_iced(code), memory.0, immediate))
@@ -3586,7 +3586,7 @@ impl Instruction {
 	/// * `immediate`: op1: Immediate value
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemU32")]
 	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_mem_u32(code_to_iced(code), memory.0, immediate))
@@ -3603,7 +3603,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegReg")]
 	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)))
@@ -3624,7 +3624,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32")]
 	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
@@ -3645,7 +3645,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32")]
 	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
@@ -3662,7 +3662,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMem")]
 	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0))
@@ -3683,7 +3683,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32I32")]
 	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_i32_i32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
@@ -3704,7 +3704,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32U32")]
 	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_u32_u32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
@@ -3721,7 +3721,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemReg")]
 	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg_mem_reg(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)))
@@ -3742,7 +3742,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemI32")]
 	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_mem_i32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
@@ -3763,7 +3763,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemU32")]
 	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_mem_u32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
@@ -3780,7 +3780,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegReg")]
 	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
 		Self(iced_x86::Instruction::with_mem_reg_reg(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)))
@@ -3801,7 +3801,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegI32")]
 	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_mem_reg_i32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
@@ -3822,7 +3822,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegU32")]
 	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_mem_reg_u32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
@@ -3840,7 +3840,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegReg")]
 	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)))
@@ -3862,7 +3862,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegI32")]
 	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
@@ -3884,7 +3884,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegU32")]
 	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
@@ -3902,7 +3902,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMem")]
 	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0))
@@ -3924,7 +3924,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32I32")]
 	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_i32_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
@@ -3946,7 +3946,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32U32")]
 	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_u32_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
@@ -3964,7 +3964,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemReg")]
 	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)))
@@ -3986,7 +3986,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemI32")]
 	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
@@ -4008,7 +4008,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemU32")]
 	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
@@ -4031,7 +4031,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegI32")]
 	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
@@ -4054,7 +4054,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegU32")]
 	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
@@ -4077,7 +4077,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemI32")]
 	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
@@ -4100,7 +4100,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemU32")]
 	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
@@ -4123,7 +4123,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegI32")]
 	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
@@ -4146,7 +4146,7 @@ impl Instruction {
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegU32")]
 	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Self {
 		Self(iced_x86::Instruction::with_reg_reg_mem_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
@@ -4160,7 +4160,7 @@ impl Instruction {
 	/// * `target`: Target address
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createBranch")]
 	pub fn with_branch(code: Code, target: u64) -> Self {
@@ -4174,15 +4174,15 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `target_hi`: High 32 bits (Target address)
-	/// * `target_lo`: Low 32 bits (Target address)
+	/// * `targetHi`: Target address (high 32 bits)
+	/// * `targetLo`: Target address (low 32 bits)
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createBranch")]
-	pub fn with_branch(code: Code, target_hi: u32, target_lo: u32) -> Self {
-		let target = ((target_hi as u64) << 32) | (target_lo as u64);
+	pub fn with_branch(code: Code, targetHi: u32, targetLo: u32) -> Self {
+		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Self(iced_x86::Instruction::with_branch(code_to_iced(code), target))
 	}
 
@@ -4195,7 +4195,7 @@ impl Instruction {
 	/// * `offset`: Offset
 	///
 	/// [`Code`]: enum.Code.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createFarBranch")]
 	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
 		Self(iced_x86::Instruction::with_far_branch(code_to_iced(code), selector, offset))
@@ -4211,7 +4211,7 @@ impl Instruction {
 	///
 	/// * `bitness`: 16, 32, or 64
 	/// * `target`: Target address
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createXbegin")]
 	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
@@ -4229,13 +4229,13 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `bitness`: 16, 32, or 64
-	/// * `target_hi`: High 32 bits (Target address)
-	/// * `target_lo`: Low 32 bits (Target address)
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	/// * `targetHi`: Target address (high 32 bits)
+	/// * `targetLo`: Target address (low 32 bits)
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createXbegin")]
-	pub fn with_xbegin(bitness: u32, target_hi: u32, target_lo: u32) -> Self {
-		let target = ((target_hi as u64) << 32) | (target_lo as u64);
+	pub fn with_xbegin(bitness: u32, targetHi: u32, targetLo: u32) -> Self {
+		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Self(iced_x86::Instruction::with_xbegin(bitness, target))
 	}
 
@@ -4251,7 +4251,7 @@ impl Instruction {
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegMem64")]
 	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segmentPrefix: Register) -> Self {
@@ -4266,18 +4266,18 @@ impl Instruction {
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
 	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
-	/// * `address_hi`: High 32 bits (64-bit address)
-	/// * `address_lo`: Low 32 bits (64-bit address)
+	/// * `addressHi`: 64-bit address (high 32 bits)
+	/// * `addressLo`: 64-bit address (low 32 bits)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegMem64")]
-	pub fn with_reg_mem64(code: Code, register: Register, address_hi: u32, address_lo: u32, segmentPrefix: Register) -> Self {
-		let address = ((address_hi as u64) << 32) | (address_lo as u64);
+	pub fn with_reg_mem64(code: Code, register: Register, addressHi: u32, addressLo: u32, segmentPrefix: Register) -> Self {
+		let address = ((addressHi as u64) << 32) | (addressLo as u64);
 		Self(iced_x86::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
 	}
 
@@ -4293,7 +4293,7 @@ impl Instruction {
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createMem64Reg")]
 	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segmentPrefix: Register) -> Self {
@@ -4307,19 +4307,19 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `code`: Code value (a [`Code`] enum value)
-	/// * `address_hi`: High 32 bits (64-bit address)
-	/// * `address_lo`: Low 32 bits (64-bit address)
+	/// * `addressHi`: 64-bit address (high 32 bits)
+	/// * `addressLo`: 64-bit address (low 32 bits)
 	/// * `register`: Register (`AL`, `AX`, `EAX`, `RAX`) (a [`Register`] enum value)
 	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] enum value)
 	///
 	/// [`Code`]: enum.Code.html
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createMem64Reg")]
-	pub fn with_mem64_reg(code: Code, address_hi: u32, address_lo: u32, register: Register, segmentPrefix: Register) -> Self {
-		let address = ((address_hi as u64) << 32) | (address_lo as u64);
+	pub fn with_mem64_reg(code: Code, addressHi: u32, addressLo: u32, register: Register, segmentPrefix: Register) -> Self {
+		let address = ((addressHi as u64) << 32) | (addressLo as u64);
 		Self(iced_x86::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
 
@@ -4339,7 +4339,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsb")]
 	pub fn with_outsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_outsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4354,7 +4354,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsb")]
 	pub fn with_rep_outsb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_outsb(addressSize))
@@ -4376,7 +4376,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsw")]
 	pub fn with_outsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_outsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4391,7 +4391,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsw")]
 	pub fn with_rep_outsw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_outsw(addressSize))
@@ -4413,7 +4413,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsd")]
 	pub fn with_outsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_outsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4428,7 +4428,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsd")]
 	pub fn with_rep_outsd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_outsd(addressSize))
@@ -4450,7 +4450,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsb")]
 	pub fn with_lodsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_lodsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4465,7 +4465,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsb")]
 	pub fn with_rep_lodsb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_lodsb(addressSize))
@@ -4487,7 +4487,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsw")]
 	pub fn with_lodsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_lodsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4502,7 +4502,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsw")]
 	pub fn with_rep_lodsw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_lodsw(addressSize))
@@ -4524,7 +4524,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsd")]
 	pub fn with_lodsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_lodsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4539,7 +4539,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsd")]
 	pub fn with_rep_lodsd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_lodsd(addressSize))
@@ -4561,7 +4561,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsq")]
 	pub fn with_lodsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_lodsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -4576,7 +4576,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsq")]
 	pub fn with_rep_lodsq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_lodsq(addressSize))
@@ -4595,7 +4595,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasb")]
 	pub fn with_scasb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_scasb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4610,7 +4610,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasb")]
 	pub fn with_repe_scasb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_scasb(addressSize))
@@ -4625,7 +4625,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasb")]
 	pub fn with_repne_scasb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_scasb(addressSize))
@@ -4644,7 +4644,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasw")]
 	pub fn with_scasw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_scasw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4659,7 +4659,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasw")]
 	pub fn with_repe_scasw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_scasw(addressSize))
@@ -4674,7 +4674,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasw")]
 	pub fn with_repne_scasw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_scasw(addressSize))
@@ -4693,7 +4693,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasd")]
 	pub fn with_scasd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_scasd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4708,7 +4708,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasd")]
 	pub fn with_repe_scasd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_scasd(addressSize))
@@ -4723,7 +4723,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasd")]
 	pub fn with_repne_scasd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_scasd(addressSize))
@@ -4742,7 +4742,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasq")]
 	pub fn with_scasq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_scasq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4757,7 +4757,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasq")]
 	pub fn with_repe_scasq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_scasq(addressSize))
@@ -4772,7 +4772,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasq")]
 	pub fn with_repne_scasq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_scasq(addressSize))
@@ -4791,7 +4791,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsb")]
 	pub fn with_insb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_insb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4806,7 +4806,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsb")]
 	pub fn with_rep_insb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_insb(addressSize))
@@ -4825,7 +4825,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsw")]
 	pub fn with_insw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_insw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4840,7 +4840,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsw")]
 	pub fn with_rep_insw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_insw(addressSize))
@@ -4859,7 +4859,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsd")]
 	pub fn with_insd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_insd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4874,7 +4874,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsd")]
 	pub fn with_rep_insd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_insd(addressSize))
@@ -4893,7 +4893,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosb")]
 	pub fn with_stosb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_stosb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4908,7 +4908,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosb")]
 	pub fn with_rep_stosb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_stosb(addressSize))
@@ -4927,7 +4927,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosw")]
 	pub fn with_stosw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_stosw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4942,7 +4942,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosw")]
 	pub fn with_rep_stosw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_stosw(addressSize))
@@ -4961,7 +4961,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosd")]
 	pub fn with_stosd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_stosd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -4976,7 +4976,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosd")]
 	pub fn with_rep_stosd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_stosd(addressSize))
@@ -4995,7 +4995,7 @@ impl Instruction {
 	///
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosq")]
 	pub fn with_stosq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_stosq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
@@ -5010,7 +5010,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosq")]
 	pub fn with_rep_stosq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_stosq(addressSize))
@@ -5032,7 +5032,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsb")]
 	pub fn with_cmpsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_cmpsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5047,7 +5047,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsb")]
 	pub fn with_repe_cmpsb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_cmpsb(addressSize))
@@ -5062,7 +5062,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsb")]
 	pub fn with_repne_cmpsb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_cmpsb(addressSize))
@@ -5084,7 +5084,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsw")]
 	pub fn with_cmpsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_cmpsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5099,7 +5099,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsw")]
 	pub fn with_repe_cmpsw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_cmpsw(addressSize))
@@ -5114,7 +5114,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsw")]
 	pub fn with_repne_cmpsw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_cmpsw(addressSize))
@@ -5136,7 +5136,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsd")]
 	pub fn with_cmpsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_cmpsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5151,7 +5151,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsd")]
 	pub fn with_repe_cmpsd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_cmpsd(addressSize))
@@ -5166,7 +5166,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsd")]
 	pub fn with_repne_cmpsd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_cmpsd(addressSize))
@@ -5188,7 +5188,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsq")]
 	pub fn with_cmpsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_cmpsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5203,7 +5203,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsq")]
 	pub fn with_repe_cmpsq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repe_cmpsq(addressSize))
@@ -5218,7 +5218,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsq")]
 	pub fn with_repne_cmpsq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_repne_cmpsq(addressSize))
@@ -5240,7 +5240,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsb")]
 	pub fn with_movsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_movsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5255,7 +5255,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsb")]
 	pub fn with_rep_movsb(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_movsb(addressSize))
@@ -5277,7 +5277,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsw")]
 	pub fn with_movsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_movsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5292,7 +5292,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsw")]
 	pub fn with_rep_movsw(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_movsw(addressSize))
@@ -5314,7 +5314,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsd")]
 	pub fn with_movsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_movsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5329,7 +5329,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsd")]
 	pub fn with_rep_movsd(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_movsd(addressSize))
@@ -5351,7 +5351,7 @@ impl Instruction {
 	/// [`Register`]: enum.Register.html
 	/// [`RepPrefixKind.None`]: enum.RepPrefixKind.html#variant.None
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsq")]
 	pub fn with_movsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86::Instruction::with_movsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
@@ -5366,7 +5366,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `addressSize`: 16, 32, or 64
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsq")]
 	pub fn with_rep_movsq(addressSize: u32) -> Self {
 		Self(iced_x86::Instruction::with_rep_movsq(addressSize))
@@ -5387,7 +5387,7 @@ impl Instruction {
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovq")]
 	pub fn with_maskmovq(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
 		Self(iced_x86::Instruction::with_maskmovq(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
@@ -5408,7 +5408,7 @@ impl Instruction {
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovdqu")]
 	pub fn with_maskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
 		Self(iced_x86::Instruction::with_maskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
@@ -5429,7 +5429,7 @@ impl Instruction {
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createVmaskmovdqu")]
 	pub fn with_vmaskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
 		Self(iced_x86::Instruction::with_vmaskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
@@ -5440,7 +5440,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `b0`: Byte 0
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_1")]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_1(b0))
@@ -5452,7 +5452,7 @@ impl Instruction {
 	///
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_2")]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_2(b0, b1))
@@ -5465,7 +5465,7 @@ impl Instruction {
 	/// * `b0`: Byte 0
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_3")]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_3(b0, b1, b2))
@@ -5479,7 +5479,7 @@ impl Instruction {
 	/// * `b1`: Byte 1
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_4")]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_4(b0, b1, b2, b3))
@@ -5494,7 +5494,7 @@ impl Instruction {
 	/// * `b2`: Byte 2
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_5")]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_5(b0, b1, b2, b3, b4))
@@ -5510,7 +5510,7 @@ impl Instruction {
 	/// * `b3`: Byte 3
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_6")]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_6(b0, b1, b2, b3, b4, b5))
@@ -5527,7 +5527,7 @@ impl Instruction {
 	/// * `b4`: Byte 4
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_7")]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6))
@@ -5545,7 +5545,7 @@ impl Instruction {
 	/// * `b5`: Byte 5
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_8")]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7))
@@ -5564,7 +5564,7 @@ impl Instruction {
 	/// * `b6`: Byte 6
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_9")]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8))
@@ -5584,7 +5584,7 @@ impl Instruction {
 	/// * `b7`: Byte 7
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_10")]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9))
@@ -5605,7 +5605,7 @@ impl Instruction {
 	/// * `b8`: Byte 8
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_11")]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10))
@@ -5627,7 +5627,7 @@ impl Instruction {
 	/// * `b9`: Byte 9
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_12")]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11))
@@ -5650,7 +5650,7 @@ impl Instruction {
 	/// * `b10`: Byte 10
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_13")]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12))
@@ -5674,7 +5674,7 @@ impl Instruction {
 	/// * `b11`: Byte 11
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_14")]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13))
@@ -5699,7 +5699,7 @@ impl Instruction {
 	/// * `b12`: Byte 12
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_15")]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14))
@@ -5725,7 +5725,7 @@ impl Instruction {
 	/// * `b13`: Byte 13
 	/// * `b14`: Byte 14
 	/// * `b15`: Byte 15
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_16")]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15))
@@ -5740,7 +5740,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte")]
 	pub fn with_declare_byte(data: &[u8]) -> Self {
 		Self(iced_x86::Instruction::with_declare_byte(data))
@@ -5751,7 +5751,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `w0`: Word 0
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_1")]
 	pub fn with_declare_word_1(w0: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_1(w0))
@@ -5763,7 +5763,7 @@ impl Instruction {
 	///
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_2")]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_2(w0, w1))
@@ -5776,7 +5776,7 @@ impl Instruction {
 	/// * `w0`: Word 0
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_3")]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_3(w0, w1, w2))
@@ -5790,7 +5790,7 @@ impl Instruction {
 	/// * `w1`: Word 1
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_4")]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_4(w0, w1, w2, w3))
@@ -5805,7 +5805,7 @@ impl Instruction {
 	/// * `w2`: Word 2
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_5")]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_5(w0, w1, w2, w3, w4))
@@ -5821,7 +5821,7 @@ impl Instruction {
 	/// * `w3`: Word 3
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_6")]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_6(w0, w1, w2, w3, w4, w5))
@@ -5838,7 +5838,7 @@ impl Instruction {
 	/// * `w4`: Word 4
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_7")]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_7(w0, w1, w2, w3, w4, w5, w6))
@@ -5856,7 +5856,7 @@ impl Instruction {
 	/// * `w5`: Word 5
 	/// * `w6`: Word 6
 	/// * `w7`: Word 7
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_8")]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
 		Self(iced_x86::Instruction::with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7))
@@ -5871,7 +5871,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord")]
 	pub fn with_declare_word(data: &[u16]) -> Self {
 		Self(iced_x86::Instruction::with_declare_word(data))
@@ -5882,7 +5882,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `d0`: Dword 0
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_1")]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
 		Self(iced_x86::Instruction::with_declare_dword_1(d0))
@@ -5894,7 +5894,7 @@ impl Instruction {
 	///
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_2")]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
 		Self(iced_x86::Instruction::with_declare_dword_2(d0, d1))
@@ -5907,7 +5907,7 @@ impl Instruction {
 	/// * `d0`: Dword 0
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_3")]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
 		Self(iced_x86::Instruction::with_declare_dword_3(d0, d1, d2))
@@ -5921,7 +5921,7 @@ impl Instruction {
 	/// * `d1`: Dword 1
 	/// * `d2`: Dword 2
 	/// * `d3`: Dword 3
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_4")]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
 		Self(iced_x86::Instruction::with_declare_dword_4(d0, d1, d2, d3))
@@ -5936,7 +5936,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword")]
 	pub fn with_declare_dword(data: &[u32]) -> Self {
 		Self(iced_x86::Instruction::with_declare_dword(data))
@@ -5947,7 +5947,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `q0`: Qword 0
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
@@ -5960,13 +5960,13 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `q0_hi`: High 32 bits (Qword 0)
-	/// * `q0_lo`: Low 32 bits (Qword 0)
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	/// * `q0Hi`: Qword 0 (high 32 bits)
+	/// * `q0Lo`: Qword 0 (low 32 bits)
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
-	pub fn with_declare_qword_1(q0_hi: u32, q0_lo: u32) -> Self {
-		let q0 = ((q0_hi as u64) << 32) | (q0_lo as u64);
+	pub fn with_declare_qword_1(q0Hi: u32, q0Lo: u32) -> Self {
+		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
 		Self(iced_x86::Instruction::with_declare_qword_1(q0))
 	}
 
@@ -5976,7 +5976,7 @@ impl Instruction {
 	///
 	/// * `q0`: Qword 0
 	/// * `q1`: Qword 1
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_2")]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
@@ -5989,16 +5989,16 @@ impl Instruction {
 	///
 	/// # Arguments
 	///
-	/// * `q0_hi`: High 32 bits (Qword 0)
-	/// * `q0_lo`: Low 32 bits (Qword 0)
-	/// * `q1_hi`: High 32 bits (Qword 1)
-	/// * `q1_lo`: Low 32 bits (Qword 1)
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	/// * `q0Hi`: Qword 0 (high 32 bits)
+	/// * `q0Lo`: Qword 0 (low 32 bits)
+	/// * `q1Hi`: Qword 1 (high 32 bits)
+	/// * `q1Lo`: Qword 1 (low 32 bits)
+	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createDeclareQword_2")]
-	pub fn with_declare_qword_2(q0_hi: u32, q0_lo: u32, q1_hi: u32, q1_lo: u32) -> Self {
-		let q0 = ((q0_hi as u64) << 32) | (q0_lo as u64);
-		let q1 = ((q1_hi as u64) << 32) | (q1_lo as u64);
+	pub fn with_declare_qword_2(q0Hi: u32, q0Lo: u32, q1Hi: u32, q1Lo: u32) -> Self {
+		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
+		let q1 = ((q1Hi as u64) << 32) | (q1Lo as u64);
 		Self(iced_x86::Instruction::with_declare_qword_2(q0, q1))
 	}
 
@@ -6011,7 +6011,7 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `data`: Data
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword")]
 	pub fn with_declare_qword(data: &[u64]) -> Self {

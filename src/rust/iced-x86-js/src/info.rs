@@ -94,6 +94,7 @@ impl UsedMemory {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "displacementLo")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn displacement_lo(&self) -> u32 {
 		self.0.displacement() as u32
@@ -103,6 +104,7 @@ impl UsedMemory {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "displacementHi")]
 	#[cfg(not(feature = "bigint"))]
 	pub fn displacement_hi(&self) -> u32 {
 		(self.0.displacement() >> 32) as u32
@@ -474,8 +476,8 @@ impl InstructionInfoFactory {
 	/// assert.equal(mem.base, Register.RDI);
 	/// assert.equal(mem.index, Register.R12);
 	/// assert.equal(mem.scale, 8);
-	/// assert.equal(mem.displacement_lo, 0xA55A1234);
-	/// assert.equal(mem.displacement_hi, 0xFFFFFFFF);
+	/// assert.equal(mem.displacementLo, 0xA55A1234);
+	/// assert.equal(mem.displacementHi, 0xFFFFFFFF);
 	/// assert.equal(mem.memorySize, MemorySize.UInt32);
 	/// assert.equal(mem.access, OpAccess.ReadWrite);
 	///

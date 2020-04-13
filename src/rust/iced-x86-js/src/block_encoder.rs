@@ -79,11 +79,11 @@ impl BlockEncoder {
 	///
 	/// # Arguments
 	///
-	/// * `rip_hi`: High 32 bits of the base IP of all encoded instructions
-	/// * `rip_lo`: Low 32 bits of the base IP of all encoded instructions
+	/// * `ripHi`: High 32 bits of the base IP of all encoded instructions
+	/// * `ripLo`: Low 32 bits of the base IP of all encoded instructions
 	#[cfg(not(feature = "bigint"))]
-	pub fn encode(&mut self, rip_hi: u32, rip_lo: u32) -> Result<Vec<u8>, JsValue> {
-		let rip = ((rip_hi as u64) << 32) | (rip_lo as u64);
+	pub fn encode(&mut self, #[allow(non_snake_case)] ripHi: u32, #[allow(non_snake_case)] ripLo: u32) -> Result<Vec<u8>, JsValue> {
+		let rip = ((ripHi as u64) << 32) | (ripLo as u64);
 		self.encode_core(rip)
 	}
 

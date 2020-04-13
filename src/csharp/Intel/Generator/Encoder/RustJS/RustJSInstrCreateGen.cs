@@ -63,7 +63,7 @@ namespace Generator.Encoder.RustJS {
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
 			(TargetLanguage.RustJS, "Create", Path.Combine(generatorOptions.RustJSDir, "instruction.rs"));
 
-		struct SplitArg {
+		readonly struct SplitArg {
 			public readonly int OrigIndex;
 			public readonly int NewIndexHi;
 			public readonly int NewIndexLo;
@@ -75,11 +75,11 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		struct GenMethodContext {
-			public FileWriter Writer;
-			public CreateMethod OrigMethod;
-			public CreateMethod Method;
+			public readonly FileWriter Writer;
+			public readonly CreateMethod OrigMethod;
+			public readonly CreateMethod Method;
 			public string? Attribute;
-			public List<SplitArg> SplitArgs;
+			public readonly List<SplitArg> SplitArgs;
 
 			public GenMethodContext(FileWriter writer, CreateMethod origMethod, CreateMethod method, string? attribute, List<SplitArg>? splitArgs) {
 				Writer = writer;
@@ -112,8 +112,8 @@ namespace Generator.Encoder.RustJS {
 						throw new InvalidOperationException();
 					int newIndex = no64Method.Args.Count;
 					splitArgs.Add(new SplitArg(i, newIndex, newIndex + 1));
-					no64Method.Args.Add(new MethodArg($"High 32 bits ({arg.Doc})", MethodArgType.UInt32, arg.Name + "_hi", arg.DefaultValue));
-					no64Method.Args.Add(new MethodArg($"Low 32 bits ({arg.Doc})", MethodArgType.UInt32, arg.Name + "_lo", arg.DefaultValue));
+					no64Method.Args.Add(new MethodArg($"{arg.Doc} (high 32 bits)", MethodArgType.UInt32, arg.Name + "Hi", arg.DefaultValue));
+					no64Method.Args.Add(new MethodArg($"{arg.Doc} (low 32 bits)", MethodArgType.UInt32, arg.Name + "Lo", arg.DefaultValue));
 				}
 				else
 					no64Method.Args.Add(new MethodArg(arg.Doc, arg.Type, arg.Name, arg.DefaultValue));
@@ -204,7 +204,7 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		void WriteMethodAttributes(in GenMethodContext ctx) {
-			ctx.Writer.WriteLine(RustConstants.AttributeNoRustFmt);
+			ctx.Writer.WriteLine("#[rustfmt::skip]");
 			if (ctx.Attribute is string attr)
 				ctx.Writer.WriteLine(attr);
 		}
@@ -270,7 +270,8 @@ namespace Generator.Encoder.RustJS {
 		void GenCreateMemory64(GenMethodContext ctx) {
 			var (rustName, jsName) = ctx.OrigMethod.Args[1].Type switch {
 				MethodArgType.UInt64 => ("with_mem64_reg", "createMem64Reg"),
-				_ => ("with_reg_mem64", "createRegMem64"),
+				MethodArgType.Register => ("with_reg_mem64", "createRegMem64"),
+				_ => throw new InvalidOperationException(),
 			};
 			WriteDocs(ctx);
 			WriteMethod(ctx, rustName, jsName);

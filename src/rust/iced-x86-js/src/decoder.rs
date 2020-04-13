@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#![allow(non_snake_case)]
+
 #[cfg(feature = "instr_info")]
 use super::constant_offsets::ConstantOffsets;
 use super::decoder_options::DecoderOptions;
@@ -65,8 +67,8 @@ impl Decoder {
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
 	/// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	///
 	/// const instr = decoder.decode();
 	/// assert.equal(instr.code, Code.Xchg_rm8_r8);
@@ -101,15 +103,15 @@ impl Decoder {
 	/// // lock add esi,ecx   ; lock not allowed
 	/// const bytes = new Uint8Array([0xF0, 0x01, 0xCE]);
 	/// const decoder1 = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder1.ip_lo = 0x12345678;
-	/// decoder1.ip_hi = 0x00000000;
+	/// decoder1.ipLo = 0x12345678;
+	/// decoder1.ipHi = 0x00000000;
 	/// const instr1 = decoder1.decode();
 	/// assert.equal(instr1.code, Code.INVALID);
 	///
 	/// // We want to decode some instructions with invalid encodings
 	/// const decoder2 = new Decoder(64, bytes, DecoderOptions.NoInvalidCheck);
-	/// decoder2.ip_lo = 0x12345678;
-	/// decoder2.ip_hi = 0x00000000;
+	/// decoder2.ipLo = 0x12345678;
+	/// decoder2.ipHi = 0x00000000;
 	/// const instr2 = decoder2.decode();
 	/// assert.equal(instr2.code, Code.Add_rm32_r32);
 	/// assert.ok(instr2.hasLockPrefix);
@@ -138,7 +140,7 @@ impl Decoder {
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ip_lo(&self) -> u32 {
+	pub fn ipLo(&self) -> u32 {
 		self.decoder.ip() as u32
 	}
 
@@ -149,7 +151,7 @@ impl Decoder {
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ip_hi(&self) -> u32 {
+	pub fn ipHi(&self) -> u32 {
 		(self.decoder.ip() >> 32) as u32
 	}
 
@@ -173,7 +175,7 @@ impl Decoder {
 	/// * `lo`: Low 32 bits of the new IP
 	#[wasm_bindgen(setter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_lo(&mut self, lo: u32) {
+	pub fn set_ipLo(&mut self, lo: u32) {
 		let ip = (self.decoder.ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.decoder.set_ip(ip);
 	}
@@ -189,7 +191,7 @@ impl Decoder {
 	/// * `hi`: High 32 bits of the new IP
 	#[wasm_bindgen(setter)]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ip_hi(&mut self, hi: u32) {
+	pub fn set_ipHi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.decoder.ip() as u32 as u64);
 		self.decoder.set_ip(ip);
 	}
@@ -257,8 +259,8 @@ impl Decoder {
 	/// // nop and pause
 	/// const bytes = new Uint8Array([0x90, 0xF3, 0x90]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	///
 	/// assert.equal(decoder.position, 0);
 	/// assert.equal(decoder.maxPosition, 3);
@@ -311,8 +313,8 @@ impl Decoder {
 	/// // nop and an incomplete instruction
 	/// const bytes = new Uint8Array([0x90, 0xF3, 0x0F]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	///
 	/// // 3 bytes left to read
 	/// assert.ok(decoder.canDecode);
@@ -388,8 +390,8 @@ impl Decoder {
 	/// // xrelease lock add [rax],ebx
 	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	/// const instr = decoder.decode();
 	///
 	/// assert.equal(instr.code, Code.Add_rm32_r32);
@@ -440,8 +442,8 @@ impl Decoder {
 	/// // xrelease lock add [rax],ebx
 	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	/// const instr = new Instruction();
 	/// decoder.decodeOut(instr);
 	///
@@ -498,8 +500,8 @@ impl Decoder {
 	///     //     opc   modrm displacement__________  imm
 	///     [0x90, 0x83, 0xB3, 0x34, 0x12, 0x5A, 0xA5, 0x5A]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
-	/// decoder.ip_lo = 0x12345678;
-	/// decoder.ip_hi = 0x00000000;
+	/// decoder.ipLo = 0x12345678;
+	/// decoder.ipHi = 0x00000000;
 	/// const instr = decoder.decode();
 	/// assert.equal(instr.code, Code.Nopd);
 	/// decoder.decodeOut(instr);
