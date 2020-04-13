@@ -156,7 +156,12 @@ impl MemoryOperand {
 	pub fn with_base_displ_bcst_seg(
 		base: Register, displacement: i32, #[allow(non_snake_case)] isBroadcast: bool, #[allow(non_snake_case)] segmentPrefix: Register,
 	) -> Self {
-		Self(iced_x86_rust::MemoryOperand::with_base_displ_bcst_seg(register_to_iced(base), displacement, isBroadcast, register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::MemoryOperand::with_base_displ_bcst_seg(
+			register_to_iced(base),
+			displacement,
+			isBroadcast,
+			register_to_iced(segmentPrefix),
+		))
 	}
 
 	/// Constructor
