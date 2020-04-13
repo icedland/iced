@@ -34,7 +34,7 @@ use wasm_bindgen::prelude::*;
 ///
 /// ```js
 /// const assert = require("assert").strict;
-/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
+/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
 ///
 /// // xchg [rdx+rsi+16h],ah
 /// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16]);
@@ -60,7 +60,7 @@ use wasm_bindgen::prelude::*;
 /// encoder.free();
 /// ```
 #[wasm_bindgen]
-pub struct Encoder(iced_x86::Encoder);
+pub struct Encoder(iced_x86_rust::Encoder);
 
 #[wasm_bindgen]
 impl Encoder {
@@ -90,7 +90,7 @@ impl Encoder {
 	/// * `capacity`: Initial capacity of the `u8` buffer
 	#[wasm_bindgen(js_name = "withCapacity")]
 	pub fn with_capacity(bitness: u32, capacity: usize) -> Self {
-		Self(iced_x86::Encoder::with_capacity(bitness, capacity))
+		Self(iced_x86_rust::Encoder::with_capacity(bitness, capacity))
 	}
 
 	/// Encodes an instruction and returns the size of the encoded instruction.
@@ -111,7 +111,7 @@ impl Encoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
 	///
 	/// // je short $+4
 	/// const bytes = new Uint8Array([0x75, 0x02]);
@@ -156,7 +156,7 @@ impl Encoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
 	///
 	/// // je short $+4
 	/// const bytes = new Uint8Array([0x75, 0x02]);
@@ -205,7 +205,7 @@ impl Encoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Encoder, Instruction, Register } = require("iced-x86-js");
+	/// const { Code, Encoder, Instruction, Register } = require("iced-x86");
 	///
 	/// const encoder = new Encoder(64);
 	/// const instr = Instruction.createRegReg(Code.Add_r64_rm64, Register.R8, Register.RBP);

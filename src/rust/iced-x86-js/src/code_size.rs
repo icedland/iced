@@ -41,13 +41,13 @@ pub enum CodeSize {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn code_size_to_iced(value: CodeSize) -> iced_x86::CodeSize {
+pub(crate) fn code_size_to_iced(value: CodeSize) -> iced_x86_rust::CodeSize {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_code_size(value: iced_x86::CodeSize) -> CodeSize {
+pub(crate) fn iced_to_code_size(value: iced_x86_rust::CodeSize) -> CodeSize {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

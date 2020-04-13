@@ -24,7 +24,7 @@ This example assumes you need features `decoder` and `masm` and use a JavaScript
 
 ```sh
 cd src/rust/iced-x86-js
-wasm-pack build --target bundler -- --no-default-features --features "decoder masm"
+wasm-pack build --mode force --target bundler -- --no-default-features --features "decoder masm"
 ```
 
 `--target` docs [are here](https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html) (`bundler`, `web`, `nodejs`, `no-modules`).
@@ -76,7 +76,7 @@ This example uses a `Decoder` and one of the `Formatter`s to decode and format t
 
 ```js
 // iced-x86 features needed: --features "decoder nasm"
-const { Decoder, DecoderOptions, Formatter, FormatterSyntax } = require("iced-x86-js");
+const { Decoder, DecoderOptions, Formatter, FormatterSyntax } = require("iced-x86");
 
 /*
 This code produces the following output:
@@ -157,7 +157,7 @@ This example uses a `BlockEncoder` to encode created `Instruction`s.
 const {
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, FormatterSyntax,
     Instruction, MemoryOperand, Register,
-} = require("iced-x86-js");
+} = require("iced-x86");
 
 const bitness = 64;
 
@@ -276,7 +276,7 @@ Uses instruction info API and the encoder to patch a function to jump to the pro
 const {
     BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, FlowControl, Formatter,
     FormatterSyntax, Instruction, OpKind
-} = require("iced-x86-js");
+} = require("iced-x86");
 
 // Decodes instructions from some address, then encodes them starting at some
 // other address. This can be used to hook a function. You decode enough instructions
@@ -480,7 +480,7 @@ const {
     Code, ConditionCode, CpuidFeature, Decoder, DecoderOptions, EncodingKind, FlowControl,
     Instruction, InstructionInfoFactory, MemorySize, MemorySizeExt, Mnemonic, OpAccess,
     OpCodeOperandKind, OpKind, Register, RflagsBits,
-} = require("iced-x86-js");
+} = require("iced-x86");
 
 /*
 This code produces the following output:

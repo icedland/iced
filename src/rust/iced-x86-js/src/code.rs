@@ -4244,13 +4244,13 @@ pub enum Code {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn code_to_iced(value: Code) -> iced_x86::Code {
+pub(crate) fn code_to_iced(value: Code) -> iced_x86_rust::Code {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u16) }
 }
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_code(value: iced_x86::Code) -> Code {
+pub(crate) fn iced_to_code(value: iced_x86_rust::Code) -> Code {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u16) }
 }

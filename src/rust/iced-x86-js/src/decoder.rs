@@ -37,7 +37,7 @@ pub struct Decoder {
 	// this vector. We can't use another lifetime. This vector and the field are read-only.
 	#[allow(dead_code)]
 	__data_do_not_use: Vec<u8>,
-	decoder: iced_x86::Decoder<'static>,
+	decoder: iced_x86_rust::Decoder<'static>,
 }
 
 #[wasm_bindgen]
@@ -60,7 +60,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions, Mnemonic } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions, Mnemonic } = require("iced-x86");
 	///
 	/// // xchg [rdx+rsi+16h],ah
 	/// // xacquire lock add dword ptr [rax],5Ah
@@ -98,7 +98,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // lock add esi,ecx   ; lock not allowed
 	/// const bytes = new Uint8Array([0xF0, 0x01, 0xCE]);
@@ -129,7 +129,7 @@ impl Decoder {
 		// Safe, we only read it, we own the data, and store it in the returned value.
 		// The decoder also doesn't impl Drop (it can't ref possibly freed data in drop()).
 		let decoder_data = unsafe { slice::from_raw_parts(data.as_ptr(), data.len()) };
-		let decoder = iced_x86::Decoder::new(bitness, decoder_data, options);
+		let decoder = iced_x86_rust::Decoder::new(bitness, decoder_data, options);
 		Decoder { __data_do_not_use: data, decoder }
 	}
 
@@ -254,7 +254,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // nop and pause
 	/// const bytes = new Uint8Array([0x90, 0xF3, 0x90]);
@@ -308,7 +308,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // nop and an incomplete instruction
 	/// const bytes = new Uint8Array([0x90, 0xF3, 0x0F]);
@@ -385,7 +385,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86");
 	///
 	/// // xrelease lock add [rax],ebx
 	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
@@ -437,7 +437,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions, Instruction, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions, Instruction, MemorySize, Mnemonic, OpKind, Register } = require("iced-x86");
 	///
 	/// // xrelease lock add [rax],ebx
 	/// const bytes = new Uint8Array([0xF0, 0xF3, 0x01, 0x18]);
@@ -491,7 +491,7 @@ impl Decoder {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // nop
 	/// // xor dword ptr [rax-5AA5EDCCh],5Ah

@@ -48,7 +48,7 @@ pub enum FormatterSyntax {
 /// X86 formatter that supports GNU Assembler, Intel XED, masm and nasm syntax
 #[wasm_bindgen]
 pub struct Formatter {
-	formatter: Box<dyn iced_x86::Formatter>,
+	formatter: Box<dyn iced_x86_rust::Formatter>,
 }
 
 #[wasm_bindgen]
@@ -63,7 +63,7 @@ impl Formatter {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, Formatter, FormatterSyntax } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, Formatter, FormatterSyntax } = require("iced-x86");
 	///
 	/// const bytes = new Uint8Array([0x62, 0xF2, 0x4F, 0xDD, 0x72, 0x50, 0x01]);
 	/// const decoder = new Decoder(64, bytes, DecoderOptions.None);
@@ -83,21 +83,21 @@ impl Formatter {
 	/// [`FormatterSyntax`]: enum.FormatterSyntax.html
 	#[wasm_bindgen(constructor)]
 	pub fn new(syntax: FormatterSyntax) -> Self {
-		let formatter: Box<dyn iced_x86::Formatter> = match syntax {
+		let formatter: Box<dyn iced_x86_rust::Formatter> = match syntax {
 			#[cfg(feature = "gas")]
-			FormatterSyntax::Gas => Box::new(iced_x86::GasFormatter::new()),
+			FormatterSyntax::Gas => Box::new(iced_x86_rust::GasFormatter::new()),
 			#[cfg(not(feature = "gas"))]
 			FormatterSyntax::Gas => panic!(),
 			#[cfg(feature = "intel")]
-			FormatterSyntax::Intel => Box::new(iced_x86::IntelFormatter::new()),
+			FormatterSyntax::Intel => Box::new(iced_x86_rust::IntelFormatter::new()),
 			#[cfg(not(feature = "intel"))]
 			FormatterSyntax::Intel => panic!(),
 			#[cfg(feature = "masm")]
-			FormatterSyntax::Masm => Box::new(iced_x86::MasmFormatter::new()),
+			FormatterSyntax::Masm => Box::new(iced_x86_rust::MasmFormatter::new()),
 			#[cfg(not(feature = "masm"))]
 			FormatterSyntax::Masm => panic!(),
 			#[cfg(feature = "nasm")]
-			FormatterSyntax::Nasm => Box::new(iced_x86::NasmFormatter::new()),
+			FormatterSyntax::Nasm => Box::new(iced_x86_rust::NasmFormatter::new()),
 			#[cfg(not(feature = "nasm"))]
 			FormatterSyntax::Nasm => panic!(),
 		};
@@ -1225,10 +1225,10 @@ impl Formatter {
 	#[wasm_bindgen(getter)]
 	pub fn numberBase(&self) -> u32 {
 		match self.formatter.options().number_base() {
-			iced_x86::NumberBase::Binary => 2,
-			iced_x86::NumberBase::Octal => 8,
-			iced_x86::NumberBase::Decimal => 10,
-			iced_x86::NumberBase::Hexadecimal => 16,
+			iced_x86_rust::NumberBase::Binary => 2,
+			iced_x86_rust::NumberBase::Octal => 8,
+			iced_x86_rust::NumberBase::Decimal => 10,
+			iced_x86_rust::NumberBase::Hexadecimal => 16,
 		}
 	}
 
@@ -1246,10 +1246,10 @@ impl Formatter {
 	#[wasm_bindgen(setter)]
 	pub fn set_numberBase(&mut self, value: u32) {
 		let base = match value {
-			2 => iced_x86::NumberBase::Binary,
-			8 => iced_x86::NumberBase::Octal,
-			10 => iced_x86::NumberBase::Decimal,
-			16 => iced_x86::NumberBase::Hexadecimal,
+			2 => iced_x86_rust::NumberBase::Binary,
+			8 => iced_x86_rust::NumberBase::Octal,
+			10 => iced_x86_rust::NumberBase::Decimal,
+			16 => iced_x86_rust::NumberBase::Hexadecimal,
 			_ => panic!(),
 		};
 		self.formatter.options_mut().set_number_base(base);

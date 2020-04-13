@@ -44,7 +44,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.equal(RegisterExt.base(Register.GS), Register.ES);
 	/// assert.equal(RegisterExt.base(Register.SIL), Register.AL);
@@ -80,7 +80,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.equal(RegisterExt.number(Register.GS), 5);
 	/// assert.equal(RegisterExt.number(Register.SIL), 10);
@@ -115,7 +115,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.equal(RegisterExt.fullRegister(Register.GS), Register.GS);
 	/// assert.equal(RegisterExt.fullRegister(Register.SIL), Register.RSI);
@@ -152,7 +152,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.equal(RegisterExt.fullRegister32(Register.GS), Register.GS);
 	/// assert.equal(RegisterExt.fullRegister32(Register.SIL), Register.ESI);
@@ -188,7 +188,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.equal(RegisterExt.size(Register.GS), 2);
 	/// assert.equal(RegisterExt.size(Register.SIL), 1);
@@ -226,7 +226,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(RegisterExt.isSegmentRegister(Register.GS));
 	/// assert.ok(!RegisterExt.isSegmentRegister(Register.RCX));
@@ -248,7 +248,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isGPR(Register.GS));
 	/// assert.ok(RegisterExt.isGPR(Register.CH));
@@ -274,7 +274,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isGPR8(Register.GS));
 	/// assert.ok(RegisterExt.isGPR8(Register.CH));
@@ -300,7 +300,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isGPR16(Register.GS));
 	/// assert.ok(!RegisterExt.isGPR16(Register.CH));
@@ -326,7 +326,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isGPR32(Register.GS));
 	/// assert.ok(!RegisterExt.isGPR32(Register.CH));
@@ -352,7 +352,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isGPR64(Register.GS));
 	/// assert.ok(!RegisterExt.isGPR64(Register.CH));
@@ -378,7 +378,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isXMM(Register.R13D));
 	/// assert.ok(!RegisterExt.isXMM(Register.RSP));
@@ -403,7 +403,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isYMM(Register.R13D));
 	/// assert.ok(!RegisterExt.isYMM(Register.RSP));
@@ -428,7 +428,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isZMM(Register.R13D));
 	/// assert.ok(!RegisterExt.isZMM(Register.RSP));
@@ -453,7 +453,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isVectorRegister(Register.R13D));
 	/// assert.ok(!RegisterExt.isVectorRegister(Register.RSP));
@@ -478,7 +478,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(RegisterExt.isIP(Register.EIP));
 	/// assert.ok(RegisterExt.isIP(Register.RIP));
@@ -500,7 +500,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isK(Register.R13D));
 	/// assert.ok(RegisterExt.isK(Register.K3));
@@ -522,7 +522,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isCR(Register.R13D));
 	/// assert.ok(RegisterExt.isCR(Register.CR3));
@@ -544,7 +544,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isDR(Register.R13D));
 	/// assert.ok(RegisterExt.isDR(Register.DR3));
@@ -566,7 +566,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isTR(Register.R13D));
 	/// assert.ok(RegisterExt.isTR(Register.TR3));
@@ -588,7 +588,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isST(Register.R13D));
 	/// assert.ok(RegisterExt.isST(Register.ST3));
@@ -610,7 +610,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isBND(Register.R13D));
 	/// assert.ok(RegisterExt.isBND(Register.BND3));
@@ -632,7 +632,7 @@ impl RegisterExt {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Register, RegisterExt } = require("iced-x86-js");
+	/// const { Register, RegisterExt } = require("iced-x86");
 	///
 	/// assert.ok(!RegisterExt.isMM(Register.R13D));
 	/// assert.ok(RegisterExt.isMM(Register.MM3));

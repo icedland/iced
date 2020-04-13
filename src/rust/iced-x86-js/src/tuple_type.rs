@@ -102,7 +102,7 @@ pub enum TupleType {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_tuple_type(value: iced_x86::TupleType) -> TupleType {
+pub(crate) fn iced_to_tuple_type(value: iced_x86_rust::TupleType) -> TupleType {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

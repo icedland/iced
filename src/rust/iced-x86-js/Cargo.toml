@@ -1,6 +1,7 @@
 [package]
-name = "iced-x86-js"
-version = "1.0.1"# Update html_root_url in lib.rs
+name = "iced-x86"
+# The version number can't be the same as iced-x86's version number or cargo build will fail
+version = "1.0.1001"
 authors = ["0xd4d <de4dot@gmail.com>"]
 license = "MIT"
 description = "iced-x86 is an x86/x64 disassembler, assembler and instruction decoder written in Rust and compiled to WebAssembly"
@@ -17,18 +18,18 @@ crate-type = ["cdylib"]
 
 [features]
 default = ["instr_api", "decoder", "encoder", "block_encoder", "instr_create", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
-base = ["iced-x86/std"]
+base = ["iced-x86-rust/std"]
 instr_api = ["base"]
-decoder = ["base", "iced-x86/decoder"]
-encoder = ["base", "iced-x86/encoder", "iced-x86/db"]
-block_encoder = ["base", "iced-x86/block_encoder"]
-instr_create = ["base", "iced-x86/encoder", "iced-x86/db"]
-op_code_info = ["base", "iced-x86/op_code_info"]
-instr_info = ["base", "iced-x86/instr_info"]
-gas = ["base", "iced-x86/gas"]
-intel = ["base", "iced-x86/intel"]
-masm = ["base", "iced-x86/masm"]
-nasm = ["base", "iced-x86/nasm"]
+decoder = ["base", "iced-x86-rust/decoder"]
+encoder = ["base", "iced-x86-rust/encoder", "iced-x86-rust/db"]
+block_encoder = ["base", "iced-x86-rust/block_encoder"]
+instr_create = ["base", "iced-x86-rust/encoder", "iced-x86-rust/db"]
+op_code_info = ["base", "iced-x86-rust/op_code_info"]
+instr_info = ["base", "iced-x86-rust/instr_info"]
+gas = ["base", "iced-x86-rust/gas"]
+intel = ["base", "iced-x86-rust/intel"]
+masm = ["base", "iced-x86-rust/masm"]
+nasm = ["base", "iced-x86-rust/nasm"]
 bigint = ["base"]
 
 [dependencies]
@@ -36,8 +37,9 @@ static_assertions = "1.1.0"
 wasm-bindgen = { version = "0.2.60", features = ["strict-macro"] }
 js-sys = "0.3.37"
 
-[dependencies.iced-x86]
+[dependencies.iced-x86-rust]
 version = "1.0.1"
+package = "iced-x86"
 path = "../iced-x86"
 default-features = false
 

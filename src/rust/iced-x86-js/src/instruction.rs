@@ -76,7 +76,7 @@ use wasm_bindgen::prelude::*;
 ///
 /// [`Decoder`]: struct.Decoder.html
 #[wasm_bindgen]
-pub struct Instruction(pub(crate) iced_x86::Instruction);
+pub struct Instruction(pub(crate) iced_x86_rust::Instruction);
 
 // ip() and length() are useful when disassembling code so they're always available
 #[wasm_bindgen]
@@ -86,7 +86,7 @@ impl Instruction {
 	/// Creates an empty `Instruction` (all fields are cleared). See also the `create*()` constructor methods.
 	#[wasm_bindgen(constructor)]
 	pub fn new() -> Self {
-		Self(iced_x86::Instruction::new())
+		Self(iced_x86_rust::Instruction::new())
 	}
 
 	/// Gets the low 32 bits of the 64-bit IP of the instruction.
@@ -366,7 +366,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // add [rax],ebx
 	/// const bytes = new Uint8Array([0x01, 0x18]);
@@ -645,7 +645,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86");
 	///
 	/// // add [rax],ebx
 	/// const bytes = new Uint8Array([0x01, 0x18]);
@@ -1892,7 +1892,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, OpKind, Register } = require("iced-x86");
 	///
 	/// // add [rax],ebx
 	/// const bytes = new Uint8Array([0x01, 0x18]);
@@ -2155,7 +2155,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // pushfq
 	/// const bytes = new Uint8Array([0x9C]);
@@ -2183,7 +2183,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, EncodingKind } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, EncodingKind } = require("iced-x86");
 	///
 	/// // vmovaps xmm1,xmm5
 	/// const bytes = new Uint8Array([0xC5, 0xF8, 0x28, 0xCD]);
@@ -2209,7 +2209,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, CpuidFeature } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, CpuidFeature } = require("iced-x86");
 	///
 	/// // vmovaps xmm1,xmm5
 	/// // vmovaps xmm10{k3}{z},xmm19
@@ -2247,7 +2247,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, FlowControl } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, FlowControl } = require("iced-x86");
 	///
 	/// // or ecx,esi
 	/// // ud0 rcx,rsi
@@ -2300,7 +2300,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // or ecx,esi
 	/// // push rax
@@ -2343,7 +2343,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2388,7 +2388,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2433,7 +2433,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2478,7 +2478,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2523,7 +2523,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2567,7 +2567,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, RflagsBits } = require("iced-x86");
 	///
 	/// // adc rsi,rcx
 	/// // xor rdi,5Ah
@@ -2700,7 +2700,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, ConditionCode, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, ConditionCode, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // setbe al
 	/// const bytes = new Uint8Array([0x0F, 0x96, 0xC0]);
@@ -2729,7 +2729,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // jbe near ptr label
 	/// const bytes = new Uint8Array([0x0F, 0x86, 0x5A, 0xA5, 0x12, 0x34]);
@@ -2758,7 +2758,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { Code, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // jbe short label
 	/// const bytes = new Uint8Array([0x76, 0x5A]);
@@ -2790,7 +2790,7 @@ impl Instruction {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { ConditionCode, Decoder, DecoderOptions } = require("iced-x86-js");
+	/// const { ConditionCode, Decoder, DecoderOptions } = require("iced-x86");
 	///
 	/// // setbe al
 	/// // jl short label
@@ -3244,7 +3244,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "create")]
 	pub fn with(code: Code) -> Self {
-		Self(iced_x86::Instruction::with(code_to_iced(code)))
+		Self(iced_x86_rust::Instruction::with(code_to_iced(code)))
 	}
 
 	/// Creates an instruction with 1 operand
@@ -3259,7 +3259,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createReg")]
 	pub fn with_reg(code: Code, register: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg(code_to_iced(code), register_to_iced(register)))
+		Self(iced_x86_rust::Instruction::with_reg(code_to_iced(code), register_to_iced(register)))
 	}
 
 	/// Creates an instruction with 1 operand
@@ -3277,7 +3277,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32")]
 	pub fn with_i32(code: Code, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_i32(code_to_iced(code), immediate))
+		Self(iced_x86_rust::Instruction::with_i32(code_to_iced(code), immediate))
 	}
 
 	/// Creates an instruction with 1 operand
@@ -3295,7 +3295,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32")]
 	pub fn with_u32(code: Code, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_u32(code_to_iced(code), immediate))
+		Self(iced_x86_rust::Instruction::with_u32(code_to_iced(code), immediate))
 	}
 
 	/// Creates an instruction with 1 operand
@@ -3309,7 +3309,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMem")]
 	pub fn with_mem(code: Code, memory: MemoryOperand) -> Self {
-		Self(iced_x86::Instruction::with_mem(code_to_iced(code), memory.0))
+		Self(iced_x86_rust::Instruction::with_mem(code_to_iced(code), memory.0))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3325,7 +3325,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegReg")]
 	pub fn with_reg_reg(code: Code, register1: Register, register2: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)))
+		Self(iced_x86_rust::Instruction::with_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2)))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3345,7 +3345,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32")]
 	pub fn with_reg_i32(code: Code, register: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_i32(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_i32(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3365,7 +3365,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32")]
 	pub fn with_reg_u32(code: Code, register: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_u32(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_u32(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3382,7 +3382,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, immediate: i64) -> Self {
-		Self(iced_x86::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3403,7 +3403,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createRegI64")]
 	pub fn with_reg_i64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
 		let immediate = (((immediateHi as u64) << 32) | (immediateLo as u64)) as i64;
-		Self(iced_x86::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3420,7 +3420,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, immediate: u64) -> Self {
-		Self(iced_x86::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3441,7 +3441,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createRegU64")]
 	pub fn with_reg_u64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
 		let immediate = ((immediateHi as u64) << 32) | (immediateLo as u64);
-		Self(iced_x86::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3457,7 +3457,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMem")]
 	pub fn with_reg_mem(code: Code, register: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86::Instruction::with_reg_mem(code_to_iced(code), register_to_iced(register), memory.0))
+		Self(iced_x86_rust::Instruction::with_reg_mem(code_to_iced(code), register_to_iced(register), memory.0))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3477,7 +3477,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32Reg")]
 	pub fn with_i32_reg(code: Code, immediate: i32, register: Register) -> Self {
-		Self(iced_x86::Instruction::with_i32_reg(code_to_iced(code), immediate, register_to_iced(register)))
+		Self(iced_x86_rust::Instruction::with_i32_reg(code_to_iced(code), immediate, register_to_iced(register)))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3497,7 +3497,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32Reg")]
 	pub fn with_u32_reg(code: Code, immediate: u32, register: Register) -> Self {
-		Self(iced_x86::Instruction::with_u32_reg(code_to_iced(code), immediate, register_to_iced(register)))
+		Self(iced_x86_rust::Instruction::with_u32_reg(code_to_iced(code), immediate, register_to_iced(register)))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3516,7 +3516,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createI32I32")]
 	pub fn with_i32_i32(code: Code, immediate1: i32, immediate2: i32) -> Self {
-		Self(iced_x86::Instruction::with_i32_i32(code_to_iced(code), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_i32_i32(code_to_iced(code), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3535,7 +3535,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createU32U32")]
 	pub fn with_u32_u32(code: Code, immediate1: u32, immediate2: u32) -> Self {
-		Self(iced_x86::Instruction::with_u32_u32(code_to_iced(code), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_u32_u32(code_to_iced(code), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3551,7 +3551,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemReg")]
 	pub fn with_mem_reg(code: Code, memory: MemoryOperand, register: Register) -> Self {
-		Self(iced_x86::Instruction::with_mem_reg(code_to_iced(code), memory.0, register_to_iced(register)))
+		Self(iced_x86_rust::Instruction::with_mem_reg(code_to_iced(code), memory.0, register_to_iced(register)))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3570,7 +3570,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemI32")]
 	pub fn with_mem_i32(code: Code, memory: MemoryOperand, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_mem_i32(code_to_iced(code), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_mem_i32(code_to_iced(code), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 2 operands
@@ -3589,7 +3589,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemU32")]
 	pub fn with_mem_u32(code: Code, memory: MemoryOperand, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_mem_u32(code_to_iced(code), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_mem_u32(code_to_iced(code), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3606,7 +3606,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegReg")]
 	pub fn with_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3)))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3627,7 +3627,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32")]
 	pub fn with_reg_reg_i32(code: Code, register1: Register, register2: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3648,7 +3648,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32")]
 	pub fn with_reg_reg_u32(code: Code, register1: Register, register2: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3665,7 +3665,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMem")]
 	pub fn with_reg_reg_mem(code: Code, register1: Register, register2: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3686,7 +3686,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegI32I32")]
 	pub fn with_reg_i32_i32(code: Code, register: Register, immediate1: i32, immediate2: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_i32_i32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_reg_i32_i32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3707,7 +3707,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegU32U32")]
 	pub fn with_reg_u32_u32(code: Code, register: Register, immediate1: u32, immediate2: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_u32_u32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_reg_u32_u32(code_to_iced(code), register_to_iced(register), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3724,7 +3724,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemReg")]
 	pub fn with_reg_mem_reg(code: Code, register1: Register, memory: MemoryOperand, register2: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_mem_reg(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)))
+		Self(iced_x86_rust::Instruction::with_reg_mem_reg(code_to_iced(code), register_to_iced(register1), memory.0, register_to_iced(register2)))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3745,7 +3745,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemI32")]
 	pub fn with_reg_mem_i32(code: Code, register: Register, memory: MemoryOperand, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_mem_i32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_mem_i32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3766,7 +3766,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegMemU32")]
 	pub fn with_reg_mem_u32(code: Code, register: Register, memory: MemoryOperand, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_mem_u32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_mem_u32(code_to_iced(code), register_to_iced(register), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3783,7 +3783,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegReg")]
 	pub fn with_mem_reg_reg(code: Code, memory: MemoryOperand, register1: Register, register2: Register) -> Self {
-		Self(iced_x86::Instruction::with_mem_reg_reg(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)))
+		Self(iced_x86_rust::Instruction::with_mem_reg_reg(code_to_iced(code), memory.0, register_to_iced(register1), register_to_iced(register2)))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3804,7 +3804,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegI32")]
 	pub fn with_mem_reg_i32(code: Code, memory: MemoryOperand, register: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_mem_reg_i32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_mem_reg_i32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 3 operands
@@ -3825,7 +3825,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMemRegU32")]
 	pub fn with_mem_reg_u32(code: Code, memory: MemoryOperand, register: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_mem_reg_u32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
+		Self(iced_x86_rust::Instruction::with_mem_reg_u32(code_to_iced(code), memory.0, register_to_iced(register), immediate))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3843,7 +3843,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegReg")]
 	pub fn with_reg_reg_reg_reg(code: Code, register1: Register, register2: Register, register3: Register, register4: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4)))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3865,7 +3865,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegI32")]
 	pub fn with_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3887,7 +3887,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegU32")]
 	pub fn with_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), immediate))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3905,7 +3905,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMem")]
 	pub fn with_reg_reg_reg_mem(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_mem(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3927,7 +3927,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegI32I32")]
 	pub fn with_reg_reg_i32_i32(code: Code, register1: Register, register2: Register, immediate1: i32, immediate2: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_i32_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_reg_reg_i32_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3949,7 +3949,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegU32U32")]
 	pub fn with_reg_reg_u32_u32(code: Code, register1: Register, register2: Register, immediate1: u32, immediate2: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_u32_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
+		Self(iced_x86_rust::Instruction::with_reg_reg_u32_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), immediate1, immediate2))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3967,7 +3967,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemReg")]
 	pub fn with_reg_reg_mem_reg(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem_reg(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3)))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -3989,7 +3989,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemI32")]
 	pub fn with_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 4 operands
@@ -4011,7 +4011,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemU32")]
 	pub fn with_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4034,7 +4034,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegI32")]
 	pub fn with_reg_reg_reg_reg_i32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4057,7 +4057,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegRegU32")]
 	pub fn with_reg_reg_reg_reg_u32(code: Code, register1: Register, register2: Register, register3: Register, register4: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), register_to_iced(register4), immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4080,7 +4080,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemI32")]
 	pub fn with_reg_reg_reg_mem_i32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_mem_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4103,7 +4103,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegRegMemU32")]
 	pub fn with_reg_reg_reg_mem_u32(code: Code, register1: Register, register2: Register, register3: Register, memory: MemoryOperand, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_reg_mem_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), register_to_iced(register3), memory.0, immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4126,7 +4126,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegI32")]
 	pub fn with_reg_reg_mem_reg_i32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: i32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem_reg_i32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
 	}
 
 	/// Creates an instruction with 5 operands
@@ -4149,7 +4149,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRegRegMemRegU32")]
 	pub fn with_reg_reg_mem_reg_u32(code: Code, register1: Register, register2: Register, memory: MemoryOperand, register3: Register, immediate: u32) -> Self {
-		Self(iced_x86::Instruction::with_reg_reg_mem_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
+		Self(iced_x86_rust::Instruction::with_reg_reg_mem_reg_u32(code_to_iced(code), register_to_iced(register1), register_to_iced(register2), memory.0, register_to_iced(register3), immediate))
 	}
 
 	/// Creates a new near/short branch instruction
@@ -4164,7 +4164,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createBranch")]
 	pub fn with_branch(code: Code, target: u64) -> Self {
-		Self(iced_x86::Instruction::with_branch(code_to_iced(code), target))
+		Self(iced_x86_rust::Instruction::with_branch(code_to_iced(code), target))
 	}
 
 	/// Creates a new near/short branch instruction
@@ -4183,7 +4183,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createBranch")]
 	pub fn with_branch(code: Code, targetHi: u32, targetLo: u32) -> Self {
 		let target = ((targetHi as u64) << 32) | (targetLo as u64);
-		Self(iced_x86::Instruction::with_branch(code_to_iced(code), target))
+		Self(iced_x86_rust::Instruction::with_branch(code_to_iced(code), target))
 	}
 
 	/// Creates a new far branch instruction
@@ -4198,7 +4198,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createFarBranch")]
 	pub fn with_far_branch(code: Code, selector: u16, offset: u32) -> Self {
-		Self(iced_x86::Instruction::with_far_branch(code_to_iced(code), selector, offset))
+		Self(iced_x86_rust::Instruction::with_far_branch(code_to_iced(code), selector, offset))
 	}
 
 	/// Creates a new `XBEGIN` instruction
@@ -4215,7 +4215,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createXbegin")]
 	pub fn with_xbegin(bitness: u32, target: u64) -> Self {
-		Self(iced_x86::Instruction::with_xbegin(bitness, target))
+		Self(iced_x86_rust::Instruction::with_xbegin(bitness, target))
 	}
 
 	/// Creates a new `XBEGIN` instruction
@@ -4236,7 +4236,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createXbegin")]
 	pub fn with_xbegin(bitness: u32, targetHi: u32, targetLo: u32) -> Self {
 		let target = ((targetHi as u64) << 32) | (targetLo as u64);
-		Self(iced_x86::Instruction::with_xbegin(bitness, target))
+		Self(iced_x86_rust::Instruction::with_xbegin(bitness, target))
 	}
 
 	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
@@ -4255,7 +4255,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegMem64")]
 	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segmentPrefix: Register) -> Self {
-		Self(iced_x86::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates an instruction with a 64-bit memory offset as the second operand, eg. `mov al,[123456789ABCDEF0]`
@@ -4278,7 +4278,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createRegMem64")]
 	pub fn with_reg_mem64(code: Code, register: Register, addressHi: u32, addressLo: u32, segmentPrefix: Register) -> Self {
 		let address = ((addressHi as u64) << 32) | (addressLo as u64);
-		Self(iced_x86::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
@@ -4297,7 +4297,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createMem64Reg")]
 	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segmentPrefix: Register) -> Self {
-		Self(iced_x86::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates an instruction with a 64-bit memory offset as the first operand, eg. `mov [123456789ABCDEF0],al`
@@ -4320,7 +4320,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createMem64Reg")]
 	pub fn with_mem64_reg(code: Code, addressHi: u32, addressLo: u32, register: Register, segmentPrefix: Register) -> Self {
 		let address = ((addressHi as u64) << 32) | (addressLo as u64);
-		Self(iced_x86::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates a `OUTSB` instruction
@@ -4342,7 +4342,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsb")]
 	pub fn with_outsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_outsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_outsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP OUTSB` instruction
@@ -4357,7 +4357,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsb")]
 	pub fn with_rep_outsb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_outsb(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_outsb(addressSize))
 	}
 
 	/// Creates a `OUTSW` instruction
@@ -4379,7 +4379,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsw")]
 	pub fn with_outsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_outsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_outsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP OUTSW` instruction
@@ -4394,7 +4394,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsw")]
 	pub fn with_rep_outsw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_outsw(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_outsw(addressSize))
 	}
 
 	/// Creates a `OUTSD` instruction
@@ -4416,7 +4416,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsd")]
 	pub fn with_outsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_outsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_outsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP OUTSD` instruction
@@ -4431,7 +4431,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsd")]
 	pub fn with_rep_outsd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_outsd(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_outsd(addressSize))
 	}
 
 	/// Creates a `LODSB` instruction
@@ -4453,7 +4453,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsb")]
 	pub fn with_lodsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_lodsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_lodsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP LODSB` instruction
@@ -4468,7 +4468,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsb")]
 	pub fn with_rep_lodsb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_lodsb(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_lodsb(addressSize))
 	}
 
 	/// Creates a `LODSW` instruction
@@ -4490,7 +4490,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsw")]
 	pub fn with_lodsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_lodsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_lodsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP LODSW` instruction
@@ -4505,7 +4505,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsw")]
 	pub fn with_rep_lodsw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_lodsw(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_lodsw(addressSize))
 	}
 
 	/// Creates a `LODSD` instruction
@@ -4527,7 +4527,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsd")]
 	pub fn with_lodsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_lodsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_lodsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP LODSD` instruction
@@ -4542,7 +4542,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsd")]
 	pub fn with_rep_lodsd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_lodsd(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_lodsd(addressSize))
 	}
 
 	/// Creates a `LODSQ` instruction
@@ -4564,7 +4564,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsq")]
 	pub fn with_lodsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_lodsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_lodsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP LODSQ` instruction
@@ -4579,7 +4579,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsq")]
 	pub fn with_rep_lodsq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_lodsq(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_lodsq(addressSize))
 	}
 
 	/// Creates a `SCASB` instruction
@@ -4598,7 +4598,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasb")]
 	pub fn with_scasb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_scasb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_scasb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE SCASB` instruction
@@ -4613,7 +4613,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasb")]
 	pub fn with_repe_scasb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_scasb(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_scasb(addressSize))
 	}
 
 	/// Creates a `REPNE SCASB` instruction
@@ -4628,7 +4628,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasb")]
 	pub fn with_repne_scasb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_scasb(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_scasb(addressSize))
 	}
 
 	/// Creates a `SCASW` instruction
@@ -4647,7 +4647,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasw")]
 	pub fn with_scasw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_scasw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_scasw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE SCASW` instruction
@@ -4662,7 +4662,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasw")]
 	pub fn with_repe_scasw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_scasw(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_scasw(addressSize))
 	}
 
 	/// Creates a `REPNE SCASW` instruction
@@ -4677,7 +4677,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasw")]
 	pub fn with_repne_scasw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_scasw(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_scasw(addressSize))
 	}
 
 	/// Creates a `SCASD` instruction
@@ -4696,7 +4696,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasd")]
 	pub fn with_scasd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_scasd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_scasd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE SCASD` instruction
@@ -4711,7 +4711,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasd")]
 	pub fn with_repe_scasd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_scasd(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_scasd(addressSize))
 	}
 
 	/// Creates a `REPNE SCASD` instruction
@@ -4726,7 +4726,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasd")]
 	pub fn with_repne_scasd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_scasd(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_scasd(addressSize))
 	}
 
 	/// Creates a `SCASQ` instruction
@@ -4745,7 +4745,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasq")]
 	pub fn with_scasq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_scasq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_scasq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE SCASQ` instruction
@@ -4760,7 +4760,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasq")]
 	pub fn with_repe_scasq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_scasq(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_scasq(addressSize))
 	}
 
 	/// Creates a `REPNE SCASQ` instruction
@@ -4775,7 +4775,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasq")]
 	pub fn with_repne_scasq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_scasq(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_scasq(addressSize))
 	}
 
 	/// Creates a `INSB` instruction
@@ -4794,7 +4794,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsb")]
 	pub fn with_insb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_insb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_insb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP INSB` instruction
@@ -4809,7 +4809,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsb")]
 	pub fn with_rep_insb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_insb(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_insb(addressSize))
 	}
 
 	/// Creates a `INSW` instruction
@@ -4828,7 +4828,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsw")]
 	pub fn with_insw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_insw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_insw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP INSW` instruction
@@ -4843,7 +4843,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsw")]
 	pub fn with_rep_insw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_insw(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_insw(addressSize))
 	}
 
 	/// Creates a `INSD` instruction
@@ -4862,7 +4862,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsd")]
 	pub fn with_insd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_insd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_insd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP INSD` instruction
@@ -4877,7 +4877,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsd")]
 	pub fn with_rep_insd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_insd(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_insd(addressSize))
 	}
 
 	/// Creates a `STOSB` instruction
@@ -4896,7 +4896,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosb")]
 	pub fn with_stosb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_stosb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_stosb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP STOSB` instruction
@@ -4911,7 +4911,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosb")]
 	pub fn with_rep_stosb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_stosb(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_stosb(addressSize))
 	}
 
 	/// Creates a `STOSW` instruction
@@ -4930,7 +4930,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosw")]
 	pub fn with_stosw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_stosw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_stosw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP STOSW` instruction
@@ -4945,7 +4945,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosw")]
 	pub fn with_rep_stosw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_stosw(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_stosw(addressSize))
 	}
 
 	/// Creates a `STOSD` instruction
@@ -4964,7 +4964,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosd")]
 	pub fn with_stosd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_stosd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_stosd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP STOSD` instruction
@@ -4979,7 +4979,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosd")]
 	pub fn with_rep_stosd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_stosd(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_stosd(addressSize))
 	}
 
 	/// Creates a `STOSQ` instruction
@@ -4998,7 +4998,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosq")]
 	pub fn with_stosq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_stosq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_stosq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP STOSQ` instruction
@@ -5013,7 +5013,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosq")]
 	pub fn with_rep_stosq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_stosq(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_stosq(addressSize))
 	}
 
 	/// Creates a `CMPSB` instruction
@@ -5035,7 +5035,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsb")]
 	pub fn with_cmpsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_cmpsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_cmpsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE CMPSB` instruction
@@ -5050,7 +5050,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsb")]
 	pub fn with_repe_cmpsb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_cmpsb(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_cmpsb(addressSize))
 	}
 
 	/// Creates a `REPNE CMPSB` instruction
@@ -5065,7 +5065,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsb")]
 	pub fn with_repne_cmpsb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_cmpsb(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_cmpsb(addressSize))
 	}
 
 	/// Creates a `CMPSW` instruction
@@ -5087,7 +5087,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsw")]
 	pub fn with_cmpsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_cmpsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_cmpsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE CMPSW` instruction
@@ -5102,7 +5102,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsw")]
 	pub fn with_repe_cmpsw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_cmpsw(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_cmpsw(addressSize))
 	}
 
 	/// Creates a `REPNE CMPSW` instruction
@@ -5117,7 +5117,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsw")]
 	pub fn with_repne_cmpsw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_cmpsw(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_cmpsw(addressSize))
 	}
 
 	/// Creates a `CMPSD` instruction
@@ -5139,7 +5139,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsd")]
 	pub fn with_cmpsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_cmpsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_cmpsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE CMPSD` instruction
@@ -5154,7 +5154,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsd")]
 	pub fn with_repe_cmpsd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_cmpsd(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_cmpsd(addressSize))
 	}
 
 	/// Creates a `REPNE CMPSD` instruction
@@ -5169,7 +5169,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsd")]
 	pub fn with_repne_cmpsd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_cmpsd(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_cmpsd(addressSize))
 	}
 
 	/// Creates a `CMPSQ` instruction
@@ -5191,7 +5191,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsq")]
 	pub fn with_cmpsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_cmpsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_cmpsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REPE CMPSQ` instruction
@@ -5206,7 +5206,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsq")]
 	pub fn with_repe_cmpsq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repe_cmpsq(addressSize))
+		Self(iced_x86_rust::Instruction::with_repe_cmpsq(addressSize))
 	}
 
 	/// Creates a `REPNE CMPSQ` instruction
@@ -5221,7 +5221,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsq")]
 	pub fn with_repne_cmpsq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_repne_cmpsq(addressSize))
+		Self(iced_x86_rust::Instruction::with_repne_cmpsq(addressSize))
 	}
 
 	/// Creates a `MOVSB` instruction
@@ -5243,7 +5243,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsb")]
 	pub fn with_movsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_movsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_movsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP MOVSB` instruction
@@ -5258,7 +5258,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsb")]
 	pub fn with_rep_movsb(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_movsb(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_movsb(addressSize))
 	}
 
 	/// Creates a `MOVSW` instruction
@@ -5280,7 +5280,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsw")]
 	pub fn with_movsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_movsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_movsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP MOVSW` instruction
@@ -5295,7 +5295,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsw")]
 	pub fn with_rep_movsw(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_movsw(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_movsw(addressSize))
 	}
 
 	/// Creates a `MOVSD` instruction
@@ -5317,7 +5317,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsd")]
 	pub fn with_movsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_movsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_movsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP MOVSD` instruction
@@ -5332,7 +5332,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsd")]
 	pub fn with_rep_movsd(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_movsd(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_movsd(addressSize))
 	}
 
 	/// Creates a `MOVSQ` instruction
@@ -5354,7 +5354,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsq")]
 	pub fn with_movsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
-		Self(iced_x86::Instruction::with_movsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
+		Self(iced_x86_rust::Instruction::with_movsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
 	/// Creates a `REP MOVSQ` instruction
@@ -5369,7 +5369,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsq")]
 	pub fn with_rep_movsq(addressSize: u32) -> Self {
-		Self(iced_x86::Instruction::with_rep_movsq(addressSize))
+		Self(iced_x86_rust::Instruction::with_rep_movsq(addressSize))
 	}
 
 	/// Creates a `MASKMOVQ` instruction
@@ -5390,7 +5390,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovq")]
 	pub fn with_maskmovq(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
-		Self(iced_x86::Instruction::with_maskmovq(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_maskmovq(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates a `MASKMOVDQU` instruction
@@ -5411,7 +5411,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovdqu")]
 	pub fn with_maskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
-		Self(iced_x86::Instruction::with_maskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_maskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates a `VMASKMOVDQU` instruction
@@ -5432,7 +5432,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createVmaskmovdqu")]
 	pub fn with_vmaskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
-		Self(iced_x86::Instruction::with_vmaskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
+		Self(iced_x86_rust::Instruction::with_vmaskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5443,7 +5443,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_1")]
 	pub fn with_declare_byte_1(b0: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_1(b0))
+		Self(iced_x86_rust::Instruction::with_declare_byte_1(b0))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5455,7 +5455,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_2")]
 	pub fn with_declare_byte_2(b0: u8, b1: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_2(b0, b1))
+		Self(iced_x86_rust::Instruction::with_declare_byte_2(b0, b1))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5468,7 +5468,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_3")]
 	pub fn with_declare_byte_3(b0: u8, b1: u8, b2: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_3(b0, b1, b2))
+		Self(iced_x86_rust::Instruction::with_declare_byte_3(b0, b1, b2))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5482,7 +5482,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_4")]
 	pub fn with_declare_byte_4(b0: u8, b1: u8, b2: u8, b3: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_4(b0, b1, b2, b3))
+		Self(iced_x86_rust::Instruction::with_declare_byte_4(b0, b1, b2, b3))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5497,7 +5497,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_5")]
 	pub fn with_declare_byte_5(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_5(b0, b1, b2, b3, b4))
+		Self(iced_x86_rust::Instruction::with_declare_byte_5(b0, b1, b2, b3, b4))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5513,7 +5513,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_6")]
 	pub fn with_declare_byte_6(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_6(b0, b1, b2, b3, b4, b5))
+		Self(iced_x86_rust::Instruction::with_declare_byte_6(b0, b1, b2, b3, b4, b5))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5530,7 +5530,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_7")]
 	pub fn with_declare_byte_7(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6))
+		Self(iced_x86_rust::Instruction::with_declare_byte_7(b0, b1, b2, b3, b4, b5, b6))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5548,7 +5548,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_8")]
 	pub fn with_declare_byte_8(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7))
+		Self(iced_x86_rust::Instruction::with_declare_byte_8(b0, b1, b2, b3, b4, b5, b6, b7))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5567,7 +5567,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_9")]
 	pub fn with_declare_byte_9(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8))
+		Self(iced_x86_rust::Instruction::with_declare_byte_9(b0, b1, b2, b3, b4, b5, b6, b7, b8))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5587,7 +5587,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_10")]
 	pub fn with_declare_byte_10(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9))
+		Self(iced_x86_rust::Instruction::with_declare_byte_10(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5608,7 +5608,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_11")]
 	pub fn with_declare_byte_11(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10))
+		Self(iced_x86_rust::Instruction::with_declare_byte_11(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5630,7 +5630,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_12")]
 	pub fn with_declare_byte_12(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11))
+		Self(iced_x86_rust::Instruction::with_declare_byte_12(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5653,7 +5653,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_13")]
 	pub fn with_declare_byte_13(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12))
+		Self(iced_x86_rust::Instruction::with_declare_byte_13(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5677,7 +5677,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_14")]
 	pub fn with_declare_byte_14(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13))
+		Self(iced_x86_rust::Instruction::with_declare_byte_14(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5702,7 +5702,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_15")]
 	pub fn with_declare_byte_15(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14))
+		Self(iced_x86_rust::Instruction::with_declare_byte_15(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5728,7 +5728,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte_16")]
 	pub fn with_declare_byte_16(b0: u8, b1: u8, b2: u8, b3: u8, b4: u8, b5: u8, b6: u8, b7: u8, b8: u8, b9: u8, b10: u8, b11: u8, b12: u8, b13: u8, b14: u8, b15: u8) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15))
+		Self(iced_x86_rust::Instruction::with_declare_byte_16(b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15))
 	}
 
 	/// Creates a `db`/`.byte` asm directive
@@ -5743,7 +5743,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareByte")]
 	pub fn with_declare_byte(data: &[u8]) -> Self {
-		Self(iced_x86::Instruction::with_declare_byte(data))
+		Self(iced_x86_rust::Instruction::with_declare_byte(data))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5754,7 +5754,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_1")]
 	pub fn with_declare_word_1(w0: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_1(w0))
+		Self(iced_x86_rust::Instruction::with_declare_word_1(w0))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5766,7 +5766,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_2")]
 	pub fn with_declare_word_2(w0: u16, w1: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_2(w0, w1))
+		Self(iced_x86_rust::Instruction::with_declare_word_2(w0, w1))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5779,7 +5779,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_3")]
 	pub fn with_declare_word_3(w0: u16, w1: u16, w2: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_3(w0, w1, w2))
+		Self(iced_x86_rust::Instruction::with_declare_word_3(w0, w1, w2))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5793,7 +5793,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_4")]
 	pub fn with_declare_word_4(w0: u16, w1: u16, w2: u16, w3: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_4(w0, w1, w2, w3))
+		Self(iced_x86_rust::Instruction::with_declare_word_4(w0, w1, w2, w3))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5808,7 +5808,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_5")]
 	pub fn with_declare_word_5(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_5(w0, w1, w2, w3, w4))
+		Self(iced_x86_rust::Instruction::with_declare_word_5(w0, w1, w2, w3, w4))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5824,7 +5824,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_6")]
 	pub fn with_declare_word_6(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_6(w0, w1, w2, w3, w4, w5))
+		Self(iced_x86_rust::Instruction::with_declare_word_6(w0, w1, w2, w3, w4, w5))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5841,7 +5841,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_7")]
 	pub fn with_declare_word_7(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_7(w0, w1, w2, w3, w4, w5, w6))
+		Self(iced_x86_rust::Instruction::with_declare_word_7(w0, w1, w2, w3, w4, w5, w6))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5859,7 +5859,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord_8")]
 	pub fn with_declare_word_8(w0: u16, w1: u16, w2: u16, w3: u16, w4: u16, w5: u16, w6: u16, w7: u16) -> Self {
-		Self(iced_x86::Instruction::with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7))
+		Self(iced_x86_rust::Instruction::with_declare_word_8(w0, w1, w2, w3, w4, w5, w6, w7))
 	}
 
 	/// Creates a `dw`/`.word` asm directive
@@ -5874,7 +5874,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareWord")]
 	pub fn with_declare_word(data: &[u16]) -> Self {
-		Self(iced_x86::Instruction::with_declare_word(data))
+		Self(iced_x86_rust::Instruction::with_declare_word(data))
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5885,7 +5885,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_1")]
 	pub fn with_declare_dword_1(d0: u32) -> Self {
-		Self(iced_x86::Instruction::with_declare_dword_1(d0))
+		Self(iced_x86_rust::Instruction::with_declare_dword_1(d0))
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5897,7 +5897,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_2")]
 	pub fn with_declare_dword_2(d0: u32, d1: u32) -> Self {
-		Self(iced_x86::Instruction::with_declare_dword_2(d0, d1))
+		Self(iced_x86_rust::Instruction::with_declare_dword_2(d0, d1))
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5910,7 +5910,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_3")]
 	pub fn with_declare_dword_3(d0: u32, d1: u32, d2: u32) -> Self {
-		Self(iced_x86::Instruction::with_declare_dword_3(d0, d1, d2))
+		Self(iced_x86_rust::Instruction::with_declare_dword_3(d0, d1, d2))
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5924,7 +5924,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword_4")]
 	pub fn with_declare_dword_4(d0: u32, d1: u32, d2: u32, d3: u32) -> Self {
-		Self(iced_x86::Instruction::with_declare_dword_4(d0, d1, d2, d3))
+		Self(iced_x86_rust::Instruction::with_declare_dword_4(d0, d1, d2, d3))
 	}
 
 	/// Creates a `dd`/`.int` asm directive
@@ -5939,7 +5939,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createDeclareDword")]
 	pub fn with_declare_dword(data: &[u32]) -> Self {
-		Self(iced_x86::Instruction::with_declare_dword(data))
+		Self(iced_x86_rust::Instruction::with_declare_dword(data))
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -5951,7 +5951,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
 	pub fn with_declare_qword_1(q0: u64) -> Self {
-		Self(iced_x86::Instruction::with_declare_qword_1(q0))
+		Self(iced_x86_rust::Instruction::with_declare_qword_1(q0))
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -5967,7 +5967,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
 	pub fn with_declare_qword_1(q0Hi: u32, q0Lo: u32) -> Self {
 		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
-		Self(iced_x86::Instruction::with_declare_qword_1(q0))
+		Self(iced_x86_rust::Instruction::with_declare_qword_1(q0))
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -5980,7 +5980,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword_2")]
 	pub fn with_declare_qword_2(q0: u64, q1: u64) -> Self {
-		Self(iced_x86::Instruction::with_declare_qword_2(q0, q1))
+		Self(iced_x86_rust::Instruction::with_declare_qword_2(q0, q1))
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -5999,7 +5999,7 @@ impl Instruction {
 	pub fn with_declare_qword_2(q0Hi: u32, q0Lo: u32, q1Hi: u32, q1Lo: u32) -> Self {
 		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
 		let q1 = ((q1Hi as u64) << 32) | (q1Lo as u64);
-		Self(iced_x86::Instruction::with_declare_qword_2(q0, q1))
+		Self(iced_x86_rust::Instruction::with_declare_qword_2(q0, q1))
 	}
 
 	/// Creates a `dq`/`.quad` asm directive
@@ -6015,7 +6015,7 @@ impl Instruction {
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createDeclareQword")]
 	pub fn with_declare_qword(data: &[u64]) -> Self {
-		Self(iced_x86::Instruction::with_declare_qword(data))
+		Self(iced_x86_rust::Instruction::with_declare_qword(data))
 	}
 	// GENERATOR-END: Create
 }

@@ -39,7 +39,7 @@ pub enum RepPrefixKind {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn rep_prefix_kind_to_iced(value: RepPrefixKind) -> iced_x86::RepPrefixKind {
+pub(crate) fn rep_prefix_kind_to_iced(value: RepPrefixKind) -> iced_x86_rust::RepPrefixKind {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

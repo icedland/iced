@@ -275,13 +275,13 @@ pub enum Register {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn register_to_iced(value: Register) -> iced_x86::Register {
+pub(crate) fn register_to_iced(value: Register) -> iced_x86_rust::Register {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_register(value: iced_x86::Register) -> Register {
+pub(crate) fn iced_to_register(value: iced_x86_rust::Register) -> Register {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

@@ -33,7 +33,7 @@ use wasm_bindgen::prelude::*;
 ///
 /// [`Instruction.opCode`]: struct.Instruction.html#method.op_code
 #[wasm_bindgen]
-pub struct OpCodeInfo(pub(crate) &'static iced_x86::OpCodeInfo);
+pub struct OpCodeInfo(pub(crate) &'static iced_x86_rust::OpCodeInfo);
 
 #[wasm_bindgen]
 impl OpCodeInfo {
@@ -45,7 +45,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt } = require("iced-x86-js");
+	/// const { Code, CodeExt } = require("iced-x86");
 	///
 	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// assert.equal(opCode.code, Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
@@ -66,7 +66,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt, EncodingKind } = require("iced-x86-js");
+	/// const { Code, CodeExt, EncodingKind } = require("iced-x86");
 	///
 	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// assert.equal(opCode.encoding, EncodingKind.EVEX);
@@ -85,7 +85,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt } = require("iced-x86-js");
+	/// const { Code, CodeExt } = require("iced-x86");
 	///
 	/// const opCode1 = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// assert.ok(opCode1.isInstruction);
@@ -322,7 +322,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt } = require("iced-x86-js");
+	/// const { Code, CodeExt } = require("iced-x86");
 	///
 	/// const opCode1 = CodeExt.opCode(Code.Ffreep_sti);
 	/// assert.equal(opCode1.opCode, 0xDFC0);
@@ -451,7 +451,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt } = require("iced-x86-js");
+	/// const { Code, CodeExt } = require("iced-x86");
 	///
 	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// assert.equal(opCode.opCodeString, "EVEX.256.66.0F.W1 28 /r");
@@ -473,7 +473,7 @@ impl OpCodeInfo {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Code, CodeExt } = require("iced-x86-js");
+	/// const { Code, CodeExt } = require("iced-x86");
 	///
 	/// const opCode = CodeExt.opCode(Code.EVEX_Vmovapd_ymm_k1z_ymmm256);
 	/// assert.equal("VMOVAPD ymm1 {k1}{z}, ymm2/m256", opCode.instructionString);

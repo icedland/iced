@@ -31,7 +31,7 @@ use wasm_bindgen::prelude::*;
 
 /// A register used by an instruction
 #[wasm_bindgen]
-pub struct UsedRegister(iced_x86::UsedRegister);
+pub struct UsedRegister(iced_x86_rust::UsedRegister);
 
 #[wasm_bindgen]
 impl UsedRegister {
@@ -54,7 +54,7 @@ impl UsedRegister {
 
 /// A memory location used by an instruction
 #[wasm_bindgen]
-pub struct UsedMemory(iced_x86::UsedMemory);
+pub struct UsedMemory(iced_x86_rust::UsedMemory);
 
 #[wasm_bindgen]
 impl UsedMemory {
@@ -140,7 +140,7 @@ impl UsedMemory {
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html
 #[wasm_bindgen]
-pub struct InstructionInfo(iced_x86::InstructionInfo);
+pub struct InstructionInfo(iced_x86_rust::InstructionInfo);
 
 #[wasm_bindgen]
 impl InstructionInfo {
@@ -380,7 +380,7 @@ pub enum InstructionInfoOptions {
 /// [`Code`]: enum.Code.html
 /// [`Instruction.flowControl`]: struct.Instruction.html#method.flow_control
 #[wasm_bindgen]
-pub struct InstructionInfoFactory(iced_x86::InstructionInfoFactory);
+pub struct InstructionInfoFactory(iced_x86_rust::InstructionInfoFactory);
 
 #[wasm_bindgen]
 impl InstructionInfoFactory {
@@ -397,7 +397,7 @@ impl InstructionInfoFactory {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, Instruction, InstructionInfoFactory } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, Instruction, InstructionInfoFactory } = require("iced-x86");
 	///
 	/// // add [rdi+r12*8-5AA5EDCCh],esi
 	/// const bytes = new Uint8Array([0x42, 0x01, 0xB4, 0xE7, 0x34, 0x12, 0x5A, 0xA5]);
@@ -436,7 +436,7 @@ impl InstructionInfoFactory {
 	#[wasm_bindgen(constructor)]
 	#[allow(clippy::new_without_default)]
 	pub fn new() -> Self {
-		InstructionInfoFactory(iced_x86::InstructionInfoFactory::new())
+		InstructionInfoFactory(iced_x86_rust::InstructionInfoFactory::new())
 	}
 
 	/// Creates a new [`InstructionInfo`], see also [`infoOptions()`] if you only need register usage
@@ -459,7 +459,7 @@ impl InstructionInfoFactory {
 	///
 	/// ```js
 	/// const assert = require("assert").strict;
-	/// const { Decoder, DecoderOptions, InstructionInfoFactory, MemorySize, OpAccess, Register } = require("iced-x86-js");
+	/// const { Decoder, DecoderOptions, InstructionInfoFactory, MemorySize, OpAccess, Register } = require("iced-x86");
 	///
 	/// // add [rdi+r12*8-5AA5EDCCh],esi
 	/// const bytes = new Uint8Array([0x42, 0x01, 0xB4, 0xE7, 0x34, 0x12, 0x5A, 0xA5]);
@@ -520,9 +520,9 @@ impl InstructionInfoFactory {
 	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
 	#[wasm_bindgen(js_name = "infoOptions")]
 	pub fn info_options(&mut self, instruction: &Instruction, options: u32 /*flags: InstructionInfoOptions*/) -> InstructionInfo {
-		const_assert_eq!(iced_x86::InstructionInfoOptions::NONE, InstructionInfoOptions::None as u32);
-		const_assert_eq!(iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE, InstructionInfoOptions::NoMemoryUsage as u32);
-		const_assert_eq!(iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE, InstructionInfoOptions::NoRegisterUsage as u32);
+		const_assert_eq!(iced_x86_rust::InstructionInfoOptions::NONE, InstructionInfoOptions::None as u32);
+		const_assert_eq!(iced_x86_rust::InstructionInfoOptions::NO_MEMORY_USAGE, InstructionInfoOptions::NoMemoryUsage as u32);
+		const_assert_eq!(iced_x86_rust::InstructionInfoOptions::NO_REGISTER_USAGE, InstructionInfoOptions::NoRegisterUsage as u32);
 		InstructionInfo((*self.0.info_options(&instruction.0, options)).clone())
 	}
 }

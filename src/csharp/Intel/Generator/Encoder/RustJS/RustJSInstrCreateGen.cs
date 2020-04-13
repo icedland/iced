@@ -169,7 +169,7 @@ namespace Generator.Encoder.RustJS {
 					toLocalName.Add(info.OrigIndex, local);
 				}
 				sb.Clear();
-				sb.Append("Self(iced_x86::Instruction::");
+				sb.Append("Self(iced_x86_rust::Instruction::");
 				sb.Append(rustName);
 				sb.Append('(');
 				for (int i = 0; i < ctx.OrigMethod.Args.Count; i++) {

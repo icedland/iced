@@ -1576,7 +1576,7 @@ pub enum Mnemonic {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_mnemonic(value: iced_x86::Mnemonic) -> Mnemonic {
+pub(crate) fn iced_to_mnemonic(value: iced_x86_rust::Mnemonic) -> Mnemonic {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u16) }
 }

@@ -43,7 +43,7 @@ pub enum MandatoryPrefix {
 // GENERATOR-END: Enum
 
 #[allow(dead_code)]
-pub(crate) fn iced_to_mandatory_prefix(value: iced_x86::MandatoryPrefix) -> MandatoryPrefix {
+pub(crate) fn iced_to_mandatory_prefix(value: iced_x86_rust::MandatoryPrefix) -> MandatoryPrefix {
 	// Safe, the enums are exactly identical
 	unsafe { std::mem::transmute(value as u8) }
 }

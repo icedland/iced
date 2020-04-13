@@ -23,13 +23,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::block_encoder_options::BlockEncoderOptions;
 use super::instruction::Instruction;
-use iced_x86::InstructionBlock;
+use iced_x86_rust::InstructionBlock;
 use wasm_bindgen::prelude::*;
 
 /// Encodes instructions. It can be used to move instructions from one location to another location.
 #[wasm_bindgen]
 pub struct BlockEncoder {
-	instructions: Vec<iced_x86::Instruction>,
+	instructions: Vec<iced_x86_rust::Instruction>,
 	bitness: u32,
 	options: u32,
 }
@@ -101,7 +101,7 @@ impl BlockEncoder {
 
 	fn encode_core(&mut self, rip: u64) -> Result<Vec<u8>, JsValue> {
 		let block = InstructionBlock::new(&self.instructions, rip);
-		match iced_x86::BlockEncoder::encode(self.bitness, block, self.options) {
+		match iced_x86_rust::BlockEncoder::encode(self.bitness, block, self.options) {
 			Ok(result) => Ok(result.code_buffer),
 			Err(error) => Err(js_sys::Error::new(&error).into()),
 		}

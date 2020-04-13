@@ -30,7 +30,7 @@ use wasm_bindgen::prelude::*;
 /// [`Decoder.getConstantOffsets()`]: struct.Decoder.html#method.get_constant_offsets
 /// [`Encoder.getConstantOffsets()`]: struct.Encoder.html#method.get_constant_offsets
 #[wasm_bindgen]
-pub struct ConstantOffsets(pub(crate) iced_x86::ConstantOffsets);
+pub struct ConstantOffsets(pub(crate) iced_x86_rust::ConstantOffsets);
 
 #[wasm_bindgen]
 impl ConstantOffsets {
