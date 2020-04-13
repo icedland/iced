@@ -144,6 +144,16 @@ jobs:
           rustup target add wasm32-unknown-unknown
           rustup update --no-self-update
 
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.0.0
+
+      - name: Install wasm-pack
+        shell: bash
+        run: |
+          npm install -g wasm-pack
+
       - name: Build no_std
         shell: bash
         run: |
@@ -256,12 +266,7 @@ jobs:
           cd ..
           git clean -xdf
 
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10.0.0
-
-      - name: iced-x86-js
+      - name: iced-x86-js tests
         shell: bash
         run: |
           export PATH="$HOME/.cargo/bin:$PATH"
