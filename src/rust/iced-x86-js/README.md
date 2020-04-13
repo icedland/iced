@@ -66,6 +66,7 @@ Here's a list of all features you can enable when building the wasm file
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
+- [Create and encode instructions](#create-and-encode-instructions)
 - [Move code in memory (eg. hook a function)](#move-code-in-memory-eg-hook-a-function)
 - [Get instruction info, eg. read/written regs/mem, control flow info, etc](#get-instruction-info-eg-readwritten-regsmem-control-flow-info-etc)
 
@@ -145,6 +146,125 @@ instructions.forEach(instruction => {
 instructions.forEach(instruction => instruction.free());
 formatter.free();
 decoder.free();
+```
+
+## Create and encode instructions
+
+This example uses a `BlockEncoder` to encode created `Instruction`s.
+
+```js
+// iced-x86 features needed: --features "decoder gas encoder instr_create block_encoder instr_api"
+const {
+    BlockEncoder, BlockEncoderOptions, Code, Decoder, DecoderOptions, Formatter, FormatterSyntax,
+    Instruction, MemoryOperand, Register,
+} = require("iced-x86-js");
+
+const bitness = 64;
+
+// All created instructions get an IP of 0. The label id is just an IP.
+// The branch instruction's *target* IP should be equal to the IP of the
+// target instruction.
+let labelId = 1;
+function createLabel() {
+    return labelId++;
+}
+function addLabel(id, instruction) {
+    instruction.ip_lo = id >>> 0;
+    instruction.ip_hi = (id / 0x100000000) >>> 0;
+    return instruction;
+}
+function getAddress(hi, lo) {
+    return ("0000000" + hi.toString(16)).substr(-8).toUpperCase() +
+           ("0000000" + lo.toString(16)).substr(-8).toUpperCase();
+}
+
+const label1 = createLabel();
+
+const instructions = [];
+instructions.push(Instruction.createReg(Code.Push_r64, Register.RBP));
+instructions.push(Instruction.createReg(Code.Push_r64, Register.RDI));
+instructions.push(Instruction.createReg(Code.Push_r64, Register.RSI));
+instructions.push(Instruction.createRegU32(Code.Sub_rm64_imm32, Register.RSP, 0x50));
+instructions.push(Instruction.create(Code.VEX_Vzeroupper));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RBP, MemoryOperand.createBaseDispl(Register.RSP, 0x60)));
+instructions.push(Instruction.createRegReg(Code.Mov_r64_rm64, Register.RSI, Register.RCX));
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.RDI, MemoryOperand.createBaseDispl(Register.RBP, -0x38)));
+instructions.push(Instruction.createRegI32(Code.Mov_r32_imm32, Register.ECX, 0x0A));
+instructions.push(Instruction.createRegReg(Code.Xor_r32_rm32, Register.EAX, Register.EAX));
+instructions.push(Instruction.createRepStosd(bitness));
+instructions.push(Instruction.createRegU64(Code.Cmp_rm64_imm32, Register.RSI, 0x00000000, 0x12345678));
+// Create a branch instruction that references label1
+instructions.push(Instruction.createBranch(Code.Jne_rel32_64, 0, label1));
+instructions.push(Instruction.create(Code.Nopd));
+// Add the instruction that is the target of the branch
+instructions.push(addLabel(label1, Instruction.createRegReg(Code.Xor_r32_rm32, Register.R15D, Register.R15D)));
+
+// Create an instruction that accesses some data using an RIP relative memory operand
+const data1 = createLabel();
+instructions.push(Instruction.createRegMem(Code.Lea_r64_m, Register.R14, MemoryOperand.createBaseDispl(Register.RIP, data1)));
+instructions.push(Instruction.create(Code.Nopd));
+const rawData = new Uint8Array([0x12, 0x34, 0x56, 0x78]);
+instructions.push(addLabel(data1, Instruction.createDeclareByte(rawData)));
+
+// Use BlockEncoder to encode a block of instructions. This block can contain any
+// number of branches and any number of instructions.
+// It uses Encoder to encode all instructions.
+// If the target of a branch is too far away, it can fix it to use a longer branch.
+// This can be disabled by enabling some BlockEncoderOptions flags.
+const targetRip_lo = 0xFC840000;
+const targetRip_hi = 0x00001248;
+const blockEncoder = new BlockEncoder(bitness, BlockEncoderOptions.None);
+instructions.forEach(instruction => blockEncoder.add(instruction));
+const bytes = blockEncoder.encode(targetRip_hi, targetRip_lo);
+
+// Now disassemble the encoded instructions. Note that the 'jmp near'
+// instruction was turned into a 'jmp short' instruction because we
+// didn't disable branch optimizations.
+const bytesCode = bytes.slice(0, bytes.length - rawData.length);
+const bytesData = bytes.slice(bytes.length - rawData.length);
+const decoder = new Decoder(bitness, bytesCode, DecoderOptions.None);
+decoder.ip_lo = targetRip_lo;
+decoder.ip_hi = targetRip_hi;
+const formatter = new Formatter(FormatterSyntax.Gas);
+formatter.firstOperandCharIndex = 8;
+const decodedInstructions = decoder.decodeAll();
+decodedInstructions.forEach(instruction => {
+    const disasm = formatter.format(instruction);
+    console.log("%s %s", getAddress(instruction.ip_hi, instruction.ip_lo), disasm);
+});
+const db = Instruction.createDeclareByte(bytesData);
+const disasm = formatter.format(db);
+console.log("%s %s", getAddress(decoder.ip_hi, decoder.ip_lo), disasm);
+
+// Free wasm memory
+decodedInstructions.forEach(instruction => instruction.free());
+instructions.forEach(instruction => instruction.free());
+blockEncoder.free();
+decoder.free();
+formatter.free();
+db.free();
+
+/*
+Output:
+00001248FC840000 push    %rbp
+00001248FC840001 push    %rdi
+00001248FC840002 push    %rsi
+00001248FC840003 sub     $0x50,%rsp
+00001248FC84000A vzeroupper
+00001248FC84000D lea     0x60(%rsp),%rbp
+00001248FC840012 mov     %rcx,%rsi
+00001248FC840015 lea     -0x38(%rbp),%rdi
+00001248FC840019 mov     $0xA,%ecx
+00001248FC84001E xor     %eax,%eax
+00001248FC840020 rep stos %eax,(%rdi)
+00001248FC840022 cmp     $0x12345678,%rsi
+00001248FC840029 jne     0x00001248FC84002C
+00001248FC84002B nop
+00001248FC84002C xor     %r15d,%r15d
+00001248FC84002F lea     0x1248FC840037,%r14
+00001248FC840036 nop
+00001248FC840037 .byte   0x12,0x34,0x56,0x78
+*/
 ```
 
 ## Move code in memory (eg. hook a function)

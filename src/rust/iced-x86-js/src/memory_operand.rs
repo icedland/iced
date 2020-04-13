@@ -42,7 +42,7 @@ impl MemoryOperand {
 	/// * `displacement`: Memory displacement
 	/// * `displSize`: 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	/// * `isBroadcast`: `true` if it's broadcasted memory (EVEX instructions)
-	/// * `segmentPrefix`: Segment override or [`Register.None`]
+	/// * `segmentPrefix`: Segment override or [`Register.None`] (a [`Register`] value)
 	///
 	/// [`Register`]: enum.Register.html
 	/// [`Register.None`]: enum.Register.html#variant.None
