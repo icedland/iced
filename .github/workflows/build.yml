@@ -256,6 +256,26 @@ jobs:
           cd ..
           git clean -xdf
 
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.0.0
+
+      - name: iced-x86-js
+        shell: bash
+        run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          export RUSTFLAGS="-D warnings"
+          
+          cd src/rust/iced-x86-js
+          wasm-pack build --mode force --target nodejs
+          cd src/tests
+          npm install
+          npm run test
+          
+          cd ..
+          git clean -xdf
+
       - name: Build, test (default)
         shell: bash
         run: |

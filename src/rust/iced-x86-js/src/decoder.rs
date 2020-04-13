@@ -62,7 +62,7 @@ impl Decoder {
 	/// const assert = require("assert").strict;
 	/// const { Code, Decoder, DecoderOptions, Mnemonic } = require("iced-x86");
 	///
-	/// // xchg [rdx+rsi+16h],ah
+	/// // xchg ah,[rdx+rsi+16h]
 	/// // xacquire lock add dword ptr [rax],5Ah
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
 	/// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);

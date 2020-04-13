@@ -91,7 +91,7 @@ static IMM_SIZES: [u32; 19] = [
 /// ```
 /// use iced_x86::*;
 ///
-/// // xchg [rdx+rsi+16h],ah
+/// // xchg ah,[rdx+rsi+16h]
 /// let bytes = b"\x86\x64\x32\x16";
 /// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 /// decoder.set_ip(0x1234_5678);

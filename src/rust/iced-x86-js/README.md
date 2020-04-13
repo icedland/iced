@@ -42,6 +42,23 @@ lto = true
 opt-level = 3
 ```
 
+## Testing the code
+
+Prerequisites:
+
+- Same as building it, see above👆
+- `Node.js` >= 10.0.0
+
+This tests the JS API. The tests in `../iced-x86` test everything else.
+
+```sh
+cd src/rust/iced-x86-js
+wasm-pack build --mode force --target nodejs
+cd src/tests
+npm install
+npm run test
+```
+
 ## Feature flags
 
 Here's a list of all features you can enable when building the wasm file

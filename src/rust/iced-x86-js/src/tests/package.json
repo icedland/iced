@@ -1,0 +1,11 @@
+{
+	"scripts": {
+		"test": "jest"
+	},
+	"dependencies": {
+		"iced-x86": "file:../../pkg"
+	},
+	"devDependencies": {
+		"jest": "^25.3.0"
+	}
+}

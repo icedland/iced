@@ -245,7 +245,7 @@ fn encode_invalid_test(invalid_bitness: u32, tc: Rc<DecoderTestInfo>) {
 
 #[test]
 fn encode_with_error() {
-	// xchg [rdx+rsi+16h],ah
+	// xchg ah,[rdx+rsi+16h]
 	let bytes = b"\x86\x64\x32\x16";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	let mut instr = decoder.decode();

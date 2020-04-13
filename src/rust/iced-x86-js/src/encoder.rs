@@ -36,7 +36,7 @@ use wasm_bindgen::prelude::*;
 /// const assert = require("assert").strict;
 /// const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
 ///
-/// // xchg [rdx+rsi+16h],ah
+/// // xchg ah,[rdx+rsi+16h]
 /// const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16]);
 /// const decoder = new Decoder(64, bytes, DecoderOptions.None);
 /// decoder.ipLo = 0x12345678;

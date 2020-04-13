@@ -302,7 +302,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	/// use iced_x86::*;
 	///
-	/// // xchg [rdx+rsi+16h],ah
+	/// // xchg ah,[rdx+rsi+16h]
 	/// // xacquire lock add dword ptr [rax],5Ah
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
 	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3";

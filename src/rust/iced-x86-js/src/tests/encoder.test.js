@@ -1,0 +1,173 @@
+/*
+Copyright (C) 2018-2019 de4dot@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+const { Decoder, DecoderOptions, Encoder } = require("iced-x86");
+
+test("Creating an Encoder with an invalid bitness throws", () => {
+	expect(() => new Encoder(63)).toThrow();
+	expect(() => Encoder.withCapacity(63, 64)).toThrow();
+});
+
+test("Encoder options", () => {
+	const encoder = new Encoder(64);
+
+	expect(encoder.preventVEX2).toBe(false);
+	encoder.preventVEX2 = true;
+	expect(encoder.preventVEX2).toBe(true);
+
+	expect(encoder.VEX_WIG).toBe(0);
+	encoder.VEX_WIG = 1;
+	expect(encoder.VEX_WIG).toBe(1);
+
+	expect(encoder.VEX_LIG).toBe(0);
+	encoder.VEX_LIG = 1;
+	expect(encoder.VEX_LIG).toBe(1);
+
+	expect(encoder.EVEX_WIG).toBe(0);
+	encoder.EVEX_WIG = 1;
+	expect(encoder.EVEX_WIG).toBe(1);
+
+	expect(encoder.EVEX_LIG).toBe(0);
+	encoder.EVEX_LIG = 1;
+	expect(encoder.EVEX_LIG).toBe(1);
+	encoder.EVEX_LIG = 2;
+	expect(encoder.EVEX_LIG).toBe(2);
+	encoder.EVEX_LIG = 3;
+	expect(encoder.EVEX_LIG).toBe(3);
+
+	encoder.free();
+});
+
+test("16-bit encoder", () => {
+	const bytes = new Uint8Array([0x75, 0x02]);
+	const decoder = new Decoder(16, bytes, DecoderOptions.None);
+	decoder.ipLo = 0x8123;
+	decoder.ipHi = 0;
+	const instr = decoder.decode();
+	const encoder = new Encoder(16);
+
+	expect(encoder.bitness).toBe(16);
+
+	encoder.writeU8(0xCC);
+	expect(encoder.encode(instr, 0, 0x8120)).toBe(2);
+	encoder.writeU8(0x90);
+
+	const buffer = encoder.takeBuffer();
+	expect(encoder.takeBuffer().length).toBe(0);
+	encoder.setBuffer(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(encoder.takeBuffer()).toStrictEqual(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(buffer).toStrictEqual(new Uint8Array([0xCC, 0x75, 0x05, 0x90]));
+
+	decoder.free();
+	instr.free();
+	encoder.free();
+});
+
+test("32-bit encoder", () => {
+	const bytes = new Uint8Array([0x75, 0x02]);
+	const decoder = new Decoder(32, bytes, DecoderOptions.None);
+	decoder.ipLo = 0x81234567;
+	decoder.ipHi = 0;
+	const instr = decoder.decode();
+	const encoder = new Encoder(32);
+
+	expect(encoder.bitness).toBe(32);
+
+	encoder.writeU8(0x90);
+	expect(encoder.encode(instr, 0, 0x81234563)).toBe(2);
+	encoder.writeU8(0xCC);
+
+	const buffer = encoder.takeBuffer();
+	expect(encoder.takeBuffer().length).toBe(0);
+	encoder.setBuffer(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(encoder.takeBuffer()).toStrictEqual(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(buffer).toStrictEqual(new Uint8Array([0x90, 0x75, 0x06, 0xCC]));
+
+	decoder.free();
+	instr.free();
+	encoder.free();
+});
+
+test("64-bit encoder", () => {
+	const bytes = new Uint8Array([0x75, 0x02]);
+	const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	decoder.ipLo = 0xABCDEF01;
+	decoder.ipHi = 0x81234567;
+	const instr = decoder.decode();
+	const encoder = new Encoder(64);
+
+	expect(encoder.bitness).toBe(64);
+
+	encoder.writeU8(0xCD);
+	expect(encoder.encode(instr, 0x81234567, 0xABCDEEFF)).toBe(2);
+	encoder.writeU8(0x91);
+
+	const buffer = encoder.takeBuffer();
+	expect(encoder.takeBuffer().length).toBe(0);
+	encoder.setBuffer(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(encoder.takeBuffer()).toStrictEqual(new Uint8Array([0x11, 0x22, 0x33]));
+	expect(buffer).toStrictEqual(new Uint8Array([0xCD, 0x75, 0x04, 0x91]));
+
+	decoder.free();
+	instr.free();
+	encoder.free();
+});
+
+test("Encoder constant offsets", () => {
+	const bytes = new Uint8Array([0x90, 0x83, 0xB3, 0x34, 0x12, 0x5A, 0xA5, 0x5A]);
+	const decoder = new Decoder(64, bytes, DecoderOptions.None);
+	const instr1 = decoder.decode();
+	const instr2 = decoder.decode();
+	const encoder = Encoder.withCapacity(64, 100);
+
+	encoder.encode(instr1);
+	const co1 = encoder.getConstantOffsets();
+	expect(co1.hasDisplacement).toBe(false);
+	expect(co1.displacementOffset).toBe(0);
+	expect(co1.displacementSize).toBe(0);
+	expect(co1.hasImmediate).toBe(false);
+	expect(co1.immediateOffset).toBe(0);
+	expect(co1.immediateSize).toBe(0);
+	expect(co1.hasImmediate2).toBe(false);
+	expect(co1.immediateOffset2).toBe(0);
+	expect(co1.immediateSize2).toBe(0);
+
+	encoder.encode(instr2);
+	const co2 = encoder.getConstantOffsets();
+	expect(co2.hasDisplacement).toBe(true);
+	expect(co2.displacementOffset).toBe(2);
+	expect(co2.displacementSize).toBe(4);
+	expect(co2.hasImmediate).toBe(true);
+	expect(co2.immediateOffset).toBe(6);
+	expect(co2.immediateSize).toBe(1);
+	expect(co2.hasImmediate2).toBe(false);
+	expect(co2.immediateOffset2).toBe(0);
+	expect(co2.immediateSize2).toBe(0);
+
+	decoder.free();
+	encoder.free();
+	instr1.free();
+	instr2.free();
+	co1.free();
+	co2.free();
+});
