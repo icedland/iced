@@ -268,6 +268,7 @@ test("Format instruction: gas", () => {
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic)).toBe("");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoPrefixes)).toBe("vcvtne2ps2bf16");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic | FormatMnemonicOptions.NoPrefixes)).toBe("");
+	expect(formatter.formatMnemonic(instr2)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.None)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoMnemonic)).toBe("lock");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoPrefixes)).toBe("add");
@@ -314,6 +315,7 @@ test("Format instruction: Intel", () => {
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic)).toBe("");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoPrefixes)).toBe("vcvtne2ps2bf16");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic | FormatMnemonicOptions.NoPrefixes)).toBe("");
+	expect(formatter.formatMnemonic(instr2)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.None)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoMnemonic)).toBe("lock");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoPrefixes)).toBe("add");
@@ -360,6 +362,7 @@ test("Format instruction: masm", () => {
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic)).toBe("");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoPrefixes)).toBe("vcvtne2ps2bf16");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic | FormatMnemonicOptions.NoPrefixes)).toBe("");
+	expect(formatter.formatMnemonic(instr2)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.None)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoMnemonic)).toBe("lock");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoPrefixes)).toBe("add");
@@ -406,6 +409,7 @@ test("Format instruction: nasm", () => {
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic)).toBe("");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoPrefixes)).toBe("vcvtne2ps2bf16");
 	expect(formatter.formatMnemonicOptions(instr, FormatMnemonicOptions.NoMnemonic | FormatMnemonicOptions.NoPrefixes)).toBe("");
+	expect(formatter.formatMnemonic(instr2)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.None)).toBe("lock add");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoMnemonic)).toBe("lock");
 	expect(formatter.formatMnemonicOptions(instr2, FormatMnemonicOptions.NoPrefixes)).toBe("add");

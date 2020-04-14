@@ -123,6 +123,7 @@ test("Instruction props", () => {
 	expect(instr.conditionCode).toBe(ConditionCode.None);
 
 	const instr2 = instr.clone();
+	expect(instr).not.toBe(instr2);
 	expect(instr.equalsAllBits(instr2)).toBe(true);
 	expect(instr.equals(instr2)).toBe(true);
 

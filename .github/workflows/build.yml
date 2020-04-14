@@ -276,7 +276,7 @@ jobs:
           wasm-pack build --mode force --target nodejs
           cd src/tests
           npm install
-          npm run test
+          npm test
           
           cd ..
           git clean -xdf

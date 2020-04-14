@@ -56,7 +56,7 @@ cd src/rust/iced-x86-js
 wasm-pack build --mode force --target nodejs
 cd src/tests
 npm install
-npm run test
+npm test
 ```
 
 ## Feature flags

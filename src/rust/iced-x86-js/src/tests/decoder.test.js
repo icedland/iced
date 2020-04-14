@@ -216,7 +216,7 @@ test("Decode with DecoderOptions.AmdBranches", () => {
 });
 
 test("Creating a Decoder with an invalid bitness throws", () => {
-	expect(() => new Decoder(63, new Uint8Array([0x90], DecoderOptions.None))).toThrow();
+	expect(() => new Decoder(63, new Uint8Array([0x90]), DecoderOptions.None)).toThrow();
 });
 
 // Make sure it's not an enum arg in the Rust code since it's a flags enum. It must be a u32 in the method sig.
