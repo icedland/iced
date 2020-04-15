@@ -564,7 +564,7 @@ pub enum FlowControl {
 	IndirectCall = 6,
 	/// It's an interrupt instruction: `INT n`, `INT3`, `INT1`, `INTO`
 	Interrupt = 7,
-	/// It's `XBEGIN`, `XABORT` or `XEND`
+	/// It's `XBEGIN`, `XABORT`, `XEND`, `XSUSLDTRK`, `XRESLDTRK`
 	XbeginXabortXend = 8,
 	/// It's an invalid instruction, eg. [`Code::INVALID`], `UD0`, `UD1`, `UD2`
 	///
@@ -1237,10 +1237,14 @@ pub enum CpuidFeature {
 	XSAVES = 129,
 	/// CPUID.8000001FH:EAX.SNP\[bit 4\]
 	SNP = 130,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.SERIALIZE\[bit 14\]
+	SERIALIZE = 131,
+	/// CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK\[bit 16\]
+	TSXLDTRK = 132,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 131] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 133] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1372,6 +1376,8 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 131] = [
 	"XSAVEOPT",
 	"XSAVES",
 	"SNP",
+	"SERIALIZE",
+	"TSXLDTRK",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

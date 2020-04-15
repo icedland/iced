@@ -1571,6 +1571,9 @@ namespace Iced.Intel {
 		Rmpupdate = 1539,
 		Psmash = 1540,
 		Pvalidate = 1541,
+		Serialize = 1542,
+		Xsusldtrk = 1543,
+		Xresldtrk = 1544,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

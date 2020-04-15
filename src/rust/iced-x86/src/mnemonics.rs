@@ -4237,4 +4237,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Pvalidate,// Pvalidatew
 	Mnemonic::Pvalidate,// Pvalidated
 	Mnemonic::Pvalidate,// Pvalidateq
+	Mnemonic::Serialize,// Serialize
+	Mnemonic::Xsusldtrk,// Xsusldtrk
+	Mnemonic::Xresldtrk,// Xresldtrk
 ];

@@ -4243,6 +4243,9 @@ namespace Iced.Intel {
 			0,// Pvalidatew
 			0,// Pvalidated
 			0,// Pvalidateq
+			0,// Serialize
+			0,// Xsusldtrk
+			0,// Xresldtrk
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8452,6 +8455,9 @@ namespace Iced.Intel {
 			0,// Pvalidatew
 			0,// Pvalidated
 			0,// Pvalidateq
+			0,// Serialize
+			0,// Xsusldtrk
+			0,// Xresldtrk
 		};
 	}
 }

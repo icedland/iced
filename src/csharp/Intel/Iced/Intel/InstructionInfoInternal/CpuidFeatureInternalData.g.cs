@@ -205,6 +205,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x80,// XSAVEOPT
 				0x81,// XSAVES
 				0x82,// SNP
+				0x83,// SERIALIZE
+				0x84,// TSXLDTRK
 			};
 	}
 }

@@ -31915,3 +31915,12 @@ F3 4F 0F 01 FF, Psmash, Psmash, 0, enc=F30F01FF
 
 F2 0F 01 FF, Pvalidateq, Pvalidate, 0,
 F2 4F 0F 01 FF, Pvalidateq, Pvalidate, 0, enc=F20F01FF
+
+0F 01 E8, Serialize, Serialize, 0,
+4F 0F 01 E8, Serialize, Serialize, 0, enc=0F01E8
+
+F2 0F 01 E8, Xsusldtrk, Xsusldtrk, 0,
+F2 4F 0F 01 E8, Xsusldtrk, Xsusldtrk, 0, enc=F20F01E8
+
+F2 0F 01 E9, Xresldtrk, Xresldtrk, 0,
+F2 4F 0F 01 E9, Xresldtrk, Xresldtrk, 0, enc=F20F01E9

@@ -178,6 +178,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 		XSAVEOPT,
 		XSAVES,
 		SNP,
+		SERIALIZE,
+		TSXLDTRK,
 	}
 }
 #endif

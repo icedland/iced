@@ -1596,14 +1596,21 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 40 = 0x28
 				0x11,// MandatoryPrefix
-					0x02,// Invalid
+					0xA5,// Simple_ModRM
+						0xF1, 0x20,// Serialize
 					0x02,// Invalid
 					0xA5,// Simple_ModRM
 						0xCF, 0x06,// Setssbsy
-					0x02,// Invalid
+					0xA5,// Simple_ModRM
+						0xF2, 0x20,// Xsusldtrk
 
 				// 41 = 0x29
-				0x06,// Null
+				0x11,// MandatoryPrefix
+					0x02,// Invalid
+					0x02,// Invalid
+					0x02,// Invalid
+					0xA5,// Simple_ModRM
+						0xF3, 0x20,// Xresldtrk
 
 				// 42 = 0x2A
 				0x11,// MandatoryPrefix

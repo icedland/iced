@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8418] {
+		internal static readonly uint[] Data = new uint[8424] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4238,6 +4238,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x46478000, 0x95000000,// Pvalidatew
 			0x46478000, 0x95000000,// Pvalidated
 			0x46478000, 0x95000000,// Pvalidateq
+			0x00000000, 0x96000000,// Serialize
+			0x00000000, 0x97800000,// Xsusldtrk
+			0x00000000, 0x97800000,// Xresldtrk
 		};
 	}
 }

@@ -18729,3 +18729,9 @@ F3 0F 01 FF, Psmash, Legacy, SNP, priv fw=oszap rw=rax
 67 F2 0F 01 FF, Pvalidated, Legacy, SNP, priv fw=oszacp r=eax;ecx;edx w=rax
 # pvalidate rax
 F2 0F 01 FF, Pvalidateq, Legacy, SNP, priv fw=oszacp r=ecx;edx rw=rax
+# serialize
+0F 01 E8, Serialize, Legacy, SERIALIZE,
+# xsusldtrk
+F2 0F 01 E8, Xsusldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
+# xresldtrk
+F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend

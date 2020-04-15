@@ -11085,6 +11085,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void serialize() {
+			TestAssembler(c => c.serialize(), Instruction.Create(Code.Serialize));
+		}
+
+		[Fact]
 		public void seta_reg8() {
 			TestAssembler(c => c.seta(bl), Instruction.Create(Code.Seta_rm8, bl));
 		}
@@ -40241,6 +40246,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void xresldtrk() {
+			TestAssembler(c => c.xresldtrk(), Instruction.Create(Code.Xresldtrk));
+		}
+
+		[Fact]
 		public void xrstor_m() {
 			TestAssembler(c => c.xrstor(__[si]), Instruction.Create(Code.Xrstor_mem, __[si].ToMemoryOperand(Bitness)));
 		}
@@ -40294,6 +40304,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{ // skip (Bitness == 64) not supported by this Assembler bitness
 			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
 			} /* else */ TestAssembler(c => c.xstore(), Instruction.Create(Code.Xstore_16));
+		}
+
+		[Fact]
+		public void xsusldtrk() {
+			TestAssembler(c => c.xsusldtrk(), Instruction.Create(Code.Xsusldtrk));
 		}
 
 		[Fact]

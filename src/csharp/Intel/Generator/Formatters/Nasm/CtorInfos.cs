@@ -4237,6 +4237,9 @@ namespace Generator.Formatters.Nasm {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate", 16 },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate", 32 },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate", 64 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Serialize)], "serialize" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xsusldtrk)], "xsusldtrk" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xresldtrk)], "xresldtrk" },
 		});
 	}
 }

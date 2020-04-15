@@ -4237,6 +4237,9 @@ namespace Generator.Formatters.Intel {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate", RegisterEnum.Instance[nameof(Register.AX)] },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate", RegisterEnum.Instance[nameof(Register.EAX)] },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.reg)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate", RegisterEnum.Instance[nameof(Register.RAX)] },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Serialize)], "serialize" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xsusldtrk)], "xsusldtrk" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xresldtrk)], "xresldtrk" },
 		});
 	}
 }

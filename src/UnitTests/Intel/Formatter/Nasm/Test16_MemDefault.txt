@@ -535,3 +535,6 @@ clzero
 a32 clzero
 pvalidate
 a32 pvalidate
+serialize
+xsusldtrk
+xresldtrk

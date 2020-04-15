@@ -33670,5 +33670,29 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		Pvalidateq = 4208,
+		/// <summary><c>SERIALIZE</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 E8</c><br/>
+		/// <br/>
+		/// <c>SERIALIZE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Serialize = 4209,
+		/// <summary><c>XSUSLDTRK</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 E8</c><br/>
+		/// <br/>
+		/// <c>TSXLDTRK</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Xsusldtrk = 4210,
+		/// <summary><c>XRESLDTRK</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 E9</c><br/>
+		/// <br/>
+		/// <c>TSXLDTRK</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Xresldtrk = 4211,
 	}
 }

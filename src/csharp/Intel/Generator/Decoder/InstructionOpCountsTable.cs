@@ -4242,6 +4242,9 @@ namespace Generator.Decoder {
 				(code[nameof(Code.Pvalidatew)], 0),
 				(code[nameof(Code.Pvalidated)], 0),
 				(code[nameof(Code.Pvalidateq)], 0),
+				(code[nameof(Code.Serialize)], 0),
+				(code[nameof(Code.Xsusldtrk)], 0),
+				(code[nameof(Code.Xresldtrk)], 0),
 			};
 
 			if (result.Length != code.Values.Length)

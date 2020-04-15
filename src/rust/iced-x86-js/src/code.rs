@@ -4240,6 +4240,9 @@ pub enum Code {
 	Pvalidatew = 4206,
 	Pvalidated = 4207,
 	Pvalidateq = 4208,
+	Serialize = 4209,
+	Xsusldtrk = 4210,
+	Xresldtrk = 4211,
 }
 // GENERATOR-END: Enum
 

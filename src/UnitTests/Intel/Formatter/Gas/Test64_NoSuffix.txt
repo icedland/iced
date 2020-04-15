@@ -8361,3 +8361,6 @@ rmpupdate
 psmash
 addr32 pvalidate
 pvalidate
+serialize
+xsusldtrk
+xresldtrk

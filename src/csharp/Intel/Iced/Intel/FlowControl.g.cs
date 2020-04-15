@@ -45,7 +45,7 @@ namespace Iced.Intel {
 		IndirectCall = 6,
 		/// <summary>It&apos;s an interrupt instruction: <c>INT n</c>, <c>INT3</c>, <c>INT1</c>, <c>INTO</c></summary>
 		Interrupt = 7,
-		/// <summary>It&apos;s <c>XBEGIN</c>, <c>XABORT</c> or <c>XEND</c></summary>
+		/// <summary>It&apos;s <c>XBEGIN</c>, <c>XABORT</c>, <c>XEND</c>, <c>XSUSLDTRK</c>, <c>XRESLDTRK</c></summary>
 		XbeginXabortXend = 8,
 		/// <summary>It&apos;s an invalid instruction, eg. <see cref="Code.INVALID"/>, <c>UD0</c>, <c>UD1</c>, <c>UD2</c></summary>
 		Exception = 9,

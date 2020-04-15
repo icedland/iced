@@ -4246,6 +4246,9 @@ namespace Generator.Enums {
 		Pvalidatew,
 		Pvalidated,
 		Pvalidateq,
+		Serialize,
+		Xsusldtrk,
+		Xresldtrk,
 	}
 
 	static class CodeEnum {

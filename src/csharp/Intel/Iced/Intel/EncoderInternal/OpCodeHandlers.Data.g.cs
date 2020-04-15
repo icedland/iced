@@ -29,7 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Iced.Intel.EncoderInternal {
 	static partial class OpCodeHandlers {
 		public static uint[] GetData() =>
-			new uint[4209 * 3] {
+			new uint[4212 * 3] {
 				0x00000000, 0x00000000, 0x00000000,// INVALID
 				0x00000000, 0x00000000, 0x00000000,// DeclareByte
 				0x00000000, 0x00000000, 0x00000000,// DeclareWord
@@ -4239,6 +4239,9 @@ namespace Iced.Intel.EncoderInternal {
 				0x01FF0000, 0x00048017, 0x00000000,// Pvalidatew
 				0x01FF0000, 0x00088007, 0x00000000,// Pvalidated
 				0x01FF0000, 0x00008027, 0x00000000,// Pvalidateq
+				0x01E80000, 0x00008004, 0x00000000,// Serialize
+				0x01E80000, 0x00008007, 0x00000000,// Xsusldtrk
+				0x01E90000, 0x00008007, 0x00000000,// Xresldtrk
 			};
 	}
 }

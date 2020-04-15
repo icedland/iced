@@ -33678,9 +33678,33 @@ pub enum Code {
 	///
 	/// `64-bit`
 	Pvalidateq = 4208,
+	/// `SERIALIZE`
+	///
+	/// `NP 0F 01 E8`
+	///
+	/// `SERIALIZE`
+	///
+	/// `16/32/64-bit`
+	Serialize = 4209,
+	/// `XSUSLDTRK`
+	///
+	/// `F2 0F 01 E8`
+	///
+	/// `TSXLDTRK`
+	///
+	/// `16/32/64-bit`
+	Xsusldtrk = 4210,
+	/// `XRESLDTRK`
+	///
+	/// `F2 0F 01 E9`
+	///
+	/// `TSXLDTRK`
+	///
+	/// `16/32/64-bit`
+	Xresldtrk = 4211,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4209] = [
+static GEN_DEBUG_CODE: [&str; 4212] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37890,6 +37914,9 @@ static GEN_DEBUG_CODE: [&str; 4209] = [
 	"Pvalidatew",
 	"Pvalidated",
 	"Pvalidateq",
+	"Serialize",
+	"Xsusldtrk",
+	"Xresldtrk",
 ];
 impl fmt::Debug for Code {
 	#[inline]

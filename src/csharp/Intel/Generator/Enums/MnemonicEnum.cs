@@ -1567,6 +1567,9 @@ namespace Generator.Enums {
 		Rmpupdate,
 		Psmash,
 		Pvalidate,
+		Serialize,
+		Xsusldtrk,
+		Xresldtrk,
 	}
 
 	static class MnemonicEnum {

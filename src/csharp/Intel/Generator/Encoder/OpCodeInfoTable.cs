@@ -4242,6 +4242,9 @@ namespace Generator.Encoder {
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidatew)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.Size16, OpCodeFlags.Mode16 | OpCodeFlags.Mode32, Array.Empty<LegacyOpKind>()),
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidated)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.Size32, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Pvalidateq)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Serialize)], MandatoryPrefix.PNP, OpCodeTableKind.T0F, 0x01E8, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Xsusldtrk)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01E8, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new LegacyOpCodeInfo(CodeEnum.Instance[nameof(Code.Xresldtrk)], MandatoryPrefix.PF2, OpCodeTableKind.T0F, 0x01E9, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 			};
 			if (data.Length != CodeEnum.Instance.Values.Length)
 				throw new InvalidOperationException();

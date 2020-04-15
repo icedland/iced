@@ -291,6 +291,10 @@ namespace Iced.Intel {
 		XSAVES = 129,
 		/// <summary>CPUID.8000001FH:EAX.SNP[bit 4]</summary>
 		SNP = 130,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.SERIALIZE[bit 14]</summary>
+		SERIALIZE = 131,
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]</summary>
+		TSXLDTRK = 132,
 	}
 }
 #endif

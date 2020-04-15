@@ -35864,6 +35864,20 @@ namespace Iced.Intel {
 		public void scasw() {
 			AddInstruction(Instruction.CreateScasw(Bitness));
 		}
+		/// <summary>serialize instruction.<br/>
+		/// <br/>
+		/// <c>SERIALIZE</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 E8</c><br/>
+		/// <br/>
+		/// <c>SERIALIZE</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void serialize() {
+			Code op;
+			op = Code.Serialize;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>seta instruction.<br/>
 		/// <br/>
 		/// <c>SETA r/m8</c><br/>
@@ -110580,6 +110594,20 @@ namespace Iced.Intel {
 			op = Code.Xorps_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
+		/// <summary>xresldtrk instruction.<br/>
+		/// <br/>
+		/// <c>XRESLDTRK</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 E9</c><br/>
+		/// <br/>
+		/// <c>TSXLDTRK</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xresldtrk() {
+			Code op;
+			op = Code.Xresldtrk;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>xrstor instruction.<br/>
 		/// <br/>
 		/// <c>XRSTOR mem</c><br/>
@@ -110856,6 +110884,20 @@ namespace Iced.Intel {
 			if (Bitness == 64) {
 				op = Code.Xstore_64;
 			} else op = Bitness >= 32 ? Code.Xstore_32 : Code.Xstore_16;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>xsusldtrk instruction.<br/>
+		/// <br/>
+		/// <c>XSUSLDTRK</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 E8</c><br/>
+		/// <br/>
+		/// <c>TSXLDTRK</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void xsusldtrk() {
+			Code op;
+			op = Code.Xsusldtrk;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>xtest instruction.<br/>

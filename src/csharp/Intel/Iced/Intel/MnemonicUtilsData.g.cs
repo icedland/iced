@@ -4237,6 +4237,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pvalidate,// Pvalidatew
 			(ushort)Mnemonic.Pvalidate,// Pvalidated
 			(ushort)Mnemonic.Pvalidate,// Pvalidateq
+			(ushort)Mnemonic.Serialize,// Serialize
+			(ushort)Mnemonic.Xsusldtrk,// Xsusldtrk
+			(ushort)Mnemonic.Xresldtrk,// Xresldtrk
 		};
 	}
 }

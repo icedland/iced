@@ -4239,6 +4239,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Pvalidatew
 	MemorySize::Unknown,// Pvalidated
 	MemorySize::Unknown,// Pvalidateq
+	MemorySize::Unknown,// Serialize
+	MemorySize::Unknown,// Xsusldtrk
+	MemorySize::Unknown,// Xresldtrk
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8448,4 +8451,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Pvalidatew
 	MemorySize::Unknown,// Pvalidated
 	MemorySize::Unknown,// Pvalidateq
+	MemorySize::Unknown,// Serialize
+	MemorySize::Unknown,// Xsusldtrk
+	MemorySize::Unknown,// Xresldtrk
 ];

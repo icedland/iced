@@ -1572,6 +1572,9 @@ pub enum Mnemonic {
 	Rmpupdate = 1539,
 	Psmash = 1540,
 	Pvalidate = 1541,
+	Serialize = 1542,
+	Xsusldtrk = 1543,
+	Xresldtrk = 1544,
 }
 // GENERATOR-END: Enum
 

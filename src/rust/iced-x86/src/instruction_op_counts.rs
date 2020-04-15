@@ -4236,4 +4236,7 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	0,// Pvalidatew
 	0,// Pvalidated
 	0,// Pvalidateq
+	0,// Serialize
+	0,// Xsusldtrk
+	0,// Xresldtrk
 ];

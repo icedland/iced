@@ -41,7 +41,7 @@ namespace Generator.Enums.InstructionInfo {
 		IndirectCall,
 		[Comment("It's an interrupt instruction: #(c:INT n)#, #(c:INT3)#, #(c:INT1)#, #(c:INTO)#")]
 		Interrupt,
-		[Comment("It's #(c:XBEGIN)#, #(c:XABORT)# or #(c:XEND)#")]
+		[Comment("It's #(c:XBEGIN)#, #(c:XABORT)#, #(c:XEND)#, #(c:XSUSLDTRK)#, #(c:XRESLDTRK)#")]
 		XbeginXabortXend,
 		[Comment("It's an invalid instruction, eg. #(e:Code.INVALID)#, #(c:UD0)#, #(c:UD1)#, #(c:UD2)#")]
 		Exception,

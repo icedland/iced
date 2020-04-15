@@ -703,3 +703,6 @@ xcryptofb
 a16 xcryptofb
 a16 pvalidate
 pvalidate
+serialize
+xsusldtrk
+xresldtrk

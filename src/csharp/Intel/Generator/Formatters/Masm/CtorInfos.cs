@@ -4237,6 +4237,9 @@ namespace Generator.Formatters.Masm {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidatew)], "pvalidate" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidated)], "pvalidate" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Pvalidateq)], "pvalidate" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Serialize)], "serialize" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xsusldtrk)], "xsusldtrk" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xresldtrk)], "xresldtrk" },
 		});
 	}
 }

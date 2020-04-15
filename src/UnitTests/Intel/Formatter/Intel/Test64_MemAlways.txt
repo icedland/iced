@@ -8361,3 +8361,6 @@ rmpupdate
 psmash
 pvalidate eax
 pvalidate rax
+serialize
+xsusldtrk
+xresldtrk
