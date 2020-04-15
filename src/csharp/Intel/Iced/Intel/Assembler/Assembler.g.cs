@@ -48378,7 +48378,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F2.0F38.W0 72 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtne2ps2bf16(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
@@ -48420,7 +48420,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F2.0F38.W0 72 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtne2ps2bf16(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
@@ -48462,7 +48462,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 72 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtneps2bf16(AssemblerRegisterYMM dst, AssemblerRegisterZMM src) {
@@ -48506,7 +48506,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 72 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtneps2bf16(AssemblerRegisterYMM dst, AssemblerMemoryOperand src) {
@@ -52802,7 +52802,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 52 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdpbf16ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
@@ -52844,7 +52844,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 52 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512_BF16</c><br/>
+		/// <c>AVX512F and AVX512_BF16</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vdpbf16ps(AssemblerRegisterZMM dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {

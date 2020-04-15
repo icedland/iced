@@ -59,6 +59,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		AVX512DQ,
 		AVX512ER,
 		AVX512F,
+		AVX512F_and_AVX512_BF16,
 		AVX512F_and_AVX512_VP2INTERSECT,
 		AVX512PF,
 		AVX512VL_and_AVX512_BF16,

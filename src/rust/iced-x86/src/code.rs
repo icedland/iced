@@ -24666,7 +24666,7 @@ pub enum Code {
 	///
 	/// `EVEX.512.F3.0F38.W0 52 /r`
 	///
-	/// `AVX512VL and AVX512_BF16`
+	/// `AVX512F and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
 	EVEX_Vdpbf16ps_zmm_k1z_zmm_zmmm512b32 = 3082,
@@ -25370,7 +25370,7 @@ pub enum Code {
 	///
 	/// `EVEX.512.F3.0F38.W0 72 /r`
 	///
-	/// `AVX512VL and AVX512_BF16`
+	/// `AVX512F and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
 	EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32 = 3170,
@@ -25394,7 +25394,7 @@ pub enum Code {
 	///
 	/// `EVEX.512.F2.0F38.W0 72 /r`
 	///
-	/// `AVX512VL and AVX512_BF16`
+	/// `AVX512F and AVX512_BF16`
 	///
 	/// `16/32/64-bit`
 	EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32 = 3173,

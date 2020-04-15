@@ -713,6 +713,7 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX512DQ,
 	AVX512ER,
 	AVX512F,
+	AVX512F_and_AVX512_BF16,
 	AVX512F_and_AVX512_VP2INTERSECT,
 	AVX512PF,
 	AVX512VL_and_AVX512_BF16,
@@ -834,7 +835,7 @@ pub(crate) enum CpuidFeatureInternal {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 149] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 150] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -866,6 +867,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 149] = [
 	"AVX512DQ",
 	"AVX512ER",
 	"AVX512F",
+	"AVX512F_and_AVX512_BF16",
 	"AVX512F_and_AVX512_VP2INTERSECT",
 	"AVX512PF",
 	"AVX512VL_and_AVX512_BF16",
