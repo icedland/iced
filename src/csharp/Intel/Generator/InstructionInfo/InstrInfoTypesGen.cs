@@ -127,12 +127,33 @@ namespace Generator.InstructionInfo {
 					cpuidToInternalDict.Add(info.Cpuid, internalEnumValue);
 				}
 			}
-			cpuidFeatures.Sort((a, b) => StringComparer.Ordinal.Compare(a.cpuidInternal.RawName, b.cpuidInternal.RawName));
+			cpuidFeatures.Sort(CompareCpuidInternalEnums);
 
 			EnumCpuidFeatureInternal = new EnumType(TypeIds.CpuidFeatureInternal, null, cpuidFeatures.Select(a => a.cpuidInternal).ToArray(), EnumTypeFlags.None);
-			this.CpuidFeatures = cpuidFeatures.ToArray();
+			CpuidFeatures = cpuidFeatures.ToArray();
 			foreach (var info in InstrInfos)
 				info.CpuidInternal = cpuidToInternalDict[info.Cpuid];
+		}
+
+		static int CompareCpuidInternalEnums((EnumValue cpuidInternal, EnumValue[] cpuidFeatures) x, (EnumValue cpuidInternal, EnumValue[] cpuidFeatures) y) {
+			int c = CompareCpuidFeatures(x.cpuidFeatures, y.cpuidFeatures);
+			if (c != 0)
+				return c;
+			return StringComparer.Ordinal.Compare(x.cpuidInternal.RawName, y.cpuidInternal.RawName);
+		}
+
+		static int CompareCpuidFeatures(EnumValue[] ca, EnumValue[] cb) {
+			ca = ca.OrderByDescending(a => a.Value).ToArray();
+			cb = cb.OrderByDescending(a => a.Value).ToArray();
+			int count = Math.Max(ca.Length, cb.Length);
+			for (int i = 0; i < count; i++) {
+				uint a = i < ca.Length ? ca[i].Value + 1 : 0;
+				uint b = i < cb.Length ? cb[i].Value + 1 : 0;
+				int c = a.CompareTo(b);
+				if (c != 0)
+					return c;
+			}
+			return 0;
 		}
 
 		const string RflagsInfo_None = "None";
@@ -273,7 +294,7 @@ namespace Generator.InstructionInfo {
 		}
 
 		void GenerateInfoFlags() {
-			var enumOpInfos = this.EnumOpInfos ?? throw new InvalidOperationException();
+			var enumOpInfos = EnumOpInfos ?? throw new InvalidOperationException();
 			var values1 = typeof(InfoFlags1).GetFields().Where(a => a.IsLiteral && a.Name != nameof(InfoFlags1.FirstUsedBit)).Select(a => new EnumValue((uint)(InfoFlags1)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToList();
 			var values2 = typeof(InfoFlags2).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(InfoFlags2)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 
@@ -291,17 +312,17 @@ namespace Generator.InstructionInfo {
 			if (shift > (uint)InfoFlags1.FirstUsedBit)
 				throw new InvalidOperationException($"OpInfoX use too many bits, move some bits to {nameof(InfoFlags2)}");
 
-			var rflagsInfos = this.RflagsInfos ?? throw new InvalidOperationException();
+			var rflagsInfos = RflagsInfos ?? throw new InvalidOperationException();
 			if ((uint)rflagsInfos.Length - 1 > (uint)InfoFlags1.RflagsInfoMask)
 				throw new InvalidOperationException();
-			var enumCodeInfo = this.EnumCodeInfo ?? throw new InvalidOperationException();
+			var enumCodeInfo = EnumCodeInfo ?? throw new InvalidOperationException();
 			if ((uint)enumCodeInfo.Values.Length - 1 > (uint)InfoFlags1.CodeInfoMask)
 				throw new InvalidOperationException();
 			if ((uint)EncodingKindEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.EncodingMask)
 				throw new InvalidOperationException();
 			if ((uint)FlowControlEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.FlowControlMask)
 				throw new InvalidOperationException();
-			var enumCpuidFeatureInternal = this.EnumCpuidFeatureInternal ?? throw new InvalidOperationException();
+			var enumCpuidFeatureInternal = EnumCpuidFeatureInternal ?? throw new InvalidOperationException();
 			if ((uint)enumCpuidFeatureInternal.Values.Length - 1 > (uint)InfoFlags2.CpuidFeatureInternalMask)
 				throw new InvalidOperationException();
 
@@ -321,11 +342,11 @@ namespace Generator.InstructionInfo {
 		void GenerateInstrInfoConstants() {
 			var constants = new List<Constant>();
 
-			var enumOpInfos = this.EnumOpInfos ?? throw new InvalidOperationException();
+			var enumOpInfos = EnumOpInfos ?? throw new InvalidOperationException();
 			for (int i = 0; i < enumOpInfos.Length; i++)
 				constants.Add(new Constant(ConstantKind.Index, $"OpInfo{i}_Count", (uint)enumOpInfos[i].Values.Length, ConstantsTypeFlags.None));
 
-			var enumRflagsInfo = this.EnumRflagsInfo ?? throw new InvalidOperationException();
+			var enumRflagsInfo = EnumRflagsInfo ?? throw new InvalidOperationException();
 			constants.Add(new Constant(ConstantKind.Index, enumRflagsInfo.RawName + "_Count", (uint)enumRflagsInfo.Values.Length, ConstantsTypeFlags.None));
 
 			constants.Add(new Constant(ConstantKind.Index, "DefaultUsedRegisterCollCapacity", 10, ConstantsTypeFlags.None));
