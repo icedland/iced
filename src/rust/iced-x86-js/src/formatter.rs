@@ -176,7 +176,7 @@ impl Formatter {
 		self.formatter.op_access(&instruction.0, operand).map(iced_to_op_access)
 	}
 
-	/// Converts a formatter operand index to an instruction operand index. Returns `None` if it's an operand added by the formatter
+	/// Converts a formatter operand index to an instruction operand index. Returns `undefined` if it's an operand added by the formatter
 	///
 	/// # Throws
 	///
@@ -193,7 +193,7 @@ impl Formatter {
 		self.formatter.get_instruction_operand(&instruction.0, operand)
 	}
 
-	/// Converts an instruction operand index to a formatter operand index. Returns `None` if the instruction operand isn't used by the formatter
+	/// Converts an instruction operand index to a formatter operand index. Returns `undefined` if the instruction operand isn't used by the formatter
 	///
 	/// # Throws
 	///

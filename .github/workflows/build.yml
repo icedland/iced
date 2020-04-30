@@ -133,6 +133,8 @@ jobs:
           curl https://sh.rustup.rs -sSf | bash -s -- -y
           export PATH="$HOME/.cargo/bin:$PATH"
           rustup install stable
+          rustup component add rustfmt
+          rustup component add clippy
 
       - name: Install rustc
         shell: bash

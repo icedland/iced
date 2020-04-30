@@ -23,17 +23,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 const { Code, Decoder, DecoderOptions, Instruction, OpKind, Register } = require("iced-x86");
 
-test("Create decoder with no bytes", () => {
+test("Create a Decoder with no bytes", () => {
 	const bytes = new Uint8Array([]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 	expect(decoder.canDecode).toBe(false);
 	const instr = decoder.decode();
 	expect(instr.code).toBe(Code.INVALID);
+	expect(decoder.invalidNoMoreBytes).toBe(true);
 	instr.free();
 	decoder.free();
 });
 
-test("Create a 16-bit decoder", () => {
+test("Create a 16-bit Decoder", () => {
 	const bytes = new Uint8Array([0x01, 0x18]);
 	const decoder = new Decoder(16, bytes, DecoderOptions.None);
 
@@ -48,7 +49,7 @@ test("Create a 16-bit decoder", () => {
 	instr.free();
 });
 
-test("Create a 32-bit decoder", () => {
+test("Create a 32-bit Decoder", () => {
 	const bytes = new Uint8Array([0x01, 0x18]);
 	const decoder = new Decoder(32, bytes, DecoderOptions.None);
 
@@ -63,7 +64,7 @@ test("Create a 32-bit decoder", () => {
 	instr.free();
 });
 
-test("Create a 64-bit decoder", () => {
+test("Create a 64-bit Decoder", () => {
 	const bytes = new Uint8Array([0x48, 0x01, 0x18]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 

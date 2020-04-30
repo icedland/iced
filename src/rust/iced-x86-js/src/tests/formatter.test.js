@@ -21,7 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-const { Decoder, DecoderOptions, Formatter, FormatterSyntax, FormatMnemonicOptions, MemorySizeOptions, Register } = require("iced-x86");
+const {
+	Decoder, DecoderOptions, Formatter, FormatterSyntax, FormatMnemonicOptions, MemorySizeOptions,
+	Register
+} = require("iced-x86");
 
 test("Default gas formatter options", () => {
 	const formatter = new Formatter(FormatterSyntax.Gas);
