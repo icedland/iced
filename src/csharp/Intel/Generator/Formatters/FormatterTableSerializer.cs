@@ -41,11 +41,12 @@ namespace Generator.Formatters {
 			var expectedLength = CodeEnum.Instance.Values.Length;
 			if (infos.Length != expectedLength)
 				throw new InvalidOperationException($"Found {infos.Length} elements, expected {expectedLength}");
-			foreach (var info in infos) {
+			for (int i = 0; i < infos.Length; i++) {
+				var info = infos[i];
 				bool ignoreVPrefix = true;
 				foreach (var o in info) {
 					if (o is string s) {
-						stringsTable.Add(s, ignoreVPrefix);
+						stringsTable.Add((uint)i, s, ignoreVPrefix);
 						ignoreVPrefix = false;
 					}
 				}
