@@ -1679,7 +1679,8 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 62 = 0x3E
 				0x14,// MandatoryPrefix_NoModRM
-					0x03,// Invalid_NoModRM
+					0xAB,// Simple5
+						0xF4, 0x20,// Invlpgbw
 					0x03,// Invalid_NoModRM
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM
@@ -1692,7 +1693,8 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 63 = 0x3F
 				0x14,// MandatoryPrefix_NoModRM
-					0x03,// Invalid_NoModRM
+					0xA4,// Simple
+						0xF7, 0x20,// Tlbsync
 					0x03,// Invalid_NoModRM
 					0x00,// Bitness
 						0x03,// Invalid_NoModRM

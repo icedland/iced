@@ -4876,6 +4876,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void invlpgb() {
+			{ /* if (Bitness == 64) */
+				TestAssembler(c => c.invlpgb(), Instruction.Create(Code.Invlpgbq));
+			} /* else skip (Bitness == 64) not supported by this Assembler bitness */
+		}
+
+		[Fact]
 		public void invpcid_reg64_m() {
 			TestAssembler(c => c.invpcid(rcx, __[rcx]), Instruction.Create(Code.Invpcid_r64_m128, rcx, __[rcx].ToMemoryOperand(Bitness)));
 		}
@@ -13738,6 +13745,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				// Already tested by signed version
 			}
+		}
+
+		[Fact]
+		public void tlbsync() {
+			TestAssembler(c => c.tlbsync(), Instruction.Create(Code.Tlbsync));
 		}
 
 		[Fact]

@@ -4233,3 +4233,7 @@ Pvalidateq, legacy, F2, 0F, 01FF, F2 0F 01 FF, PVALIDATE, 64b
 Serialize, legacy, NP, 0F, 01E8, NP 0F 01 E8, SERIALIZE, 16b 32b 64b
 Xsusldtrk, legacy, F2, 0F, 01E8, F2 0F 01 E8, XSUSLDTRK, 16b 32b 64b
 Xresldtrk, legacy, F2, 0F, 01E9, F2 0F 01 E9, XRESLDTRK, 16b 32b 64b
+Invlpgbw, legacy, NP, 0F, 01FE, a16 NP 0F 01 FE, INVLPGB, 16b 32b a16
+Invlpgbd, legacy, NP, 0F, 01FE, a32 NP 0F 01 FE, INVLPGB, 16b 32b 64b a32
+Invlpgbq, legacy, NP, 0F, 01FE, NP 0F 01 FE, INVLPGB, 64b
+Tlbsync, legacy, NP, 0F, 01FF, NP 0F 01 FF, TLBSYNC, 16b 32b 64b

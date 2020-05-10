@@ -291,6 +291,8 @@ namespace Generator.Enums.InstructionInfo {
 		SERIALIZE,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK[bit 16]")]
 		TSXLDTRK,
+		[Comment("CPUID.80000001H:EDX.INVLPGB[bit ??]")]
+		INVLPGB,
 	}
 
 	static class CpuidFeatureEnum {

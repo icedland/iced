@@ -31924,3 +31924,12 @@ F2 4F 0F 01 E8, Xsusldtrk, Xsusldtrk, 0, enc=F20F01E8
 
 F2 0F 01 E9, Xresldtrk, Xresldtrk, 0,
 F2 4F 0F 01 E9, Xresldtrk, Xresldtrk, 0, enc=F20F01E9
+
+67 0F 01 FE, Invlpgbd, Invlpgb, 0,
+67 4F 0F 01 FE, Invlpgbd, Invlpgb, 0, enc=670F01FE
+
+0F 01 FE, Invlpgbq, Invlpgb, 0,
+4F 0F 01 FE, Invlpgbq, Invlpgb, 0, enc=0F01FE
+
+0F 01 FF, Tlbsync, Tlbsync, 0,
+4F 0F 01 FF, Tlbsync, Tlbsync, 0, enc=0F01FF

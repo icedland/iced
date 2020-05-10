@@ -4245,6 +4245,10 @@ namespace Generator.Decoder {
 				(code[nameof(Code.Serialize)], 0),
 				(code[nameof(Code.Xsusldtrk)], 0),
 				(code[nameof(Code.Xresldtrk)], 0),
+				(code[nameof(Code.Invlpgbw)], 0),
+				(code[nameof(Code.Invlpgbd)], 0),
+				(code[nameof(Code.Invlpgbq)], 0),
+				(code[nameof(Code.Tlbsync)], 0),
 			};
 
 			if (result.Length != code.Values.Length)

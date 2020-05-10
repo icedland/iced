@@ -1574,6 +1574,8 @@ namespace Iced.Intel {
 		Serialize = 1542,
 		Xsusldtrk = 1543,
 		Xresldtrk = 1544,
+		Invlpgb = 1545,
+		Tlbsync = 1546,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

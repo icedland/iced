@@ -4249,6 +4249,10 @@ namespace Generator.Enums {
 		Serialize,
 		Xsusldtrk,
 		Xresldtrk,
+		Invlpgbw,
+		Invlpgbd,
+		Invlpgbq,
+		Tlbsync,
 	}
 
 	static class CodeEnum {

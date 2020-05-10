@@ -18735,3 +18735,9 @@ F2 0F 01 FF, Pvalidateq, Legacy, SNP, priv fw=oszacp r=ecx;edx rw=rax
 F2 0F 01 E8, Xsusldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
 # xresldtrk
 F2 0F 01 E9, Xresldtrk, Legacy, TSXLDTRK, flow=XbeginXabortXend
+# invlpgb eax
+67 0F 01 FE, Invlpgbd, Legacy, INVLPGB, pm priv r=eax;edx;ecx
+# invlpgb rax
+0F 01 FE, Invlpgbq, Legacy, INVLPGB, pm priv r=rax;edx;ecx
+# tlbsync
+0F 01 FF, Tlbsync, Legacy, INVLPGB, pm priv

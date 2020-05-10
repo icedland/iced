@@ -706,3 +706,6 @@ F2 0F 01 FF, Pvalidated
 0F 01 E8, Serialize
 F2 0F 01 E8, Xsusldtrk
 F2 0F 01 E9, Xresldtrk
+67 0F 01 FE, Invlpgbw
+0F 01 FE, Invlpgbd
+0F 01 FF, Tlbsync

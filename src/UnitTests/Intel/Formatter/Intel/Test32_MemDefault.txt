@@ -706,3 +706,6 @@ pvalidate eax
 serialize
 xsusldtrk
 xresldtrk
+invlpgb ax
+invlpgb eax
+tlbsync

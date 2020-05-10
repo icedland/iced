@@ -4246,6 +4246,10 @@ namespace Iced.Intel {
 			0,// Serialize
 			0,// Xsusldtrk
 			0,// Xresldtrk
+			0,// Invlpgbw
+			0,// Invlpgbd
+			0,// Invlpgbq
+			0,// Tlbsync
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8458,6 +8462,10 @@ namespace Iced.Intel {
 			0,// Serialize
 			0,// Xsusldtrk
 			0,// Xresldtrk
+			0,// Invlpgbw
+			0,// Invlpgbd
+			0,// Invlpgbq
+			0,// Tlbsync
 		};
 	}
 }

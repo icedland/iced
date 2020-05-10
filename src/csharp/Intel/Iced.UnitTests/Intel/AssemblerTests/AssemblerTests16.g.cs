@@ -4313,6 +4313,13 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void invlpgb() {
+			{ // skip (Bitness == 64) not supported by this Assembler bitness
+			} /* else */ { // skip (Bitness >= 32) not supported by this Assembler bitness
+			} /* else */ TestAssembler(c => c.invlpgb(), Instruction.Create(Code.Invlpgbw));
+		}
+
+		[Fact]
 		public void invpcid_reg32_m() {
 			TestAssembler(c => c.invpcid(ecx, __[si]), Instruction.Create(Code.Invpcid_r32_m128, ecx, __[si].ToMemoryOperand(Bitness)));
 		}
@@ -12296,6 +12303,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			{
 				// Already tested by signed version
 			}
+		}
+
+		[Fact]
+		public void tlbsync() {
+			TestAssembler(c => c.tlbsync(), Instruction.Create(Code.Tlbsync));
 		}
 
 		[Fact]

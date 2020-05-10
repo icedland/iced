@@ -21295,3 +21295,9 @@ F2 0F 01 FF, Pvalidatew, Pvalidate, 0,
 F2 0F 01 E8, Xsusldtrk, Xsusldtrk, 0,
 
 F2 0F 01 E9, Xresldtrk, Xresldtrk, 0,
+
+0F 01 FE, Invlpgbw, Invlpgb, 0,
+
+67 0F 01 FE, Invlpgbd, Invlpgb, 0,
+
+0F 01 FF, Tlbsync, Tlbsync, 0,

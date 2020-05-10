@@ -26,7 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::CpuidFeature;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-pub(crate) static CPUID: [&[CpuidFeature]; 152] = [
+pub(crate) static CPUID: [&[CpuidFeature]; 153] = [
 	&[CpuidFeature::INTEL8086],// INTEL8086
 	&[CpuidFeature::INTEL8086_ONLY],// INTEL8086_ONLY
 	&[CpuidFeature::INTEL186],// INTEL186
@@ -179,4 +179,5 @@ pub(crate) static CPUID: [&[CpuidFeature]; 152] = [
 	&[CpuidFeature::SNP],// SNP
 	&[CpuidFeature::SERIALIZE],// SERIALIZE
 	&[CpuidFeature::TSXLDTRK],// TSXLDTRK
+	&[CpuidFeature::INVLPGB],// INVLPGB
 ];

@@ -157,6 +157,7 @@ namespace Generator.InstructionInfo {
 		Rmpupdate,
 		Psmash,
 		Pvalidate,
+		Invlpgb,
 	}
 
 	sealed class InstrInfo {

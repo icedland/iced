@@ -306,5 +306,7 @@ pub enum CpuidFeature {
 	SERIALIZE = 131,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK\[bit 16\]
 	TSXLDTRK = 132,
+	/// CPUID.80000001H:EDX.INVLPGB\[bit ??\]
+	INVLPGB = 133,
 }
 // GENERATOR-END: Enum

@@ -33702,9 +33702,41 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Xresldtrk = 4211,
+	/// `INVLPGB`
+	///
+	/// `a16 NP 0F 01 FE`
+	///
+	/// `INVLPGB`
+	///
+	/// `16/32-bit`
+	Invlpgbw = 4212,
+	/// `INVLPGB`
+	///
+	/// `a32 NP 0F 01 FE`
+	///
+	/// `INVLPGB`
+	///
+	/// `16/32/64-bit`
+	Invlpgbd = 4213,
+	/// `INVLPGB`
+	///
+	/// `NP 0F 01 FE`
+	///
+	/// `INVLPGB`
+	///
+	/// `64-bit`
+	Invlpgbq = 4214,
+	/// `TLBSYNC`
+	///
+	/// `NP 0F 01 FF`
+	///
+	/// `INVLPGB`
+	///
+	/// `16/32/64-bit`
+	Tlbsync = 4215,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4212] = [
+static GEN_DEBUG_CODE: [&str; 4216] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37917,6 +37949,10 @@ static GEN_DEBUG_CODE: [&str; 4212] = [
 	"Serialize",
 	"Xsusldtrk",
 	"Xresldtrk",
+	"Invlpgbw",
+	"Invlpgbd",
+	"Invlpgbq",
+	"Tlbsync",
 ];
 impl fmt::Debug for Code {
 	#[inline]

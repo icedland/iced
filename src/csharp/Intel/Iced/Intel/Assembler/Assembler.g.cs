@@ -13142,6 +13142,38 @@ namespace Iced.Intel {
 			} else op = Bitness >= 32 ? Code.Invlpgad : Code.Invlpgaw;
 			AddInstruction(Instruction.Create(op));
 		}
+		/// <summary>invlpgb instruction.<br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>64-bit</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>a32 NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>a16 NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		public void invlpgb() {
+			Code op;
+			if (Bitness == 64) {
+				op = Code.Invlpgbq;
+			} else op = Bitness >= 32 ? Code.Invlpgbd : Code.Invlpgbw;
+			AddInstruction(Instruction.Create(op));
+		}
 		/// <summary>invpcid instruction.<br/>
 		/// <br/>
 		/// <c>INVPCID r32, m128</c><br/>
@@ -39891,6 +39923,20 @@ namespace Iced.Intel {
 				throw NoOpCodeFoundFor(Mnemonic.Test, dst, imm);
 			}
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), imm));
+		}
+		/// <summary>tlbsync instruction.<br/>
+		/// <br/>
+		/// <c>TLBSYNC</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void tlbsync() {
+			Code op;
+			op = Code.Tlbsync;
+			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>tpause instruction.<br/>
 		/// <br/>

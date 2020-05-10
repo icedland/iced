@@ -4240,6 +4240,10 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Serialize,// Serialize
 			(ushort)Mnemonic.Xsusldtrk,// Xsusldtrk
 			(ushort)Mnemonic.Xresldtrk,// Xresldtrk
+			(ushort)Mnemonic.Invlpgb,// Invlpgbw
+			(ushort)Mnemonic.Invlpgb,// Invlpgbd
+			(ushort)Mnemonic.Invlpgb,// Invlpgbq
+			(ushort)Mnemonic.Tlbsync,// Tlbsync
 		};
 	}
 }

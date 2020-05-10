@@ -1996,6 +1996,22 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.Invlpgb:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					code = instruction.Code;
+					if (code == Code.Invlpgbq)
+						AddRegister(flags, Register.RAX, OpAccess.Read);
+					else if (code == Code.Invlpgbd)
+						AddRegister(flags, Register.EAX, OpAccess.Read);
+					else {
+						Debug.Assert(code == Code.Invlpgbw);
+						AddRegister(flags, Register.AX, OpAccess.Read);
+					}
+					AddRegister(flags, Register.ECX, OpAccess.Read);
+					AddRegister(flags, Register.EDX, OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.None:
 			default:
 				throw new InvalidOperationException();

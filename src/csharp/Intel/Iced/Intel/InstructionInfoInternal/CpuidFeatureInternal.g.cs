@@ -180,6 +180,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		SNP,
 		SERIALIZE,
 		TSXLDTRK,
+		INVLPGB,
 	}
 }
 #endif

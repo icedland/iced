@@ -4243,6 +4243,10 @@ pub enum Code {
 	Serialize = 4209,
 	Xsusldtrk = 4210,
 	Xresldtrk = 4211,
+	Invlpgbw = 4212,
+	Invlpgbd = 4213,
+	Invlpgbq = 4214,
+	Tlbsync = 4215,
 }
 // GENERATOR-END: Enum
 

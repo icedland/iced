@@ -413,10 +413,11 @@ pub(crate) enum CodeInfo {
 	Rmpupdate,
 	Psmash,
 	Pvalidate,
+	Invlpgb,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 101] = [
+static GEN_DEBUG_CODE_INFO: [&str; 102] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -518,6 +519,7 @@ static GEN_DEBUG_CODE_INFO: [&str; 101] = [
 	"Rmpupdate",
 	"Psmash",
 	"Pvalidate",
+	"Invlpgb",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -834,10 +836,11 @@ pub(crate) enum CpuidFeatureInternal {
 	SNP,
 	SERIALIZE,
 	TSXLDTRK,
+	INVLPGB,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 152] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 153] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -990,6 +993,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 152] = [
 	"SNP",
 	"SERIALIZE",
 	"TSXLDTRK",
+	"INVLPGB",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

@@ -258,6 +258,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Rmpupdate,
 		Psmash,
 		Pvalidate,
+		Invlpgb,
 	}
 	// GENERATOR-END: CodeInfo
 

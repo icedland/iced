@@ -54,6 +54,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x33,
 				0x00,
+				0x00,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -207,6 +208,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x82,// SNP
 				0x83,// SERIALIZE
 				0x84,// TSXLDTRK
+				0x85,// INVLPGB
 			};
 	}
 }

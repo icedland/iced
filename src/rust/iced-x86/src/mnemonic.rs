@@ -1575,9 +1575,11 @@ pub enum Mnemonic {
 	Serialize = 1542,
 	Xsusldtrk = 1543,
 	Xresldtrk = 1544,
+	Invlpgb = 1545,
+	Tlbsync = 1546,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1545] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1547] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3123,6 +3125,8 @@ static GEN_DEBUG_MNEMONIC: [&str; 1545] = [
 	"Serialize",
 	"Xsusldtrk",
 	"Xresldtrk",
+	"Invlpgb",
+	"Tlbsync",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

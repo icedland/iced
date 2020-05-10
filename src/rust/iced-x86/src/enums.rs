@@ -1241,10 +1241,12 @@ pub enum CpuidFeature {
 	SERIALIZE = 131,
 	/// CPUID.(EAX=07H, ECX=0H):EDX.TSXLDTRK\[bit 16\]
 	TSXLDTRK = 132,
+	/// CPUID.80000001H:EDX.INVLPGB\[bit ??\]
+	INVLPGB = 133,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 133] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 134] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1378,6 +1380,7 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 133] = [
 	"SNP",
 	"SERIALIZE",
 	"TSXLDTRK",
+	"INVLPGB",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

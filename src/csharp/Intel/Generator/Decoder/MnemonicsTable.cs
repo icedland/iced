@@ -4246,6 +4246,10 @@ namespace Generator.Decoder {
 				(code[nameof(Code.Serialize)], mnemonic[nameof(Mnemonic.Serialize)]),
 				(code[nameof(Code.Xsusldtrk)], mnemonic[nameof(Mnemonic.Xsusldtrk)]),
 				(code[nameof(Code.Xresldtrk)], mnemonic[nameof(Mnemonic.Xresldtrk)]),
+				(code[nameof(Code.Invlpgbw)], mnemonic[nameof(Mnemonic.Invlpgb)]),
+				(code[nameof(Code.Invlpgbd)], mnemonic[nameof(Mnemonic.Invlpgb)]),
+				(code[nameof(Code.Invlpgbq)], mnemonic[nameof(Mnemonic.Invlpgb)]),
+				(code[nameof(Code.Tlbsync)], mnemonic[nameof(Mnemonic.Tlbsync)]),
 			};
 
 			if (result.Length != code.Values.Length)

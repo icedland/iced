@@ -4240,4 +4240,8 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Serialize,// Serialize
 	Mnemonic::Xsusldtrk,// Xsusldtrk
 	Mnemonic::Xresldtrk,// Xresldtrk
+	Mnemonic::Invlpgb,// Invlpgbw
+	Mnemonic::Invlpgb,// Invlpgbd
+	Mnemonic::Invlpgb,// Invlpgbq
+	Mnemonic::Tlbsync,// Tlbsync
 ];

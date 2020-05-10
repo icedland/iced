@@ -1570,6 +1570,8 @@ namespace Generator.Enums {
 		Serialize,
 		Xsusldtrk,
 		Xresldtrk,
+		Invlpgb,
+		Tlbsync,
 	}
 
 	static class MnemonicEnum {

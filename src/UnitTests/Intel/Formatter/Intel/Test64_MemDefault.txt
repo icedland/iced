@@ -8364,3 +8364,6 @@ pvalidate rax
 serialize
 xsusldtrk
 xresldtrk
+invlpgb eax
+invlpgb rax
+tlbsync

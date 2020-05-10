@@ -706,3 +706,6 @@ pvalidate
 serialize
 xsusldtrk
 xresldtrk
+invlpgb
+invlpgb
+tlbsync

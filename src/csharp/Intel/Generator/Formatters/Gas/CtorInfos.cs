@@ -4240,6 +4240,10 @@ namespace Generator.Formatters.Gas {
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Serialize)], "serialize" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xsusldtrk)], "xsusldtrk" },
 			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Xresldtrk)], "xresldtrk" },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Invlpgbw)], "invlpgb", 16 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Invlpgbd)], "invlpgb", 32 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.asz)], CodeEnum.Instance[nameof(Code.Invlpgbq)], "invlpgb", 64 },
+			new object[] { CtorKindEnum.Instance[nameof(CtorKind.Normal_1)], CodeEnum.Instance[nameof(Code.Tlbsync)], "tlbsync" },
 		});
 	}
 }

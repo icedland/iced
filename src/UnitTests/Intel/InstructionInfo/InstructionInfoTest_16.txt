@@ -693,3 +693,9 @@ C5F9 F7 D3, VEX_Vmaskmovdqu_rDI_xmm_xmm, VEX, AVX, pm op0=w op1=r op2=r r=ds;di 
 F2 0F 01 FF, Pvalidatew, Legacy, SNP, priv fw=oszacp r=ax;ecx;edx w=eax
 # pvalidate eax
 67 F2 0F 01 FF, Pvalidated, Legacy, SNP, priv fw=oszacp r=ecx;edx rw=eax
+# invlpgb ax
+0F 01 FE, Invlpgbw, Legacy, INVLPGB, pm priv r=ax;edx;ecx
+# invlpgb eax
+67 0F 01 FE, Invlpgbd, Legacy, INVLPGB, pm priv r=eax;edx;ecx
+# tlbsync
+0F 01 FF, Tlbsync, Legacy, INVLPGB, pm priv

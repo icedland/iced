@@ -2961,6 +2961,22 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::Invlpgb => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					code = instruction.code();
+					if code == Code::Invlpgbq {
+						Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					} else if code == Code::Invlpgbd {
+						Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					} else {
+						debug_assert_eq!(Code::Invlpgbw, code);
+						Self::add_register(flags, info, Register::AX, OpAccess::Read);
+					};
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
+				}
+			}
+
 			CodeInfo::None => {}
 		}
 	}

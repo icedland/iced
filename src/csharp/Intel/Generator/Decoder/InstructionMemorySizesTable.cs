@@ -4245,6 +4245,10 @@ namespace Generator.Decoder {
 				(code[nameof(Code.Serialize)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.Xsusldtrk)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.Xresldtrk)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Invlpgbw)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Invlpgbd)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Invlpgbq)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
+				(code[nameof(Code.Tlbsync)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 			};
 			if (result.Length != code.Values.Length)
 				throw new InvalidOperationException();

@@ -33694,5 +33694,37 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Xresldtrk = 4211,
+		/// <summary><c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>a16 NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32-bit</c></summary>
+		Invlpgbw = 4212,
+		/// <summary><c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>a32 NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Invlpgbd = 4213,
+		/// <summary><c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 FE</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Invlpgbq = 4214,
+		/// <summary><c>TLBSYNC</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 FF</c><br/>
+		/// <br/>
+		/// <c>INVLPGB</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Tlbsync = 4215,
 	}
 }
