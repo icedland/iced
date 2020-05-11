@@ -50,4 +50,9 @@ default-features = false
 [profile.release]
 codegen-units = 1
 lto = true
+# opt-level = 3
 opt-level = "z"
+
+[package.metadata.wasm-pack.profile.release]
+# wasm-opt = ["-O4"]
+wasm-opt = ["-Oz"]

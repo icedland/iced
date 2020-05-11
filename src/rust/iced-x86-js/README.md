@@ -33,13 +33,16 @@ The result is stored in the `pkg/` sub dir. The js file isn't minified.
 
 ## Optimize wasm for speed
 
-Edit `Cargo.toml` and change `opt-level = "z"` to [`opt-level = 3`](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) (no double quotes).
+Edit `Cargo.toml` and change `opt-level = "z"` to [`opt-level = 3`](https://doc.rust-lang.org/cargo/reference/profiles.html#opt-level) (no double quotes) and update `wasm-opt` args to `-O4`.
 
 ```toml
 [profile.release]
 codegen-units = 1
 lto = true
 opt-level = 3
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-O4"]
 ```
 
 ## Testing the code
