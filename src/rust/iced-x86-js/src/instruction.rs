@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(non_snake_case)]
-
 #[cfg(any(all(feature = "encoder", feature = "instr_api"), feature = "instr_create"))]
 use super::code::code_to_iced;
 #[cfg(feature = "instr_api")]
@@ -93,8 +91,9 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ipLo(&self) -> u32 {
+	pub fn ip_lo(&self) -> u32 {
 		self.0.ip() as u32
 	}
 
@@ -102,8 +101,9 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipHi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ipHi(&self) -> u32 {
+	pub fn ip_hi(&self) -> u32 {
 		(self.0.ip() >> 32) as u32
 	}
 
@@ -144,7 +144,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_ip16(&mut self, newValue: u16) {
+	pub fn set_ip16(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_ip16(newValue)
 	}
 
@@ -161,7 +161,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_ip32(&mut self, newValue: u32) {
+	pub fn set_ip32(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_ip32(newValue)
 	}
 
@@ -173,9 +173,10 @@ impl Instruction {
 	///
 	/// * `lo`: Low 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "ipLo")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ipLo(&mut self, lo: u32) {
+	pub fn set_ip_lo(&mut self, lo: u32) {
 		let ip = (self.0.ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_ip(ip)
 	}
@@ -188,9 +189,10 @@ impl Instruction {
 	///
 	/// * `hi`: High 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "ipHi")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ipHi(&mut self, hi: u32) {
+	pub fn set_ip_hi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.0.ip() as u32 as u64);
 		self.0.set_ip(ip)
 	}
@@ -203,13 +205,14 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_ip(&mut self, newValue: u64) {
+	pub fn set_ip(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_ip(newValue)
 	}
 
 	/// Gets the 16-bit IP of the next instruction
 	#[wasm_bindgen(getter)]
-	pub fn nextIP16(&self) -> u16 {
+	#[wasm_bindgen(js_name = "nextIP16")]
+	pub fn next_ip16(&self) -> u16 {
 		self.0.next_ip16()
 	}
 
@@ -219,14 +222,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nextIP16")]
 	#[cfg(feature = "encoder")]
-	pub fn set_nextIP16(&mut self, newValue: u16) {
+	pub fn set_next_ip16(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_next_ip16(newValue)
 	}
 
 	/// Gets the 32-bit IP of the next instruction
 	#[wasm_bindgen(getter)]
-	pub fn nextIP32(&self) -> u32 {
+	#[wasm_bindgen(js_name = "nextIP32")]
+	pub fn next_ip32(&self) -> u32 {
 		self.0.next_ip32()
 	}
 
@@ -236,8 +241,9 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nextIP32")]
 	#[cfg(feature = "encoder")]
-	pub fn set_nextIP32(&mut self, newValue: u32) {
+	pub fn set_next_ip32(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_next_ip32(newValue)
 	}
 
@@ -245,8 +251,9 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nextIPLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nextIPLo(&self) -> u32 {
+	pub fn next_ip_lo(&self) -> u32 {
 		self.0.next_ip() as u32
 	}
 
@@ -254,15 +261,17 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nextIPHi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nextIPHi(&self) -> u32 {
+	pub fn next_ip_hi(&self) -> u32 {
 		(self.0.next_ip() >> 32) as u32
 	}
 
 	/// Gets the 64-bit IP of the next instruction
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nextIP")]
 	#[cfg(feature = "bigint")]
-	pub fn nextIP(&self) -> u64 {
+	pub fn next_ip(&self) -> u64 {
 		self.0.next_ip()
 	}
 
@@ -274,9 +283,10 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nextIPLo")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nextIPLo(&mut self, lo: u32) {
+	pub fn set_next_ip_lo(&mut self, lo: u32) {
 		let ip = (self.0.next_ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_next_ip(ip);
 	}
@@ -289,9 +299,10 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nextIPHi")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nextIPHi(&mut self, hi: u32) {
+	pub fn set_next_ip_hi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.0.next_ip() as u32 as u64);
 		self.0.set_next_ip(ip);
 	}
@@ -302,9 +313,10 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nextIP")]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_nextIP(&mut self, newValue: u64) {
+	pub fn set_next_ip(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_next_ip(newValue)
 	}
 
@@ -313,7 +325,8 @@ impl Instruction {
 	///
 	/// [`CodeSize`]: enum.CodeSize.html
 	#[wasm_bindgen(getter)]
-	pub fn codeSize(&self) -> CodeSize {
+	#[wasm_bindgen(js_name = "codeSize")]
+	pub fn code_size(&self) -> CodeSize {
 		iced_to_code_size(self.0.code_size())
 	}
 
@@ -324,8 +337,9 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "codeSize")]
 	#[cfg(feature = "encoder")]
-	pub fn set_codeSize(&mut self, newValue: CodeSize) {
+	pub fn set_code_size(&mut self, #[allow(non_snake_case)] newValue: CodeSize) {
 		self.0.set_code_size(code_size_to_iced(newValue))
 	}
 
@@ -347,7 +361,7 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_code(&mut self, newValue: Code) {
+	pub fn set_code(&mut self, #[allow(non_snake_case)] newValue: Code) {
 		self.0.set_code(code_to_iced(newValue))
 	}
 
@@ -393,13 +407,14 @@ impl Instruction {
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_length(&mut self, newValue: u32) {
+	pub fn set_length(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_len(newValue as usize)
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
 	#[wasm_bindgen(getter)]
-	pub fn hasXacquirePrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasXacquirePrefix")]
+	pub fn has_xacquire_prefix(&self) -> bool {
 		self.0.has_xacquire_prefix()
 	}
 
@@ -409,14 +424,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasXacquirePrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasXacquirePrefix(&mut self, newValue: bool) {
+	pub fn set_has_xacquire_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_xacquire_prefix(newValue)
 	}
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
 	#[wasm_bindgen(getter)]
-	pub fn hasXreleasePrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasXreleasePrefix")]
+	pub fn has_xrelease_prefix(&self) -> bool {
 		self.0.has_xrelease_prefix()
 	}
 
@@ -426,14 +443,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasXreleasePrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasXreleasePrefix(&mut self, newValue: bool) {
+	pub fn set_has_xrelease_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_xrelease_prefix(newValue)
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[wasm_bindgen(getter)]
-	pub fn hasRepPrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasRepPrefix")]
+	pub fn has_rep_prefix(&self) -> bool {
 		self.0.has_rep_prefix()
 	}
 
@@ -443,14 +462,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasRepPrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasRepPrefix(&mut self, newValue: bool) {
+	pub fn set_has_rep_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_rep_prefix(newValue)
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	#[wasm_bindgen(getter)]
-	pub fn hasRepePrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasRepePrefix")]
+	pub fn has_repe_prefix(&self) -> bool {
 		self.0.has_repe_prefix()
 	}
 
@@ -460,14 +481,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasRepePrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasRepePrefix(&mut self, newValue: bool) {
+	pub fn set_has_repe_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_repe_prefix(newValue)
 	}
 
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
 	#[wasm_bindgen(getter)]
-	pub fn hasRepnePrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasRepnePrefix")]
+	pub fn has_repne_prefix(&self) -> bool {
 		self.0.has_repne_prefix()
 	}
 
@@ -477,14 +500,16 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasRepnePrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasRepnePrefix(&mut self, newValue: bool) {
+	pub fn set_has_repne_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_repne_prefix(newValue)
 	}
 
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
 	#[wasm_bindgen(getter)]
-	pub fn hasLockPrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasLockPrefix")]
+	pub fn has_lock_prefix(&self) -> bool {
 		self.0.has_lock_prefix()
 	}
 
@@ -494,8 +519,9 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "hasLockPrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_hasLockPrefix(&mut self, newValue: bool) {
+	pub fn set_has_lock_prefix(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_has_lock_prefix(newValue)
 	}
 
@@ -503,9 +529,10 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.opKind
+	/// [`opKind`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	pub fn op0Kind(&self) -> OpKind {
+	#[wasm_bindgen(js_name = "op0Kind")]
+	pub fn op0_kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op0_kind())
 	}
 
@@ -513,14 +540,15 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.setOpKind
+	/// [`opKind`]: #method.set_op_kind
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op0Kind")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op0Kind(&mut self, newValue: OpKind) {
+	pub fn set_op0_kind(&mut self, #[allow(non_snake_case)] newValue: OpKind) {
 		self.0.set_op0_kind(op_kind_to_iced(newValue))
 	}
 
@@ -528,9 +556,10 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.opKind
+	/// [`opKind`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	pub fn op1Kind(&self) -> OpKind {
+	#[wasm_bindgen(js_name = "op1Kind")]
+	pub fn op1_kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op1_kind())
 	}
 
@@ -538,14 +567,15 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.setOpKind
+	/// [`opKind`]: #method.set_op_kind
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op1Kind")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op1Kind(&mut self, newValue: OpKind) {
+	pub fn set_op1_kind(&mut self, #[allow(non_snake_case)] newValue: OpKind) {
 		self.0.set_op1_kind(op_kind_to_iced(newValue))
 	}
 
@@ -553,9 +583,10 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.opKind
+	/// [`opKind`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	pub fn op2Kind(&self) -> OpKind {
+	#[wasm_bindgen(js_name = "op2Kind")]
+	pub fn op2_kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op2_kind())
 	}
 
@@ -563,14 +594,15 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.setOpKind
+	/// [`opKind`]: #method.set_op_kind
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op2Kind")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op2Kind(&mut self, newValue: OpKind) {
+	pub fn set_op2_kind(&mut self, #[allow(non_snake_case)] newValue: OpKind) {
 		self.0.set_op2_kind(op_kind_to_iced(newValue))
 	}
 
@@ -578,9 +610,10 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.opKind
+	/// [`opKind`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	pub fn op3Kind(&self) -> OpKind {
+	#[wasm_bindgen(js_name = "op3Kind")]
+	pub fn op3_kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op3_kind())
 	}
 
@@ -588,14 +621,15 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.setOpKind
+	/// [`opKind`]: #method.set_op_kind
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op3Kind")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op3Kind(&mut self, newValue: OpKind) {
+	pub fn set_op3_kind(&mut self, #[allow(non_snake_case)] newValue: OpKind) {
 		self.0.set_op3_kind(op_kind_to_iced(newValue))
 	}
 
@@ -603,9 +637,10 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.opKind
+	/// [`opKind`]: #method.op_kind
 	#[wasm_bindgen(getter)]
-	pub fn op4Kind(&self) -> OpKind {
+	#[wasm_bindgen(js_name = "op4Kind")]
+	pub fn op4_kind(&self) -> OpKind {
 		iced_to_op_kind(self.0.op4_kind())
 	}
 
@@ -613,7 +648,7 @@ impl Instruction {
 	///
 	/// [`OpKind`]: enum.OpKind.html
 	/// [`opCount`]: #method.op_count
-	/// [`opKind`]: #method.setOpKind
+	/// [`opKind`]: #method.set_op_kind
 	///
 	/// # Throws
 	///
@@ -623,8 +658,9 @@ impl Instruction {
 	///
 	/// * `newValue`: new value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op4Kind")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op4Kind(&mut self, newValue: OpKind) {
+	pub fn set_op4_kind(&mut self, #[allow(non_snake_case)] newValue: OpKind) {
 		self.0.set_op4_kind(op_kind_to_iced(newValue))
 	}
 
@@ -663,7 +699,8 @@ impl Instruction {
 	/// decoder.free();
 	/// instr.free();
 	/// ```
-	pub fn opKind(&self, operand: u32) -> OpKind {
+	#[wasm_bindgen(js_name = "opKind")]
+	pub fn op_kind(&self, operand: u32) -> OpKind {
 		iced_to_op_kind(self.0.op_kind(operand))
 	}
 
@@ -679,16 +716,18 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `opKind`: Operand kind
+	#[wasm_bindgen(js_name = "setOpKind")]
 	#[cfg(feature = "encoder")]
-	pub fn setOpKind(&mut self, operand: u32, opKind: OpKind) {
+	pub fn set_op_kind(&mut self, operand: u32, #[allow(non_snake_case)] opKind: OpKind) {
 		self.0.set_op_kind(operand, op_kind_to_iced(opKind))
 	}
 
 	/// Checks if the instruction has a segment override prefix, see [`segmentPrefix`]
 	///
-	/// [`segmentPrefix`]: #method.segmentPrefix
+	/// [`segmentPrefix`]: #method.segment_prefix
 	#[wasm_bindgen(getter)]
-	pub fn hasSegmentPrefix(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasSegmentPrefix")]
+	pub fn has_segment_prefix(&self) -> bool {
 		self.0.has_segment_prefix()
 	}
 
@@ -706,7 +745,8 @@ impl Instruction {
 	/// [`OpKind.MemorySegESI`]: enum.OpKind.html#variant.MemorySegESI
 	/// [`OpKind.MemorySegRSI`]: enum.OpKind.html#variant.MemorySegRSI
 	#[wasm_bindgen(getter)]
-	pub fn segmentPrefix(&self) -> Register {
+	#[wasm_bindgen(js_name = "segmentPrefix")]
+	pub fn segment_prefix(&self) -> Register {
 		iced_to_register(self.0.segment_prefix())
 	}
 
@@ -728,8 +768,9 @@ impl Instruction {
 	///
 	/// * `newValue`: Segment register prefix
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "segmentPrefix")]
 	#[cfg(feature = "encoder")]
-	pub fn set_segmentPrefix(&mut self, newValue: Register) {
+	pub fn set_segment_prefix(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_segment_prefix(register_to_iced(newValue))
 	}
 
@@ -754,10 +795,11 @@ impl Instruction {
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`memoryDisplacement`]: #method.memory_displacement
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	pub fn memoryDisplSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "memoryDisplSize")]
+	pub fn memory_displ_size(&self) -> u32 {
 		self.0.memory_displ_size()
 	}
 
@@ -766,21 +808,23 @@ impl Instruction {
 	/// a signed byte if it's an EVEX encoded instruction.
 	/// Use this method if the operand has kind [`OpKind.Memory`]
 	///
-	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`memoryDisplacement`]: #method.memory_displacement
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: Displacement size
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryDisplSize")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memoryDisplSize(&mut self, newValue: u32) {
+	pub fn set_memory_displ_size(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_memory_displ_size(newValue)
 	}
 
 	/// `true` if the data is broadcasted (EVEX instructions only)
 	#[wasm_bindgen(getter)]
-	pub fn isBroadcast(&self) -> bool {
+	#[wasm_bindgen(js_name = "isBroadcast")]
+	pub fn is_broadcast(&self) -> bool {
 		self.0.is_broadcast()
 	}
 
@@ -790,8 +834,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "isBroadcast")]
 	#[cfg(feature = "encoder")]
-	pub fn set_isBroadcast(&mut self, newValue: bool) {
+	pub fn set_is_broadcast(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_is_broadcast(newValue)
 	}
 
@@ -801,7 +846,7 @@ impl Instruction {
 	/// [`OpKind.MemoryESDI`], [`OpKind.MemoryESEDI`], [`OpKind.MemoryESRDI`]
 	///
 	/// [`MemorySize`]: enum.MemorySize.html
-	/// [`isBroadcast`]: #method.isBroadcast
+	/// [`isBroadcast`]: #method.is_broadcast
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	/// [`OpKind.MemorySegSI`]: enum.OpKind.html#variant.MemorySegSI
@@ -820,7 +865,8 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	pub fn memoryIndexScale(&self) -> u32 {
+	#[wasm_bindgen(js_name = "memoryIndexScale")]
+	pub fn memory_index_scale(&self) -> u32 {
 		self.0.memory_index_scale()
 	}
 
@@ -832,8 +878,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value (1, 2, 4 or 8)
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryIndexScale")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memoryIndexScale(&mut self, newValue: u32) {
+	pub fn set_memory_index_scale(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_memory_index_scale(newValue)
 	}
 
@@ -843,7 +890,8 @@ impl Instruction {
 	/// [`memoryDisplacement64`]: #method.memory_displacement64
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	pub fn memoryDisplacement(&self) -> u32 {
+	#[wasm_bindgen(js_name = "memoryDisplacement")]
+	pub fn memory_displacement(&self) -> u32 {
 		self.0.memory_displacement()
 	}
 
@@ -857,8 +905,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryDisplacement")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memoryDisplacement(&mut self, newValue: u32) {
+	pub fn set_memory_displacement(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_memory_displacement(newValue)
 	}
 
@@ -910,8 +959,9 @@ impl Instruction {
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
+	#[wasm_bindgen(js_name = "immediateLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediateLo(&self, operand: u32) -> u32 {
+	pub fn immediate_lo(&self, operand: u32) -> u32 {
 		self.0.immediate(operand) as u32
 	}
 
@@ -927,7 +977,8 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediateHi(&self, operand: u32) -> u32 {
+	#[wasm_bindgen(js_name = "immediateHi")]
+	pub fn immediate_hi(&self, operand: u32) -> u32 {
 		(self.0.immediate(operand) >> 32) as u32
 	}
 
@@ -957,7 +1008,7 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateI32")]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate_i32(&mut self, operand: u32, newValue: i32) {
+	pub fn set_immediate_i32(&mut self, operand: u32, #[allow(non_snake_case)] newValue: i32) {
 		self.0.set_immediate_i32(operand, newValue)
 	}
 
@@ -973,7 +1024,7 @@ impl Instruction {
 	/// * `newValue`: Immediate
 	#[wasm_bindgen(js_name = "setImmediateU32")]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate_u32(&mut self, operand: u32, newValue: u32) {
+	pub fn set_immediate_u32(&mut self, operand: u32, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_immediate_u32(operand, newValue)
 	}
 
@@ -1011,7 +1062,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "setImmediateI64")]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_immediate_i64(&mut self, operand: u32, newValue: i64) {
+	pub fn set_immediate_i64(&mut self, operand: u32, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate_i64(operand, newValue)
 	}
 
@@ -1049,7 +1100,7 @@ impl Instruction {
 	#[wasm_bindgen(js_name = "setImmediateU64")]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_immediate_u64(&mut self, operand: u32, newValue: u64) {
+	pub fn set_immediate_u64(&mut self, operand: u32, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_immediate_u64(operand, newValue)
 	}
 
@@ -1070,7 +1121,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate8(&mut self, newValue: u8) {
+	pub fn set_immediate8(&mut self, #[allow(non_snake_case)] newValue: u8) {
 		self.0.set_immediate8(newValue)
 	}
 
@@ -1091,7 +1142,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate8_2nd(&mut self, newValue: u8) {
+	pub fn set_immediate8_2nd(&mut self, #[allow(non_snake_case)] newValue: u8) {
 		self.0.set_immediate8_2nd(newValue)
 	}
 
@@ -1112,7 +1163,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate16(&mut self, newValue: u16) {
+	pub fn set_immediate16(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_immediate16(newValue)
 	}
 
@@ -1133,7 +1184,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate32(&mut self, newValue: u32) {
+	pub fn set_immediate32(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_immediate32(newValue)
 	}
 
@@ -1143,8 +1194,9 @@ impl Instruction {
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "immediate64Lo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64Lo(&self) -> u32 {
+	pub fn immediate64_lo(&self) -> u32 {
 		self.0.immediate64() as u32
 	}
 
@@ -1154,8 +1206,9 @@ impl Instruction {
 	///
 	/// [`OpKind.Immediate64`]: enum.OpKind.html#variant.Immediate64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "immediate64Hi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn immediate64Hi(&self) -> u32 {
+	pub fn immediate64_hi(&self) -> u32 {
 		(self.0.immediate64() >> 32) as u32
 	}
 
@@ -1178,9 +1231,10 @@ impl Instruction {
 	///
 	/// * `lo`: Low 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "immediate64Lo")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64Lo(&mut self, lo: u32) {
+	pub fn set_immediate64_lo(&mut self, lo: u32) {
 		let new_value = (self.0.immediate64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_immediate64(new_value);
 	}
@@ -1195,9 +1249,10 @@ impl Instruction {
 	///
 	/// * `hi`: High 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "immediate64Hi")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate64Hi(&mut self, hi: u32) {
+	pub fn set_immediate64_hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.immediate64() as u32 as u64);
 		self.0.set_immediate64(new_value);
 	}
@@ -1212,7 +1267,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_immediate64(&mut self, newValue: u64) {
+	pub fn set_immediate64(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_immediate64(newValue)
 	}
 
@@ -1233,7 +1288,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate8to16(&mut self, newValue: i16) {
+	pub fn set_immediate8to16(&mut self, #[allow(non_snake_case)] newValue: i16) {
 		self.0.set_immediate8to16(newValue)
 	}
 
@@ -1254,7 +1309,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_immediate8to32(&mut self, newValue: i32) {
+	pub fn set_immediate8to32(&mut self, #[allow(non_snake_case)] newValue: i32) {
 		self.0.set_immediate8to32(newValue)
 	}
 
@@ -1290,7 +1345,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate8to64(&mut self, newValue: i32) {
+	pub fn set_immediate8to64(&mut self, #[allow(non_snake_case)] newValue: i32) {
 		self.0.set_immediate8to64(newValue as i64)
 	}
 
@@ -1304,7 +1359,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_immediate8to64(&mut self, newValue: i64) {
+	pub fn set_immediate8to64(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate8to64(newValue)
 	}
 
@@ -1340,7 +1395,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_immediate32to64(&mut self, newValue: i32) {
+	pub fn set_immediate32to64(&mut self, #[allow(non_snake_case)] newValue: i32) {
 		self.0.set_immediate32to64(newValue as i64)
 	}
 
@@ -1354,7 +1409,7 @@ impl Instruction {
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_immediate32to64(&mut self, newValue: i64) {
+	pub fn set_immediate32to64(&mut self, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_immediate32to64(newValue)
 	}
 
@@ -1364,8 +1419,9 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memoryAddress64Lo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn memoryAddress64Lo(&self) -> u32 {
+	pub fn memory_address64_lo(&self) -> u32 {
 		self.0.memory_address64() as u32
 	}
 
@@ -1375,8 +1431,9 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memoryAddress64Hi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn memoryAddress64Hi(&self) -> u32 {
+	pub fn memory_address64_hi(&self) -> u32 {
 		(self.0.memory_address64() >> 32) as u32
 	}
 
@@ -1384,8 +1441,9 @@ impl Instruction {
 	///
 	/// [`OpKind.Memory64`]: enum.OpKind.html#variant.Memory64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "memoryAddress64")]
 	#[cfg(feature = "bigint")]
-	pub fn memoryAddress64(&self) -> u64 {
+	pub fn memory_address64(&self) -> u64 {
 		self.0.memory_address64()
 	}
 
@@ -1399,9 +1457,10 @@ impl Instruction {
 	///
 	/// * `lo`: Low 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryAddress64Lo")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_memoryAddress64Lo(&mut self, lo: u32) {
+	pub fn set_memory_address64_lo(&mut self, lo: u32) {
 		let new_value = (self.0.memory_address64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_memory_address64(new_value);
 	}
@@ -1416,9 +1475,10 @@ impl Instruction {
 	///
 	/// * `hi`: High 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryAddress64Hi")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_memoryAddress64Hi(&mut self, hi: u32) {
+	pub fn set_memory_address64_hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.memory_address64() as u32 as u64);
 		self.0.set_memory_address64(new_value)
 	}
@@ -1431,9 +1491,10 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryAddress64")]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_memoryAddress64(&mut self, newValue: u64) {
+	pub fn set_memory_address64(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_memory_address64(newValue)
 	}
 
@@ -1441,7 +1502,8 @@ impl Instruction {
 	///
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	#[wasm_bindgen(getter)]
-	pub fn nearBranch16(&self) -> u16 {
+	#[wasm_bindgen(js_name = "nearBranch16")]
+	pub fn near_branch16(&self) -> u16 {
 		self.0.near_branch16()
 	}
 
@@ -1453,8 +1515,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nearBranch16")]
 	#[cfg(feature = "encoder")]
-	pub fn set_nearBranch16(&mut self, newValue: u16) {
+	pub fn set_near_branch16(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_near_branch16(newValue)
 	}
 
@@ -1462,7 +1525,8 @@ impl Instruction {
 	///
 	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	#[wasm_bindgen(getter)]
-	pub fn nearBranch32(&self) -> u32 {
+	#[wasm_bindgen(js_name = "nearBranch32")]
+	pub fn near_branch32(&self) -> u32 {
 		self.0.near_branch32()
 	}
 
@@ -1474,8 +1538,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nearBranch32")]
 	#[cfg(feature = "encoder")]
-	pub fn set_nearBranch32(&mut self, newValue: u32) {
+	pub fn set_near_branch32(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_near_branch32(newValue)
 	}
 
@@ -1485,8 +1550,9 @@ impl Instruction {
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranch64Lo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranch64Lo(&self) -> u32 {
+	pub fn near_branch64_lo(&self) -> u32 {
 		self.0.near_branch64() as u32
 	}
 
@@ -1496,8 +1562,9 @@ impl Instruction {
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranch64Hi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranch64Hi(&self) -> u32 {
+	pub fn near_branch64_hi(&self) -> u32 {
 		(self.0.near_branch64() >> 32) as u32
 	}
 
@@ -1505,8 +1572,9 @@ impl Instruction {
 	///
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranch64")]
 	#[cfg(feature = "bigint")]
-	pub fn nearBranch64(&self) -> u64 {
+	pub fn near_branch64(&self) -> u64 {
 		self.0.near_branch64()
 	}
 
@@ -1520,9 +1588,10 @@ impl Instruction {
 	///
 	/// * `lo`: Low 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nearBranch64Lo")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nearBranch64Lo(&mut self, lo: u32) {
+	pub fn set_near_branch64_lo(&mut self, lo: u32) {
 		let new_value = (self.0.near_branch64() & !0xFFFF_FFFF) | (lo as u64);
 		self.0.set_near_branch64(new_value)
 	}
@@ -1537,9 +1606,10 @@ impl Instruction {
 	///
 	/// * `hi`: High 32 bits
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nearBranch64Hi")]
 	#[cfg(feature = "encoder")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_nearBranch64Hi(&mut self, hi: u32) {
+	pub fn set_near_branch64_hi(&mut self, hi: u32) {
 		let new_value = ((hi as u64) << 32) | (self.0.near_branch64() as u32 as u64);
 		self.0.set_near_branch64(new_value)
 	}
@@ -1552,9 +1622,10 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "nearBranch64")]
 	#[cfg(feature = "encoder")]
 	#[cfg(feature = "bigint")]
-	pub fn set_nearBranch64(&mut self, newValue: u64) {
+	pub fn set_near_branch64(&mut self, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_near_branch64(newValue)
 	}
 
@@ -1563,13 +1634,14 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranchTargetLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranchTargetLo(&self) -> u32 {
+	pub fn near_branch_target_lo(&self) -> u32 {
 		self.0.near_branch_target() as u32
 	}
 
@@ -1578,26 +1650,28 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranchTargetHi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn nearBranchTargetHi(&self) -> u32 {
+	pub fn near_branch_target_hi(&self) -> u32 {
 		(self.0.near_branch_target() >> 32) as u32
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
 	/// (i.e., if [`op0Kind`] is [`OpKind.NearBranch16`], [`OpKind.NearBranch32`] or [`OpKind.NearBranch64`])
 	///
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`OpKind.NearBranch16`]: enum.OpKind.html#variant.NearBranch16
 	/// [`OpKind.NearBranch32`]: enum.OpKind.html#variant.NearBranch32
 	/// [`OpKind.NearBranch64`]: enum.OpKind.html#variant.NearBranch64
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "nearBranchTarget")]
 	#[cfg(feature = "bigint")]
-	pub fn nearBranchTarget(&self) -> u64 {
+	pub fn near_branch_target(&self) -> u64 {
 		self.0.near_branch_target()
 	}
 
@@ -1605,7 +1679,8 @@ impl Instruction {
 	///
 	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	#[wasm_bindgen(getter)]
-	pub fn farBranch16(&self) -> u16 {
+	#[wasm_bindgen(js_name = "farBranch16")]
+	pub fn far_branch16(&self) -> u16 {
 		self.0.far_branch16()
 	}
 
@@ -1617,8 +1692,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "farBranch16")]
 	#[cfg(feature = "encoder")]
-	pub fn set_farBranch16(&mut self, newValue: u16) {
+	pub fn set_far_branch16(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_far_branch16(newValue)
 	}
 
@@ -1626,7 +1702,8 @@ impl Instruction {
 	///
 	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[wasm_bindgen(getter)]
-	pub fn farBranch32(&self) -> u32 {
+	#[wasm_bindgen(js_name = "farBranch32")]
+	pub fn far_branch32(&self) -> u32 {
 		self.0.far_branch32()
 	}
 
@@ -1638,8 +1715,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "farBranch32")]
 	#[cfg(feature = "encoder")]
-	pub fn set_farBranch32(&mut self, newValue: u32) {
+	pub fn set_far_branch32(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_far_branch32(newValue)
 	}
 
@@ -1648,7 +1726,8 @@ impl Instruction {
 	/// [`OpKind.FarBranch16`]: enum.OpKind.html#variant.FarBranch16
 	/// [`OpKind.FarBranch32`]: enum.OpKind.html#variant.FarBranch32
 	#[wasm_bindgen(getter)]
-	pub fn farBranchSelector(&self) -> u16 {
+	#[wasm_bindgen(js_name = "farBranchSelector")]
+	pub fn far_branch_selector(&self) -> u16 {
 		self.0.far_branch_selector()
 	}
 
@@ -1661,8 +1740,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "farBranchSelector")]
 	#[cfg(feature = "encoder")]
-	pub fn set_farBranchSelector(&mut self, newValue: u16) {
+	pub fn set_far_branch_selector(&mut self, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_far_branch_selector(newValue)
 	}
 
@@ -1672,7 +1752,8 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	pub fn memoryBase(&self) -> Register {
+	#[wasm_bindgen(js_name = "memoryBase")]
+	pub fn memory_base(&self) -> Register {
 		iced_to_register(self.0.memory_base())
 	}
 
@@ -1686,8 +1767,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryBase")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memoryBase(&mut self, newValue: Register) {
+	pub fn set_memory_base(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_memory_base(register_to_iced(newValue))
 	}
 
@@ -1697,7 +1779,8 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Memory`]: enum.OpKind.html#variant.Memory
 	#[wasm_bindgen(getter)]
-	pub fn memoryIndex(&self) -> Register {
+	#[wasm_bindgen(js_name = "memoryIndex")]
+	pub fn memory_index(&self) -> Register {
 		iced_to_register(self.0.memory_index())
 	}
 
@@ -1711,30 +1794,32 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "memoryIndex")]
 	#[cfg(feature = "encoder")]
-	pub fn set_memoryIndex(&mut self, newValue: Register) {
+	pub fn set_memory_index(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_memory_index(register_to_iced(newValue))
 	}
 
 	/// Gets operand #0's register value (a [`Register`] enum value). Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	pub fn op0Register(&self) -> Register {
+	#[wasm_bindgen(js_name = "op0Register")]
+	pub fn op0_register(&self) -> Register {
 		iced_to_register(self.0.op0_register())
 	}
 
 	/// Sets operand #0's register value (a [`Register`] enum value). Use this method if operand #0 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1742,30 +1827,32 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op0Register")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op0Register(&mut self, newValue: Register) {
+	pub fn set_op0_register(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op0_register(register_to_iced(newValue))
 	}
 
 	/// Gets operand #1's register value (a [`Register`] enum value). Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	pub fn op1Register(&self) -> Register {
+	#[wasm_bindgen(js_name = "op1Register")]
+	pub fn op1_register(&self) -> Register {
 		iced_to_register(self.0.op1_register())
 	}
 
 	/// Sets operand #1's register value (a [`Register`] enum value). Use this method if operand #1 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1773,30 +1860,32 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op1Register")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op1Register(&mut self, newValue: Register) {
+	pub fn set_op1_register(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op1_register(register_to_iced(newValue))
 	}
 
 	/// Gets operand #2's register value (a [`Register`] enum value). Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	pub fn op2Register(&self) -> Register {
+	#[wasm_bindgen(js_name = "op2Register")]
+	pub fn op2_register(&self) -> Register {
 		iced_to_register(self.0.op2_register())
 	}
 
 	/// Sets operand #2's register value (a [`Register`] enum value). Use this method if operand #2 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1804,30 +1893,32 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op2Register")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op2Register(&mut self, newValue: Register) {
+	pub fn set_op2_register(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op2_register(register_to_iced(newValue))
 	}
 
 	/// Gets operand #3's register value (a [`Register`] enum value). Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	pub fn op3Register(&self) -> Register {
+	#[wasm_bindgen(js_name = "op3Register")]
+	pub fn op3_register(&self) -> Register {
 		iced_to_register(self.0.op3_register())
 	}
 
 	/// Sets operand #3's register value (a [`Register`] enum value). Use this method if operand #3 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1835,30 +1926,32 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op3Register")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op3Register(&mut self, newValue: Register) {
+	pub fn set_op3_register(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op3_register(register_to_iced(newValue))
 	}
 
 	/// Gets operand #4's register value (a [`Register`] enum value). Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	#[wasm_bindgen(getter)]
-	pub fn op4Register(&self) -> Register {
+	#[wasm_bindgen(js_name = "op4Register")]
+	pub fn op4_register(&self) -> Register {
 		iced_to_register(self.0.op4_register())
 	}
 
 	/// Sets operand #4's register value (a [`Register`] enum value). Use this method if operand #4 ([`op0Kind`]) has kind [`OpKind.Register`], see [`opCount`] and [`opRegister`]
 	///
 	/// [`Register`]: enum.Register.html
-	/// [`op0Kind`]: #method.op0Kind
+	/// [`op0Kind`]: #method.op0_kind
 	/// [`opCount`]: #method.op_count
-	/// [`opRegister`]: #method.opRegister
+	/// [`opRegister`]: #method.op_register
 	/// [`Register.None`]: enum.Register.html#variant.None
 	/// [`OpKind.Register`]: enum.OpKind.html#variant.Register
 	///
@@ -1870,8 +1963,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "op4Register")]
 	#[cfg(feature = "encoder")]
-	pub fn set_op4Register(&mut self, newValue: Register) {
+	pub fn set_op4_register(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op4_register(register_to_iced(newValue))
 	}
 
@@ -1908,7 +2002,8 @@ impl Instruction {
 	/// decoder.free();
 	/// instr.free();
 	/// ```
-	pub fn opRegister(&self, operand: u32) -> Register {
+	#[wasm_bindgen(js_name = "opRegister")]
+	pub fn op_register(&self, operand: u32) -> Register {
 		iced_to_register(self.0.op_register(operand))
 	}
 
@@ -1925,8 +2020,9 @@ impl Instruction {
 	///
 	/// * `operand`: Operand number, 0-4
 	/// * `newValue`: New value
+	#[wasm_bindgen(js_name = "setOpRegister")]
 	#[cfg(feature = "encoder")]
-	pub fn setOpRegister(&mut self, operand: u32, newValue: Register) {
+	pub fn set_op_register(&mut self, operand: u32, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op_register(operand, register_to_iced(newValue))
 	}
 
@@ -1936,7 +2032,8 @@ impl Instruction {
 	/// [`Register.K7`]: enum.Register.html#variant.K7
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[wasm_bindgen(getter)]
-	pub fn opMask(&self) -> Register {
+	#[wasm_bindgen(js_name = "opMask")]
+	pub fn op_mask(&self) -> Register {
 		iced_to_register(self.0.op_mask())
 	}
 
@@ -1950,23 +2047,26 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "opMask")]
 	#[cfg(feature = "encoder")]
-	pub fn set_opMask(&mut self, newValue: Register) {
+	pub fn set_op_mask(&mut self, #[allow(non_snake_case)] newValue: Register) {
 		self.0.set_op_mask(register_to_iced(newValue))
 	}
 
 	/// Checks if there's an op mask register ([`opMask`])
 	///
-	/// [`opMask`]: #method.opMask
+	/// [`opMask`]: #method.op_mask
 	#[wasm_bindgen(getter)]
-	pub fn hasOpMask(&self) -> bool {
+	#[wasm_bindgen(js_name = "hasOpMask")]
+	pub fn has_op_mask(&self) -> bool {
 		self.0.has_op_mask()
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[wasm_bindgen(getter)]
-	pub fn zeroingMasking(&self) -> bool {
+	#[wasm_bindgen(js_name = "zeroingMasking")]
+	pub fn zeroing_masking(&self) -> bool {
 		self.0.zeroing_masking()
 	}
 
@@ -1977,15 +2077,17 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "zeroingMasking")]
 	#[cfg(feature = "encoder")]
-	pub fn set_zeroingMasking(&mut self, newValue: bool) {
+	pub fn set_zeroing_masking(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_zeroing_masking(newValue)
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
 	/// Only used by most EVEX encoded instructions that use op mask registers.
 	#[wasm_bindgen(getter)]
-	pub fn mergingMasking(&self) -> bool {
+	#[wasm_bindgen(js_name = "mergingMasking")]
+	pub fn merging_masking(&self) -> bool {
 		self.0.merging_masking()
 	}
 
@@ -1996,8 +2098,9 @@ impl Instruction {
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "mergingMasking")]
 	#[cfg(feature = "encoder")]
-	pub fn set_mergingMasking(&mut self, newValue: bool) {
+	pub fn set_merging_masking(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_merging_masking(newValue)
 	}
 
@@ -2005,10 +2108,11 @@ impl Instruction {
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html
-	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
+	/// [`suppressAllExceptions`]: #method.suppress_all_exceptions
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	#[wasm_bindgen(getter)]
-	pub fn roundingControl(&self) -> RoundingControl {
+	#[wasm_bindgen(js_name = "roundingControl")]
+	pub fn rounding_control(&self) -> RoundingControl {
 		iced_to_rounding_control(self.0.rounding_control())
 	}
 
@@ -2016,40 +2120,44 @@ impl Instruction {
 	/// or [`RoundingControl.None`] if the instruction doesn't use it.
 	///
 	/// [`RoundingControl`]: enum.RoundingControl.html
-	/// [`suppressAllExceptions`]: #method.suppressAllExceptions
+	/// [`suppressAllExceptions`]: #method.suppress_all_exceptions
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	///
 	/// # Arguments
 	///
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "roundingControl")]
 	#[cfg(feature = "encoder")]
-	pub fn set_roundingControl(&mut self, newValue: RoundingControl) {
+	pub fn set_rounding_control(&mut self, #[allow(non_snake_case)] newValue: RoundingControl) {
 		self.0.set_rounding_control(rounding_control_to_iced(newValue))
 	}
 
 	/// Checks if this is a VSIB instruction, see also [`isVsib32`], [`isVsib64`]
 	///
-	/// [`isVsib32`]: #method.isVsib32
-	/// [`isVsib64`]: #method.isVsib64
+	/// [`isVsib32`]: #method.is_vsib32
+	/// [`isVsib64`]: #method.is_vsib64
 	#[wasm_bindgen(getter)]
-	pub fn isVsib(&self) -> bool {
+	#[wasm_bindgen(js_name = "isVsib")]
+	pub fn is_vsib(&self) -> bool {
 		self.0.is_vsib()
 	}
 
 	/// VSIB instructions only ([`isVsib`]): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
 	///
-	/// [`isVsib`]: #method.isVsib
+	/// [`isVsib`]: #method.is_vsib
 	#[wasm_bindgen(getter)]
-	pub fn isVsib32(&self) -> bool {
+	#[wasm_bindgen(js_name = "isVsib32")]
+	pub fn is_vsib32(&self) -> bool {
 		self.0.is_vsib32()
 	}
 
 	/// VSIB instructions only ([`isVsib`]): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
 	///
-	/// [`isVsib`]: #method.isVsib
+	/// [`isVsib`]: #method.is_vsib
 	#[wasm_bindgen(getter)]
-	pub fn isVsib64(&self) -> bool {
+	#[wasm_bindgen(js_name = "isVsib64")]
+	pub fn is_vsib64(&self) -> bool {
 		self.0.is_vsib64()
 	}
 
@@ -2068,17 +2176,18 @@ impl Instruction {
 	/// Gets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
-	/// [`roundingControl`]: #method.roundingControl
+	/// [`roundingControl`]: #method.rounding_control
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	#[wasm_bindgen(getter)]
-	pub fn suppressAllExceptions(&self) -> bool {
+	#[wasm_bindgen(js_name = "suppressAllExceptions")]
+	pub fn suppress_all_exceptions(&self) -> bool {
 		self.0.suppress_all_exceptions()
 	}
 
 	/// Sets the suppress all exceptions flag (EVEX encoded instructions). Note that if [`roundingControl`] is
 	/// not [`RoundingControl.None`], SAE is implied but this method will still return `false`.
 	///
-	/// [`roundingControl`]: #method.roundingControl
+	/// [`roundingControl`]: #method.rounding_control
 	/// [`RoundingControl.None`]: enum.RoundingControl.html#variant.None
 	///
 	/// # Arguments
@@ -2086,7 +2195,8 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(setter)]
 	#[cfg(feature = "encoder")]
-	pub fn set_suppressAllExceptions(&mut self, newValue: bool) {
+	#[wasm_bindgen(js_name = "suppressAllExceptions")]
+	pub fn set_suppress_all_exceptions(&mut self, #[allow(non_snake_case)] newValue: bool) {
 		self.0.set_suppress_all_exceptions(newValue)
 	}
 
@@ -2102,9 +2212,9 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`nextIP`]: #method.nextIP
-	/// [`nextIP32`]: #method.nextIP32
-	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`nextIP`]: #method.next_ip
+	/// [`nextIP32`]: #method.next_ip32
+	/// [`memoryDisplacement`]: #method.memory_displacement
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddressLo")]
@@ -2118,9 +2228,9 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`nextIP`]: #method.nextIP
-	/// [`nextIP32`]: #method.nextIP32
-	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`nextIP`]: #method.next_ip
+	/// [`nextIP32`]: #method.next_ip32
+	/// [`memoryDisplacement`]: #method.memory_displacement
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddressHi")]
@@ -2132,9 +2242,9 @@ impl Instruction {
 	/// Gets the `RIP`/`EIP` releative address (([`nextIP`] or [`nextIP32`]) + [`memoryDisplacement`]).
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see [`isIpRelMemoryOperand`]
 	///
-	/// [`nextIP`]: #method.nextIP
-	/// [`nextIP32`]: #method.nextIP32
-	/// [`memoryDisplacement`]: #method.memoryDisplacement
+	/// [`nextIP`]: #method.next_ip
+	/// [`nextIP32`]: #method.next_ip32
+	/// [`memoryDisplacement`]: #method.memory_displacement
 	/// [`isIpRelMemoryOperand`]: #method.is_ip_rel_memory_operand
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "ipRelMemoryAddress")]
@@ -2878,7 +2988,8 @@ impl Instruction {
 	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	#[wasm_bindgen(getter)]
-	pub fn declareDataLength(&self) -> u32 {
+	#[wasm_bindgen(js_name = "declareDataLength")]
+	pub fn declare_data_len(&self) -> u32 {
 		self.0.declare_data_len() as u32
 	}
 
@@ -2895,14 +3006,15 @@ impl Instruction {
 	///
 	/// * `newValue`: New value: `db`: 1-16; `dw`: 1-8; `dd`: 1-4; `dq`: 1-2
 	#[wasm_bindgen(setter)]
-	pub fn set_declareDataLength(&mut self, newValue: u32) {
+	#[wasm_bindgen(js_name = "declareDataLength")]
+	pub fn set_declare_data_len(&mut self, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_declare_data_len(newValue as usize)
 	}
 
 	/// Sets a new `db` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareByte`]
 	///
-	/// [`declareDataLength()`]: #method.declareDataLength
+	/// [`declareDataLength()`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
@@ -2915,14 +3027,14 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareByteValueI8")]
-	pub fn set_declare_byte_value_i8(&mut self, index: u32, newValue: i8) {
+	pub fn set_declare_byte_value_i8(&mut self, index: u32, #[allow(non_snake_case)] newValue: i8) {
 		self.0.set_declare_byte_value(index as usize, newValue as u8)
 	}
 
 	/// Sets a new `db` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareByte`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
@@ -2935,14 +3047,14 @@ impl Instruction {
 	/// * `index`: Index (0-15)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareByteValue")]
-	pub fn set_declare_byte_value(&mut self, index: u32, newValue: u8) {
+	pub fn set_declare_byte_value(&mut self, index: u32, #[allow(non_snake_case)] newValue: u8) {
 		self.0.set_declare_byte_value(index as usize, newValue)
 	}
 
 	/// Gets a `db` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareByte`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareByte`]: enum.Code.html#variant.DeclareByte
 	///
@@ -2961,7 +3073,7 @@ impl Instruction {
 	/// Sets a new `dw` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareWord`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
@@ -2974,14 +3086,14 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareWordValueI16")]
-	pub fn set_declare_word_value_i16(&mut self, index: u32, newValue: i16) {
+	pub fn set_declare_word_value_i16(&mut self, index: u32, #[allow(non_snake_case)] newValue: i16) {
 		self.0.set_declare_word_value_i16(index as usize, newValue)
 	}
 
 	/// Sets a new `dw` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareWord`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
@@ -2994,14 +3106,14 @@ impl Instruction {
 	/// * `index`: Index (0-7)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareWordValue")]
-	pub fn set_declare_word_value(&mut self, index: u32, newValue: u16) {
+	pub fn set_declare_word_value(&mut self, index: u32, #[allow(non_snake_case)] newValue: u16) {
 		self.0.set_declare_word_value(index as usize, newValue)
 	}
 
 	/// Gets a `dw` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareWord`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareWord`]: enum.Code.html#variant.DeclareWord
 	///
@@ -3020,7 +3132,7 @@ impl Instruction {
 	/// Sets a new `dd` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareDword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
@@ -3033,14 +3145,14 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareDwordValueI32")]
-	pub fn set_declare_dword_value_i32(&mut self, index: u32, newValue: i32) {
+	pub fn set_declare_dword_value_i32(&mut self, index: u32, #[allow(non_snake_case)] newValue: i32) {
 		self.0.set_declare_dword_value_i32(index as usize, newValue)
 	}
 
 	/// Sets a new `dd` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareDword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
@@ -3053,14 +3165,14 @@ impl Instruction {
 	/// * `index`: Index (0-3)
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareDwordValue")]
-	pub fn set_declare_dword_value(&mut self, index: u32, newValue: u32) {
+	pub fn set_declare_dword_value(&mut self, index: u32, #[allow(non_snake_case)] newValue: u32) {
 		self.0.set_declare_dword_value(index as usize, newValue)
 	}
 
 	/// Gets a `dd` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareDword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareDword`]: enum.Code.html#variant.DeclareDword
 	///
@@ -3081,7 +3193,7 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3096,7 +3208,7 @@ impl Instruction {
 	/// * `newValueLo`: Low 32 bits of new value
 	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValueHi: u32, newValueLo: u32) {
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, #[allow(non_snake_case)] newValueHi: u32, #[allow(non_snake_case)] newValueLo: u32) {
 		let new_value = (((newValueHi as u64) << 32) | (newValueLo as u64)) as i64;
 		self.0.set_declare_qword_value_i64(index as usize, new_value)
 	}
@@ -3104,7 +3216,7 @@ impl Instruction {
 	/// Sets a new `dq` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareQword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3118,7 +3230,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareQwordValueI64")]
 	#[cfg(feature = "bigint")]
-	pub fn set_declare_qword_value_i64(&mut self, index: u32, newValue: i64) {
+	pub fn set_declare_qword_value_i64(&mut self, index: u32, #[allow(non_snake_case)] newValue: i64) {
 		self.0.set_declare_qword_value_i64(index as usize, newValue)
 	}
 
@@ -3127,7 +3239,7 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3142,7 +3254,7 @@ impl Instruction {
 	/// * `newValueLo`: Low 32 bits of new value
 	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_declare_qword_value(&mut self, index: u32, newValueHi: u32, newValueLo: u32) {
+	pub fn set_declare_qword_value(&mut self, index: u32, #[allow(non_snake_case)] newValueHi: u32, #[allow(non_snake_case)] newValueLo: u32) {
 		let new_value = ((newValueHi as u64) << 32) | (newValueLo as u64);
 		self.0.set_declare_qword_value(index as usize, new_value)
 	}
@@ -3150,7 +3262,7 @@ impl Instruction {
 	/// Sets a new `dq` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareQword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3164,7 +3276,7 @@ impl Instruction {
 	/// * `newValue`: New value
 	#[wasm_bindgen(js_name = "setDeclareQwordValue")]
 	#[cfg(feature = "bigint")]
-	pub fn set_declare_qword_value(&mut self, index: u32, newValue: u64) {
+	pub fn set_declare_qword_value(&mut self, index: u32, #[allow(non_snake_case)] newValue: u64) {
 		self.0.set_declare_qword_value(index as usize, newValue)
 	}
 
@@ -3173,7 +3285,7 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3195,7 +3307,7 @@ impl Instruction {
 	///
 	/// Enable the `bigint` feature to use APIs with 64-bit numbers (requires `BigInt`).
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3215,7 +3327,7 @@ impl Instruction {
 	/// Gets a `dq` value, see also [`declareDataLength`].
 	/// Can only be called if [`code`] is [`Code.DeclareQword`]
 	///
-	/// [`declareDataLength`]: #method.declareDataLength
+	/// [`declareDataLength`]: #method.declare_data_length
 	/// [`code`]: #method.code
 	/// [`Code.DeclareQword`]: enum.Code.html#variant.DeclareQword
 	///
@@ -3401,7 +3513,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegI64")]
-	pub fn with_reg_i64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
+	pub fn with_reg_i64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Self {
 		let immediate = (((immediateHi as u64) << 32) | (immediateLo as u64)) as i64;
 		Self(iced_x86_rust::Instruction::with_reg_i64(code_to_iced(code), register_to_iced(register), immediate))
 	}
@@ -3439,7 +3551,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegU64")]
-	pub fn with_reg_u64(code: Code, register: Register, immediateHi: u32, immediateLo: u32) -> Self {
+	pub fn with_reg_u64(code: Code, register: Register, #[allow(non_snake_case)] immediateHi: u32, #[allow(non_snake_case)] immediateLo: u32) -> Self {
 		let immediate = ((immediateHi as u64) << 32) | (immediateLo as u64);
 		Self(iced_x86_rust::Instruction::with_reg_u64(code_to_iced(code), register_to_iced(register), immediate))
 	}
@@ -4181,7 +4293,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createBranch")]
-	pub fn with_branch(code: Code, targetHi: u32, targetLo: u32) -> Self {
+	pub fn with_branch(code: Code, #[allow(non_snake_case)] targetHi: u32, #[allow(non_snake_case)] targetLo: u32) -> Self {
 		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Self(iced_x86_rust::Instruction::with_branch(code_to_iced(code), target))
 	}
@@ -4234,7 +4346,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createXbegin")]
-	pub fn with_xbegin(bitness: u32, targetHi: u32, targetLo: u32) -> Self {
+	pub fn with_xbegin(bitness: u32, #[allow(non_snake_case)] targetHi: u32, #[allow(non_snake_case)] targetLo: u32) -> Self {
 		let target = ((targetHi as u64) << 32) | (targetLo as u64);
 		Self(iced_x86_rust::Instruction::with_xbegin(bitness, target))
 	}
@@ -4254,7 +4366,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createRegMem64")]
-	pub fn with_reg_mem64(code: Code, register: Register, address: u64, segmentPrefix: Register) -> Self {
+	pub fn with_reg_mem64(code: Code, register: Register, address: u64, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
 	}
 
@@ -4276,7 +4388,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createRegMem64")]
-	pub fn with_reg_mem64(code: Code, register: Register, addressHi: u32, addressLo: u32, segmentPrefix: Register) -> Self {
+	pub fn with_reg_mem64(code: Code, register: Register, #[allow(non_snake_case)] addressHi: u32, #[allow(non_snake_case)] addressLo: u32, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		let address = ((addressHi as u64) << 32) | (addressLo as u64);
 		Self(iced_x86_rust::Instruction::with_reg_mem64(code_to_iced(code), register_to_iced(register), address, register_to_iced(segmentPrefix)))
 	}
@@ -4296,7 +4408,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(feature = "bigint")]
 	#[wasm_bindgen(js_name = "createMem64Reg")]
-	pub fn with_mem64_reg(code: Code, address: u64, register: Register, segmentPrefix: Register) -> Self {
+	pub fn with_mem64_reg(code: Code, address: u64, register: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
 
@@ -4318,7 +4430,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createMem64Reg")]
-	pub fn with_mem64_reg(code: Code, addressHi: u32, addressLo: u32, register: Register, segmentPrefix: Register) -> Self {
+	pub fn with_mem64_reg(code: Code, #[allow(non_snake_case)] addressHi: u32, #[allow(non_snake_case)] addressLo: u32, register: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		let address = ((addressHi as u64) << 32) | (addressLo as u64);
 		Self(iced_x86_rust::Instruction::with_mem64_reg(code_to_iced(code), address, register_to_iced(register), register_to_iced(segmentPrefix)))
 	}
@@ -4341,7 +4453,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsb")]
-	pub fn with_outsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_outsb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_outsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4356,7 +4468,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsb")]
-	pub fn with_rep_outsb(addressSize: u32) -> Self {
+	pub fn with_rep_outsb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_outsb(addressSize))
 	}
 
@@ -4378,7 +4490,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsw")]
-	pub fn with_outsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_outsw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_outsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4393,7 +4505,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsw")]
-	pub fn with_rep_outsw(addressSize: u32) -> Self {
+	pub fn with_rep_outsw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_outsw(addressSize))
 	}
 
@@ -4415,7 +4527,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createOutsd")]
-	pub fn with_outsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_outsd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_outsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4430,7 +4542,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepOutsd")]
-	pub fn with_rep_outsd(addressSize: u32) -> Self {
+	pub fn with_rep_outsd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_outsd(addressSize))
 	}
 
@@ -4452,7 +4564,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsb")]
-	pub fn with_lodsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_lodsb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_lodsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4467,7 +4579,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsb")]
-	pub fn with_rep_lodsb(addressSize: u32) -> Self {
+	pub fn with_rep_lodsb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_lodsb(addressSize))
 	}
 
@@ -4489,7 +4601,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsw")]
-	pub fn with_lodsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_lodsw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_lodsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4504,7 +4616,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsw")]
-	pub fn with_rep_lodsw(addressSize: u32) -> Self {
+	pub fn with_rep_lodsw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_lodsw(addressSize))
 	}
 
@@ -4526,7 +4638,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsd")]
-	pub fn with_lodsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_lodsd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_lodsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4541,7 +4653,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsd")]
-	pub fn with_rep_lodsd(addressSize: u32) -> Self {
+	pub fn with_rep_lodsd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_lodsd(addressSize))
 	}
 
@@ -4563,7 +4675,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createLodsq")]
-	pub fn with_lodsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_lodsq(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_lodsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4578,7 +4690,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepLodsq")]
-	pub fn with_rep_lodsq(addressSize: u32) -> Self {
+	pub fn with_rep_lodsq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_lodsq(addressSize))
 	}
 
@@ -4597,7 +4709,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasb")]
-	pub fn with_scasb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_scasb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_scasb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4612,7 +4724,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasb")]
-	pub fn with_repe_scasb(addressSize: u32) -> Self {
+	pub fn with_repe_scasb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_scasb(addressSize))
 	}
 
@@ -4627,7 +4739,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasb")]
-	pub fn with_repne_scasb(addressSize: u32) -> Self {
+	pub fn with_repne_scasb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_scasb(addressSize))
 	}
 
@@ -4646,7 +4758,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasw")]
-	pub fn with_scasw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_scasw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_scasw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4661,7 +4773,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasw")]
-	pub fn with_repe_scasw(addressSize: u32) -> Self {
+	pub fn with_repe_scasw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_scasw(addressSize))
 	}
 
@@ -4676,7 +4788,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasw")]
-	pub fn with_repne_scasw(addressSize: u32) -> Self {
+	pub fn with_repne_scasw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_scasw(addressSize))
 	}
 
@@ -4695,7 +4807,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasd")]
-	pub fn with_scasd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_scasd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_scasd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4710,7 +4822,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasd")]
-	pub fn with_repe_scasd(addressSize: u32) -> Self {
+	pub fn with_repe_scasd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_scasd(addressSize))
 	}
 
@@ -4725,7 +4837,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasd")]
-	pub fn with_repne_scasd(addressSize: u32) -> Self {
+	pub fn with_repne_scasd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_scasd(addressSize))
 	}
 
@@ -4744,7 +4856,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createScasq")]
-	pub fn with_scasq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_scasq(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_scasq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4759,7 +4871,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeScasq")]
-	pub fn with_repe_scasq(addressSize: u32) -> Self {
+	pub fn with_repe_scasq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_scasq(addressSize))
 	}
 
@@ -4774,7 +4886,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneScasq")]
-	pub fn with_repne_scasq(addressSize: u32) -> Self {
+	pub fn with_repne_scasq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_scasq(addressSize))
 	}
 
@@ -4793,7 +4905,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsb")]
-	pub fn with_insb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_insb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_insb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4808,7 +4920,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsb")]
-	pub fn with_rep_insb(addressSize: u32) -> Self {
+	pub fn with_rep_insb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_insb(addressSize))
 	}
 
@@ -4827,7 +4939,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsw")]
-	pub fn with_insw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_insw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_insw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4842,7 +4954,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsw")]
-	pub fn with_rep_insw(addressSize: u32) -> Self {
+	pub fn with_rep_insw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_insw(addressSize))
 	}
 
@@ -4861,7 +4973,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createInsd")]
-	pub fn with_insd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_insd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_insd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4876,7 +4988,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepInsd")]
-	pub fn with_rep_insd(addressSize: u32) -> Self {
+	pub fn with_rep_insd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_insd(addressSize))
 	}
 
@@ -4895,7 +5007,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosb")]
-	pub fn with_stosb(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_stosb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_stosb(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4910,7 +5022,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosb")]
-	pub fn with_rep_stosb(addressSize: u32) -> Self {
+	pub fn with_rep_stosb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_stosb(addressSize))
 	}
 
@@ -4929,7 +5041,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosw")]
-	pub fn with_stosw(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_stosw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_stosw(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4944,7 +5056,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosw")]
-	pub fn with_rep_stosw(addressSize: u32) -> Self {
+	pub fn with_rep_stosw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_stosw(addressSize))
 	}
 
@@ -4963,7 +5075,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosd")]
-	pub fn with_stosd(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_stosd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_stosd(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -4978,7 +5090,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosd")]
-	pub fn with_rep_stosd(addressSize: u32) -> Self {
+	pub fn with_rep_stosd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_stosd(addressSize))
 	}
 
@@ -4997,7 +5109,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createStosq")]
-	pub fn with_stosq(addressSize: u32, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_stosq(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_stosq(addressSize, rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5012,7 +5124,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepStosq")]
-	pub fn with_rep_stosq(addressSize: u32) -> Self {
+	pub fn with_rep_stosq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_stosq(addressSize))
 	}
 
@@ -5034,7 +5146,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsb")]
-	pub fn with_cmpsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_cmpsb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_cmpsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5049,7 +5161,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsb")]
-	pub fn with_repe_cmpsb(addressSize: u32) -> Self {
+	pub fn with_repe_cmpsb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_cmpsb(addressSize))
 	}
 
@@ -5064,7 +5176,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsb")]
-	pub fn with_repne_cmpsb(addressSize: u32) -> Self {
+	pub fn with_repne_cmpsb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_cmpsb(addressSize))
 	}
 
@@ -5086,7 +5198,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsw")]
-	pub fn with_cmpsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_cmpsw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_cmpsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5101,7 +5213,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsw")]
-	pub fn with_repe_cmpsw(addressSize: u32) -> Self {
+	pub fn with_repe_cmpsw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_cmpsw(addressSize))
 	}
 
@@ -5116,7 +5228,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsw")]
-	pub fn with_repne_cmpsw(addressSize: u32) -> Self {
+	pub fn with_repne_cmpsw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_cmpsw(addressSize))
 	}
 
@@ -5138,7 +5250,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsd")]
-	pub fn with_cmpsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_cmpsd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_cmpsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5153,7 +5265,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsd")]
-	pub fn with_repe_cmpsd(addressSize: u32) -> Self {
+	pub fn with_repe_cmpsd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_cmpsd(addressSize))
 	}
 
@@ -5168,7 +5280,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsd")]
-	pub fn with_repne_cmpsd(addressSize: u32) -> Self {
+	pub fn with_repne_cmpsd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_cmpsd(addressSize))
 	}
 
@@ -5190,7 +5302,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createCmpsq")]
-	pub fn with_cmpsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_cmpsq(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_cmpsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5205,7 +5317,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepeCmpsq")]
-	pub fn with_repe_cmpsq(addressSize: u32) -> Self {
+	pub fn with_repe_cmpsq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repe_cmpsq(addressSize))
 	}
 
@@ -5220,7 +5332,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepneCmpsq")]
-	pub fn with_repne_cmpsq(addressSize: u32) -> Self {
+	pub fn with_repne_cmpsq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_repne_cmpsq(addressSize))
 	}
 
@@ -5242,7 +5354,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsb")]
-	pub fn with_movsb(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_movsb(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_movsb(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5257,7 +5369,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsb")]
-	pub fn with_rep_movsb(addressSize: u32) -> Self {
+	pub fn with_rep_movsb(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_movsb(addressSize))
 	}
 
@@ -5279,7 +5391,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsw")]
-	pub fn with_movsw(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_movsw(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_movsw(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5294,7 +5406,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsw")]
-	pub fn with_rep_movsw(addressSize: u32) -> Self {
+	pub fn with_rep_movsw(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_movsw(addressSize))
 	}
 
@@ -5316,7 +5428,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsd")]
-	pub fn with_movsd(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_movsd(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_movsd(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5331,7 +5443,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsd")]
-	pub fn with_rep_movsd(addressSize: u32) -> Self {
+	pub fn with_rep_movsd(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_movsd(addressSize))
 	}
 
@@ -5353,7 +5465,7 @@ impl Instruction {
 	/// [`RepPrefixKind`]: enum.RepPrefixKind.html
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMovsq")]
-	pub fn with_movsq(addressSize: u32, segmentPrefix: Register, repPrefix: RepPrefixKind) -> Self {
+	pub fn with_movsq(#[allow(non_snake_case)] addressSize: u32, #[allow(non_snake_case)] segmentPrefix: Register, #[allow(non_snake_case)] repPrefix: RepPrefixKind) -> Self {
 		Self(iced_x86_rust::Instruction::with_movsq(addressSize, register_to_iced(segmentPrefix), rep_prefix_kind_to_iced(repPrefix)))
 	}
 
@@ -5368,7 +5480,7 @@ impl Instruction {
 	/// * `addressSize`: 16, 32, or 64
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createRepMovsq")]
-	pub fn with_rep_movsq(addressSize: u32) -> Self {
+	pub fn with_rep_movsq(#[allow(non_snake_case)] addressSize: u32) -> Self {
 		Self(iced_x86_rust::Instruction::with_rep_movsq(addressSize))
 	}
 
@@ -5389,7 +5501,7 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovq")]
-	pub fn with_maskmovq(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+	pub fn with_maskmovq(#[allow(non_snake_case)] addressSize: u32, register1: Register, register2: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		Self(iced_x86_rust::Instruction::with_maskmovq(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
@@ -5410,7 +5522,7 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createMaskmovdqu")]
-	pub fn with_maskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+	pub fn with_maskmovdqu(#[allow(non_snake_case)] addressSize: u32, register1: Register, register2: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		Self(iced_x86_rust::Instruction::with_maskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
@@ -5431,7 +5543,7 @@ impl Instruction {
 	/// [`Register.None`]: enum.Register.html#variant.None
 	#[rustfmt::skip]
 	#[wasm_bindgen(js_name = "createVmaskmovdqu")]
-	pub fn with_vmaskmovdqu(addressSize: u32, register1: Register, register2: Register, segmentPrefix: Register) -> Self {
+	pub fn with_vmaskmovdqu(#[allow(non_snake_case)] addressSize: u32, register1: Register, register2: Register, #[allow(non_snake_case)] segmentPrefix: Register) -> Self {
 		Self(iced_x86_rust::Instruction::with_vmaskmovdqu(addressSize, register_to_iced(register1), register_to_iced(register2), register_to_iced(segmentPrefix)))
 	}
 
@@ -5965,7 +6077,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createDeclareQword_1")]
-	pub fn with_declare_qword_1(q0Hi: u32, q0Lo: u32) -> Self {
+	pub fn with_declare_qword_1(#[allow(non_snake_case)] q0Hi: u32, #[allow(non_snake_case)] q0Lo: u32) -> Self {
 		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
 		Self(iced_x86_rust::Instruction::with_declare_qword_1(q0))
 	}
@@ -5996,7 +6108,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[cfg(not(feature = "bigint"))]
 	#[wasm_bindgen(js_name = "createDeclareQword_2")]
-	pub fn with_declare_qword_2(q0Hi: u32, q0Lo: u32, q1Hi: u32, q1Lo: u32) -> Self {
+	pub fn with_declare_qword_2(#[allow(non_snake_case)] q0Hi: u32, #[allow(non_snake_case)] q0Lo: u32, #[allow(non_snake_case)] q1Hi: u32, #[allow(non_snake_case)] q1Lo: u32) -> Self {
 		let q0 = ((q0Hi as u64) << 32) | (q0Lo as u64);
 		let q1 = ((q1Hi as u64) << 32) | (q1Lo as u64);
 		Self(iced_x86_rust::Instruction::with_declare_qword_2(q0, q1))

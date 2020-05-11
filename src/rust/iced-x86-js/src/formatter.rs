@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(non_snake_case)]
-
 use super::format_mnemonic_options::FormatMnemonicOptions;
 use super::instruction::Instruction;
 use super::memory_size_options::{iced_to_memory_size_options, memory_size_options_to_iced, MemorySizeOptions};
@@ -204,7 +202,7 @@ impl Formatter {
 	/// - `instruction`: Instruction
 	/// - `instructionOperand`: Instruction operand
 	#[wasm_bindgen(js_name = "getFormatterOperand")]
-	pub fn get_formatter_operand(&mut self, instruction: &Instruction, instructionOperand: u32) -> Option<u32> {
+	pub fn get_formatter_operand(&mut self, instruction: &Instruction, #[allow(non_snake_case)] instructionOperand: u32) -> Option<u32> {
 		self.formatter.get_formatter_operand(&instruction.0, instructionOperand)
 	}
 
@@ -388,7 +386,8 @@ impl Formatter {
 	/// - | `true` | `REP stosd`
 	/// ✔️ | `false` | `rep stosd`
 	#[wasm_bindgen(getter)]
-	pub fn uppercasePrefixes(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercasePrefixes")]
+	pub fn uppercase_prefixes(&self) -> bool {
 		self.formatter.options().uppercase_prefixes()
 	}
 
@@ -403,7 +402,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercasePrefixes(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercasePrefixes")]
+	pub fn set_uppercase_prefixes(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_prefixes(value);
 	}
 
@@ -414,7 +414,8 @@ impl Formatter {
 	/// - | `true` | `MOV rcx,rax`
 	/// ✔️ | `false` | `mov rcx,rax`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseMnemonics(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseMnemonics")]
+	pub fn uppercase_mnemonics(&self) -> bool {
 		self.formatter.options().uppercase_mnemonics()
 	}
 
@@ -429,7 +430,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseMnemonics(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseMnemonics")]
+	pub fn set_uppercase_mnemonics(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_mnemonics(value);
 	}
 
@@ -440,7 +442,8 @@ impl Formatter {
 	/// - | `true` | `mov RCX,[RAX+RDX*8]`
 	/// ✔️ | `false` | `mov rcx,[rax+rdx*8]`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseRegisters(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseRegisters")]
+	pub fn uppercase_registers(&self) -> bool {
 		self.formatter.options().uppercase_registers()
 	}
 
@@ -455,7 +458,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseRegisters(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseRegisters")]
+	pub fn set_uppercase_registers(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_registers(value);
 	}
 
@@ -466,7 +470,8 @@ impl Formatter {
 	/// - | `true` | `mov BYTE PTR [rcx],12h`
 	/// ✔️ | `false` | `mov byte ptr [rcx],12h`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseKeywords(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseKeywords")]
+	pub fn uppercase_keywords(&self) -> bool {
 		self.formatter.options().uppercase_keywords()
 	}
 
@@ -481,7 +486,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseKeywords(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseKeywords")]
+	pub fn set_uppercase_keywords(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_keywords(value);
 	}
 
@@ -492,7 +498,8 @@ impl Formatter {
 	/// - | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// ✔️ | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseDecorators(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseDecorators")]
+	pub fn uppercase_decorators(&self) -> bool {
 		self.formatter.options().uppercase_decorators()
 	}
 
@@ -507,7 +514,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseDecorators(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseDecorators")]
+	pub fn set_uppercase_decorators(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_decorators(value);
 	}
 
@@ -518,7 +526,8 @@ impl Formatter {
 	/// - | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// ✔️ | `false` | `mov eax,gs:[rcx*4+0ffh]`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseAll(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseAll")]
+	pub fn uppercase_all(&self) -> bool {
 		self.formatter.options().uppercase_all()
 	}
 
@@ -533,7 +542,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseAll(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseAll")]
+	pub fn set_uppercase_all(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_all(value);
 	}
 
@@ -545,7 +555,8 @@ impl Formatter {
 	/// ✔️ | `0` | `mov•rcx,rbp`
 	/// - | `8` | `mov•••••rcx,rbp`
 	#[wasm_bindgen(getter)]
-	pub fn firstOperandCharIndex(&self) -> u32 {
+	#[wasm_bindgen(js_name = "firstOperandCharIndex")]
+	pub fn first_operand_char_index(&self) -> u32 {
 		self.formatter.options().first_operand_char_index()
 	}
 
@@ -561,7 +572,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_firstOperandCharIndex(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "firstOperandCharIndex")]
+	pub fn set_first_operand_char_index(&mut self, value: u32) {
 		self.formatter.options_mut().set_first_operand_char_index(value);
 	}
 
@@ -569,7 +581,8 @@ impl Formatter {
 	///
 	/// - Default: `0`
 	#[wasm_bindgen(getter)]
-	pub fn tabSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "tabSize")]
+	pub fn tab_size(&self) -> u32 {
 		self.formatter.options().tab_size()
 	}
 
@@ -581,7 +594,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_tabSize(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "tabSize")]
+	pub fn set_tab_size(&mut self, value: u32) {
 		self.formatter.options_mut().set_tab_size(value);
 	}
 
@@ -592,7 +606,8 @@ impl Formatter {
 	/// - | `true` | `mov rax, rcx`
 	/// ✔️ | `false` | `mov rax,rcx`
 	#[wasm_bindgen(getter)]
-	pub fn spaceAfterOperandSeparator(&self) -> bool {
+	#[wasm_bindgen(js_name = "spaceAfterOperandSeparator")]
+	pub fn space_after_operand_separator(&self) -> bool {
 		self.formatter.options().space_after_operand_separator()
 	}
 
@@ -607,7 +622,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_spaceAfterOperandSeparator(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "spaceAfterOperandSeparator")]
+	pub fn set_space_after_operand_separator(&mut self, value: bool) {
 		self.formatter.options_mut().set_space_after_operand_separator(value);
 	}
 
@@ -618,7 +634,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[ rcx+rdx ]`
 	/// ✔️ | `false` | `mov eax,[rcx+rdx]`
 	#[wasm_bindgen(getter)]
-	pub fn spaceAfterMemoryBracket(&self) -> bool {
+	#[wasm_bindgen(js_name = "spaceAfterMemoryBracket")]
+	pub fn space_after_memory_bracket(&self) -> bool {
 		self.formatter.options().space_after_memory_bracket()
 	}
 
@@ -633,7 +650,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_spaceAfterMemoryBracket(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "spaceAfterMemoryBracket")]
+	pub fn set_space_after_memory_bracket(&mut self, value: bool) {
 		self.formatter.options_mut().set_space_after_memory_bracket(value);
 	}
 
@@ -644,7 +662,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[wasm_bindgen(getter)]
-	pub fn spaceBetweenMemoryAddOperators(&self) -> bool {
+	#[wasm_bindgen(js_name = "spaceBetweenMemoryAddOperators")]
+	pub fn space_between_memory_add_operators(&self) -> bool {
 		self.formatter.options().space_between_memory_add_operators()
 	}
 
@@ -659,7 +678,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_spaceBetweenMemoryAddOperators(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "spaceBetweenMemoryAddOperators")]
+	pub fn set_space_between_memory_add_operators(&mut self, value: bool) {
 		self.formatter.options_mut().set_space_between_memory_add_operators(value);
 	}
 
@@ -670,7 +690,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// ✔️ | `false` | `mov eax,[rcx+rdx*8-80h]`
 	#[wasm_bindgen(getter)]
-	pub fn spaceBetweenMemoryMulOperators(&self) -> bool {
+	#[wasm_bindgen(js_name = "spaceBetweenMemoryMulOperators")]
+	pub fn space_between_memory_mul_operators(&self) -> bool {
 		self.formatter.options().space_between_memory_mul_operators()
 	}
 
@@ -685,7 +706,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_spaceBetweenMemoryMulOperators(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "spaceBetweenMemoryMulOperators")]
+	pub fn set_space_between_memory_mul_operators(&mut self, value: bool) {
 		self.formatter.options_mut().set_space_between_memory_mul_operators(value);
 	}
 
@@ -696,7 +718,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[8*rdx]`
 	/// ✔️ | `false` | `mov eax,[rdx*8]`
 	#[wasm_bindgen(getter)]
-	pub fn scaleBeforeIndex(&self) -> bool {
+	#[wasm_bindgen(js_name = "scaleBeforeIndex")]
+	pub fn scale_before_index(&self) -> bool {
 		self.formatter.options().scale_before_index()
 	}
 
@@ -711,7 +734,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_scaleBeforeIndex(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "scaleBeforeIndex")]
+	pub fn set_scale_before_index(&mut self, value: bool) {
 		self.formatter.options_mut().set_scale_before_index(value);
 	}
 
@@ -722,7 +746,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[rbx+rcx*1]`
 	/// ✔️ | `false` | `mov eax,[rbx+rcx]`
 	#[wasm_bindgen(getter)]
-	pub fn alwaysShowScale(&self) -> bool {
+	#[wasm_bindgen(js_name = "alwaysShowScale")]
+	pub fn always_show_scale(&self) -> bool {
 		self.formatter.options().always_show_scale()
 	}
 
@@ -737,7 +762,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_alwaysShowScale(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "alwaysShowScale")]
+	pub fn set_always_show_scale(&mut self, value: bool) {
 		self.formatter.options_mut().set_always_show_scale(value);
 	}
 
@@ -749,7 +775,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,ds:[ecx]`
 	/// ✔️ | `false` | `mov eax,[ecx]`
 	#[wasm_bindgen(getter)]
-	pub fn alwaysShowSegmentRegister(&self) -> bool {
+	#[wasm_bindgen(js_name = "alwaysShowSegmentRegister")]
+	pub fn always_show_segment_register(&self) -> bool {
 		self.formatter.options().always_show_segment_register()
 	}
 
@@ -765,7 +792,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_alwaysShowSegmentRegister(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "alwaysShowSegmentRegister")]
+	pub fn set_always_show_segment_register(&mut self, value: bool) {
 		self.formatter.options_mut().set_always_show_segment_register(value);
 	}
 
@@ -776,7 +804,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[rcx*2+0]`
 	/// ✔️ | `false` | `mov eax,[rcx*2]`
 	#[wasm_bindgen(getter)]
-	pub fn showZeroDisplacements(&self) -> bool {
+	#[wasm_bindgen(js_name = "showZeroDisplacements")]
+	pub fn show_zero_displacements(&self) -> bool {
 		self.formatter.options().show_zero_displacements()
 	}
 
@@ -791,7 +820,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_showZeroDisplacements(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "showZeroDisplacements")]
+	pub fn set_show_zero_displacements(&mut self, value: bool) {
 		self.formatter.options_mut().set_show_zero_displacements(value);
 	}
 
@@ -799,7 +829,8 @@ impl Formatter {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0x"` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn hexPrefix(&self) -> String {
+	#[wasm_bindgen(js_name = "hexPrefix")]
+	pub fn hex_prefix(&self) -> String {
 		self.formatter.options().hex_prefix().to_owned()
 	}
 
@@ -811,7 +842,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_hexPrefix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "hexPrefix")]
+	pub fn set_hex_prefix(&mut self, value: String) {
 		self.formatter.options_mut().set_hex_prefix_string(value);
 	}
 
@@ -819,7 +851,8 @@ impl Formatter {
 	///
 	/// - Default: `"h"` (masm/nasm/intel), `""` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn hexSuffix(&self) -> String {
+	#[wasm_bindgen(js_name = "hexSuffix")]
+	pub fn hex_suffix(&self) -> String {
 		self.formatter.options().hex_suffix().to_owned()
 	}
 
@@ -831,26 +864,28 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_hexSuffix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "hexSuffix")]
+	pub fn set_hex_suffix(&mut self, value: String) {
 		self.formatter.options_mut().set_hex_suffix_string(value);
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `0x12345678`
 	/// ✔️ | `4` | `0x1234_5678`
 	#[wasm_bindgen(getter)]
-	pub fn hexDigitGroupSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "hexDigitGroupSize")]
+	pub fn hex_digit_group_size(&self) -> u32 {
 		self.formatter.options().hex_digit_group_size()
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -861,7 +896,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_hexDigitGroupSize(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "hexDigitGroupSize")]
+	pub fn set_hex_digit_group_size(&mut self, value: u32) {
 		self.formatter.options_mut().set_hex_digit_group_size(value);
 	}
 
@@ -869,7 +905,8 @@ impl Formatter {
 	///
 	/// - Default: `""`
 	#[wasm_bindgen(getter)]
-	pub fn decimalPrefix(&self) -> String {
+	#[wasm_bindgen(js_name = "decimalPrefix")]
+	pub fn decimal_prefix(&self) -> String {
 		self.formatter.options().decimal_prefix().to_owned()
 	}
 
@@ -881,7 +918,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_decimalPrefix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "decimalPrefix")]
+	pub fn set_decimal_prefix(&mut self, value: String) {
 		self.formatter.options_mut().set_decimal_prefix_string(value);
 	}
 
@@ -889,7 +927,8 @@ impl Formatter {
 	///
 	/// - Default: `""`
 	#[wasm_bindgen(getter)]
-	pub fn decimalSuffix(&self) -> String {
+	#[wasm_bindgen(js_name = "decimalSuffix")]
+	pub fn decimal_suffix(&self) -> String {
 		self.formatter.options().decimal_suffix().to_owned()
 	}
 
@@ -901,26 +940,28 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_decimalSuffix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "decimalSuffix")]
+	pub fn set_decimal_suffix(&mut self, value: String) {
 		self.formatter.options_mut().set_decimal_suffix_string(value);
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345678`
 	/// ✔️ | `3` | `12_345_678`
 	#[wasm_bindgen(getter)]
-	pub fn decimalDigitGroupSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "decimalDigitGroupSize")]
+	pub fn decimal_digit_group_size(&self) -> u32 {
 		self.formatter.options().decimal_digit_group_size()
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -931,7 +972,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_decimalDigitGroupSize(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "decimalDigitGroupSize")]
+	pub fn set_decimal_digit_group_size(&mut self, value: u32) {
 		self.formatter.options_mut().set_decimal_digit_group_size(value);
 	}
 
@@ -939,7 +981,8 @@ impl Formatter {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0"` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn octalPrefix(&self) -> String {
+	#[wasm_bindgen(js_name = "octalPrefix")]
+	pub fn octal_prefix(&self) -> String {
 		self.formatter.options().octal_prefix().to_owned()
 	}
 
@@ -951,7 +994,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_octalPrefix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "octalPrefix")]
+	pub fn set_octal_prefix(&mut self, value: String) {
 		self.formatter.options_mut().set_octal_prefix_string(value);
 	}
 
@@ -959,7 +1003,8 @@ impl Formatter {
 	///
 	/// - Default: `"o"` (masm/nasm/intel), `""` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn octalSuffix(&self) -> String {
+	#[wasm_bindgen(js_name = "octalSuffix")]
+	pub fn octal_suffix(&self) -> String {
 		self.formatter.options().octal_suffix().to_owned()
 	}
 
@@ -971,26 +1016,28 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_octalSuffix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "octalSuffix")]
+	pub fn set_octal_suffix(&mut self, value: String) {
 		self.formatter.options_mut().set_octal_suffix_string(value);
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `12345670`
 	/// ✔️ | `4` | `1234_5670`
 	#[wasm_bindgen(getter)]
-	pub fn octalDigitGroupSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "octalDigitGroupSize")]
+	pub fn octal_digit_group_size(&self) -> u32 {
 		self.formatter.options().octal_digit_group_size()
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1001,7 +1048,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_octalDigitGroupSize(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "octalDigitGroupSize")]
+	pub fn set_octal_digit_group_size(&mut self, value: u32) {
 		self.formatter.options_mut().set_octal_digit_group_size(value);
 	}
 
@@ -1009,7 +1057,8 @@ impl Formatter {
 	///
 	/// - Default: `""` (masm/nasm/intel), `"0b"` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn binaryPrefix(&self) -> String {
+	#[wasm_bindgen(js_name = "binaryPrefix")]
+	pub fn binary_prefix(&self) -> String {
 		self.formatter.options().binary_prefix().to_owned()
 	}
 
@@ -1021,7 +1070,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_binaryPrefix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "binaryPrefix")]
+	pub fn set_binary_prefix(&mut self, value: String) {
 		self.formatter.options_mut().set_binary_prefix_string(value);
 	}
 
@@ -1029,7 +1079,8 @@ impl Formatter {
 	///
 	/// - Default: `"b"` (masm/nasm/intel), `""` (gas)
 	#[wasm_bindgen(getter)]
-	pub fn binarySuffix(&self) -> String {
+	#[wasm_bindgen(js_name = "binarySuffix")]
+	pub fn binary_suffix(&self) -> String {
 		self.formatter.options().binary_suffix().to_owned()
 	}
 
@@ -1041,26 +1092,28 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_binarySuffix(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "binarySuffix")]
+	pub fn set_binary_suffix(&mut self, value: String) {
 		self.formatter.options_mut().set_binary_suffix_string(value);
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// - | `0` | `11010111`
 	/// ✔️ | `4` | `1101_0111`
 	#[wasm_bindgen(getter)]
-	pub fn binaryDigitGroupSize(&self) -> u32 {
+	#[wasm_bindgen(js_name = "binaryDigitGroupSize")]
+	pub fn binary_digit_group_size(&self) -> u32 {
 		self.formatter.options().binary_digit_group_size()
 	}
 
 	/// Size of a digit group, see also [`digitSeparator`]
 	///
-	/// [`digitSeparator`]: #method.digitSeparator
+	/// [`digitSeparator`]: #method.digit_separator
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1071,26 +1124,28 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_binaryDigitGroupSize(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "binaryDigitGroupSize")]
+	pub fn set_binary_digit_group_size(&mut self, value: u32) {
 		self.formatter.options_mut().set_binary_digit_group_size(value);
 	}
 
 	/// Digit separator or an empty string. See also eg. [`hexDigitGroupSize`]
 	///
-	/// [`hexDigitGroupSize`]: #method.hexDigitGroupSize
+	/// [`hexDigitGroupSize`]: #method.hex_digit_group_size
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
 	/// ✔️ | `""` | `0x12345678`
 	/// - | `"_"` | `0x1234_5678`
 	#[wasm_bindgen(getter)]
-	pub fn digitSeparator(&self) -> String {
+	#[wasm_bindgen(js_name = "digitSeparator")]
+	pub fn digit_separator(&self) -> String {
 		self.formatter.options().digit_separator().to_owned()
 	}
 
 	/// Digit separator or an empty string. See also eg. [`hexDigitGroupSize`]
 	///
-	/// [`hexDigitGroupSize`]: #method.hexDigitGroupSize
+	/// [`hexDigitGroupSize`]: #method.hex_digit_group_size
 	///
 	/// Default | Value | Example
 	/// --------|-------|--------
@@ -1101,7 +1156,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_digitSeparator(&mut self, value: String) {
+	#[wasm_bindgen(js_name = "digitSeparator")]
+	pub fn set_digit_separator(&mut self, value: String) {
 		self.formatter.options_mut().set_digit_separator_string(value);
 	}
 
@@ -1114,10 +1170,11 @@ impl Formatter {
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branchLeadingZeroes`]: #method.branchLeadingZeroes
-	/// [`displacementLeadingZeroes`]: #method.displacementLeadingZeroes
+	/// [`branchLeadingZeroes`]: #method.branch_leading_zeroes
+	/// [`displacementLeadingZeroes`]: #method.displacement_leading_zeroes
 	#[wasm_bindgen(getter)]
-	pub fn leadingZeroes(&self) -> bool {
+	#[wasm_bindgen(js_name = "leadingZeroes")]
+	pub fn leading_zeroes(&self) -> bool {
 		self.formatter.options().leading_zeroes()
 	}
 
@@ -1130,14 +1187,15 @@ impl Formatter {
 	/// - | `true` | `0x0000000A`/`0000000Ah`
 	/// ✔️ | `false` | `0xA`/`0Ah`
 	///
-	/// [`branchLeadingZeroes`]: #method.branchLeadingZeroes
-	/// [`displacementLeadingZeroes`]: #method.displacementLeadingZeroes
+	/// [`branchLeadingZeroes`]: #method.branch_leading_zeroes
+	/// [`displacementLeadingZeroes`]: #method.displacement_leading_zeroes
 	///
 	/// # Arguments
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_leadingZeroes(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "leadingZeroes")]
+	pub fn set_leading_zeroes(&mut self, value: bool) {
 		self.formatter.options_mut().set_leading_zeroes(value);
 	}
 
@@ -1148,7 +1206,8 @@ impl Formatter {
 	/// ✔️ | `true` | `0xFF`
 	/// - | `false` | `0xff`
 	#[wasm_bindgen(getter)]
-	pub fn uppercaseHex(&self) -> bool {
+	#[wasm_bindgen(js_name = "uppercaseHex")]
+	pub fn uppercase_hex(&self) -> bool {
 		self.formatter.options().uppercase_hex()
 	}
 
@@ -1163,7 +1222,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_uppercaseHex(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "uppercaseHex")]
+	pub fn set_uppercase_hex(&mut self, value: bool) {
 		self.formatter.options_mut().set_uppercase_hex(value);
 	}
 
@@ -1174,7 +1234,8 @@ impl Formatter {
 	/// ✔️ | `true` | `9`
 	/// - | `false` | `0x9`
 	#[wasm_bindgen(getter)]
-	pub fn smallHexNumbersInDecimal(&self) -> bool {
+	#[wasm_bindgen(js_name = "smallHexNumbersInDecimal")]
+	pub fn small_hex_numbers_in_decimal(&self) -> bool {
 		self.formatter.options().small_hex_numbers_in_decimal()
 	}
 
@@ -1189,7 +1250,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_smallHexNumbersInDecimal(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "smallHexNumbersInDecimal")]
+	pub fn set_small_hex_numbers_in_decimal(&mut self, value: bool) {
 		self.formatter.options_mut().set_small_hex_numbers_in_decimal(value);
 	}
 
@@ -1200,7 +1262,8 @@ impl Formatter {
 	/// ✔️ | `true` | `0FFh`
 	/// - | `false` | `FFh`
 	#[wasm_bindgen(getter)]
-	pub fn addLeadingZeroToHexNumbers(&self) -> bool {
+	#[wasm_bindgen(js_name = "addLeadingZeroToHexNumbers")]
+	pub fn add_leading_zero_to_hex_numbers(&self) -> bool {
 		self.formatter.options().add_leading_zero_to_hex_numbers()
 	}
 
@@ -1215,7 +1278,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_addLeadingZeroToHexNumbers(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "addLeadingZeroToHexNumbers")]
+	pub fn set_add_leading_zero_to_hex_numbers(&mut self, value: bool) {
 		self.formatter.options_mut().set_add_leading_zero_to_hex_numbers(value);
 	}
 
@@ -1223,7 +1287,8 @@ impl Formatter {
 	///
 	/// - Default: `16`
 	#[wasm_bindgen(getter)]
-	pub fn numberBase(&self) -> u32 {
+	#[wasm_bindgen(js_name = "numberBase")]
+	pub fn number_base(&self) -> u32 {
 		match self.formatter.options().number_base() {
 			iced_x86_rust::NumberBase::Binary => 2,
 			iced_x86_rust::NumberBase::Octal => 8,
@@ -1244,7 +1309,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_numberBase(&mut self, value: u32) {
+	#[wasm_bindgen(js_name = "numberBase")]
+	pub fn set_number_base(&mut self, value: u32) {
 		let base = match value {
 			2 => iced_x86_rust::NumberBase::Binary,
 			8 => iced_x86_rust::NumberBase::Octal,
@@ -1262,7 +1328,8 @@ impl Formatter {
 	/// ✔️ | `true` | `je 00000123h`
 	/// - | `false` | `je 123h`
 	#[wasm_bindgen(getter)]
-	pub fn branchLeadingZeroes(&self) -> bool {
+	#[wasm_bindgen(js_name = "branchLeadingZeroes")]
+	pub fn branch_leading_zeroes(&self) -> bool {
 		self.formatter.options().branch_leading_zeroes()
 	}
 
@@ -1277,7 +1344,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_branchLeadingZeroes(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "branchLeadingZeroes")]
+	pub fn set_branch_leading_zeroes(&mut self, value: bool) {
 		self.formatter.options_mut().set_branch_leading_zeroes(value);
 	}
 
@@ -1288,7 +1356,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,-1`
 	/// ✔️ | `false` | `mov eax,FFFFFFFF`
 	#[wasm_bindgen(getter)]
-	pub fn signedImmediateOperands(&self) -> bool {
+	#[wasm_bindgen(js_name = "signedImmediateOperands")]
+	pub fn signed_immediate_operands(&self) -> bool {
 		self.formatter.options().signed_immediate_operands()
 	}
 
@@ -1303,7 +1372,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_signedImmediateOperands(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "signedImmediateOperands")]
+	pub fn set_signed_immediate_operands(&mut self, value: bool) {
 		self.formatter.options_mut().set_signed_immediate_operands(value);
 	}
 
@@ -1314,7 +1384,8 @@ impl Formatter {
 	/// ✔️ | `true` | `mov al,[eax-2000h]`
 	/// - | `false` | `mov al,[eax+0FFFFE000h]`
 	#[wasm_bindgen(getter)]
-	pub fn signedMemoryDisplacements(&self) -> bool {
+	#[wasm_bindgen(js_name = "signedMemoryDisplacements")]
+	pub fn signed_memory_displacements(&self) -> bool {
 		self.formatter.options().signed_memory_displacements()
 	}
 
@@ -1329,7 +1400,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_signedMemoryDisplacements(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "signedMemoryDisplacements")]
+	pub fn set_signed_memory_displacements(&mut self, value: bool) {
 		self.formatter.options_mut().set_signed_memory_displacements(value);
 	}
 
@@ -1340,7 +1412,8 @@ impl Formatter {
 	/// - | `true` | `mov al,[eax+00000012h]`
 	/// ✔️ | `false` | `mov al,[eax+12h]`
 	#[wasm_bindgen(getter)]
-	pub fn displacementLeadingZeroes(&self) -> bool {
+	#[wasm_bindgen(js_name = "displacementLeadingZeroes")]
+	pub fn displacement_leading_zeroes(&self) -> bool {
 		self.formatter.options().displacement_leading_zeroes()
 	}
 
@@ -1355,7 +1428,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_displacementLeadingZeroes(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "displacementLeadingZeroes")]
+	pub fn set_displacement_leading_zeroes(&mut self, value: bool) {
 		self.formatter.options_mut().set_displacement_leading_zeroes(value);
 	}
 
@@ -1367,7 +1441,8 @@ impl Formatter {
 	/// [`MemorySizeOptions`]: enum.MemorySizeOptions.html
 	/// [`Default`]: enum.MemorySizeOptions.html#variant.Default
 	#[wasm_bindgen(getter)]
-	pub fn memorySizeOptions(&self) -> MemorySizeOptions {
+	#[wasm_bindgen(js_name = "memorySizeOptions")]
+	pub fn memory_size_options(&self) -> MemorySizeOptions {
 		iced_to_memory_size_options(self.formatter.options().memory_size_options())
 	}
 
@@ -1383,7 +1458,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_memorySizeOptions(&mut self, value: MemorySizeOptions) {
+	#[wasm_bindgen(js_name = "memorySizeOptions")]
+	pub fn set_memory_size_options(&mut self, value: MemorySizeOptions) {
 		self.formatter.options_mut().set_memory_size_options(memory_size_options_to_iced(value));
 	}
 
@@ -1394,7 +1470,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[rip+12345678h]`
 	/// ✔️ | `false` | `mov eax,[1029384756AFBECDh]`
 	#[wasm_bindgen(getter)]
-	pub fn ripRelativeAddresses(&self) -> bool {
+	#[wasm_bindgen(js_name = "ripRelativeAddresses")]
+	pub fn rip_relative_addresses(&self) -> bool {
 		self.formatter.options().rip_relative_addresses()
 	}
 
@@ -1409,7 +1486,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_ripRelativeAddresses(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "ripRelativeAddresses")]
+	pub fn set_rip_relative_addresses(&mut self, value: bool) {
 		self.formatter.options_mut().set_rip_relative_addresses(value);
 	}
 
@@ -1420,7 +1498,8 @@ impl Formatter {
 	/// ✔️ | `true` | `je short 1234h`
 	/// - | `false` | `je 1234h`
 	#[wasm_bindgen(getter)]
-	pub fn showBranchSize(&self) -> bool {
+	#[wasm_bindgen(js_name = "showBranchSize")]
+	pub fn show_branch_size(&self) -> bool {
 		self.formatter.options().show_branch_size()
 	}
 
@@ -1435,7 +1514,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_showBranchSize(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "showBranchSize")]
+	pub fn set_show_branch_size(&mut self, value: bool) {
 		self.formatter.options_mut().set_show_branch_size(value);
 	}
 
@@ -1446,7 +1526,8 @@ impl Formatter {
 	/// ✔️ | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// - | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
 	#[wasm_bindgen(getter)]
-	pub fn usePseudoOps(&self) -> bool {
+	#[wasm_bindgen(js_name = "usePseudoOps")]
+	pub fn use_pseudo_ops(&self) -> bool {
 		self.formatter.options().use_pseudo_ops()
 	}
 
@@ -1461,7 +1542,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_usePseudoOps(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "usePseudoOps")]
+	pub fn set_use_pseudo_ops(&mut self, value: bool) {
 		self.formatter.options_mut().set_use_pseudo_ops(value);
 	}
 
@@ -1472,7 +1554,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,[myfield (12345678)]`
 	/// ✔️ | `false` | `mov eax,[myfield]`
 	#[wasm_bindgen(getter)]
-	pub fn showSymbolAddress(&self) -> bool {
+	#[wasm_bindgen(js_name = "showSymbolAddress")]
+	pub fn show_symbol_address(&self) -> bool {
 		self.formatter.options().show_symbol_address()
 	}
 
@@ -1487,7 +1570,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_showSymbolAddress(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "showSymbolAddress")]
+	pub fn set_show_symbol_address(&mut self, value: bool) {
 		self.formatter.options_mut().set_show_symbol_address(value);
 	}
 
@@ -1498,7 +1582,8 @@ impl Formatter {
 	/// - | `true` | `mov eax,ecx`
 	/// ✔️ | `false` | `mov %eax,%ecx`
 	#[wasm_bindgen(getter)]
-	pub fn gasNakedRegisters(&self) -> bool {
+	#[wasm_bindgen(js_name = "gasNakedRegisters")]
+	pub fn gas_naked_registers(&self) -> bool {
 		self.formatter.options().gas_naked_registers()
 	}
 
@@ -1513,7 +1598,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_gasNakedRegisters(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "gasNakedRegisters")]
+	pub fn set_gas_naked_registers(&mut self, value: bool) {
 		self.formatter.options_mut().set_gas_naked_registers(value);
 	}
 
@@ -1524,7 +1610,8 @@ impl Formatter {
 	/// - | `true` | `movl %eax,%ecx`
 	/// ✔️ | `false` | `mov %eax,%ecx`
 	#[wasm_bindgen(getter)]
-	pub fn gasShowMnemonicSizeSuffix(&self) -> bool {
+	#[wasm_bindgen(js_name = "gasShowMnemonicSizeSuffix")]
+	pub fn gas_show_mnemonic_size_suffix(&self) -> bool {
 		self.formatter.options().gas_show_mnemonic_size_suffix()
 	}
 
@@ -1539,7 +1626,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_gasShowMnemonicSizeSuffix(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "gasShowMnemonicSizeSuffix")]
+	pub fn set_gas_show_mnemonic_size_suffix(&mut self, value: bool) {
 		self.formatter.options_mut().set_gas_show_mnemonic_size_suffix(value);
 	}
 
@@ -1550,7 +1638,8 @@ impl Formatter {
 	/// - | `true` | `(%eax, %ecx, 2)`
 	/// ✔️ | `false` | `(%eax,%ecx,2)`
 	#[wasm_bindgen(getter)]
-	pub fn gasSpaceAfterMemoryOperandComma(&self) -> bool {
+	#[wasm_bindgen(js_name = "gasSpaceAfterMemoryOperandComma")]
+	pub fn gas_space_after_memory_operand_comma(&self) -> bool {
 		self.formatter.options().gas_space_after_memory_operand_comma()
 	}
 
@@ -1565,7 +1654,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_gasSpaceAfterMemoryOperandComma(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "gasSpaceAfterMemoryOperandComma")]
+	pub fn set_gas_space_after_memory_operand_comma(&mut self, value: bool) {
 		self.formatter.options_mut().set_gas_space_after_memory_operand_comma(value);
 	}
 
@@ -1576,7 +1666,8 @@ impl Formatter {
 	/// ✔️ | `true` | `mov eax,ds:[12345678]`
 	/// - | `false` | `mov eax,[12345678]`
 	#[wasm_bindgen(getter)]
-	pub fn masmAddDsPrefix32(&self) -> bool {
+	#[wasm_bindgen(js_name = "masmAddDsPrefix32")]
+	pub fn masm_add_ds_prefix32(&self) -> bool {
 		self.formatter.options().masm_add_ds_prefix32()
 	}
 
@@ -1591,7 +1682,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_masmAddDsPrefix32(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "masmAddDsPrefix32")]
+	pub fn set_masm_add_ds_prefix32(&mut self, value: bool) {
 		self.formatter.options_mut().set_masm_add_ds_prefix32(value);
 	}
 
@@ -1602,7 +1694,8 @@ impl Formatter {
 	/// ✔️ | `true` | `[ecx+symbol]` / `[symbol]`
 	/// - | `false` | `symbol[ecx]` / `symbol`
 	#[wasm_bindgen(getter)]
-	pub fn masmSymbolDisplInBrackets(&self) -> bool {
+	#[wasm_bindgen(js_name = "masmSymbolDisplInBrackets")]
+	pub fn masm_symbol_displ_in_brackets(&self) -> bool {
 		self.formatter.options().masm_symbol_displ_in_brackets()
 	}
 
@@ -1617,7 +1710,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_masmSymbolDisplInBrackets(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "masmSymbolDisplInBrackets")]
+	pub fn set_masm_symbol_displ_in_brackets(&mut self, value: bool) {
 		self.formatter.options_mut().set_masm_symbol_displ_in_brackets(value);
 	}
 
@@ -1628,7 +1722,8 @@ impl Formatter {
 	/// ✔️ | `true` | `[ecx+1234h]`
 	/// - | `false` | `1234h[ecx]`
 	#[wasm_bindgen(getter)]
-	pub fn masmDisplInBrackets(&self) -> bool {
+	#[wasm_bindgen(js_name = "masmDisplInBrackets")]
+	pub fn masm_displ_in_brackets(&self) -> bool {
 		self.formatter.options().masm_displ_in_brackets()
 	}
 
@@ -1643,7 +1738,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_masmDisplInBrackets(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "masmDisplInBrackets")]
+	pub fn set_masm_displ_in_brackets(&mut self, value: bool) {
 		self.formatter.options_mut().set_masm_displ_in_brackets(value);
 	}
 
@@ -1654,7 +1750,8 @@ impl Formatter {
 	/// - | `true` | `or rcx,byte -1`
 	/// ✔️ | `false` | `or rcx,-1`
 	#[wasm_bindgen(getter)]
-	pub fn nasmShowSignExtendedImmediateSize(&self) -> bool {
+	#[wasm_bindgen(js_name = "nasmShowSignExtendedImmediateSize")]
+	pub fn nasm_show_sign_extended_immediate_size(&self) -> bool {
 		self.formatter.options().nasm_show_sign_extended_immediate_size()
 	}
 
@@ -1669,7 +1766,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_nasmShowSignExtendedImmediateSize(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "nasmShowSignExtendedImmediateSize")]
+	pub fn set_nasm_show_sign_extended_immediate_size(&mut self, value: bool) {
 		self.formatter.options_mut().set_nasm_show_sign_extended_immediate_size(value);
 	}
 
@@ -1680,7 +1778,8 @@ impl Formatter {
 	/// - | `true` | `fadd st(0),st(3)`
 	/// ✔️ | `false` | `fadd st,st(3)`
 	#[wasm_bindgen(getter)]
-	pub fn preferSt0(&self) -> bool {
+	#[wasm_bindgen(js_name = "preferSt0")]
+	pub fn prefer_st0(&self) -> bool {
 		self.formatter.options().prefer_st0()
 	}
 
@@ -1695,7 +1794,8 @@ impl Formatter {
 	///
 	/// * `value`: New value
 	#[wasm_bindgen(setter)]
-	pub fn set_preferSt0(&mut self, value: bool) {
+	#[wasm_bindgen(js_name = "preferSt0")]
+	pub fn set_prefer_st0(&mut self, value: bool) {
 		self.formatter.options_mut().set_prefer_st0(value);
 	}
 }

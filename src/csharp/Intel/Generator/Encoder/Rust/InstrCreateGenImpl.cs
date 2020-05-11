@@ -84,13 +84,26 @@ namespace Generator.Encoder.Rust {
 			docWriter.EndWrite(writer);
 		}
 
+		static bool IsSnakeCase(string s) {
+			foreach (var c in s) {
+				if (!(char.IsLower(c) || char.IsDigit(c) || c == '_'))
+					return false;
+			}
+			return true;
+		}
+
 		public void WriteMethodDeclArgs(FileWriter writer, CreateMethod method) {
 			bool comma = false;
 			foreach (var arg in method.Args) {
 				if (comma)
 					writer.Write(", ");
 				comma = true;
-				writer.Write(idConverter.Argument(arg.Name));
+				var argName = idConverter.Argument(arg.Name);
+				if (!IsSnakeCase(argName)) {
+					writer.Write(RustConstants.AttributeAllowNonSnakeCase);
+					writer.Write(" ");
+				}
+				writer.Write(argName);
 				writer.Write(": ");
 				switch (arg.Type) {
 				case MethodArgType.Code:

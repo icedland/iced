@@ -44,6 +44,7 @@ namespace Generator {
 		public const string AttributeAllowDeadCode = "#[allow(dead_code)]";
 		public const string AttributeWasmBindgen = "#[wasm_bindgen]";
 		public const string AttributeWasmBindgenJsName = "#[wasm_bindgen(js_name = \"{0}\")]";
+		public const string AttributeAllowNonSnakeCase = "#[allow(non_snake_case)]";
 
 		public const string FeaturePrefix = "#[cfg(";
 		public const string FeatureInstrInfo = "#[cfg(feature = \"instr_info\")]";

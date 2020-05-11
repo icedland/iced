@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(non_snake_case)]
-
 use super::constant_offsets::ConstantOffsets;
 use super::instruction::Instruction;
 use wasm_bindgen::prelude::*;
@@ -136,7 +134,9 @@ impl Encoder {
 	/// instr.free();
 	/// ```
 	#[cfg(not(feature = "bigint"))]
-	pub fn encode(&mut self, instruction: &Instruction, ripHi: u32, ripLo: u32) -> Result<u32, JsValue> {
+	pub fn encode(
+		&mut self, instruction: &Instruction, #[allow(non_snake_case)] ripHi: u32, #[allow(non_snake_case)] ripLo: u32,
+	) -> Result<u32, JsValue> {
 		let rip = ((ripHi as u64) << 32) | (ripLo as u64);
 		self.encode_core(instruction, rip)
 	}
@@ -257,7 +257,8 @@ impl Encoder {
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 	#[wasm_bindgen(getter)]
-	pub fn preventVEX2(&self) -> bool {
+	#[wasm_bindgen(js_name = "preventVEX2")]
+	pub fn prevent_vex2(&self) -> bool {
 		self.0.prevent_vex2()
 	}
 
@@ -267,13 +268,15 @@ impl Encoder {
 	///
 	/// * `new_value`: new value
 	#[wasm_bindgen(setter)]
-	pub fn set_preventVEX2(&mut self, new_value: bool) {
+	#[wasm_bindgen(js_name = "preventVEX2")]
+	pub fn set_prevent_vex2(&mut self, new_value: bool) {
 		self.0.set_prevent_vex2(new_value)
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
-	pub fn VEX_WIG(&self) -> u32 {
+	#[wasm_bindgen(js_name = "VEX_WIG")]
+	pub fn vex_wig(&self) -> u32 {
 		self.0.vex_wig()
 	}
 
@@ -283,13 +286,15 @@ impl Encoder {
 	///
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
-	pub fn set_VEX_WIG(&mut self, new_value: u32) {
+	#[wasm_bindgen(js_name = "VEX_WIG")]
+	pub fn set_vex_wig(&mut self, new_value: u32) {
 		self.0.set_vex_wig(new_value)
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
-	pub fn VEX_LIG(&self) -> u32 {
+	#[wasm_bindgen(js_name = "VEX_LIG")]
+	pub fn vex_lig(&self) -> u32 {
 		self.0.vex_lig()
 	}
 
@@ -299,13 +304,15 @@ impl Encoder {
 	///
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
-	pub fn set_VEX_LIG(&mut self, new_value: u32) {
+	#[wasm_bindgen(js_name = "VEX_LIG")]
+	pub fn set_vex_lig(&mut self, new_value: u32) {
 		self.0.set_vex_lig(new_value)
 	}
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	#[wasm_bindgen(getter)]
-	pub fn EVEX_WIG(&self) -> u32 {
+	#[wasm_bindgen(js_name = "EVEX_WIG")]
+	pub fn evex_wig(&self) -> u32 {
 		self.0.evex_wig()
 	}
 
@@ -315,13 +322,15 @@ impl Encoder {
 	///
 	/// * `new_value`: new value (0 or 1)
 	#[wasm_bindgen(setter)]
-	pub fn set_EVEX_WIG(&mut self, new_value: u32) {
+	#[wasm_bindgen(js_name = "EVEX_WIG")]
+	pub fn set_evex_wig(&mut self, new_value: u32) {
 		self.0.set_evex_wig(new_value)
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
 	#[wasm_bindgen(getter)]
-	pub fn EVEX_LIG(&self) -> u32 {
+	#[wasm_bindgen(js_name = "EVEX_LIG")]
+	pub fn evex_lig(&self) -> u32 {
 		self.0.evex_lig()
 	}
 
@@ -331,7 +340,8 @@ impl Encoder {
 	///
 	/// * `new_value`: new value (0 or 3)
 	#[wasm_bindgen(setter)]
-	pub fn set_EVEX_LIG(&mut self, new_value: u32) {
+	#[wasm_bindgen(js_name = "EVEX_LIG")]
+	pub fn set_evex_lig(&mut self, new_value: u32) {
 		self.0.set_evex_lig(new_value)
 	}
 

@@ -21,8 +21,6 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#![allow(non_snake_case)]
-
 #[cfg(feature = "instr_info")]
 use super::constant_offsets::ConstantOffsets;
 use super::decoder_options::DecoderOptions;
@@ -139,8 +137,9 @@ impl Decoder {
 	///
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ipLo(&self) -> u32 {
+	pub fn ip_lo(&self) -> u32 {
 		self.decoder.ip() as u32
 	}
 
@@ -150,8 +149,9 @@ impl Decoder {
 	///
 	/// [`position`]: #method.position
 	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "ipHi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn ipHi(&self) -> u32 {
+	pub fn ip_hi(&self) -> u32 {
 		(self.decoder.ip() >> 32) as u32
 	}
 
@@ -174,8 +174,9 @@ impl Decoder {
 	///
 	/// * `lo`: Low 32 bits of the new IP
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "ipLo")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ipLo(&mut self, lo: u32) {
+	pub fn set_ip_lo(&mut self, lo: u32) {
 		let ip = (self.decoder.ip() & !0xFFFF_FFFF) | (lo as u64);
 		self.decoder.set_ip(ip);
 	}
@@ -190,8 +191,9 @@ impl Decoder {
 	///
 	/// * `hi`: High 32 bits of the new IP
 	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "ipHi")]
 	#[cfg(not(feature = "bigint"))]
-	pub fn set_ipHi(&mut self, hi: u32) {
+	pub fn set_ip_hi(&mut self, hi: u32) {
 		let ip = ((hi as u64) << 32) | (self.decoder.ip() as u32 as u64);
 		self.decoder.set_ip(ip);
 	}
