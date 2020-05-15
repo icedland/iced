@@ -75,6 +75,18 @@ namespace Generator.Enums.Formatter {
 		UppercasePrefixes,
 		UppercaseRegisters,
 		UsePseudoOps,
+		CC_b,
+		CC_ae,
+		CC_e,
+		CC_ne,
+		CC_be,
+		CC_a,
+		CC_p,
+		CC_np,
+		CC_l,
+		CC_ge,
+		CC_le,
+		CC_g,
 	}
 
 	static class OptionsPropsEnum {

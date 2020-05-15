@@ -83,6 +83,18 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.PreferST0);
+			Assert.Equal(CC_b.b, options.CC_b);
+			Assert.Equal(CC_ae.ae, options.CC_ae);
+			Assert.Equal(CC_e.e, options.CC_e);
+			Assert.Equal(CC_ne.ne, options.CC_ne);
+			Assert.Equal(CC_be.be, options.CC_be);
+			Assert.Equal(CC_a.a, options.CC_a);
+			Assert.Equal(CC_p.p, options.CC_p);
+			Assert.Equal(CC_np.np, options.CC_np);
+			Assert.Equal(CC_l.l, options.CC_l);
+			Assert.Equal(CC_ge.ge, options.CC_ge);
+			Assert.Equal(CC_le.le, options.CC_le);
+			Assert.Equal(CC_g.g, options.CC_g);
 			Assert.False(options.GasNakedRegisters);
 			Assert.False(options.GasShowMnemonicSizeSuffix);
 			Assert.False(options.GasSpaceAfterMemoryOperandComma);

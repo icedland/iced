@@ -289,6 +289,25 @@ namespace Iced.Intel.MasmFormatterInternal {
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 	}
 
+	sealed class SimpleInstrInfo_cc : InstrInfo {
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+		readonly InstrOpInfoFlags flags;
+
+		public SimpleInstrInfo_cc(int ccIndex, string[] mnemonics) : this(ccIndex, mnemonics, InstrOpInfoFlags.None) { }
+
+		public SimpleInstrInfo_cc(int ccIndex, string[] mnemonics, InstrOpInfoFlags flags) {
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+			this.flags = flags;
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+		}
+	}
+
 	sealed class SimpleInstrInfo_mmxmem : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly InstrOpInfoFlags flags;
@@ -943,6 +962,30 @@ namespace Iced.Intel.MasmFormatterInternal {
 		}
 	}
 
+	sealed class SimpleInstrInfo_OpSize_cc : InstrInfo {
+		readonly CodeSize codeSize;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+		readonly FormatterString[] mnemonics_other;
+
+		public SimpleInstrInfo_OpSize_cc(CodeSize codeSize, int ccIndex, string[] mnemonics, string[] mnemonics_other) {
+			this.codeSize = codeSize;
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+			this.mnemonics_other = FormatterString.Create(mnemonics_other);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			FormatterString[] mnemonics;
+			if (instruction.CodeSize == codeSize)
+				mnemonics = this.mnemonics;
+			else
+				mnemonics = this.mnemonics_other;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
+			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
+		}
+	}
+
 	sealed class SimpleInstrInfo_OpSize2 : InstrInfo {
 		readonly FormatterString[] mnemonics;
 
@@ -1024,9 +1067,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 	}
 
 	sealed class SimpleInstrInfo_jcc : InstrInfo {
-		readonly FormatterString mnemonic;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
 
-		public SimpleInstrInfo_jcc(string mnemonic) => this.mnemonic = new FormatterString(mnemonic);
+		public SimpleInstrInfo_jcc(int ccIndex, string[] mnemonics) {
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
@@ -1037,6 +1084,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				flags |= InstrOpInfoFlags.JccTaken;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}

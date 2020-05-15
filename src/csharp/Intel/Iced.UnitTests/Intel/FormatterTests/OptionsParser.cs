@@ -103,6 +103,54 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				value = ToEnumConverter.GetNumberBase(valueStr);
 				break;
 
+			case OptionsProps.CC_b:
+				value = ToEnumConverter.GetCC_b(valueStr);
+				break;
+
+			case OptionsProps.CC_ae:
+				value = ToEnumConverter.GetCC_ae(valueStr);
+				break;
+
+			case OptionsProps.CC_e:
+				value = ToEnumConverter.GetCC_e(valueStr);
+				break;
+
+			case OptionsProps.CC_ne:
+				value = ToEnumConverter.GetCC_ne(valueStr);
+				break;
+
+			case OptionsProps.CC_be:
+				value = ToEnumConverter.GetCC_be(valueStr);
+				break;
+
+			case OptionsProps.CC_a:
+				value = ToEnumConverter.GetCC_a(valueStr);
+				break;
+
+			case OptionsProps.CC_p:
+				value = ToEnumConverter.GetCC_p(valueStr);
+				break;
+
+			case OptionsProps.CC_np:
+				value = ToEnumConverter.GetCC_np(valueStr);
+				break;
+
+			case OptionsProps.CC_l:
+				value = ToEnumConverter.GetCC_l(valueStr);
+				break;
+
+			case OptionsProps.CC_ge:
+				value = ToEnumConverter.GetCC_ge(valueStr);
+				break;
+
+			case OptionsProps.CC_le:
+				value = ToEnumConverter.GetCC_le(valueStr);
+				break;
+
+			case OptionsProps.CC_g:
+				value = ToEnumConverter.GetCC_g(valueStr);
+				break;
+
 			default:
 				throw new InvalidOperationException();
 			}

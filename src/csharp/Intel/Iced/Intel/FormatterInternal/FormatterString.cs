@@ -38,6 +38,13 @@ namespace Iced.Intel.FormatterInternal {
 			upper = string.Intern(lower.ToUpperInvariant());
 		}
 
+		public static FormatterString[] Create(string[] strings) {
+			var res = new FormatterString[strings.Length];
+			for (int i = 0; i < strings.Length; i++)
+				res[i] = new FormatterString(strings[i]);
+			return res;
+		}
+
 		public string Get(bool upper) {
 			Debug.Assert(!IsDefault);
 			return upper ? this.upper : lower;

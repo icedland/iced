@@ -86,6 +86,8 @@ extern crate static_assertions;
 mod block_encoder;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 mod block_encoder_options;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod cc;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info"), feature = "instr_create"))]
 mod code;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -155,6 +157,8 @@ mod tuple_type;
 pub use block_encoder::*;
 #[cfg(all(feature = "encoder", feature = "block_encoder"))]
 pub use block_encoder_options::*;
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub use cc::*;
 #[cfg(any(feature = "instr_api", all(feature = "encoder", feature = "op_code_info"), feature = "instr_create"))]
 pub use code::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]

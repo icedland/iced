@@ -34,7 +34,7 @@ use alloc::boxed::Box;
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
-use core::mem;
+use core::{mem, u32};
 
 lazy_static! {
 	pub(super) static ref ALL_INFOS: Vec<Box<InstrInfo + Sync + Send>> = read();
@@ -141,7 +141,78 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_invlpga::new(v, s))
 			}
 
-			CtorKind::jcc => Box::new(SimpleInstrInfo_jcc::new(s)),
+			CtorKind::CCa_1 => {
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::new(v, vec![s]))
+			}
+
+			CtorKind::CCa_2 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::new(v, vec![s, s2]))
+			}
+
+			CtorKind::CCa_3 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::new(v, vec![s, s2, s3]))
+			}
+
+			CtorKind::CCb_1 => {
+				v2 = reader.read_compressed_u32();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::with_flags(v2, vec![s], v))
+			}
+
+			CtorKind::CCb_2 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				v2 = reader.read_compressed_u32();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::with_flags(v2, vec![s, s2], v))
+			}
+
+			CtorKind::CCb_3 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				v2 = reader.read_compressed_u32();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::with_flags(v2, vec![s, s2, s3], v))
+			}
+
+			CtorKind::jcc_1 => {
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_jcc::new(v, vec![s]))
+			}
+
+			CtorKind::jcc_2 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_jcc::new(v, vec![s, s2]))
+			}
+
+			CtorKind::jcc_3 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				let s3 = strings[reader.read_compressed_u32() as usize].clone();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_jcc::new(v, vec![s, s2, s3]))
+			}
+
+			CtorKind::Loopcc1 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_cc::new(v, vec![s, s2]))
+			}
+
+			CtorKind::Loopcc2 => {
+				let s2 = strings[reader.read_compressed_u32() as usize].clone();
+				c = reader.read_u8() as u8 as char;
+				v2 = reader.read_compressed_u32();
+				let s3 = add_suffix(&s, c);
+				let s4 = add_suffix(&s2, c);
+				v = reader.read_u8() as u32;
+				Box::new(SimpleInstrInfo_OpSize_cc::new(unsafe { mem::transmute(v as u8) }, v2, vec![s, s2], vec![s3, s4]))
+			}
 
 			CtorKind::maskmovq => {
 				v = reader.read_compressed_u32();

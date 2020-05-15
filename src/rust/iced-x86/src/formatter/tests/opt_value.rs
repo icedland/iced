@@ -28,6 +28,7 @@ use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
 
+#[allow(non_camel_case_types)]
 pub(in super::super) enum OptionValue {
 	Boolean(bool),
 	Int32(i32),
@@ -35,6 +36,18 @@ pub(in super::super) enum OptionValue {
 	String(String),
 	MemorySizeOptions(MemorySizeOptions),
 	NumberBase(NumberBase),
+	CC_b(CC_b),
+	CC_ae(CC_ae),
+	CC_e(CC_e),
+	CC_ne(CC_ne),
+	CC_be(CC_be),
+	CC_a(CC_a),
+	CC_p(CC_p),
+	CC_np(CC_np),
+	CC_l(CC_l),
+	CC_ge(CC_ge),
+	CC_le(CC_le),
+	CC_g(CC_g),
 }
 
 impl OptionValue {
@@ -84,6 +97,102 @@ impl OptionValue {
 
 	fn to_number_base(&self) -> NumberBase {
 		if let &OptionValue::NumberBase(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_b(&self) -> CC_b {
+		if let &OptionValue::CC_b(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_ae(&self) -> CC_ae {
+		if let &OptionValue::CC_ae(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_e(&self) -> CC_e {
+		if let &OptionValue::CC_e(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_ne(&self) -> CC_ne {
+		if let &OptionValue::CC_ne(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_be(&self) -> CC_be {
+		if let &OptionValue::CC_be(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_a(&self) -> CC_a {
+		if let &OptionValue::CC_a(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_p(&self) -> CC_p {
+		if let &OptionValue::CC_p(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_np(&self) -> CC_np {
+		if let &OptionValue::CC_np(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_l(&self) -> CC_l {
+		if let &OptionValue::CC_l(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_ge(&self) -> CC_ge {
+		if let &OptionValue::CC_ge(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_le(&self) -> CC_le {
+		if let &OptionValue::CC_le(value) = self {
+			value
+		} else {
+			panic!()
+		}
+	}
+
+	fn to_cc_g(&self) -> CC_g {
+		if let &OptionValue::CC_g(value) = self {
 			value
 		} else {
 			panic!()
@@ -141,6 +250,18 @@ impl OptionValue {
 			OptionsProps::UppercasePrefixes => options.set_uppercase_prefixes(self.to_bool()),
 			OptionsProps::UppercaseRegisters => options.set_uppercase_registers(self.to_bool()),
 			OptionsProps::UsePseudoOps => options.set_use_pseudo_ops(self.to_bool()),
+			OptionsProps::CC_b => options.set_cc_b(self.to_cc_b()),
+			OptionsProps::CC_ae => options.set_cc_ae(self.to_cc_ae()),
+			OptionsProps::CC_e => options.set_cc_e(self.to_cc_e()),
+			OptionsProps::CC_ne => options.set_cc_ne(self.to_cc_ne()),
+			OptionsProps::CC_be => options.set_cc_be(self.to_cc_be()),
+			OptionsProps::CC_a => options.set_cc_a(self.to_cc_a()),
+			OptionsProps::CC_p => options.set_cc_p(self.to_cc_p()),
+			OptionsProps::CC_np => options.set_cc_np(self.to_cc_np()),
+			OptionsProps::CC_l => options.set_cc_l(self.to_cc_l()),
+			OptionsProps::CC_ge => options.set_cc_ge(self.to_cc_ge()),
+			OptionsProps::CC_le => options.set_cc_le(self.to_cc_le()),
+			OptionsProps::CC_g => options.set_cc_g(self.to_cc_g()),
 			OptionsProps::IP => {}
 		}
 	}

@@ -391,6 +391,25 @@ namespace Iced.Intel.GasFormatterInternal {
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
 	}
 
+	sealed class SimpleInstrInfo_cc : InstrInfo {
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+		readonly FormatterString[] mnemonics_suffix;
+
+		public SimpleInstrInfo_cc(int ccIndex, string[] mnemonics, string[] mnemonics_suffix) {
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+			this.mnemonics_suffix = FormatterString.Create(mnemonics_suffix);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
+			var mnemonic_suffix = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics_suffix);
+			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
+		}
+	}
+
 	sealed class SimpleInstrInfo_AamAad : InstrInfo {
 		readonly FormatterString mnemonic;
 
@@ -891,22 +910,24 @@ namespace Iced.Intel.GasFormatterInternal {
 	sealed class SimpleInstrInfo_os_loop : InstrInfo {
 		readonly int bitness;
 		readonly int regSize;
-		readonly FormatterString mnemonic;
-		readonly FormatterString mnemonic_suffix;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+		readonly FormatterString[] mnemonics_suffix;
 
-		public SimpleInstrInfo_os_loop(int bitness, int regSize, string mnemonic, string mnemonic_suffix) {
+		public SimpleInstrInfo_os_loop(int bitness, int regSize, int ccIndex, string[] mnemonics, string[] mnemonics_suffix) {
 			this.bitness = bitness;
 			this.regSize = regSize;
-			this.mnemonic = new FormatterString(mnemonic);
-			this.mnemonic_suffix = new FormatterString(mnemonic_suffix);
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+			this.mnemonics_suffix = FormatterString.Create(mnemonics_suffix);
 		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			var flags = InstrOpInfoFlags.None;
 			int instrBitness = GetBitness(instruction.CodeSize);
-			var mnemonic = this.mnemonic;
+			var mnemonics = this.mnemonics;
 			if ((instrBitness != 0 && instrBitness != regSize) || options.GasShowMnemonicSizeSuffix)
-				mnemonic = mnemonic_suffix;
+				mnemonics = mnemonics_suffix;
 			if (instrBitness != 0 && instrBitness != bitness) {
 				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16 | InstrOpInfoFlags.OpSizeIsByteDirective;
@@ -915,17 +936,20 @@ namespace Iced.Intel.GasFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
+			var mnemonic = ccIndex == -1 ? mnemonics[0] : MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_jcc : InstrInfo {
 		readonly int bitness;
-		readonly FormatterString mnemonic;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
 
-		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic) {
+		public SimpleInstrInfo_os_jcc(int bitness, int ccIndex, string[] mnemonics) {
 			this.bitness = bitness;
-			this.mnemonic = new FormatterString(mnemonic);
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
 		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
@@ -946,6 +970,7 @@ namespace Iced.Intel.GasFormatterInternal {
 				flags |= InstrOpInfoFlags.JccTaken;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic, flags), instruction, flags);
 		}
 	}

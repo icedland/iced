@@ -80,7 +80,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Add_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x03,// 3 = "add"
 	0x05,// Sex4to8Qword
 
@@ -139,7 +139,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Or_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x04,// 4 = "or"
 	0x05,// Sex4to8Qword
 
@@ -193,7 +193,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Adc_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x05,// 5 = "adc"
 	0x05,// Sex4to8Qword
 
@@ -252,7 +252,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Sbb_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x06,// 6 = "sbb"
 	0x05,// Sex4to8Qword
 
@@ -311,7 +311,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// And_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x07,// 7 = "and"
 	0x05,// Sex4to8Qword
 
@@ -354,7 +354,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Sub_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x08,// 8 = "sub"
 	0x05,// Sex4to8Qword
 
@@ -397,7 +397,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Xor_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x09,// 9 = "xor"
 	0x05,// Sex4to8Qword
 
@@ -440,7 +440,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmp_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x0A,// 10 = "cmp"
 	0x05,// Sex4to8Qword
 
@@ -450,14 +450,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Inc_r16
 	0x01,// Normal_1
-	0x6C,// 108 = "inc"
+	0x6E,// 110 = "inc"
 
 	// Inc_r32
 	0x00,// Previous
 
 	// Dec_r16
 	0x01,// Normal_1
-	0x6D,// 109 = "dec"
+	0x6F,// 111 = "dec"
 
 	// Dec_r32
 	0x00,// Previous
@@ -510,7 +510,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Arpl_rm16_r16
-	0x2A,// Reg16
+	0x32,// Reg16
 	0x92, 0x01,// 146 = "arpl"
 
 	// Arpl_r32m16_r32
@@ -528,81 +528,81 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Push_imm16
-	0x2F,// SEX1a
+	0x37,// SEX1a
 	0x02,// 2 = "push"
 	0x10,// 0x10
 	0x06,// Sex2
 
 	// Pushd_imm32
-	0x2F,// SEX1a
+	0x37,// SEX1a
 	0x02,// 2 = "push"
 	0x20,// 0x20
 	0x07,// Sex4
 
 	// Pushq_imm32
-	0x2F,// SEX1a
+	0x37,// SEX1a
 	0x02,// 2 = "push"
 	0x40,// 0x40
 	0x04,// Sex4to8
 
 	// Imul_r16_rm16_imm16
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x06,// Sex2
 
 	// Imul_r32_rm32_imm32
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x07,// Sex4
 
 	// Imul_r64_rm64_imm32
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x04,// Sex4to8
 
 	// Pushw_imm8
-	0x2E,// SEX1
+	0x36,// SEX1
 	0x02,// 2 = "push"
 	0x10,// 0x10
 	0x01,// Sex1to2
 
 	// Pushd_imm8
-	0x2E,// SEX1
+	0x36,// SEX1
 	0x02,// 2 = "push"
 	0x20,// 0x20
 	0x02,// Sex1to4
 
 	// Pushq_imm8
-	0x2E,// SEX1
+	0x36,// SEX1
 	0x02,// 2 = "push"
 	0x40,// 0x40
 	0x03,// Sex1to8
 
 	// Imul_r16_rm16_imm8
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x01,// Sex1to2
 
 	// Imul_r32_rm32_imm8
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x02,// Sex1to4
 
 	// Imul_r64_rm64_imm8
-	0x33,// SEX3
+	0x3B,// SEX3
 	0x17,// 23 = "imul"
 	0x03,// Sex1to8
 
 	// Insb_m8_DX
-	0x3C,// YD
+	0x44,// YD
 	0x96, 0x01,// 150 = "insb"
 
 	// Insw_m16_DX
-	0x3C,// YD
+	0x44,// YD
 	0x97, 0x01,// 151 = "insw"
 
 	// Insd_m32_DX
-	0x3C,// YD
+	0x44,// YD
 	0x98, 0x01,// 152 = "insd"
 
 	// Outsb_DX_m8
@@ -618,290 +618,380 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x9C, 0x01,// 156 = "outsd"
 
 	// Jo_rel8_16
-	0x20,// os_jcc_3
-	0x6E,// 110 = "jo"
+	0x25,// os_jcc_b_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jo_rel8_32
-	0x20,// os_jcc_3
-	0x6E,// 110 = "jo"
+	0x25,// os_jcc_b_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jo_rel8_64
-	0x20,// os_jcc_3
-	0x6E,// 110 = "jo"
+	0x25,// os_jcc_b_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jno_rel8_16
-	0x20,// os_jcc_3
-	0x6F,// 111 = "jno"
+	0x25,// os_jcc_b_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jno_rel8_32
-	0x20,// os_jcc_3
-	0x6F,// 111 = "jno"
+	0x25,// os_jcc_b_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jno_rel8_64
-	0x20,// os_jcc_3
-	0x6F,// 111 = "jno"
+	0x25,// os_jcc_b_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jb_rel8_16
-	0x20,// os_jcc_3
-	0x70,// 112 = "jb"
+	0x27,// os_jcc_b_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jb_rel8_32
-	0x20,// os_jcc_3
-	0x70,// 112 = "jb"
+	0x27,// os_jcc_b_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jb_rel8_64
-	0x20,// os_jcc_3
-	0x70,// 112 = "jb"
+	0x27,// os_jcc_b_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jae_rel8_16
-	0x20,// os_jcc_3
-	0x71,// 113 = "jae"
+	0x27,// os_jcc_b_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jae_rel8_32
-	0x20,// os_jcc_3
-	0x71,// 113 = "jae"
+	0x27,// os_jcc_b_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jae_rel8_64
-	0x20,// os_jcc_3
-	0x71,// 113 = "jae"
+	0x27,// os_jcc_b_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Je_rel8_16
-	0x20,// os_jcc_3
-	0x72,// 114 = "je"
+	0x26,// os_jcc_b_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Je_rel8_32
-	0x20,// os_jcc_3
-	0x72,// 114 = "je"
+	0x26,// os_jcc_b_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Je_rel8_64
-	0x20,// os_jcc_3
-	0x72,// 114 = "je"
+	0x26,// os_jcc_b_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jne_rel8_16
-	0x20,// os_jcc_3
-	0x73,// 115 = "jne"
+	0x26,// os_jcc_b_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jne_rel8_32
-	0x20,// os_jcc_3
-	0x73,// 115 = "jne"
+	0x26,// os_jcc_b_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jne_rel8_64
-	0x20,// os_jcc_3
-	0x73,// 115 = "jne"
+	0x26,// os_jcc_b_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jbe_rel8_16
-	0x20,// os_jcc_3
-	0x74,// 116 = "jbe"
+	0x26,// os_jcc_b_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jbe_rel8_32
-	0x20,// os_jcc_3
-	0x74,// 116 = "jbe"
+	0x26,// os_jcc_b_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jbe_rel8_64
-	0x20,// os_jcc_3
-	0x74,// 116 = "jbe"
+	0x26,// os_jcc_b_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Ja_rel8_16
-	0x20,// os_jcc_3
-	0x75,// 117 = "ja"
+	0x26,// os_jcc_b_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Ja_rel8_32
-	0x20,// os_jcc_3
-	0x75,// 117 = "ja"
+	0x26,// os_jcc_b_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Ja_rel8_64
-	0x20,// os_jcc_3
-	0x75,// 117 = "ja"
+	0x26,// os_jcc_b_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Js_rel8_16
-	0x20,// os_jcc_3
-	0x76,// 118 = "js"
+	0x25,// os_jcc_b_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Js_rel8_32
-	0x20,// os_jcc_3
-	0x76,// 118 = "js"
+	0x25,// os_jcc_b_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Js_rel8_64
-	0x20,// os_jcc_3
-	0x76,// 118 = "js"
+	0x25,// os_jcc_b_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jns_rel8_16
-	0x20,// os_jcc_3
-	0x77,// 119 = "jns"
+	0x25,// os_jcc_b_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jns_rel8_32
-	0x20,// os_jcc_3
-	0x77,// 119 = "jns"
+	0x25,// os_jcc_b_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jns_rel8_64
-	0x20,// os_jcc_3
-	0x77,// 119 = "jns"
+	0x25,// os_jcc_b_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jp_rel8_16
-	0x20,// os_jcc_3
-	0x78,// 120 = "jp"
+	0x26,// os_jcc_b_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jp_rel8_32
-	0x20,// os_jcc_3
-	0x78,// 120 = "jp"
+	0x26,// os_jcc_b_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jp_rel8_64
-	0x20,// os_jcc_3
-	0x78,// 120 = "jp"
+	0x26,// os_jcc_b_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jnp_rel8_16
-	0x20,// os_jcc_3
-	0x79,// 121 = "jnp"
+	0x26,// os_jcc_b_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jnp_rel8_32
-	0x20,// os_jcc_3
-	0x79,// 121 = "jnp"
+	0x26,// os_jcc_b_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jnp_rel8_64
-	0x20,// os_jcc_3
-	0x79,// 121 = "jnp"
+	0x26,// os_jcc_b_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jl_rel8_16
-	0x20,// os_jcc_3
-	0x7A,// 122 = "jl"
+	0x26,// os_jcc_b_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jl_rel8_32
-	0x20,// os_jcc_3
-	0x7A,// 122 = "jl"
+	0x26,// os_jcc_b_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jl_rel8_64
-	0x20,// os_jcc_3
-	0x7A,// 122 = "jl"
+	0x26,// os_jcc_b_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jge_rel8_16
-	0x20,// os_jcc_3
-	0x7B,// 123 = "jge"
+	0x26,// os_jcc_b_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jge_rel8_32
-	0x20,// os_jcc_3
-	0x7B,// 123 = "jge"
+	0x26,// os_jcc_b_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jge_rel8_64
-	0x20,// os_jcc_3
-	0x7B,// 123 = "jge"
+	0x26,// os_jcc_b_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jle_rel8_16
-	0x20,// os_jcc_3
-	0x7C,// 124 = "jle"
+	0x26,// os_jcc_b_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jle_rel8_32
-	0x20,// os_jcc_3
-	0x7C,// 124 = "jle"
+	0x26,// os_jcc_b_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jle_rel8_64
-	0x20,// os_jcc_3
-	0x7C,// 124 = "jle"
+	0x26,// os_jcc_b_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jg_rel8_16
-	0x20,// os_jcc_3
-	0x7D,// 125 = "jg"
+	0x26,// os_jcc_b_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x10,// 0x10
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jg_rel8_32
-	0x20,// os_jcc_3
-	0x7D,// 125 = "jg"
+	0x26,// os_jcc_b_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x20,// 0x20
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
 	// Jg_rel8_64
-	0x20,// os_jcc_3
-	0x7D,// 125 = "jg"
+	0x26,// os_jcc_b_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x40,// 0x40
 	0x80, 0x06,// 0x300 = BranchSizeInfo_Short
 
@@ -954,7 +1044,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Add_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x03,// 3 = "add"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -968,7 +1058,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Or_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x04,// 4 = "or"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -982,7 +1072,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Adc_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x05,// 5 = "adc"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -996,7 +1086,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Sbb_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x06,// 6 = "sbb"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1010,7 +1100,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// And_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x07,// 7 = "and"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1024,7 +1114,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Sub_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x08,// 8 = "sub"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1038,7 +1128,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Xor_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x09,// 9 = "xor"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1052,7 +1142,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmp_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0A,// 10 = "cmp"
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1098,145 +1188,145 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Add_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x03,// 3 = "add"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Add_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x03,// 3 = "add"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Add_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x03,// 3 = "add"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Or_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x04,// 4 = "or"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Or_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x04,// 4 = "or"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Or_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x04,// 4 = "or"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Adc_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x05,// 5 = "adc"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Adc_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x05,// 5 = "adc"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Adc_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x05,// 5 = "adc"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sbb_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x06,// 6 = "sbb"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sbb_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x06,// 6 = "sbb"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sbb_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x06,// 6 = "sbb"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// And_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x07,// 7 = "and"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// And_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x07,// 7 = "and"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// And_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x07,// 7 = "and"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sub_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x08,// 8 = "sub"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sub_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x08,// 8 = "sub"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Sub_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x08,// 8 = "sub"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Xor_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x09,// 9 = "xor"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Xor_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x09,// 9 = "xor"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Xor_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x09,// 9 = "xor"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Cmp_rm16_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0A,// 10 = "cmp"
 	0x01,// Sex1to2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Cmp_rm32_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0A,// 10 = "cmp"
 	0x02,// Sex1to4
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Cmp_rm64_imm8
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0A,// 10 = "cmp"
 	0x03,// Sex1to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -1255,7 +1345,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Xchg_rm8_r8
-	0x2B,// reverse2
+	0x33,// reverse2
 	0x35,// 53 = "xchg"
 
 	// Xchg_rm16_r16
@@ -1293,23 +1383,23 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Mov_rm16_Sreg
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x10,// 0x10
 
 	// Mov_r32m16_Sreg
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x20,// 0x20
 
 	// Mov_r64m16_Sreg
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x40,// 0x40
 
 	// Lea_r16_m
 	0x01,// Normal_1
-	0x9D, 0x01,// 157 = "lea"
+	0xAB, 0x01,// 171 = "lea"
 
 	// Lea_r32_m
 	0x00,// Previous
@@ -1318,17 +1408,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Mov_Sreg_rm16
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x10,// 0x10
 
 	// Mov_Sreg_r32m16
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x20,// 0x20
 
 	// Mov_Sreg_r64m16
-	0x22,// os_mem
+	0x2A,// os_mem
 	0x00,// 0 = "mov"
 	0x40,// 0x40
 
@@ -1345,19 +1435,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Nopw
 	0x17,// nop
-	0x7E,// 126 = "nop"
+	0xAC, 0x01,// 172 = "nop"
 	0x10,// 0x10
 	0x15,// AX
 
 	// Nopd
 	0x17,// nop
-	0x7E,// 126 = "nop"
+	0xAC, 0x01,// 172 = "nop"
 	0x60,// 0x60
 	0x25,// EAX
 
 	// Nopq
 	0x17,// nop
-	0x7E,// 126 = "nop"
+	0xAC, 0x01,// 172 = "nop"
 	0x00,// 0x0
 	0x35,// RAX
 
@@ -1373,31 +1463,31 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pause
 	0x01,// Normal_1
-	0x9E, 0x01,// 158 = "pause"
+	0xAD, 0x01,// 173 = "pause"
 
 	// Cbw
 	0x01,// Normal_1
-	0xA0, 0x01,// 160 = "cbw"
+	0xAF, 0x01,// 175 = "cbw"
 
 	// Cwde
 	0x01,// Normal_1
-	0xA1, 0x01,// 161 = "cwde"
+	0xB0, 0x01,// 176 = "cwde"
 
 	// Cdqe
 	0x01,// Normal_1
-	0xA3, 0x01,// 163 = "cdqe"
+	0xB2, 0x01,// 178 = "cdqe"
 
 	// Cwd
 	0x01,// Normal_1
-	0xA5, 0x01,// 165 = "cwd"
+	0xB4, 0x01,// 180 = "cwd"
 
 	// Cdq
 	0x01,// Normal_1
-	0xA7, 0x01,// 167 = "cdq"
+	0xB6, 0x01,// 182 = "cdq"
 
 	// Cqo
 	0x01,// Normal_1
-	0xA9, 0x01,// 169 = "cqo"
+	0xB8, 0x01,// 184 = "cqo"
 
 	// Call_ptr1616
 	0x0E,// far
@@ -1411,45 +1501,45 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Wait
 	0x01,// Normal_1
-	0xAD, 0x01,// 173 = "wait"
+	0xBC, 0x01,// 188 = "wait"
 
 	// Pushfw
 	0x18,// OpSize
-	0xAE, 0x01,// 174 = "pushf"
+	0xBD, 0x01,// 189 = "pushf"
 	0x01,// Code16
 
 	// Pushfd
 	0x18,// OpSize
-	0xAE, 0x01,// 174 = "pushf"
+	0xBD, 0x01,// 189 = "pushf"
 	0x02,// Code32
 
 	// Pushfq
 	0x18,// OpSize
-	0xAE, 0x01,// 174 = "pushf"
+	0xBD, 0x01,// 189 = "pushf"
 	0x03,// Code64
 
 	// Popfw
 	0x18,// OpSize
-	0xB1, 0x01,// 177 = "popf"
+	0xC0, 0x01,// 192 = "popf"
 	0x01,// Code16
 
 	// Popfd
 	0x18,// OpSize
-	0xB1, 0x01,// 177 = "popf"
+	0xC0, 0x01,// 192 = "popf"
 	0x02,// Code32
 
 	// Popfq
 	0x18,// OpSize
-	0xB1, 0x01,// 177 = "popf"
+	0xC0, 0x01,// 192 = "popf"
 	0x03,// Code64
 
 	// Sahf
 	0x01,// Normal_1
-	0xB4, 0x01,// 180 = "sahf"
+	0xC3, 0x01,// 195 = "sahf"
 
 	// Lahf
 	0x01,// Normal_1
-	0xB5, 0x01,// 181 = "lahf"
+	0xC4, 0x01,// 196 = "lahf"
 
 	// Mov_AL_moffs8
 	0x15,// movabs
@@ -1480,36 +1570,36 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Movsb_m8_m8
-	0x3D,// YX
-	0xB8, 0x01,// 184 = "movsb"
+	0x45,// YX
+	0xC7, 0x01,// 199 = "movsb"
 
 	// Movsw_m16_m16
-	0x3D,// YX
-	0xB9, 0x01,// 185 = "movsw"
+	0x45,// YX
+	0xC8, 0x01,// 200 = "movsw"
 
 	// Movsd_m32_m32
-	0x3D,// YX
+	0x45,// YX
 	0x26,// 38 = "movsd"
 
 	// Movsq_m64_m64
-	0x3D,// YX
-	0xBA, 0x01,// 186 = "movsq"
+	0x45,// YX
+	0xC9, 0x01,// 201 = "movsq"
 
 	// Cmpsb_m8_m8
-	0x3A,// XY
-	0xBC, 0x01,// 188 = "cmpsb"
+	0x42,// XY
+	0xCB, 0x01,// 203 = "cmpsb"
 
 	// Cmpsw_m16_m16
-	0x3A,// XY
-	0xBD, 0x01,// 189 = "cmpsw"
+	0x42,// XY
+	0xCC, 0x01,// 204 = "cmpsw"
 
 	// Cmpsd_m32_m32
-	0x3A,// XY
-	0xE6, 0x05,// 742 = "cmpsd"
+	0x42,// XY
+	0x94, 0x06,// 788 = "cmpsd"
 
 	// Cmpsq_m64_m64
-	0x3A,// XY
-	0xBE, 0x01,// 190 = "cmpsq"
+	0x42,// XY
+	0xCD, 0x01,// 205 = "cmpsq"
 
 	// Test_AL_imm8
 	0x01,// Normal_1
@@ -1522,57 +1612,57 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Test_RAX_imm32
-	0x30,// SEX2_2
+	0x38,// SEX2_2
 	0x0C,// 12 = "test"
 	0x00,// None
 
 	// Stosb_m8_AL
-	0x3B,// YA
-	0xC0, 0x01,// 192 = "stosb"
+	0x43,// YA
+	0xCF, 0x01,// 207 = "stosb"
 
 	// Stosw_m16_AX
-	0x3B,// YA
-	0xC1, 0x01,// 193 = "stosw"
+	0x43,// YA
+	0xD0, 0x01,// 208 = "stosw"
 
 	// Stosd_m32_EAX
-	0x3B,// YA
-	0xC2, 0x01,// 194 = "stosd"
+	0x43,// YA
+	0xD1, 0x01,// 209 = "stosd"
 
 	// Stosq_m64_RAX
-	0x3B,// YA
-	0xC3, 0x01,// 195 = "stosq"
+	0x43,// YA
+	0xD2, 0x01,// 210 = "stosq"
 
 	// Lodsb_AL_m8
 	0x05,// AX
-	0xC5, 0x01,// 197 = "lodsb"
+	0xD4, 0x01,// 212 = "lodsb"
 
 	// Lodsw_AX_m16
 	0x05,// AX
-	0xC6, 0x01,// 198 = "lodsw"
+	0xD5, 0x01,// 213 = "lodsw"
 
 	// Lodsd_EAX_m32
 	0x05,// AX
-	0xC7, 0x01,// 199 = "lodsd"
+	0xD6, 0x01,// 214 = "lodsd"
 
 	// Lodsq_RAX_m64
 	0x05,// AX
-	0xC8, 0x01,// 200 = "lodsq"
+	0xD7, 0x01,// 215 = "lodsq"
 
 	// Scasb_AL_m8
 	0x06,// AY
-	0xCA, 0x01,// 202 = "scasb"
+	0xD9, 0x01,// 217 = "scasb"
 
 	// Scasw_AX_m16
 	0x06,// AY
-	0xCB, 0x01,// 203 = "scasw"
+	0xDA, 0x01,// 218 = "scasw"
 
 	// Scasd_EAX_m32
 	0x06,// AY
-	0xCC, 0x01,// 204 = "scasd"
+	0xDB, 0x01,// 219 = "scasd"
 
 	// Scasq_RAX_m64
 	0x06,// AY
-	0xCD, 0x01,// 205 = "scasq"
+	0xDC, 0x01,// 220 = "scasq"
 
 	// Mov_r8_imm8
 	0x01,// Normal_1
@@ -1719,15 +1809,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x19,// OpSize2_bnd
 	0x25,// 37 = "ret"
 	0x25,// 37 = "ret"
-	0xCF, 0x01,// 207 = "retw"
-	0xCF, 0x01,// 207 = "retw"
+	0xDE, 0x01,// 222 = "retw"
+	0xDE, 0x01,// 222 = "retw"
 
 	// Retnd_imm16
 	0x19,// OpSize2_bnd
 	0x25,// 37 = "ret"
-	0xD0, 0x01,// 208 = "retd"
+	0xDF, 0x01,// 223 = "retd"
 	0x25,// 37 = "ret"
-	0xD0, 0x01,// 208 = "retd"
+	0xDF, 0x01,// 223 = "retd"
 
 	// Retnq_imm16
 	0x08,// bnd_1
@@ -1737,15 +1827,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x19,// OpSize2_bnd
 	0x25,// 37 = "ret"
 	0x25,// 37 = "ret"
-	0xCF, 0x01,// 207 = "retw"
-	0xCF, 0x01,// 207 = "retw"
+	0xDE, 0x01,// 222 = "retw"
+	0xDE, 0x01,// 222 = "retw"
 
 	// Retnd
 	0x19,// OpSize2_bnd
 	0x25,// 37 = "ret"
-	0xD0, 0x01,// 208 = "retd"
+	0xDF, 0x01,// 223 = "retd"
 	0x25,// 37 = "ret"
-	0xD0, 0x01,// 208 = "retd"
+	0xDF, 0x01,// 223 = "retd"
 
 	// Retnq
 	0x08,// bnd_1
@@ -1753,7 +1843,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Les_r16_m1616
 	0x02,// Normal_2
-	0xD3, 0x01,// 211 = "les"
+	0xE2, 0x01,// 226 = "les"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Les_r32_m1632
@@ -1761,7 +1851,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lds_r16_m1616
 	0x02,// Normal_2
-	0xD4, 0x01,// 212 = "lds"
+	0xE3, 0x01,// 227 = "lds"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Lds_r32_m1632
@@ -1774,7 +1864,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xabort_imm8
 	0x01,// Normal_1
-	0xD5, 0x01,// 213 = "xabort"
+	0xE4, 0x01,// 228 = "xabort"
 
 	// Mov_rm16_imm16
 	0x02,// Normal_2
@@ -1785,115 +1875,115 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Mov_rm64_imm32
-	0x32,// SEX2_4
+	0x3A,// SEX2_4
 	0x00,// 0 = "mov"
 	0x07,// Sex4
 	0x04,// Sex4to8
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Xbegin_rel16
-	0x38,// xbegin
-	0xD6, 0x01,// 214 = "xbegin"
+	0x40,// xbegin
+	0xE5, 0x01,// 229 = "xbegin"
 	0x10,// 0x10
 
 	// Xbegin_rel32
-	0x38,// xbegin
-	0xD6, 0x01,// 214 = "xbegin"
+	0x40,// xbegin
+	0xE5, 0x01,// 229 = "xbegin"
 	0x60,// 0x60
 
 	// Enterw_imm16_imm8
 	0x1B,// os_2
-	0xD7, 0x01,// 215 = "enter"
+	0xE6, 0x01,// 230 = "enter"
 	0x10,// 0x10
 
 	// Enterd_imm16_imm8
 	0x1B,// os_2
-	0xD7, 0x01,// 215 = "enter"
+	0xE6, 0x01,// 230 = "enter"
 	0x20,// 0x20
 
 	// Enterq_imm16_imm8
 	0x1B,// os_2
-	0xD7, 0x01,// 215 = "enter"
+	0xE6, 0x01,// 230 = "enter"
 	0x40,// 0x40
 
 	// Leavew
 	0x1B,// os_2
-	0xD8, 0x01,// 216 = "leave"
+	0xE7, 0x01,// 231 = "leave"
 	0x10,// 0x10
 
 	// Leaved
 	0x1B,// os_2
-	0xD8, 0x01,// 216 = "leave"
+	0xE7, 0x01,// 231 = "leave"
 	0x20,// 0x20
 
 	// Leaveq
 	0x1B,// os_2
-	0xD8, 0x01,// 216 = "leave"
+	0xE7, 0x01,// 231 = "leave"
 	0x40,// 0x40
 
 	// Retfw_imm16
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x77,// 'w'
 	0x10,// 0x10
 
 	// Retfd_imm16
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x64,// 'd'
 	0x60,// 0x60
 
 	// Retfq_imm16
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x71,// 'q'
 	0x00,// 0x0
 
 	// Retfw
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x77,// 'w'
 	0x10,// 0x10
 
 	// Retfd
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x64,// 'd'
 	0x60,// 0x60
 
 	// Retfq
 	0x1A,// OpSize3
-	0xDA, 0x01,// 218 = "retf"
+	0xE9, 0x01,// 233 = "retf"
 	0x71,// 'q'
 	0x00,// 0x0
 
 	// Int3
 	0x01,// Normal_1
-	0xDE, 0x01,// 222 = "int3"
+	0xED, 0x01,// 237 = "int3"
 
 	// Int_imm8
 	0x01,// Normal_1
-	0xDF, 0x01,// 223 = "int"
+	0xEE, 0x01,// 238 = "int"
 
 	// Into
 	0x01,// Normal_1
-	0xE0, 0x01,// 224 = "into"
+	0xEF, 0x01,// 239 = "into"
 
 	// Iretw
 	0x1A,// OpSize3
-	0xE1, 0x01,// 225 = "iret"
+	0xF0, 0x01,// 240 = "iret"
 	0x77,// 'w'
 	0x10,// 0x10
 
 	// Iretd
 	0x1A,// OpSize3
-	0xE1, 0x01,// 225 = "iret"
+	0xF0, 0x01,// 240 = "iret"
 	0x64,// 'd'
 	0x60,// 0x60
 
 	// Iretq
 	0x1A,// OpSize3
-	0xE1, 0x01,// 225 = "iret"
+	0xF0, 0x01,// 240 = "iret"
 	0x71,// 'q'
 	0x00,// 0x0
 
@@ -2155,934 +2245,962 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aam_imm8
 	0x03,// AamAad
-	0xE4, 0x01,// 228 = "aam"
+	0xF3, 0x01,// 243 = "aam"
 
 	// Aad_imm8
 	0x03,// AamAad
-	0xE5, 0x01,// 229 = "aad"
+	0xF4, 0x01,// 244 = "aad"
 
 	// Salc
 	0x01,// Normal_1
-	0xE6, 0x01,// 230 = "salc"
+	0xF5, 0x01,// 245 = "salc"
 
 	// Xlat_m8
-	0x39,// XLAT
-	0xE8, 0x01,// 232 = "xlatb"
+	0x41,// XLAT
+	0xF7, 0x01,// 247 = "xlatb"
 
 	// Fadd_m32fp
 	0x02,// Normal_2
-	0xE9, 0x01,// 233 = "fadd"
+	0xF8, 0x01,// 248 = "fadd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fmul_m32fp
 	0x02,// Normal_2
-	0xEA, 0x01,// 234 = "fmul"
+	0xF9, 0x01,// 249 = "fmul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcom_m32fp
 	0x02,// Normal_2
-	0xEB, 0x01,// 235 = "fcom"
+	0xFA, 0x01,// 250 = "fcom"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcomp_m32fp
 	0x02,// Normal_2
-	0xEC, 0x01,// 236 = "fcomp"
+	0xFB, 0x01,// 251 = "fcomp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fsub_m32fp
 	0x02,// Normal_2
-	0xED, 0x01,// 237 = "fsub"
+	0xFC, 0x01,// 252 = "fsub"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fsubr_m32fp
 	0x02,// Normal_2
-	0xEE, 0x01,// 238 = "fsubr"
+	0xFD, 0x01,// 253 = "fsubr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fdiv_m32fp
 	0x02,// Normal_2
-	0xEF, 0x01,// 239 = "fdiv"
+	0xFE, 0x01,// 254 = "fdiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fdivr_m32fp
 	0x02,// Normal_2
-	0xF0, 0x01,// 240 = "fdivr"
+	0xFF, 0x01,// 255 = "fdivr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fadd_st0_sti
-	0x34,// STIG1_1
-	0xE9, 0x01,// 233 = "fadd"
+	0x3C,// STIG1_1
+	0xF8, 0x01,// 248 = "fadd"
 
 	// Fmul_st0_sti
-	0x34,// STIG1_1
-	0xEA, 0x01,// 234 = "fmul"
+	0x3C,// STIG1_1
+	0xF9, 0x01,// 249 = "fmul"
 
 	// Fcom_st0_sti
-	0x35,// STIG1_2
-	0xEB, 0x01,// 235 = "fcom"
+	0x3D,// STIG1_2
+	0xFA, 0x01,// 250 = "fcom"
 	0x01,// True
 
 	// Fcomp_st0_sti
-	0x35,// STIG1_2
-	0xEC, 0x01,// 236 = "fcomp"
+	0x3D,// STIG1_2
+	0xFB, 0x01,// 251 = "fcomp"
 	0x01,// True
 
 	// Fsub_st0_sti
-	0x34,// STIG1_1
-	0xED, 0x01,// 237 = "fsub"
+	0x3C,// STIG1_1
+	0xFC, 0x01,// 252 = "fsub"
 
 	// Fsubr_st0_sti
-	0x34,// STIG1_1
-	0xEE, 0x01,// 238 = "fsubr"
+	0x3C,// STIG1_1
+	0xFD, 0x01,// 253 = "fsubr"
 
 	// Fdiv_st0_sti
-	0x34,// STIG1_1
-	0xEF, 0x01,// 239 = "fdiv"
+	0x3C,// STIG1_1
+	0xFE, 0x01,// 254 = "fdiv"
 
 	// Fdivr_st0_sti
-	0x34,// STIG1_1
-	0xF0, 0x01,// 240 = "fdivr"
+	0x3C,// STIG1_1
+	0xFF, 0x01,// 255 = "fdivr"
 
 	// Fld_m32fp
 	0x02,// Normal_2
-	0xF1, 0x01,// 241 = "fld"
+	0x80, 0x02,// 256 = "fld"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fst_m32fp
 	0x02,// Normal_2
-	0xF2, 0x01,// 242 = "fst"
+	0x81, 0x02,// 257 = "fst"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fstp_m32fp
 	0x02,// Normal_2
-	0x6B,// 107 = "fstp"
+	0x6D,// 109 = "fstp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fldenv_m14byte
-	0x24,// os_mem2
-	0xF3, 0x01,// 243 = "fldenv"
+	0x2C,// os_mem2
+	0x82, 0x02,// 258 = "fldenv"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fldenv_m28byte
-	0x24,// os_mem2
-	0xF3, 0x01,// 243 = "fldenv"
+	0x2C,// os_mem2
+	0x82, 0x02,// 258 = "fldenv"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fldcw_m2byte
 	0x01,// Normal_1
-	0xF4, 0x01,// 244 = "fldcw"
+	0x83, 0x02,// 259 = "fldcw"
 
 	// Fnstenv_m14byte
-	0x24,// os_mem2
-	0xF5, 0x01,// 245 = "fnstenv"
+	0x2C,// os_mem2
+	0x84, 0x02,// 260 = "fnstenv"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fstenv_m14byte
-	0x24,// os_mem2
-	0xF6, 0x01,// 246 = "fstenv"
+	0x2C,// os_mem2
+	0x85, 0x02,// 261 = "fstenv"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fnstenv_m28byte
-	0x24,// os_mem2
-	0xF5, 0x01,// 245 = "fnstenv"
+	0x2C,// os_mem2
+	0x84, 0x02,// 260 = "fnstenv"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fstenv_m28byte
-	0x24,// os_mem2
-	0xF6, 0x01,// 246 = "fstenv"
+	0x2C,// os_mem2
+	0x85, 0x02,// 261 = "fstenv"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fnstcw_m2byte
 	0x01,// Normal_1
-	0xF7, 0x01,// 247 = "fnstcw"
+	0x86, 0x02,// 262 = "fnstcw"
 
 	// Fstcw_m2byte
 	0x01,// Normal_1
-	0xF8, 0x01,// 248 = "fstcw"
+	0x87, 0x02,// 263 = "fstcw"
 
 	// Fld_st0_sti
-	0x34,// STIG1_1
-	0xF1, 0x01,// 241 = "fld"
+	0x3C,// STIG1_1
+	0x80, 0x02,// 256 = "fld"
 
 	// Fxch_st0_sti
-	0x35,// STIG1_2
-	0xF9, 0x01,// 249 = "fxch"
+	0x3D,// STIG1_2
+	0x88, 0x02,// 264 = "fxch"
 	0x01,// True
 
 	// Fnop
 	0x01,// Normal_1
-	0xFA, 0x01,// 250 = "fnop"
+	0x89, 0x02,// 265 = "fnop"
 
 	// Fstpnce_sti
 	0x01,// Normal_1
-	0xFB, 0x01,// 251 = "fstpnce"
+	0x8A, 0x02,// 266 = "fstpnce"
 
 	// Fchs
 	0x01,// Normal_1
-	0xFC, 0x01,// 252 = "fchs"
+	0x8B, 0x02,// 267 = "fchs"
 
 	// Fabs
 	0x01,// Normal_1
-	0xFD, 0x01,// 253 = "fabs"
+	0x8C, 0x02,// 268 = "fabs"
 
 	// Ftst
 	0x01,// Normal_1
-	0xFE, 0x01,// 254 = "ftst"
+	0x8D, 0x02,// 269 = "ftst"
 
 	// Fxam
 	0x01,// Normal_1
-	0xFF, 0x01,// 255 = "fxam"
+	0x8E, 0x02,// 270 = "fxam"
 
 	// Fld1
 	0x01,// Normal_1
-	0x80, 0x02,// 256 = "fld1"
+	0x8F, 0x02,// 271 = "fld1"
 
 	// Fldl2t
 	0x01,// Normal_1
-	0x81, 0x02,// 257 = "fldl2t"
+	0x90, 0x02,// 272 = "fldl2t"
 
 	// Fldl2e
 	0x01,// Normal_1
-	0x82, 0x02,// 258 = "fldl2e"
+	0x91, 0x02,// 273 = "fldl2e"
 
 	// Fldpi
 	0x01,// Normal_1
-	0x83, 0x02,// 259 = "fldpi"
+	0x92, 0x02,// 274 = "fldpi"
 
 	// Fldlg2
 	0x01,// Normal_1
-	0x84, 0x02,// 260 = "fldlg2"
+	0x93, 0x02,// 275 = "fldlg2"
 
 	// Fldln2
 	0x01,// Normal_1
-	0x85, 0x02,// 261 = "fldln2"
+	0x94, 0x02,// 276 = "fldln2"
 
 	// Fldz
 	0x01,// Normal_1
-	0x86, 0x02,// 262 = "fldz"
+	0x95, 0x02,// 277 = "fldz"
 
 	// F2xm1
 	0x01,// Normal_1
-	0x87, 0x02,// 263 = "f2xm1"
+	0x96, 0x02,// 278 = "f2xm1"
 
 	// Fyl2x
 	0x01,// Normal_1
-	0x88, 0x02,// 264 = "fyl2x"
+	0x97, 0x02,// 279 = "fyl2x"
 
 	// Fptan
 	0x01,// Normal_1
-	0x89, 0x02,// 265 = "fptan"
+	0x98, 0x02,// 280 = "fptan"
 
 	// Fpatan
 	0x01,// Normal_1
-	0x8A, 0x02,// 266 = "fpatan"
+	0x99, 0x02,// 281 = "fpatan"
 
 	// Fxtract
 	0x01,// Normal_1
-	0x8B, 0x02,// 267 = "fxtract"
+	0x9A, 0x02,// 282 = "fxtract"
 
 	// Fprem1
 	0x01,// Normal_1
-	0x8C, 0x02,// 268 = "fprem1"
+	0x9B, 0x02,// 283 = "fprem1"
 
 	// Fdecstp
 	0x01,// Normal_1
-	0x8D, 0x02,// 269 = "fdecstp"
+	0x9C, 0x02,// 284 = "fdecstp"
 
 	// Fincstp
 	0x01,// Normal_1
-	0x8E, 0x02,// 270 = "fincstp"
+	0x9D, 0x02,// 285 = "fincstp"
 
 	// Fprem
 	0x01,// Normal_1
-	0x8F, 0x02,// 271 = "fprem"
+	0x9E, 0x02,// 286 = "fprem"
 
 	// Fyl2xp1
 	0x01,// Normal_1
-	0x90, 0x02,// 272 = "fyl2xp1"
+	0x9F, 0x02,// 287 = "fyl2xp1"
 
 	// Fsqrt
 	0x01,// Normal_1
-	0x91, 0x02,// 273 = "fsqrt"
+	0xA0, 0x02,// 288 = "fsqrt"
 
 	// Fsincos
 	0x01,// Normal_1
-	0x92, 0x02,// 274 = "fsincos"
+	0xA1, 0x02,// 289 = "fsincos"
 
 	// Frndint
 	0x01,// Normal_1
-	0x93, 0x02,// 275 = "frndint"
+	0xA2, 0x02,// 290 = "frndint"
 
 	// Fscale
 	0x01,// Normal_1
-	0x94, 0x02,// 276 = "fscale"
+	0xA3, 0x02,// 291 = "fscale"
 
 	// Fsin
 	0x01,// Normal_1
-	0x95, 0x02,// 277 = "fsin"
+	0xA4, 0x02,// 292 = "fsin"
 
 	// Fcos
 	0x01,// Normal_1
-	0x96, 0x02,// 278 = "fcos"
+	0xA5, 0x02,// 293 = "fcos"
 
 	// Fiadd_m32int
 	0x02,// Normal_2
-	0x97, 0x02,// 279 = "fiadd"
+	0xA6, 0x02,// 294 = "fiadd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fimul_m32int
 	0x02,// Normal_2
-	0x98, 0x02,// 280 = "fimul"
+	0xA7, 0x02,// 295 = "fimul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ficom_m32int
 	0x02,// Normal_2
-	0x99, 0x02,// 281 = "ficom"
+	0xA8, 0x02,// 296 = "ficom"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ficomp_m32int
 	0x02,// Normal_2
-	0x9A, 0x02,// 282 = "ficomp"
+	0xA9, 0x02,// 297 = "ficomp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisub_m32int
 	0x02,// Normal_2
-	0x9B, 0x02,// 283 = "fisub"
+	0xAA, 0x02,// 298 = "fisub"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisubr_m32int
 	0x02,// Normal_2
-	0x9C, 0x02,// 284 = "fisubr"
+	0xAB, 0x02,// 299 = "fisubr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fidiv_m32int
 	0x02,// Normal_2
-	0x9D, 0x02,// 285 = "fidiv"
+	0xAC, 0x02,// 300 = "fidiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fidivr_m32int
 	0x02,// Normal_2
-	0x9E, 0x02,// 286 = "fidivr"
+	0xAD, 0x02,// 301 = "fidivr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcmovb_st0_sti
-	0x34,// STIG1_1
-	0x9F, 0x02,// 287 = "fcmovb"
+	0x3C,// STIG1_1
+	0xAE, 0x02,// 302 = "fcmovb"
 
 	// Fcmove_st0_sti
-	0x34,// STIG1_1
-	0xA0, 0x02,// 288 = "fcmove"
+	0x3C,// STIG1_1
+	0xAF, 0x02,// 303 = "fcmove"
 
 	// Fcmovbe_st0_sti
-	0x34,// STIG1_1
-	0xA1, 0x02,// 289 = "fcmovbe"
+	0x3C,// STIG1_1
+	0xB0, 0x02,// 304 = "fcmovbe"
 
 	// Fcmovu_st0_sti
-	0x34,// STIG1_1
-	0xA2, 0x02,// 290 = "fcmovu"
+	0x3C,// STIG1_1
+	0xB1, 0x02,// 305 = "fcmovu"
 
 	// Fucompp
 	0x01,// Normal_1
-	0xA4, 0x02,// 292 = "fucompp"
+	0xB3, 0x02,// 307 = "fucompp"
 
 	// Fild_m32int
 	0x02,// Normal_2
-	0xA5, 0x02,// 293 = "fild"
+	0xB4, 0x02,// 308 = "fild"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisttp_m32int
 	0x02,// Normal_2
-	0xA6, 0x02,// 294 = "fisttp"
+	0xB5, 0x02,// 309 = "fisttp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fist_m32int
 	0x02,// Normal_2
-	0xA7, 0x02,// 295 = "fist"
+	0xB6, 0x02,// 310 = "fist"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fistp_m32int
 	0x02,// Normal_2
-	0xA8, 0x02,// 296 = "fistp"
+	0xB7, 0x02,// 311 = "fistp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fld_m80fp
 	0x02,// Normal_2
-	0xF1, 0x01,// 241 = "fld"
+	0x80, 0x02,// 256 = "fld"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fstp_m80fp
 	0x02,// Normal_2
-	0x6B,// 107 = "fstp"
+	0x6D,// 109 = "fstp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcmovnb_st0_sti
-	0x34,// STIG1_1
-	0xA9, 0x02,// 297 = "fcmovnb"
+	0x3C,// STIG1_1
+	0xB8, 0x02,// 312 = "fcmovnb"
 
 	// Fcmovne_st0_sti
-	0x34,// STIG1_1
-	0xAA, 0x02,// 298 = "fcmovne"
+	0x3C,// STIG1_1
+	0xB9, 0x02,// 313 = "fcmovne"
 
 	// Fcmovnbe_st0_sti
-	0x34,// STIG1_1
-	0xAB, 0x02,// 299 = "fcmovnbe"
+	0x3C,// STIG1_1
+	0xBA, 0x02,// 314 = "fcmovnbe"
 
 	// Fcmovnu_st0_sti
-	0x34,// STIG1_1
-	0xAC, 0x02,// 300 = "fcmovnu"
+	0x3C,// STIG1_1
+	0xBB, 0x02,// 315 = "fcmovnu"
 
 	// Fneni
 	0x01,// Normal_1
-	0xAD, 0x02,// 301 = "fneni"
+	0xBC, 0x02,// 316 = "fneni"
 
 	// Feni
 	0x01,// Normal_1
-	0xAE, 0x02,// 302 = "feni"
+	0xBD, 0x02,// 317 = "feni"
 
 	// Fndisi
 	0x01,// Normal_1
-	0xAF, 0x02,// 303 = "fndisi"
+	0xBE, 0x02,// 318 = "fndisi"
 
 	// Fdisi
 	0x01,// Normal_1
-	0xB0, 0x02,// 304 = "fdisi"
+	0xBF, 0x02,// 319 = "fdisi"
 
 	// Fnclex
 	0x01,// Normal_1
-	0xB1, 0x02,// 305 = "fnclex"
+	0xC0, 0x02,// 320 = "fnclex"
 
 	// Fclex
 	0x01,// Normal_1
-	0xB2, 0x02,// 306 = "fclex"
+	0xC1, 0x02,// 321 = "fclex"
 
 	// Fninit
 	0x01,// Normal_1
-	0xB3, 0x02,// 307 = "fninit"
+	0xC2, 0x02,// 322 = "fninit"
 
 	// Finit
 	0x01,// Normal_1
-	0xB4, 0x02,// 308 = "finit"
+	0xC3, 0x02,// 323 = "finit"
 
 	// Fnsetpm
 	0x01,// Normal_1
-	0xB5, 0x02,// 309 = "fnsetpm"
+	0xC4, 0x02,// 324 = "fnsetpm"
 
 	// Fsetpm
 	0x01,// Normal_1
-	0xB6, 0x02,// 310 = "fsetpm"
+	0xC5, 0x02,// 325 = "fsetpm"
 
 	// Frstpm
 	0x01,// Normal_1
-	0xB7, 0x02,// 311 = "frstpm"
+	0xC6, 0x02,// 326 = "frstpm"
 
 	// Fucomi_st0_sti
-	0x34,// STIG1_1
-	0xB8, 0x02,// 312 = "fucomi"
+	0x3C,// STIG1_1
+	0xC7, 0x02,// 327 = "fucomi"
 
 	// Fcomi_st0_sti
-	0x34,// STIG1_1
-	0xB9, 0x02,// 313 = "fcomi"
+	0x3C,// STIG1_1
+	0xC8, 0x02,// 328 = "fcomi"
 
 	// Fadd_m64fp
 	0x02,// Normal_2
-	0xE9, 0x01,// 233 = "fadd"
+	0xF8, 0x01,// 248 = "fadd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fmul_m64fp
 	0x02,// Normal_2
-	0xEA, 0x01,// 234 = "fmul"
+	0xF9, 0x01,// 249 = "fmul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcom_m64fp
 	0x02,// Normal_2
-	0xEB, 0x01,// 235 = "fcom"
+	0xFA, 0x01,// 250 = "fcom"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fcomp_m64fp
 	0x02,// Normal_2
-	0xEC, 0x01,// 236 = "fcomp"
+	0xFB, 0x01,// 251 = "fcomp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fsub_m64fp
 	0x02,// Normal_2
-	0xED, 0x01,// 237 = "fsub"
+	0xFC, 0x01,// 252 = "fsub"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fsubr_m64fp
 	0x02,// Normal_2
-	0xEE, 0x01,// 238 = "fsubr"
+	0xFD, 0x01,// 253 = "fsubr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fdiv_m64fp
 	0x02,// Normal_2
-	0xEF, 0x01,// 239 = "fdiv"
+	0xFE, 0x01,// 254 = "fdiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fdivr_m64fp
 	0x02,// Normal_2
-	0xF0, 0x01,// 240 = "fdivr"
+	0xFF, 0x01,// 255 = "fdivr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fadd_sti_st0
-	0x37,// STIG2_2b
-	0xE9, 0x01,// 233 = "fadd"
+	0x3F,// STIG2_2b
+	0xF8, 0x01,// 248 = "fadd"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fmul_sti_st0
-	0x37,// STIG2_2b
-	0xEA, 0x01,// 234 = "fmul"
+	0x3F,// STIG2_2b
+	0xF9, 0x01,// 249 = "fmul"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fcom_st0_sti_DCD0
-	0x35,// STIG1_2
-	0xEB, 0x01,// 235 = "fcom"
+	0x3D,// STIG1_2
+	0xFA, 0x01,// 250 = "fcom"
 	0x01,// True
 
 	// Fcomp_st0_sti_DCD8
-	0x35,// STIG1_2
-	0xEC, 0x01,// 236 = "fcomp"
+	0x3D,// STIG1_2
+	0xFB, 0x01,// 251 = "fcomp"
 	0x01,// True
 
 	// Fsubr_sti_st0
-	0x37,// STIG2_2b
-	0xEE, 0x01,// 238 = "fsubr"
+	0x3F,// STIG2_2b
+	0xFD, 0x01,// 253 = "fsubr"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fsub_sti_st0
-	0x37,// STIG2_2b
-	0xED, 0x01,// 237 = "fsub"
+	0x3F,// STIG2_2b
+	0xFC, 0x01,// 252 = "fsub"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fdivr_sti_st0
-	0x37,// STIG2_2b
-	0xF0, 0x01,// 240 = "fdivr"
+	0x3F,// STIG2_2b
+	0xFF, 0x01,// 255 = "fdivr"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fdiv_sti_st0
-	0x37,// STIG2_2b
-	0xEF, 0x01,// 239 = "fdiv"
+	0x3F,// STIG2_2b
+	0xFE, 0x01,// 254 = "fdiv"
 	0x80, 0x80, 0x08,// 0x20000 = RegisterTo
 
 	// Fld_m64fp
 	0x02,// Normal_2
-	0xF1, 0x01,// 241 = "fld"
+	0x80, 0x02,// 256 = "fld"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisttp_m64int
 	0x02,// Normal_2
-	0xA6, 0x02,// 294 = "fisttp"
+	0xB5, 0x02,// 309 = "fisttp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fst_m64fp
 	0x02,// Normal_2
-	0xF2, 0x01,// 242 = "fst"
+	0x81, 0x02,// 257 = "fst"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fstp_m64fp
 	0x02,// Normal_2
-	0x6B,// 107 = "fstp"
+	0x6D,// 109 = "fstp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Frstor_m94byte
-	0x24,// os_mem2
-	0xBB, 0x02,// 315 = "frstor"
+	0x2C,// os_mem2
+	0xCA, 0x02,// 330 = "frstor"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Frstor_m108byte
-	0x24,// os_mem2
-	0xBB, 0x02,// 315 = "frstor"
+	0x2C,// os_mem2
+	0xCA, 0x02,// 330 = "frstor"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fnsave_m94byte
-	0x24,// os_mem2
-	0xBC, 0x02,// 316 = "fnsave"
+	0x2C,// os_mem2
+	0xCB, 0x02,// 331 = "fnsave"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fsave_m94byte
-	0x24,// os_mem2
-	0xBD, 0x02,// 317 = "fsave"
+	0x2C,// os_mem2
+	0xCC, 0x02,// 332 = "fsave"
 	0x10,// 0x10
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fnsave_m108byte
-	0x24,// os_mem2
-	0xBC, 0x02,// 316 = "fnsave"
+	0x2C,// os_mem2
+	0xCB, 0x02,// 331 = "fnsave"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fsave_m108byte
-	0x24,// os_mem2
-	0xBD, 0x02,// 317 = "fsave"
+	0x2C,// os_mem2
+	0xCC, 0x02,// 332 = "fsave"
 	0x60,// 0x60
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Fnstsw_m2byte
 	0x01,// Normal_1
-	0xBE, 0x02,// 318 = "fnstsw"
+	0xCD, 0x02,// 333 = "fnstsw"
 
 	// Fstsw_m2byte
 	0x01,// Normal_1
-	0xBF, 0x02,// 319 = "fstsw"
+	0xCE, 0x02,// 334 = "fstsw"
 
 	// Ffree_sti
 	0x01,// Normal_1
-	0xC0, 0x02,// 320 = "ffree"
+	0xCF, 0x02,// 335 = "ffree"
 
 	// Fxch_st0_sti_DDC8
-	0x35,// STIG1_2
-	0xF9, 0x01,// 249 = "fxch"
+	0x3D,// STIG1_2
+	0x88, 0x02,// 264 = "fxch"
 	0x01,// True
 
 	// Fst_sti
 	0x01,// Normal_1
-	0xF2, 0x01,// 242 = "fst"
+	0x81, 0x02,// 257 = "fst"
 
 	// Fstp_sti
 	0x01,// Normal_1
-	0x6B,// 107 = "fstp"
+	0x6D,// 109 = "fstp"
 
 	// Fucom_st0_sti
-	0x35,// STIG1_2
-	0xC1, 0x02,// 321 = "fucom"
+	0x3D,// STIG1_2
+	0xD0, 0x02,// 336 = "fucom"
 	0x01,// True
 
 	// Fucomp_st0_sti
-	0x35,// STIG1_2
-	0xA3, 0x02,// 291 = "fucomp"
+	0x3D,// STIG1_2
+	0xB2, 0x02,// 306 = "fucomp"
 	0x01,// True
 
 	// Fiadd_m16int
 	0x02,// Normal_2
-	0x97, 0x02,// 279 = "fiadd"
+	0xA6, 0x02,// 294 = "fiadd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fimul_m16int
 	0x02,// Normal_2
-	0x98, 0x02,// 280 = "fimul"
+	0xA7, 0x02,// 295 = "fimul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ficom_m16int
 	0x02,// Normal_2
-	0x99, 0x02,// 281 = "ficom"
+	0xA8, 0x02,// 296 = "ficom"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ficomp_m16int
 	0x02,// Normal_2
-	0x9A, 0x02,// 282 = "ficomp"
+	0xA9, 0x02,// 297 = "ficomp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisub_m16int
 	0x02,// Normal_2
-	0x9B, 0x02,// 283 = "fisub"
+	0xAA, 0x02,// 298 = "fisub"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisubr_m16int
 	0x02,// Normal_2
-	0x9C, 0x02,// 284 = "fisubr"
+	0xAB, 0x02,// 299 = "fisubr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fidiv_m16int
 	0x02,// Normal_2
-	0x9D, 0x02,// 285 = "fidiv"
+	0xAC, 0x02,// 300 = "fidiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fidivr_m16int
 	0x02,// Normal_2
-	0x9E, 0x02,// 286 = "fidivr"
+	0xAD, 0x02,// 301 = "fidivr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Faddp_sti_st0
-	0x36,// STIG2_2a
-	0xC2, 0x02,// 322 = "faddp"
+	0x3E,// STIG2_2a
+	0xD1, 0x02,// 337 = "faddp"
 	0x01,// True
 
 	// Fmulp_sti_st0
-	0x36,// STIG2_2a
-	0xC3, 0x02,// 323 = "fmulp"
+	0x3E,// STIG2_2a
+	0xD2, 0x02,// 338 = "fmulp"
 	0x01,// True
 
 	// Fcomp_st0_sti_DED0
-	0x35,// STIG1_2
-	0xEC, 0x01,// 236 = "fcomp"
+	0x3D,// STIG1_2
+	0xFB, 0x01,// 251 = "fcomp"
 	0x01,// True
 
 	// Fcompp
 	0x01,// Normal_1
-	0xC4, 0x02,// 324 = "fcompp"
+	0xD3, 0x02,// 339 = "fcompp"
 
 	// Fsubrp_sti_st0
-	0x36,// STIG2_2a
-	0xC6, 0x02,// 326 = "fsubrp"
+	0x3E,// STIG2_2a
+	0xD5, 0x02,// 341 = "fsubrp"
 	0x01,// True
 
 	// Fsubp_sti_st0
-	0x36,// STIG2_2a
-	0xC5, 0x02,// 325 = "fsubp"
+	0x3E,// STIG2_2a
+	0xD4, 0x02,// 340 = "fsubp"
 	0x01,// True
 
 	// Fdivrp_sti_st0
-	0x36,// STIG2_2a
-	0xC8, 0x02,// 328 = "fdivrp"
+	0x3E,// STIG2_2a
+	0xD7, 0x02,// 343 = "fdivrp"
 	0x01,// True
 
 	// Fdivp_sti_st0
-	0x36,// STIG2_2a
-	0xC7, 0x02,// 327 = "fdivp"
+	0x3E,// STIG2_2a
+	0xD6, 0x02,// 342 = "fdivp"
 	0x01,// True
 
 	// Fild_m16int
 	0x02,// Normal_2
-	0xA5, 0x02,// 293 = "fild"
+	0xB4, 0x02,// 308 = "fild"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fisttp_m16int
 	0x02,// Normal_2
-	0xA6, 0x02,// 294 = "fisttp"
+	0xB5, 0x02,// 309 = "fisttp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fist_m16int
 	0x02,// Normal_2
-	0xA7, 0x02,// 295 = "fist"
+	0xB6, 0x02,// 310 = "fist"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fistp_m16int
 	0x02,// Normal_2
-	0xA8, 0x02,// 296 = "fistp"
+	0xB7, 0x02,// 311 = "fistp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fbld_m80bcd
 	0x02,// Normal_2
-	0xC9, 0x02,// 329 = "fbld"
+	0xD8, 0x02,// 344 = "fbld"
 	0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 	// Fild_m64int
 	0x02,// Normal_2
-	0xA5, 0x02,// 293 = "fild"
+	0xB4, 0x02,// 308 = "fild"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Fbstp_m80bcd
 	0x02,// Normal_2
-	0xCB, 0x02,// 331 = "fbstp"
+	0xDA, 0x02,// 346 = "fbstp"
 	0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 	// Fistp_m64int
 	0x02,// Normal_2
-	0xA8, 0x02,// 296 = "fistp"
+	0xB7, 0x02,// 311 = "fistp"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ffreep_sti
 	0x01,// Normal_1
-	0xCD, 0x02,// 333 = "ffreep"
+	0xDC, 0x02,// 348 = "ffreep"
 
 	// Fxch_st0_sti_DFC8
-	0x35,// STIG1_2
-	0xF9, 0x01,// 249 = "fxch"
+	0x3D,// STIG1_2
+	0x88, 0x02,// 264 = "fxch"
 	0x01,// True
 
 	// Fstp_sti_DFD0
 	0x01,// Normal_1
-	0x6B,// 107 = "fstp"
+	0x6D,// 109 = "fstp"
 
 	// Fstp_sti_DFD8
 	0x00,// Previous
 
 	// Fnstsw_AX
 	0x01,// Normal_1
-	0xBE, 0x02,// 318 = "fnstsw"
+	0xCD, 0x02,// 333 = "fnstsw"
 
 	// Fstsw_AX
 	0x01,// Normal_1
-	0xBF, 0x02,// 319 = "fstsw"
+	0xCE, 0x02,// 334 = "fstsw"
 
 	// Fstdw_AX
 	0x01,// Normal_1
-	0xCE, 0x02,// 334 = "fstdw"
+	0xDD, 0x02,// 349 = "fstdw"
 
 	// Fstsg_AX
 	0x01,// Normal_1
-	0xCF, 0x02,// 335 = "fstsg"
+	0xDE, 0x02,// 350 = "fstsg"
 
 	// Fucomip_st0_sti
-	0x34,// STIG1_1
-	0xD0, 0x02,// 336 = "fucomip"
+	0x3C,// STIG1_1
+	0xDF, 0x02,// 351 = "fucomip"
 
 	// Fcomip_st0_sti
-	0x34,// STIG1_1
-	0xD1, 0x02,// 337 = "fcomip"
+	0x3C,// STIG1_1
+	0xE0, 0x02,// 352 = "fcomip"
 
 	// Loopne_rel8_16_CX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x10,// 0x10
 	0x16,// CX
 
 	// Loopne_rel8_32_CX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x20,// 0x20
 	0x16,// CX
 
 	// Loopne_rel8_16_ECX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x10,// 0x10
 	0x26,// ECX
 
 	// Loopne_rel8_32_ECX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x20,// 0x20
 	0x26,// ECX
 
 	// Loopne_rel8_64_ECX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x40,// 0x40
 	0x26,// ECX
 
 	// Loopne_rel8_16_RCX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x10,// 0x10
 	0x36,// RCX
 
 	// Loopne_rel8_64_RCX
-	0x21,// os_loop
+	0x28,// os_loopcc
 	0x68,// 104 = "loopne"
+	0x69,// 105 = "loopnz"
+	0x05,// 0x5
 	0x40,// 0x40
 	0x36,// RCX
 
 	// Loope_rel8_16_CX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x10,// 0x10
 	0x16,// CX
 
 	// Loope_rel8_32_CX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x20,// 0x20
 	0x16,// CX
 
 	// Loope_rel8_16_ECX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x10,// 0x10
 	0x26,// ECX
 
 	// Loope_rel8_32_ECX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x20,// 0x20
 	0x26,// ECX
 
 	// Loope_rel8_64_ECX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x40,// 0x40
 	0x26,// ECX
 
 	// Loope_rel8_16_RCX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x10,// 0x10
 	0x36,// RCX
 
 	// Loope_rel8_64_RCX
-	0x21,// os_loop
-	0x69,// 105 = "loope"
+	0x28,// os_loopcc
+	0x6A,// 106 = "loope"
+	0x6B,// 107 = "loopz"
+	0x04,// 0x4
 	0x40,// 0x40
 	0x36,// RCX
 
 	// Loop_rel8_16_CX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x10,// 0x10
 	0x16,// CX
 
 	// Loop_rel8_32_CX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x20,// 0x20
 	0x16,// CX
 
 	// Loop_rel8_16_ECX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x10,// 0x10
 	0x26,// ECX
 
 	// Loop_rel8_32_ECX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x20,// 0x20
 	0x26,// ECX
 
 	// Loop_rel8_64_ECX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x40,// 0x40
 	0x26,// ECX
 
 	// Loop_rel8_16_RCX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x10,// 0x10
 	0x36,// RCX
 
 	// Loop_rel8_64_RCX
-	0x21,// os_loop
-	0x6A,// 106 = "loop"
+	0x29,// os_loop
+	0x6C,// 108 = "loop"
 	0x40,// 0x40
 	0x36,// RCX
 
 	// Jcxz_rel8_16
 	0x1B,// os_2
-	0xD5, 0x02,// 341 = "jcxz"
+	0xE6, 0x02,// 358 = "jcxz"
 	0x10,// 0x10
 
 	// Jcxz_rel8_32
 	0x1B,// os_2
-	0xD5, 0x02,// 341 = "jcxz"
+	0xE6, 0x02,// 358 = "jcxz"
 	0x20,// 0x20
 
 	// Jecxz_rel8_16
 	0x1B,// os_2
-	0xD6, 0x02,// 342 = "jecxz"
+	0xE7, 0x02,// 359 = "jecxz"
 	0x10,// 0x10
 
 	// Jecxz_rel8_32
 	0x1B,// os_2
-	0xD6, 0x02,// 342 = "jecxz"
+	0xE7, 0x02,// 359 = "jecxz"
 	0x20,// 0x20
 
 	// Jecxz_rel8_64
 	0x1B,// os_2
-	0xD6, 0x02,// 342 = "jecxz"
+	0xE7, 0x02,// 359 = "jecxz"
 	0x40,// 0x40
 
 	// Jrcxz_rel8_16
 	0x1B,// os_2
-	0xD7, 0x02,// 343 = "jrcxz"
+	0xE8, 0x02,// 360 = "jrcxz"
 	0x10,// 0x10
 
 	// Jrcxz_rel8_64
 	0x1B,// os_2
-	0xD7, 0x02,// 343 = "jrcxz"
+	0xE8, 0x02,// 360 = "jrcxz"
 	0x40,// 0x40
 
 	// In_AL_imm8
 	0x01,// Normal_1
-	0x7F,// 127 = "in"
+	0xE9, 0x02,// 361 = "in"
 
 	// In_AX_imm8
 	0x00,// Previous
@@ -3092,7 +3210,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Out_imm8_AL
 	0x01,// Normal_1
-	0xD8, 0x02,// 344 = "out"
+	0xEA, 0x02,// 362 = "out"
 
 	// Out_imm8_AX
 	0x00,// Previous
@@ -3166,7 +3284,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// In_AL_DX
 	0x01,// Normal_1
-	0x7F,// 127 = "in"
+	0xE9, 0x02,// 361 = "in"
 
 	// In_AX_DX
 	0x00,// Previous
@@ -3176,7 +3294,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Out_DX_AL
 	0x01,// Normal_1
-	0xD8, 0x02,// 344 = "out"
+	0xEA, 0x02,// 362 = "out"
 
 	// Out_DX_AX
 	0x00,// Previous
@@ -3186,15 +3304,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Int1
 	0x01,// Normal_1
-	0xDA, 0x02,// 346 = "int1"
+	0xEC, 0x02,// 364 = "int1"
 
 	// Hlt
 	0x01,// Normal_1
-	0xDB, 0x02,// 347 = "hlt"
+	0xED, 0x02,// 365 = "hlt"
 
 	// Cmc
 	0x01,// Normal_1
-	0xDC, 0x02,// 348 = "cmc"
+	0xEE, 0x02,// 366 = "cmc"
 
 	// Test_rm8_imm8
 	0x02,// Normal_2
@@ -3206,17 +3324,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Not_rm8
 	0x02,// Normal_2
-	0xDD, 0x02,// 349 = "not"
+	0xEF, 0x02,// 367 = "not"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Neg_rm8
 	0x02,// Normal_2
-	0xDE, 0x02,// 350 = "neg"
+	0xF0, 0x02,// 368 = "neg"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Mul_rm8
 	0x02,// Normal_2
-	0xDF, 0x02,// 351 = "mul"
+	0xF1, 0x02,// 369 = "mul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Imul_rm8
@@ -3226,12 +3344,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Div_rm8
 	0x02,// Normal_2
-	0xE0, 0x02,// 352 = "div"
+	0xF2, 0x02,// 370 = "div"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Idiv_rm8
 	0x02,// Normal_2
-	0xE1, 0x02,// 353 = "idiv"
+	0xF3, 0x02,// 371 = "idiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Test_rm16_imm16
@@ -3243,7 +3361,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Test_rm64_imm32
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0C,// 12 = "test"
 	0x00,// None
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
@@ -3257,14 +3375,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Test_rm64_imm32_F7r1
-	0x31,// SEX2_3
+	0x39,// SEX2_3
 	0x0C,// 12 = "test"
 	0x00,// None
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Not_rm16
 	0x02,// Normal_2
-	0xDD, 0x02,// 349 = "not"
+	0xEF, 0x02,// 367 = "not"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Not_rm32
@@ -3275,7 +3393,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Neg_rm16
 	0x02,// Normal_2
-	0xDE, 0x02,// 350 = "neg"
+	0xF0, 0x02,// 368 = "neg"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Neg_rm32
@@ -3286,7 +3404,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Mul_rm16
 	0x02,// Normal_2
-	0xDF, 0x02,// 351 = "mul"
+	0xF1, 0x02,// 369 = "mul"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Mul_rm32
@@ -3308,7 +3426,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Div_rm16
 	0x02,// Normal_2
-	0xE0, 0x02,// 352 = "div"
+	0xF2, 0x02,// 370 = "div"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Div_rm32
@@ -3319,7 +3437,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Idiv_rm16
 	0x02,// Normal_2
-	0xE1, 0x02,// 353 = "idiv"
+	0xF3, 0x02,// 371 = "idiv"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Idiv_rm32
@@ -3330,41 +3448,41 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Clc
 	0x01,// Normal_1
-	0xE2, 0x02,// 354 = "clc"
+	0xF4, 0x02,// 372 = "clc"
 
 	// Stc
 	0x01,// Normal_1
-	0xE3, 0x02,// 355 = "stc"
+	0xF5, 0x02,// 373 = "stc"
 
 	// Cli
 	0x01,// Normal_1
-	0xE4, 0x02,// 356 = "cli"
+	0xF6, 0x02,// 374 = "cli"
 
 	// Sti
 	0x01,// Normal_1
-	0xE5, 0x02,// 357 = "sti"
+	0xF7, 0x02,// 375 = "sti"
 
 	// Cld
 	0x01,// Normal_1
-	0xE6, 0x02,// 358 = "cld"
+	0xF8, 0x02,// 376 = "cld"
 
 	// Std
 	0x01,// Normal_1
-	0xE7, 0x02,// 359 = "std"
+	0xF9, 0x02,// 377 = "std"
 
 	// Inc_rm8
 	0x02,// Normal_2
-	0x6C,// 108 = "inc"
+	0x6E,// 110 = "inc"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Dec_rm8
 	0x02,// Normal_2
-	0x6D,// 109 = "dec"
+	0x6F,// 111 = "dec"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Inc_rm16
 	0x02,// Normal_2
-	0x6C,// 108 = "inc"
+	0x6E,// 110 = "inc"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Inc_rm32
@@ -3375,7 +3493,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Dec_rm16
 	0x02,// Normal_2
-	0x6D,// 109 = "dec"
+	0x6F,// 111 = "dec"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Dec_rm32
@@ -3448,421 +3566,421 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Sldt_rm16
-	0x22,// os_mem
-	0xE8, 0x02,// 360 = "sldt"
+	0x2A,// os_mem
+	0xFA, 0x02,// 378 = "sldt"
 	0x10,// 0x10
 
 	// Sldt_r32m16
-	0x22,// os_mem
-	0xE8, 0x02,// 360 = "sldt"
+	0x2A,// os_mem
+	0xFA, 0x02,// 378 = "sldt"
 	0x20,// 0x20
 
 	// Sldt_r64m16
-	0x22,// os_mem
-	0xE8, 0x02,// 360 = "sldt"
+	0x2A,// os_mem
+	0xFA, 0x02,// 378 = "sldt"
 	0x40,// 0x40
 
 	// Str_rm16
-	0x22,// os_mem
-	0xE9, 0x02,// 361 = "str"
+	0x2A,// os_mem
+	0xFB, 0x02,// 379 = "str"
 	0x10,// 0x10
 
 	// Str_r32m16
-	0x22,// os_mem
-	0xE9, 0x02,// 361 = "str"
+	0x2A,// os_mem
+	0xFB, 0x02,// 379 = "str"
 	0x20,// 0x20
 
 	// Str_r64m16
-	0x22,// os_mem
-	0xE9, 0x02,// 361 = "str"
+	0x2A,// os_mem
+	0xFB, 0x02,// 379 = "str"
 	0x40,// 0x40
 
 	// Lldt_rm16
-	0x23,// os_mem_reg16
-	0xEA, 0x02,// 362 = "lldt"
+	0x2B,// os_mem_reg16
+	0xFC, 0x02,// 380 = "lldt"
 	0x10,// 0x10
 
 	// Lldt_r32m16
-	0x23,// os_mem_reg16
-	0xEA, 0x02,// 362 = "lldt"
+	0x2B,// os_mem_reg16
+	0xFC, 0x02,// 380 = "lldt"
 	0x20,// 0x20
 
 	// Lldt_r64m16
-	0x23,// os_mem_reg16
-	0xEA, 0x02,// 362 = "lldt"
+	0x2B,// os_mem_reg16
+	0xFC, 0x02,// 380 = "lldt"
 	0x40,// 0x40
 
 	// Ltr_rm16
-	0x23,// os_mem_reg16
-	0xEB, 0x02,// 363 = "ltr"
+	0x2B,// os_mem_reg16
+	0xFD, 0x02,// 381 = "ltr"
 	0x10,// 0x10
 
 	// Ltr_r32m16
-	0x23,// os_mem_reg16
-	0xEB, 0x02,// 363 = "ltr"
+	0x2B,// os_mem_reg16
+	0xFD, 0x02,// 381 = "ltr"
 	0x20,// 0x20
 
 	// Ltr_r64m16
-	0x23,// os_mem_reg16
-	0xEB, 0x02,// 363 = "ltr"
+	0x2B,// os_mem_reg16
+	0xFD, 0x02,// 381 = "ltr"
 	0x40,// 0x40
 
 	// Verr_rm16
-	0xA3,// 'v', os_mem_reg16
-	0xEC, 0x02,// 364 = "verr"
+	0xAB,// 'v', os_mem_reg16
+	0xFE, 0x02,// 382 = "verr"
 	0x10,// 0x10
 
 	// Verr_r32m16
-	0xA3,// 'v', os_mem_reg16
-	0xEC, 0x02,// 364 = "verr"
+	0xAB,// 'v', os_mem_reg16
+	0xFE, 0x02,// 382 = "verr"
 	0x20,// 0x20
 
 	// Verr_r64m16
-	0xA3,// 'v', os_mem_reg16
-	0xEC, 0x02,// 364 = "verr"
+	0xAB,// 'v', os_mem_reg16
+	0xFE, 0x02,// 382 = "verr"
 	0x40,// 0x40
 
 	// Verw_rm16
-	0xA3,// 'v', os_mem_reg16
-	0xED, 0x02,// 365 = "verw"
+	0xAB,// 'v', os_mem_reg16
+	0xFF, 0x02,// 383 = "verw"
 	0x10,// 0x10
 
 	// Verw_r32m16
-	0xA3,// 'v', os_mem_reg16
-	0xED, 0x02,// 365 = "verw"
+	0xAB,// 'v', os_mem_reg16
+	0xFF, 0x02,// 383 = "verw"
 	0x20,// 0x20
 
 	// Verw_r64m16
-	0xA3,// 'v', os_mem_reg16
-	0xED, 0x02,// 365 = "verw"
+	0xAB,// 'v', os_mem_reg16
+	0xFF, 0x02,// 383 = "verw"
 	0x40,// 0x40
 
 	// Jmpe_rm16
 	0x02,// Normal_2
-	0xEE, 0x02,// 366 = "jmpe"
+	0x80, 0x03,// 384 = "jmpe"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Jmpe_rm32
 	0x00,// Previous
 
 	// Sgdt_m1632_16
-	0x22,// os_mem
-	0xEF, 0x02,// 367 = "sgdt"
+	0x2A,// os_mem
+	0x81, 0x03,// 385 = "sgdt"
 	0x10,// 0x10
 
 	// Sgdt_m1632
-	0x22,// os_mem
-	0xEF, 0x02,// 367 = "sgdt"
+	0x2A,// os_mem
+	0x81, 0x03,// 385 = "sgdt"
 	0x20,// 0x20
 
 	// Sgdt_m1664
 	0x01,// Normal_1
-	0xEF, 0x02,// 367 = "sgdt"
+	0x81, 0x03,// 385 = "sgdt"
 
 	// Sidt_m1632_16
-	0x22,// os_mem
-	0xF0, 0x02,// 368 = "sidt"
+	0x2A,// os_mem
+	0x82, 0x03,// 386 = "sidt"
 	0x10,// 0x10
 
 	// Sidt_m1632
-	0x22,// os_mem
-	0xF0, 0x02,// 368 = "sidt"
+	0x2A,// os_mem
+	0x82, 0x03,// 386 = "sidt"
 	0x20,// 0x20
 
 	// Sidt_m1664
 	0x01,// Normal_1
-	0xF0, 0x02,// 368 = "sidt"
+	0x82, 0x03,// 386 = "sidt"
 
 	// Lgdt_m1632_16
-	0x22,// os_mem
-	0xF1, 0x02,// 369 = "lgdt"
+	0x2A,// os_mem
+	0x83, 0x03,// 387 = "lgdt"
 	0x10,// 0x10
 
 	// Lgdt_m1632
-	0x22,// os_mem
-	0xF1, 0x02,// 369 = "lgdt"
+	0x2A,// os_mem
+	0x83, 0x03,// 387 = "lgdt"
 	0x20,// 0x20
 
 	// Lgdt_m1664
 	0x01,// Normal_1
-	0xF1, 0x02,// 369 = "lgdt"
+	0x83, 0x03,// 387 = "lgdt"
 
 	// Lidt_m1632_16
-	0x22,// os_mem
-	0xF2, 0x02,// 370 = "lidt"
+	0x2A,// os_mem
+	0x84, 0x03,// 388 = "lidt"
 	0x10,// 0x10
 
 	// Lidt_m1632
-	0x22,// os_mem
-	0xF2, 0x02,// 370 = "lidt"
+	0x2A,// os_mem
+	0x84, 0x03,// 388 = "lidt"
 	0x20,// 0x20
 
 	// Lidt_m1664
 	0x01,// Normal_1
-	0xF2, 0x02,// 370 = "lidt"
+	0x84, 0x03,// 388 = "lidt"
 
 	// Smsw_rm16
-	0x22,// os_mem
-	0xF3, 0x02,// 371 = "smsw"
+	0x2A,// os_mem
+	0x85, 0x03,// 389 = "smsw"
 	0x10,// 0x10
 
 	// Smsw_r32m16
-	0x22,// os_mem
-	0xF3, 0x02,// 371 = "smsw"
+	0x2A,// os_mem
+	0x85, 0x03,// 389 = "smsw"
 	0x20,// 0x20
 
 	// Smsw_r64m16
-	0x22,// os_mem
-	0xF3, 0x02,// 371 = "smsw"
+	0x2A,// os_mem
+	0x85, 0x03,// 389 = "smsw"
 	0x40,// 0x40
 
 	// Rstorssp_m64
 	0x01,// Normal_1
-	0xF4, 0x02,// 372 = "rstorssp"
+	0x86, 0x03,// 390 = "rstorssp"
 
 	// Lmsw_rm16
-	0x23,// os_mem_reg16
-	0xF5, 0x02,// 373 = "lmsw"
+	0x2B,// os_mem_reg16
+	0x87, 0x03,// 391 = "lmsw"
 	0x10,// 0x10
 
 	// Lmsw_r32m16
-	0x23,// os_mem_reg16
-	0xF5, 0x02,// 373 = "lmsw"
+	0x2B,// os_mem_reg16
+	0x87, 0x03,// 391 = "lmsw"
 	0x20,// 0x20
 
 	// Lmsw_r64m16
-	0x23,// os_mem_reg16
-	0xF5, 0x02,// 373 = "lmsw"
+	0x2B,// os_mem_reg16
+	0x87, 0x03,// 391 = "lmsw"
 	0x40,// 0x40
 
 	// Invlpg_m
 	0x01,// Normal_1
-	0xF6, 0x02,// 374 = "invlpg"
+	0x88, 0x03,// 392 = "invlpg"
 
 	// Enclv
 	0x01,// Normal_1
-	0xF7, 0x02,// 375 = "enclv"
+	0x89, 0x03,// 393 = "enclv"
 
 	// Vmcall
 	0x81,// 'v', Normal_1
-	0xF8, 0x02,// 376 = "vmcall"
+	0x8A, 0x03,// 394 = "vmcall"
 
 	// Vmlaunch
 	0x81,// 'v', Normal_1
-	0xF9, 0x02,// 377 = "vmlaunch"
+	0x8B, 0x03,// 395 = "vmlaunch"
 
 	// Vmresume
 	0x81,// 'v', Normal_1
-	0xFA, 0x02,// 378 = "vmresume"
+	0x8C, 0x03,// 396 = "vmresume"
 
 	// Vmxoff
 	0x81,// 'v', Normal_1
-	0xFB, 0x02,// 379 = "vmxoff"
+	0x8D, 0x03,// 397 = "vmxoff"
 
 	// Pconfig
 	0x01,// Normal_1
-	0xFC, 0x02,// 380 = "pconfig"
+	0x8E, 0x03,// 398 = "pconfig"
 
 	// Monitorw
 	0x04,// asz
-	0xFD, 0x02,// 381 = "monitor"
+	0x8F, 0x03,// 399 = "monitor"
 	0x10,// 0x10
 
 	// Monitord
 	0x04,// asz
-	0xFD, 0x02,// 381 = "monitor"
+	0x8F, 0x03,// 399 = "monitor"
 	0x20,// 0x20
 
 	// Monitorq
 	0x04,// asz
-	0xFD, 0x02,// 381 = "monitor"
+	0x8F, 0x03,// 399 = "monitor"
 	0x40,// 0x40
 
 	// Mwait
 	0x01,// Normal_1
-	0xFE, 0x02,// 382 = "mwait"
+	0x90, 0x03,// 400 = "mwait"
 
 	// Clac
 	0x01,// Normal_1
-	0xFF, 0x02,// 383 = "clac"
+	0x91, 0x03,// 401 = "clac"
 
 	// Stac
 	0x01,// Normal_1
-	0x80, 0x03,// 384 = "stac"
+	0x92, 0x03,// 402 = "stac"
 
 	// Encls
 	0x01,// Normal_1
-	0x81, 0x03,// 385 = "encls"
+	0x93, 0x03,// 403 = "encls"
 
 	// Xgetbv
 	0x01,// Normal_1
-	0x82, 0x03,// 386 = "xgetbv"
+	0x94, 0x03,// 404 = "xgetbv"
 
 	// Xsetbv
 	0x01,// Normal_1
-	0x83, 0x03,// 387 = "xsetbv"
+	0x95, 0x03,// 405 = "xsetbv"
 
 	// Vmfunc
 	0x81,// 'v', Normal_1
-	0x84, 0x03,// 388 = "vmfunc"
+	0x96, 0x03,// 406 = "vmfunc"
 
 	// Xend
 	0x01,// Normal_1
-	0x85, 0x03,// 389 = "xend"
+	0x97, 0x03,// 407 = "xend"
 
 	// Xtest
 	0x01,// Normal_1
-	0x86, 0x03,// 390 = "xtest"
+	0x98, 0x03,// 408 = "xtest"
 
 	// Enclu
 	0x01,// Normal_1
-	0x87, 0x03,// 391 = "enclu"
+	0x99, 0x03,// 409 = "enclu"
 
 	// Vmrunw
 	0x84,// 'v', asz
-	0x88, 0x03,// 392 = "vmrun"
+	0x9A, 0x03,// 410 = "vmrun"
 	0x10,// 0x10
 
 	// Vmrund
 	0x84,// 'v', asz
-	0x88, 0x03,// 392 = "vmrun"
+	0x9A, 0x03,// 410 = "vmrun"
 	0x20,// 0x20
 
 	// Vmrunq
 	0x84,// 'v', asz
-	0x88, 0x03,// 392 = "vmrun"
+	0x9A, 0x03,// 410 = "vmrun"
 	0x40,// 0x40
 
 	// Vmmcall
 	0x81,// 'v', Normal_1
-	0x89, 0x03,// 393 = "vmmcall"
+	0x9B, 0x03,// 411 = "vmmcall"
 
 	// Vmloadw
 	0x84,// 'v', asz
-	0x8A, 0x03,// 394 = "vmload"
+	0x9C, 0x03,// 412 = "vmload"
 	0x10,// 0x10
 
 	// Vmloadd
 	0x84,// 'v', asz
-	0x8A, 0x03,// 394 = "vmload"
+	0x9C, 0x03,// 412 = "vmload"
 	0x20,// 0x20
 
 	// Vmloadq
 	0x84,// 'v', asz
-	0x8A, 0x03,// 394 = "vmload"
+	0x9C, 0x03,// 412 = "vmload"
 	0x40,// 0x40
 
 	// Vmsavew
 	0x84,// 'v', asz
-	0x8B, 0x03,// 395 = "vmsave"
+	0x9D, 0x03,// 413 = "vmsave"
 	0x10,// 0x10
 
 	// Vmsaved
 	0x84,// 'v', asz
-	0x8B, 0x03,// 395 = "vmsave"
+	0x9D, 0x03,// 413 = "vmsave"
 	0x20,// 0x20
 
 	// Vmsaveq
 	0x84,// 'v', asz
-	0x8B, 0x03,// 395 = "vmsave"
+	0x9D, 0x03,// 413 = "vmsave"
 	0x40,// 0x40
 
 	// Stgi
 	0x01,// Normal_1
-	0x8C, 0x03,// 396 = "stgi"
+	0x9E, 0x03,// 414 = "stgi"
 
 	// Clgi
 	0x01,// Normal_1
-	0x8D, 0x03,// 397 = "clgi"
+	0x9F, 0x03,// 415 = "clgi"
 
 	// Skinit
 	0x01,// Normal_1
-	0x8E, 0x03,// 398 = "skinit"
+	0xA0, 0x03,// 416 = "skinit"
 
 	// Invlpgaw
 	0x10,// invlpga
-	0x8F, 0x03,// 399 = "invlpga"
+	0xA1, 0x03,// 417 = "invlpga"
 	0x10,// 0x10
 
 	// Invlpgad
 	0x10,// invlpga
-	0x8F, 0x03,// 399 = "invlpga"
+	0xA1, 0x03,// 417 = "invlpga"
 	0x20,// 0x20
 
 	// Invlpgaq
 	0x10,// invlpga
-	0x8F, 0x03,// 399 = "invlpga"
+	0xA1, 0x03,// 417 = "invlpga"
 	0x40,// 0x40
 
 	// Setssbsy
 	0x01,// Normal_1
-	0x90, 0x03,// 400 = "setssbsy"
+	0xA2, 0x03,// 418 = "setssbsy"
 
 	// Saveprevssp
 	0x01,// Normal_1
-	0x91, 0x03,// 401 = "saveprevssp"
+	0xA3, 0x03,// 419 = "saveprevssp"
 
 	// Rdpkru
 	0x01,// Normal_1
-	0x92, 0x03,// 402 = "rdpkru"
+	0xA4, 0x03,// 420 = "rdpkru"
 
 	// Wrpkru
 	0x01,// Normal_1
-	0x93, 0x03,// 403 = "wrpkru"
+	0xA5, 0x03,// 421 = "wrpkru"
 
 	// Swapgs
 	0x01,// Normal_1
-	0x94, 0x03,// 404 = "swapgs"
+	0xA6, 0x03,// 422 = "swapgs"
 
 	// Rdtscp
 	0x01,// Normal_1
-	0x95, 0x03,// 405 = "rdtscp"
+	0xA7, 0x03,// 423 = "rdtscp"
 
 	// Monitorxw
 	0x04,// asz
-	0x96, 0x03,// 406 = "monitorx"
+	0xA8, 0x03,// 424 = "monitorx"
 	0x10,// 0x10
 
 	// Monitorxd
 	0x04,// asz
-	0x96, 0x03,// 406 = "monitorx"
+	0xA8, 0x03,// 424 = "monitorx"
 	0x20,// 0x20
 
 	// Monitorxq
 	0x04,// asz
-	0x96, 0x03,// 406 = "monitorx"
+	0xA8, 0x03,// 424 = "monitorx"
 	0x40,// 0x40
 
 	// Mcommit
 	0x01,// Normal_1
-	0x97, 0x03,// 407 = "mcommit"
+	0xA9, 0x03,// 425 = "mcommit"
 
 	// Mwaitx
 	0x01,// Normal_1
-	0x98, 0x03,// 408 = "mwaitx"
+	0xAA, 0x03,// 426 = "mwaitx"
 
 	// Clzerow
 	0x04,// asz
-	0x99, 0x03,// 409 = "clzero"
+	0xAB, 0x03,// 427 = "clzero"
 	0x10,// 0x10
 
 	// Clzerod
 	0x04,// asz
-	0x99, 0x03,// 409 = "clzero"
+	0xAB, 0x03,// 427 = "clzero"
 	0x20,// 0x20
 
 	// Clzeroq
 	0x04,// asz
-	0x99, 0x03,// 409 = "clzero"
+	0xAB, 0x03,// 427 = "clzero"
 	0x40,// 0x40
 
 	// Rdpru
 	0x01,// Normal_1
-	0x9A, 0x03,// 410 = "rdpru"
+	0xAC, 0x03,// 428 = "rdpru"
 
 	// Lar_r16_rm16
 	0x01,// Normal_1
-	0x9B, 0x03,// 411 = "lar"
+	0xAD, 0x03,// 429 = "lar"
 
 	// Lar_r32_r32m16
 	0x00,// Previous
@@ -3872,7 +3990,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lsl_r16_rm16
 	0x01,// Normal_1
-	0x9C, 0x03,// 412 = "lsl"
+	0xAE, 0x03,// 430 = "lsl"
 
 	// Lsl_r32_r32m16
 	0x00,// Previous
@@ -3882,52 +4000,52 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Loadallreset286
 	0x01,// Normal_1
-	0x9D, 0x03,// 413 = "loadallreset286"
+	0xAF, 0x03,// 431 = "loadallreset286"
 
 	// Loadall286
 	0x01,// Normal_1
-	0x9E, 0x03,// 414 = "loadall286"
+	0xB0, 0x03,// 432 = "loadall286"
 
 	// Syscall
 	0x01,// Normal_1
-	0x9F, 0x03,// 415 = "syscall"
+	0xB1, 0x03,// 433 = "syscall"
 
 	// Clts
 	0x01,// Normal_1
-	0xA0, 0x03,// 416 = "clts"
+	0xB2, 0x03,// 434 = "clts"
 
 	// Loadall386
 	0x01,// Normal_1
-	0xA1, 0x03,// 417 = "loadall386"
+	0xB3, 0x03,// 435 = "loadall386"
 
 	// Sysretd
 	0x01,// Normal_1
-	0xA2, 0x03,// 418 = "sysret"
+	0xB4, 0x03,// 436 = "sysret"
 
 	// Sysretq
 	0x02,// Normal_2
-	0xA2, 0x03,// 418 = "sysret"
+	0xB4, 0x03,// 436 = "sysret"
 	0x18,// 0x18 = OpSize64
 
 	// Invd
 	0x01,// Normal_1
-	0xA4, 0x03,// 420 = "invd"
+	0xB6, 0x03,// 438 = "invd"
 
 	// Wbinvd
 	0x01,// Normal_1
-	0xA5, 0x03,// 421 = "wbinvd"
+	0xB7, 0x03,// 439 = "wbinvd"
 
 	// Wbnoinvd
 	0x01,// Normal_1
-	0xA6, 0x03,// 422 = "wbnoinvd"
+	0xB8, 0x03,// 440 = "wbnoinvd"
 
 	// Cl1invmb
 	0x01,// Normal_1
-	0xA7, 0x03,// 423 = "cl1invmb"
+	0xB9, 0x03,// 441 = "cl1invmb"
 
 	// Ud2
 	0x01,// Normal_1
-	0xA8, 0x03,// 424 = "ud2"
+	0xBA, 0x03,// 442 = "ud2"
 
 	// ReservedNop_rm16_r16_0F0D
 	0x01,// Normal_1
@@ -3941,25 +4059,25 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Prefetch_m8
 	0x02,// Normal_2
-	0xA9, 0x03,// 425 = "prefetch"
+	0xBB, 0x03,// 443 = "prefetch"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Prefetchw_m8
 	0x02,// Normal_2
-	0xAB, 0x03,// 427 = "prefetchw"
+	0xBD, 0x03,// 445 = "prefetchw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Prefetchwt1_m8
 	0x01,// Normal_1
-	0xAC, 0x03,// 428 = "prefetchwt1"
+	0xBE, 0x03,// 446 = "prefetchwt1"
 
 	// Femms
 	0x01,// Normal_1
-	0xAD, 0x03,// 429 = "femms"
+	0xBF, 0x03,// 447 = "femms"
 
 	// Umov_rm8_r8
 	0x01,// Normal_1
-	0xAE, 0x03,// 430 = "umov"
+	0xC0, 0x03,// 448 = "umov"
 
 	// Umov_rm16_r16
 	0x00,// Previous
@@ -4126,47 +4244,47 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movhlps_xmm_xmm
 	0x01,// Normal_1
-	0xAF, 0x03,// 431 = "movhlps"
+	0xC1, 0x03,// 449 = "movhlps"
 
 	// Movlps_xmm_m64
 	0x01,// Normal_1
-	0xB0, 0x03,// 432 = "movlps"
+	0xC2, 0x03,// 450 = "movlps"
 
 	// VEX_Vmovhlps_xmm_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xAF, 0x03,// 431 = "vmovhlps"
+	0xC1, 0x03,// 449 = "vmovhlps"
 
 	// VEX_Vmovlps_xmm_xmm_m64
 	0x81,// 'v', Normal_1
-	0xB0, 0x03,// 432 = "vmovlps"
+	0xC2, 0x03,// 450 = "vmovlps"
 
 	// EVEX_Vmovhlps_xmm_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xAF, 0x03,// 431 = "vmovhlps"
+	0xC1, 0x03,// 449 = "vmovhlps"
 
 	// EVEX_Vmovlps_xmm_xmm_m64
 	0x81,// 'v', Normal_1
-	0xB0, 0x03,// 432 = "vmovlps"
+	0xC2, 0x03,// 450 = "vmovlps"
 
 	// Movlpd_xmm_m64
 	0x01,// Normal_1
-	0xB1, 0x03,// 433 = "movlpd"
+	0xC3, 0x03,// 451 = "movlpd"
 
 	// VEX_Vmovlpd_xmm_xmm_m64
 	0x81,// 'v', Normal_1
-	0xB1, 0x03,// 433 = "vmovlpd"
+	0xC3, 0x03,// 451 = "vmovlpd"
 
 	// EVEX_Vmovlpd_xmm_xmm_m64
 	0x80,// 'v', Previous
 
 	// Movsldup_xmm_xmmm128
 	0x02,// Normal_2
-	0xB2, 0x03,// 434 = "movsldup"
+	0xC4, 0x03,// 452 = "movsldup"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmovsldup_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB2, 0x03,// 434 = "vmovsldup"
+	0xC4, 0x03,// 452 = "vmovsldup"
 
 	// VEX_Vmovsldup_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4182,12 +4300,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movddup_xmm_xmmm64
 	0x02,// Normal_2
-	0xB3, 0x03,// 435 = "movddup"
+	0xC5, 0x03,// 453 = "movddup"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmovddup_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xB3, 0x03,// 435 = "vmovddup"
+	0xC5, 0x03,// 453 = "vmovddup"
 
 	// VEX_Vmovddup_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4203,33 +4321,33 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movlps_m64_xmm
 	0x01,// Normal_1
-	0xB0, 0x03,// 432 = "movlps"
+	0xC2, 0x03,// 450 = "movlps"
 
 	// VEX_Vmovlps_m64_xmm
 	0x81,// 'v', Normal_1
-	0xB0, 0x03,// 432 = "vmovlps"
+	0xC2, 0x03,// 450 = "vmovlps"
 
 	// EVEX_Vmovlps_m64_xmm
 	0x80,// 'v', Previous
 
 	// Movlpd_m64_xmm
 	0x01,// Normal_1
-	0xB1, 0x03,// 433 = "movlpd"
+	0xC3, 0x03,// 451 = "movlpd"
 
 	// VEX_Vmovlpd_m64_xmm
 	0x81,// 'v', Normal_1
-	0xB1, 0x03,// 433 = "vmovlpd"
+	0xC3, 0x03,// 451 = "vmovlpd"
 
 	// EVEX_Vmovlpd_m64_xmm
 	0x80,// 'v', Previous
 
 	// Unpcklps_xmm_xmmm128
 	0x01,// Normal_1
-	0xB4, 0x03,// 436 = "unpcklps"
+	0xC6, 0x03,// 454 = "unpcklps"
 
 	// VEX_Vunpcklps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB4, 0x03,// 436 = "vunpcklps"
+	0xC6, 0x03,// 454 = "vunpcklps"
 
 	// VEX_Vunpcklps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4245,11 +4363,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Unpcklpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xB5, 0x03,// 437 = "unpcklpd"
+	0xC7, 0x03,// 455 = "unpcklpd"
 
 	// VEX_Vunpcklpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB5, 0x03,// 437 = "vunpcklpd"
+	0xC7, 0x03,// 455 = "vunpcklpd"
 
 	// VEX_Vunpcklpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4265,11 +4383,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Unpckhps_xmm_xmmm128
 	0x01,// Normal_1
-	0xB6, 0x03,// 438 = "unpckhps"
+	0xC8, 0x03,// 456 = "unpckhps"
 
 	// VEX_Vunpckhps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB6, 0x03,// 438 = "vunpckhps"
+	0xC8, 0x03,// 456 = "vunpckhps"
 
 	// VEX_Vunpckhps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4285,11 +4403,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Unpckhpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xB7, 0x03,// 439 = "unpckhpd"
+	0xC9, 0x03,// 457 = "unpckhpd"
 
 	// VEX_Vunpckhpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB7, 0x03,// 439 = "vunpckhpd"
+	0xC9, 0x03,// 457 = "vunpckhpd"
 
 	// VEX_Vunpckhpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4305,46 +4423,46 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movlhps_xmm_xmm
 	0x01,// Normal_1
-	0xB8, 0x03,// 440 = "movlhps"
+	0xCA, 0x03,// 458 = "movlhps"
 
 	// VEX_Vmovlhps_xmm_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xB8, 0x03,// 440 = "vmovlhps"
+	0xCA, 0x03,// 458 = "vmovlhps"
 
 	// EVEX_Vmovlhps_xmm_xmm_xmm
 	0x80,// 'v', Previous
 
 	// Movhps_xmm_m64
 	0x01,// Normal_1
-	0xB9, 0x03,// 441 = "movhps"
+	0xCB, 0x03,// 459 = "movhps"
 
 	// VEX_Vmovhps_xmm_xmm_m64
 	0x81,// 'v', Normal_1
-	0xB9, 0x03,// 441 = "vmovhps"
+	0xCB, 0x03,// 459 = "vmovhps"
 
 	// EVEX_Vmovhps_xmm_xmm_m64
 	0x80,// 'v', Previous
 
 	// Movhpd_xmm_m64
 	0x02,// Normal_2
-	0xBA, 0x03,// 442 = "movhpd"
+	0xCC, 0x03,// 460 = "movhpd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmovhpd_xmm_xmm_m64
 	0x81,// 'v', Normal_1
-	0xBA, 0x03,// 442 = "vmovhpd"
+	0xCC, 0x03,// 460 = "vmovhpd"
 
 	// EVEX_Vmovhpd_xmm_xmm_m64
 	0x80,// 'v', Previous
 
 	// Movshdup_xmm_xmmm128
 	0x02,// Normal_2
-	0xBB, 0x03,// 443 = "movshdup"
+	0xCD, 0x03,// 461 = "movshdup"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmovshdup_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBB, 0x03,// 443 = "vmovshdup"
+	0xCD, 0x03,// 461 = "vmovshdup"
 
 	// VEX_Vmovshdup_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -4360,23 +4478,23 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movhps_m64_xmm
 	0x01,// Normal_1
-	0xB9, 0x03,// 441 = "movhps"
+	0xCB, 0x03,// 459 = "movhps"
 
 	// VEX_Vmovhps_m64_xmm
 	0x81,// 'v', Normal_1
-	0xB9, 0x03,// 441 = "vmovhps"
+	0xCB, 0x03,// 459 = "vmovhps"
 
 	// EVEX_Vmovhps_m64_xmm
 	0x80,// 'v', Previous
 
 	// Movhpd_m64_xmm
 	0x02,// Normal_2
-	0xBA, 0x03,// 442 = "movhpd"
+	0xCC, 0x03,// 460 = "movhpd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmovhpd_m64_xmm
 	0x81,// 'v', Normal_1
-	0xBA, 0x03,// 442 = "vmovhpd"
+	0xCC, 0x03,// 460 = "vmovhpd"
 
 	// EVEX_Vmovhpd_m64_xmm
 	0x80,// 'v', Previous
@@ -4456,28 +4574,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Prefetchnta_m8
 	0x01,// Normal_1
-	0xBC, 0x03,// 444 = "prefetchnta"
+	0xCE, 0x03,// 462 = "prefetchnta"
 
 	// Prefetcht0_m8
 	0x01,// Normal_1
-	0xBD, 0x03,// 445 = "prefetcht0"
+	0xCF, 0x03,// 463 = "prefetcht0"
 
 	// Prefetcht1_m8
 	0x01,// Normal_1
-	0xBE, 0x03,// 446 = "prefetcht1"
+	0xD0, 0x03,// 464 = "prefetcht1"
 
 	// Prefetcht2_m8
 	0x01,// Normal_1
-	0xBF, 0x03,// 447 = "prefetcht2"
+	0xD1, 0x03,// 465 = "prefetcht2"
 
 	// Bndldx_bnd_mib
 	0x02,// Normal_2
-	0xC0, 0x03,// 448 = "bndldx"
+	0xD2, 0x03,// 466 = "bndldx"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndmov_bnd_bndm64
 	0x02,// Normal_2
-	0xC1, 0x03,// 449 = "bndmov"
+	0xD3, 0x03,// 467 = "bndmov"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndmov_bnd_bndm128
@@ -4485,7 +4603,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bndcl_bnd_rm32
 	0x02,// Normal_2
-	0xC2, 0x03,// 450 = "bndcl"
+	0xD4, 0x03,// 468 = "bndcl"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndcl_bnd_rm64
@@ -4493,7 +4611,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bndcu_bnd_rm32
 	0x02,// Normal_2
-	0xC3, 0x03,// 451 = "bndcu"
+	0xD5, 0x03,// 469 = "bndcu"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndcu_bnd_rm64
@@ -4501,12 +4619,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bndstx_mib_bnd
 	0x02,// Normal_2
-	0xC4, 0x03,// 452 = "bndstx"
+	0xD6, 0x03,// 470 = "bndstx"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndmov_bndm64_bnd
 	0x02,// Normal_2
-	0xC1, 0x03,// 449 = "bndmov"
+	0xD3, 0x03,// 467 = "bndmov"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndmov_bndm128_bnd
@@ -4514,7 +4632,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bndmk_bnd_m32
 	0x02,// Normal_2
-	0xC5, 0x03,// 453 = "bndmk"
+	0xD7, 0x03,// 471 = "bndmk"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndmk_bnd_m64
@@ -4522,7 +4640,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bndcn_bnd_rm32
 	0x02,// Normal_2
-	0xC6, 0x03,// 454 = "bndcn"
+	0xD8, 0x03,// 472 = "bndcn"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Bndcn_bnd_rm64
@@ -4530,28 +4648,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cldemote_m8
 	0x02,// Normal_2
-	0xC7, 0x03,// 455 = "cldemote"
+	0xD9, 0x03,// 473 = "cldemote"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Rdsspd_r32
 	0x01,// Normal_1
-	0xC8, 0x03,// 456 = "rdsspd"
+	0xDA, 0x03,// 474 = "rdsspd"
 
 	// Rdsspq_r64
 	0x01,// Normal_1
-	0xC9, 0x03,// 457 = "rdsspq"
+	0xDB, 0x03,// 475 = "rdsspq"
 
 	// Endbr64
 	0x01,// Normal_1
-	0xCA, 0x03,// 458 = "endbr64"
+	0xDC, 0x03,// 476 = "endbr64"
 
 	// Endbr32
 	0x01,// Normal_1
-	0xCB, 0x03,// 459 = "endbr32"
+	0xDD, 0x03,// 477 = "endbr32"
 
 	// Nop_rm16
 	0x02,// Normal_2
-	0x7E,// 126 = "nop"
+	0xAC, 0x01,// 172 = "nop"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Nop_rm32
@@ -4673,15 +4791,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvtpi2ps_xmm_mmm64
 	0x01,// Normal_1
-	0xCC, 0x03,// 460 = "cvtpi2ps"
+	0xDE, 0x03,// 478 = "cvtpi2ps"
 
 	// Cvtpi2pd_xmm_mmm64
 	0x01,// Normal_1
-	0xCD, 0x03,// 461 = "cvtpi2pd"
+	0xDF, 0x03,// 479 = "cvtpi2pd"
 
 	// Cvtsi2ss_xmm_rm32
 	0x02,// Normal_2
-	0xCE, 0x03,// 462 = "cvtsi2ss"
+	0xE0, 0x03,// 480 = "cvtsi2ss"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Cvtsi2ss_xmm_rm64
@@ -4689,7 +4807,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vcvtsi2ss_xmm_xmm_rm32
 	0x82,// 'v', Normal_2
-	0xCE, 0x03,// 462 = "vcvtsi2ss"
+	0xE0, 0x03,// 480 = "vcvtsi2ss"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// VEX_Vcvtsi2ss_xmm_xmm_rm64
@@ -4697,7 +4815,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtsi2ss_xmm_xmm_rm32_er
 	0x8D,// 'v', er_3
-	0xCE, 0x03,// 462 = "vcvtsi2ss"
+	0xE0, 0x03,// 480 = "vcvtsi2ss"
 	0x02,// 0x2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -4706,7 +4824,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvtsi2sd_xmm_rm32
 	0x02,// Normal_2
-	0xCF, 0x03,// 463 = "cvtsi2sd"
+	0xE1, 0x03,// 481 = "cvtsi2sd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Cvtsi2sd_xmm_rm64
@@ -4714,7 +4832,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vcvtsi2sd_xmm_xmm_rm32
 	0x82,// 'v', Normal_2
-	0xCF, 0x03,// 463 = "vcvtsi2sd"
+	0xE1, 0x03,// 481 = "vcvtsi2sd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// VEX_Vcvtsi2sd_xmm_xmm_rm64
@@ -4722,7 +4840,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
 	0x8D,// 'v', er_3
-	0xCF, 0x03,// 463 = "vcvtsi2sd"
+	0xE1, 0x03,// 481 = "vcvtsi2sd"
 	0x02,// 0x2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -4731,11 +4849,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movntps_m128_xmm
 	0x01,// Normal_1
-	0xD0, 0x03,// 464 = "movntps"
+	0xE2, 0x03,// 482 = "movntps"
 
 	// VEX_Vmovntps_m128_xmm
 	0x81,// 'v', Normal_1
-	0xD0, 0x03,// 464 = "vmovntps"
+	0xE2, 0x03,// 482 = "vmovntps"
 
 	// VEX_Vmovntps_m256_ymm
 	0x80,// 'v', Previous
@@ -4751,11 +4869,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movntpd_m128_xmm
 	0x01,// Normal_1
-	0xD1, 0x03,// 465 = "movntpd"
+	0xE3, 0x03,// 483 = "movntpd"
 
 	// VEX_Vmovntpd_m128_xmm
 	0x81,// 'v', Normal_1
-	0xD1, 0x03,// 465 = "vmovntpd"
+	0xE3, 0x03,// 483 = "vmovntpd"
 
 	// VEX_Vmovntpd_m256_ymm
 	0x80,// 'v', Previous
@@ -4771,37 +4889,37 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movntss_m32_xmm
 	0x01,// Normal_1
-	0xD2, 0x03,// 466 = "movntss"
+	0xE4, 0x03,// 484 = "movntss"
 
 	// Movntsd_m64_xmm
 	0x01,// Normal_1
-	0xD3, 0x03,// 467 = "movntsd"
+	0xE5, 0x03,// 485 = "movntsd"
 
 	// Cvttps2pi_mm_xmmm64
 	0x12,// mmxmem_1
-	0xD4, 0x03,// 468 = "cvttps2pi"
+	0xE6, 0x03,// 486 = "cvttps2pi"
 
 	// Cvttpd2pi_mm_xmmm128
 	0x12,// mmxmem_1
-	0xD5, 0x03,// 469 = "cvttpd2pi"
+	0xE7, 0x03,// 487 = "cvttpd2pi"
 
 	// Cvttss2si_r32_xmmm32
 	0x01,// Normal_1
-	0xD6, 0x03,// 470 = "cvttss2si"
+	0xE8, 0x03,// 488 = "cvttss2si"
 
 	// Cvttss2si_r64_xmmm32
 	0x00,// Previous
 
 	// VEX_Vcvttss2si_r32_xmmm32
 	0x81,// 'v', Normal_1
-	0xD6, 0x03,// 470 = "vcvttss2si"
+	0xE8, 0x03,// 488 = "vcvttss2si"
 
 	// VEX_Vcvttss2si_r64_xmmm32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttss2si_r32_xmmm32_sae
-	0xAC,// 'v', sae
-	0xD6, 0x03,// 470 = "vcvttss2si"
+	0xB4,// 'v', sae
+	0xE8, 0x03,// 488 = "vcvttss2si"
 	0x02,// 0x2
 
 	// EVEX_Vcvttss2si_r64_xmmm32_sae
@@ -4809,21 +4927,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvttsd2si_r32_xmmm64
 	0x01,// Normal_1
-	0xD7, 0x03,// 471 = "cvttsd2si"
+	0xE9, 0x03,// 489 = "cvttsd2si"
 
 	// Cvttsd2si_r64_xmmm64
 	0x00,// Previous
 
 	// VEX_Vcvttsd2si_r32_xmmm64
 	0x81,// 'v', Normal_1
-	0xD7, 0x03,// 471 = "vcvttsd2si"
+	0xE9, 0x03,// 489 = "vcvttsd2si"
 
 	// VEX_Vcvttsd2si_r64_xmmm64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttsd2si_r32_xmmm64_sae
-	0xAC,// 'v', sae
-	0xD7, 0x03,// 471 = "vcvttsd2si"
+	0xB4,// 'v', sae
+	0xE9, 0x03,// 489 = "vcvttsd2si"
 	0x02,// 0x2
 
 	// EVEX_Vcvttsd2si_r64_xmmm64_sae
@@ -4831,29 +4949,29 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvtps2pi_mm_xmmm64
 	0x12,// mmxmem_1
-	0xD8, 0x03,// 472 = "cvtps2pi"
+	0xEA, 0x03,// 490 = "cvtps2pi"
 
 	// Cvtpd2pi_mm_xmmm128
 	0x12,// mmxmem_1
-	0xD9, 0x03,// 473 = "cvtpd2pi"
+	0xEB, 0x03,// 491 = "cvtpd2pi"
 
 	// Cvtss2si_r32_xmmm32
 	0x01,// Normal_1
-	0xDA, 0x03,// 474 = "cvtss2si"
+	0xEC, 0x03,// 492 = "cvtss2si"
 
 	// Cvtss2si_r64_xmmm32
 	0x00,// Previous
 
 	// VEX_Vcvtss2si_r32_xmmm32
 	0x81,// 'v', Normal_1
-	0xDA, 0x03,// 474 = "vcvtss2si"
+	0xEC, 0x03,// 492 = "vcvtss2si"
 
 	// VEX_Vcvtss2si_r64_xmmm32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtss2si_r32_xmmm32_er
 	0x8C,// 'v', er_2
-	0xDA, 0x03,// 474 = "vcvtss2si"
+	0xEC, 0x03,// 492 = "vcvtss2si"
 	0x02,// 0x2
 
 	// EVEX_Vcvtss2si_r64_xmmm32_er
@@ -4861,21 +4979,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvtsd2si_r32_xmmm64
 	0x01,// Normal_1
-	0xDB, 0x03,// 475 = "cvtsd2si"
+	0xED, 0x03,// 493 = "cvtsd2si"
 
 	// Cvtsd2si_r64_xmmm64
 	0x00,// Previous
 
 	// VEX_Vcvtsd2si_r32_xmmm64
 	0x81,// 'v', Normal_1
-	0xDB, 0x03,// 475 = "vcvtsd2si"
+	0xED, 0x03,// 493 = "vcvtsd2si"
 
 	// VEX_Vcvtsd2si_r64_xmmm64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtsd2si_r32_xmmm64_er
 	0x8C,// 'v', er_2
-	0xDB, 0x03,// 475 = "vcvtsd2si"
+	0xED, 0x03,// 493 = "vcvtsd2si"
 	0x02,// 0x2
 
 	// EVEX_Vcvtsd2si_r64_xmmm64_er
@@ -4883,94 +5001,95 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Ucomiss_xmm_xmmm32
 	0x01,// Normal_1
-	0xDC, 0x03,// 476 = "ucomiss"
+	0xEE, 0x03,// 494 = "ucomiss"
 
 	// VEX_Vucomiss_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xDC, 0x03,// 476 = "vucomiss"
+	0xEE, 0x03,// 494 = "vucomiss"
 
 	// EVEX_Vucomiss_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xDC, 0x03,// 476 = "vucomiss"
+	0xB4,// 'v', sae
+	0xEE, 0x03,// 494 = "vucomiss"
 	0x02,// 0x2
 
 	// Ucomisd_xmm_xmmm64
 	0x02,// Normal_2
-	0xDD, 0x03,// 477 = "ucomisd"
+	0xEF, 0x03,// 495 = "ucomisd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vucomisd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xDD, 0x03,// 477 = "vucomisd"
+	0xEF, 0x03,// 495 = "vucomisd"
 
 	// EVEX_Vucomisd_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xDD, 0x03,// 477 = "vucomisd"
+	0xB4,// 'v', sae
+	0xEF, 0x03,// 495 = "vucomisd"
 	0x02,// 0x2
 
 	// Comiss_xmm_xmmm32
 	0x01,// Normal_1
-	0xDE, 0x03,// 478 = "comiss"
+	0xF0, 0x03,// 496 = "comiss"
 
 	// Comisd_xmm_xmmm64
 	0x02,// Normal_2
-	0xDF, 0x03,// 479 = "comisd"
+	0xF1, 0x03,// 497 = "comisd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vcomiss_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xDE, 0x03,// 478 = "vcomiss"
+	0xF0, 0x03,// 496 = "vcomiss"
 
 	// VEX_Vcomisd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xDF, 0x03,// 479 = "vcomisd"
+	0xF1, 0x03,// 497 = "vcomisd"
 
 	// EVEX_Vcomiss_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xDE, 0x03,// 478 = "vcomiss"
+	0xB4,// 'v', sae
+	0xF0, 0x03,// 496 = "vcomiss"
 	0x02,// 0x2
 
 	// EVEX_Vcomisd_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xDF, 0x03,// 479 = "vcomisd"
+	0xB4,// 'v', sae
+	0xF1, 0x03,// 497 = "vcomisd"
 	0x02,// 0x2
 
 	// Wrmsr
 	0x01,// Normal_1
-	0xE0, 0x03,// 480 = "wrmsr"
+	0xF2, 0x03,// 498 = "wrmsr"
 
 	// Rdtsc
 	0x01,// Normal_1
-	0xE1, 0x03,// 481 = "rdtsc"
+	0xF3, 0x03,// 499 = "rdtsc"
 
 	// Rdmsr
 	0x01,// Normal_1
-	0xE2, 0x03,// 482 = "rdmsr"
+	0xF4, 0x03,// 500 = "rdmsr"
 
 	// Rdpmc
 	0x01,// Normal_1
-	0xE3, 0x03,// 483 = "rdpmc"
+	0xF5, 0x03,// 501 = "rdpmc"
 
 	// Sysenter
 	0x01,// Normal_1
-	0xE4, 0x03,// 484 = "sysenter"
+	0xF6, 0x03,// 502 = "sysenter"
 
 	// Sysexitd
 	0x01,// Normal_1
-	0xE5, 0x03,// 485 = "sysexit"
+	0xF7, 0x03,// 503 = "sysexit"
 
 	// Sysexitq
 	0x02,// Normal_2
-	0xE5, 0x03,// 485 = "sysexit"
+	0xF7, 0x03,// 503 = "sysexit"
 	0x18,// 0x18 = OpSize64
 
 	// Getsec
 	0x01,// Normal_1
-	0xE7, 0x03,// 487 = "getsec"
+	0xF9, 0x03,// 505 = "getsec"
 
 	// Cmovo_r16_rm16
-	0x01,// Normal_1
-	0xE8, 0x03,// 488 = "cmovo"
+	0x1F,// CC_1
+	0xFA, 0x03,// 506 = "cmovo"
+	0x00,// 0x0
 
 	// Cmovo_r32_rm32
 	0x00,// Previous
@@ -4979,8 +5098,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovno_r16_rm16
-	0x01,// Normal_1
-	0xE9, 0x03,// 489 = "cmovno"
+	0x1F,// CC_1
+	0xFB, 0x03,// 507 = "cmovno"
+	0x01,// 0x1
 
 	// Cmovno_r32_rm32
 	0x00,// Previous
@@ -4989,8 +5109,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovb_r16_rm16
-	0x01,// Normal_1
-	0xEA, 0x03,// 490 = "cmovb"
+	0x21,// CC_3
+	0xFC, 0x03,// 508 = "cmovb"
+	0xFD, 0x03,// 509 = "cmovc"
+	0xFE, 0x03,// 510 = "cmovnae"
+	0x02,// 0x2
 
 	// Cmovb_r32_rm32
 	0x00,// Previous
@@ -4999,8 +5122,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovae_r16_rm16
-	0x01,// Normal_1
-	0xEB, 0x03,// 491 = "cmovae"
+	0x21,// CC_3
+	0xFF, 0x03,// 511 = "cmovae"
+	0x80, 0x04,// 512 = "cmovnb"
+	0x81, 0x04,// 513 = "cmovnc"
+	0x03,// 0x3
 
 	// Cmovae_r32_rm32
 	0x00,// Previous
@@ -5009,8 +5135,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmove_r16_rm16
-	0x01,// Normal_1
-	0xEC, 0x03,// 492 = "cmove"
+	0x20,// CC_2
+	0x82, 0x04,// 514 = "cmove"
+	0x83, 0x04,// 515 = "cmovz"
+	0x04,// 0x4
 
 	// Cmove_r32_rm32
 	0x00,// Previous
@@ -5019,8 +5147,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovne_r16_rm16
-	0x01,// Normal_1
-	0xED, 0x03,// 493 = "cmovne"
+	0x20,// CC_2
+	0x84, 0x04,// 516 = "cmovne"
+	0x85, 0x04,// 517 = "cmovnz"
+	0x05,// 0x5
 
 	// Cmovne_r32_rm32
 	0x00,// Previous
@@ -5029,8 +5159,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovbe_r16_rm16
-	0x01,// Normal_1
-	0xEE, 0x03,// 494 = "cmovbe"
+	0x20,// CC_2
+	0x86, 0x04,// 518 = "cmovbe"
+	0x87, 0x04,// 519 = "cmovna"
+	0x06,// 0x6
 
 	// Cmovbe_r32_rm32
 	0x00,// Previous
@@ -5039,8 +5171,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmova_r16_rm16
-	0x01,// Normal_1
-	0xEF, 0x03,// 495 = "cmova"
+	0x20,// CC_2
+	0x88, 0x04,// 520 = "cmova"
+	0x89, 0x04,// 521 = "cmovnbe"
+	0x07,// 0x7
 
 	// Cmova_r32_rm32
 	0x00,// Previous
@@ -5049,8 +5183,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovs_r16_rm16
-	0x01,// Normal_1
-	0xF0, 0x03,// 496 = "cmovs"
+	0x1F,// CC_1
+	0x8A, 0x04,// 522 = "cmovs"
+	0x08,// 0x8
 
 	// Cmovs_r32_rm32
 	0x00,// Previous
@@ -5059,8 +5194,9 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovns_r16_rm16
-	0x01,// Normal_1
-	0xF1, 0x03,// 497 = "cmovns"
+	0x1F,// CC_1
+	0x8B, 0x04,// 523 = "cmovns"
+	0x09,// 0x9
 
 	// Cmovns_r32_rm32
 	0x00,// Previous
@@ -5069,8 +5205,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovp_r16_rm16
-	0x01,// Normal_1
-	0xF2, 0x03,// 498 = "cmovp"
+	0x20,// CC_2
+	0x8C, 0x04,// 524 = "cmovp"
+	0x8D, 0x04,// 525 = "cmovpe"
+	0x0A,// 0xA
 
 	// Cmovp_r32_rm32
 	0x00,// Previous
@@ -5079,8 +5217,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovnp_r16_rm16
-	0x01,// Normal_1
-	0xF3, 0x03,// 499 = "cmovnp"
+	0x20,// CC_2
+	0x8E, 0x04,// 526 = "cmovnp"
+	0x8F, 0x04,// 527 = "cmovpo"
+	0x0B,// 0xB
 
 	// Cmovnp_r32_rm32
 	0x00,// Previous
@@ -5089,8 +5229,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovl_r16_rm16
-	0x01,// Normal_1
-	0xF4, 0x03,// 500 = "cmovl"
+	0x20,// CC_2
+	0x90, 0x04,// 528 = "cmovl"
+	0x91, 0x04,// 529 = "cmovnge"
+	0x0C,// 0xC
 
 	// Cmovl_r32_rm32
 	0x00,// Previous
@@ -5099,8 +5241,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovge_r16_rm16
-	0x01,// Normal_1
-	0xF5, 0x03,// 501 = "cmovge"
+	0x20,// CC_2
+	0x92, 0x04,// 530 = "cmovge"
+	0x93, 0x04,// 531 = "cmovnl"
+	0x0D,// 0xD
 
 	// Cmovge_r32_rm32
 	0x00,// Previous
@@ -5109,8 +5253,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovle_r16_rm16
-	0x01,// Normal_1
-	0xF6, 0x03,// 502 = "cmovle"
+	0x20,// CC_2
+	0x94, 0x04,// 532 = "cmovle"
+	0x95, 0x04,// 533 = "cmovng"
+	0x0E,// 0xE
 
 	// Cmovle_r32_rm32
 	0x00,// Previous
@@ -5119,8 +5265,10 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmovg_r16_rm16
-	0x01,// Normal_1
-	0xF7, 0x03,// 503 = "cmovg"
+	0x20,// CC_2
+	0x96, 0x04,// 534 = "cmovg"
+	0x97, 0x04,// 535 = "cmovnle"
+	0x0F,// 0xF
 
 	// Cmovg_r32_rm32
 	0x00,// Previous
@@ -5130,138 +5278,138 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Kandw_k_k_k
 	0x01,// Normal_1
-	0xF8, 0x03,// 504 = "kandw"
+	0x98, 0x04,// 536 = "kandw"
 
 	// VEX_Kandq_k_k_k
 	0x01,// Normal_1
-	0xF9, 0x03,// 505 = "kandq"
+	0x99, 0x04,// 537 = "kandq"
 
 	// VEX_Kandb_k_k_k
 	0x01,// Normal_1
-	0xFA, 0x03,// 506 = "kandb"
+	0x9A, 0x04,// 538 = "kandb"
 
 	// VEX_Kandd_k_k_k
 	0x01,// Normal_1
-	0xFB, 0x03,// 507 = "kandd"
+	0x9B, 0x04,// 539 = "kandd"
 
 	// VEX_Kandnw_k_k_k
 	0x01,// Normal_1
-	0xFC, 0x03,// 508 = "kandnw"
+	0x9C, 0x04,// 540 = "kandnw"
 
 	// VEX_Kandnq_k_k_k
 	0x01,// Normal_1
-	0xFD, 0x03,// 509 = "kandnq"
+	0x9D, 0x04,// 541 = "kandnq"
 
 	// VEX_Kandnb_k_k_k
 	0x01,// Normal_1
-	0xFE, 0x03,// 510 = "kandnb"
+	0x9E, 0x04,// 542 = "kandnb"
 
 	// VEX_Kandnd_k_k_k
 	0x01,// Normal_1
-	0xFF, 0x03,// 511 = "kandnd"
+	0x9F, 0x04,// 543 = "kandnd"
 
 	// VEX_Knotw_k_k
 	0x01,// Normal_1
-	0x80, 0x04,// 512 = "knotw"
+	0xA0, 0x04,// 544 = "knotw"
 
 	// VEX_Knotq_k_k
 	0x01,// Normal_1
-	0x81, 0x04,// 513 = "knotq"
+	0xA1, 0x04,// 545 = "knotq"
 
 	// VEX_Knotb_k_k
 	0x01,// Normal_1
-	0x82, 0x04,// 514 = "knotb"
+	0xA2, 0x04,// 546 = "knotb"
 
 	// VEX_Knotd_k_k
 	0x01,// Normal_1
-	0x83, 0x04,// 515 = "knotd"
+	0xA3, 0x04,// 547 = "knotd"
 
 	// VEX_Korw_k_k_k
 	0x01,// Normal_1
-	0x84, 0x04,// 516 = "korw"
+	0xA4, 0x04,// 548 = "korw"
 
 	// VEX_Korq_k_k_k
 	0x01,// Normal_1
-	0x85, 0x04,// 517 = "korq"
+	0xA5, 0x04,// 549 = "korq"
 
 	// VEX_Korb_k_k_k
 	0x01,// Normal_1
-	0x86, 0x04,// 518 = "korb"
+	0xA6, 0x04,// 550 = "korb"
 
 	// VEX_Kord_k_k_k
 	0x01,// Normal_1
-	0x87, 0x04,// 519 = "kord"
+	0xA7, 0x04,// 551 = "kord"
 
 	// VEX_Kxnorw_k_k_k
 	0x01,// Normal_1
-	0x88, 0x04,// 520 = "kxnorw"
+	0xA8, 0x04,// 552 = "kxnorw"
 
 	// VEX_Kxnorq_k_k_k
 	0x01,// Normal_1
-	0x89, 0x04,// 521 = "kxnorq"
+	0xA9, 0x04,// 553 = "kxnorq"
 
 	// VEX_Kxnorb_k_k_k
 	0x01,// Normal_1
-	0x8A, 0x04,// 522 = "kxnorb"
+	0xAA, 0x04,// 554 = "kxnorb"
 
 	// VEX_Kxnord_k_k_k
 	0x01,// Normal_1
-	0x8B, 0x04,// 523 = "kxnord"
+	0xAB, 0x04,// 555 = "kxnord"
 
 	// VEX_Kxorw_k_k_k
 	0x01,// Normal_1
-	0x8C, 0x04,// 524 = "kxorw"
+	0xAC, 0x04,// 556 = "kxorw"
 
 	// VEX_Kxorq_k_k_k
 	0x01,// Normal_1
-	0x8D, 0x04,// 525 = "kxorq"
+	0xAD, 0x04,// 557 = "kxorq"
 
 	// VEX_Kxorb_k_k_k
 	0x01,// Normal_1
-	0x8E, 0x04,// 526 = "kxorb"
+	0xAE, 0x04,// 558 = "kxorb"
 
 	// VEX_Kxord_k_k_k
 	0x01,// Normal_1
-	0x8F, 0x04,// 527 = "kxord"
+	0xAF, 0x04,// 559 = "kxord"
 
 	// VEX_Kaddw_k_k_k
 	0x01,// Normal_1
-	0x90, 0x04,// 528 = "kaddw"
+	0xB0, 0x04,// 560 = "kaddw"
 
 	// VEX_Kaddq_k_k_k
 	0x01,// Normal_1
-	0x91, 0x04,// 529 = "kaddq"
+	0xB1, 0x04,// 561 = "kaddq"
 
 	// VEX_Kaddb_k_k_k
 	0x01,// Normal_1
-	0x92, 0x04,// 530 = "kaddb"
+	0xB2, 0x04,// 562 = "kaddb"
 
 	// VEX_Kaddd_k_k_k
 	0x01,// Normal_1
-	0x93, 0x04,// 531 = "kaddd"
+	0xB3, 0x04,// 563 = "kaddd"
 
 	// VEX_Kunpckwd_k_k_k
 	0x01,// Normal_1
-	0x94, 0x04,// 532 = "kunpckwd"
+	0xB4, 0x04,// 564 = "kunpckwd"
 
 	// VEX_Kunpckdq_k_k_k
 	0x01,// Normal_1
-	0x95, 0x04,// 533 = "kunpckdq"
+	0xB5, 0x04,// 565 = "kunpckdq"
 
 	// VEX_Kunpckbw_k_k_k
 	0x01,// Normal_1
-	0x96, 0x04,// 534 = "kunpckbw"
+	0xB6, 0x04,// 566 = "kunpckbw"
 
 	// Movmskps_r32_xmm
 	0x01,// Normal_1
-	0x97, 0x04,// 535 = "movmskps"
+	0xB7, 0x04,// 567 = "movmskps"
 
 	// Movmskps_r64_xmm
 	0x00,// Previous
 
 	// VEX_Vmovmskps_r32_xmm
 	0x81,// 'v', Normal_1
-	0x97, 0x04,// 535 = "vmovmskps"
+	0xB7, 0x04,// 567 = "vmovmskps"
 
 	// VEX_Vmovmskps_r64_xmm
 	0x80,// 'v', Previous
@@ -5274,14 +5422,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movmskpd_r32_xmm
 	0x01,// Normal_1
-	0x98, 0x04,// 536 = "movmskpd"
+	0xB8, 0x04,// 568 = "movmskpd"
 
 	// Movmskpd_r64_xmm
 	0x00,// Previous
 
 	// VEX_Vmovmskpd_r32_xmm
 	0x81,// 'v', Normal_1
-	0x98, 0x04,// 536 = "vmovmskpd"
+	0xB8, 0x04,// 568 = "vmovmskpd"
 
 	// VEX_Vmovmskpd_r64_xmm
 	0x80,// 'v', Previous
@@ -5294,11 +5442,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Sqrtps_xmm_xmmm128
 	0x01,// Normal_1
-	0x99, 0x04,// 537 = "sqrtps"
+	0xB9, 0x04,// 569 = "sqrtps"
 
 	// VEX_Vsqrtps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x99, 0x04,// 537 = "vsqrtps"
+	0xB9, 0x04,// 569 = "vsqrtps"
 
 	// VEX_Vsqrtps_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5311,16 +5459,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vsqrtps_zmm_k1z_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x99, 0x04,// 537 = "vsqrtps"
+	0xB9, 0x04,// 569 = "vsqrtps"
 	0x02,// 0x2
 
 	// Sqrtpd_xmm_xmmm128
 	0x01,// Normal_1
-	0x9A, 0x04,// 538 = "sqrtpd"
+	0xBA, 0x04,// 570 = "sqrtpd"
 
 	// VEX_Vsqrtpd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9A, 0x04,// 538 = "vsqrtpd"
+	0xBA, 0x04,// 570 = "vsqrtpd"
 
 	// VEX_Vsqrtpd_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5333,81 +5481,81 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vsqrtpd_zmm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x9A, 0x04,// 538 = "vsqrtpd"
+	0xBA, 0x04,// 570 = "vsqrtpd"
 	0x02,// 0x2
 
 	// Sqrtss_xmm_xmmm32
 	0x01,// Normal_1
-	0x9B, 0x04,// 539 = "sqrtss"
+	0xBB, 0x04,// 571 = "sqrtss"
 
 	// VEX_Vsqrtss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x9B, 0x04,// 539 = "vsqrtss"
+	0xBB, 0x04,// 571 = "vsqrtss"
 
 	// EVEX_Vsqrtss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x9B, 0x04,// 539 = "vsqrtss"
+	0xBB, 0x04,// 571 = "vsqrtss"
 	0x03,// 0x3
 
 	// Sqrtsd_xmm_xmmm64
 	0x02,// Normal_2
-	0x9C, 0x04,// 540 = "sqrtsd"
+	0xBC, 0x04,// 572 = "sqrtsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vsqrtsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x9C, 0x04,// 540 = "vsqrtsd"
+	0xBC, 0x04,// 572 = "vsqrtsd"
 
 	// EVEX_Vsqrtsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x9C, 0x04,// 540 = "vsqrtsd"
+	0xBC, 0x04,// 572 = "vsqrtsd"
 	0x03,// 0x3
 
 	// Rsqrtps_xmm_xmmm128
 	0x01,// Normal_1
-	0x9D, 0x04,// 541 = "rsqrtps"
+	0xBD, 0x04,// 573 = "rsqrtps"
 
 	// VEX_Vrsqrtps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9D, 0x04,// 541 = "vrsqrtps"
+	0xBD, 0x04,// 573 = "vrsqrtps"
 
 	// VEX_Vrsqrtps_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Rsqrtss_xmm_xmmm32
 	0x01,// Normal_1
-	0x9E, 0x04,// 542 = "rsqrtss"
+	0xBE, 0x04,// 574 = "rsqrtss"
 
 	// VEX_Vrsqrtss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x9E, 0x04,// 542 = "vrsqrtss"
+	0xBE, 0x04,// 574 = "vrsqrtss"
 
 	// Rcpps_xmm_xmmm128
 	0x01,// Normal_1
-	0x9F, 0x04,// 543 = "rcpps"
+	0xBF, 0x04,// 575 = "rcpps"
 
 	// VEX_Vrcpps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9F, 0x04,// 543 = "vrcpps"
+	0xBF, 0x04,// 575 = "vrcpps"
 
 	// VEX_Vrcpps_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Rcpss_xmm_xmmm32
 	0x01,// Normal_1
-	0xA0, 0x04,// 544 = "rcpss"
+	0xC0, 0x04,// 576 = "rcpss"
 
 	// VEX_Vrcpss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xA0, 0x04,// 544 = "vrcpss"
+	0xC0, 0x04,// 576 = "vrcpss"
 
 	// Andps_xmm_xmmm128
 	0x01,// Normal_1
-	0xA1, 0x04,// 545 = "andps"
+	0xC1, 0x04,// 577 = "andps"
 
 	// VEX_Vandps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA1, 0x04,// 545 = "vandps"
+	0xC1, 0x04,// 577 = "vandps"
 
 	// VEX_Vandps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5423,11 +5571,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Andpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xA2, 0x04,// 546 = "andpd"
+	0xC2, 0x04,// 578 = "andpd"
 
 	// VEX_Vandpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA2, 0x04,// 546 = "vandpd"
+	0xC2, 0x04,// 578 = "vandpd"
 
 	// VEX_Vandpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5443,11 +5591,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Andnps_xmm_xmmm128
 	0x01,// Normal_1
-	0xA3, 0x04,// 547 = "andnps"
+	0xC3, 0x04,// 579 = "andnps"
 
 	// VEX_Vandnps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA3, 0x04,// 547 = "vandnps"
+	0xC3, 0x04,// 579 = "vandnps"
 
 	// VEX_Vandnps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5463,11 +5611,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Andnpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xA4, 0x04,// 548 = "andnpd"
+	0xC4, 0x04,// 580 = "andnpd"
 
 	// VEX_Vandnpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA4, 0x04,// 548 = "vandnpd"
+	0xC4, 0x04,// 580 = "vandnpd"
 
 	// VEX_Vandnpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5483,11 +5631,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Orps_xmm_xmmm128
 	0x01,// Normal_1
-	0xA5, 0x04,// 549 = "orps"
+	0xC5, 0x04,// 581 = "orps"
 
 	// VEX_Vorps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA5, 0x04,// 549 = "vorps"
+	0xC5, 0x04,// 581 = "vorps"
 
 	// VEX_Vorps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5503,11 +5651,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Orpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xA6, 0x04,// 550 = "orpd"
+	0xC6, 0x04,// 582 = "orpd"
 
 	// VEX_Vorpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA6, 0x04,// 550 = "vorpd"
+	0xC6, 0x04,// 582 = "vorpd"
 
 	// VEX_Vorpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5523,11 +5671,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xorps_xmm_xmmm128
 	0x01,// Normal_1
-	0xA7, 0x04,// 551 = "xorps"
+	0xC7, 0x04,// 583 = "xorps"
 
 	// VEX_Vxorps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA7, 0x04,// 551 = "vxorps"
+	0xC7, 0x04,// 583 = "vxorps"
 
 	// VEX_Vxorps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5543,11 +5691,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xorpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xA8, 0x04,// 552 = "xorpd"
+	0xC8, 0x04,// 584 = "xorpd"
 
 	// VEX_Vxorpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA8, 0x04,// 552 = "vxorpd"
+	0xC8, 0x04,// 584 = "vxorpd"
 
 	// VEX_Vxorpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5563,11 +5711,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Addps_xmm_xmmm128
 	0x01,// Normal_1
-	0xA9, 0x04,// 553 = "addps"
+	0xC9, 0x04,// 585 = "addps"
 
 	// VEX_Vaddps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA9, 0x04,// 553 = "vaddps"
+	0xC9, 0x04,// 585 = "vaddps"
 
 	// VEX_Vaddps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5580,16 +5728,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vaddps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xA9, 0x04,// 553 = "vaddps"
+	0xC9, 0x04,// 585 = "vaddps"
 	0x03,// 0x3
 
 	// Addpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xAA, 0x04,// 554 = "addpd"
+	0xCA, 0x04,// 586 = "addpd"
 
 	// VEX_Vaddpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAA, 0x04,// 554 = "vaddpd"
+	0xCA, 0x04,// 586 = "vaddpd"
 
 	// VEX_Vaddpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5602,42 +5750,42 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vaddpd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xAA, 0x04,// 554 = "vaddpd"
+	0xCA, 0x04,// 586 = "vaddpd"
 	0x03,// 0x3
 
 	// Addss_xmm_xmmm32
 	0x01,// Normal_1
-	0xAB, 0x04,// 555 = "addss"
+	0xCB, 0x04,// 587 = "addss"
 
 	// VEX_Vaddss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xAB, 0x04,// 555 = "vaddss"
+	0xCB, 0x04,// 587 = "vaddss"
 
 	// EVEX_Vaddss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xAB, 0x04,// 555 = "vaddss"
+	0xCB, 0x04,// 587 = "vaddss"
 	0x03,// 0x3
 
 	// Addsd_xmm_xmmm64
 	0x01,// Normal_1
-	0xAC, 0x04,// 556 = "addsd"
+	0xCC, 0x04,// 588 = "addsd"
 
 	// VEX_Vaddsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xAC, 0x04,// 556 = "vaddsd"
+	0xCC, 0x04,// 588 = "vaddsd"
 
 	// EVEX_Vaddsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xAC, 0x04,// 556 = "vaddsd"
+	0xCC, 0x04,// 588 = "vaddsd"
 	0x03,// 0x3
 
 	// Mulps_xmm_xmmm128
 	0x01,// Normal_1
-	0xAD, 0x04,// 557 = "mulps"
+	0xCD, 0x04,// 589 = "mulps"
 
 	// VEX_Vmulps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAD, 0x04,// 557 = "vmulps"
+	0xCD, 0x04,// 589 = "vmulps"
 
 	// VEX_Vmulps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5650,16 +5798,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmulps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xAD, 0x04,// 557 = "vmulps"
+	0xCD, 0x04,// 589 = "vmulps"
 	0x03,// 0x3
 
 	// Mulpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xAE, 0x04,// 558 = "mulpd"
+	0xCE, 0x04,// 590 = "mulpd"
 
 	// VEX_Vmulpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAE, 0x04,// 558 = "vmulpd"
+	0xCE, 0x04,// 590 = "vmulpd"
 
 	// VEX_Vmulpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5672,43 +5820,43 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmulpd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xAE, 0x04,// 558 = "vmulpd"
+	0xCE, 0x04,// 590 = "vmulpd"
 	0x03,// 0x3
 
 	// Mulss_xmm_xmmm32
 	0x01,// Normal_1
-	0xAF, 0x04,// 559 = "mulss"
+	0xCF, 0x04,// 591 = "mulss"
 
 	// VEX_Vmulss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xAF, 0x04,// 559 = "vmulss"
+	0xCF, 0x04,// 591 = "vmulss"
 
 	// EVEX_Vmulss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xAF, 0x04,// 559 = "vmulss"
+	0xCF, 0x04,// 591 = "vmulss"
 	0x03,// 0x3
 
 	// Mulsd_xmm_xmmm64
 	0x02,// Normal_2
-	0xB0, 0x04,// 560 = "mulsd"
+	0xD0, 0x04,// 592 = "mulsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmulsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xB0, 0x04,// 560 = "vmulsd"
+	0xD0, 0x04,// 592 = "vmulsd"
 
 	// EVEX_Vmulsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xB0, 0x04,// 560 = "vmulsd"
+	0xD0, 0x04,// 592 = "vmulsd"
 	0x03,// 0x3
 
 	// Cvtps2pd_xmm_xmmm64
 	0x01,// Normal_1
-	0xB1, 0x04,// 561 = "cvtps2pd"
+	0xD1, 0x04,// 593 = "cvtps2pd"
 
 	// VEX_Vcvtps2pd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xB1, 0x04,// 561 = "vcvtps2pd"
+	0xD1, 0x04,// 593 = "vcvtps2pd"
 
 	// VEX_Vcvtps2pd_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -5720,17 +5868,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2pd_zmm_k1z_ymmm256b32_sae
-	0xAC,// 'v', sae
-	0xB1, 0x04,// 561 = "vcvtps2pd"
+	0xB4,// 'v', sae
+	0xD1, 0x04,// 593 = "vcvtps2pd"
 	0x02,// 0x2
 
 	// Cvtpd2ps_xmm_xmmm128
 	0x01,// Normal_1
-	0xB2, 0x04,// 562 = "cvtpd2ps"
+	0xD2, 0x04,// 594 = "cvtpd2ps"
 
 	// VEX_Vcvtpd2ps_xmm_xmmm128
 	0x82,// 'v', Normal_2
-	0xB2, 0x04,// 562 = "vcvtpd2ps"
+	0xD2, 0x04,// 594 = "vcvtpd2ps"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// VEX_Vcvtpd2ps_xmm_ymmm256
@@ -5738,7 +5886,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0xB2, 0x04,// 562 = "vcvtpd2ps"
+	0xD2, 0x04,// 594 = "vcvtpd2ps"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -5747,42 +5895,42 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtpd2ps_ymm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xB2, 0x04,// 562 = "vcvtpd2ps"
+	0xD2, 0x04,// 594 = "vcvtpd2ps"
 	0x02,// 0x2
 
 	// Cvtss2sd_xmm_xmmm32
 	0x01,// Normal_1
-	0xB3, 0x04,// 563 = "cvtss2sd"
+	0xD3, 0x04,// 595 = "cvtss2sd"
 
 	// VEX_Vcvtss2sd_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xB3, 0x04,// 563 = "vcvtss2sd"
+	0xD3, 0x04,// 595 = "vcvtss2sd"
 
 	// EVEX_Vcvtss2sd_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xB3, 0x04,// 563 = "vcvtss2sd"
+	0xB4,// 'v', sae
+	0xD3, 0x04,// 595 = "vcvtss2sd"
 	0x03,// 0x3
 
 	// Cvtsd2ss_xmm_xmmm64
 	0x01,// Normal_1
-	0xB4, 0x04,// 564 = "cvtsd2ss"
+	0xD4, 0x04,// 596 = "cvtsd2ss"
 
 	// VEX_Vcvtsd2ss_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xB4, 0x04,// 564 = "vcvtsd2ss"
+	0xD4, 0x04,// 596 = "vcvtsd2ss"
 
 	// EVEX_Vcvtsd2ss_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xB4, 0x04,// 564 = "vcvtsd2ss"
+	0xD4, 0x04,// 596 = "vcvtsd2ss"
 	0x03,// 0x3
 
 	// Cvtdq2ps_xmm_xmmm128
 	0x01,// Normal_1
-	0xB5, 0x04,// 565 = "cvtdq2ps"
+	0xD5, 0x04,// 597 = "cvtdq2ps"
 
 	// VEX_Vcvtdq2ps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB5, 0x04,// 565 = "vcvtdq2ps"
+	0xD5, 0x04,// 597 = "vcvtdq2ps"
 
 	// VEX_Vcvtdq2ps_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5795,12 +5943,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtdq2ps_zmm_k1z_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xB5, 0x04,// 565 = "vcvtdq2ps"
+	0xD5, 0x04,// 597 = "vcvtdq2ps"
 	0x02,// 0x2
 
 	// EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0xB6, 0x04,// 566 = "vcvtqq2ps"
+	0xD6, 0x04,// 598 = "vcvtqq2ps"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -5809,16 +5957,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtqq2ps_ymm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xB6, 0x04,// 566 = "vcvtqq2ps"
+	0xD6, 0x04,// 598 = "vcvtqq2ps"
 	0x02,// 0x2
 
 	// Cvtps2dq_xmm_xmmm128
 	0x01,// Normal_1
-	0xB7, 0x04,// 567 = "cvtps2dq"
+	0xD7, 0x04,// 599 = "cvtps2dq"
 
 	// VEX_Vcvtps2dq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB7, 0x04,// 567 = "vcvtps2dq"
+	0xD7, 0x04,// 599 = "vcvtps2dq"
 
 	// VEX_Vcvtps2dq_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5831,16 +5979,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtps2dq_zmm_k1z_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xB7, 0x04,// 567 = "vcvtps2dq"
+	0xD7, 0x04,// 599 = "vcvtps2dq"
 	0x02,// 0x2
 
 	// Cvttps2dq_xmm_xmmm128
 	0x01,// Normal_1
-	0xB8, 0x04,// 568 = "cvttps2dq"
+	0xD8, 0x04,// 600 = "cvttps2dq"
 
 	// VEX_Vcvttps2dq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB8, 0x04,// 568 = "vcvttps2dq"
+	0xD8, 0x04,// 600 = "vcvttps2dq"
 
 	// VEX_Vcvttps2dq_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5852,17 +6000,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2dq_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xB8, 0x04,// 568 = "vcvttps2dq"
+	0xB4,// 'v', sae
+	0xD8, 0x04,// 600 = "vcvttps2dq"
 	0x02,// 0x2
 
 	// Subps_xmm_xmmm128
 	0x01,// Normal_1
-	0xB9, 0x04,// 569 = "subps"
+	0xD9, 0x04,// 601 = "subps"
 
 	// VEX_Vsubps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB9, 0x04,// 569 = "vsubps"
+	0xD9, 0x04,// 601 = "vsubps"
 
 	// VEX_Vsubps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5875,16 +6023,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vsubps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xB9, 0x04,// 569 = "vsubps"
+	0xD9, 0x04,// 601 = "vsubps"
 	0x03,// 0x3
 
 	// Subpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xBA, 0x04,// 570 = "subpd"
+	0xDA, 0x04,// 602 = "subpd"
 
 	// VEX_Vsubpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBA, 0x04,// 570 = "vsubpd"
+	0xDA, 0x04,// 602 = "vsubpd"
 
 	// VEX_Vsubpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5897,43 +6045,43 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vsubpd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xBA, 0x04,// 570 = "vsubpd"
+	0xDA, 0x04,// 602 = "vsubpd"
 	0x03,// 0x3
 
 	// Subss_xmm_xmmm32
 	0x01,// Normal_1
-	0xBB, 0x04,// 571 = "subss"
+	0xDB, 0x04,// 603 = "subss"
 
 	// VEX_Vsubss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xBB, 0x04,// 571 = "vsubss"
+	0xDB, 0x04,// 603 = "vsubss"
 
 	// EVEX_Vsubss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xBB, 0x04,// 571 = "vsubss"
+	0xDB, 0x04,// 603 = "vsubss"
 	0x03,// 0x3
 
 	// Subsd_xmm_xmmm64
 	0x02,// Normal_2
-	0xBC, 0x04,// 572 = "subsd"
+	0xDC, 0x04,// 604 = "subsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vsubsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xBC, 0x04,// 572 = "vsubsd"
+	0xDC, 0x04,// 604 = "vsubsd"
 
 	// EVEX_Vsubsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xBC, 0x04,// 572 = "vsubsd"
+	0xDC, 0x04,// 604 = "vsubsd"
 	0x03,// 0x3
 
 	// Minps_xmm_xmmm128
 	0x01,// Normal_1
-	0xBD, 0x04,// 573 = "minps"
+	0xDD, 0x04,// 605 = "minps"
 
 	// VEX_Vminps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBD, 0x04,// 573 = "vminps"
+	0xDD, 0x04,// 605 = "vminps"
 
 	// VEX_Vminps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5945,17 +6093,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vminps_zmm_k1z_zmm_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xBD, 0x04,// 573 = "vminps"
+	0xB4,// 'v', sae
+	0xDD, 0x04,// 605 = "vminps"
 	0x03,// 0x3
 
 	// Minpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xBE, 0x04,// 574 = "minpd"
+	0xDE, 0x04,// 606 = "minpd"
 
 	// VEX_Vminpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBE, 0x04,// 574 = "vminpd"
+	0xDE, 0x04,// 606 = "vminpd"
 
 	// VEX_Vminpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -5967,44 +6115,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vminpd_zmm_k1z_zmm_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xBE, 0x04,// 574 = "vminpd"
+	0xB4,// 'v', sae
+	0xDE, 0x04,// 606 = "vminpd"
 	0x03,// 0x3
 
 	// Minss_xmm_xmmm32
 	0x01,// Normal_1
-	0xBF, 0x04,// 575 = "minss"
+	0xDF, 0x04,// 607 = "minss"
 
 	// VEX_Vminss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xBF, 0x04,// 575 = "vminss"
+	0xDF, 0x04,// 607 = "vminss"
 
 	// EVEX_Vminss_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xBF, 0x04,// 575 = "vminss"
+	0xB4,// 'v', sae
+	0xDF, 0x04,// 607 = "vminss"
 	0x03,// 0x3
 
 	// Minsd_xmm_xmmm64
 	0x02,// Normal_2
-	0xC0, 0x04,// 576 = "minsd"
+	0xE0, 0x04,// 608 = "minsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vminsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xC0, 0x04,// 576 = "vminsd"
+	0xE0, 0x04,// 608 = "vminsd"
 
 	// EVEX_Vminsd_xmm_k1z_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xC0, 0x04,// 576 = "vminsd"
+	0xB4,// 'v', sae
+	0xE0, 0x04,// 608 = "vminsd"
 	0x03,// 0x3
 
 	// Divps_xmm_xmmm128
 	0x01,// Normal_1
-	0xC1, 0x04,// 577 = "divps"
+	0xE1, 0x04,// 609 = "divps"
 
 	// VEX_Vdivps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC1, 0x04,// 577 = "vdivps"
+	0xE1, 0x04,// 609 = "vdivps"
 
 	// VEX_Vdivps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6017,16 +6165,16 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vdivps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xC1, 0x04,// 577 = "vdivps"
+	0xE1, 0x04,// 609 = "vdivps"
 	0x03,// 0x3
 
 	// Divpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xC2, 0x04,// 578 = "divpd"
+	0xE2, 0x04,// 610 = "divpd"
 
 	// VEX_Vdivpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC2, 0x04,// 578 = "vdivpd"
+	0xE2, 0x04,// 610 = "vdivpd"
 
 	// VEX_Vdivpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6039,43 +6187,43 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vdivpd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xC2, 0x04,// 578 = "vdivpd"
+	0xE2, 0x04,// 610 = "vdivpd"
 	0x03,// 0x3
 
 	// Divss_xmm_xmmm32
 	0x01,// Normal_1
-	0xC3, 0x04,// 579 = "divss"
+	0xE3, 0x04,// 611 = "divss"
 
 	// VEX_Vdivss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xC3, 0x04,// 579 = "vdivss"
+	0xE3, 0x04,// 611 = "vdivss"
 
 	// EVEX_Vdivss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xC3, 0x04,// 579 = "vdivss"
+	0xE3, 0x04,// 611 = "vdivss"
 	0x03,// 0x3
 
 	// Divsd_xmm_xmmm64
 	0x02,// Normal_2
-	0xC4, 0x04,// 580 = "divsd"
+	0xE4, 0x04,// 612 = "divsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vdivsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xC4, 0x04,// 580 = "vdivsd"
+	0xE4, 0x04,// 612 = "vdivsd"
 
 	// EVEX_Vdivsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xC4, 0x04,// 580 = "vdivsd"
+	0xE4, 0x04,// 612 = "vdivsd"
 	0x03,// 0x3
 
 	// Maxps_xmm_xmmm128
 	0x01,// Normal_1
-	0xC5, 0x04,// 581 = "maxps"
+	0xE5, 0x04,// 613 = "maxps"
 
 	// VEX_Vmaxps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC5, 0x04,// 581 = "vmaxps"
+	0xE5, 0x04,// 613 = "vmaxps"
 
 	// VEX_Vmaxps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6087,17 +6235,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmaxps_zmm_k1z_zmm_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xC5, 0x04,// 581 = "vmaxps"
+	0xB4,// 'v', sae
+	0xE5, 0x04,// 613 = "vmaxps"
 	0x03,// 0x3
 
 	// Maxpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xC6, 0x04,// 582 = "maxpd"
+	0xE6, 0x04,// 614 = "maxpd"
 
 	// VEX_Vmaxpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC6, 0x04,// 582 = "vmaxpd"
+	0xE6, 0x04,// 614 = "vmaxpd"
 
 	// VEX_Vmaxpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6109,35 +6257,35 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vmaxpd_zmm_k1z_zmm_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xC6, 0x04,// 582 = "vmaxpd"
+	0xB4,// 'v', sae
+	0xE6, 0x04,// 614 = "vmaxpd"
 	0x03,// 0x3
 
 	// Maxss_xmm_xmmm32
 	0x01,// Normal_1
-	0xC7, 0x04,// 583 = "maxss"
+	0xE7, 0x04,// 615 = "maxss"
 
 	// VEX_Vmaxss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xC7, 0x04,// 583 = "vmaxss"
+	0xE7, 0x04,// 615 = "vmaxss"
 
 	// EVEX_Vmaxss_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xC7, 0x04,// 583 = "vmaxss"
+	0xB4,// 'v', sae
+	0xE7, 0x04,// 615 = "vmaxss"
 	0x03,// 0x3
 
 	// Maxsd_xmm_xmmm64
 	0x02,// Normal_2
-	0xC8, 0x04,// 584 = "maxsd"
+	0xE8, 0x04,// 616 = "maxsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmaxsd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xC8, 0x04,// 584 = "vmaxsd"
+	0xE8, 0x04,// 616 = "vmaxsd"
 
 	// EVEX_Vmaxsd_xmm_k1z_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xC8, 0x04,// 584 = "vmaxsd"
+	0xB4,// 'v', sae
+	0xE8, 0x04,// 616 = "vmaxsd"
 	0x03,// 0x3
 
 	// Punpcklbw_mm_mmm32
@@ -6436,11 +6584,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Punpcklqdq_xmm_xmmm128
 	0x01,// Normal_1
-	0xC9, 0x04,// 585 = "punpcklqdq"
+	0xE9, 0x04,// 617 = "punpcklqdq"
 
 	// VEX_Vpunpcklqdq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC9, 0x04,// 585 = "vpunpcklqdq"
+	0xE9, 0x04,// 617 = "vpunpcklqdq"
 
 	// VEX_Vpunpcklqdq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6456,11 +6604,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Punpckhqdq_xmm_xmmm128
 	0x01,// Normal_1
-	0xCA, 0x04,// 586 = "punpckhqdq"
+	0xEA, 0x04,// 618 = "punpckhqdq"
 
 	// VEX_Vpunpckhqdq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCA, 0x04,// 586 = "vpunpckhqdq"
+	0xEA, 0x04,// 618 = "vpunpckhqdq"
 
 	// VEX_Vpunpckhqdq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -6512,18 +6660,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movdqa_xmm_xmmm128
 	0x01,// Normal_1
-	0xCB, 0x04,// 587 = "movdqa"
+	0xEB, 0x04,// 619 = "movdqa"
 
 	// VEX_Vmovdqa_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCB, 0x04,// 587 = "vmovdqa"
+	0xEB, 0x04,// 619 = "vmovdqa"
 
 	// VEX_Vmovdqa_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqa32_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCC, 0x04,// 588 = "vmovdqa32"
+	0xEC, 0x04,// 620 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6533,7 +6681,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqa64_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCD, 0x04,// 589 = "vmovdqa64"
+	0xED, 0x04,// 621 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6543,18 +6691,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movdqu_xmm_xmmm128
 	0x01,// Normal_1
-	0xCE, 0x04,// 590 = "movdqu"
+	0xEE, 0x04,// 622 = "movdqu"
 
 	// VEX_Vmovdqu_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCE, 0x04,// 590 = "vmovdqu"
+	0xEE, 0x04,// 622 = "vmovdqu"
 
 	// VEX_Vmovdqu_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqu32_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCF, 0x04,// 591 = "vmovdqu32"
+	0xEF, 0x04,// 623 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6564,7 +6712,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu64_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xD0, 0x04,// 592 = "vmovdqu64"
+	0xF0, 0x04,// 624 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6574,7 +6722,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu8_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xD1, 0x04,// 593 = "vmovdqu8"
+	0xF1, 0x04,// 625 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6584,7 +6732,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu16_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xD2, 0x04,// 594 = "vmovdqu16"
+	0xF2, 0x04,// 626 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -6594,17 +6742,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pshufw_mm_mmm64_imm8
 	0x13,// mmxmem_2
-	0xD3, 0x04,// 595 = "pshufw"
+	0xF3, 0x04,// 627 = "pshufw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Pshufd_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xD4, 0x04,// 596 = "pshufd"
+	0xF4, 0x04,// 628 = "pshufd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpshufd_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xD4, 0x04,// 596 = "vpshufd"
+	0xF4, 0x04,// 628 = "vpshufd"
 
 	// VEX_Vpshufd_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -6620,12 +6768,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pshufhw_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xD5, 0x04,// 597 = "pshufhw"
+	0xF5, 0x04,// 629 = "pshufhw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpshufhw_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xD5, 0x04,// 597 = "vpshufhw"
+	0xF5, 0x04,// 629 = "vpshufhw"
 
 	// VEX_Vpshufhw_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -6641,12 +6789,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pshuflw_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xD6, 0x04,// 598 = "pshuflw"
+	0xF6, 0x04,// 630 = "pshuflw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpshuflw_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xD6, 0x04,// 598 = "vpshuflw"
+	0xF6, 0x04,// 630 = "vpshuflw"
 
 	// VEX_Vpshuflw_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -6731,7 +6879,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprord_xmm_k1z_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xD7, 0x04,// 599 = "vprord"
+	0xF7, 0x04,// 631 = "vprord"
 
 	// EVEX_Vprord_ymm_k1z_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -6741,7 +6889,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprorq_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xD8, 0x04,// 600 = "vprorq"
+	0xF8, 0x04,// 632 = "vprorq"
 
 	// EVEX_Vprorq_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -6751,7 +6899,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprold_xmm_k1z_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xD9, 0x04,// 601 = "vprold"
+	0xF9, 0x04,// 633 = "vprold"
 
 	// EVEX_Vprold_ymm_k1z_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -6761,7 +6909,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprolq_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xDA, 0x04,// 602 = "vprolq"
+	0xFA, 0x04,// 634 = "vprolq"
 
 	// EVEX_Vprolq_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -6817,7 +6965,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsraq_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xDB, 0x04,// 603 = "vpsraq"
+	0xFB, 0x04,// 635 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -6873,11 +7021,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Psrldq_xmm_imm8
 	0x01,// Normal_1
-	0xDC, 0x04,// 604 = "psrldq"
+	0xFC, 0x04,// 636 = "psrldq"
 
 	// VEX_Vpsrldq_xmm_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xDC, 0x04,// 604 = "vpsrldq"
+	0xFC, 0x04,// 636 = "vpsrldq"
 
 	// VEX_Vpsrldq_ymm_ymm_imm8
 	0x80,// 'v', Previous
@@ -6916,11 +7064,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pslldq_xmm_imm8
 	0x01,// Normal_1
-	0xDD, 0x04,// 605 = "pslldq"
+	0xFD, 0x04,// 637 = "pslldq"
 
 	// VEX_Vpslldq_xmm_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xDD, 0x04,// 605 = "vpslldq"
+	0xFD, 0x04,// 637 = "vpslldq"
 
 	// VEX_Vpslldq_ymm_ymm_imm8
 	0x80,// 'v', Previous
@@ -7008,38 +7156,38 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Emms
 	0x01,// Normal_1
-	0xDE, 0x04,// 606 = "emms"
+	0xFE, 0x04,// 638 = "emms"
 
 	// VEX_Vzeroupper
 	0x81,// 'v', Normal_1
-	0xDF, 0x04,// 607 = "vzeroupper"
+	0xFF, 0x04,// 639 = "vzeroupper"
 
 	// VEX_Vzeroall
 	0x81,// 'v', Normal_1
-	0xE0, 0x04,// 608 = "vzeroall"
+	0x80, 0x05,// 640 = "vzeroall"
 
 	// Vmread_rm32_r32
 	0x81,// 'v', Normal_1
-	0xE1, 0x04,// 609 = "vmread"
+	0x81, 0x05,// 641 = "vmread"
 
 	// Vmread_rm64_r64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2udq_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xE2, 0x04,// 610 = "vcvttps2udq"
+	0x82, 0x05,// 642 = "vcvttps2udq"
 
 	// EVEX_Vcvttps2udq_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2udq_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xE2, 0x04,// 610 = "vcvttps2udq"
+	0xB4,// 'v', sae
+	0x82, 0x05,// 642 = "vcvttps2udq"
 	0x02,// 0x2
 
 	// EVEX_Vcvttpd2udq_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0xE3, 0x04,// 611 = "vcvttpd2udq"
+	0x83, 0x05,// 643 = "vcvttpd2udq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -7047,41 +7195,41 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2udq_ymm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xE3, 0x04,// 611 = "vcvttpd2udq"
+	0xB4,// 'v', sae
+	0x83, 0x05,// 643 = "vcvttpd2udq"
 	0x02,// 0x2
 
 	// Extrq_xmm_imm8_imm8
 	0x01,// Normal_1
-	0xE4, 0x04,// 612 = "extrq"
+	0x84, 0x05,// 644 = "extrq"
 
 	// EVEX_Vcvttps2uqq_xmm_k1z_xmmm64b32
 	0x81,// 'v', Normal_1
-	0xE5, 0x04,// 613 = "vcvttps2uqq"
+	0x85, 0x05,// 645 = "vcvttps2uqq"
 
 	// EVEX_Vcvttps2uqq_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2uqq_zmm_k1z_ymmm256b32_sae
-	0xAC,// 'v', sae
-	0xE5, 0x04,// 613 = "vcvttps2uqq"
+	0xB4,// 'v', sae
+	0x85, 0x05,// 645 = "vcvttps2uqq"
 	0x02,// 0x2
 
 	// EVEX_Vcvttpd2uqq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xE6, 0x04,// 614 = "vcvttpd2uqq"
+	0x86, 0x05,// 646 = "vcvttpd2uqq"
 
 	// EVEX_Vcvttpd2uqq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2uqq_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xE6, 0x04,// 614 = "vcvttpd2uqq"
+	0xB4,// 'v', sae
+	0x86, 0x05,// 646 = "vcvttpd2uqq"
 	0x02,// 0x2
 
 	// EVEX_Vcvttss2usi_r32_xmmm32_sae
-	0xAC,// 'v', sae
-	0xE7, 0x04,// 615 = "vcvttss2usi"
+	0xB4,// 'v', sae
+	0x87, 0x05,// 647 = "vcvttss2usi"
 	0x02,// 0x2
 
 	// EVEX_Vcvttss2usi_r64_xmmm32_sae
@@ -7089,11 +7237,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Insertq_xmm_xmm_imm8_imm8
 	0x01,// Normal_1
-	0xE8, 0x04,// 616 = "insertq"
+	0x88, 0x05,// 648 = "insertq"
 
 	// EVEX_Vcvttsd2usi_r32_xmmm64_sae
-	0xAC,// 'v', sae
-	0xE9, 0x04,// 617 = "vcvttsd2usi"
+	0xB4,// 'v', sae
+	0x89, 0x05,// 649 = "vcvttsd2usi"
 	0x02,// 0x2
 
 	// EVEX_Vcvttsd2usi_r64_xmmm64_sae
@@ -7101,26 +7249,26 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Vmwrite_r32_rm32
 	0x81,// 'v', Normal_1
-	0xEA, 0x04,// 618 = "vmwrite"
+	0x8A, 0x05,// 650 = "vmwrite"
 
 	// Vmwrite_r64_rm64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2udq_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xEB, 0x04,// 619 = "vcvtps2udq"
+	0x8B, 0x05,// 651 = "vcvtps2udq"
 
 	// EVEX_Vcvtps2udq_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2udq_zmm_k1z_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xEB, 0x04,// 619 = "vcvtps2udq"
+	0x8B, 0x05,// 651 = "vcvtps2udq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtpd2udq_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0xEC, 0x04,// 620 = "vcvtpd2udq"
+	0x8C, 0x05,// 652 = "vcvtpd2udq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -7129,40 +7277,40 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtpd2udq_ymm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xEC, 0x04,// 620 = "vcvtpd2udq"
+	0x8C, 0x05,// 652 = "vcvtpd2udq"
 	0x02,// 0x2
 
 	// Extrq_xmm_xmm
 	0x01,// Normal_1
-	0xE4, 0x04,// 612 = "extrq"
+	0x84, 0x05,// 644 = "extrq"
 
 	// EVEX_Vcvtps2uqq_xmm_k1z_xmmm64b32
 	0x81,// 'v', Normal_1
-	0xED, 0x04,// 621 = "vcvtps2uqq"
+	0x8D, 0x05,// 653 = "vcvtps2uqq"
 
 	// EVEX_Vcvtps2uqq_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2uqq_zmm_k1z_ymmm256b32_er
 	0x8C,// 'v', er_2
-	0xED, 0x04,// 621 = "vcvtps2uqq"
+	0x8D, 0x05,// 653 = "vcvtps2uqq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtpd2uqq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xEE, 0x04,// 622 = "vcvtpd2uqq"
+	0x8E, 0x05,// 654 = "vcvtpd2uqq"
 
 	// EVEX_Vcvtpd2uqq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtpd2uqq_zmm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xEE, 0x04,// 622 = "vcvtpd2uqq"
+	0x8E, 0x05,// 654 = "vcvtpd2uqq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtss2usi_r32_xmmm32_er
 	0x8C,// 'v', er_2
-	0xEF, 0x04,// 623 = "vcvtss2usi"
+	0x8F, 0x05,// 655 = "vcvtss2usi"
 	0x02,// 0x2
 
 	// EVEX_Vcvtss2usi_r64_xmmm32_er
@@ -7170,11 +7318,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Insertq_xmm_xmm
 	0x01,// Normal_1
-	0xE8, 0x04,// 616 = "insertq"
+	0x88, 0x05,// 648 = "insertq"
 
 	// EVEX_Vcvtsd2usi_r32_xmmm64_er
 	0x8C,// 'v', er_2
-	0xF0, 0x04,// 624 = "vcvtsd2usi"
+	0x90, 0x05,// 656 = "vcvtsd2usi"
 	0x02,// 0x2
 
 	// EVEX_Vcvtsd2usi_r64_xmmm64_er
@@ -7182,31 +7330,31 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvttps2qq_xmm_k1z_xmmm64b32
 	0x81,// 'v', Normal_1
-	0xF1, 0x04,// 625 = "vcvttps2qq"
+	0x91, 0x05,// 657 = "vcvttps2qq"
 
 	// EVEX_Vcvttps2qq_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttps2qq_zmm_k1z_ymmm256b32_sae
-	0xAC,// 'v', sae
-	0xF1, 0x04,// 625 = "vcvttps2qq"
+	0xB4,// 'v', sae
+	0x91, 0x05,// 657 = "vcvttps2qq"
 	0x02,// 0x2
 
 	// EVEX_Vcvttpd2qq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF2, 0x04,// 626 = "vcvttpd2qq"
+	0x92, 0x05,// 658 = "vcvttpd2qq"
 
 	// EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xF2, 0x04,// 626 = "vcvttpd2qq"
+	0xB4,// 'v', sae
+	0x92, 0x05,// 658 = "vcvttpd2qq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	0x81,// 'v', Normal_1
-	0xF3, 0x04,// 627 = "vcvtudq2pd"
+	0x93, 0x05,// 659 = "vcvtudq2pd"
 
 	// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
@@ -7216,31 +7364,31 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF4, 0x04,// 628 = "vcvtuqq2pd"
+	0x94, 0x05,// 660 = "vcvtuqq2pd"
 
 	// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xF4, 0x04,// 628 = "vcvtuqq2pd"
+	0x94, 0x05,// 660 = "vcvtuqq2pd"
 	0x02,// 0x2
 
 	// EVEX_Vcvtudq2ps_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xF5, 0x04,// 629 = "vcvtudq2ps"
+	0x95, 0x05,// 661 = "vcvtudq2ps"
 
 	// EVEX_Vcvtudq2ps_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtudq2ps_zmm_k1z_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xF5, 0x04,// 629 = "vcvtudq2ps"
+	0x95, 0x05,// 661 = "vcvtudq2ps"
 	0x02,// 0x2
 
 	// EVEX_Vcvtuqq2ps_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0xF6, 0x04,// 630 = "vcvtuqq2ps"
+	0x96, 0x05,// 662 = "vcvtuqq2ps"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -7249,36 +7397,36 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtuqq2ps_ymm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xF6, 0x04,// 630 = "vcvtuqq2ps"
+	0x96, 0x05,// 662 = "vcvtuqq2ps"
 	0x02,// 0x2
 
 	// EVEX_Vcvtps2qq_xmm_k1z_xmmm64b32
 	0x81,// 'v', Normal_1
-	0xF7, 0x04,// 631 = "vcvtps2qq"
+	0x97, 0x05,// 663 = "vcvtps2qq"
 
 	// EVEX_Vcvtps2qq_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2qq_zmm_k1z_ymmm256b32_er
 	0x8C,// 'v', er_2
-	0xF7, 0x04,// 631 = "vcvtps2qq"
+	0x97, 0x05,// 663 = "vcvtps2qq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtpd2qq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF8, 0x04,// 632 = "vcvtpd2qq"
+	0x98, 0x05,// 664 = "vcvtpd2qq"
 
 	// EVEX_Vcvtpd2qq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtpd2qq_zmm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xF8, 0x04,// 632 = "vcvtpd2qq"
+	0x98, 0x05,// 664 = "vcvtpd2qq"
 	0x02,// 0x2
 
 	// EVEX_Vcvtusi2ss_xmm_xmm_rm32_er
 	0x8D,// 'v', er_3
-	0xF9, 0x04,// 633 = "vcvtusi2ss"
+	0x99, 0x05,// 665 = "vcvtusi2ss"
 	0x02,// 0x2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -7287,7 +7435,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 	0x8D,// 'v', er_3
-	0xFA, 0x04,// 634 = "vcvtusi2sd"
+	0x9A, 0x05,// 666 = "vcvtusi2sd"
 	0x02,// 0x2
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
@@ -7296,44 +7444,44 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Haddpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xFB, 0x04,// 635 = "haddpd"
+	0x9B, 0x05,// 667 = "haddpd"
 
 	// VEX_Vhaddpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFB, 0x04,// 635 = "vhaddpd"
+	0x9B, 0x05,// 667 = "vhaddpd"
 
 	// VEX_Vhaddpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Haddps_xmm_xmmm128
 	0x01,// Normal_1
-	0xFC, 0x04,// 636 = "haddps"
+	0x9C, 0x05,// 668 = "haddps"
 
 	// VEX_Vhaddps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFC, 0x04,// 636 = "vhaddps"
+	0x9C, 0x05,// 668 = "vhaddps"
 
 	// VEX_Vhaddps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Hsubpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xFD, 0x04,// 637 = "hsubpd"
+	0x9D, 0x05,// 669 = "hsubpd"
 
 	// VEX_Vhsubpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFD, 0x04,// 637 = "vhsubpd"
+	0x9D, 0x05,// 669 = "vhsubpd"
 
 	// VEX_Vhsubpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Hsubps_xmm_xmmm128
 	0x01,// Normal_1
-	0xFE, 0x04,// 638 = "hsubps"
+	0x9E, 0x05,// 670 = "hsubps"
 
 	// VEX_Vhsubps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFE, 0x04,// 638 = "vhsubps"
+	0x9E, 0x05,// 670 = "vhsubps"
 
 	// VEX_Vhsubps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -7387,18 +7535,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movdqa_xmmm128_xmm
 	0x01,// Normal_1
-	0xCB, 0x04,// 587 = "movdqa"
+	0xEB, 0x04,// 619 = "movdqa"
 
 	// VEX_Vmovdqa_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xCB, 0x04,// 587 = "vmovdqa"
+	0xEB, 0x04,// 619 = "vmovdqa"
 
 	// VEX_Vmovdqa_ymmm256_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqa32_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xCC, 0x04,// 588 = "vmovdqa32"
+	0xEC, 0x04,// 620 = "vmovdqa32"
 
 	// EVEX_Vmovdqa32_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7408,7 +7556,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqa64_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xCD, 0x04,// 589 = "vmovdqa64"
+	0xED, 0x04,// 621 = "vmovdqa64"
 
 	// EVEX_Vmovdqa64_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7418,18 +7566,18 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movdqu_xmmm128_xmm
 	0x01,// Normal_1
-	0xCE, 0x04,// 590 = "movdqu"
+	0xEE, 0x04,// 622 = "movdqu"
 
 	// VEX_Vmovdqu_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xCE, 0x04,// 590 = "vmovdqu"
+	0xEE, 0x04,// 622 = "vmovdqu"
 
 	// VEX_Vmovdqu_ymmm256_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vmovdqu32_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xCF, 0x04,// 591 = "vmovdqu32"
+	0xEF, 0x04,// 623 = "vmovdqu32"
 
 	// EVEX_Vmovdqu32_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7439,7 +7587,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu64_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD0, 0x04,// 592 = "vmovdqu64"
+	0xF0, 0x04,// 624 = "vmovdqu64"
 
 	// EVEX_Vmovdqu64_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7449,7 +7597,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu8_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD1, 0x04,// 593 = "vmovdqu8"
+	0xF1, 0x04,// 625 = "vmovdqu8"
 
 	// EVEX_Vmovdqu8_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7459,7 +7607,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vmovdqu16_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD2, 0x04,// 594 = "vmovdqu16"
+	0xF2, 0x04,// 626 = "vmovdqu16"
 
 	// EVEX_Vmovdqu16_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -7468,404 +7616,524 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// Jo_rel16
-	0x1F,// os_jcc_2
-	0x6E,// 110 = "jo"
+	0x22,// os_jcc_a_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x10,// 0x10
 
 	// Jo_rel32_32
-	0x1F,// os_jcc_2
-	0x6E,// 110 = "jo"
+	0x22,// os_jcc_a_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x20,// 0x20
 
 	// Jo_rel32_64
-	0x1F,// os_jcc_2
-	0x6E,// 110 = "jo"
+	0x22,// os_jcc_a_1
+	0x70,// 112 = "jo"
+	0x00,// 0x0
 	0x40,// 0x40
 
 	// Jno_rel16
-	0x1F,// os_jcc_2
-	0x6F,// 111 = "jno"
+	0x22,// os_jcc_a_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x10,// 0x10
 
 	// Jno_rel32_32
-	0x1F,// os_jcc_2
-	0x6F,// 111 = "jno"
+	0x22,// os_jcc_a_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x20,// 0x20
 
 	// Jno_rel32_64
-	0x1F,// os_jcc_2
-	0x6F,// 111 = "jno"
+	0x22,// os_jcc_a_1
+	0x71,// 113 = "jno"
+	0x01,// 0x1
 	0x40,// 0x40
 
 	// Jb_rel16
-	0x1F,// os_jcc_2
-	0x70,// 112 = "jb"
+	0x24,// os_jcc_a_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x10,// 0x10
 
 	// Jb_rel32_32
-	0x1F,// os_jcc_2
-	0x70,// 112 = "jb"
+	0x24,// os_jcc_a_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x20,// 0x20
 
 	// Jb_rel32_64
-	0x1F,// os_jcc_2
-	0x70,// 112 = "jb"
+	0x24,// os_jcc_a_3
+	0x72,// 114 = "jb"
+	0x73,// 115 = "jc"
+	0x74,// 116 = "jnae"
+	0x02,// 0x2
 	0x40,// 0x40
 
 	// Jae_rel16
-	0x1F,// os_jcc_2
-	0x71,// 113 = "jae"
+	0x24,// os_jcc_a_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x10,// 0x10
 
 	// Jae_rel32_32
-	0x1F,// os_jcc_2
-	0x71,// 113 = "jae"
+	0x24,// os_jcc_a_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x20,// 0x20
 
 	// Jae_rel32_64
-	0x1F,// os_jcc_2
-	0x71,// 113 = "jae"
+	0x24,// os_jcc_a_3
+	0x75,// 117 = "jae"
+	0x76,// 118 = "jnb"
+	0x77,// 119 = "jnc"
+	0x03,// 0x3
 	0x40,// 0x40
 
 	// Je_rel16
-	0x1F,// os_jcc_2
-	0x72,// 114 = "je"
+	0x23,// os_jcc_a_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x10,// 0x10
 
 	// Je_rel32_32
-	0x1F,// os_jcc_2
-	0x72,// 114 = "je"
+	0x23,// os_jcc_a_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x20,// 0x20
 
 	// Je_rel32_64
-	0x1F,// os_jcc_2
-	0x72,// 114 = "je"
+	0x23,// os_jcc_a_2
+	0x78,// 120 = "je"
+	0x79,// 121 = "jz"
+	0x04,// 0x4
 	0x40,// 0x40
 
 	// Jne_rel16
-	0x1F,// os_jcc_2
-	0x73,// 115 = "jne"
+	0x23,// os_jcc_a_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x10,// 0x10
 
 	// Jne_rel32_32
-	0x1F,// os_jcc_2
-	0x73,// 115 = "jne"
+	0x23,// os_jcc_a_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x20,// 0x20
 
 	// Jne_rel32_64
-	0x1F,// os_jcc_2
-	0x73,// 115 = "jne"
+	0x23,// os_jcc_a_2
+	0x7A,// 122 = "jne"
+	0x7B,// 123 = "jnz"
+	0x05,// 0x5
 	0x40,// 0x40
 
 	// Jbe_rel16
-	0x1F,// os_jcc_2
-	0x74,// 116 = "jbe"
+	0x23,// os_jcc_a_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x10,// 0x10
 
 	// Jbe_rel32_32
-	0x1F,// os_jcc_2
-	0x74,// 116 = "jbe"
+	0x23,// os_jcc_a_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x20,// 0x20
 
 	// Jbe_rel32_64
-	0x1F,// os_jcc_2
-	0x74,// 116 = "jbe"
+	0x23,// os_jcc_a_2
+	0x7C,// 124 = "jbe"
+	0x7D,// 125 = "jna"
+	0x06,// 0x6
 	0x40,// 0x40
 
 	// Ja_rel16
-	0x1F,// os_jcc_2
-	0x75,// 117 = "ja"
+	0x23,// os_jcc_a_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x10,// 0x10
 
 	// Ja_rel32_32
-	0x1F,// os_jcc_2
-	0x75,// 117 = "ja"
+	0x23,// os_jcc_a_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x20,// 0x20
 
 	// Ja_rel32_64
-	0x1F,// os_jcc_2
-	0x75,// 117 = "ja"
+	0x23,// os_jcc_a_2
+	0x7E,// 126 = "ja"
+	0x7F,// 127 = "jnbe"
+	0x07,// 0x7
 	0x40,// 0x40
 
 	// Js_rel16
-	0x1F,// os_jcc_2
-	0x76,// 118 = "js"
+	0x22,// os_jcc_a_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x10,// 0x10
 
 	// Js_rel32_32
-	0x1F,// os_jcc_2
-	0x76,// 118 = "js"
+	0x22,// os_jcc_a_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x20,// 0x20
 
 	// Js_rel32_64
-	0x1F,// os_jcc_2
-	0x76,// 118 = "js"
+	0x22,// os_jcc_a_1
+	0x9D, 0x01,// 157 = "js"
+	0x08,// 0x8
 	0x40,// 0x40
 
 	// Jns_rel16
-	0x1F,// os_jcc_2
-	0x77,// 119 = "jns"
+	0x22,// os_jcc_a_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x10,// 0x10
 
 	// Jns_rel32_32
-	0x1F,// os_jcc_2
-	0x77,// 119 = "jns"
+	0x22,// os_jcc_a_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x20,// 0x20
 
 	// Jns_rel32_64
-	0x1F,// os_jcc_2
-	0x77,// 119 = "jns"
+	0x22,// os_jcc_a_1
+	0x9E, 0x01,// 158 = "jns"
+	0x09,// 0x9
 	0x40,// 0x40
 
 	// Jp_rel16
-	0x1F,// os_jcc_2
-	0x78,// 120 = "jp"
+	0x23,// os_jcc_a_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x10,// 0x10
 
 	// Jp_rel32_32
-	0x1F,// os_jcc_2
-	0x78,// 120 = "jp"
+	0x23,// os_jcc_a_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x20,// 0x20
 
 	// Jp_rel32_64
-	0x1F,// os_jcc_2
-	0x78,// 120 = "jp"
+	0x23,// os_jcc_a_2
+	0x9F, 0x01,// 159 = "jp"
+	0xA0, 0x01,// 160 = "jpe"
+	0x0A,// 0xA
 	0x40,// 0x40
 
 	// Jnp_rel16
-	0x1F,// os_jcc_2
-	0x79,// 121 = "jnp"
+	0x23,// os_jcc_a_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x10,// 0x10
 
 	// Jnp_rel32_32
-	0x1F,// os_jcc_2
-	0x79,// 121 = "jnp"
+	0x23,// os_jcc_a_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x20,// 0x20
 
 	// Jnp_rel32_64
-	0x1F,// os_jcc_2
-	0x79,// 121 = "jnp"
+	0x23,// os_jcc_a_2
+	0xA1, 0x01,// 161 = "jnp"
+	0xA2, 0x01,// 162 = "jpo"
+	0x0B,// 0xB
 	0x40,// 0x40
 
 	// Jl_rel16
-	0x1F,// os_jcc_2
-	0x7A,// 122 = "jl"
+	0x23,// os_jcc_a_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x10,// 0x10
 
 	// Jl_rel32_32
-	0x1F,// os_jcc_2
-	0x7A,// 122 = "jl"
+	0x23,// os_jcc_a_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x20,// 0x20
 
 	// Jl_rel32_64
-	0x1F,// os_jcc_2
-	0x7A,// 122 = "jl"
+	0x23,// os_jcc_a_2
+	0xA3, 0x01,// 163 = "jl"
+	0xA4, 0x01,// 164 = "jnge"
+	0x0C,// 0xC
 	0x40,// 0x40
 
 	// Jge_rel16
-	0x1F,// os_jcc_2
-	0x7B,// 123 = "jge"
+	0x23,// os_jcc_a_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x10,// 0x10
 
 	// Jge_rel32_32
-	0x1F,// os_jcc_2
-	0x7B,// 123 = "jge"
+	0x23,// os_jcc_a_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x20,// 0x20
 
 	// Jge_rel32_64
-	0x1F,// os_jcc_2
-	0x7B,// 123 = "jge"
+	0x23,// os_jcc_a_2
+	0xA5, 0x01,// 165 = "jge"
+	0xA6, 0x01,// 166 = "jnl"
+	0x0D,// 0xD
 	0x40,// 0x40
 
 	// Jle_rel16
-	0x1F,// os_jcc_2
-	0x7C,// 124 = "jle"
+	0x23,// os_jcc_a_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x10,// 0x10
 
 	// Jle_rel32_32
-	0x1F,// os_jcc_2
-	0x7C,// 124 = "jle"
+	0x23,// os_jcc_a_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x20,// 0x20
 
 	// Jle_rel32_64
-	0x1F,// os_jcc_2
-	0x7C,// 124 = "jle"
+	0x23,// os_jcc_a_2
+	0xA7, 0x01,// 167 = "jle"
+	0xA8, 0x01,// 168 = "jng"
+	0x0E,// 0xE
 	0x40,// 0x40
 
 	// Jg_rel16
-	0x1F,// os_jcc_2
-	0x7D,// 125 = "jg"
+	0x23,// os_jcc_a_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x10,// 0x10
 
 	// Jg_rel32_32
-	0x1F,// os_jcc_2
-	0x7D,// 125 = "jg"
+	0x23,// os_jcc_a_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x20,// 0x20
 
 	// Jg_rel32_64
-	0x1F,// os_jcc_2
-	0x7D,// 125 = "jg"
+	0x23,// os_jcc_a_2
+	0xA9, 0x01,// 169 = "jg"
+	0xAA, 0x01,// 170 = "jnle"
+	0x0F,// 0xF
 	0x40,// 0x40
 
 	// Seto_rm8
-	0x01,// Normal_1
-	0xFF, 0x04,// 639 = "seto"
+	0x1F,// CC_1
+	0x9F, 0x05,// 671 = "seto"
+	0x00,// 0x0
 
 	// Setno_rm8
-	0x01,// Normal_1
-	0x80, 0x05,// 640 = "setno"
+	0x1F,// CC_1
+	0xA0, 0x05,// 672 = "setno"
+	0x01,// 0x1
 
 	// Setb_rm8
-	0x01,// Normal_1
-	0x81, 0x05,// 641 = "setb"
+	0x21,// CC_3
+	0xA1, 0x05,// 673 = "setb"
+	0xA2, 0x05,// 674 = "setc"
+	0xA3, 0x05,// 675 = "setnae"
+	0x02,// 0x2
 
 	// Setae_rm8
-	0x01,// Normal_1
-	0x82, 0x05,// 642 = "setae"
+	0x21,// CC_3
+	0xA4, 0x05,// 676 = "setae"
+	0xA5, 0x05,// 677 = "setnb"
+	0xA6, 0x05,// 678 = "setnc"
+	0x03,// 0x3
 
 	// Sete_rm8
-	0x01,// Normal_1
-	0x83, 0x05,// 643 = "sete"
+	0x20,// CC_2
+	0xA7, 0x05,// 679 = "sete"
+	0xA8, 0x05,// 680 = "setz"
+	0x04,// 0x4
 
 	// Setne_rm8
-	0x01,// Normal_1
-	0x84, 0x05,// 644 = "setne"
+	0x20,// CC_2
+	0xA9, 0x05,// 681 = "setne"
+	0xAA, 0x05,// 682 = "setnz"
+	0x05,// 0x5
 
 	// Setbe_rm8
-	0x01,// Normal_1
-	0x85, 0x05,// 645 = "setbe"
+	0x20,// CC_2
+	0xAB, 0x05,// 683 = "setbe"
+	0xAC, 0x05,// 684 = "setna"
+	0x06,// 0x6
 
 	// Seta_rm8
-	0x01,// Normal_1
-	0x86, 0x05,// 646 = "seta"
+	0x20,// CC_2
+	0xAD, 0x05,// 685 = "seta"
+	0xAE, 0x05,// 686 = "setnbe"
+	0x07,// 0x7
 
 	// Sets_rm8
-	0x01,// Normal_1
-	0x87, 0x05,// 647 = "sets"
+	0x1F,// CC_1
+	0xAF, 0x05,// 687 = "sets"
+	0x08,// 0x8
 
 	// Setns_rm8
-	0x01,// Normal_1
-	0x88, 0x05,// 648 = "setns"
+	0x1F,// CC_1
+	0xB0, 0x05,// 688 = "setns"
+	0x09,// 0x9
 
 	// Setp_rm8
-	0x01,// Normal_1
-	0x89, 0x05,// 649 = "setp"
+	0x20,// CC_2
+	0xB1, 0x05,// 689 = "setp"
+	0xB2, 0x05,// 690 = "setpe"
+	0x0A,// 0xA
 
 	// Setnp_rm8
-	0x01,// Normal_1
-	0x8A, 0x05,// 650 = "setnp"
+	0x20,// CC_2
+	0xB3, 0x05,// 691 = "setnp"
+	0xB4, 0x05,// 692 = "setpo"
+	0x0B,// 0xB
 
 	// Setl_rm8
-	0x01,// Normal_1
-	0x8B, 0x05,// 651 = "setl"
+	0x20,// CC_2
+	0xB5, 0x05,// 693 = "setl"
+	0xB6, 0x05,// 694 = "setnge"
+	0x0C,// 0xC
 
 	// Setge_rm8
-	0x01,// Normal_1
-	0x8C, 0x05,// 652 = "setge"
+	0x20,// CC_2
+	0xB7, 0x05,// 695 = "setge"
+	0xB8, 0x05,// 696 = "setnl"
+	0x0D,// 0xD
 
 	// Setle_rm8
-	0x01,// Normal_1
-	0x8D, 0x05,// 653 = "setle"
+	0x20,// CC_2
+	0xB9, 0x05,// 697 = "setle"
+	0xBA, 0x05,// 698 = "setng"
+	0x0E,// 0xE
 
 	// Setg_rm8
-	0x01,// Normal_1
-	0x8E, 0x05,// 654 = "setg"
+	0x20,// CC_2
+	0xBB, 0x05,// 699 = "setg"
+	0xBC, 0x05,// 700 = "setnle"
+	0x0F,// 0xF
 
 	// VEX_Kmovw_k_km16
 	0x01,// Normal_1
-	0x8F, 0x05,// 655 = "kmovw"
+	0xBD, 0x05,// 701 = "kmovw"
 
 	// VEX_Kmovq_k_km64
 	0x01,// Normal_1
-	0x90, 0x05,// 656 = "kmovq"
+	0xBE, 0x05,// 702 = "kmovq"
 
 	// VEX_Kmovb_k_km8
 	0x01,// Normal_1
-	0x91, 0x05,// 657 = "kmovb"
+	0xBF, 0x05,// 703 = "kmovb"
 
 	// VEX_Kmovd_k_km32
 	0x01,// Normal_1
-	0x92, 0x05,// 658 = "kmovd"
+	0xC0, 0x05,// 704 = "kmovd"
 
 	// VEX_Kmovw_m16_k
 	0x01,// Normal_1
-	0x8F, 0x05,// 655 = "kmovw"
+	0xBD, 0x05,// 701 = "kmovw"
 
 	// VEX_Kmovq_m64_k
 	0x01,// Normal_1
-	0x90, 0x05,// 656 = "kmovq"
+	0xBE, 0x05,// 702 = "kmovq"
 
 	// VEX_Kmovb_m8_k
 	0x01,// Normal_1
-	0x91, 0x05,// 657 = "kmovb"
+	0xBF, 0x05,// 703 = "kmovb"
 
 	// VEX_Kmovd_m32_k
 	0x01,// Normal_1
-	0x92, 0x05,// 658 = "kmovd"
+	0xC0, 0x05,// 704 = "kmovd"
 
 	// VEX_Kmovw_k_r32
 	0x01,// Normal_1
-	0x8F, 0x05,// 655 = "kmovw"
+	0xBD, 0x05,// 701 = "kmovw"
 
 	// VEX_Kmovb_k_r32
 	0x01,// Normal_1
-	0x91, 0x05,// 657 = "kmovb"
+	0xBF, 0x05,// 703 = "kmovb"
 
 	// VEX_Kmovd_k_r32
 	0x01,// Normal_1
-	0x92, 0x05,// 658 = "kmovd"
+	0xC0, 0x05,// 704 = "kmovd"
 
 	// VEX_Kmovq_k_r64
 	0x01,// Normal_1
-	0x90, 0x05,// 656 = "kmovq"
+	0xBE, 0x05,// 702 = "kmovq"
 
 	// VEX_Kmovw_r32_k
 	0x01,// Normal_1
-	0x8F, 0x05,// 655 = "kmovw"
+	0xBD, 0x05,// 701 = "kmovw"
 
 	// VEX_Kmovb_r32_k
 	0x01,// Normal_1
-	0x91, 0x05,// 657 = "kmovb"
+	0xBF, 0x05,// 703 = "kmovb"
 
 	// VEX_Kmovd_r32_k
 	0x01,// Normal_1
-	0x92, 0x05,// 658 = "kmovd"
+	0xC0, 0x05,// 704 = "kmovd"
 
 	// VEX_Kmovq_r64_k
 	0x01,// Normal_1
-	0x90, 0x05,// 656 = "kmovq"
+	0xBE, 0x05,// 702 = "kmovq"
 
 	// VEX_Kortestw_k_k
 	0x01,// Normal_1
-	0x93, 0x05,// 659 = "kortestw"
+	0xC1, 0x05,// 705 = "kortestw"
 
 	// VEX_Kortestq_k_k
 	0x01,// Normal_1
-	0x94, 0x05,// 660 = "kortestq"
+	0xC2, 0x05,// 706 = "kortestq"
 
 	// VEX_Kortestb_k_k
 	0x01,// Normal_1
-	0x95, 0x05,// 661 = "kortestb"
+	0xC3, 0x05,// 707 = "kortestb"
 
 	// VEX_Kortestd_k_k
 	0x01,// Normal_1
-	0x96, 0x05,// 662 = "kortestd"
+	0xC4, 0x05,// 708 = "kortestd"
 
 	// VEX_Ktestw_k_k
 	0x01,// Normal_1
-	0x97, 0x05,// 663 = "ktestw"
+	0xC5, 0x05,// 709 = "ktestw"
 
 	// VEX_Ktestq_k_k
 	0x01,// Normal_1
-	0x98, 0x05,// 664 = "ktestq"
+	0xC6, 0x05,// 710 = "ktestq"
 
 	// VEX_Ktestb_k_k
 	0x01,// Normal_1
-	0x99, 0x05,// 665 = "ktestb"
+	0xC7, 0x05,// 711 = "ktestb"
 
 	// VEX_Ktestd_k_k
 	0x01,// Normal_1
-	0x9A, 0x05,// 666 = "ktestd"
+	0xC8, 0x05,// 712 = "ktestd"
 
 	// Pushw_FS
 	0x1B,// os_2
@@ -7899,11 +8167,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cpuid
 	0x01,// Normal_1
-	0x9B, 0x05,// 667 = "cpuid"
+	0xC9, 0x05,// 713 = "cpuid"
 
 	// Bt_rm16_r16
 	0x01,// Normal_1
-	0x9C, 0x05,// 668 = "bt"
+	0xCA, 0x05,// 714 = "bt"
 
 	// Bt_rm32_r32
 	0x00,// Previous
@@ -7913,7 +8181,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Shld_rm16_r16_imm8
 	0x01,// Normal_1
-	0x9D, 0x05,// 669 = "shld"
+	0xCB, 0x05,// 715 = "shld"
 
 	// Shld_rm32_r32_imm8
 	0x00,// Previous
@@ -7932,156 +8200,156 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Montmul_16
 	0x04,// asz
-	0x9E, 0x05,// 670 = "montmul"
+	0xCC, 0x05,// 716 = "montmul"
 	0x10,// 0x10
 
 	// Montmul_32
 	0x04,// asz
-	0x9E, 0x05,// 670 = "montmul"
+	0xCC, 0x05,// 716 = "montmul"
 	0x20,// 0x20
 
 	// Montmul_64
 	0x04,// asz
-	0x9E, 0x05,// 670 = "montmul"
+	0xCC, 0x05,// 716 = "montmul"
 	0x40,// 0x40
 
 	// Xsha1_16
 	0x04,// asz
-	0x9F, 0x05,// 671 = "xsha1"
+	0xCD, 0x05,// 717 = "xsha1"
 	0x10,// 0x10
 
 	// Xsha1_32
 	0x04,// asz
-	0x9F, 0x05,// 671 = "xsha1"
+	0xCD, 0x05,// 717 = "xsha1"
 	0x20,// 0x20
 
 	// Xsha1_64
 	0x04,// asz
-	0x9F, 0x05,// 671 = "xsha1"
+	0xCD, 0x05,// 717 = "xsha1"
 	0x40,// 0x40
 
 	// Xsha256_16
 	0x04,// asz
-	0xA0, 0x05,// 672 = "xsha256"
+	0xCE, 0x05,// 718 = "xsha256"
 	0x10,// 0x10
 
 	// Xsha256_32
 	0x04,// asz
-	0xA0, 0x05,// 672 = "xsha256"
+	0xCE, 0x05,// 718 = "xsha256"
 	0x20,// 0x20
 
 	// Xsha256_64
 	0x04,// asz
-	0xA0, 0x05,// 672 = "xsha256"
+	0xCE, 0x05,// 718 = "xsha256"
 	0x40,// 0x40
 
 	// Xbts_r16_rm16
 	0x01,// Normal_1
-	0xA1, 0x05,// 673 = "xbts"
+	0xCF, 0x05,// 719 = "xbts"
 
 	// Xbts_r32_rm32
 	0x00,// Previous
 
 	// Xstore_16
 	0x04,// asz
-	0xA2, 0x05,// 674 = "xstore"
+	0xD0, 0x05,// 720 = "xstore"
 	0x10,// 0x10
 
 	// Xstore_32
 	0x04,// asz
-	0xA2, 0x05,// 674 = "xstore"
+	0xD0, 0x05,// 720 = "xstore"
 	0x20,// 0x20
 
 	// Xstore_64
 	0x04,// asz
-	0xA2, 0x05,// 674 = "xstore"
+	0xD0, 0x05,// 720 = "xstore"
 	0x40,// 0x40
 
 	// XcryptEcb_16
 	0x04,// asz
-	0xA3, 0x05,// 675 = "xcryptecb"
+	0xD1, 0x05,// 721 = "xcryptecb"
 	0x10,// 0x10
 
 	// XcryptEcb_32
 	0x04,// asz
-	0xA3, 0x05,// 675 = "xcryptecb"
+	0xD1, 0x05,// 721 = "xcryptecb"
 	0x20,// 0x20
 
 	// XcryptEcb_64
 	0x04,// asz
-	0xA3, 0x05,// 675 = "xcryptecb"
+	0xD1, 0x05,// 721 = "xcryptecb"
 	0x40,// 0x40
 
 	// XcryptCbc_16
 	0x04,// asz
-	0xA4, 0x05,// 676 = "xcryptcbc"
+	0xD2, 0x05,// 722 = "xcryptcbc"
 	0x10,// 0x10
 
 	// XcryptCbc_32
 	0x04,// asz
-	0xA4, 0x05,// 676 = "xcryptcbc"
+	0xD2, 0x05,// 722 = "xcryptcbc"
 	0x20,// 0x20
 
 	// XcryptCbc_64
 	0x04,// asz
-	0xA4, 0x05,// 676 = "xcryptcbc"
+	0xD2, 0x05,// 722 = "xcryptcbc"
 	0x40,// 0x40
 
 	// XcryptCtr_16
 	0x04,// asz
-	0xA5, 0x05,// 677 = "xcryptctr"
+	0xD3, 0x05,// 723 = "xcryptctr"
 	0x10,// 0x10
 
 	// XcryptCtr_32
 	0x04,// asz
-	0xA5, 0x05,// 677 = "xcryptctr"
+	0xD3, 0x05,// 723 = "xcryptctr"
 	0x20,// 0x20
 
 	// XcryptCtr_64
 	0x04,// asz
-	0xA5, 0x05,// 677 = "xcryptctr"
+	0xD3, 0x05,// 723 = "xcryptctr"
 	0x40,// 0x40
 
 	// XcryptCfb_16
 	0x04,// asz
-	0xA6, 0x05,// 678 = "xcryptcfb"
+	0xD4, 0x05,// 724 = "xcryptcfb"
 	0x10,// 0x10
 
 	// XcryptCfb_32
 	0x04,// asz
-	0xA6, 0x05,// 678 = "xcryptcfb"
+	0xD4, 0x05,// 724 = "xcryptcfb"
 	0x20,// 0x20
 
 	// XcryptCfb_64
 	0x04,// asz
-	0xA6, 0x05,// 678 = "xcryptcfb"
+	0xD4, 0x05,// 724 = "xcryptcfb"
 	0x40,// 0x40
 
 	// XcryptOfb_16
 	0x04,// asz
-	0xA7, 0x05,// 679 = "xcryptofb"
+	0xD5, 0x05,// 725 = "xcryptofb"
 	0x10,// 0x10
 
 	// XcryptOfb_32
 	0x04,// asz
-	0xA7, 0x05,// 679 = "xcryptofb"
+	0xD5, 0x05,// 725 = "xcryptofb"
 	0x20,// 0x20
 
 	// XcryptOfb_64
 	0x04,// asz
-	0xA7, 0x05,// 679 = "xcryptofb"
+	0xD5, 0x05,// 725 = "xcryptofb"
 	0x40,// 0x40
 
 	// Ibts_rm16_r16
 	0x01,// Normal_1
-	0xA8, 0x05,// 680 = "ibts"
+	0xD6, 0x05,// 726 = "ibts"
 
 	// Ibts_rm32_r32
 	0x00,// Previous
 
 	// Cmpxchg486_rm8_r8
 	0x01,// Normal_1
-	0xA9, 0x05,// 681 = "cmpxchg486"
+	0xD7, 0x05,// 727 = "cmpxchg486"
 
 	// Cmpxchg486_rm16_r16
 	0x00,// Previous
@@ -8121,11 +8389,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Rsm
 	0x01,// Normal_1
-	0xAA, 0x05,// 682 = "rsm"
+	0xD8, 0x05,// 728 = "rsm"
 
 	// Bts_rm16_r16
 	0x01,// Normal_1
-	0xAB, 0x05,// 683 = "bts"
+	0xD9, 0x05,// 729 = "bts"
 
 	// Bts_rm32_r32
 	0x00,// Previous
@@ -8135,7 +8403,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Shrd_rm16_r16_imm8
 	0x01,// Normal_1
-	0xAC, 0x05,// 684 = "shrd"
+	0xDA, 0x05,// 730 = "shrd"
 
 	// Shrd_rm32_r32_imm8
 	0x00,// Previous
@@ -8154,75 +8422,75 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Fxsave_m512byte
 	0x01,// Normal_1
-	0xAD, 0x05,// 685 = "fxsave"
+	0xDB, 0x05,// 731 = "fxsave"
 
 	// Fxsave64_m512byte
 	0x01,// Normal_1
-	0xAE, 0x05,// 686 = "fxsave64"
+	0xDC, 0x05,// 732 = "fxsave64"
 
 	// Rdfsbase_r32
 	0x01,// Normal_1
-	0xAF, 0x05,// 687 = "rdfsbase"
+	0xDD, 0x05,// 733 = "rdfsbase"
 
 	// Rdfsbase_r64
 	0x00,// Previous
 
 	// Fxrstor_m512byte
 	0x01,// Normal_1
-	0xB0, 0x05,// 688 = "fxrstor"
+	0xDE, 0x05,// 734 = "fxrstor"
 
 	// Fxrstor64_m512byte
 	0x01,// Normal_1
-	0xB1, 0x05,// 689 = "fxrstor64"
+	0xDF, 0x05,// 735 = "fxrstor64"
 
 	// Rdgsbase_r32
 	0x01,// Normal_1
-	0xB2, 0x05,// 690 = "rdgsbase"
+	0xE0, 0x05,// 736 = "rdgsbase"
 
 	// Rdgsbase_r64
 	0x00,// Previous
 
 	// Ldmxcsr_m32
 	0x01,// Normal_1
-	0xB3, 0x05,// 691 = "ldmxcsr"
+	0xE1, 0x05,// 737 = "ldmxcsr"
 
 	// Wrfsbase_r32
 	0x01,// Normal_1
-	0xB4, 0x05,// 692 = "wrfsbase"
+	0xE2, 0x05,// 738 = "wrfsbase"
 
 	// Wrfsbase_r64
 	0x00,// Previous
 
 	// VEX_Vldmxcsr_m32
 	0x81,// 'v', Normal_1
-	0xB3, 0x05,// 691 = "vldmxcsr"
+	0xE1, 0x05,// 737 = "vldmxcsr"
 
 	// Stmxcsr_m32
 	0x01,// Normal_1
-	0xB5, 0x05,// 693 = "stmxcsr"
+	0xE3, 0x05,// 739 = "stmxcsr"
 
 	// Wrgsbase_r32
 	0x01,// Normal_1
-	0xB6, 0x05,// 694 = "wrgsbase"
+	0xE4, 0x05,// 740 = "wrgsbase"
 
 	// Wrgsbase_r64
 	0x00,// Previous
 
 	// VEX_Vstmxcsr_m32
 	0x81,// 'v', Normal_1
-	0xB5, 0x05,// 693 = "vstmxcsr"
+	0xE3, 0x05,// 739 = "vstmxcsr"
 
 	// Xsave_mem
 	0x01,// Normal_1
-	0xB7, 0x05,// 695 = "xsave"
+	0xE5, 0x05,// 741 = "xsave"
 
 	// Xsave64_mem
 	0x01,// Normal_1
-	0xB8, 0x05,// 696 = "xsave64"
+	0xE6, 0x05,// 742 = "xsave64"
 
 	// Ptwrite_rm32
 	0x02,// Normal_2
-	0xB9, 0x05,// 697 = "ptwrite"
+	0xE7, 0x05,// 743 = "ptwrite"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Ptwrite_rm64
@@ -8230,47 +8498,47 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xrstor_mem
 	0x01,// Normal_1
-	0xBA, 0x05,// 698 = "xrstor"
+	0xE8, 0x05,// 744 = "xrstor"
 
 	// Xrstor64_mem
 	0x01,// Normal_1
-	0xBB, 0x05,// 699 = "xrstor64"
+	0xE9, 0x05,// 745 = "xrstor64"
 
 	// Incsspd_r32
 	0x01,// Normal_1
-	0xBC, 0x05,// 700 = "incsspd"
+	0xEA, 0x05,// 746 = "incsspd"
 
 	// Incsspq_r64
 	0x01,// Normal_1
-	0xBD, 0x05,// 701 = "incsspq"
+	0xEB, 0x05,// 747 = "incsspq"
 
 	// Xsaveopt_mem
 	0x01,// Normal_1
-	0xBE, 0x05,// 702 = "xsaveopt"
+	0xEC, 0x05,// 748 = "xsaveopt"
 
 	// Xsaveopt64_mem
 	0x01,// Normal_1
-	0xBF, 0x05,// 703 = "xsaveopt64"
+	0xED, 0x05,// 749 = "xsaveopt64"
 
 	// Clwb_m8
 	0x02,// Normal_2
-	0xC0, 0x05,// 704 = "clwb"
+	0xEE, 0x05,// 750 = "clwb"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Tpause_r32
 	0x01,// Normal_1
-	0xC1, 0x05,// 705 = "tpause"
+	0xEF, 0x05,// 751 = "tpause"
 
 	// Tpause_r64
 	0x00,// Previous
 
 	// Clrssbsy_m64
 	0x01,// Normal_1
-	0xC2, 0x05,// 706 = "clrssbsy"
+	0xF0, 0x05,// 752 = "clrssbsy"
 
 	// Umonitor_r16
 	0x01,// Normal_1
-	0xC3, 0x05,// 707 = "umonitor"
+	0xF1, 0x05,// 753 = "umonitor"
 
 	// Umonitor_r32
 	0x00,// Previous
@@ -8280,19 +8548,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Umwait_r32
 	0x01,// Normal_1
-	0xC4, 0x05,// 708 = "umwait"
+	0xF2, 0x05,// 754 = "umwait"
 
 	// Umwait_r64
 	0x00,// Previous
 
 	// Clflush_m8
 	0x02,// Normal_2
-	0xC5, 0x05,// 709 = "clflush"
+	0xF3, 0x05,// 755 = "clflush"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Clflushopt_m8
 	0x02,// Normal_2
-	0xC6, 0x05,// 710 = "clflushopt"
+	0xF4, 0x05,// 756 = "clflushopt"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Lfence
@@ -8372,7 +8640,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pcommit
 	0x01,// Normal_1
-	0xC7, 0x05,// 711 = "pcommit"
+	0xF5, 0x05,// 757 = "pcommit"
 
 	// Imul_r16_rm16
 	0x01,// Normal_1
@@ -8386,7 +8654,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cmpxchg_rm8_r8
 	0x01,// Normal_1
-	0xC8, 0x05,// 712 = "cmpxchg"
+	0xF6, 0x05,// 758 = "cmpxchg"
 
 	// Cmpxchg_rm16_r16
 	0x00,// Previous
@@ -8399,7 +8667,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lss_r16_m1616
 	0x02,// Normal_2
-	0xC9, 0x05,// 713 = "lss"
+	0xF7, 0x05,// 759 = "lss"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Lss_r32_m1632
@@ -8410,7 +8678,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Btr_rm16_r16
 	0x01,// Normal_1
-	0xCA, 0x05,// 714 = "btr"
+	0xF8, 0x05,// 760 = "btr"
 
 	// Btr_rm32_r32
 	0x00,// Previous
@@ -8420,7 +8688,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lfs_r16_m1616
 	0x02,// Normal_2
-	0xCB, 0x05,// 715 = "lfs"
+	0xF9, 0x05,// 761 = "lfs"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Lfs_r32_m1632
@@ -8431,7 +8699,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lgs_r16_m1616
 	0x02,// Normal_2
-	0xCC, 0x05,// 716 = "lgs"
+	0xFA, 0x05,// 762 = "lgs"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Lgs_r32_m1632
@@ -8442,7 +8710,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movzx_r16_rm8
 	0x02,// Normal_2
-	0xCE, 0x05,// 718 = "movzx"
+	0xFC, 0x05,// 764 = "movzx"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Movzx_r32_rm8
@@ -8462,17 +8730,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Jmpe_disp16
 	0x1D,// os_call_2
-	0xEE, 0x02,// 366 = "jmpe"
+	0x80, 0x03,// 384 = "jmpe"
 	0x10,// 0x10
 
 	// Jmpe_disp32
 	0x1D,// os_call_2
-	0xEE, 0x02,// 366 = "jmpe"
+	0x80, 0x03,// 384 = "jmpe"
 	0x20,// 0x20
 
 	// Popcnt_r16_rm16
 	0x01,// Normal_1
-	0xD4, 0x05,// 724 = "popcnt"
+	0x82, 0x06,// 770 = "popcnt"
 
 	// Popcnt_r32_rm32
 	0x00,// Previous
@@ -8482,7 +8750,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Ud1_r16_rm16
 	0x01,// Normal_1
-	0xD5, 0x05,// 725 = "ud1"
+	0x83, 0x06,// 771 = "ud1"
 
 	// Ud1_r32_rm32
 	0x00,// Previous
@@ -8492,7 +8760,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bt_rm16_imm8
 	0x02,// Normal_2
-	0x9C, 0x05,// 668 = "bt"
+	0xCA, 0x05,// 714 = "bt"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Bt_rm32_imm8
@@ -8503,7 +8771,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bts_rm16_imm8
 	0x02,// Normal_2
-	0xAB, 0x05,// 683 = "bts"
+	0xD9, 0x05,// 729 = "bts"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Bts_rm32_imm8
@@ -8514,7 +8782,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Btr_rm16_imm8
 	0x02,// Normal_2
-	0xCA, 0x05,// 714 = "btr"
+	0xF8, 0x05,// 760 = "btr"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Btr_rm32_imm8
@@ -8525,7 +8793,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Btc_rm16_imm8
 	0x02,// Normal_2
-	0xD6, 0x05,// 726 = "btc"
+	0x84, 0x06,// 772 = "btc"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Btc_rm32_imm8
@@ -8536,7 +8804,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Btc_rm16_r16
 	0x01,// Normal_1
-	0xD6, 0x05,// 726 = "btc"
+	0x84, 0x06,// 772 = "btc"
 
 	// Btc_rm32_r32
 	0x00,// Previous
@@ -8546,7 +8814,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bsf_r16_rm16
 	0x01,// Normal_1
-	0xD7, 0x05,// 727 = "bsf"
+	0x85, 0x06,// 773 = "bsf"
 
 	// Bsf_r32_rm32
 	0x00,// Previous
@@ -8556,7 +8824,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Tzcnt_r16_rm16
 	0x01,// Normal_1
-	0xD8, 0x05,// 728 = "tzcnt"
+	0x86, 0x06,// 774 = "tzcnt"
 
 	// Tzcnt_r32_rm32
 	0x00,// Previous
@@ -8566,7 +8834,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Bsr_r16_rm16
 	0x01,// Normal_1
-	0xD9, 0x05,// 729 = "bsr"
+	0x87, 0x06,// 775 = "bsr"
 
 	// Bsr_r32_rm32
 	0x00,// Previous
@@ -8576,7 +8844,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lzcnt_r16_rm16
 	0x01,// Normal_1
-	0xDA, 0x05,// 730 = "lzcnt"
+	0x88, 0x06,// 776 = "lzcnt"
 
 	// Lzcnt_r32_rm32
 	0x00,// Previous
@@ -8586,7 +8854,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movsx_r16_rm8
 	0x02,// Normal_2
-	0xDC, 0x05,// 732 = "movsx"
+	0x8A, 0x06,// 778 = "movsx"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Movsx_r32_rm8
@@ -8606,7 +8874,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Xadd_rm8_r8
 	0x01,// Normal_1
-	0xE2, 0x05,// 738 = "xadd"
+	0x90, 0x06,// 784 = "xadd"
 
 	// Xadd_rm16_r16
 	0x00,// Previous
@@ -8618,14 +8886,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Cmpps_xmm_xmmm128_imm8
-	0x29,// pops_3
-	0xE3, 0x05,// 739 = "cmpps"
+	0x31,// pops_3
+	0x91, 0x06,// 785 = "cmpps"
 	0x00,// cmpps
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vcmpps_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0xE3, 0x05,// 739 = "vcmpps"
+	0xB0,// 'v', pops_2
+	0x91, 0x06,// 785 = "vcmpps"
 	0x01,// vcmpps
 
 	// VEX_Vcmpps_ymm_ymm_ymmm256_imm8
@@ -8638,19 +8906,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae
-	0xAD,// 'v', sae_pops
-	0xE3, 0x05,// 739 = "vcmpps"
+	0xB5,// 'v', sae_pops
+	0x91, 0x06,// 785 = "vcmpps"
 	0x03,// 0x3
 	0x01,// vcmpps
 
 	// Cmppd_xmm_xmmm128_imm8
-	0x28,// pops_2
-	0xE4, 0x05,// 740 = "cmppd"
+	0x30,// pops_2
+	0x92, 0x06,// 786 = "cmppd"
 	0x02,// cmppd
 
 	// VEX_Vcmppd_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0xE4, 0x05,// 740 = "vcmppd"
+	0xB0,// 'v', pops_2
+	0x92, 0x06,// 786 = "vcmppd"
 	0x03,// vcmppd
 
 	// VEX_Vcmppd_ymm_ymm_ymmm256_imm8
@@ -8663,51 +8931,51 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae
-	0xAD,// 'v', sae_pops
-	0xE4, 0x05,// 740 = "vcmppd"
+	0xB5,// 'v', sae_pops
+	0x92, 0x06,// 786 = "vcmppd"
 	0x03,// 0x3
 	0x03,// vcmppd
 
 	// Cmpss_xmm_xmmm32_imm8
-	0x29,// pops_3
-	0xE5, 0x05,// 741 = "cmpss"
+	0x31,// pops_3
+	0x93, 0x06,// 787 = "cmpss"
 	0x04,// cmpss
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vcmpss_xmm_xmm_xmmm32_imm8
 	0x96,// 'v', ms_pops
-	0xE5, 0x05,// 741 = "vcmpss"
+	0x93, 0x06,// 787 = "vcmpss"
 	0x05,// vcmpss
 	0x00,// 0x0 = None
 	0x05,// UInt64
 
 	// EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae
-	0xAD,// 'v', sae_pops
-	0xE5, 0x05,// 741 = "vcmpss"
+	0xB5,// 'v', sae_pops
+	0x93, 0x06,// 787 = "vcmpss"
 	0x03,// 0x3
 	0x05,// vcmpss
 
 	// Cmpsd_xmm_xmmm64_imm8
 	0x16,// ms_pops
-	0xE6, 0x05,// 742 = "cmpsd"
+	0x94, 0x06,// 788 = "cmpsd"
 	0x06,// cmpsd
 	0x00,// 0x0 = None
 	0x06,// UInt128
 
 	// VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
-	0xA8,// 'v', pops_2
-	0xE6, 0x05,// 742 = "vcmpsd"
+	0xB0,// 'v', pops_2
+	0x94, 0x06,// 788 = "vcmpsd"
 	0x07,// vcmpsd
 
 	// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
-	0xAD,// 'v', sae_pops
-	0xE6, 0x05,// 742 = "vcmpsd"
+	0xB5,// 'v', sae_pops
+	0x94, 0x06,// 788 = "vcmpsd"
 	0x03,// 0x3
 	0x07,// vcmpsd
 
 	// Movnti_m32_r32
 	0x01,// Normal_1
-	0xE7, 0x05,// 743 = "movnti"
+	0x95, 0x06,// 789 = "movnti"
 
 	// Movnti_m64_r64
 	0x00,// Previous
@@ -8767,11 +9035,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Shufps_xmm_xmmm128_imm8
 	0x01,// Normal_1
-	0xE8, 0x05,// 744 = "shufps"
+	0x96, 0x06,// 790 = "shufps"
 
 	// VEX_Vshufps_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xE8, 0x05,// 744 = "vshufps"
+	0x96, 0x06,// 790 = "vshufps"
 
 	// VEX_Vshufps_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -8787,12 +9055,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Shufpd_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xE9, 0x05,// 745 = "shufpd"
+	0x97, 0x06,// 791 = "shufpd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vshufpd_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xE9, 0x05,// 745 = "vshufpd"
+	0x97, 0x06,// 791 = "vshufpd"
 
 	// VEX_Vshufpd_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -8808,56 +9076,56 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cmpxchg8b_m64
 	0x02,// Normal_2
-	0xEA, 0x05,// 746 = "cmpxchg8b"
+	0x98, 0x06,// 792 = "cmpxchg8b"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Cmpxchg16b_m128
 	0x02,// Normal_2
-	0xEB, 0x05,// 747 = "cmpxchg16b"
+	0x99, 0x06,// 793 = "cmpxchg16b"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Xrstors_mem
 	0x01,// Normal_1
-	0xEC, 0x05,// 748 = "xrstors"
+	0x9A, 0x06,// 794 = "xrstors"
 
 	// Xrstors64_mem
 	0x01,// Normal_1
-	0xED, 0x05,// 749 = "xrstors64"
+	0x9B, 0x06,// 795 = "xrstors64"
 
 	// Xsavec_mem
 	0x01,// Normal_1
-	0xEE, 0x05,// 750 = "xsavec"
+	0x9C, 0x06,// 796 = "xsavec"
 
 	// Xsavec64_mem
 	0x01,// Normal_1
-	0xEF, 0x05,// 751 = "xsavec64"
+	0x9D, 0x06,// 797 = "xsavec64"
 
 	// Xsaves_mem
 	0x01,// Normal_1
-	0xF0, 0x05,// 752 = "xsaves"
+	0x9E, 0x06,// 798 = "xsaves"
 
 	// Xsaves64_mem
 	0x01,// Normal_1
-	0xF1, 0x05,// 753 = "xsaves64"
+	0x9F, 0x06,// 799 = "xsaves64"
 
 	// Vmptrld_m64
 	0x82,// 'v', Normal_2
-	0xF2, 0x05,// 754 = "vmptrld"
+	0xA0, 0x06,// 800 = "vmptrld"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Vmclear_m64
 	0x82,// 'v', Normal_2
-	0xF3, 0x05,// 755 = "vmclear"
+	0xA1, 0x06,// 801 = "vmclear"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Vmxon_m64
 	0x82,// 'v', Normal_2
-	0xF4, 0x05,// 756 = "vmxon"
+	0xA2, 0x06,// 802 = "vmxon"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Rdrand_r16
 	0x01,// Normal_1
-	0xF5, 0x05,// 757 = "rdrand"
+	0xA3, 0x06,// 803 = "rdrand"
 
 	// Rdrand_r32
 	0x00,// Previous
@@ -8867,12 +9135,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Vmptrst_m64
 	0x82,// 'v', Normal_2
-	0xF6, 0x05,// 758 = "vmptrst"
+	0xA4, 0x06,// 804 = "vmptrst"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Rdseed_r16
 	0x01,// Normal_1
-	0xF7, 0x05,// 759 = "rdseed"
+	0xA5, 0x06,// 805 = "rdseed"
 
 	// Rdseed_r32
 	0x00,// Previous
@@ -8882,14 +9150,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Rdpid_r32
 	0x01,// Normal_1
-	0xF8, 0x05,// 760 = "rdpid"
+	0xA6, 0x06,// 806 = "rdpid"
 
 	// Rdpid_r64
 	0x00,// Previous
 
 	// Bswap_r16
 	0x01,// Normal_1
-	0xF9, 0x05,// 761 = "bswap"
+	0xA7, 0x06,// 807 = "bswap"
 
 	// Bswap_r32
 	0x00,// Previous
@@ -8899,22 +9167,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Addsubpd_xmm_xmmm128
 	0x01,// Normal_1
-	0xFA, 0x05,// 762 = "addsubpd"
+	0xA8, 0x06,// 808 = "addsubpd"
 
 	// VEX_Vaddsubpd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFA, 0x05,// 762 = "vaddsubpd"
+	0xA8, 0x06,// 808 = "vaddsubpd"
 
 	// VEX_Vaddsubpd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Addsubps_xmm_xmmm128
 	0x01,// Normal_1
-	0xFB, 0x05,// 763 = "addsubps"
+	0xA9, 0x06,// 809 = "addsubps"
 
 	// VEX_Vaddsubps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFB, 0x05,// 763 = "vaddsubps"
+	0xA9, 0x06,// 809 = "vaddsubps"
 
 	// VEX_Vaddsubps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -9052,11 +9320,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movq2dq_xmm_mm
 	0x01,// Normal_1
-	0xFC, 0x05,// 764 = "movq2dq"
+	0xAA, 0x06,// 810 = "movq2dq"
 
 	// Movdq2q_mm_xmm
 	0x12,// mmxmem_1
-	0xFD, 0x05,// 765 = "movdq2q"
+	0xAB, 0x06,// 811 = "movdq2q"
 
 	// Pmovmskb_r32_mm
 	0x01,// Normal_1
@@ -9158,22 +9426,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pand_mm_mmm64
 	0x12,// mmxmem_1
-	0xFE, 0x05,// 766 = "pand"
+	0xAC, 0x06,// 812 = "pand"
 
 	// Pand_xmm_xmmm128
 	0x01,// Normal_1
-	0xFE, 0x05,// 766 = "pand"
+	0xAC, 0x06,// 812 = "pand"
 
 	// VEX_Vpand_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFE, 0x05,// 766 = "vpand"
+	0xAC, 0x06,// 812 = "vpand"
 
 	// VEX_Vpand_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpandd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xFF, 0x05,// 767 = "vpandd"
+	0xAD, 0x06,// 813 = "vpandd"
 
 	// EVEX_Vpandd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -9183,7 +9451,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpandq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x80, 0x06,// 768 = "vpandq"
+	0xAE, 0x06,// 814 = "vpandq"
 
 	// EVEX_Vpandq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -9265,22 +9533,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pandn_mm_mmm64
 	0x12,// mmxmem_1
-	0x81, 0x06,// 769 = "pandn"
+	0xAF, 0x06,// 815 = "pandn"
 
 	// Pandn_xmm_xmmm128
 	0x01,// Normal_1
-	0x81, 0x06,// 769 = "pandn"
+	0xAF, 0x06,// 815 = "pandn"
 
 	// VEX_Vpandn_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x81, 0x06,// 769 = "vpandn"
+	0xAF, 0x06,// 815 = "vpandn"
 
 	// VEX_Vpandn_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpandnd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x82, 0x06,// 770 = "vpandnd"
+	0xB0, 0x06,// 816 = "vpandnd"
 
 	// EVEX_Vpandnd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -9290,7 +9558,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpandnq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x83, 0x06,// 771 = "vpandnq"
+	0xB1, 0x06,// 817 = "vpandnq"
 
 	// EVEX_Vpandnq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -9372,7 +9640,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsraq_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xDB, 0x04,// 603 = "vpsraq"
+	0xFB, 0x04,// 635 = "vpsraq"
 
 	// EVEX_Vpsraq_ymm_k1z_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -9454,11 +9722,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Cvttpd2dq_xmm_xmmm128
 	0x01,// Normal_1
-	0x84, 0x06,// 772 = "cvttpd2dq"
+	0xB2, 0x06,// 818 = "cvttpd2dq"
 
 	// VEX_Vcvttpd2dq_xmm_xmmm128
 	0x82,// 'v', Normal_2
-	0x84, 0x06,// 772 = "vcvttpd2dq"
+	0xB2, 0x06,// 818 = "vcvttpd2dq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// VEX_Vcvttpd2dq_xmm_ymmm256
@@ -9466,7 +9734,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvttpd2dq_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0x84, 0x06,// 772 = "vcvttpd2dq"
+	0xB2, 0x06,// 818 = "vcvttpd2dq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -9474,17 +9742,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvttpd2dq_ymm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0x84, 0x06,// 772 = "vcvttpd2dq"
+	0xB4,// 'v', sae
+	0xB2, 0x06,// 818 = "vcvttpd2dq"
 	0x02,// 0x2
 
 	// Cvtdq2pd_xmm_xmmm64
 	0x01,// Normal_1
-	0x85, 0x06,// 773 = "cvtdq2pd"
+	0xB3, 0x06,// 819 = "cvtdq2pd"
 
 	// VEX_Vcvtdq2pd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x85, 0x06,// 773 = "vcvtdq2pd"
+	0xB3, 0x06,// 819 = "vcvtdq2pd"
 
 	// VEX_Vcvtdq2pd_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -9500,23 +9768,23 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x86, 0x06,// 774 = "vcvtqq2pd"
+	0xB4, 0x06,// 820 = "vcvtqq2pd"
 
 	// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x86, 0x06,// 774 = "vcvtqq2pd"
+	0xB4, 0x06,// 820 = "vcvtqq2pd"
 	0x02,// 0x2
 
 	// Cvtpd2dq_xmm_xmmm128
 	0x01,// Normal_1
-	0x87, 0x06,// 775 = "cvtpd2dq"
+	0xB5, 0x06,// 821 = "cvtpd2dq"
 
 	// VEX_Vcvtpd2dq_xmm_xmmm128
 	0x82,// 'v', Normal_2
-	0x87, 0x06,// 775 = "vcvtpd2dq"
+	0xB5, 0x06,// 821 = "vcvtpd2dq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// VEX_Vcvtpd2dq_xmm_ymmm256
@@ -9524,7 +9792,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtpd2dq_xmm_k1z_xmmm128b64
 	0x87,// 'v', bcst
-	0x87, 0x06,// 775 = "vcvtpd2dq"
+	0xB5, 0x06,// 821 = "vcvtpd2dq"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -9533,20 +9801,20 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtpd2dq_ymm_k1z_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x87, 0x06,// 775 = "vcvtpd2dq"
+	0xB5, 0x06,// 821 = "vcvtpd2dq"
 	0x02,// 0x2
 
 	// Movntq_m64_mm
 	0x12,// mmxmem_1
-	0x88, 0x06,// 776 = "movntq"
+	0xB6, 0x06,// 822 = "movntq"
 
 	// Movntdq_m128_xmm
 	0x01,// Normal_1
-	0x89, 0x06,// 777 = "movntdq"
+	0xB7, 0x06,// 823 = "movntdq"
 
 	// VEX_Vmovntdq_m128_xmm
 	0x81,// 'v', Normal_1
-	0x89, 0x06,// 777 = "vmovntdq"
+	0xB7, 0x06,// 823 = "vmovntdq"
 
 	// VEX_Vmovntdq_m256_ymm
 	0x80,// 'v', Previous
@@ -9634,22 +9902,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Por_mm_mmm64
 	0x12,// mmxmem_1
-	0x8A, 0x06,// 778 = "por"
+	0xB8, 0x06,// 824 = "por"
 
 	// Por_xmm_xmmm128
 	0x01,// Normal_1
-	0x8A, 0x06,// 778 = "por"
+	0xB8, 0x06,// 824 = "por"
 
 	// VEX_Vpor_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8A, 0x06,// 778 = "vpor"
+	0xB8, 0x06,// 824 = "vpor"
 
 	// VEX_Vpor_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpord_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x8B, 0x06,// 779 = "vpord"
+	0xB9, 0x06,// 825 = "vpord"
 
 	// EVEX_Vpord_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -9659,7 +9927,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vporq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8C, 0x06,// 780 = "vporq"
+	0xBA, 0x06,// 826 = "vporq"
 
 	// EVEX_Vporq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -9741,22 +10009,22 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pxor_mm_mmm64
 	0x12,// mmxmem_1
-	0x8D, 0x06,// 781 = "pxor"
+	0xBB, 0x06,// 827 = "pxor"
 
 	// Pxor_xmm_xmmm128
 	0x01,// Normal_1
-	0x8D, 0x06,// 781 = "pxor"
+	0xBB, 0x06,// 827 = "pxor"
 
 	// VEX_Vpxor_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8D, 0x06,// 781 = "vpxor"
+	0xBB, 0x06,// 827 = "vpxor"
 
 	// VEX_Vpxor_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpxord_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x8E, 0x06,// 782 = "vpxord"
+	0xBC, 0x06,// 828 = "vpxord"
 
 	// EVEX_Vpxord_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -9766,7 +10034,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpxorq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8F, 0x06,// 783 = "vpxorq"
+	0xBD, 0x06,// 829 = "vpxorq"
 
 	// EVEX_Vpxorq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -9776,11 +10044,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Lddqu_xmm_m128
 	0x01,// Normal_1
-	0x90, 0x06,// 784 = "lddqu"
+	0xBE, 0x06,// 830 = "lddqu"
 
 	// VEX_Vlddqu_xmm_m128
 	0x81,// 'v', Normal_1
-	0x90, 0x06,// 784 = "vlddqu"
+	0xBE, 0x06,// 830 = "vlddqu"
 
 	// VEX_Vlddqu_ymm_m256
 	0x80,// 'v', Previous
@@ -9933,15 +10201,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Maskmovq_rDI_mm_mm
 	0x11,// maskmovq
-	0x91, 0x06,// 785 = "maskmovq"
+	0xBF, 0x06,// 831 = "maskmovq"
 
 	// Maskmovdqu_rDI_xmm_xmm
 	0x11,// maskmovq
-	0x92, 0x06,// 786 = "maskmovdqu"
+	0xC0, 0x06,// 832 = "maskmovdqu"
 
 	// VEX_Vmaskmovdqu_rDI_xmm_xmm
 	0x91,// 'v', maskmovq
-	0x92, 0x06,// 786 = "vmaskmovdqu"
+	0xC0, 0x06,// 832 = "vmaskmovdqu"
 
 	// Psubb_mm_mmm64
 	0x12,// mmxmem_1
@@ -10114,7 +10382,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Ud0_r16_rm16
 	0x01,// Normal_1
-	0x93, 0x06,// 787 = "ud0"
+	0xC1, 0x06,// 833 = "ud0"
 
 	// Ud0_r32_rm32
 	0x00,// Previous
@@ -10149,48 +10417,48 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Phaddw_mm_mmm64
 	0x12,// mmxmem_1
-	0x94, 0x06,// 788 = "phaddw"
+	0xC2, 0x06,// 834 = "phaddw"
 
 	// Phaddw_xmm_xmmm128
 	0x02,// Normal_2
-	0x94, 0x06,// 788 = "phaddw"
+	0xC2, 0x06,// 834 = "phaddw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphaddw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x94, 0x06,// 788 = "vphaddw"
+	0xC2, 0x06,// 834 = "vphaddw"
 
 	// VEX_Vphaddw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Phaddd_mm_mmm64
 	0x12,// mmxmem_1
-	0x95, 0x06,// 789 = "phaddd"
+	0xC3, 0x06,// 835 = "phaddd"
 
 	// Phaddd_xmm_xmmm128
 	0x02,// Normal_2
-	0x95, 0x06,// 789 = "phaddd"
+	0xC3, 0x06,// 835 = "phaddd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphaddd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x95, 0x06,// 789 = "vphaddd"
+	0xC3, 0x06,// 835 = "vphaddd"
 
 	// VEX_Vphaddd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Phaddsw_mm_mmm64
 	0x12,// mmxmem_1
-	0x96, 0x06,// 790 = "phaddsw"
+	0xC4, 0x06,// 836 = "phaddsw"
 
 	// Phaddsw_xmm_xmmm128
 	0x02,// Normal_2
-	0x96, 0x06,// 790 = "phaddsw"
+	0xC4, 0x06,// 836 = "phaddsw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphaddsw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x96, 0x06,// 790 = "vphaddsw"
+	0xC4, 0x06,// 836 = "vphaddsw"
 
 	// VEX_Vphaddsw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10222,96 +10490,96 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Phsubw_mm_mmm64
 	0x12,// mmxmem_1
-	0x97, 0x06,// 791 = "phsubw"
+	0xC5, 0x06,// 837 = "phsubw"
 
 	// Phsubw_xmm_xmmm128
 	0x02,// Normal_2
-	0x97, 0x06,// 791 = "phsubw"
+	0xC5, 0x06,// 837 = "phsubw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphsubw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x97, 0x06,// 791 = "vphsubw"
+	0xC5, 0x06,// 837 = "vphsubw"
 
 	// VEX_Vphsubw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Phsubd_mm_mmm64
 	0x12,// mmxmem_1
-	0x98, 0x06,// 792 = "phsubd"
+	0xC6, 0x06,// 838 = "phsubd"
 
 	// Phsubd_xmm_xmmm128
 	0x02,// Normal_2
-	0x98, 0x06,// 792 = "phsubd"
+	0xC6, 0x06,// 838 = "phsubd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphsubd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x98, 0x06,// 792 = "vphsubd"
+	0xC6, 0x06,// 838 = "vphsubd"
 
 	// VEX_Vphsubd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Phsubsw_mm_mmm64
 	0x12,// mmxmem_1
-	0x99, 0x06,// 793 = "phsubsw"
+	0xC7, 0x06,// 839 = "phsubsw"
 
 	// Phsubsw_xmm_xmmm128
 	0x02,// Normal_2
-	0x99, 0x06,// 793 = "phsubsw"
+	0xC7, 0x06,// 839 = "phsubsw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphsubsw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x99, 0x06,// 793 = "vphsubsw"
+	0xC7, 0x06,// 839 = "vphsubsw"
 
 	// VEX_Vphsubsw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Psignb_mm_mmm64
 	0x12,// mmxmem_1
-	0x9A, 0x06,// 794 = "psignb"
+	0xC8, 0x06,// 840 = "psignb"
 
 	// Psignb_xmm_xmmm128
 	0x02,// Normal_2
-	0x9A, 0x06,// 794 = "psignb"
+	0xC8, 0x06,// 840 = "psignb"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpsignb_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9A, 0x06,// 794 = "vpsignb"
+	0xC8, 0x06,// 840 = "vpsignb"
 
 	// VEX_Vpsignb_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Psignw_mm_mmm64
 	0x12,// mmxmem_1
-	0x9B, 0x06,// 795 = "psignw"
+	0xC9, 0x06,// 841 = "psignw"
 
 	// Psignw_xmm_xmmm128
 	0x02,// Normal_2
-	0x9B, 0x06,// 795 = "psignw"
+	0xC9, 0x06,// 841 = "psignw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpsignw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9B, 0x06,// 795 = "vpsignw"
+	0xC9, 0x06,// 841 = "vpsignw"
 
 	// VEX_Vpsignw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Psignd_mm_mmm64
 	0x12,// mmxmem_1
-	0x9C, 0x06,// 796 = "psignd"
+	0xCA, 0x06,// 842 = "psignd"
 
 	// Psignd_xmm_xmmm128
 	0x02,// Normal_2
-	0x9C, 0x06,// 796 = "psignd"
+	0xCA, 0x06,// 842 = "psignd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpsignd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9C, 0x06,// 796 = "vpsignd"
+	0xCA, 0x06,// 842 = "vpsignd"
 
 	// VEX_Vpsignd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10375,25 +10643,25 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vtestps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9D, 0x06,// 797 = "vtestps"
+	0xCB, 0x06,// 843 = "vtestps"
 
 	// VEX_Vtestps_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vtestpd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9E, 0x06,// 798 = "vtestpd"
+	0xCC, 0x06,// 844 = "vtestpd"
 
 	// VEX_Vtestpd_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// Pblendvb_xmm_xmmm128
-	0x25,// pblendvb_1
-	0x9F, 0x06,// 799 = "pblendvb"
+	0x2D,// pblendvb_1
+	0xCD, 0x06,// 845 = "pblendvb"
 
 	// EVEX_Vpsrlvw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA0, 0x06,// 800 = "vpsrlvw"
+	0xCE, 0x06,// 846 = "vpsrlvw"
 
 	// EVEX_Vpsrlvw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10403,7 +10671,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovuswb_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xA1, 0x06,// 801 = "vpmovuswb"
+	0xCF, 0x06,// 847 = "vpmovuswb"
 
 	// EVEX_Vpmovuswb_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10413,7 +10681,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsravw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA2, 0x06,// 802 = "vpsravw"
+	0xD0, 0x06,// 848 = "vpsravw"
 
 	// EVEX_Vpsravw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10423,7 +10691,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovusdb_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xA3, 0x06,// 803 = "vpmovusdb"
+	0xD1, 0x06,// 849 = "vpmovusdb"
 
 	// EVEX_Vpmovusdb_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -10433,7 +10701,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsllvw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA4, 0x06,// 804 = "vpsllvw"
+	0xD2, 0x06,// 850 = "vpsllvw"
 
 	// EVEX_Vpsllvw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10443,7 +10711,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovusqb_xmmm16_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xA5, 0x06,// 805 = "vpmovusqb"
+	0xD3, 0x06,// 851 = "vpmovusqb"
 
 	// EVEX_Vpmovusqb_xmmm32_k1z_ymm
 	0x80,// 'v', Previous
@@ -10453,7 +10721,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vcvtph2ps_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xA6, 0x06,// 806 = "vcvtph2ps"
+	0xD4, 0x06,// 852 = "vcvtph2ps"
 
 	// VEX_Vcvtph2ps_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -10465,13 +10733,13 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtph2ps_zmm_k1z_ymmm256_sae
-	0xAC,// 'v', sae
-	0xA6, 0x06,// 806 = "vcvtph2ps"
+	0xB4,// 'v', sae
+	0xD4, 0x06,// 852 = "vcvtph2ps"
 	0x02,// 0x2
 
 	// EVEX_Vpmovusdw_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xA7, 0x06,// 807 = "vpmovusdw"
+	0xD5, 0x06,// 853 = "vpmovusdw"
 
 	// EVEX_Vpmovusdw_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10480,12 +10748,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// Blendvps_xmm_xmmm128
-	0x25,// pblendvb_1
-	0xA8, 0x06,// 808 = "blendvps"
+	0x2D,// pblendvb_1
+	0xD6, 0x06,// 854 = "blendvps"
 
 	// EVEX_Vprorvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xA9, 0x06,// 809 = "vprorvd"
+	0xD7, 0x06,// 855 = "vprorvd"
 
 	// EVEX_Vprorvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -10495,7 +10763,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprorvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xAA, 0x06,// 810 = "vprorvq"
+	0xD8, 0x06,// 856 = "vprorvq"
 
 	// EVEX_Vprorvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -10505,7 +10773,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovusqw_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xAB, 0x06,// 811 = "vpmovusqw"
+	0xD9, 0x06,// 857 = "vpmovusqw"
 
 	// EVEX_Vpmovusqw_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -10514,12 +10782,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// Blendvpd_xmm_xmmm128
-	0x25,// pblendvb_1
-	0xAC, 0x06,// 812 = "blendvpd"
+	0x2D,// pblendvb_1
+	0xDA, 0x06,// 858 = "blendvpd"
 
 	// EVEX_Vprolvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xAD, 0x06,// 813 = "vprolvd"
+	0xDB, 0x06,// 859 = "vprolvd"
 
 	// EVEX_Vprolvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -10529,7 +10797,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vprolvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xAE, 0x06,// 814 = "vprolvq"
+	0xDC, 0x06,// 860 = "vprolvq"
 
 	// EVEX_Vprolvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -10539,7 +10807,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovusqd_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xAF, 0x06,// 815 = "vpmovusqd"
+	0xDD, 0x06,// 861 = "vpmovusqd"
 
 	// EVEX_Vpmovusqd_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10549,7 +10817,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpermps_ymm_ymm_ymmm256
 	0x81,// 'v', Normal_1
-	0xB0, 0x06,// 816 = "vpermps"
+	0xDE, 0x06,// 862 = "vpermps"
 
 	// EVEX_Vpermps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -10559,26 +10827,26 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermpd_ymm_k1z_ymm_ymmm256b64
 	0x81,// 'v', Normal_1
-	0xB1, 0x06,// 817 = "vpermpd"
+	0xDF, 0x06,// 863 = "vpermpd"
 
 	// EVEX_Vpermpd_zmm_k1z_zmm_zmmm512b64
 	0x80,// 'v', Previous
 
 	// Ptest_xmm_xmmm128
 	0x02,// Normal_2
-	0xB2, 0x06,// 818 = "ptest"
+	0xE0, 0x06,// 864 = "ptest"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vptest_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB2, 0x06,// 818 = "vptest"
+	0xE0, 0x06,// 864 = "vptest"
 
 	// VEX_Vptest_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vbroadcastss_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xB3, 0x06,// 819 = "vbroadcastss"
+	0xE1, 0x06,// 865 = "vbroadcastss"
 
 	// VEX_Vbroadcastss_ymm_xmmm32
 	0x80,// 'v', Previous
@@ -10594,47 +10862,47 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vbroadcastsd_ymm_xmmm64
 	0x81,// 'v', Normal_1
-	0xB4, 0x06,// 820 = "vbroadcastsd"
+	0xE2, 0x06,// 866 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastf32x2_ymm_k1z_xmmm64
 	0x81,// 'v', Normal_1
-	0xB5, 0x06,// 821 = "vbroadcastf32x2"
+	0xE3, 0x06,// 867 = "vbroadcastf32x2"
 
 	// EVEX_Vbroadcastf32x2_zmm_k1z_xmmm64
 	0x80,// 'v', Previous
 
 	// EVEX_Vbroadcastsd_ymm_k1z_xmmm64
 	0x81,// 'v', Normal_1
-	0xB4, 0x06,// 820 = "vbroadcastsd"
+	0xE2, 0x06,// 866 = "vbroadcastsd"
 
 	// EVEX_Vbroadcastsd_zmm_k1z_xmmm64
 	0x80,// 'v', Previous
 
 	// VEX_Vbroadcastf128_ymm_m128
 	0x81,// 'v', Normal_1
-	0xB6, 0x06,// 822 = "vbroadcastf128"
+	0xE4, 0x06,// 868 = "vbroadcastf128"
 
 	// EVEX_Vbroadcastf32x4_ymm_k1z_m128
 	0x81,// 'v', Normal_1
-	0xB7, 0x06,// 823 = "vbroadcastf32x4"
+	0xE5, 0x06,// 869 = "vbroadcastf32x4"
 
 	// EVEX_Vbroadcastf32x4_zmm_k1z_m128
 	0x80,// 'v', Previous
 
 	// EVEX_Vbroadcastf64x2_ymm_k1z_m128
 	0x81,// 'v', Normal_1
-	0xB8, 0x06,// 824 = "vbroadcastf64x2"
+	0xE6, 0x06,// 870 = "vbroadcastf64x2"
 
 	// EVEX_Vbroadcastf64x2_zmm_k1z_m128
 	0x80,// 'v', Previous
 
 	// EVEX_Vbroadcastf32x8_zmm_k1z_m256
 	0x81,// 'v', Normal_1
-	0xB9, 0x06,// 825 = "vbroadcastf32x8"
+	0xE7, 0x06,// 871 = "vbroadcastf32x8"
 
 	// EVEX_Vbroadcastf64x4_zmm_k1z_m256
 	0x81,// 'v', Normal_1
-	0xBA, 0x06,// 826 = "vbroadcastf64x4"
+	0xE8, 0x06,// 872 = "vbroadcastf64x4"
 
 	// Pabsb_mm_mmm64
 	0x12,// mmxmem_1
@@ -10713,7 +10981,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpabsq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xBB, 0x06,// 827 = "vpabsq"
+	0xE9, 0x06,// 873 = "vpabsq"
 
 	// EVEX_Vpabsq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -10723,11 +10991,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxbw_xmm_xmmm64
 	0x01,// Normal_1
-	0xBC, 0x06,// 828 = "pmovsxbw"
+	0xEA, 0x06,// 874 = "pmovsxbw"
 
 	// VEX_Vpmovsxbw_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xBC, 0x06,// 828 = "vpmovsxbw"
+	0xEA, 0x06,// 874 = "vpmovsxbw"
 
 	// VEX_Vpmovsxbw_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -10743,7 +11011,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovswb_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xBD, 0x06,// 829 = "vpmovswb"
+	0xEB, 0x06,// 875 = "vpmovswb"
 
 	// EVEX_Vpmovswb_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10753,11 +11021,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxbd_xmm_xmmm32
 	0x01,// Normal_1
-	0xBE, 0x06,// 830 = "pmovsxbd"
+	0xEC, 0x06,// 876 = "pmovsxbd"
 
 	// VEX_Vpmovsxbd_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xBE, 0x06,// 830 = "vpmovsxbd"
+	0xEC, 0x06,// 876 = "vpmovsxbd"
 
 	// VEX_Vpmovsxbd_ymm_xmmm64
 	0x80,// 'v', Previous
@@ -10773,7 +11041,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovsdb_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xBF, 0x06,// 831 = "vpmovsdb"
+	0xED, 0x06,// 877 = "vpmovsdb"
 
 	// EVEX_Vpmovsdb_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -10783,11 +11051,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxbq_xmm_xmmm16
 	0x01,// Normal_1
-	0xC0, 0x06,// 832 = "pmovsxbq"
+	0xEE, 0x06,// 878 = "pmovsxbq"
 
 	// VEX_Vpmovsxbq_xmm_xmmm16
 	0x81,// 'v', Normal_1
-	0xC0, 0x06,// 832 = "vpmovsxbq"
+	0xEE, 0x06,// 878 = "vpmovsxbq"
 
 	// VEX_Vpmovsxbq_ymm_xmmm32
 	0x80,// 'v', Previous
@@ -10803,7 +11071,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovsqb_xmmm16_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xC1, 0x06,// 833 = "vpmovsqb"
+	0xEF, 0x06,// 879 = "vpmovsqb"
 
 	// EVEX_Vpmovsqb_xmmm32_k1z_ymm
 	0x80,// 'v', Previous
@@ -10813,11 +11081,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxwd_xmm_xmmm64
 	0x01,// Normal_1
-	0xC2, 0x06,// 834 = "pmovsxwd"
+	0xF0, 0x06,// 880 = "pmovsxwd"
 
 	// VEX_Vpmovsxwd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xC2, 0x06,// 834 = "vpmovsxwd"
+	0xF0, 0x06,// 880 = "vpmovsxwd"
 
 	// VEX_Vpmovsxwd_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -10833,7 +11101,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovsdw_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xC3, 0x06,// 835 = "vpmovsdw"
+	0xF1, 0x06,// 881 = "vpmovsdw"
 
 	// EVEX_Vpmovsdw_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10843,11 +11111,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxwq_xmm_xmmm32
 	0x01,// Normal_1
-	0xC4, 0x06,// 836 = "pmovsxwq"
+	0xF2, 0x06,// 882 = "pmovsxwq"
 
 	// VEX_Vpmovsxwq_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xC4, 0x06,// 836 = "vpmovsxwq"
+	0xF2, 0x06,// 882 = "vpmovsxwq"
 
 	// VEX_Vpmovsxwq_ymm_xmmm64
 	0x80,// 'v', Previous
@@ -10863,7 +11131,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovsqw_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xC5, 0x06,// 837 = "vpmovsqw"
+	0xF3, 0x06,// 883 = "vpmovsqw"
 
 	// EVEX_Vpmovsqw_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -10873,11 +11141,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovsxdq_xmm_xmmm64
 	0x01,// Normal_1
-	0xC6, 0x06,// 838 = "pmovsxdq"
+	0xF4, 0x06,// 884 = "pmovsxdq"
 
 	// VEX_Vpmovsxdq_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xC6, 0x06,// 838 = "vpmovsxdq"
+	0xF4, 0x06,// 884 = "vpmovsxdq"
 
 	// VEX_Vpmovsxdq_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -10893,7 +11161,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovsqd_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xC7, 0x06,// 839 = "vpmovsqd"
+	0xF5, 0x06,// 885 = "vpmovsqd"
 
 	// EVEX_Vpmovsqd_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -10903,7 +11171,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestmb_k_k1_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC8, 0x06,// 840 = "vptestmb"
+	0xF6, 0x06,// 886 = "vptestmb"
 
 	// EVEX_Vptestmb_k_k1_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10913,7 +11181,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestmw_k_k1_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC9, 0x06,// 841 = "vptestmw"
+	0xF7, 0x06,// 887 = "vptestmw"
 
 	// EVEX_Vptestmw_k_k1_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10923,7 +11191,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestnmb_k_k1_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCA, 0x06,// 842 = "vptestnmb"
+	0xF8, 0x06,// 888 = "vptestnmb"
 
 	// EVEX_Vptestnmb_k_k1_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10933,7 +11201,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestnmw_k_k1_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCB, 0x06,// 843 = "vptestnmw"
+	0xF9, 0x06,// 889 = "vptestnmw"
 
 	// EVEX_Vptestnmw_k_k1_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -10943,7 +11211,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestmd_k_k1_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xCC, 0x06,// 844 = "vptestmd"
+	0xFA, 0x06,// 890 = "vptestmd"
 
 	// EVEX_Vptestmd_k_k1_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -10953,7 +11221,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestmq_k_k1_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xCD, 0x06,// 845 = "vptestmq"
+	0xFB, 0x06,// 891 = "vptestmq"
 
 	// EVEX_Vptestmq_k_k1_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -10963,7 +11231,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestnmd_k_k1_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xCE, 0x06,// 846 = "vptestnmd"
+	0xFC, 0x06,// 892 = "vptestnmd"
 
 	// EVEX_Vptestnmd_k_k1_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -10973,7 +11241,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vptestnmq_k_k1_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xCF, 0x06,// 847 = "vptestnmq"
+	0xFD, 0x06,// 893 = "vptestnmq"
 
 	// EVEX_Vptestnmq_k_k1_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -10983,12 +11251,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmuldq_xmm_xmmm128
 	0x02,// Normal_2
-	0xD0, 0x06,// 848 = "pmuldq"
+	0xFE, 0x06,// 894 = "pmuldq"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmuldq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD0, 0x06,// 848 = "vpmuldq"
+	0xFE, 0x06,// 894 = "vpmuldq"
 
 	// VEX_Vpmuldq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11004,7 +11272,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovm2b_xmm_k
 	0x81,// 'v', Normal_1
-	0xD1, 0x06,// 849 = "vpmovm2b"
+	0xFF, 0x06,// 895 = "vpmovm2b"
 
 	// EVEX_Vpmovm2b_ymm_k
 	0x80,// 'v', Previous
@@ -11014,7 +11282,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovm2w_xmm_k
 	0x81,// 'v', Normal_1
-	0xD2, 0x06,// 850 = "vpmovm2w"
+	0x80, 0x07,// 896 = "vpmovm2w"
 
 	// EVEX_Vpmovm2w_ymm_k
 	0x80,// 'v', Previous
@@ -11024,12 +11292,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pcmpeqq_xmm_xmmm128
 	0x02,// Normal_2
-	0xD3, 0x06,// 851 = "pcmpeqq"
+	0x81, 0x07,// 897 = "pcmpeqq"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpeqq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD3, 0x06,// 851 = "vpcmpeqq"
+	0x81, 0x07,// 897 = "vpcmpeqq"
 
 	// VEX_Vpcmpeqq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11045,7 +11313,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovb2m_k_xmm
 	0x81,// 'v', Normal_1
-	0xD4, 0x06,// 852 = "vpmovb2m"
+	0x82, 0x07,// 898 = "vpmovb2m"
 
 	// EVEX_Vpmovb2m_k_ymm
 	0x80,// 'v', Previous
@@ -11055,7 +11323,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovw2m_k_xmm
 	0x81,// 'v', Normal_1
-	0xD5, 0x06,// 853 = "vpmovw2m"
+	0x83, 0x07,// 899 = "vpmovw2m"
 
 	// EVEX_Vpmovw2m_k_ymm
 	0x80,// 'v', Previous
@@ -11065,11 +11333,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movntdqa_xmm_m128
 	0x01,// Normal_1
-	0xD6, 0x06,// 854 = "movntdqa"
+	0x84, 0x07,// 900 = "movntdqa"
 
 	// VEX_Vmovntdqa_xmm_m128
 	0x81,// 'v', Normal_1
-	0xD6, 0x06,// 854 = "vmovntdqa"
+	0x84, 0x07,// 900 = "vmovntdqa"
 
 	// VEX_Vmovntdqa_ymm_m256
 	0x80,// 'v', Previous
@@ -11085,7 +11353,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpbroadcastmb2q_xmm_k
 	0x81,// 'v', Normal_1
-	0xD7, 0x06,// 855 = "vpbroadcastmb2q"
+	0x85, 0x07,// 901 = "vpbroadcastmb2q"
 
 	// EVEX_Vpbroadcastmb2q_ymm_k
 	0x80,// 'v', Previous
@@ -11095,12 +11363,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Packusdw_xmm_xmmm128
 	0x02,// Normal_2
-	0xD8, 0x06,// 856 = "packusdw"
+	0x86, 0x07,// 902 = "packusdw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpackusdw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD8, 0x06,// 856 = "vpackusdw"
+	0x86, 0x07,// 902 = "vpackusdw"
 
 	// VEX_Vpackusdw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11116,73 +11384,73 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vmaskmovps_xmm_xmm_m128
 	0x81,// 'v', Normal_1
-	0xD9, 0x06,// 857 = "vmaskmovps"
+	0x87, 0x07,// 903 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_ymm_ymm_m256
 	0x80,// 'v', Previous
 
 	// EVEX_Vscalefps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xDA, 0x06,// 858 = "vscalefps"
+	0x88, 0x07,// 904 = "vscalefps"
 
 	// EVEX_Vscalefps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vscalefps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xDA, 0x06,// 858 = "vscalefps"
+	0x88, 0x07,// 904 = "vscalefps"
 	0x03,// 0x3
 
 	// EVEX_Vscalefpd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xDB, 0x06,// 859 = "vscalefpd"
+	0x89, 0x07,// 905 = "vscalefpd"
 
 	// EVEX_Vscalefpd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vscalefpd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xDB, 0x06,// 859 = "vscalefpd"
+	0x89, 0x07,// 905 = "vscalefpd"
 	0x03,// 0x3
 
 	// VEX_Vmaskmovpd_xmm_xmm_m128
 	0x81,// 'v', Normal_1
-	0xDC, 0x06,// 860 = "vmaskmovpd"
+	0x8A, 0x07,// 906 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_ymm_ymm_m256
 	0x80,// 'v', Previous
 
 	// EVEX_Vscalefss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xDD, 0x06,// 861 = "vscalefss"
+	0x8B, 0x07,// 907 = "vscalefss"
 	0x03,// 0x3
 
 	// EVEX_Vscalefsd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xDE, 0x06,// 862 = "vscalefsd"
+	0x8C, 0x07,// 908 = "vscalefsd"
 	0x03,// 0x3
 
 	// VEX_Vmaskmovps_m128_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xD9, 0x06,// 857 = "vmaskmovps"
+	0x87, 0x07,// 903 = "vmaskmovps"
 
 	// VEX_Vmaskmovps_m256_ymm_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vmaskmovpd_m128_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xDC, 0x06,// 860 = "vmaskmovpd"
+	0x8A, 0x07,// 906 = "vmaskmovpd"
 
 	// VEX_Vmaskmovpd_m256_ymm_ymm
 	0x80,// 'v', Previous
 
 	// Pmovzxbw_xmm_xmmm64
 	0x01,// Normal_1
-	0xDF, 0x06,// 863 = "pmovzxbw"
+	0x8D, 0x07,// 909 = "pmovzxbw"
 
 	// VEX_Vpmovzxbw_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xDF, 0x06,// 863 = "vpmovzxbw"
+	0x8D, 0x07,// 909 = "vpmovzxbw"
 
 	// VEX_Vpmovzxbw_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -11198,7 +11466,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovwb_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xE0, 0x06,// 864 = "vpmovwb"
+	0x8E, 0x07,// 910 = "vpmovwb"
 
 	// EVEX_Vpmovwb_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -11208,11 +11476,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovzxbd_xmm_xmmm32
 	0x01,// Normal_1
-	0xE1, 0x06,// 865 = "pmovzxbd"
+	0x8F, 0x07,// 911 = "pmovzxbd"
 
 	// VEX_Vpmovzxbd_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xE1, 0x06,// 865 = "vpmovzxbd"
+	0x8F, 0x07,// 911 = "vpmovzxbd"
 
 	// VEX_Vpmovzxbd_ymm_xmmm64
 	0x80,// 'v', Previous
@@ -11228,7 +11496,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovdb_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xE2, 0x06,// 866 = "vpmovdb"
+	0x90, 0x07,// 912 = "vpmovdb"
 
 	// EVEX_Vpmovdb_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -11238,11 +11506,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovzxbq_xmm_xmmm16
 	0x01,// Normal_1
-	0xE3, 0x06,// 867 = "pmovzxbq"
+	0x91, 0x07,// 913 = "pmovzxbq"
 
 	// VEX_Vpmovzxbq_xmm_xmmm16
 	0x81,// 'v', Normal_1
-	0xE3, 0x06,// 867 = "vpmovzxbq"
+	0x91, 0x07,// 913 = "vpmovzxbq"
 
 	// VEX_Vpmovzxbq_ymm_xmmm32
 	0x80,// 'v', Previous
@@ -11258,7 +11526,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovqb_xmmm16_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xE4, 0x06,// 868 = "vpmovqb"
+	0x92, 0x07,// 914 = "vpmovqb"
 
 	// EVEX_Vpmovqb_xmmm32_k1z_ymm
 	0x80,// 'v', Previous
@@ -11268,11 +11536,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovzxwd_xmm_xmmm64
 	0x01,// Normal_1
-	0xE5, 0x06,// 869 = "pmovzxwd"
+	0x93, 0x07,// 915 = "pmovzxwd"
 
 	// VEX_Vpmovzxwd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xE5, 0x06,// 869 = "vpmovzxwd"
+	0x93, 0x07,// 915 = "vpmovzxwd"
 
 	// VEX_Vpmovzxwd_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -11288,7 +11556,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovdw_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xE6, 0x06,// 870 = "vpmovdw"
+	0x94, 0x07,// 916 = "vpmovdw"
 
 	// EVEX_Vpmovdw_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -11298,11 +11566,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovzxwq_xmm_xmmm32
 	0x01,// Normal_1
-	0xE7, 0x06,// 871 = "pmovzxwq"
+	0x95, 0x07,// 917 = "pmovzxwq"
 
 	// VEX_Vpmovzxwq_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xE7, 0x06,// 871 = "vpmovzxwq"
+	0x95, 0x07,// 917 = "vpmovzxwq"
 
 	// VEX_Vpmovzxwq_ymm_xmmm64
 	0x80,// 'v', Previous
@@ -11318,7 +11586,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovqw_xmmm32_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xE8, 0x06,// 872 = "vpmovqw"
+	0x96, 0x07,// 918 = "vpmovqw"
 
 	// EVEX_Vpmovqw_xmmm64_k1z_ymm
 	0x80,// 'v', Previous
@@ -11328,11 +11596,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmovzxdq_xmm_xmmm64
 	0x01,// Normal_1
-	0xE9, 0x06,// 873 = "pmovzxdq"
+	0x97, 0x07,// 919 = "pmovzxdq"
 
 	// VEX_Vpmovzxdq_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xE9, 0x06,// 873 = "vpmovzxdq"
+	0x97, 0x07,// 919 = "vpmovzxdq"
 
 	// VEX_Vpmovzxdq_ymm_xmmm128
 	0x80,// 'v', Previous
@@ -11348,7 +11616,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovqd_xmmm64_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xEA, 0x06,// 874 = "vpmovqd"
+	0x98, 0x07,// 920 = "vpmovqd"
 
 	// EVEX_Vpmovqd_xmmm128_k1z_ymm
 	0x80,// 'v', Previous
@@ -11358,7 +11626,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpermd_ymm_ymm_ymmm256
 	0x81,// 'v', Normal_1
-	0xEB, 0x06,// 875 = "vpermd"
+	0x99, 0x07,// 921 = "vpermd"
 
 	// EVEX_Vpermd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11368,19 +11636,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermq_ymm_k1z_ymm_ymmm256b64
 	0x81,// 'v', Normal_1
-	0xEC, 0x06,// 876 = "vpermq"
+	0x9A, 0x07,// 922 = "vpermq"
 
 	// EVEX_Vpermq_zmm_k1z_zmm_zmmm512b64
 	0x80,// 'v', Previous
 
 	// Pcmpgtq_xmm_xmmm128
 	0x02,// Normal_2
-	0xED, 0x06,// 877 = "pcmpgtq"
+	0x9B, 0x07,// 923 = "pcmpgtq"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpgtq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xED, 0x06,// 877 = "vpcmpgtq"
+	0x9B, 0x07,// 923 = "vpcmpgtq"
 
 	// VEX_Vpcmpgtq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11396,12 +11664,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pminsb_xmm_xmmm128
 	0x02,// Normal_2
-	0xEE, 0x06,// 878 = "pminsb"
+	0x9C, 0x07,// 924 = "pminsb"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpminsb_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xEE, 0x06,// 878 = "vpminsb"
+	0x9C, 0x07,// 924 = "vpminsb"
 
 	// VEX_Vpminsb_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11417,7 +11685,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovm2d_xmm_k
 	0x81,// 'v', Normal_1
-	0xEF, 0x06,// 879 = "vpmovm2d"
+	0x9D, 0x07,// 925 = "vpmovm2d"
 
 	// EVEX_Vpmovm2d_ymm_k
 	0x80,// 'v', Previous
@@ -11427,7 +11695,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovm2q_xmm_k
 	0x81,// 'v', Normal_1
-	0xF0, 0x06,// 880 = "vpmovm2q"
+	0x9E, 0x07,// 926 = "vpmovm2q"
 
 	// EVEX_Vpmovm2q_ymm_k
 	0x80,// 'v', Previous
@@ -11437,12 +11705,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pminsd_xmm_xmmm128
 	0x02,// Normal_2
-	0xF1, 0x06,// 881 = "pminsd"
+	0x9F, 0x07,// 927 = "pminsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpminsd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF1, 0x06,// 881 = "vpminsd"
+	0x9F, 0x07,// 927 = "vpminsd"
 
 	// VEX_Vpminsd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11458,7 +11726,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF2, 0x06,// 882 = "vpminsq"
+	0xA0, 0x07,// 928 = "vpminsq"
 
 	// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11468,7 +11736,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovd2m_k_xmm
 	0x81,// 'v', Normal_1
-	0xF3, 0x06,// 883 = "vpmovd2m"
+	0xA1, 0x07,// 929 = "vpmovd2m"
 
 	// EVEX_Vpmovd2m_k_ymm
 	0x80,// 'v', Previous
@@ -11478,7 +11746,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmovq2m_k_xmm
 	0x81,// 'v', Normal_1
-	0xF4, 0x06,// 884 = "vpmovq2m"
+	0xA2, 0x07,// 930 = "vpmovq2m"
 
 	// EVEX_Vpmovq2m_k_ymm
 	0x80,// 'v', Previous
@@ -11488,12 +11756,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pminuw_xmm_xmmm128
 	0x02,// Normal_2
-	0xF5, 0x06,// 885 = "pminuw"
+	0xA3, 0x07,// 931 = "pminuw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpminuw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF5, 0x06,// 885 = "vpminuw"
+	0xA3, 0x07,// 931 = "vpminuw"
 
 	// VEX_Vpminuw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11509,7 +11777,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpbroadcastmw2d_xmm_k
 	0x81,// 'v', Normal_1
-	0xF6, 0x06,// 886 = "vpbroadcastmw2d"
+	0xA4, 0x07,// 932 = "vpbroadcastmw2d"
 
 	// EVEX_Vpbroadcastmw2d_ymm_k
 	0x80,// 'v', Previous
@@ -11519,12 +11787,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pminud_xmm_xmmm128
 	0x02,// Normal_2
-	0xF7, 0x06,// 887 = "pminud"
+	0xA5, 0x07,// 933 = "pminud"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpminud_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF7, 0x06,// 887 = "vpminud"
+	0xA5, 0x07,// 933 = "vpminud"
 
 	// VEX_Vpminud_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11540,7 +11808,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpminuq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF8, 0x06,// 888 = "vpminuq"
+	0xA6, 0x07,// 934 = "vpminuq"
 
 	// EVEX_Vpminuq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11550,12 +11818,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmaxsb_xmm_xmmm128
 	0x02,// Normal_2
-	0xF9, 0x06,// 889 = "pmaxsb"
+	0xA7, 0x07,// 935 = "pmaxsb"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmaxsb_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF9, 0x06,// 889 = "vpmaxsb"
+	0xA7, 0x07,// 935 = "vpmaxsb"
 
 	// VEX_Vpmaxsb_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11571,12 +11839,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmaxsd_xmm_xmmm128
 	0x02,// Normal_2
-	0xFA, 0x06,// 890 = "pmaxsd"
+	0xA8, 0x07,// 936 = "pmaxsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmaxsd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFA, 0x06,// 890 = "vpmaxsd"
+	0xA8, 0x07,// 936 = "vpmaxsd"
 
 	// VEX_Vpmaxsd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11592,7 +11860,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmaxsq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xFB, 0x06,// 891 = "vpmaxsq"
+	0xA9, 0x07,// 937 = "vpmaxsq"
 
 	// EVEX_Vpmaxsq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11602,12 +11870,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmaxuw_xmm_xmmm128
 	0x02,// Normal_2
-	0xFC, 0x06,// 892 = "pmaxuw"
+	0xAA, 0x07,// 938 = "pmaxuw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmaxuw_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFC, 0x06,// 892 = "vpmaxuw"
+	0xAA, 0x07,// 938 = "vpmaxuw"
 
 	// VEX_Vpmaxuw_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11623,12 +11891,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmaxud_xmm_xmmm128
 	0x02,// Normal_2
-	0xFD, 0x06,// 893 = "pmaxud"
+	0xAB, 0x07,// 939 = "pmaxud"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmaxud_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFD, 0x06,// 893 = "vpmaxud"
+	0xAB, 0x07,// 939 = "vpmaxud"
 
 	// VEX_Vpmaxud_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11644,7 +11912,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmaxuq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xFE, 0x06,// 894 = "vpmaxuq"
+	0xAC, 0x07,// 940 = "vpmaxuq"
 
 	// EVEX_Vpmaxuq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11654,12 +11922,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pmulld_xmm_xmmm128
 	0x02,// Normal_2
-	0xFF, 0x06,// 895 = "pmulld"
+	0xAD, 0x07,// 941 = "pmulld"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpmulld_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFF, 0x06,// 895 = "vpmulld"
+	0xAD, 0x07,// 941 = "vpmulld"
 
 	// VEX_Vpmulld_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11675,7 +11943,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmullq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x80, 0x07,// 896 = "vpmullq"
+	0xAE, 0x07,// 942 = "vpmullq"
 
 	// EVEX_Vpmullq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11685,50 +11953,50 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Phminposuw_xmm_xmmm128
 	0x02,// Normal_2
-	0x81, 0x07,// 897 = "phminposuw"
+	0xAF, 0x07,// 943 = "phminposuw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vphminposuw_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x81, 0x07,// 897 = "vphminposuw"
+	0xAF, 0x07,// 943 = "vphminposuw"
 
 	// EVEX_Vgetexpps_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x82, 0x07,// 898 = "vgetexpps"
+	0xB0, 0x07,// 944 = "vgetexpps"
 
 	// EVEX_Vgetexpps_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetexpps_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0x82, 0x07,// 898 = "vgetexpps"
+	0xB4,// 'v', sae
+	0xB0, 0x07,// 944 = "vgetexpps"
 	0x02,// 0x2
 
 	// EVEX_Vgetexppd_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x83, 0x07,// 899 = "vgetexppd"
+	0xB1, 0x07,// 945 = "vgetexppd"
 
 	// EVEX_Vgetexppd_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetexppd_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0x83, 0x07,// 899 = "vgetexppd"
+	0xB4,// 'v', sae
+	0xB1, 0x07,// 945 = "vgetexppd"
 	0x02,// 0x2
 
 	// EVEX_Vgetexpss_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0x84, 0x07,// 900 = "vgetexpss"
+	0xB4,// 'v', sae
+	0xB2, 0x07,// 946 = "vgetexpss"
 	0x03,// 0x3
 
 	// EVEX_Vgetexpsd_xmm_k1z_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0x85, 0x07,// 901 = "vgetexpsd"
+	0xB4,// 'v', sae
+	0xB3, 0x07,// 947 = "vgetexpsd"
 	0x03,// 0x3
 
 	// EVEX_Vplzcntd_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x86, 0x07,// 902 = "vplzcntd"
+	0xB4, 0x07,// 948 = "vplzcntd"
 
 	// EVEX_Vplzcntd_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
@@ -11738,7 +12006,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vplzcntq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x87, 0x07,// 903 = "vplzcntq"
+	0xB5, 0x07,// 949 = "vplzcntq"
 
 	// EVEX_Vplzcntq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -11748,21 +12016,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpsrlvd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x88, 0x07,// 904 = "vpsrlvd"
+	0xB6, 0x07,// 950 = "vpsrlvd"
 
 	// VEX_Vpsrlvd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vpsrlvq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x89, 0x07,// 905 = "vpsrlvq"
+	0xB7, 0x07,// 951 = "vpsrlvq"
 
 	// VEX_Vpsrlvq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpsrlvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x88, 0x07,// 904 = "vpsrlvd"
+	0xB6, 0x07,// 950 = "vpsrlvd"
 
 	// EVEX_Vpsrlvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11772,7 +12040,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsrlvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x89, 0x07,// 905 = "vpsrlvq"
+	0xB7, 0x07,// 951 = "vpsrlvq"
 
 	// EVEX_Vpsrlvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11782,7 +12050,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpsravd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8A, 0x07,// 906 = "vpsravd"
+	0xB8, 0x07,// 952 = "vpsravd"
 
 	// VEX_Vpsravd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -11798,7 +12066,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsravq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8B, 0x07,// 907 = "vpsravq"
+	0xB9, 0x07,// 953 = "vpsravq"
 
 	// EVEX_Vpsravq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11808,21 +12076,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpsllvd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8C, 0x07,// 908 = "vpsllvd"
+	0xBA, 0x07,// 954 = "vpsllvd"
 
 	// VEX_Vpsllvd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vpsllvq_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8D, 0x07,// 909 = "vpsllvq"
+	0xBB, 0x07,// 955 = "vpsllvq"
 
 	// VEX_Vpsllvq_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpsllvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x8C, 0x07,// 908 = "vpsllvd"
+	0xBA, 0x07,// 954 = "vpsllvd"
 
 	// EVEX_Vpsllvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11832,7 +12100,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpsllvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8D, 0x07,// 909 = "vpsllvq"
+	0xBB, 0x07,// 955 = "vpsllvq"
 
 	// EVEX_Vpsllvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -11842,7 +12110,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vrcp14ps_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x8E, 0x07,// 910 = "vrcp14ps"
+	0xBC, 0x07,// 956 = "vrcp14ps"
 
 	// EVEX_Vrcp14ps_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
@@ -11852,7 +12120,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vrcp14pd_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8F, 0x07,// 911 = "vrcp14pd"
+	0xBD, 0x07,// 957 = "vrcp14pd"
 
 	// EVEX_Vrcp14pd_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -11862,15 +12130,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vrcp14ss_xmm_k1z_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x90, 0x07,// 912 = "vrcp14ss"
+	0xBE, 0x07,// 958 = "vrcp14ss"
 
 	// EVEX_Vrcp14sd_xmm_k1z_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x91, 0x07,// 913 = "vrcp14sd"
+	0xBF, 0x07,// 959 = "vrcp14sd"
 
 	// EVEX_Vrsqrt14ps_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x92, 0x07,// 914 = "vrsqrt14ps"
+	0xC0, 0x07,// 960 = "vrsqrt14ps"
 
 	// EVEX_Vrsqrt14ps_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
@@ -11880,7 +12148,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vrsqrt14pd_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x93, 0x07,// 915 = "vrsqrt14pd"
+	0xC1, 0x07,// 961 = "vrsqrt14pd"
 
 	// EVEX_Vrsqrt14pd_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -11890,15 +12158,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vrsqrt14ss_xmm_k1z_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x94, 0x07,// 916 = "vrsqrt14ss"
+	0xC2, 0x07,// 962 = "vrsqrt14ss"
 
 	// EVEX_Vrsqrt14sd_xmm_k1z_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x95, 0x07,// 917 = "vrsqrt14sd"
+	0xC3, 0x07,// 963 = "vrsqrt14sd"
 
 	// EVEX_Vpdpbusd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x96, 0x07,// 918 = "vpdpbusd"
+	0xC4, 0x07,// 964 = "vpdpbusd"
 
 	// EVEX_Vpdpbusd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11908,7 +12176,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpdpbusds_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x97, 0x07,// 919 = "vpdpbusds"
+	0xC5, 0x07,// 965 = "vpdpbusds"
 
 	// EVEX_Vpdpbusds_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11918,7 +12186,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpdpwssd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x98, 0x07,// 920 = "vpdpwssd"
+	0xC6, 0x07,// 966 = "vpdpwssd"
 
 	// EVEX_Vpdpwssd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11928,7 +12196,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vdpbf16ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x99, 0x07,// 921 = "vdpbf16ps"
+	0xC7, 0x07,// 967 = "vdpbf16ps"
 
 	// EVEX_Vdpbf16ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11938,11 +12206,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vp4dpwssd_zmm_k1z_zmmp3_m128
 	0x81,// 'v', Normal_1
-	0x9A, 0x07,// 922 = "vp4dpwssd"
+	0xC8, 0x07,// 968 = "vp4dpwssd"
 
 	// EVEX_Vpdpwssds_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x9B, 0x07,// 923 = "vpdpwssds"
+	0xC9, 0x07,// 969 = "vpdpwssds"
 
 	// EVEX_Vpdpwssds_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -11952,11 +12220,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vp4dpwssds_zmm_k1z_zmmp3_m128
 	0x81,// 'v', Normal_1
-	0x9C, 0x07,// 924 = "vp4dpwssds"
+	0xCA, 0x07,// 970 = "vp4dpwssds"
 
 	// EVEX_Vpopcntb_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0x9D, 0x07,// 925 = "vpopcntb"
+	0xCB, 0x07,// 971 = "vpopcntb"
 
 	// EVEX_Vpopcntb_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -11966,7 +12234,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpopcntw_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0x9E, 0x07,// 926 = "vpopcntw"
+	0xCC, 0x07,// 972 = "vpopcntw"
 
 	// EVEX_Vpopcntw_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -11976,7 +12244,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpopcntd_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x9F, 0x07,// 927 = "vpopcntd"
+	0xCD, 0x07,// 973 = "vpopcntd"
 
 	// EVEX_Vpopcntd_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
@@ -11986,7 +12254,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpopcntq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xA0, 0x07,// 928 = "vpopcntq"
+	0xCE, 0x07,// 974 = "vpopcntq"
 
 	// EVEX_Vpopcntq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -12019,7 +12287,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vbroadcasti32x2_xmm_k1z_xmmm64
 	0x81,// 'v', Normal_1
-	0xA1, 0x07,// 929 = "vbroadcasti32x2"
+	0xCF, 0x07,// 975 = "vbroadcasti32x2"
 
 	// EVEX_Vbroadcasti32x2_ymm_k1z_xmmm64
 	0x80,// 'v', Previous
@@ -12039,33 +12307,33 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vbroadcasti128_ymm_m128
 	0x81,// 'v', Normal_1
-	0xA2, 0x07,// 930 = "vbroadcasti128"
+	0xD0, 0x07,// 976 = "vbroadcasti128"
 
 	// EVEX_Vbroadcasti32x4_ymm_k1z_m128
 	0x81,// 'v', Normal_1
-	0xA3, 0x07,// 931 = "vbroadcasti32x4"
+	0xD1, 0x07,// 977 = "vbroadcasti32x4"
 
 	// EVEX_Vbroadcasti32x4_zmm_k1z_m128
 	0x80,// 'v', Previous
 
 	// EVEX_Vbroadcasti64x2_ymm_k1z_m128
 	0x81,// 'v', Normal_1
-	0xA4, 0x07,// 932 = "vbroadcasti64x2"
+	0xD2, 0x07,// 978 = "vbroadcasti64x2"
 
 	// EVEX_Vbroadcasti64x2_zmm_k1z_m128
 	0x80,// 'v', Previous
 
 	// EVEX_Vbroadcasti32x8_zmm_k1z_m256
 	0x81,// 'v', Normal_1
-	0xA5, 0x07,// 933 = "vbroadcasti32x8"
+	0xD3, 0x07,// 979 = "vbroadcasti32x8"
 
 	// EVEX_Vbroadcasti64x4_zmm_k1z_m256
 	0x81,// 'v', Normal_1
-	0xA6, 0x07,// 934 = "vbroadcasti64x4"
+	0xD4, 0x07,// 980 = "vbroadcasti64x4"
 
 	// EVEX_Vpexpandb_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xA7, 0x07,// 935 = "vpexpandb"
+	0xD5, 0x07,// 981 = "vpexpandb"
 
 	// EVEX_Vpexpandb_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12075,7 +12343,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpexpandw_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xA8, 0x07,// 936 = "vpexpandw"
+	0xD6, 0x07,// 982 = "vpexpandw"
 
 	// EVEX_Vpexpandw_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12085,7 +12353,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcompressb_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xA9, 0x07,// 937 = "vpcompressb"
+	0xD7, 0x07,// 983 = "vpcompressb"
 
 	// EVEX_Vpcompressb_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12095,7 +12363,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcompressw_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xAA, 0x07,// 938 = "vpcompressw"
+	0xD8, 0x07,// 984 = "vpcompressw"
 
 	// EVEX_Vpcompressw_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12105,7 +12373,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpblendmd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xAB, 0x07,// 939 = "vpblendmd"
+	0xD9, 0x07,// 985 = "vpblendmd"
 
 	// EVEX_Vpblendmd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12115,7 +12383,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpblendmq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xAC, 0x07,// 940 = "vpblendmq"
+	0xDA, 0x07,// 986 = "vpblendmq"
 
 	// EVEX_Vpblendmq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12125,7 +12393,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vblendmps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xAD, 0x07,// 941 = "vblendmps"
+	0xDB, 0x07,// 987 = "vblendmps"
 
 	// EVEX_Vblendmps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12135,7 +12403,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vblendmpd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xAE, 0x07,// 942 = "vblendmpd"
+	0xDC, 0x07,// 988 = "vblendmpd"
 
 	// EVEX_Vblendmpd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12145,7 +12413,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpblendmb_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAF, 0x07,// 943 = "vpblendmb"
+	0xDD, 0x07,// 989 = "vpblendmb"
 
 	// EVEX_Vpblendmb_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12155,7 +12423,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpblendmw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB0, 0x07,// 944 = "vpblendmw"
+	0xDE, 0x07,// 990 = "vpblendmw"
 
 	// EVEX_Vpblendmw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12165,7 +12433,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vp2intersectd_kp1_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xB1, 0x07,// 945 = "vp2intersectd"
+	0xDF, 0x07,// 991 = "vp2intersectd"
 
 	// EVEX_Vp2intersectd_kp1_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12175,7 +12443,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vp2intersectq_kp1_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xB2, 0x07,// 946 = "vp2intersectq"
+	0xE0, 0x07,// 992 = "vp2intersectq"
 
 	// EVEX_Vp2intersectq_kp1_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12185,7 +12453,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshldvw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB3, 0x07,// 947 = "vpshldvw"
+	0xE1, 0x07,// 993 = "vpshldvw"
 
 	// EVEX_Vpshldvw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12195,7 +12463,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshldvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xB4, 0x07,// 948 = "vpshldvd"
+	0xE2, 0x07,// 994 = "vpshldvd"
 
 	// EVEX_Vpshldvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12205,7 +12473,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshldvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xB5, 0x07,// 949 = "vpshldvq"
+	0xE3, 0x07,// 995 = "vpshldvq"
 
 	// EVEX_Vpshldvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12215,7 +12483,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdvw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xB6, 0x07,// 950 = "vpshrdvw"
+	0xE4, 0x07,// 996 = "vpshrdvw"
 
 	// EVEX_Vpshrdvw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12225,7 +12493,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
 	0x87,// 'v', bcst
-	0xB7, 0x07,// 951 = "vcvtneps2bf16"
+	0xE5, 0x07,// 997 = "vcvtneps2bf16"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -12234,11 +12502,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcvtneps2bf16_ymm_k1z_zmmm512b32
 	0x81,// 'v', Normal_1
-	0xB7, 0x07,// 951 = "vcvtneps2bf16"
+	0xE5, 0x07,// 997 = "vcvtneps2bf16"
 
 	// EVEX_Vcvtne2ps2bf16_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xB8, 0x07,// 952 = "vcvtne2ps2bf16"
+	0xE6, 0x07,// 998 = "vcvtne2ps2bf16"
 
 	// EVEX_Vcvtne2ps2bf16_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12248,7 +12516,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdvd_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xB9, 0x07,// 953 = "vpshrdvd"
+	0xE7, 0x07,// 999 = "vpshrdvd"
 
 	// EVEX_Vpshrdvd_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12258,7 +12526,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdvq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xBA, 0x07,// 954 = "vpshrdvq"
+	0xE8, 0x07,// 1000 = "vpshrdvq"
 
 	// EVEX_Vpshrdvq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12268,7 +12536,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2b_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBB, 0x07,// 955 = "vpermi2b"
+	0xE9, 0x07,// 1001 = "vpermi2b"
 
 	// EVEX_Vpermi2b_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12278,7 +12546,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2w_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xBC, 0x07,// 956 = "vpermi2w"
+	0xEA, 0x07,// 1002 = "vpermi2w"
 
 	// EVEX_Vpermi2w_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12288,7 +12556,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2d_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xBD, 0x07,// 957 = "vpermi2d"
+	0xEB, 0x07,// 1003 = "vpermi2d"
 
 	// EVEX_Vpermi2d_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12298,7 +12566,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2q_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xBE, 0x07,// 958 = "vpermi2q"
+	0xEC, 0x07,// 1004 = "vpermi2q"
 
 	// EVEX_Vpermi2q_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12308,7 +12576,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xBF, 0x07,// 959 = "vpermi2ps"
+	0xED, 0x07,// 1005 = "vpermi2ps"
 
 	// EVEX_Vpermi2ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12318,7 +12586,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermi2pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xC0, 0x07,// 960 = "vpermi2pd"
+	0xEE, 0x07,// 1006 = "vpermi2pd"
 
 	// EVEX_Vpermi2pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12400,7 +12668,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2b_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC1, 0x07,// 961 = "vpermt2b"
+	0xEF, 0x07,// 1007 = "vpermt2b"
 
 	// EVEX_Vpermt2b_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12410,7 +12678,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2w_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xC2, 0x07,// 962 = "vpermt2w"
+	0xF0, 0x07,// 1008 = "vpermt2w"
 
 	// EVEX_Vpermt2w_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12420,7 +12688,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2d_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xC3, 0x07,// 963 = "vpermt2d"
+	0xF1, 0x07,// 1009 = "vpermt2d"
 
 	// EVEX_Vpermt2d_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12430,7 +12698,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2q_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xC4, 0x07,// 964 = "vpermt2q"
+	0xF2, 0x07,// 1010 = "vpermt2q"
 
 	// EVEX_Vpermt2q_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12440,7 +12708,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xC5, 0x07,// 965 = "vpermt2ps"
+	0xF3, 0x07,// 1011 = "vpermt2ps"
 
 	// EVEX_Vpermt2ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
@@ -12450,7 +12718,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermt2pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xC6, 0x07,// 966 = "vpermt2pd"
+	0xF4, 0x07,// 1012 = "vpermt2pd"
 
 	// EVEX_Vpermt2pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12460,28 +12728,28 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Invept_r32_m128
 	0x01,// Normal_1
-	0xC7, 0x07,// 967 = "invept"
+	0xF5, 0x07,// 1013 = "invept"
 
 	// Invept_r64_m128
 	0x00,// Previous
 
 	// Invvpid_r32_m128
 	0x01,// Normal_1
-	0xC8, 0x07,// 968 = "invvpid"
+	0xF6, 0x07,// 1014 = "invvpid"
 
 	// Invvpid_r64_m128
 	0x00,// Previous
 
 	// Invpcid_r32_m128
 	0x01,// Normal_1
-	0xC9, 0x07,// 969 = "invpcid"
+	0xF7, 0x07,// 1015 = "invpcid"
 
 	// Invpcid_r64_m128
 	0x00,// Previous
 
 	// EVEX_Vpmultishiftqb_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xCA, 0x07,// 970 = "vpmultishiftqb"
+	0xF8, 0x07,// 1016 = "vpmultishiftqb"
 
 	// EVEX_Vpmultishiftqb_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -12491,7 +12759,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vexpandps_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCB, 0x07,// 971 = "vexpandps"
+	0xF9, 0x07,// 1017 = "vexpandps"
 
 	// EVEX_Vexpandps_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12501,7 +12769,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vexpandpd_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCC, 0x07,// 972 = "vexpandpd"
+	0xFA, 0x07,// 1018 = "vexpandpd"
 
 	// EVEX_Vexpandpd_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12511,7 +12779,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpexpandd_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCD, 0x07,// 973 = "vpexpandd"
+	0xFB, 0x07,// 1019 = "vpexpandd"
 
 	// EVEX_Vpexpandd_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12521,7 +12789,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpexpandq_xmm_k1z_xmmm128
 	0x81,// 'v', Normal_1
-	0xCE, 0x07,// 974 = "vpexpandq"
+	0xFC, 0x07,// 1020 = "vpexpandq"
 
 	// EVEX_Vpexpandq_ymm_k1z_ymmm256
 	0x80,// 'v', Previous
@@ -12531,7 +12799,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcompressps_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xCF, 0x07,// 975 = "vcompressps"
+	0xFD, 0x07,// 1021 = "vcompressps"
 
 	// EVEX_Vcompressps_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12541,7 +12809,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vcompresspd_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD0, 0x07,// 976 = "vcompresspd"
+	0xFE, 0x07,// 1022 = "vcompresspd"
 
 	// EVEX_Vcompresspd_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12551,7 +12819,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcompressd_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD1, 0x07,// 977 = "vpcompressd"
+	0xFF, 0x07,// 1023 = "vpcompressd"
 
 	// EVEX_Vpcompressd_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12561,7 +12829,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcompressq_xmmm128_k1z_xmm
 	0x81,// 'v', Normal_1
-	0xD2, 0x07,// 978 = "vpcompressq"
+	0x80, 0x08,// 1024 = "vpcompressq"
 
 	// EVEX_Vpcompressq_ymmm256_k1z_ymm
 	0x80,// 'v', Previous
@@ -12571,21 +12839,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpmaskmovd_xmm_xmm_m128
 	0x81,// 'v', Normal_1
-	0xD3, 0x07,// 979 = "vpmaskmovd"
+	0x81, 0x08,// 1025 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_ymm_ymm_m256
 	0x80,// 'v', Previous
 
 	// VEX_Vpmaskmovq_xmm_xmm_m128
 	0x81,// 'v', Normal_1
-	0xD4, 0x07,// 980 = "vpmaskmovq"
+	0x82, 0x08,// 1026 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_ymm_ymm_m256
 	0x80,// 'v', Previous
 
 	// EVEX_Vpermb_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD5, 0x07,// 981 = "vpermb"
+	0x83, 0x08,// 1027 = "vpermb"
 
 	// EVEX_Vpermb_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12595,7 +12863,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpermw_xmm_k1z_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD6, 0x07,// 982 = "vpermw"
+	0x84, 0x08,// 1028 = "vpermw"
 
 	// EVEX_Vpermw_ymm_k1z_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12605,21 +12873,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpmaskmovd_m128_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xD3, 0x07,// 979 = "vpmaskmovd"
+	0x81, 0x08,// 1025 = "vpmaskmovd"
 
 	// VEX_Vpmaskmovd_m256_ymm_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vpmaskmovq_m128_xmm_xmm
 	0x81,// 'v', Normal_1
-	0xD4, 0x07,// 980 = "vpmaskmovq"
+	0x82, 0x08,// 1026 = "vpmaskmovq"
 
 	// VEX_Vpmaskmovq_m256_ymm_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD7, 0x07,// 983 = "vpshufbitqmb"
+	0x85, 0x08,// 1029 = "vpshufbitqmb"
 
 	// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -12629,21 +12897,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpgatherdd_xmm_vm32x_xmm
 	0x81,// 'v', Normal_1
-	0xD8, 0x07,// 984 = "vpgatherdd"
+	0x86, 0x08,// 1030 = "vpgatherdd"
 
 	// VEX_Vpgatherdd_ymm_vm32y_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vpgatherdq_xmm_vm32x_xmm
 	0x81,// 'v', Normal_1
-	0xD9, 0x07,// 985 = "vpgatherdq"
+	0x87, 0x08,// 1031 = "vpgatherdq"
 
 	// VEX_Vpgatherdq_ymm_vm32x_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherdd_xmm_k1_vm32x
 	0x81,// 'v', Normal_1
-	0xD8, 0x07,// 984 = "vpgatherdd"
+	0x86, 0x08,// 1030 = "vpgatherdd"
 
 	// EVEX_Vpgatherdd_ymm_k1_vm32y
 	0x80,// 'v', Previous
@@ -12653,7 +12921,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpgatherdq_xmm_k1_vm32x
 	0x81,// 'v', Normal_1
-	0xD9, 0x07,// 985 = "vpgatherdq"
+	0x87, 0x08,// 1031 = "vpgatherdq"
 
 	// EVEX_Vpgatherdq_ymm_k1_vm32x
 	0x80,// 'v', Previous
@@ -12663,21 +12931,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpgatherqd_xmm_vm64x_xmm
 	0x81,// 'v', Normal_1
-	0xDA, 0x07,// 986 = "vpgatherqd"
+	0x88, 0x08,// 1032 = "vpgatherqd"
 
 	// VEX_Vpgatherqd_xmm_vm64y_xmm
 	0x80,// 'v', Previous
 
 	// VEX_Vpgatherqq_xmm_vm64x_xmm
 	0x81,// 'v', Normal_1
-	0xDB, 0x07,// 987 = "vpgatherqq"
+	0x89, 0x08,// 1033 = "vpgatherqq"
 
 	// VEX_Vpgatherqq_ymm_vm64y_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64x
 	0x81,// 'v', Normal_1
-	0xDA, 0x07,// 986 = "vpgatherqd"
+	0x88, 0x08,// 1032 = "vpgatherqd"
 
 	// EVEX_Vpgatherqd_xmm_k1_vm64y
 	0x80,// 'v', Previous
@@ -12687,7 +12955,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpgatherqq_xmm_k1_vm64x
 	0x81,// 'v', Normal_1
-	0xDB, 0x07,// 987 = "vpgatherqq"
+	0x89, 0x08,// 1033 = "vpgatherqq"
 
 	// EVEX_Vpgatherqq_ymm_k1_vm64y
 	0x80,// 'v', Previous
@@ -12697,21 +12965,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vgatherdps_xmm_vm32x_xmm
 	0x81,// 'v', Normal_1
-	0xDC, 0x07,// 988 = "vgatherdps"
+	0x8A, 0x08,// 1034 = "vgatherdps"
 
 	// VEX_Vgatherdps_ymm_vm32y_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vgatherdpd_xmm_vm32x_xmm
 	0x81,// 'v', Normal_1
-	0xDD, 0x07,// 989 = "vgatherdpd"
+	0x8B, 0x08,// 1035 = "vgatherdpd"
 
 	// VEX_Vgatherdpd_ymm_vm32x_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherdps_xmm_k1_vm32x
 	0x81,// 'v', Normal_1
-	0xDC, 0x07,// 988 = "vgatherdps"
+	0x8A, 0x08,// 1034 = "vgatherdps"
 
 	// EVEX_Vgatherdps_ymm_k1_vm32y
 	0x80,// 'v', Previous
@@ -12721,7 +12989,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vgatherdpd_xmm_k1_vm32x
 	0x81,// 'v', Normal_1
-	0xDD, 0x07,// 989 = "vgatherdpd"
+	0x8B, 0x08,// 1035 = "vgatherdpd"
 
 	// EVEX_Vgatherdpd_ymm_k1_vm32x
 	0x80,// 'v', Previous
@@ -12731,21 +12999,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vgatherqps_xmm_vm64x_xmm
 	0x81,// 'v', Normal_1
-	0xDE, 0x07,// 990 = "vgatherqps"
+	0x8C, 0x08,// 1036 = "vgatherqps"
 
 	// VEX_Vgatherqps_xmm_vm64y_xmm
 	0x80,// 'v', Previous
 
 	// VEX_Vgatherqpd_xmm_vm64x_xmm
 	0x81,// 'v', Normal_1
-	0xDF, 0x07,// 991 = "vgatherqpd"
+	0x8D, 0x08,// 1037 = "vgatherqpd"
 
 	// VEX_Vgatherqpd_ymm_vm64y_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vgatherqps_xmm_k1_vm64x
 	0x81,// 'v', Normal_1
-	0xDE, 0x07,// 990 = "vgatherqps"
+	0x8C, 0x08,// 1036 = "vgatherqps"
 
 	// EVEX_Vgatherqps_xmm_k1_vm64y
 	0x80,// 'v', Previous
@@ -12755,7 +13023,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vgatherqpd_xmm_k1_vm64x
 	0x81,// 'v', Normal_1
-	0xDF, 0x07,// 991 = "vgatherqpd"
+	0x8D, 0x08,// 1037 = "vgatherqpd"
 
 	// EVEX_Vgatherqpd_ymm_k1_vm64y
 	0x80,// 'v', Previous
@@ -12765,315 +13033,315 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddsub132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE0, 0x07,// 992 = "vfmaddsub132ps"
+	0x8E, 0x08,// 1038 = "vfmaddsub132ps"
 
 	// VEX_Vfmaddsub132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddsub132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE1, 0x07,// 993 = "vfmaddsub132pd"
+	0x8F, 0x08,// 1039 = "vfmaddsub132pd"
 
 	// VEX_Vfmaddsub132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xE0, 0x07,// 992 = "vfmaddsub132ps"
+	0x8E, 0x08,// 1038 = "vfmaddsub132ps"
 
 	// EVEX_Vfmaddsub132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xE0, 0x07,// 992 = "vfmaddsub132ps"
+	0x8E, 0x08,// 1038 = "vfmaddsub132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmaddsub132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xE1, 0x07,// 993 = "vfmaddsub132pd"
+	0x8F, 0x08,// 1039 = "vfmaddsub132pd"
 
 	// EVEX_Vfmaddsub132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xE1, 0x07,// 993 = "vfmaddsub132pd"
+	0x8F, 0x08,// 1039 = "vfmaddsub132pd"
 	0x03,// 0x3
 
 	// VEX_Vfmsubadd132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE2, 0x07,// 994 = "vfmsubadd132ps"
+	0x90, 0x08,// 1040 = "vfmsubadd132ps"
 
 	// VEX_Vfmsubadd132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubadd132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE3, 0x07,// 995 = "vfmsubadd132pd"
+	0x91, 0x08,// 1041 = "vfmsubadd132pd"
 
 	// VEX_Vfmsubadd132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xE2, 0x07,// 994 = "vfmsubadd132ps"
+	0x90, 0x08,// 1040 = "vfmsubadd132ps"
 
 	// EVEX_Vfmsubadd132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xE2, 0x07,// 994 = "vfmsubadd132ps"
+	0x90, 0x08,// 1040 = "vfmsubadd132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsubadd132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xE3, 0x07,// 995 = "vfmsubadd132pd"
+	0x91, 0x08,// 1041 = "vfmsubadd132pd"
 
 	// EVEX_Vfmsubadd132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xE3, 0x07,// 995 = "vfmsubadd132pd"
+	0x91, 0x08,// 1041 = "vfmsubadd132pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE4, 0x07,// 996 = "vfmadd132ps"
+	0x92, 0x08,// 1042 = "vfmadd132ps"
 
 	// VEX_Vfmadd132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmadd132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE5, 0x07,// 997 = "vfmadd132pd"
+	0x93, 0x08,// 1043 = "vfmadd132pd"
 
 	// VEX_Vfmadd132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xE4, 0x07,// 996 = "vfmadd132ps"
+	0x92, 0x08,// 1042 = "vfmadd132ps"
 
 	// EVEX_Vfmadd132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xE4, 0x07,// 996 = "vfmadd132ps"
+	0x92, 0x08,// 1042 = "vfmadd132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xE5, 0x07,// 997 = "vfmadd132pd"
+	0x93, 0x08,// 1043 = "vfmadd132pd"
 
 	// EVEX_Vfmadd132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xE5, 0x07,// 997 = "vfmadd132pd"
+	0x93, 0x08,// 1043 = "vfmadd132pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd132ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xE6, 0x07,// 998 = "vfmadd132ss"
+	0x94, 0x08,// 1044 = "vfmadd132ss"
 
 	// VEX_Vfmadd132sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xE7, 0x07,// 999 = "vfmadd132sd"
+	0x95, 0x08,// 1045 = "vfmadd132sd"
 
 	// EVEX_Vfmadd132ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xE6, 0x07,// 998 = "vfmadd132ss"
+	0x94, 0x08,// 1044 = "vfmadd132ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd132sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xE7, 0x07,// 999 = "vfmadd132sd"
+	0x95, 0x08,// 1045 = "vfmadd132sd"
 	0x03,// 0x3
 
 	// VEX_Vfmsub132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE8, 0x07,// 1000 = "vfmsub132ps"
+	0x96, 0x08,// 1046 = "vfmsub132ps"
 
 	// VEX_Vfmsub132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsub132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xE9, 0x07,// 1001 = "vfmsub132pd"
+	0x97, 0x08,// 1047 = "vfmsub132pd"
 
 	// VEX_Vfmsub132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xE8, 0x07,// 1000 = "vfmsub132ps"
+	0x96, 0x08,// 1046 = "vfmsub132ps"
 
 	// EVEX_Vfmsub132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xE8, 0x07,// 1000 = "vfmsub132ps"
+	0x96, 0x08,// 1046 = "vfmsub132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xE9, 0x07,// 1001 = "vfmsub132pd"
+	0x97, 0x08,// 1047 = "vfmsub132pd"
 
 	// EVEX_Vfmsub132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xE9, 0x07,// 1001 = "vfmsub132pd"
+	0x97, 0x08,// 1047 = "vfmsub132pd"
 	0x03,// 0x3
 
 	// EVEX_V4fmaddps_zmm_k1z_zmmp3_m128
 	0x81,// 'v', Normal_1
-	0xEA, 0x07,// 1002 = "v4fmaddps"
+	0x98, 0x08,// 1048 = "v4fmaddps"
 
 	// VEX_Vfmsub132ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xEB, 0x07,// 1003 = "vfmsub132ss"
+	0x99, 0x08,// 1049 = "vfmsub132ss"
 
 	// VEX_Vfmsub132sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xEC, 0x07,// 1004 = "vfmsub132sd"
+	0x9A, 0x08,// 1050 = "vfmsub132sd"
 
 	// EVEX_Vfmsub132ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xEB, 0x07,// 1003 = "vfmsub132ss"
+	0x99, 0x08,// 1049 = "vfmsub132ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub132sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xEC, 0x07,// 1004 = "vfmsub132sd"
+	0x9A, 0x08,// 1050 = "vfmsub132sd"
 	0x03,// 0x3
 
 	// EVEX_V4fmaddss_xmm_k1z_xmmp3_m128
 	0x81,// 'v', Normal_1
-	0xED, 0x07,// 1005 = "v4fmaddss"
+	0x9B, 0x08,// 1051 = "v4fmaddss"
 
 	// VEX_Vfnmadd132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xEE, 0x07,// 1006 = "vfnmadd132ps"
+	0x9C, 0x08,// 1052 = "vfnmadd132ps"
 
 	// VEX_Vfnmadd132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmadd132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xEF, 0x07,// 1007 = "vfnmadd132pd"
+	0x9D, 0x08,// 1053 = "vfnmadd132pd"
 
 	// VEX_Vfnmadd132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xEE, 0x07,// 1006 = "vfnmadd132ps"
+	0x9C, 0x08,// 1052 = "vfnmadd132ps"
 
 	// EVEX_Vfnmadd132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xEE, 0x07,// 1006 = "vfnmadd132ps"
+	0x9C, 0x08,// 1052 = "vfnmadd132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xEF, 0x07,// 1007 = "vfnmadd132pd"
+	0x9D, 0x08,// 1053 = "vfnmadd132pd"
 
 	// EVEX_Vfnmadd132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xEF, 0x07,// 1007 = "vfnmadd132pd"
+	0x9D, 0x08,// 1053 = "vfnmadd132pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmadd132ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xF0, 0x07,// 1008 = "vfnmadd132ss"
+	0x9E, 0x08,// 1054 = "vfnmadd132ss"
 
 	// VEX_Vfnmadd132sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xF1, 0x07,// 1009 = "vfnmadd132sd"
+	0x9F, 0x08,// 1055 = "vfnmadd132sd"
 
 	// EVEX_Vfnmadd132ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xF0, 0x07,// 1008 = "vfnmadd132ss"
+	0x9E, 0x08,// 1054 = "vfnmadd132ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd132sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xF1, 0x07,// 1009 = "vfnmadd132sd"
+	0x9F, 0x08,// 1055 = "vfnmadd132sd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub132ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF2, 0x07,// 1010 = "vfnmsub132ps"
+	0xA0, 0x08,// 1056 = "vfnmsub132ps"
 
 	// VEX_Vfnmsub132ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsub132pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xF3, 0x07,// 1011 = "vfnmsub132pd"
+	0xA1, 0x08,// 1057 = "vfnmsub132pd"
 
 	// VEX_Vfnmsub132pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub132ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xF2, 0x07,// 1010 = "vfnmsub132ps"
+	0xA0, 0x08,// 1056 = "vfnmsub132ps"
 
 	// EVEX_Vfnmsub132ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub132ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xF2, 0x07,// 1010 = "vfnmsub132ps"
+	0xA0, 0x08,// 1056 = "vfnmsub132ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub132pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xF3, 0x07,// 1011 = "vfnmsub132pd"
+	0xA1, 0x08,// 1057 = "vfnmsub132pd"
 
 	// EVEX_Vfnmsub132pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub132pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xF3, 0x07,// 1011 = "vfnmsub132pd"
+	0xA1, 0x08,// 1057 = "vfnmsub132pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub132ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xF4, 0x07,// 1012 = "vfnmsub132ss"
+	0xA2, 0x08,// 1058 = "vfnmsub132ss"
 
 	// VEX_Vfnmsub132sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xF5, 0x07,// 1013 = "vfnmsub132sd"
+	0xA3, 0x08,// 1059 = "vfnmsub132sd"
 
 	// EVEX_Vfnmsub132ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xF4, 0x07,// 1012 = "vfnmsub132ss"
+	0xA2, 0x08,// 1058 = "vfnmsub132ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub132sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xF5, 0x07,// 1013 = "vfnmsub132sd"
+	0xA3, 0x08,// 1059 = "vfnmsub132sd"
 	0x03,// 0x3
 
 	// EVEX_Vpscatterdd_vm32x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xF6, 0x07,// 1014 = "vpscatterdd"
+	0xA4, 0x08,// 1060 = "vpscatterdd"
 
 	// EVEX_Vpscatterdd_vm32y_k1_ymm
 	0x80,// 'v', Previous
@@ -13083,7 +13351,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpscatterdq_vm32x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xF7, 0x07,// 1015 = "vpscatterdq"
+	0xA5, 0x08,// 1061 = "vpscatterdq"
 
 	// EVEX_Vpscatterdq_vm32x_k1_ymm
 	0x80,// 'v', Previous
@@ -13093,7 +13361,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpscatterqd_vm64x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xF8, 0x07,// 1016 = "vpscatterqd"
+	0xA6, 0x08,// 1062 = "vpscatterqd"
 
 	// EVEX_Vpscatterqd_vm64y_k1_xmm
 	0x80,// 'v', Previous
@@ -13103,7 +13371,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpscatterqq_vm64x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xF9, 0x07,// 1017 = "vpscatterqq"
+	0xA7, 0x08,// 1063 = "vpscatterqq"
 
 	// EVEX_Vpscatterqq_vm64y_k1_ymm
 	0x80,// 'v', Previous
@@ -13113,7 +13381,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vscatterdps_vm32x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xFA, 0x07,// 1018 = "vscatterdps"
+	0xA8, 0x08,// 1064 = "vscatterdps"
 
 	// EVEX_Vscatterdps_vm32y_k1_ymm
 	0x80,// 'v', Previous
@@ -13123,7 +13391,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vscatterdpd_vm32x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xFB, 0x07,// 1019 = "vscatterdpd"
+	0xA9, 0x08,// 1065 = "vscatterdpd"
 
 	// EVEX_Vscatterdpd_vm32x_k1_ymm
 	0x80,// 'v', Previous
@@ -13133,7 +13401,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vscatterqps_vm64x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xFC, 0x07,// 1020 = "vscatterqps"
+	0xAA, 0x08,// 1066 = "vscatterqps"
 
 	// EVEX_Vscatterqps_vm64y_k1_xmm
 	0x80,// 'v', Previous
@@ -13143,7 +13411,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vscatterqpd_vm64x_k1_xmm
 	0x81,// 'v', Normal_1
-	0xFD, 0x07,// 1021 = "vscatterqpd"
+	0xAB, 0x08,// 1067 = "vscatterqpd"
 
 	// EVEX_Vscatterqpd_vm64y_k1_ymm
 	0x80,// 'v', Previous
@@ -13153,315 +13421,315 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddsub213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFE, 0x07,// 1022 = "vfmaddsub213ps"
+	0xAC, 0x08,// 1068 = "vfmaddsub213ps"
 
 	// VEX_Vfmaddsub213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddsub213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xFF, 0x07,// 1023 = "vfmaddsub213pd"
+	0xAD, 0x08,// 1069 = "vfmaddsub213pd"
 
 	// VEX_Vfmaddsub213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xFE, 0x07,// 1022 = "vfmaddsub213ps"
+	0xAC, 0x08,// 1068 = "vfmaddsub213ps"
 
 	// EVEX_Vfmaddsub213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xFE, 0x07,// 1022 = "vfmaddsub213ps"
+	0xAC, 0x08,// 1068 = "vfmaddsub213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmaddsub213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xFF, 0x07,// 1023 = "vfmaddsub213pd"
+	0xAD, 0x08,// 1069 = "vfmaddsub213pd"
 
 	// EVEX_Vfmaddsub213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xFF, 0x07,// 1023 = "vfmaddsub213pd"
+	0xAD, 0x08,// 1069 = "vfmaddsub213pd"
 	0x03,// 0x3
 
 	// VEX_Vfmsubadd213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x80, 0x08,// 1024 = "vfmsubadd213ps"
+	0xAE, 0x08,// 1070 = "vfmsubadd213ps"
 
 	// VEX_Vfmsubadd213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubadd213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x81, 0x08,// 1025 = "vfmsubadd213pd"
+	0xAF, 0x08,// 1071 = "vfmsubadd213pd"
 
 	// VEX_Vfmsubadd213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x80, 0x08,// 1024 = "vfmsubadd213ps"
+	0xAE, 0x08,// 1070 = "vfmsubadd213ps"
 
 	// EVEX_Vfmsubadd213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x80, 0x08,// 1024 = "vfmsubadd213ps"
+	0xAE, 0x08,// 1070 = "vfmsubadd213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsubadd213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x81, 0x08,// 1025 = "vfmsubadd213pd"
+	0xAF, 0x08,// 1071 = "vfmsubadd213pd"
 
 	// EVEX_Vfmsubadd213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x81, 0x08,// 1025 = "vfmsubadd213pd"
+	0xAF, 0x08,// 1071 = "vfmsubadd213pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x82, 0x08,// 1026 = "vfmadd213ps"
+	0xB0, 0x08,// 1072 = "vfmadd213ps"
 
 	// VEX_Vfmadd213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmadd213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x83, 0x08,// 1027 = "vfmadd213pd"
+	0xB1, 0x08,// 1073 = "vfmadd213pd"
 
 	// VEX_Vfmadd213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x82, 0x08,// 1026 = "vfmadd213ps"
+	0xB0, 0x08,// 1072 = "vfmadd213ps"
 
 	// EVEX_Vfmadd213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x82, 0x08,// 1026 = "vfmadd213ps"
+	0xB0, 0x08,// 1072 = "vfmadd213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x83, 0x08,// 1027 = "vfmadd213pd"
+	0xB1, 0x08,// 1073 = "vfmadd213pd"
 
 	// EVEX_Vfmadd213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x83, 0x08,// 1027 = "vfmadd213pd"
+	0xB1, 0x08,// 1073 = "vfmadd213pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd213ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x84, 0x08,// 1028 = "vfmadd213ss"
+	0xB2, 0x08,// 1074 = "vfmadd213ss"
 
 	// VEX_Vfmadd213sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x85, 0x08,// 1029 = "vfmadd213sd"
+	0xB3, 0x08,// 1075 = "vfmadd213sd"
 
 	// EVEX_Vfmadd213ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x84, 0x08,// 1028 = "vfmadd213ss"
+	0xB2, 0x08,// 1074 = "vfmadd213ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd213sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x85, 0x08,// 1029 = "vfmadd213sd"
+	0xB3, 0x08,// 1075 = "vfmadd213sd"
 	0x03,// 0x3
 
 	// VEX_Vfmsub213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x86, 0x08,// 1030 = "vfmsub213ps"
+	0xB4, 0x08,// 1076 = "vfmsub213ps"
 
 	// VEX_Vfmsub213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsub213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x87, 0x08,// 1031 = "vfmsub213pd"
+	0xB5, 0x08,// 1077 = "vfmsub213pd"
 
 	// VEX_Vfmsub213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x86, 0x08,// 1030 = "vfmsub213ps"
+	0xB4, 0x08,// 1076 = "vfmsub213ps"
 
 	// EVEX_Vfmsub213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x86, 0x08,// 1030 = "vfmsub213ps"
+	0xB4, 0x08,// 1076 = "vfmsub213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x87, 0x08,// 1031 = "vfmsub213pd"
+	0xB5, 0x08,// 1077 = "vfmsub213pd"
 
 	// EVEX_Vfmsub213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x87, 0x08,// 1031 = "vfmsub213pd"
+	0xB5, 0x08,// 1077 = "vfmsub213pd"
 	0x03,// 0x3
 
 	// EVEX_V4fnmaddps_zmm_k1z_zmmp3_m128
 	0x81,// 'v', Normal_1
-	0x88, 0x08,// 1032 = "v4fnmaddps"
+	0xB6, 0x08,// 1078 = "v4fnmaddps"
 
 	// VEX_Vfmsub213ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x89, 0x08,// 1033 = "vfmsub213ss"
+	0xB7, 0x08,// 1079 = "vfmsub213ss"
 
 	// VEX_Vfmsub213sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x8A, 0x08,// 1034 = "vfmsub213sd"
+	0xB8, 0x08,// 1080 = "vfmsub213sd"
 
 	// EVEX_Vfmsub213ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x89, 0x08,// 1033 = "vfmsub213ss"
+	0xB7, 0x08,// 1079 = "vfmsub213ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub213sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x8A, 0x08,// 1034 = "vfmsub213sd"
+	0xB8, 0x08,// 1080 = "vfmsub213sd"
 	0x03,// 0x3
 
 	// EVEX_V4fnmaddss_xmm_k1z_xmmp3_m128
 	0x81,// 'v', Normal_1
-	0x8B, 0x08,// 1035 = "v4fnmaddss"
+	0xB9, 0x08,// 1081 = "v4fnmaddss"
 
 	// VEX_Vfnmadd213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8C, 0x08,// 1036 = "vfnmadd213ps"
+	0xBA, 0x08,// 1082 = "vfnmadd213ps"
 
 	// VEX_Vfnmadd213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmadd213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x8D, 0x08,// 1037 = "vfnmadd213pd"
+	0xBB, 0x08,// 1083 = "vfnmadd213pd"
 
 	// VEX_Vfnmadd213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x8C, 0x08,// 1036 = "vfnmadd213ps"
+	0xBA, 0x08,// 1082 = "vfnmadd213ps"
 
 	// EVEX_Vfnmadd213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x8C, 0x08,// 1036 = "vfnmadd213ps"
+	0xBA, 0x08,// 1082 = "vfnmadd213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x8D, 0x08,// 1037 = "vfnmadd213pd"
+	0xBB, 0x08,// 1083 = "vfnmadd213pd"
 
 	// EVEX_Vfnmadd213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x8D, 0x08,// 1037 = "vfnmadd213pd"
+	0xBB, 0x08,// 1083 = "vfnmadd213pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmadd213ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x8E, 0x08,// 1038 = "vfnmadd213ss"
+	0xBC, 0x08,// 1084 = "vfnmadd213ss"
 
 	// VEX_Vfnmadd213sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x8F, 0x08,// 1039 = "vfnmadd213sd"
+	0xBD, 0x08,// 1085 = "vfnmadd213sd"
 
 	// EVEX_Vfnmadd213ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x8E, 0x08,// 1038 = "vfnmadd213ss"
+	0xBC, 0x08,// 1084 = "vfnmadd213ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd213sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x8F, 0x08,// 1039 = "vfnmadd213sd"
+	0xBD, 0x08,// 1085 = "vfnmadd213sd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub213ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x90, 0x08,// 1040 = "vfnmsub213ps"
+	0xBE, 0x08,// 1086 = "vfnmsub213ps"
 
 	// VEX_Vfnmsub213ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsub213pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x91, 0x08,// 1041 = "vfnmsub213pd"
+	0xBF, 0x08,// 1087 = "vfnmsub213pd"
 
 	// VEX_Vfnmsub213pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub213ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x90, 0x08,// 1040 = "vfnmsub213ps"
+	0xBE, 0x08,// 1086 = "vfnmsub213ps"
 
 	// EVEX_Vfnmsub213ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub213ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x90, 0x08,// 1040 = "vfnmsub213ps"
+	0xBE, 0x08,// 1086 = "vfnmsub213ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub213pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x91, 0x08,// 1041 = "vfnmsub213pd"
+	0xBF, 0x08,// 1087 = "vfnmsub213pd"
 
 	// EVEX_Vfnmsub213pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub213pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x91, 0x08,// 1041 = "vfnmsub213pd"
+	0xBF, 0x08,// 1087 = "vfnmsub213pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub213ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x92, 0x08,// 1042 = "vfnmsub213ss"
+	0xC0, 0x08,// 1088 = "vfnmsub213ss"
 
 	// VEX_Vfnmsub213sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x93, 0x08,// 1043 = "vfnmsub213sd"
+	0xC1, 0x08,// 1089 = "vfnmsub213sd"
 
 	// EVEX_Vfnmsub213ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x92, 0x08,// 1042 = "vfnmsub213ss"
+	0xC0, 0x08,// 1088 = "vfnmsub213ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub213sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x93, 0x08,// 1043 = "vfnmsub213sd"
+	0xC1, 0x08,// 1089 = "vfnmsub213sd"
 	0x03,// 0x3
 
 	// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x94, 0x08,// 1044 = "vpmadd52luq"
+	0xC2, 0x08,// 1090 = "vpmadd52luq"
 
 	// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -13471,7 +13739,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x95, 0x08,// 1045 = "vpmadd52huq"
+	0xC3, 0x08,// 1091 = "vpmadd52huq"
 
 	// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
@@ -13481,307 +13749,307 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddsub231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x96, 0x08,// 1046 = "vfmaddsub231ps"
+	0xC4, 0x08,// 1092 = "vfmaddsub231ps"
 
 	// VEX_Vfmaddsub231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddsub231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x97, 0x08,// 1047 = "vfmaddsub231pd"
+	0xC5, 0x08,// 1093 = "vfmaddsub231pd"
 
 	// VEX_Vfmaddsub231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x96, 0x08,// 1046 = "vfmaddsub231ps"
+	0xC4, 0x08,// 1092 = "vfmaddsub231ps"
 
 	// EVEX_Vfmaddsub231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x96, 0x08,// 1046 = "vfmaddsub231ps"
+	0xC4, 0x08,// 1092 = "vfmaddsub231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmaddsub231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x97, 0x08,// 1047 = "vfmaddsub231pd"
+	0xC5, 0x08,// 1093 = "vfmaddsub231pd"
 
 	// EVEX_Vfmaddsub231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmaddsub231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x97, 0x08,// 1047 = "vfmaddsub231pd"
+	0xC5, 0x08,// 1093 = "vfmaddsub231pd"
 	0x03,// 0x3
 
 	// VEX_Vfmsubadd231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x98, 0x08,// 1048 = "vfmsubadd231ps"
+	0xC6, 0x08,// 1094 = "vfmsubadd231ps"
 
 	// VEX_Vfmsubadd231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubadd231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x99, 0x08,// 1049 = "vfmsubadd231pd"
+	0xC7, 0x08,// 1095 = "vfmsubadd231pd"
 
 	// VEX_Vfmsubadd231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x98, 0x08,// 1048 = "vfmsubadd231ps"
+	0xC6, 0x08,// 1094 = "vfmsubadd231ps"
 
 	// EVEX_Vfmsubadd231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x98, 0x08,// 1048 = "vfmsubadd231ps"
+	0xC6, 0x08,// 1094 = "vfmsubadd231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsubadd231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x99, 0x08,// 1049 = "vfmsubadd231pd"
+	0xC7, 0x08,// 1095 = "vfmsubadd231pd"
 
 	// EVEX_Vfmsubadd231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsubadd231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x99, 0x08,// 1049 = "vfmsubadd231pd"
+	0xC7, 0x08,// 1095 = "vfmsubadd231pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9A, 0x08,// 1050 = "vfmadd231ps"
+	0xC8, 0x08,// 1096 = "vfmadd231ps"
 
 	// VEX_Vfmadd231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmadd231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9B, 0x08,// 1051 = "vfmadd231pd"
+	0xC9, 0x08,// 1097 = "vfmadd231pd"
 
 	// VEX_Vfmadd231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x9A, 0x08,// 1050 = "vfmadd231ps"
+	0xC8, 0x08,// 1096 = "vfmadd231ps"
 
 	// EVEX_Vfmadd231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x9A, 0x08,// 1050 = "vfmadd231ps"
+	0xC8, 0x08,// 1096 = "vfmadd231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x9B, 0x08,// 1051 = "vfmadd231pd"
+	0xC9, 0x08,// 1097 = "vfmadd231pd"
 
 	// EVEX_Vfmadd231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmadd231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x9B, 0x08,// 1051 = "vfmadd231pd"
+	0xC9, 0x08,// 1097 = "vfmadd231pd"
 	0x03,// 0x3
 
 	// VEX_Vfmadd231ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x9C, 0x08,// 1052 = "vfmadd231ss"
+	0xCA, 0x08,// 1098 = "vfmadd231ss"
 
 	// VEX_Vfmadd231sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x9D, 0x08,// 1053 = "vfmadd231sd"
+	0xCB, 0x08,// 1099 = "vfmadd231sd"
 
 	// EVEX_Vfmadd231ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0x9C, 0x08,// 1052 = "vfmadd231ss"
+	0xCA, 0x08,// 1098 = "vfmadd231ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmadd231sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0x9D, 0x08,// 1053 = "vfmadd231sd"
+	0xCB, 0x08,// 1099 = "vfmadd231sd"
 	0x03,// 0x3
 
 	// VEX_Vfmsub231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9E, 0x08,// 1054 = "vfmsub231ps"
+	0xCC, 0x08,// 1100 = "vfmsub231ps"
 
 	// VEX_Vfmsub231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsub231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9F, 0x08,// 1055 = "vfmsub231pd"
+	0xCD, 0x08,// 1101 = "vfmsub231pd"
 
 	// VEX_Vfmsub231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0x9E, 0x08,// 1054 = "vfmsub231ps"
+	0xCC, 0x08,// 1100 = "vfmsub231ps"
 
 	// EVEX_Vfmsub231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0x9E, 0x08,// 1054 = "vfmsub231ps"
+	0xCC, 0x08,// 1100 = "vfmsub231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0x9F, 0x08,// 1055 = "vfmsub231pd"
+	0xCD, 0x08,// 1101 = "vfmsub231pd"
 
 	// EVEX_Vfmsub231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfmsub231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0x9F, 0x08,// 1055 = "vfmsub231pd"
+	0xCD, 0x08,// 1101 = "vfmsub231pd"
 	0x03,// 0x3
 
 	// VEX_Vfmsub231ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xA0, 0x08,// 1056 = "vfmsub231ss"
+	0xCE, 0x08,// 1102 = "vfmsub231ss"
 
 	// VEX_Vfmsub231sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xA1, 0x08,// 1057 = "vfmsub231sd"
+	0xCF, 0x08,// 1103 = "vfmsub231sd"
 
 	// EVEX_Vfmsub231ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xA0, 0x08,// 1056 = "vfmsub231ss"
+	0xCE, 0x08,// 1102 = "vfmsub231ss"
 	0x03,// 0x3
 
 	// EVEX_Vfmsub231sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xA1, 0x08,// 1057 = "vfmsub231sd"
+	0xCF, 0x08,// 1103 = "vfmsub231sd"
 	0x03,// 0x3
 
 	// VEX_Vfnmadd231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA2, 0x08,// 1058 = "vfnmadd231ps"
+	0xD0, 0x08,// 1104 = "vfnmadd231ps"
 
 	// VEX_Vfnmadd231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmadd231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA3, 0x08,// 1059 = "vfnmadd231pd"
+	0xD1, 0x08,// 1105 = "vfnmadd231pd"
 
 	// VEX_Vfnmadd231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xA2, 0x08,// 1058 = "vfnmadd231ps"
+	0xD0, 0x08,// 1104 = "vfnmadd231ps"
 
 	// EVEX_Vfnmadd231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xA2, 0x08,// 1058 = "vfnmadd231ps"
+	0xD0, 0x08,// 1104 = "vfnmadd231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xA3, 0x08,// 1059 = "vfnmadd231pd"
+	0xD1, 0x08,// 1105 = "vfnmadd231pd"
 
 	// EVEX_Vfnmadd231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmadd231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xA3, 0x08,// 1059 = "vfnmadd231pd"
+	0xD1, 0x08,// 1105 = "vfnmadd231pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmadd231ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xA4, 0x08,// 1060 = "vfnmadd231ss"
+	0xD2, 0x08,// 1106 = "vfnmadd231ss"
 
 	// VEX_Vfnmadd231sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xA5, 0x08,// 1061 = "vfnmadd231sd"
+	0xD3, 0x08,// 1107 = "vfnmadd231sd"
 
 	// EVEX_Vfnmadd231ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xA4, 0x08,// 1060 = "vfnmadd231ss"
+	0xD2, 0x08,// 1106 = "vfnmadd231ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmadd231sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xA5, 0x08,// 1061 = "vfnmadd231sd"
+	0xD3, 0x08,// 1107 = "vfnmadd231sd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub231ps_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA6, 0x08,// 1062 = "vfnmsub231ps"
+	0xD4, 0x08,// 1108 = "vfnmsub231ps"
 
 	// VEX_Vfnmsub231ps_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsub231pd_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA7, 0x08,// 1063 = "vfnmsub231pd"
+	0xD5, 0x08,// 1109 = "vfnmsub231pd"
 
 	// VEX_Vfnmsub231pd_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub231ps_xmm_k1z_xmm_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xA6, 0x08,// 1062 = "vfnmsub231ps"
+	0xD4, 0x08,// 1108 = "vfnmsub231ps"
 
 	// EVEX_Vfnmsub231ps_ymm_k1z_ymm_ymmm256b32
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub231ps_zmm_k1z_zmm_zmmm512b32_er
 	0x8C,// 'v', er_2
-	0xA6, 0x08,// 1062 = "vfnmsub231ps"
+	0xD4, 0x08,// 1108 = "vfnmsub231ps"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub231pd_xmm_k1z_xmm_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xA7, 0x08,// 1063 = "vfnmsub231pd"
+	0xD5, 0x08,// 1109 = "vfnmsub231pd"
 
 	// EVEX_Vfnmsub231pd_ymm_k1z_ymm_ymmm256b64
 	0x80,// 'v', Previous
 
 	// EVEX_Vfnmsub231pd_zmm_k1z_zmm_zmmm512b64_er
 	0x8C,// 'v', er_2
-	0xA7, 0x08,// 1063 = "vfnmsub231pd"
+	0xD5, 0x08,// 1109 = "vfnmsub231pd"
 	0x03,// 0x3
 
 	// VEX_Vfnmsub231ss_xmm_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0xA8, 0x08,// 1064 = "vfnmsub231ss"
+	0xD6, 0x08,// 1110 = "vfnmsub231ss"
 
 	// VEX_Vfnmsub231sd_xmm_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0xA9, 0x08,// 1065 = "vfnmsub231sd"
+	0xD7, 0x08,// 1111 = "vfnmsub231sd"
 
 	// EVEX_Vfnmsub231ss_xmm_k1z_xmm_xmmm32_er
 	0x8C,// 'v', er_2
-	0xA8, 0x08,// 1064 = "vfnmsub231ss"
+	0xD6, 0x08,// 1110 = "vfnmsub231ss"
 	0x03,// 0x3
 
 	// EVEX_Vfnmsub231sd_xmm_k1z_xmm_xmmm64_er
 	0x8C,// 'v', er_2
-	0xA9, 0x08,// 1065 = "vfnmsub231sd"
+	0xD7, 0x08,// 1111 = "vfnmsub231sd"
 	0x03,// 0x3
 
 	// EVEX_Vpconflictd_xmm_k1z_xmmm128b32
 	0x81,// 'v', Normal_1
-	0xAA, 0x08,// 1066 = "vpconflictd"
+	0xD8, 0x08,// 1112 = "vpconflictd"
 
 	// EVEX_Vpconflictd_ymm_k1z_ymmm256b32
 	0x80,// 'v', Previous
@@ -13791,7 +14059,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpconflictq_xmm_k1z_xmmm128b64
 	0x81,// 'v', Normal_1
-	0xAB, 0x08,// 1067 = "vpconflictq"
+	0xD9, 0x08,// 1113 = "vpconflictq"
 
 	// EVEX_Vpconflictq_ymm_k1z_ymmm256b64
 	0x80,// 'v', Previous
@@ -13801,150 +14069,150 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vgatherpf0dps_vm32z_k1
 	0x81,// 'v', Normal_1
-	0xAC, 0x08,// 1068 = "vgatherpf0dps"
+	0xDA, 0x08,// 1114 = "vgatherpf0dps"
 
 	// EVEX_Vgatherpf0dpd_vm32y_k1
 	0x81,// 'v', Normal_1
-	0xAD, 0x08,// 1069 = "vgatherpf0dpd"
+	0xDB, 0x08,// 1115 = "vgatherpf0dpd"
 
 	// EVEX_Vgatherpf1dps_vm32z_k1
 	0x81,// 'v', Normal_1
-	0xAE, 0x08,// 1070 = "vgatherpf1dps"
+	0xDC, 0x08,// 1116 = "vgatherpf1dps"
 
 	// EVEX_Vgatherpf1dpd_vm32y_k1
 	0x81,// 'v', Normal_1
-	0xAF, 0x08,// 1071 = "vgatherpf1dpd"
+	0xDD, 0x08,// 1117 = "vgatherpf1dpd"
 
 	// EVEX_Vscatterpf0dps_vm32z_k1
 	0x81,// 'v', Normal_1
-	0xB0, 0x08,// 1072 = "vscatterpf0dps"
+	0xDE, 0x08,// 1118 = "vscatterpf0dps"
 
 	// EVEX_Vscatterpf0dpd_vm32y_k1
 	0x81,// 'v', Normal_1
-	0xB1, 0x08,// 1073 = "vscatterpf0dpd"
+	0xDF, 0x08,// 1119 = "vscatterpf0dpd"
 
 	// EVEX_Vscatterpf1dps_vm32z_k1
 	0x81,// 'v', Normal_1
-	0xB2, 0x08,// 1074 = "vscatterpf1dps"
+	0xE0, 0x08,// 1120 = "vscatterpf1dps"
 
 	// EVEX_Vscatterpf1dpd_vm32y_k1
 	0x81,// 'v', Normal_1
-	0xB3, 0x08,// 1075 = "vscatterpf1dpd"
+	0xE1, 0x08,// 1121 = "vscatterpf1dpd"
 
 	// EVEX_Vgatherpf0qps_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB4, 0x08,// 1076 = "vgatherpf0qps"
+	0xE2, 0x08,// 1122 = "vgatherpf0qps"
 
 	// EVEX_Vgatherpf0qpd_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB5, 0x08,// 1077 = "vgatherpf0qpd"
+	0xE3, 0x08,// 1123 = "vgatherpf0qpd"
 
 	// EVEX_Vgatherpf1qps_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB6, 0x08,// 1078 = "vgatherpf1qps"
+	0xE4, 0x08,// 1124 = "vgatherpf1qps"
 
 	// EVEX_Vgatherpf1qpd_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB7, 0x08,// 1079 = "vgatherpf1qpd"
+	0xE5, 0x08,// 1125 = "vgatherpf1qpd"
 
 	// EVEX_Vscatterpf0qps_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB8, 0x08,// 1080 = "vscatterpf0qps"
+	0xE6, 0x08,// 1126 = "vscatterpf0qps"
 
 	// EVEX_Vscatterpf0qpd_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xB9, 0x08,// 1081 = "vscatterpf0qpd"
+	0xE7, 0x08,// 1127 = "vscatterpf0qpd"
 
 	// EVEX_Vscatterpf1qps_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xBA, 0x08,// 1082 = "vscatterpf1qps"
+	0xE8, 0x08,// 1128 = "vscatterpf1qps"
 
 	// EVEX_Vscatterpf1qpd_vm64z_k1
 	0x81,// 'v', Normal_1
-	0xBB, 0x08,// 1083 = "vscatterpf1qpd"
+	0xE9, 0x08,// 1129 = "vscatterpf1qpd"
 
 	// Sha1nexte_xmm_xmmm128
 	0x01,// Normal_1
-	0xBC, 0x08,// 1084 = "sha1nexte"
+	0xEA, 0x08,// 1130 = "sha1nexte"
 
 	// EVEX_Vexp2ps_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xBD, 0x08,// 1085 = "vexp2ps"
+	0xB4,// 'v', sae
+	0xEB, 0x08,// 1131 = "vexp2ps"
 	0x02,// 0x2
 
 	// EVEX_Vexp2pd_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xBE, 0x08,// 1086 = "vexp2pd"
+	0xB4,// 'v', sae
+	0xEC, 0x08,// 1132 = "vexp2pd"
 	0x02,// 0x2
 
 	// Sha1msg1_xmm_xmmm128
 	0x01,// Normal_1
-	0xBF, 0x08,// 1087 = "sha1msg1"
+	0xED, 0x08,// 1133 = "sha1msg1"
 
 	// Sha1msg2_xmm_xmmm128
 	0x01,// Normal_1
-	0xC0, 0x08,// 1088 = "sha1msg2"
+	0xEE, 0x08,// 1134 = "sha1msg2"
 
 	// EVEX_Vrcp28ps_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xC1, 0x08,// 1089 = "vrcp28ps"
+	0xB4,// 'v', sae
+	0xEF, 0x08,// 1135 = "vrcp28ps"
 	0x02,// 0x2
 
 	// EVEX_Vrcp28pd_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xC2, 0x08,// 1090 = "vrcp28pd"
+	0xB4,// 'v', sae
+	0xF0, 0x08,// 1136 = "vrcp28pd"
 	0x02,// 0x2
 
 	// Sha256rnds2_xmm_xmmm128
-	0x26,// pblendvb_2
-	0xC3, 0x08,// 1091 = "sha256rnds2"
+	0x2E,// pblendvb_2
+	0xF1, 0x08,// 1137 = "sha256rnds2"
 	0x06,// UInt128
 
 	// EVEX_Vrcp28ss_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xC4, 0x08,// 1092 = "vrcp28ss"
+	0xB4,// 'v', sae
+	0xF2, 0x08,// 1138 = "vrcp28ss"
 	0x03,// 0x3
 
 	// EVEX_Vrcp28sd_xmm_k1z_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xC5, 0x08,// 1093 = "vrcp28sd"
+	0xB4,// 'v', sae
+	0xF3, 0x08,// 1139 = "vrcp28sd"
 	0x03,// 0x3
 
 	// Sha256msg1_xmm_xmmm128
 	0x01,// Normal_1
-	0xC6, 0x08,// 1094 = "sha256msg1"
+	0xF4, 0x08,// 1140 = "sha256msg1"
 
 	// EVEX_Vrsqrt28ps_zmm_k1z_zmmm512b32_sae
-	0xAC,// 'v', sae
-	0xC7, 0x08,// 1095 = "vrsqrt28ps"
+	0xB4,// 'v', sae
+	0xF5, 0x08,// 1141 = "vrsqrt28ps"
 	0x02,// 0x2
 
 	// EVEX_Vrsqrt28pd_zmm_k1z_zmmm512b64_sae
-	0xAC,// 'v', sae
-	0xC8, 0x08,// 1096 = "vrsqrt28pd"
+	0xB4,// 'v', sae
+	0xF6, 0x08,// 1142 = "vrsqrt28pd"
 	0x02,// 0x2
 
 	// Sha256msg2_xmm_xmmm128
 	0x01,// Normal_1
-	0xC9, 0x08,// 1097 = "sha256msg2"
+	0xF7, 0x08,// 1143 = "sha256msg2"
 
 	// EVEX_Vrsqrt28ss_xmm_k1z_xmm_xmmm32_sae
-	0xAC,// 'v', sae
-	0xCA, 0x08,// 1098 = "vrsqrt28ss"
+	0xB4,// 'v', sae
+	0xF8, 0x08,// 1144 = "vrsqrt28ss"
 	0x03,// 0x3
 
 	// EVEX_Vrsqrt28sd_xmm_k1z_xmm_xmmm64_sae
-	0xAC,// 'v', sae
-	0xCB, 0x08,// 1099 = "vrsqrt28sd"
+	0xB4,// 'v', sae
+	0xF9, 0x08,// 1145 = "vrsqrt28sd"
 	0x03,// 0x3
 
 	// Gf2p8mulb_xmm_xmmm128
 	0x01,// Normal_1
-	0xCC, 0x08,// 1100 = "gf2p8mulb"
+	0xFA, 0x08,// 1146 = "gf2p8mulb"
 
 	// VEX_Vgf2p8mulb_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCC, 0x08,// 1100 = "vgf2p8mulb"
+	0xFA, 0x08,// 1146 = "vgf2p8mulb"
 
 	// VEX_Vgf2p8mulb_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -13960,19 +14228,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aesimc_xmm_xmmm128
 	0x01,// Normal_1
-	0xCD, 0x08,// 1101 = "aesimc"
+	0xFB, 0x08,// 1147 = "aesimc"
 
 	// VEX_Vaesimc_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCD, 0x08,// 1101 = "vaesimc"
+	0xFB, 0x08,// 1147 = "vaesimc"
 
 	// Aesenc_xmm_xmmm128
 	0x01,// Normal_1
-	0xCE, 0x08,// 1102 = "aesenc"
+	0xFC, 0x08,// 1148 = "aesenc"
 
 	// VEX_Vaesenc_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCE, 0x08,// 1102 = "vaesenc"
+	0xFC, 0x08,// 1148 = "vaesenc"
 
 	// VEX_Vaesenc_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -13988,11 +14256,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aesenclast_xmm_xmmm128
 	0x01,// Normal_1
-	0xCF, 0x08,// 1103 = "aesenclast"
+	0xFD, 0x08,// 1149 = "aesenclast"
 
 	// VEX_Vaesenclast_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xCF, 0x08,// 1103 = "vaesenclast"
+	0xFD, 0x08,// 1149 = "vaesenclast"
 
 	// VEX_Vaesenclast_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -14008,11 +14276,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aesdec_xmm_xmmm128
 	0x01,// Normal_1
-	0xD0, 0x08,// 1104 = "aesdec"
+	0xFE, 0x08,// 1150 = "aesdec"
 
 	// VEX_Vaesdec_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD0, 0x08,// 1104 = "vaesdec"
+	0xFE, 0x08,// 1150 = "vaesdec"
 
 	// VEX_Vaesdec_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -14028,11 +14296,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aesdeclast_xmm_xmmm128
 	0x01,// Normal_1
-	0xD1, 0x08,// 1105 = "aesdeclast"
+	0xFF, 0x08,// 1151 = "aesdeclast"
 
 	// VEX_Vaesdeclast_xmm_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xD1, 0x08,// 1105 = "vaesdeclast"
+	0xFF, 0x08,// 1151 = "vaesdeclast"
 
 	// VEX_Vaesdeclast_ymm_ymm_ymmm256
 	0x80,// 'v', Previous
@@ -14048,7 +14316,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movbe_r16_m16
 	0x01,// Normal_1
-	0xD2, 0x08,// 1106 = "movbe"
+	0x80, 0x09,// 1152 = "movbe"
 
 	// Movbe_r32_m32
 	0x00,// Previous
@@ -14058,7 +14326,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Crc32_r32_rm8
 	0x02,// Normal_2
-	0xD3, 0x08,// 1107 = "crc32"
+	0x81, 0x09,// 1153 = "crc32"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Crc32_r64_rm8
@@ -14066,7 +14334,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movbe_m16_r16
 	0x01,// Normal_1
-	0xD2, 0x08,// 1106 = "movbe"
+	0x80, 0x09,// 1152 = "movbe"
 
 	// Movbe_m32_r32
 	0x00,// Previous
@@ -14076,7 +14344,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Crc32_r32_rm16
 	0x02,// Normal_2
-	0xD3, 0x08,// 1107 = "crc32"
+	0x81, 0x09,// 1153 = "crc32"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 	// Crc32_r32_rm32
@@ -14087,121 +14355,121 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Andn_r32_r32_rm32
 	0x01,// Normal_1
-	0xD4, 0x08,// 1108 = "andn"
+	0x82, 0x09,// 1154 = "andn"
 
 	// VEX_Andn_r64_r64_rm64
 	0x00,// Previous
 
 	// VEX_Blsr_r32_rm32
 	0x01,// Normal_1
-	0xD5, 0x08,// 1109 = "blsr"
+	0x83, 0x09,// 1155 = "blsr"
 
 	// VEX_Blsr_r64_rm64
 	0x00,// Previous
 
 	// VEX_Blsmsk_r32_rm32
 	0x01,// Normal_1
-	0xD6, 0x08,// 1110 = "blsmsk"
+	0x84, 0x09,// 1156 = "blsmsk"
 
 	// VEX_Blsmsk_r64_rm64
 	0x00,// Previous
 
 	// VEX_Blsi_r32_rm32
 	0x01,// Normal_1
-	0xD7, 0x08,// 1111 = "blsi"
+	0x85, 0x09,// 1157 = "blsi"
 
 	// VEX_Blsi_r64_rm64
 	0x00,// Previous
 
 	// VEX_Bzhi_r32_rm32_r32
 	0x01,// Normal_1
-	0xD8, 0x08,// 1112 = "bzhi"
+	0x86, 0x09,// 1158 = "bzhi"
 
 	// VEX_Bzhi_r64_rm64_r64
 	0x00,// Previous
 
 	// Wrussd_m32_r32
 	0x01,// Normal_1
-	0xD9, 0x08,// 1113 = "wrussd"
+	0x87, 0x09,// 1159 = "wrussd"
 
 	// Wrussq_m64_r64
 	0x01,// Normal_1
-	0xDA, 0x08,// 1114 = "wrussq"
+	0x88, 0x09,// 1160 = "wrussq"
 
 	// VEX_Pext_r32_r32_rm32
 	0x01,// Normal_1
-	0xDB, 0x08,// 1115 = "pext"
+	0x89, 0x09,// 1161 = "pext"
 
 	// VEX_Pext_r64_r64_rm64
 	0x00,// Previous
 
 	// VEX_Pdep_r32_r32_rm32
 	0x01,// Normal_1
-	0xDC, 0x08,// 1116 = "pdep"
+	0x8A, 0x09,// 1162 = "pdep"
 
 	// VEX_Pdep_r64_r64_rm64
 	0x00,// Previous
 
 	// Wrssd_m32_r32
 	0x01,// Normal_1
-	0xDD, 0x08,// 1117 = "wrssd"
+	0x8B, 0x09,// 1163 = "wrssd"
 
 	// Wrssq_m64_r64
 	0x01,// Normal_1
-	0xDE, 0x08,// 1118 = "wrssq"
+	0x8C, 0x09,// 1164 = "wrssq"
 
 	// Adcx_r32_rm32
 	0x01,// Normal_1
-	0xDF, 0x08,// 1119 = "adcx"
+	0x8D, 0x09,// 1165 = "adcx"
 
 	// Adcx_r64_rm64
 	0x00,// Previous
 
 	// Adox_r32_rm32
 	0x01,// Normal_1
-	0xE0, 0x08,// 1120 = "adox"
+	0x8E, 0x09,// 1166 = "adox"
 
 	// Adox_r64_rm64
 	0x00,// Previous
 
 	// VEX_Mulx_r32_r32_rm32
 	0x01,// Normal_1
-	0xE1, 0x08,// 1121 = "mulx"
+	0x8F, 0x09,// 1167 = "mulx"
 
 	// VEX_Mulx_r64_r64_rm64
 	0x00,// Previous
 
 	// VEX_Bextr_r32_rm32_r32
 	0x01,// Normal_1
-	0xE2, 0x08,// 1122 = "bextr"
+	0x90, 0x09,// 1168 = "bextr"
 
 	// VEX_Bextr_r64_rm64_r64
 	0x00,// Previous
 
 	// VEX_Shlx_r32_rm32_r32
 	0x01,// Normal_1
-	0xE3, 0x08,// 1123 = "shlx"
+	0x91, 0x09,// 1169 = "shlx"
 
 	// VEX_Shlx_r64_rm64_r64
 	0x00,// Previous
 
 	// VEX_Sarx_r32_rm32_r32
 	0x01,// Normal_1
-	0xE4, 0x08,// 1124 = "sarx"
+	0x92, 0x09,// 1170 = "sarx"
 
 	// VEX_Sarx_r64_rm64_r64
 	0x00,// Previous
 
 	// VEX_Shrx_r32_rm32_r32
 	0x01,// Normal_1
-	0xE5, 0x08,// 1125 = "shrx"
+	0x93, 0x09,// 1171 = "shrx"
 
 	// VEX_Shrx_r64_rm64_r64
 	0x00,// Previous
 
 	// Movdir64b_r16_m512
 	0x01,// Normal_1
-	0xE6, 0x08,// 1126 = "movdir64b"
+	0x94, 0x09,// 1172 = "movdir64b"
 
 	// Movdir64b_r32_m512
 	0x00,// Previous
@@ -14211,7 +14479,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Enqcmds_r16_m512
 	0x01,// Normal_1
-	0xE7, 0x08,// 1127 = "enqcmds"
+	0x95, 0x09,// 1173 = "enqcmds"
 
 	// Enqcmds_r32_m512
 	0x00,// Previous
@@ -14221,7 +14489,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Enqcmd_r16_m512
 	0x01,// Normal_1
-	0xE8, 0x08,// 1128 = "enqcmd"
+	0x96, 0x09,// 1174 = "enqcmd"
 
 	// Enqcmd_r32_m512
 	0x00,// Previous
@@ -14231,14 +14499,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Movdiri_m32_r32
 	0x01,// Normal_1
-	0xE9, 0x08,// 1129 = "movdiri"
+	0x97, 0x09,// 1175 = "movdiri"
 
 	// Movdiri_m64_r64
 	0x00,// Previous
 
 	// VEX_Vpermq_ymm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xEC, 0x06,// 876 = "vpermq"
+	0x9A, 0x07,// 922 = "vpermq"
 
 	// EVEX_Vpermq_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14248,7 +14516,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpermpd_ymm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xB1, 0x06,// 817 = "vpermpd"
+	0xDF, 0x06,// 863 = "vpermpd"
 
 	// EVEX_Vpermpd_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14258,14 +14526,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpblendd_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xEA, 0x08,// 1130 = "vpblendd"
+	0x98, 0x09,// 1176 = "vpblendd"
 
 	// VEX_Vpblendd_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Valignd_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xEB, 0x08,// 1131 = "valignd"
+	0x99, 0x09,// 1177 = "valignd"
 
 	// EVEX_Valignd_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -14275,7 +14543,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Valignq_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xEC, 0x08,// 1132 = "valignq"
+	0x9A, 0x09,// 1178 = "valignq"
 
 	// EVEX_Valignq_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14317,116 +14585,116 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vperm2f128_ymm_ymm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xED, 0x08,// 1133 = "vperm2f128"
+	0x9B, 0x09,// 1179 = "vperm2f128"
 
 	// Roundps_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xEE, 0x08,// 1134 = "roundps"
+	0x9C, 0x09,// 1180 = "roundps"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vroundps_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xEE, 0x08,// 1134 = "vroundps"
+	0x9C, 0x09,// 1180 = "vroundps"
 
 	// VEX_Vroundps_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscaleps_xmm_k1z_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xEF, 0x08,// 1135 = "vrndscaleps"
+	0x9D, 0x09,// 1181 = "vrndscaleps"
 
 	// EVEX_Vrndscaleps_ymm_k1z_ymmm256b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscaleps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAC,// 'v', sae
-	0xEF, 0x08,// 1135 = "vrndscaleps"
+	0xB4,// 'v', sae
+	0x9D, 0x09,// 1181 = "vrndscaleps"
 	0x02,// 0x2
 
 	// Roundpd_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xF0, 0x08,// 1136 = "roundpd"
+	0x9E, 0x09,// 1182 = "roundpd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vroundpd_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xF0, 0x08,// 1136 = "vroundpd"
+	0x9E, 0x09,// 1182 = "vroundpd"
 
 	// VEX_Vroundpd_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscalepd_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xF1, 0x08,// 1137 = "vrndscalepd"
+	0x9F, 0x09,// 1183 = "vrndscalepd"
 
 	// EVEX_Vrndscalepd_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrndscalepd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAC,// 'v', sae
-	0xF1, 0x08,// 1137 = "vrndscalepd"
+	0xB4,// 'v', sae
+	0x9F, 0x09,// 1183 = "vrndscalepd"
 	0x02,// 0x2
 
 	// Roundss_xmm_xmmm32_imm8
 	0x02,// Normal_2
-	0xF2, 0x08,// 1138 = "roundss"
+	0xA0, 0x09,// 1184 = "roundss"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vroundss_xmm_xmm_xmmm32_imm8
 	0x81,// 'v', Normal_1
-	0xF2, 0x08,// 1138 = "vroundss"
+	0xA0, 0x09,// 1184 = "vroundss"
 
 	// EVEX_Vrndscaless_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAC,// 'v', sae
-	0xF3, 0x08,// 1139 = "vrndscaless"
+	0xB4,// 'v', sae
+	0xA1, 0x09,// 1185 = "vrndscaless"
 	0x03,// 0x3
 
 	// Roundsd_xmm_xmmm64_imm8
 	0x02,// Normal_2
-	0xF4, 0x08,// 1140 = "roundsd"
+	0xA2, 0x09,// 1186 = "roundsd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vroundsd_xmm_xmm_xmmm64_imm8
 	0x81,// 'v', Normal_1
-	0xF4, 0x08,// 1140 = "vroundsd"
+	0xA2, 0x09,// 1186 = "vroundsd"
 
 	// EVEX_Vrndscalesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAC,// 'v', sae
-	0xF5, 0x08,// 1141 = "vrndscalesd"
+	0xB4,// 'v', sae
+	0xA3, 0x09,// 1187 = "vrndscalesd"
 	0x03,// 0x3
 
 	// Blendps_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xF6, 0x08,// 1142 = "blendps"
+	0xA4, 0x09,// 1188 = "blendps"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vblendps_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xF6, 0x08,// 1142 = "vblendps"
+	0xA4, 0x09,// 1188 = "vblendps"
 
 	// VEX_Vblendps_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// Blendpd_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xF7, 0x08,// 1143 = "blendpd"
+	0xA5, 0x09,// 1189 = "blendpd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vblendpd_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xF7, 0x08,// 1143 = "vblendpd"
+	0xA5, 0x09,// 1189 = "vblendpd"
 
 	// VEX_Vblendpd_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// Pblendw_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xF8, 0x08,// 1144 = "pblendw"
+	0xA6, 0x09,// 1190 = "pblendw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpblendw_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xF8, 0x08,// 1144 = "vpblendw"
+	0xA6, 0x09,// 1190 = "vpblendw"
 
 	// VEX_Vpblendw_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14458,14 +14726,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pextrb_r32m8_xmm_imm8
 	0x01,// Normal_1
-	0xF9, 0x08,// 1145 = "pextrb"
+	0xA7, 0x09,// 1191 = "pextrb"
 
 	// Pextrb_r64m8_xmm_imm8
 	0x00,// Previous
 
 	// VEX_Vpextrb_r32m8_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xF9, 0x08,// 1145 = "vpextrb"
+	0xA7, 0x09,// 1191 = "vpextrb"
 
 	// VEX_Vpextrb_r64m8_xmm_imm8
 	0x80,// 'v', Previous
@@ -14498,38 +14766,38 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pextrd_rm32_xmm_imm8
 	0x01,// Normal_1
-	0xFA, 0x08,// 1146 = "pextrd"
+	0xA8, 0x09,// 1192 = "pextrd"
 
 	// Pextrq_rm64_xmm_imm8
 	0x01,// Normal_1
-	0xFB, 0x08,// 1147 = "pextrq"
+	0xA9, 0x09,// 1193 = "pextrq"
 
 	// VEX_Vpextrd_rm32_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xFA, 0x08,// 1146 = "vpextrd"
+	0xA8, 0x09,// 1192 = "vpextrd"
 
 	// VEX_Vpextrq_rm64_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xFB, 0x08,// 1147 = "vpextrq"
+	0xA9, 0x09,// 1193 = "vpextrq"
 
 	// EVEX_Vpextrd_rm32_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xFA, 0x08,// 1146 = "vpextrd"
+	0xA8, 0x09,// 1192 = "vpextrd"
 
 	// EVEX_Vpextrq_rm64_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xFB, 0x08,// 1147 = "vpextrq"
+	0xA9, 0x09,// 1193 = "vpextrq"
 
 	// Extractps_rm32_xmm_imm8
 	0x01,// Normal_1
-	0xFC, 0x08,// 1148 = "extractps"
+	0xAA, 0x09,// 1194 = "extractps"
 
 	// Extractps_r64m32_xmm_imm8
 	0x00,// Previous
 
 	// VEX_Vextractps_rm32_xmm_imm8
 	0x81,// 'v', Normal_1
-	0xFC, 0x08,// 1148 = "vextractps"
+	0xAA, 0x09,// 1194 = "vextractps"
 
 	// VEX_Vextractps_r64m32_xmm_imm8
 	0x80,// 'v', Previous
@@ -14542,59 +14810,59 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vinsertf128_ymm_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFD, 0x08,// 1149 = "vinsertf128"
+	0xAB, 0x09,// 1195 = "vinsertf128"
 
 	// EVEX_Vinsertf32x4_ymm_k1z_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFE, 0x08,// 1150 = "vinsertf32x4"
+	0xAC, 0x09,// 1196 = "vinsertf32x4"
 
 	// EVEX_Vinsertf32x4_zmm_k1z_zmm_xmmm128_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vinsertf64x2_ymm_k1z_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFF, 0x08,// 1151 = "vinsertf64x2"
+	0xAD, 0x09,// 1197 = "vinsertf64x2"
 
 	// EVEX_Vinsertf64x2_zmm_k1z_zmm_xmmm128_imm8
 	0x80,// 'v', Previous
 
 	// VEX_Vextractf128_xmmm128_ymm_imm8
 	0x81,// 'v', Normal_1
-	0x80, 0x09,// 1152 = "vextractf128"
+	0xAE, 0x09,// 1198 = "vextractf128"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_ymm_imm8
 	0x81,// 'v', Normal_1
-	0x81, 0x09,// 1153 = "vextractf32x4"
+	0xAF, 0x09,// 1199 = "vextractf32x4"
 
 	// EVEX_Vextractf32x4_xmmm128_k1z_zmm_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_ymm_imm8
 	0x81,// 'v', Normal_1
-	0x82, 0x09,// 1154 = "vextractf64x2"
+	0xB0, 0x09,// 1200 = "vextractf64x2"
 
 	// EVEX_Vextractf64x2_xmmm128_k1z_zmm_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vinsertf32x8_zmm_k1z_zmm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0x83, 0x09,// 1155 = "vinsertf32x8"
+	0xB1, 0x09,// 1201 = "vinsertf32x8"
 
 	// EVEX_Vinsertf64x4_zmm_k1z_zmm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0x84, 0x09,// 1156 = "vinsertf64x4"
+	0xB2, 0x09,// 1202 = "vinsertf64x4"
 
 	// EVEX_Vextractf32x8_ymmm256_k1z_zmm_imm8
 	0x81,// 'v', Normal_1
-	0x85, 0x09,// 1157 = "vextractf32x8"
+	0xB3, 0x09,// 1203 = "vextractf32x8"
 
 	// EVEX_Vextractf64x4_ymmm256_k1z_zmm_imm8
 	0x81,// 'v', Normal_1
-	0x86, 0x09,// 1158 = "vextractf64x4"
+	0xB4, 0x09,// 1204 = "vextractf64x4"
 
 	// VEX_Vcvtps2ph_xmmm64_xmm_imm8
 	0x81,// 'v', Normal_1
-	0x87, 0x09,// 1159 = "vcvtps2ph"
+	0xB5, 0x09,// 1205 = "vcvtps2ph"
 
 	// VEX_Vcvtps2ph_xmmm128_ymm_imm8
 	0x80,// 'v', Previous
@@ -14606,13 +14874,13 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-	0xAC,// 'v', sae
-	0x87, 0x09,// 1159 = "vcvtps2ph"
+	0xB4,// 'v', sae
+	0xB5, 0x09,// 1205 = "vcvtps2ph"
 	0x02,// 0x2
 
 	// EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0x88, 0x09,// 1160 = "vpcmpud"
+	0xB6, 0x09,// 1206 = "vpcmpud"
 
 	// EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -14622,7 +14890,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0x89, 0x09,// 1161 = "vpcmpuq"
+	0xB7, 0x09,// 1207 = "vpcmpuq"
 
 	// EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14632,7 +14900,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0x8A, 0x09,// 1162 = "vpcmpd"
+	0xB8, 0x09,// 1208 = "vpcmpd"
 
 	// EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -14642,7 +14910,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0x8B, 0x09,// 1163 = "vpcmpq"
+	0xB9, 0x09,// 1209 = "vpcmpq"
 
 	// EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14652,14 +14920,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pinsrb_xmm_r32m8_imm8
 	0x01,// Normal_1
-	0x8C, 0x09,// 1164 = "pinsrb"
+	0xBA, 0x09,// 1210 = "pinsrb"
 
 	// Pinsrb_xmm_r64m8_imm8
 	0x00,// Previous
 
 	// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
 	0x81,// 'v', Normal_1
-	0x8C, 0x09,// 1164 = "vpinsrb"
+	0xBA, 0x09,// 1210 = "vpinsrb"
 
 	// VEX_Vpinsrb_xmm_xmm_r64m8_imm8
 	0x80,// 'v', Previous
@@ -14672,56 +14940,56 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Insertps_xmm_xmmm32_imm8
 	0x01,// Normal_1
-	0x8D, 0x09,// 1165 = "insertps"
+	0xBB, 0x09,// 1211 = "insertps"
 
 	// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 	0x81,// 'v', Normal_1
-	0x8D, 0x09,// 1165 = "vinsertps"
+	0xBB, 0x09,// 1211 = "vinsertps"
 
 	// EVEX_Vinsertps_xmm_xmm_xmmm32_imm8
 	0x80,// 'v', Previous
 
 	// Pinsrd_xmm_rm32_imm8
 	0x01,// Normal_1
-	0x8E, 0x09,// 1166 = "pinsrd"
+	0xBC, 0x09,// 1212 = "pinsrd"
 
 	// Pinsrq_xmm_rm64_imm8
 	0x01,// Normal_1
-	0x8F, 0x09,// 1167 = "pinsrq"
+	0xBD, 0x09,// 1213 = "pinsrq"
 
 	// VEX_Vpinsrd_xmm_xmm_rm32_imm8
 	0x81,// 'v', Normal_1
-	0x8E, 0x09,// 1166 = "vpinsrd"
+	0xBC, 0x09,// 1212 = "vpinsrd"
 
 	// VEX_Vpinsrq_xmm_xmm_rm64_imm8
 	0x81,// 'v', Normal_1
-	0x8F, 0x09,// 1167 = "vpinsrq"
+	0xBD, 0x09,// 1213 = "vpinsrq"
 
 	// EVEX_Vpinsrd_xmm_xmm_rm32_imm8
 	0x81,// 'v', Normal_1
-	0x8E, 0x09,// 1166 = "vpinsrd"
+	0xBC, 0x09,// 1212 = "vpinsrd"
 
 	// EVEX_Vpinsrq_xmm_xmm_rm64_imm8
 	0x81,// 'v', Normal_1
-	0x8F, 0x09,// 1167 = "vpinsrq"
+	0xBD, 0x09,// 1213 = "vpinsrq"
 
 	// EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8
 	0x81,// 'v', Normal_1
-	0x90, 0x09,// 1168 = "vshuff32x4"
+	0xBE, 0x09,// 1214 = "vshuff32x4"
 
 	// EVEX_Vshuff32x4_zmm_k1z_zmm_zmmm512b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vshuff64x2_ymm_k1z_ymm_ymmm256b64_imm8
 	0x81,// 'v', Normal_1
-	0x91, 0x09,// 1169 = "vshuff64x2"
+	0xBF, 0x09,// 1215 = "vshuff64x2"
 
 	// EVEX_Vshuff64x2_zmm_k1z_zmm_zmmm512b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vpternlogd_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0x92, 0x09,// 1170 = "vpternlogd"
+	0xC0, 0x09,// 1216 = "vpternlogd"
 
 	// EVEX_Vpternlogd_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -14731,7 +14999,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpternlogq_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0x93, 0x09,// 1171 = "vpternlogq"
+	0xC1, 0x09,// 1217 = "vpternlogq"
 
 	// EVEX_Vpternlogq_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -14741,125 +15009,125 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vgetmantps_xmm_k1z_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0x94, 0x09,// 1172 = "vgetmantps"
+	0xC2, 0x09,// 1218 = "vgetmantps"
 
 	// EVEX_Vgetmantps_ymm_k1z_ymmm256b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetmantps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAC,// 'v', sae
-	0x94, 0x09,// 1172 = "vgetmantps"
+	0xB4,// 'v', sae
+	0xC2, 0x09,// 1218 = "vgetmantps"
 	0x02,// 0x2
 
 	// EVEX_Vgetmantpd_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0x95, 0x09,// 1173 = "vgetmantpd"
+	0xC3, 0x09,// 1219 = "vgetmantpd"
 
 	// EVEX_Vgetmantpd_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAC,// 'v', sae
-	0x95, 0x09,// 1173 = "vgetmantpd"
+	0xB4,// 'v', sae
+	0xC3, 0x09,// 1219 = "vgetmantpd"
 	0x02,// 0x2
 
 	// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAC,// 'v', sae
-	0x96, 0x09,// 1174 = "vgetmantss"
+	0xB4,// 'v', sae
+	0xC4, 0x09,// 1220 = "vgetmantss"
 	0x03,// 0x3
 
 	// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAC,// 'v', sae
-	0x97, 0x09,// 1175 = "vgetmantsd"
+	0xB4,// 'v', sae
+	0xC5, 0x09,// 1221 = "vgetmantsd"
 	0x03,// 0x3
 
 	// VEX_Kshiftrb_k_k_imm8
 	0x01,// Normal_1
-	0x98, 0x09,// 1176 = "kshiftrb"
+	0xC6, 0x09,// 1222 = "kshiftrb"
 
 	// VEX_Kshiftrw_k_k_imm8
 	0x01,// Normal_1
-	0x99, 0x09,// 1177 = "kshiftrw"
+	0xC7, 0x09,// 1223 = "kshiftrw"
 
 	// VEX_Kshiftrd_k_k_imm8
 	0x01,// Normal_1
-	0x9A, 0x09,// 1178 = "kshiftrd"
+	0xC8, 0x09,// 1224 = "kshiftrd"
 
 	// VEX_Kshiftrq_k_k_imm8
 	0x01,// Normal_1
-	0x9B, 0x09,// 1179 = "kshiftrq"
+	0xC9, 0x09,// 1225 = "kshiftrq"
 
 	// VEX_Kshiftlb_k_k_imm8
 	0x01,// Normal_1
-	0x9C, 0x09,// 1180 = "kshiftlb"
+	0xCA, 0x09,// 1226 = "kshiftlb"
 
 	// VEX_Kshiftlw_k_k_imm8
 	0x01,// Normal_1
-	0x9D, 0x09,// 1181 = "kshiftlw"
+	0xCB, 0x09,// 1227 = "kshiftlw"
 
 	// VEX_Kshiftld_k_k_imm8
 	0x01,// Normal_1
-	0x9E, 0x09,// 1182 = "kshiftld"
+	0xCC, 0x09,// 1228 = "kshiftld"
 
 	// VEX_Kshiftlq_k_k_imm8
 	0x01,// Normal_1
-	0x9F, 0x09,// 1183 = "kshiftlq"
+	0xCD, 0x09,// 1229 = "kshiftlq"
 
 	// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xA0, 0x09,// 1184 = "vinserti128"
+	0xCE, 0x09,// 1230 = "vinserti128"
 
 	// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xA1, 0x09,// 1185 = "vinserti32x4"
+	0xCF, 0x09,// 1231 = "vinserti32x4"
 
 	// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vinserti64x2_ymm_k1z_ymm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xA2, 0x09,// 1186 = "vinserti64x2"
+	0xD0, 0x09,// 1232 = "vinserti64x2"
 
 	// EVEX_Vinserti64x2_zmm_k1z_zmm_xmmm128_imm8
 	0x80,// 'v', Previous
 
 	// VEX_Vextracti128_xmmm128_ymm_imm8
 	0x81,// 'v', Normal_1
-	0xA3, 0x09,// 1187 = "vextracti128"
+	0xD1, 0x09,// 1233 = "vextracti128"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_ymm_imm8
 	0x81,// 'v', Normal_1
-	0xA4, 0x09,// 1188 = "vextracti32x4"
+	0xD2, 0x09,// 1234 = "vextracti32x4"
 
 	// EVEX_Vextracti32x4_xmmm128_k1z_zmm_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_ymm_imm8
 	0x81,// 'v', Normal_1
-	0xA5, 0x09,// 1189 = "vextracti64x2"
+	0xD3, 0x09,// 1235 = "vextracti64x2"
 
 	// EVEX_Vextracti64x2_xmmm128_k1z_zmm_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vinserti32x8_zmm_k1z_zmm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xA6, 0x09,// 1190 = "vinserti32x8"
+	0xD4, 0x09,// 1236 = "vinserti32x8"
 
 	// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xA7, 0x09,// 1191 = "vinserti64x4"
+	0xD5, 0x09,// 1237 = "vinserti64x4"
 
 	// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
 	0x81,// 'v', Normal_1
-	0xA8, 0x09,// 1192 = "vextracti32x8"
+	0xD6, 0x09,// 1238 = "vextracti32x8"
 
 	// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
 	0x81,// 'v', Normal_1
-	0xA9, 0x09,// 1193 = "vextracti64x4"
+	0xD7, 0x09,// 1239 = "vextracti64x4"
 
 	// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAA, 0x09,// 1194 = "vpcmpub"
+	0xD8, 0x09,// 1240 = "vpcmpub"
 
 	// EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14869,7 +15137,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAB, 0x09,// 1195 = "vpcmpuw"
+	0xD9, 0x09,// 1241 = "vpcmpuw"
 
 	// EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14879,7 +15147,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAC, 0x09,// 1196 = "vpcmpb"
+	0xDA, 0x09,// 1242 = "vpcmpb"
 
 	// EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14889,7 +15157,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAD, 0x09,// 1197 = "vpcmpw"
+	0xDB, 0x09,// 1243 = "vpcmpw"
 
 	// EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14899,40 +15167,40 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Dpps_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xAE, 0x09,// 1198 = "dpps"
+	0xDC, 0x09,// 1244 = "dpps"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vdpps_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAE, 0x09,// 1198 = "vdpps"
+	0xDC, 0x09,// 1244 = "vdpps"
 
 	// VEX_Vdpps_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// Dppd_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xAF, 0x09,// 1199 = "dppd"
+	0xDD, 0x09,// 1245 = "dppd"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vdppd_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xAF, 0x09,// 1199 = "vdppd"
+	0xDD, 0x09,// 1245 = "vdppd"
 
 	// Mpsadbw_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xB0, 0x09,// 1200 = "mpsadbw"
+	0xDE, 0x09,// 1246 = "mpsadbw"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vmpsadbw_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xB0, 0x09,// 1200 = "vmpsadbw"
+	0xDE, 0x09,// 1246 = "vmpsadbw"
 
 	// VEX_Vmpsadbw_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vdbpsadbw_xmm_k1z_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xB1, 0x09,// 1201 = "vdbpsadbw"
+	0xDF, 0x09,// 1247 = "vdbpsadbw"
 
 	// EVEX_Vdbpsadbw_ymm_k1z_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -14942,26 +15210,26 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vshufi32x4_ymm_k1z_ymm_ymmm256b32_imm8
 	0x81,// 'v', Normal_1
-	0xB2, 0x09,// 1202 = "vshufi32x4"
+	0xE0, 0x09,// 1248 = "vshufi32x4"
 
 	// EVEX_Vshufi32x4_zmm_k1z_zmm_zmmm512b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vshufi64x2_ymm_k1z_ymm_ymmm256b64_imm8
 	0x81,// 'v', Normal_1
-	0xB3, 0x09,// 1203 = "vshufi64x2"
+	0xE1, 0x09,// 1249 = "vshufi64x2"
 
 	// EVEX_Vshufi64x2_zmm_k1z_zmm_zmmm512b64_imm8
 	0x80,// 'v', Previous
 
 	// Pclmulqdq_xmm_xmmm128_imm8
-	0x27,// pclmulqdq
-	0xB4, 0x09,// 1204 = "pclmulqdq"
+	0x2F,// pclmulqdq
+	0xE2, 0x09,// 1250 = "pclmulqdq"
 	0x08,// pclmulqdq
 
 	// VEX_Vpclmulqdq_xmm_xmm_xmmm128_imm8
-	0xA7,// 'v', pclmulqdq
-	0xB4, 0x09,// 1204 = "vpclmulqdq"
+	0xAF,// 'v', pclmulqdq
+	0xE2, 0x09,// 1250 = "vpclmulqdq"
 	0x09,// vpclmulqdq
 
 	// VEX_Vpclmulqdq_ymm_ymm_ymmm256_imm8
@@ -14978,11 +15246,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vperm2i128_ymm_ymm_ymmm256_imm8
 	0x81,// 'v', Normal_1
-	0xB5, 0x09,// 1205 = "vperm2i128"
+	0xE3, 0x09,// 1251 = "vperm2i128"
 
 	// VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2
 	0x81,// 'v', Normal_1
-	0xB6, 0x09,// 1206 = "vpermil2ps"
+	0xE4, 0x09,// 1252 = "vpermil2ps"
 
 	// VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2
 	0x80,// 'v', Previous
@@ -14995,7 +15263,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2
 	0x81,// 'v', Normal_1
-	0xB7, 0x09,// 1207 = "vpermil2pd"
+	0xE5, 0x09,// 1253 = "vpermil2pd"
 
 	// VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2
 	0x80,// 'v', Previous
@@ -15008,130 +15276,130 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vblendvps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xA8, 0x06,// 808 = "vblendvps"
+	0xD6, 0x06,// 854 = "vblendvps"
 
 	// VEX_Vblendvps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vblendvpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xAC, 0x06,// 812 = "vblendvpd"
+	0xDA, 0x06,// 858 = "vblendvpd"
 
 	// VEX_Vblendvpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
 
 	// VEX_Vpblendvb_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x9F, 0x06,// 799 = "vpblendvb"
+	0xCD, 0x06,// 845 = "vpblendvb"
 
 	// VEX_Vpblendvb_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangeps_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xB8, 0x09,// 1208 = "vrangeps"
+	0xE6, 0x09,// 1254 = "vrangeps"
 
 	// EVEX_Vrangeps_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangeps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0xAC,// 'v', sae
-	0xB8, 0x09,// 1208 = "vrangeps"
+	0xB4,// 'v', sae
+	0xE6, 0x09,// 1254 = "vrangeps"
 	0x03,// 0x3
 
 	// EVEX_Vrangepd_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xB9, 0x09,// 1209 = "vrangepd"
+	0xE7, 0x09,// 1255 = "vrangepd"
 
 	// EVEX_Vrangepd_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vrangepd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0xAC,// 'v', sae
-	0xB9, 0x09,// 1209 = "vrangepd"
+	0xB4,// 'v', sae
+	0xE7, 0x09,// 1255 = "vrangepd"
 	0x03,// 0x3
 
 	// EVEX_Vrangess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAC,// 'v', sae
-	0xBA, 0x09,// 1210 = "vrangess"
+	0xB4,// 'v', sae
+	0xE8, 0x09,// 1256 = "vrangess"
 	0x03,// 0x3
 
 	// EVEX_Vrangesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAC,// 'v', sae
-	0xBB, 0x09,// 1211 = "vrangesd"
+	0xB4,// 'v', sae
+	0xE9, 0x09,// 1257 = "vrangesd"
 	0x03,// 0x3
 
 	// EVEX_Vfixupimmps_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xBC, 0x09,// 1212 = "vfixupimmps"
+	0xEA, 0x09,// 1258 = "vfixupimmps"
 
 	// EVEX_Vfixupimmps_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vfixupimmps_zmm_k1z_zmm_zmmm512b32_imm8_sae
-	0xAC,// 'v', sae
-	0xBC, 0x09,// 1212 = "vfixupimmps"
+	0xB4,// 'v', sae
+	0xEA, 0x09,// 1258 = "vfixupimmps"
 	0x03,// 0x3
 
 	// EVEX_Vfixupimmpd_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xBD, 0x09,// 1213 = "vfixupimmpd"
+	0xEB, 0x09,// 1259 = "vfixupimmpd"
 
 	// EVEX_Vfixupimmpd_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vfixupimmpd_zmm_k1z_zmm_zmmm512b64_imm8_sae
-	0xAC,// 'v', sae
-	0xBD, 0x09,// 1213 = "vfixupimmpd"
+	0xB4,// 'v', sae
+	0xEB, 0x09,// 1259 = "vfixupimmpd"
 	0x03,// 0x3
 
 	// EVEX_Vfixupimmss_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAC,// 'v', sae
-	0xBE, 0x09,// 1214 = "vfixupimmss"
+	0xB4,// 'v', sae
+	0xEC, 0x09,// 1260 = "vfixupimmss"
 	0x03,// 0x3
 
 	// EVEX_Vfixupimmsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAC,// 'v', sae
-	0xBF, 0x09,// 1215 = "vfixupimmsd"
+	0xB4,// 'v', sae
+	0xED, 0x09,// 1261 = "vfixupimmsd"
 	0x03,// 0x3
 
 	// EVEX_Vreduceps_xmm_k1z_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xC0, 0x09,// 1216 = "vreduceps"
+	0xEE, 0x09,// 1262 = "vreduceps"
 
 	// EVEX_Vreduceps_ymm_k1z_ymmm256b32_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vreduceps_zmm_k1z_zmmm512b32_imm8_sae
-	0xAC,// 'v', sae
-	0xC0, 0x09,// 1216 = "vreduceps"
+	0xB4,// 'v', sae
+	0xEE, 0x09,// 1262 = "vreduceps"
 	0x02,// 0x2
 
 	// EVEX_Vreducepd_xmm_k1z_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xC1, 0x09,// 1217 = "vreducepd"
+	0xEF, 0x09,// 1263 = "vreducepd"
 
 	// EVEX_Vreducepd_ymm_k1z_ymmm256b64_imm8
 	0x80,// 'v', Previous
 
 	// EVEX_Vreducepd_zmm_k1z_zmmm512b64_imm8_sae
-	0xAC,// 'v', sae
-	0xC1, 0x09,// 1217 = "vreducepd"
+	0xB4,// 'v', sae
+	0xEF, 0x09,// 1263 = "vreducepd"
 	0x02,// 0x2
 
 	// EVEX_Vreducess_xmm_k1z_xmm_xmmm32_imm8_sae
-	0xAC,// 'v', sae
-	0xC2, 0x09,// 1218 = "vreducess"
+	0xB4,// 'v', sae
+	0xF0, 0x09,// 1264 = "vreducess"
 	0x03,// 0x3
 
 	// EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae
-	0xAC,// 'v', sae
-	0xC3, 0x09,// 1219 = "vreducesd"
+	0xB4,// 'v', sae
+	0xF1, 0x09,// 1265 = "vreducesd"
 	0x03,// 0x3
 
 	// VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xC4, 0x09,// 1220 = "vfmaddsubps"
+	0xF2, 0x09,// 1266 = "vfmaddsubps"
 
 	// VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15144,7 +15412,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xC5, 0x09,// 1221 = "vfmaddsubpd"
+	0xF3, 0x09,// 1267 = "vfmaddsubpd"
 
 	// VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15157,7 +15425,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xC6, 0x09,// 1222 = "vfmsubaddps"
+	0xF4, 0x09,// 1268 = "vfmsubaddps"
 
 	// VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15170,7 +15438,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xC7, 0x09,// 1223 = "vfmsubaddpd"
+	0xF5, 0x09,// 1269 = "vfmsubaddpd"
 
 	// VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15183,61 +15451,61 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Pcmpestrm_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xC8, 0x09,// 1224 = "pcmpestrm"
+	0xF6, 0x09,// 1270 = "pcmpestrm"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Pcmpestrm64_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xC9, 0x09,// 1225 = "pcmpestrm64"
+	0xF7, 0x09,// 1271 = "pcmpestrm64"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpestrm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xC8, 0x09,// 1224 = "vpcmpestrm"
+	0xF6, 0x09,// 1270 = "vpcmpestrm"
 
 	// VEX_Vpcmpestrm64_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xC9, 0x09,// 1225 = "vpcmpestrm64"
+	0xF7, 0x09,// 1271 = "vpcmpestrm64"
 
 	// Pcmpestri_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xCA, 0x09,// 1226 = "pcmpestri"
+	0xF8, 0x09,// 1272 = "pcmpestri"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// Pcmpestri64_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xCB, 0x09,// 1227 = "pcmpestri64"
+	0xF9, 0x09,// 1273 = "pcmpestri64"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpestri_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xCA, 0x09,// 1226 = "vpcmpestri"
+	0xF8, 0x09,// 1272 = "vpcmpestri"
 
 	// VEX_Vpcmpestri64_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xCB, 0x09,// 1227 = "vpcmpestri64"
+	0xF9, 0x09,// 1273 = "vpcmpestri64"
 
 	// Pcmpistrm_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xCC, 0x09,// 1228 = "pcmpistrm"
+	0xFA, 0x09,// 1274 = "pcmpistrm"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpistrm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xCC, 0x09,// 1228 = "vpcmpistrm"
+	0xFA, 0x09,// 1274 = "vpcmpistrm"
 
 	// Pcmpistri_xmm_xmmm128_imm8
 	0x02,// Normal_2
-	0xCD, 0x09,// 1229 = "pcmpistri"
+	0xFB, 0x09,// 1275 = "pcmpistri"
 	0x01,// 0x1 = MemSize_Nothing
 
 	// VEX_Vpcmpistri_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xCD, 0x09,// 1229 = "vpcmpistri"
+	0xFB, 0x09,// 1275 = "vpcmpistri"
 
 	// EVEX_Vfpclassps_k_k1_xmmm128b32_imm8
 	0x87,// 'v', bcst
-	0xCE, 0x09,// 1230 = "vfpclassps"
+	0xFC, 0x09,// 1276 = "vfpclassps"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -15249,7 +15517,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
 	0x87,// 'v', bcst
-	0xCF, 0x09,// 1231 = "vfpclasspd"
+	0xFD, 0x09,// 1277 = "vfpclasspd"
 	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 	0x00,// 0x0 = None
 
@@ -15261,15 +15529,15 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vfpclassss_k_k1_xmmm32_imm8
 	0x81,// 'v', Normal_1
-	0xD0, 0x09,// 1232 = "vfpclassss"
+	0xFE, 0x09,// 1278 = "vfpclassss"
 
 	// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
 	0x81,// 'v', Normal_1
-	0xD1, 0x09,// 1233 = "vfpclasssd"
+	0xFF, 0x09,// 1279 = "vfpclasssd"
 
 	// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xD2, 0x09,// 1234 = "vfmaddps"
+	0x80, 0x0A,// 1280 = "vfmaddps"
 
 	// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15282,7 +15550,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xD3, 0x09,// 1235 = "vfmaddpd"
+	0x81, 0x0A,// 1281 = "vfmaddpd"
 
 	// VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15295,21 +15563,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmaddss_xmm_xmm_xmmm32_xmm
 	0x81,// 'v', Normal_1
-	0xD4, 0x09,// 1236 = "vfmaddss"
+	0x82, 0x0A,// 1282 = "vfmaddss"
 
 	// VEX_Vfmaddss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm
 	0x81,// 'v', Normal_1
-	0xD5, 0x09,// 1237 = "vfmaddsd"
+	0x83, 0x0A,// 1283 = "vfmaddsd"
 
 	// VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xD6, 0x09,// 1238 = "vfmsubps"
+	0x84, 0x0A,// 1284 = "vfmsubps"
 
 	// VEX_Vfmsubps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15322,7 +15590,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xD7, 0x09,// 1239 = "vfmsubpd"
+	0x85, 0x0A,// 1285 = "vfmsubpd"
 
 	// VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15335,21 +15603,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfmsubss_xmm_xmm_xmmm32_xmm
 	0x81,// 'v', Normal_1
-	0xD8, 0x09,// 1240 = "vfmsubss"
+	0x86, 0x0A,// 1286 = "vfmsubss"
 
 	// VEX_Vfmsubss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm
 	0x81,// 'v', Normal_1
-	0xD9, 0x09,// 1241 = "vfmsubsd"
+	0x87, 0x0A,// 1287 = "vfmsubsd"
 
 	// VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
 
 	// EVEX_Vpshldw_xmm_k1z_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xDA, 0x09,// 1242 = "vpshldw"
+	0x88, 0x0A,// 1288 = "vpshldw"
 
 	// EVEX_Vpshldw_ymm_k1z_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -15359,7 +15627,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshldd_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xDB, 0x09,// 1243 = "vpshldd"
+	0x89, 0x0A,// 1289 = "vpshldd"
 
 	// EVEX_Vpshldd_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -15369,7 +15637,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshldq_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xDC, 0x09,// 1244 = "vpshldq"
+	0x8A, 0x0A,// 1290 = "vpshldq"
 
 	// EVEX_Vpshldq_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -15379,7 +15647,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdw_xmm_k1z_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xDD, 0x09,// 1245 = "vpshrdw"
+	0x8B, 0x0A,// 1291 = "vpshrdw"
 
 	// EVEX_Vpshrdw_ymm_k1z_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -15389,7 +15657,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdd_xmm_k1z_xmm_xmmm128b32_imm8
 	0x81,// 'v', Normal_1
-	0xDE, 0x09,// 1246 = "vpshrdd"
+	0x8C, 0x0A,// 1292 = "vpshrdd"
 
 	// EVEX_Vpshrdd_ymm_k1z_ymm_ymmm256b32_imm8
 	0x80,// 'v', Previous
@@ -15399,7 +15667,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// EVEX_Vpshrdq_xmm_k1z_xmm_xmmm128b64_imm8
 	0x81,// 'v', Normal_1
-	0xDF, 0x09,// 1247 = "vpshrdq"
+	0x8D, 0x0A,// 1293 = "vpshrdq"
 
 	// EVEX_Vpshrdq_ymm_k1z_ymm_ymmm256b64_imm8
 	0x80,// 'v', Previous
@@ -15409,7 +15677,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xE0, 0x09,// 1248 = "vfnmaddps"
+	0x8E, 0x0A,// 1294 = "vfnmaddps"
 
 	// VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15422,7 +15690,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xE1, 0x09,// 1249 = "vfnmaddpd"
+	0x8F, 0x0A,// 1295 = "vfnmaddpd"
 
 	// VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15435,21 +15703,21 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm
 	0x81,// 'v', Normal_1
-	0xE2, 0x09,// 1250 = "vfnmaddss"
+	0x90, 0x0A,// 1296 = "vfnmaddss"
 
 	// VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm
 	0x81,// 'v', Normal_1
-	0xE3, 0x09,// 1251 = "vfnmaddsd"
+	0x91, 0x0A,// 1297 = "vfnmaddsd"
 
 	// VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xE4, 0x09,// 1252 = "vfnmsubps"
+	0x92, 0x0A,// 1298 = "vfnmsubps"
 
 	// VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15462,7 +15730,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xE5, 0x09,// 1253 = "vfnmsubpd"
+	0x93, 0x0A,// 1299 = "vfnmsubpd"
 
 	// VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15475,29 +15743,29 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm
 	0x81,// 'v', Normal_1
-	0xE6, 0x09,// 1254 = "vfnmsubss"
+	0x94, 0x0A,// 1300 = "vfnmsubss"
 
 	// VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32
 	0x80,// 'v', Previous
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm
 	0x81,// 'v', Normal_1
-	0xE7, 0x09,// 1255 = "vfnmsubsd"
+	0x95, 0x0A,// 1301 = "vfnmsubsd"
 
 	// VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64
 	0x80,// 'v', Previous
 
 	// Sha1rnds4_xmm_xmmm128_imm8
 	0x01,// Normal_1
-	0xE8, 0x09,// 1256 = "sha1rnds4"
+	0x96, 0x0A,// 1302 = "sha1rnds4"
 
 	// Gf2p8affineqb_xmm_xmmm128_imm8
 	0x01,// Normal_1
-	0xE9, 0x09,// 1257 = "gf2p8affineqb"
+	0x97, 0x0A,// 1303 = "gf2p8affineqb"
 
 	// VEX_Vgf2p8affineqb_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xE9, 0x09,// 1257 = "vgf2p8affineqb"
+	0x97, 0x0A,// 1303 = "vgf2p8affineqb"
 
 	// VEX_Vgf2p8affineqb_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -15513,11 +15781,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Gf2p8affineinvqb_xmm_xmmm128_imm8
 	0x01,// Normal_1
-	0xEA, 0x09,// 1258 = "gf2p8affineinvqb"
+	0x98, 0x0A,// 1304 = "gf2p8affineinvqb"
 
 	// VEX_Vgf2p8affineinvqb_xmm_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xEA, 0x09,// 1258 = "vgf2p8affineinvqb"
+	0x98, 0x0A,// 1304 = "vgf2p8affineinvqb"
 
 	// VEX_Vgf2p8affineinvqb_ymm_ymm_ymmm256_imm8
 	0x80,// 'v', Previous
@@ -15533,62 +15801,62 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// Aeskeygenassist_xmm_xmmm128_imm8
 	0x01,// Normal_1
-	0xEB, 0x09,// 1259 = "aeskeygenassist"
+	0x99, 0x0A,// 1305 = "aeskeygenassist"
 
 	// VEX_Vaeskeygenassist_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xEB, 0x09,// 1259 = "vaeskeygenassist"
+	0x99, 0x0A,// 1305 = "vaeskeygenassist"
 
 	// VEX_Rorx_r32_rm32_imm8
 	0x01,// Normal_1
-	0xEC, 0x09,// 1260 = "rorx"
+	0x9A, 0x0A,// 1306 = "rorx"
 
 	// VEX_Rorx_r64_rm64_imm8
 	0x00,// Previous
 
 	// XOP_Vpmacssww_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xED, 0x09,// 1261 = "vpmacssww"
+	0x9B, 0x0A,// 1307 = "vpmacssww"
 
 	// XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xEE, 0x09,// 1262 = "vpmacsswd"
+	0x9C, 0x0A,// 1308 = "vpmacsswd"
 
 	// XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xEF, 0x09,// 1263 = "vpmacssdql"
+	0x9D, 0x0A,// 1309 = "vpmacssdql"
 
 	// XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF0, 0x09,// 1264 = "vpmacssdd"
+	0x9E, 0x0A,// 1310 = "vpmacssdd"
 
 	// XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF1, 0x09,// 1265 = "vpmacssdqh"
+	0x9F, 0x0A,// 1311 = "vpmacssdqh"
 
 	// XOP_Vpmacsww_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF2, 0x09,// 1266 = "vpmacsww"
+	0xA0, 0x0A,// 1312 = "vpmacsww"
 
 	// XOP_Vpmacswd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF3, 0x09,// 1267 = "vpmacswd"
+	0xA1, 0x0A,// 1313 = "vpmacswd"
 
 	// XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF4, 0x09,// 1268 = "vpmacsdql"
+	0xA2, 0x0A,// 1314 = "vpmacsdql"
 
 	// XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF5, 0x09,// 1269 = "vpmacsdd"
+	0xA3, 0x0A,// 1315 = "vpmacsdd"
 
 	// XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF6, 0x09,// 1270 = "vpmacsdqh"
+	0xA4, 0x0A,// 1316 = "vpmacsdqh"
 
 	// XOP_Vpcmov_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF7, 0x09,// 1271 = "vpcmov"
+	0xA5, 0x0A,// 1317 = "vpcmov"
 
 	// XOP_Vpcmov_ymm_ymm_ymmm256_ymm
 	0x80,// 'v', Previous
@@ -15601,498 +15869,498 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// XOP_Vpperm_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF8, 0x09,// 1272 = "vpperm"
+	0xA6, 0x0A,// 1318 = "vpperm"
 
 	// XOP_Vpperm_xmm_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xF9, 0x09,// 1273 = "vpmadcsswd"
+	0xA7, 0x0A,// 1319 = "vpmadcsswd"
 
 	// XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xFA, 0x09,// 1274 = "vpmadcswd"
+	0xA8, 0x0A,// 1320 = "vpmadcswd"
 
 	// XOP_Vprotb_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFB, 0x09,// 1275 = "vprotb"
+	0xA9, 0x0A,// 1321 = "vprotb"
 
 	// XOP_Vprotw_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFC, 0x09,// 1276 = "vprotw"
+	0xAA, 0x0A,// 1322 = "vprotw"
 
 	// XOP_Vprotd_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFD, 0x09,// 1277 = "vprotd"
+	0xAB, 0x0A,// 1323 = "vprotd"
 
 	// XOP_Vprotq_xmm_xmmm128_imm8
 	0x81,// 'v', Normal_1
-	0xFE, 0x09,// 1278 = "vprotq"
+	0xAC, 0x0A,// 1324 = "vprotq"
 
 	// XOP_Vpcomb_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0xFF, 0x09,// 1279 = "vpcomb"
+	0xB0,// 'v', pops_2
+	0xAD, 0x0A,// 1325 = "vpcomb"
 	0x0A,// vpcomb
 
 	// XOP_Vpcomw_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x80, 0x0A,// 1280 = "vpcomw"
+	0xB0,// 'v', pops_2
+	0xAE, 0x0A,// 1326 = "vpcomw"
 	0x0B,// vpcomw
 
 	// XOP_Vpcomd_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x81, 0x0A,// 1281 = "vpcomd"
+	0xB0,// 'v', pops_2
+	0xAF, 0x0A,// 1327 = "vpcomd"
 	0x0C,// vpcomd
 
 	// XOP_Vpcomq_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x82, 0x0A,// 1282 = "vpcomq"
+	0xB0,// 'v', pops_2
+	0xB0, 0x0A,// 1328 = "vpcomq"
 	0x0D,// vpcomq
 
 	// XOP_Vpcomub_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x83, 0x0A,// 1283 = "vpcomub"
+	0xB0,// 'v', pops_2
+	0xB1, 0x0A,// 1329 = "vpcomub"
 	0x0E,// vpcomub
 
 	// XOP_Vpcomuw_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x84, 0x0A,// 1284 = "vpcomuw"
+	0xB0,// 'v', pops_2
+	0xB2, 0x0A,// 1330 = "vpcomuw"
 	0x0F,// vpcomuw
 
 	// XOP_Vpcomud_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x85, 0x0A,// 1285 = "vpcomud"
+	0xB0,// 'v', pops_2
+	0xB3, 0x0A,// 1331 = "vpcomud"
 	0x10,// vpcomud
 
 	// XOP_Vpcomuq_xmm_xmm_xmmm128_imm8
-	0xA8,// 'v', pops_2
-	0x86, 0x0A,// 1286 = "vpcomuq"
+	0xB0,// 'v', pops_2
+	0xB4, 0x0A,// 1332 = "vpcomuq"
 	0x11,// vpcomuq
 
 	// XOP_Blcfill_r32_rm32
 	0x01,// Normal_1
-	0x87, 0x0A,// 1287 = "blcfill"
+	0xB5, 0x0A,// 1333 = "blcfill"
 
 	// XOP_Blcfill_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blsfill_r32_rm32
 	0x01,// Normal_1
-	0x88, 0x0A,// 1288 = "blsfill"
+	0xB6, 0x0A,// 1334 = "blsfill"
 
 	// XOP_Blsfill_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blcs_r32_rm32
 	0x01,// Normal_1
-	0x89, 0x0A,// 1289 = "blcs"
+	0xB7, 0x0A,// 1335 = "blcs"
 
 	// XOP_Blcs_r64_rm64
 	0x00,// Previous
 
 	// XOP_Tzmsk_r32_rm32
 	0x01,// Normal_1
-	0x8A, 0x0A,// 1290 = "tzmsk"
+	0xB8, 0x0A,// 1336 = "tzmsk"
 
 	// XOP_Tzmsk_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blcic_r32_rm32
 	0x01,// Normal_1
-	0x8B, 0x0A,// 1291 = "blcic"
+	0xB9, 0x0A,// 1337 = "blcic"
 
 	// XOP_Blcic_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blsic_r32_rm32
 	0x01,// Normal_1
-	0x8C, 0x0A,// 1292 = "blsic"
+	0xBA, 0x0A,// 1338 = "blsic"
 
 	// XOP_Blsic_r64_rm64
 	0x00,// Previous
 
 	// XOP_T1mskc_r32_rm32
 	0x01,// Normal_1
-	0x8D, 0x0A,// 1293 = "t1mskc"
+	0xBB, 0x0A,// 1339 = "t1mskc"
 
 	// XOP_T1mskc_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blcmsk_r32_rm32
 	0x01,// Normal_1
-	0x8E, 0x0A,// 1294 = "blcmsk"
+	0xBC, 0x0A,// 1340 = "blcmsk"
 
 	// XOP_Blcmsk_r64_rm64
 	0x00,// Previous
 
 	// XOP_Blci_r32_rm32
 	0x01,// Normal_1
-	0x8F, 0x0A,// 1295 = "blci"
+	0xBD, 0x0A,// 1341 = "blci"
 
 	// XOP_Blci_r64_rm64
 	0x00,// Previous
 
 	// XOP_Llwpcb_r32
 	0x01,// Normal_1
-	0x90, 0x0A,// 1296 = "llwpcb"
+	0xBE, 0x0A,// 1342 = "llwpcb"
 
 	// XOP_Llwpcb_r64
 	0x00,// Previous
 
 	// XOP_Slwpcb_r32
 	0x01,// Normal_1
-	0x91, 0x0A,// 1297 = "slwpcb"
+	0xBF, 0x0A,// 1343 = "slwpcb"
 
 	// XOP_Slwpcb_r64
 	0x00,// Previous
 
 	// XOP_Vfrczps_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x92, 0x0A,// 1298 = "vfrczps"
+	0xC0, 0x0A,// 1344 = "vfrczps"
 
 	// XOP_Vfrczps_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// XOP_Vfrczpd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x93, 0x0A,// 1299 = "vfrczpd"
+	0xC1, 0x0A,// 1345 = "vfrczpd"
 
 	// XOP_Vfrczpd_ymm_ymmm256
 	0x80,// 'v', Previous
 
 	// XOP_Vfrczss_xmm_xmmm32
 	0x81,// 'v', Normal_1
-	0x94, 0x0A,// 1300 = "vfrczss"
+	0xC2, 0x0A,// 1346 = "vfrczss"
 
 	// XOP_Vfrczsd_xmm_xmmm64
 	0x81,// 'v', Normal_1
-	0x95, 0x0A,// 1301 = "vfrczsd"
+	0xC3, 0x0A,// 1347 = "vfrczsd"
 
 	// XOP_Vprotb_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xFB, 0x09,// 1275 = "vprotb"
+	0xA9, 0x0A,// 1321 = "vprotb"
 
 	// XOP_Vprotb_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vprotw_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xFC, 0x09,// 1276 = "vprotw"
+	0xAA, 0x0A,// 1322 = "vprotw"
 
 	// XOP_Vprotw_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vprotd_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xFD, 0x09,// 1277 = "vprotd"
+	0xAB, 0x0A,// 1323 = "vprotd"
 
 	// XOP_Vprotd_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vprotq_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0xFE, 0x09,// 1278 = "vprotq"
+	0xAC, 0x0A,// 1324 = "vprotq"
 
 	// XOP_Vprotq_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshlb_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x96, 0x0A,// 1302 = "vpshlb"
+	0xC4, 0x0A,// 1348 = "vpshlb"
 
 	// XOP_Vpshlb_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshlw_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x97, 0x0A,// 1303 = "vpshlw"
+	0xC5, 0x0A,// 1349 = "vpshlw"
 
 	// XOP_Vpshlw_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshld_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x98, 0x0A,// 1304 = "vpshld"
+	0xC6, 0x0A,// 1350 = "vpshld"
 
 	// XOP_Vpshld_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshlq_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x99, 0x0A,// 1305 = "vpshlq"
+	0xC7, 0x0A,// 1351 = "vpshlq"
 
 	// XOP_Vpshlq_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshab_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x9A, 0x0A,// 1306 = "vpshab"
+	0xC8, 0x0A,// 1352 = "vpshab"
 
 	// XOP_Vpshab_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshaw_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x9B, 0x0A,// 1307 = "vpshaw"
+	0xC9, 0x0A,// 1353 = "vpshaw"
 
 	// XOP_Vpshaw_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshad_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x9C, 0x0A,// 1308 = "vpshad"
+	0xCA, 0x0A,// 1354 = "vpshad"
 
 	// XOP_Vpshad_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vpshaq_xmm_xmmm128_xmm
 	0x81,// 'v', Normal_1
-	0x9D, 0x0A,// 1309 = "vpshaq"
+	0xCB, 0x0A,// 1355 = "vpshaq"
 
 	// XOP_Vpshaq_xmm_xmm_xmmm128
 	0x80,// 'v', Previous
 
 	// XOP_Vphaddbw_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9E, 0x0A,// 1310 = "vphaddbw"
+	0xCC, 0x0A,// 1356 = "vphaddbw"
 
 	// XOP_Vphaddbd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0x9F, 0x0A,// 1311 = "vphaddbd"
+	0xCD, 0x0A,// 1357 = "vphaddbd"
 
 	// XOP_Vphaddbq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA0, 0x0A,// 1312 = "vphaddbq"
+	0xCE, 0x0A,// 1358 = "vphaddbq"
 
 	// XOP_Vphaddwd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA1, 0x0A,// 1313 = "vphaddwd"
+	0xCF, 0x0A,// 1359 = "vphaddwd"
 
 	// XOP_Vphaddwq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA2, 0x0A,// 1314 = "vphaddwq"
+	0xD0, 0x0A,// 1360 = "vphaddwq"
 
 	// XOP_Vphadddq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA3, 0x0A,// 1315 = "vphadddq"
+	0xD1, 0x0A,// 1361 = "vphadddq"
 
 	// XOP_Vphaddubw_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA4, 0x0A,// 1316 = "vphaddubw"
+	0xD2, 0x0A,// 1362 = "vphaddubw"
 
 	// XOP_Vphaddubd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA5, 0x0A,// 1317 = "vphaddubd"
+	0xD3, 0x0A,// 1363 = "vphaddubd"
 
 	// XOP_Vphaddubq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA6, 0x0A,// 1318 = "vphaddubq"
+	0xD4, 0x0A,// 1364 = "vphaddubq"
 
 	// XOP_Vphadduwd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA7, 0x0A,// 1319 = "vphadduwd"
+	0xD5, 0x0A,// 1365 = "vphadduwd"
 
 	// XOP_Vphadduwq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA8, 0x0A,// 1320 = "vphadduwq"
+	0xD6, 0x0A,// 1366 = "vphadduwq"
 
 	// XOP_Vphaddudq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xA9, 0x0A,// 1321 = "vphaddudq"
+	0xD7, 0x0A,// 1367 = "vphaddudq"
 
 	// XOP_Vphsubbw_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAA, 0x0A,// 1322 = "vphsubbw"
+	0xD8, 0x0A,// 1368 = "vphsubbw"
 
 	// XOP_Vphsubwd_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAB, 0x0A,// 1323 = "vphsubwd"
+	0xD9, 0x0A,// 1369 = "vphsubwd"
 
 	// XOP_Vphsubdq_xmm_xmmm128
 	0x81,// 'v', Normal_1
-	0xAC, 0x0A,// 1324 = "vphsubdq"
+	0xDA, 0x0A,// 1370 = "vphsubdq"
 
 	// XOP_Bextr_r32_rm32_imm32
 	0x01,// Normal_1
-	0xE2, 0x08,// 1122 = "bextr"
+	0x90, 0x09,// 1168 = "bextr"
 
 	// XOP_Bextr_r64_rm64_imm32
 	0x00,// Previous
 
 	// XOP_Lwpins_r32_rm32_imm32
 	0x01,// Normal_1
-	0xAD, 0x0A,// 1325 = "lwpins"
+	0xDB, 0x0A,// 1371 = "lwpins"
 
 	// XOP_Lwpins_r64_rm32_imm32
 	0x00,// Previous
 
 	// XOP_Lwpval_r32_rm32_imm32
 	0x01,// Normal_1
-	0xAE, 0x0A,// 1326 = "lwpval"
+	0xDC, 0x0A,// 1372 = "lwpval"
 
 	// XOP_Lwpval_r64_rm32_imm32
 	0x00,// Previous
 
 	// D3NOW_Pi2fw_mm_mmm64
 	0x01,// Normal_1
-	0xAF, 0x0A,// 1327 = "pi2fw"
+	0xDD, 0x0A,// 1373 = "pi2fw"
 
 	// D3NOW_Pi2fd_mm_mmm64
 	0x01,// Normal_1
-	0xB0, 0x0A,// 1328 = "pi2fd"
+	0xDE, 0x0A,// 1374 = "pi2fd"
 
 	// D3NOW_Pf2iw_mm_mmm64
 	0x01,// Normal_1
-	0xB1, 0x0A,// 1329 = "pf2iw"
+	0xDF, 0x0A,// 1375 = "pf2iw"
 
 	// D3NOW_Pf2id_mm_mmm64
 	0x01,// Normal_1
-	0xB2, 0x0A,// 1330 = "pf2id"
+	0xE0, 0x0A,// 1376 = "pf2id"
 
 	// D3NOW_Pfrcpv_mm_mmm64
 	0x01,// Normal_1
-	0xB3, 0x0A,// 1331 = "pfrcpv"
+	0xE1, 0x0A,// 1377 = "pfrcpv"
 
 	// D3NOW_Pfrsqrtv_mm_mmm64
 	0x01,// Normal_1
-	0xB4, 0x0A,// 1332 = "pfrsqrtv"
+	0xE2, 0x0A,// 1378 = "pfrsqrtv"
 
 	// D3NOW_Pfnacc_mm_mmm64
 	0x01,// Normal_1
-	0xB5, 0x0A,// 1333 = "pfnacc"
+	0xE3, 0x0A,// 1379 = "pfnacc"
 
 	// D3NOW_Pfpnacc_mm_mmm64
 	0x01,// Normal_1
-	0xB6, 0x0A,// 1334 = "pfpnacc"
+	0xE4, 0x0A,// 1380 = "pfpnacc"
 
 	// D3NOW_Pfcmpge_mm_mmm64
 	0x01,// Normal_1
-	0xB7, 0x0A,// 1335 = "pfcmpge"
+	0xE5, 0x0A,// 1381 = "pfcmpge"
 
 	// D3NOW_Pfmin_mm_mmm64
 	0x01,// Normal_1
-	0xB8, 0x0A,// 1336 = "pfmin"
+	0xE6, 0x0A,// 1382 = "pfmin"
 
 	// D3NOW_Pfrcp_mm_mmm64
 	0x01,// Normal_1
-	0xB9, 0x0A,// 1337 = "pfrcp"
+	0xE7, 0x0A,// 1383 = "pfrcp"
 
 	// D3NOW_Pfrsqrt_mm_mmm64
 	0x01,// Normal_1
-	0xBA, 0x0A,// 1338 = "pfrsqrt"
+	0xE8, 0x0A,// 1384 = "pfrsqrt"
 
 	// D3NOW_Pfsub_mm_mmm64
 	0x01,// Normal_1
-	0xBB, 0x0A,// 1339 = "pfsub"
+	0xE9, 0x0A,// 1385 = "pfsub"
 
 	// D3NOW_Pfadd_mm_mmm64
 	0x01,// Normal_1
-	0xBC, 0x0A,// 1340 = "pfadd"
+	0xEA, 0x0A,// 1386 = "pfadd"
 
 	// D3NOW_Pfcmpgt_mm_mmm64
 	0x01,// Normal_1
-	0xBD, 0x0A,// 1341 = "pfcmpgt"
+	0xEB, 0x0A,// 1387 = "pfcmpgt"
 
 	// D3NOW_Pfmax_mm_mmm64
 	0x01,// Normal_1
-	0xBE, 0x0A,// 1342 = "pfmax"
+	0xEC, 0x0A,// 1388 = "pfmax"
 
 	// D3NOW_Pfrcpit1_mm_mmm64
 	0x01,// Normal_1
-	0xBF, 0x0A,// 1343 = "pfrcpit1"
+	0xED, 0x0A,// 1389 = "pfrcpit1"
 
 	// D3NOW_Pfrsqit1_mm_mmm64
 	0x01,// Normal_1
-	0xC0, 0x0A,// 1344 = "pfrsqit1"
+	0xEE, 0x0A,// 1390 = "pfrsqit1"
 
 	// D3NOW_Pfsubr_mm_mmm64
 	0x01,// Normal_1
-	0xC1, 0x0A,// 1345 = "pfsubr"
+	0xEF, 0x0A,// 1391 = "pfsubr"
 
 	// D3NOW_Pfacc_mm_mmm64
 	0x01,// Normal_1
-	0xC2, 0x0A,// 1346 = "pfacc"
+	0xF0, 0x0A,// 1392 = "pfacc"
 
 	// D3NOW_Pfcmpeq_mm_mmm64
 	0x01,// Normal_1
-	0xC3, 0x0A,// 1347 = "pfcmpeq"
+	0xF1, 0x0A,// 1393 = "pfcmpeq"
 
 	// D3NOW_Pfmul_mm_mmm64
 	0x01,// Normal_1
-	0xC4, 0x0A,// 1348 = "pfmul"
+	0xF2, 0x0A,// 1394 = "pfmul"
 
 	// D3NOW_Pfrcpit2_mm_mmm64
 	0x01,// Normal_1
-	0xC5, 0x0A,// 1349 = "pfrcpit2"
+	0xF3, 0x0A,// 1395 = "pfrcpit2"
 
 	// D3NOW_Pmulhrw_mm_mmm64
 	0x01,// Normal_1
-	0xC7, 0x0A,// 1351 = "pmulhrwa"
+	0xF5, 0x0A,// 1397 = "pmulhrwa"
 
 	// D3NOW_Pswapd_mm_mmm64
 	0x01,// Normal_1
-	0xC8, 0x0A,// 1352 = "pswapd"
+	0xF6, 0x0A,// 1398 = "pswapd"
 
 	// D3NOW_Pavgusb_mm_mmm64
 	0x01,// Normal_1
-	0xC9, 0x0A,// 1353 = "pavgusb"
+	0xF7, 0x0A,// 1399 = "pavgusb"
 
 	// Rmpadjust
 	0x01,// Normal_1
-	0xCA, 0x0A,// 1354 = "rmpadjust"
+	0xF8, 0x0A,// 1400 = "rmpadjust"
 
 	// Rmpupdate
 	0x01,// Normal_1
-	0xCB, 0x0A,// 1355 = "rmpupdate"
+	0xF9, 0x0A,// 1401 = "rmpupdate"
 
 	// Psmash
 	0x01,// Normal_1
-	0xCC, 0x0A,// 1356 = "psmash"
+	0xFA, 0x0A,// 1402 = "psmash"
 
 	// Pvalidatew
 	0x04,// asz
-	0xCD, 0x0A,// 1357 = "pvalidate"
+	0xFB, 0x0A,// 1403 = "pvalidate"
 	0x10,// 0x10
 
 	// Pvalidated
 	0x04,// asz
-	0xCD, 0x0A,// 1357 = "pvalidate"
+	0xFB, 0x0A,// 1403 = "pvalidate"
 	0x20,// 0x20
 
 	// Pvalidateq
 	0x04,// asz
-	0xCD, 0x0A,// 1357 = "pvalidate"
+	0xFB, 0x0A,// 1403 = "pvalidate"
 	0x40,// 0x40
 
 	// Serialize
 	0x01,// Normal_1
-	0xCE, 0x0A,// 1358 = "serialize"
+	0xFC, 0x0A,// 1404 = "serialize"
 
 	// Xsusldtrk
 	0x01,// Normal_1
-	0xCF, 0x0A,// 1359 = "xsusldtrk"
+	0xFD, 0x0A,// 1405 = "xsusldtrk"
 
 	// Xresldtrk
 	0x01,// Normal_1
-	0xD0, 0x0A,// 1360 = "xresldtrk"
+	0xFE, 0x0A,// 1406 = "xresldtrk"
 
 	// Invlpgbw
 	0x04,// asz
-	0xD1, 0x0A,// 1361 = "invlpgb"
+	0xFF, 0x0A,// 1407 = "invlpgb"
 	0x10,// 0x10
 
 	// Invlpgbd
 	0x04,// asz
-	0xD1, 0x0A,// 1361 = "invlpgb"
+	0xFF, 0x0A,// 1407 = "invlpgb"
 	0x20,// 0x20
 
 	// Invlpgbq
 	0x04,// asz
-	0xD1, 0x0A,// 1361 = "invlpgb"
+	0xFF, 0x0A,// 1407 = "invlpgb"
 	0x40,// 0x40
 
 	// Tlbsync
 	0x01,// Normal_1
-	0xD2, 0x0A,// 1362 = "tlbsync"
+	0x80, 0x0B,// 1408 = "tlbsync"
 ];

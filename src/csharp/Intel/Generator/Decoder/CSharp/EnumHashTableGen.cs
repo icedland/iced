@@ -56,6 +56,18 @@ namespace Generator.Decoder.CSharp {
 				("MemorySizeOptionsHash", MemorySizeOptionsEnum.Instance, false, "Intel/ToEnumConverter.MemorySizeOptions.cs"),
 				("NumberBaseHash", NumberBaseEnum.Instance, false, "Intel/ToEnumConverter.NumberBase.cs"),
 				("OptionsPropsHash", OptionsPropsEnum.Instance, false, "Intel/ToEnumConverter.OptionsProps.cs"),
+				("CC_b_hash", CC_b_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_ae_hash", CC_ae_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_e_hash", CC_e_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_ne_hash", CC_ne_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_be_hash", CC_be_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_a_hash", CC_a_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_p_hash", CC_p_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_np_hash", CC_np_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_l_hash", CC_l_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_ge_hash", CC_ge_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_le_hash", CC_le_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
+				("CC_g_hash", CC_g_Enum.Instance, false, "Intel/ToEnumConverter.CC.cs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.CSharpTestsDir, Path.Combine(info.filename.Split('/')));

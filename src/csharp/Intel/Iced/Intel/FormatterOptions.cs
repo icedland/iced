@@ -22,6 +22,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if GAS || INTEL || MASM || NASM
+using System;
+
 namespace Iced.Intel {
 	/// <summary>
 	/// Formatter options
@@ -583,6 +585,186 @@ namespace Iced.Intel {
 		public bool PreferST0 { get; set; }
 
 		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JB</c> / <c>JC</c> / <c>JNAE</c>)
+		/// <br/>
+		/// Default: <c>JB</c>, <c>CMOVB</c>, <c>SETB</c>
+		/// </summary>
+		public CC_b CC_b {
+			get => cc_b;
+			set {
+				if ((uint)value > (uint)CC_b.nae)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_b = value;
+			}
+		}
+		CC_b cc_b = CC_b.b;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JAE</c> / <c>JNB</c> / <c>JNC</c>)
+		/// <br/>
+		/// Default: <c>JAE</c>, <c>CMOVAE</c>, <c>SETAE</c>
+		/// </summary>
+		public CC_ae CC_ae {
+			get => cc_ae;
+			set {
+				if ((uint)value > (uint)CC_ae.nc)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_ae = value;
+			}
+		}
+		CC_ae cc_ae = CC_ae.ae;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JE</c> / <c>JZ</c>)
+		/// <br/>
+		/// Default: <c>JE</c>, <c>CMOVE</c>, <c>SETE</c>, <c>LOOPE</c>
+		/// </summary>
+		public CC_e CC_e {
+			get => cc_e;
+			set {
+				if ((uint)value > (uint)CC_e.z)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_e = value;
+			}
+		}
+		CC_e cc_e = CC_e.e;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JNE</c> / <c>JNZ</c>)
+		/// <br/>
+		/// Default: <c>JNE</c>, <c>CMOVNE</c>, <c>SETNE</c>, <c>LOOPNE</c>
+		/// </summary>
+		public CC_ne CC_ne {
+			get => cc_ne;
+			set {
+				if ((uint)value > (uint)CC_ne.nz)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_ne = value;
+			}
+		}
+		CC_ne cc_ne = CC_ne.ne;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JBE</c> / <c>JNA</c>)
+		/// <br/>
+		/// Default: <c>JBE</c>, <c>CMOVBE</c>, <c>SETBE</c>
+		/// </summary>
+		public CC_be CC_be {
+			get => cc_be;
+			set {
+				if ((uint)value > (uint)CC_be.na)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_be = value;
+			}
+		}
+		CC_be cc_be = CC_be.be;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JA</c> / <c>JNBE</c>)
+		/// <br/>
+		/// Default: <c>JA</c>, <c>CMOVA</c>, <c>SETA</c>
+		/// </summary>
+		public CC_a CC_a {
+			get => cc_a;
+			set {
+				if ((uint)value > (uint)CC_a.nbe)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_a = value;
+			}
+		}
+		CC_a cc_a = CC_a.a;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JP</c> / <c>JPE</c>)
+		/// <br/>
+		/// Default: <c>JP</c>, <c>CMOVP</c>, <c>SETP</c>
+		/// </summary>
+		public CC_p CC_p {
+			get => cc_p;
+			set {
+				if ((uint)value > (uint)CC_p.pe)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_p = value;
+			}
+		}
+		CC_p cc_p = CC_p.p;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JNP</c> / <c>JPO</c>)
+		/// <br/>
+		/// Default: <c>JNP</c>, <c>CMOVNP</c>, <c>SETNP</c>
+		/// </summary>
+		public CC_np CC_np {
+			get => cc_np;
+			set {
+				if ((uint)value > (uint)CC_np.po)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_np = value;
+			}
+		}
+		CC_np cc_np = CC_np.np;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JL</c> / <c>JNGE</c>)
+		/// <br/>
+		/// Default: <c>JL</c>, <c>CMOVL</c>, <c>SETL</c>
+		/// </summary>
+		public CC_l CC_l {
+			get => cc_l;
+			set {
+				if ((uint)value > (uint)CC_l.nge)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_l = value;
+			}
+		}
+		CC_l cc_l = CC_l.l;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JGE</c> / <c>JNL</c>)
+		/// <br/>
+		/// Default: <c>JGE</c>, <c>CMOVGE</c>, <c>SETGE</c>
+		/// </summary>
+		public CC_ge CC_ge {
+			get => cc_ge;
+			set {
+				if ((uint)value > (uint)CC_ge.nl)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_ge = value;
+			}
+		}
+		CC_ge cc_ge = CC_ge.ge;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JLE</c> / <c>JNG</c>)
+		/// <br/>
+		/// Default: <c>JLE</c>, <c>CMOVLE</c>, <c>SETLE</c>
+		/// </summary>
+		public CC_le CC_le {
+			get => cc_le;
+			set {
+				if ((uint)value > (uint)CC_le.ng)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_le = value;
+			}
+		}
+		CC_le cc_le = CC_le.le;
+
+		/// <summary>
+		/// Mnemonic condition code selector (eg. <c>JG</c> / <c>JNLE</c>)
+		/// <br/>
+		/// Default: <c>JG</c>, <c>CMOVG</c>, <c>SETG</c>
+		/// </summary>
+		public CC_g CC_g {
+			get => cc_g;
+			set {
+				if ((uint)value > (uint)CC_g.nle)
+					throw new ArgumentOutOfRangeException(nameof(value));
+				cc_g = value;
+			}
+		}
+		CC_g cc_g = CC_g.g;
+
+		/// <summary>
 		/// Prefixes are upper cased
 		/// <br/>
 		/// Default: <see langword="false"/>
@@ -776,5 +958,141 @@ namespace Iced.Intel {
 		Never = 3,
 	}
 	// GENERATOR-END: MemorySizeOptions
+
+	// GENERATOR-BEGIN: CC_b
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JB</c> / <c>JC</c> / <c>JNAE</c>)</summary>
+	public enum CC_b : byte {
+		/// <summary><c>JB</c>, <c>CMOVB</c>, <c>SETB</c></summary>
+		b = 0,
+		/// <summary><c>JC</c>, <c>CMOVC</c>, <c>SETC</c></summary>
+		c = 1,
+		/// <summary><c>JNAE</c>, <c>CMOVNAE</c>, <c>SETNAE</c></summary>
+		nae = 2,
+	}
+	// GENERATOR-END: CC_b
+
+	// GENERATOR-BEGIN: CC_ae
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JAE</c> / <c>JNB</c> / <c>JNC</c>)</summary>
+	public enum CC_ae : byte {
+		/// <summary><c>JAE</c>, <c>CMOVAE</c>, <c>SETAE</c></summary>
+		ae = 0,
+		/// <summary><c>JNB</c>, <c>CMOVNB</c>, <c>SETNB</c></summary>
+		nb = 1,
+		/// <summary><c>JNC</c>, <c>CMOVNC</c>, <c>SETNC</c></summary>
+		nc = 2,
+	}
+	// GENERATOR-END: CC_ae
+
+	// GENERATOR-BEGIN: CC_e
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JE</c> / <c>JZ</c>)</summary>
+	public enum CC_e : byte {
+		/// <summary><c>JE</c>, <c>CMOVE</c>, <c>SETE</c>, <c>LOOPE</c></summary>
+		e = 0,
+		/// <summary><c>JZ</c>, <c>CMOVZ</c>, <c>SETZ</c>, <c>LOOPZ</c></summary>
+		z = 1,
+	}
+	// GENERATOR-END: CC_e
+
+	// GENERATOR-BEGIN: CC_ne
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JNE</c> / <c>JNZ</c>)</summary>
+	public enum CC_ne : byte {
+		/// <summary><c>JNE</c>, <c>CMOVNE</c>, <c>SETNE</c>, <c>LOOPNE</c></summary>
+		ne = 0,
+		/// <summary><c>JNZ</c>, <c>CMOVNZ</c>, <c>SETNZ</c>, <c>LOOPNZ</c></summary>
+		nz = 1,
+	}
+	// GENERATOR-END: CC_ne
+
+	// GENERATOR-BEGIN: CC_be
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JBE</c> / <c>JNA</c>)</summary>
+	public enum CC_be : byte {
+		/// <summary><c>JBE</c>, <c>CMOVBE</c>, <c>SETBE</c></summary>
+		be = 0,
+		/// <summary><c>JNA</c>, <c>CMOVNA</c>, <c>SETNA</c></summary>
+		na = 1,
+	}
+	// GENERATOR-END: CC_be
+
+	// GENERATOR-BEGIN: CC_a
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JA</c> / <c>JNBE</c>)</summary>
+	public enum CC_a : byte {
+		/// <summary><c>JA</c>, <c>CMOVA</c>, <c>SETA</c></summary>
+		a = 0,
+		/// <summary><c>JNBE</c>, <c>CMOVNBE</c>, <c>SETNBE</c></summary>
+		nbe = 1,
+	}
+	// GENERATOR-END: CC_a
+
+	// GENERATOR-BEGIN: CC_p
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JP</c> / <c>JPE</c>)</summary>
+	public enum CC_p : byte {
+		/// <summary><c>JP</c>, <c>CMOVP</c>, <c>SETP</c></summary>
+		p = 0,
+		/// <summary><c>JPE</c>, <c>CMOVPE</c>, <c>SETPE</c></summary>
+		pe = 1,
+	}
+	// GENERATOR-END: CC_p
+
+	// GENERATOR-BEGIN: CC_np
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JNP</c> / <c>JPO</c>)</summary>
+	public enum CC_np : byte {
+		/// <summary><c>JNP</c>, <c>CMOVNP</c>, <c>SETNP</c></summary>
+		np = 0,
+		/// <summary><c>JPO</c>, <c>CMOVPO</c>, <c>SETPO</c></summary>
+		po = 1,
+	}
+	// GENERATOR-END: CC_np
+
+	// GENERATOR-BEGIN: CC_l
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JL</c> / <c>JNGE</c>)</summary>
+	public enum CC_l : byte {
+		/// <summary><c>JL</c>, <c>CMOVL</c>, <c>SETL</c></summary>
+		l = 0,
+		/// <summary><c>JNGE</c>, <c>CMOVNGE</c>, <c>SETNGE</c></summary>
+		nge = 1,
+	}
+	// GENERATOR-END: CC_l
+
+	// GENERATOR-BEGIN: CC_ge
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JGE</c> / <c>JNL</c>)</summary>
+	public enum CC_ge : byte {
+		/// <summary><c>JGE</c>, <c>CMOVGE</c>, <c>SETGE</c></summary>
+		ge = 0,
+		/// <summary><c>JNL</c>, <c>CMOVNL</c>, <c>SETNL</c></summary>
+		nl = 1,
+	}
+	// GENERATOR-END: CC_ge
+
+	// GENERATOR-BEGIN: CC_le
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JLE</c> / <c>JNG</c>)</summary>
+	public enum CC_le : byte {
+		/// <summary><c>JLE</c>, <c>CMOVLE</c>, <c>SETLE</c></summary>
+		le = 0,
+		/// <summary><c>JNG</c>, <c>CMOVNG</c>, <c>SETNG</c></summary>
+		ng = 1,
+	}
+	// GENERATOR-END: CC_le
+
+	// GENERATOR-BEGIN: CC_g
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/// <summary>Mnemonic condition code selector (eg. <c>JG</c> / <c>JNLE</c>)</summary>
+	public enum CC_g : byte {
+		/// <summary><c>JG</c>, <c>CMOVG</c>, <c>SETG</c></summary>
+		g = 0,
+		/// <summary><c>JNLE</c>, <c>CMOVNLE</c>, <c>SETNLE</c></summary>
+		nle = 1,
+	}
+	// GENERATOR-END: CC_g
 }
 #endif

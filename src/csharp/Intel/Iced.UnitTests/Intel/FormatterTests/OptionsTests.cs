@@ -83,6 +83,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		UppercasePrefixes,
 		UppercaseRegisters,
 		UsePseudoOps,
+		CC_b,
+		CC_ae,
+		CC_e,
+		CC_ne,
+		CC_be,
+		CC_a,
+		CC_p,
+		CC_np,
+		CC_l,
+		CC_ge,
+		CC_le,
+		CC_g,
 	}
 	// GENERATOR-END: OptionsProps
 
@@ -138,6 +150,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.UppercasePrefixes: options.UppercasePrefixes = (bool)value; break;
 			case OptionsProps.UppercaseRegisters: options.UppercaseRegisters = (bool)value; break;
 			case OptionsProps.UsePseudoOps: options.UsePseudoOps = (bool)value; break;
+			case OptionsProps.CC_b: options.CC_b = (CC_b)value; break;
+			case OptionsProps.CC_ae: options.CC_ae = (CC_ae)value; break;
+			case OptionsProps.CC_e: options.CC_e = (CC_e)value; break;
+			case OptionsProps.CC_ne: options.CC_ne = (CC_ne)value; break;
+			case OptionsProps.CC_be: options.CC_be = (CC_be)value; break;
+			case OptionsProps.CC_a: options.CC_a = (CC_a)value; break;
+			case OptionsProps.CC_p: options.CC_p = (CC_p)value; break;
+			case OptionsProps.CC_np: options.CC_np = (CC_np)value; break;
+			case OptionsProps.CC_l: options.CC_l = (CC_l)value; break;
+			case OptionsProps.CC_ge: options.CC_ge = (CC_ge)value; break;
+			case OptionsProps.CC_le: options.CC_le = (CC_le)value; break;
+			case OptionsProps.CC_g: options.CC_g = (CC_g)value; break;
 			case OptionsProps.IP: break;
 			default: throw new InvalidOperationException();
 			}

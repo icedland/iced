@@ -25,10 +25,13 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::get_mnemonic_cc;
 use super::regs::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-use core::mem;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{mem, u32};
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {
@@ -299,6 +302,29 @@ impl SimpleInstrInfo {
 impl InstrInfo for SimpleInstrInfo {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		InstrOpInfo::new(&self.mnemonic, instruction, self.flags)
+	}
+}
+
+#[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_cc {
+	mnemonics: Vec<FormatterString>,
+	cc_index: u32,
+	flags: u32,
+}
+
+impl SimpleInstrInfo_cc {
+	pub(super) fn new(cc_index: u32, mnemonics: Vec<String>) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), cc_index, flags: InstrOpInfoFlags::NONE }
+	}
+	pub(super) fn with_flags(cc_index: u32, mnemonics: Vec<String>, flags: u32) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), cc_index, flags }
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_cc {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		let mnemonic = get_mnemonic_cc(options, self.cc_index, &self.mnemonics);
+		InstrOpInfo::new(mnemonic, instruction, self.flags)
 	}
 }
 
@@ -1070,6 +1096,33 @@ impl InstrInfo for SimpleInstrInfo_OpSize {
 }
 
 #[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_OpSize_cc {
+	mnemonics: Vec<FormatterString>,
+	mnemonics_other: Vec<FormatterString>,
+	cc_index: u32,
+	code_size: CodeSize,
+}
+
+impl SimpleInstrInfo_OpSize_cc {
+	pub(super) fn new(code_size: CodeSize, cc_index: u32, mnemonics: Vec<String>, mnemonics_other: Vec<String>) -> Self {
+		Self {
+			mnemonics: FormatterString::with_strings(mnemonics),
+			mnemonics_other: FormatterString::with_strings(mnemonics_other),
+			cc_index,
+			code_size,
+		}
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_OpSize_cc {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		let mnemonics = if instruction.code_size() == self.code_size { &self.mnemonics } else { &self.mnemonics_other };
+		let mnemonic = get_mnemonic_cc(options, self.cc_index, mnemonics);
+		InstrOpInfo::new(mnemonic, instruction, InstrOpInfoFlags::NONE)
+	}
+}
+
+#[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_OpSize2 {
 	mnemonics: [FormatterString; 4],
 }
@@ -1181,17 +1234,18 @@ impl InstrInfo for SimpleInstrInfo_fword {
 
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_jcc {
-	mnemonic: FormatterString,
+	mnemonics: Vec<FormatterString>,
+	cc_index: u32,
 }
 
 impl SimpleInstrInfo_jcc {
-	pub(super) fn new(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic) }
+	pub(super) fn new(cc_index: u32, mnemonics: Vec<String>) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), cc_index }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_jcc {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let prefix_seg = instruction.segment_prefix();
 		if prefix_seg == Register::CS {
@@ -1202,7 +1256,8 @@ impl InstrInfo for SimpleInstrInfo_jcc {
 		if instruction.has_repne_prefix() {
 			flags |= InstrOpInfoFlags::BND_PREFIX;
 		}
-		InstrOpInfo::new(&self.mnemonic, instruction, flags)
+		let mnemonic = get_mnemonic_cc(options, self.cc_index, &self.mnemonics);
+		InstrOpInfo::new(mnemonic, instruction, flags)
 	}
 }
 

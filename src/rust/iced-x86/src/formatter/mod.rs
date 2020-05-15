@@ -81,6 +81,11 @@ impl FormatterString {
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
+	fn with_strings(strings: Vec<String>) -> Vec<Self> {
+		strings.into_iter().map(|s| FormatterString::new(s)).collect()
+	}
+
+	#[cfg_attr(has_must_use, must_use)]
 	fn new_str(lower: &str) -> Self {
 		debug_assert_eq!(lower, lower.to_lowercase());
 		Self { lower: String::from(lower), upper: lower.to_uppercase() }
@@ -619,4 +624,92 @@ fn to_owned<'a>(sym_res: Option<SymbolResult>, vec: &'a mut Vec<SymResTextPart<'
 		None => None,
 		Some(sym_res) => Some(sym_res.to_owned(vec)),
 	}
+}
+
+fn get_mnemonic_cc<'a, 'b>(options: &'a FormatterOptions, cc_index: u32, mnemonics: &'b [FormatterString]) -> &'b FormatterString {
+	let index = match cc_index {
+		// o
+		0 => {
+			debug_assert_eq!(1, mnemonics.len());
+			0
+		}
+		// no
+		1 => {
+			debug_assert_eq!(1, mnemonics.len());
+			0
+		}
+		// b, c, nae
+		2 => {
+			debug_assert_eq!(3, mnemonics.len());
+			options.cc_b() as usize
+		}
+		// ae, nb, nc
+		3 => {
+			debug_assert_eq!(3, mnemonics.len());
+			options.cc_ae() as usize
+		}
+		// e, z
+		4 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_e() as usize
+		}
+		// ne, nz
+		5 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_ne() as usize
+		}
+		// be, na
+		6 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_be() as usize
+		}
+		// a, nbe
+		7 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_a() as usize
+		}
+		// s
+		8 => {
+			debug_assert_eq!(1, mnemonics.len());
+			0
+		}
+		// ns
+		9 => {
+			debug_assert_eq!(1, mnemonics.len());
+			0
+		}
+		// p, pe
+		10 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_p() as usize
+		}
+		// np, po
+		11 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_np() as usize
+		}
+		// l, nge
+		12 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_l() as usize
+		}
+		// ge, nl
+		13 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_ge() as usize
+		}
+		// le, ng
+		14 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_le() as usize
+		}
+		// g, nle
+		15 => {
+			debug_assert_eq!(2, mnemonics.len());
+			options.cc_g() as usize
+		}
+		_ => unreachable!(),
+	};
+	debug_assert!(index < mnemonics.len());
+	&mnemonics[index]
 }

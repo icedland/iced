@@ -21,6 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+use super::cc::{
+	cc_a_to_iced, cc_ae_to_iced, cc_b_to_iced, cc_be_to_iced, cc_e_to_iced, cc_g_to_iced, cc_ge_to_iced, cc_l_to_iced, cc_le_to_iced, cc_ne_to_iced,
+	cc_np_to_iced, cc_p_to_iced, iced_to_cc_a, iced_to_cc_ae, iced_to_cc_b, iced_to_cc_be, iced_to_cc_e, iced_to_cc_g, iced_to_cc_ge, iced_to_cc_l,
+	iced_to_cc_le, iced_to_cc_ne, iced_to_cc_np, iced_to_cc_p, CC_a, CC_ae, CC_b, CC_be, CC_e, CC_g, CC_ge, CC_l, CC_le, CC_ne, CC_np, CC_p,
+};
 use super::format_mnemonic_options::FormatMnemonicOptions;
 use super::instruction::Instruction;
 use super::memory_size_options::{iced_to_memory_size_options, memory_size_options_to_iced, MemorySizeOptions};
@@ -1797,5 +1802,365 @@ impl Formatter {
 	#[wasm_bindgen(js_name = "preferSt0")]
 	pub fn set_prefer_st0(&mut self, value: bool) {
 		self.formatter.options_mut().set_prefer_st0(value);
+	}
+
+	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
+	///
+	/// The value is a [`CC_b`] enum value.
+	///
+	/// [`CC_b`]: enum.CC_b.html
+	///
+	/// Default: `JB`, `CMOVB`, `SETB`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_b")]
+	pub fn cc_b(&self) -> CC_b {
+		iced_to_cc_b(self.formatter.options().cc_b())
+	}
+
+	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
+	///
+	/// The value is a [`CC_b`] enum value.
+	///
+	/// [`CC_b`]: enum.CC_b.html
+	///
+	/// Default: `JB`, `CMOVB`, `SETB`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_b")]
+	pub fn set_cc_b(&mut self, value: CC_b) {
+		self.formatter.options_mut().set_cc_b(cc_b_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
+	///
+	/// The value is a [`CC_ae`] enum value.
+	///
+	/// [`CC_ae`]: enum.CC_ae.html
+	///
+	/// Default: `JAE`, `CMOVAE`, `SETAE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_ae")]
+	pub fn cc_ae(&self) -> CC_ae {
+		iced_to_cc_ae(self.formatter.options().cc_ae())
+	}
+
+	/// Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
+	///
+	/// The value is a [`CC_ae`] enum value.
+	///
+	/// [`CC_ae`]: enum.CC_ae.html
+	///
+	/// Default: `JAE`, `CMOVAE`, `SETAE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_ae")]
+	pub fn set_cc_ae(&mut self, value: CC_ae) {
+		self.formatter.options_mut().set_cc_ae(cc_ae_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
+	///
+	/// The value is a [`CC_e`] enum value.
+	///
+	/// [`CC_e`]: enum.CC_e.html
+	///
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_e")]
+	pub fn cc_e(&self) -> CC_e {
+		iced_to_cc_e(self.formatter.options().cc_e())
+	}
+
+	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
+	///
+	/// The value is a [`CC_e`] enum value.
+	///
+	/// [`CC_e`]: enum.CC_e.html
+	///
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_e")]
+	pub fn set_cc_e(&mut self, value: CC_e) {
+		self.formatter.options_mut().set_cc_e(cc_e_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
+	///
+	/// The value is a [`CC_ne`] enum value.
+	///
+	/// [`CC_ne`]: enum.CC_ne.html
+	///
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_ne")]
+	pub fn cc_ne(&self) -> CC_ne {
+		iced_to_cc_ne(self.formatter.options().cc_ne())
+	}
+
+	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
+	///
+	/// The value is a [`CC_ne`] enum value.
+	///
+	/// [`CC_ne`]: enum.CC_ne.html
+	///
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_ne")]
+	pub fn set_cc_ne(&mut self, value: CC_ne) {
+		self.formatter.options_mut().set_cc_ne(cc_ne_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JBE` / `JNA`)
+	///
+	/// The value is a [`CC_be`] enum value.
+	///
+	/// [`CC_be`]: enum.CC_be.html
+	///
+	/// Default: `JBE`, `CMOVBE`, `SETBE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_be")]
+	pub fn cc_be(&self) -> CC_be {
+		iced_to_cc_be(self.formatter.options().cc_be())
+	}
+
+	/// Mnemonic condition code selector (eg. `JBE` / `JNA`)
+	///
+	/// The value is a [`CC_be`] enum value.
+	///
+	/// [`CC_be`]: enum.CC_be.html
+	///
+	/// Default: `JBE`, `CMOVBE`, `SETBE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_be")]
+	pub fn set_cc_be(&mut self, value: CC_be) {
+		self.formatter.options_mut().set_cc_be(cc_be_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JA` / `JNBE`)
+	///
+	/// The value is a [`CC_a`] enum value.
+	///
+	/// [`CC_a`]: enum.CC_a.html
+	///
+	/// Default: `JA`, `CMOVA`, `SETA`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_a")]
+	pub fn cc_a(&self) -> CC_a {
+		iced_to_cc_a(self.formatter.options().cc_a())
+	}
+
+	/// Mnemonic condition code selector (eg. `JA` / `JNBE`)
+	///
+	/// The value is a [`CC_a`] enum value.
+	///
+	/// [`CC_a`]: enum.CC_a.html
+	///
+	/// Default: `JA`, `CMOVA`, `SETA`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_a")]
+	pub fn set_cc_a(&mut self, value: CC_a) {
+		self.formatter.options_mut().set_cc_a(cc_a_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JP` / `JPE`)
+	///
+	/// The value is a [`CC_p`] enum value.
+	///
+	/// [`CC_p`]: enum.CC_p.html
+	///
+	/// Default: `JP`, `CMOVP`, `SETP`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_p")]
+	pub fn cc_p(&self) -> CC_p {
+		iced_to_cc_p(self.formatter.options().cc_p())
+	}
+
+	/// Mnemonic condition code selector (eg. `JP` / `JPE`)
+	///
+	/// The value is a [`CC_p`] enum value.
+	///
+	/// [`CC_p`]: enum.CC_p.html
+	///
+	/// Default: `JP`, `CMOVP`, `SETP`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_p")]
+	pub fn set_cc_p(&mut self, value: CC_p) {
+		self.formatter.options_mut().set_cc_p(cc_p_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JNP` / `JPO`)
+	///
+	/// The value is a [`CC_np`] enum value.
+	///
+	/// [`CC_np`]: enum.CC_np.html
+	///
+	/// Default: `JNP`, `CMOVNP`, `SETNP`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_np")]
+	pub fn cc_np(&self) -> CC_np {
+		iced_to_cc_np(self.formatter.options().cc_np())
+	}
+
+	/// Mnemonic condition code selector (eg. `JNP` / `JPO`)
+	///
+	/// The value is a [`CC_np`] enum value.
+	///
+	/// [`CC_np`]: enum.CC_np.html
+	///
+	/// Default: `JNP`, `CMOVNP`, `SETNP`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_np")]
+	pub fn set_cc_np(&mut self, value: CC_np) {
+		self.formatter.options_mut().set_cc_np(cc_np_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JL` / `JNGE`)
+	///
+	/// The value is a [`CC_l`] enum value.
+	///
+	/// [`CC_l`]: enum.CC_l.html
+	///
+	/// Default: `JL`, `CMOVL`, `SETL`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_l")]
+	pub fn cc_l(&self) -> CC_l {
+		iced_to_cc_l(self.formatter.options().cc_l())
+	}
+
+	/// Mnemonic condition code selector (eg. `JL` / `JNGE`)
+	///
+	/// The value is a [`CC_l`] enum value.
+	///
+	/// [`CC_l`]: enum.CC_l.html
+	///
+	/// Default: `JL`, `CMOVL`, `SETL`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_l")]
+	pub fn set_cc_l(&mut self, value: CC_l) {
+		self.formatter.options_mut().set_cc_l(cc_l_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JGE` / `JNL`)
+	///
+	/// The value is a [`CC_ge`] enum value.
+	///
+	/// [`CC_ge`]: enum.CC_ge.html
+	///
+	/// Default: `JGE`, `CMOVGE`, `SETGE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_ge")]
+	pub fn cc_ge(&self) -> CC_ge {
+		iced_to_cc_ge(self.formatter.options().cc_ge())
+	}
+
+	/// Mnemonic condition code selector (eg. `JGE` / `JNL`)
+	///
+	/// The value is a [`CC_ge`] enum value.
+	///
+	/// [`CC_ge`]: enum.CC_ge.html
+	///
+	/// Default: `JGE`, `CMOVGE`, `SETGE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_ge")]
+	pub fn set_cc_ge(&mut self, value: CC_ge) {
+		self.formatter.options_mut().set_cc_ge(cc_ge_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JLE` / `JNG`)
+	///
+	/// The value is a [`CC_le`] enum value.
+	///
+	/// [`CC_le`]: enum.CC_le.html
+	///
+	/// Default: `JLE`, `CMOVLE`, `SETLE`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_le")]
+	pub fn cc_le(&self) -> CC_le {
+		iced_to_cc_le(self.formatter.options().cc_le())
+	}
+
+	/// Mnemonic condition code selector (eg. `JLE` / `JNG`)
+	///
+	/// The value is a [`CC_le`] enum value.
+	///
+	/// [`CC_le`]: enum.CC_le.html
+	///
+	/// Default: `JLE`, `CMOVLE`, `SETLE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_le")]
+	pub fn set_cc_le(&mut self, value: CC_le) {
+		self.formatter.options_mut().set_cc_le(cc_le_to_iced(value));
+	}
+
+	/// Mnemonic condition code selector (eg. `JG` / `JNLE`)
+	///
+	/// The value is a [`CC_g`] enum value.
+	///
+	/// [`CC_g`]: enum.CC_g.html
+	///
+	/// Default: `JG`, `CMOVG`, `SETG`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "cc_g")]
+	pub fn cc_g(&self) -> CC_g {
+		iced_to_cc_g(self.formatter.options().cc_g())
+	}
+
+	/// Mnemonic condition code selector (eg. `JG` / `JNLE`)
+	///
+	/// The value is a [`CC_g`] enum value.
+	///
+	/// [`CC_g`]: enum.CC_g.html
+	///
+	/// Default: `JG`, `CMOVG`, `SETG`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "cc_g")]
+	pub fn set_cc_g(&mut self, value: CC_g) {
+		self.formatter.options_mut().set_cc_g(cc_g_to_iced(value));
 	}
 }

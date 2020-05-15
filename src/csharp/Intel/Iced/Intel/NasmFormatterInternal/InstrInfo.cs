@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if NASM
 using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.NasmFormatterInternal {
@@ -316,6 +317,22 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) =>
 			info = new InstrOpInfo(mnemonic, instruction, flags);
+	}
+
+	sealed class SimpleInstrInfo_cc : InstrInfo {
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+
+		public SimpleInstrInfo_cc(int ccIndex, string[] mnemonics) {
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+		}
 	}
 
 	sealed class SimpleInstrInfo_mmxmem : InstrInfo {
@@ -1092,14 +1109,16 @@ namespace Iced.Intel.NasmFormatterInternal {
 
 	sealed class SimpleInstrInfo_os_jcc : InstrInfo {
 		readonly int bitness;
-		readonly FormatterString mnemonic;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic) : this(bitness, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os_jcc(int bitness, int ccIndex, string[] mnemonics) : this(bitness, ccIndex, mnemonics, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic, InstrOpInfoFlags flags) {
+		public SimpleInstrInfo_os_jcc(int bitness, int ccIndex, string[] mnemonics, InstrOpInfoFlags flags) {
 			this.bitness = bitness;
-			this.mnemonic = new FormatterString(mnemonic);
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
 			this.flags = flags;
 		}
 
@@ -1128,19 +1147,22 @@ namespace Iced.Intel.NasmFormatterInternal {
 			}
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_loop : InstrInfo {
 		readonly int bitness;
+		readonly int ccIndex;
 		readonly Register register;
-		readonly FormatterString mnemonic;
+		readonly FormatterString[] mnemonics;
 
-		public SimpleInstrInfo_os_loop(int bitness, Register register, string mnemonic) {
+		public SimpleInstrInfo_os_loop(int bitness, int ccIndex, Register register, string[] mnemonics) {
 			this.bitness = bitness;
+			this.ccIndex = ccIndex;
 			this.register = register;
-			this.mnemonic = new FormatterString(mnemonic);
+			this.mnemonics = FormatterString.Create(mnemonics);
 		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
@@ -1162,6 +1184,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
+			var mnemonic = ccIndex == -1 ? mnemonics[0] : MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			if (addReg) {
 				Debug.Assert(info.OpCount == 1);

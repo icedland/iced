@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 const {
+	CC_a, CC_ae, CC_b, CC_be, CC_e, CC_g, CC_ge, CC_l, CC_le, CC_ne, CC_np, CC_p,
 	Decoder, DecoderOptions, Formatter, FormatterSyntax, FormatMnemonicOptions, MemorySizeOptions,
 	Register
 } = require("iced-x86");
@@ -80,6 +81,18 @@ test("Default gas formatter options", () => {
 	expect(formatter.uppercasePrefixes).toBe(false);
 	expect(formatter.uppercaseRegisters).toBe(false);
 	expect(formatter.usePseudoOps).toBe(true);
+	expect(formatter.cc_b).toBe(CC_b.b);
+	expect(formatter.cc_ae).toBe(CC_ae.ae);
+	expect(formatter.cc_e).toBe(CC_e.e);
+	expect(formatter.cc_ne).toBe(CC_ne.ne);
+	expect(formatter.cc_be).toBe(CC_be.be);
+	expect(formatter.cc_a).toBe(CC_a.a);
+	expect(formatter.cc_p).toBe(CC_p.p);
+	expect(formatter.cc_np).toBe(CC_np.np);
+	expect(formatter.cc_l).toBe(CC_l.l);
+	expect(formatter.cc_ge).toBe(CC_ge.ge);
+	expect(formatter.cc_le).toBe(CC_le.le);
+	expect(formatter.cc_g).toBe(CC_g.g);
 
 	formatter.free();
 });
@@ -138,6 +151,18 @@ test("Default Intel formatter options", () => {
 	expect(formatter.uppercasePrefixes).toBe(false);
 	expect(formatter.uppercaseRegisters).toBe(false);
 	expect(formatter.usePseudoOps).toBe(true);
+	expect(formatter.cc_b).toBe(CC_b.b);
+	expect(formatter.cc_ae).toBe(CC_ae.ae);
+	expect(formatter.cc_e).toBe(CC_e.e);
+	expect(formatter.cc_ne).toBe(CC_ne.ne);
+	expect(formatter.cc_be).toBe(CC_be.be);
+	expect(formatter.cc_a).toBe(CC_a.a);
+	expect(formatter.cc_p).toBe(CC_p.p);
+	expect(formatter.cc_np).toBe(CC_np.np);
+	expect(formatter.cc_l).toBe(CC_l.l);
+	expect(formatter.cc_ge).toBe(CC_ge.ge);
+	expect(formatter.cc_le).toBe(CC_le.le);
+	expect(formatter.cc_g).toBe(CC_g.g);
 
 	formatter.free();
 });
@@ -196,6 +221,18 @@ test("Default masm formatter options", () => {
 	expect(formatter.uppercasePrefixes).toBe(false);
 	expect(formatter.uppercaseRegisters).toBe(false);
 	expect(formatter.usePseudoOps).toBe(true);
+	expect(formatter.cc_b).toBe(CC_b.b);
+	expect(formatter.cc_ae).toBe(CC_ae.ae);
+	expect(formatter.cc_e).toBe(CC_e.e);
+	expect(formatter.cc_ne).toBe(CC_ne.ne);
+	expect(formatter.cc_be).toBe(CC_be.be);
+	expect(formatter.cc_a).toBe(CC_a.a);
+	expect(formatter.cc_p).toBe(CC_p.p);
+	expect(formatter.cc_np).toBe(CC_np.np);
+	expect(formatter.cc_l).toBe(CC_l.l);
+	expect(formatter.cc_ge).toBe(CC_ge.ge);
+	expect(formatter.cc_le).toBe(CC_le.le);
+	expect(formatter.cc_g).toBe(CC_g.g);
 
 	formatter.free();
 });
@@ -254,6 +291,18 @@ test("Default nasm formatter options", () => {
 	expect(formatter.uppercasePrefixes).toBe(false);
 	expect(formatter.uppercaseRegisters).toBe(false);
 	expect(formatter.usePseudoOps).toBe(true);
+	expect(formatter.cc_b).toBe(CC_b.b);
+	expect(formatter.cc_ae).toBe(CC_ae.ae);
+	expect(formatter.cc_e).toBe(CC_e.e);
+	expect(formatter.cc_ne).toBe(CC_ne.ne);
+	expect(formatter.cc_be).toBe(CC_be.be);
+	expect(formatter.cc_a).toBe(CC_a.a);
+	expect(formatter.cc_p).toBe(CC_p.p);
+	expect(formatter.cc_np).toBe(CC_np.np);
+	expect(formatter.cc_l).toBe(CC_l.l);
+	expect(formatter.cc_ge).toBe(CC_ge.ge);
+	expect(formatter.cc_le).toBe(CC_le.le);
+	expect(formatter.cc_g).toBe(CC_g.g);
 
 	formatter.free();
 });

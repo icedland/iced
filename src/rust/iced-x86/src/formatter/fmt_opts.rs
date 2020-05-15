@@ -131,6 +131,18 @@ pub struct FormatterOptions {
 	tab_size: u32,
 	number_base: NumberBase,
 	memory_size_options: MemorySizeOptions,
+	cc_b: CC_b,
+	cc_ae: CC_ae,
+	cc_e: CC_e,
+	cc_ne: CC_ne,
+	cc_be: CC_be,
+	cc_a: CC_a,
+	cc_p: CC_p,
+	cc_np: CC_np,
+	cc_l: CC_l,
+	cc_ge: CC_ge,
+	cc_le: CC_le,
+	cc_g: CC_g,
 }
 
 impl FormatterOptions {
@@ -167,6 +179,18 @@ impl FormatterOptions {
 			tab_size: 0,
 			number_base: NumberBase::Hexadecimal,
 			memory_size_options: MemorySizeOptions::Default,
+			cc_b: CC_b::b,
+			cc_ae: CC_ae::ae,
+			cc_e: CC_e::e,
+			cc_ne: CC_ne::ne,
+			cc_be: CC_be::be,
+			cc_a: CC_a::a,
+			cc_p: CC_p::p,
+			cc_np: CC_np::np,
+			cc_l: CC_l::l,
+			cc_ge: CC_ge::ge,
+			cc_le: CC_le::le,
+			cc_g: CC_g::g,
 		}
 	}
 
@@ -1823,6 +1847,258 @@ impl FormatterOptions {
 		} else {
 			self.options2 &= !Flags2::PREFER_ST0;
 		}
+	}
+
+	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
+	///
+	/// Default: `JB`, `CMOVB`, `SETB`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_b(&self) -> CC_b {
+		self.cc_b
+	}
+
+	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
+	///
+	/// Default: `JB`, `CMOVB`, `SETB`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_b(&mut self, value: CC_b) {
+		self.cc_b = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
+	///
+	/// Default: `JAE`, `CMOVAE`, `SETAE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_ae(&self) -> CC_ae {
+		self.cc_ae
+	}
+
+	/// Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
+	///
+	/// Default: `JAE`, `CMOVAE`, `SETAE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_ae(&mut self, value: CC_ae) {
+		self.cc_ae = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
+	///
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_e(&self) -> CC_e {
+		self.cc_e
+	}
+
+	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
+	///
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_e(&mut self, value: CC_e) {
+		self.cc_e = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
+	///
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_ne(&self) -> CC_ne {
+		self.cc_ne
+	}
+
+	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
+	///
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_ne(&mut self, value: CC_ne) {
+		self.cc_ne = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JBE` / `JNA`)
+	///
+	/// Default: `JBE`, `CMOVBE`, `SETBE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_be(&self) -> CC_be {
+		self.cc_be
+	}
+
+	/// Mnemonic condition code selector (eg. `JBE` / `JNA`)
+	///
+	/// Default: `JBE`, `CMOVBE`, `SETBE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_be(&mut self, value: CC_be) {
+		self.cc_be = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JA` / `JNBE`)
+	///
+	/// Default: `JA`, `CMOVA`, `SETA`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_a(&self) -> CC_a {
+		self.cc_a
+	}
+
+	/// Mnemonic condition code selector (eg. `JA` / `JNBE`)
+	///
+	/// Default: `JA`, `CMOVA`, `SETA`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_a(&mut self, value: CC_a) {
+		self.cc_a = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JP` / `JPE`)
+	///
+	/// Default: `JP`, `CMOVP`, `SETP`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_p(&self) -> CC_p {
+		self.cc_p
+	}
+
+	/// Mnemonic condition code selector (eg. `JP` / `JPE`)
+	///
+	/// Default: `JP`, `CMOVP`, `SETP`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_p(&mut self, value: CC_p) {
+		self.cc_p = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JNP` / `JPO`)
+	///
+	/// Default: `JNP`, `CMOVNP`, `SETNP`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_np(&self) -> CC_np {
+		self.cc_np
+	}
+
+	/// Mnemonic condition code selector (eg. `JNP` / `JPO`)
+	///
+	/// Default: `JNP`, `CMOVNP`, `SETNP`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_np(&mut self, value: CC_np) {
+		self.cc_np = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JL` / `JNGE`)
+	///
+	/// Default: `JL`, `CMOVL`, `SETL`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_l(&self) -> CC_l {
+		self.cc_l
+	}
+
+	/// Mnemonic condition code selector (eg. `JL` / `JNGE`)
+	///
+	/// Default: `JL`, `CMOVL`, `SETL`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_l(&mut self, value: CC_l) {
+		self.cc_l = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JGE` / `JNL`)
+	///
+	/// Default: `JGE`, `CMOVGE`, `SETGE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_ge(&self) -> CC_ge {
+		self.cc_ge
+	}
+
+	/// Mnemonic condition code selector (eg. `JGE` / `JNL`)
+	///
+	/// Default: `JGE`, `CMOVGE`, `SETGE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_ge(&mut self, value: CC_ge) {
+		self.cc_ge = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JLE` / `JNG`)
+	///
+	/// Default: `JLE`, `CMOVLE`, `SETLE`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_le(&self) -> CC_le {
+		self.cc_le
+	}
+
+	/// Mnemonic condition code selector (eg. `JLE` / `JNG`)
+	///
+	/// Default: `JLE`, `CMOVLE`, `SETLE`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_le(&mut self, value: CC_le) {
+		self.cc_le = value;
+	}
+
+	/// Mnemonic condition code selector (eg. `JG` / `JNLE`)
+	///
+	/// Default: `JG`, `CMOVG`, `SETG`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn cc_g(&self) -> CC_g {
+		self.cc_g
+	}
+
+	/// Mnemonic condition code selector (eg. `JG` / `JNLE`)
+	///
+	/// Default: `JG`, `CMOVG`, `SETG`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_cc_g(&mut self, value: CC_g) {
+		self.cc_g = value;
 	}
 }
 

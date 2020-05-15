@@ -135,8 +135,77 @@ namespace Iced.Intel.MasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_invlpga((int)v, s);
 					break;
 
-				case CtorKind.jcc:
-					instrInfo = new SimpleInstrInfo_jcc(s);
+				case CtorKind.CCa_1:
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s });
+					break;
+
+				case CtorKind.CCa_2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s, s2 });
+					break;
+
+				case CtorKind.CCa_3:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					s3 = strings[reader.ReadCompressedUInt32()];
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s, s2, s3 });
+					break;
+
+				case CtorKind.CCb_1:
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v2, new[] { s }, (InstrOpInfoFlags)v);
+					break;
+
+				case CtorKind.CCb_2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v2, new[] { s, s2 }, (InstrOpInfoFlags)v);
+					break;
+
+				case CtorKind.CCb_3:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					s3 = strings[reader.ReadCompressedUInt32()];
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v2, new[] { s, s2, s3 }, (InstrOpInfoFlags)v);
+					break;
+
+				case CtorKind.jcc_1:
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_jcc((int)v, new[] { s });
+					break;
+
+				case CtorKind.jcc_2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_jcc((int)v, new[] { s, s2 });
+					break;
+
+				case CtorKind.jcc_3:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					s3 = strings[reader.ReadCompressedUInt32()];
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_jcc((int)v, new[] { s, s2, s3 });
+					break;
+
+				case CtorKind.Loopcc1:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s, s2 });
+					break;
+
+				case CtorKind.Loopcc2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					v2 = reader.ReadCompressedUInt32();
+					s3 = AddSuffix(s, ca);
+					s4 = AddSuffix(s2, ca);
+					v = reader.ReadByte();
+					instrInfo = new SimpleInstrInfo_OpSize_cc((CodeSize)v, (int)v2, new[] { s, s2 }, new[] { s3, s4 });
 					break;
 
 				case CtorKind.maskmovq:

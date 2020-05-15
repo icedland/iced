@@ -53,7 +53,13 @@ pub(crate) enum CtorKind {
 	os_A,
 	os_B,
 	os_bnd,
-	os_jcc,
+	CC_1,
+	CC_2,
+	CC_3,
+	os_jcc_1,
+	os_jcc_2,
+	os_jcc_3,
+	os_loopcc,
 	os_loop,
 	os_mem,
 	os_mem_reg16,
@@ -75,7 +81,7 @@ pub(crate) enum CtorKind {
 	xbegin,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CTOR_KIND: [&str; 44] = [
+static GEN_DEBUG_CTOR_KIND: [&str; 50] = [
 	"Previous",
 	"Normal_1",
 	"Normal_2a",
@@ -100,7 +106,13 @@ static GEN_DEBUG_CTOR_KIND: [&str; 44] = [
 	"os_A",
 	"os_B",
 	"os_bnd",
-	"os_jcc",
+	"CC_1",
+	"CC_2",
+	"CC_3",
+	"os_jcc_1",
+	"os_jcc_2",
+	"os_jcc_3",
+	"os_loopcc",
 	"os_loop",
 	"os_mem",
 	"os_mem_reg16",

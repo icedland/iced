@@ -338,6 +338,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.True(options.UsePseudoOps);
 			Assert.False(options.ShowSymbolAddress);
 			Assert.False(options.PreferST0);
+			Assert.Equal(CC_b.b, options.CC_b);
+			Assert.Equal(CC_ae.ae, options.CC_ae);
+			Assert.Equal(CC_e.e, options.CC_e);
+			Assert.Equal(CC_ne.ne, options.CC_ne);
+			Assert.Equal(CC_be.be, options.CC_be);
+			Assert.Equal(CC_a.a, options.CC_a);
+			Assert.Equal(CC_p.p, options.CC_p);
+			Assert.Equal(CC_np.np, options.CC_np);
+			Assert.Equal(CC_l.l, options.CC_l);
+			Assert.Equal(CC_ge.ge, options.CC_ge);
+			Assert.Equal(CC_le.le, options.CC_le);
+			Assert.Equal(CC_g.g, options.CC_g);
 			Assert.False(options.GasNakedRegisters);
 			Assert.False(options.GasShowMnemonicSizeSuffix);
 			Assert.False(options.GasSpaceAfterMemoryOperandComma);
@@ -345,6 +357,22 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			Assert.True(options.MasmSymbolDisplInBrackets);
 			Assert.True(options.MasmDisplInBrackets);
 			Assert.False(options.NasmShowSignExtendedImmediateSize);
+		}
+
+		[Fact]
+		void Throws_if_invalid_CC_value() {
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_b = (CC_b)3);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ae = (CC_ae)3);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_e = (CC_e)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ne = (CC_ne)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_be = (CC_be)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_a = (CC_a)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_p = (CC_p)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_np = (CC_np)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_l = (CC_l)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ge = (CC_ge)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_le = (CC_le)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_g = (CC_g)2);
 		}
 	}
 }

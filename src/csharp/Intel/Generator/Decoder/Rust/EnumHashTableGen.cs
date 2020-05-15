@@ -56,6 +56,18 @@ namespace Generator.Decoder.Rust {
 				("MemorySizeOptionsHash", MemorySizeOptionsEnum.Instance, false, "test_utils/from_str_conv/memory_size_options_table.rs"),
 				("NumberBaseHash", NumberBaseEnum.Instance, false, "test_utils/from_str_conv/number_base_table.rs"),
 				("OptionsPropsHash", OptionsPropsEnum.Instance, false, "test_utils/from_str_conv/options_props_table.rs"),
+				("CC_b_hash", CC_b_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ae_hash", CC_ae_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_e_hash", CC_e_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ne_hash", CC_ne_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_be_hash", CC_be_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_a_hash", CC_a_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_p_hash", CC_p_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_np_hash", CC_np_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_l_hash", CC_l_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ge_hash", CC_ge_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_le_hash", CC_le_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_g_hash", CC_g_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
 			};
 			foreach (var info in infos) {
 				var filename = Path.Combine(generatorOptions.RustDir, Path.Combine(info.filename.Split('/')));

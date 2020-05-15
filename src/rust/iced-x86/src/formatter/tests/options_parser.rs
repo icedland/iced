@@ -91,6 +91,18 @@ pub(super) fn parse_option(key_value: &str) -> Result<(OptionsProps, OptionValue
 
 		OptionsProps::MemorySizeOptions => OptionValue::MemorySizeOptions(to_memory_size_options(value_str)?),
 		OptionsProps::NumberBase => OptionValue::NumberBase(to_number_base(value_str)?),
+		OptionsProps::CC_b => OptionValue::CC_b(to_cc_b(value_str)?),
+		OptionsProps::CC_ae => OptionValue::CC_ae(to_cc_ae(value_str)?),
+		OptionsProps::CC_e => OptionValue::CC_e(to_cc_e(value_str)?),
+		OptionsProps::CC_ne => OptionValue::CC_ne(to_cc_ne(value_str)?),
+		OptionsProps::CC_be => OptionValue::CC_be(to_cc_be(value_str)?),
+		OptionsProps::CC_a => OptionValue::CC_a(to_cc_a(value_str)?),
+		OptionsProps::CC_p => OptionValue::CC_p(to_cc_p(value_str)?),
+		OptionsProps::CC_np => OptionValue::CC_np(to_cc_np(value_str)?),
+		OptionsProps::CC_l => OptionValue::CC_l(to_cc_l(value_str)?),
+		OptionsProps::CC_ge => OptionValue::CC_ge(to_cc_ge(value_str)?),
+		OptionsProps::CC_le => OptionValue::CC_le(to_cc_le(value_str)?),
+		OptionsProps::CC_g => OptionValue::CC_g(to_cc_g(value_str)?),
 	};
 	Ok((prop, value))
 }

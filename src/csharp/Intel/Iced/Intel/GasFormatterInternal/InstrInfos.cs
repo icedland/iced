@@ -42,8 +42,8 @@ namespace Iced.Intel.GasFormatterInternal {
 			var strings = FormatterStringsTable.GetStringsTable();
 
 			var ca = new char[1];
-			string s, s2, s3, s4;
-			uint v, v2;
+			string s, s2, s3, s4, s5, s6;
+			uint v, v2, v3;
 			int prevIndex = -1;
 			for (int i = 0; i < infos.Length; i++) {
 				byte f = reader.ReadByte();
@@ -203,9 +203,63 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_os_bnd((int)v, s);
 					break;
 
-				case CtorKind.os_jcc:
+				case CtorKind.CC_1:
+					ca[0] = (char)reader.ReadByte();
+					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_jcc((int)v, s);
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s }, new[] { s2 });
+					break;
+
+				case CtorKind.CC_2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					v = reader.ReadCompressedUInt32();
+					s3 = AddSuffix(s, ca);
+					s4 = AddSuffix(s2, ca);
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s, s2 }, new[] { s3, s4 });
+					break;
+
+				case CtorKind.CC_3:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					s3 = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					v = reader.ReadCompressedUInt32();
+					s4 = AddSuffix(s, ca);
+					s5 = AddSuffix(s2, ca);
+					s6 = AddSuffix(s3, ca);
+					instrInfo = new SimpleInstrInfo_cc((int)v, new[] { s, s2, s3 }, new[] { s4, s5, s6 });
+					break;
+
+				case CtorKind.os_jcc_1:
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os_jcc((int)v, (int)v2, new[] { s });
+					break;
+
+				case CtorKind.os_jcc_2:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os_jcc((int)v, (int)v2, new[] { s, s2 });
+					break;
+
+				case CtorKind.os_jcc_3:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					s3 = strings[reader.ReadCompressedUInt32()];
+					v2 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os_jcc((int)v, (int)v2, new[] { s, s2, s3 });
+					break;
+
+				case CtorKind.os_loopcc:
+					s2 = strings[reader.ReadCompressedUInt32()];
+					ca[0] = (char)reader.ReadByte();
+					s3 = AddSuffix(s, ca);
+					s4 = AddSuffix(s2, ca);
+					v3 = reader.ReadCompressedUInt32();
+					v = reader.ReadCompressedUInt32();
+					v2 = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_os_loop((int)v, (int)v2, (int)v3, new[] { s, s2 }, new[] { s3, s4 });
 					break;
 
 				case CtorKind.os_loop:
@@ -213,7 +267,7 @@ namespace Iced.Intel.GasFormatterInternal {
 					s2 = AddSuffix(s, ca);
 					v = reader.ReadCompressedUInt32();
 					v2 = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_loop((int)v, (int)v2, s, s2);
+					instrInfo = new SimpleInstrInfo_os_loop((int)v, (int)v2, -1, new[] { s }, new[] { s2 });
 					break;
 
 				case CtorKind.os_mem:

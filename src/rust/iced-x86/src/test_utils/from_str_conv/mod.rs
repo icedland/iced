@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+mod cc_table;
 mod code_table;
 #[cfg(feature = "instr_info")]
 mod condition_code_table;
@@ -46,6 +48,8 @@ mod register_table;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 mod tuple_type_table;
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+use self::cc_table::*;
 use self::code_table::*;
 #[cfg(feature = "instr_info")]
 use self::condition_code_table::*;
@@ -370,5 +374,113 @@ pub(crate) fn to_boolean(value: &str) -> Result<bool, String> {
 		"false" => Ok(false),
 		"true" => Ok(true),
 		_ => Err(format!("Invalid boolean value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_b(value: &str) -> Result<CC_b, String> {
+	let value = value.trim();
+	match TO_CC_B_HASH.get(value) {
+		Some(cc_b) => Ok(*cc_b),
+		None => Err(format!("Invalid CC_b value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_ae(value: &str) -> Result<CC_ae, String> {
+	let value = value.trim();
+	match TO_CC_AE_HASH.get(value) {
+		Some(cc_ae) => Ok(*cc_ae),
+		None => Err(format!("Invalid CC_ae value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_e(value: &str) -> Result<CC_e, String> {
+	let value = value.trim();
+	match TO_CC_E_HASH.get(value) {
+		Some(cc_e) => Ok(*cc_e),
+		None => Err(format!("Invalid CC_e value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_ne(value: &str) -> Result<CC_ne, String> {
+	let value = value.trim();
+	match TO_CC_NE_HASH.get(value) {
+		Some(cc_ne) => Ok(*cc_ne),
+		None => Err(format!("Invalid CC_ne value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_be(value: &str) -> Result<CC_be, String> {
+	let value = value.trim();
+	match TO_CC_BE_HASH.get(value) {
+		Some(cc_be) => Ok(*cc_be),
+		None => Err(format!("Invalid CC_be value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_a(value: &str) -> Result<CC_a, String> {
+	let value = value.trim();
+	match TO_CC_A_HASH.get(value) {
+		Some(cc_a) => Ok(*cc_a),
+		None => Err(format!("Invalid CC_a value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_p(value: &str) -> Result<CC_p, String> {
+	let value = value.trim();
+	match TO_CC_P_HASH.get(value) {
+		Some(cc_p) => Ok(*cc_p),
+		None => Err(format!("Invalid CC_p value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_np(value: &str) -> Result<CC_np, String> {
+	let value = value.trim();
+	match TO_CC_NP_HASH.get(value) {
+		Some(cc_np) => Ok(*cc_np),
+		None => Err(format!("Invalid CC_np value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_l(value: &str) -> Result<CC_l, String> {
+	let value = value.trim();
+	match TO_CC_L_HASH.get(value) {
+		Some(cc_l) => Ok(*cc_l),
+		None => Err(format!("Invalid CC_l value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_ge(value: &str) -> Result<CC_ge, String> {
+	let value = value.trim();
+	match TO_CC_GE_HASH.get(value) {
+		Some(cc_ge) => Ok(*cc_ge),
+		None => Err(format!("Invalid CC_ge value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_le(value: &str) -> Result<CC_le, String> {
+	let value = value.trim();
+	match TO_CC_LE_HASH.get(value) {
+		Some(cc_le) => Ok(*cc_le),
+		None => Err(format!("Invalid CC_le value: {}", value)),
+	}
+}
+
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+pub(crate) fn to_cc_g(value: &str) -> Result<CC_g, String> {
+	let value = value.trim();
+	match TO_CC_G_HASH.get(value) {
+		Some(cc_g) => Ok(*cc_g),
+		None => Err(format!("Invalid CC_g value: {}", value)),
 	}
 }

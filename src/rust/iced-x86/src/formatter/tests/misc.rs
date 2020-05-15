@@ -327,6 +327,18 @@ fn verify_default_formatter_options() {
 	assert!(options.use_pseudo_ops());
 	assert!(!options.show_symbol_address());
 	assert!(!options.prefer_st0());
+	assert_eq!(CC_b::b, options.cc_b());
+	assert_eq!(CC_ae::ae, options.cc_ae());
+	assert_eq!(CC_e::e, options.cc_e());
+	assert_eq!(CC_ne::ne, options.cc_ne());
+	assert_eq!(CC_be::be, options.cc_be());
+	assert_eq!(CC_a::a, options.cc_a());
+	assert_eq!(CC_p::p, options.cc_p());
+	assert_eq!(CC_np::np, options.cc_np());
+	assert_eq!(CC_l::l, options.cc_l());
+	assert_eq!(CC_ge::ge, options.cc_ge());
+	assert_eq!(CC_le::le, options.cc_le());
+	assert_eq!(CC_g::g, options.cc_g());
 	assert!(!options.gas_naked_registers());
 	assert!(!options.gas_show_mnemonic_size_suffix());
 	assert!(!options.gas_space_after_memory_operand_comma());

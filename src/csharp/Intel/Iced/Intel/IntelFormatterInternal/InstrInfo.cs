@@ -288,6 +288,22 @@ namespace Iced.Intel.IntelFormatterInternal {
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 	}
 
+	sealed class SimpleInstrInfo_cc : InstrInfo {
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
+
+		public SimpleInstrInfo_cc(int ccIndex, string[] mnemonics) {
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+		}
+	}
+
 	sealed class SimpleInstrInfo_memsize : InstrInfo {
 		readonly int bitness;
 		readonly FormatterString mnemonic;
@@ -582,14 +598,16 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 	sealed class SimpleInstrInfo_os_jcc : InstrInfo {
 		readonly int bitness;
-		readonly FormatterString mnemonic;
+		readonly int ccIndex;
+		readonly FormatterString[] mnemonics;
 		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic) : this(bitness, mnemonic, InstrOpInfoFlags.None) { }
+		public SimpleInstrInfo_os_jcc(int bitness, int ccIndex, string[] mnemonics) : this(bitness, ccIndex, mnemonics, InstrOpInfoFlags.None) { }
 
-		public SimpleInstrInfo_os_jcc(int bitness, string mnemonic, InstrOpInfoFlags flags) {
+		public SimpleInstrInfo_os_jcc(int bitness, int ccIndex, string[] mnemonics, InstrOpInfoFlags flags) {
 			this.bitness = bitness;
-			this.mnemonic = new FormatterString(mnemonic);
+			this.ccIndex = ccIndex;
+			this.mnemonics = FormatterString.Create(mnemonics);
 			this.flags = flags;
 		}
 
@@ -611,19 +629,22 @@ namespace Iced.Intel.IntelFormatterInternal {
 				flags |= InstrOpInfoFlags.IgnoreSegmentPrefix | InstrOpInfoFlags.JccTaken;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
+			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}
 
 	sealed class SimpleInstrInfo_os_loop : InstrInfo {
 		readonly int bitness;
+		readonly int ccIndex;
 		readonly Register register;
-		readonly FormatterString mnemonic;
+		readonly FormatterString[] mnemonics;
 
-		public SimpleInstrInfo_os_loop(int bitness, Register register, string mnemonic) {
+		public SimpleInstrInfo_os_loop(int bitness, int ccIndex, Register register, string[] mnemonics) {
 			this.bitness = bitness;
+			this.ccIndex = ccIndex;
 			this.register = register;
-			this.mnemonic = new FormatterString(mnemonic);
+			this.mnemonics = FormatterString.Create(mnemonics);
 		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
@@ -652,6 +673,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				else
 					flags |= InstrOpInfoFlags.AddrSize64;
 			}
+			var mnemonic = ccIndex == -1 ? mnemonics[0] : MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 		}
 	}

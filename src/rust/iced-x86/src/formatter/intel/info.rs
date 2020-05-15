@@ -25,11 +25,14 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::get_mnemonic_cc;
 use super::mem_size_tbl::MEM_SIZE_TBL;
 use super::regs::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
-use core::mem;
+#[cfg(not(feature = "std"))]
+use alloc::vec::Vec;
+use core::{mem, u32};
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {
@@ -300,6 +303,26 @@ impl SimpleInstrInfo {
 impl InstrInfo for SimpleInstrInfo {
 	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		InstrOpInfo::new(&self.mnemonic, instruction, self.flags)
+	}
+}
+
+#[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_cc {
+	mnemonics: Vec<FormatterString>,
+	cc_index: u32,
+}
+
+impl SimpleInstrInfo_cc {
+	pub(super) fn new(cc_index: u32, mnemonics: Vec<String>) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), cc_index }
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_cc {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::NONE;
+		let mnemonic = get_mnemonic_cc(options, self.cc_index, &self.mnemonics);
+		InstrOpInfo::new(mnemonic, instruction, FLAGS)
 	}
 }
 
@@ -670,22 +693,23 @@ impl InstrInfo for SimpleInstrInfo_os_mem {
 
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_os_jcc {
-	mnemonic: FormatterString,
+	mnemonics: Vec<FormatterString>,
 	bitness: u32,
+	cc_index: u32,
 	flags: u32,
 }
 
 impl SimpleInstrInfo_os_jcc {
-	pub(super) fn with_mnemonic(bitness: u32, mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), bitness, flags: InstrOpInfoFlags::NONE }
+	pub(super) fn with_mnemonic(bitness: u32, cc_index: u32, mnemonics: Vec<String>) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), bitness, cc_index, flags: InstrOpInfoFlags::NONE }
 	}
-	pub(super) fn new(bitness: u32, mnemonic: String, flags: u32) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), bitness, flags }
+	pub(super) fn new(bitness: u32, cc_index: u32, mnemonics: Vec<String>, flags: u32) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), bitness, cc_index, flags }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_os_jcc {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = self.flags;
 		let instr_bitness = get_bitness(instruction.code_size());
 		if instr_bitness != 0 && instr_bitness != self.bitness {
@@ -706,25 +730,27 @@ impl InstrInfo for SimpleInstrInfo_os_jcc {
 		if instruction.has_repne_prefix() {
 			flags |= InstrOpInfoFlags::BND_PREFIX;
 		}
-		InstrOpInfo::new(&self.mnemonic, instruction, flags)
+		let mnemonic = get_mnemonic_cc(options, self.cc_index, &self.mnemonics);
+		InstrOpInfo::new(mnemonic, instruction, flags)
 	}
 }
 
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_os_loop {
-	mnemonic: FormatterString,
+	mnemonics: Vec<FormatterString>,
 	bitness: u32,
+	cc_index: u32,
 	register: Register,
 }
 
 impl SimpleInstrInfo_os_loop {
-	pub(super) fn new(bitness: u32, register: Register, mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), bitness, register }
+	pub(super) fn new(bitness: u32, cc_index: u32, register: Register, mnemonics: Vec<String>) -> Self {
+		Self { mnemonics: FormatterString::with_strings(mnemonics), bitness, cc_index, register }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_os_loop {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut flags = InstrOpInfoFlags::NONE;
 		let instr_bitness = get_bitness(instruction.code_size());
 		let expected_reg = match instr_bitness {
@@ -752,7 +778,8 @@ impl InstrInfo for SimpleInstrInfo_os_loop {
 				flags |= InstrOpInfoFlags::ADDR_SIZE64;
 			}
 		}
-		InstrOpInfo::new(&self.mnemonic, instruction, flags)
+		let mnemonic = if self.cc_index == u32::MAX { &self.mnemonics[0] } else { get_mnemonic_cc(options, self.cc_index, &self.mnemonics) };
+		InstrOpInfo::new(mnemonic, instruction, flags)
 	}
 }
 
