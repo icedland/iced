@@ -82,7 +82,7 @@ impl FormatterString {
 
 	#[cfg_attr(has_must_use, must_use)]
 	fn with_strings(strings: Vec<String>) -> Vec<Self> {
-		strings.into_iter().map(|s| FormatterString::new(s)).collect()
+		strings.into_iter().map(FormatterString::new).collect()
 	}
 
 	#[cfg_attr(has_must_use, must_use)]
