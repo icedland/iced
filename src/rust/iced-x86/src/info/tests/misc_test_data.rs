@@ -55,6 +55,7 @@ impl MiscSectionNames {
 	pub(crate) const JCC_NEAR_INFO: &'static str = "jcc-near-info";
 	pub(crate) const SETCC_INFO: &'static str = "setcc-info";
 	pub(crate) const CMOVCC_INFO: &'static str = "cmovcc-info";
+	pub(crate) const LOOPCC_INFO: &'static str = "loopcc-info";
 }
 // GENERATOR-END: MiscSectionNames
 
@@ -76,6 +77,7 @@ impl MiscSectionNameIds {
 	const JCC_NEAR_INFO: u32 = 13;
 	const SETCC_INFO: u32 = 14;
 	const CMOVCC_INFO: u32 = 15;
+	const LOOPCC_INFO: u32 = 16;
 }
 
 pub(super) struct MiscTestsData {
@@ -95,6 +97,7 @@ pub(super) struct MiscTestsData {
 	pub(super) jcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
 	pub(super) setcc_infos: Vec<(Code, Code, ConditionCode)>,
 	pub(super) cmovcc_infos: Vec<(Code, Code, ConditionCode)>,
+	pub(super) loopcc_infos: Vec<(Code, Code, ConditionCode)>,
 }
 
 lazy_static! {
@@ -129,6 +132,7 @@ impl MiscTestsDataReader {
 				jcc_near_infos: Vec::new(),
 				setcc_infos: Vec::new(),
 				cmovcc_infos: Vec::new(),
+				loopcc_infos: Vec::new(),
 			},
 		}
 	}
@@ -151,6 +155,7 @@ impl MiscTestsDataReader {
 			(MiscSectionNames::JCC_NEAR_INFO, MiscSectionNameIds::JCC_NEAR_INFO),
 			(MiscSectionNames::SETCC_INFO, MiscSectionNameIds::SETCC_INFO),
 			(MiscSectionNames::CMOVCC_INFO, MiscSectionNameIds::CMOVCC_INFO),
+			(MiscSectionNames::LOOPCC_INFO, MiscSectionNameIds::LOOPCC_INFO),
 		];
 		let mut reader = SectionFileReader::new(infos);
 		let mut path = get_instr_info_unit_tests_dir();
@@ -213,6 +218,7 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::JCC_NEAR_INFO => Self::add_jcc_info(&mut self.data.jcc_near_infos, line),
 			MiscSectionNameIds::SETCC_INFO => Self::add_instr_cc_info(&mut self.data.setcc_infos, line),
 			MiscSectionNameIds::CMOVCC_INFO => Self::add_instr_cc_info(&mut self.data.cmovcc_infos, line),
+			MiscSectionNameIds::LOOPCC_INFO => Self::add_instr_cc_info(&mut self.data.loopcc_infos, line),
 			_ => unreachable!(),
 		}
 	}

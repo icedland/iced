@@ -62,7 +62,7 @@ namespace Generator.Enums.InstructionInfo {
 	}
 
 	static class ConditionCodeEnum {
-		const string documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#)";
+		const string documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#, #(c:LOOPcc)#)";
 
 		static EnumValue[] GetValues() =>
 			typeof(ConditionCode).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(ConditionCode)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();

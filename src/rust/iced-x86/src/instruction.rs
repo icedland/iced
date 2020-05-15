@@ -3044,8 +3044,8 @@ impl Instruction {
 		self.code().is_call_far_indirect()
 	}
 
-	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
-	/// nothing if the instruction doesn't have a condition code.
+	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc`
+	/// and does nothing if the instruction doesn't have a condition code.
 	///
 	/// # Examples
 	///
@@ -3120,7 +3120,7 @@ impl Instruction {
 		self.set_code(t)
 	}
 
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode::None`] is returned
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else [`ConditionCode::None`] is returned
 	///
 	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
 	///

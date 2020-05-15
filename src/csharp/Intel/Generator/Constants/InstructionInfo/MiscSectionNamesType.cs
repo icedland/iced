@@ -43,6 +43,7 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "JccNearInfo", "jcc-near-info"),
 				new Constant(ConstantKind.String, "SetccInfo", "setcc-info"),
 				new Constant(ConstantKind.String, "CmovccInfo", "cmovcc-info"),
+				new Constant(ConstantKind.String, "LoopccInfo", "loopcc-info"),
 			};
 		}
 	}

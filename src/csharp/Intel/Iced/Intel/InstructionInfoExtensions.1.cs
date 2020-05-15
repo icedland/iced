@@ -256,7 +256,8 @@ namespace Iced.Intel {
 		public static ConditionCode GetConditionCode(this Code code) => code.ConditionCode();
 
 		/// <summary>
-		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else
+		/// <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>
@@ -272,6 +273,16 @@ namespace Iced.Intel {
 			t = (uint)(code - Code.Seto_rm8);
 			if (t <= (uint)(Code.Setg_rm8 - Code.Seto_rm8))
 				return (int)t + Intel.ConditionCode.o;
+
+			t = (uint)(code - Code.Loopne_rel8_16_CX);
+			if (t <= (uint)(Code.Loopne_rel8_64_RCX - Code.Loopne_rel8_16_CX)) {
+				return Intel.ConditionCode.ne;
+			}
+
+			t = (uint)(code - Code.Loope_rel8_16_CX);
+			if (t <= (uint)(Code.Loope_rel8_64_RCX - Code.Loope_rel8_16_CX)) {
+				return Intel.ConditionCode.e;
+			}
 
 			return Intel.ConditionCode.None;
 		}

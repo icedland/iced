@@ -341,3 +341,20 @@ Cmovle_r32_rm32, Cmovg_r32_rm32, le
 Cmovg_r32_rm32, Cmovle_r32_rm32, g
 Cmovle_r64_rm64, Cmovg_r64_rm64, le
 Cmovg_r64_rm64, Cmovle_r64_rm64, g
+
+[loopcc-info]
+# loopcc, negated, cc
+Loopne_rel8_16_CX, Loope_rel8_16_CX, ne
+Loopne_rel8_32_CX, Loope_rel8_32_CX, ne
+Loopne_rel8_16_ECX, Loope_rel8_16_ECX, ne
+Loopne_rel8_32_ECX, Loope_rel8_32_ECX, ne
+Loopne_rel8_64_ECX, Loope_rel8_64_ECX, ne
+Loopne_rel8_16_RCX, Loope_rel8_16_RCX, ne
+Loopne_rel8_64_RCX, Loope_rel8_64_RCX, ne
+Loope_rel8_16_CX, Loopne_rel8_16_CX, e
+Loope_rel8_32_CX, Loopne_rel8_32_CX, e
+Loope_rel8_16_ECX, Loopne_rel8_16_ECX, e
+Loope_rel8_32_ECX, Loopne_rel8_32_ECX, e
+Loope_rel8_64_ECX, Loopne_rel8_64_ECX, e
+Loope_rel8_16_RCX, Loopne_rel8_16_RCX, e
+Loope_rel8_64_RCX, Loopne_rel8_64_RCX, e

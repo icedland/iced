@@ -46,6 +46,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string JccNearInfo = "jcc-near-info";
 		internal const string SetccInfo = "setcc-info";
 		internal const string CmovccInfo = "cmovcc-info";
+		internal const string LoopccInfo = "loopcc-info";
 	}
 	// GENERATOR-END: MiscSectionNames
 
@@ -66,6 +67,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly (Code jcc, Code negated, Code jccShort, ConditionCode cc)[] JccNearInfos;
 		public static readonly (Code setcc, Code negated, ConditionCode cc)[] SetccInfos;
 		public static readonly (Code cmovcc, Code negated, ConditionCode cc)[] CmovccInfos;
+		public static readonly (Code loopcc, Code negated, ConditionCode cc)[] LoopccInfos;
 
 		static MiscTestsData() {
 			var jccShort = new HashSet<Code>();
@@ -84,6 +86,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var jccNearInfos = new List<(Code jcc, Code negated, Code jccShort, ConditionCode cc)>();
 			var setccInfos = new List<(Code setcc, Code negated, ConditionCode cc)>();
 			var cmovccInfos = new List<(Code cmovcc, Code negated, ConditionCode cc)>();
+			var loopccInfos = new List<(Code loopcc, Code negated, ConditionCode cc)>();
 
 			var sectionInfos = new (string sectionName, Action<string, string> handler)[] {
 				(MiscSectionNames.JccShort, (_, line) => AddCode(jccShort, line)),
@@ -102,6 +105,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.JccNearInfo, (_, line) => AddJccInfo(jccNearInfos, line)),
 				(MiscSectionNames.SetccInfo, (_, line) => AddInstrCcInfo(setccInfos, line)),
 				(MiscSectionNames.CmovccInfo, (_, line) => AddInstrCcInfo(cmovccInfos, line)),
+				(MiscSectionNames.LoopccInfo, (_, line) => AddInstrCcInfo(loopccInfos, line)),
 			};
 			var filename = PathUtils.GetTestTextFilename("Misc.txt", "InstructionInfo");
 			SectionFileReader.Read(filename, sectionInfos);
@@ -122,6 +126,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			JccNearInfos = jccNearInfos.ToArray();
 			SetccInfos = setccInfos.ToArray();
 			CmovccInfos = cmovccInfos.ToArray();
+			LoopccInfos = loopccInfos.ToArray();
 		}
 
 		static void AddCode(HashSet<Code> hash, string line) {

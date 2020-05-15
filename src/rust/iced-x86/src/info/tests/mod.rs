@@ -622,6 +622,7 @@ fn verify_negate_condition_code() {
 	to_negated_code_value.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).1)));
 
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };
@@ -687,6 +688,7 @@ fn verify_condition_code() {
 	to_condition_code.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).3)));
 	to_condition_code.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
+	to_condition_code.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).2)));
 
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 		let code: Code = unsafe { mem::transmute(i as u16) };

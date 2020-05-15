@@ -494,8 +494,8 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> and does
-		/// nothing if the instruction doesn't have a condition code.
+		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c>
+		/// and does nothing if the instruction doesn't have a condition code.
 		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void NegateConditionCode() => Code = Code.NegateConditionCode();
@@ -513,7 +513,7 @@ namespace Iced.Intel {
 		public void ToNearBranch() => Code = Code.ToNearBranch();
 
 		/// <summary>
-		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c> else <see cref="ConditionCode.None"/> is returned
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		public readonly ConditionCode ConditionCode {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

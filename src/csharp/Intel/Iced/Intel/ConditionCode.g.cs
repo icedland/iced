@@ -27,7 +27,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if INSTR_INFO
 namespace Iced.Intel {
-	/// <summary>Instruction condition code (used by <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>)</summary>
+	/// <summary>Instruction condition code (used by <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c>)</summary>
 	public enum ConditionCode {
 		/// <summary>The instruction doesn&apos;t have a condition code</summary>
 		None = 0,
