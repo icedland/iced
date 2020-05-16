@@ -48,24 +48,24 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Gets the instruction index associated with this label. This is setup after calling <see cref="Assembler.Label"/>.
 		/// </summary>
-		public int InstructionIndex { get; internal set; }
+		public int InstructionIndex { readonly get; internal set; }
 
 		/// <summary>
 		/// <c>true</c> if this label is empty and was not created by <see cref="Assembler.CreateLabel"/>.
 		/// </summary>
-		public bool IsEmpty => Id == 0;
+		public readonly bool IsEmpty => Id == 0;
 
 		/// <inheritdoc />
-		public override string ToString() => $"{Name}@{Id}";
+		public override readonly string ToString() => $"{Name}@{Id}";
 
 		/// <inheritdoc />
-		public bool Equals(Label other) => Name == other.Name && Id == other.Id;
+		public readonly bool Equals(Label other) => Name == other.Name && Id == other.Id;
 
 		/// <inheritdoc />
-		public override bool Equals(object? obj) => obj is Label other && Equals(other);
+		public override readonly bool Equals(object? obj) => obj is Label other && Equals(other);
 
 		/// <inheritdoc />
-		public override int GetHashCode() {
+		public override readonly int GetHashCode() {
 			unchecked {
 				return (Name.GetHashCode() * 397) ^ Id.GetHashCode();
 			}
