@@ -156,6 +156,7 @@ impl IntoIter {
 			symbol_results.push(SymbolResultTestCase { address, symbol_address, address_size, flags, memory_size, symbol_parts })
 		}
 
-		Ok(SymbolResolverTestCase { bitness, hex_bytes, code, options, symbol_results })
+		let decoder_options = OptionValue::get_decoder_options(&options);
+		Ok(SymbolResolverTestCase { bitness, hex_bytes, decoder_options, code, options, symbol_results })
 	}
 }

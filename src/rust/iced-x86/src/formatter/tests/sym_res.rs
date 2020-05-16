@@ -81,10 +81,18 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 		for props in &info.options {
 			props.1.initialize_options(formatter.options_mut(), props.0);
 		}
-		super::simple_format_test(info.bitness, &info.hex_bytes, info.code, 0, formatted_line.as_str(), formatter.as_mut(), |decoder| {
-			for props in &info.options {
-				props.1.initialize_decoder(decoder, props.0);
-			}
-		});
+		super::simple_format_test(
+			info.bitness,
+			&info.hex_bytes,
+			info.code,
+			info.decoder_options,
+			formatted_line.as_str(),
+			formatter.as_mut(),
+			|decoder| {
+				for props in &info.options {
+					props.1.initialize_decoder(decoder, props.0);
+				}
+			},
+		);
 	}
 }

@@ -87,6 +87,7 @@ namespace Generator.Enums.Formatter {
 		CC_ge,
 		CC_le,
 		CC_g,
+		DecoderOptions,
 	}
 
 	static class OptionsPropsEnum {

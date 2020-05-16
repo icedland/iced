@@ -76,8 +76,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		protected void FormatBase(int index, in SymbolResolverTestCase info, string formattedString, (Formatter formatter, ISymbolResolver symbolResolver) formatterInfo) {
 			var infoCopy = info;
 			var formatter = formatterInfo.formatter;
+			var decoderOptions = OptionsPropsUtils.GetDecoderOptions(infoCopy.Options);
 			OptionsPropsUtils.Initialize(formatter.Options, infoCopy.Options);
-			FormatterTestUtils.SimpleFormatTest(infoCopy.Bitness, infoCopy.HexBytes, infoCopy.Code, DecoderOptions.None, formattedString,
+			FormatterTestUtils.SimpleFormatTest(infoCopy.Bitness, infoCopy.HexBytes, infoCopy.Code, decoderOptions, formattedString,
 				formatter, decoder => OptionsPropsUtils.Initialize(decoder, infoCopy.Options));
 		}
 	}

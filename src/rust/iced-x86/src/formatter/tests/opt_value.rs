@@ -48,6 +48,7 @@ pub(in super::super) enum OptionValue {
 	CC_ge(CC_ge),
 	CC_le(CC_le),
 	CC_g(CC_g),
+	DecoderOptions(u32),
 }
 
 impl OptionValue {
@@ -199,6 +200,16 @@ impl OptionValue {
 		}
 	}
 
+	pub(super) fn get_decoder_options(props: &[(OptionsProps, OptionValue)]) -> u32 {
+		let mut decoder_options = DecoderOptions::NONE;
+		for &(_, ref prop) in props.iter() {
+			if let &OptionValue::DecoderOptions(value) = prop {
+				decoder_options |= value;
+			}
+		}
+		decoder_options
+	}
+
 	pub(super) fn initialize_options(&self, options: &mut FormatterOptions, property: OptionsProps) {
 		match property {
 			OptionsProps::AddLeadingZeroToHexNumbers => options.set_add_leading_zero_to_hex_numbers(self.to_bool()),
@@ -262,7 +273,7 @@ impl OptionValue {
 			OptionsProps::CC_ge => options.set_cc_ge(self.to_cc_ge()),
 			OptionsProps::CC_le => options.set_cc_le(self.to_cc_le()),
 			OptionsProps::CC_g => options.set_cc_g(self.to_cc_g()),
-			OptionsProps::IP => {}
+			OptionsProps::IP | OptionsProps::DecoderOptions => {}
 		}
 	}
 

@@ -59,10 +59,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			var code = ToCode(parts[2].Trim());
 
 			var properties = new List<(OptionsProps property, object value)>();
-			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries)) {
-				var (prop, value) = OptionsParser.ParseOption(part);
-				properties.Add((prop, value));
-			}
+			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries))
+				properties.Add(OptionsParser.ParseOption(part));
 
 			return new OptionsInstructionInfo(bitness, hexBytes, code, properties);
 		}

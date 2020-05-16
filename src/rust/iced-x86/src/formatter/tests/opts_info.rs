@@ -32,6 +32,7 @@ use alloc::vec::Vec;
 pub(super) struct OptionsInstructionInfo {
 	pub(super) bitness: u32,
 	pub(super) hex_bytes: String,
+	pub(super) decoder_options: u32,
 	pub(super) code: Code,
 	pub(super) vec: Vec<(OptionsProps, OptionValue)>,
 }

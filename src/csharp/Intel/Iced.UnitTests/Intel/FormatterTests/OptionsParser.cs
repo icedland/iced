@@ -151,6 +151,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				value = ToEnumConverter.GetCC_g(valueStr);
 				break;
 
+			case OptionsProps.DecoderOptions:
+				value = ToEnumConverter.GetDecoderOptions(valueStr);
+				break;
+
 			default:
 				throw new InvalidOperationException();
 			}

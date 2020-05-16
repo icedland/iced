@@ -115,6 +115,7 @@ impl IntoIter {
 			properties.push(parsed_option);
 		}
 
-		Ok(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), code, vec: properties })
+		let decoder_options = OptionValue::get_decoder_options(&properties);
+		Ok(OptionsInstructionInfo { bitness, hex_bytes: String::from(hex_bytes), decoder_options, code, vec: properties })
 	}
 }

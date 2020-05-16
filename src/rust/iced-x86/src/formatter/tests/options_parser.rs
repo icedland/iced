@@ -103,6 +103,7 @@ pub(super) fn parse_option(key_value: &str) -> Result<(OptionsProps, OptionValue
 		OptionsProps::CC_ge => OptionValue::CC_ge(to_cc_ge(value_str)?),
 		OptionsProps::CC_le => OptionValue::CC_le(to_cc_le(value_str)?),
 		OptionsProps::CC_g => OptionValue::CC_g(to_cc_g(value_str)?),
+		OptionsProps::DecoderOptions => OptionValue::DecoderOptions(to_decoder_options(value_str)?),
 	};
 	Ok((prop, value))
 }

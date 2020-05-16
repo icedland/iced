@@ -91,9 +91,10 @@ pub(crate) enum OptionsProps {
 	CC_ge,
 	CC_le,
 	CC_g,
+	DecoderOptions,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OPTIONS_PROPS: [&str; 62] = [
+static GEN_DEBUG_OPTIONS_PROPS: [&str; 63] = [
 	"AddLeadingZeroToHexNumbers",
 	"AlwaysShowScale",
 	"AlwaysShowSegmentRegister",
@@ -156,6 +157,7 @@ static GEN_DEBUG_OPTIONS_PROPS: [&str; 62] = [
 	"CC_ge",
 	"CC_le",
 	"CC_g",
+	"DecoderOptions",
 ];
 impl fmt::Debug for OptionsProps {
 	#[inline]
