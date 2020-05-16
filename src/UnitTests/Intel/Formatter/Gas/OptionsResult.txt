@@ -2026,10 +2026,14 @@ loope 0x7ffffff2
 loopz 0x7ffffff2
 loopnel 0x7ffffffffffffff3
 loopnzl 0x7ffffffffffffff3
+.byte 0x66; loopne 0xfff3
+.byte 0x66; loopnz 0xfff3
 loopne 0x7ffffffffffffff2
 loopnz 0x7ffffffffffffff2
 loopel 0x7ffffffffffffff3
 loopzl 0x7ffffffffffffff3
+.byte 0x66; loope 0xfff3
+.byte 0x66; loopz 0xfff3
 loope 0x7ffffffffffffff2
 loopz 0x7ffffffffffffff2
 cmovb %si,%cx
