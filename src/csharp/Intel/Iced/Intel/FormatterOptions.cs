@@ -592,8 +592,8 @@ namespace Iced.Intel {
 		public CC_b CC_b {
 			get => cc_b;
 			set {
-				if ((uint)value > (uint)CC_b.nae)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_b)3)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_b = value;
 			}
 		}
@@ -607,8 +607,8 @@ namespace Iced.Intel {
 		public CC_ae CC_ae {
 			get => cc_ae;
 			set {
-				if ((uint)value > (uint)CC_ae.nc)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_ae)3)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ae = value;
 			}
 		}
@@ -622,8 +622,8 @@ namespace Iced.Intel {
 		public CC_e CC_e {
 			get => cc_e;
 			set {
-				if ((uint)value > (uint)CC_e.z)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_e)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_e = value;
 			}
 		}
@@ -637,8 +637,8 @@ namespace Iced.Intel {
 		public CC_ne CC_ne {
 			get => cc_ne;
 			set {
-				if ((uint)value > (uint)CC_ne.nz)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_ne)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ne = value;
 			}
 		}
@@ -652,8 +652,8 @@ namespace Iced.Intel {
 		public CC_be CC_be {
 			get => cc_be;
 			set {
-				if ((uint)value > (uint)CC_be.na)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_be)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_be = value;
 			}
 		}
@@ -667,8 +667,8 @@ namespace Iced.Intel {
 		public CC_a CC_a {
 			get => cc_a;
 			set {
-				if ((uint)value > (uint)CC_a.nbe)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_a)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_a = value;
 			}
 		}
@@ -682,8 +682,8 @@ namespace Iced.Intel {
 		public CC_p CC_p {
 			get => cc_p;
 			set {
-				if ((uint)value > (uint)CC_p.pe)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_p)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_p = value;
 			}
 		}
@@ -697,8 +697,8 @@ namespace Iced.Intel {
 		public CC_np CC_np {
 			get => cc_np;
 			set {
-				if ((uint)value > (uint)CC_np.po)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_np)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_np = value;
 			}
 		}
@@ -712,8 +712,8 @@ namespace Iced.Intel {
 		public CC_l CC_l {
 			get => cc_l;
 			set {
-				if ((uint)value > (uint)CC_l.nge)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_l)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_l = value;
 			}
 		}
@@ -727,8 +727,8 @@ namespace Iced.Intel {
 		public CC_ge CC_ge {
 			get => cc_ge;
 			set {
-				if ((uint)value > (uint)CC_ge.nl)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_ge)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ge = value;
 			}
 		}
@@ -742,8 +742,8 @@ namespace Iced.Intel {
 		public CC_le CC_le {
 			get => cc_le;
 			set {
-				if ((uint)value > (uint)CC_le.ng)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_le)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_le = value;
 			}
 		}
@@ -757,8 +757,8 @@ namespace Iced.Intel {
 		public CC_g CC_g {
 			get => cc_g;
 			set {
-				if ((uint)value > (uint)CC_g.nle)
-					throw new ArgumentOutOfRangeException(nameof(value));
+				if (value >= (CC_g)2)
+					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_g = value;
 			}
 		}
