@@ -24,7 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if NASM
 using System;
 using System.Diagnostics;
-using System.Security.Cryptography;
 using Iced.Intel.FormatterInternal;
 
 namespace Iced.Intel.NasmFormatterInternal {

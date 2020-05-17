@@ -22,8 +22,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if GAS || INTEL || MASM || NASM
-using System;
-
 namespace Iced.Intel {
 	/// <summary>
 	/// Formatter options
