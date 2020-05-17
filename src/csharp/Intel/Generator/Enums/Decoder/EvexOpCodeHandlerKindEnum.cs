@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Decoder {
+	[Enum("EvexOpCodeHandlerKind")]
 	enum EvexOpCodeHandlerKind : byte {
 		Invalid,
 		Invalid2,
@@ -100,14 +99,5 @@ namespace Generator.Enums.Decoder {
 		WkVIb,
 		WkVIb_er,
 		WV,
-	}
-
-	static class EvexOpCodeHandlerKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(EvexOpCodeHandlerKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EvexOpCodeHandlerKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.EvexOpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

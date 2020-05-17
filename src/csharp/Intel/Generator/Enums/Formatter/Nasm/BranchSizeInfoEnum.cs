@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter.Nasm {
+	[Enum(nameof(BranchSizeInfo), "NasmBranchSizeInfo", NoInitialize = true)]
 	enum BranchSizeInfo {
 		None,
 		Near,
@@ -32,14 +31,5 @@ namespace Generator.Enums.Formatter.Nasm {
 		Word,
 		Dword,
 		Short,
-	}
-
-	static class BranchSizeInfoEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(BranchSizeInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(BranchSizeInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(BranchSizeInfo), TypeIds.NasmBranchSizeInfo, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

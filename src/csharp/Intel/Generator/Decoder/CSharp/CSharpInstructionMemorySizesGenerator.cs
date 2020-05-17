@@ -24,25 +24,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.IO;
 using Generator.Constants;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_MemorySize)]
 	sealed class CSharpInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpInstructionMemorySizesGenerator(GeneratorOptions generatorOptions) {
+		public CSharpInstructionMemorySizesGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var data = InstructionMemorySizesTable.Table;
+			var genTypes = generatorContext.Types;
+			var instructionMemorySizesTable = genTypes.GetObject<InstructionMemorySizesTable>(TypeIds.InstructionMemorySizesTable);
+			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
+			var data = instructionMemorySizesTable.Table;
 			const string ClassName = "InstructionMemorySizes";
-			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
+			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
@@ -52,9 +54,9 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteCommentLine("0 = memory size");
 						writer.WriteCommentLine("1 = broadcast memory size");
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine($"internal static System.ReadOnlySpan<byte> Sizes => new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> Sizes => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
+						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var d in data) {

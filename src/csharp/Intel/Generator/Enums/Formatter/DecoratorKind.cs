@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("DecoratorKind", Documentation = "Decorator", Public = true)]
 	enum DecoratorKind {
 		[Comment("Broadcast decorator, eg. #(c:{1to4})#")]
 		Broadcast,
@@ -33,14 +32,5 @@ namespace Generator.Enums.Formatter {
 		SuppressAllExceptions,
 		[Comment("Zeroing masking: #(c:{z})#")]
 		ZeroingMasking,
-	}
-
-	static class DecoratorKindEnum {
-		const string documentation = "Decorator";
-
-		static EnumValue[] GetValues() =>
-			typeof(DecoratorKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(DecoratorKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.DecoratorKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

@@ -22,11 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	static class InstructionInfoKeysType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.InstructionInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstructionInfoKeysType {
+		InstructionInfoKeysType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.InstructionInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "IsProtectedMode", "pm"),
 				new Constant(ConstantKind.String, "IsPrivileged", "priv"),
 				new Constant(ConstantKind.String, "IsSaveRestoreInstruction", "saverestore"),
@@ -57,6 +61,5 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "CondWriteMemory", "cwm"),
 				new Constant(ConstantKind.String, "DecoderOptions", "decopt"),
 			};
-		}
 	}
 }

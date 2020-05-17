@@ -66,7 +66,7 @@ namespace Generator.Encoder {
 
 		public abstract int OpKindsLength { get; }
 
-		public abstract OpCodeOperandKind OpKind(int arg); 
+		public abstract OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg); 
 
 		public override string ToString() => $"{this.GetType().Name}: {Code.RawName}";
 	}
@@ -80,9 +80,9 @@ namespace Generator.Encoder {
 
 		public override int OpKindsLength => OpKinds.Length;
 
-		public override OpCodeOperandKind OpKind(int arg) {
+		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
-			return (OpCodeOperandKind)EncoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
+			return (OpCodeOperandKind)encoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
 		
 		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
@@ -105,9 +105,9 @@ namespace Generator.Encoder {
 
 		public override int OpKindsLength => OpKinds.Length;
 
-		public override OpCodeOperandKind OpKind(int arg) {
+		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
-			return (OpCodeOperandKind)EncoderTypes.VexOpHandlers[(int)kind].opCodeOperandKind.Value;
+			return (OpCodeOperandKind)encoderTypes.VexOpHandlers[(int)kind].opCodeOperandKind.Value;
 		}
 		
 		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds) {
@@ -129,9 +129,9 @@ namespace Generator.Encoder {
 		
 		public override int OpKindsLength => OpKinds.Length;
 
-		public override OpCodeOperandKind OpKind(int arg) {
+		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
-			return (OpCodeOperandKind)EncoderTypes.XopOpHandlers[(int)kind].opCodeOperandKind.Value;
+			return (OpCodeOperandKind)encoderTypes.XopOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
 		
 		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds) {
@@ -151,12 +151,12 @@ namespace Generator.Encoder {
 		public EvexVectorLength VectorLength { get; }
 		public TupleType TupleType { get; }
 		public EvexOpKind[] OpKinds { get; }
-		
+
 		public override int OpKindsLength => OpKinds.Length;
 
-		public override OpCodeOperandKind OpKind(int arg) {
+		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
-			return (OpCodeOperandKind)EncoderTypes.EvexOpHandlers[(int)kind].opCodeOperandKind.Value;
+			return (OpCodeOperandKind)encoderTypes.EvexOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
 		
 		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds) {
@@ -178,7 +178,7 @@ namespace Generator.Encoder {
 		
 		public override int OpKindsLength => 2;
 
-		public override OpCodeOperandKind OpKind(int arg) {
+		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			if (arg == 0) return OpCodeOperandKind.mm_reg;
 			if (arg == 1) return OpCodeOperandKind.mm_or_mem;
 			throw new ArgumentOutOfRangeException($"{arg}");

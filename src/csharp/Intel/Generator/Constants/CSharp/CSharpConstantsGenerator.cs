@@ -58,25 +58,26 @@ namespace Generator.Constants.CSharp {
 			}
 		}
 
-		public CSharpConstantsGenerator(GeneratorOptions generatorOptions) {
+		public CSharpConstantsGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
 
-			var baseDir = CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace);
+			var baseDir = CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
 			toFullFileInfo.Add(TypeIds.IcedConstants, new FullConstantsFileInfo(Path.Combine(baseDir, nameof(TypeIds.IcedConstants) + ".g.cs"), CSharpConstants.IcedNamespace));
-			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorOptions.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
+			toFullFileInfo.Add(TypeIds.DecoderConstants, new FullConstantsFileInfo(Path.Combine(generatorContext.CSharpTestsDir, "Intel", nameof(TypeIds.DecoderConstants) + ".g.cs"), CSharpConstants.IcedUnitTestsNamespace));
 
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();
-			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
-			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs")));
-			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.InstructionInfoDecoderOptions, new PartialConstantsFileInfo("DecoderOptionsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "MiscTestsData.cs")));
-			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
-			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags, new PartialConstantsFileInfo("OpCodeInfoFlags", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.DecoderTestParserConstants, new PartialConstantsFileInfo("DecoderTestText", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "DecoderTests", "DecoderTestParser.cs")));
+			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.InstructionInfoDecoderOptions, new PartialConstantsFileInfo("DecoderOptionsConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "MiscTestsData.cs")));
+			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
+			toPartialFileInfo.Add(TypeIds.OpCodeInfoFlags, new PartialConstantsFileInfo("OpCodeInfoFlags", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")));
 		}
 
 		public override void Generate(ConstantsType constantsType) {
@@ -146,7 +147,7 @@ namespace Generator.Constants.CSharp {
 				return "ulong";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
-				return EnumUtils.GetEnumType(kind).Name(idConverter);
+				return EnumUtils.GetEnumType(genTypes, kind).Name(idConverter);
 			default:
 				throw new InvalidOperationException();
 			}
@@ -191,7 +192,7 @@ namespace Generator.Constants.CSharp {
 		static string EscapeStringValue(string s) => s;
 
 		string GetValueString(Constant constant) {
-			var enumType = EnumUtils.GetEnumType(constant.Kind);
+			var enumType = EnumUtils.GetEnumType(genTypes, constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
 			return $"{enumType.Name(idConverter)}.{enumValue.Name(idConverter)}";
 		}

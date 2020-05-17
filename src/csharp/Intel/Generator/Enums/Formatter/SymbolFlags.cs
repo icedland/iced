@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Formatter {
+	[Enum("SymbolFlags", Documentation = "Symbol flags", Public = true, Flags = true, NoInitialize = true)]
 	[Flags]
 	enum SymbolFlags : uint {
 		[Comment("No bit is set")]
@@ -38,14 +38,5 @@ namespace Generator.Enums.Formatter {
 
 		[Comment("Set if #(f:SymbolResult.SymbolSize)# is valid")]
 		HasSymbolSize		= 0x00000004,
-	}
-
-	static class SymbolFlagsEnum {
-		const string documentation = "Symbol flags";
-
-		static EnumValue[] GetValues() =>
-			typeof(SymbolFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(SymbolFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.SymbolFlags, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

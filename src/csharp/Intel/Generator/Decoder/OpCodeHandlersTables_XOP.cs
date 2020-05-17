@@ -30,10 +30,10 @@ namespace Generator.Decoder {
 		public const string XOP9 = nameof(XOP9);
 		public const string XOPA = nameof(XOPA);
 
-		public static (string name, object?[] handlers)[] GetHandlers() {
-			var vexEnum = VexOpCodeHandlerKindEnum.Instance;
-			var codeEnum = CodeEnum.Instance;
-			var registerEnum = RegisterEnum.Instance;
+		public static (string name, object?[] handlers)[] GetHandlers(GenTypes genTypes) {
+			var vexEnum = genTypes[TypeIds.VexOpCodeHandlerKind];
+			var codeEnum = genTypes[TypeIds.Code];
+			var registerEnum = genTypes[TypeIds.Register];
 
 			var invalid = new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Invalid)] };
 			var handlers = new (string name, object?[] handlers)[] {

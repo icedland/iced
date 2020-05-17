@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("CC_b", Documentation = "Mnemonic condition code selector (eg. #(c:JB)# / #(c:JC)# / #(c:JNAE)#)", Public = true)]
 	enum CC_b {
 		[Comment("#(c:JB)#, #(c:CMOVB)#, #(c:SETB)#")]
 		b,
@@ -33,15 +32,7 @@ namespace Generator.Enums.Formatter {
 		nae,
 	}
 
-	static class CC_b_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JB)# / #(c:JC)# / #(c:JNAE)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_b).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_b)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_b, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_ae", Documentation = "Mnemonic condition code selector (eg. #(c:JAE)# / #(c:JNB)# / #(c:JNC)#)", Public = true)]
 	enum CC_ae {
 		[Comment("#(c:JAE)#, #(c:CMOVAE)#, #(c:SETAE)#")]
 		ae,
@@ -51,15 +42,7 @@ namespace Generator.Enums.Formatter {
 		nc,
 	}
 
-	static class CC_ae_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JAE)# / #(c:JNB)# / #(c:JNC)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_ae).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_ae)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_ae, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_e", Documentation = "Mnemonic condition code selector (eg. #(c:JE)# / #(c:JZ)#)", Public = true)]
 	enum CC_e {
 		[Comment("#(c:JE)#, #(c:CMOVE)#, #(c:SETE)#, #(c:LOOPE)#")]
 		e,
@@ -67,15 +50,7 @@ namespace Generator.Enums.Formatter {
 		z,
 	}
 
-	static class CC_e_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JE)# / #(c:JZ)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_e).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_e)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_e, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_ne", Documentation = "Mnemonic condition code selector (eg. #(c:JNE)# / #(c:JNZ)#)", Public = true)]
 	enum CC_ne {
 		[Comment("#(c:JNE)#, #(c:CMOVNE)#, #(c:SETNE)#, #(c:LOOPNE)#")]
 		ne,
@@ -83,15 +58,7 @@ namespace Generator.Enums.Formatter {
 		nz,
 	}
 
-	static class CC_ne_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JNE)# / #(c:JNZ)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_ne).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_ne)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_ne, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_be", Documentation = "Mnemonic condition code selector (eg. #(c:JBE)# / #(c:JNA)#)", Public = true)]
 	enum CC_be {
 		[Comment("#(c:JBE)#, #(c:CMOVBE)#, #(c:SETBE)#")]
 		be,
@@ -99,15 +66,7 @@ namespace Generator.Enums.Formatter {
 		na,
 	}
 
-	static class CC_be_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JBE)# / #(c:JNA)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_be).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_be)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_be, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_a", Documentation = "Mnemonic condition code selector (eg. #(c:JA)# / #(c:JNBE)#)", Public = true)]
 	enum CC_a {
 		[Comment("#(c:JA)#, #(c:CMOVA)#, #(c:SETA)#")]
 		a,
@@ -115,15 +74,7 @@ namespace Generator.Enums.Formatter {
 		nbe,
 	}
 
-	static class CC_a_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JA)# / #(c:JNBE)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_a).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_a)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_a, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_p", Documentation = "Mnemonic condition code selector (eg. #(c:JP)# / #(c:JPE)#)", Public = true)]
 	enum CC_p {
 		[Comment("#(c:JP)#, #(c:CMOVP)#, #(c:SETP)#")]
 		p,
@@ -131,15 +82,7 @@ namespace Generator.Enums.Formatter {
 		pe,
 	}
 
-	static class CC_p_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JP)# / #(c:JPE)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_p).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_p)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_p, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_np", Documentation = "Mnemonic condition code selector (eg. #(c:JNP)# / #(c:JPO)#)", Public = true)]
 	enum CC_np {
 		[Comment("#(c:JNP)#, #(c:CMOVNP)#, #(c:SETNP)#")]
 		np,
@@ -147,15 +90,7 @@ namespace Generator.Enums.Formatter {
 		po,
 	}
 
-	static class CC_np_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JNP)# / #(c:JPO)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_np).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_np)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_np, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_l", Documentation = "Mnemonic condition code selector (eg. #(c:JL)# / #(c:JNGE)#)", Public = true)]
 	enum CC_l {
 		[Comment("#(c:JL)#, #(c:CMOVL)#, #(c:SETL)#")]
 		l,
@@ -163,15 +98,7 @@ namespace Generator.Enums.Formatter {
 		nge,
 	}
 
-	static class CC_l_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JL)# / #(c:JNGE)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_l).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_l)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_l, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_ge", Documentation = "Mnemonic condition code selector (eg. #(c:JGE)# / #(c:JNL)#)", Public = true)]
 	enum CC_ge {
 		[Comment("#(c:JGE)#, #(c:CMOVGE)#, #(c:SETGE)#")]
 		ge,
@@ -179,15 +106,7 @@ namespace Generator.Enums.Formatter {
 		nl,
 	}
 
-	static class CC_ge_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JGE)# / #(c:JNL)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_ge).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_ge)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_ge, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_le", Documentation = "Mnemonic condition code selector (eg. #(c:JLE)# / #(c:JNG)#)", Public = true)]
 	enum CC_le {
 		[Comment("#(c:JLE)#, #(c:CMOVLE)#, #(c:SETLE)#")]
 		le,
@@ -195,28 +114,11 @@ namespace Generator.Enums.Formatter {
 		ng,
 	}
 
-	static class CC_le_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JLE)# / #(c:JNG)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_le).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_le)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_le, documentation, GetValues(), EnumTypeFlags.Public);
-	}
-
+	[Enum("CC_g", Documentation = "Mnemonic condition code selector (eg. #(c:JG)# / #(c:JNLE)#)", Public = true)]
 	enum CC_g {
 		[Comment("#(c:JG)#, #(c:CMOVG)#, #(c:SETG)#")]
 		g,
 		[Comment("#(c:JNLE)#, #(c:CMOVNLE)#, #(c:SETNLE)#")]
 		nle,
-	}
-
-	static class CC_g_Enum {
-		const string documentation = "Mnemonic condition code selector (eg. #(c:JG)# / #(c:JNLE)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(CC_g).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CC_g)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CC_g, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

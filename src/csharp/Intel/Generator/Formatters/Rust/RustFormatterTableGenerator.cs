@@ -28,27 +28,28 @@ using Generator.IO;
 namespace Generator.Formatters.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Formatter_Table)]
 	sealed class RustFormatterTableGenerator {
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public RustFormatterTableGenerator(GeneratorOptions generatorOptions) =>
-			this.generatorOptions = generatorOptions;
+		public RustFormatterTableGenerator(GeneratorContext generatorContext) =>
+			this.generatorContext = generatorContext;
 
 		public void Generate() {
+			var genTypes = generatorContext.Types;
 			var serializers = new List<RustFormatterTableSerializer>();
-			var basePath = Path.Combine(generatorOptions.RustDir, "formatter");
-			if (generatorOptions.HasGasFormatter)
-				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "gas", "fmt_data.rs"), Gas.CtorInfos.Infos, Enums.Formatter.Gas.CtorKindEnum.Instance));
-			if (generatorOptions.HasIntelFormatter)
-				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "intel", "fmt_data.rs"), Intel.CtorInfos.Infos, Enums.Formatter.Intel.CtorKindEnum.Instance));
-			if (generatorOptions.HasMasmFormatter)
-				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "masm", "fmt_data.rs"), Masm.CtorInfos.Infos, Enums.Formatter.Masm.CtorKindEnum.Instance));
-			if (generatorOptions.HasNasmFormatter)
-				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "nasm", "fmt_data.rs"), Nasm.CtorInfos.Infos, Enums.Formatter.Nasm.CtorKindEnum.Instance));
+			var basePath = Path.Combine(generatorContext.RustDir, "formatter");
+			if (genTypes.Options.HasGasFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "gas", "fmt_data.rs"), genTypes.GetObject<Gas.CtorInfos>(TypeIds.GasCtorInfos).Infos, genTypes[TypeIds.GasCtorKind]));
+			if (genTypes.Options.HasIntelFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "intel", "fmt_data.rs"), genTypes.GetObject<Intel.CtorInfos>(TypeIds.IntelCtorInfos).Infos, genTypes[TypeIds.IntelCtorKind]));
+			if (genTypes.Options.HasMasmFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "masm", "fmt_data.rs"), genTypes.GetObject<Masm.CtorInfos>(TypeIds.MasmCtorInfos).Infos, genTypes[TypeIds.MasmCtorKind]));
+			if (genTypes.Options.HasNasmFormatter)
+				serializers.Add(new RustFormatterTableSerializer(Path.Combine(basePath, "nasm", "fmt_data.rs"), genTypes.GetObject<Nasm.CtorInfos>(TypeIds.NasmCtorInfos).Infos, genTypes[TypeIds.NasmCtorKind]));
 
 			var stringsTable = new StringsTable();
 
 			foreach (var serializer in serializers)
-				serializer.Initialize(stringsTable);
+				serializer.Initialize(genTypes, stringsTable);
 
 			stringsTable.Freeze();
 

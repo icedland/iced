@@ -32,22 +32,23 @@ using Generator.IO;
 namespace Generator.Encoder.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.InstrCreateGen)]
 	sealed class RustInstrCreateGen : InstrCreateGen {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 		readonly RustDocCommentWriter docWriter;
 		readonly InstrCreateGenImpl gen;
 		readonly GenCreateNameArgs genNames;
 
-		public RustInstrCreateGen(GeneratorOptions generatorOptions) {
+		public RustInstrCreateGen(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 			docWriter = new RustDocCommentWriter(idConverter);
-			gen = new InstrCreateGenImpl(idConverter, docWriter);
+			gen = new InstrCreateGenImpl(genTypes, idConverter, docWriter);
 			genNames = GenCreateNameArgs.RustNames;
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.Rust, "Create", Path.Combine(generatorOptions.RustDir, "instruction.rs"));
+			(TargetLanguage.Rust, "Create", Path.Combine(generatorContext.RustDir, "instruction.rs"));
 
 		void WriteDocs(FileWriter writer, CreateMethod method, Action? writePanics = null) =>
 			gen.WriteDocs(writer, method, "Panics", writePanics);
@@ -95,11 +96,11 @@ namespace Generator.Encoder.Rust {
 				WriteInitializeInstruction(writer, method);
 				var args = method.Args;
 				var codeName = idConverter.Argument(args[0].Name);
-				var opKindStr = OpKindEnum.Instance.Name(idConverter);
-				var registerStr = OpKindEnum.Instance[nameof(OpKind.Register)].Name(idConverter);
-				var memoryStr = OpKindEnum.Instance[nameof(OpKind.Memory)].Name(idConverter);
-				var immediate64Str = OpKindEnum.Instance[nameof(OpKind.Immediate64)].Name(idConverter);
-				var immediate8_2ndStr = OpKindEnum.Instance[nameof(OpKind.Immediate8_2nd)].Name(idConverter);
+				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
+				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
+				var memoryStr = genTypes[TypeIds.OpKind][nameof(OpKind.Memory)].Name(idConverter);
+				var immediate64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate64)].Name(idConverter);
+				var immediate8_2ndStr = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate8_2nd)].Name(idConverter);
 				bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
 				string methodName;
 				for (int i = 1; i < args.Count; i++) {
@@ -204,25 +205,25 @@ namespace Generator.Encoder.Rust {
 			using (writer.Indent()) {
 				writer.WriteLine($"let mut instruction = Self::default();");
 				var bitnessName = idConverter.Argument(method.Args[0].Name);
-				var opKindName = OpKindEnum.Instance.Name(idConverter);
-				var codeName = CodeEnum.Instance.Name(idConverter);
+				var opKindName = genTypes[TypeIds.OpKind].Name(idConverter);
+				var codeName = genTypes[TypeIds.Code].Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine($"match bitness {{");
 				writer.WriteLine($"	16 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
-				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
 				writer.WriteLine($"	}}");
 				writer.WriteLine();
 				writer.WriteLine($"	32 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
 				writer.WriteLine($"	}}");
 				writer.WriteLine();
 				writer.WriteLine($"	64 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
-				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{OpKindEnum.Instance[nameof(OpKind.NearBranch64)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(method.Args[1].Name)});");
 				writer.WriteLine($"	}}");
 				writer.WriteLine();
@@ -256,15 +257,15 @@ namespace Generator.Encoder.Rust {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
 
-				var mem64Str = OpKindEnum.Instance[nameof(OpKind.Memory64)].Name(idConverter);
-				writer.WriteLine($"super::instruction_internal::internal_set_op{memOp}_kind(&mut instruction, {OpKindEnum.Instance.Name(idConverter)}::{mem64Str});");
+				var mem64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Memory64)].Name(idConverter);
+				writer.WriteLine($"super::instruction_internal::internal_set_op{memOp}_kind(&mut instruction, {genTypes[TypeIds.OpKind].Name(idConverter)}::{mem64Str});");
 				writer.WriteLine($"instruction.set_memory_address64({idConverter.Argument(method.Args[1 + memOp].Name)});");
 				writer.WriteLine("super::instruction_internal::internal_set_memory_displ_size(&mut instruction, 4);");
 				writer.WriteLine($"instruction.set_segment_prefix({idConverter.Argument(method.Args[3].Name)});");
 
 				writer.WriteLine();
-				var opKindStr = OpKindEnum.Instance.Name(idConverter);
-				var registerStr = OpKindEnum.Instance[nameof(OpKind.Register)].Name(idConverter);
+				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
+				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
 				writer.WriteLine($"const_assert_eq!(0, {opKindStr}::{registerStr} as u32);");
 				writer.WriteLine($"//super::instruction_internal::internal_set_op{regOp}_kind(&mut instruction, {opKindStr}::{registerStr});");
 				writer.WriteLine($"super::instruction_internal::internal_set_op{regOp}_register(&mut instruction, {idConverter.Argument(method.Args[1 + regOp].Name)});");
@@ -317,9 +318,9 @@ namespace Generator.Encoder.Rust {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -362,7 +363,7 @@ namespace Generator.Encoder.Rust {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, kind == StringMethodKind.Repe ? RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)] : RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repne)]);
+					Write(writer, kind == StringMethodKind.Repe ? genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)] : genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repne)]);
 					break;
 				case StringMethodKind.Rep:
 				default:
@@ -403,7 +404,7 @@ namespace Generator.Encoder.Rust {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -444,9 +445,9 @@ namespace Generator.Encoder.Rust {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, kind == StringMethodKind.Repe ? RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)] : RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repne)]);
+					Write(writer, kind == StringMethodKind.Repe ? genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)] : genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repne)]);
 					break;
 				case StringMethodKind.Rep:
 				default:
@@ -485,9 +486,9 @@ namespace Generator.Encoder.Rust {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -530,25 +531,25 @@ namespace Generator.Encoder.Rust {
 			string methodName;
 			switch (kind) {
 			case DeclareDataKind.Byte:
-				code = CodeEnum.Instance[nameof(Code.DeclareByte)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareByte)];
 				setValueName = "set_declare_byte_value";
 				methodName = "with_declare_byte";
 				break;
 
 			case DeclareDataKind.Word:
-				code = CodeEnum.Instance[nameof(Code.DeclareWord)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareWord)];
 				setValueName = "set_declare_word_value";
 				methodName = "with_declare_word";
 				break;
 
 			case DeclareDataKind.Dword:
-				code = CodeEnum.Instance[nameof(Code.DeclareDword)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareDword)];
 				setValueName = "set_declare_dword_value";
 				methodName = "with_declare_dword";
 				break;
 
 			case DeclareDataKind.Qword:
-				code = CodeEnum.Instance[nameof(Code.DeclareQword)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareQword)];
 				setValueName = "set_declare_qword_value";
 				methodName = "with_declare_qword";
 				break;
@@ -619,7 +620,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.ByteSlice:
-					GenCreateDeclareDataSlice(writer, method, 1, CodeEnum.Instance[nameof(Code.DeclareByte)], "with_declare_byte", "set_declare_byte_value");
+					GenCreateDeclareDataSlice(writer, method, 1, genTypes[TypeIds.Code][nameof(Code.DeclareByte)], "with_declare_byte", "set_declare_byte_value");
 					break;
 
 				default:
@@ -651,7 +652,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareWord)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareWord)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 2);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 2 {{");
@@ -666,7 +667,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.WordSlice:
-					GenCreateDeclareDataSlice(writer, method, 2, CodeEnum.Instance[nameof(Code.DeclareWord)], "with_declare_word", "set_declare_word_value");
+					GenCreateDeclareDataSlice(writer, method, 2, genTypes[TypeIds.Code][nameof(Code.DeclareWord)], "with_declare_word", "set_declare_word_value");
 					break;
 
 				default:
@@ -698,7 +699,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareDword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareDword)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 4);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 4 {{");
@@ -713,7 +714,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.DwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 4, CodeEnum.Instance[nameof(Code.DeclareDword)], "with_declare_dword", "set_declare_dword_value");
+					GenCreateDeclareDataSlice(writer, method, 4, genTypes[TypeIds.Code][nameof(Code.DeclareDword)], "with_declare_dword", "set_declare_dword_value");
 					break;
 
 				default:
@@ -745,7 +746,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareQword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareQword)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 8);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 8 {{");
@@ -760,7 +761,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.QwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 8, CodeEnum.Instance[nameof(Code.DeclareQword)], "with_declare_qword", "set_declare_qword_value");
+					GenCreateDeclareDataSlice(writer, method, 8, genTypes[TypeIds.Code][nameof(Code.DeclareQword)], "with_declare_qword", "set_declare_qword_value");
 					break;
 
 				default:

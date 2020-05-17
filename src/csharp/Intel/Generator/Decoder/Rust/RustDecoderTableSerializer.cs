@@ -27,7 +27,8 @@ namespace Generator.Decoder.Rust {
 	sealed class RustDecoderTableSerializer : DecoderTableSerializer {
 		public string TableName { get; }
 
-		public RustDecoderTableSerializer(string tableName, DecoderTableSerializerInfo info) : base(RustIdentifierConverter.Create(), info) {
+		public RustDecoderTableSerializer(GenTypes genTypes, string tableName, DecoderTableSerializerInfo info)
+			: base(genTypes, RustIdentifierConverter.Create(), info) {
 			TableName = tableName;
 		}
 

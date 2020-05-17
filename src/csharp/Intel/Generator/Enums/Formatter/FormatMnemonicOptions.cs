@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Formatter {
+	[Enum("FormatMnemonicOptions", Documentation = "Format mnemonic options", Public = true, Flags = true, NoInitialize = true)]
 	[Flags]
 	public enum FormatMnemonicOptions {
 		[Comment("No option is set")]
@@ -35,14 +35,5 @@ namespace Generator.Enums.Formatter {
 
 		[Comment("Don't add the mnemonic")]
 		NoMnemonic			= 0x00000002,
-	}
-
-	static class FormatMnemonicOptionsEnum {
-		const string documentation = "Format mnemonic options";
-
-		static EnumValue[] GetValues() =>
-			typeof(FormatMnemonicOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FormatMnemonicOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.FormatMnemonicOptions, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

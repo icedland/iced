@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Formatter.Masm {
+	[Enum(nameof(SymbolTestFlags), "MasmSymbolTestFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum SymbolTestFlags {
 		None					= 0,
@@ -42,14 +42,5 @@ namespace Generator.Enums.Formatter.Masm {
 		ShowZeroDisplacements	= 0x20,
 		[Comment("#(c:!options.MasmAddDsPrefix32)#")]
 		NoAddDsPrefix32			= 0x40,
-	}
-
-	static class SymbolTestFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(SymbolTestFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(SymbolTestFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(SymbolTestFlags), TypeIds.MasmSymbolTestFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.InstructionInfo {
+	[Enum("RflagsBits", Documentation = "#(c:RFLAGS)# bits supported by the instruction info code", Flags = true, NoInitialize = true, Public = true)]
 	[Flags]
 	enum RflagsBits {
 		None	= 0,
@@ -37,14 +37,5 @@ namespace Generator.Enums.InstructionInfo {
 		DF		= 0x00000040,
 		IF		= 0x00000080,
 		AC		= 0x00000100,
-	}
-
-	static class RflagsBitsEnum {
-		const string documentation = "#(c:RFLAGS)# bits supported by the instruction info code";
-
-		static EnumValue[] GetValues() =>
-			typeof(RflagsBits).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RflagsBits)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.RflagsBits, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize | EnumTypeFlags.Public);
 	}
 }

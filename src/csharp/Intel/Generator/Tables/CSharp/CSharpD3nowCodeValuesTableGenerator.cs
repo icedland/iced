@@ -29,22 +29,23 @@ using Generator.IO;
 namespace Generator.Tables.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.D3now_Table)]
 	sealed class CSharpD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 
-		public CSharpD3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
+		public CSharpD3nowCodeValuesTableGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 		}
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.DecoderNamespace), "OpCodeHandlers_D3NOW.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), "OpCodeHandlers_D3NOW.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
 
 		void WriteTable(FileWriter writer, (int index, EnumValue enumValue)[] infos) {
-			var codeName = CodeEnum.Instance.Name(idConverter);
+			var codeName = genTypes[TypeIds.Code].Name(idConverter);
 			foreach (var info in infos.OrderByDescending(a => a.index))
 				writer.WriteLine($"result[0x{info.index:X2}] = {codeName}.{info.enumValue.Name(idConverter)};");
 		}

@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("LKind")]
 	enum LKind {
 		None,
 		[Comment(".128, .256, .512")]
@@ -32,14 +31,5 @@ namespace Generator.Enums.Encoder {
 		L0,
 		[Comment(".LZ")]
 		LZ,
-	}
-
-	static class LKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(LKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(LKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.LKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

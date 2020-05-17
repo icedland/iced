@@ -36,33 +36,41 @@ namespace Generator.InstructionInfo {
 		protected abstract void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures);
 		protected abstract void GenerateCore();
 
+		protected readonly GenTypes genTypes;
+		protected readonly InstrInfoTypes instrInfoTypes;
+
+		protected InstrInfoGenerator(GenTypes genTypes) {
+			this.genTypes = genTypes;
+			instrInfoTypes = genTypes.GetObject<InstrInfoTypes>(TypeIds.InstrInfoTypes);
+		}
+
 		public void Generate() {
 			var enumTypes = new List<EnumType> {
-				InstrInfoTypes.EnumCodeInfo,
-				InstrInfoTypes.EnumRflagsInfo,
-				InstrInfoTypes.EnumInfoFlags1,
-				InstrInfoTypes.EnumInfoFlags2,
-				InstrInfoTypes.EnumCpuidFeatureInternal,
+				genTypes[TypeIds.CodeInfo],
+				genTypes[TypeIds.RflagsInfo],
+				genTypes[TypeIds.InfoFlags1],
+				genTypes[TypeIds.InfoFlags2],
+				genTypes[TypeIds.CpuidFeatureInternal],
 			};
-			enumTypes.AddRange(InstrInfoTypes.EnumOpInfos);
+			enumTypes.AddRange(instrInfoTypes.EnumOpInfos);
 			foreach (var enumType in enumTypes)
 				Generate(enumType);
 
 			var constantsTypes = new ConstantsType[] {
-				InstrInfoTypes.InstrInfoConstants,
+				genTypes.GetConstantsType(TypeIds.InstrInfoConstants),
 			};
 			foreach (var constantsType in constantsTypes)
 				Generate(constantsType);
 
 			{
 				var shifts = new int[IcedConstants.MaxOpCount] {
-					(int)InstrInfoTypes.EnumInfoFlags1["OpInfo0Shift"].Value,
-					(int)InstrInfoTypes.EnumInfoFlags1["OpInfo1Shift"].Value,
-					(int)InstrInfoTypes.EnumInfoFlags1["OpInfo2Shift"].Value,
-					(int)InstrInfoTypes.EnumInfoFlags1["OpInfo3Shift"].Value,
-					(int)InstrInfoTypes.EnumInfoFlags1["OpInfo4Shift"].Value,
+					(int)genTypes[TypeIds.InfoFlags1]["OpInfo0Shift"].Value,
+					(int)genTypes[TypeIds.InfoFlags1]["OpInfo1Shift"].Value,
+					(int)genTypes[TypeIds.InfoFlags1]["OpInfo2Shift"].Value,
+					(int)genTypes[TypeIds.InfoFlags1]["OpInfo3Shift"].Value,
+					(int)genTypes[TypeIds.InfoFlags1]["OpInfo4Shift"].Value,
 				};
-				var infos = InstrInfoTypes.InstrInfos;
+				var infos = instrInfoTypes.InstrInfos;
 				var instrInfos = new (InstrInfo info, uint dword1, uint dword2)[infos.Length];
 				for (int i = 0; i < infos.Length; i++) {
 					var info = infos[i];
@@ -93,7 +101,7 @@ namespace Generator.InstructionInfo {
 			}
 
 			{
-				var rflagsInfos = InstrInfoTypes.RflagsInfos;
+				var rflagsInfos = instrInfoTypes.RflagsInfos;
 				var enumValues = new EnumValue[rflagsInfos.Length];
 				var read = new RflagsBits[rflagsInfos.Length];
 				var undefined = new RflagsBits[rflagsInfos.Length];
@@ -114,15 +122,15 @@ namespace Generator.InstructionInfo {
 				Generate(enumValues, read, undefined, written, cleared, set, modified);
 			}
 
-			Generate(InstrInfoTypes.CpuidFeatures);
+			Generate(instrInfoTypes.CpuidFeatures);
 
 			GenerateCore();
 		}
 
-		protected static EnumValue ToOpAccess(EnumValue opInfo) {
+		protected EnumValue ToOpAccess(EnumValue opInfo) {
 			if (opInfo.RawName == nameof(OpInfo.ReadP3))
-				return OpAccessEnum.Instance[nameof(OpAccess.Read)];
-			return OpAccessEnum.Instance[opInfo.RawName];
+				return genTypes[TypeIds.OpAccess][nameof(OpAccess.Read)];
+			return genTypes[TypeIds.OpAccess][opInfo.RawName];
 		}
 	}
 }

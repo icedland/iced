@@ -24,8 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Text;
 using Generator.Documentation.Rust;
-using Generator.Enums;
-using Generator.Enums.Encoder;
 using Generator.IO;
 
 namespace Generator.Encoder.Rust {
@@ -52,11 +50,13 @@ namespace Generator.Encoder.Rust {
 	}
 
 	sealed class InstrCreateGenImpl {
+		readonly GenTypes genTypes;
 		readonly IdentifierConverter idConverter;
 		readonly RustDocCommentWriter docWriter;
 		readonly StringBuilder sb;
 
-		public InstrCreateGenImpl(IdentifierConverter idConverter, RustDocCommentWriter docWriter) {
+		public InstrCreateGenImpl(GenTypes genTypes, IdentifierConverter idConverter, RustDocCommentWriter docWriter) {
+			this.genTypes = genTypes;
 			this.idConverter = idConverter;
 			this.docWriter = docWriter;
 			sb = new StringBuilder();
@@ -107,13 +107,13 @@ namespace Generator.Encoder.Rust {
 				writer.Write(": ");
 				switch (arg.Type) {
 				case MethodArgType.Code:
-					writer.Write(CodeEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.Code].Name(idConverter));
 					break;
 				case MethodArgType.Register:
-					writer.Write(RegisterEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.Register].Name(idConverter));
 					break;
 				case MethodArgType.RepPrefixKind:
-					writer.Write(RepPrefixKindEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.RepPrefixKind].Name(idConverter));
 					break;
 				case MethodArgType.Memory:
 					writer.Write("MemoryOperand");

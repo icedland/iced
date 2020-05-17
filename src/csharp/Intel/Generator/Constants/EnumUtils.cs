@@ -26,10 +26,10 @@ using Generator.Enums;
 
 namespace Generator.Constants {
 	static class EnumUtils {
-		public static EnumType GetEnumType(ConstantKind kind) =>
+		public static EnumType GetEnumType(GenTypes genTypes, ConstantKind kind) =>
 			kind switch {
-				ConstantKind.Register => RegisterEnum.Instance,
-				ConstantKind.MemorySize => MemorySizeEnum.Instance,
+				ConstantKind.Register => genTypes[TypeIds.Register],
+				ConstantKind.MemorySize => genTypes[TypeIds.MemorySize],
 				_ => throw new InvalidOperationException(),
 			};
 	}

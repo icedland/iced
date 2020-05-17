@@ -93,9 +93,14 @@ namespace Generator.Encoder {
 		protected abstract void GenCreateDeclareDataArray(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType);
 		protected abstract void GenCreateDeclareDataArrayLength(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType);
 
+		protected readonly GenTypes genTypes;
+
+		protected InstrCreateGen(GenTypes genTypes) =>
+			this.genTypes = genTypes;
+
 		public void Generate() {
 			// The code assumes it has value 0 so the field doesn't have to be initialized if we know that it's already 0
-			if (OpKindEnum.Instance[nameof(OpKind.Register)].Value != 0)
+			if (genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Value != 0)
 				throw new InvalidOperationException();
 			var (language, id, filename) = GetFileInfo();
 			new FileUpdater(language, id, filename).Generate(writer => {
@@ -110,7 +115,7 @@ namespace Generator.Encoder {
 		}
 
 		void GenerateCreateMethods(FileWriter writer) {
-			var groups = new InstructionGroups().GetGroups();
+			var groups = new InstructionGroups(genTypes).GetGroups();
 			bool writeLine = false;
 			foreach (var info in GetCreateMethods(groups)) {
 				if (writeLine)
@@ -132,8 +137,8 @@ namespace Generator.Encoder {
 		static void AddAddressSizeArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "addressSize"));
 		static void AddTargetArg(CreateMethod method) => method.Args.Add(new MethodArg("Target address", MethodArgType.UInt64, "target"));
 		static void AddBitnessArg(CreateMethod method) => method.Args.Add(new MethodArg("16, 32, or 64", MethodArgType.PreferedInt32, "bitness"));
-		static void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", RegisterEnum.Instance[nameof(Register.None)]));
-		static void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", RepPrefixKindEnum.Instance[nameof(RepPrefixKind.None)]));
+		void AddSegmentPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Segment override or #(e:Register.None)#", MethodArgType.Register, "segmentPrefix", genTypes[TypeIds.Register][nameof(Register.None)]));
+		void AddRepPrefixArg(CreateMethod method) => method.Args.Add(new MethodArg("Rep prefix or #(e:RepPrefixKind.None)#", MethodArgType.RepPrefixKind, "repPrefix", genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.None)]));
 
 		CreateMethod GetMethod(InstructionGroup group, bool unsigned) {
 			var (regCount, immCount, memCount) = GetOpKindCount(group);
@@ -262,13 +267,13 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_Reg_SegRSI(FileWriter writer) {
-			Gen(writer, "outsb", CodeEnum.Instance[nameof(Code.Outsb_DX_m8)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "outsw", CodeEnum.Instance[nameof(Code.Outsw_DX_m16)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "outsd", CodeEnum.Instance[nameof(Code.Outsd_DX_m32)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "lodsb", CodeEnum.Instance[nameof(Code.Lodsb_AL_m8)], RegisterEnum.Instance[nameof(Register.AL)]);
-			Gen(writer, "lodsw", CodeEnum.Instance[nameof(Code.Lodsw_AX_m16)], RegisterEnum.Instance[nameof(Register.AX)]);
-			Gen(writer, "lodsd", CodeEnum.Instance[nameof(Code.Lodsd_EAX_m32)], RegisterEnum.Instance[nameof(Register.EAX)]);
-			Gen(writer, "lodsq", CodeEnum.Instance[nameof(Code.Lodsq_RAX_m64)], RegisterEnum.Instance[nameof(Register.RAX)]);
+			Gen(writer, "outsb", genTypes[TypeIds.Code][nameof(Code.Outsb_DX_m8)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "outsw", genTypes[TypeIds.Code][nameof(Code.Outsw_DX_m16)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "outsd", genTypes[TypeIds.Code][nameof(Code.Outsd_DX_m32)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "lodsb", genTypes[TypeIds.Code][nameof(Code.Lodsb_AL_m8)], genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "lodsw", genTypes[TypeIds.Code][nameof(Code.Lodsw_AX_m16)], genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "lodsd", genTypes[TypeIds.Code][nameof(Code.Lodsd_EAX_m32)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "lodsq", genTypes[TypeIds.Code][nameof(Code.Lodsq_RAX_m64)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
@@ -294,10 +299,10 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_Reg_ESRDI(FileWriter writer) {
-			Gen(writer, "scasb", CodeEnum.Instance[nameof(Code.Scasb_AL_m8)], RegisterEnum.Instance[nameof(Register.AL)]);
-			Gen(writer, "scasw", CodeEnum.Instance[nameof(Code.Scasw_AX_m16)], RegisterEnum.Instance[nameof(Register.AX)]);
-			Gen(writer, "scasd", CodeEnum.Instance[nameof(Code.Scasd_EAX_m32)], RegisterEnum.Instance[nameof(Register.EAX)]);
-			Gen(writer, "scasq", CodeEnum.Instance[nameof(Code.Scasq_RAX_m64)], RegisterEnum.Instance[nameof(Register.RAX)]);
+			Gen(writer, "scasb", genTypes[TypeIds.Code][nameof(Code.Scasb_AL_m8)], genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "scasw", genTypes[TypeIds.Code][nameof(Code.Scasw_AX_m16)], genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "scasd", genTypes[TypeIds.Code][nameof(Code.Scasd_EAX_m32)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "scasq", genTypes[TypeIds.Code][nameof(Code.Scasq_RAX_m64)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
@@ -329,13 +334,13 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_ESRDI_Reg(FileWriter writer) {
-			Gen(writer, "insb", CodeEnum.Instance[nameof(Code.Insb_m8_DX)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "insw", CodeEnum.Instance[nameof(Code.Insw_m16_DX)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "insd", CodeEnum.Instance[nameof(Code.Insd_m32_DX)], RegisterEnum.Instance[nameof(Register.DX)]);
-			Gen(writer, "stosb", CodeEnum.Instance[nameof(Code.Stosb_m8_AL)], RegisterEnum.Instance[nameof(Register.AL)]);
-			Gen(writer, "stosw", CodeEnum.Instance[nameof(Code.Stosw_m16_AX)], RegisterEnum.Instance[nameof(Register.AX)]);
-			Gen(writer, "stosd", CodeEnum.Instance[nameof(Code.Stosd_m32_EAX)], RegisterEnum.Instance[nameof(Register.EAX)]);
-			Gen(writer, "stosq", CodeEnum.Instance[nameof(Code.Stosq_m64_RAX)], RegisterEnum.Instance[nameof(Register.RAX)]);
+			Gen(writer, "insb", genTypes[TypeIds.Code][nameof(Code.Insb_m8_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "insw", genTypes[TypeIds.Code][nameof(Code.Insw_m16_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "insd", genTypes[TypeIds.Code][nameof(Code.Insd_m32_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "stosb", genTypes[TypeIds.Code][nameof(Code.Stosb_m8_AL)], genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "stosw", genTypes[TypeIds.Code][nameof(Code.Stosw_m16_AX)], genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "stosd", genTypes[TypeIds.Code][nameof(Code.Stosd_m32_EAX)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "stosq", genTypes[TypeIds.Code][nameof(Code.Stosq_m64_RAX)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
@@ -360,10 +365,10 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_SegRSI_ESRDI(FileWriter writer) {
-			Gen(writer, "cmpsb", CodeEnum.Instance[nameof(Code.Cmpsb_m8_m8)]);
-			Gen(writer, "cmpsw", CodeEnum.Instance[nameof(Code.Cmpsw_m16_m16)]);
-			Gen(writer, "cmpsd", CodeEnum.Instance[nameof(Code.Cmpsd_m32_m32)]);
-			Gen(writer, "cmpsq", CodeEnum.Instance[nameof(Code.Cmpsq_m64_m64)]);
+			Gen(writer, "cmpsb", genTypes[TypeIds.Code][nameof(Code.Cmpsb_m8_m8)]);
+			Gen(writer, "cmpsw", genTypes[TypeIds.Code][nameof(Code.Cmpsw_m16_m16)]);
+			Gen(writer, "cmpsd", genTypes[TypeIds.Code][nameof(Code.Cmpsd_m32_m32)]);
+			Gen(writer, "cmpsq", genTypes[TypeIds.Code][nameof(Code.Cmpsq_m64_m64)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
@@ -396,10 +401,10 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_ESRDI_SegRSI(FileWriter writer) {
-			Gen(writer, "movsb", CodeEnum.Instance[nameof(Code.Movsb_m8_m8)]);
-			Gen(writer, "movsw", CodeEnum.Instance[nameof(Code.Movsw_m16_m16)]);
-			Gen(writer, "movsd", CodeEnum.Instance[nameof(Code.Movsd_m32_m32)]);
-			Gen(writer, "movsq", CodeEnum.Instance[nameof(Code.Movsq_m64_m64)]);
+			Gen(writer, "movsb", genTypes[TypeIds.Code][nameof(Code.Movsb_m8_m8)]);
+			Gen(writer, "movsw", genTypes[TypeIds.Code][nameof(Code.Movsw_m16_m16)]);
+			Gen(writer, "movsd", genTypes[TypeIds.Code][nameof(Code.Movsd_m32_m32)]);
+			Gen(writer, "movsq", genTypes[TypeIds.Code][nameof(Code.Movsq_m64_m64)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
@@ -425,9 +430,9 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateMaskmov(FileWriter writer) {
-			Gen(writer, "maskmovq", CodeEnum.Instance[nameof(Code.Maskmovq_rDI_mm_mm)]);
-			Gen(writer, "maskmovdqu", CodeEnum.Instance[nameof(Code.Maskmovdqu_rDI_xmm_xmm)]);
-			Gen(writer, "vmaskmovdqu", CodeEnum.Instance[nameof(Code.VEX_Vmaskmovdqu_rDI_xmm_xmm)]);
+			Gen(writer, "maskmovq", genTypes[TypeIds.Code][nameof(Code.Maskmovq_rDI_mm_mm)]);
+			Gen(writer, "maskmovdqu", genTypes[TypeIds.Code][nameof(Code.Maskmovdqu_rDI_xmm_xmm)]);
+			Gen(writer, "vmaskmovdqu", genTypes[TypeIds.Code][nameof(Code.VEX_Vmaskmovdqu_rDI_xmm_xmm)]);
 
 			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();

@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Encoder {
+	[Enum("BlockEncoderOptions", Documentation = "#(r:BlockEncoder)# options", Public = true, Flags = true, NoInitialize = true)]
 	[Flags]
 	public enum BlockEncoderOptions : uint {
 		[Comment("No option is set")]
@@ -41,14 +41,5 @@ namespace Generator.Enums.Encoder {
 
 		[Comment("The #(r:BlockEncoder)# should return #(r:ConstantOffsets)#")]
 		ReturnConstantOffsets		= 0x00000008,
-	}
-
-	static class BlockEncoderOptionsEnum {
-		const string documentation = "#(r:BlockEncoder)# options";
-
-		static EnumValue[] GetValues() =>
-			typeof(BlockEncoderOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(BlockEncoderOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.BlockEncoderOptions, documentation, GetValues(), EnumTypeFlags.Public | EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

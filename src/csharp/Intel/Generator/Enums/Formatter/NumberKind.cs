@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("NumberKind", Documentation = "Number kind", Public = true)]
 	enum NumberKind {
 		Int8,
 		UInt8,
@@ -33,14 +32,5 @@ namespace Generator.Enums.Formatter {
 		UInt32,
 		Int64,
 		UInt64,
-	}
-
-	static class NumberKindEnum {
-		const string documentation = "Number kind";
-
-		static EnumValue[] GetValues() =>
-			typeof(NumberKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(NumberKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.NumberKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

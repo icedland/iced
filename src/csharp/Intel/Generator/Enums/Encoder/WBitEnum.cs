@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("WBit")]
 	enum WBit {
 		W0,
 		W1,
 		WIG,
 		WIG32,
-	}
-
-	static class WBitEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(WBit).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(WBit)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.WBit, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

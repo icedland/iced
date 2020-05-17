@@ -22,29 +22,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.MemorySizeInfo_Table)]
 	sealed class CSharpMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpMemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
+		public CSharpMemorySizeInfoTableGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var infos = MemorySizeInfoTable.Data;
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
+			var infos = generatorContext.Types.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "MemorySizeExtensions.cs");
 			var updater = new FileUpdater(TargetLanguage.CSharp, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
 
 		void WriteTable(FileWriter writer, MemorySizeInfo[] infos) {
-			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
+			var memSizeName = generatorContext.Types[TypeIds.MemorySize].Name(idConverter);
 			foreach (var info in infos)
 				writer.WriteLine($"(byte){memSizeName}.{info.ElementType.Name(idConverter)}, (byte)((uint)SizeKind.S{info.Size} | ((uint)SizeKind.S{info.ElementSize} << 4)), {(info.IsSigned ? "1" : "0")},");
 		}

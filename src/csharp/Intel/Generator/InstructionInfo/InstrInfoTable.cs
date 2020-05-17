@@ -27,14 +27,20 @@ using Generator.Enums;
 using Generator.Enums.InstructionInfo;
 
 namespace Generator.InstructionInfo {
-	static class InstrInfoTable {
-		public static readonly InstrInfo[] Data = GetData();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstrInfoTable {
+		public readonly InstrInfo[] Data;
 
-		static InstrInfo[] GetData() {
-			var code = CodeEnum.Instance;
-			var encoding = EncodingKindEnum.Instance;
-			var flowControl = FlowControlEnum.Instance;
-			var cpuid = CpuidFeatureEnum.Instance;
+		InstrInfoTable(GenTypes genTypes) {
+			Data = GetData(genTypes);
+			genTypes.AddObject(TypeIds.InstrInfoTable, this);
+		}
+
+		static InstrInfo[] GetData(GenTypes genTypes) {
+			var code = genTypes[TypeIds.Code];
+			var encoding = genTypes[TypeIds.EncodingKind];
+			var flowControl = genTypes[TypeIds.FlowControl];
+			var cpuid = genTypes[TypeIds.CpuidFeature];
 
 			var result = new InstrInfo[] {
 				new InstrInfo(code[nameof(Code.INVALID)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Exception)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.INTEL8086)] }, new[] { OpInfo.None, OpInfo.None, OpInfo.None, OpInfo.None, OpInfo.None }, InstrInfoFlags.None),

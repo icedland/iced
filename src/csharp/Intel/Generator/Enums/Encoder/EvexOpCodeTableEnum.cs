@@ -21,21 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("EvexOpCodeTable", NoInitialize = true)]
 	enum EvexOpCodeTable {
 		Table0F					= 1,
 		Table0F38				= 2,
 		Table0F3A				= 3,
-	}
-
-	static class EvexOpCodeTableEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(EvexOpCodeTable).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EvexOpCodeTable)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.EvexOpCodeTable, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

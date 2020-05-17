@@ -50,41 +50,49 @@ namespace Generator.Decoder {
 			DupValue = dupValue;
 		}
 
-		public static DecoderTableSerializerInfo Legacy() =>
-			new DecoderTableSerializerInfo(OpCodeHandlersTables_Legacy.GetHandlers(),
+		public static DecoderTableSerializerInfo Legacy(GenTypes genTypes) {
+			var enumType = genTypes[TypeIds.OpCodeHandlerKind];
+			return new DecoderTableSerializerInfo(OpCodeHandlersTables_Legacy.GetHandlers(genTypes),
 				new string[] { OpCodeHandlersTables_Legacy.OneByteHandlers },
-				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Null)],
-				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.HandlerReference)],
-				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.ArrayReference)],
-				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Invalid2)],
-				OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Dup)]);
+				enumType[nameof(OpCodeHandlerKind.Null)],
+				enumType[nameof(OpCodeHandlerKind.HandlerReference)],
+				enumType[nameof(OpCodeHandlerKind.ArrayReference)],
+				enumType[nameof(OpCodeHandlerKind.Invalid2)],
+				enumType[nameof(OpCodeHandlerKind.Dup)]);
+		}
 
-		public static DecoderTableSerializerInfo Vex() =>
-			new DecoderTableSerializerInfo(OpCodeHandlersTables_VEX.GetHandlers(),
+		public static DecoderTableSerializerInfo Vex(GenTypes genTypes) {
+			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
+			return new DecoderTableSerializerInfo(OpCodeHandlersTables_VEX.GetHandlers(genTypes),
 				new string[] { OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX },
 				null,
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.HandlerReference)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.ArrayReference)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid2)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Dup)]);
+				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
+				enumType[nameof(VexOpCodeHandlerKind.ArrayReference)],
+				enumType[nameof(VexOpCodeHandlerKind.Invalid2)],
+				enumType[nameof(VexOpCodeHandlerKind.Dup)]);
+		}
 
-		public static DecoderTableSerializerInfo Xop() =>
-			new DecoderTableSerializerInfo(OpCodeHandlersTables_XOP.GetHandlers(),
+		public static DecoderTableSerializerInfo Xop(GenTypes genTypes) {
+			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
+			return new DecoderTableSerializerInfo(OpCodeHandlersTables_XOP.GetHandlers(genTypes),
 				new string[] { OpCodeHandlersTables_XOP.XOP8, OpCodeHandlersTables_XOP.XOP9, OpCodeHandlersTables_XOP.XOPA },
 				null,
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.HandlerReference)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.ArrayReference)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid2)],
-				VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Dup)]);
+				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
+				enumType[nameof(VexOpCodeHandlerKind.ArrayReference)],
+				enumType[nameof(VexOpCodeHandlerKind.Invalid2)],
+				enumType[nameof(VexOpCodeHandlerKind.Dup)]);
+		}
 
-		public static DecoderTableSerializerInfo Evex() =>
-			new DecoderTableSerializerInfo(OpCodeHandlersTables_EVEX.GetHandlers(),
+		public static DecoderTableSerializerInfo Evex(GenTypes genTypes) {
+			var enumType = genTypes[TypeIds.EvexOpCodeHandlerKind];
+			return new DecoderTableSerializerInfo(OpCodeHandlersTables_EVEX.GetHandlers(genTypes),
 				new string[] { OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX },
 				null,
-				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.HandlerReference)],
-				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.ArrayReference)],
-				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Invalid2)],
-				EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Dup)]);
+				enumType[nameof(EvexOpCodeHandlerKind.HandlerReference)],
+				enumType[nameof(EvexOpCodeHandlerKind.ArrayReference)],
+				enumType[nameof(EvexOpCodeHandlerKind.Invalid2)],
+				enumType[nameof(EvexOpCodeHandlerKind.Dup)]);
+		}
 	}
 
 	abstract class DecoderTableSerializer {
@@ -102,14 +110,18 @@ namespace Generator.Decoder {
 			}
 		}
 
+		readonly GenTypes genTypes;
 		protected readonly DecoderTableSerializerInfo info;
 		protected readonly IdentifierConverter idConverter;
+		readonly Dictionary<IEnumValue, (int codeIndex, int codeLen)> enumValueInfo;
 		readonly Dictionary<string, Info> infos;
 		readonly StringBuilder sb;
 
-		protected DecoderTableSerializer(IdentifierConverter idConverter, DecoderTableSerializerInfo info) {
+		protected DecoderTableSerializer(GenTypes genTypes, IdentifierConverter idConverter, DecoderTableSerializerInfo info) {
+			this.genTypes = genTypes;
 			this.idConverter = idConverter;
 			this.info = info;
+			enumValueInfo = CreateEnumValueInfo(genTypes);
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
 			sb = new StringBuilder();
 		}
@@ -132,13 +144,13 @@ namespace Generator.Decoder {
 			}
 		}
 
-		static bool IsInvalid(object?[] handler) {
+		bool IsInvalid(object?[] handler) {
 			var data = handler[0];
 			bool isInvalid =
 				data is IEnumValue enumValue &&
-				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Invalid)]) ||
-				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Invalid)]) ||
-				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Invalid)]));
+				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == genTypes[TypeIds.OpCodeHandlerKind][nameof(OpCodeHandlerKind.Invalid)]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == genTypes[TypeIds.VexOpCodeHandlerKind][nameof(VexOpCodeHandlerKind.Invalid)]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == genTypes[TypeIds.EvexOpCodeHandlerKind][nameof(EvexOpCodeHandlerKind.Invalid)]));
 			if (isInvalid && handler.Length != 1)
 				throw new InvalidOperationException();
 			return isInvalid;
@@ -155,12 +167,12 @@ namespace Generator.Decoder {
 		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
 			if (IsHandler(handlers)) {
 				if (writeKind)
-					Write(writer, SerializedDataKindEnum.Instance[nameof(SerializedDataKind.HandlerReference)]);
+					Write(writer, genTypes[TypeIds.SerializedDataKind][nameof(SerializedDataKind.HandlerReference)]);
 				SerializeHandler(writer, handlers);
 			}
 			else {
 				if (writeKind) {
-					Write(writer, SerializedDataKindEnum.Instance[nameof(SerializedDataKind.ArrayReference)]);
+					Write(writer, genTypes[TypeIds.SerializedDataKind][nameof(SerializedDataKind.ArrayReference)]);
 					Write(writer, (uint)handlers.Length);
 				}
 				bool writeIndexComment = handlers.Length > 1;
@@ -235,7 +247,7 @@ namespace Generator.Decoder {
 			return false;
 		}
 
-		static int CountInvalid(object?[] handlers, int index) {
+		int CountInvalid(object?[] handlers, int index) {
 			int count = 0;
 			for (int i = index; i < handlers.Length; i++) {
 				if (!(handlers[i] is object?[] h) || !IsInvalid(h))
@@ -245,148 +257,153 @@ namespace Generator.Decoder {
 			return count;
 		}
 
-		static readonly Dictionary<IEnumValue, (int codeIndex, int codeLen)> enumValueInfo = new Dictionary<IEnumValue, (int codeIndex, int codeLen)> {
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ap)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.B_BM)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.B_Ev)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.BM_B)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.C_R_3a)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.DX_eAX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.eAX_DX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_3b)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_3b)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_32_64)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_REX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_P)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_REXW)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_VX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Eb_REX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_3b)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_32_64)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_REX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ma)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Mp_2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_N)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_N_Ib_REX)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.IbReg2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Jdisp)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Jx)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.M_2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.M_REXW_2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.M_REXW_4)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Mf_2a)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Mv_Gv_REXW)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.P_Ev)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.P_Ev_Ib)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushOpSizeReg_4b)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.R_C_3a)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Ib2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Xv2)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Rv_32_64)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.RvMw_Gw)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple4)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.VX_Ev)], (1, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Yv_Reg2)], (1, 2) },
+		Dictionary<IEnumValue, (int codeIndex, int codeLen)> CreateEnumValueInfo(GenTypes genTypes) {
+			var opCodeHandlerKind = genTypes[TypeIds.OpCodeHandlerKind];
+			var vexOpCodeHandlerKind = genTypes[TypeIds.VexOpCodeHandlerKind];
+			var evexOpCodeHandlerKind = genTypes[TypeIds.EvexOpCodeHandlerKind];
+			return new Dictionary<IEnumValue, (int codeIndex, int codeLen)> {
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ap)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.B_BM)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.B_Ev)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.BM_B)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.C_R_3a)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.DX_eAX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.eAX_DX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_3b)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_3b)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_32_64)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_REX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_P)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_REXW)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_VX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Eb_REX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_3b)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_32_64)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_REX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ma)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Mp_2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_N)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_N_Ib_REX)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.IbReg2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Jdisp)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Jx)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.M_2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.M_REXW_2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.M_REXW_4)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Mf_2a)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Mv_Gv_REXW)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.P_Ev)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.P_Ev_Ib)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushOpSizeReg_4b)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.R_C_3a)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Ib2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Xv2)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Rv_32_64)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.RvMw_Gw)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple4)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.VX_Ev)], (1, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Yv_Reg2)], (1, 2) },
 
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_Ib_REX)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_RX)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_W)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.V_Ev)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.VWIb_3)], (2, 2) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.VX_E_Ib)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_Ib_REX)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_RX)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_W)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.V_Ev)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.VWIb_3)], (2, 2) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.VX_E_Ib)], (2, 2) },
 
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.BranchIw)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.BranchSimple)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ep)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_3a)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_4)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_CL)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_3a)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_4)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_CL)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Gv_Ib)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Ib_3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Ib_4)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Ib2_3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Ib2_4)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Iz_3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Iz_4)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev_Sw)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ev1)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Evj)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Evw)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ew)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gdq_Ev)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Eb)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_3a)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_Ib)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev_Iz)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev2)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ev3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Ew)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_M)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_M_as)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Mp_3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Gv_Mv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Iw_Ib)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Jb)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Jz)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ms)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Mv_Gv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Ov_Reg)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushEv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushIb2)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushIz)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushOpSizeReg_4a)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushSimple2)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Iz)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Ov)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Xv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Reg_Yv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Rv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple2_3a)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple2Iw)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple3)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple5)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Simple5_ModRM_as)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Sw_Ev)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Xv_Yv)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Yv_Reg)], (1, 3) },
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.Yv_Xv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.BranchIw)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.BranchSimple)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ep)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_3a)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_4)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_CL)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_3a)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_4)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_CL)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Gv_Ib)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Ib_3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Ib_4)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Ib2_3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Ib2_4)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Iz_3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Iz_4)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev_Sw)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ev1)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Evj)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Evw)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ew)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gdq_Ev)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Eb)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_3a)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_Ib)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev_Iz)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev2)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ev3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Ew)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_M)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_M_as)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Mp_3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Gv_Mv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Iw_Ib)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Jb)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Jz)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ms)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Mv_Gv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Ov_Reg)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushEv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushIb2)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushIz)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushOpSizeReg_4a)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushSimple2)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Iz)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Ov)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Xv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Reg_Yv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Rv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple2_3a)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple2Iw)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple3)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple5)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Simple5_ModRM_as)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Sw_Ev)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Xv_Yv)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Yv_Reg)], (1, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.Yv_Xv)], (1, 3) },
 
-			{ OpCodeHandlerKindEnum.Instance[nameof(OpCodeHandlerKind.PushSimpleReg)], (2, 3) },
+				{ opCodeHandlerKind[nameof(OpCodeHandlerKind.PushSimpleReg)], (2, 3) },
 
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Ev_VX)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_Ev_Gv)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_Ev_Ib)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_Ev_Id)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_Gv_Ev)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Hv_Ed_Id)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Hv_Ev)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.RdRq)], (1, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.VX_Ev)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ev_VX)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Gv)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Ib)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Id)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Gv_Ev)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Hv_Ed_Id)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Hv_Ev)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.RdRq)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.VX_Ev)], (1, 2) },
 
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_GPR_Ib)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_RX)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.Gv_W)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.VHEv)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.VHEvIb)], (2, 2) },
-			{ VexOpCodeHandlerKindEnum.Instance[nameof(VexOpCodeHandlerKind.VWIb_3)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_GPR_Ib)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_RX)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_W)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.VHEv)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.VHEvIb)], (2, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.VWIb_3)], (2, 2) },
 
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Ev_VX)], (1, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.VX_Ev)], (1, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.Ev_VX)], (1, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.VX_Ev)], (1, 2) },
 
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Ev_VX_Ib)], (2, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.Gv_W_er)], (2, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.V_H_Ev_er)], (2, 2) },
-			{ EvexOpCodeHandlerKindEnum.Instance[nameof(EvexOpCodeHandlerKind.V_H_Ev_Ib)], (2, 2) },
-		};
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.Ed_V_Ib)], (2, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.Ev_VX_Ib)], (2, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.Gv_W_er)], (2, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.GvM_VX_Ib)], (2, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.V_H_Ev_er)], (2, 2) },
+				{ evexOpCodeHandlerKind[nameof(EvexOpCodeHandlerKind.V_H_Ev_Ib)], (2, 2) },
+			};
+		}
 
 		void SerializeHandler(FileWriter writer, object?[] handler) {
 			int codeIndex = -1, codeLen = -1;

@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Decoder {
+	[Enum("MandatoryPrefixByte")]
 	enum MandatoryPrefixByte : byte {
 		None,
 		P66,
 		PF3,
 		PF2,
-	}
-
-	static class MandatoryPrefixByteEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(MandatoryPrefixByte).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MandatoryPrefixByte)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.MandatoryPrefixByte, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

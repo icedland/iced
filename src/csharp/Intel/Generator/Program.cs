@@ -54,9 +54,9 @@ namespace Generator {
 			Language = language;
 			Name = name;
 
-			var ctor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new[] { typeof(GeneratorOptions) }, null);
+			var ctor = type.GetConstructor(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, CallingConventions.Standard, new[] { typeof(GeneratorContext) }, null);
 			if (ctor is null)
-				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a constructor that takes a {nameof(GeneratorOptions)} argument");
+				throw new InvalidOperationException($"Generator {type.FullName} doesn't have a constructor that takes a {nameof(GeneratorContext)} argument");
 			this.ctor = ctor;
 
 			var method = type.GetMethod(InvokeMethodName, 0, BindingFlags.Public | BindingFlags.Instance, null, CallingConventions.Standard, Array.Empty<Type>(), null);
@@ -65,8 +65,8 @@ namespace Generator {
 			this.method = method;
 		}
 
-		public void Invoke(GeneratorOptions generatorOptions) {
-			var instance = ctor.Invoke(new[] { generatorOptions }) ?? throw new InvalidOperationException();
+		public void Invoke(GeneratorContext generatorContext) {
+			var instance = ctor.Invoke(new[] { generatorContext }) ?? throw new InvalidOperationException();
 			method.Invoke(instance, null);
 		}
 	}
@@ -88,14 +88,14 @@ namespace Generator {
 					return 1;
 				}
 
-				var generatorOptions = CreateGeneratorOptions(options.GeneratorFlags);
-				Enums.CodeEnum.AddComments(generatorOptions.UnitTestsDir);
+				var generatorContext = CreateGeneratorContext(options.GeneratorFlags);
+				Enums.CodeEnum.AddComments(generatorContext.Types, generatorContext.UnitTestsDir);
 
 				// It's not much of an improvement in speed at the moment.
 				// Group by lang since different lang gens don't write to the same files.
 				Parallel.ForEach(Filter(GetGenerators(), options).GroupBy(a => a.Language).Select(a => a.ToArray()), genInfos => {
 					foreach (var genInfo in genInfos)
-						genInfo.Invoke(generatorOptions);
+						genInfo.Invoke(generatorContext);
 				});
 
 				return 0;
@@ -220,11 +220,11 @@ Options:
 			return true;
 		}
 
-		static GeneratorOptions CreateGeneratorOptions(GeneratorFlags flags) {
+		static GeneratorContext CreateGeneratorContext(GeneratorFlags flags) {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))))));
 			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
-			return new GeneratorOptions(dir, flags);
+			return new GeneratorContext(dir, flags);
 		}
 
 		static List<GeneratorInfo> GetGenerators() {

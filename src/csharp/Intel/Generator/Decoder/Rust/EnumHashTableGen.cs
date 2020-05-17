@@ -23,54 +23,51 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.IO;
 using Generator.Enums;
-using Generator.Enums.Decoder;
-using Generator.Enums.Encoder;
-using Generator.Enums.Formatter;
-using Generator.Enums.InstructionInfo;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Enums_Table)]
 	sealed class EnumHashTableGen {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public EnumHashTableGen(GeneratorOptions generatorOptions) {
+		public EnumHashTableGen(GeneratorContext generatorContext) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
+			var genTypes = generatorContext.Types;
 			var infos = new (string id, EnumType enumType, bool lowerCase, string filename)[] {
-				("CodeHash", CodeEnum.Instance, false, "test_utils/from_str_conv/code_table.rs"),
-				("CpuidFeatureHash", CpuidFeatureEnum.Instance, false, "test_utils/from_str_conv/cpuid_feature_table.rs"),
-				("DecoderOptionsHash", DecoderOptionsEnum.Instance, false, "test_utils/from_str_conv/decoder_options_table.rs"),
-				("EncodingKindHash", EncodingKindEnum.Instance, false, "test_utils/from_str_conv/encoding_kind_table.rs"),
-				("FlowControlHash", FlowControlEnum.Instance, false, "test_utils/from_str_conv/flow_control_table.rs"),
-				("MemorySizeHash", MemorySizeEnum.Instance, false, "test_utils/from_str_conv/memory_size_table.rs"),
-				("MnemonicHash", MnemonicEnum.Instance, false, "test_utils/from_str_conv/mnemonic_table.rs"),
-				("OpCodeOperandKindHash", OpCodeOperandKindEnum.Instance, false, "test_utils/from_str_conv/op_code_operand_kind_table.rs"),
-				("RegisterHash", RegisterEnum.Instance, true, "test_utils/from_str_conv/register_table.rs"),
-				("TupleTypeHash", TupleTypeEnum.Instance, false, "test_utils/from_str_conv/tuple_type_table.rs"),
-				("ConditionCodeHash", ConditionCodeEnum.Instance, false, "test_utils/from_str_conv/condition_code_table.rs"),
-				("MemorySizeOptionsHash", MemorySizeOptionsEnum.Instance, false, "test_utils/from_str_conv/memory_size_options_table.rs"),
-				("NumberBaseHash", NumberBaseEnum.Instance, false, "test_utils/from_str_conv/number_base_table.rs"),
-				("OptionsPropsHash", OptionsPropsEnum.Instance, false, "test_utils/from_str_conv/options_props_table.rs"),
-				("CC_b_hash", CC_b_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_ae_hash", CC_ae_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_e_hash", CC_e_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_ne_hash", CC_ne_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_be_hash", CC_be_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_a_hash", CC_a_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_p_hash", CC_p_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_np_hash", CC_np_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_l_hash", CC_l_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_ge_hash", CC_ge_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_le_hash", CC_le_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
-				("CC_g_hash", CC_g_Enum.Instance, false, "test_utils/from_str_conv/cc_table.rs"),
+				("CodeHash", genTypes[TypeIds.Code], false, "test_utils/from_str_conv/code_table.rs"),
+				("CpuidFeatureHash", genTypes[TypeIds.CpuidFeature], false, "test_utils/from_str_conv/cpuid_feature_table.rs"),
+				("DecoderOptionsHash", genTypes[TypeIds.DecoderOptions], false, "test_utils/from_str_conv/decoder_options_table.rs"),
+				("EncodingKindHash", genTypes[TypeIds.EncodingKind], false, "test_utils/from_str_conv/encoding_kind_table.rs"),
+				("FlowControlHash", genTypes[TypeIds.FlowControl], false, "test_utils/from_str_conv/flow_control_table.rs"),
+				("MemorySizeHash", genTypes[TypeIds.MemorySize], false, "test_utils/from_str_conv/memory_size_table.rs"),
+				("MnemonicHash", genTypes[TypeIds.Mnemonic], false, "test_utils/from_str_conv/mnemonic_table.rs"),
+				("OpCodeOperandKindHash", genTypes[TypeIds.OpCodeOperandKind], false, "test_utils/from_str_conv/op_code_operand_kind_table.rs"),
+				("RegisterHash", genTypes[TypeIds.Register], true, "test_utils/from_str_conv/register_table.rs"),
+				("TupleTypeHash", genTypes[TypeIds.TupleType], false, "test_utils/from_str_conv/tuple_type_table.rs"),
+				("ConditionCodeHash", genTypes[TypeIds.ConditionCode], false, "test_utils/from_str_conv/condition_code_table.rs"),
+				("MemorySizeOptionsHash", genTypes[TypeIds.MemorySizeOptions], false, "test_utils/from_str_conv/memory_size_options_table.rs"),
+				("NumberBaseHash", genTypes[TypeIds.NumberBase], false, "test_utils/from_str_conv/number_base_table.rs"),
+				("OptionsPropsHash", genTypes[TypeIds.OptionsProps], false, "test_utils/from_str_conv/options_props_table.rs"),
+				("CC_b_hash", genTypes[TypeIds.CC_b], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ae_hash", genTypes[TypeIds.CC_ae], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_e_hash", genTypes[TypeIds.CC_e], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ne_hash", genTypes[TypeIds.CC_ne], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_be_hash", genTypes[TypeIds.CC_be], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_a_hash", genTypes[TypeIds.CC_a], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_p_hash", genTypes[TypeIds.CC_p], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_np_hash", genTypes[TypeIds.CC_np], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_l_hash", genTypes[TypeIds.CC_l], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_ge_hash", genTypes[TypeIds.CC_ge], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_le_hash", genTypes[TypeIds.CC_le], false, "test_utils/from_str_conv/cc_table.rs"),
+				("CC_g_hash", genTypes[TypeIds.CC_g], false, "test_utils/from_str_conv/cc_table.rs"),
 			};
 			foreach (var info in infos) {
-				var filename = Path.Combine(generatorOptions.RustDir, Path.Combine(info.filename.Split('/')));
+				var filename = Path.Combine(generatorContext.RustDir, Path.Combine(info.filename.Split('/')));
 				new FileUpdater(TargetLanguage.Rust, info.id, filename).Generate(writer => WriteHash(writer, info.lowerCase, info.enumType));
 			}
 		}

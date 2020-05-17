@@ -29,16 +29,17 @@ using Generator.IO;
 namespace Generator.Tables.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.D3now_Table)]
 	sealed class RustD3nowCodeValuesTableGenerator : D3nowCodeValuesTableGenerator {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 
-		public RustD3nowCodeValuesTableGenerator(GeneratorOptions generatorOptions) {
+		public RustD3nowCodeValuesTableGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 		}
 
 		protected override void Generate((int index, EnumValue enumValue)[] infos) {
-			var filename = Path.Combine(generatorOptions.RustDir, "decoder", "handlers_3dnow.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "decoder", "handlers_3dnow.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "D3nowCodeValues", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
@@ -50,8 +51,8 @@ namespace Generator.Tables.Rust {
 					throw new InvalidOperationException();
 				values[info.index] = info.enumValue;
 			}
-			var codeName = CodeEnum.Instance.Name(idConverter);
-			var invalid = CodeEnum.Instance[nameof(Code.INVALID)];
+			var codeName = genTypes[TypeIds.Code].Name(idConverter);
+			var invalid = genTypes[TypeIds.Code][nameof(Code.INVALID)];
 			foreach (var value in values) {
 				var enumValue = value ?? invalid;
 				writer.WriteLine($"{codeName}::{enumValue.Name(idConverter)},");

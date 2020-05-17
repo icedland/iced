@@ -21,20 +21,10 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Decoder {
+	[Enum("SerializedDataKind")]
 	enum SerializedDataKind {
 		HandlerReference,
 		ArrayReference,
-	}
-
-	static class SerializedDataKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(SerializedDataKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(SerializedDataKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.SerializedDataKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

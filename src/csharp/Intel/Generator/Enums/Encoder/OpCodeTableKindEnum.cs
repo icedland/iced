@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("OpCodeTableKind", Documentation = "Opcode table", Public = true)]
 	enum OpCodeTableKind {
 		[Comment("Legacy encoding table")]
 		Normal,
@@ -45,14 +44,5 @@ namespace Generator.Enums.Encoder {
 
 		[Comment("#(c:XOPA)# table (XOP)")]
 		XOPA,
-	}
-
-	static class OpCodeTableKindEnum {
-		const string documentation = "Opcode table";
-
-		static EnumValue[] GetValues() =>
-			typeof(OpCodeTableKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpCodeTableKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpCodeTableKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

@@ -26,11 +26,17 @@ using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
-	static class InstructionOpCountsTable {
-		public static readonly (EnumValue codeEnum, int count)[] Table = CreateTable();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstructionOpCountsTable {
+		public readonly (EnumValue codeEnum, int count)[] Table;
 
-		static (EnumValue codeEnum, int value)[] CreateTable() {
-			var code = CodeEnum.Instance;
+		InstructionOpCountsTable(GenTypes genTypes) {
+			Table = CreateTable(genTypes);
+			genTypes.AddObject(TypeIds.InstructionOpCountsTable, this);
+		}
+
+		static (EnumValue codeEnum, int value)[] CreateTable(GenTypes genTypes) {
+			var code = genTypes[TypeIds.Code];
 
 			var result = new (EnumValue codeEnum, int count)[] {
 				(code[nameof(Code.INVALID)], 0),

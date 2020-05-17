@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter.Nasm {
+	[Enum(nameof(SignExtendInfo), "NasmSignExtendInfo")]
 	enum SignExtendInfo {
 		None,
 		Sex1to2,
@@ -33,14 +32,5 @@ namespace Generator.Enums.Formatter.Nasm {
 		Sex4to8Qword,
 		Sex2,
 		Sex4,
-	}
-
-	static class SignExtendInfoEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(SignExtendInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(SignExtendInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(SignExtendInfo), TypeIds.NasmSignExtendInfo, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

@@ -28,37 +28,38 @@ using Generator.IO;
 namespace Generator.Formatters.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Formatter_Table)]
 	sealed class CSharpFormatterTableGenerator {
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpFormatterTableGenerator(GeneratorOptions generatorOptions) =>
-			this.generatorOptions = generatorOptions;
+		public CSharpFormatterTableGenerator(GeneratorContext generatorContext) =>
+			this.generatorContext = generatorContext;
 
 		public void Generate() {
+			var genTypes = generatorContext.Types;
 			var serializers = new List<CSharpFormatterTableSerializer>();
-			if (generatorOptions.HasGasFormatter)
-				serializers.Add(new CSharpFormatterTableSerializer(Gas.CtorInfos.Infos, Enums.Formatter.Gas.CtorKindEnum.Instance, CSharpConstants.GasFormatterDefine, CSharpConstants.GasFormatterNamespace));
-			if (generatorOptions.HasIntelFormatter)
-				serializers.Add(new CSharpFormatterTableSerializer(Intel.CtorInfos.Infos, Enums.Formatter.Intel.CtorKindEnum.Instance, CSharpConstants.IntelFormatterDefine, CSharpConstants.IntelFormatterNamespace));
-			if (generatorOptions.HasMasmFormatter)
-				serializers.Add(new CSharpFormatterTableSerializer(Masm.CtorInfos.Infos, Enums.Formatter.Masm.CtorKindEnum.Instance, CSharpConstants.MasmFormatterDefine, CSharpConstants.MasmFormatterNamespace));
-			if (generatorOptions.HasNasmFormatter)
-				serializers.Add(new CSharpFormatterTableSerializer(Nasm.CtorInfos.Infos, Enums.Formatter.Nasm.CtorKindEnum.Instance, CSharpConstants.NasmFormatterDefine, CSharpConstants.NasmFormatterNamespace));
+			if (genTypes.Options.HasGasFormatter)
+				serializers.Add(new CSharpFormatterTableSerializer(genTypes.GetObject<Gas.CtorInfos>(TypeIds.GasCtorInfos).Infos, genTypes[TypeIds.GasCtorKind], CSharpConstants.GasFormatterDefine, CSharpConstants.GasFormatterNamespace));
+			if (genTypes.Options.HasIntelFormatter)
+				serializers.Add(new CSharpFormatterTableSerializer(genTypes.GetObject<Intel.CtorInfos>(TypeIds.IntelCtorInfos).Infos, genTypes[TypeIds.IntelCtorKind], CSharpConstants.IntelFormatterDefine, CSharpConstants.IntelFormatterNamespace));
+			if (genTypes.Options.HasMasmFormatter)
+				serializers.Add(new CSharpFormatterTableSerializer(genTypes.GetObject<Masm.CtorInfos>(TypeIds.MasmCtorInfos).Infos, genTypes[TypeIds.MasmCtorKind], CSharpConstants.MasmFormatterDefine, CSharpConstants.MasmFormatterNamespace));
+			if (genTypes.Options.HasNasmFormatter)
+				serializers.Add(new CSharpFormatterTableSerializer(genTypes.GetObject<Nasm.CtorInfos>(TypeIds.NasmCtorInfos).Infos, genTypes[TypeIds.NasmCtorKind], CSharpConstants.NasmFormatterDefine, CSharpConstants.NasmFormatterNamespace));
 
 			var stringsTable = new StringsTable();
 
 			foreach (var serializer in serializers)
-				serializer.Initialize(stringsTable);
+				serializer.Initialize(genTypes, stringsTable);
 
 			stringsTable.Freeze();
 
 			const string FormatterStringsTableName = "FormatterStringsTable";
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.FormatterNamespace), FormatterStringsTableName + ".g.cs")))) {
 				var serializer = new CSharpStringsTableSerializer(stringsTable, CSharpConstants.FormatterNamespace, FormatterStringsTableName, CSharpConstants.AnyFormatterDefine);
 				serializer.Serialize(writer);
 			}
 
 			foreach (var serializer in serializers) {
-				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(serializer.GetFilename(generatorOptions))))
+				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(serializer.GetFilename(generatorContext))))
 					serializer.Serialize(writer, stringsTable);
 			}
 		}

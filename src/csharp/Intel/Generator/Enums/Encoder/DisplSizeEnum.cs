@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("DisplSize")]
 	enum DisplSize : byte {
 		None,
 		Size1,
@@ -32,14 +31,5 @@ namespace Generator.Enums.Encoder {
 		Size8,
 		RipRelSize4_Target32,
 		RipRelSize4_Target64,
-	}
-
-	static class DisplSizeEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(DisplSize).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(DisplSize)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.DisplSize, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter.Intel {
+	[Enum(nameof(CtorKind), "IntelCtorKind")]
 	enum CtorKind {
 		Previous,
 		Normal_1,
@@ -71,14 +70,5 @@ namespace Generator.Enums.Formatter.Intel {
 		xbegin,
 		YA,
 		invlpga,
-	}
-
-	static class CtorKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(CtorKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CtorKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(CtorKind), TypeIds.IntelCtorKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

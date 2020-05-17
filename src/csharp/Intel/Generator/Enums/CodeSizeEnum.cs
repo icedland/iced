@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("CodeSize", Documentation = "The code size (16/32/64) that was used when an instruction was decoded", Public = true)]
 	enum CodeSize {
 		[Comment("Unknown size")]
 		Unknown,
@@ -33,14 +32,5 @@ namespace Generator.Enums {
 		Code32,
 		[Comment("64-bit code")]
 		Code64,
-	}
-
-	static class CodeSizeEnum {
-		const string documentation = "The code size (16/32/64) that was used when an instruction was decoded";
-
-		static EnumValue[] GetValues() =>
-			typeof(CodeSize).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CodeSize)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CodeSize, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

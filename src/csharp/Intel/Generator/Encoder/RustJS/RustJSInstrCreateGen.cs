@@ -34,20 +34,21 @@ using Generator.IO;
 namespace Generator.Encoder.RustJS {
 	[Generator(TargetLanguage.RustJS, GeneratorNames.InstrCreateGen)]
 	sealed class RustJSInstrCreateGen : InstrCreateGen {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
 		readonly IdentifierConverter rustIdConverter;
-		readonly GeneratorOptions generatorOptions;
 		readonly RustDocCommentWriter docWriter;
 		readonly Rust.InstrCreateGenImpl gen;
 		readonly Rust.GenCreateNameArgs genNames;
 		readonly StringBuilder sb;
 
-		public RustJSInstrCreateGen(GeneratorOptions generatorOptions) {
+		public RustJSInstrCreateGen(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = RustJSIdentifierConverter.Create();
 			rustIdConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 			docWriter = new RustDocCommentWriter(idConverter, ".");
-			gen = new Rust.InstrCreateGenImpl(idConverter, docWriter);
+			gen = new Rust.InstrCreateGenImpl(genTypes, idConverter, docWriter);
 			genNames = new Rust.GenCreateNameArgs {
 				CreatePrefix = "create",
 				Register = "Reg",
@@ -61,7 +62,7 @@ namespace Generator.Encoder.RustJS {
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.RustJS, "Create", Path.Combine(generatorOptions.RustJSDir, "instruction.rs"));
+			(TargetLanguage.RustJS, "Create", Path.Combine(generatorContext.RustJSDir, "instruction.rs"));
 
 		readonly struct SplitArg {
 			public readonly int OrigIndex;

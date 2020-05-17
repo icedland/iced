@@ -34,22 +34,23 @@ namespace Generator.InstructionInfo.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.InstrInfo)]
 	sealed class CSharpInstrInfoGenerator : InstrInfoGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 		readonly CSharpEnumsGenerator enumGenerator;
 		readonly CSharpConstantsGenerator constantsGenerator;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpInstrInfoGenerator(GeneratorOptions generatorOptions) {
+		public CSharpInstrInfoGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
-			enumGenerator = new CSharpEnumsGenerator(generatorOptions);
-			constantsGenerator = new CSharpConstantsGenerator(generatorOptions);
+			enumGenerator = new CSharpEnumsGenerator(generatorContext);
+			constantsGenerator = new CSharpConstantsGenerator(generatorContext);
+			this.generatorContext = generatorContext;
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
@@ -72,7 +73,7 @@ namespace Generator.InstructionInfo.CSharp {
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "RflagsInfoConstants.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "RflagsInfoConstants.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
@@ -122,7 +123,7 @@ namespace Generator.InstructionInfo.CSharp {
 				header[i / 8] |= (byte)((len - 1) << (i % 8));
 			}
 
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
@@ -165,12 +166,12 @@ namespace Generator.InstructionInfo.CSharp {
 		protected override void GenerateCore() => GenerateOpAccesses();
 
 		void GenerateOpAccesses() {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InfoHandlerFlags.cs");
 			new FileUpdater(TargetLanguage.CSharp, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
 		}
 
 		void GenerateOpAccesses(FileWriter writer) {
-			var opInfos = InstrInfoTypes.EnumOpInfos;
+			var opInfos = instrInfoTypes.EnumOpInfos;
 			// We assume max op count is 5, update the code if not
 			if (opInfos.Length != 5)
 				throw new InvalidOperationException();
@@ -182,7 +183,7 @@ namespace Generator.InstructionInfo.CSharp {
 				throw new InvalidOperationException();
 
 			var indexes = new int[] { 1, 2 };
-			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
+			var opAccessTypeStr = genTypes[TypeIds.OpAccess].Name(idConverter);
 			foreach (var index in indexes) {
 				var opInfo = opInfos[index];
 				writer.WriteLine($"public static readonly {opAccessTypeStr}[] Op{index} = new {opAccessTypeStr}[{opInfo.Values.Length}] {{");

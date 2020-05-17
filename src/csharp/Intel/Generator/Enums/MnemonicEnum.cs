@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("Mnemonic", Documentation = "Mnemonic", Public = true)]
 	enum Mnemonic {
 		INVALID,
 		Aaa,
@@ -1572,14 +1571,5 @@ namespace Generator.Enums {
 		Xresldtrk,
 		Invlpgb,
 		Tlbsync,
-	}
-
-	static class MnemonicEnum {
-		const string documentation = "Mnemonic";
-
-		static EnumValue[] GetValues() =>
-			typeof(Mnemonic).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Mnemonic)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.Mnemonic, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

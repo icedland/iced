@@ -22,11 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	static class RflagsBitsConstantsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class RflagsBitsConstantsType {
+		RflagsBitsConstantsType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.Char, "AF", 'a'),
 				new Constant(ConstantKind.Char, "CF", 'c'),
 				new Constant(ConstantKind.Char, "OF", 'o'),
@@ -37,6 +41,5 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.Char, "DF", 'd'),
 				new Constant(ConstantKind.Char, "AC", 'A'),
 			};
-		}
 	}
 }

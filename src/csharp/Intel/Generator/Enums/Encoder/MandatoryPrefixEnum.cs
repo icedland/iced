@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("MandatoryPrefix", Documentation = "Mandatory prefix", Public = true)]
 	enum MandatoryPrefix {
 		[Comment("No mandatory prefix (legacy and 3DNow! tables only)")]
 		None,
@@ -35,14 +34,5 @@ namespace Generator.Enums.Encoder {
 		PF3,
 		[Comment("#(c:F2)# prefix")]
 		PF2,
-	}
-
-	static class MandatoryPrefixEnum {
-		const string documentation = "Mandatory prefix";
-
-		static EnumValue[] GetValues() =>
-			typeof(MandatoryPrefix).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MandatoryPrefix)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.MandatoryPrefix, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

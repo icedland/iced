@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -43,12 +44,18 @@ namespace Generator.Tables {
 		}
 	}
 
-	static class MemorySizeInfoTable {
-		public static MemorySizeInfo[] Data = CreateData();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class MemorySizeInfoTable {
+		public readonly MemorySizeInfo[] Data;
 
-		static MemorySizeInfo[] CreateData() {
-			var memSize = MemorySizeEnum.Instance;
-			var result = new MemorySizeInfo[MemorySizeEnum.NumValues] {
+		MemorySizeInfoTable(GenTypes genTypes) {
+			Data = CreateData(genTypes);
+			genTypes.AddObject(TypeIds.MemorySizeInfoTable, this);
+		}
+
+		static MemorySizeInfo[] CreateData(GenTypes genTypes) {
+			var memSize = genTypes[TypeIds.MemorySize];
+			var result = new List<MemorySizeInfo> {
 				new MemorySizeInfo(memSize[nameof(MemorySize.Unknown)], 0, 0, memSize[nameof(MemorySize.Unknown)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.UInt8)], 1, 1, memSize[nameof(MemorySize.UInt8)], false, false),
 				new MemorySizeInfo(memSize[nameof(MemorySize.UInt16)], 2, 2, memSize[nameof(MemorySize.UInt16)], false, false),
@@ -185,7 +192,7 @@ namespace Generator.Tables {
 				new MemorySizeInfo(memSize[nameof(MemorySize.Broadcast128_2xBFloat16)], 4, 2, memSize[nameof(MemorySize.BFloat16)], true, true),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Broadcast256_2xBFloat16)], 4, 2, memSize[nameof(MemorySize.BFloat16)], true, true),
 				new MemorySizeInfo(memSize[nameof(MemorySize.Broadcast512_2xBFloat16)], 4, 2, memSize[nameof(MemorySize.BFloat16)], true, true),
-			};
+			}.ToArray();
 			if (result.Length != memSize.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.MemorySize.Value.CompareTo(b.MemorySize.Value));

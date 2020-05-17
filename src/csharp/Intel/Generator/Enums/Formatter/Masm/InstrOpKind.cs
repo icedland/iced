@@ -24,11 +24,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Linq;
 
 namespace Generator.Enums.Formatter.Masm {
-	static class InstrOpKindEnum {
-		const string? documentation = null;
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstrOpKindEnum {
+		InstrOpKindEnum(GenTypes genTypes) {
+			var enumType = new EnumType("InstrOpKind", TypeIds.MasmInstrOpKind, null, GetValues(genTypes), EnumTypeFlags.NoInitialize);
+			genTypes.Add(enumType);
+		}
 
-		static EnumValue[] GetValues() {
-			var list = OpKindEnum.Instance.Values.Select(a => new EnumValue(a.Value, a.RawName, null)).ToList();
+		static EnumValue[] GetValues(GenTypes genTypes) {
+			var list = genTypes[TypeIds.OpKind].Values.Select(a => new EnumValue(a.Value, a.RawName, null)).ToList();
 			// Extra opkinds
 			list.Add(new EnumValue((uint)list.Count, "ExtraImmediate8_Value3", null));
 			list.Add(new EnumValue((uint)list.Count, "DeclareByte", null));
@@ -37,7 +41,5 @@ namespace Generator.Enums.Formatter.Masm {
 			list.Add(new EnumValue((uint)list.Count, "DeclareQword", null));
 			return list.ToArray();
 		}
-
-		public static readonly EnumType Instance = new EnumType("InstrOpKind", TypeIds.MasmInstrOpKind, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("RoundingControl", Documentation = "Rounding control", Public = true)]
 	enum RoundingControl {
 		[Comment("No rounding mode")]
 		None,
@@ -35,14 +34,5 @@ namespace Generator.Enums {
 		RoundUp,
 		[Comment("Round toward zero (truncate)")]
 		RoundTowardZero,
-	}
-
-	static class RoundingControlEnum {
-		const string documentation = "Rounding control";
-
-		static EnumValue[] GetValues() =>
-			typeof(RoundingControl).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RoundingControl)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.RoundingControl, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

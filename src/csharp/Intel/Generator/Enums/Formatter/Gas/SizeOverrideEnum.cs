@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter.Gas {
+	[Enum(nameof(SizeOverride), "GasSizeOverride", NoInitialize = true)]
 	enum SizeOverride {
 		None,
 		Size16,
 		Size32,
 		Size64,
-	}
-
-	static class SizeOverrideEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(SizeOverride).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(SizeOverride)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(SizeOverride), TypeIds.GasSizeOverride, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

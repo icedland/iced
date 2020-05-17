@@ -32,18 +32,19 @@ using Generator.IO;
 namespace Generator.Encoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.InstrCreateGen)]
 	sealed class CSharpInstrCreateGen : InstrCreateGen {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 		readonly CSharpDocCommentWriter docWriter;
 
-		public CSharpInstrCreateGen(GeneratorOptions generatorOptions) {
+		public CSharpInstrCreateGen(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 			docWriter = new CSharpDocCommentWriter(idConverter);
 		}
 
 		protected override (TargetLanguage language, string id, string filename) GetFileInfo() =>
-			(TargetLanguage.CSharp, "Create", Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), "Instruction.Create.cs"));
+			(TargetLanguage.CSharp, "Create", Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.Create.cs"));
 
 		void WriteDocs(FileWriter writer, CreateMethod method) {
 			const string typeName = "Instruction";
@@ -69,13 +70,13 @@ namespace Generator.Encoder.CSharp {
 				comma = true;
 				switch (arg.Type) {
 				case MethodArgType.Code:
-					writer.Write(CodeEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.Code].Name(idConverter));
 					break;
 				case MethodArgType.Register:
-					writer.Write(RegisterEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.Register].Name(idConverter));
 					break;
 				case MethodArgType.RepPrefixKind:
-					writer.Write(RepPrefixKindEnum.Instance.Name(idConverter));
+					writer.Write(genTypes[TypeIds.RepPrefixKind].Name(idConverter));
 					break;
 				case MethodArgType.Memory:
 					writer.Write("in MemoryOperand");
@@ -183,11 +184,11 @@ namespace Generator.Encoder.CSharp {
 				WriteInitializeInstruction(writer, method);
 				var args = method.Args;
 				var codeName = idConverter.Argument(args[0].Name);
-				var opKindStr = OpKindEnum.Instance.Name(idConverter);
-				var registerStr = OpKindEnum.Instance[nameof(OpKind.Register)].Name(idConverter);
-				var memoryStr = OpKindEnum.Instance[nameof(OpKind.Memory)].Name(idConverter);
-				var immediate64Str = OpKindEnum.Instance[nameof(OpKind.Immediate64)].Name(idConverter);
-				var immediate8_2ndStr = OpKindEnum.Instance[nameof(OpKind.Immediate8_2nd)].Name(idConverter);
+				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
+				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
+				var memoryStr = genTypes[TypeIds.OpKind][nameof(OpKind.Memory)].Name(idConverter);
+				var immediate64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate64)].Name(idConverter);
+				var immediate8_2ndStr = genTypes[TypeIds.OpKind][nameof(OpKind.Immediate8_2nd)].Name(idConverter);
 				bool multipleInts = args.Where(a => a.Type == MethodArgType.Int32 || a.Type == MethodArgType.UInt32).Count() > 1;
 				for (int i = 1; i < args.Count; i++) {
 					int op = i - 1;
@@ -292,29 +293,29 @@ namespace Generator.Encoder.CSharp {
 			using (writer.Indent()) {
 				writer.WriteLine("Instruction instruction = default;");
 				var bitnessName = idConverter.Argument(method.Args[0].Name);
-				var opKindName = OpKindEnum.Instance.Name(idConverter);
-				var codeName = CodeEnum.Instance.Name(idConverter);
+				var opKindName = genTypes[TypeIds.OpKind].Name(idConverter);
+				var codeName = genTypes[TypeIds.Code].Name(idConverter);
 				writer.WriteLine($"switch ({bitnessName}) {{");
 				writer.WriteLine($"case 16:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel16)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel16)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 32:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch32 = (uint){idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
 				writer.WriteLine();
 				writer.WriteLine($"case 64:");
 				using (writer.Indent()) {
-					writer.WriteLine($"instruction.InternalCode = {codeName}.{CodeEnum.Instance[nameof(Code.Xbegin_rel32)].Name(idConverter)};");
-					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{OpKindEnum.Instance[nameof(OpKind.NearBranch64)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalCode = {codeName}.{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)};");
+					writer.WriteLine($"instruction.InternalOp0Kind = {opKindName}.{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)};");
 					writer.WriteLine($"instruction.NearBranch64 = {idConverter.Argument(method.Args[1].Name)};");
 					writer.WriteLine($"break;");
 				}
@@ -350,15 +351,15 @@ namespace Generator.Encoder.CSharp {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
 
-				var mem64Str = OpKindEnum.Instance[nameof(OpKind.Memory64)].Name(idConverter);
-				writer.WriteLine($"instruction.InternalOp{memOp}Kind = {OpKindEnum.Instance.Name(idConverter)}.{mem64Str};");
+				var mem64Str = genTypes[TypeIds.OpKind][nameof(OpKind.Memory64)].Name(idConverter);
+				writer.WriteLine($"instruction.InternalOp{memOp}Kind = {genTypes[TypeIds.OpKind].Name(idConverter)}.{mem64Str};");
 				writer.WriteLine($"instruction.MemoryAddress64 = {idConverter.Argument(method.Args[1 + memOp].Name)};");
 				writer.WriteLine("instruction.InternalSetMemoryDisplSize(4);");
 				writer.WriteLine($"instruction.SegmentPrefix = {idConverter.Argument(method.Args[3].Name)};");
 
 				writer.WriteLine();
-				var opKindStr = OpKindEnum.Instance.Name(idConverter);
-				var registerStr = OpKindEnum.Instance[nameof(OpKind.Register)].Name(idConverter);
+				var opKindStr = genTypes[TypeIds.OpKind].Name(idConverter);
+				var registerStr = genTypes[TypeIds.OpKind][nameof(OpKind.Register)].Name(idConverter);
 				writer.WriteLine($"Static.Assert({opKindStr}.{registerStr} == 0 ? 0 : -1);");
 				writer.WriteLine($"//instruction.InternalOp{regOp}Kind = {opKindStr}.{registerStr};");
 				writer.WriteLine($"instruction.InternalOp{regOp}Register = {idConverter.Argument(method.Args[1 + regOp].Name)};");
@@ -403,9 +404,9 @@ namespace Generator.Encoder.CSharp {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -446,7 +447,7 @@ namespace Generator.Encoder.CSharp {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, kind == StringMethodKind.Repe ? RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)] : RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repne)]);
+					Write(writer, kind == StringMethodKind.Repe ? genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)] : genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repne)]);
 					break;
 				case StringMethodKind.Rep:
 				default:
@@ -485,7 +486,7 @@ namespace Generator.Encoder.CSharp {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -524,9 +525,9 @@ namespace Generator.Encoder.CSharp {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, kind == StringMethodKind.Repe ? RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)] : RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repne)]);
+					Write(writer, kind == StringMethodKind.Repe ? genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)] : genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repne)]);
 					break;
 				case StringMethodKind.Rep:
 				default:
@@ -563,9 +564,9 @@ namespace Generator.Encoder.CSharp {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, RegisterEnum.Instance[nameof(Register.None)]);
+					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
-					Write(writer, RepPrefixKindEnum.Instance[nameof(RepPrefixKind.Repe)]);
+					Write(writer, genTypes[TypeIds.RepPrefixKind][nameof(RepPrefixKind.Repe)]);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -605,25 +606,25 @@ namespace Generator.Encoder.CSharp {
 			string methodName;
 			switch (kind) {
 			case DeclareDataKind.Byte:
-				code = CodeEnum.Instance[nameof(Code.DeclareByte)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareByte)];
 				setValueName = "SetDeclareByteValue";
 				methodName = "CreateDeclareByte";
 				break;
 
 			case DeclareDataKind.Word:
-				code = CodeEnum.Instance[nameof(Code.DeclareWord)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareWord)];
 				setValueName = "SetDeclareWordValue";
 				methodName = "CreateDeclareWord";
 				break;
 
 			case DeclareDataKind.Dword:
-				code = CodeEnum.Instance[nameof(Code.DeclareDword)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareDword)];
 				setValueName = "SetDeclareDwordValue";
 				methodName = "CreateDeclareDword";
 				break;
 
 			case DeclareDataKind.Qword:
-				code = CodeEnum.Instance[nameof(Code.DeclareQword)];
+				code = genTypes[TypeIds.Code][nameof(Code.DeclareQword)];
 				setValueName = "SetDeclareQwordValue";
 				methodName = "CreateDeclareQword";
 				break;
@@ -701,7 +702,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.ByteSlice:
-					GenCreateDeclareDataSlice(writer, method, 1, CodeEnum.Instance[nameof(Code.DeclareByte)], "CreateDeclareByte", "SetDeclareByteValue");
+					GenCreateDeclareDataSlice(writer, method, 1, genTypes[TypeIds.Code][nameof(Code.DeclareByte)], "CreateDeclareByte", "SetDeclareByteValue");
 					break;
 
 				default:
@@ -733,7 +734,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{dataName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareWord)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareWord)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){dataName}.Length / 2;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {dataName}.Length; i += 2) {{");
@@ -749,7 +750,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.WordSlice:
-					GenCreateDeclareDataSlice(writer, method, 2, CodeEnum.Instance[nameof(Code.DeclareWord)], "CreateDeclareWord", "SetDeclareWordValue");
+					GenCreateDeclareDataSlice(writer, method, 2, genTypes[TypeIds.Code][nameof(Code.DeclareWord)], "CreateDeclareWord", "SetDeclareWordValue");
 					break;
 
 				default:
@@ -781,7 +782,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{dataName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareDword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareDword)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){dataName}.Length / 4;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {dataName}.Length; i += 4) {{");
@@ -797,7 +798,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.DwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 4, CodeEnum.Instance[nameof(Code.DeclareDword)], "CreateDeclareDword", "SetDeclareDwordValue");
+					GenCreateDeclareDataSlice(writer, method, 4, genTypes[TypeIds.Code][nameof(Code.DeclareDword)], "CreateDeclareDword", "SetDeclareDwordValue");
 					break;
 
 				default:
@@ -829,7 +830,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{dataName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareQword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareQword)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){dataName}.Length / 8;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {dataName}.Length; i += 8) {{");
@@ -846,7 +847,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.QwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 8, CodeEnum.Instance[nameof(Code.DeclareQword)], "CreateDeclareQword", "SetDeclareQwordValue");
+					GenCreateDeclareDataSlice(writer, method, 8, genTypes[TypeIds.Code][nameof(Code.DeclareQword)], "CreateDeclareQword", "SetDeclareQwordValue");
 					break;
 
 				default:
@@ -896,7 +897,7 @@ namespace Generator.Encoder.CSharp {
 			case DeclareDataKind.Byte:
 				switch (arrayType) {
 				case ArrayType.ByteArray:
-					GenCreateDeclareDataArrayLength(writer, method, 1, CodeEnum.Instance[nameof(Code.DeclareByte)], "CreateDeclareByte", "SetDeclareByteValue");
+					GenCreateDeclareDataArrayLength(writer, method, 1, genTypes[TypeIds.Code][nameof(Code.DeclareByte)], "CreateDeclareByte", "SetDeclareByteValue");
 					break;
 
 				default:
@@ -926,7 +927,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{indexName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareWord)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareWord)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){lengthName} / 2;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {lengthName}; i += 2) {{");
@@ -941,7 +942,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.WordArray:
-					GenCreateDeclareDataArrayLength(writer, method, 2, CodeEnum.Instance[nameof(Code.DeclareWord)], "CreateDeclareWord", "SetDeclareWordValue");
+					GenCreateDeclareDataArrayLength(writer, method, 2, genTypes[TypeIds.Code][nameof(Code.DeclareWord)], "CreateDeclareWord", "SetDeclareWordValue");
 					break;
 
 				default:
@@ -971,7 +972,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{indexName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareDword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareDword)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){lengthName} / 4;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {lengthName}; i += 4) {{");
@@ -986,7 +987,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.DwordArray:
-					GenCreateDeclareDataArrayLength(writer, method, 4, CodeEnum.Instance[nameof(Code.DeclareDword)], "CreateDeclareDword", "SetDeclareDwordValue");
+					GenCreateDeclareDataArrayLength(writer, method, 4, genTypes[TypeIds.Code][nameof(Code.DeclareDword)], "CreateDeclareDword", "SetDeclareDwordValue");
 					break;
 
 				default:
@@ -1016,7 +1017,7 @@ namespace Generator.Encoder.CSharp {
 						using (writer.Indent())
 							writer.WriteLine($"ThrowHelper.ThrowArgumentOutOfRangeException_{indexName}();");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, CodeEnum.Instance[nameof(Code.DeclareQword)]);
+						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareQword)]);
 						writer.WriteLine($"instruction.InternalDeclareDataCount = (uint){lengthName} / 8;");
 						writer.WriteLine();
 						writer.WriteLine($"for (int i = 0; i < {lengthName}; i += 8) {{");
@@ -1032,7 +1033,7 @@ namespace Generator.Encoder.CSharp {
 					break;
 
 				case ArrayType.QwordArray:
-					GenCreateDeclareDataArrayLength(writer, method, 8, CodeEnum.Instance[nameof(Code.DeclareQword)], "CreateDeclareQword", "SetDeclareQwordValue");
+					GenCreateDeclareDataArrayLength(writer, method, 8, genTypes[TypeIds.Code][nameof(Code.DeclareQword)], "CreateDeclareQword", "SetDeclareQwordValue");
 					break;
 
 				default:

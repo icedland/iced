@@ -21,21 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("Encodable")]
 	enum Encodable {
 		Any,
 		Only1632,
 		Only64,
-	}
-
-	static class EncodableEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(Encodable).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Encodable)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.Encodable, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

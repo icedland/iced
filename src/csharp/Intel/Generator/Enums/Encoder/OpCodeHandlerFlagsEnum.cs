@@ -22,22 +22,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Encoder {
+	[Enum("OpCodeHandlerFlags", NoInitialize = true, Flags = true)]
 	[Flags]
 	enum OpCodeHandlerFlags : uint {
 		None					= 0,
 		Fwait					= 0x00000001,
 		DeclareData				= 0x00000002,
-	}
-
-	static class OpCodeHandlerFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(OpCodeHandlerFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpCodeHandlerFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpCodeHandlerFlags, documentation, GetValues(), EnumTypeFlags.NoInitialize | EnumTypeFlags.Flags);
 	}
 }

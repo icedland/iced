@@ -29,17 +29,19 @@ namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_OpCount)]
 	sealed class CSharpInstructionOpCountsGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpInstructionOpCountsGenerator(GeneratorOptions generatorOptions) {
+		public CSharpInstructionOpCountsGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var data = InstructionOpCountsTable.Table;
+			var genTypes = generatorContext.Types;
+			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
+			var data = genTypes.GetObject<InstructionOpCountsTable>(TypeIds.InstructionOpCountsTable).Table;
 			const string ClassName = "InstructionOpCounts";
-			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
+			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
@@ -47,9 +49,9 @@ namespace Generator.Decoder.CSharp {
 					writer.WriteLine($"static class {ClassName} {{");
 					using (writer.Indent()) {
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine($"internal static System.ReadOnlySpan<byte> OpCount => new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
+						writer.WriteLine($"internal static System.ReadOnlySpan<byte> OpCount => new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{IcedConstantsType.Instance.Name(idConverter)}.{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
+						writer.WriteLine($"internal static readonly byte[] OpCount = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							foreach (var d in data)

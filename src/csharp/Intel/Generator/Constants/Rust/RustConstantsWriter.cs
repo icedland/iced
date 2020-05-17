@@ -29,10 +29,12 @@ using Generator.IO;
 
 namespace Generator.Constants.Rust {
 	readonly struct RustConstantsWriter {
+		readonly GenTypes genTypes;
 		readonly IdentifierConverter idConverter;
 		readonly RustDocCommentWriter docWriter;
 
-		public RustConstantsWriter(IdentifierConverter idConverter, RustDocCommentWriter docWriter) {
+		public RustConstantsWriter(GenTypes genTypes, IdentifierConverter idConverter, RustDocCommentWriter docWriter) {
+			this.genTypes = genTypes;
 			this.idConverter = idConverter;
 			this.docWriter = docWriter;
 		}
@@ -95,7 +97,7 @@ namespace Generator.Constants.Rust {
 				return "usize";
 			case ConstantKind.Register:
 			case ConstantKind.MemorySize:
-				return EnumUtils.GetEnumType(kind).Name(idConverter);
+				return EnumUtils.GetEnumType(genTypes, kind).Name(idConverter);
 			default:
 				throw new InvalidOperationException();
 			}
@@ -136,7 +138,7 @@ namespace Generator.Constants.Rust {
 		static string EscapeStringValue(string s) => s;
 
 		string GetValueString(Constant constant) {
-			var enumType = EnumUtils.GetEnumType(constant.Kind);
+			var enumType = EnumUtils.GetEnumType(genTypes, constant.Kind);
 			var enumValue = enumType.Values.First(a => a.Value == constant.ValueUInt64);
 			return $"{enumType.Name(idConverter)}::{enumValue.Name(idConverter)}";
 		}

@@ -27,26 +27,28 @@ using System.Linq;
 using System.Text;
 using Generator.Constants;
 using Generator.Enums;
-using Generator.Enums.Formatter;
 using Generator.IO;
 using Generator.Tables;
 
 namespace Generator.Formatters.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.FormatterMemSize)]
 	sealed class RustTableGen : TableGen {
+		readonly GeneratorContext generatorContext;
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 
-		public RustTableGen(GeneratorOptions generatorOptions) {
+		public RustTableGen(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
 		}
 
 		protected override void Generate((EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] memInfos) {
+			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
+			var sizeTbl = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
 			{
-				var filename = Path.Combine(generatorOptions.RustDir, "formatter", "gas", "mem_size_tbl.rs");
+				var filename = Path.Combine(generatorContext.RustDir, "formatter", "gas", "mem_size_tbl.rs");
 				new FileUpdater(TargetLanguage.Rust, "BcstTo", filename).Generate(writer => {
-					int first = (int)IcedConstantsType.Instance[IcedConstants.FirstBroadcastMemorySizeName].ValueUInt64;
+					int first = (int)icedConstants[IcedConstants.FirstBroadcastMemorySizeName].ValueUInt64;
 					int len = memInfos.Length - first;
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"static BCST_TO_DATA: [BroadcastToKind; {len}] = [");
@@ -58,7 +60,7 @@ namespace Generator.Formatters.Rust {
 				});
 			}
 			{
-				var filename = Path.Combine(generatorOptions.RustDir, "formatter", "intel", "mem_size_tbl.rs");
+				var filename = Path.Combine(generatorContext.RustDir, "formatter", "intel", "mem_size_tbl.rs");
 				new FileUpdater(TargetLanguage.Rust, "MemorySizes", filename).Generate(writer => {
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [u8; {memInfos.Length}] = [");
@@ -70,12 +72,11 @@ namespace Generator.Formatters.Rust {
 				});
 			}
 			{
-				var filename = Path.Combine(generatorOptions.RustDir, "formatter", "masm", "mem_size_tbl.rs");
+				var filename = Path.Combine(generatorContext.RustDir, "formatter", "masm", "mem_size_tbl.rs");
 				new FileUpdater(TargetLanguage.Rust, "MemorySizes", filename).Generate(writer => {
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [u16; {memInfos.Length}] = [");
 					using (writer.Indent()) {
-						var sizeTbl = MemorySizeInfoTable.Data;
 						foreach (var info in memInfos) {
 							int size = sizeTbl[(int)info.memSize.Value].Size;
 							writer.WriteLine($"((MemoryKeywords::{info.masm} as u16) | ((Size::S{size} as u16) << SIZE_KIND_SHIFT)),");
@@ -85,9 +86,9 @@ namespace Generator.Formatters.Rust {
 				});
 			}
 			{
-				var filename = Path.Combine(generatorOptions.RustDir, "formatter", "nasm", "mem_size_tbl.rs");
+				var filename = Path.Combine(generatorContext.RustDir, "formatter", "nasm", "mem_size_tbl.rs");
 				new FileUpdater(TargetLanguage.Rust, "BcstTo", filename).Generate(writer => {
-					int first = (int)IcedConstantsType.Instance[IcedConstants.FirstBroadcastMemorySizeName].ValueUInt64;
+					int first = (int)icedConstants[IcedConstants.FirstBroadcastMemorySizeName].ValueUInt64;
 					int len = memInfos.Length - first;
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"static BCST_TO_DATA: [BroadcastToKind; {len}] = [");
@@ -101,7 +102,6 @@ namespace Generator.Formatters.Rust {
 					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.WriteLine($"static MEM_SIZE_TBL_DATA: [MemoryKeywords; {memInfos.Length}] = [");
 					using (writer.Indent()) {
-						var sizeTbl = MemorySizeInfoTable.Data;
 						foreach (var info in memInfos) {
 							int size = sizeTbl[(int)info.memSize.Value].Size;
 							writer.WriteLine($"MemoryKeywords::{info.nasm},");
@@ -123,7 +123,7 @@ namespace Generator.Formatters.Rust {
 			};
 
 		protected override void GenerateRegisters(string[] registers) {
-			var filename = Path.Combine(generatorOptions.RustDir, "formatter", "regs_tbl.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "formatter", "regs_tbl.rs");
 			new FileUpdater(TargetLanguage.Rust, "Registers", filename).Generate(writer => {
 				var totalLen = registers.Length + registers.Sum(a => a.Length);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -147,10 +147,10 @@ namespace Generator.Formatters.Rust {
 		}
 
 		protected override void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos) {
-			var filename = Path.Combine(generatorOptions.RustDir, "formatter", "fmt_utils.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "formatter", "fmt_utils.rs");
 			new FileUpdater(TargetLanguage.Rust, "FormatterFlowControlSwitch", filename).Generate(writer => {
-				var codeStr = CodeEnum.Instance.Name(idConverter);
-				var flowCtrlStr = FormatterFlowControlEnum.Instance.Name(idConverter);
+				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
+				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);
 				foreach (var info in infos) {
 				var bar = string.Empty;
 					foreach (var c in info.code) {

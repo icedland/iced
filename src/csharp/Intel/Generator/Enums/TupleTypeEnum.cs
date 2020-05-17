@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("TupleType", Documentation = "Tuple type (EVEX) which can be used to get the disp8 scale factor #(c:N)#", Public = true)]
 	enum TupleType {
 		[Comment("#(c:N = 1)#")]
 		None,
@@ -93,14 +92,5 @@ namespace Generator.Enums {
 		MOVDDUP_256,
 		[Comment("#(c:N = 64)#")]
 		MOVDDUP_512,
-	}
-
-	static class TupleTypeEnum {
-		const string documentation = "Tuple type (EVEX) which can be used to get the disp8 scale factor #(c:N)#";
-
-		static EnumValue[] GetValues() =>
-			typeof(TupleType).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(TupleType)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.TupleType, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

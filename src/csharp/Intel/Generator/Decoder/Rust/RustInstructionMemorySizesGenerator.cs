@@ -24,32 +24,34 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.IO;
 using Generator.Constants;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Decoder.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Code_MemorySize)]
 	sealed class RustInstructionMemorySizesGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public RustInstructionMemorySizesGenerator(GeneratorOptions generatorOptions) {
+		public RustInstructionMemorySizesGenerator(GeneratorContext generatorContext) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var data = InstructionMemorySizesTable.Table;
-			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
-			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorOptions.RustDir, "instruction_memory_sizes.rs")))) {
+			var genTypes = generatorContext.Types;
+			var instructionMemorySizesTable = genTypes.GetObject<InstructionMemorySizesTable>(TypeIds.InstructionMemorySizesTable);
+			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
+			var data = instructionMemorySizesTable.Table;
+			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
+			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.RustDir, "instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"use super::iced_constants::{IcedConstantsType.Instance.Name(idConverter)};");
-				writer.WriteLine($"use super::{MemorySizeEnum.Instance.Name(idConverter)};");
+				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");
+				writer.WriteLine($"use super::{genTypes[TypeIds.MemorySize].Name(idConverter)};");
 				writer.WriteLine();
 				writer.WriteLine("// 0 = memory size");
 				writer.WriteLine("// 1 = broadcast memory size");
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {IcedConstantsType.Instance.Name(idConverter)}::{IcedConstantsType.Instance[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] = [");
+				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] = [");
 				using (writer.Indent()) {
 					foreach (var d in data) {
 						if (d.mem.Value > byte.MaxValue)

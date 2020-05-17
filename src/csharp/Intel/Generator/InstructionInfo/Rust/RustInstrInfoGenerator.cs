@@ -35,22 +35,23 @@ namespace Generator.InstructionInfo.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.InstrInfo)]
 	sealed class RustInstrInfoGenerator : InstrInfoGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
 		readonly RustEnumsGenerator enumGenerator;
 		readonly RustConstantsGenerator constantsGenerator;
+		readonly GeneratorContext generatorContext;
 
-		public RustInstrInfoGenerator(GeneratorOptions generatorOptions) {
+		public RustInstrInfoGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
-			enumGenerator = new RustEnumsGenerator(generatorOptions);
-			constantsGenerator = new RustConstantsGenerator(generatorOptions);
+			enumGenerator = new RustEnumsGenerator(generatorContext);
+			constantsGenerator = new RustConstantsGenerator(generatorContext);
+			this.generatorContext = generatorContext;
 		}
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 		protected override void Generate(ConstantsType constantsType) => constantsGenerator.Generate(constantsType);
 
 		protected override void Generate((InstrInfo info, uint dword1, uint dword2)[] infos) {
-			var filename = Path.Combine(generatorOptions.RustDir, "info", "info_table.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "info", "info_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -64,7 +65,7 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void Generate(EnumValue[] enumValues, RflagsBits[] read, RflagsBits[] undefined, RflagsBits[] written, RflagsBits[] cleared, RflagsBits[] set, RflagsBits[] modified) {
-			var filename = Path.Combine(generatorOptions.RustDir, "info", "rflags_table.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "info", "rflags_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				var infos = new (RflagsBits[] rflags, string name)[] {
@@ -97,10 +98,10 @@ namespace Generator.InstructionInfo.Rust {
 		}
 
 		protected override void Generate((EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] cpuidFeatures) {
-			var filename = Path.Combine(generatorOptions.RustDir, "info", "cpuid_table.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "info", "cpuid_table.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				var cpuidFeatureTypeStr = CpuidFeatureEnum.Instance.Name(idConverter);
+				var cpuidFeatureTypeStr = genTypes[TypeIds.CpuidFeature].Name(idConverter);
 				writer.WriteLine($"use super::super::{cpuidFeatureTypeStr};");
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
@@ -116,12 +117,12 @@ namespace Generator.InstructionInfo.Rust {
 		protected override void GenerateCore() => GenerateOpAccesses();
 
 		void GenerateOpAccesses() {
-			var filename = Path.Combine(generatorOptions.RustDir, "info", "enums.rs");
+			var filename = Path.Combine(generatorContext.RustDir, "info", "enums.rs");
 			new FileUpdater(TargetLanguage.Rust, "OpAccesses", filename).Generate(writer => GenerateOpAccesses(writer));
 		}
 
 		void GenerateOpAccesses(FileWriter writer) {
-			var opInfos = InstrInfoTypes.EnumOpInfos;
+			var opInfos = instrInfoTypes.EnumOpInfos;
 			// We assume max op count is 5, update the code if not
 			if (opInfos.Length != 5)
 				throw new InvalidOperationException();
@@ -133,7 +134,7 @@ namespace Generator.InstructionInfo.Rust {
 				throw new InvalidOperationException();
 
 			var indexes = new int[] { 1, 2 };
-			var opAccessTypeStr = OpAccessEnum.Instance.Name(idConverter);
+			var opAccessTypeStr = genTypes[TypeIds.OpAccess].Name(idConverter);
 			foreach (var index in indexes) {
 				var opInfo = opInfos[index];
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);

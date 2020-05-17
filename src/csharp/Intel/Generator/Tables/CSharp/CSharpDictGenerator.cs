@@ -29,32 +29,33 @@ namespace Generator.Tables.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Dictionaries)]
 	sealed class CSharpDictGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpDictGenerator(GeneratorOptions generatorOptions) {
+		public CSharpDictGenerator(GeneratorContext generatorContext) {
 			idConverter = CSharpIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")).Generate(writer => {
-				WriteDict(writer, InstrInfoDictConstants.OpAccessConstants, "ToAccess");
-				WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable, "MemorySizeFlagsTable");
-				WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable, "RegisterFlagsTable");
+			var genTypes = generatorContext.Types;
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "InstructionInfoTests", "InstructionInfoConstants.cs")).Generate(writer => {
+				WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes), "ToAccess");
+				WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "MemorySizeFlagsTable");
+				WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "RegisterFlagsTable");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")).Generate(writer => {
-				WriteDict(writer, EncoderConstants.EncodingKindTable, "ToEncodingKind");
-				WriteDict(writer, EncoderConstants.MandatoryPrefixTable, "ToMandatoryPrefix");
-				WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "ToOpCodeTableKind");
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "EncoderTests", "OpCodeInfoConstants.cs")).Generate(writer => {
+				WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes), "ToEncodingKind");
+				WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes), "ToMandatoryPrefix");
+				WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes), "ToOpCodeTableKind");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
-				WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable, "ToSymbolTestFlags");
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "Masm", "SymbolOptionsTests.cs")).Generate(writer => {
+				WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "ToSymbolTestFlags");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "MnemonicOptionsTestsReader.cs")).Generate(writer => {
-				WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable, "ToFormatMnemonicOptions");
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "MnemonicOptionsTestsReader.cs")).Generate(writer => {
+				WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes), "ToFormatMnemonicOptions");
 			});
-			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorOptions.CSharpTestsDir, "Intel", "FormatterTests", "SymbolResolverTestsReader.cs")).Generate(writer => {
-				WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable, "ToSymbolFlags");
+			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "SymbolResolverTestsReader.cs")).Generate(writer => {
+				WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "ToSymbolFlags");
 			});
 		}
 

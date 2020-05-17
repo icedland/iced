@@ -22,9 +22,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants {
-	static class DecoderTestParserConstantsType {
-		const string? documentation = null;
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.DecoderTestParserConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class DecoderTestParserConstantsType {
+		DecoderTestParserConstantsType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.DecoderTestParserConstants, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
 		static Constant[] GetConstants() =>
 			new Constant[] {

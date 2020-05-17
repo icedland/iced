@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("PrefixKind", Documentation = "Prefix", Public = true)]
 	enum PrefixKind {
 		ES,
 		CS,
@@ -43,14 +42,5 @@ namespace Generator.Enums.Formatter {
 		Notrack,
 		Xacquire,
 		Xrelease,
-	}
-
-	static class PrefixKindEnum {
-		const string documentation = "Prefix";
-
-		static EnumValue[] GetValues() =>
-			typeof(PrefixKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(PrefixKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.PrefixKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

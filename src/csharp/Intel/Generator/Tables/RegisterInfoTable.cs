@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -39,12 +40,18 @@ namespace Generator.Tables {
 		}
 	}
 
-	static class RegisterInfoTable {
-		public static RegisterInfo[] Data = CreateData();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class RegisterInfoTable {
+		public readonly RegisterInfo[] Data;
 
-		static RegisterInfo[] CreateData() {
-			var reg = RegisterEnum.Instance;
-			var result = new RegisterInfo[RegisterEnum.NumValues] {
+		RegisterInfoTable(GenTypes genTypes) {
+			Data = CreateData(genTypes);
+			genTypes.AddObject(TypeIds.RegisterInfoTable, this);
+		}
+
+		static RegisterInfo[] CreateData(GenTypes genTypes) {
+			var reg = genTypes[TypeIds.Register];
+			var result = new List<RegisterInfo> {
 				new RegisterInfo(reg[nameof(Register.None)], reg[nameof(Register.None)], reg[nameof(Register.None)], 0),
 				new RegisterInfo(reg[nameof(Register.AL)], reg[nameof(Register.AL)], reg[nameof(Register.RAX)], 1),
 				new RegisterInfo(reg[nameof(Register.CL)], reg[nameof(Register.AL)], reg[nameof(Register.RCX)], 1),
@@ -286,7 +293,7 @@ namespace Generator.Tables {
 				new RegisterInfo(reg[nameof(Register.TR5)], reg[nameof(Register.TR0)], reg[nameof(Register.TR5)], 4),
 				new RegisterInfo(reg[nameof(Register.TR6)], reg[nameof(Register.TR0)], reg[nameof(Register.TR6)], 4),
 				new RegisterInfo(reg[nameof(Register.TR7)], reg[nameof(Register.TR0)], reg[nameof(Register.TR7)], 4),
-			};
+			}.ToArray();
 			if (result.Length != reg.Values.Length)
 				throw new InvalidOperationException();
 			Array.Sort(result, (a, b) => a.Register.Value.CompareTo(b.Register.Value));

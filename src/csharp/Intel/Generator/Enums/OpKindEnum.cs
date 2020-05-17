@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("OpKind", Documentation = "Instruction operand kind", Public = true)]
 	enum OpKind {
 		[Comment("A register (#(r:Iced.Intel.Register)#).#(p:)#This operand kind uses #(P:Instruction.Op0Register)#, #(P:Instruction.Op1Register)#, #(P:Instruction.Op2Register)#, #(P:Instruction.Op3Register)# or #(P:Instruction.Op4Register)# depending on operand number. See also #(M:Instruction.GetOpRegister)#.")]
 		Register,
@@ -77,14 +76,5 @@ namespace Generator.Enums {
 		Memory64,
 		[Comment("Memory operand.#(p:)#This operand kind uses #(P:Instruction.MemoryDisplSize)#, #(P:Instruction.MemorySize)#, #(P:Instruction.MemoryIndexScale)#, #(P:Instruction.MemoryDisplacement)#, #(P:Instruction.MemoryBase)#, #(P:Instruction.MemoryIndex)#, #(P:Instruction.MemorySegment)#, #(P:Instruction.SegmentPrefix)#")]
 		Memory,
-	}
-
-	static class OpKindEnum {
-		const string documentation = "Instruction operand kind";
-
-		static EnumValue[] GetValues() =>
-			typeof(OpKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

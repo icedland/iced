@@ -31,6 +31,7 @@ using Generator.Enums.InstructionInfo;
 using Generator.InstructionInfo;
 
 namespace Generator.Enums {
+	[Enum("Code", Documentation = "x86 instruction code", Public = true)]
 	enum Code {
 		[Comment("It's an invalid instruction, eg. it's a new unknown instruction, garbage or there's not enough bytes to decode the instruction etc.")]
 		INVALID,
@@ -4256,23 +4257,17 @@ namespace Generator.Enums {
 	}
 
 	static class CodeEnum {
-		const string documentation = "x86 instruction code";
-
-		static EnumValue[] GetValues() =>
-			typeof(Code).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Code)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.Code, documentation, GetValues(), EnumTypeFlags.Public);
-
-		internal static void AddComments(string unitTestDir) {
+		internal static void AddComments(GenTypes genTypes, string unitTestDir) {
+			var code = genTypes[TypeIds.Code];
 			// It must have value 0
-			if (Instance[nameof(Code.INVALID)].Value != 0)
+			if (code[nameof(Code.INVALID)].Value != 0)
 				throw new InvalidOperationException();
 
 			var docs = new Dictionary<string, string>(StringComparer.Ordinal);
 			bool checkedIt = false;
 			const char sepChar = '|';
-			var toInstrInfo = InstrInfoTable.Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
-			var toOpCodeInfo = OpCodeInfoTable.Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
+			var toInstrInfo = genTypes.GetObject<InstrInfoTable>(TypeIds.InstrInfoTable).Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
+			var toOpCodeInfo = genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data.ToDictionary(a => a.Code.RawName, a => a, StringComparer.Ordinal);
 			var sb = new StringBuilder();
 			foreach (var line in File.ReadLines(Path.Combine(unitTestDir, "Encoder", "OpCodeInfos.txt"))) {
 				if (line.Length == 0 || line[0] == '#')
@@ -4296,7 +4291,7 @@ namespace Generator.Enums {
 			if (!checkedIt)
 				throw new InvalidOperationException();
 
-			foreach (var enumValue in Instance.Values) {
+			foreach (var enumValue in code.Values) {
 				if (!string.IsNullOrEmpty(enumValue.Documentation))
 					continue;
 				if (!docs.TryGetValue(enumValue.RawName, out var doc))

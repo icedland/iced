@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
-	static class VectorLengthEnum {
-		const string? documentation = null;
-
-		enum Enum : byte {
-			L128	= 0,
-			L256	= 1,
-			L512	= 2,
-			Unknown	= 3,
-		}
-
-		static EnumValue[] GetValues() =>
-			typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.VectorLength, documentation, GetValues(), EnumTypeFlags.None);
+	[Enum("VectorLength")]
+	enum VectorLength : byte {
+		L128	= 0,
+		L256	= 1,
+		L512	= 2,
+		Unknown	= 3,
 	}
 }

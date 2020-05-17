@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Decoder {
+	[Enum("OpCodeHandlerKind")]
 	enum OpCodeHandlerKind : byte {
 		Bitness,
 		Bitness_DontReadModRM,
@@ -224,14 +223,5 @@ namespace Generator.Enums.Decoder {
 		Yv_Reg,
 		Yv_Reg2,
 		Yv_Xv,
-	}
-
-	static class OpCodeHandlerKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(OpCodeHandlerKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpCodeHandlerKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpCodeHandlerKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

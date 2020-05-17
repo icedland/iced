@@ -21,23 +21,13 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Decoder {
-	static class HandlerFlagsEnum {
-		const string? documentation = null;
-
-		internal enum HandlerFlags {
-			None,
-			Xacquire,
-			Xrelease,
-			XacquireXreleaseNoLock,
-			Lock,
-		}
-
-		static EnumValue[] GetValues() =>
-			typeof(HandlerFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(HandlerFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.HandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags);
+	[Enum("HandlerFlags", Flags = true)]
+	enum HandlerFlags {
+		None,
+		Xacquire,
+		Xrelease,
+		XacquireXreleaseNoLock,
+		Lock,
 	}
 }

@@ -22,11 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	static class MiscSectionNamesType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.MiscSectionNames, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class MiscSectionNamesType {
+		MiscSectionNamesType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.MiscSectionNames, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "JccShort", "jcc-short"),
 				new Constant(ConstantKind.String, "JccNear", "jcc-near"),
 				new Constant(ConstantKind.String, "JmpShort", "jmp-short"),
@@ -45,6 +49,5 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "CmovccInfo", "cmovcc-info"),
 				new Constant(ConstantKind.String, "LoopccInfo", "loopcc-info"),
 			};
-		}
 	}
 }

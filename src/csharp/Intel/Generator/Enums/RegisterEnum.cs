@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("Register", Documentation = "A register", Public = true)]
 	enum Register {
 		None,
 		AL,
@@ -266,15 +265,5 @@ namespace Generator.Enums {
 		TR5,
 		TR6,
 		TR7,
-	}
-
-	static class RegisterEnum {
-		const string documentation = "A register";
-		public const int NumValues = 241;
-
-		static EnumValue[] GetValues() =>
-			typeof(Register).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Register)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.Register, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

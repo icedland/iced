@@ -22,23 +22,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.InstructionInfo {
+	[Enum("MemorySizeFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum MemorySizeFlags {
 		None				= 0,
 		Signed				= 1,
 		Broadcast			= 2,
 		Packed				= 4,
-	}
-
-	static class MemorySizeFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(MemorySizeFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MemorySizeFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySizeFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

@@ -37,8 +37,8 @@ namespace Generator.Formatters {
 			this.previousCtorKind = previousCtorKind;
 		}
 
-		public void Initialize(StringsTable stringsTable) {
-			var expectedLength = CodeEnum.Instance.Values.Length;
+		public void Initialize(GenTypes genTypes, StringsTable stringsTable) {
+			var expectedLength = genTypes[TypeIds.Code].Values.Length;
 			if (infos.Length != expectedLength)
 				throw new InvalidOperationException($"Found {infos.Length} elements, expected {expectedLength}");
 			for (int i = 0; i < infos.Length; i++) {

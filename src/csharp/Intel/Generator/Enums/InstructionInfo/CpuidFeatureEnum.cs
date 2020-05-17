@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.InstructionInfo {
+	[Enum("CpuidFeature", Documentation = "#(c:CPUID)# feature flags", Public = true)]
 	enum CpuidFeature {
 		[Comment("8086 or later")]
 		INTEL8086,
@@ -293,14 +292,5 @@ namespace Generator.Enums.InstructionInfo {
 		TSXLDTRK,
 		[Comment("CPUID.80000001H:EDX.INVLPGB[bit ??]")]
 		INVLPGB,
-	}
-
-	static class CpuidFeatureEnum {
-		const string documentation = "#(c:CPUID)# feature flags";
-
-		static EnumValue[] GetValues() =>
-			typeof(CpuidFeature).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CpuidFeature)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.CpuidFeature, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

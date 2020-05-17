@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("NumberBase", Documentation = "Number base", Public = true)]
 	enum NumberBase {
 		[Comment("Hex numbers (base 16)")]
 		Hexadecimal,
@@ -36,14 +35,5 @@ namespace Generator.Enums.Formatter {
 
 		[Comment("Binary numbers (base 2)")]
 		Binary,
-	}
-
-	static class NumberBaseEnum {
-		const string documentation = "Number base";
-
-		static EnumValue[] GetValues() =>
-			typeof(NumberBase).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(NumberBase)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.NumberBase, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

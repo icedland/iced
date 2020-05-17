@@ -30,10 +30,10 @@ namespace Generator.Decoder {
 		public const string ThreeByteHandlers_0F3AXX = nameof(ThreeByteHandlers_0F3AXX);
 		public const string TwoByteHandlers_0FXX = nameof(TwoByteHandlers_0FXX);
 
-		public static (string name, object?[] handlers)[] GetHandlers() {
-			var vexEnum = VexOpCodeHandlerKindEnum.Instance;
-			var registerEnum = RegisterEnum.Instance;
-			var codeEnum = CodeEnum.Instance;
+		public static (string name, object?[] handlers)[] GetHandlers(GenTypes genTypes) {
+			var vexEnum = genTypes[TypeIds.VexOpCodeHandlerKind];
+			var registerEnum = genTypes[TypeIds.Register];
+			var codeEnum = genTypes[TypeIds.Code];
 
 			var invalid = new object[] { vexEnum[nameof(VexOpCodeHandlerKind.Invalid)] };
 			var handlers = new (string name, object?[] handlers)[] {

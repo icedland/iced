@@ -22,11 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	static class InstructionInfoDecoderOptionsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.InstructionInfoDecoderOptions, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstructionInfoDecoderOptionsType {
+		InstructionInfoDecoderOptionsType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.InstructionInfoDecoderOptions, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "AmdBranches", "amdbr"),
 				new Constant(ConstantKind.String, "ForceReservedNop", "forcereservednop"),
 				new Constant(ConstantKind.String, "Umov", "umov"),
@@ -40,6 +44,5 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "MovTr", "movtr"),
 				new Constant(ConstantKind.String, "Jmpe", "jmpe"),
 			};
-		}
 	}
 }

@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Encoder {
+	[Enum("EncoderFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum EncoderFlags : uint {
 		None				= 0,
@@ -51,15 +51,11 @@ namespace Generator.Enums.Encoder {
 		VvvvvMask			= 0x1F,
 	}
 
-	static class EncoderFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() {
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class EncoderFlagsEnum {
+		EncoderFlagsEnum(GenTypes genTypes) {
 			if ((uint)EncoderFlags.VvvvvShift + 5 > 32)
 				throw new InvalidOperationException();
-			return typeof(EncoderFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(EncoderFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
 		}
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.EncoderFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

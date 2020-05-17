@@ -22,11 +22,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.Encoder {
-	static class OpCodeInfoFlagsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.OpCodeInfoFlags, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class OpCodeInfoFlagsType {
+		OpCodeInfoFlagsType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.OpCodeInfoFlags, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "NotInstruction", "notinstr"),
 				new Constant(ConstantKind.String, "Bit16", "16b"),
 				new Constant(ConstantKind.String, "Bit32", "32b"),
@@ -64,6 +68,5 @@ namespace Generator.Constants.Encoder {
 				new Constant(ConstantKind.String, "HintTakenPrefix", "ht"),
 				new Constant(ConstantKind.String, "NotrackPrefix", "notrack"),
 			};
-		}
 	}
 }

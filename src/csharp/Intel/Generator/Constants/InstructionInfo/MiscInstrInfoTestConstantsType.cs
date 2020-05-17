@@ -22,11 +22,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	static class MiscInstrInfoTestConstantsType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class MiscInstrInfoTestConstantsType {
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		MiscInstrInfoTestConstantsType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.MiscInstrInfoTestConstants, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
+
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "VMM_prefix", "vmm"),
 				// XSP = SP/ESP/RSP depending on stack address size, XBP = BP/EBP/RBP depending on stack address size
 				new Constant(ConstantKind.String, "XSP", "xsp"),
@@ -35,6 +40,5 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.Index, "MemorySizeElemsPerLine", 6),
 				new Constant(ConstantKind.Index, "RegisterElemsPerLine", 7),
 			};
-		}
 	}
 }

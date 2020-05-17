@@ -27,20 +27,21 @@ using Generator.IO;
 namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Decoder_Table)]
 	sealed class CSharpDecoderTableGenerator {
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public CSharpDecoderTableGenerator(GeneratorOptions generatorOptions) => this.generatorOptions = generatorOptions;
+		public CSharpDecoderTableGenerator(GeneratorContext generatorContext) => this.generatorContext = generatorContext;
 
 		public void Generate() {
+			var genTypes = generatorContext.Types;
 			var serializers = new CSharpDecoderTableSerializer[] {
-				new CSharpDecoderTableSerializer("OpCodeHandlersTables_Legacy", DecoderTableSerializerInfo.Legacy()),
-				new CSharpDecoderTableSerializer("OpCodeHandlersTables_VEX", DecoderTableSerializerInfo.Vex()),
-				new CSharpDecoderTableSerializer("OpCodeHandlersTables_EVEX", DecoderTableSerializerInfo.Evex()),
-				new CSharpDecoderTableSerializer("OpCodeHandlersTables_XOP", DecoderTableSerializerInfo.Xop()),
+				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_Legacy", DecoderTableSerializerInfo.Legacy(genTypes)),
+				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_VEX", DecoderTableSerializerInfo.Vex(genTypes)),
+				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_EVEX", DecoderTableSerializerInfo.Evex(genTypes)),
+				new CSharpDecoderTableSerializer(genTypes, "OpCodeHandlersTables_XOP", DecoderTableSerializerInfo.Xop(genTypes)),
 			};
 
 			foreach (var serializer in serializers) {
-				var filename = Path.Combine(CSharpConstants.GetDirectory(generatorOptions, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
+				var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), serializer.ClassName + ".g.cs");
 				using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename)))
 					serializer.Serialize(writer);
 			}

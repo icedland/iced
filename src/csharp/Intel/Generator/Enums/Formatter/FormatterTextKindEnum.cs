@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("FormatterTextKind", Documentation = "Formatter text kind", Public = true)]
 	enum FormatterTextKind {
 		[Comment("Normal text")]
 		Text,
@@ -57,14 +56,5 @@ namespace Generator.Enums.Formatter {
 		Label,
 		[Comment("Function symbol")]
 		Function,
-	}
-
-	static class FormatterTextKindEnum {
-		const string documentation = "Formatter text kind";
-
-		static EnumValue[] GetValues() =>
-			typeof(FormatterTextKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FormatterTextKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.FormatterTextKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

@@ -21,21 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter.Nasm {
+	[Enum(nameof(FarMemorySizeInfo), "NasmFarMemorySizeInfo")]
 	enum FarMemorySizeInfo {
 		None,
 		Word,
 		Dword,
-	}
-
-	static class FarMemorySizeInfoEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(FarMemorySizeInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(FarMemorySizeInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(nameof(FarMemorySizeInfo), TypeIds.NasmFarMemorySizeInfo, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("MemorySizeOptions", Documentation = "Memory size options used by the formatters", Public = true)]
 	enum MemorySizeOptions {
 		[Comment("Show memory size if the assembler requires it, else don't show anything")]
 		Default,
@@ -36,14 +35,5 @@ namespace Generator.Enums.Formatter {
 
 		[Comment("Never show memory size")]
 		Never,
-	}
-
-	static class MemorySizeOptionsEnum {
-		const string documentation = "Memory size options used by the formatters";
-
-		static EnumValue[] GetValues() =>
-			typeof(MemorySizeOptions).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MemorySizeOptions)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySizeOptions, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("OperandSize")]
 	enum OperandSize {
 		None,
 		Size16,
 		Size32,
 		Size64,
-	}
-
-	static class OperandSizeEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(OperandSize).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OperandSize)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OperandSize, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

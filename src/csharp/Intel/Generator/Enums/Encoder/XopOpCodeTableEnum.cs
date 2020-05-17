@@ -21,21 +21,11 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("XopOpCodeTable", NoInitialize = true)]
 	enum XopOpCodeTable {
 		XOP8					= 0,
 		XOP9					= 1,
 		XOPA					= 2,
-	}
-
-	static class XopOpCodeTableEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(XopOpCodeTable).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(XopOpCodeTable)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.XopOpCodeTable, documentation, GetValues(), EnumTypeFlags.NoInitialize);
 	}
 }

@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Formatter {
+	[Enum("PseudoOpsKind")]
 	enum PseudoOpsKind {
 		cmpps,
 		vcmpps,
@@ -43,14 +42,5 @@ namespace Generator.Enums.Formatter {
 		vpcomuw,
 		vpcomud,
 		vpcomuq,
-	}
-
-	static class PseudoOpsKindEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(PseudoOpsKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(PseudoOpsKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.PseudoOpsKind, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

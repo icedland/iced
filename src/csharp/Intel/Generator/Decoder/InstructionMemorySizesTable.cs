@@ -26,12 +26,18 @@ using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
-	static class InstructionMemorySizesTable {
-		public static readonly (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] Table = CreateTable();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstructionMemorySizesTable {
+		public readonly (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] Table;
 
-		static (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] CreateTable() {
-			var memSize = MemorySizeEnum.Instance;
-			var code = CodeEnum.Instance;
+		InstructionMemorySizesTable(GenTypes genTypes) {
+			Table = CreateTable(genTypes);
+			genTypes.AddObject(TypeIds.InstructionMemorySizesTable, this);
+		}
+
+		static (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] CreateTable(GenTypes genTypes) {
+			var memSize = genTypes[TypeIds.MemorySize];
+			var code = genTypes[TypeIds.Code];
 			var result = new (EnumValue codeEnum, EnumValue mem, EnumValue bcst)[] {
 				(code[nameof(Code.INVALID)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),
 				(code[nameof(Code.DeclareByte)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)]),

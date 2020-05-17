@@ -25,7 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Generator.Enums;
-using Generator.Enums.Formatter;
 
 namespace Generator.Formatters {
 	enum BroadcastToKind {
@@ -95,8 +94,13 @@ namespace Generator.Formatters {
 		protected abstract void GenerateRegisters(string[] registers);
 		protected abstract void GenerateFormatterFlowControl((EnumValue flowCtrl, EnumValue[] code)[] infos);
 
+		protected readonly GenTypes genTypes;
+
+		protected TableGen(GenTypes genTypes) =>
+			this.genTypes = genTypes;
+
 		public void Generate() {
-			var memSize = MemorySizeEnum.Instance;
+			var memSize = genTypes[TypeIds.MemorySize];
 			var memInfos = new (EnumValue memSize, BroadcastToKind bcst, IntelMemoryKeywords intel, MasmMemoryKeywords masm, NasmMemoryKeywords nasm)[] {
 				(memSize["Unknown"], BroadcastToKind.None, IntelMemoryKeywords.None, MasmMemoryKeywords.None, NasmMemoryKeywords.None),
 				(memSize["UInt8"], BroadcastToKind.None, IntelMemoryKeywords.byte_ptr, MasmMemoryKeywords.byte_ptr, NasmMemoryKeywords.@byte),
@@ -236,7 +240,7 @@ namespace Generator.Formatters {
 				(memSize["Broadcast512_2xBFloat16"], BroadcastToKind.b1to16, IntelMemoryKeywords.dword_ptr, MasmMemoryKeywords.dword_bcst, NasmMemoryKeywords.dword),
 			};
 			Generate(memInfos);
-			var regs = RegisterEnum.Instance;
+			var regs = genTypes[TypeIds.Register];
 			var regInfos = new (EnumValue regEnum, string name)[] {
 				(regs[nameof(Register.None)], "???"),
 				(regs[nameof(Register.AL)], "al"),
@@ -487,8 +491,8 @@ namespace Generator.Formatters {
 			// gas, intel, masm use 'st', nasm doesn't.
 			list.Add("st");
 			GenerateRegisters(list.ToArray());
-			var flowCtrl = FormatterFlowControlEnum.Instance;
-			var code = CodeEnum.Instance;
+			var flowCtrl = genTypes[TypeIds.FormatterFlowControl];
+			var code = genTypes[TypeIds.Code];
 			var formatterFlowControlInfo = new (EnumValue flowCtrl, EnumValue[] code)[] {
 				(flowCtrl["ShortBranch"],
 					new[] {

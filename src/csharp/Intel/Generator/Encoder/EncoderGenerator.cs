@@ -42,27 +42,35 @@ namespace Generator.Encoder {
 		protected abstract void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr);
 		protected abstract void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64);
 
+		protected readonly GenTypes genTypes;
+		readonly EncoderTypes encoderTypes;
+
+		protected EncoderGenerator(GenTypes genTypes) {
+			this.genTypes = genTypes;
+			encoderTypes = genTypes.GetObject<EncoderTypes>(TypeIds.EncoderTypes);
+		}
+
 		public void Generate() {
 			var enumTypes = new EnumType[] {
-				EncoderTypes.EncFlags1,
-				EncoderTypes.LegacyFlags3,
-				EncoderTypes.VexFlags3,
-				EncoderTypes.XopFlags3,
-				EncoderTypes.EvexFlags3,
-				EncoderTypes.AllowedPrefixes,
-				EncoderTypes.LegacyFlags,
-				EncoderTypes.VexFlags,
-				EncoderTypes.XopFlags,
-				EncoderTypes.EvexFlags,
-				EncoderTypes.D3nowFlags,
+				genTypes[TypeIds.EncFlags1],
+				genTypes[TypeIds.LegacyFlags3],
+				genTypes[TypeIds.VexFlags3],
+				genTypes[TypeIds.XopFlags3],
+				genTypes[TypeIds.EvexFlags3],
+				genTypes[TypeIds.AllowedPrefixes],
+				genTypes[TypeIds.LegacyFlags],
+				genTypes[TypeIds.VexFlags],
+				genTypes[TypeIds.XopFlags],
+				genTypes[TypeIds.EvexFlags],
+				genTypes[TypeIds.D3nowFlags],
 			};
 			foreach (var enumType in enumTypes)
 				Generate(enumType);
 
-			Generate(EncoderTypes.LegacyOpHandlers, EncoderTypes.VexOpHandlers, EncoderTypes.XopOpHandlers, EncoderTypes.EvexOpHandlers);
-			Generate(OpCodeInfoTable.Data);
-			Generate(EncoderTypes.ImmSizes);
-			var opCodeFlags = OpCodeFlagsEnum.Instance;
+			Generate(encoderTypes.LegacyOpHandlers, encoderTypes.VexOpHandlers, encoderTypes.XopOpHandlers, encoderTypes.EvexOpHandlers);
+			Generate(genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data);
+			Generate(encoderTypes.ImmSizes);
+			var opCodeFlags = genTypes[TypeIds.OpCodeFlags];
 			var flagsInfos = new (EnumValue value, OpCodeFlags flag)[] {
 				(opCodeFlags[nameof(OpCodeFlags.LockPrefix)], OpCodeFlags.LockPrefix),
 				(opCodeFlags[nameof(OpCodeFlags.XacquirePrefix)], OpCodeFlags.XacquirePrefix),
@@ -73,8 +81,8 @@ namespace Generator.Encoder {
 				(opCodeFlags[nameof(OpCodeFlags.HintTakenPrefix)], OpCodeFlags.HintTakenPrefix),
 				(opCodeFlags[nameof(OpCodeFlags.NotrackPrefix)], OpCodeFlags.NotrackPrefix),
 			};
-			Generate(EncoderTypes.AllowedPrefixesMap.Select(a => (a.Value, a.Key)).OrderBy(a => a.Value.Value).ToArray(), flagsInfos);
-			var code = CodeEnum.Instance;
+			Generate(encoderTypes.AllowedPrefixesMap.Select(a => (a.Value, a.Key)).OrderBy(a => a.Value.Value).ToArray(), flagsInfos);
+			var code = genTypes[TypeIds.Code];
 			var notInstrStrings = new (EnumValue code, string result)[] {
 				(code[nameof(Code.INVALID)], "<invalid>"),
 				(code[nameof(Code.DeclareByte)], "<db>"),
@@ -305,7 +313,7 @@ namespace Generator.Encoder {
 				code[nameof(Code.Fxch_st0_sti_DFC8)],
 			};
 			GenerateInstructionFormatter(notInstrStrings, opMaskIsK1, incVecIndex, noVecIndex, swapVecIndex12, fpuStartOpIndex1);
-			var opCodeOperandKind = OpCodeOperandKindEnum.Instance;
+			var opCodeOperandKind = genTypes[TypeIds.OpCodeOperandKind];
 			var hasModRM = new EnumValue[] {
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem)],
 				opCodeOperandKind[nameof(OpCodeOperandKind.mem_mpx)],
@@ -598,80 +606,90 @@ namespace Generator.Encoder {
 			GenerateVsib(vsib32, vsib64);
 		}
 
-		protected static IEnumerable<(OpCodeInfo opCode, uint dword1, uint dword2, uint dword3)> GetData(OpCodeInfo[] opCodes) {
-			int encodingShift = (int)EncoderTypes.EncFlags1["EncodingShift"].Value;
-			int opCodeShift = (int)EncoderTypes.EncFlags1["OpCodeShift"].Value;
+		protected IEnumerable<(OpCodeInfo opCode, uint dword1, uint dword2, uint dword3)> GetData(OpCodeInfo[] opCodes) {
+			int encodingShift = (int)genTypes[TypeIds.EncFlags1]["EncodingShift"].Value;
+			int opCodeShift = (int)genTypes[TypeIds.EncFlags1]["OpCodeShift"].Value;
+
+			var legacyFlags3 = genTypes[TypeIds.LegacyFlags3];
+			var vexFlags3 = genTypes[TypeIds.VexFlags3];
+			var xopFlags3 = genTypes[TypeIds.XopFlags3];
+			var evexFlags3 = genTypes[TypeIds.EvexFlags3];
+			var legacyFlags = genTypes[TypeIds.LegacyFlags];
+			var vexFlags = genTypes[TypeIds.VexFlags];
+			var xopFlags = genTypes[TypeIds.XopFlags];
+			var evexFlags = genTypes[TypeIds.EvexFlags];
+			var d3nowFlags = genTypes[TypeIds.D3nowFlags];
 
 			var legacyOpShifts = new[] {
-				(int)EncoderTypes.LegacyFlags3["Op0Shift"].Value,
-				(int)EncoderTypes.LegacyFlags3["Op1Shift"].Value,
-				(int)EncoderTypes.LegacyFlags3["Op2Shift"].Value,
-				(int)EncoderTypes.LegacyFlags3["Op3Shift"].Value,
+				(int)legacyFlags3["Op0Shift"].Value,
+				(int)legacyFlags3["Op1Shift"].Value,
+				(int)legacyFlags3["Op2Shift"].Value,
+				(int)legacyFlags3["Op3Shift"].Value,
 			};
 			var vexOpShifts = new[] {
-				(int)EncoderTypes.VexFlags3["Op0Shift"].Value,
-				(int)EncoderTypes.VexFlags3["Op1Shift"].Value,
-				(int)EncoderTypes.VexFlags3["Op2Shift"].Value,
-				(int)EncoderTypes.VexFlags3["Op3Shift"].Value,
-				(int)EncoderTypes.VexFlags3["Op4Shift"].Value,
+				(int)vexFlags3["Op0Shift"].Value,
+				(int)vexFlags3["Op1Shift"].Value,
+				(int)vexFlags3["Op2Shift"].Value,
+				(int)vexFlags3["Op3Shift"].Value,
+				(int)vexFlags3["Op4Shift"].Value,
 			};
 			var xopOpShifts = new[] {
-				(int)EncoderTypes.XopFlags3["Op0Shift"].Value,
-				(int)EncoderTypes.XopFlags3["Op1Shift"].Value,
-				(int)EncoderTypes.XopFlags3["Op2Shift"].Value,
-				(int)EncoderTypes.XopFlags3["Op3Shift"].Value,
+				(int)xopFlags3["Op0Shift"].Value,
+				(int)xopFlags3["Op1Shift"].Value,
+				(int)xopFlags3["Op2Shift"].Value,
+				(int)xopFlags3["Op3Shift"].Value,
 			};
 			var evexOpShifts = new[] {
-				(int)EncoderTypes.EvexFlags3["Op0Shift"].Value,
-				(int)EncoderTypes.EvexFlags3["Op1Shift"].Value,
-				(int)EncoderTypes.EvexFlags3["Op2Shift"].Value,
-				(int)EncoderTypes.EvexFlags3["Op3Shift"].Value,
+				(int)evexFlags3["Op0Shift"].Value,
+				(int)evexFlags3["Op1Shift"].Value,
+				(int)evexFlags3["Op2Shift"].Value,
+				(int)evexFlags3["Op3Shift"].Value,
 			};
 
-			var legacyMandatoryPrefixShift = (int)EncoderTypes.LegacyFlags["MandatoryPrefixByteShift"].Value;
-			var legacyOpCodeTableShift = (int)EncoderTypes.LegacyFlags["LegacyOpCodeTableShift"].Value;
-			var legacyEncodableShift = (int)EncoderTypes.LegacyFlags["EncodableShift"].Value;
-			var legacyHasGroupIndex = EncoderTypes.LegacyFlags["HasGroupIndex"].Value;
-			var legacyGroupShift = (int)EncoderTypes.LegacyFlags["GroupShift"].Value;
-			var legacyAllowedPrefixesShift = (int)EncoderTypes.LegacyFlags["AllowedPrefixesShift"].Value;
-			var legacyFwait = EncoderTypes.LegacyFlags["Fwait"].Value;
-			var legacyHasMandatoryPrefix = EncoderTypes.LegacyFlags["HasMandatoryPrefix"].Value;
-			var legacyOperandSizeShift = (int)EncoderTypes.LegacyFlags["OperandSizeShift"].Value;
-			var legacyAddressSizeShift = (int)EncoderTypes.LegacyFlags["AddressSizeShift"].Value;
+			var legacyMandatoryPrefixShift = (int)legacyFlags["MandatoryPrefixByteShift"].Value;
+			var legacyOpCodeTableShift = (int)legacyFlags["LegacyOpCodeTableShift"].Value;
+			var legacyEncodableShift = (int)legacyFlags["EncodableShift"].Value;
+			var legacyHasGroupIndex = legacyFlags["HasGroupIndex"].Value;
+			var legacyGroupShift = (int)legacyFlags["GroupShift"].Value;
+			var legacyAllowedPrefixesShift = (int)legacyFlags["AllowedPrefixesShift"].Value;
+			var legacyFwait = legacyFlags["Fwait"].Value;
+			var legacyHasMandatoryPrefix = legacyFlags["HasMandatoryPrefix"].Value;
+			var legacyOperandSizeShift = (int)legacyFlags["OperandSizeShift"].Value;
+			var legacyAddressSizeShift = (int)legacyFlags["AddressSizeShift"].Value;
 
-			var vexMandatoryPrefixShift = (int)EncoderTypes.VexFlags["MandatoryPrefixByteShift"].Value;
-			var vexOpCodeTableShift = (int)EncoderTypes.VexFlags["VexOpCodeTableShift"].Value;
-			var vexEncodableShift = (int)EncoderTypes.VexFlags["EncodableShift"].Value;
-			var vexHasGroupIndex = EncoderTypes.VexFlags["HasGroupIndex"].Value;
-			var vexGroupShift = (int)EncoderTypes.VexFlags["GroupShift"].Value;
-			var vexVectorLengthShift = (int)EncoderTypes.VexFlags["VexVectorLengthShift"].Value;
-			var vexWBitShift = (int)EncoderTypes.VexFlags["WBitShift"].Value;
+			var vexMandatoryPrefixShift = (int)vexFlags["MandatoryPrefixByteShift"].Value;
+			var vexOpCodeTableShift = (int)vexFlags["VexOpCodeTableShift"].Value;
+			var vexEncodableShift = (int)vexFlags["EncodableShift"].Value;
+			var vexHasGroupIndex = vexFlags["HasGroupIndex"].Value;
+			var vexGroupShift = (int)vexFlags["GroupShift"].Value;
+			var vexVectorLengthShift = (int)vexFlags["VexVectorLengthShift"].Value;
+			var vexWBitShift = (int)vexFlags["WBitShift"].Value;
 
-			var xopMandatoryPrefixShift = (int)EncoderTypes.XopFlags["MandatoryPrefixByteShift"].Value;
-			var xopOpCodeTableShift = (int)EncoderTypes.XopFlags["XopOpCodeTableShift"].Value;
-			var xopEncodableShift = (int)EncoderTypes.XopFlags["EncodableShift"].Value;
-			var xopHasGroupIndex = EncoderTypes.XopFlags["HasGroupIndex"].Value;
-			var xopGroupShift = (int)EncoderTypes.XopFlags["GroupShift"].Value;
-			var xopVectorLengthShift = (int)EncoderTypes.XopFlags["XopVectorLengthShift"].Value;
-			var xopWBitShift = (int)EncoderTypes.XopFlags["WBitShift"].Value;
+			var xopMandatoryPrefixShift = (int)xopFlags["MandatoryPrefixByteShift"].Value;
+			var xopOpCodeTableShift = (int)xopFlags["XopOpCodeTableShift"].Value;
+			var xopEncodableShift = (int)xopFlags["EncodableShift"].Value;
+			var xopHasGroupIndex = xopFlags["HasGroupIndex"].Value;
+			var xopGroupShift = (int)xopFlags["GroupShift"].Value;
+			var xopVectorLengthShift = (int)xopFlags["XopVectorLengthShift"].Value;
+			var xopWBitShift = (int)xopFlags["WBitShift"].Value;
 
-			var evexMandatoryPrefixShift = (int)EncoderTypes.EvexFlags["MandatoryPrefixByteShift"].Value;
-			var evexOpCodeTableShift = (int)EncoderTypes.EvexFlags["EvexOpCodeTableShift"].Value;
-			var evexEncodableShift = (int)EncoderTypes.EvexFlags["EncodableShift"].Value;
-			var evexHasGroupIndex = EncoderTypes.EvexFlags["HasGroupIndex"].Value;
-			var evexGroupShift = (int)EncoderTypes.EvexFlags["GroupShift"].Value;
-			var evexVectorLengthShift = (int)EncoderTypes.EvexFlags["EvexVectorLengthShift"].Value;
-			var evexWBitShift = (int)EncoderTypes.EvexFlags["WBitShift"].Value;
-			var evexTupleTypeShift = (int)EncoderTypes.EvexFlags["TupleTypeShift"].Value;
-			var evex_LIG = EncoderTypes.EvexFlags["LIG"].Value;
-			var evex_b = EncoderTypes.EvexFlags["b"].Value;
-			var evex_er = EncoderTypes.EvexFlags["er"].Value;
-			var evex_sae = EncoderTypes.EvexFlags["sae"].Value;
-			var evex_k1 = EncoderTypes.EvexFlags["k1"].Value;
-			var evex_z = EncoderTypes.EvexFlags["z"].Value;
-			var evexNonZeroOpMaskRegister = EncoderTypes.EvexFlags["NonZeroOpMaskRegister"].Value;
+			var evexMandatoryPrefixShift = (int)evexFlags["MandatoryPrefixByteShift"].Value;
+			var evexOpCodeTableShift = (int)evexFlags["EvexOpCodeTableShift"].Value;
+			var evexEncodableShift = (int)evexFlags["EncodableShift"].Value;
+			var evexHasGroupIndex = evexFlags["HasGroupIndex"].Value;
+			var evexGroupShift = (int)evexFlags["GroupShift"].Value;
+			var evexVectorLengthShift = (int)evexFlags["EvexVectorLengthShift"].Value;
+			var evexWBitShift = (int)evexFlags["WBitShift"].Value;
+			var evexTupleTypeShift = (int)evexFlags["TupleTypeShift"].Value;
+			var evex_LIG = evexFlags["LIG"].Value;
+			var evex_b = evexFlags["b"].Value;
+			var evex_er = evexFlags["er"].Value;
+			var evex_sae = evexFlags["sae"].Value;
+			var evex_k1 = evexFlags["k1"].Value;
+			var evex_z = evexFlags["z"].Value;
+			var evexNonZeroOpMaskRegister = evexFlags["NonZeroOpMaskRegister"].Value;
 
-			var d3nowEncodableShift = (int)EncoderTypes.D3nowFlags["EncodableShift"].Value;
+			var d3nowEncodableShift = (int)d3nowFlags["EncodableShift"].Value;
 
 			foreach (var opCode in opCodes) {
 				uint dword1, dword2, dword3;
@@ -853,9 +871,9 @@ namespace Generator.Encoder {
 				_ => throw new InvalidOperationException(),
 			};
 
-		static uint GetAllowedPrefixes(OpCodeInfo opCode) {
+		uint GetAllowedPrefixes(OpCodeInfo opCode) {
 			var flags = opCode.Flags & EncoderTypesGen.PrefixesMask;
-			return EncoderTypes.AllowedPrefixesMap[flags].Value;
+			return encoderTypes.AllowedPrefixesMap[flags].Value;
 		}
 
 		static WBit GetWBit(OpCodeInfo opCode) {
@@ -868,7 +886,7 @@ namespace Generator.Encoder {
 			return WBit.W0;
 		}
 
-		protected static void WriteFlags(FileWriter writer, IdentifierConverter idConverter, OpCodeFlags prefixes, (EnumValue value, OpCodeFlags flag)[] flagsInfos, string orSep, string enumItemSep, bool forceConstant) {
+		protected void WriteFlags(FileWriter writer, IdentifierConverter idConverter, OpCodeFlags prefixes, (EnumValue value, OpCodeFlags flag)[] flagsInfos, string orSep, string enumItemSep, bool forceConstant) {
 			bool printed = false;
 			foreach (var info in flagsInfos) {
 				if ((prefixes & info.flag) != 0) {
@@ -880,7 +898,7 @@ namespace Generator.Encoder {
 				}
 			}
 			if (!printed) {
-				var value = OpCodeFlagsEnum.Instance[nameof(OpCodeFlags.None)];
+				var value = genTypes[TypeIds.OpCodeFlags][nameof(OpCodeFlags.None)];
 				WriteEnum(writer, idConverter, value, enumItemSep, forceConstant);
 			}
 			if (prefixes != 0)

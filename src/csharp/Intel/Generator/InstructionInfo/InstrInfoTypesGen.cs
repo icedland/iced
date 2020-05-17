@@ -75,7 +75,12 @@ namespace Generator.InstructionInfo {
 		public (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[]? RflagsInfos;
 		public readonly InstrInfo[] InstrInfos;
 
-		public InstrInfoTypesGen() => InstrInfos = InstrInfoTable.Data;
+		readonly GenTypes genTypes;
+
+		public InstrInfoTypesGen(GenTypes genTypes) {
+			this.genTypes = genTypes;
+			InstrInfos = genTypes.GetObject<InstrInfoTable>(TypeIds.InstrInfoTable).Data;
+		}
 
 		public void Generate() {
 			GenerateCodeInfo();
@@ -318,9 +323,9 @@ namespace Generator.InstructionInfo {
 			var enumCodeInfo = EnumCodeInfo ?? throw new InvalidOperationException();
 			if ((uint)enumCodeInfo.Values.Length - 1 > (uint)InfoFlags1.CodeInfoMask)
 				throw new InvalidOperationException();
-			if ((uint)EncodingKindEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.EncodingMask)
+			if ((uint)genTypes[TypeIds.EncodingKind].Values.Length - 1 > (uint)InfoFlags2.EncodingMask)
 				throw new InvalidOperationException();
-			if ((uint)FlowControlEnum.Instance.Values.Length - 1 > (uint)InfoFlags2.FlowControlMask)
+			if ((uint)genTypes[TypeIds.FlowControl].Values.Length - 1 > (uint)InfoFlags2.FlowControlMask)
 				throw new InvalidOperationException();
 			var enumCpuidFeatureInternal = EnumCpuidFeatureInternal ?? throw new InvalidOperationException();
 			if ((uint)enumCpuidFeatureInternal.Values.Length - 1 > (uint)InfoFlags2.CpuidFeatureInternalMask)

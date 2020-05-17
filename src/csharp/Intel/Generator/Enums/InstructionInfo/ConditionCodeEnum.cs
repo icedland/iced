@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.InstructionInfo {
+	[Enum("ConditionCode", Documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#, #(c:LOOPcc)#)", Public = true)]
 	enum ConditionCode {
 		[Comment("The instruction doesn't have a condition code")]
 		None,
@@ -59,14 +58,5 @@ namespace Generator.Enums.InstructionInfo {
 		le,
 		[Comment("Greater (signed) (#(c:ZF=0 and SF=OF)#)")]
 		g,
-	}
-
-	static class ConditionCodeEnum {
-		const string documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#, #(c:LOOPcc)#)";
-
-		static EnumValue[] GetValues() =>
-			typeof(ConditionCode).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(ConditionCode)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.ConditionCode, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

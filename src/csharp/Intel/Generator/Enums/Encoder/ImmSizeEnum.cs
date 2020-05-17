@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("ImmSize")]
 	enum ImmSize {
 		None,
 		Size1,
@@ -48,14 +47,5 @@ namespace Generator.Enums.Encoder {
 		RipRelSize4_Target64,
 		SizeIbReg,
 		Size1OpCode,
-	}
-
-	static class ImmSizeEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(ImmSize).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(ImmSize)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.ImmSize, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

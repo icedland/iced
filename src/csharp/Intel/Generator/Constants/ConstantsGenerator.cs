@@ -23,22 +23,26 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator.Constants {
 	abstract class ConstantsGenerator {
-		static readonly ConstantsType[] allConstants = new ConstantsType[] {
-			IcedConstantsType.Instance,
-			DecoderTestParserConstantsType.Instance,
-			DecoderConstantsType.Instance,
-			InstructionInfo.InstructionInfoDecoderOptionsType.Instance,
-			InstructionInfo.InstructionInfoKeysType.Instance,
-			InstructionInfo.MiscInstrInfoTestConstantsType.Instance,
-			InstructionInfo.RflagsBitsConstantsType.Instance,
-			InstructionInfo.MiscSectionNamesType.Instance,
-			Encoder.OpCodeInfoKeysType.Instance,
-			Encoder.OpCodeInfoFlagsType.Instance,
-		};
-
 		public abstract void Generate(ConstantsType constantsType);
 
+		protected readonly GenTypes genTypes;
+
+		protected ConstantsGenerator(GenTypes genTypes) => this.genTypes = genTypes;
+
 		public void Generate() {
+			var allConstants = new ConstantsType[] {
+				genTypes.GetConstantsType(TypeIds.IcedConstants),
+				genTypes.GetConstantsType(TypeIds.DecoderTestParserConstants),
+				genTypes.GetConstantsType(TypeIds.DecoderConstants),
+				genTypes.GetConstantsType(TypeIds.InstructionInfoDecoderOptions),
+				genTypes.GetConstantsType(TypeIds.InstructionInfoKeys),
+				genTypes.GetConstantsType(TypeIds.MiscInstrInfoTestConstants),
+				genTypes.GetConstantsType(TypeIds.RflagsBitsConstants),
+				genTypes.GetConstantsType(TypeIds.MiscSectionNames),
+				genTypes.GetConstantsType(TypeIds.OpCodeInfoKeys),
+				genTypes.GetConstantsType(TypeIds.OpCodeInfoFlags),
+			};
+
 			foreach (var constantsType in allConstants)
 				Generate(constantsType);
 		}

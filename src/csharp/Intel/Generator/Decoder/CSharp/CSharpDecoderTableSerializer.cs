@@ -27,8 +27,9 @@ namespace Generator.Decoder.CSharp {
 	sealed class CSharpDecoderTableSerializer : DecoderTableSerializer {
 		public string ClassName { get; }
 
-		public CSharpDecoderTableSerializer(string className, DecoderTableSerializerInfo info) : base(CSharpIdentifierConverter.Create(), info) {
-			this.ClassName = className;
+		public CSharpDecoderTableSerializer(GenTypes genTypes, string className, DecoderTableSerializerInfo info)
+			: base(genTypes, CSharpIdentifierConverter.Create(), info) {
+			ClassName = className;
 		}
 
 		public void Serialize(FileWriter writer) {

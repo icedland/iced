@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums {
+	[Enum("MemorySize", Documentation = "Size of a memory reference", Public = true)]
 	enum MemorySize {
 		[Comment("Unknown size or the instruction doesn't reference any memory (eg. #(c:LEA)#)")]
 		Unknown,
@@ -297,15 +296,5 @@ namespace Generator.Enums {
 		Broadcast256_2xBFloat16,
 		[Comment("Broadcast 2 x #(t:bf16)# to 512 bits")]
 		Broadcast512_2xBFloat16,
-	}
-
-	static class MemorySizeEnum {
-		const string documentation = "Size of a memory reference";
-		public const int NumValues = 136;
-
-		static EnumValue[] GetValues() =>
-			typeof(MemorySize).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(MemorySize)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.MemorySize, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

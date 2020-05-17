@@ -22,59 +22,55 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Formatter.Nasm {
-	static class InstrOpInfoFlagsEnum {
-		const string? documentation = null;
+	[Enum(nameof(InstrOpInfoFlags), "NasmInstrOpInfoFlags", Flags = true, NoInitialize = true)]
+	[Flags]
+	enum InstrOpInfoFlags : uint {
+		None						= 0,
 
-		[Flags]
-		internal enum Enum : uint {
-			None						= 0,
+		// show no mem size
+		MemSize_Nothing				= 1,
 
-			// show no mem size
-			MemSize_Nothing				= 1,
+		// AlwaysShowMemorySize is disabled: always show memory size
+		ShowNoMemSize_ForceSize		= 2,
+		ShowMinMemSize_ForceSize	= 4,
 
-			// AlwaysShowMemorySize is disabled: always show memory size
-			ShowNoMemSize_ForceSize		= 2,
-			ShowMinMemSize_ForceSize	= 4,
+		SizeOverrideMask			= 3,
+		OpSizeShift					= 3,
+		OpSize16					= SizeOverride.Size16 << (int)OpSizeShift,
+		OpSize32					= SizeOverride.Size32 << (int)OpSizeShift,
+		OpSize64					= SizeOverride.Size64 << (int)OpSizeShift,
+		AddrSizeShift				= 5,
+		AddrSize16					= SizeOverride.Size16 << (int)AddrSizeShift,
+		AddrSize32					= SizeOverride.Size32 << (int)AddrSizeShift,
+		AddrSize64					= SizeOverride.Size64 << (int)AddrSizeShift,
+		BranchSizeInfoShift			= 7,
+		BranchSizeInfoMask			= 7,
+		BranchSizeInfo_Short		= BranchSizeInfo.Short << (int)BranchSizeInfoShift,
+		SignExtendInfoShift			= 10,
+		SignExtendInfoMask			= 7,
+		MemorySizeInfoShift			= 13,
+		MemorySizeInfoMask			= 3,
+		FarMemorySizeInfoShift		= 15,
+		FarMemorySizeInfoMask		= 3,
+		RegisterTo					= 0x00020000,
+		BndPrefix					= 0x00040000,
+		MnemonicIsDirective			= 0x00080000,
+		MemorySizeBits				= 8,
+		MemorySizeShift				= 20,
+		MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
+	}
 
-			SizeOverrideMask			= 3,
-			OpSizeShift					= 3,
-			OpSize16					= SizeOverride.Size16 << (int)OpSizeShift,
-			OpSize32					= SizeOverride.Size32 << (int)OpSizeShift,
-			OpSize64					= SizeOverride.Size64 << (int)OpSizeShift,
-			AddrSizeShift				= 5,
-			AddrSize16					= SizeOverride.Size16 << (int)AddrSizeShift,
-			AddrSize32					= SizeOverride.Size32 << (int)AddrSizeShift,
-			AddrSize64					= SizeOverride.Size64 << (int)AddrSizeShift,
-			BranchSizeInfoShift			= 7,
-			BranchSizeInfoMask			= 7,
-			BranchSizeInfo_Short		= BranchSizeInfo.Short << (int)BranchSizeInfoShift,
-			SignExtendInfoShift			= 10,
-			SignExtendInfoMask			= 7,
-			MemorySizeInfoShift			= 13,
-			MemorySizeInfoMask			= 3,
-			FarMemorySizeInfoShift		= 15,
-			FarMemorySizeInfoMask		= 3,
-			RegisterTo					= 0x00020000,
-			BndPrefix					= 0x00040000,
-			MnemonicIsDirective			= 0x00080000,
-			MemorySizeBits				= 8,
-			MemorySizeShift				= 20,
-			MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class InstrOpInfoFlagsEnum {
+		InstrOpInfoFlagsEnum(GenTypes genTypes) {
+			ConstantUtils.VerifyMask<SizeOverride>((uint)InstrOpInfoFlags.SizeOverrideMask);
+			ConstantUtils.VerifyMask<BranchSizeInfo>((uint)InstrOpInfoFlags.BranchSizeInfoMask);
+			ConstantUtils.VerifyMask<SignExtendInfo>((uint)InstrOpInfoFlags.SignExtendInfoMask);
+			ConstantUtils.VerifyMask<MemorySizeInfo>((uint)InstrOpInfoFlags.MemorySizeInfoMask);
+			ConstantUtils.VerifyMask<FarMemorySizeInfo>((uint)InstrOpInfoFlags.FarMemorySizeInfoMask);
+			ConstantUtils.VerifyMask<MemorySize>((uint)InstrOpInfoFlags.MemorySizeMask);
 		}
-
-		static EnumValue[] GetValues() {
-			ConstantUtils.VerifyMask<SizeOverride>((uint)Enum.SizeOverrideMask);
-			ConstantUtils.VerifyMask<BranchSizeInfo>((uint)Enum.BranchSizeInfoMask);
-			ConstantUtils.VerifyMask<SignExtendInfo>((uint)Enum.SignExtendInfoMask);
-			ConstantUtils.VerifyMask<MemorySizeInfo>((uint)Enum.MemorySizeInfoMask);
-			ConstantUtils.VerifyMask<FarMemorySizeInfo>((uint)Enum.FarMemorySizeInfoMask);
-			ConstantUtils.VerifyMask<MemorySize>((uint)Enum.MemorySizeMask);
-			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-		}
-
-		public static readonly EnumType Instance = new EnumType("InstrOpInfoFlags", TypeIds.NasmInstrOpInfoFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

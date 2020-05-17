@@ -22,15 +22,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.Encoder {
-	static class OpCodeInfoKeysType {
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.OpCodeInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class OpCodeInfoKeysType {
+		OpCodeInfoKeysType(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.OpCodeInfoKeys, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
 
-		static Constant[] GetConstants() {
-			return new Constant[] {
+		static Constant[] GetConstants() =>
+			new Constant[] {
 				new Constant(ConstantKind.String, "GroupIndex", "g"),
 				new Constant(ConstantKind.String, "OpCodeOperandKind", "op"),
 				new Constant(ConstantKind.String, "TupleType", "tt"),
 			};
-		}
 	}
 }

@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.InstructionInfo {
+	[Enum("RegisterFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum RegisterFlags {
 		None				= 0,
@@ -46,14 +46,5 @@ namespace Generator.Enums.InstructionInfo {
 		TR					= 0x8000,
 		ST					= 0x10000,
 		MM					= 0x20000,
-	}
-
-	static class RegisterFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(RegisterFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(RegisterFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.RegisterFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

@@ -23,30 +23,30 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.RegisterInfo_Table)]
 	sealed class RustRegisterInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public RustRegisterInfoTableGenerator(GeneratorOptions generatorOptions) {
+		public RustRegisterInfoTableGenerator(GeneratorContext generatorContext) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var infos = RegisterInfoTable.Data;
-			var filename = Path.Combine(generatorOptions.RustDir, "register.rs");
+			var infos = generatorContext.Types.GetObject<RegisterInfoTable>(TypeIds.RegisterInfoTable).Data;
+			var filename = Path.Combine(generatorContext.RustDir, "register.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "RegisterInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
 
 		void WriteTable(FileWriter writer, RegisterInfo[] infos) {
-			var regName = RegisterEnum.Instance.Name(idConverter);
-			if (RegisterEnum.Instance.Values.Length > 0x100)
+			var genTypes = generatorContext.Types;
+			var regName = genTypes[TypeIds.Register].Name(idConverter);
+			if (genTypes[TypeIds.Register].Values.Length > 0x100)
 				throw new InvalidOperationException();
 			foreach (var info in infos)
 				writer.WriteLine($"RegisterInfo {{ register: {regName}::{info.Register.Name(idConverter)}, base: {regName}::{info.Base.Name(idConverter)}, full_register: {regName}::{info.FullRegister.Name(idConverter)}, size: {info.Size} }},");

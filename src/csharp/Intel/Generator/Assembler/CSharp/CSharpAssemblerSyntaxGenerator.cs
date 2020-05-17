@@ -36,8 +36,8 @@ using Generator.IO;
 namespace Generator.Assembler.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.CodeAssembler)]
 	sealed class CSharpAssemblerSyntaxGenerator : AssemblerSyntaxGenerator {
-		readonly GeneratorOptions _generatorOptions;
-		readonly CSharpDocCommentWriter _docWriter;
+		readonly GeneratorContext generatorContext;
+		readonly CSharpDocCommentWriter docWriter;
 
 		static readonly List<(string, int, string[], string)> _declareDataList = new List<(string, int, string[], string)>()
 		{
@@ -54,16 +54,17 @@ namespace Generator.Assembler.CSharp {
 			{32, new HashSet<string>() {"jcxz_lu"}},
 		};
 
-		public CSharpAssemblerSyntaxGenerator(GeneratorOptions generatorOptions) {
+		public CSharpAssemblerSyntaxGenerator(GeneratorContext generatorContext)
+			: base(generatorContext.Types) {
+			this.generatorContext = generatorContext;
 			Converter = CSharpIdentifierConverter.Create();
-			_docWriter = new CSharpDocCommentWriter(Converter);
-			_generatorOptions = generatorOptions;
+			docWriter = new CSharpDocCommentWriter(Converter);
 		}
 
 		IdentifierConverter Converter { get; }
 
 		protected override void GenerateRegisters(EnumType registers) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
@@ -111,7 +112,7 @@ namespace Generator.Assembler.CSharp {
 		}
 
 		void GenerateCode(Dictionary<GroupKey, OpCodeInfoGroup> map, OpCodeInfoGroup[] groups) {
-			var filename = Path.Combine(CSharpConstants.GetDirectory(_generatorOptions, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
+			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
@@ -143,7 +144,7 @@ namespace Generator.Assembler.CSharp {
 					var type = types[typeIndex];
 					bool isUnsafe = type == "float" || type == "double";
 					for (int i = 1; i <= argCount; i++) {
-						_docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
+						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
 						writer.Write($"public {(isUnsafe ? "unsafe " : "")}void {name}(");
 						for (int j = 0; j < i; j++) {
 							if (j > 0) writer.Write(", ");
@@ -182,7 +183,7 @@ namespace Generator.Assembler.CSharp {
 			const string assemblerTestsNameBase = "AssemblerTests";
 			string testName = assemblerTestsNameBase + bitness;
 
-			var filenameTests = Path.Combine(Path.Combine(_generatorOptions.CSharpTestsDir, "Intel", assemblerTestsNameBase, $"{testName}.g.cs"));
+			var filenameTests = Path.Combine(Path.Combine(generatorContext.CSharpTestsDir, "Intel", assemblerTestsNameBase, $"{testName}.g.cs"));
 			using (var writerTests = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filenameTests))) {
 				writerTests.WriteFileHeader();
 				writerTests.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
@@ -197,16 +198,16 @@ namespace Generator.Assembler.CSharp {
 						writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
 						writerTests.WriteLine();
 
-						OpCodeFlags bitnessFlags;
+						Encoder.OpCodeFlags bitnessFlags;
 						switch (bitness) {
 						case 64:
-							bitnessFlags = OpCodeFlags.Mode64;
+							bitnessFlags = Encoder.OpCodeFlags.Mode64;
 							break;
 						case 32:
-							bitnessFlags = OpCodeFlags.Mode32;
+							bitnessFlags = Encoder.OpCodeFlags.Mode32;
 							break;
 						case 16:
-							bitnessFlags = OpCodeFlags.Mode16;
+							bitnessFlags = Encoder.OpCodeFlags.Mode16;
 							break;
 						default:
 							throw new ArgumentException($"{bitness}");
@@ -244,7 +245,7 @@ namespace Generator.Assembler.CSharp {
 				for (var typeIndex = 0; typeIndex < types.Length; typeIndex++) {
 					var type = types[typeIndex];
 					for (int i = 1; i <= argCount; i++) {
-						_docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
+						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
 						writer.WriteLine("[Fact]");
 						writer.WriteLine($"public void TestDeclareData_{name}_{type}_{i}() {{");
 						using (writer.Indent()) {
@@ -375,7 +376,7 @@ namespace Generator.Assembler.CSharp {
 				}
 			}
 
-			_docWriter.WriteSummary(writer, methodDoc.ToString(), "");
+			docWriter.WriteSummary(writer, methodDoc.ToString(), "");
 
 			writer.Write($"public void {methodName}(");
 			int realArgCount = 0;
@@ -488,7 +489,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("}");
 		}
 
-		void RenderTests(int bitness, OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void RenderTests(int bitness, Encoder.OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
 			var fullMethodName = new StringBuilder();
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
@@ -557,7 +558,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine(); ;
 		}
 
-		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
+		void GenerateOpCodeTest(FileWriter writer, int bitness, Encoder.OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo is object) {
 				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, args, argValues, contextFlags, opCodeInfo);
@@ -617,7 +618,7 @@ namespace Generator.Assembler.CSharp {
 													  group.Name == "bndcu" ||
 													  group.Name == "bndcl")) {
 									bitness = bitness == 64 ? 32 : 16;
-									bitnessFlags = bitness == 64 ? OpCodeFlags.Mode32 : OpCodeFlags.Mode16;
+									bitnessFlags = bitness == 64 ? Encoder.OpCodeFlags.Mode32 : Encoder.OpCodeFlags.Mode16;
 								}
 
 								writer.WriteLine("AssertInvalid( () => {");
@@ -646,7 +647,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo) {
+		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, Encoder.OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo) {
 			if ((opCodeInfo.Flags & bitnessFlags) == 0) {
 				writer.WriteLine("{");
 				using (writer.Indent()) {
@@ -699,11 +700,11 @@ namespace Generator.Assembler.CSharp {
 				if (argValueForAssembler is null) {
 					var localBitness = forceBitness > 0 ? forceBitness : bitness;
 
-					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, true, i, renderArg);
-					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(@group.NumberOfLeadingArgToDiscard + i), isMemory, false, i, renderArg);
+					argValueForAssembler = GetDefaultArgument(localBitness, opCodeInfo.OpKind(encoderTypes, @group.NumberOfLeadingArgToDiscard + i), isMemory, true, i, renderArg);
+					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(encoderTypes, @group.NumberOfLeadingArgToDiscard + i), isMemory, false, i, renderArg);
 				}
 
-				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
+				if ((opCodeInfo.Flags & (Encoder.OpCodeFlags.OpMaskRegister | Encoder.OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
 					argValueForAssembler += ".k1";
 					argValueForInstructionCreate += ".k1";
 				}
@@ -746,7 +747,7 @@ namespace Generator.Assembler.CSharp {
 			if ((contextFlags & OpCodeArgFlags.HasBranchNear) != 0) {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
 			}
-			if ((opCodeInfo.Flags & OpCodeFlags.Fwait) != 0) {
+			if ((opCodeInfo.Flags & Encoder.OpCodeFlags.Fwait) != 0) {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
 			}
 			if (@group.HasLabel) {
@@ -775,7 +776,7 @@ namespace Generator.Assembler.CSharp {
 					: $"Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}";
 			}
 
-			if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
+			if ((opCodeInfo.Flags & (Encoder.OpCodeFlags.OpMaskRegister | Encoder.OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
 				beginInstruction = $"ApplyK1({beginInstruction}";
 				endInstruction = "))";
 			}

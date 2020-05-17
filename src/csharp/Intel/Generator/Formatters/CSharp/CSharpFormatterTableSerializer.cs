@@ -36,8 +36,8 @@ namespace Generator.Formatters.CSharp {
 			this.@namespace = @namespace;
 		}
 
-		public string GetFilename(GeneratorOptions generatorOptions) =>
-			Path.Combine(CSharpConstants.GetDirectory(generatorOptions, @namespace), "InstrInfos.g.cs");
+		public string GetFilename(GeneratorContext generatorContext) =>
+			Path.Combine(CSharpConstants.GetDirectory(generatorContext, @namespace), "InstrInfos.g.cs");
 
 		public void Serialize(FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();

@@ -21,22 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("XopVectorLength")]
 	enum XopVectorLength {
 		L128,
 		L256,
 		L0,
 		L1,
-	}
-
-	static class XopVectorLengthEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(XopVectorLength).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(XopVectorLength)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.XopVectorLength, documentation, GetValues(), EnumTypeFlags.None);
 	}
 }

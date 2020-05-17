@@ -22,35 +22,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Decoder {
-	static class StateFlagsEnum {
-		const string? documentation = null;
+	[Enum("StateFlags", Flags = true, NoInitialize = true)]
+	[Flags]
+	enum StateFlags : uint {
+		// Only used by Debug.Assert()
+		EncodingMask			= 7,
+		HasRex					= 0x00000008,
+		b						= 0x00000010,
+		z						= 0x00000020,
+		IsInvalid				= 0x00000040,
+		W						= 0x00000080,
+		NoImm					= 0x00000100,
+		Addr64					= 0x00000200,
+		BranchImm8				= 0x00000400,
+		Xbegin					= 0x00000800,
+		Lock					= 0x00001000,
+		AllowLock				= 0x00002000,
+		NoMoreBytes				= 0x00004000,
+	}
 
-		[Flags]
-		enum Enum : uint {
-			// Only used by Debug.Assert()
-			EncodingMask			= 7,
-			HasRex					= 0x00000008,
-			b						= 0x00000010,
-			z						= 0x00000020,
-			IsInvalid				= 0x00000040,
-			W						= 0x00000080,
-			NoImm					= 0x00000100,
-			Addr64					= 0x00000200,
-			BranchImm8				= 0x00000400,
-			Xbegin					= 0x00000800,
-			Lock					= 0x00001000,
-			AllowLock				= 0x00002000,
-			NoMoreBytes				= 0x00004000,
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class StateFlagsEnum {
+		StateFlagsEnum(GenTypes genTypes) {
+			ConstantUtils.VerifyMask<EncodingKind>((uint)StateFlags.EncodingMask);
 		}
-
-		static EnumValue[] GetValues() {
-			ConstantUtils.VerifyMask<EncodingKind>((uint)Enum.EncodingMask);
-			return typeof(Enum).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(Enum)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-		}
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.StateFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

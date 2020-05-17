@@ -22,29 +22,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
-using Generator.Enums;
 using Generator.IO;
 
 namespace Generator.Tables.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.MemorySizeInfo_Table)]
 	sealed class RustMemorySizeInfoTableGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public RustMemorySizeInfoTableGenerator(GeneratorOptions generatorOptions) {
+		public RustMemorySizeInfoTableGenerator(GeneratorContext generatorContext) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
-			var infos = MemorySizeInfoTable.Data;
-			var filename = Path.Combine(generatorOptions.RustDir, "memory_size.rs");
+			var infos = generatorContext.Types.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable).Data;
+			var filename = Path.Combine(generatorContext.RustDir, "memory_size.rs");
 			var updater = new FileUpdater(TargetLanguage.Rust, "MemorySizeInfoTable", filename);
 			updater.Generate(writer => WriteTable(writer, infos));
 		}
 
 		void WriteTable(FileWriter writer, MemorySizeInfo[] infos) {
-			var memSizeName = MemorySizeEnum.Instance.Name(idConverter);
+			var memSizeName = generatorContext.Types[TypeIds.MemorySize].Name(idConverter);
 			foreach (var info in infos)
 				writer.WriteLine($"MemorySizeInfo {{ size: {info.Size}, element_size: {info.ElementSize}, memory_size: {memSizeName}::{info.MemorySize.Name(idConverter)}, element_type: {memSizeName}::{info.ElementType.Name(idConverter)}, is_signed: {(info.IsSigned ? "true" : "false")}, is_broadcast: {(info.IsBroadcast ? "true" : "false")} }},");
 		}

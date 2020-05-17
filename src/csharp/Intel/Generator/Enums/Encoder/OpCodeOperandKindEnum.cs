@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.Encoder {
+	[Enum("OpCodeOperandKind", Documentation = "Operand kind", Public = true)]
 	enum OpCodeOperandKind {
 		[Comment("No operand")]
 		None,
@@ -235,14 +234,5 @@ namespace Generator.Enums.Encoder {
 		brdisp_2,
 		[Comment("4-byte branch offset (#(c:JMPE)# instruction)")]
 		brdisp_4,
-	}
-
-	static class OpCodeOperandKindEnum {
-		const string documentation = "Operand kind";
-
-		static EnumValue[] GetValues() =>
-			typeof(OpCodeOperandKind).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpCodeOperandKind)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpCodeOperandKind, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }

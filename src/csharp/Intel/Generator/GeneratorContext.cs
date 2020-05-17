@@ -40,6 +40,17 @@ namespace Generator {
 		public bool HasIntelFormatter { get; }
 		public bool HasMasmFormatter { get; }
 		public bool HasNasmFormatter { get; }
+
+		public GeneratorOptions(GeneratorFlags flags) {
+			HasGasFormatter = (flags & GeneratorFlags.NoGasFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasIntelFormatter = (flags & GeneratorFlags.NoIntelFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			HasNasmFormatter = (flags & GeneratorFlags.NoNasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+		}
+	}
+
+	sealed class GeneratorContext {
+		public GenTypes Types { get; }
 		public string UnitTestsDir { get; }
 		public string CSharpDir => langDirs[(int)TargetLanguage.CSharp];
 		public string CSharpTestsDir { get; }
@@ -47,11 +58,9 @@ namespace Generator {
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
 		readonly string[] langDirs;
 
-		public GeneratorOptions(string baseDir, GeneratorFlags flags) {
-			HasGasFormatter = (flags & GeneratorFlags.NoGasFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
-			HasIntelFormatter = (flags & GeneratorFlags.NoIntelFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
-			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
-			HasNasmFormatter = (flags & GeneratorFlags.NoNasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+		public GeneratorContext(string baseDir, GeneratorFlags flags) {
+			Types = new GenTypes(new GeneratorOptions(flags));
+
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
 			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];
 			for (int i = 0; i < langDirs.Length; i++) {

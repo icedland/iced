@@ -22,43 +22,34 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Encoder {
-	static class OpCodeFlagsEnum {
-		const string? documentation = null;
-
-		[Flags]
-		enum OpCodeFlags : uint {
-			None,
-			Mode16,
-			Mode32,
-			Mode64,
-			Fwait,
-			LIG,
-			WIG,
-			WIG32,
-			W,
-			Broadcast,
-			RoundingControl,
-			SuppressAllExceptions,
-			OpMaskRegister,
-			ZeroingMasking,
-			LockPrefix,
-			XacquirePrefix,
-			XreleasePrefix,
-			RepPrefix,
-			RepnePrefix,
-			BndPrefix,
-			HintTakenPrefix,
-			NotrackPrefix,
-			NoInstruction,
-			NonZeroOpMaskRegister,
-		}
-
-		static EnumValue[] GetValues() =>
-			typeof(OpCodeFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpCodeFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType("Flags", TypeIds.OpCodeFlags, documentation, GetValues(), EnumTypeFlags.Flags);
+	[Enum("Flags", "OpCodeFlags", Flags = true)]
+	[Flags]
+	enum OpCodeFlags : uint {
+		None,
+		Mode16,
+		Mode32,
+		Mode64,
+		Fwait,
+		LIG,
+		WIG,
+		WIG32,
+		W,
+		Broadcast,
+		RoundingControl,
+		SuppressAllExceptions,
+		OpMaskRegister,
+		ZeroingMasking,
+		LockPrefix,
+		XacquirePrefix,
+		XreleasePrefix,
+		RepPrefix,
+		RepnePrefix,
+		BndPrefix,
+		HintTakenPrefix,
+		NotrackPrefix,
+		NoInstruction,
+		NonZeroOpMaskRegister,
 	}
 }

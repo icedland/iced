@@ -22,9 +22,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Linq;
 
 namespace Generator.Enums.Decoder {
+	[Enum("LegacyHandlerFlags", Flags = true, NoInitialize = true)]
 	[Flags]
 	enum LegacyHandlerFlags : uint {
 		HandlerReg = 0x00000001,
@@ -35,14 +35,5 @@ namespace Generator.Enums.Decoder {
 		HandlerF3Mem = 0x00000020,
 		HandlerF2Reg = 0x00000040,
 		HandlerF2Mem = 0x00000080,
-	}
-
-	static class LegacyHandlerFlagsEnum {
-		const string? documentation = null;
-
-		static EnumValue[] GetValues() =>
-			typeof(LegacyHandlerFlags).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(LegacyHandlerFlags)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.LegacyHandlerFlags, documentation, GetValues(), EnumTypeFlags.Flags | EnumTypeFlags.NoInitialize);
 	}
 }

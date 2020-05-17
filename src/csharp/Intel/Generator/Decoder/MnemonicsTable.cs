@@ -26,12 +26,18 @@ using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Decoder {
-	static class MnemonicsTable {
-		public static readonly (EnumValue codeEnum, EnumValue mnemonicEnum)[] Table = CreateTable();
+	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	sealed class MnemonicsTable {
+		public readonly (EnumValue codeEnum, EnumValue mnemonicEnum)[] Table;
 
-		static (EnumValue codeEnum, EnumValue mnemonicEnum)[] CreateTable() {
-			var code = CodeEnum.Instance;
-			var mnemonic = MnemonicEnum.Instance;
+		MnemonicsTable(GenTypes genTypes) {
+			Table = CreateTable(genTypes);
+			genTypes.AddObject(TypeIds.MnemonicsTable, this);
+		}
+
+		static (EnumValue codeEnum, EnumValue mnemonicEnum)[] CreateTable(GenTypes genTypes) {
+			var code = genTypes[TypeIds.Code];
+			var mnemonic = genTypes[TypeIds.Mnemonic];
 
 			var result = new (EnumValue codeEnum, EnumValue mnemonicEnum)[] {
 				(code[nameof(Code.INVALID)], mnemonic[nameof(Mnemonic.INVALID)]),

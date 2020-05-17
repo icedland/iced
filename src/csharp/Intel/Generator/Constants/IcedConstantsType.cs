@@ -24,7 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Linq;
 using Generator.Enums;
-using Generator.InstructionInfo;
 
 namespace Generator.Constants {
 	static class IcedConstants {
@@ -36,12 +35,19 @@ namespace Generator.Constants {
 		public const string FirstBroadcastMemorySizeName = "FirstBroadcastMemorySize";
 	}
 
-	static class IcedConstantsType {
-		const string? documentation = null;
-		public static readonly ConstantsType Instance = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, documentation: documentation, GetConstants());
+	[TypeGen(TypeGenOrders.IcedConstantsType)]
+	sealed class IcedConstantsType : ITypeGen {
+		readonly GenTypes genTypes;
 
-		static Constant[] GetConstants() {
-			var regEnum = RegisterEnum.Instance;
+		IcedConstantsType(GenTypes genTypes) => this.genTypes = genTypes;
+
+		public void Generate(GenTypes genTypes) {
+			var type = new ConstantsType(TypeIds.IcedConstants, ConstantsTypeFlags.None, null, GetConstants());
+			genTypes.Add(type);
+		}
+
+		Constant[] GetConstants() {
+			var regEnum = genTypes[TypeIds.Register];
 			var vmmFirst = regEnum[Get_VMM_first()].Value;
 			var vmmLast = regEnum[Get_VMM_last()].Value;
 			ConstantUtils.VerifyMask<Register>((1U << IcedConstants.RegisterBits) - 1);
@@ -49,13 +55,13 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxOpCount), IcedConstants.MaxOpCount, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Index, nameof(IcedConstants.MaxInstructionLength), IcedConstants.MaxInstructionLength, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Int32, nameof(IcedConstants.RegisterBits), IcedConstants.RegisterBits, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, IcedConstants.NumberOfCodeValuesName, (uint)CodeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, IcedConstants.NumberOfCodeValuesName, (uint)genTypes[TypeIds.Code].Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Index, "NumberOfRegisters", (uint)regEnum.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "NumberOfMemorySizes", (uint)MemorySizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "NumberOfEncodingKinds", (uint)EncodingKindEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "NumberOfOpKinds", (uint)OpKindEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "NumberOfCodeSizes", (uint)CodeSizeEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "NumberOfRoundingControlValues", (uint)RoundingControlEnum.Instance.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "NumberOfMemorySizes", (uint)genTypes[TypeIds.MemorySize].Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "NumberOfEncodingKinds", (uint)genTypes[TypeIds.EncodingKind].Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "NumberOfOpKinds", (uint)genTypes[TypeIds.OpKind].Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "NumberOfCodeSizes", (uint)genTypes[TypeIds.CodeSize].Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "NumberOfRoundingControlValues", (uint)genTypes[TypeIds.RoundingControl].Values.Length, ConstantsTypeFlags.None, null),
 				// This is the largest vector register. If it's VEX/EVEX, the upper bits are always cleared when writing to any sub reg, eg. YMM0
 				new Constant(ConstantKind.Register, "VMM_first", vmmFirst, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "VMM_last", vmmLast, ConstantsTypeFlags.None, null),
@@ -63,26 +69,26 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.Register, "XMM_last", regEnum[Get_VEC_last("XMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "YMM_last", regEnum[Get_VEC_last("YMM")].Value, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.Register, "ZMM_last", regEnum[Get_VEC_last("ZMM")].Value, ConstantsTypeFlags.None, null),
-				new Constant(ConstantKind.Index, "MaxCpuidFeatureInternalValues", (uint)InstrInfoTypes.EnumCpuidFeatureInternal.Values.Length, ConstantsTypeFlags.None, null),
+				new Constant(ConstantKind.Index, "MaxCpuidFeatureInternalValues", (uint)genTypes[TypeIds.CpuidFeatureInternal].Values.Length, ConstantsTypeFlags.None, null),
 				new Constant(ConstantKind.MemorySize, IcedConstants.FirstBroadcastMemorySizeName, GetFirstBroadcastMemorySize(), ConstantsTypeFlags.None, null),
 			};
 		}
 
 		const string VMM_prefix = "ZMM";
 		const int vmmLastNum = 31;
-		static string Get_VMM_first() => VMM_prefix + "0";
-		static string Get_VMM_last() => Get_VEC_last(VMM_prefix);
-		static string Get_VEC_last(string prefix) {
+		string Get_VMM_first() => VMM_prefix + "0";
+		string Get_VMM_last() => Get_VEC_last(VMM_prefix);
+		string Get_VEC_last(string prefix) {
 			var vmmLastStr = prefix + vmmLastNum.ToString();
 			var vmmShouldNotExistStr = prefix + (vmmLastNum + 1).ToString();
-			var vmmLast = RegisterEnum.Instance[vmmLastStr];
-			if (RegisterEnum.Instance.Values.Any(a => a.RawName == vmmShouldNotExistStr))
+			var vmmLast = genTypes[TypeIds.Register][vmmLastStr];
+			if (genTypes[TypeIds.Register].Values.Any(a => a.RawName == vmmShouldNotExistStr))
 				throw new InvalidOperationException($"Register {vmmShouldNotExistStr} exists so {vmmLast.RawName} isn't the last one");
 			return vmmLast.RawName;
 		}
 
-		static uint GetFirstBroadcastMemorySize() {
-			var values = MemorySizeEnum.Instance.Values;
+		uint GetFirstBroadcastMemorySize() {
+			var values = genTypes[TypeIds.MemorySize].Values;
 			uint? firstBroadcastValue = null;
 			for (int i = 0; i < values.Length; i++) {
 				var name = values[i].RawName;

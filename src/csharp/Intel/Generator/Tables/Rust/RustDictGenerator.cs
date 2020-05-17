@@ -30,59 +30,60 @@ namespace Generator.Tables.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Dictionaries)]
 	sealed class RustDictGenerator {
 		readonly IdentifierConverter idConverter;
-		readonly GeneratorOptions generatorOptions;
+		readonly GeneratorContext generatorContext;
 
-		public RustDictGenerator(GeneratorOptions generatorOptions) {
+		public RustDictGenerator(GeneratorContext generatorContext) {
 			idConverter = RustIdentifierConverter.Create();
-			this.generatorOptions = generatorOptions;
+			this.generatorContext = generatorContext;
 		}
 
 		public void Generate() {
+			var genTypes = generatorContext.Types;
 			var infos = new (string filename, string id, Action<FileWriter> func)[] {
 				(
-					Path.Combine(generatorOptions.RustDir, "info", "tests", "test_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "info", "tests", "test_parser.rs"),
 					"OpAccessDict",
-					writer => WriteDict(writer, InstrInfoDictConstants.OpAccessConstants, "to_access")
+					writer => WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes), "to_access")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "info", "tests", "mem_size_test_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "info", "tests", "mem_size_test_parser.rs"),
 					"FlagsDict",
-					writer => WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable, "to_flags")
+					writer => WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "info", "tests", "reg_test_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "info", "tests", "reg_test_parser.rs"),
 					"FlagsDict",
-					writer => WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable, "to_flags")
+					writer => WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
 					"EncodingKindDict",
-					writer => WriteDict(writer, EncoderConstants.EncodingKindTable, "to_encoding_kind")
+					writer => WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes), "to_encoding_kind")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
 					"MandatoryPrefixDict",
-					writer => WriteDict(writer, EncoderConstants.MandatoryPrefixTable, "to_mandatory_prefix")
+					writer => WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes), "to_mandatory_prefix")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "encoder", "tests", "op_code_test_case_parser.rs"),
 					"OpCodeTableKindDict",
-					writer => WriteDict(writer, EncoderConstants.OpCodeTableKindTable, "to_op_code_table_kind")
+					writer => WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes), "to_op_code_table_kind")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "formatter", "masm", "tests", "sym_opts_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "formatter", "masm", "tests", "sym_opts_parser.rs"),
 					"SymbolTestFlagsDict",
-					writer => WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable, "to_flags")
+					writer => WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "formatter", "tests", "mnemonic_opts_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "formatter", "tests", "mnemonic_opts_parser.rs"),
 					"OptionsDict",
-					writer => WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable, "to_flags")
+					writer => WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes), "to_flags")
 				),
 				(
-					Path.Combine(generatorOptions.RustDir, "formatter", "tests", "sym_res_test_parser.rs"),
+					Path.Combine(generatorContext.RustDir, "formatter", "tests", "sym_res_test_parser.rs"),
 					"OptionsDict",
-					writer => WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable, "to_flags")
+					writer => WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "to_flags")
 				),
 			};
 			foreach (var info in infos) {

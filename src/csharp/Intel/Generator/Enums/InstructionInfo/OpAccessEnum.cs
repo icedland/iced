@@ -21,9 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
-
 namespace Generator.Enums.InstructionInfo {
+	[Enum("OpAccess", Documentation = "Operand, register and memory access", Public = true)]
 	enum OpAccess {
 		[Comment("Nothing is read and nothing is written")]
 		None,
@@ -41,14 +40,5 @@ namespace Generator.Enums.InstructionInfo {
 		ReadCondWrite,
 		[Comment("The memory operand doesn't refer to memory (eg. #(c:LEA)# instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. #(c:INVLPG)#, #(c:PREFETCHNTA)#, #(c:VGATHERPF0DPS)#, etc.")]
 		NoMemAccess,
-	}
-
-	static class OpAccessEnum {
-		const string documentation = "Operand, register and memory access";
-
-		static EnumValue[] GetValues() =>
-			typeof(OpAccess).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(OpAccess)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
-
-		public static readonly EnumType Instance = new EnumType(TypeIds.OpAccess, documentation, GetValues(), EnumTypeFlags.Public);
 	}
 }
