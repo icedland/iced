@@ -44,7 +44,7 @@ namespace Generator.Tables {
 		}
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class MemorySizeInfoTable {
 		public readonly MemorySizeInfo[] Data;
 

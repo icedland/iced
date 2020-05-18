@@ -40,7 +40,16 @@ namespace Generator.Enums {
 		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
 		public EnumValue[] Values { get; }
+		readonly bool initialized;
 		readonly Dictionary<string, EnumValue> toEnumValue;
+
+		internal void ResetValues(EnumValue[] newValues) {
+			foreach (var value in newValues) {
+				if (value.DeclaringType != this)
+					throw new InvalidOperationException();
+			}
+			Initialize(newValues);
+		}
 
 		public EnumValue this[string name] {
 			get {
@@ -77,8 +86,14 @@ namespace Generator.Enums {
 			RawName = name;
 			Documentation = documentation;
 			Values = values;
-			if ((flags & EnumTypeFlags.NoInitialize) == 0) {
-				if ((flags & EnumTypeFlags.Flags) != 0) {
+			initialized = (flags & EnumTypeFlags.NoInitialize) == 0;
+			Initialize(values);
+		}
+
+		void Initialize(EnumValue[] values) {
+			toEnumValue.Clear();
+			if (initialized) {
+				if (IsFlags) {
 					uint value = 0;
 					for (int i = 0; i < values.Length; i++) {
 						if (values[i].RawName == "None")

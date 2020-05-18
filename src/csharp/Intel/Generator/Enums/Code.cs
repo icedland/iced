@@ -4249,7 +4249,7 @@ namespace Generator.Enums {
 		Tlbsync,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.CreatedInstructions)]
 	sealed class CodeEnum {
 		CodeEnum(GenTypes genTypes) {
 			// It must have value 0

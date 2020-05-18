@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class DecoderTestParserConstantsType {
 		DecoderTestParserConstantsType(GenTypes genTypes) {
 			var type = new ConstantsType(TypeIds.DecoderTestParserConstants, ConstantsTypeFlags.None, null, GetConstants());

@@ -30,7 +30,7 @@ using Generator.Enums.Encoder;
 using Generator.Enums.InstructionInfo;
 
 namespace Generator.Tables {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.PreCreateInstructions)]
 	sealed class InstructionDefs {
 		public readonly InstructionDef[] Table;
 

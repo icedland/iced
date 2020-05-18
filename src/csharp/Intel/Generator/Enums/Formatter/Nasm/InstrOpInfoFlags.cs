@@ -62,7 +62,7 @@ namespace Generator.Enums.Formatter.Nasm {
 		MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstrOpInfoFlagsEnum {
 		InstrOpInfoFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<SizeOverride>((uint)InstrOpInfoFlags.SizeOverrideMask);

@@ -51,7 +51,7 @@ namespace Generator.Enums.Encoder {
 		VvvvvMask			= 0x1F,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class EncoderFlagsEnum {
 		EncoderFlagsEnum(GenTypes genTypes) {
 			if ((uint)EncoderFlags.VvvvvShift + 5 > 32)

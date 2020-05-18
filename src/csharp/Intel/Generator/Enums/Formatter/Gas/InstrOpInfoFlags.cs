@@ -48,7 +48,7 @@ namespace Generator.Enums.Formatter.Gas {
 		MnemonicIsDirective			= 0x1000,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstrOpInfoFlagsEnum {
 		InstrOpInfoFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<SizeOverride>((uint)InstrOpInfoFlags.SizeOverrideMask);

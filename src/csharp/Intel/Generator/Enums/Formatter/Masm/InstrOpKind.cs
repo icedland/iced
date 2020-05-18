@@ -24,7 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Linq;
 
 namespace Generator.Enums.Formatter.Masm {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstrOpKindEnum {
 		InstrOpKindEnum(GenTypes genTypes) {
 			var enumType = new EnumType("InstrOpKind", TypeIds.MasmInstrOpKind, null, GetValues(genTypes), EnumTypeFlags.NoInitialize);

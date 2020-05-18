@@ -26,7 +26,7 @@ using Generator.Enums;
 using Generator.Enums.InstructionInfo;
 
 namespace Generator.InstructionInfo {
-	[TypeGen(TypeGenOrders.CreateTypes)]
+	[TypeGen(TypeGenOrders.CreatedInstructions)]
 	sealed class InstrInfoTypes {
 		public EnumType[] EnumOpInfos { get; }
 		public (EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] CpuidFeatures { get; }

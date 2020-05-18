@@ -26,7 +26,7 @@ using Generator.Enums.Formatter;
 using Generator.Enums.Formatter.Nasm;
 
 namespace Generator.Formatters.Nasm {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.PreCreateInstructions)]
 	sealed class CtorInfos {
 		public readonly object[][] Infos;
 

@@ -40,7 +40,7 @@ namespace Generator.Tables {
 		}
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class RegisterInfoTable {
 		public readonly RegisterInfo[] Data;
 

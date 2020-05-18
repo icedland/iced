@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.Encoder {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class OpCodeInfoFlagsType {
 		OpCodeInfoFlagsType(GenTypes genTypes) {
 			var type = new ConstantsType(TypeIds.OpCodeInfoFlags, ConstantsTypeFlags.None, null, GetConstants());

@@ -51,7 +51,7 @@ namespace Generator.Enums.Instruction {
 		EqualsIgnoreMask		= CodeSizeMask << (int)CodeSizeShift,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class OpKindFlagsEnum {
 		OpKindFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<OpKind>((uint)OpKindFlags.OpKindMask);

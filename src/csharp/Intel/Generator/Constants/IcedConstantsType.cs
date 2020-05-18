@@ -35,7 +35,7 @@ namespace Generator.Constants {
 		public const string FirstBroadcastMemorySizeName = "FirstBroadcastMemorySize";
 	}
 
-	[TypeGen(TypeGenOrders.IcedConstantsType)]
+	[TypeGen(TypeGenOrders.Last)]
 	sealed class IcedConstantsType : ITypeGen {
 		readonly GenTypes genTypes;
 

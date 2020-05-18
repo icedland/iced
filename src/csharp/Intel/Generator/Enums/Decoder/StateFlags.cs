@@ -43,7 +43,7 @@ namespace Generator.Enums.Decoder {
 		NoMoreBytes				= 0x00004000,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class StateFlagsEnum {
 		StateFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<EncodingKind>((uint)StateFlags.EncodingMask);

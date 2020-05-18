@@ -22,7 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 namespace Generator.Constants.InstructionInfo {
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class RflagsBitsConstantsType {
 		RflagsBitsConstantsType(GenTypes genTypes) {
 			var type = new ConstantsType(TypeIds.RflagsBitsConstants, ConstantsTypeFlags.None, null, GetConstants());

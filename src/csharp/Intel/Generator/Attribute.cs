@@ -55,14 +55,35 @@ namespace Generator {
 	}
 
 	static class TypeGenOrders {
-		public const double CreateSimpleTypes = 0;
-		public const double CreateTypes = 1000;
-		public const double IcedConstantsType = CreateTypes + 1;
+		/// <summary>
+		/// Only depends on exported enums (<see cref="EnumAttribute"/>), does not depend on other created enums/constants.
+		/// Must not depend on Code.
+		/// </summary>
+		public const double NoDeps = 0;
+
+		/// <summary>
+		/// Depends on Code (before it's been filtered) and is called before instructions are filtered
+		/// </summary>
+		public const double PreCreateInstructions = 9000;
+
+		/// <summary>
+		/// Depends on Code, InstructionDefs and anything else that depends on them
+		/// </summary>
+		public const double CreatedInstructions = 10000;
+
+		/// <summary>
+		/// Depends on anything created earlier
+		/// </summary>
+		public const double Last = double.MaxValue;
 	}
 
 	[AttributeUsage(AttributeTargets.Class)]
 	sealed class TypeGenAttribute : Attribute {
 		public double Order { get; }
-		public TypeGenAttribute(double order) => Order = order;
+		public TypeGenAttribute(double order) {
+			if (double.IsNaN(order))
+				throw new ArgumentOutOfRangeException(nameof(order));
+			Order = order;
+		}
 	}
 }

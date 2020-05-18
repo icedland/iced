@@ -63,7 +63,7 @@ namespace Generator.Enums.Instruction {
 		EqualsIgnoreMask		= InstrLengthMask << (int)InstrLengthShift,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class CodeFlagsEnum {
 		CodeFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<Code>((uint)CodeFlags.CodeMask);

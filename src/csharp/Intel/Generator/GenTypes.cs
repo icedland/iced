@@ -28,20 +28,34 @@ using System.Linq;
 using System.Reflection;
 using Generator.Constants;
 using Generator.Enums;
+using Generator.Tables;
 
 namespace Generator {
+	/// <summary>
+	/// Can be implemented by classes with an <see cref="TypeGenAttribute"/>
+	/// </summary>
 	interface ITypeGen {
 		void Generate(GenTypes genTypes);
+	}
+
+	/// <summary>
+	/// Can be implemented by classes with an <see cref="TypeGenAttribute"/> and if so,
+	/// its priority must be &lt; <see cref="TypeGenOrders.CreatedInstructions"/>
+	/// </summary>
+	interface ICreatedInstructions {
+		void OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues);
 	}
 
 	sealed class GenTypes {
 		readonly Dictionary<TypeId, EnumType> enums;
 		readonly Dictionary<TypeId, ConstantsType> constants;
 		readonly Dictionary<TypeId, object> objs;
+		bool canGetCodeEnum;
 
 		public GeneratorOptions Options { get; }
 
 		public GenTypes(GeneratorOptions options) {
+			canGetCodeEnum = false;
 			Options = options;
 			constants = new Dictionary<TypeId, ConstantsType>();
 			objs = new Dictionary<TypeId, object>();
@@ -118,16 +132,57 @@ namespace Generator {
 				Debug.Assert(b.type.FullName is object);
 				return a.type.FullName.CompareTo(b.type.FullName);
 			});
-			foreach (var (type, ca) in typeGens) {
-				var ctor = type.GetTypeInfo().DeclaredConstructors.FirstOrDefault(c => c.GetParameters().Length == 1 && c.GetParameters()[0].ParameterType == typeof(GenTypes));
+
+			var created = new List<object>();
+			int index = 0;
+			CallTypeGens(created, typeGens, ref index, order => order < TypeGenOrders.PreCreateInstructions);
+			canGetCodeEnum = true;
+			CallTypeGens(created, typeGens, ref index, order => order < TypeGenOrders.CreatedInstructions);
+
+			var codeHash = FilterCode();
+
+			for (int i = 0; i < index; i++) {
+				if (created[i] is ICreatedInstructions createdInstrs)
+					createdInstrs.OnCreatedInstructions(this, codeHash);
+			}
+
+			int createdCount = created.Count;
+			CallTypeGens(created, typeGens, ref index, order => true);
+			for (int i = createdCount; i < created.Count; i++) {
+				if (created[i] is ICreatedInstructions)
+					throw new InvalidOperationException($"Can't impl {nameof(ICreatedInstructions)}, update the {nameof(TypeGenAttribute)} order");
+			}
+		}
+
+		void CallTypeGens(List<object> created, List<(Type type, TypeGenAttribute ca)> typeGens, ref int index, Func<double, bool> checkOrder) {
+			for (; index < typeGens.Count; index++) {
+				var typeGen = typeGens[index];
+				if (!checkOrder(typeGen.ca.Order))
+					break;
+				var ctor = typeGen.type.GetTypeInfo().DeclaredConstructors.FirstOrDefault(c => c.GetParameters().Length == 1 && c.GetParameters()[0].ParameterType == typeof(GenTypes));
 				if (ctor is null)
-					throw new InvalidOperationException($"{type} needs a constructor with a {nameof(GenTypes)} argument");
+					throw new InvalidOperationException($"{typeGen.type} needs a constructor with a {nameof(GenTypes)} argument");
 				var gen = ctor.Invoke(new object[] { this });
 				if (gen is null)
 					throw new InvalidOperationException();
-				if (gen is ITypeGen typeGen)
-					typeGen.Generate(this);
+				created.Add(gen);
+				if (gen is ITypeGen tg)
+					tg.Generate(this);
 			}
+		}
+
+		HashSet<EnumValue> FilterCode() {
+			var defs = GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			var newCodeValues = defs.Where(a => ShouldInclude(a)).Select(a => a.OpCodeInfo.Code).ToArray();
+
+			var code = this[TypeIds.Code];
+			code.ResetValues(newCodeValues);
+
+			return code.Values.ToHashSet();
+		}
+
+		bool ShouldInclude(InstructionDef def) {
+			return true;
 		}
 
 		public void Add(EnumType enumType) => enums.Add(enumType.TypeId, enumType);
@@ -136,6 +191,8 @@ namespace Generator {
 		public void AddObject(TypeId id, object obj) => objs.Add(id, obj);
 
 		public T GetObject<T>(TypeId id) {
+			if (!canGetCodeEnum && id == TypeIds.Code)
+				throw new InvalidOperationException($"Can't read Code value yet. Update the class' {nameof(TypeGenAttribute)} order");
 			if (objs.TryGetValue(id, out var obj)) {
 				if (obj is T t)
 					return t;

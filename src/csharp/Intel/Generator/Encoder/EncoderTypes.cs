@@ -28,7 +28,7 @@ using Generator.Enums;
 using Generator.Enums.Encoder;
 
 namespace Generator.Encoder {
-	[TypeGen(TypeGenOrders.CreateTypes)]
+	[TypeGen(TypeGenOrders.CreatedInstructions)]
 	sealed class EncoderTypes {
 		public (EnumValue value, uint size)[] ImmSizes { get; }
 		public Dictionary<OpCodeFlags, EnumValue> AllowedPrefixesMap { get; }

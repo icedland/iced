@@ -60,7 +60,7 @@ namespace Generator.Enums.Formatter.Intel {
 		MnemonicIsDirective			= 0x00008000,
 	}
 
-	[TypeGen(TypeGenOrders.CreateSimpleTypes)]
+	[TypeGen(TypeGenOrders.NoDeps)]
 	sealed class InstrOpInfoFlagsEnum {
 		InstrOpInfoFlagsEnum(GenTypes genTypes) {
 			ConstantUtils.VerifyMask<BranchSizeInfo>((uint)InstrOpInfoFlags.BranchSizeInfoMask);
