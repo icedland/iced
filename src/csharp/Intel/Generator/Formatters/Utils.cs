@@ -22,11 +22,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Formatters {
 	static class Utils {
 		public const int CodeValueIndex = 1;
+
+		public static object[][] Filter(HashSet<EnumValue> filteredCodeValues, object[][] infos) =>
+			infos.Where(a => filteredCodeValues.Contains((EnumValue)a[CodeValueIndex])).ToArray();
 
 		public static object[][] Sort(object[][] infos) {
 			Array.Sort(infos, (a, b) => {

@@ -21,9 +21,12 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Collections.Generic;
+using Generator.Enums;
+
 namespace Generator.Formatters.Masm {
 	[TypeGen(TypeGenOrders.PreCreateInstructions)]
-	sealed class CtorInfos {
+	sealed class CtorInfos : ICreatedInstructions {
 		public object[][] Infos => infos;
 		object[][] infos;
 
@@ -31,5 +34,8 @@ namespace Generator.Formatters.Masm {
 			infos = CtorInfosData.GetData(genTypes);
 			genTypes.AddObject(TypeIds.MasmCtorInfos, this);
 		}
+
+		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) =>
+			infos = Utils.Filter(filteredCodeValues, infos);
 	}
 }
