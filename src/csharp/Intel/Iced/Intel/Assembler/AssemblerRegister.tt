@@ -104,7 +104,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegister<#= r #> k3 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -114,22 +114,22 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegister<#= r #> k5 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegister<#= r #> k6 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegister<#= r #> k7 => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegister<#= r #> z => new AssemblerRegister<#= r #>(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 <#
 			if (hasSaeRounding)
 			{
@@ -139,12 +139,12 @@ namespace Iced.Intel {
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegister<#= r #> sae => new AssemblerRegister<#= r #>(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegister<#= r #> rn_sae => new AssemblerRegister<#= r #>(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -201,11 +201,10 @@ namespace Iced.Intel {
 			return new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 		}
 <#				
-				
 				}
 			}
 		}
-		
+
 		if (is16_32_64 || isXYZMM) {
 #>
 		/// <summary>

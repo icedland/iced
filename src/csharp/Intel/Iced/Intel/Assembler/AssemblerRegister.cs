@@ -231,7 +231,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegister32 k3 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -241,33 +241,33 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegister32 k5 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegister32 k6 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegister32 k7 => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegister32 z => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegister32 sae => new AssemblerRegister32(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegister32 rn_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -438,7 +438,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegister64 k3 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -448,33 +448,33 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegister64 k5 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegister64 k6 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegister64 k7 => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegister64 z => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegister64 sae => new AssemblerRegister64(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegister64 rn_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -699,7 +699,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegisterXMM k3 => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -709,33 +709,33 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegisterXMM k5 => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegisterXMM k6 => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegisterXMM k7 => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegisterXMM z => new AssemblerRegisterXMM(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegisterXMM sae => new AssemblerRegisterXMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegisterXMM rn_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -863,7 +863,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegisterYMM k3 => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -873,33 +873,33 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegisterYMM k5 => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegisterYMM k6 => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegisterYMM k7 => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegisterYMM z => new AssemblerRegisterYMM(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegisterYMM sae => new AssemblerRegisterYMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegisterYMM rn_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -1027,7 +1027,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegisterZMM k3 => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -1037,33 +1037,33 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegisterZMM k5 => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegisterZMM k6 => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegisterZMM k7 => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegisterZMM z => new AssemblerRegisterZMM(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 
 		/// <summary>
 		/// Suppress all exceptions.
 		/// </summary>
 		public AssemblerRegisterZMM sae => new AssemblerRegisterZMM(Value, Flags | AssemblerOperandFlags.SuppressAllExceptions);
-		
+
 		/// <summary>
 		/// Rounding to nearest.
 		/// </summary>
 		public AssemblerRegisterZMM rn_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
-		
+
 		/// <summary>
 		/// Rounding down.
 		/// </summary>
@@ -1191,7 +1191,7 @@ namespace Iced.Intel {
 		/// Apply mask Register K3.
 		/// </summary>
 		public AssemblerRegisterK k3 => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K3);
-		
+
 		/// <summary>
 		/// Apply mask Register K4.
 		/// </summary>
@@ -1201,22 +1201,22 @@ namespace Iced.Intel {
 		/// Apply mask Register K5.
 		/// </summary>
 		public AssemblerRegisterK k5 => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K5);
-		
+
 		/// <summary>
 		/// Apply mask Register K6.
 		/// </summary>
 		public AssemblerRegisterK k6 => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K6);
-		
+
 		/// <summary>
 		/// Apply mask Register K7.
 		/// </summary>
 		public AssemblerRegisterK k7 => new AssemblerRegisterK(Value, (Flags & ~AssemblerOperandFlags.RegisterMask) | AssemblerOperandFlags.K7);
-		
+
 		/// <summary>
 		/// Apply mask Zeroing.
 		/// </summary>
 		public AssemblerRegisterK z => new AssemblerRegisterK(Value, Flags | AssemblerOperandFlags.Zeroing);
-		
+
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegisterK"/> to a <see cref="Register"/>.
 		/// </summary>

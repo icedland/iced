@@ -84,7 +84,7 @@ namespace Generator.Encoder {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.LegacyOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
-		
+
 		public LegacyOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, OperandSize operandSize, AddressSize addressSize, OpCodeFlags flags, LegacyOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -109,7 +109,7 @@ namespace Generator.Encoder {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.VexOpHandlers[(int)kind].opCodeOperandKind.Value;
 		}
-		
+
 		public VexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, VexVectorLength vecLen, OpCodeFlags flags, VexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -126,14 +126,14 @@ namespace Generator.Encoder {
 		public override EncodingKind Encoding => EncodingKind.XOP;
 		public XopVectorLength VectorLength { get; }
 		public XopOpKind[] OpKinds { get; }
-		
+
 		public override int OpKindsLength => OpKinds.Length;
 
 		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.XopOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
-		
+
 		public XopOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, XopVectorLength vecLen, OpCodeFlags flags, XopOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -158,7 +158,7 @@ namespace Generator.Encoder {
 			var kind = OpKinds[arg];
 			return (OpCodeOperandKind)encoderTypes.EvexOpHandlers[(int)kind].opCodeOperandKind.Value;
 		} 
-		
+
 		public EvexOpCodeInfo(EnumValue code, MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, uint opCode, int groupIndex, EvexVectorLength vecLen, TupleType tupleType, OpCodeFlags flags, EvexOpKind[] opKinds) {
 			Code = code;
 			MandatoryPrefix = mandatoryPrefix;
@@ -175,7 +175,7 @@ namespace Generator.Encoder {
 	sealed class D3nowOpCodeInfo : OpCodeInfo {
 		public override EncodingKind Encoding => EncodingKind.D3NOW;
 		public uint Immediate8 { get; }
-		
+
 		public override int OpKindsLength => 2;
 
 		public override OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg) {
@@ -183,7 +183,7 @@ namespace Generator.Encoder {
 			if (arg == 1) return OpCodeOperandKind.mm_or_mem;
 			throw new ArgumentOutOfRangeException($"{arg}");
 		} 
-		
+
 		public D3nowOpCodeInfo(EnumValue code, uint immediate8, OpCodeFlags flags) {
 			Code = code;
 			MandatoryPrefix = MandatoryPrefix.None;

@@ -27,7 +27,7 @@ using Generator.Enums.Formatter;
 namespace Generator.Formatters {
 	static class FormatterConstants {
 		public const string InvalidMnemonicName = "(bad)";
-		
+
 		public static string[] GetPseudoOps(PseudoOpsKind kind) {
 			switch (kind) {
 			case PseudoOpsKind.cmpps:		return cmpps_pseudo_ops;
