@@ -89,7 +89,7 @@ namespace Generator {
 				}
 
 				var generatorContext = CreateGeneratorContext(options.GeneratorFlags);
-				Enums.CodeEnum.AddComments(generatorContext.Types, generatorContext.UnitTestsDir);
+				CodeComments.AddComments(generatorContext.Types, generatorContext.UnitTestsDir);
 
 				// It's not much of an improvement in speed at the moment.
 				// Group by lang since different lang gens don't write to the same files.

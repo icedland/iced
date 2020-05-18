@@ -189,9 +189,23 @@ namespace Generator.InstructionInfo {
 			RflagsInfo = null;
 			Cpuid = cpuid;
 			CpuidInternal = null;
+			opInfo = Create(opInfo);
 			OpInfo = opInfo;
 			OpInfoEnum = new EnumValue[opInfo.Length];
 			Flags = flags;
+		}
+
+		static OpInfo[] Create(OpInfo[] a) {
+			var res = new OpInfo[5];
+			for (int i = 0; i < res.Length; i++) {
+				OpInfo info;
+				if (i < a.Length)
+					info = a[i];
+				else
+					info = InstructionInfo.OpInfo.None;
+				res[i] = info;
+			}
+			return res;
 		}
 	}
 }

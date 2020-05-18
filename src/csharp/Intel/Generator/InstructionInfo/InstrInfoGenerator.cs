@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using Generator.Constants;
 using Generator.Enums;
 using Generator.Enums.InstructionInfo;
+using Generator.Tables;
 
 namespace Generator.InstructionInfo {
 	abstract class InstrInfoGenerator {
@@ -70,10 +71,10 @@ namespace Generator.InstructionInfo {
 					(int)genTypes[TypeIds.InfoFlags1]["OpInfo3Shift"].Value,
 					(int)genTypes[TypeIds.InfoFlags1]["OpInfo4Shift"].Value,
 				};
-				var infos = instrInfoTypes.InstrInfos;
-				var instrInfos = new (InstrInfo info, uint dword1, uint dword2)[infos.Length];
-				for (int i = 0; i < infos.Length; i++) {
-					var info = infos[i];
+				var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+				var instrInfos = new (InstrInfo info, uint dword1, uint dword2)[defs.Length];
+				for (int i = 0; i < defs.Length; i++) {
+					var info = defs[i].InstrInfo;
 					uint dword1 = 0;
 					uint dword2 = 0;
 

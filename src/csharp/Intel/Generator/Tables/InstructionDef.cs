@@ -22,34 +22,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using Generator.Encoder;
+using Generator.InstructionInfo;
+using Generator.Enums;
 
-namespace Generator.Enums.Encoder {
-	[Enum("Flags", "OpCodeFlags", Flags = true)]
-	[Flags]
-	enum EncoderOpCodeFlags : uint {
-		None,
-		Mode16,
-		Mode32,
-		Mode64,
-		Fwait,
-		LIG,
-		WIG,
-		WIG32,
-		W,
-		Broadcast,
-		RoundingControl,
-		SuppressAllExceptions,
-		OpMaskRegister,
-		ZeroingMasking,
-		LockPrefix,
-		XacquirePrefix,
-		XreleasePrefix,
-		RepPrefix,
-		RepnePrefix,
-		BndPrefix,
-		HintTakenPrefix,
-		NotrackPrefix,
-		NoInstruction,
-		NonZeroOpMaskRegister,
+namespace Generator.Tables {
+	sealed class InstructionDef {
+		public readonly int OpCount;
+		public readonly EnumValue Mnemonic;
+		public readonly EnumValue Mem;
+		public readonly EnumValue Bcst;
+		public readonly OpCodeInfo OpCodeInfo;
+		public readonly InstrInfo InstrInfo;
+
+		public InstructionDef(int opCount, EnumValue mnemonic, EnumValue mem, EnumValue bcst, OpCodeInfo opCodeInfo, InstrInfo instrInfo) {
+			if (opCodeInfo.Code != instrInfo.Code)
+				throw new InvalidOperationException();
+			OpCount = opCount;
+			Mnemonic = mnemonic;
+			Mem = mem;
+			Bcst = bcst;
+			OpCodeInfo = opCodeInfo;
+			InstrInfo = instrInfo;
+		}
 	}
 }

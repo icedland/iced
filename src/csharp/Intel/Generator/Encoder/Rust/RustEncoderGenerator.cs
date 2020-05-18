@@ -29,6 +29,7 @@ using System.Text;
 using Generator.Enums;
 using Generator.Enums.Rust;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Encoder.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Encoder)]
@@ -312,33 +313,33 @@ namespace Generator.Encoder.Rust {
 			}
 		}
 
-		protected override void Generate(OpCodeInfo[] opCodes) {
-			GenerateTable(opCodes);
-			GenerateNonZeroOpMaskRegisterCode(opCodes);
+		protected override void GenerateOpCodeInfo(InstructionDef[] defs) {
+			GenerateTable(defs);
+			GenerateNonZeroOpMaskRegisterCode(defs);
 		}
 
-		void GenerateTable(OpCodeInfo[] opCodes) {
+		void GenerateTable(InstructionDef[] defs) {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "op_code_data.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(super) static OP_CODE_DATA: [u32; {opCodes.Length} * 3] = [");
+				writer.WriteLine($"pub(super) static OP_CODE_DATA: [u32; {defs.Length} * 3] = [");
 				using (writer.Indent()) {
-					foreach (var info in GetData(opCodes))
+					foreach (var info in GetData(defs))
 						writer.WriteLine($"{NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword3)},// {info.opCode.Code.Name(idConverter)}");
 				}
 				writer.WriteLine("];");
 			}
 		}
 
-		void GenerateNonZeroOpMaskRegisterCode(OpCodeInfo[] opCodes) {
+		void GenerateNonZeroOpMaskRegisterCode(InstructionDef[] defs) {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "op_code.rs");
 			new FileUpdater(TargetLanguage.Rust, "NonZeroOpMaskRegister", filename).Generate(writer => {
 				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
 				var bar = string.Empty;
-				foreach (var opCode in opCodes) {
-					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0) {
-						writer.WriteLine($"{bar}{codeStr}::{opCode.Code.Name(idConverter)}");
+				foreach (var def in defs) {
+					if ((def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0) {
+						writer.WriteLine($"{bar}{codeStr}::{def.OpCodeInfo.Code.Name(idConverter)}");
 						bar = "| ";
 					}
 				}

@@ -31,7 +31,6 @@ namespace Generator.InstructionInfo {
 		public EnumType[] EnumOpInfos { get; }
 		public (EnumValue cpuidInternal, EnumValue[] cpuidFeatures)[] CpuidFeatures { get; }
 		public (EnumValue value, (RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set) rflags)[] RflagsInfos { get; }
-		public InstrInfo[] InstrInfos { get; }
 
 		InstrInfoTypes(GenTypes genTypes) {
 			var gen = new InstrInfoTypesGen(genTypes);
@@ -47,7 +46,6 @@ namespace Generator.InstructionInfo {
 			genTypes.Add(gen.InstrInfoConstants ?? throw new InvalidOperationException());
 			CpuidFeatures = gen.CpuidFeatures ?? throw new InvalidOperationException();
 			RflagsInfos = gen.RflagsInfos ?? throw new InvalidOperationException();
-			InstrInfos = gen.InstrInfos;
 			genTypes.AddObject(TypeIds.InstrInfoTypes, this);
 		}
 	}

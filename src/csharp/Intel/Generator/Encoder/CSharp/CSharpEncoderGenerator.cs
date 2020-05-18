@@ -26,6 +26,7 @@ using System.IO;
 using Generator.Enums;
 using Generator.Enums.CSharp;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Encoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Encoder)]
@@ -138,12 +139,12 @@ namespace Generator.Encoder.CSharp {
 			}
 		}
 
-		protected override void Generate(OpCodeInfo[] opCodes) {
-			GenerateTable(opCodes);
-			GenerateNonZeroOpMaskRegisterCode(opCodes);
+		protected override void GenerateOpCodeInfo(InstructionDef[] defs) {
+			GenerateTable(defs);
+			GenerateNonZeroOpMaskRegisterCode(defs);
 		}
 
-		void GenerateTable(OpCodeInfo[] opCodes) {
+		void GenerateTable(InstructionDef[] defs) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeHandlers.Data.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
@@ -154,9 +155,9 @@ namespace Generator.Encoder.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine("public static uint[] GetData() =>");
 						using (writer.Indent()) {
-							writer.WriteLine($"new uint[{opCodes.Length} * 3] {{");
+							writer.WriteLine($"new uint[{defs.Length} * 3] {{");
 							using (writer.Indent()) {
-								foreach (var info in GetData(opCodes))
+								foreach (var info in GetData(defs))
 									writer.WriteLine($"0x{info.dword1:X8}, 0x{info.dword2:X8}, 0x{info.dword3:X8},// {info.opCode.Code.Name(idConverter)}");
 							}
 							writer.WriteLine("};");
@@ -169,13 +170,13 @@ namespace Generator.Encoder.CSharp {
 			}
 		}
 
-		void GenerateNonZeroOpMaskRegisterCode(OpCodeInfo[] opCodes) {
+		void GenerateNonZeroOpMaskRegisterCode(InstructionDef[] defs) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
 			new FileUpdater(TargetLanguage.CSharp, "NonZeroOpMaskRegister", filename).Generate(writer => {
 				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
-				foreach (var opCode in opCodes) {
-					if ((opCode.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
-						writer.WriteLine($"case {codeStr}.{opCode.Code.Name(idConverter)}:");
+				foreach (var def in defs) {
+					if ((def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
+						writer.WriteLine($"case {codeStr}.{def.OpCodeInfo.Code.Name(idConverter)}:");
 				}
 			});
 		}

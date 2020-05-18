@@ -25,6 +25,7 @@ using System;
 using System.IO;
 using Generator.Constants;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_Mnemonic)]
@@ -40,7 +41,7 @@ namespace Generator.Decoder.CSharp {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var data = genTypes.GetObject<MnemonicsTable>(TypeIds.MnemonicsTable).Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
 			const string ClassName = "MnemonicUtilsData";
 			var mnemonicName = genTypes[TypeIds.Mnemonic].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
@@ -52,10 +53,10 @@ namespace Generator.Decoder.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine($"internal static readonly ushort[] toMnemonic = new ushort[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)}] {{");
 						using (writer.Indent()) {
-							foreach (var d in data) {
-								if (d.mnemonicEnum.Value > ushort.MaxValue)
+							foreach (var def in defs) {
+								if (def.Mnemonic.Value > ushort.MaxValue)
 									throw new InvalidOperationException();
-								writer.WriteLine($"(ushort){mnemonicName}.{d.mnemonicEnum.Name(idConverter)},// {d.codeEnum.Name(idConverter)}");
+								writer.WriteLine($"(ushort){mnemonicName}.{def.Mnemonic.Name(idConverter)},// {def.OpCodeInfo.Code.Name(idConverter)}");
 							}
 						}
 						writer.WriteLine("};");

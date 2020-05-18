@@ -28,6 +28,7 @@ using System.Text;
 using Generator.Constants;
 using Generator.Enums;
 using Generator.Enums.Encoder;
+using Generator.Tables;
 
 namespace Generator.Encoder {
 	enum InstructionOperand {
@@ -290,15 +291,15 @@ namespace Generator.Encoder {
 		public InstructionGroup[] GetGroups() {
 			var groups = new Dictionary<InstructionOperand[], InstructionGroup>(new OpComparer());
 
-			foreach (var info in genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data) {
-				if (ignoredCodes.Contains(info.Code))
+			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table) {
+				if (ignoredCodes.Contains(def.OpCodeInfo.Code))
 					continue;
 
-				var opKinds = GetOperands(info);
+				var opKinds = GetOperands(def.OpCodeInfo);
 				foreach (var ops in GetOperands(opKinds)) {
 					if (!groups.TryGetValue(ops, out var group))
 						groups.Add(ops, group = new InstructionGroup(ops));
-					group.OpCodes.Add(info);
+					group.OpCodes.Add(def.OpCodeInfo);
 				}
 			}
 

@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Generator.Decoder;
 using Generator.Encoder;
 using Generator.Enums;
 using Generator.Enums.Encoder;
@@ -38,8 +37,8 @@ namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
 		protected readonly GenTypes genTypes;
 		protected readonly EncoderTypes encoderTypes;
+		readonly InstructionDef[] defs;
 		readonly object[][] intelCtorInfos;
-		readonly InstructionMemorySizesTable instructionMemorySizesTable;
 		readonly MemorySizeInfoTable memorySizeInfoTable;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groups;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groupsWithPseudo;
@@ -47,15 +46,15 @@ namespace Generator.Assembler {
 
 		protected AssemblerSyntaxGenerator(GenTypes genTypes) {
 			this.genTypes = genTypes;
+			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
 			encoderTypes = genTypes.GetObject<EncoderTypes>(TypeIds.EncoderTypes);
 			intelCtorInfos = genTypes.GetObject<Formatters.Intel.CtorInfos>(TypeIds.IntelCtorInfos).Infos;
-			instructionMemorySizesTable = genTypes.GetObject<InstructionMemorySizesTable>(TypeIds.InstructionMemorySizesTable);
 			memorySizeInfoTable = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
 		}
 
-		protected const Encoder.OpCodeFlags BitnessMaskFlags = Encoder.OpCodeFlags.Mode64 | Encoder.OpCodeFlags.Mode32 | Encoder.OpCodeFlags.Mode16;
+		protected const OpCodeFlags BitnessMaskFlags = OpCodeFlags.Mode64 | OpCodeFlags.Mode32 | OpCodeFlags.Mode16;
 
 		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
 			Code.INVALID,
@@ -201,16 +200,16 @@ namespace Generator.Assembler {
 
 		public void Generate() {
 			GenerateRegisters(genTypes[TypeIds.Register]);
-			Generate(genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data);
+			GenerateOpCodes();
 		}
 
-		void Generate(OpCodeInfo[] opCodes) {
-			var mnemonicsTable = genTypes.GetObject<MnemonicsTable>(TypeIds.MnemonicsTable).Table;
-			foreach (var opCodeInfo in opCodes) {
+		void GenerateOpCodes() {
+			foreach (var def in defs) {
+				var opCodeInfo = def.OpCodeInfo;
 				var code = (Code)opCodeInfo.Code.Value;
 				if (DiscardOpCodes.Contains(code)) continue;
 
-				string memoName = mnemonicsTable[(int)opCodeInfo.Code.Value].mnemonicEnum.RawName;
+				string memoName = def.Mnemonic.RawName;
 				var name = MapOpCodeToNewName.TryGetValue(code, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
 				if (code == Code.Int3) name = "int3";
 
@@ -232,11 +231,11 @@ namespace Generator.Assembler {
 				if (opCodeInfo is VexOpCodeInfo) { opCodeArgFlags |= OpCodeArgFlags.HasVex; }
 				if (opCodeInfo is EvexOpCodeInfo) { opCodeArgFlags |= OpCodeArgFlags.HasEvex; }
 
-				if ((opCodeInfo.Flags & Encoder.OpCodeFlags.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
-				if ((opCodeInfo.Flags & Encoder.OpCodeFlags.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
-				if ((opCodeInfo.Flags & Encoder.OpCodeFlags.Broadcast) != 0) opCodeArgFlags |= OpCodeArgFlags.HasBroadcast;
-				if ((opCodeInfo.Flags & Encoder.OpCodeFlags.SuppressAllExceptions) != 0) opCodeArgFlags |= OpCodeArgFlags.SuppressAllExceptions;
-				if ((opCodeInfo.Flags & Encoder.OpCodeFlags.RoundingControl) != 0) opCodeArgFlags |= OpCodeArgFlags.RoundingControl;
+				if ((opCodeInfo.Flags & OpCodeFlags.ZeroingMasking) != 0) opCodeArgFlags |= OpCodeArgFlags.HasZeroingMask;
+				if ((opCodeInfo.Flags & OpCodeFlags.OpMaskRegister) != 0) opCodeArgFlags |= OpCodeArgFlags.HasKMask;
+				if ((opCodeInfo.Flags & OpCodeFlags.Broadcast) != 0) opCodeArgFlags |= OpCodeArgFlags.HasBroadcast;
+				if ((opCodeInfo.Flags & OpCodeFlags.SuppressAllExceptions) != 0) opCodeArgFlags |= OpCodeArgFlags.SuppressAllExceptions;
+				if ((opCodeInfo.Flags & OpCodeFlags.RoundingControl) != 0) opCodeArgFlags |= OpCodeArgFlags.RoundingControl;
 
 				var argSizes = new List<int>();
 				bool discard = false;
@@ -812,7 +811,7 @@ namespace Generator.Assembler {
 						if (isPushImm)
 							opSize = GetImmediateSizeInBits(opcodes[0]);
 						else
-							opSize = GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, opcodes[0]);
+							opSize = GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, opcodes[0]);
 						if (opSize > 1) {
 							switch (opSize) {
 							case 32:
@@ -937,20 +936,20 @@ namespace Generator.Assembler {
 			if (selectors.Count == 1) {
 				selectors.Clear();
 				var added = new HashSet<OpCodeInfo>();
-				foreach (var bitnessMask in new Encoder.OpCodeFlags[] { Encoder.OpCodeFlags.Mode64, Encoder.OpCodeFlags.Mode32, Encoder.OpCodeFlags.Mode16 }) {
+				foreach (var bitnessMask in new OpCodeFlags[] { OpCodeFlags.Mode64, OpCodeFlags.Mode32, OpCodeFlags.Mode16 }) {
 					foreach (var opCodeInfo in opcodes) {
 						if ((opCodeInfo.Flags & bitnessMask) == 0) continue;
 						if (added.Contains(opCodeInfo)) continue;
 
 						OpCodeSelectorKind selectorKind;
 						switch (bitnessMask) {
-						case Encoder.OpCodeFlags.Mode16:
+						case OpCodeFlags.Mode16:
 							selectorKind = OpCodeSelectorKind.Bitness16;
 							break;
-						case Encoder.OpCodeFlags.Mode32:
+						case OpCodeFlags.Mode32:
 							selectorKind = OpCodeSelectorKind.Bitness32;
 							break;
-						case Encoder.OpCodeFlags.Mode64:
+						case OpCodeFlags.Mode64:
 							selectorKind = OpCodeSelectorKind.Bitness64;
 							break;
 						default:
@@ -1042,16 +1041,16 @@ namespace Generator.Assembler {
 
 		static int GetBitness(LegacyOpCodeInfo legacy) {
 			int bitness = 64;
-			var sizeFlags = legacy.Flags & (Encoder.OpCodeFlags.Mode16 | Encoder.OpCodeFlags.Mode32 | Encoder.OpCodeFlags.Mode64);
+			var sizeFlags = legacy.Flags & (OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64);
 			var operandSize = legacy.OperandSize == OperandSize.None ? (OperandSize)legacy.AddressSize : legacy.OperandSize;
 			switch (sizeFlags) {
-			case Encoder.OpCodeFlags.Mode16 | Encoder.OpCodeFlags.Mode32:
+			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32:
 				bitness = operandSize == OperandSize.None || operandSize == OperandSize.Size16 ? 16 : 32;
 				break;
-			case Encoder.OpCodeFlags.Mode16 | Encoder.OpCodeFlags.Mode32 | Encoder.OpCodeFlags.Mode64:
+			case OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64:
 				bitness = operandSize == OperandSize.Size16 ? 16 : 32;
 				break;
-			case Encoder.OpCodeFlags.Mode64:
+			case OpCodeFlags.Mode64:
 				bitness = operandSize == OperandSize.Size16 ? 16 : operandSize == OperandSize.Size32 ? 32 : 64;
 				break;
 			default:
@@ -1218,8 +1217,8 @@ namespace Generator.Assembler {
 			}
 		}
 
-		static int GetMemoryAddressSizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionMemorySizesTable instructionMemorySizesTable, OpCodeInfo opCodeInfo) {
-			var memSize = (MemorySize)instructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
+		static int GetMemoryAddressSizeInBits(MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, OpCodeInfo opCodeInfo) {
+			var memSize = (MemorySize)defs[opCodeInfo.Code.Value].Mem.Value;
 			switch (memSize) {
 			case MemorySize.Fword6:
 				memSize = MemorySize.UInt32;
@@ -1403,14 +1402,14 @@ namespace Generator.Assembler {
 
 		void FilterOpCodesRegister(OpCodeInfoGroup @group, List<OpCodeInfo> inputOpCodes, List<OpCodeInfo> opcodes, HashSet<Signature> signatures, bool allowMemory) {
 
-			var bitnessFlags = Encoder.OpCodeFlags.None;
+			var bitnessFlags = OpCodeFlags.None;
 			var vexOrEvexFlags = OpCodeArgFlags.Default;
 
 			foreach (var code in inputOpCodes) {
 				var registerSignature = new Signature();
 				bool isValid = true;
 				for (int i = 0; i < code.OpKindsLength; i++) {
-					var argKind = GetFilterRegisterKindFromOpKind(GetOperandKind(encoderTypes, code, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, code), allowMemory);
+					var argKind = GetFilterRegisterKindFromOpKind(GetOperandKind(encoderTypes, code, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, code), allowMemory);
 					if (argKind == ArgKind.Unknown) {
 						isValid = false;
 						break;
@@ -1787,7 +1786,7 @@ namespace Generator.Assembler {
 		}
 
 		OpCodeSelectorKind GetOpCodeSelectorKindForMemory(OpCodeInfo opCodeInfo, OpCodeSelectorKind defaultMemory) {
-			var memSize = (MemorySize)instructionMemorySizesTable.Table[opCodeInfo.Code.Value].mem.Value;
+			var memSize = (MemorySize)defs[opCodeInfo.Code.Value].Mem.Value;
 			switch (memSize) {
 			case MemorySize.Fword6:
 				memSize = MemorySize.UInt32;
@@ -1825,7 +1824,7 @@ namespace Generator.Assembler {
 		OpCodeInfoGroup AddOpCodeToGroup(string name, string memoName, Signature signature, OpCodeInfo code, OpCodeArgFlags opCodeArgFlags, PseudoOpsKind? pseudoOpsKind, int numberLeadingArgToDiscard, List<int> argSizes, bool isOtherImmediate) {
 			var key = new GroupKey(name, signature);
 			if (!groups.TryGetValue(key, out var group)) {
-				group = new OpCodeInfoGroup(encoderTypes, memorySizeInfoTable, instructionMemorySizesTable, name, signature);
+				group = new OpCodeInfoGroup(encoderTypes, memorySizeInfoTable, defs, name, signature);
 				group.MemoName = memoName;
 				groups.Add(key, group);
 			}
@@ -1936,7 +1935,7 @@ namespace Generator.Assembler {
 						break;
 					}
 
-					var newGroup = new OpCodeInfoGroup(encoderTypes, memorySizeInfoTable, instructionMemorySizesTable, name, signature) {
+					var newGroup = new OpCodeInfoGroup(encoderTypes, memorySizeInfoTable, defs, name, signature) {
 						Flags = OpCodeArgFlags.Pseudo,
 						AllOpCodeFlags = group.AllOpCodeFlags,
 						MemoName = group.MemoName,
@@ -2075,12 +2074,12 @@ namespace Generator.Assembler {
 		protected class OpCodeInfoGroup {
 			readonly EncoderTypes encoderTypes;
 			readonly MemorySizeInfoTable memorySizeInfoTable;
-			readonly InstructionMemorySizesTable instructionMemorySizesTable;
+			readonly InstructionDef[] defs;
 
-			public OpCodeInfoGroup(EncoderTypes encoderTypes, MemorySizeInfoTable memorySizeInfoTable, InstructionMemorySizesTable instructionMemorySizesTable, string name, Signature signature) {
+			public OpCodeInfoGroup(EncoderTypes encoderTypes, MemorySizeInfoTable memorySizeInfoTable, InstructionDef[] defs, string name, Signature signature) {
 				this.encoderTypes = encoderTypes;
 				this.memorySizeInfoTable = memorySizeInfoTable;
-				this.instructionMemorySizesTable = instructionMemorySizesTable;
+				this.defs = defs;
 				Name = name;
 				MemoName = name;
 				Signature = signature;
@@ -2092,7 +2091,7 @@ namespace Generator.Assembler {
 
 			public string Name { get; }
 
-			public Encoder.OpCodeFlags AllOpCodeFlags { get; set; }
+			public OpCodeFlags AllOpCodeFlags { get; set; }
 
 			public OpCodeArgFlags Flags { get; set; }
 
@@ -2143,19 +2142,19 @@ namespace Generator.Assembler {
 				int result;
 				for (int i = 0; i < x.OpKindsLength; i++) {
 					if (!IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(GetOperandKind(encoderTypes, x, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, x)).CompareTo(GetPriorityFromKind(GetOperandKind(encoderTypes, y, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, y)));
+					result = GetPriorityFromKind(GetOperandKind(encoderTypes, x, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(GetOperandKind(encoderTypes, y, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, y)));
 					if (result != 0) return result;
 				}
 
 				for (int i = 0; i < x.OpKindsLength; i++) {
 					if (IsRegister(Signature.GetArgKind(i))) continue;
-					result = GetPriorityFromKind(GetOperandKind(encoderTypes, x, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, x)).CompareTo(GetPriorityFromKind(GetOperandKind(encoderTypes, y, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, instructionMemorySizesTable, y)));
+					result = GetPriorityFromKind(GetOperandKind(encoderTypes, x, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, x)).CompareTo(GetPriorityFromKind(GetOperandKind(encoderTypes, y, i), GetMemoryAddressSizeInBits(memorySizeInfoTable, defs, y)));
 					if (result != 0) return result;
 				}
 
 				// Case for ordering by decreasing bitness
-				var xmemSize = (MemorySize)instructionMemorySizesTable.Table[x.Code.Value].mem.Value;
-				var ymemSize = (MemorySize)instructionMemorySizesTable.Table[y.Code.Value].mem.Value;
+				var xmemSize = (MemorySize)defs[x.Code.Value].Mem.Value;
+				var ymemSize = (MemorySize)defs[y.Code.Value].Mem.Value;
 				result = xmemSize.CompareTo(ymemSize);
 				if (result == 0) {
 					if (x is LegacyOpCodeInfo x1 && y is LegacyOpCodeInfo y1) {
@@ -2557,7 +2556,7 @@ namespace Generator.Assembler {
 		}
 
 		string RenameAmbiguousBroadcasts(string name, OpCodeInfo opCodeInfo) {
-			if ((opCodeInfo.Flags & Encoder.OpCodeFlags.Broadcast) == 0) return name;
+			if ((opCodeInfo.Flags & OpCodeFlags.Broadcast) == 0) return name;
 
 			if (IsAmbiguousBroadcast(opCodeInfo)) {
 				for (int i = 0; i < opCodeInfo.OpKindsLength; i++) {

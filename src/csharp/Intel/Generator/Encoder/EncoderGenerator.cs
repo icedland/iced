@@ -28,12 +28,13 @@ using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Encoder {
 	abstract class EncoderGenerator {
 		protected abstract void Generate(EnumType enumType);
 		protected abstract void Generate((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex);
-		protected abstract void Generate(OpCodeInfo[] opCodes);
+		protected abstract void GenerateOpCodeInfo(InstructionDef[] defs);
 		protected abstract void Generate((EnumValue value, uint size)[] immSizes);
 		protected abstract void Generate((EnumValue allowedPrefixes, OpCodeFlags prefixes)[] infos, (EnumValue value, OpCodeFlags flag)[] flagsInfos);
 		protected abstract void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1);
@@ -68,7 +69,7 @@ namespace Generator.Encoder {
 				Generate(enumType);
 
 			Generate(encoderTypes.LegacyOpHandlers, encoderTypes.VexOpHandlers, encoderTypes.XopOpHandlers, encoderTypes.EvexOpHandlers);
-			Generate(genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data);
+			GenerateOpCodeInfo(genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table);
 			Generate(encoderTypes.ImmSizes);
 			var opCodeFlags = genTypes[TypeIds.OpCodeFlags];
 			var flagsInfos = new (EnumValue value, OpCodeFlags flag)[] {
@@ -606,7 +607,7 @@ namespace Generator.Encoder {
 			GenerateVsib(vsib32, vsib64);
 		}
 
-		protected IEnumerable<(OpCodeInfo opCode, uint dword1, uint dword2, uint dword3)> GetData(OpCodeInfo[] opCodes) {
+		protected IEnumerable<(OpCodeInfo opCode, uint dword1, uint dword2, uint dword3)> GetData(InstructionDef[] defs) {
 			int encodingShift = (int)genTypes[TypeIds.EncFlags1]["EncodingShift"].Value;
 			int opCodeShift = (int)genTypes[TypeIds.EncFlags1]["OpCodeShift"].Value;
 
@@ -691,7 +692,8 @@ namespace Generator.Encoder {
 
 			var d3nowEncodableShift = (int)d3nowFlags["EncodableShift"].Value;
 
-			foreach (var opCode in opCodes) {
+			foreach (var def in defs) {
+				var opCode = def.OpCodeInfo;
 				uint dword1, dword2, dword3;
 
 				dword1 = (uint)opCode.Encoding << encodingShift;

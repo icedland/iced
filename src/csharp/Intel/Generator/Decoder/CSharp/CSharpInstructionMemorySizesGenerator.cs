@@ -25,6 +25,7 @@ using System;
 using System.IO;
 using Generator.Constants;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Decoder.CSharp {
 	[Generator(TargetLanguage.CSharp, GeneratorNames.Code_MemorySize)]
@@ -39,9 +40,8 @@ namespace Generator.Decoder.CSharp {
 
 		public void Generate() {
 			var genTypes = generatorContext.Types;
-			var instructionMemorySizesTable = genTypes.GetObject<InstructionMemorySizesTable>(TypeIds.InstructionMemorySizesTable);
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var data = instructionMemorySizesTable.Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
 			const string ClassName = "InstructionMemorySizes";
 			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
@@ -59,25 +59,25 @@ namespace Generator.Decoder.CSharp {
 						writer.WriteLine($"internal static readonly byte[] Sizes = new byte[{icedConstants.Name(idConverter)}.{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] {{");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
-							foreach (var d in data) {
-								if (d.mem.Value > byte.MaxValue)
+							foreach (var def in defs) {
+								if (def.Mem.Value > byte.MaxValue)
 									throw new InvalidOperationException();
 								string value;
-								if (d.mem.Value == 0)
+								if (def.Mem.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{d.mem.Name(idConverter)}";
-								writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+									value = $"(byte){memSizeName}.{def.Mem.Name(idConverter)}";
+								writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
 							}
-							foreach (var d in data) {
-								if (d.bcst.Value > byte.MaxValue)
+							foreach (var def in defs) {
+								if (def.Bcst.Value > byte.MaxValue)
 									throw new InvalidOperationException();
 								string value;
-								if (d.bcst.Value == 0)
+								if (def.Bcst.Value == 0)
 									value = "0";
 								else
-									value = $"(byte){memSizeName}.{d.bcst.Name(idConverter)}";
-								writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+									value = $"(byte){memSizeName}.{def.Bcst.Name(idConverter)}";
+								writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
 							}
 						}
 						writer.WriteLine("};");

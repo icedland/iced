@@ -25,6 +25,7 @@ using System;
 using System.IO;
 using Generator.Constants;
 using Generator.IO;
+using Generator.Tables;
 
 namespace Generator.Decoder.Rust {
 	[Generator(TargetLanguage.Rust, GeneratorNames.Code_MemorySize)]
@@ -39,9 +40,8 @@ namespace Generator.Decoder.Rust {
 
 		public void Generate() {
 			var genTypes = generatorContext.Types;
-			var instructionMemorySizesTable = genTypes.GetObject<InstructionMemorySizesTable>(TypeIds.InstructionMemorySizesTable);
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var data = instructionMemorySizesTable.Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
 			var memSizeName = genTypes[TypeIds.MemorySize].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.RustDir, "instruction_memory_sizes.rs")))) {
 				writer.WriteFileHeader();
@@ -53,17 +53,17 @@ namespace Generator.Decoder.Rust {
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static SIZES: [{memSizeName}; {icedConstants.Name(idConverter)}::{icedConstants[IcedConstants.NumberOfCodeValuesName].Name(idConverter)} * 2] = [");
 				using (writer.Indent()) {
-					foreach (var d in data) {
-						if (d.mem.Value > byte.MaxValue)
+					foreach (var def in defs) {
+						if (def.Mem.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value = $"{memSizeName}::{d.mem.Name(idConverter)}";
-						writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+						string value = $"{memSizeName}::{def.Mem.Name(idConverter)}";
+						writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
 					}
-					foreach (var d in data) {
-						if (d.bcst.Value > byte.MaxValue)
+					foreach (var def in defs) {
+						if (def.Bcst.Value > byte.MaxValue)
 							throw new InvalidOperationException();
-						string value = $"{memSizeName}::{d.bcst.Name(idConverter)}";
-						writer.WriteLine($"{value},// {d.codeEnum.Name(idConverter)}");
+						string value = $"{memSizeName}::{def.Bcst.Name(idConverter)}";
+						writer.WriteLine($"{value},// {def.OpCodeInfo.Code.Name(idConverter)}");
 					}
 				}
 				writer.WriteLine("];");

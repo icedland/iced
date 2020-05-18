@@ -28,6 +28,7 @@ using System.Text;
 using Generator.Enums;
 using Generator.Enums.Decoder;
 using Generator.Enums.Encoder;
+using Generator.Tables;
 
 namespace Generator.Encoder {
 	sealed class EncoderTypesGen {
@@ -138,8 +139,8 @@ namespace Generator.Encoder {
 		void GenerateAllowedPrefixes() {
 			var maskHash = new HashSet<OpCodeFlags>();
 			maskHash.Add(OpCodeFlags.None);
-			foreach (var info in genTypes.GetObject<OpCodeInfoTable>(TypeIds.OpCodeInfoTable).Data) {
-				maskHash.Add(info.Flags & PrefixesMask);
+			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table) {
+				maskHash.Add(def.OpCodeInfo.Flags & PrefixesMask);
 			}
 
 			AllowedPrefixesMap = new Dictionary<OpCodeFlags, EnumValue>();

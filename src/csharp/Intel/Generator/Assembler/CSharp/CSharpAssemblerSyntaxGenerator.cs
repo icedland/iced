@@ -198,16 +198,16 @@ namespace Generator.Assembler.CSharp {
 						writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
 						writerTests.WriteLine();
 
-						Encoder.OpCodeFlags bitnessFlags;
+						OpCodeFlags bitnessFlags;
 						switch (bitness) {
 						case 64:
-							bitnessFlags = Encoder.OpCodeFlags.Mode64;
+							bitnessFlags = OpCodeFlags.Mode64;
 							break;
 						case 32:
-							bitnessFlags = Encoder.OpCodeFlags.Mode32;
+							bitnessFlags = OpCodeFlags.Mode32;
 							break;
 						case 16:
-							bitnessFlags = Encoder.OpCodeFlags.Mode16;
+							bitnessFlags = OpCodeFlags.Mode16;
 							break;
 						default:
 							throw new ArgumentException($"{bitness}");
@@ -489,7 +489,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("}");
 		}
 
-		void RenderTests(int bitness, Encoder.OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
+		void RenderTests(int bitness, OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
 			var fullMethodName = new StringBuilder();
 			fullMethodName.Append(methodName);
 			foreach (var renderArg in renderArgs) {
@@ -558,7 +558,7 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine(); ;
 		}
 
-		void GenerateOpCodeTest(FileWriter writer, int bitness, Encoder.OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
+		void GenerateOpCodeTest(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup group, string methodName, OpCodeNode node, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags) {
 			var opCodeInfo = node.OpCodeInfo;
 			if (opCodeInfo is object) {
 				GenerateTestAssemblerForOpCode(writer, bitness, bitnessFlags, @group, methodName, args, argValues, contextFlags, opCodeInfo);
@@ -618,7 +618,7 @@ namespace Generator.Assembler.CSharp {
 													  group.Name == "bndcu" ||
 													  group.Name == "bndcl")) {
 									bitness = bitness == 64 ? 32 : 16;
-									bitnessFlags = bitness == 64 ? Encoder.OpCodeFlags.Mode32 : Encoder.OpCodeFlags.Mode16;
+									bitnessFlags = bitness == 64 ? OpCodeFlags.Mode32 : OpCodeFlags.Mode16;
 								}
 
 								writer.WriteLine("AssertInvalid( () => {");
@@ -647,7 +647,7 @@ namespace Generator.Assembler.CSharp {
 			}
 		}
 
-		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, Encoder.OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo) {
+		bool GenerateTestAssemblerForOpCode(FileWriter writer, int bitness, OpCodeFlags bitnessFlags, OpCodeInfoGroup @group, string methodName, List<RenderArg> args, List<object?> argValues, OpCodeArgFlags contextFlags, OpCodeInfo opCodeInfo) {
 			if ((opCodeInfo.Flags & bitnessFlags) == 0) {
 				writer.WriteLine("{");
 				using (writer.Indent()) {
@@ -704,7 +704,7 @@ namespace Generator.Assembler.CSharp {
 					argValueForInstructionCreate = GetDefaultArgument(localBitness, opCodeInfo.OpKind(encoderTypes, @group.NumberOfLeadingArgToDiscard + i), isMemory, false, i, renderArg);
 				}
 
-				if ((opCodeInfo.Flags & (Encoder.OpCodeFlags.OpMaskRegister | Encoder.OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
+				if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0 && i == 0) {
 					argValueForAssembler += ".k1";
 					argValueForInstructionCreate += ".k1";
 				}
@@ -747,7 +747,7 @@ namespace Generator.Assembler.CSharp {
 			if ((contextFlags & OpCodeArgFlags.HasBranchNear) != 0) {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.PreferBranchNear");
 			}
-			if ((opCodeInfo.Flags & Encoder.OpCodeFlags.Fwait) != 0) {
+			if ((opCodeInfo.Flags & OpCodeFlags.Fwait) != 0) {
 				optionalOpCodeFlags.Add("LocalOpCodeFlags.Fwait");
 			}
 			if (@group.HasLabel) {
@@ -776,7 +776,7 @@ namespace Generator.Assembler.CSharp {
 					: $"Instruction.CreateBranch(Code.{opCodeInfo.Code.Name(Converter)}";
 			}
 
-			if ((opCodeInfo.Flags & (Encoder.OpCodeFlags.OpMaskRegister | Encoder.OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
+			if ((opCodeInfo.Flags & (OpCodeFlags.OpMaskRegister | OpCodeFlags.NonZeroOpMaskRegister)) != 0) {
 				beginInstruction = $"ApplyK1({beginInstruction}";
 				endInstruction = "))";
 			}

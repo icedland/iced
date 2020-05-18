@@ -68,7 +68,7 @@ namespace Generator.Encoder {
 
 		public abstract OpCodeOperandKind OpKind(EncoderTypes encoderTypes, int arg); 
 
-		public override string ToString() => $"{this.GetType().Name}: {Code.RawName}";
+		public override string ToString() => $"{GetType().Name}: {Code.RawName}";
 	}
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
