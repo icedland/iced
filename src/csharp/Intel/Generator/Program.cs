@@ -136,11 +136,10 @@ Options:
     Show this message
 -l, --language <language>
     Select only this language. Multiple language options are allowed.
-    Valid languages (case insensitive):
-        C#
-        CSharp
-        Rust
-        RustJS
+    Valid languages:
+        cs (C#)
+        rs (Rust)
+        rsjs (Rust + JS)
 --no-formatter
     Don't include any formatter
 --no-gas-formatter
@@ -175,14 +174,13 @@ Options:
 					}
 					i++;
 					switch (value.ToLowerInvariant()) {
-					case "c#":
-					case "csharp":
+					case "cs":
 						options.Languages.Add(TargetLanguage.CSharp);
 						break;
-					case "rust":
+					case "rs":
 						options.Languages.Add(TargetLanguage.Rust);
 						break;
-					case "rustjs":
+					case "rsjs":
 						options.Languages.Add(TargetLanguage.RustJS);
 						break;
 					default:
