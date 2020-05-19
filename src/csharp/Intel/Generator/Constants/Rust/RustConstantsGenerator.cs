@@ -104,7 +104,10 @@ namespace Generator.Constants.Rust {
 			using (writer.Indent()) {
 				writer.WriteLine($"pub(super) static ref {idConverter.Constant("To" + newType.RawName)}: HashMap<&'static str, u32> = {{");
 				using (writer.Indent()) {
-					writer.WriteLine($"let mut h = HashMap::with_capacity({newType.Constants.Length});");
+					if (newType.Constants.Length == 0)
+						writer.WriteLine($"let h = HashMap::new();");
+					else
+						writer.WriteLine($"let mut h = HashMap::with_capacity({newType.Constants.Length});");
 					var origConstants = origType.Constants;
 					var newConstants = newType.Constants;
 					if (origConstants.Length != newConstants.Length)

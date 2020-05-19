@@ -73,7 +73,10 @@ namespace Generator.Decoder.Rust {
 		}
 
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
-			writer.WriteLine($"let mut h = HashMap::with_capacity({enumType.Values.Length});");
+			if (enumType.Values.Length == 0)
+				writer.WriteLine($"let h = HashMap::new();");
+			else
+				writer.WriteLine($"let mut h = HashMap::with_capacity({enumType.Values.Length});");
 			var enumStr = enumType.Name(idConverter);
 			foreach (var value in enumType.Values) {
 				string name;
@@ -84,7 +87,7 @@ namespace Generator.Decoder.Rust {
 				var key = value.RawName;
 				if (lowerCase)
 					key = key.ToLowerInvariant();
-				writer.WriteLine($"h.insert(\"{key}\", {enumStr}::{name});");
+				writer.WriteLine($"let _ = h.insert(\"{key}\", {enumStr}::{name});");
 			}
 		}
 	}
