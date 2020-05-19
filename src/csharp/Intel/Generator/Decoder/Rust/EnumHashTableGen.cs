@@ -87,7 +87,7 @@ namespace Generator.Decoder.Rust {
 				var key = value.RawName;
 				if (lowerCase)
 					key = key.ToLowerInvariant();
-				writer.WriteLine($"let _ = h.insert(\"{key}\", {enumStr}::{name});");
+				writer.WriteLine($"h.insert(\"{key}\", {enumStr}::{name});");
 			}
 		}
 	}

@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#![allow(unused_results)]
 #![cfg_attr(feature = "cargo-clippy", allow(clippy::let_and_return))]
 
 #[cfg(not(feature = "std"))]

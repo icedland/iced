@@ -105,7 +105,7 @@ namespace Generator.Tables.Rust {
 				writer.WriteLine($"let mut {hashName}: HashMap<&'static str, {(declType.IsFlags ? "u32" : declTypeStr)}> = HashMap::with_capacity({constants.Length});");
 			foreach (var constant in constants) {
 				var name = declType.IsFlags ? idConverter.Constant(constant.value.RawName) : constant.value.Name(idConverter);
-				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.name}\", {declTypeStr}::{name});");
+				writer.WriteLine($"{hashName}.insert(\"{constant.name}\", {declTypeStr}::{name});");
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace Generator.Tables.Rust {
 			else
 				writer.WriteLine($"let mut {hashName}: HashSet<&'static str> = HashSet::with_capacity({constants.Count});");
 			foreach (var constant in constants)
-				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.RawName}\");");
+				writer.WriteLine($"{hashName}.insert(\"{constant.RawName}\");");
 		}
 	}
 }

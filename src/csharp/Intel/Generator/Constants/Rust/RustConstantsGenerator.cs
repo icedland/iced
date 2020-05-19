@@ -119,7 +119,7 @@ namespace Generator.Constants.Rust {
 						var newConstant = newConstants[i];
 						if (newConstant.Kind != ConstantKind.UInt32)
 							throw new InvalidOperationException();
-						writer.WriteLine($"let _ = h.insert(\"{(string)origConstant.RefValue!}\", {newType.Name(idConverter)}::{newConstant.Name(idConverter)});");
+						writer.WriteLine($"h.insert(\"{(string)origConstant.RefValue!}\", {newType.Name(idConverter)}::{newConstant.Name(idConverter)});");
 					}
 					writer.WriteLine("h");
 				}
