@@ -33,13 +33,12 @@ use self::decoder_mem_test_case::*;
 use self::decoder_test_case::*;
 use self::test_utils::*;
 use super::super::iced_constants::IcedConstants;
-use super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
 use super::super::test_utils::*;
 use super::super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 use core::fmt::Write;
-use core::mem;
 
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 pub(crate) static NON_DECODED_CODE_VALUES: [Code; 17] = [
@@ -382,20 +381,20 @@ fn make_sure_all_code_values_are_tested_in_16_32_64_bit_modes() {
 	let mut missing16 = 0;
 	let mut missing32 = 0;
 	let mut missing64 = 0;
+	let code_names = code_names();
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 	for i in 0..tested.len() {
-		let code: Code = unsafe { mem::transmute(i as u16) };
-		if tested[i] != (T16 | T32 | T64) {
+		if tested[i] != (T16 | T32 | T64) && !is_ignored_code(code_names[i]) {
 			if (tested[i] & T16) == 0 {
-				write!(sb16, "{:?} ", code).unwrap();
+				write!(sb16, "{} ", code_names[i]).unwrap();
 				missing16 += 1;
 			}
 			if (tested[i] & T32) == 0 {
-				write!(sb32, "{:?} ", code).unwrap();
+				write!(sb32, "{} ", code_names[i]).unwrap();
 				missing32 += 1;
 			}
 			if (tested[i] & T64) == 0 {
-				write!(sb64, "{:?} ", code).unwrap();
+				write!(sb64, "{} ", code_names[i]).unwrap();
 				missing64 += 1;
 			}
 		}

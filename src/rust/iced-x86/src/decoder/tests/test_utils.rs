@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::super::test_utils::from_str_conv::to_code;
+use super::super::super::test_utils::from_str_conv::{is_ignored_code, to_code};
 use super::super::super::test_utils::*;
 use super::super::super::*;
 use super::decoder_mem_test_case::*;
@@ -92,7 +92,7 @@ fn read_code_values(name: &str) -> HashSet<Code> {
 	for (info, line_number) in BufReader::new(file).lines().zip(1..) {
 		let err = match info {
 			Ok(line) => {
-				if line.is_empty() || line.starts_with('#') {
+				if line.is_empty() || line.starts_with('#') || is_ignored_code(&line) {
 					None
 				} else {
 					match to_code(&line) {

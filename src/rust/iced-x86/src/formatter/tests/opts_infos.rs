@@ -26,11 +26,17 @@ use super::options_test_case_parser::*;
 use super::opts_info::OptionsInstructionInfo;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
+use std::collections::HashSet;
 
 lazy_static! {
-	pub(super) static ref ALL_INFOS: Vec<OptionsInstructionInfo> = {
+	pub(super) static ref ALL_INFOS: (Vec<OptionsInstructionInfo>, HashSet<u32>) = {
 		let mut filename = get_formatter_unit_tests_dir();
 		filename.push("Options.txt");
-		OptionsTestParser::new(filename.as_path()).into_iter().collect()
+		let mut ignored: HashSet<u32> = HashSet::new();
+		let v = OptionsTestParser::new(filename.as_path(), &mut ignored).into_iter().collect();
+		(v, ignored)
 	};
 }

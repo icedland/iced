@@ -36,7 +36,7 @@ use self::op_code_test_case::*;
 use self::op_code_test_case_parser::OpCodeInfoTestParser;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
-use super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
 use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;
@@ -850,13 +850,13 @@ fn make_sure_all_code_values_are_tested_exactly_once() {
 		tested[tc.code as usize] = true;
 	}
 	let mut s = String::new();
+	let code_names = code_names();
 	for i in tested.iter().enumerate() {
-		let code: Code = unsafe { mem::transmute(i.0 as u16) };
-		if !*i.1 {
+		if !*i.1 && !is_ignored_code(code_names[i.0]) {
 			if !s.is_empty() {
 				s.push(',');
 			}
-			write!(s, "{:?}", code).unwrap();
+			write!(s, "{}", code_names[i.0]).unwrap();
 		}
 	}
 	assert_eq!("", s);

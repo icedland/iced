@@ -34,6 +34,7 @@ mod decoder_options_table;
 mod encoding_kind_table;
 #[cfg(feature = "instr_info")]
 mod flow_control_table;
+mod ignored_code_table;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod memory_size_options_table;
 mod memory_size_table;
@@ -61,6 +62,7 @@ use self::decoder_options_table::*;
 use self::encoding_kind_table::*;
 #[cfg(feature = "instr_info")]
 use self::flow_control_table::*;
+use self::ignored_code_table::*;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::memory_size_options_table::*;
 use self::memory_size_table::*;
@@ -235,9 +237,16 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 	}
 }
 
+pub(crate) fn is_ignored_code(value: &str) -> bool {
+	let value = value.trim();
+	IGNORED_CODE_HASH.contains(value)
+}
+
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn code_names() -> Vec<&'static str> {
-	(&*TO_CODE_HASH).iter().map(|kv| *kv.0).collect()
+	let mut v: Vec<_> = (&*TO_CODE_HASH).iter().collect();
+	v.sort_unstable_by_key(|kv| *kv.1 as u32);
+	v.into_iter().map(|kv| *kv.0).collect()
 }
 
 pub(crate) fn to_mnemonic(value: &str) -> Result<Mnemonic, String> {

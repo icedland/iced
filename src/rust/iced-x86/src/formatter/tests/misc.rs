@@ -49,7 +49,7 @@ fn make_sure_all_code_values_are_formatted() {
 		(64, true),
 	];
 	for &(bitness, is_misc) in &all_args {
-		for info in get_infos(bitness, is_misc) {
+		for info in &get_infos(bitness, is_misc).0 {
 			tested[info.code as usize] = 1;
 		}
 	}
@@ -68,7 +68,7 @@ fn make_sure_all_code_values_are_formatted() {
 	let mut missing = 0;
 	let code_names = code_names();
 	for (i, &t) in tested.iter().enumerate() {
-		if t != 1 {
+		if t != 1 && !is_ignored_code(code_names[i]) {
 			sb.push_str(code_names[i]);
 			sb.push(' ');
 			missing += 1;

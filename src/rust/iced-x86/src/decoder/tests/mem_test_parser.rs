@@ -84,7 +84,13 @@ impl Iterator for IntoIter {
 						Err(err) => Err(err.to_string()),
 					};
 					match result {
-						Ok(tc) => return Some(tc),
+						Ok(tc) => {
+							if let Some(tc) = tc {
+								return Some(tc);
+							} else {
+								continue;
+							}
+						}
 						Err(err) => panic!("Error parsing decoder memory test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
@@ -94,7 +100,7 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderMemoryTestCase, String> {
+	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<DecoderMemoryTestCase>, String> {
 		let parts: Vec<_> = line.split(',').collect();
 		if parts.len() != 11 && parts.len() != 12 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
@@ -102,6 +108,9 @@ impl IntoIter {
 
 		let hex_bytes = parts[0].trim();
 		let _ = to_vec_u8(hex_bytes)?;
+		if is_ignored_code(parts[1].trim()) {
+			return Ok(None);
+		}
 		let code = to_code(parts[1].trim())?;
 		let register = to_register(parts[2].trim())?;
 		let prefix_segment = to_register(parts[3].trim())?;
@@ -117,7 +126,7 @@ impl IntoIter {
 		let decoder_options = DecoderOptions::NONE;
 		let can_encode = true;
 
-		Ok(DecoderMemoryTestCase {
+		Ok(Some(DecoderMemoryTestCase {
 			bitness: self.bitness,
 			hex_bytes: hex_bytes.to_string(),
 			code,
@@ -134,6 +143,6 @@ impl IntoIter {
 			decoder_options,
 			line_number,
 			can_encode,
-		})
+		}))
 	}
 }

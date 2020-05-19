@@ -50,6 +50,10 @@ use alloc::boxed::Box;
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
+use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -66,8 +70,8 @@ fn get_lines_ignore_comments(filename: &Path) -> Vec<String> {
 }
 
 pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
-	let infos = get_infos(bitness, is_misc);
-	let lines = get_formatted_lines(bitness, dir, filename);
+	let (infos, ignored) = get_infos(bitness, is_misc);
+	let lines = filter_removed_code_tests(get_formatted_lines(bitness, dir, filename), ignored);
 	if infos.len() != lines.len() {
 		panic!("Infos len ({}) != fmt len ({}); dir={}, filename: {}, is_misc: {}", infos.len(), lines.len(), dir, filename, is_misc);
 	}
@@ -192,4 +196,12 @@ fn display_trait() {
 	assert_eq!(expected, actual);
 	let actual = instr.to_string();
 	assert_eq!(expected, actual);
+}
+
+fn filter_removed_code_tests(strings: Vec<String>, ignored: &HashSet<u32>) -> Vec<String> {
+	if ignored.is_empty() {
+		strings
+	} else {
+		strings.into_iter().enumerate().filter(|a| !ignored.contains(&(a.0 as u32))).map(|a| a.1).collect()
+	}
 }

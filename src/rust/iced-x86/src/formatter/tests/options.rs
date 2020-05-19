@@ -25,13 +25,17 @@ use super::super::super::*;
 use super::super::test_utils::get_formatter_unit_tests_dir;
 use super::options_test_case_parser::*;
 use super::opts_info::*;
-use super::opts_infos;
+use super::{filter_removed_code_tests, opts_infos};
 #[cfg(not(feature = "std"))]
 use alloc::boxed::Box;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
+use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -49,20 +53,23 @@ fn read_lines(filename: PathBuf) -> Vec<String> {
 
 pub(in super::super) fn test_format_file(dir: &str, file_part: &str, options_file: &str, fmt_factory: fn() -> Box<Formatter>) {
 	let tmp_infos: Vec<OptionsInstructionInfo>;
-	let all_infos = if options_file.is_empty() {
-		&*opts_infos::ALL_INFOS
+	let mut tmp_ignored: HashSet<u32>;
+	let (all_infos, ignored) = if options_file.is_empty() {
+		let infos = &*opts_infos::ALL_INFOS;
+		(&infos.0, &infos.1)
 	} else {
 		let mut opts_filename = get_formatter_unit_tests_dir();
 		opts_filename.push(dir);
 		opts_filename.push(format!("{}.txt", options_file));
-		tmp_infos = OptionsTestParser::new(opts_filename.as_path()).into_iter().collect();
-		&tmp_infos
+		tmp_ignored = HashSet::new();
+		tmp_infos = OptionsTestParser::new(opts_filename.as_path(), &mut tmp_ignored).into_iter().collect();
+		(&tmp_infos, &tmp_ignored)
 	};
 	let mut filename = get_formatter_unit_tests_dir();
 	filename.push(dir);
 	filename.push(format!("{}.txt", file_part));
 	let display_filename = filename.display().to_string();
-	let lines = read_lines(filename);
+	let lines = filter_removed_code_tests(read_lines(filename), ignored);
 	if lines.len() != all_infos.len() {
 		panic!("lines.len() ({}) != all_infos.len() ({}), file: {}", lines.len(), all_infos.len(), display_filename);
 	}

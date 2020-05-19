@@ -129,7 +129,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing decoder test case file '{filename}', line {lineNumber}: {ex.Message}");
 				}
-				yield return testCase;
+				if (testCase is object)
+					yield return testCase;
 			}
 		}
 
@@ -146,7 +147,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.Bitness = bitness;
 			tc.HexBytes = ToHexBytes(parts[0].Trim());
 			tc.EncodedHexBytes = tc.HexBytes;
-			tc.Code = ToCode(parts[1].Trim());
+			var code = parts[1].Trim();
+			if (CodeUtils.IsIgnored(code))
+				return null;
+			tc.Code = ToCode(code);
 			tc.Mnemonic = ToMnemonic(parts[2].Trim());
 			tc.OpCount = NumberConverter.ToInt32(parts[3].Trim());
 

@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use super::super::super::decoder::tests::test_utils::{code32_only, code64_only, decoder_tests, not_decoded32_only, not_decoded64_only};
 use super::super::super::iced_constants::IcedConstants;
-use super::super::super::test_utils::from_str_conv::to_vec_u8;
+use super::super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
 use super::super::super::*;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
@@ -1973,6 +1973,7 @@ fn verify_that_test_cases_test_enough_bits() {
 	let mut pfx_no_bnd_32: Vec<Code> = Vec::new();
 	let mut pfx_no_bnd_64: Vec<Code> = Vec::new();
 
+	let code_names = code_names();
 	for &bitness in &[16u32, 32, 64] {
 		let tested_infos: &[TestedInfo] = match bitness {
 			16 => &tested_infos_16,
@@ -1982,6 +1983,9 @@ fn verify_that_test_cases_test_enough_bits() {
 		};
 
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+			if is_ignored_code(code_names[i]) {
+				continue;
+			}
 			let code: Code = unsafe { mem::transmute(i as u16) };
 			let op_code = code.op_code();
 			if !op_code.is_instruction() || op_code.code() == Code::Popw_CS {
@@ -2726,10 +2730,15 @@ fn test_invalid_zero_opmask_reg() {
 }
 
 #[test]
+#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 fn verify_cpu_mode() {
 	let hash1632: HashSet<Code> = code32_only().iter().chain(not_decoded32_only().iter()).cloned().collect();
 	let hash64: HashSet<Code> = code64_only().iter().chain(not_decoded64_only().iter()).cloned().collect();
+	let code_names = code_names();
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		if is_ignored_code(code_names[i]) {
+			continue;
+		}
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let op_code = code.op_code();
 		if hash1632.contains(&code) {

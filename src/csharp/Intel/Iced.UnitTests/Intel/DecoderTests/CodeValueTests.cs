@@ -112,7 +112,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			Assert.Equal(tested.Length, codeNames.Length);
 			for (int i = 0; i < tested.Length; i++) {
-				if (tested[i] != (T16 | T32 | T64)) {
+				if (tested[i] != (T16 | T32 | T64) && !CodeUtils.IsIgnored(codeNames[i])) {
 					if ((tested[i] & T16) == 0) {
 						sb16.Append(codeNames[i] + " ");
 						missing16++;

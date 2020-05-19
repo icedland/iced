@@ -22,12 +22,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 use super::super::super::code::Code;
-use super::super::test_utils::from_str_conv::{to_code, to_decoder_options};
+use super::super::test_utils::from_str_conv::{is_ignored_code, to_code, to_decoder_options};
 use super::super::test_utils::get_formatter_unit_tests_dir;
 #[cfg(not(feature = "std"))]
 use alloc::string::String;
 #[cfg(not(feature = "std"))]
 use alloc::vec::Vec;
+#[cfg(not(feature = "std"))]
+use hashbrown::HashSet;
+#[cfg(feature = "std")]
+use std::collections::HashSet;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -40,26 +44,26 @@ pub(super) struct InstructionInfo {
 }
 
 lazy_static! {
-	static ref INFOS_16: Vec<InstructionInfo> = read_infos(16, false);
+	static ref INFOS_16: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(16, false);
 }
 lazy_static! {
-	static ref INFOS_32: Vec<InstructionInfo> = read_infos(32, false);
+	static ref INFOS_32: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(32, false);
 }
 lazy_static! {
-	static ref INFOS_64: Vec<InstructionInfo> = read_infos(64, false);
+	static ref INFOS_64: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(64, false);
 }
 
 lazy_static! {
-	static ref INFOS_MISC_16: Vec<InstructionInfo> = read_infos(16, true);
+	static ref INFOS_MISC_16: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(16, true);
 }
 lazy_static! {
-	static ref INFOS_MISC_32: Vec<InstructionInfo> = read_infos(32, true);
+	static ref INFOS_MISC_32: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(32, true);
 }
 lazy_static! {
-	static ref INFOS_MISC_64: Vec<InstructionInfo> = read_infos(64, true);
+	static ref INFOS_MISC_64: (Vec<InstructionInfo>, HashSet<u32>) = read_infos(64, true);
 }
 
-pub(super) fn get_infos(bitness: u32, is_misc: bool) -> &'static Vec<InstructionInfo> {
+pub(super) fn get_infos(bitness: u32, is_misc: bool) -> &'static (Vec<InstructionInfo>, HashSet<u32>) {
 	if is_misc {
 		match bitness {
 			16 => &*INFOS_MISC_16,
@@ -77,7 +81,7 @@ pub(super) fn get_infos(bitness: u32, is_misc: bool) -> &'static Vec<Instruction
 	}
 }
 
-fn read_infos(bitness: u32, is_misc: bool) -> Vec<InstructionInfo> {
+fn read_infos(bitness: u32, is_misc: bool) -> (Vec<InstructionInfo>, HashSet<u32>) {
 	let mut filename = get_formatter_unit_tests_dir();
 	if is_misc {
 		filename.push(format!("InstructionInfos{}_Misc.txt", bitness));
@@ -89,6 +93,8 @@ fn read_infos(bitness: u32, is_misc: bool) -> Vec<InstructionInfo> {
 	let file = File::open(filename).unwrap_or_else(|_| panic!("Couldn't open file {}", display_filename));
 	let mut infos: Vec<InstructionInfo> = Vec::new();
 	let mut line_number = 0;
+	let mut ignored: HashSet<u32> = HashSet::new();
+	let mut test_case_number = 0;
 	for info in BufReader::new(file).lines() {
 		let result = match info {
 			Ok(line) => {
@@ -96,19 +102,26 @@ fn read_infos(bitness: u32, is_misc: bool) -> Vec<InstructionInfo> {
 				if line.is_empty() || line.starts_with('#') {
 					continue;
 				}
+				test_case_number += 1;
 				read_next_info(bitness, line)
 			}
 			Err(err) => Err(err.to_string()),
 		};
 		match result {
-			Ok(tc) => infos.push(tc),
+			Ok(tc) => {
+				if let Some(tc) = tc {
+					infos.push(tc)
+				} else {
+					let _ = ignored.insert(test_case_number - 1);
+				}
+			}
 			Err(err) => panic!("Error parsing formatter test case file '{}', line {}: {}", display_filename, line_number, err),
 		}
 	}
-	infos
+	(infos, ignored)
 }
 
-fn read_next_info(bitness: u32, line: String) -> Result<InstructionInfo, String> {
+fn read_next_info(bitness: u32, line: String) -> Result<Option<InstructionInfo>, String> {
 	let parts: Vec<_> = line.split(',').collect();
 	let options = match parts.len() {
 		2 => 0,
@@ -116,8 +129,11 @@ fn read_next_info(bitness: u32, line: String) -> Result<InstructionInfo, String>
 		_ => return Err(String::from("Invalid number of commas")),
 	};
 	let hex_bytes = parts[0].trim();
+	if is_ignored_code(parts[1].trim()) {
+		return Ok(None);
+	}
 	let code = to_code(parts[1].trim())?;
-	Ok(InstructionInfo { bitness, hex_bytes: String::from(hex_bytes), code, options })
+	Ok(Some(InstructionInfo { bitness, hex_bytes: String::from(hex_bytes), code, options }))
 }
 
 pub(super) fn get_formatted_lines(bitness: u32, dir: &str, file_part: &str) -> Vec<String> {

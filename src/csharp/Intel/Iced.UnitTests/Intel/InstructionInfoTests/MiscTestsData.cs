@@ -130,7 +130,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		}
 
 		static void AddCode(HashSet<Code> hash, string line) {
-			if (!hash.Add(ToEnumConverter.GetCode(line.Trim())))
+			var code = line.Trim();
+			if (CodeUtils.IsIgnored(code))
+				return;
+			if (!hash.Add(ToEnumConverter.GetCode(code)))
 				throw new Exception($"Duplicate {nameof(Code)} value");
 		}
 
@@ -140,7 +143,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var elems = line.Split(commaSep);
 			if (elems.Length != ELEMS)
 				throw new InvalidOperationException($"Expected {ELEMS} elements, found {elems.Length}");
-			infos.Add((ToEnumConverter.GetCode(elems[0].Trim()), ToEnumConverter.GetCode(elems[1].Trim())));
+			var code1 = elems[0].Trim();
+			var code2 = elems[1].Trim();
+			if (CodeUtils.IsIgnored(code1) || CodeUtils.IsIgnored(code2))
+				return;
+			infos.Add((ToEnumConverter.GetCode(code1), ToEnumConverter.GetCode(code2)));
 		}
 
 		static void AddJccInfo(List<(Code, Code, Code, ConditionCode)> infos, string line) {
@@ -148,7 +155,12 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var elems = line.Split(commaSep);
 			if (elems.Length != ELEMS)
 				throw new InvalidOperationException($"Expected {ELEMS} elements, found {elems.Length}");
-			infos.Add((ToEnumConverter.GetCode(elems[0].Trim()), ToEnumConverter.GetCode(elems[1].Trim()), ToEnumConverter.GetCode(elems[2].Trim()), ToEnumConverter.GetConditionCode(elems[3].Trim())));
+			var code1 = elems[0].Trim();
+			var code2 = elems[1].Trim();
+			var code3 = elems[2].Trim();
+			if (CodeUtils.IsIgnored(code1) || CodeUtils.IsIgnored(code2) || CodeUtils.IsIgnored(code3))
+				return;
+			infos.Add((ToEnumConverter.GetCode(code1), ToEnumConverter.GetCode(code2), ToEnumConverter.GetCode(code3), ToEnumConverter.GetConditionCode(elems[3].Trim())));
 		}
 
 		static void AddInstrCcInfo(List<(Code, Code, ConditionCode)> infos, string line) {
@@ -156,7 +168,11 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var elems = line.Split(commaSep);
 			if (elems.Length != ELEMS)
 				throw new InvalidOperationException($"Expected {ELEMS} elements, found {elems.Length}");
-			infos.Add((ToEnumConverter.GetCode(elems[0].Trim()), ToEnumConverter.GetCode(elems[1].Trim()), ToEnumConverter.GetConditionCode(elems[2].Trim())));
+			var code1 = elems[0].Trim();
+			var code2 = elems[1].Trim();
+			if (CodeUtils.IsIgnored(code1) || CodeUtils.IsIgnored(code2))
+				return;
+			infos.Add((ToEnumConverter.GetCode(code1), ToEnumConverter.GetCode(code2), ToEnumConverter.GetConditionCode(elems[2].Trim())));
 		}
 	}
 }

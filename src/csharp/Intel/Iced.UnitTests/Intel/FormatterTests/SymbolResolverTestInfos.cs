@@ -22,15 +22,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if GAS || INTEL || MASM || NASM
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class SymbolResolverTestInfos {
-		public static readonly SymbolResolverTestCase[] AllInfos = GetTests();
+		public static readonly (SymbolResolverTestCase[] testCases, HashSet<int> ignored) AllInfos = GetTests();
 
-		static SymbolResolverTestCase[] GetTests() {
+		static (SymbolResolverTestCase[] testCases, HashSet<int> ignored) GetTests() {
 			var filename = PathUtils.GetTestTextFilename("SymbolResolverTests.txt", "Formatter");
-			return SymbolResolverTestsReader.ReadFile(filename).ToArray();
+			var ignored = new HashSet<int>();
+			return (SymbolResolverTestsReader.ReadFile(filename, ignored).ToArray(), ignored);
 		}
 	}
 }

@@ -164,7 +164,9 @@ impl MiscTestsDataReader {
 	}
 
 	fn add_code(h: &mut HashSet<Code>, line: &str) -> Result<(), String> {
-		let _ = h.insert(to_code(line)?);
+		if !is_ignored_code(line) {
+			let _ = h.insert(to_code(line)?);
+		}
 		Ok(())
 	}
 
@@ -174,7 +176,9 @@ impl MiscTestsDataReader {
 		if elems.len() != ELEMS {
 			return Err(format!("Expected {} elements, found {}", ELEMS, elems.len()));
 		}
-		v.push((to_code(elems[0])?, to_code(elems[1])?));
+		if !is_ignored_code(elems[0]) && !is_ignored_code(elems[1]) {
+			v.push((to_code(elems[0])?, to_code(elems[1])?));
+		}
 		Ok(())
 	}
 
@@ -184,7 +188,9 @@ impl MiscTestsDataReader {
 		if elems.len() != ELEMS {
 			return Err(format!("Expected {} elements, found {}", ELEMS, elems.len()));
 		}
-		v.push((to_code(elems[0])?, to_code(elems[1])?, to_code(elems[2])?, to_condition_code(elems[3])?));
+		if !is_ignored_code(elems[0]) && !is_ignored_code(elems[1]) && !is_ignored_code(elems[2]) {
+			v.push((to_code(elems[0])?, to_code(elems[1])?, to_code(elems[2])?, to_condition_code(elems[3])?));
+		}
 		Ok(())
 	}
 
@@ -194,7 +200,9 @@ impl MiscTestsDataReader {
 		if elems.len() != ELEMS {
 			return Err(format!("Expected {} elements, found {}", ELEMS, elems.len()));
 		}
-		v.push((to_code(elems[0])?, to_code(elems[1])?, to_condition_code(elems[2])?));
+		if !is_ignored_code(elems[0]) && !is_ignored_code(elems[1]) {
+			v.push((to_code(elems[0])?, to_code(elems[1])?, to_condition_code(elems[2])?));
+		}
 		Ok(())
 	}
 }

@@ -21,6 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Collections.Generic;
 using System.IO;
 using Generator.Enums;
 using Generator.IO;
@@ -57,14 +58,26 @@ namespace Generator.Tables.CSharp {
 			new FileUpdater(TargetLanguage.CSharp, "Dicts", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "FormatterTests", "SymbolResolverTestsReader.cs")).Generate(writer => {
 				WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "ToSymbolFlags");
 			});
+			new FileUpdater(TargetLanguage.CSharp, "IgnoredCode", Path.Combine(generatorContext.CSharpTestsDir, "Intel", "CodeUtils.cs")).Generate(writer => {
+				WriteHash(writer, genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues), "ignored", false);
+			});
 		}
 
-		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName) {
+		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName, bool publicField = true) {
 			var declTypeStr = constants[0].value.DeclaringType.Name(idConverter);
-			writer.WriteLine($"internal static readonly Dictionary<string, {declTypeStr}> {fieldName} = new Dictionary<string, {declTypeStr}>(StringComparer.Ordinal) {{");
+			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly Dictionary<string, {declTypeStr}> {fieldName} = new Dictionary<string, {declTypeStr}>({constants.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
 				foreach (var constant in constants)
 					writer.WriteLine($"{{ \"{constant.name}\", {declTypeStr}.{constant.value.Name(idConverter)} }},");
+			}
+			writer.WriteLine("};");
+		}
+
+		void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string fieldName, bool publicField = true) {
+			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly HashSet<string> {fieldName} = new HashSet<string>({constants.Count}, StringComparer.Ordinal) {{");
+			using (writer.Indent()) {
+				foreach (var constant in constants)
+					writer.WriteLine($"{{ \"{constant.RawName}\" }},");
 			}
 			writer.WriteLine("};");
 		}

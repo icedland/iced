@@ -63,8 +63,9 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 	public abstract class SymbolResolverTests {
 		protected static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile) {
-			var infos = SymbolResolverTestInfos.AllInfos;
+			var (infos, ignored) = SymbolResolverTestInfos.AllInfos;
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
+			formattedStrings = Utils.Filter(formattedStrings, ignored);
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];

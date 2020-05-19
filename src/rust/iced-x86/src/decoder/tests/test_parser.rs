@@ -268,7 +268,13 @@ impl Iterator for IntoIter {
 						Err(err) => Err(err.to_string()),
 					};
 					match result {
-						Ok(tc) => return Some(tc),
+						Ok(tc) => {
+							if let Some(tc) = tc {
+								return Some(tc);
+							} else {
+								continue;
+							}
+						}
 						Err(err) => panic!("Error parsing decoder test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
@@ -278,7 +284,7 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<DecoderTestCase, String> {
+	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<DecoderTestCase>, String> {
 		let parts: Vec<_> = line.split(',').collect();
 		if parts.len() != 5 {
 			return Err(format!("Invalid number of commas ({} commas)", parts.len() - 1));
@@ -291,6 +297,9 @@ impl IntoIter {
 		tc.hex_bytes = parts[0].trim().to_string();
 		let _ = to_vec_u8(&tc.hex_bytes)?;
 		tc.encoded_hex_bytes = tc.hex_bytes.clone();
+		if is_ignored_code(parts[1]) {
+			return Ok(None);
+		}
 		tc.code = to_code(parts[1])?;
 		tc.mnemonic = to_mnemonic(parts[2])?;
 		tc.op_count = to_u32(parts[3])?;
@@ -406,7 +415,7 @@ impl IntoIter {
 			}
 		}
 
-		Ok(tc)
+		Ok(Some(tc))
 	}
 
 	fn read_op_kind(tc: &mut DecoderTestCase, operand: u32, value: &str) -> Result<(), String> {

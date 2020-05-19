@@ -219,13 +219,16 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OptionsTests {
 		protected static IEnumerable<object[]> GetFormatData(string formatterDir, string formattedStringsFile, string optionsFile = null) {
 			OptionsInstructionInfo[] infos;
+			HashSet<int> ignored;
 			if (optionsFile is null)
-				infos = FormatterOptionsTests.AllInfos;
+				(infos, ignored) = FormatterOptionsTests.AllInfos;
 			else {
 				var infosFilename = FileUtils.GetFormatterFilename(Path.Combine(formatterDir, optionsFile));
-				infos = OptionsTestsReader.ReadFile(infosFilename).ToArray();
+				ignored = new HashSet<int>();
+				infos = OptionsTestsReader.ReadFile(infosFilename, ignored).ToArray();
 			}
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, formattedStringsFile)).ToArray();
+			formattedStrings = Utils.Filter(formattedStrings, ignored);
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];

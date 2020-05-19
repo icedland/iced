@@ -32,14 +32,15 @@ using Generator.Tables;
 
 namespace Generator {
 	/// <summary>
-	/// Can be implemented by classes with an <see cref="TypeGenAttribute"/>
+	/// Can be implemented by classes with a <see cref="TypeGenAttribute"/>
 	/// </summary>
 	interface ITypeGen {
-		void Generate(GenTypes genTypes);
+		void Generate(GenTypes genTypes) { }
+		void OnGenerated(GenTypes genTypes) { }
 	}
 
 	/// <summary>
-	/// Can be implemented by classes with an <see cref="TypeGenAttribute"/> and if so,
+	/// Can be implemented by classes with a <see cref="TypeGenAttribute"/> and if so,
 	/// its priority must be &lt; <see cref="TypeGenOrders.CreatedInstructions"/>
 	/// </summary>
 	interface ICreatedInstructions {
@@ -139,8 +140,8 @@ namespace Generator {
 			canGetCodeEnum = true;
 			CallTypeGens(created, typeGens, ref index, order => order < TypeGenOrders.CreatedInstructions);
 
-			var codeHash = FilterCode();
-
+			var (removedCodeHash, codeHash) = FilterCode();
+			AddObject(TypeIds.RemovedCodeValues, removedCodeHash);
 			for (int i = 0; i < index; i++) {
 				if (created[i] is ICreatedInstructions createdInstrs)
 					createdInstrs.OnCreatedInstructions(this, codeHash);
@@ -151,6 +152,11 @@ namespace Generator {
 			for (int i = createdCount; i < created.Count; i++) {
 				if (created[i] is ICreatedInstructions)
 					throw new InvalidOperationException($"Can't impl {nameof(ICreatedInstructions)}, update the {nameof(TypeGenAttribute)} order");
+			}
+
+			for (int i = 0; i < created.Count; i++) {
+				if (created[i] is ITypeGen tg)
+					tg.OnGenerated(this);
 			}
 		}
 
@@ -171,14 +177,22 @@ namespace Generator {
 			}
 		}
 
-		HashSet<EnumValue> FilterCode() {
+		(HashSet<EnumValue> removedCodeHash, HashSet<EnumValue> codeHash) FilterCode() {
 			var defs = GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
-			var newCodeValues = defs.Where(a => ShouldInclude(a)).Select(a => a.OpCodeInfo.Code).ToArray();
+
+			var newCodeValues = new List<EnumValue>();
+			var removedCodeHash = new HashSet<EnumValue>();
+			foreach (var def in defs) {
+				if (ShouldInclude(def))
+					newCodeValues.Add(def.OpCodeInfo.Code);
+				else
+					removedCodeHash.Add(def.OpCodeInfo.Code);
+			}
 
 			var code = this[TypeIds.Code];
-			code.ResetValues(newCodeValues);
+			code.ResetValues(newCodeValues.ToArray());
 
-			return code.Values.ToHashSet();
+			return (removedCodeHash, newCodeValues.ToHashSet());
 		}
 
 		bool ShouldInclude(InstructionDef def) {

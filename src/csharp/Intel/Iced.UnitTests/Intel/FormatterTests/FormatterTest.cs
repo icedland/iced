@@ -49,14 +49,14 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	}
 
 	public abstract class FormatterTest {
-		static InstructionInfo[] instrInfos16;
-		static InstructionInfo[] instrInfos32;
-		static InstructionInfo[] instrInfos64;
-		static InstructionInfo[] instrInfos16_Misc;
-		static InstructionInfo[] instrInfos32_Misc;
-		static InstructionInfo[] instrInfos64_Misc;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos16;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos32;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos64;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos16_Misc;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos32_Misc;
+		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos64_Misc;
 
-		public static InstructionInfo[] GetInstructionInfos(int bitness, bool isMisc) {
+		public static (InstructionInfo[] infos, HashSet<int> ignored) GetInstructionInfos(int bitness, bool isMisc) {
 			if (isMisc) {
 				return bitness switch {
 					16 => GetInstructionInfos(ref instrInfos16_Misc, bitness, isMisc),
@@ -75,19 +75,21 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			}
 		}
 
-		static InstructionInfo[] GetInstructionInfos(ref InstructionInfo[] instrInfos, int bitness, bool isMisc) {
-			if (instrInfos is null) {
+		static (InstructionInfo[] infos, HashSet<int> ignored) GetInstructionInfos(ref (InstructionInfo[] infos, HashSet<int> ignored) data, int bitness, bool isMisc) {
+			if (data.infos is null) {
 				var filename = "InstructionInfos" + bitness;
 				if (isMisc)
 					filename += "_Misc";
-				instrInfos = GetInstructionInfos(filename, bitness).ToArray();
+				data.ignored = new HashSet<int>();
+				data.infos = GetInstructionInfos(filename, bitness, data.ignored).ToArray();
 			}
-			return instrInfos;
+			return data;
 		}
 
 		static readonly char[] sep = new[] { ',' };
-		static IEnumerable<InstructionInfo> GetInstructionInfos(string filename, int bitness) {
+		static IEnumerable<InstructionInfo> GetInstructionInfos(string filename, int bitness, HashSet<int> ignored) {
 			int lineNo = 0;
+			int testCaseNo = 0;
 			filename = FileUtils.GetFormatterFilename(filename);
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
@@ -104,19 +106,26 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				else
 					throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
 				var hexBytes = parts[0].Trim();
-				if (!ToEnumConverter.TryCode(parts[1].Trim(), out var code))
-					throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
-				yield return new InstructionInfo(bitness, hexBytes, code, options);
+				var codeStr = parts[1].Trim();
+				if (CodeUtils.IsIgnored(codeStr))
+					ignored.Add(testCaseNo);
+				else {
+					if (!ToEnumConverter.TryCode(codeStr, out var code))
+						throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
+					yield return new InstructionInfo(bitness, hexBytes, code, options);
+				}
+				testCaseNo++;
 			}
 		}
 
 		protected static IEnumerable<object[]> GetFormatData(int bitness, string formatterDir, string formattedStringsFile, bool isMisc = false) {
-			var infos = GetInstructionInfos(bitness, isMisc);
+			var data = GetInstructionInfos(bitness, isMisc);
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, $"Test{bitness}_{formattedStringsFile}")).ToArray();
-			return GetFormatData(infos, formattedStrings);
+			return GetFormatData(data.infos, data.ignored, formattedStrings);
 		}
 
-		static IEnumerable<object[]> GetFormatData(InstructionInfo[] infos, string[] formattedStrings) {
+		static IEnumerable<object[]> GetFormatData(InstructionInfo[] infos, HashSet<int> ignored, string[] formattedStrings) {
+			formattedStrings = Utils.Filter(formattedStrings, ignored);
 			if (infos.Length != formattedStrings.Length)
 				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
 			var res = new object[infos.Length][];

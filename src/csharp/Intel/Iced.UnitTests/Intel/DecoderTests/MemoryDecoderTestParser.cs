@@ -42,7 +42,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing decoder test case file '{filename}', line {lineNumber}: {ex.Message}");
 				}
-				yield return testCase;
+				if (testCase is object)
+					yield return testCase;
 			}
 		}
 
@@ -55,7 +56,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.LineNumber = lineNumber;
 			tc.Bitness = bitness;
 			tc.HexBytes = parts[0].Trim();
-			tc.Code = ToEnumConverter.GetCode(parts[1].Trim());
+			var code = parts[1].Trim();
+			if (CodeUtils.IsIgnored(code))
+				return null;
+			tc.Code = ToEnumConverter.GetCode(code);
 			tc.Register = ToEnumConverter.GetRegister(parts[2].Trim());
 			tc.SegmentPrefix = ToEnumConverter.GetRegister(parts[3].Trim());
 			tc.SegmentRegister = ToEnumConverter.GetRegister(parts[4].Trim());

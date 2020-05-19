@@ -42,7 +42,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			Assert.Equal(tested.Length, codeNames.Length);
 			for (int i = 0; i < tested.Length; i++) {
-				if (!tested[i]) {
+				if (!tested[i] && !CodeUtils.IsIgnored(codeNames[i])) {
 					sb.Append(codeNames[i] + " ");
 					missing++;
 				}

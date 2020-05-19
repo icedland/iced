@@ -29,26 +29,31 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class OptionsTestsReader {
-		public static IEnumerable<OptionsInstructionInfo> ReadFile(string filename) {
+		public static IEnumerable<OptionsInstructionInfo> ReadFile(string filename, HashSet<int> ignored) {
 			int lineNo = 0;
+			int testCaseNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
 				if (line.Length == 0 || line[0] == '#')
 					continue;
-				OptionsInstructionInfo testCase;
+				OptionsInstructionInfo? testCase;
 				try {
 					testCase = ReadTestCase(line, lineNo);
 				}
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing options test case file '{filename}', line {lineNo}: {ex.Message}");
 				}
-				yield return testCase;
+				if (testCase.HasValue)
+					yield return testCase.GetValueOrDefault();
+				else
+					ignored.Add(testCaseNo);
+				testCaseNo++;
 			}
 		}
 
 		static readonly char[] seps = new char[] { ',' };
 		static readonly char[] optsseps = new char[] { ' ' };
-		static OptionsInstructionInfo ReadTestCase(string line, int lineNo) {
+		static OptionsInstructionInfo? ReadTestCase(string line, int lineNo) {
 			var parts = line.Split(seps);
 			if (parts.Length != 4)
 				throw new InvalidOperationException($"Invalid number of commas ({parts.Length - 1} commas)");
@@ -56,7 +61,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			int bitness = NumberConverter.ToInt32(parts[0].Trim());
 			var hexBytes = parts[1].Trim();
 			HexUtils.ToByteArray(hexBytes);
-			var code = ToCode(parts[2].Trim());
+			var codeStr = parts[2].Trim();
+			if (CodeUtils.IsIgnored(codeStr))
+				return null;
+			var code = ToCode(codeStr);
 
 			var properties = new List<(OptionsProps property, object value)>();
 			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries))

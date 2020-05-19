@@ -42,7 +42,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				catch (Exception ex) {
 					throw new InvalidOperationException($"Error parsing opcode test case file '{filename}', line {lineNo}: {ex.Message}");
 				}
-				yield return testCase;
+				if (testCase is object)
+					yield return testCase;
 			}
 		}
 
@@ -59,7 +60,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			tc.IsInstruction = true;
 			tc.GroupIndex = -1;
 
-			tc.Code = ToCode(parts[0].Trim());
+			var code = parts[0].Trim();
+			if (CodeUtils.IsIgnored(code))
+				return null;
+			tc.Code = ToCode(code);
 			tc.Encoding = ToEncoding(parts[1].Trim());
 			tc.MandatoryPrefix = ToMandatoryPrefix(parts[2].Trim());
 			tc.Table = ToTable(parts[3].Trim());

@@ -132,7 +132,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var sb = new StringBuilder();
 			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			for (int i = 0; i < tested.Length; i++) {
-				if (!tested[i]) {
+				if (!tested[i] && !CodeUtils.IsIgnored(codeNames[i])) {
 					if (sb.Length > 0)
 						sb.Append(',');
 					sb.Append(codeNames[i]);

@@ -45,8 +45,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				(64, true),
 			};
 			foreach (var args in allArgs) {
-				var infos = FormatterTest.GetInstructionInfos(args.bitness, args.isMisc);
-				foreach (var info in infos)
+				var data = FormatterTest.GetInstructionInfos(args.bitness, args.isMisc);
+				foreach (var info in data.infos)
 					tested[(int)info.Code] = 1;
 			}
 #if ENCODER
@@ -61,7 +61,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			int missing = 0;
 			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			for (int i = 0; i < tested.Length; i++) {
-				if (tested[i] != 1) {
+				if (tested[i] != 1 && !CodeUtils.IsIgnored(codeNames[i])) {
 					sb.Append(codeNames[i] + " ");
 					missing++;
 				}

@@ -734,10 +734,10 @@ fn make_sure_all_code_values_are_tested() {
 
 	let mut s = String::new();
 	let mut missing = 0;
+	let code_names = code_names();
 	for i in tested.iter().enumerate() {
-		let code: Code = unsafe { mem::transmute(i.0 as u16) };
-		if !*i.1 {
-			write!(s, "{:?} ", code).unwrap();
+		if !*i.1 && !is_ignored_code(code_names[i.0]) {
+			write!(s, "{} ", code_names[i.0]).unwrap();
 			missing += 1;
 		}
 	}

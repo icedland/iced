@@ -73,7 +73,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				catch (Exception ex) {
 					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-				yield return new object[5] { info.hexBytes, info.code, info.options, lineNo, info.testCase };
+				if (info.testCase is object)
+					yield return new object[5] { info.hexBytes, info.code, info.options, lineNo, info.testCase };
 			}
 		}
 
@@ -86,7 +87,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var testCase = new InstructionInfoTestCase();
 
 			var hexBytes = ToHexBytes(elems[0].Trim());
-			var code = ToEnumConverter.GetCode(elems[1].Trim());
+			var codeStr = elems[1].Trim();
+			if (CodeUtils.IsIgnored(codeStr))
+				return default;
+			var code = ToEnumConverter.GetCode(codeStr);
 			testCase.Encoding = ToEnumConverter.GetEncodingKind(elems[2].Trim());
 			var cpuidFeatureStrings = elems[3].Trim().Split(new[] { ';' });
 

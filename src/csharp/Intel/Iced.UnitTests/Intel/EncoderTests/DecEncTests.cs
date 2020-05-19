@@ -25,6 +25,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.Serialization;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;
@@ -2053,6 +2055,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var pfx_no_bnd_32 = new List<Code>();
 			var pfx_no_bnd_64 = new List<Code>();
 
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			foreach (var bitness in new int[] { 16, 32, 64 }) {
 				var testedInfos = bitness switch {
 					16 => testedInfos16,
@@ -2062,6 +2065,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				};
 
 				for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+					if (CodeUtils.IsIgnored(codeNames[i]))
+						continue;
 					var code = (Code)i;
 					var opCode = code.ToOpCode();
 					if (!opCode.IsInstruction || opCode.Code == Code.Popw_CS)
@@ -2737,7 +2742,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var hash64 = new HashSet<Code>(DecoderTestUtils.Code64Only);
 			foreach (var code in DecoderTestUtils.NotDecoded64Only)
 				hash64.Add(code);
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+				if (CodeUtils.IsIgnored(codeNames[i]))
+					continue;
 				var code = (Code)i;
 				var opCode = code.ToOpCode();
 				if (hash1632.Contains(code)) {

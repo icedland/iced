@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Generator.Enums;
 using Generator.IO;
@@ -85,20 +86,36 @@ namespace Generator.Tables.Rust {
 					"OptionsDict",
 					writer => WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "to_flags")
 				),
+				(
+					Path.Combine(generatorContext.RustDir, "test_utils", "from_str_conv", "ignored_code_table.rs"),
+					"CodeHash",
+					writer => WriteHash(writer, genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues), "h")
+				),
 			};
-			foreach (var info in infos) {
+			foreach (var info in infos)
 				new FileUpdater(TargetLanguage.Rust, info.id, info.filename).Generate(writer => info.func(writer));
-			}
 		}
 
 		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string hashName) {
 			var declType = constants[0].value.DeclaringType;
 			var declTypeStr = declType.Name(idConverter);
-			writer.WriteLine($"let mut {hashName}: HashMap<&'static str, {(declType.IsFlags ? "u32" : declTypeStr)}> = HashMap::new();");
+			if (constants.Length == 0)
+				writer.WriteLine($"let {hashName}: HashMap<&'static str, {(declType.IsFlags ? "u32" : declTypeStr)}> = HashMap::new();");
+			else
+				writer.WriteLine($"let mut {hashName}: HashMap<&'static str, {(declType.IsFlags ? "u32" : declTypeStr)}> = HashMap::with_capacity({constants.Length});");
 			foreach (var constant in constants) {
 				var name = declType.IsFlags ? idConverter.Constant(constant.value.RawName) : constant.value.Name(idConverter);
 				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.name}\", {declTypeStr}::{name});");
 			}
+		}
+
+		void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string hashName) {
+			if (constants.Count == 0)
+				writer.WriteLine($"let {hashName}: HashSet<&'static str> = HashSet::new();");
+			else
+				writer.WriteLine($"let mut {hashName}: HashSet<&'static str> = HashSet::with_capacity({constants.Count});");
+			foreach (var constant in constants)
+				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.RawName}\");");
 		}
 	}
 }
