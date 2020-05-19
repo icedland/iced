@@ -70,7 +70,7 @@ fn get_lines_ignore_comments(filename: &Path) -> Vec<String> {
 }
 
 pub(super) fn formatter_test(bitness: u32, dir: &str, filename: &str, is_misc: bool, fmt_factory: fn() -> Box<Formatter>) {
-	let (infos, ignored) = get_infos(bitness, is_misc);
+	let &(ref infos, ref ignored) = get_infos(bitness, is_misc);
 	let lines = filter_removed_code_tests(get_formatted_lines(bitness, dir, filename), ignored);
 	if infos.len() != lines.len() {
 		panic!("Infos len ({}) != fmt len ({}); dir={}, filename: {}, is_misc: {}", infos.len(), lines.len(), dir, filename, is_misc);

@@ -36,7 +36,9 @@ use self::op_code_test_case::*;
 use self::op_code_test_case_parser::OpCodeInfoTestParser;
 use super::super::decoder::tests::test_utils::*;
 use super::super::iced_constants::IcedConstants;
-use super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
+use super::super::test_utils::from_str_conv::to_vec_u8;
+#[cfg(feature = "op_code_info")]
+use super::super::test_utils::from_str_conv::{code_names, is_ignored_code};
 use super::super::test_utils::*;
 use super::super::*;
 use super::op_code_handler::InvalidHandler;

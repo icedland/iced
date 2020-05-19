@@ -76,7 +76,7 @@ pub(in super::super) fn symbol_resolver_test(dir: &str, filename: &str, fmt_fact
 	let mut path = get_formatter_unit_tests_dir();
 	path.push(dir);
 	path.push(format!("{}.txt", filename));
-	let (infos, ignored) = &*ALL_INFOS;
+	let &(ref infos, ref ignored) = &*ALL_INFOS;
 	let formatted_lines = filter_removed_code_tests(super::get_lines_ignore_comments(path.as_path()), ignored);
 	if infos.len() != formatted_lines.len() {
 		panic!("infos.len() ({}) != formatted_lines.len() ({})", infos.len(), formatted_lines.len());
