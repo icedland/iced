@@ -215,6 +215,8 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.mem_vsib64z:
 					return true;
 				// GENERATOR-END: HasVsib
+				default:
+					break;
 				}
 			}
 			return false;
