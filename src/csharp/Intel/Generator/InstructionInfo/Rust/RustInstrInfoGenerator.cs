@@ -126,12 +126,6 @@ namespace Generator.InstructionInfo.Rust {
 			// We assume max op count is 5, update the code if not
 			if (opInfos.Length != 5)
 				throw new InvalidOperationException();
-			// InstructionInfoFactory assumes it's 2
-			if (opInfos[3].Values.Length != 2)
-				throw new InvalidOperationException();
-			// InstructionInfoFactory assumes it's 2
-			if (opInfos[4].Values.Length != 2)
-				throw new InvalidOperationException();
 
 			var indexes = new int[] { 1, 2 };
 			var opAccessTypeStr = genTypes[TypeIds.OpAccess].Name(idConverter);

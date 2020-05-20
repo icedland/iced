@@ -21,21 +21,32 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.Collections.Generic;
 using Generator.Enums;
 
 namespace Generator.Formatters.Nasm {
 	[TypeGen(TypeGenOrders.PreCreateInstructions)]
 	sealed class CtorInfos : ICreatedInstructions {
-		public object[][] Infos => infos;
+		public object[][] Infos {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return infos;
+			}
+		}
+
 		object[][] infos;
+		bool filtered;
 
 		CtorInfos(GenTypes genTypes) {
 			infos = CtorInfosData.GetData(genTypes);
 			genTypes.AddObject(TypeIds.NasmCtorInfos, this);
 		}
 
-		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) =>
+		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
 			infos = Utils.Filter(filteredCodeValues, infos);
+			filtered = true;
+		}
 	}
 }

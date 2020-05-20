@@ -41,7 +41,7 @@ namespace Generator.Decoder.Rust {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			var mnemonicName = genTypes[TypeIds.Mnemonic].Name(idConverter);
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.RustDir, "mnemonics.rs")))) {
 				writer.WriteFileHeader();

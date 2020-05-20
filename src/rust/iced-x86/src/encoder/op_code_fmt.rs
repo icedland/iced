@@ -192,8 +192,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				| OpCodeOperandKind::dr_reg
 				| OpCodeOperandKind::tr_reg
 				| OpCodeOperandKind::bnd_reg
-				// GENERATOR-END: HasModRM
 				=> return true,
+				// GENERATOR-END: HasModRM
 				_ => {}
 			}
 		}
@@ -211,8 +211,8 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 				| OpCodeOperandKind::mem_vsib64y
 				| OpCodeOperandKind::mem_vsib32z
 				| OpCodeOperandKind::mem_vsib64z
-				// GENERATOR-END: HasVsib
 				=> return true,
+				// GENERATOR-END: HasVsib
 				_ => {}
 			}
 		}

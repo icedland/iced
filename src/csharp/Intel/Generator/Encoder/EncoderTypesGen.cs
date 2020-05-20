@@ -139,7 +139,7 @@ namespace Generator.Encoder {
 		void GenerateAllowedPrefixes() {
 			var maskHash = new HashSet<OpCodeFlags>();
 			maskHash.Add(OpCodeFlags.None);
-			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table) {
+			foreach (var def in genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs) {
 				maskHash.Add(def.OpCodeInfo.Flags & PrefixesMask);
 			}
 

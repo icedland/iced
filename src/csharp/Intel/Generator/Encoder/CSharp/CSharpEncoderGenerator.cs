@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.IO;
+using System.Linq;
 using Generator.Enums;
 using Generator.Enums.CSharp;
 using Generator.IO;
@@ -172,13 +173,8 @@ namespace Generator.Encoder.CSharp {
 
 		void GenerateNonZeroOpMaskRegisterCode(InstructionDef[] defs) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "OpCodeInfo.cs");
-			new FileUpdater(TargetLanguage.CSharp, "NonZeroOpMaskRegister", filename).Generate(writer => {
-				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
-				foreach (var def in defs) {
-					if ((def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0)
-						writer.WriteLine($"case {codeStr}.{def.OpCodeInfo.Code.Name(idConverter)}:");
-				}
-			});
+			var codeValues = defs.Where(def => (def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0).Select(def => def.OpCodeInfo.Code).ToArray();
+			GenerateCases(filename, "NonZeroOpMaskRegister", codeValues, "flags |= Flags.NonZeroOpMaskRegister;");
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
@@ -204,10 +200,18 @@ namespace Generator.Encoder.CSharp {
 			});
 		}
 
-		void GenerateCases(string filename, string id, EnumValue[] codeValues) {
+		void GenerateCases(string filename, string id, EnumValue[] codeValues, params string[] statements) {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {
+				if (codeValues.Length == 0)
+					return;
 				foreach (var value in codeValues)
 					writer.WriteLine($"case {value.DeclaringType.Name(idConverter)}.{value.Name(idConverter)}:");
+				using (writer.Indent()) {
+					foreach (var statement in statements)
+						writer.WriteLine(statement);
+					if (!statements[statements.Length - 1].StartsWith("return "))
+						writer.WriteLine("break;");
+				}
 			});
 		}
 
@@ -221,19 +225,18 @@ namespace Generator.Encoder.CSharp {
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "InstructionFormatter.cs");
 			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings);
-			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
-			GenerateCases(filename, "IncVecIndex", incVecIndex);
-			GenerateCases(filename, "NoVecIndex", noVecIndex);
-			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12);
-			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1);
-			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1, "opMaskIsK1 = true;");
+			GenerateCases(filename, "IncVecIndex", incVecIndex, "vec_index++;");
+			GenerateCases(filename, "NoVecIndex", noVecIndex, "noVecIndex = true;");
+			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12, "swapVecIndex12 = true;");
+			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1, "startOpIndex = 1;");
 		}
 
 		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeFormatter.cs");
 			GenerateNotInstrCases(filename, "OpCodeFmtNotInstructionString", notInstrStrings);
-			GenerateCases(filename, "HasModRM", hasModRM);
-			GenerateCases(filename, "HasVsib", hasVsib);
+			GenerateCases(filename, "HasModRM", hasModRM, "return true;");
+			GenerateCases(filename, "HasVsib", hasVsib, "return true;");
 		}
 
 		protected override void GenerateCore() {
@@ -241,17 +244,17 @@ namespace Generator.Encoder.CSharp {
 
 		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.BlockEncoderNamespace), "Instr.cs");
-			GenerateCases(filename, "JccInstr", jccInstr);
-			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr);
-			GenerateCases(filename, "CallInstr", callInstr);
-			GenerateCases(filename, "JmpInstr", jmpInstr);
-			GenerateCases(filename, "XbeginInstr", xbeginInstr);
+			GenerateCases(filename, "JccInstr", jccInstr, "return new JccInstr(blockEncoder, block, instruction);");
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return new SimpleBranchInstr(blockEncoder, block, instruction);");
+			GenerateCases(filename, "CallInstr", callInstr, "return new CallInstr(blockEncoder, block, instruction);");
+			GenerateCases(filename, "JmpInstr", jmpInstr, "return new JmpInstr(blockEncoder, block, instruction);");
+			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return new XbeginInstr(blockEncoder, block, instruction);");
 		}
 
 		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Instruction.cs");
-			GenerateCases(filename, "Vsib32", vsib32);
-			GenerateCases(filename, "Vsib64", vsib64);
+			GenerateCases(filename, "Vsib32", vsib32, "vsib64 = false;", "return true;");
+			GenerateCases(filename, "Vsib64", vsib64, "vsib64 = true;", "return true;");
 		}
 	}
 }

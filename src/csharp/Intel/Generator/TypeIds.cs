@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace Generator {
 	static class TypeIds {
+		public static readonly TypeId OrigCodeValues = new TypeId(nameof(OrigCodeValues));
 		public static readonly TypeId RemovedCodeValues = new TypeId(nameof(RemovedCodeValues));
 		public static readonly TypeId InstructionDefs = new TypeId(nameof(InstructionDefs));
 		public static readonly TypeId EncoderTypes = new TypeId(nameof(EncoderTypes));

@@ -388,8 +388,8 @@ impl OpCodeInfo {
 					| Code::EVEX_Vscatterpf0qpd_vm64z_k1
 					| Code::EVEX_Vscatterpf1qps_vm64z_k1
 					| Code::EVEX_Vscatterpf1qpd_vm64z_k1
-					// GENERATOR-END: NonZeroOpMaskRegister
 					=> flags |= Flags::NON_ZERO_OP_MASK_REGISTER,
+					// GENERATOR-END: NonZeroOpMaskRegister
 					_ => {}
 				}
 			}

@@ -80,7 +80,7 @@ namespace Generator.InstructionInfo {
 
 		public InstrInfoTypesGen(GenTypes genTypes) {
 			this.genTypes = genTypes;
-			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 		}
 
 		public void Generate() {
@@ -281,6 +281,19 @@ namespace Generator.InstructionInfo {
 					opInfoHashes[i].Add(opInfo);
 				}
 			}
+
+			// InstructionInfoFactory assumes these have exactly two values: None, Read.
+			// It can be less than that if some instructions were filtered out.
+			foreach (var i in new[] { 3, 4 }) {
+				var opInfoHash = opInfoHashes[i];
+				if (opInfoHash.Count != 2)
+					opInfoHash.Add(OpInfo.Read);
+				if (opInfoHash.Count != 2)
+					throw new InvalidOperationException();
+				if (!opInfoHash.Contains(OpInfo.None) || !opInfoHash.Contains(OpInfo.Read))
+					throw new InvalidOperationException();
+			}
+
 			var opInfos = new OpInfo[opInfoHashes.Length][];
 			for (int i = 0; i < opInfos.Length; i++) {
 				var array = opInfoHashes[i].ToArray();

@@ -123,6 +123,8 @@ namespace Generator.Formatters.CSharp {
 				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
 				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);
 				foreach (var info in infos) {
+					if (info.code.Length == 0)
+						continue;
 					foreach (var c in info.code)
 						writer.WriteLine($"case {codeStr}.{c.Name(idConverter)}:");
 					using (writer.Indent())

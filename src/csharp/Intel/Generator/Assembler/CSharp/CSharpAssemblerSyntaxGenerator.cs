@@ -665,7 +665,7 @@ namespace Generator.Assembler.CSharp {
 			int forceBitness = 0;
 			// Special case for movdir64b, the memory operand should match the register size
 			// TODO: Ideally this should be handled in the base class
-			switch ((Code)opCodeInfo.Code.Value) {
+			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.Bndmov_bndm64_bnd:
 			case Code.Bndmov_bnd_bndm64:
 			case Code.Bndldx_bnd_mib:

@@ -21,6 +21,8 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 
 namespace Generator.Tables {
@@ -33,35 +35,36 @@ namespace Generator.Tables {
 			this.genTypes = genTypes;
 
 		public void Generate() {
-			var code = genTypes[TypeIds.Code];
-			var infos = new (int index, EnumValue enumValue)[] {
-				( 0x0C, code[nameof(Code.D3NOW_Pi2fw_mm_mmm64)] ),
-				( 0x0D, code[nameof(Code.D3NOW_Pi2fd_mm_mmm64)] ),
-				( 0x1C, code[nameof(Code.D3NOW_Pf2iw_mm_mmm64)] ),
-				( 0x1D, code[nameof(Code.D3NOW_Pf2id_mm_mmm64)] ),
-				( 0x86, code[nameof(Code.D3NOW_Pfrcpv_mm_mmm64)] ),
-				( 0x87, code[nameof(Code.D3NOW_Pfrsqrtv_mm_mmm64)] ),
-				( 0x8A, code[nameof(Code.D3NOW_Pfnacc_mm_mmm64)] ),
-				( 0x8E, code[nameof(Code.D3NOW_Pfpnacc_mm_mmm64)] ),
-				( 0x90, code[nameof(Code.D3NOW_Pfcmpge_mm_mmm64)] ),
-				( 0x94, code[nameof(Code.D3NOW_Pfmin_mm_mmm64)] ),
-				( 0x96, code[nameof(Code.D3NOW_Pfrcp_mm_mmm64)] ),
-				( 0x97, code[nameof(Code.D3NOW_Pfrsqrt_mm_mmm64)] ),
-				( 0x9A, code[nameof(Code.D3NOW_Pfsub_mm_mmm64)] ),
-				( 0x9E, code[nameof(Code.D3NOW_Pfadd_mm_mmm64)] ),
-				( 0xA0, code[nameof(Code.D3NOW_Pfcmpgt_mm_mmm64)] ),
-				( 0xA4, code[nameof(Code.D3NOW_Pfmax_mm_mmm64)] ),
-				( 0xA6, code[nameof(Code.D3NOW_Pfrcpit1_mm_mmm64)] ),
-				( 0xA7, code[nameof(Code.D3NOW_Pfrsqit1_mm_mmm64)] ),
-				( 0xAA, code[nameof(Code.D3NOW_Pfsubr_mm_mmm64)] ),
-				( 0xAE, code[nameof(Code.D3NOW_Pfacc_mm_mmm64)] ),
-				( 0xB0, code[nameof(Code.D3NOW_Pfcmpeq_mm_mmm64)] ),
-				( 0xB4, code[nameof(Code.D3NOW_Pfmul_mm_mmm64)] ),
-				( 0xB6, code[nameof(Code.D3NOW_Pfrcpit2_mm_mmm64)] ),
-				( 0xB7, code[nameof(Code.D3NOW_Pmulhrw_mm_mmm64)] ),
-				( 0xBB, code[nameof(Code.D3NOW_Pswapd_mm_mmm64)] ),
-				( 0xBF, code[nameof(Code.D3NOW_Pavgusb_mm_mmm64)] ),
-			};
+			var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
+			var removed = genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues);
+			var infos = new[] {
+				(0x0C, Code.D3NOW_Pi2fw_mm_mmm64),
+				(0x0D, Code.D3NOW_Pi2fd_mm_mmm64),
+				(0x1C, Code.D3NOW_Pf2iw_mm_mmm64),
+				(0x1D, Code.D3NOW_Pf2id_mm_mmm64),
+				(0x86, Code.D3NOW_Pfrcpv_mm_mmm64),
+				(0x87, Code.D3NOW_Pfrsqrtv_mm_mmm64),
+				(0x8A, Code.D3NOW_Pfnacc_mm_mmm64),
+				(0x8E, Code.D3NOW_Pfpnacc_mm_mmm64),
+				(0x90, Code.D3NOW_Pfcmpge_mm_mmm64),
+				(0x94, Code.D3NOW_Pfmin_mm_mmm64),
+				(0x96, Code.D3NOW_Pfrcp_mm_mmm64),
+				(0x97, Code.D3NOW_Pfrsqrt_mm_mmm64),
+				(0x9A, Code.D3NOW_Pfsub_mm_mmm64),
+				(0x9E, Code.D3NOW_Pfadd_mm_mmm64),
+				(0xA0, Code.D3NOW_Pfcmpgt_mm_mmm64),
+				(0xA4, Code.D3NOW_Pfmax_mm_mmm64),
+				(0xA6, Code.D3NOW_Pfrcpit1_mm_mmm64),
+				(0xA7, Code.D3NOW_Pfrsqit1_mm_mmm64),
+				(0xAA, Code.D3NOW_Pfsubr_mm_mmm64),
+				(0xAE, Code.D3NOW_Pfacc_mm_mmm64),
+				(0xB0, Code.D3NOW_Pfcmpeq_mm_mmm64),
+				(0xB4, Code.D3NOW_Pfmul_mm_mmm64),
+				(0xB6, Code.D3NOW_Pfrcpit2_mm_mmm64),
+				(0xB7, Code.D3NOW_Pmulhrw_mm_mmm64),
+				(0xBB, Code.D3NOW_Pswapd_mm_mmm64),
+				(0xBF, Code.D3NOW_Pavgusb_mm_mmm64),
+			}.Select(a => (index: a.Item1, enumValue: origCode[(int)a.Item2])).Where(a => !removed.Contains(a.enumValue)).ToArray();
 
 			Generate(infos);
 		}

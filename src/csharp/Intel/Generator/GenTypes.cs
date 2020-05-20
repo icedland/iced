@@ -140,7 +140,8 @@ namespace Generator {
 			canGetCodeEnum = true;
 			CallTypeGens(created, typeGens, ref index, order => order < TypeGenOrders.CreatedInstructions);
 
-			var (removedCodeHash, codeHash) = FilterCode();
+			var (origCodeValues, removedCodeHash, codeHash) = FilterCode();
+			AddObject(TypeIds.OrigCodeValues, origCodeValues);
 			AddObject(TypeIds.RemovedCodeValues, removedCodeHash);
 			for (int i = 0; i < index; i++) {
 				if (created[i] is ICreatedInstructions createdInstrs)
@@ -177,8 +178,8 @@ namespace Generator {
 			}
 		}
 
-		(HashSet<EnumValue> removedCodeHash, HashSet<EnumValue> codeHash) FilterCode() {
-			var defs = GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+		(EnumValue[] origCodeValues, HashSet<EnumValue> removedCodeHash, HashSet<EnumValue> codeHash) FilterCode() {
+			var defs = GetObject<InstructionDefs>(TypeIds.InstructionDefs).GetDefsPreFiltered();
 
 			var newCodeValues = new List<EnumValue>();
 			var removedCodeHash = new HashSet<EnumValue>();
@@ -190,9 +191,10 @@ namespace Generator {
 			}
 
 			var code = this[TypeIds.Code];
+			var origCodeValues = code.Values.ToArray();
 			code.ResetValues(newCodeValues.ToArray());
 
-			return (removedCodeHash, newCodeValues.ToHashSet());
+			return (origCodeValues, removedCodeHash, newCodeValues.ToHashSet());
 		}
 
 		bool ShouldInclude(InstructionDef def) {
@@ -213,6 +215,12 @@ namespace Generator {
 				throw new InvalidOperationException($"{id} is not a {typeof(T).FullName}");
 			}
 			throw new InvalidOperationException($"{id} doesn't exist");
+		}
+
+		public EnumValue[] GetKeptCodeValues(params Code[] values) {
+			var origCode = GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
+			var removed = GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues);
+			return values.Select(a => origCode[(int)a]).Where(a => !removed.Contains(a)).ToArray();
 		}
 	}
 }

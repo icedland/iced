@@ -71,7 +71,7 @@ namespace Generator.InstructionInfo {
 					(int)genTypes[TypeIds.InfoFlags1]["OpInfo3Shift"].Value,
 					(int)genTypes[TypeIds.InfoFlags1]["OpInfo4Shift"].Value,
 				};
-				var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+				var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 				var instrInfos = new (InstrInfo info, uint dword1, uint dword2)[defs.Length];
 				for (int i = 0; i < defs.Length; i++) {
 					var info = defs[i].InstrInfo;

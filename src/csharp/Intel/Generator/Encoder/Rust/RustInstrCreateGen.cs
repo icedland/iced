@@ -206,23 +206,23 @@ namespace Generator.Encoder.Rust {
 				writer.WriteLine($"let mut instruction = Self::default();");
 				var bitnessName = idConverter.Argument(method.Args[0].Name);
 				var opKindName = genTypes[TypeIds.OpKind].Name(idConverter);
-				var codeName = genTypes[TypeIds.Code].Name(idConverter);
+				var codeName = codeType.Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine($"match bitness {{");
 				writer.WriteLine($"	16 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel16)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel16)].Name(idConverter)});");
 				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
 				writer.WriteLine($"	}}");
 				writer.WriteLine();
 				writer.WriteLine($"	32 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
 				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch32)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch32({idConverter.Argument(method.Args[1].Name)} as u32);");
 				writer.WriteLine($"	}}");
 				writer.WriteLine();
 				writer.WriteLine($"	64 => {{");
-				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{genTypes[TypeIds.Code][nameof(Code.Xbegin_rel32)].Name(idConverter)});");
+				writer.WriteLine($"		super::instruction_internal::internal_set_code(&mut instruction, {codeName}::{codeType[nameof(Code.Xbegin_rel32)].Name(idConverter)});");
 				writer.WriteLine($"		super::instruction_internal::internal_set_op0_kind(&mut instruction, {opKindName}::{genTypes[TypeIds.OpKind][nameof(OpKind.NearBranch64)].Name(idConverter)});");
 				writer.WriteLine($"		instruction.set_near_branch64({idConverter.Argument(method.Args[1].Name)});");
 				writer.WriteLine($"	}}");
@@ -531,25 +531,25 @@ namespace Generator.Encoder.Rust {
 			string methodName;
 			switch (kind) {
 			case DeclareDataKind.Byte:
-				code = genTypes[TypeIds.Code][nameof(Code.DeclareByte)];
+				code = codeType[nameof(Code.DeclareByte)];
 				setValueName = "set_declare_byte_value";
 				methodName = "with_declare_byte";
 				break;
 
 			case DeclareDataKind.Word:
-				code = genTypes[TypeIds.Code][nameof(Code.DeclareWord)];
+				code = codeType[nameof(Code.DeclareWord)];
 				setValueName = "set_declare_word_value";
 				methodName = "with_declare_word";
 				break;
 
 			case DeclareDataKind.Dword:
-				code = genTypes[TypeIds.Code][nameof(Code.DeclareDword)];
+				code = codeType[nameof(Code.DeclareDword)];
 				setValueName = "set_declare_dword_value";
 				methodName = "with_declare_dword";
 				break;
 
 			case DeclareDataKind.Qword:
-				code = genTypes[TypeIds.Code][nameof(Code.DeclareQword)];
+				code = codeType[nameof(Code.DeclareQword)];
 				setValueName = "set_declare_qword_value";
 				methodName = "with_declare_qword";
 				break;
@@ -620,7 +620,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.ByteSlice:
-					GenCreateDeclareDataSlice(writer, method, 1, genTypes[TypeIds.Code][nameof(Code.DeclareByte)], "with_declare_byte", "set_declare_byte_value");
+					GenCreateDeclareDataSlice(writer, method, 1, codeType[nameof(Code.DeclareByte)], "with_declare_byte", "set_declare_byte_value");
 					break;
 
 				default:
@@ -652,7 +652,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareWord)]);
+						WriteInitializeInstruction(writer, codeType[nameof(Code.DeclareWord)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 2);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 2 {{");
@@ -667,7 +667,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.WordSlice:
-					GenCreateDeclareDataSlice(writer, method, 2, genTypes[TypeIds.Code][nameof(Code.DeclareWord)], "with_declare_word", "set_declare_word_value");
+					GenCreateDeclareDataSlice(writer, method, 2, codeType[nameof(Code.DeclareWord)], "with_declare_word", "set_declare_word_value");
 					break;
 
 				default:
@@ -699,7 +699,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareDword)]);
+						WriteInitializeInstruction(writer, codeType[nameof(Code.DeclareDword)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 4);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 4 {{");
@@ -714,7 +714,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.DwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 4, genTypes[TypeIds.Code][nameof(Code.DeclareDword)], "with_declare_dword", "set_declare_dword_value");
+					GenCreateDeclareDataSlice(writer, method, 4, codeType[nameof(Code.DeclareDword)], "with_declare_dword", "set_declare_dword_value");
 					break;
 
 				default:
@@ -746,7 +746,7 @@ namespace Generator.Encoder.Rust {
 							writer.WriteLine("panic!();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						WriteInitializeInstruction(writer, genTypes[TypeIds.Code][nameof(Code.DeclareQword)]);
+						WriteInitializeInstruction(writer, codeType[nameof(Code.DeclareQword)]);
 						writer.WriteLine($"super::instruction_internal::internal_set_declare_data_len(&mut instruction, {dataName}.len() as u32 / 8);");
 						writer.WriteLine();
 						writer.WriteLine($"for i in 0..{dataName}.len() / 8 {{");
@@ -761,7 +761,7 @@ namespace Generator.Encoder.Rust {
 					break;
 
 				case ArrayType.QwordSlice:
-					GenCreateDeclareDataSlice(writer, method, 8, genTypes[TypeIds.Code][nameof(Code.DeclareQword)], "with_declare_qword", "set_declare_qword_value");
+					GenCreateDeclareDataSlice(writer, method, 8, codeType[nameof(Code.DeclareQword)], "with_declare_qword", "set_declare_qword_value");
 					break;
 
 				default:

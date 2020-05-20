@@ -21,21 +21,50 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+using System;
 using System.Collections.Generic;
 using Generator.Enums;
 
 namespace Generator.Decoder {
 	[TypeGen(TypeGenOrders.PreCreateInstructions)]
 	sealed class DecoderTables : ICreatedInstructions {
-		public (string name, object?[] handlers)[] Legacy => legacy;
-		public (string name, object?[] handlers)[] VEX => vex;
-		public (string name, object?[] handlers)[] EVEX => evex;
-		public (string name, object?[] handlers)[] XOP => xop;
+		public (string name, object?[] handlers)[] Legacy {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return legacy;
+			}
+		}
 
-		readonly (string name, object?[] handlers)[] legacy;
-		readonly (string name, object?[] handlers)[] vex;
-		readonly (string name, object?[] handlers)[] evex;
-		readonly (string name, object?[] handlers)[] xop;
+		public (string name, object?[] handlers)[] VEX {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return vex;
+			}
+		}
+
+		public (string name, object?[] handlers)[] EVEX {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return evex;
+			}
+		}
+
+		public (string name, object?[] handlers)[] XOP {
+			get {
+				if (!filtered)
+					throw new InvalidOperationException();
+				return xop;
+			}
+		}
+
+		(string name, object?[] handlers)[] legacy;
+		(string name, object?[] handlers)[] vex;
+		(string name, object?[] handlers)[] evex;
+		(string name, object?[] handlers)[] xop;
+		bool filtered;
 
 		DecoderTables(GenTypes genTypes) {
 			legacy = DecoderTable_Legacy.CreateHandlers(genTypes);
@@ -46,6 +75,11 @@ namespace Generator.Decoder {
 		}
 
 		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
+			legacy = new DecoderTableFilter(genTypes, filteredCodeValues, legacy, EncodingKind.Legacy).Filter();
+			vex = new DecoderTableFilter(genTypes, filteredCodeValues, vex, EncodingKind.VEX).Filter();
+			xop = new DecoderTableFilter(genTypes, filteredCodeValues, xop, EncodingKind.XOP).Filter();
+			evex = new DecoderTableFilter(genTypes, filteredCodeValues, evex, EncodingKind.EVEX).Filter();
+			filtered = true;
 		}
 	}
 }

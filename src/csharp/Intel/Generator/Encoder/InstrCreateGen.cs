@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Generator.Enums;
 using Generator.Enums.Encoder;
@@ -94,9 +95,18 @@ namespace Generator.Encoder {
 		protected abstract void GenCreateDeclareDataArrayLength(FileWriter writer, CreateMethod method, DeclareDataKind kind, ArrayType arrayType);
 
 		protected readonly GenTypes genTypes;
+		protected readonly EnumType codeType;
+		readonly Dictionary<string, EnumValue> toCode;
 
-		protected InstrCreateGen(GenTypes genTypes) =>
+		protected InstrCreateGen(GenTypes genTypes) {
 			this.genTypes = genTypes;
+			codeType = genTypes[TypeIds.Code];
+			toCode = new Dictionary<string, EnumValue>(codeType.Values.Length);
+			foreach (var value in codeType.Values)
+				toCode.Add(value.RawName, value);
+		}
+
+		bool TryGetCode(string name, [NotNullWhen(true)] out EnumValue? code) => toCode.TryGetValue(name, out code);
 
 		public void Generate() {
 			// The code assumes it has value 0 so the field doesn't have to be initialized if we know that it's already 0
@@ -226,7 +236,8 @@ namespace Generator.Encoder {
 			var method = new CreateMethod("Creates a new #(c:XBEGIN)# instruction");
 			AddBitnessArg(method);
 			AddTargetArg(method);
-			GenCreateXbegin(writer, method);
+			if (TryGetCode(nameof(Code.Xbegin_rel16), out _) && TryGetCode(nameof(Code.Xbegin_rel32), out _))
+				GenCreateXbegin(writer, method);
 		}
 
 		void GenCreateMemory64(FileWriter writer) {
@@ -267,15 +278,17 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_Reg_SegRSI(FileWriter writer) {
-			Gen(writer, "outsb", genTypes[TypeIds.Code][nameof(Code.Outsb_DX_m8)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "outsw", genTypes[TypeIds.Code][nameof(Code.Outsw_DX_m16)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "outsd", genTypes[TypeIds.Code][nameof(Code.Outsd_DX_m32)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "lodsb", genTypes[TypeIds.Code][nameof(Code.Lodsb_AL_m8)], genTypes[TypeIds.Register][nameof(Register.AL)]);
-			Gen(writer, "lodsw", genTypes[TypeIds.Code][nameof(Code.Lodsw_AX_m16)], genTypes[TypeIds.Register][nameof(Register.AX)]);
-			Gen(writer, "lodsd", genTypes[TypeIds.Code][nameof(Code.Lodsd_EAX_m32)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
-			Gen(writer, "lodsq", genTypes[TypeIds.Code][nameof(Code.Lodsq_RAX_m64)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
+			Gen(writer, "outsb", nameof(Code.Outsb_DX_m8), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "outsw", nameof(Code.Outsw_DX_m16), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "outsd", nameof(Code.Outsd_DX_m32), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "lodsb", nameof(Code.Lodsb_AL_m8), genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "lodsw", nameof(Code.Lodsw_AX_m16), genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "lodsd", nameof(Code.Lodsd_EAX_m32), genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "lodsq", nameof(Code.Lodsq_RAX_m64), genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr, EnumValue register) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -299,12 +312,14 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_Reg_ESRDI(FileWriter writer) {
-			Gen(writer, "scasb", genTypes[TypeIds.Code][nameof(Code.Scasb_AL_m8)], genTypes[TypeIds.Register][nameof(Register.AL)]);
-			Gen(writer, "scasw", genTypes[TypeIds.Code][nameof(Code.Scasw_AX_m16)], genTypes[TypeIds.Register][nameof(Register.AX)]);
-			Gen(writer, "scasd", genTypes[TypeIds.Code][nameof(Code.Scasd_EAX_m32)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
-			Gen(writer, "scasq", genTypes[TypeIds.Code][nameof(Code.Scasq_RAX_m64)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
+			Gen(writer, "scasb", nameof(Code.Scasb_AL_m8), genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "scasw", nameof(Code.Scasw_AX_m16), genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "scasd", nameof(Code.Scasd_EAX_m32), genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "scasq", nameof(Code.Scasq_RAX_m64), genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr, EnumValue register) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -334,15 +349,17 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_ESRDI_Reg(FileWriter writer) {
-			Gen(writer, "insb", genTypes[TypeIds.Code][nameof(Code.Insb_m8_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "insw", genTypes[TypeIds.Code][nameof(Code.Insw_m16_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "insd", genTypes[TypeIds.Code][nameof(Code.Insd_m32_DX)], genTypes[TypeIds.Register][nameof(Register.DX)]);
-			Gen(writer, "stosb", genTypes[TypeIds.Code][nameof(Code.Stosb_m8_AL)], genTypes[TypeIds.Register][nameof(Register.AL)]);
-			Gen(writer, "stosw", genTypes[TypeIds.Code][nameof(Code.Stosw_m16_AX)], genTypes[TypeIds.Register][nameof(Register.AX)]);
-			Gen(writer, "stosd", genTypes[TypeIds.Code][nameof(Code.Stosd_m32_EAX)], genTypes[TypeIds.Register][nameof(Register.EAX)]);
-			Gen(writer, "stosq", genTypes[TypeIds.Code][nameof(Code.Stosq_m64_RAX)], genTypes[TypeIds.Register][nameof(Register.RAX)]);
+			Gen(writer, "insb", nameof(Code.Insb_m8_DX), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "insw", nameof(Code.Insw_m16_DX), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "insd", nameof(Code.Insd_m32_DX), genTypes[TypeIds.Register][nameof(Register.DX)]);
+			Gen(writer, "stosb", nameof(Code.Stosb_m8_AL), genTypes[TypeIds.Register][nameof(Register.AL)]);
+			Gen(writer, "stosw", nameof(Code.Stosw_m16_AX), genTypes[TypeIds.Register][nameof(Register.AX)]);
+			Gen(writer, "stosd", nameof(Code.Stosd_m32_EAX), genTypes[TypeIds.Register][nameof(Register.EAX)]);
+			Gen(writer, "stosq", nameof(Code.Stosq_m64_RAX), genTypes[TypeIds.Register][nameof(Register.RAX)]);
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code, EnumValue register) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr, EnumValue register) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -365,12 +382,14 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_SegRSI_ESRDI(FileWriter writer) {
-			Gen(writer, "cmpsb", genTypes[TypeIds.Code][nameof(Code.Cmpsb_m8_m8)]);
-			Gen(writer, "cmpsw", genTypes[TypeIds.Code][nameof(Code.Cmpsw_m16_m16)]);
-			Gen(writer, "cmpsd", genTypes[TypeIds.Code][nameof(Code.Cmpsd_m32_m32)]);
-			Gen(writer, "cmpsq", genTypes[TypeIds.Code][nameof(Code.Cmpsq_m64_m64)]);
+			Gen(writer, "cmpsb", nameof(Code.Cmpsb_m8_m8));
+			Gen(writer, "cmpsw", nameof(Code.Cmpsw_m16_m16));
+			Gen(writer, "cmpsd", nameof(Code.Cmpsd_m32_m32));
+			Gen(writer, "cmpsq", nameof(Code.Cmpsq_m64_m64));
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -401,12 +420,14 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateString_ESRDI_SegRSI(FileWriter writer) {
-			Gen(writer, "movsb", genTypes[TypeIds.Code][nameof(Code.Movsb_m8_m8)]);
-			Gen(writer, "movsw", genTypes[TypeIds.Code][nameof(Code.Movsw_m16_m16)]);
-			Gen(writer, "movsd", genTypes[TypeIds.Code][nameof(Code.Movsd_m32_m32)]);
-			Gen(writer, "movsq", genTypes[TypeIds.Code][nameof(Code.Movsq_m64_m64)]);
+			Gen(writer, "movsb", nameof(Code.Movsb_m8_m8));
+			Gen(writer, "movsw", nameof(Code.Movsw_m16_m16));
+			Gen(writer, "movsd", nameof(Code.Movsd_m32_m32));
+			Gen(writer, "movsq", nameof(Code.Movsq_m64_m64));
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -430,11 +451,13 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateMaskmov(FileWriter writer) {
-			Gen(writer, "maskmovq", genTypes[TypeIds.Code][nameof(Code.Maskmovq_rDI_mm_mm)]);
-			Gen(writer, "maskmovdqu", genTypes[TypeIds.Code][nameof(Code.Maskmovdqu_rDI_xmm_xmm)]);
-			Gen(writer, "vmaskmovdqu", genTypes[TypeIds.Code][nameof(Code.VEX_Vmaskmovdqu_rDI_xmm_xmm)]);
+			Gen(writer, "maskmovq", nameof(Code.Maskmovq_rDI_mm_mm));
+			Gen(writer, "maskmovdqu", nameof(Code.Maskmovdqu_rDI_xmm_xmm));
+			Gen(writer, "vmaskmovdqu", nameof(Code.VEX_Vmaskmovdqu_rDI_xmm_xmm));
 
-			void Gen(FileWriter writer, string mnemonic, EnumValue code) {
+			void Gen(FileWriter writer, string mnemonic, string codeStr) {
+				if (!TryGetCode(codeStr, out var code))
+					return;
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper.Substring(0, 1) + mnemonicUpper.Substring(1).ToLowerInvariant();
 
@@ -474,10 +497,14 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateDeclareXxx(FileWriter writer) {
-			GenCreateDeclareByte(writer);
-			GenCreateDeclareWord(writer);
-			GenCreateDeclareDword(writer);
-			GenCreateDeclareQword(writer);
+			if (TryGetCode(nameof(Code.DeclareByte), out _))
+				GenCreateDeclareByte(writer);
+			if (TryGetCode(nameof(Code.DeclareWord), out _))
+				GenCreateDeclareWord(writer);
+			if (TryGetCode(nameof(Code.DeclareDword), out _))
+				GenCreateDeclareDword(writer);
+			if (TryGetCode(nameof(Code.DeclareQword), out _))
+				GenCreateDeclareQword(writer);
 		}
 
 		static class DeclareConsts {

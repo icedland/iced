@@ -40,7 +40,7 @@ namespace Generator.Decoder.CSharp {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			const string ClassName = "InstructionOpCounts";
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), ClassName + ".g.cs")))) {
 				writer.WriteFileHeader();

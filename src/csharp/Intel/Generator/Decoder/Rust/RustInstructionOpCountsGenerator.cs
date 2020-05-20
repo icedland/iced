@@ -40,7 +40,7 @@ namespace Generator.Decoder.Rust {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
-			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(Path.Combine(generatorContext.RustDir, "instruction_op_counts.rs")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"use super::iced_constants::{icedConstants.Name(idConverter)};");

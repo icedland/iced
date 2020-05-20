@@ -192,8 +192,10 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.dr_reg:
 				case OpCodeOperandKind.tr_reg:
 				case OpCodeOperandKind.bnd_reg:
-				// GENERATOR-END: HasModRM
 					return true;
+				// GENERATOR-END: HasModRM
+				default:
+					break;
 				}
 			}
 			return false;
@@ -211,8 +213,8 @@ namespace Iced.Intel.EncoderInternal {
 				case OpCodeOperandKind.mem_vsib64y:
 				case OpCodeOperandKind.mem_vsib32z:
 				case OpCodeOperandKind.mem_vsib64z:
-				// GENERATOR-END: HasVsib
 					return true;
+				// GENERATOR-END: HasVsib
 				}
 			}
 			return false;

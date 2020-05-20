@@ -42,157 +42,172 @@ namespace Generator.Assembler {
 		readonly MemorySizeInfoTable memorySizeInfoTable;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groups;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groupsWithPseudo;
+		readonly HashSet<EnumValue> discardOpCodes;
+		readonly Dictionary<EnumValue, string> mapOpCodeToNewName;
+		readonly EnumValue? codeInt3;
+		readonly Dictionary<EnumValue, Code> toOrigCodeValue;
 		int stackDepth;
+
+		protected Code GetOrigCodeValue(EnumValue value) {
+			if (value.DeclaringType.TypeId != TypeIds.Code)
+				throw new InvalidOperationException();
+			return toOrigCodeValue[value];
+		}
 
 		protected AssemblerSyntaxGenerator(GenTypes genTypes) {
 			this.genTypes = genTypes;
-			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			encoderTypes = genTypes.GetObject<EncoderTypes>(TypeIds.EncoderTypes);
 			intelCtorInfos = genTypes.GetObject<Formatters.Intel.CtorInfos>(TypeIds.IntelCtorInfos).Infos;
 			memorySizeInfoTable = genTypes.GetObject<MemorySizeInfoTable>(TypeIds.MemorySizeInfoTable);
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
+			codeInt3 = genTypes.GetKeptCodeValues(Code.Int3).FirstOrDefault();
+			var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
+			toOrigCodeValue = new Dictionary<EnumValue, Code>(origCode.Length);
+			for (int i = 0; i < origCode.Length; i++)
+				toOrigCodeValue.Add(origCode[i], (Code)i);
+
+			discardOpCodes = genTypes.GetKeptCodeValues(new[] {
+				Code.INVALID,
+
+				Code.Nopq,
+
+				Code.Add_rm8_imm8_82,
+				Code.Or_rm8_imm8_82,
+				Code.Adc_rm8_imm8_82,
+				Code.Sbb_rm8_imm8_82,
+				Code.And_rm8_imm8_82,
+				Code.Sub_rm8_imm8_82,
+				Code.Xor_rm8_imm8_82,
+				Code.Cmp_rm8_imm8_82,
+				Code.Test_rm16_imm16_F7r1,
+				Code.Test_rm32_imm32_F7r1,
+				Code.Test_rm64_imm32_F7r1,
+				Code.Test_rm8_imm8_F6r1,
+				Code.Lfence_E9,
+				Code.Lfence_EA,
+				Code.Lfence_EB,
+				Code.Lfence_EC,
+				Code.Lfence_ED,
+				Code.Lfence_EE,
+				Code.Lfence_EF,
+				Code.Mfence_F1,
+				Code.Mfence_F2,
+				Code.Mfence_F3,
+				Code.Mfence_F4,
+				Code.Mfence_F5,
+				Code.Mfence_F6,
+				Code.Mfence_F7,
+				Code.Sfence_F9,
+				Code.Sfence_FA,
+				Code.Sfence_FB,
+				Code.Sfence_FC,
+				Code.Sfence_FD,
+				Code.Sfence_FE,
+				Code.Sfence_FF,
+
+				Code.Cmpxchg486_rm8_r8,
+				Code.Cmpxchg486_rm16_r16,
+				Code.Cmpxchg486_rm32_r32,
+
+				Code.Loadall286,
+				Code.Loadallreset286,
+
+				Code.Fstp_sti_DFD0,
+				Code.Fstp_sti_DFD8,
+				Code.Fxch_st0_sti_DDC8,
+				Code.Fxch_st0_sti_DFC8,
+				Code.Fcom_st0_sti_DCD0,
+				Code.Fcomp_st0_sti_DED0,
+				Code.Fcomp_st0_sti_DCD8,
+
+				Code.VEX_Vmovss_xmm_xmm_xmm_0F11,
+				Code.VEX_Vmovsd_xmm_xmm_xmm_0F11,
+				Code.EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
+				Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
+
+				Code.DeclareByte,
+				Code.DeclareWord,
+				Code.DeclareDword,
+				Code.DeclareQword,
+
+				Code.Loopne_rel8_32_CX,
+				Code.Loopne_rel8_16_ECX,
+				Code.Loopne_rel8_64_ECX,
+				Code.Loopne_rel8_16_RCX,
+				Code.Loope_rel8_32_CX,
+				Code.Loope_rel8_16_ECX,
+				Code.Loope_rel8_64_ECX,
+				Code.Loope_rel8_16_RCX,
+				Code.Loop_rel8_32_CX,
+				Code.Loop_rel8_16_ECX,
+				Code.Loop_rel8_64_ECX,
+				Code.Loop_rel8_16_RCX,
+				Code.Jcxz_rel8_32,
+				Code.Jecxz_rel8_16,
+				Code.Jecxz_rel8_64,
+				Code.Jrcxz_rel8_16,
+
+				Code.Popw_CS,
+
+				// The following are implemented manually
+				Code.Call_ptr1616,
+				Code.Call_ptr1632,
+				Code.Xlat_m8,
+				Code.Jmp_ptr1616,
+				Code.Jmp_ptr1632,
+			}).ToHashSet();
+			var removed = genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues);
+			mapOpCodeToNewName = new[] {
+				(Code.Iretw, "iret"),
+				(Code.Iretd, "iretd"),
+				(Code.Iretq, "iretq"),
+				(Code.Pushaw, "pusha"),
+				(Code.Pushad, "pushad"),
+				(Code.Popaw, "popa"),
+				(Code.Popad, "popad"),
+				(Code.Pushfw, "pushf"),
+				(Code.Pushfd, "pushfd"),
+				(Code.Pushfq, "pushfq"),
+				(Code.Popfw, "popf"),
+				(Code.Popfd, "popfd"),
+				(Code.Popfq, "popfq"),
+				(Code.Sysexitd, "sysexit"),
+				(Code.Sysexitq, "sysexitq"),
+				(Code.Sysretd, "sysret"),
+				(Code.Sysretq, "sysretq"),
+				(Code.ReservedNop_rm16_r16_0F0D, "reserved_nop_0f0d"),
+				(Code.ReservedNop_rm32_r32_0F0D, "reserved_nop_0f0d"),
+				(Code.ReservedNop_rm64_r64_0F0D, "reserved_nop_0f0d"),
+				(Code.ReservedNop_rm16_r16_0F18, "reserved_nop_0f18"),
+				(Code.ReservedNop_rm32_r32_0F18, "reserved_nop_0f18"),
+				(Code.ReservedNop_rm64_r64_0F18, "reserved_nop_0f18"),
+				(Code.ReservedNop_rm16_r16_0F19, "reserved_nop_0f19"),
+				(Code.ReservedNop_rm32_r32_0F19, "reserved_nop_0f19"),
+				(Code.ReservedNop_rm64_r64_0F19, "reserved_nop_0f19"),
+				(Code.ReservedNop_rm16_r16_0F1A, "reserved_nop_0f1a"),
+				(Code.ReservedNop_rm32_r32_0F1A, "reserved_nop_0f1a"),
+				(Code.ReservedNop_rm64_r64_0F1A, "reserved_nop_0f1a"),
+				(Code.ReservedNop_rm16_r16_0F1B, "reserved_nop_0f1b"),
+				(Code.ReservedNop_rm32_r32_0F1B, "reserved_nop_0f1b"),
+				(Code.ReservedNop_rm64_r64_0F1B, "reserved_nop_0f1b"),
+				(Code.ReservedNop_rm16_r16_0F1C, "reserved_nop_0f1c"),
+				(Code.ReservedNop_rm32_r32_0F1C, "reserved_nop_0f1c"),
+				(Code.ReservedNop_rm64_r64_0F1C, "reserved_nop_0f1c"),
+				(Code.ReservedNop_rm16_r16_0F1D, "reserved_nop_0f1d"),
+				(Code.ReservedNop_rm32_r32_0F1D, "reserved_nop_0f1d"),
+				(Code.ReservedNop_rm64_r64_0F1D, "reserved_nop_0f1d"),
+				(Code.ReservedNop_rm16_r16_0F1E, "reserved_nop_0f1e"),
+				(Code.ReservedNop_rm32_r32_0F1E, "reserved_nop_0f1e"),
+				(Code.ReservedNop_rm64_r64_0F1E, "reserved_nop_0f1e"),
+				(Code.ReservedNop_rm16_r16_0F1F, "reserved_nop_0f1f"),
+				(Code.ReservedNop_rm32_r32_0F1F, "reserved_nop_0f1f"),
+				(Code.ReservedNop_rm64_r64_0F1F, "reserved_nop_0f1f"),
+			}.Select(a => (code: origCode[(int)a.Item1], name: a.Item2)).Where(a => !removed.Contains(a.code)).ToDictionary(a => a.code, a => a.name);
 		}
 
 		protected const OpCodeFlags BitnessMaskFlags = OpCodeFlags.Mode64 | OpCodeFlags.Mode32 | OpCodeFlags.Mode16;
-
-		static readonly HashSet<Code> DiscardOpCodes = new HashSet<Code>() {
-			Code.INVALID,
-
-			Code.Nopq,
-
-			Code.Add_rm8_imm8_82,
-			Code.Or_rm8_imm8_82,
-			Code.Adc_rm8_imm8_82,
-			Code.Sbb_rm8_imm8_82,
-			Code.And_rm8_imm8_82,
-			Code.Sub_rm8_imm8_82,
-			Code.Xor_rm8_imm8_82,
-			Code.Cmp_rm8_imm8_82,
-			Code.Test_rm16_imm16_F7r1,
-			Code.Test_rm32_imm32_F7r1,
-			Code.Test_rm64_imm32_F7r1,
-			Code.Test_rm8_imm8_F6r1,
-			Code.Lfence_E9,
-			Code.Lfence_EA,
-			Code.Lfence_EB,
-			Code.Lfence_EC,
-			Code.Lfence_ED,
-			Code.Lfence_EE,
-			Code.Lfence_EF,
-			Code.Mfence_F1,
-			Code.Mfence_F2,
-			Code.Mfence_F3,
-			Code.Mfence_F4,
-			Code.Mfence_F5,
-			Code.Mfence_F6,
-			Code.Mfence_F7,
-			Code.Sfence_F9,
-			Code.Sfence_FA,
-			Code.Sfence_FB,
-			Code.Sfence_FC,
-			Code.Sfence_FD,
-			Code.Sfence_FE,
-			Code.Sfence_FF,
-
-			Code.Cmpxchg486_rm8_r8,
-			Code.Cmpxchg486_rm16_r16,
-			Code.Cmpxchg486_rm32_r32,
-
-			Code.Loadall286,
-			Code.Loadallreset286,
-
-			Code.Fstp_sti_DFD0,
-			Code.Fstp_sti_DFD8,
-			Code.Fxch_st0_sti_DDC8,
-			Code.Fxch_st0_sti_DFC8,
-			Code.Fcom_st0_sti_DCD0,
-			Code.Fcomp_st0_sti_DED0,
-			Code.Fcomp_st0_sti_DCD8,
-
-			Code.VEX_Vmovss_xmm_xmm_xmm_0F11,
-			Code.VEX_Vmovsd_xmm_xmm_xmm_0F11,
-			Code.EVEX_Vmovss_xmm_k1z_xmm_xmm_0F11,
-			Code.EVEX_Vmovsd_xmm_k1z_xmm_xmm_0F11,
-
-			Code.DeclareByte,
-			Code.DeclareWord,
-			Code.DeclareDword,
-			Code.DeclareQword,
-
-			Code.Loopne_rel8_32_CX,
-			Code.Loopne_rel8_16_ECX,
-			Code.Loopne_rel8_64_ECX,
-			Code.Loopne_rel8_16_RCX,
-			Code.Loope_rel8_32_CX,
-			Code.Loope_rel8_16_ECX,
-			Code.Loope_rel8_64_ECX,
-			Code.Loope_rel8_16_RCX,
-			Code.Loop_rel8_32_CX,
-			Code.Loop_rel8_16_ECX,
-			Code.Loop_rel8_64_ECX,
-			Code.Loop_rel8_16_RCX,
-			Code.Jcxz_rel8_32,
-			Code.Jecxz_rel8_16,
-			Code.Jecxz_rel8_64,
-			Code.Jrcxz_rel8_16,
-
-			Code.Popw_CS,
-
-			// The following are implemented manually
-			Code.Call_ptr1616,
-			Code.Call_ptr1632,
-			Code.Xlat_m8,
-			Code.Jmp_ptr1616,
-			Code.Jmp_ptr1632,
-		};
-
-		static readonly Dictionary<Code, string> MapOpCodeToNewName = new Dictionary<Code, string>() {
-			{Code.Iretw, "iret"},
-			{Code.Iretd, "iretd"},
-			{Code.Iretq, "iretq"},
-			{Code.Pushaw, "pusha"},
-			{Code.Pushad, "pushad"},
-			{Code.Popaw, "popa"},
-			{Code.Popad, "popad"},
-			{Code.Pushfw, "pushf"},
-			{Code.Pushfd, "pushfd"},
-			{Code.Pushfq, "pushfq"},
-			{Code.Popfw, "popf"},
-			{Code.Popfd, "popfd"},
-			{Code.Popfq, "popfq"},
-			{Code.Sysexitd, "sysexit"},
-			{Code.Sysexitq, "sysexitq"},
-			{Code.Sysretd, "sysret"},
-			{Code.Sysretq, "sysretq"},
-			{Code.ReservedNop_rm16_r16_0F0D, "reserved_nop_0f0d"},
-			{Code.ReservedNop_rm32_r32_0F0D, "reserved_nop_0f0d"},
-			{Code.ReservedNop_rm64_r64_0F0D, "reserved_nop_0f0d"},
-			{Code.ReservedNop_rm16_r16_0F18, "reserved_nop_0f18"},
-			{Code.ReservedNop_rm32_r32_0F18, "reserved_nop_0f18"},
-			{Code.ReservedNop_rm64_r64_0F18, "reserved_nop_0f18"},
-			{Code.ReservedNop_rm16_r16_0F19, "reserved_nop_0f19"},
-			{Code.ReservedNop_rm32_r32_0F19, "reserved_nop_0f19"},
-			{Code.ReservedNop_rm64_r64_0F19, "reserved_nop_0f19"},
-			{Code.ReservedNop_rm16_r16_0F1A, "reserved_nop_0f1a"},
-			{Code.ReservedNop_rm32_r32_0F1A, "reserved_nop_0f1a"},
-			{Code.ReservedNop_rm64_r64_0F1A, "reserved_nop_0f1a"},
-			{Code.ReservedNop_rm16_r16_0F1B, "reserved_nop_0f1b"},
-			{Code.ReservedNop_rm32_r32_0F1B, "reserved_nop_0f1b"},
-			{Code.ReservedNop_rm64_r64_0F1B, "reserved_nop_0f1b"},
-			{Code.ReservedNop_rm16_r16_0F1C, "reserved_nop_0f1c"},
-			{Code.ReservedNop_rm32_r32_0F1C, "reserved_nop_0f1c"},
-			{Code.ReservedNop_rm64_r64_0F1C, "reserved_nop_0f1c"},
-			{Code.ReservedNop_rm16_r16_0F1D, "reserved_nop_0f1d"},
-			{Code.ReservedNop_rm32_r32_0F1D, "reserved_nop_0f1d"},
-			{Code.ReservedNop_rm64_r64_0F1D, "reserved_nop_0f1d"},
-			{Code.ReservedNop_rm16_r16_0F1E, "reserved_nop_0f1e"},
-			{Code.ReservedNop_rm32_r32_0F1E, "reserved_nop_0f1e"},
-			{Code.ReservedNop_rm64_r64_0F1E, "reserved_nop_0f1e"},
-			{Code.ReservedNop_rm16_r16_0F1F, "reserved_nop_0f1f"},
-			{Code.ReservedNop_rm32_r32_0F1F, "reserved_nop_0f1f"},
-			{Code.ReservedNop_rm64_r64_0F1F, "reserved_nop_0f1f"},
-		};
 
 		protected abstract void GenerateRegisters(EnumType registers);
 
@@ -206,12 +221,12 @@ namespace Generator.Assembler {
 		void GenerateOpCodes() {
 			foreach (var def in defs) {
 				var opCodeInfo = def.OpCodeInfo;
-				var code = (Code)opCodeInfo.Code.Value;
-				if (DiscardOpCodes.Contains(code)) continue;
+				var codeValue = opCodeInfo.Code;
+				if (discardOpCodes.Contains(codeValue)) continue;
 
 				string memoName = def.Mnemonic.RawName;
-				var name = MapOpCodeToNewName.TryGetValue(code, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
-				if (code == Code.Int3) name = "int3";
+				var name = mapOpCodeToNewName.TryGetValue(codeValue, out var nameOpt) ? nameOpt : memoName.ToLowerInvariant();
+				if (codeValue == codeInt3) name = "int3";
 
 				bool toAdd = true;
 				var signature = new Signature();
@@ -595,8 +610,8 @@ namespace Generator.Assembler {
 			return kind;
 		}
 
-		static int? GetSpecialArgEncodingInstruction(OpCodeInfo opCodeInfo) {
-			switch ((Code)opCodeInfo.Code.Value) {
+		int? GetSpecialArgEncodingInstruction(OpCodeInfo opCodeInfo) {
+			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.Outsb_DX_m8:
 			case Code.Outsw_DX_m16:
 			case Code.Outsd_DX_m32:
@@ -686,7 +701,7 @@ namespace Generator.Assembler {
 					for (var i = 0; i < opcodes.Count; i++) {
 						var opCodeInfo = opcodes[i];
 						// Special case, we want to disambiguate on the register and moffs
-						switch ((Code)opCodeInfo.Code.Value) {
+						switch (GetOrigCodeValue(opCodeInfo.Code)) {
 						case Code.Mov_moffs64_RAX:
 							memOffs64Selector = OpCodeSelectorKind.MemOffs64_RAX;
 							memOffsSelector = OpCodeSelectorKind.MemOffs_RAX;
@@ -998,7 +1013,7 @@ namespace Generator.Assembler {
 			return memoryIndex;
 		}
 
-		static bool ShouldDiscardDuplicatedOpCode(Signature signature, OpCodeInfo opCode) {
+		bool ShouldDiscardDuplicatedOpCode(Signature signature, OpCodeInfo opCode) {
 			bool testDiscard = false;
 			for (int i = 0; i < signature.ArgCount; i++) {
 				var kind = signature.GetArgKind(i);
@@ -1009,8 +1024,7 @@ namespace Generator.Assembler {
 			}
 
 			if (testDiscard) {
-				switch ((Code)opCode.Code.Value) {
-
+				switch (GetOrigCodeValue(opCode.Code)) {
 				case Code.Pextrb_r64m8_xmm_imm8:             // => Code.Pextrb_r32m8_xmm_imm8
 				case Code.Extractps_r64m32_xmm_imm8:         // => Code.Extractps_rm32_xmm_imm8	
 				case Code.Pinsrb_xmm_r64m8_imm8:             // => Code.Pinsrb_xmm_r32m8_imm8
@@ -1178,9 +1192,9 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-		protected static bool IsMoffs(OpCodeInfo opCodeInfo) {
+		protected bool IsMoffs(OpCodeInfo opCodeInfo) {
 			// Special case for moffs
-			switch ((Code)opCodeInfo.Code.Value) {
+			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.Mov_AL_moffs8:
 			case Code.Mov_AX_moffs16:
 			case Code.Mov_EAX_moffs32:
@@ -2499,8 +2513,8 @@ namespace Generator.Assembler {
 			}
 		}
 
-		private static bool IsR64M16(OpCodeInfo opCodeInfo) {
-			switch ((Code)opCodeInfo.Code.Value) {
+		private bool IsR64M16(OpCodeInfo opCodeInfo) {
+			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.Mov_r64m16_Sreg:
 			case Code.Mov_Sreg_r64m16:
 			case Code.Sldt_r64m16:
@@ -2526,8 +2540,8 @@ namespace Generator.Assembler {
 			return false;
 		}
 
-		protected static bool IsAmbiguousBroadcast(OpCodeInfo opCodeInfo) {
-			switch ((Code)opCodeInfo.Code.Value) {
+		protected bool IsAmbiguousBroadcast(OpCodeInfo opCodeInfo) {
+			switch (GetOrigCodeValue(opCodeInfo.Code)) {
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_xmmm128b64:
 			case Code.EVEX_Vcvtpd2ps_xmm_k1z_ymmm256b64:
 			case Code.EVEX_Vcvtqq2ps_xmm_k1z_xmmm128b64:

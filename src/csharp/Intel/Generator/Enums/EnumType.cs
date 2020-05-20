@@ -39,7 +39,8 @@ namespace Generator.Enums {
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Type(RawName);
 		public string? Documentation { get; }
-		public EnumValue[] Values { get; }
+		public EnumValue[] Values => values;
+		EnumValue[] values;
 		readonly bool initialized;
 		readonly Dictionary<string, EnumValue> toEnumValue;
 
@@ -85,13 +86,14 @@ namespace Generator.Enums {
 			TypeId = typeId;
 			RawName = name;
 			Documentation = documentation;
-			Values = values;
+			this.values = values;
 			initialized = (flags & EnumTypeFlags.NoInitialize) == 0;
 			Initialize(values);
 		}
 
 		void Initialize(EnumValue[] values) {
 			toEnumValue.Clear();
+			this.values = values;
 			if (initialized) {
 				if (IsFlags) {
 					uint value = 0;

@@ -22,38 +22,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Generator.Enums;
+using Generator.Enums.Decoder;
 
-namespace Generator.Tables {
-	[TypeGen(TypeGenOrders.PreCreateInstructions)]
-	sealed class InstructionDefs : ICreatedInstructions {
-		public InstructionDef[] Defs {
-			get {
-				if (!filtered)
-					throw new InvalidOperationException();
-				return defs;
-			}
-		}
-
-		InstructionDef[] defs;
-		bool filtered;
-
-		InstructionDefs(GenTypes genTypes) {
-			defs = InstructionDefsData.CreateTable(genTypes);
-			genTypes.AddObject(TypeIds.InstructionDefs, this);
-		}
-
-		public InstructionDef[] GetDefsPreFiltered() {
-			if (filtered)
+namespace Generator.Decoder {
+	static class DecoderTableUtils {
+		public static bool IsInvalid(GenTypes genTypes, object?[] handler) {
+			var data = handler[0];
+			bool isInvalid =
+				data is IEnumValue enumValue &&
+				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == genTypes[TypeIds.OpCodeHandlerKind][nameof(OpCodeHandlerKind.Invalid)]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == genTypes[TypeIds.VexOpCodeHandlerKind][nameof(VexOpCodeHandlerKind.Invalid)]) ||
+				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == genTypes[TypeIds.EvexOpCodeHandlerKind][nameof(EvexOpCodeHandlerKind.Invalid)]));
+			if (isInvalid && handler.Length != 1)
 				throw new InvalidOperationException();
-			return defs;
+			return isInvalid;
 		}
 
-		void ICreatedInstructions.OnCreatedInstructions(GenTypes genTypes, HashSet<EnumValue> filteredCodeValues) {
-			defs = defs.Where(a => filteredCodeValues.Contains(a.OpCodeInfo.Code)).ToArray();
-			filtered = true;
+		public static bool IsHandler(object?[] handlers) => IsHandler(handlers, out _);
+		public static bool IsHandler(object?[] handlers, [NotNullWhen(true)] out EnumValue? enumValue) {
+			enumValue = handlers[0] as EnumValue;
+			return !(enumValue is null);
 		}
 	}
 }

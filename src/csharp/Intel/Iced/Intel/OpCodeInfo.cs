@@ -376,8 +376,10 @@ namespace Iced.Intel {
 				case Code.EVEX_Vscatterpf0qpd_vm64z_k1:
 				case Code.EVEX_Vscatterpf1qps_vm64z_k1:
 				case Code.EVEX_Vscatterpf1qpd_vm64z_k1:
-				// GENERATOR-END: NonZeroOpMaskRegister
 					flags |= Flags.NonZeroOpMaskRegister;
+					break;
+				// GENERATOR-END: NonZeroOpMaskRegister
+				default:
 					break;
 				}
 				break;

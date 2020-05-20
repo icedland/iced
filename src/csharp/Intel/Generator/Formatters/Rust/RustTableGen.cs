@@ -152,7 +152,9 @@ namespace Generator.Formatters.Rust {
 				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
 				var flowCtrlStr = genTypes[TypeIds.FormatterFlowControl].Name(idConverter);
 				foreach (var info in infos) {
-				var bar = string.Empty;
+					if (info.code.Length == 0)
+						continue;
+					var bar = string.Empty;
 					foreach (var c in info.code) {
 						writer.WriteLine($"{bar}{codeStr}::{c.Name(idConverter)}");
 						bar = "| ";

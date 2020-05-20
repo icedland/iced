@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Generator.Enums;
 using Generator.Enums.Decoder;
@@ -133,7 +132,7 @@ namespace Generator.Decoder {
 			for (int i = 0; i < tables.Length; i++) {
 				var name = tables[i].name;
 				var handlers = tables[i].handlers;
-				bool isHandler = IsHandler(handlers);
+				bool isHandler = DecoderTableUtils.IsHandler(handlers);
 				infos.Add(name, new Info((uint)i, isHandler ? InfoKind.Handler : InfoKind.Handlers));
 
 				if (i != 0)
@@ -144,28 +143,8 @@ namespace Generator.Decoder {
 			}
 		}
 
-		bool IsInvalid(object?[] handler) {
-			var data = handler[0];
-			bool isInvalid =
-				data is IEnumValue enumValue &&
-				((enumValue.DeclaringType.TypeId == TypeIds.OpCodeHandlerKind && enumValue == genTypes[TypeIds.OpCodeHandlerKind][nameof(OpCodeHandlerKind.Invalid)]) ||
-				(enumValue.DeclaringType.TypeId == TypeIds.VexOpCodeHandlerKind && enumValue == genTypes[TypeIds.VexOpCodeHandlerKind][nameof(VexOpCodeHandlerKind.Invalid)]) ||
-				(enumValue.DeclaringType.TypeId == TypeIds.EvexOpCodeHandlerKind && enumValue == genTypes[TypeIds.EvexOpCodeHandlerKind][nameof(EvexOpCodeHandlerKind.Invalid)]));
-			if (isInvalid && handler.Length != 1)
-				throw new InvalidOperationException();
-			return isInvalid;
-		}
-
-		static bool IsHandler(object?[] handlers) =>
-			IsHandler(handlers, out _);
-
-		static bool IsHandler(object?[] handlers, [NotNullWhen(true)] out EnumValue? enumValue) {
-			enumValue = handlers[0] as EnumValue;
-			return !(enumValue is null);
-		}
-
 		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
-			if (IsHandler(handlers)) {
+			if (DecoderTableUtils.IsHandler(handlers)) {
 				if (writeKind)
 					Write(writer, genTypes[TypeIds.SerializedDataKind][nameof(SerializedDataKind.HandlerReference)]);
 				SerializeHandler(writer, handlers);
@@ -250,7 +229,7 @@ namespace Generator.Decoder {
 		int CountInvalid(object?[] handlers, int index) {
 			int count = 0;
 			for (int i = index; i < handlers.Length; i++) {
-				if (!(handlers[i] is object?[] h) || !IsInvalid(h))
+				if (!(handlers[i] is object?[] h) || !DecoderTableUtils.IsInvalid(genTypes, h))
 					break;
 				count++;
 			}

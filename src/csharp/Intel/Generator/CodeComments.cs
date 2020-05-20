@@ -35,10 +35,11 @@ using Generator.Tables;
 namespace Generator {
 	static class CodeComments {
 		public static void AddComments(GenTypes genTypes, string unitTestDir) {
+			var removed = genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues).Select(a => a.RawName).ToHashSet();
 			var docs = new Dictionary<string, string>(StringComparer.Ordinal);
 			bool checkedIt = false;
 			const char sepChar = '|';
-			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Table;
+			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			var toInstrInfo = defs.ToDictionary(a => a.OpCodeInfo.Code.RawName, a => a.InstrInfo, StringComparer.Ordinal);
 			var toOpCodeInfo = defs.ToDictionary(a => a.OpCodeInfo.Code.RawName, a => a.OpCodeInfo, StringComparer.Ordinal);
 			var sb = new StringBuilder();
@@ -49,11 +50,13 @@ namespace Generator {
 				if (parts.Length != 8)
 					throw new InvalidOperationException("Invalid file");
 				var name = parts[0].Trim();
+				if (removed.Contains(name))
+					continue;
 				var opCodeStr = parts[5].Trim();
 				var instructionStr = parts[6].Trim();
-				if (name == "EVEX_Vbroadcastf64x2_zmm_k1z_m128") {
+				if (name == "Add_rm8_r8") {
 					// Verify that we read the correct columns, in case someone reorders them...
-					if (opCodeStr != "EVEX.512.66.0F38.W1 1A /r" || instructionStr != $"VBROADCASTF64X2 zmm1 {{k1}}{{z}}{sepChar} m128")
+					if (opCodeStr != "00 /r" || instructionStr != $"ADD r/m8{sepChar} r8")
 						throw new InvalidOperationException("Wrong columns!");
 					checkedIt = true;
 				}

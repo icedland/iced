@@ -334,16 +334,8 @@ namespace Generator.Encoder.Rust {
 
 		void GenerateNonZeroOpMaskRegisterCode(InstructionDef[] defs) {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "op_code.rs");
-			new FileUpdater(TargetLanguage.Rust, "NonZeroOpMaskRegister", filename).Generate(writer => {
-				var codeStr = genTypes[TypeIds.Code].Name(idConverter);
-				var bar = string.Empty;
-				foreach (var def in defs) {
-					if ((def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0) {
-						writer.WriteLine($"{bar}{codeStr}::{def.OpCodeInfo.Code.Name(idConverter)}");
-						bar = "| ";
-					}
-				}
-			});
+			var codeValues = defs.Where(def => (def.OpCodeInfo.Flags & OpCodeFlags.NonZeroOpMaskRegister) != 0).Select(def => def.OpCodeInfo.Code).ToArray();
+			GenerateCases(filename, "NonZeroOpMaskRegister", codeValues, "flags |= Flags::NON_ZERO_OP_MASK_REGISTER");
 		}
 
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
@@ -370,13 +362,16 @@ namespace Generator.Encoder.Rust {
 			});
 		}
 
-		void GenerateCases(string filename, string id, EnumValue[] codeValues) {
+		void GenerateCases(string filename, string id, EnumValue[] codeValues, string statement) {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {
+				if (codeValues.Length == 0)
+					return;
 				var bar = string.Empty;
 				foreach (var value in codeValues) {
 					writer.WriteLine($"{bar}{value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)}");
 					bar = "| ";
 				}
+				writer.WriteLine($"=> {statement},");
 			});
 		}
 
@@ -391,19 +386,18 @@ namespace Generator.Encoder.Rust {
 		protected override void GenerateInstructionFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] opMaskIsK1, EnumValue[] incVecIndex, EnumValue[] noVecIndex, EnumValue[] swapVecIndex12, EnumValue[] fpuStartOpIndex1) {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "instruction_fmt.rs");
 			GenerateNotInstrCases(filename, "InstrFmtNotInstructionString", notInstrStrings, true);
-			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
-			GenerateCases(filename, "IncVecIndex", incVecIndex);
-			GenerateCases(filename, "NoVecIndex", noVecIndex);
-			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12);
-			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1);
-			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1);
+			GenerateCases(filename, "OpMaskIsK1", opMaskIsK1, "op_mask_is_k1 = true");
+			GenerateCases(filename, "IncVecIndex", incVecIndex, "vec_index += 1");
+			GenerateCases(filename, "NoVecIndex", noVecIndex, "no_vec_index = true");
+			GenerateCases(filename, "SwapVecIndex12", swapVecIndex12, "swap_vec_index_12 = true");
+			GenerateCases(filename, "FpuStartOpIndex1", fpuStartOpIndex1, "start_op_index = 1");
 		}
 
 		protected override void GenerateOpCodeFormatter((EnumValue code, string result)[] notInstrStrings, EnumValue[] hasModRM, EnumValue[] hasVsib) {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "op_code_fmt.rs");
 			GenerateNotInstrCases(filename, "OpCodeFmtNotInstructionString", notInstrStrings, false);
-			GenerateCases(filename, "HasModRM", hasModRM);
-			GenerateCases(filename, "HasVsib", hasVsib);
+			GenerateCases(filename, "HasModRM", hasModRM, "return true");
+			GenerateCases(filename, "HasVsib", hasVsib, "return true");
 		}
 
 		protected override void GenerateCore() =>
@@ -426,17 +420,17 @@ namespace Generator.Encoder.Rust {
 
 		protected override void GenerateInstrSwitch(EnumValue[] jccInstr, EnumValue[] simpleBranchInstr, EnumValue[] callInstr, EnumValue[] jmpInstr, EnumValue[] xbeginInstr) {
 			var filename = Path.Combine(generatorContext.RustDir, "block_enc", "instr", "mod.rs");
-			GenerateCases(filename, "JccInstr", jccInstr);
-			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr);
-			GenerateCases(filename, "CallInstr", callInstr);
-			GenerateCases(filename, "JmpInstr", jmpInstr);
-			GenerateCases(filename, "XbeginInstr", xbeginInstr);
+			GenerateCases(filename, "JccInstr", jccInstr, "return Rc::new(RefCell::new(JccInstr::new(block_encoder, block, instruction)))");
+			GenerateCases(filename, "SimpleBranchInstr", simpleBranchInstr, "return Rc::new(RefCell::new(SimpleBranchInstr::new(block_encoder, block, instruction)))");
+			GenerateCases(filename, "CallInstr", callInstr, "return Rc::new(RefCell::new(CallInstr::new(block_encoder, block, instruction)))");
+			GenerateCases(filename, "JmpInstr", jmpInstr, "return Rc::new(RefCell::new(JmpInstr::new(block_encoder, block, instruction)))");
+			GenerateCases(filename, "XbeginInstr", xbeginInstr, "return Rc::new(RefCell::new(XbeginInstr::new(block_encoder, block, instruction)))");
 		}
 
 		protected override void GenerateVsib(EnumValue[] vsib32, EnumValue[] vsib64) {
 			var filename = Path.Combine(generatorContext.RustDir, "instruction.rs");
-			GenerateCases(filename, "Vsib32", vsib32);
-			GenerateCases(filename, "Vsib64", vsib64);
+			GenerateCases(filename, "Vsib32", vsib32, "Some(false)");
+			GenerateCases(filename, "Vsib64", vsib64, "Some(true)");
 		}
 	}
 }
