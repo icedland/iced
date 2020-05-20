@@ -52,8 +52,8 @@ namespace Generator.Decoder {
 
 		public static DecoderTableSerializerInfo Legacy(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.OpCodeHandlerKind];
-			return new DecoderTableSerializerInfo(OpCodeHandlersTables_Legacy.GetHandlers(genTypes),
-				new string[] { OpCodeHandlersTables_Legacy.OneByteHandlers },
+			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).Legacy,
+				new string[] { DecoderTable_Legacy.OneByteHandlers },
 				enumType[nameof(OpCodeHandlerKind.Null)],
 				enumType[nameof(OpCodeHandlerKind.HandlerReference)],
 				enumType[nameof(OpCodeHandlerKind.ArrayReference)],
@@ -63,8 +63,8 @@ namespace Generator.Decoder {
 
 		public static DecoderTableSerializerInfo Vex(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
-			return new DecoderTableSerializerInfo(OpCodeHandlersTables_VEX.GetHandlers(genTypes),
-				new string[] { OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX },
+			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).VEX,
+				new string[] { DecoderTable_VEX.ThreeByteHandlers_0F38XX, DecoderTable_VEX.ThreeByteHandlers_0F3AXX, DecoderTable_VEX.TwoByteHandlers_0FXX },
 				null,
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
 				enumType[nameof(VexOpCodeHandlerKind.ArrayReference)],
@@ -74,8 +74,8 @@ namespace Generator.Decoder {
 
 		public static DecoderTableSerializerInfo Xop(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.VexOpCodeHandlerKind];
-			return new DecoderTableSerializerInfo(OpCodeHandlersTables_XOP.GetHandlers(genTypes),
-				new string[] { OpCodeHandlersTables_XOP.XOP8, OpCodeHandlersTables_XOP.XOP9, OpCodeHandlersTables_XOP.XOPA },
+			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).XOP,
+				new string[] { DecoderTable_XOP.XOP8, DecoderTable_XOP.XOP9, DecoderTable_XOP.XOPA },
 				null,
 				enumType[nameof(VexOpCodeHandlerKind.HandlerReference)],
 				enumType[nameof(VexOpCodeHandlerKind.ArrayReference)],
@@ -85,8 +85,8 @@ namespace Generator.Decoder {
 
 		public static DecoderTableSerializerInfo Evex(GenTypes genTypes) {
 			var enumType = genTypes[TypeIds.EvexOpCodeHandlerKind];
-			return new DecoderTableSerializerInfo(OpCodeHandlersTables_EVEX.GetHandlers(genTypes),
-				new string[] { OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX, OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX, OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX },
+			return new DecoderTableSerializerInfo(genTypes.GetObject<DecoderTables>(TypeIds.DecoderTables).EVEX,
+				new string[] { DecoderTable_EVEX.ThreeByteHandlers_0F38XX, DecoderTable_EVEX.ThreeByteHandlers_0F3AXX, DecoderTable_EVEX.TwoByteHandlers_0FXX },
 				null,
 				enumType[nameof(EvexOpCodeHandlerKind.HandlerReference)],
 				enumType[nameof(EvexOpCodeHandlerKind.ArrayReference)],

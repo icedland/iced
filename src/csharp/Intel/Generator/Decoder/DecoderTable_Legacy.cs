@@ -25,10 +25,10 @@ using Generator.Enums;
 using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
-	static class OpCodeHandlersTables_Legacy {
+	static class DecoderTable_Legacy {
 		public const string OneByteHandlers = nameof(OneByteHandlers);
 
-		public static (string name, object?[] handlers)[] GetHandlers(GenTypes genTypes) {
+		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var legacyEnum = genTypes[TypeIds.OpCodeHandlerKind];
 			var codeEnum = genTypes[TypeIds.Code];
 			var decoderOptionsEnum = genTypes[TypeIds.DecoderOptions];

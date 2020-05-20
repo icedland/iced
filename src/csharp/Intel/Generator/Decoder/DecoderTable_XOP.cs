@@ -25,12 +25,12 @@ using Generator.Enums;
 using Generator.Enums.Decoder;
 
 namespace Generator.Decoder {
-	static class OpCodeHandlersTables_XOP {
+	static class DecoderTable_XOP {
 		public const string XOP8 = nameof(XOP8);
 		public const string XOP9 = nameof(XOP9);
 		public const string XOPA = nameof(XOPA);
 
-		public static (string name, object?[] handlers)[] GetHandlers(GenTypes genTypes) {
+		public static (string name, object?[] handlers)[] CreateHandlers(GenTypes genTypes) {
 			var vexEnum = genTypes[TypeIds.VexOpCodeHandlerKind];
 			var codeEnum = genTypes[TypeIds.Code];
 			var registerEnum = genTypes[TypeIds.Register];
