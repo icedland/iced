@@ -32,8 +32,8 @@ using System.Threading.Tasks;
 
 namespace Generator {
 	sealed class GeneratorInfoComparer : IComparer<GeneratorInfo> {
-		public int Compare(GeneratorInfo x, GeneratorInfo y) {
-			int c = GetOrder(x.Language).CompareTo(GetOrder(y.Language));
+		public int Compare([AllowNull] GeneratorInfo x, [AllowNull] GeneratorInfo y) {
+			int c = GetOrder(x!.Language).CompareTo(GetOrder(y!.Language));
 			if (c != 0)
 				return c;
 			return StringComparer.OrdinalIgnoreCase.Compare(x.Name, y.Name);

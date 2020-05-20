@@ -26,7 +26,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Serialization;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
 using Xunit;

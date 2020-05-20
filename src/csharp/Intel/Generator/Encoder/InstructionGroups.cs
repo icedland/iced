@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Generator.Constants;
@@ -270,8 +271,8 @@ namespace Generator.Encoder {
 			};
 
 		sealed class OpComparer : IEqualityComparer<InstructionOperand[]> {
-			public bool Equals(InstructionOperand[] x, InstructionOperand[] y) {
-				if (x.Length != y.Length)
+			public bool Equals([AllowNull] InstructionOperand[] x, [AllowNull] InstructionOperand[] y) {
+				if (x!.Length != y!.Length)
 					return false;
 				for (int i = 0; i < x.Length; i++) {
 					if (x[i] != y[i])
@@ -280,7 +281,7 @@ namespace Generator.Encoder {
 				return true;
 			}
 
-			public int GetHashCode(InstructionOperand[] obj) {
+			public int GetHashCode([DisallowNull] InstructionOperand[] obj) {
 				int hc = 0;
 				foreach (var o in obj)
 					hc = HashCode.Combine(hc, o);
