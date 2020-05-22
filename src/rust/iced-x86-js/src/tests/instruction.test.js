@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 const {
 	Code, CodeSize, ConditionCode, CpuidFeature, Decoder, DecoderOptions, EncodingKind,
-	FlowControl, getFeatures, Instruction, MemoryOperand, MemorySize, Mnemonic, OpKind, Register,
+	FlowControl, getIcedFeatures, Instruction, MemoryOperand, MemorySize, Mnemonic, OpKind, Register,
 	RepPrefixKind, RflagsBits, RoundingControl
 } = require("iced-x86");
 
@@ -662,7 +662,7 @@ test("Instruction.create*()", () => {
 
 test("VEX: Instruction.create*()", () => {
 	// Check if VEX has been disabled
-	if ((getFeatures() & 1) == 0)
+	if ((getIcedFeatures() & 1) == 0)
 		return;
 	const data = [
 		[64, "C5E814CB", DecoderOptions.None, Instruction.createRegRegReg(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3)],
@@ -687,7 +687,7 @@ test("VEX: Instruction.create*()", () => {
 
 test("EVEX: Instruction.create*()", () => {
 	// Check if EVEX has been disabled
-	if ((getFeatures() & 2) == 0)
+	if ((getIcedFeatures() & 2) == 0)
 		return;
 	const data = [
 		[64, "62F1F50873D2A5", DecoderOptions.None, Instruction.createRegRegI32(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, Register.XMM2, 0xA5)],

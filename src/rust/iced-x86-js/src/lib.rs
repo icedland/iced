@@ -233,8 +233,8 @@ use wasm_bindgen::prelude::*;
 /// 0x02 | `EVEX`
 /// 0x04 | `XOP`
 /// 0x08 | `3DNow!`
-#[wasm_bindgen(js_name = "getFeatures")]
-pub fn get_features() -> u32 {
+#[wasm_bindgen(js_name = "getIcedFeatures")]
+pub fn get_iced_features() -> u32 {
 	#[allow(unused_mut)]
 	let mut flags = 0;
 	#[cfg(not(feature = "no_vex"))]
