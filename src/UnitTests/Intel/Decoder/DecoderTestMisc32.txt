@@ -22,30 +22,30 @@
 #
 
 # one byte too long
-26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0, nobytes
+26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0, code=Add_rm32_r32 nobytes
 
 # max length
 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx es: enc=2601CE
 
 # not enough bytes
-, INVALID, INVALID, 0, nobytes
-66, INVALID, INVALID, 0, nobytes
-01, INVALID, INVALID, 0, nobytes
+, INVALID, INVALID, 0, code=INVALID nobytes
+66, INVALID, INVALID, 0, code=INVALID nobytes
+01, INVALID, INVALID, 0, code=Add_rm32_r32 nobytes
 # Mov_r16_imm16, missing 1 byte (immediate)
-66 B8 5A, INVALID, INVALID, 0, nobytes
+66 B8 5A, INVALID, INVALID, 0, code=Mov_r16_imm16 nobytes
 # Mov_r32_imm32, missing 1-3 bytes (immediate)
-B8 5AA512, INVALID, INVALID, 0, nobytes
-B8 5AA5, INVALID, INVALID, 0, nobytes
-B8 5A, INVALID, INVALID, 0, nobytes
+B8 5AA512, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
+B8 5AA5, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
+B8 5A, INVALID, INVALID, 0, code=Mov_r32_imm32 nobytes
 
 # Verify that 16-bit vsib addressing is invalid
-67 C4E249 90 54 01, INVALID, INVALID, 0,
+67 C4E249 90 54 01, INVALID, INVALID, 0, code=VEX_Vpgatherdd_xmm_vm32x_xmm
 67 C4E249 90 54 01, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm2 op1=m;ds;si;;1;1;1;Int32 op2=r;xmm6 vsib32 co=0;0;0;0;6;1 noinvalidcheck noencode
-C4E249 90 00, INVALID, INVALID, 0,
+C4E249 90 00, INVALID, INVALID, 0, code=VEX_Vpgatherdd_xmm_vm32x_xmm
 C4E249 90 00, VEX_Vpgatherdd_xmm_vm32x_xmm, Vpgatherdd, 3, op0=r;xmm0 op1=m;ds;eax;;1;0;0;Int32 op2=r;xmm6 vsib32 co=0;0;0;0;0;0 noinvalidcheck noencode
-67 62 F27D0B 90 54 01, INVALID, INVALID, 0,
+67 62 F27D0B 90 54 01, INVALID, INVALID, 0, code=EVEX_Vpgatherdd_xmm_k1_vm32x
 67 62 F27D0B 90 54 01, EVEX_Vpgatherdd_xmm_k1_vm32x, Vpgatherdd, 2, op0=r;xmm2 op1=m;ds;si;;1;4;1;Int32 k3 vsib32 co=0;0;0;0;7;1 noinvalidcheck noencode
-62 F27D0B 90 00, INVALID, INVALID, 0,
+62 F27D0B 90 00, INVALID, INVALID, 0, code=EVEX_Vpgatherdd_xmm_k1_vm32x
 62 F27D0B 90 00, EVEX_Vpgatherdd_xmm_k1_vm32x, Vpgatherdd, 2, op0=r;xmm0 op1=m;ds;eax;;1;0;0;Int32 k3 vsib32 co=0;0;0;0;0;0 noinvalidcheck noencode
 
 # prefix: double 66

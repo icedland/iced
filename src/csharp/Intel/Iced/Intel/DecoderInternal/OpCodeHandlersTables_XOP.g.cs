@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if DECODER
+#if DECODER && !NO_XOP
 namespace Iced.Intel.DecoderInternal {
 	static partial class OpCodeHandlersTables_XOP {
 #if HAS_SPAN

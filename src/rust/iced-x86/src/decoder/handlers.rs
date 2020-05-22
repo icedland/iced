@@ -193,6 +193,7 @@ impl OpCodeHandler_AnotherTable {
 	}
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_MandatoryPrefix2 {
@@ -201,6 +202,7 @@ pub(super) struct OpCodeHandler_MandatoryPrefix2 {
 	handlers: [&'static OpCodeHandler; 4],
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_MandatoryPrefix2 {
 	pub(super) fn new(
 		has_modrm: bool, handler: *const OpCodeHandler, handler_66: *const OpCodeHandler, handler_f3: *const OpCodeHandler,
@@ -234,6 +236,7 @@ impl OpCodeHandler_MandatoryPrefix2 {
 	}
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub(super) struct OpCodeHandler_W {
@@ -242,6 +245,7 @@ pub(super) struct OpCodeHandler_W {
 	handlers: [&'static OpCodeHandler; 2],
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex")))]
 impl OpCodeHandler_W {
 	pub(super) fn new(handler_w0: *const OpCodeHandler, handler_w1: *const OpCodeHandler) -> Self {
 		assert!(!is_null_instance_handler(handler_w0));

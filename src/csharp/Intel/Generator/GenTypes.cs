@@ -198,6 +198,29 @@ namespace Generator {
 		}
 
 		bool ShouldInclude(InstructionDef def) {
+			switch (def.OpCodeInfo.Encoding) {
+			case EncodingKind.Legacy:
+				break;
+			case EncodingKind.VEX:
+				if (!Options.IncludeVEX)
+					return false;
+				break;
+			case EncodingKind.EVEX:
+				if (!Options.IncludeEVEX)
+					return false;
+				break;
+			case EncodingKind.XOP:
+				if (!Options.IncludeXOP)
+					return false;
+				break;
+			case EncodingKind.D3NOW:
+				if (!Options.Include3DNow)
+					return false;
+				break;
+			default:
+				throw new InvalidOperationException();
+			}
+
 			return true;
 		}
 

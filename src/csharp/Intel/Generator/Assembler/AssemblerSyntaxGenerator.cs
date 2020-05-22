@@ -37,7 +37,7 @@ namespace Generator.Assembler {
 	abstract class AssemblerSyntaxGenerator {
 		protected readonly GenTypes genTypes;
 		protected readonly EncoderTypes encoderTypes;
-		readonly InstructionDef[] defs;
+		protected readonly InstructionDef[] defs;
 		readonly object[][] intelCtorInfos;
 		readonly MemorySizeInfoTable memorySizeInfoTable;
 		readonly Dictionary<GroupKey, OpCodeInfoGroup> groups;
@@ -1970,17 +1970,12 @@ namespace Generator.Assembler {
 			}
 
 			public readonly string Name;
-
 			public readonly Signature Signature;
 
 			public bool Equals(GroupKey other) => Name == other.Name && Signature == other.Signature;
-
 			public override bool Equals(object? obj) => obj is GroupKey other && Equals(other);
-
 			public override int GetHashCode() => HashCode.Combine(Name, Signature);
-
 			public static bool operator ==(GroupKey left, GroupKey right) => left.Equals(right);
-
 			public static bool operator !=(GroupKey left, GroupKey right) => !left.Equals(right);
 
 			public int CompareTo(GroupKey other) {
@@ -1991,16 +1986,14 @@ namespace Generator.Assembler {
 		}
 
 		protected struct Signature : IEquatable<Signature>, IComparable<Signature> {
-
 			public int ArgCount;
+			ulong argKinds;
 
-			ulong _argKinds;
-
-			public ArgKind GetArgKind(int argIndex) => (ArgKind)((_argKinds >> (8 * argIndex)) & 0xFF);
+			public ArgKind GetArgKind(int argIndex) => (ArgKind)((argKinds >> (8 * argIndex)) & 0xFF);
 
 			public void AddArgKind(ArgKind kind) {
 				var shift = (8 * ArgCount);
-				_argKinds = (_argKinds & ~((ulong)0xFF << shift)) | ((ulong)kind << shift);
+				argKinds = (argKinds & ~((ulong)0xFF << shift)) | ((ulong)kind << shift);
 				ArgCount++;
 			}
 
@@ -2015,11 +2008,11 @@ namespace Generator.Assembler {
 				return builder.ToString();
 			}
 
-			public bool Equals(Signature other) => ArgCount == other.ArgCount && _argKinds == other._argKinds;
+			public bool Equals(Signature other) => ArgCount == other.ArgCount && argKinds == other.argKinds;
 
 			public override bool Equals(object? obj) => obj is Signature other && Equals(other);
 
-			public override int GetHashCode() => HashCode.Combine(ArgCount, _argKinds);
+			public override int GetHashCode() => HashCode.Combine(ArgCount, argKinds);
 
 			public static bool operator ==(Signature left, Signature right) => left.Equals(right);
 
@@ -2028,7 +2021,7 @@ namespace Generator.Assembler {
 			public int CompareTo(Signature other) {
 				var argCountComparison = ArgCount.CompareTo(other.ArgCount);
 				if (argCountComparison != 0) return argCountComparison;
-				return _argKinds.CompareTo(other._argKinds);
+				return argKinds.CompareTo(other.argKinds);
 			}
 		}
 
@@ -2102,41 +2095,23 @@ namespace Generator.Assembler {
 			}
 
 			public string MemoName { get; set; }
-
 			public string Name { get; }
-
 			public OpCodeFlags AllOpCodeFlags { get; set; }
-
 			public OpCodeArgFlags Flags { get; set; }
-
 			public PseudoOpsKind? RootPseudoOpsKind { get; set; }
-
 			public OpCodeInfoGroup? ParentPseudoOpsKind { get; set; }
-
 			public int PseudoOpsKindImmediateValue { get; set; }
-
 			public bool HasLabel => (Flags & OpCodeArgFlags.HasLabel) != 0;
-
 			public bool HasSpecialInstructionEncoding => (Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0;
-
 			public bool IsBranch => (Flags & (OpCodeArgFlags.HasBranchShort | OpCodeArgFlags.HasBranchNear)) != 0;
-
 			public bool HasRegisterMemoryMappedToRegister => (Flags & OpCodeArgFlags.HasRegisterMemoryMappedToRegister) != 0;
-
 			public bool HasVexAndEvex => (Flags & (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex)) == (OpCodeArgFlags.HasVex | OpCodeArgFlags.HasEvex);
-
 			public bool HasImmediateUnsigned => (Flags & OpCodeArgFlags.HasImmediateUnsigned) != 0;
-
 			public Signature Signature { get; }
-
 			public OpCodeNode RootOpCodeNode { get; set; }
-
 			public int MaxImmediateSize { get; set; }
-
 			public List<OpCodeInfo> Items { get; }
-
 			public List<int> MaxArgSizes { get; }
-
 			public int NumberOfLeadingArgToDiscard { get; set; }
 
 			public void UpdateMaxArgSizes(List<int> argSizes) {
@@ -2590,24 +2565,20 @@ namespace Generator.Assembler {
 		}
 
 		protected readonly struct OpCodeNode {
-			readonly object _value;
+			readonly object value;
 
 			public OpCodeNode(OpCodeInfo opCodeInfo) {
-				_value = opCodeInfo;
+				value = opCodeInfo;
 			}
 
 			public OpCodeNode(OpCodeSelector selector) {
-				_value = selector;
+				value = selector;
 			}
 
-			public bool IsEmpty => _value is null;
-
-			public OpCodeInfo? OpCodeInfo => _value as OpCodeInfo;
-
-			public OpCodeSelector? Selector => _value as OpCodeSelector;
-
+			public bool IsEmpty => value is null;
+			public OpCodeInfo? OpCodeInfo => value as OpCodeInfo;
+			public OpCodeSelector? Selector => value as OpCodeSelector;
 			public static implicit operator OpCodeNode(OpCodeInfo opCodeInfo) => new OpCodeNode(opCodeInfo);
-
 			public static implicit operator OpCodeNode(OpCodeSelector selector) => new OpCodeNode(selector);
 		}
 
@@ -2623,13 +2594,9 @@ namespace Generator.Assembler {
 			}
 
 			public readonly int ArgIndex;
-
 			public readonly OpCodeSelectorKind Kind;
-
 			public OpCodeNode IfTrue;
-
 			public OpCodeNode IfFalse;
-
 			public bool IsConditionInlineable => IfTrue.OpCodeInfo is object && IfFalse.OpCodeInfo is object;
 		}
 

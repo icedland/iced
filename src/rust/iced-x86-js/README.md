@@ -78,10 +78,28 @@ Here's a list of all features you can enable when building the wasm file
 - `masm`: (✔️Enabled by default) Enables the masm formatter
 - `nasm`: (✔️Enabled by default) Enables the nasm formatter
 - `bigint`: Enables public APIs with `i64`/`u64` arguments and return values (requires JavaScript `BigInt` type, eg. Node.js >= 10.4.0)
+- `no_vex`: Disables all `VEX` instructions. See below for more info.
+- `no_evex`: Disables all `EVEX` instructions. See below for more info.
+- `no_xop`: Disables all `XOP` instructions. See below for more info.
+- `no_d3now`: Disables all `3DNow!` instructions. See below for more info.
 
 `"decoder masm"` is all you need to disassemble code.
 
 `"decoder masm instr_api instr_info"` if you want to analyze the code and disassemble it. Add `encoder` and optionally `block_encoder` if you want to re-encode the decoded instructions.
+
+If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
+
+[.NET Core](https://dotnet.microsoft.com/download) is required. Help:
+
+```sh
+dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --help
+```
+
+No VEX, EVEX, XOP, 3DNow!:
+
+```sh
+dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
+```
 
 ## How-tos
 

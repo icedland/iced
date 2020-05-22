@@ -73,7 +73,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.CpuidFeature, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.CpuidFeature) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.CpuidFeatureInternal, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), nameof(TypeIds.CpuidFeatureInternal) + ".g.cs"), CSharpConstants.InstructionInfoNamespace, CSharpConstants.InstructionInfoDefine));
 			toFullFileInfo.Add(TypeIds.DecoderOptions, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.DecoderOptions) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
-			toFullFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.EvexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(TypeIds.EvexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.EvexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderEvexDefine, baseType: "byte"));
 			toFullFileInfo.Add(TypeIds.HandlerFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.HandlerFlags) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
 			toFullFileInfo.Add(TypeIds.LegacyHandlerFlags, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.LegacyHandlerFlags) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "uint"));
 			toFullFileInfo.Add(TypeIds.MemorySize, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.MemorySize) + ".g.cs"), CSharpConstants.IcedNamespace));
@@ -82,7 +82,7 @@ namespace Generator.Enums.CSharp {
 			toFullFileInfo.Add(TypeIds.Register, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.Register) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.SerializedDataKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.SerializedDataKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "byte"));
 			toFullFileInfo.Add(TypeIds.TupleType, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.TupleType) + ".g.cs"), CSharpConstants.IcedNamespace, CSharpConstants.DecoderOrEncoderDefine));
-			toFullFileInfo.Add(TypeIds.VexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.VexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderDefine, baseType: "byte"));
+			toFullFileInfo.Add(TypeIds.VexOpCodeHandlerKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.DecoderNamespace), nameof(TypeIds.VexOpCodeHandlerKind) + ".g.cs"), CSharpConstants.DecoderNamespace, CSharpConstants.DecoderVexOrXopDefine, baseType: "byte"));
 			toFullFileInfo.Add(TypeIds.Mnemonic, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.Mnemonic) + ".g.cs"), CSharpConstants.IcedNamespace));
 			toFullFileInfo.Add(TypeIds.GasCtorKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.GasFormatterNamespace), "CtorKind.g.cs"), CSharpConstants.GasFormatterNamespace, CSharpConstants.GasFormatterDefine));
 			toFullFileInfo.Add(TypeIds.IntelCtorKind, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IntelFormatterNamespace), "CtorKind.g.cs"), CSharpConstants.IntelFormatterNamespace, CSharpConstants.IntelFormatterDefine));
@@ -239,7 +239,7 @@ namespace Generator.Enums.CSharp {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
 				if (!(info.Define is null))
-					writer.WriteLine($"#if {info.Define}");
+					writer.WriteLineNoIndent($"#if {info.Define}");
 
 				if (enumType.IsFlags) {
 					writer.WriteLine("using System;");
@@ -253,7 +253,7 @@ namespace Generator.Enums.CSharp {
 
 				writer.WriteLine("}");
 				if (!(info.Define is null))
-					writer.WriteLine("#endif");
+					writer.WriteLineNoIndent("#endif");
 			}
 		}
 

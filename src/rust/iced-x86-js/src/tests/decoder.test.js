@@ -80,10 +80,10 @@ test("Create a 64-bit Decoder", () => {
 });
 
 test("Decode multiple instructions", () => {
-	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
+	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 
-	expect(decoder.maxPosition).toBe(15);
+	expect(decoder.maxPosition).toBe(9);
 	expect(decoder.canDecode).toBe(true);
 	expect(decoder.position).toBe(0);
 	const instr1 = decoder.decode();
@@ -92,26 +92,21 @@ test("Decode multiple instructions", () => {
 	expect(decoder.position).toBe(4);
 	const instr2 = decoder.decode();
 	expect(instr2.code).toBe(Code.Add_rm32_imm8);
-	expect(decoder.canDecode).toBe(true);
+	expect(decoder.canDecode).toBe(false);
 	expect(decoder.position).toBe(9);
 	const instr3 = decoder.decode();
-	expect(instr3.code).toBe(Code.EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	expect(instr3.code).toBe(Code.INVALID);
 	expect(decoder.canDecode).toBe(false);
-	expect(decoder.position).toBe(15);
-	const instr4 = decoder.decode();
-	expect(instr4.code).toBe(Code.INVALID);
-	expect(decoder.canDecode).toBe(false);
-	expect(decoder.position).toBe(15);
+	expect(decoder.position).toBe(9);
 
 	decoder.free();
 	instr1.free();
 	instr2.free();
 	instr3.free();
-	instr4.free();
 });
 
 test("Decode with decodeOut()", () => {
-	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
+	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x48, 0x89, 0xCE]);
 	const decodera = new Decoder(64, bytes, DecoderOptions.None);
 	const decoderb = new Decoder(64, bytes, DecoderOptions.None);
 	const instr = new Instruction();
@@ -142,7 +137,7 @@ test("Decode with decodeOut()", () => {
 });
 
 test("Decode all instructions", () => {
-	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
+	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x48, 0x89, 0xCE]);
 	const decodera = new Decoder(64, bytes, DecoderOptions.None);
 	const decoderb = new Decoder(64, bytes, DecoderOptions.None);
 	const decoderc = new Decoder(64, bytes, DecoderOptions.None);
@@ -246,7 +241,7 @@ test("Decoder.IP prop", () => {
 });
 
 test("Set Decoder position", () => {
-	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x62, 0xC1, 0xFE, 0xCB, 0x6F, 0xD3]);
+	const bytes = new Uint8Array([0x86, 0x64, 0x32, 0x16, 0xF0, 0xF2, 0x83, 0x00, 0x5A, 0x48, 0x89, 0xCE]);
 	const decoder = new Decoder(64, bytes, DecoderOptions.None);
 
 	const instrs1 = decoder.decodeAll();

@@ -33,10 +33,24 @@ namespace Iced.UnitTests.Intel {
 		// GENERATOR-END: IgnoredCode
 
 		public static bool IsIgnored(string name) {
-			if (ignored.Contains(name))
+#if NO_VEX
+			if (name.StartsWith("VEX_"))
 				return true;
+#endif
+#if NO_EVEX
+			if (name.StartsWith("EVEX_"))
+				return true;
+#endif
+#if NO_XOP
+			if (name.StartsWith("XOP_"))
+				return true;
+#endif
+#if NO_D3NOW
+			if (name.StartsWith("D3NOW_"))
+				return true;
+#endif
 
-			return false;
+			return ignored.Contains(name);
 		}
 	}
 }

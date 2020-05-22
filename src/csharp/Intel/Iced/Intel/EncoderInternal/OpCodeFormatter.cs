@@ -67,10 +67,26 @@ namespace Iced.Intel.EncoderInternal {
 
 			return opCode.Encoding switch {
 				EncodingKind.Legacy => Format_Legacy(),
+#if !NO_VEX
 				EncodingKind.VEX => Format_VEX_XOP_EVEX("VEX"),
+#else
+				EncodingKind.VEX => string.Empty,
+#endif
+#if !NO_EVEX
 				EncodingKind.EVEX => Format_VEX_XOP_EVEX("EVEX"),
+#else
+				EncodingKind.EVEX => string.Empty,
+#endif
+#if !NO_XOP
 				EncodingKind.XOP => Format_VEX_XOP_EVEX("XOP"),
+#else
+				EncodingKind.XOP => string.Empty,
+#endif
+#if !NO_D3NOW
 				EncodingKind.D3NOW => Format_3DNow(),
+#else
+				EncodingKind.D3NOW => string.Empty,
+#endif
 				_ => throw new InvalidOperationException(),
 			};
 		}
@@ -420,6 +436,7 @@ namespace Iced.Intel.EncoderInternal {
 			return sb.ToString();
 		}
 
+#if !NO_D3NOW
 		string Format_3DNow() {
 			sb.Length = 0;
 
@@ -430,7 +447,9 @@ namespace Iced.Intel.EncoderInternal {
 
 			return sb.ToString();
 		}
+#endif
 
+#if !NO_VEX || !NO_XOP || !NO_EVEX
 		string Format_VEX_XOP_EVEX(string encodingName) {
 			sb.Length = 0;
 
@@ -490,6 +509,7 @@ namespace Iced.Intel.EncoderInternal {
 
 			return sb.ToString();
 		}
+#endif
 	}
 }
 #endif

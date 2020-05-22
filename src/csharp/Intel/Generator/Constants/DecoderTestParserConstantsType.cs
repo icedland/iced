@@ -54,6 +54,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "Op3Kind", "op3", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "Op4Kind", "op4", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "EncodedHexBytes", "enc", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "Code", "code", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderOptions_AmdBranches", "amdbr", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderOptions_ForceReservedNop", "resnop", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderOptions_Umov", "umov", ConstantsTypeFlags.None),

@@ -37,6 +37,7 @@ lazy_static! {
 	pub(crate) static ref HANDLERS_TABLE: Vec<&'static OpCodeHandler> = {
 		let mut v = Vec::with_capacity(IcedConstants::NUMBER_OF_CODE_VALUES);
 		debug_assert_eq!(IcedConstants::NUMBER_OF_CODE_VALUES * 3, OP_CODE_DATA.len());
+		let invalid_handler = Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler;
 		for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
 			let j = i * 3;
 			let dword1 = OP_CODE_DATA[j];
@@ -47,17 +48,29 @@ lazy_static! {
 				EncodingKind::Legacy => {
 					let code: Code = unsafe { mem::transmute(i as u16) };
 					if code == Code::INVALID {
-						Box::into_raw(Box::new(InvalidHandler::new())) as *const OpCodeHandler
+						invalid_handler
 					} else if code <= Code::DeclareQword {
 						Box::into_raw(Box::new(DeclareDataHandler::new(code))) as *const OpCodeHandler
 					} else {
 						Box::into_raw(Box::new(LegacyHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler
 					}
 				}
+				#[cfg(not(feature = "no_vex"))]
 				EncodingKind::VEX => Box::into_raw(Box::new(VexHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				#[cfg(feature = "no_vex")]
+				EncodingKind::VEX => invalid_handler,
+				#[cfg(not(feature = "no_evex"))]
 				EncodingKind::EVEX => Box::into_raw(Box::new(EvexHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				#[cfg(feature = "no_evex")]
+				EncodingKind::EVEX => invalid_handler,
+				#[cfg(not(feature = "no_xop"))]
 				EncodingKind::XOP => Box::into_raw(Box::new(XopHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				#[cfg(feature = "no_xop")]
+				EncodingKind::XOP => invalid_handler,
+				#[cfg(not(feature = "no_d3now"))]
 				EncodingKind::D3NOW => Box::into_raw(Box::new(D3nowHandler::new(dword1, dword2, dword3))) as *const OpCodeHandler,
+				#[cfg(feature = "no_d3now")]
+				EncodingKind::D3NOW => invalid_handler,
 			};
 			v.push(unsafe { &*handler });
 		}

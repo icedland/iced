@@ -164,6 +164,7 @@ pub(crate) fn internal_set_memory_displ_size(this: &mut Instruction, new_value: 
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_is_broadcast(this: &mut Instruction) {
 	this.memory_flags |= MemoryFlags::BROADCAST as u16;
@@ -301,6 +302,7 @@ pub(crate) fn internal_set_op2_register_u32(this: &mut Instruction, new_value: u
 	this.reg2 = new_value as u8;
 }
 
+#[allow(dead_code)]
 #[cfg(feature = "encoder")]
 #[inline]
 pub(crate) fn internal_set_op3_register(this: &mut Instruction, new_value: Register) {
@@ -308,12 +310,14 @@ pub(crate) fn internal_set_op3_register(this: &mut Instruction, new_value: Regis
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[inline]
 pub(crate) fn internal_set_op3_register_u32(this: &mut Instruction, new_value: u32) {
 	this.reg3 = new_value as u8;
 }
 
 #[cfg(feature = "encoder")]
+#[cfg(not(feature = "no_evex"))]
 #[cfg_attr(has_must_use, must_use)]
 #[inline]
 pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
@@ -321,18 +325,21 @@ pub(crate) fn internal_op_mask(this: &Instruction) -> u32 {
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_op_mask(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::OP_MASK_SHIFT
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_zeroing_masking(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::ZEROING_MASKING;
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_rounding_control(this: &mut Instruction, new_value: u32) {
 	this.code_flags |= new_value << CodeFlags::ROUNDING_CONTROL_SHIFT;
@@ -345,6 +352,7 @@ pub(crate) fn internal_set_declare_data_len(this: &mut Instruction, new_value: u
 }
 
 #[cfg(feature = "decoder")]
+#[cfg(not(feature = "no_evex"))]
 #[inline]
 pub(crate) fn internal_set_suppress_all_exceptions(this: &mut Instruction) {
 	this.code_flags |= CodeFlags::SUPPRESS_ALL_EXCEPTIONS;

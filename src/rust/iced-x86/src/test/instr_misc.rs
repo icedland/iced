@@ -41,6 +41,7 @@ fn invalid_code_value_is_zero() {
 
 #[test]
 #[cfg(feature = "encoder")]
+#[cfg(not(feature = "no_vex"))]
 fn eq_and_hash_ignore_some_fields() {
 	use core::hash::{Hash, Hasher};
 	use std::collections::hash_map::DefaultHasher;

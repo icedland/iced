@@ -700,6 +700,8 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 
 		[Theory]
 		[MemberData(nameof(CreateTest_Data))]
+		[MemberData(nameof(CreateTestVEX_Data))]
+		[MemberData(nameof(CreateTestEVEX_Data))]
 		void CreateTest(int bitness, string hexBytes, DecoderOptions options, Instruction createdInstr) {
 			var bytes = HexUtils.ToByteArray(hexBytes);
 			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(bytes), options);
@@ -772,17 +774,12 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "66C85AA5A6", DecoderOptions.None, Instruction.Create(Code.Enterw_imm16_imm8, 0xA55A, 0xA6) };
 				yield return new object[] { 64, "66C85AA5A6", DecoderOptions.None, Instruction.Create(Code.Enterw_imm16_imm8, 0xA55AU, 0xA6U) };
 				yield return new object[] { 64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.CreateMemory64(Code.Mov_moffs8_AL, 0xF0DEBC9A78563412, Register.AL, Register.FS) };
-				yield return new object[] { 64, "C5E814CB", DecoderOptions.None, Instruction.Create(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3) };
-				yield return new object[] { 64, "64C5E8148C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS)) };
-				yield return new object[] { 64, "62F1F50873D2A5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, Register.XMM2, 0xA5) };
 				yield return new object[] { 64, "6669CAA55A", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm16, Register.CX, Register.DX, 0x5AA5U) };
 				yield return new object[] { 64, "69CA5AA51234", DecoderOptions.None, Instruction.Create(Code.Imul_r32_rm32_imm32, Register.ECX, Register.EDX, 0x3412A55A) };
 				yield return new object[] { 64, "666BCA5A", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm8, Register.CX, Register.DX, 0x5A) };
 				yield return new object[] { 64, "6BCA5A", DecoderOptions.None, Instruction.Create(Code.Imul_r32_rm32_imm8, Register.ECX, Register.EDX, 0x5A) };
 				yield return new object[] { 64, "486BCA5A", DecoderOptions.None, Instruction.Create(Code.Imul_r64_rm64_imm8, Register.RCX, Register.RDX, 0x5A) };
 				yield return new object[] { 64, "4869CA5AA512A4", DecoderOptions.None, Instruction.Create(Code.Imul_r64_rm64_imm32, Register.RCX, Register.RDX, -0x5BED5AA6) };
-				yield return new object[] { 64, "64C4E261908C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vpgatherdd_xmm_vm32x_xmm, Register.XMM1, new MemoryOperand(Register.RBP, Register.XMM6, 2, -0x543210FF, 8, false, Register.FS), Register.XMM3) };
-				yield return new object[] { 64, "6462F1F50873947501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5) };
 				yield return new object[] { 64, "6466698C7501EFCDAB5AA5", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm16, Register.CX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA55AU) };
 				yield return new object[] { 64, "64698C7501EFCDAB5AA51234", DecoderOptions.None, Instruction.Create(Code.Imul_r32_rm32_imm32, Register.ECX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x3412A55A) };
 				yield return new object[] { 64, "64666B8C7501EFCDAB5A", DecoderOptions.None, Instruction.Create(Code.Imul_r16_rm16_imm8, Register.CX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x5A) };
@@ -791,24 +788,10 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "6448698C7501EFCDAB5AA512A4", DecoderOptions.None, Instruction.Create(Code.Imul_r64_rm64_imm32, Register.RCX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), -0x5BED5AA6) };
 				yield return new object[] { 64, "660F78C1A5FD", DecoderOptions.None, Instruction.Create(Code.Extrq_xmm_imm8_imm8, Register.XMM1, 0xA5, 0xFD) };
 				yield return new object[] { 64, "660F78C1A5FD", DecoderOptions.None, Instruction.Create(Code.Extrq_xmm_imm8_imm8, Register.XMM1, 0xA5U, 0xFDU) };
-				yield return new object[] { 64, "64C4E2692E9C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vmaskmovps_m128_xmm_xmm, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM2, Register.XMM3) };
 				yield return new object[] { 64, "64660FA4947501EFCDAB5A", DecoderOptions.None, Instruction.Create(Code.Shld_rm16_r16_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DX, 0x5A) };
 				yield return new object[] { 64, "64660FA4947501EFCDAB5A", DecoderOptions.None, Instruction.Create(Code.Shld_rm16_r16_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DX, 0x5AU) };
-				yield return new object[] { 64, "C4E3694ACB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4) };
-				yield return new object[] { 64, "64C4E3E95C8C7501EFCDAB30", DecoderOptions.None, Instruction.Create(Code.VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS)) };
-				yield return new object[] { 64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5) };
-				yield return new object[] { 64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5U) };
-				yield return new object[] { 64, "64C4E3694A8C7501EFCDAB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4) };
-				yield return new object[] { 64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5) };
-				yield return new object[] { 64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5U) };
 				yield return new object[] { 64, "F20F78CAA5FD", DecoderOptions.None, Instruction.Create(Code.Insertq_xmm_xmm_imm8_imm8, Register.XMM1, Register.XMM2, 0xA5, 0xFD) };
 				yield return new object[] { 64, "F20F78CAA5FD", DecoderOptions.None, Instruction.Create(Code.Insertq_xmm_xmm_imm8_imm8, Register.XMM1, Register.XMM2, 0xA5U, 0xFDU) };
-				yield return new object[] { 64, "C4E36948CB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0) };
-				yield return new object[] { 64, "C4E36948CB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0U) };
-				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1) };
-				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1U) };
-				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1) };
-				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1U) };
 				yield return new object[] { 16, "0FB855AA", DecoderOptions.Jmpe, Instruction.CreateBranch(Code.Jmpe_disp16, 0xAA55) };
 				yield return new object[] { 32, "0FB8123455AA", DecoderOptions.Jmpe, Instruction.CreateBranch(Code.Jmpe_disp32, 0xAA553412) };
 				yield return new object[] { 32, "64676E", DecoderOptions.None, Instruction.CreateOutsb(16, Register.FS) };
@@ -890,9 +873,6 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 32, "6467660FF7D3", DecoderOptions.None, Instruction.CreateMaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS) };
 				yield return new object[] { 64, "6467660FF7D3", DecoderOptions.None, Instruction.CreateMaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS) };
 				yield return new object[] { 64, "64660FF7D3", DecoderOptions.None, Instruction.CreateMaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS) };
-				yield return new object[] { 32, "6467C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS) };
-				yield return new object[] { 64, "6467C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS) };
-				yield return new object[] { 64, "64C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS) };
 
 				yield return new object[] { 32, "6467F36E", DecoderOptions.None, Instruction.CreateOutsb(16, Register.FS, RepPrefixKind.Repe ) };
 				yield return new object[] { 64, "6467F36E", DecoderOptions.None, Instruction.CreateOutsb(32, Register.FS, RepPrefixKind.Repe ) };
@@ -1139,6 +1119,42 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { 64, "F348A5", DecoderOptions.None, Instruction.CreateRepMovsq(64) };
 			}
 		}
+		public static IEnumerable<object[]> CreateTestVEX_Data {
+			get {
+#if !NO_VEX
+				yield return new object[] { 64, "C5E814CB", DecoderOptions.None, Instruction.Create(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3) };
+				yield return new object[] { 64, "64C5E8148C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS)) };
+				yield return new object[] { 64, "64C4E261908C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vpgatherdd_xmm_vm32x_xmm, Register.XMM1, new MemoryOperand(Register.RBP, Register.XMM6, 2, -0x543210FF, 8, false, Register.FS), Register.XMM3) };
+				yield return new object[] { 64, "64C4E2692E9C7501EFCDAB", DecoderOptions.None, Instruction.Create(Code.VEX_Vmaskmovps_m128_xmm_xmm, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM2, Register.XMM3) };
+				yield return new object[] { 64, "C4E3694ACB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4) };
+				yield return new object[] { 64, "64C4E3E95C8C7501EFCDAB30", DecoderOptions.None, Instruction.Create(Code.VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS)) };
+				yield return new object[] { 64, "64C4E3694A8C7501EFCDAB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4) };
+				yield return new object[] { 64, "C4E36948CB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0) };
+				yield return new object[] { 64, "C4E36948CB40", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0U) };
+				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1) };
+				yield return new object[] { 64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1U) };
+				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1) };
+				yield return new object[] { 64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.Create(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1U) };
+				yield return new object[] { 32, "6467C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS) };
+				yield return new object[] { 64, "6467C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS) };
+				yield return new object[] { 64, "64C5F9F7D3", DecoderOptions.None, Instruction.CreateVmaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS) };
+#endif
+				yield break;
+			}
+		}
+		public static IEnumerable<object[]> CreateTestEVEX_Data {
+			get {
+#if !NO_EVEX
+				yield return new object[] { 64, "62F1F50873D2A5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, Register.XMM2, 0xA5) };
+				yield return new object[] { 64, "6462F1F50873947501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5) };
+				yield return new object[] { 64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5) };
+				yield return new object[] { 64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5U) };
+				yield return new object[] { 64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5) };
+				yield return new object[] { 64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.Create(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5U) };
+#endif
+				yield break;
+			}
+		}
 
 		[Theory]
 		[MemberData(nameof(CreateThrowsIfInvalidBitness_Data))]
@@ -1177,7 +1193,9 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateMovsq(bitness, Register.FS)) };
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateMaskmovq(bitness, Register.MM2, Register.MM3, Register.FS)) };
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateMaskmovdqu(bitness, Register.XMM2, Register.XMM3, Register.FS)) };
+#if !NO_VEX
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateVmaskmovdqu(bitness, Register.XMM2, Register.XMM3, Register.FS)) };
+#endif
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsb(bitness)) };
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsw(bitness)) };
 				yield return new object[] { new Action<int>(bitness => Instruction.CreateRepOutsd(bitness)) };
@@ -1215,6 +1233,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			}
 		}
 
+#if !NO_EVEX
 		[Fact]
 		void Encoding_instruction_requiring_opmask_fails_if_no_opmask() {
 			var instruction = Instruction.Create(Code.EVEX_Vpgatherdd_xmm_k1_vm32x, Register.XMM1, new MemoryOperand(Register.RDX, Register.XMM3));
@@ -1225,6 +1244,7 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 			Assert.False(result);
 			Assert.Equal("The instruction must use an opmask register", errorMessage);
 		}
+#endif
 
 		[Fact]
 		void CreateDeclareXXX_throws_if_null_array() {

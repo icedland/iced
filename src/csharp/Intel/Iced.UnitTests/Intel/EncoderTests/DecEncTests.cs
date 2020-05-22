@@ -723,7 +723,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Verify_only_Full_ddd_and_Half_ddd_support_bcst() {
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+				if (CodeUtils.IsIgnored(codeNames[i]))
+					continue;
 				var opCode = ((Code)i).ToOpCode();
 				bool expectedBcst;
 				switch (opCode.TupleType) {
@@ -1354,6 +1357,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Verify_vsib_with_invalid_index_register_EVEX() {
 			var codeValues = new HashSet<Code> {
+#if !NO_EVEX
 				Code.EVEX_Vpgatherdd_xmm_k1_vm32x,
 				Code.EVEX_Vpgatherdd_ymm_k1_vm32y,
 				Code.EVEX_Vpgatherdd_zmm_k1_vm32z,
@@ -1378,6 +1382,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Code.EVEX_Vgatherqpd_xmm_k1_vm64x,
 				Code.EVEX_Vgatherqpd_ymm_k1_vm64y,
 				Code.EVEX_Vgatherqpd_zmm_k1_vm64z,
+#endif
 			};
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
@@ -1461,6 +1466,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 		[Fact]
 		void Verify_vsib_with_invalid_index_mask_dest_register_VEX() {
 			var codeValues = new HashSet<Code> {
+#if !NO_VEX
 				Code.VEX_Vpgatherdd_xmm_vm32x_xmm,
 				Code.VEX_Vpgatherdd_ymm_vm32y_ymm,
 				Code.VEX_Vpgatherdq_xmm_vm32x_xmm,
@@ -1477,6 +1483,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				Code.VEX_Vgatherqps_xmm_vm64y_xmm,
 				Code.VEX_Vgatherqpd_xmm_vm64x_xmm,
 				Code.VEX_Vgatherqpd_ymm_vm64y_ymm,
+#endif
 			};
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
@@ -1746,7 +1753,10 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				}
 			}
 
+			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if (CodeUtils.IsIgnored(codeNames[(int)info.Code]))
+					continue;
 				if ((info.Options & DecoderOptions.NoInvalidCheck) != 0)
 					continue;
 				var testedInfos = info.Bitness switch {
@@ -2054,7 +2064,6 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var pfx_no_bnd_32 = new List<Code>();
 			var pfx_no_bnd_64 = new List<Code>();
 
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
 			foreach (var bitness in new int[] { 16, 32, 64 }) {
 				var testedInfos = bitness switch {
 					16 => testedInfos16,

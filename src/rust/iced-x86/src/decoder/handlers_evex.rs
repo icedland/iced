@@ -99,31 +99,6 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub(super) struct OpCodeHandler_EVEX {
-	decode: OpCodeHandlerDecodeFn,
-	has_modrm: bool,
-	handler_mem: &'static OpCodeHandler,
-}
-
-impl OpCodeHandler_EVEX {
-	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
-		assert!(!is_null_instance_handler(handler_mem));
-		Self { decode: OpCodeHandler_EVEX::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
-	}
-
-	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
-		let this = unsafe { &*(self_ptr as *const Self) };
-		if decoder.state.mod_ == 3 || decoder.is64_mode {
-			decoder.evex_mvex(instruction);
-		} else {
-			let handler = this.handler_mem;
-			(handler.decode)(handler, decoder, instruction);
-		}
-	}
-}
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
 pub(super) struct OpCodeHandler_EVEX_V_H_Ev_er {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,

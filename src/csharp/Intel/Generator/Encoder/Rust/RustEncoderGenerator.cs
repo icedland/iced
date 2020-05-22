@@ -47,14 +47,24 @@ namespace Generator.Encoder.Rust {
 
 		protected override void Generate(EnumType enumType) => enumGenerator.Generate(enumType);
 
+		[Flags]
+		enum OpInfoFlags {
+			None			= 0,
+			Legacy			= 1,
+			VEX				= 2,
+			EVEX			= 4,
+			XOP				= 8,
+		}
 		sealed class OpInfo {
 			public readonly OpHandlerKind OpHandlerKind;
 			public readonly object[] Args;
 			public readonly string Name;
+			public OpInfoFlags Flags;
 			public OpInfo(OpHandlerKind opHandlerKind, object[] args, string name) {
 				OpHandlerKind = opHandlerKind;
 				Args = args;
 				Name = name;
+				Flags = OpInfoFlags.None;
 			}
 		}
 
@@ -93,16 +103,18 @@ namespace Generator.Encoder.Rust {
 				writer.WriteFileHeader();
 
 				writer.WriteLine("use super::super::OpCodeOperandKind;");
-				Generate(writer, "LEGACY_OP_KINDS", legacy);
-				Generate(writer, "VEX_OP_KINDS", vex);
-				Generate(writer, "XOP_OP_KINDS", xop);
-				Generate(writer, "EVEX_OP_KINDS", evex);
+				Generate(writer, "LEGACY_OP_KINDS", null, legacy);
+				Generate(writer, "VEX_OP_KINDS", RustConstants.FeatureVex, vex);
+				Generate(writer, "XOP_OP_KINDS", RustConstants.FeatureXop, xop);
+				Generate(writer, "EVEX_OP_KINDS", RustConstants.FeatureEvex, evex);
 			}
 
-			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+			void Generate(FileWriter writer, string name, string? feature, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				writer.WriteLine();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
+				if (feature is object)
+					writer.WriteLine(feature);
 				writer.WriteLine($"pub(super) static {name}: [{declTypeStr}; {table.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in table)
@@ -115,10 +127,10 @@ namespace Generator.Encoder.Rust {
 		void GenerateOpTables((EnumValue opCodeOperandKind, EnumValue legacyOpKind, OpHandlerKind opHandlerKind, object[] args)[] legacy, (EnumValue opCodeOperandKind, EnumValue vexOpKind, OpHandlerKind opHandlerKind, object[] args)[] vex, (EnumValue opCodeOperandKind, EnumValue xopOpKind, OpHandlerKind opHandlerKind, object[] args)[] xop, (EnumValue opCodeOperandKind, EnumValue evexOpKind, OpHandlerKind opHandlerKind, object[] args)[] evex) {
 			var sb = new StringBuilder();
 			var dict = new Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo>(new OpKeyComparer());
-			Add(sb, dict, legacy.Select(a => (a.opHandlerKind, a.args)));
-			Add(sb, dict, vex.Select(a => (a.opHandlerKind, a.args)));
-			Add(sb, dict, xop.Select(a => (a.opHandlerKind, a.args)));
-			Add(sb, dict, evex.Select(a => (a.opHandlerKind, a.args)));
+			Add(sb, dict, legacy.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.Legacy);
+			Add(sb, dict, vex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.VEX);
+			Add(sb, dict, xop.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.XOP);
+			Add(sb, dict, evex.Select(a => (a.opHandlerKind, a.args)), OpInfoFlags.EVEX);
 
 			var usedNames = new HashSet<string>(dict.Count, StringComparer.Ordinal);
 			foreach (var kv in dict) {
@@ -138,6 +150,9 @@ namespace Generator.Encoder.Rust {
 				foreach (var kv in dict.OrderBy(a => a.Value.Name, StringComparer.Ordinal)) {
 					var info = kv.Value;
 					var structName = idConverter.Type(GetStructName(info.OpHandlerKind));
+					var features = GetFeatures(info);
+					if (features is object)
+						writer.WriteLine(features);
 					writer.Write($"static {info.Name}: {structName} = {structName}");
 					switch (info.OpHandlerKind) {
 					case OpHandlerKind.OpA:
@@ -259,14 +274,36 @@ namespace Generator.Encoder.Rust {
 				}
 
 				writer.WriteLine();
-				WriteTable(writer, "LEGACY_TABLE", dict, legacy.Select(a => (a.legacyOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "VEX_TABLE", dict, vex.Select(a => (a.vexOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "XOP_TABLE", dict, xop.Select(a => (a.xopOpKind, a.opHandlerKind, a.args)));
-				WriteTable(writer, "EVEX_TABLE", dict, evex.Select(a => (a.evexOpKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "LEGACY_TABLE", null, dict, legacy.Select(a => (a.legacyOpKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "VEX_TABLE", RustConstants.FeatureVex, dict, vex.Select(a => (a.vexOpKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "XOP_TABLE", RustConstants.FeatureXop, dict, xop.Select(a => (a.xopOpKind, a.opHandlerKind, a.args)));
+				WriteTable(writer, "EVEX_TABLE", RustConstants.FeatureEvex, dict, evex.Select(a => (a.evexOpKind, a.opHandlerKind, a.args)));
 			}
 
-			void WriteTable(FileWriter writer, string name, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)> values) {
+			static string? GetFeatures(OpInfo info) {
+				if (info.Flags == OpInfoFlags.None)
+					throw new InvalidOperationException("No refs");
+				if ((info.Flags & OpInfoFlags.Legacy) != 0)
+					return null;
+				var features = new List<string>();
+				if ((info.Flags & OpInfoFlags.VEX) != 0)
+					features.Add(RustConstants.Vex);
+				if ((info.Flags & OpInfoFlags.EVEX) != 0)
+					features.Add(RustConstants.Evex);
+				if ((info.Flags & OpInfoFlags.XOP) != 0)
+					features.Add(RustConstants.Xop);
+				if (features.Count == 0)
+					return null;
+				if (features.Count == 1)
+					return string.Format(RustConstants.FeatureEncodingOne, features[0]);
+				var featuresStr = string.Join(", ", features.ToArray());
+				return string.Format(RustConstants.FeatureEncodingMany, featuresStr);
+			}
+
+			void WriteTable(FileWriter writer, string name, string? feature, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)> values) {
 				var all = values.ToArray();
+				if (feature is object)
+					writer.WriteLine(feature);
 				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in all) {
@@ -280,10 +317,11 @@ namespace Generator.Encoder.Rust {
 			void WriteField(FileWriter writer, string name, EnumValue value) =>
 				writer.WriteLine($"{name}: {value.DeclaringType.Name(idConverter)}::{value.Name(idConverter)},");
 
-			void Add(StringBuilder sb, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(OpHandlerKind opHandlerKind, object[] args)> values) {
+			void Add(StringBuilder sb, Dictionary<(OpHandlerKind opHandlerKind, object[] args), OpInfo> dict, IEnumerable<(OpHandlerKind opHandlerKind, object[] args)> values, OpInfoFlags flags) {
 				foreach (var value in values) {
-					if (!dict.ContainsKey(value))
-						dict.Add(value, new OpInfo(value.opHandlerKind, value.args, GetName(sb, value.opHandlerKind, value.args)));
+					if (!dict.TryGetValue(value, out var opInfo))
+						dict.Add(value, opInfo = new OpInfo(value.opHandlerKind, value.args, GetName(sb, value.opHandlerKind, value.args)));
+					opInfo.Flags |= flags;
 				}
 			}
 

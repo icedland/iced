@@ -150,6 +150,14 @@ Options:
     Don't include the masm formatter
 --no-nasm-formatter
     Don't include the nasm formatter
+--no-vex
+    Don't include VEX instructions
+--no-evex
+    Don't include EVEX instructions
+--no-xop
+    Don't include XOP instructions
+--no-3dnow
+    Don't include 3DNow! instructions
 ");
 		}
 
@@ -207,6 +215,22 @@ Options:
 
 				case "--no-nasm-formatter":
 					options.GeneratorFlags |= GeneratorFlags.NoNasmFormatter;
+					break;
+
+				case "--no-vex":
+					options.GeneratorFlags |= GeneratorFlags.NoVEX;
+					break;
+
+				case "--no-evex":
+					options.GeneratorFlags |= GeneratorFlags.NoEVEX;
+					break;
+
+				case "--no-xop":
+					options.GeneratorFlags |= GeneratorFlags.NoXOP;
+					break;
+
+				case "--no-3dnow":
+					options.GeneratorFlags |= GeneratorFlags.No3DNow;
 					break;
 
 				default:

@@ -528,11 +528,13 @@ impl Op for OpHx {
 	}
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
 #[allow(non_camel_case_types)]
 pub(super) struct OpVMx {
 	pub(super) vsib_index_reg_lo: Register,
 	pub(super) vsib_index_reg_hi: Register,
 }
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
 impl Op for OpVMx {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		encoder.add_reg_or_mem_full(
@@ -548,11 +550,13 @@ impl Op for OpVMx {
 	}
 }
 
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[allow(non_camel_case_types)]
 pub(super) struct OpIs4x {
 	pub(super) reg_lo: Register,
 	pub(super) reg_hi: Register,
 }
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl Op for OpIs4x {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if !encoder.verify_op_kind(operand, OpKind::Register, instruction.op_kind(operand)) {

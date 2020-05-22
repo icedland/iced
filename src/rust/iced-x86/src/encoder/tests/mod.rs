@@ -322,26 +322,43 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	let memory32 = MemoryOperand::with_base_displ_size(Register::ESI, 0x1234_5678, 1);
 	let memory64 = MemoryOperand::with_base_displ_size(Register::R14, 0x1234_5678, 1);
 
+	let mut tests: Vec<(u32, &'static str, u64, Instruction)> = Vec::new();
+
+	tests.push((16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory16)));
+	tests.push((32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory32)));
+	tests.push((64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory64)));
+
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-	let tests = [
-		(16, "0F10 8C 3412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory16)),
-		(16, "C5F8 10 8C 3412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory16)),
-		(16, "62 F17C08 10 8C 3412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory16)),
-		(16, "8F E878C0 8C 3412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5)),
-		(16, "0F0F 8C 3412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory16)),
+	#[cfg(not(feature = "no_vex"))]
+	{
+		tests.push((16, "C5F8 10 8C 3412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory16)));
+		tests.push((32, "C5F8 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory32)));
+		tests.push((64, "C4C178 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory64)));
+	}
 
-		(32, "0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory32)),
-		(32, "C5F8 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory32)),
-		(32, "62 F17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory32)),
-		(32, "8F E878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5)),
-		(32, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory32)),
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "no_evex"))]
+	{
+		tests.push((16, "62 F17C08 10 8C 3412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory16)));
+		tests.push((32, "62 F17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory32)));
+		tests.push((64, "62 D17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory64)));
+	}
 
-		(64, "41 0F10 8E 78563412", RIP, Instruction::with_reg_mem(Code::Movups_xmm_xmmm128, Register::XMM1, memory64)),
-		(64, "C4C178 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory64)),
-		(64, "62 D17C08 10 8E 78563412", RIP, Instruction::with_reg_mem(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory64)),
-		(64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5)),
-		(64, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64)),
-	];
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "no_xop"))]
+	{
+		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5)));
+		tests.push((32, "8F E878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory32, 0xA5)));
+		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with_reg_mem_u32(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5)));
+	}
+
+	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg(not(feature = "no_d3now"))]
+	{
+		tests.push((16, "0F0F 8C 3412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory16)));
+		tests.push((32, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory32)));
+		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with_reg_mem(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64)));
+	}
 
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
 	const_assert_eq!(5, IcedConstants::NUMBER_OF_ENCODING_KINDS);
@@ -502,6 +519,7 @@ fn get_set_wig_lig_options() {
 }
 
 #[test]
+#[cfg(not(feature = "no_vex"))]
 fn prevent_vex2_encoding() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [
@@ -524,6 +542,7 @@ fn prevent_vex2_encoding() {
 }
 
 #[test]
+#[cfg(not(feature = "no_vex"))]
 fn test_vex_wig_lig() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [
@@ -564,6 +583,7 @@ fn test_vex_wig_lig() {
 }
 
 #[test]
+#[cfg(not(feature = "no_evex"))]
 fn test_evex_wig_lig() {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	let tests = [

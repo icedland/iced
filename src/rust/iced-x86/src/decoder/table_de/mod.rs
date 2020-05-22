@@ -21,18 +21,25 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+#[cfg(not(feature = "no_evex"))]
 mod data_evex;
 mod data_legacy;
+#[cfg(not(feature = "no_vex"))]
 mod data_vex;
+#[cfg(not(feature = "no_xop"))]
 mod data_xop;
 mod enums;
+#[cfg(not(feature = "no_evex"))]
 mod evex_reader;
 mod legacy_reader;
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 mod vex_reader;
 
 use self::enums::*;
 use super::super::data_reader::DataReader;
-use super::super::{Register, TupleType};
+use super::super::Register;
+#[cfg(not(feature = "no_evex"))]
+use super::super::TupleType;
 use super::handlers::is_null_instance_handler;
 use super::handlers::OpCodeHandler;
 #[cfg(not(feature = "std"))]
@@ -85,12 +92,14 @@ impl<'a> TableDeserializer<'a> {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
+	#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(self) fn read_vex_op_code_handler_kind(&mut self) -> VexOpCodeHandlerKind {
 		unsafe { mem::transmute(self.reader.read_u8() as u8) }
 	}
 
+	#[cfg(not(feature = "no_evex"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(self) fn read_evex_op_code_handler_kind(&mut self) -> EvexOpCodeHandlerKind {
@@ -127,6 +136,7 @@ impl<'a> TableDeserializer<'a> {
 		self.reader.read_compressed_u32()
 	}
 
+	#[cfg(not(feature = "no_evex"))]
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub(self) fn read_tuple_type(&mut self) -> TupleType {
@@ -234,6 +244,7 @@ pub(super) fn read_legacy() -> Vec<&'static OpCodeHandler> {
 	deserializer.table(data_legacy::ONE_BYTE_HANDLERS_INDEX)
 }
 
+#[cfg(not(feature = "no_evex"))]
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::evex_reader::read_handlers;
@@ -246,6 +257,7 @@ pub(super) fn read_evex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHa
 	)
 }
 
+#[cfg(not(feature = "no_vex"))]
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;
@@ -258,6 +270,7 @@ pub(super) fn read_vex() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHan
 	)
 }
 
+#[cfg(not(feature = "no_xop"))]
 #[cfg_attr(has_must_use, must_use)]
 pub(super) fn read_xop() -> (Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>, Vec<&'static OpCodeHandler>) {
 	let handler_reader = self::vex_reader::read_handlers;

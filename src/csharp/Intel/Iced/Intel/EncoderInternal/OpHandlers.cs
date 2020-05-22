@@ -468,6 +468,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
+#if !NO_VEX || !NO_EVEX
 	sealed class OpVMx : Op {
 		readonly Register vsibIndexRegLo;
 		readonly Register vsibIndexRegHi;
@@ -480,7 +481,9 @@ namespace Iced.Intel.EncoderInternal {
 		public override void Encode(Encoder encoder, in Instruction instruction, int operand) =>
 			encoder.AddRegOrMem(instruction, operand, Register.None, Register.None, vsibIndexRegLo, vsibIndexRegHi, allowMemOp: true, allowRegOp: false);
 	}
+#endif
 
+#if !NO_VEX || !NO_XOP
 	sealed class OpIs4x : Op {
 		readonly Register regLo;
 		readonly Register regHi;
@@ -500,5 +503,6 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.Immediate = (uint)(reg - regLo) << 4;
 		}
 	}
+#endif
 }
 #endif

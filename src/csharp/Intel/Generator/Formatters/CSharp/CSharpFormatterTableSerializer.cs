@@ -41,7 +41,7 @@ namespace Generator.Formatters.CSharp {
 
 		public void Serialize(FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
-			writer.WriteLine($"#if {define}");
+			writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine($"namespace {@namespace} {{");
 			using (writer.Indent()) {
 				writer.WriteLine("static partial class InstrInfos {");
@@ -61,7 +61,7 @@ namespace Generator.Formatters.CSharp {
 				writer.WriteLine("}");
 			}
 			writer.WriteLine("}");
-			writer.WriteLine("#endif");
+			writer.WriteLineNoIndent("#endif");
 		}
 	}
 }

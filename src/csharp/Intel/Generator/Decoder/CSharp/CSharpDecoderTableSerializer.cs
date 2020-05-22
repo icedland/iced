@@ -34,7 +34,7 @@ namespace Generator.Decoder.CSharp {
 
 		public void Serialize(FileWriter writer) {
 			writer.WriteFileHeader();
-			writer.WriteLine($"#if {CSharpConstants.DecoderDefine}");
+			writer.WriteLineNoIndent($"#if {info.Define}");
 			writer.WriteLine($"namespace {CSharpConstants.DecoderNamespace} {{");
 			using (writer.Indent()) {
 				writer.WriteLine($"static partial class {ClassName} {{");
@@ -61,7 +61,7 @@ namespace Generator.Decoder.CSharp {
 				writer.WriteLine("}");
 			}
 			writer.WriteLine("}");
-			writer.WriteLine("#endif");
+			writer.WriteLineNoIndent("#endif");
 		}
 	}
 }

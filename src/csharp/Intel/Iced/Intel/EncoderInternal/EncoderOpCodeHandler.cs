@@ -184,6 +184,7 @@ namespace Iced.Intel.EncoderInternal {
 		}
 	}
 
+#if !NO_VEX
 	sealed class VexHandler : OpCodeHandler {
 		readonly uint table;
 		readonly uint lastByte;
@@ -287,7 +288,9 @@ namespace Iced.Intel.EncoderInternal {
 			}
 		}
 	}
+#endif
 
+#if !NO_XOP
 	sealed class XopHandler : OpCodeHandler {
 		readonly uint table;
 		readonly uint lastByte;
@@ -354,7 +357,9 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByteInternal(b);
 		}
 	}
+#endif
 
+#if !NO_EVEX
 	sealed class EvexHandler : OpCodeHandler {
 		readonly WBit wbit;
 		readonly EvexFlags flags;
@@ -648,7 +653,9 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.WriteByteInternal(b);
 		}
 	}
+#endif
 
+#if !NO_D3NOW
 	sealed class D3nowHandler : OpCodeHandler {
 		static readonly Op[] operands = new Op[] {
 			new OpModRM_reg(Register.MM0, Register.MM7),
@@ -668,5 +675,6 @@ namespace Iced.Intel.EncoderInternal {
 			encoder.Immediate = immediate;
 		}
 	}
+#endif
 }
 #endif

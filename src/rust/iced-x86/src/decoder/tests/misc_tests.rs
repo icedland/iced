@@ -120,7 +120,7 @@ fn decode_multiple_instrs_with_one_instance() {
 #[test]
 fn position() {
 	const BITNESS: u32 = 64;
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(BITNESS, bytes, DecoderOptions::NONE);
 	decoder.set_ip(get_default_ip(BITNESS));
 
@@ -136,24 +136,24 @@ fn position() {
 	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_b1 = decoder.decode();
-	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instr_b1.code());
+	assert_eq!(Code::Mov_rm64_r64, instr_b1.code());
 
 	assert!(!decoder.can_decode());
-	assert_eq!(8, decoder.position());
+	assert_eq!(5, decoder.position());
 	assert_eq!(bytes.len(), decoder.max_position());
 
 	decoder.set_ip(get_default_ip(BITNESS) + 2);
-	assert_eq!(8, decoder.position());
+	assert_eq!(5, decoder.position());
 	decoder.set_position(2);
 	assert!(decoder.can_decode());
 	assert_eq!(2, decoder.position());
 	assert_eq!(bytes.len(), decoder.max_position());
 
 	let instr_b2 = decoder.decode();
-	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instr_b2.code());
+	assert_eq!(Code::Mov_rm64_r64, instr_b2.code());
 
 	decoder.set_ip(get_default_ip(BITNESS));
-	assert_eq!(8, decoder.position());
+	assert_eq!(5, decoder.position());
 	decoder.set_position(0);
 	assert!(decoder.can_decode());
 	assert_eq!(0, decoder.position());
@@ -168,7 +168,7 @@ fn position() {
 
 #[test]
 fn set_position_valid_position() {
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	for i in 0..bytes.len() + 1 {
 		decoder.set_position(i);
@@ -186,14 +186,14 @@ fn set_position_valid_position() {
 #[test]
 #[should_panic]
 fn set_position_panics_if_invalid() {
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	decoder.set_position(bytes.len() + 1);
 }
 
 #[test]
 fn decoder_for_loop_into_iter() {
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	let mut instrs: Vec<Instruction> = Vec::new();
 	for instr in decoder {
@@ -201,41 +201,41 @@ fn decoder_for_loop_into_iter() {
 	}
 	assert_eq!(2, instrs.len());
 	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instrs[1].code());
+	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
 }
 
 #[test]
 fn decoder_for_loop_ref_mut_decoder() {
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	decoder.set_ip(0x1234_5678_9ABC_DEF0);
 	let mut instrs: Vec<Instruction> = Vec::new();
 	for instr in &mut decoder {
 		instrs.push(instr);
 	}
-	assert_eq!(0x1234_5678_9ABC_DEF8, decoder.ip());
+	assert_eq!(0x1234_5678_9ABC_DEF5, decoder.ip());
 	assert!(!decoder.can_decode());
-	assert_eq!(8, decoder.position());
+	assert_eq!(5, decoder.position());
 	assert_eq!(2, instrs.len());
 	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instrs[1].code());
+	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
 }
 
 #[test]
 fn decoder_for_loop_decoder_iter() {
-	let bytes = b"\x23\x18\x62\x31\x7C\x8B\x11\xD3";
+	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
 	decoder.set_ip(0x1234_5678_9ABC_DEF0);
 	let mut instrs: Vec<Instruction> = Vec::new();
 	for instr in decoder.iter() {
 		instrs.push(instr);
 	}
-	assert_eq!(0x1234_5678_9ABC_DEF8, decoder.ip());
+	assert_eq!(0x1234_5678_9ABC_DEF5, decoder.ip());
 	assert!(!decoder.can_decode());
-	assert_eq!(8, decoder.position());
+	assert_eq!(5, decoder.position());
 	assert_eq!(2, instrs.len());
 	assert_eq!(Code::And_r32_rm32, instrs[0].code());
-	assert_eq!(Code::EVEX_Vmovups_xmmm128_k1z_xmm, instrs[1].code());
+	assert_eq!(Code::Mov_rm64_r64, instrs[1].code());
 }
 
 #[test]

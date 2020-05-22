@@ -26,6 +26,64 @@ using System;
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
+	sealed class OpCodeHandler_VEX2 : OpCodeHandlerModRM {
+		readonly OpCodeHandler handlerMem;
+
+		public OpCodeHandler_VEX2(OpCodeHandler handlerMem) => this.handlerMem = handlerMem ?? throw new ArgumentNullException(nameof(handlerMem));
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			if (decoder.is64Mode)
+				decoder.VEX2(ref instruction);
+			else if (decoder.state.mod == 3)
+				decoder.VEX2(ref instruction);
+			else
+				handlerMem.Decode(decoder, ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_VEX3 : OpCodeHandlerModRM {
+		readonly OpCodeHandler handlerMem;
+
+		public OpCodeHandler_VEX3(OpCodeHandler handlerMem) => this.handlerMem = handlerMem ?? throw new ArgumentNullException(nameof(handlerMem));
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			if (decoder.is64Mode)
+				decoder.VEX3(ref instruction);
+			else if (decoder.state.mod == 3)
+				decoder.VEX3(ref instruction);
+			else
+				handlerMem.Decode(decoder, ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_XOP : OpCodeHandlerModRM {
+		readonly OpCodeHandler handler_reg0;
+
+		public OpCodeHandler_XOP(OpCodeHandler handler_reg0) => this.handler_reg0 = handler_reg0 ?? throw new ArgumentNullException(nameof(handler_reg0));
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			if ((decoder.state.modrm & 0x1F) < 8)
+				handler_reg0.Decode(decoder, ref instruction);
+			else
+				decoder.XOP(ref instruction);
+		}
+	}
+
+	sealed class OpCodeHandler_EVEX : OpCodeHandlerModRM {
+		readonly OpCodeHandler handlerMem;
+
+		public OpCodeHandler_EVEX(OpCodeHandler handlerMem) => this.handlerMem = handlerMem ?? throw new ArgumentNullException(nameof(handlerMem));
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			if (decoder.is64Mode)
+				decoder.EVEX_MVEX(ref instruction);
+			else if (decoder.state.mod == 3)
+				decoder.EVEX_MVEX(ref instruction);
+			else
+				handlerMem.Decode(decoder, ref instruction);
+		}
+	}
+
 	sealed class OpCodeHandler_Reg : OpCodeHandler {
 		readonly Code code;
 		readonly Register reg;

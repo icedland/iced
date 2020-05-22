@@ -1683,20 +1683,29 @@ impl InstructionInfoFactory {
 			}
 
 			CodeInfo::Vzeroall => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					let access = if instruction.code() == Code::VEX_Vzeroupper {
-						OpAccess::ReadWrite
-					} else {
-						debug_assert_eq!(Code::VEX_Vzeroall, instruction.code());
-						OpAccess::Write
-					};
-					let max_vec_regs = if (flags & Flags::IS_64BIT) != 0 {
-						16 // regs 16-31 are not modified
-					} else {
-						8
-					};
-					for i in 0..max_vec_regs {
-						Self::add_register(flags, info, unsafe { mem::transmute((IcedConstants::VMM_FIRST as u32).wrapping_add(i) as u8) }, access);
+				// This comment prevents rustfmt from removing the previous curly brace, but doesn't disable formatting
+				#[cfg(not(feature = "no_vex"))]
+				{
+					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+						let access = if instruction.code() == Code::VEX_Vzeroupper {
+							OpAccess::ReadWrite
+						} else {
+							debug_assert_eq!(Code::VEX_Vzeroall, instruction.code());
+							OpAccess::Write
+						};
+						let max_vec_regs = if (flags & Flags::IS_64BIT) != 0 {
+							16 // regs 16-31 are not modified
+						} else {
+							8
+						};
+						for i in 0..max_vec_regs {
+							Self::add_register(
+								flags,
+								info,
+								unsafe { mem::transmute((IcedConstants::VMM_FIRST as u32).wrapping_add(i) as u8) },
+								access,
+							);
+						}
 					}
 				}
 			}
@@ -1858,12 +1867,16 @@ impl InstructionInfoFactory {
 			}
 
 			CodeInfo::Mulx => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.code() == Code::VEX_Mulx_r32_r32_rm32 {
-						Self::add_register(flags, info, Register::EDX, OpAccess::Read);
-					} else {
-						debug_assert_eq!(Code::VEX_Mulx_r64_r64_rm64, instruction.code());
-						Self::add_register(flags, info, Register::RDX, OpAccess::Read);
+				// This comment prevents rustfmt from removing the previous curly brace, but doesn't disable formatting
+				#[cfg(not(feature = "no_vex"))]
+				{
+					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+						if instruction.code() == Code::VEX_Mulx_r32_r32_rm32 {
+							Self::add_register(flags, info, Register::EDX, OpAccess::Read);
+						} else {
+							debug_assert_eq!(Code::VEX_Mulx_r64_r64_rm64, instruction.code());
+							Self::add_register(flags, info, Register::RDX, OpAccess::Read);
+						}
 					}
 				}
 			}
@@ -1871,41 +1884,85 @@ impl InstructionInfoFactory {
 			CodeInfo::PcmpXstrY => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					code = instruction.code();
-					if code == Code::Pcmpestrm_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestrm_xmm_xmmm128_imm8
-						|| code == Code::Pcmpestri_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestri_xmm_xmmm128_imm8
-					{
+					if is_cmpstr32(code) {
 						Self::add_register(flags, info, Register::EAX, OpAccess::Read);
 						Self::add_register(flags, info, Register::EDX, OpAccess::Read);
-					} else if code == Code::Pcmpestrm64_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestrm64_xmm_xmmm128_imm8
-						|| code == Code::Pcmpestri64_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestri64_xmm_xmmm128_imm8
-					{
+					} else if is_cmpstr64(code) {
 						Self::add_register(flags, info, Register::RAX, OpAccess::Read);
 						Self::add_register(flags, info, Register::RDX, OpAccess::Read);
 					}
 
-					if code == Code::Pcmpestrm_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestrm_xmm_xmmm128_imm8
-						|| code == Code::Pcmpestrm64_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpestrm64_xmm_xmmm128_imm8
-						|| code == Code::Pcmpistrm_xmm_xmmm128_imm8
-						|| code == Code::VEX_Vpcmpistrm_xmm_xmmm128_imm8
-					{
+					if is_cmpstr_xmm0(code) {
 						Self::add_register(flags, info, Register::XMM0, OpAccess::Write);
 					} else {
-						debug_assert!(
-							code == Code::Pcmpestri_xmm_xmmm128_imm8
-								|| code == Code::VEX_Vpcmpestri_xmm_xmmm128_imm8
-								|| code == Code::Pcmpestri64_xmm_xmmm128_imm8
-								|| code == Code::VEX_Vpcmpestri64_xmm_xmmm128_imm8
-								|| code == Code::Pcmpistri_xmm_xmmm128_imm8
-								|| code == Code::VEX_Vpcmpistri_xmm_xmmm128_imm8
-						);
 						Self::add_register(flags, info, Register::ECX, OpAccess::Write);
 					}
+				}
+
+				#[inline]
+				#[cfg_attr(has_must_use, must_use)]
+				fn is_cmpstr32(code: Code) -> bool {
+					if code == Code::Pcmpestrm_xmm_xmmm128_imm8 || code == Code::Pcmpestri_xmm_xmmm128_imm8 {
+						return true;
+					}
+					#[cfg(not(feature = "no_vex"))]
+					{
+						if code == Code::VEX_Vpcmpestrm_xmm_xmmm128_imm8 || code == Code::VEX_Vpcmpestri_xmm_xmmm128_imm8 {
+							return true;
+						}
+					}
+					false
+				}
+
+				#[inline]
+				#[cfg_attr(has_must_use, must_use)]
+				fn is_cmpstr64(code: Code) -> bool {
+					if code == Code::Pcmpestrm64_xmm_xmmm128_imm8 || code == Code::Pcmpestri64_xmm_xmmm128_imm8 {
+						return true;
+					}
+					#[cfg(not(feature = "no_vex"))]
+					{
+						if code == Code::VEX_Vpcmpestrm64_xmm_xmmm128_imm8 || code == Code::VEX_Vpcmpestri64_xmm_xmmm128_imm8 {
+							return true;
+						}
+					}
+					false
+				}
+
+				#[inline]
+				#[cfg_attr(has_must_use, must_use)]
+				fn is_cmpstr_xmm0(code: Code) -> bool {
+					if code == Code::Pcmpestrm_xmm_xmmm128_imm8
+						|| code == Code::Pcmpestrm64_xmm_xmmm128_imm8
+						|| code == Code::Pcmpistrm_xmm_xmmm128_imm8
+					{
+						return true;
+					}
+					#[cfg(not(feature = "no_vex"))]
+					{
+						if code == Code::VEX_Vpcmpestrm_xmm_xmmm128_imm8
+							|| code == Code::VEX_Vpcmpestrm64_xmm_xmmm128_imm8
+							|| code == Code::VEX_Vpcmpistrm_xmm_xmmm128_imm8
+						{
+							return true;
+						}
+					}
+					#[cfg(not(feature = "no_vex"))]
+					debug_assert!(
+						code == Code::Pcmpestri_xmm_xmmm128_imm8
+							|| code == Code::VEX_Vpcmpestri_xmm_xmmm128_imm8
+							|| code == Code::Pcmpestri64_xmm_xmmm128_imm8
+							|| code == Code::VEX_Vpcmpestri64_xmm_xmmm128_imm8
+							|| code == Code::Pcmpistri_xmm_xmmm128_imm8
+							|| code == Code::VEX_Vpcmpistri_xmm_xmmm128_imm8
+					);
+					#[cfg(feature = "no_vex")]
+					debug_assert!(
+						code == Code::Pcmpestri_xmm_xmmm128_imm8
+							|| code == Code::Pcmpestri64_xmm_xmmm128_imm8
+							|| code == Code::Pcmpistri_xmm_xmmm128_imm8
+					);
+					false
 				}
 			}
 

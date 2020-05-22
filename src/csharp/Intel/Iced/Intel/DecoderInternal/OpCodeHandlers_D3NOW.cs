@@ -25,6 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System.Diagnostics;
 
 namespace Iced.Intel.DecoderInternal {
+#if !NO_D3NOW
 	sealed class OpCodeHandler_D3NOW : OpCodeHandlerModRM {
 		internal static readonly Code[] CodeValues = CreateCodeValues();
 
@@ -89,5 +90,13 @@ namespace Iced.Intel.DecoderInternal {
 				decoder.SetInvalidInstruction();
 		}
 	}
+#else
+	sealed class OpCodeHandler_D3NOW : OpCodeHandlerModRM {
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
+			decoder.SetInvalidInstruction();
+		}
+	}
+#endif
 }
 #endif

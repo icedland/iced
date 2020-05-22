@@ -214,8 +214,10 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			Assert.Equal(code.ToOpCode().Encoding, instruction.Code.Encoding());
 #endif
 			var cf = instruction.Code.CpuidFeatures();
+#if !NO_VEX
 			if (cf.Length == 1 && cf[0] == CpuidFeature.AVX && instruction.Op1Kind == OpKind.Register && (code == Code.VEX_Vbroadcastss_xmm_xmmm32 || code == Code.VEX_Vbroadcastss_ymm_xmmm32 || code == Code.VEX_Vbroadcastsd_ymm_xmmm64))
 				cf = new[] { CpuidFeature.AVX2 };
+#endif
 			Assert.Equal(info.CpuidFeatures, cf);
 			Assert.Equal(info.FlowControl, instruction.Code.FlowControl());
 			Assert.Equal(info.IsProtectedMode, instruction.Code.IsProtectedMode());

@@ -30,6 +30,106 @@ use core::u32;
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(super) struct OpCodeHandler_VEX2 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler_mem: &'static OpCodeHandler,
+}
+
+impl OpCodeHandler_VEX2 {
+	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(handler_mem));
+		Self { decode: OpCodeHandler_VEX2::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		if decoder.state.mod_ == 3 || decoder.is64_mode {
+			decoder.vex2(instruction);
+		} else {
+			let handler = this.handler_mem;
+			(handler.decode)(handler, decoder, instruction);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_VEX3 {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler_mem: &'static OpCodeHandler,
+}
+
+impl OpCodeHandler_VEX3 {
+	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(handler_mem));
+		Self { decode: OpCodeHandler_VEX3::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		if decoder.state.mod_ == 3 || decoder.is64_mode {
+			decoder.vex3(instruction);
+		} else {
+			let handler = this.handler_mem;
+			(handler.decode)(handler, decoder, instruction);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_XOP {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler_reg0: &'static OpCodeHandler,
+}
+
+impl OpCodeHandler_XOP {
+	pub(super) fn new(handler_reg0: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(handler_reg0));
+		Self { decode: OpCodeHandler_XOP::decode, has_modrm: true, handler_reg0: unsafe { &*handler_reg0 } }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		if (decoder.state.modrm & 0x1F) < 8 {
+			let handler = this.handler_reg0;
+			(handler.decode)(handler, decoder, instruction);
+		} else {
+			decoder.xop(instruction);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub(super) struct OpCodeHandler_EVEX {
+	decode: OpCodeHandlerDecodeFn,
+	has_modrm: bool,
+	handler_mem: &'static OpCodeHandler,
+}
+
+impl OpCodeHandler_EVEX {
+	pub(super) fn new(handler_mem: *const OpCodeHandler) -> Self {
+		assert!(!is_null_instance_handler(handler_mem));
+		Self { decode: OpCodeHandler_EVEX::decode, has_modrm: true, handler_mem: unsafe { &*handler_mem } }
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		if decoder.state.mod_ == 3 || decoder.is64_mode {
+			decoder.evex_mvex(instruction);
+		} else {
+			let handler = this.handler_mem;
+			(handler.decode)(handler, decoder, instruction);
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(super) struct OpCodeHandler_Reg {
 	decode: OpCodeHandlerDecodeFn,
 	has_modrm: bool,

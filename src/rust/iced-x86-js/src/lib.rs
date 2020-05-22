@@ -223,3 +223,35 @@ pub use rflags_bits::*;
 pub use rounding_control::*;
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 pub use tuple_type::*;
+use wasm_bindgen::prelude::*;
+
+/// Gets feature flags.
+///
+/// Flag | Value
+/// -----|-------
+/// 0x01 | `VEX`
+/// 0x02 | `EVEX`
+/// 0x04 | `XOP`
+/// 0x08 | `3DNow!`
+#[wasm_bindgen(js_name = "getFeatures")]
+pub fn get_features() -> u32 {
+	#[allow(unused_mut)]
+	let mut flags = 0;
+	#[cfg(not(feature = "no_vex"))]
+	{
+		flags |= 1;
+	}
+	#[cfg(not(feature = "no_evex"))]
+	{
+		flags |= 2;
+	}
+	#[cfg(not(feature = "no_xop"))]
+	{
+		flags |= 4;
+	}
+	#[cfg(not(feature = "no_d3now"))]
+	{
+		flags |= 8;
+	}
+	flags
+}

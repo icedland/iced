@@ -23,7 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 const {
 	Code, CodeSize, ConditionCode, CpuidFeature, Decoder, DecoderOptions, EncodingKind,
-	FlowControl, Instruction, MemoryOperand, MemorySize, Mnemonic, OpKind, Register,
+	FlowControl, getFeatures, Instruction, MemoryOperand, MemorySize, Mnemonic, OpKind, Register,
 	RepPrefixKind, RflagsBits, RoundingControl
 } = require("iced-x86");
 
@@ -313,17 +313,12 @@ test("Instruction.create*()", () => {
 		[64, "66C85AA5A6", DecoderOptions.None, Instruction.createI32I32(Code.Enterw_imm16_imm8, 0xA55A, 0xA6)],
 		[64, "66C85AA5A6", DecoderOptions.None, Instruction.createU32U32(Code.Enterw_imm16_imm8, 0xA55A, 0xA6)],
 		[64, "64A2123456789ABCDEF0", DecoderOptions.None, Instruction.createMem64Reg(Code.Mov_moffs8_AL, 0xF0DEBC9A, 0x78563412, Register.AL, Register.FS)],
-		[64, "C5E814CB", DecoderOptions.None, Instruction.createRegRegReg(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3)],
-		[64, "64C5E8148C7501EFCDAB", DecoderOptions.None, Instruction.createRegRegMem(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS))],
-		[64, "62F1F50873D2A5", DecoderOptions.None, Instruction.createRegRegI32(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, Register.XMM2, 0xA5)],
 		[64, "6669CAA55A", DecoderOptions.None, Instruction.createRegRegU32(Code.Imul_r16_rm16_imm16, Register.CX, Register.DX, 0x5AA5)],
 		[64, "69CA5AA51234", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r32_rm32_imm32, Register.ECX, Register.EDX, 0x3412A55A)],
 		[64, "666BCA5A", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r16_rm16_imm8, Register.CX, Register.DX, 0x5A)],
 		[64, "6BCA5A", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r32_rm32_imm8, Register.ECX, Register.EDX, 0x5A)],
 		[64, "486BCA5A", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r64_rm64_imm8, Register.RCX, Register.RDX, 0x5A)],
 		[64, "4869CA5AA512A4", DecoderOptions.None, Instruction.createRegRegI32(Code.Imul_r64_rm64_imm32, Register.RCX, Register.RDX, -0x5BED5AA6)],
-		[64, "64C4E261908C7501EFCDAB", DecoderOptions.None, Instruction.createRegMemReg(Code.VEX_Vpgatherdd_xmm_vm32x_xmm, Register.XMM1, new MemoryOperand(Register.RBP, Register.XMM6, 2, -0x543210FF, 8, false, Register.FS), Register.XMM3)],
-		[64, "6462F1F50873947501EFCDABA5", DecoderOptions.None, Instruction.createRegMemI32(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
 		[64, "6466698C7501EFCDAB5AA5", DecoderOptions.None, Instruction.createRegMemU32(Code.Imul_r16_rm16_imm16, Register.CX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA55A)],
 		[64, "64698C7501EFCDAB5AA51234", DecoderOptions.None, Instruction.createRegMemI32(Code.Imul_r32_rm32_imm32, Register.ECX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x3412A55A)],
 		[64, "64666B8C7501EFCDAB5A", DecoderOptions.None, Instruction.createRegMemI32(Code.Imul_r16_rm16_imm8, Register.CX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x5A)],
@@ -332,24 +327,10 @@ test("Instruction.create*()", () => {
 		[64, "6448698C7501EFCDAB5AA512A4", DecoderOptions.None, Instruction.createRegMemI32(Code.Imul_r64_rm64_imm32, Register.RCX, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), -0x5BED5AA6)],
 		[64, "660F78C1A5FD", DecoderOptions.None, Instruction.createRegI32I32(Code.Extrq_xmm_imm8_imm8, Register.XMM1, 0xA5, 0xFD)],
 		[64, "660F78C1A5FD", DecoderOptions.None, Instruction.createRegU32U32(Code.Extrq_xmm_imm8_imm8, Register.XMM1, 0xA5, 0xFD)],
-		[64, "64C4E2692E9C7501EFCDAB", DecoderOptions.None, Instruction.createMemRegReg(Code.VEX_Vmaskmovps_m128_xmm_xmm, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM2, Register.XMM3)],
 		[64, "64660FA4947501EFCDAB5A", DecoderOptions.None, Instruction.createMemRegI32(Code.Shld_rm16_r16_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DX, 0x5A)],
 		[64, "64660FA4947501EFCDAB5A", DecoderOptions.None, Instruction.createMemRegU32(Code.Shld_rm16_r16_imm8, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.DX, 0x5A)],
-		[64, "C4E3694ACB40", DecoderOptions.None, Instruction.createRegRegRegReg(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4)],
-		[64, "64C4E3E95C8C7501EFCDAB30", DecoderOptions.None, Instruction.createRegRegRegMem(Code.VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS))],
-		[64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.createRegRegRegI32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5)],
-		[64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.createRegRegRegU32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5)],
-		[64, "64C4E3694A8C7501EFCDAB40", DecoderOptions.None, Instruction.createRegRegMemReg(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4)],
-		[64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.createRegRegMemI32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
-		[64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.createRegRegMemU32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
 		[64, "F20F78CAA5FD", DecoderOptions.None, Instruction.createRegRegI32I32(Code.Insertq_xmm_xmm_imm8_imm8, Register.XMM1, Register.XMM2, 0xA5, 0xFD)],
 		[64, "F20F78CAA5FD", DecoderOptions.None, Instruction.createRegRegU32U32(Code.Insertq_xmm_xmm_imm8_imm8, Register.XMM1, Register.XMM2, 0xA5, 0xFD)],
-		[64, "C4E36948CB40", DecoderOptions.None, Instruction.createRegRegRegRegI32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)],
-		[64, "C4E36948CB40", DecoderOptions.None, Instruction.createRegRegRegRegU32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)],
-		[64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.createRegRegRegMemI32(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)],
-		[64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.createRegRegRegMemU32(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)],
-		[64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.createRegRegMemRegI32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)],
-		[64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.createRegRegMemRegU32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)],
 		[16, "0FB855AA", DecoderOptions.Jmpe, Instruction.createBranch(Code.Jmpe_disp16, 0, 0xAA55)],
 		[32, "0FB8123455AA", DecoderOptions.Jmpe, Instruction.createBranch(Code.Jmpe_disp32, 0, 0xAA553412)],
 		[32, "64676E", DecoderOptions.None, Instruction.createOutsb(16, Register.FS, RepPrefixKind.None)],
@@ -431,9 +412,6 @@ test("Instruction.create*()", () => {
 		[32, "6467660FF7D3", DecoderOptions.None, Instruction.createMaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS)],
 		[64, "6467660FF7D3", DecoderOptions.None, Instruction.createMaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS)],
 		[64, "64660FF7D3", DecoderOptions.None, Instruction.createMaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS)],
-		[32, "6467C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS)],
-		[64, "6467C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS)],
-		[64, "64C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS)],
 
 		[32, "6467F36E", DecoderOptions.None, Instruction.createOutsb(16, Register.FS, RepPrefixKind.Repe)],
 		[64, "6467F36E", DecoderOptions.None, Instruction.createOutsb(32, Register.FS, RepPrefixKind.Repe)],
@@ -679,6 +657,50 @@ test("Instruction.create*()", () => {
 		[64, "67F348A5", DecoderOptions.None, Instruction.createRepMovsq(32)],
 		[64, "F348A5", DecoderOptions.None, Instruction.createRepMovsq(64)],
 	];
+	test_instruction_create(data);
+});
+
+test("VEX: Instruction.create*()", () => {
+	// Check if VEX has been disabled
+	if ((getFeatures() & 1) == 0)
+		return;
+	const data = [
+		[64, "C5E814CB", DecoderOptions.None, Instruction.createRegRegReg(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3)],
+		[64, "64C5E8148C7501EFCDAB", DecoderOptions.None, Instruction.createRegRegMem(Code.VEX_Vunpcklps_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS))],
+		[64, "64C4E261908C7501EFCDAB", DecoderOptions.None, Instruction.createRegMemReg(Code.VEX_Vpgatherdd_xmm_vm32x_xmm, Register.XMM1, new MemoryOperand(Register.RBP, Register.XMM6, 2, -0x543210FF, 8, false, Register.FS), Register.XMM3)],
+		[64, "64C4E2692E9C7501EFCDAB", DecoderOptions.None, Instruction.createMemRegReg(Code.VEX_Vmaskmovps_m128_xmm_xmm, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM2, Register.XMM3)],
+		[64, "C4E3694ACB40", DecoderOptions.None, Instruction.createRegRegRegReg(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4)],
+		[64, "64C4E3E95C8C7501EFCDAB30", DecoderOptions.None, Instruction.createRegRegRegMem(Code.VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS))],
+		[64, "64C4E3694A8C7501EFCDAB40", DecoderOptions.None, Instruction.createRegRegMemReg(Code.VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4)],
+		[64, "C4E36948CB40", DecoderOptions.None, Instruction.createRegRegRegRegI32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)],
+		[64, "C4E36948CB40", DecoderOptions.None, Instruction.createRegRegRegRegU32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, Register.XMM3, Register.XMM4, 0x0)],
+		[64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.createRegRegRegMemI32(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)],
+		[64, "64C4E3E9488C7501EFCDAB31", DecoderOptions.None, Instruction.createRegRegRegMemU32(Code.VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Register.XMM1, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0x1)],
+		[64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.createRegRegMemRegI32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)],
+		[64, "64C4E369488C7501EFCDAB41", DecoderOptions.None, Instruction.createRegRegMemRegU32(Code.VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), Register.XMM4, 0x1)],
+		[32, "6467C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(16, Register.XMM2, Register.XMM3, Register.FS)],
+		[64, "6467C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(32, Register.XMM2, Register.XMM3, Register.FS)],
+		[64, "64C5F9F7D3", DecoderOptions.None, Instruction.createVmaskmovdqu(64, Register.XMM2, Register.XMM3, Register.FS)],
+	];
+	test_instruction_create(data);
+});
+
+test("EVEX: Instruction.create*()", () => {
+	// Check if EVEX has been disabled
+	if ((getFeatures() & 2) == 0)
+		return;
+	const data = [
+		[64, "62F1F50873D2A5", DecoderOptions.None, Instruction.createRegRegI32(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, Register.XMM2, 0xA5)],
+		[64, "6462F1F50873947501EFCDABA5", DecoderOptions.None, Instruction.createRegMemI32(Code.EVEX_Vpsrlq_xmm_k1z_xmmm128b64_imm8, Register.XMM1, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
+		[64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.createRegRegRegI32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5)],
+		[64, "62F16D08C4CBA5", DecoderOptions.None, Instruction.createRegRegRegU32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, Register.EBX, 0xA5)],
+		[64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.createRegRegMemI32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
+		[64, "6462F16D08C48C7501EFCDABA5", DecoderOptions.None, Instruction.createRegRegMemU32(Code.EVEX_Vpinsrw_xmm_xmm_r32m16_imm8, Register.XMM1, Register.XMM2, new MemoryOperand(Register.RBP, Register.RSI, 2, -0x543210FF, 8, false, Register.FS), 0xA5)],
+	];
+	test_instruction_create(data);
+});
+
+function test_instruction_create(data) {
 	for (const info of data) {
 		const bitness = info[0];
 		const bytes = parseHex(info[1]);
@@ -716,4 +738,4 @@ test("Instruction.create*()", () => {
 		decoder.free();
 		instr.free();
 	}
-});
+}

@@ -25,7 +25,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #nullable enable
 
-#if DECODER
+#if DECODER && !NO_EVEX
 namespace Iced.Intel.DecoderInternal {
 	enum EvexOpCodeHandlerKind : byte {
 		Invalid,

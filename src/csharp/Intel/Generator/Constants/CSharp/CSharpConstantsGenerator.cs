@@ -95,7 +95,7 @@ namespace Generator.Constants.CSharp {
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(info.Filename))) {
 				writer.WriteFileHeader();
 				if (!(info.Define is null))
-					writer.WriteLine($"#if {info.Define}");
+					writer.WriteLineNoIndent($"#if {info.Define}");
 
 				writer.WriteLine($"namespace {info.Namespace} {{");
 
@@ -106,7 +106,7 @@ namespace Generator.Constants.CSharp {
 				writer.WriteLine("}");
 
 				if (!(info.Define is null))
-					writer.WriteLine("#endif");
+					writer.WriteLineNoIndent("#endif");
 			}
 		}
 

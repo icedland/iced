@@ -98,7 +98,11 @@ namespace Iced.UnitTests.Intel.DecoderTests.MemoryTestGenImpl {
 		const Register Legacy_Register_64 = Register.EAX;
 		const byte Legacy_OpCode = 0x01;
 
+#if !NO_EVEX
 		const string EVEX_Code = nameof(Code.EVEX_Vpscatterdd_vm32x_k1_xmm);
+#else
+		const string EVEX_Code = "EVEX_Vpscatterdd_vm32x_k1_xmm";
+#endif
 		const int EVEX_LL = 0;
 		const int EVEX_pp = 1;
 		const int EVEX_mm = 2;

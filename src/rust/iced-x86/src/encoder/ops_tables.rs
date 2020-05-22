@@ -36,38 +36,47 @@ static OP_A_2: OpA = OpA {
 static OP_A_4: OpA = OpA {
 	size: 4
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_HX_EAX_R15_D: OpHx = OpHx {
 	reg_lo: Register::EAX,
 	reg_hi: Register::R15D,
 };
+#[cfg(not(feature = "no_vex"))]
 static OP_HX_K0_K7: OpHx = OpHx {
 	reg_lo: Register::K0,
 	reg_hi: Register::K7,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_HX_RAX_R15: OpHx = OpHx {
 	reg_lo: Register::RAX,
 	reg_hi: Register::R15,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_HX_XMM0_XMM15: OpHx = OpHx {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_HX_XMM0_XMM31: OpHx = OpHx {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM31,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_HX_YMM0_YMM15: OpHx = OpHx {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_HX_YMM0_YMM31: OpHx = OpHx {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_HX_ZMM0_ZMM31: OpHx = OpHx {
 	reg_lo: Register::ZMM0,
 	reg_hi: Register::ZMM31,
 };
+#[cfg(not(feature = "no_vex"))]
 static OP_I2: OpI2 = OpI2;
 static OP_IB11: OpIb11 = OpIb11;
 static OP_IB21: OpIb21 = OpIb21;
@@ -93,10 +102,12 @@ static OP_IMM_1: OpImm = OpImm {
 	value: 1
 };
 static OP_IQ: OpIq = OpIq;
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_IS4X_XMM0_XMM15: OpIs4x = OpIs4x {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM15,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_IS4X_YMM0_YMM15: OpIs4x = OpIs4x {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM15,
@@ -170,6 +181,7 @@ static OP_MOD_RM_REG_F0_CR0_CR15: OpModRM_regF0 = OpModRM_regF0 {
 	reg_lo: Register::CR0,
 	reg_hi: Register::CR15,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
 static OP_MOD_RM_REG_K0_K7: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::K0,
 	reg_hi: Register::K7,
@@ -202,18 +214,22 @@ static OP_MOD_RM_REG_XMM0_XMM15: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_REG_XMM0_XMM31: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM31,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_MOD_RM_REG_YMM0_YMM15: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_REG_YMM0_YMM31: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_REG_ZMM0_ZMM31: OpModRM_reg = OpModRM_reg {
 	reg_lo: Register::ZMM0,
 	reg_hi: Register::ZMM31,
@@ -234,6 +250,7 @@ static OP_MOD_RM_RM_EAX_R15_D: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::EAX,
 	reg_hi: Register::R15D,
 };
+#[cfg(not(feature = "no_vex"))]
 static OP_MOD_RM_RM_K0_K7: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::K0,
 	reg_hi: Register::K7,
@@ -255,6 +272,7 @@ static OP_MOD_RM_RM_REG_ONLY_EAX_R15_D: OpModRM_rm_reg_only = OpModRM_rm_reg_onl
 	reg_lo: Register::EAX,
 	reg_hi: Register::R15D,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_evex")))]
 static OP_MOD_RM_RM_REG_ONLY_K0_K7: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::K0,
 	reg_hi: Register::K7,
@@ -271,18 +289,22 @@ static OP_MOD_RM_RM_REG_ONLY_XMM0_XMM15: OpModRM_rm_reg_only = OpModRM_rm_reg_on
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_REG_ONLY_XMM0_XMM31: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM31,
 };
+#[cfg(not(feature = "no_vex"))]
 static OP_MOD_RM_RM_REG_ONLY_YMM0_YMM15: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_REG_ONLY_YMM0_YMM31: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_REG_ONLY_ZMM0_ZMM31: OpModRM_rm_reg_only = OpModRM_rm_reg_only {
 	reg_lo: Register::ZMM0,
 	reg_hi: Register::ZMM31,
@@ -291,18 +313,22 @@ static OP_MOD_RM_RM_XMM0_XMM15: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_XMM0_XMM31: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::XMM0,
 	reg_hi: Register::XMM31,
 };
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 static OP_MOD_RM_RM_YMM0_YMM15: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_YMM0_YMM31: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::YMM0,
 	reg_hi: Register::YMM31,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_MOD_RM_RM_ZMM0_ZMM31: OpModRM_rm = OpModRM_rm {
 	reg_lo: Register::ZMM0,
 	reg_hi: Register::ZMM31,
@@ -365,22 +391,27 @@ static OP_REG_ST0: OpReg = OpReg {
 	register: Register::ST0,
 };
 static OP_REG_STI: OpRegSTi = OpRegSTi;
+#[cfg(not(feature = "no_vex"))]
 static OP_VMX_XMM0_XMM15: OpVMx = OpVMx {
 	vsib_index_reg_lo: Register::XMM0,
 	vsib_index_reg_hi: Register::XMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_VMX_XMM0_XMM31: OpVMx = OpVMx {
 	vsib_index_reg_lo: Register::XMM0,
 	vsib_index_reg_hi: Register::XMM31,
 };
+#[cfg(not(feature = "no_vex"))]
 static OP_VMX_YMM0_YMM15: OpVMx = OpVMx {
 	vsib_index_reg_lo: Register::YMM0,
 	vsib_index_reg_hi: Register::YMM15,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_VMX_YMM0_YMM31: OpVMx = OpVMx {
 	vsib_index_reg_lo: Register::YMM0,
 	vsib_index_reg_hi: Register::YMM31,
 };
+#[cfg(not(feature = "no_evex"))]
 static OP_VMX_ZMM0_ZMM31: OpVMx = OpVMx {
 	vsib_index_reg_lo: Register::ZMM0,
 	vsib_index_reg_hi: Register::ZMM31,
@@ -511,6 +542,7 @@ pub(super) static LEGACY_TABLE: [&(Op + Sync); 121] = [
 	&OP_REG_EMBED8_EAX_R15_D,// r32_rd
 	&OP_REG_EMBED8_RAX_R15,// r64_ro
 ];
+#[cfg(not(feature = "no_vex"))]
 pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
@@ -552,6 +584,7 @@ pub(super) static VEX_TABLE: [&(Op + Sync); 39] = [
 	&OP_MOD_RM_RM_XMM0_XMM15,// WX
 	&OP_MOD_RM_RM_YMM0_YMM15,// WY
 ];
+#[cfg(not(feature = "no_xop"))]
 pub(super) static XOP_TABLE: [&(Op + Sync); 19] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed
@@ -573,6 +606,7 @@ pub(super) static XOP_TABLE: [&(Op + Sync); 19] = [
 	&OP_MOD_RM_RM_XMM0_XMM15,// WX
 	&OP_MOD_RM_RM_YMM0_YMM15,// WY
 ];
+#[cfg(not(feature = "no_evex"))]
 pub(super) static EVEX_TABLE: [&(Op + Sync); 36] = [
 	&NONE,// None
 	&OP_MOD_RM_RM_EAX_R15_D,// Ed

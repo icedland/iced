@@ -86,6 +86,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! - `std`: (✔️Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
 //! - `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate (`rustc` `1.36.0+`) and the `hashbrown` crate.
 //! - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
+//! - `no_vex`: Disables all `VEX` instructions. See below for more info.
+//! - `no_evex`: Disables all `EVEX` instructions. See below for more info.
+//! - `no_xop`: Disables all `XOP` instructions. See below for more info.
+//! - `no_d3now`: Disables all `3DNow!` instructions. See below for more info.
+//!
+//! If you use `no_vex`, `no_evex`, `no_xop` or `no_d3now`, you should run the generator again (before building iced) to generate even smaller output.
+//!
+//! [.NET Core](https://dotnet.microsoft.com/download) is required. Help:
+//!
+//! ```sh
+//! dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --help
+//! ```
+//!
+//! No VEX, EVEX, XOP, 3DNow!:
+//!
+//! ```sh
+//! dotnet run -p src/csharp/Intel/Generator/Generator.csproj -- --no-vex --no-evex --no-xop --no-3dnow
+//! ```
 //!
 //! [`BlockEncoder`]: struct.BlockEncoder.html
 //! [`OpCodeInfo`]: struct.OpCodeInfo.html

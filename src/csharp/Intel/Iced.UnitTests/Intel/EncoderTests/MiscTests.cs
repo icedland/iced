@@ -82,25 +82,36 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				const ulong rip = 0UL;
 
 				var memory16 = new MemoryOperand(Register.SI, 0x1234, 1);
-				yield return new object[] { 16, "0F10 8C 3412", rip, Instruction.Create(Code.Movups_xmm_xmmm128, Register.XMM1, memory16) };
-				yield return new object[] { 16, "C5F8 10 8C 3412", rip, Instruction.Create(Code.VEX_Vmovups_xmm_xmmm128, Register.XMM1, memory16) };
-				yield return new object[] { 16, "62 F17C08 10 8C 3412", rip, Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM1, memory16) };
-				yield return new object[] { 16, "8F E878C0 8C 3412 A5", rip, Instruction.Create(Code.XOP_Vprotb_xmm_xmmm128_imm8, Register.XMM1, memory16, 0xA5) };
-				yield return new object[] { 16, "0F0F 8C 3412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory16) };
-
 				var memory32 = new MemoryOperand(Register.ESI, 0x12345678, 1);
-				yield return new object[] { 32, "0F10 8E 78563412", rip, Instruction.Create(Code.Movups_xmm_xmmm128, Register.XMM1, memory32) };
-				yield return new object[] { 32, "C5F8 10 8E 78563412", rip, Instruction.Create(Code.VEX_Vmovups_xmm_xmmm128, Register.XMM1, memory32) };
-				yield return new object[] { 32, "62 F17C08 10 8E 78563412", rip, Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM1, memory32) };
-				yield return new object[] { 32, "8F E878C0 8E 78563412 A5", rip, Instruction.Create(Code.XOP_Vprotb_xmm_xmmm128_imm8, Register.XMM1, memory32, 0xA5) };
-				yield return new object[] { 32, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory32) };
-
 				var memory64 = new MemoryOperand(Register.R14, 0x12345678, 1);
+
+				yield return new object[] { 16, "0F10 8C 3412", rip, Instruction.Create(Code.Movups_xmm_xmmm128, Register.XMM1, memory16) };
+				yield return new object[] { 32, "0F10 8E 78563412", rip, Instruction.Create(Code.Movups_xmm_xmmm128, Register.XMM1, memory32) };
 				yield return new object[] { 64, "41 0F10 8E 78563412", rip, Instruction.Create(Code.Movups_xmm_xmmm128, Register.XMM1, memory64) };
+
+#if !NO_VEX
+				yield return new object[] { 16, "C5F8 10 8C 3412", rip, Instruction.Create(Code.VEX_Vmovups_xmm_xmmm128, Register.XMM1, memory16) };
+				yield return new object[] { 32, "C5F8 10 8E 78563412", rip, Instruction.Create(Code.VEX_Vmovups_xmm_xmmm128, Register.XMM1, memory32) };
 				yield return new object[] { 64, "C4C178 10 8E 78563412", rip, Instruction.Create(Code.VEX_Vmovups_xmm_xmmm128, Register.XMM1, memory64) };
+#endif
+
+#if !NO_EVEX
+				yield return new object[] { 16, "62 F17C08 10 8C 3412", rip, Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM1, memory16) };
+				yield return new object[] { 32, "62 F17C08 10 8E 78563412", rip, Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM1, memory32) };
 				yield return new object[] { 64, "62 D17C08 10 8E 78563412", rip, Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM1, memory64) };
+#endif
+
+#if !NO_XOP
+				yield return new object[] { 16, "8F E878C0 8C 3412 A5", rip, Instruction.Create(Code.XOP_Vprotb_xmm_xmmm128_imm8, Register.XMM1, memory16, 0xA5) };
+				yield return new object[] { 32, "8F E878C0 8E 78563412 A5", rip, Instruction.Create(Code.XOP_Vprotb_xmm_xmmm128_imm8, Register.XMM1, memory32, 0xA5) };
 				yield return new object[] { 64, "8F C878C0 8E 78563412 A5", rip, Instruction.Create(Code.XOP_Vprotb_xmm_xmmm128_imm8, Register.XMM1, memory64, 0xA5) };
+#endif
+
+#if !NO_D3NOW
+				yield return new object[] { 16, "0F0F 8C 3412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory16) };
+				yield return new object[] { 32, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory32) };
 				yield return new object[] { 64, "0F0F 8E 78563412 0C", rip, Instruction.Create(Code.D3NOW_Pi2fw_mm_mmm64, Register.MM1, memory64) };
+#endif
 
 				// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
 				Static.Assert(IcedConstants.NumberOfEncodingKinds == 5 ? 0 : -1);
@@ -260,6 +271,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			Assert.Equal(1U, encoder.EVEX_WIG);
 		}
 
+#if !NO_VEX
 		[Theory]
 		[InlineData("C5FC 10 10", "C4E17C 10 10", Code.VEX_Vmovups_ymm_ymmm256, true)]
 		[InlineData("C5FC 10 10", "C5FC 10 10", Code.VEX_Vmovups_ymm_ymmm256, false)]
@@ -276,7 +288,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
 			Assert.Equal(expectedBytesArray, encodedBytes);
 		}
+#endif
 
+#if !NO_VEX
 		[Theory]
 		[InlineData("C5CA 10 CD", "C5CA 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 0)]
 		[InlineData("C5CA 10 CD", "C5CE 10 CD", Code.VEX_Vmovss_xmm_xmm_xmm, 0, 1)]
@@ -311,7 +325,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
 			Assert.Equal(expectedBytesArray, encodedBytes);
 		}
+#endif
 
+#if !NO_EVEX
 		[Theory]
 		[InlineData("62 F14E08 10 D3", "62 F14E08 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 0)]
 		[InlineData("62 F14E08 10 D3", "62 F14E28 10 D3", Code.EVEX_Vmovss_xmm_k1z_xmm_xmm, 0, 1)]
@@ -356,6 +372,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var expectedBytesArray = HexUtils.ToByteArray(expectedBytes);
 			Assert.Equal(expectedBytesArray, encodedBytes);
 		}
+#endif
 
 		[Fact]
 		void Test_Encoder_Create_throws() {

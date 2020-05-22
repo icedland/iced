@@ -24,10 +24,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 use super::super::handlers::OpCodeHandler;
 use super::super::handlers::*;
 use super::super::handlers_3dnow::*;
-use super::super::handlers_evex::OpCodeHandler_EVEX;
 use super::super::handlers_fpu::*;
 use super::super::handlers_legacy::*;
-use super::super::handlers_vex::{OpCodeHandler_VEX2, OpCodeHandler_VEX3, OpCodeHandler_XOP};
 use super::super::Code;
 use super::enums::*;
 use super::TableDeserializer;

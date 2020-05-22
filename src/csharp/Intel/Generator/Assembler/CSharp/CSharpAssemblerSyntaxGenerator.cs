@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Generator.Documentation.CSharp;
 using Generator.Encoder;
@@ -39,8 +40,7 @@ namespace Generator.Assembler.CSharp {
 		readonly GeneratorContext generatorContext;
 		readonly CSharpDocCommentWriter docWriter;
 
-		static readonly List<(string, int, string[], string)> _declareDataList = new List<(string, int, string[], string)>()
-		{
+		static readonly List<(string, int, string[], string)> declareDataList = new List<(string, int, string[], string)>() {
 			("db", 1, new [] {"byte", "sbyte"}, "CreateDeclareByte"),
 			("dw", 2, new [] {"ushort", "short"}, "CreateDeclareWord"),
 			("dd", 4, new [] {"uint", "int", "float"}, "CreateDeclareDword"),
@@ -67,7 +67,7 @@ namespace Generator.Assembler.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "AssemblerRegisters.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.BlockEncoderDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				writer.WriteLine(CSharpConstants.PragmaMissingDocsDisable);
@@ -102,7 +102,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 
@@ -115,7 +115,7 @@ namespace Generator.Assembler.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), "Assembler", "Assembler.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.BlockEncoderDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.BlockEncoderDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.IcedNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("public partial class Assembler {");
@@ -131,12 +131,12 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 
 		void GenerateDeclareDataCode(FileWriter writer) {
-			foreach (var (name, size, types, methodName) in _declareDataList) {
+			foreach (var (name, size, types, methodName) in declareDataList) {
 				int maxSize = 16;
 				int argCount = maxSize / size;
 
@@ -238,7 +238,7 @@ namespace Generator.Assembler.CSharp {
 		}
 
 		void GenerateDeclareDataTests(FileWriter writer) {
-			foreach (var (name, size, types, methodName) in _declareDataList) {
+			foreach (var (name, size, types, methodName) in declareDataList) {
 				int maxSize = 16;
 				int argCount = maxSize / size;
 
@@ -489,6 +489,53 @@ namespace Generator.Assembler.CSharp {
 			writer.WriteLine("}");
 		}
 
+		[Flags]
+		enum EncodingFlags {
+			None = 0,
+			Legacy = 1,
+			VEX = 2,
+			EVEX = 4,
+			XOP = 8,
+			D3NOW = 0x10,
+		}
+
+		EncodingFlags GetEncodingFlags(OpCodeInfoGroup group) {
+			var flags = EncodingFlags.None;
+			foreach (var def in group.Items.Select(a => defs[(int)a.Code.Value])) {
+				flags |= def.OpCodeInfo.Encoding switch {
+					EncodingKind.Legacy => EncodingFlags.Legacy,
+					EncodingKind.VEX => EncodingFlags.VEX,
+					EncodingKind.EVEX => EncodingFlags.EVEX,
+					EncodingKind.XOP => EncodingFlags.XOP,
+					EncodingKind.D3NOW => EncodingFlags.D3NOW,
+					_ => throw new InvalidOperationException(),
+				};
+			}
+			return flags;
+		}
+
+		string? GetDefine(OpCodeInfoGroup group) {
+			EncodingFlags flags;
+			if (group.ParentPseudoOpsKind is OpCodeInfoGroup parent)
+				flags = GetEncodingFlags(parent);
+			else
+				flags = GetEncodingFlags(group);
+			if (flags == EncodingFlags.None)
+				throw new InvalidOperationException();
+			if (flags == EncodingFlags.Legacy)
+				return null;
+			var defines = new List<string>();
+			if ((flags & EncodingFlags.VEX) != 0)
+				defines.Add(CSharpConstants.VexDefine);
+			if ((flags & EncodingFlags.EVEX) != 0)
+				defines.Add(CSharpConstants.EvexDefine);
+			if ((flags & EncodingFlags.XOP) != 0)
+				defines.Add(CSharpConstants.XopDefine);
+			if ((flags & EncodingFlags.D3NOW) != 0)
+				defines.Add(CSharpConstants.D3nowDefine);
+			return string.Join(" && ", defines.ToArray());
+		}
+
 		void RenderTests(int bitness, OpCodeFlags bitnessFlags, FileWriter writer, string methodName, OpCodeInfoGroup group, List<RenderArg> renderArgs) {
 			var fullMethodName = new StringBuilder();
 			fullMethodName.Append(methodName);
@@ -536,9 +583,10 @@ namespace Generator.Assembler.CSharp {
 			if (IgnoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr)) {
 				return;
 			}
-			else {
-				writer.WriteLine("[Fact]");
-			}
+			var define = GetDefine(group);
+			if (define is object)
+				writer.WriteLineNoIndent($"#if {define}");
+			writer.WriteLine("[Fact]");
 			writer.WriteLine($"public void {fullMethodNameStr}() {{");
 			using (writer.Indent()) {
 				var argValues = new List<object?>(renderArgs.Count);
@@ -555,6 +603,8 @@ namespace Generator.Assembler.CSharp {
 				}
 			}
 			writer.WriteLine("}");
+			if (define is object)
+				writer.WriteLineNoIndent("#endif");
 			writer.WriteLine(); ;
 		}
 

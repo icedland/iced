@@ -53,7 +53,7 @@ namespace Generator.InstructionInfo.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "InstrInfoTable.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static class InstrInfoTable {");
@@ -68,7 +68,7 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 
@@ -76,7 +76,7 @@ namespace Generator.InstructionInfo.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "RflagsInfoConstants.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static class RflagsInfoConstants {");
@@ -110,7 +110,7 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 
@@ -125,7 +125,7 @@ namespace Generator.InstructionInfo.CSharp {
 
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.InstructionInfoNamespace), "CpuidFeatureInternalData.g.cs")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.InstructionInfoDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.InstructionInfoDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.InstructionInfoNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static partial class CpuidFeatureInternalData {");
@@ -159,7 +159,7 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 

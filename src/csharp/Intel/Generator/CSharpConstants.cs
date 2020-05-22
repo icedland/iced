@@ -41,6 +41,14 @@ namespace Generator {
 
 		public const string HasSpanDefine = "HAS_SPAN";
 		public const string DecoderDefine = "DECODER";
+		public const string VexDefine = "!NO_VEX";
+		public const string XopDefine = "!NO_XOP";
+		public const string EvexDefine = "!NO_EVEX";
+		public const string D3nowDefine = "!NO_D3NOW";
+		public const string DecoderVexDefine = "DECODER && !NO_VEX";
+		public const string DecoderXopDefine = "DECODER && !NO_XOP";
+		public const string DecoderVexOrXopDefine = "DECODER && (!NO_VEX || !NO_XOP)";
+		public const string DecoderEvexDefine = "DECODER && !NO_EVEX";
 		public const string EncoderDefine = "ENCODER";
 		public const string BlockEncoderDefine = "ENCODER && BLOCK_ENCODER";
 		public const string OpCodeInfoDefine = "ENCODER && OPCODE_INFO";

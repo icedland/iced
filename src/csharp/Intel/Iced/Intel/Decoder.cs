@@ -66,15 +66,21 @@ namespace Iced.Intel {
 		readonly uint[] prefixes;
 		readonly RegInfo2[] memRegs16;
 		readonly OpCodeHandler[] handlers_XX;
+#if !NO_VEX
 		readonly OpCodeHandler[] handlers_VEX_0FXX;
 		readonly OpCodeHandler[] handlers_VEX_0F38XX;
 		readonly OpCodeHandler[] handlers_VEX_0F3AXX;
+#endif
+#if !NO_EVEX
 		readonly OpCodeHandler[] handlers_EVEX_0FXX;
 		readonly OpCodeHandler[] handlers_EVEX_0F38XX;
 		readonly OpCodeHandler[] handlers_EVEX_0F3AXX;
+#endif
+#if !NO_XOP
 		readonly OpCodeHandler[] handlers_XOP8;
 		readonly OpCodeHandler[] handlers_XOP9;
 		readonly OpCodeHandler[] handlers_XOPA;
+#endif
 		internal State state;
 		internal uint displIndex;
 		internal readonly DecoderOptions options;
@@ -135,7 +141,9 @@ namespace Iced.Intel {
 			// decoding much, but getting instruction info is a little faster.
 			_ = OpCodeHandler_Invalid.Instance;
 			_ = InstructionMemorySizes.Sizes;
+#if !NO_D3NOW
 			_ = OpCodeHandler_D3NOW.CodeValues;
+#endif
 			_ = InstructionOpCounts.OpCount;
 			_ = MnemonicUtilsData.toMnemonic;
 #if INSTR_INFO
@@ -185,15 +193,21 @@ namespace Iced.Intel {
 			}
 			is64Mode_and_W = is64Mode ? (uint)StateFlags.W : 0;
 			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
+#if !NO_VEX
 			handlers_VEX_0FXX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;
 			handlers_VEX_0F38XX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F38XX;
 			handlers_VEX_0F3AXX = OpCodeHandlersTables_VEX.ThreeByteHandlers_0F3AXX;
+#endif
+#if !NO_EVEX
 			handlers_EVEX_0FXX = OpCodeHandlersTables_EVEX.TwoByteHandlers_0FXX;
 			handlers_EVEX_0F38XX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F38XX;
 			handlers_EVEX_0F3AXX = OpCodeHandlersTables_EVEX.ThreeByteHandlers_0F3AXX;
+#endif
+#if !NO_XOP
 			handlers_XOP8 = OpCodeHandlersTables_XOP.XOP8;
 			handlers_XOP9 = OpCodeHandlersTables_XOP.XOP9;
 			handlers_XOPA = OpCodeHandlersTables_XOP.XOPA;
+#endif
 		}
 
 		/// <summary>
@@ -480,6 +494,9 @@ namespace Iced.Intel {
 		}
 
 		internal void VEX2(ref Instruction instruction) {
+#if NO_VEX
+			SetInvalidInstruction();
+#else
 			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
 				SetInvalidInstruction();
 			// Undo what Decode() did if it got a REX prefix
@@ -507,9 +524,13 @@ namespace Iced.Intel {
 			state.mandatoryPrefix = (MandatoryPrefixByte)(b & 3);
 
 			DecodeTable(handlers_VEX_0FXX, ref instruction);
+#endif
 		}
 
 		internal void VEX3(ref Instruction instruction) {
+#if NO_VEX
+			SetInvalidInstruction();
+#else
 			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
 				SetInvalidInstruction();
 			// Undo what Decode() did if it got a REX prefix
@@ -553,9 +574,13 @@ namespace Iced.Intel {
 				DecodeTable(handlers_VEX_0F3AXX, ref instruction);
 			else
 				SetInvalidInstruction();
+#endif
 		}
 
 		internal void XOP(ref Instruction instruction) {
+#if NO_XOP
+			SetInvalidInstruction();
+#else
 			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
 				SetInvalidInstruction();
 			// Undo what Decode() did if it got a REX prefix
@@ -599,9 +624,13 @@ namespace Iced.Intel {
 				DecodeTable(handlers_XOPA, ref instruction);
 			else
 				SetInvalidInstruction();
+#endif
 		}
 
 		internal void EVEX_MVEX(ref Instruction instruction) {
+#if NO_EVEX
+			SetInvalidInstruction();
+#else
 			if ((((uint)(state.flags & StateFlags.HasRex) | (uint)state.mandatoryPrefix) & invalidCheckMask) != 0)
 				SetInvalidInstruction();
 			// Undo what Decode() did if it got a REX prefix
@@ -692,6 +721,7 @@ namespace Iced.Intel {
 				//TODO: Support deprecated MVEX instructions: https://github.com/0xd4d/iced/issues/2
 				SetInvalidInstruction();
 			}
+#endif
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]

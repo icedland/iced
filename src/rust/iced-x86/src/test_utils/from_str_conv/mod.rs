@@ -239,6 +239,18 @@ pub(crate) fn to_code(value: &str) -> Result<Code, String> {
 
 pub(crate) fn is_ignored_code(value: &str) -> bool {
 	let value = value.trim();
+	if cfg!(feature = "no_vex") && value.starts_with("VEX_") {
+		return true;
+	}
+	if cfg!(feature = "no_evex") && value.starts_with("EVEX_") {
+		return true;
+	}
+	if cfg!(feature = "no_xop") && value.starts_with("XOP_") {
+		return true;
+	}
+	if cfg!(feature = "no_d3now") && value.starts_with("D3NOW_") {
+		return true;
+	}
 	IGNORED_CODE_HASH.contains(value)
 }
 

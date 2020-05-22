@@ -87,14 +87,20 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public OpCodeHandlerKind ReadOpCodeHandlerKind() => (OpCodeHandlerKind)reader.ReadByte();
+#if !NO_VEX || !NO_XOP
 		public VexOpCodeHandlerKind ReadVexOpCodeHandlerKind() => (VexOpCodeHandlerKind)reader.ReadByte();
+#endif
+#if !NO_EVEX
 		public EvexOpCodeHandlerKind ReadEvexOpCodeHandlerKind() => (EvexOpCodeHandlerKind)reader.ReadByte();
+#endif
 		public Code ReadCode() => (Code)reader.ReadCompressedUInt32();
 		public Register ReadRegister() => (Register)reader.ReadByte();
 		public DecoderOptions ReadDecoderOptions() => (DecoderOptions)reader.ReadCompressedUInt32();
 		public HandlerFlags ReadHandlerFlags() => (HandlerFlags)reader.ReadCompressedUInt32();
 		public LegacyHandlerFlags ReadLegacyHandlerFlags() => (LegacyHandlerFlags)reader.ReadCompressedUInt32();
+#if !NO_EVEX
 		public TupleType ReadTupleType() => (TupleType)reader.ReadByte();
+#endif
 		public bool ReadBoolean() => reader.ReadByte() != 0;
 		public int ReadInt32() => (int)reader.ReadCompressedUInt32();
 

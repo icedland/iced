@@ -683,8 +683,13 @@ fn get_sae_er_instruction(op_code: &OpCodeInfo) -> Option<Code> {
 }
 
 #[test]
+#[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 fn verify_only_full_ddd_and_half_ddd_support_bcst() {
+	let code_names = code_names();
 	for i in 0..IcedConstants::NUMBER_OF_CODE_VALUES {
+		if is_ignored_code(code_names[i]) {
+			continue;
+		}
 		let code: Code = unsafe { mem::transmute(i as u16) };
 		let op_code = code.op_code();
 		let expected_bcst = match op_code.tuple_type() {
@@ -1260,32 +1265,36 @@ fn verify_k_reg_rrxb_bits() {
 }
 
 #[test]
+#[allow(unused_mut)]
 fn verify_vsib_with_invalid_index_register_evex() {
 	let mut code_values: HashSet<Code> = HashSet::new();
-	let _ = code_values.insert(Code::EVEX_Vpgatherdd_xmm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vpgatherdd_ymm_k1_vm32y);
-	let _ = code_values.insert(Code::EVEX_Vpgatherdd_zmm_k1_vm32z);
-	let _ = code_values.insert(Code::EVEX_Vpgatherdq_xmm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vpgatherdq_ymm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vpgatherdq_zmm_k1_vm32y);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64x);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64y);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqd_ymm_k1_vm64z);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqq_xmm_k1_vm64x);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqq_ymm_k1_vm64y);
-	let _ = code_values.insert(Code::EVEX_Vpgatherqq_zmm_k1_vm64z);
-	let _ = code_values.insert(Code::EVEX_Vgatherdps_xmm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vgatherdps_ymm_k1_vm32y);
-	let _ = code_values.insert(Code::EVEX_Vgatherdps_zmm_k1_vm32z);
-	let _ = code_values.insert(Code::EVEX_Vgatherdpd_xmm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vgatherdpd_ymm_k1_vm32x);
-	let _ = code_values.insert(Code::EVEX_Vgatherdpd_zmm_k1_vm32y);
-	let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64x);
-	let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64y);
-	let _ = code_values.insert(Code::EVEX_Vgatherqps_ymm_k1_vm64z);
-	let _ = code_values.insert(Code::EVEX_Vgatherqpd_xmm_k1_vm64x);
-	let _ = code_values.insert(Code::EVEX_Vgatherqpd_ymm_k1_vm64y);
-	let _ = code_values.insert(Code::EVEX_Vgatherqpd_zmm_k1_vm64z);
+	#[cfg(not(feature = "no_evex"))]
+	{
+		let _ = code_values.insert(Code::EVEX_Vpgatherdd_xmm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vpgatherdd_ymm_k1_vm32y);
+		let _ = code_values.insert(Code::EVEX_Vpgatherdd_zmm_k1_vm32z);
+		let _ = code_values.insert(Code::EVEX_Vpgatherdq_xmm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vpgatherdq_ymm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vpgatherdq_zmm_k1_vm32y);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64x);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqd_xmm_k1_vm64y);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqd_ymm_k1_vm64z);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqq_xmm_k1_vm64x);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqq_ymm_k1_vm64y);
+		let _ = code_values.insert(Code::EVEX_Vpgatherqq_zmm_k1_vm64z);
+		let _ = code_values.insert(Code::EVEX_Vgatherdps_xmm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vgatherdps_ymm_k1_vm32y);
+		let _ = code_values.insert(Code::EVEX_Vgatherdps_zmm_k1_vm32z);
+		let _ = code_values.insert(Code::EVEX_Vgatherdpd_xmm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vgatherdpd_ymm_k1_vm32x);
+		let _ = code_values.insert(Code::EVEX_Vgatherdpd_zmm_k1_vm32y);
+		let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64x);
+		let _ = code_values.insert(Code::EVEX_Vgatherqps_xmm_k1_vm64y);
+		let _ = code_values.insert(Code::EVEX_Vgatherqps_ymm_k1_vm64z);
+		let _ = code_values.insert(Code::EVEX_Vgatherqpd_xmm_k1_vm64x);
+		let _ = code_values.insert(Code::EVEX_Vgatherqpd_ymm_k1_vm64y);
+		let _ = code_values.insert(Code::EVEX_Vgatherqpd_zmm_k1_vm64z);
+	}
 	for info in decoder_tests(false, false) {
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
@@ -1367,24 +1376,28 @@ fn can_have_invalid_index_register_evex(op_code: &OpCodeInfo) -> bool {
 }
 
 #[test]
+#[allow(unused_mut)]
 fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
 	let mut code_values: HashSet<Code> = HashSet::new();
-	let _ = code_values.insert(Code::VEX_Vpgatherdd_xmm_vm32x_xmm);
-	let _ = code_values.insert(Code::VEX_Vpgatherdd_ymm_vm32y_ymm);
-	let _ = code_values.insert(Code::VEX_Vpgatherdq_xmm_vm32x_xmm);
-	let _ = code_values.insert(Code::VEX_Vpgatherdq_ymm_vm32x_ymm);
-	let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64x_xmm);
-	let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64y_xmm);
-	let _ = code_values.insert(Code::VEX_Vpgatherqq_xmm_vm64x_xmm);
-	let _ = code_values.insert(Code::VEX_Vpgatherqq_ymm_vm64y_ymm);
-	let _ = code_values.insert(Code::VEX_Vgatherdps_xmm_vm32x_xmm);
-	let _ = code_values.insert(Code::VEX_Vgatherdps_ymm_vm32y_ymm);
-	let _ = code_values.insert(Code::VEX_Vgatherdpd_xmm_vm32x_xmm);
-	let _ = code_values.insert(Code::VEX_Vgatherdpd_ymm_vm32x_ymm);
-	let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64x_xmm);
-	let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64y_xmm);
-	let _ = code_values.insert(Code::VEX_Vgatherqpd_xmm_vm64x_xmm);
-	let _ = code_values.insert(Code::VEX_Vgatherqpd_ymm_vm64y_ymm);
+	#[cfg(not(feature = "no_vex"))]
+	{
+		let _ = code_values.insert(Code::VEX_Vpgatherdd_xmm_vm32x_xmm);
+		let _ = code_values.insert(Code::VEX_Vpgatherdd_ymm_vm32y_ymm);
+		let _ = code_values.insert(Code::VEX_Vpgatherdq_xmm_vm32x_xmm);
+		let _ = code_values.insert(Code::VEX_Vpgatherdq_ymm_vm32x_ymm);
+		let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64x_xmm);
+		let _ = code_values.insert(Code::VEX_Vpgatherqd_xmm_vm64y_xmm);
+		let _ = code_values.insert(Code::VEX_Vpgatherqq_xmm_vm64x_xmm);
+		let _ = code_values.insert(Code::VEX_Vpgatherqq_ymm_vm64y_ymm);
+		let _ = code_values.insert(Code::VEX_Vgatherdps_xmm_vm32x_xmm);
+		let _ = code_values.insert(Code::VEX_Vgatherdps_ymm_vm32y_ymm);
+		let _ = code_values.insert(Code::VEX_Vgatherdpd_xmm_vm32x_xmm);
+		let _ = code_values.insert(Code::VEX_Vgatherdpd_ymm_vm32x_ymm);
+		let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64x_xmm);
+		let _ = code_values.insert(Code::VEX_Vgatherqps_xmm_vm64y_xmm);
+		let _ = code_values.insert(Code::VEX_Vgatherqpd_xmm_vm64x_xmm);
+		let _ = code_values.insert(Code::VEX_Vgatherqpd_ymm_vm64y_ymm);
+	}
 	for info in decoder_tests(false, false) {
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
@@ -1643,7 +1656,11 @@ fn verify_that_test_cases_test_enough_bits() {
 		}
 	}
 
+	let code_names = code_names();
 	for info in decoder_tests(false, false) {
+		if is_ignored_code(code_names[info.code() as usize]) {
+			continue;
+		}
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
 		}
@@ -1973,7 +1990,6 @@ fn verify_that_test_cases_test_enough_bits() {
 	let mut pfx_no_bnd_32: Vec<Code> = Vec::new();
 	let mut pfx_no_bnd_64: Vec<Code> = Vec::new();
 
-	let code_names = code_names();
 	for &bitness in &[16u32, 32, 64] {
 		let tested_infos: &[TestedInfo] = match bitness {
 			16 => &tested_infos_16,

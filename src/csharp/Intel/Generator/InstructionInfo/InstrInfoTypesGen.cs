@@ -122,18 +122,23 @@ namespace Generator.InstructionInfo {
 			}
 		}
 
+		static void Add(Dictionary<EnumValue[], EnumValue> cpuidToInternalDict, List<(EnumValue cpuidInternal, EnumValue[] cpuidFeatures)> cpuidFeatures, EnumValue[] cpuid) {
+			if (!cpuidToInternalDict.ContainsKey(cpuid)) {
+				var name = string.Join("_and_", cpuid.Select(a => a.RawName));
+				var internalEnumValue = new EnumValue(0, name, null);
+				cpuidFeatures.Add((internalEnumValue, cpuid));
+				cpuidToInternalDict.Add(cpuid, internalEnumValue);
+			}
+		}
+
 		void GenerateCpuidFeatureInternal() {
 			var cpuidToInternalDict = new Dictionary<EnumValue[], EnumValue>(new EnumValueArrayComparer());
 			var cpuidFeatures = new List<(EnumValue cpuidInternal, EnumValue[] cpuidFeatures)>();
-			foreach (var def in defs) {
-				var info = def.InstrInfo;
-				if (!cpuidToInternalDict.ContainsKey(info.Cpuid)) {
-					var name = string.Join("_and_", info.Cpuid.Select(a => a.RawName));
-					var internalEnumValue = new EnumValue(0, name, null);
-					cpuidFeatures.Add((internalEnumValue, info.Cpuid));
-					cpuidToInternalDict.Add(info.Cpuid, internalEnumValue);
-				}
-			}
+			foreach (var def in defs)
+				Add(cpuidToInternalDict, cpuidFeatures, def.InstrInfo.Cpuid);
+			// Always include AVX2 since we have code that checks AVX2_Check and it references CpuidFeature.AVX2
+			Add(cpuidToInternalDict, cpuidFeatures, new[] { genTypes[TypeIds.CpuidFeature][nameof(CpuidFeature.AVX2)] });
+
 			cpuidFeatures.Sort(CompareCpuidInternalEnums);
 
 			EnumCpuidFeatureInternal = new EnumType(TypeIds.CpuidFeatureInternal, null, cpuidFeatures.Select(a => a.cpuidInternal).ToArray(), EnumTypeFlags.None);
@@ -281,6 +286,19 @@ namespace Generator.InstructionInfo {
 					opInfoHashes[i].Add(opInfo);
 				}
 			}
+
+			// Referenced by code in InstructionInfoFactory
+			opInfoHashes[0].Add(OpInfo.None);
+			opInfoHashes[0].Add(OpInfo.Read);
+			opInfoHashes[0].Add(OpInfo.Write);
+			opInfoHashes[0].Add(OpInfo.WriteForce);
+			opInfoHashes[0].Add(OpInfo.CondWrite);
+			opInfoHashes[0].Add(OpInfo.CondWrite32_ReadWrite64);
+			opInfoHashes[0].Add(OpInfo.ReadWrite);
+			opInfoHashes[0].Add(OpInfo.ReadCondWrite);
+			opInfoHashes[0].Add(OpInfo.NoMemAccess);
+			opInfoHashes[0].Add(OpInfo.WriteMem_ReadWriteReg);
+			opInfoHashes[1].Add(OpInfo.ReadP3);
 
 			// InstructionInfoFactory assumes these have exactly two values: None, Read.
 			// It can be less than that if some instructions were filtered out.

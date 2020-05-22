@@ -33,6 +33,10 @@ namespace Generator {
 		NoIntelFormatter	= 0x0000_0004,
 		NoMasmFormatter		= 0x0000_0008,
 		NoNasmFormatter		= 0x0000_0010,
+		NoVEX				= 0x0000_0020,
+		NoEVEX				= 0x0000_0040,
+		NoXOP				= 0x0000_0080,
+		No3DNow				= 0x0000_0100,
 	}
 
 	sealed class GeneratorOptions {
@@ -40,12 +44,20 @@ namespace Generator {
 		public bool HasIntelFormatter { get; }
 		public bool HasMasmFormatter { get; }
 		public bool HasNasmFormatter { get; }
+		public bool IncludeVEX { get; }
+		public bool IncludeEVEX { get; }
+		public bool IncludeXOP { get; }
+		public bool Include3DNow { get; }
 
 		public GeneratorOptions(GeneratorFlags flags) {
 			HasGasFormatter = (flags & GeneratorFlags.NoGasFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasIntelFormatter = (flags & GeneratorFlags.NoIntelFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasNasmFormatter = (flags & GeneratorFlags.NoNasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
+			IncludeVEX = (flags & GeneratorFlags.NoVEX) == 0;
+			IncludeEVEX = (flags & GeneratorFlags.NoEVEX) == 0;
+			IncludeXOP = (flags & GeneratorFlags.NoXOP) == 0;
+			Include3DNow = (flags & GeneratorFlags.No3DNow) == 0;
 		}
 	}
 

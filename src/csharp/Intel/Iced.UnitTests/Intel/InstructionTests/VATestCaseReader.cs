@@ -37,14 +37,15 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 				if (line.Length == 0 || line.StartsWith("#"))
 					continue;
 
-				VirtualAddressTestCase tc;
+				VirtualAddressTestCase? tc;
 				try {
 					tc = ParseLine(line);
 				}
 				catch (Exception ex) {
 					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-				yield return tc;
+				if (tc.HasValue)
+					yield return tc.GetValueOrDefault();
 			}
 
 		}
@@ -53,19 +54,21 @@ namespace Iced.UnitTests.Intel.InstructionTests {
 		static readonly char[] spaceSeparator = new char[] { ' ' };
 		static readonly char[] equalSeparator = new char[] { '=' };
 		static readonly char[] semicolonSeparator = new char[] { ';' };
-		static VirtualAddressTestCase ParseLine(string line) {
+		static VirtualAddressTestCase? ParseLine(string line) {
 			var elems = line.Split(commaSeparator);
-			if (elems.Length != 6)
+			if (elems.Length != 7)
 				throw new Exception($"Invalid number of commas: {elems.Length - 1}");
 
 			var bitness = NumberConverter.ToInt32(elems[0].Trim());
-			var hexBytes = elems[1].Trim();
-			var operand = NumberConverter.ToInt32(elems[2].Trim());
-			var elementIndex = NumberConverter.ToInt32(elems[3].Trim());
-			var expectedValue = NumberConverter.ToUInt64(elems[4].Trim());
+			if (CodeUtils.IsIgnored(elems[1].Trim()))
+				return null;
+			var hexBytes = elems[2].Trim();
+			var operand = NumberConverter.ToInt32(elems[3].Trim());
+			var elementIndex = NumberConverter.ToInt32(elems[4].Trim());
+			var expectedValue = NumberConverter.ToUInt64(elems[5].Trim());
 
 			var registerValues = new List<(Register register, int elementIndex, int elementSize, ulong value)>();
-			foreach (var tmp in elems[5].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
+			foreach (var tmp in elems[6].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 				var kv = tmp.Split(equalSeparator);
 				if (kv.Length != 2)
 					throw new Exception($"Expected key=value: {tmp}");

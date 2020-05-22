@@ -32,6 +32,7 @@ namespace Iced.Intel.EncoderInternal {
 			var info = GetData();
 			var handlers = new OpCodeHandler[IcedConstants.NumberOfCodeValues];
 			int j = 0;
+			var invalidHandler = new InvalidHandler();
 			for (int i = 0; i < info.Length; i += 3, j++) {
 				uint dword1 = info[i];
 				OpCodeHandler handler;
@@ -39,7 +40,7 @@ namespace Iced.Intel.EncoderInternal {
 				case EncodingKind.Legacy:
 					var code = (Code)j;
 					if (code == Code.INVALID)
-						handler = new InvalidHandler();
+						handler = invalidHandler;
 					else if (code <= Code.DeclareQword)
 						handler = new DeclareDataHandler(code);
 					else
@@ -47,19 +48,35 @@ namespace Iced.Intel.EncoderInternal {
 					break;
 
 				case EncodingKind.VEX:
+#if !NO_VEX
 					handler = new VexHandler(dword1, info[i + 1], info[i + 2]);
+#else
+					handler = invalidHandler;
+#endif
 					break;
 
 				case EncodingKind.EVEX:
+#if !NO_EVEX
 					handler = new EvexHandler(dword1, info[i + 1], info[i + 2]);
+#else
+					handler = invalidHandler;
+#endif
 					break;
 
 				case EncodingKind.XOP:
+#if !NO_XOP
 					handler = new XopHandler(dword1, info[i + 1], info[i + 2]);
+#else
+					handler = invalidHandler;
+#endif
 					break;
 
 				case EncodingKind.D3NOW:
+#if !NO_D3NOW
 					handler = new D3nowHandler(dword1, info[i + 1], info[i + 2]);
+#else
+					handler = invalidHandler;
+#endif
 					break;
 
 				default:

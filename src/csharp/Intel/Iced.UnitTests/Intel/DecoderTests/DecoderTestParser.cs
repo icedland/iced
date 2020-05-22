@@ -53,6 +53,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string Op3Kind = "op3";
 		internal const string Op4Kind = "op4";
 		internal const string EncodedHexBytes = "enc";
+		internal const string Code = "code";
 		internal const string DecoderOptions_AmdBranches = "amdbr";
 		internal const string DecoderOptions_ForceReservedNop = "resnop";
 		internal const string DecoderOptions_Umov = "umov";
@@ -154,6 +155,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			tc.Mnemonic = ToMnemonic(parts[2].Trim());
 			tc.OpCount = NumberConverter.ToInt32(parts[3].Trim());
 
+			bool foundCode = false;
 			foreach (var tmp in parts[4].Split(extraSeps)) {
 				if (tmp == string.Empty)
 					continue;
@@ -266,6 +268,14 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					if (string.IsNullOrWhiteSpace(value))
 						throw new InvalidOperationException($"Invalid encoded hex bytes: '{value}'");
 					tc.EncodedHexBytes = ToHexBytes(value);
+					break;
+
+				case DecoderTestParserConstants.Code:
+					if (string.IsNullOrWhiteSpace(value))
+						throw new InvalidOperationException($"Invalid Code value: '{value}'");
+					if (CodeUtils.IsIgnored(value))
+						return null;
+					foundCode = true;
 					break;
 
 				case DecoderTestParserConstants.DecoderOptions_AmdBranches:
@@ -405,6 +415,9 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					throw new InvalidOperationException($"Invalid key '{key}'");
 				}
 			}
+
+			if (tc.Code == Code.INVALID && !foundCode)
+				throw new InvalidOperationException($"Test case decodes to {nameof(Code.INVALID)} but there's no {DecoderTestParserConstants.Code}=xxx showing the original {nameof(Code)} value so it can be filtered out if needed");
 
 			return tc;
 		}

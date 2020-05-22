@@ -97,6 +97,8 @@ namespace Iced.Intel {
 			byte[] opKinds;
 #endif
 			encoding = (byte)((dword1 >> (int)EncFlags1.EncodingShift) & (uint)EncFlags1.EncodingMask);
+			string? toOpCodeStringValue = null;
+			string? toInstructionStringValue = null;
 			switch ((EncodingKind)encoding) {
 			case EncodingKind.Legacy:
 				opKinds = OpCodeOperandKinds.LegacyOpKinds;
@@ -174,6 +176,7 @@ namespace Iced.Intel {
 				break;
 
 			case EncodingKind.VEX:
+#if !NO_VEX
 				opKinds = OpCodeOperandKinds.VexOpKinds;
 				op0Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op0Shift) & (uint)VexFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)VexFlags3.Op1Shift) & (uint)VexFlags3.OpMask)];
@@ -249,8 +252,15 @@ namespace Iced.Intel {
 					break;
 				}
 				break;
+#else
+				op4Kind = (byte)OpCodeOperandKind.None;
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
+				break;
+#endif
 
 			case EncodingKind.EVEX:
+#if !NO_EVEX
 				opKinds = OpCodeOperandKinds.EvexOpKinds;
 				op0Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op0Shift) & (uint)EvexFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)EvexFlags3.Op1Shift) & (uint)EvexFlags3.OpMask)];
@@ -383,8 +393,14 @@ namespace Iced.Intel {
 					break;
 				}
 				break;
+#else
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
+				break;
+#endif
 
 			case EncodingKind.XOP:
+#if !NO_XOP
 				opKinds = OpCodeOperandKinds.XopOpKinds;
 				op0Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op0Shift) & (uint)XopFlags3.OpMask)];
 				op1Kind = opKinds[(int)((dword3 >> (int)XopFlags3.Op1Shift) & (uint)XopFlags3.OpMask)];
@@ -450,8 +466,14 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				}
 				break;
+#else
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
+				break;
+#endif
 
 			case EncodingKind.D3NOW:
+#if !NO_D3NOW
 				op0Kind = (byte)OpCodeOperandKind.mm_reg;
 				op1Kind = (byte)OpCodeOperandKind.mm_or_mem;
 				mandatoryPrefix = (byte)MandatoryPrefix.None;
@@ -470,13 +492,18 @@ namespace Iced.Intel {
 				l = 0;
 				lkind = LKind.None;
 				break;
+#else
+				toOpCodeStringValue = string.Empty;
+				toInstructionStringValue = string.Empty;
+				break;
+#endif
 
 			default:
 				throw new InvalidOperationException();
 			}
 
-			toOpCodeStringValue = new OpCodeFormatter(this, sb, lkind).Format();
-			toInstructionStringValue = new InstructionFormatter(this, sb).Format();
+			this.toOpCodeStringValue = toOpCodeStringValue ?? new OpCodeFormatter(this, sb, lkind).Format();
+			this.toInstructionStringValue = toInstructionStringValue ?? new InstructionFormatter(this, sb).Format();
 		}
 
 		/// <summary>

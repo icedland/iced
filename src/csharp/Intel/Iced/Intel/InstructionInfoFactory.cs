@@ -1153,6 +1153,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Vzeroall:
+#if !NO_VEX
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					OpAccess access;
 					if (instruction.Code == Code.VEX_Vzeroupper)
@@ -1169,6 +1170,7 @@ namespace Iced.Intel {
 					for (int i = 0; i < maxVecRegs; i++)
 						AddRegister(flags, IcedConstants.VMM_first + i, access);
 				}
+#endif
 				break;
 
 			case CodeInfo.Jrcxz:
@@ -1308,6 +1310,7 @@ namespace Iced.Intel {
 				break;
 
 			case CodeInfo.Mulx:
+#if !NO_VEX
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					if (instruction.Code == Code.VEX_Mulx_r32_r32_rm32)
 						AddRegister(flags, Register.EDX, OpAccess.Read);
@@ -1316,33 +1319,62 @@ namespace Iced.Intel {
 						AddRegister(flags, Register.RDX, OpAccess.Read);
 					}
 				}
+#endif
 				break;
 
 			case CodeInfo.PcmpXstrY:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					code = instruction.Code;
-					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 ||
-						code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8) {
+					if (IsCmpStr32(code)) {
 						AddRegister(flags, Register.EAX, OpAccess.Read);
 						AddRegister(flags, Register.EDX, OpAccess.Read);
 					}
-					else if (code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 ||
-						code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8) {
+					else if (IsCmpStr64(code)) {
 						AddRegister(flags, Register.RAX, OpAccess.Read);
 						AddRegister(flags, Register.RDX, OpAccess.Read);
 					}
 
-					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 ||
-						code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 ||
-						code == Code.Pcmpistrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8) {
+					if (IsCmpStrXmm0(code))
 						AddRegister(flags, Register.XMM0, OpAccess.Write);
-					}
-					else {
-						Debug.Assert(code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8 ||
-									code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8 ||
-									code == Code.Pcmpistri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistri_xmm_xmmm128_imm8);
+					else
 						AddRegister(flags, Register.ECX, OpAccess.Write);
-					}
+				}
+
+				static bool IsCmpStr32(Code code) {
+					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.Pcmpestri_xmm_xmmm128_imm8)
+						return true;
+#if !NO_VEX
+					if (code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8)
+						return true;
+#endif
+					return false;
+				}
+
+				static bool IsCmpStr64(Code code) {
+					if (code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.Pcmpestri64_xmm_xmmm128_imm8)
+						return true;
+#if !NO_VEX
+					if (code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8)
+						return true;
+#endif
+					return false;
+				}
+
+				static bool IsCmpStrXmm0(Code code) {
+					if (code == Code.Pcmpestrm_xmm_xmmm128_imm8 || code == Code.Pcmpestrm64_xmm_xmmm128_imm8 || code == Code.Pcmpistrm_xmm_xmmm128_imm8)
+						return true;
+#if !NO_VEX
+					if (code == Code.VEX_Vpcmpestrm_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestrm64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistrm_xmm_xmmm128_imm8)
+						return true;
+#endif
+#if !NO_VEX
+					Debug.Assert(code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri_xmm_xmmm128_imm8 ||
+								code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpestri64_xmm_xmmm128_imm8 ||
+								code == Code.Pcmpistri_xmm_xmmm128_imm8 || code == Code.VEX_Vpcmpistri_xmm_xmmm128_imm8);
+#else
+					Debug.Assert(code == Code.Pcmpestri_xmm_xmmm128_imm8 || code == Code.Pcmpestri64_xmm_xmmm128_imm8 || code == Code.Pcmpistri_xmm_xmmm128_imm8);
+#endif
+					return false;
 				}
 				break;
 

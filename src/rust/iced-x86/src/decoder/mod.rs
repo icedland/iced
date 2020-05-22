@@ -24,10 +24,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 mod enums;
 mod handlers;
 mod handlers_3dnow;
+#[cfg(not(feature = "no_evex"))]
 mod handlers_evex;
 mod handlers_fpu;
 mod handlers_legacy;
 mod handlers_tables;
+#[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 mod handlers_vex;
 mod table_de;
 #[cfg(test)]
@@ -259,15 +261,42 @@ pub struct Decoder<'a> {
 	instr_start_data_ptr: *const u8,
 	// These are verified to have exactly 0x100 elements, and they're static, so we don't need fat pointers.
 	handlers_xx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_vex"))]
 	handlers_vex_0fxx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_vex"))]
 	handlers_vex_0f38xx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_vex"))]
 	handlers_vex_0f3axx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_evex"))]
 	handlers_evex_0fxx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_evex"))]
 	handlers_evex_0f38xx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_evex"))]
 	handlers_evex_0f3axx: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_xop"))]
 	handlers_xop8: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_xop"))]
 	handlers_xop9: *const &'static OpCodeHandler,
+	#[cfg(not(feature = "no_xop"))]
 	handlers_xopa: *const &'static OpCodeHandler,
+	#[cfg(feature = "no_vex")]
+	handlers_vex_0fxx: (),
+	#[cfg(feature = "no_vex")]
+	handlers_vex_0f38xx: (),
+	#[cfg(feature = "no_vex")]
+	handlers_vex_0f3axx: (),
+	#[cfg(feature = "no_evex")]
+	handlers_evex_0fxx: (),
+	#[cfg(feature = "no_evex")]
+	handlers_evex_0f38xx: (),
+	#[cfg(feature = "no_evex")]
+	handlers_evex_0f3axx: (),
+	#[cfg(feature = "no_xop")]
+	handlers_xop8: (),
+	#[cfg(feature = "no_xop")]
+	handlers_xop9: (),
+	#[cfg(feature = "no_xop")]
+	handlers_xopa: (),
 	state: State,
 	// DecoderOptions
 	options: u32,
@@ -350,6 +379,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[cfg_attr(has_must_use, must_use)]
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
+	#[cfg_attr(feature = "cargo-clippy", allow(clippy::let_unit_value))]
 	#[allow(trivial_casts)]
 	pub fn new(bitness: u32, data: &'a [u8], options: u32) -> Decoder<'a> {
 		let prefixes;
@@ -399,7 +429,47 @@ impl<'a> Decoder<'a> {
 		assert!(unsafe {
 			data.as_ptr().offset((data.len() as isize).checked_add(IcedConstants::MAX_INSTRUCTION_LENGTH as isize + 4).unwrap()) >= data.as_ptr()
 		});
+
 		let tables = &*TABLES;
+
+		#[cfg(not(feature = "no_vex"))]
+		let handlers_vex_0fxx = get_handlers(&tables.handlers_vex_0fxx);
+		#[cfg(not(feature = "no_vex"))]
+		let handlers_vex_0f38xx = get_handlers(&tables.handlers_vex_0f38xx);
+		#[cfg(not(feature = "no_vex"))]
+		let handlers_vex_0f3axx = get_handlers(&tables.handlers_vex_0f3axx);
+		#[cfg(not(feature = "no_evex"))]
+		let handlers_evex_0fxx = get_handlers(&tables.handlers_evex_0fxx);
+		#[cfg(not(feature = "no_evex"))]
+		let handlers_evex_0f38xx = get_handlers(&tables.handlers_evex_0f38xx);
+		#[cfg(not(feature = "no_evex"))]
+		let handlers_evex_0f3axx = get_handlers(&tables.handlers_evex_0f3axx);
+		#[cfg(not(feature = "no_xop"))]
+		let handlers_xop8 = get_handlers(&tables.handlers_xop8);
+		#[cfg(not(feature = "no_xop"))]
+		let handlers_xop9 = get_handlers(&tables.handlers_xop9);
+		#[cfg(not(feature = "no_xop"))]
+		let handlers_xopa = get_handlers(&tables.handlers_xopa);
+
+		#[cfg(feature = "no_vex")]
+		let handlers_vex_0fxx = ();
+		#[cfg(feature = "no_vex")]
+		let handlers_vex_0f38xx = ();
+		#[cfg(feature = "no_vex")]
+		let handlers_vex_0f3axx = ();
+		#[cfg(feature = "no_evex")]
+		let handlers_evex_0fxx = ();
+		#[cfg(feature = "no_evex")]
+		let handlers_evex_0f38xx = ();
+		#[cfg(feature = "no_evex")]
+		let handlers_evex_0f3axx = ();
+		#[cfg(feature = "no_xop")]
+		let handlers_xop8 = ();
+		#[cfg(feature = "no_xop")]
+		let handlers_xop9 = ();
+		#[cfg(feature = "no_xop")]
+		let handlers_xopa = ();
+
 		Decoder {
 			ip: 0,
 			displ_index: 0,
@@ -410,15 +480,15 @@ impl<'a> Decoder<'a> {
 			max_data_ptr: data.as_ptr(),
 			instr_start_data_ptr: data.as_ptr(),
 			handlers_xx: get_handlers(&tables.handlers_xx),
-			handlers_vex_0fxx: get_handlers(&tables.handlers_vex_0fxx),
-			handlers_vex_0f38xx: get_handlers(&tables.handlers_vex_0f38xx),
-			handlers_vex_0f3axx: get_handlers(&tables.handlers_vex_0f3axx),
-			handlers_evex_0fxx: get_handlers(&tables.handlers_evex_0fxx),
-			handlers_evex_0f38xx: get_handlers(&tables.handlers_evex_0f38xx),
-			handlers_evex_0f3axx: get_handlers(&tables.handlers_evex_0f3axx),
-			handlers_xop8: get_handlers(&tables.handlers_xop8),
-			handlers_xop9: get_handlers(&tables.handlers_xop9),
-			handlers_xopa: get_handlers(&tables.handlers_xopa),
+			handlers_vex_0fxx,
+			handlers_vex_0f38xx,
+			handlers_vex_0f3axx,
+			handlers_evex_0fxx,
+			handlers_evex_0f38xx,
+			handlers_evex_0f3axx,
+			handlers_xop8,
+			handlers_xop9,
+			handlers_xopa,
 			state: State::default(),
 			options,
 			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { u32::MAX } else { 0 },
@@ -1064,6 +1134,12 @@ impl<'a> Decoder<'a> {
 		self.state.rm = m & 7;
 	}
 
+	#[cfg(feature = "no_vex")]
+	pub(self) fn vex2(&mut self, _instruction: &mut Instruction) {
+		self.set_invalid_instruction();
+	}
+
+	#[cfg(not(feature = "no_vex"))]
 	pub(self) fn vex2(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
@@ -1099,6 +1175,12 @@ impl<'a> Decoder<'a> {
 		self.decode_table(tmp_handlers, instruction);
 	}
 
+	#[cfg(feature = "no_vex")]
+	pub(self) fn vex3(&mut self, _instruction: &mut Instruction) {
+		self.set_invalid_instruction();
+	}
+
+	#[cfg(not(feature = "no_vex"))]
 	pub(self) fn vex3(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
@@ -1148,6 +1230,12 @@ impl<'a> Decoder<'a> {
 		self.decode_table(table, instruction);
 	}
 
+	#[cfg(feature = "no_xop")]
+	pub(self) fn xop(&mut self, _instruction: &mut Instruction) {
+		self.set_invalid_instruction();
+	}
+
+	#[cfg(not(feature = "no_xop"))]
 	pub(self) fn xop(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
@@ -1197,6 +1285,12 @@ impl<'a> Decoder<'a> {
 		self.decode_table(table, instruction);
 	}
 
+	#[cfg(feature = "no_evex")]
+	pub(self) fn evex_mvex(&mut self, _instruction: &mut Instruction) {
+		self.set_invalid_instruction();
+	}
+
+	#[cfg(not(feature = "no_evex"))]
 	pub(self) fn evex_mvex(&mut self, instruction: &mut Instruction) {
 		if (((self.state.flags & StateFlags::HAS_REX) | self.state.mandatory_prefix) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
@@ -1333,6 +1427,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
+	#[cfg(not(feature = "no_evex"))]
 	pub(self) fn read_op_mem_tuple_type(&mut self, instruction: &mut Instruction, tuple_type: TupleType) {
 		debug_assert_eq!(EncodingKind::EVEX, self.state.encoding());
 		if self.state.address_size == OpSize::Size64 {
@@ -1345,6 +1440,7 @@ impl<'a> Decoder<'a> {
 	}
 
 	#[inline(always)]
+	#[cfg(any(not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop")))]
 	pub(self) fn read_op_mem_vsib(&mut self, instruction: &mut Instruction, vsib_index: Register, tuple_type: TupleType) {
 		let is_valid;
 		if self.state.address_size == OpSize::Size64 {

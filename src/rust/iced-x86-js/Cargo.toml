@@ -31,6 +31,10 @@ intel = ["base", "iced-x86-rust/intel"]
 masm = ["base", "iced-x86-rust/masm"]
 nasm = ["base", "iced-x86-rust/nasm"]
 bigint = ["base"]
+no_vex = ["iced-x86-rust/no_vex"]
+no_evex = ["iced-x86-rust/no_evex"]
+no_xop = ["iced-x86-rust/no_xop"]
+no_d3now = ["iced-x86-rust/no_d3now"]
 
 [dependencies]
 static_assertions = "1.1.0"

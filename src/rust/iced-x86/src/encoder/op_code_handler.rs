@@ -237,6 +237,7 @@ impl LegacyHandler {
 	}
 }
 
+#[cfg(not(feature = "no_vex"))]
 #[repr(C)]
 pub(super) struct VexHandler {
 	base: OpCodeHandler,
@@ -247,6 +248,7 @@ pub(super) struct VexHandler {
 	w1: u32,
 }
 
+#[cfg(not(feature = "no_vex"))]
 impl VexHandler {
 	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & VexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> VexFlags::GROUP_SHIFT) & 7) as i32 };
@@ -375,6 +377,7 @@ impl VexHandler {
 	}
 }
 
+#[cfg(not(feature = "no_xop"))]
 #[repr(C)]
 pub(super) struct XopHandler {
 	base: OpCodeHandler,
@@ -382,6 +385,7 @@ pub(super) struct XopHandler {
 	last_byte: u32,
 }
 
+#[cfg(not(feature = "no_xop"))]
 impl XopHandler {
 	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		const_assert_eq!(0, XopOpCodeTable::XOP8 as u32);
@@ -471,6 +475,7 @@ impl XopHandler {
 	}
 }
 
+#[cfg(not(feature = "no_evex"))]
 #[repr(C)]
 pub(super) struct EvexHandler {
 	base: OpCodeHandler,
@@ -484,6 +489,7 @@ pub(super) struct EvexHandler {
 	wbit: WBit,
 }
 
+#[cfg(not(feature = "no_evex"))]
 impl EvexHandler {
 	pub(super) fn new(dword1: u32, dword2: u32, dword3: u32) -> Self {
 		let group_index = if (dword2 & EvexFlags::HAS_GROUP_INDEX) == 0 { -1 } else { ((dword2 >> EvexFlags::GROUP_SHIFT) & 7) as i32 };
@@ -749,12 +755,14 @@ impl EvexHandler {
 	}
 }
 
+#[cfg(not(feature = "no_d3now"))]
 #[repr(C)]
 pub(super) struct D3nowHandler {
 	base: OpCodeHandler,
 	immediate: u32,
 }
 
+#[cfg(not(feature = "no_d3now"))]
 impl D3nowHandler {
 	pub(super) fn new(dword1: u32, dword2: u32, _dword3: u32) -> Self {
 		let mut operands = Vec::with_capacity(2);

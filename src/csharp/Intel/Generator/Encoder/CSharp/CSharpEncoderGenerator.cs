@@ -54,25 +54,27 @@ namespace Generator.Encoder.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeOperandKinds.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.OpCodeInfoDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.OpCodeInfoDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static class OpCodeOperandKinds {");
 					using (writer.Indent()) {
-						Generate(writer, "LegacyOpKinds", legacy);
-						Generate(writer, "VexOpKinds", vex);
-						Generate(writer, "XopOpKinds", xop);
-						Generate(writer, "EvexOpKinds", evex);
+						Generate(writer, "LegacyOpKinds", null, legacy);
+						Generate(writer, "VexOpKinds", CSharpConstants.VexDefine, vex);
+						Generate(writer, "XopOpKinds", CSharpConstants.XopDefine, xop);
+						Generate(writer, "EvexOpKinds", CSharpConstants.EvexDefine, evex);
 					}
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 
-			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+			void Generate(FileWriter writer, string name, string? define, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
+				if (define is object)
+					writer.WriteLineNoIndent($"#if {define}");
 				writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
 				writer.WriteLine($"public static System.ReadOnlySpan<byte> {name} => new byte[{table.Length}] {{");
 				writer.WriteLineNoIndent("#else");
@@ -83,6 +85,8 @@ namespace Generator.Encoder.CSharp {
 						writer.WriteLine($"(byte){declTypeStr}.{info.opCodeOperandKind.Name(idConverter)},// {info.opKind.Name(idConverter)}");
 				}
 				writer.WriteLine("};");
+				if (define is object)
+					writer.WriteLineNoIndent("#endif");
 			}
 		}
 
@@ -90,27 +94,29 @@ namespace Generator.Encoder.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpTables.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.EncoderDefine}");
 
 				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static class OpHandlerData {");
 					using (writer.Indent()) {
-						Generate(writer, "LegacyOps", legacy);
-						Generate(writer, "VexOps", vex);
-						Generate(writer, "XopOps", xop);
-						Generate(writer, "EvexOps", evex);
+						Generate(writer, "LegacyOps", null, legacy);
+						Generate(writer, "VexOps", CSharpConstants.VexDefine, vex);
+						Generate(writer, "XopOps", CSharpConstants.XopDefine, xop);
+						Generate(writer, "EvexOps", CSharpConstants.EvexDefine, evex);
 					}
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 
-			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
+			void Generate(FileWriter writer, string name, string? define, (EnumValue opCodeOperandKind, EnumValue opKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				if (table[0].opHandlerKind != OpHandlerKind.None)
 					throw new InvalidOperationException();
+				if (define is object)
+					writer.WriteLineNoIndent($"#if {define}");
 				writer.WriteLine($"public static readonly Op[] {name} = new Op[{table.Length - 1}] {{");
 				using (writer.Indent()) {
 					for (int i = 1; i < table.Length; i++) {
@@ -137,6 +143,8 @@ namespace Generator.Encoder.CSharp {
 					}
 				}
 				writer.WriteLine("};");
+				if (define is object)
+					writer.WriteLineNoIndent("#endif");
 			}
 		}
 
@@ -149,7 +157,7 @@ namespace Generator.Encoder.CSharp {
 			var filename = Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.EncoderNamespace), "OpCodeHandlers.Data.g.cs");
 			using (var writer = new FileWriter(TargetLanguage.CSharp, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"#if {CSharpConstants.EncoderDefine}");
+				writer.WriteLineNoIndent($"#if {CSharpConstants.EncoderDefine}");
 				writer.WriteLine($"namespace {CSharpConstants.EncoderNamespace} {{");
 				using (writer.Indent()) {
 					writer.WriteLine("static partial class OpCodeHandlers {");
@@ -167,7 +175,7 @@ namespace Generator.Encoder.CSharp {
 					writer.WriteLine("}");
 				}
 				writer.WriteLine("}");
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 			}
 		}
 

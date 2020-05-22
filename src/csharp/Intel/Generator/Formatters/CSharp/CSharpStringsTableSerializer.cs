@@ -49,7 +49,7 @@ namespace Generator.Formatters.CSharp {
 
 			writer.WriteFileHeader();
 			if (!(preprocessorExpr is null))
-				writer.WriteLine($"#if {preprocessorExpr}");
+				writer.WriteLineNoIndent($"#if {preprocessorExpr}");
 			writer.WriteLine($"namespace {@namespace} {{");
 			using (writer.Indent()) {
 				writer.WriteLine($"static partial class {className} {{");
@@ -72,7 +72,7 @@ namespace Generator.Formatters.CSharp {
 			}
 			writer.WriteLine("}");
 			if (!(preprocessorExpr is null))
-				writer.WriteLine("#endif");
+				writer.WriteLineNoIndent("#endif");
 		}
 	}
 }

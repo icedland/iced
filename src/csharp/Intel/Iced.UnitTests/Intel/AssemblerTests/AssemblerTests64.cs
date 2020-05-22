@@ -84,6 +84,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			Assert.Empty(result.Result);
 		}
 
+#if !NO_EVEX
 		[Fact]
 		void Test_opmask_registers() {
 			TestAssembler(c => c.vmovups(zmm0.k1, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K1), LocalOpCodeFlags.PreferEvex);
@@ -94,6 +95,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			TestAssembler(c => c.vmovups(zmm0.k6, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K6), LocalOpCodeFlags.PreferEvex);
 			TestAssembler(c => c.vmovups(zmm0.k7, zmm1), ApplyK(Instruction.Create(Code.EVEX_Vmovups_zmm_k1z_zmmm512, zmm0, zmm1), Register.K7), LocalOpCodeFlags.PreferEvex);
 		}
+#endif
 
 		[Fact]
 		public void TestManualInvalid() {
@@ -221,6 +223,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 		}
 
+#if !NO_EVEX
 		[Fact]
 		public void TestOperandModifiers() {
 			{
@@ -305,6 +308,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				TestAssembler(c => c.vaddpd(zmm1.k3.z, zmm2, zmm3.rz_sae), inst);
 			}
 		}
+#endif
 	}
 }
 #endif

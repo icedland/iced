@@ -33,7 +33,12 @@ jobs:
               "GAS",
               "INTEL",
               "MASM",
-              "NASM"
+              "NASM",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_EVEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_XOP",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_D3NOW",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -50,7 +55,12 @@ jobs:
               "DECODER;GAS",
               "DECODER;INTEL",
               "DECODER;MASM",
-              "DECODER;NASM"
+              "DECODER;NASM",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_EVEX",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_XOP",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_D3NOW",
+              "DECODER;ENCODER;BLOCK_ENCODER;OPCODE_INFO;INSTR_INFO;GAS;INTEL;MASM;NASM;NO_VEX;NO_EVEX;NO_XOP;NO_D3NOW"
               ) {
             git clean -xdf
             if ($LASTEXITCODE) { exit $LASTEXITCODE }
@@ -194,6 +204,18 @@ jobs:
           done
           
           allFeatures=(
+              "no_vex"
+              "no_evex"
+              "no_xop"
+              "no_d3now"
+              "no_vex no_evex no_xop no_d3now"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== $features ====
+              cargo check --color always --features "$features"
+          done
+          
+          allFeatures=(
               "no_std decoder"
               "no_std encoder"
               "no_std encoder block_encoder"
@@ -223,6 +245,18 @@ jobs:
           for features in "${allFeatures[@]}"; do
               echo ==== TEST $features ====
               cargo check --color always --tests --no-default-features --features "$features"
+          done
+          
+          allFeatures=(
+              "no_vex"
+              "no_evex"
+              "no_xop"
+              "no_d3now"
+              "no_vex no_evex no_xop no_d3now"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== TEST $features ====
+              cargo check --color always --tests --features "$features"
           done
           
           cd ..
@@ -263,6 +297,18 @@ jobs:
           for features in "${allFeatures[@]}"; do
               echo ==== $features ====
               cargo check --color always --target wasm32-unknown-unknown --no-default-features --features "$features"
+          done
+          
+          allFeatures=(
+              "no_vex"
+              "no_evex"
+              "no_xop"
+              "no_d3now"
+              "no_vex no_evex no_xop no_d3now"
+          )
+          for features in "${allFeatures[@]}"; do
+              echo ==== $features ====
+              cargo check --color always --target wasm32-unknown-unknown --features "$features"
           done
           
           cd ..

@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#if DECODER
+#if DECODER && !NO_EVEX
 using System;
 using System.Diagnostics;
 
@@ -77,21 +77,6 @@ namespace Iced.Intel.DecoderInternal {
 			if (state.mod == 3 && (state.flags & StateFlags.b) != 0)
 				index = (int)VectorLength.L512;
 			handlers[index].Decode(decoder, ref instruction);
-		}
-	}
-
-	sealed class OpCodeHandler_EVEX : OpCodeHandlerModRM {
-		readonly OpCodeHandler handlerMem;
-
-		public OpCodeHandler_EVEX(OpCodeHandler handlerMem) => this.handlerMem = handlerMem ?? throw new ArgumentNullException(nameof(handlerMem));
-
-		public override void Decode(Decoder decoder, ref Instruction instruction) {
-			if (decoder.is64Mode)
-				decoder.EVEX_MVEX(ref instruction);
-			else if (decoder.state.mod == 3)
-				decoder.EVEX_MVEX(ref instruction);
-			else
-				handlerMem.Decode(decoder, ref instruction);
 		}
 	}
 

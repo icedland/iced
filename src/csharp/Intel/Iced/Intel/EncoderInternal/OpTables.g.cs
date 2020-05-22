@@ -150,6 +150,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpRegEmbed8(Register.EAX, Register.R15D),
 			new OpRegEmbed8(Register.RAX, Register.R15),
 		};
+#if !NO_VEX
 		public static readonly Op[] VexOps = new Op[38] {
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
@@ -190,6 +191,8 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_rm(Register.XMM0, Register.XMM15),
 			new OpModRM_rm(Register.YMM0, Register.YMM15),
 		};
+#endif
+#if !NO_XOP
 		public static readonly Op[] XopOps = new Op[18] {
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
@@ -210,6 +213,8 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_rm(Register.XMM0, Register.XMM15),
 			new OpModRM_rm(Register.YMM0, Register.YMM15),
 		};
+#endif
+#if !NO_EVEX
 		public static readonly Op[] EvexOps = new Op[35] {
 			new OpModRM_rm(Register.EAX, Register.R15D),
 			new OpModRM_rm(Register.RAX, Register.R15),
@@ -247,6 +252,7 @@ namespace Iced.Intel.EncoderInternal {
 			new OpModRM_rm(Register.YMM0, Register.YMM31),
 			new OpModRM_rm(Register.ZMM0, Register.ZMM31),
 		};
+#endif
 	}
 }
 #endif
