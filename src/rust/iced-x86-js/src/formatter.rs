@@ -1813,7 +1813,7 @@ impl Formatter {
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "showUselessPrefixes")]
 	pub fn show_useless_prefixes(&self) -> bool {
-		self.formatter.show_useless_prefixes()
+		self.formatter.options().show_useless_prefixes()
 	}
 
 	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
@@ -1829,7 +1829,7 @@ impl Formatter {
 	#[wasm_bindgen(setter)]
 	#[wasm_bindgen(js_name = "showUselessPrefixes")]
 	pub fn set_show_useless_prefixes(&mut self, value: bool) {
-		self.formatter.set_show_useless_prefixes(value)
+		self.formatter.options_mut().set_show_useless_prefixes(value)
 	}
 
 	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)

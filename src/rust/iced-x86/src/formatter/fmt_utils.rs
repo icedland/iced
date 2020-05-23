@@ -409,10 +409,11 @@ fn get_default_segment_register(instruction: &Instruction) -> Register {
 	}
 }
 
+#[allow(unused_variables)]
 pub(super) fn can_show_rounding_control(instruction: &Instruction, options: &FormatterOptions) -> bool {
-	let code = instruction.code();
 	#[cfg(not(feature = "no_evex"))]
 	{
+		let code = instruction.code();
 		if code == Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er || code == Code::EVEX_Vcvtusi2sd_xmm_xmm_rm32_er {
 			return options.show_useless_prefixes();
 		}

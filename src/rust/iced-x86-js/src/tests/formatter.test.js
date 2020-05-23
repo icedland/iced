@@ -93,7 +93,7 @@ test("Default gas formatter options", () => {
 	expect(formatter.cc_ge).toBe(CC_ge.ge);
 	expect(formatter.cc_le).toBe(CC_le.le);
 	expect(formatter.cc_g).toBe(CC_g.g);
-	expect(formatter.usePseudoOps).toBe(false);
+	expect(formatter.showUselessPrefixes).toBe(false);
 
 	formatter.free();
 });
@@ -164,7 +164,7 @@ test("Default Intel formatter options", () => {
 	expect(formatter.cc_ge).toBe(CC_ge.ge);
 	expect(formatter.cc_le).toBe(CC_le.le);
 	expect(formatter.cc_g).toBe(CC_g.g);
-	expect(formatter.usePseudoOps).toBe(false);
+	expect(formatter.showUselessPrefixes).toBe(false);
 
 	formatter.free();
 });
@@ -235,7 +235,7 @@ test("Default masm formatter options", () => {
 	expect(formatter.cc_ge).toBe(CC_ge.ge);
 	expect(formatter.cc_le).toBe(CC_le.le);
 	expect(formatter.cc_g).toBe(CC_g.g);
-	expect(formatter.usePseudoOps).toBe(false);
+	expect(formatter.showUselessPrefixes).toBe(false);
 
 	formatter.free();
 });
@@ -306,7 +306,7 @@ test("Default nasm formatter options", () => {
 	expect(formatter.cc_ge).toBe(CC_ge.ge);
 	expect(formatter.cc_le).toBe(CC_le.le);
 	expect(formatter.cc_g).toBe(CC_g.g);
-	expect(formatter.usePseudoOps).toBe(false);
+	expect(formatter.showUselessPrefixes).toBe(false);
 
 	formatter.free();
 });
