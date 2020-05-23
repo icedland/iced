@@ -142,13 +142,13 @@ Options:
         rsjs (Rust + JS)
 --no-formatter
     Don't include any formatter
---no-gas-formatter
+--no-gas
     Don't include the gas (AT&T) formatter
---no-intel-formatter
+--no-intel
     Don't include the Intel (XED) formatter
---no-masm-formatter
+--no-masm
     Don't include the masm formatter
---no-nasm-formatter
+--no-nasm
     Don't include the nasm formatter
 --no-vex
     Don't include VEX instructions
@@ -201,19 +201,19 @@ Options:
 					options.GeneratorFlags |= GeneratorFlags.NoFormatter;
 					break;
 
-				case "--no-gas-formatter":
+				case "--no-gas":
 					options.GeneratorFlags |= GeneratorFlags.NoGasFormatter;
 					break;
 
-				case "--no-intel-formatter":
+				case "--no-intel":
 					options.GeneratorFlags |= GeneratorFlags.NoIntelFormatter;
 					break;
 
-				case "--no-masm-formatter":
+				case "--no-masm":
 					options.GeneratorFlags |= GeneratorFlags.NoMasmFormatter;
 					break;
 
-				case "--no-nasm-formatter":
+				case "--no-nasm":
 					options.GeneratorFlags |= GeneratorFlags.NoNasmFormatter;
 					break;
 
