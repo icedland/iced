@@ -25,6 +25,7 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::fmt_utils::can_show_rounding_control;
 use super::get_mnemonic_cc;
 use super::mem_size_tbl::MEM_SIZE_TBL;
 use super::regs::*;
@@ -1270,7 +1271,7 @@ impl InstrInfo for SimpleInstrInfo_er {
 		let mut info =
 			InstrOpInfo::new(get_mnemonic(options, instruction, &self.mnemonic, &self.mnemonic_suffix, self.flags), instruction, self.flags);
 		let rc = instruction.rounding_control();
-		if rc != RoundingControl::None {
+		if rc != RoundingControl::None && can_show_rounding_control(instruction, options) {
 			let rc_op_kind = match rc {
 				RoundingControl::RoundToNearest => InstrOpKind::RnSae,
 				RoundingControl::RoundDown => InstrOpKind::RdSae,

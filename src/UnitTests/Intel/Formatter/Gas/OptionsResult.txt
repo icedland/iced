@@ -2140,3 +2140,1365 @@ setle %al
 setng %al
 setg %al
 setnle %al
+
+mov %edx,%ecx
+mov (%rdx),%ecx
+mov (%rdx),%ecx
+mov (%rdx),%ecx
+mov (%rdx),%ecx
+mov %fs:(%rdx),%ecx
+mov %gs:(%rdx),%ecx
+mov (%rbp),%ecx
+mov (%rbp),%ecx
+mov (%rbp),%ecx
+mov (%rbp),%ecx
+mov %fs:(%rbp),%ecx
+mov %gs:(%rbp),%ecx
+mov (%rsp),%ecx
+mov (%rsp),%ecx
+mov (%rsp),%ecx
+mov (%rsp),%ecx
+mov %fs:(%rsp),%ecx
+mov %gs:(%rsp),%ecx
+mov %es:(%edx),%ecx
+mov %cs:(%edx),%ecx
+mov %ss:(%edx),%ecx
+mov (%edx),%ecx
+mov %fs:(%edx),%ecx
+mov %gs:(%edx),%ecx
+mov %es:(%ebp),%ecx
+mov %cs:(%ebp),%ecx
+mov (%ebp),%ecx
+mov %ds:(%ebp),%ecx
+mov %fs:(%ebp),%ecx
+mov %gs:(%ebp),%ecx
+mov %es:(%esp),%ecx
+mov %cs:(%esp),%ecx
+mov (%esp),%ecx
+mov %ds:(%esp),%ecx
+mov %fs:(%esp),%ecx
+mov %gs:(%esp),%ecx
+mov %es:(%bx),%ax
+mov %cs:(%bx),%ax
+mov %ss:(%bx),%ax
+mov (%bx),%ax
+mov %fs:(%bx),%ax
+mov %gs:(%bx),%ax
+mov %es:(%bp),%ax
+mov %cs:(%bp),%ax
+mov (%bp),%ax
+mov %ds:(%bp),%ax
+mov %fs:(%bp),%ax
+mov %gs:(%bp),%ax
+mov %edx,%ecx
+mov %edx,%ecx
+
+es mov %edx,%ecx
+mov %es:(%rdx),%ecx
+mov %cs:(%rdx),%ecx
+mov %ss:(%rdx),%ecx
+mov %ds:(%rdx),%ecx
+mov %fs:(%rdx),%ecx
+mov %gs:(%rdx),%ecx
+mov %es:(%rbp),%ecx
+mov %cs:(%rbp),%ecx
+mov %ss:(%rbp),%ecx
+mov %ds:(%rbp),%ecx
+mov %fs:(%rbp),%ecx
+mov %gs:(%rbp),%ecx
+mov %es:(%rsp),%ecx
+mov %cs:(%rsp),%ecx
+mov %ss:(%rsp),%ecx
+mov %ds:(%rsp),%ecx
+mov %fs:(%rsp),%ecx
+mov %gs:(%rsp),%ecx
+mov %es:(%edx),%ecx
+mov %cs:(%edx),%ecx
+mov %ss:(%edx),%ecx
+mov %ds:(%edx),%ecx
+mov %fs:(%edx),%ecx
+mov %gs:(%edx),%ecx
+mov %es:(%ebp),%ecx
+mov %cs:(%ebp),%ecx
+mov %ss:(%ebp),%ecx
+mov %ds:(%ebp),%ecx
+mov %fs:(%ebp),%ecx
+mov %gs:(%ebp),%ecx
+mov %es:(%esp),%ecx
+mov %cs:(%esp),%ecx
+mov %ss:(%esp),%ecx
+mov %ds:(%esp),%ecx
+mov %fs:(%esp),%ecx
+mov %gs:(%esp),%ecx
+mov %es:(%bx),%ax
+mov %cs:(%bx),%ax
+mov %ss:(%bx),%ax
+mov %ds:(%bx),%ax
+mov %fs:(%bx),%ax
+mov %gs:(%bx),%ax
+mov %es:(%bp),%ax
+mov %cs:(%bp),%ax
+mov %ss:(%bp),%ax
+mov %ds:(%bp),%ax
+mov %fs:(%bp),%ax
+mov %gs:(%bp),%ax
+rep mov %edx,%ecx
+repne mov %edx,%ecx
+
+vcvtsi2sd %ebx,%xmm14,%xmm18
+vcvtsi2sd %ebx,%xmm22,%xmm10
+vcvtsi2sd %r11d,%xmm6,%xmm2
+vcvtsi2sd %ebx,%xmm6,%xmm2
+vcvtusi2sd %ebx,%xmm14,%xmm18
+vcvtusi2sd %ebx,%xmm22,%xmm10
+vcvtusi2sd %r11d,%xmm6,%xmm2
+vcvtusi2sd %ebx,%xmm6,%xmm2
+
+vcvtsi2sd %ebx,{rn-sae},%xmm14,%xmm18
+vcvtsi2sd %ebx,{rd-sae},%xmm22,%xmm10
+vcvtsi2sd %r11d,{ru-sae},%xmm6,%xmm2
+vcvtsi2sd %ebx,{rz-sae},%xmm6,%xmm2
+vcvtusi2sd %ebx,{rn-sae},%xmm14,%xmm18
+vcvtusi2sd %ebx,{rd-sae},%xmm22,%xmm10
+vcvtusi2sd %r11d,{ru-sae},%xmm6,%xmm2
+vcvtusi2sd %ebx,{rz-sae},%xmm6,%xmm2
+
+movabs 0xf0debc9a78563412,%al
+movabs 0xf0debc9a78563412,%al
+movabs 0xf0debc9a78563412,%al
+movabs 0xf0debc9a78563412,%al
+movabs %fs:0xf0debc9a78563412,%al
+movabs %gs:0xf0debc9a78563412,%al
+mov %es:0x78563412,%al
+mov %cs:0x78563412,%al
+mov %ss:0x78563412,%al
+mov 0x78563412,%al
+mov %fs:0x78563412,%al
+mov %gs:0x78563412,%al
+mov %es:0xf0de,%al
+mov %cs:0xf0de,%al
+mov %ss:0xf0de,%al
+mov 0xf0de,%al
+mov %fs:0xf0de,%al
+mov %gs:0xf0de,%al
+mov 0x7fffffffedcba97f,%cl
+mov 0x7fffffffedcba97f,%cl
+mov 0x7fffffffedcba97f,%cl
+mov 0x7fffffffedcba97f,%cl
+mov %fs:0x7fffffffedcba97f,%cl
+mov %gs:0x7fffffffedcba97f,%cl
+mov %es:0xedcba988,%cl
+mov %cs:0xedcba988,%cl
+mov %ss:0xedcba988,%cl
+mov 0xedcba988,%cl
+mov %fs:0xedcba988,%cl
+mov %gs:0xedcba988,%cl
+mov %es:0xedcc,%cl
+mov %cs:0xedcc,%cl
+mov %ss:0xedcc,%cl
+mov 0xedcc,%cl
+mov %fs:0xedcc,%cl
+mov %gs:0xedcc,%cl
+
+movabs %es:0xf0debc9a78563412,%al
+movabs %cs:0xf0debc9a78563412,%al
+movabs %ss:0xf0debc9a78563412,%al
+movabs %ds:0xf0debc9a78563412,%al
+movabs %fs:0xf0debc9a78563412,%al
+movabs %gs:0xf0debc9a78563412,%al
+mov %es:0x78563412,%al
+mov %cs:0x78563412,%al
+mov %ss:0x78563412,%al
+mov %ds:0x78563412,%al
+mov %fs:0x78563412,%al
+mov %gs:0x78563412,%al
+mov %es:0xf0de,%al
+mov %cs:0xf0de,%al
+mov %ss:0xf0de,%al
+mov %ds:0xf0de,%al
+mov %fs:0xf0de,%al
+mov %gs:0xf0de,%al
+mov %es:0x7fffffffedcba97f,%cl
+mov %cs:0x7fffffffedcba97f,%cl
+mov %ss:0x7fffffffedcba97f,%cl
+mov %ds:0x7fffffffedcba97f,%cl
+mov %fs:0x7fffffffedcba97f,%cl
+mov %gs:0x7fffffffedcba97f,%cl
+mov %es:0xedcba988,%cl
+mov %cs:0xedcba988,%cl
+mov %ss:0xedcba988,%cl
+mov %ds:0xedcba988,%cl
+mov %fs:0xedcba988,%cl
+mov %gs:0xedcba988,%cl
+mov %es:0xedcc,%cl
+mov %cs:0xedcc,%cl
+mov %ss:0xedcc,%cl
+mov %ds:0xedcc,%cl
+mov %fs:0xedcc,%cl
+mov %gs:0xedcc,%cl
+
+maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+es maskmovq %mm3,%mm2
+cs maskmovq %mm3,%mm2
+ss maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+es maskmovdqu %xmm3,%xmm2
+cs maskmovdqu %xmm3,%xmm2
+ss maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+es vmaskmovdqu %xmm3,%xmm2
+cs vmaskmovdqu %xmm3,%xmm2
+ss vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+es maskmovq %mm3,%mm2
+cs maskmovq %mm3,%mm2
+ss maskmovq %mm3,%mm2
+maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+es maskmovdqu %xmm3,%xmm2
+cs maskmovdqu %xmm3,%xmm2
+ss maskmovdqu %xmm3,%xmm2
+maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+es vmaskmovdqu %xmm3,%xmm2
+cs vmaskmovdqu %xmm3,%xmm2
+ss vmaskmovdqu %xmm3,%xmm2
+vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+monitor
+monitor
+monitor
+monitor
+fs monitor
+gs monitor
+monitorx
+monitorx
+monitorx
+monitorx
+fs monitorx
+gs monitorx
+clzero
+clzero
+clzero
+clzero
+fs clzero
+gs clzero
+umonitor %rbp
+umonitor %rbp
+umonitor %rbp
+umonitor %rbp
+fs umonitor %rbp
+gs umonitor %rbp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor %ebp
+cs umonitor %ebp
+ss umonitor %ebp
+umonitor %ebp
+fs umonitor %ebp
+gs umonitor %ebp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor %bp
+cs umonitor %bp
+ss umonitor %bp
+umonitor %bp
+fs umonitor %bp
+gs umonitor %bp
+
+xlat (%rbx)
+xlat (%rbx)
+xlat (%rbx)
+xlat (%rbx)
+xlat %fs:(%rbx)
+xlat %gs:(%rbx)
+outsb (%rsi),%dx
+outsb (%rsi),%dx
+outsb (%rsi),%dx
+outsb (%rsi),%dx
+outsb %fs:(%rsi),%dx
+outsb %gs:(%rsi),%dx
+outsw (%rsi),%dx
+outsw (%rsi),%dx
+outsw (%rsi),%dx
+outsw (%rsi),%dx
+outsw %fs:(%rsi),%dx
+outsw %gs:(%rsi),%dx
+outsl (%rsi),%dx
+outsl (%rsi),%dx
+outsl (%rsi),%dx
+outsl (%rsi),%dx
+outsl %fs:(%rsi),%dx
+outsl %gs:(%rsi),%dx
+movsb (%rsi),(%rdi)
+movsb (%rsi),(%rdi)
+movsb (%rsi),(%rdi)
+movsb (%rsi),(%rdi)
+movsb %fs:(%rsi),%es:(%rdi)
+movsb %gs:(%rsi),%es:(%rdi)
+movsw (%rsi),(%rdi)
+movsw (%rsi),(%rdi)
+movsw (%rsi),(%rdi)
+movsw (%rsi),(%rdi)
+movsw %fs:(%rsi),%es:(%rdi)
+movsw %gs:(%rsi),%es:(%rdi)
+movsl (%rsi),(%rdi)
+movsl (%rsi),(%rdi)
+movsl (%rsi),(%rdi)
+movsl (%rsi),(%rdi)
+movsl %fs:(%rsi),%es:(%rdi)
+movsl %gs:(%rsi),%es:(%rdi)
+movsq (%rsi),(%rdi)
+movsq (%rsi),(%rdi)
+movsq (%rsi),(%rdi)
+movsq (%rsi),(%rdi)
+movsq %fs:(%rsi),%es:(%rdi)
+movsq %gs:(%rsi),%es:(%rdi)
+cmpsb (%rdi),(%rsi)
+cmpsb (%rdi),(%rsi)
+cmpsb (%rdi),(%rsi)
+cmpsb (%rdi),(%rsi)
+cmpsb %es:(%rdi),%fs:(%rsi)
+cmpsb %es:(%rdi),%gs:(%rsi)
+cmpsw (%rdi),(%rsi)
+cmpsw (%rdi),(%rsi)
+cmpsw (%rdi),(%rsi)
+cmpsw (%rdi),(%rsi)
+cmpsw %es:(%rdi),%fs:(%rsi)
+cmpsw %es:(%rdi),%gs:(%rsi)
+cmpsl (%rdi),(%rsi)
+cmpsl (%rdi),(%rsi)
+cmpsl (%rdi),(%rsi)
+cmpsl (%rdi),(%rsi)
+cmpsl %es:(%rdi),%fs:(%rsi)
+cmpsl %es:(%rdi),%gs:(%rsi)
+cmpsq (%rdi),(%rsi)
+cmpsq (%rdi),(%rsi)
+cmpsq (%rdi),(%rsi)
+cmpsq (%rdi),(%rsi)
+cmpsq %es:(%rdi),%fs:(%rsi)
+cmpsq %es:(%rdi),%gs:(%rsi)
+lods (%rsi),%al
+lods (%rsi),%al
+lods (%rsi),%al
+lods (%rsi),%al
+lods %fs:(%rsi),%al
+lods %gs:(%rsi),%al
+lods (%rsi),%ax
+lods (%rsi),%ax
+lods (%rsi),%ax
+lods (%rsi),%ax
+lods %fs:(%rsi),%ax
+lods %gs:(%rsi),%ax
+lods (%rsi),%eax
+lods (%rsi),%eax
+lods (%rsi),%eax
+lods (%rsi),%eax
+lods %fs:(%rsi),%eax
+lods %gs:(%rsi),%eax
+lods (%rsi),%rax
+lods (%rsi),%rax
+lods (%rsi),%rax
+lods (%rsi),%rax
+lods %fs:(%rsi),%rax
+lods %gs:(%rsi),%rax
+
+xlat %es:(%ebx)
+xlat %cs:(%ebx)
+xlat %ss:(%ebx)
+xlat (%ebx)
+xlat %fs:(%ebx)
+xlat %gs:(%ebx)
+outsb %es:(%esi),%dx
+outsb %cs:(%esi),%dx
+outsb %ss:(%esi),%dx
+outsb (%esi),%dx
+outsb %fs:(%esi),%dx
+outsb %gs:(%esi),%dx
+outsw %es:(%esi),%dx
+outsw %cs:(%esi),%dx
+outsw %ss:(%esi),%dx
+outsw (%esi),%dx
+outsw %fs:(%esi),%dx
+outsw %gs:(%esi),%dx
+outsl %es:(%esi),%dx
+outsl %cs:(%esi),%dx
+outsl %ss:(%esi),%dx
+outsl (%esi),%dx
+outsl %fs:(%esi),%dx
+outsl %gs:(%esi),%dx
+movsb %es:(%esi),%es:(%edi)
+movsb %cs:(%esi),%es:(%edi)
+movsb %ss:(%esi),%es:(%edi)
+movsb (%esi),(%edi)
+movsb %fs:(%esi),%es:(%edi)
+movsb %gs:(%esi),%es:(%edi)
+movsw %es:(%esi),%es:(%edi)
+movsw %cs:(%esi),%es:(%edi)
+movsw %ss:(%esi),%es:(%edi)
+movsw (%esi),(%edi)
+movsw %fs:(%esi),%es:(%edi)
+movsw %gs:(%esi),%es:(%edi)
+movsl %es:(%esi),%es:(%edi)
+movsl %cs:(%esi),%es:(%edi)
+movsl %ss:(%esi),%es:(%edi)
+movsl (%esi),(%edi)
+movsl %fs:(%esi),%es:(%edi)
+movsl %gs:(%esi),%es:(%edi)
+cmpsb %es:(%edi),%es:(%esi)
+cmpsb %es:(%edi),%cs:(%esi)
+cmpsb %es:(%edi),%ss:(%esi)
+cmpsb (%edi),(%esi)
+cmpsb %es:(%edi),%fs:(%esi)
+cmpsb %es:(%edi),%gs:(%esi)
+cmpsw %es:(%edi),%es:(%esi)
+cmpsw %es:(%edi),%cs:(%esi)
+cmpsw %es:(%edi),%ss:(%esi)
+cmpsw (%edi),(%esi)
+cmpsw %es:(%edi),%fs:(%esi)
+cmpsw %es:(%edi),%gs:(%esi)
+cmpsl %es:(%edi),%es:(%esi)
+cmpsl %es:(%edi),%cs:(%esi)
+cmpsl %es:(%edi),%ss:(%esi)
+cmpsl (%edi),(%esi)
+cmpsl %es:(%edi),%fs:(%esi)
+cmpsl %es:(%edi),%gs:(%esi)
+lods %es:(%esi),%al
+lods %cs:(%esi),%al
+lods %ss:(%esi),%al
+lods (%esi),%al
+lods %fs:(%esi),%al
+lods %gs:(%esi),%al
+lods %es:(%esi),%ax
+lods %cs:(%esi),%ax
+lods %ss:(%esi),%ax
+lods (%esi),%ax
+lods %fs:(%esi),%ax
+lods %gs:(%esi),%ax
+lods %es:(%esi),%eax
+lods %cs:(%esi),%eax
+lods %ss:(%esi),%eax
+lods (%esi),%eax
+lods %fs:(%esi),%eax
+lods %gs:(%esi),%eax
+
+xlat %es:(%bx)
+xlat %cs:(%bx)
+xlat %ss:(%bx)
+xlat (%bx)
+xlat %fs:(%bx)
+xlat %gs:(%bx)
+outsb %es:(%si),%dx
+outsb %cs:(%si),%dx
+outsb %ss:(%si),%dx
+outsb (%si),%dx
+outsb %fs:(%si),%dx
+outsb %gs:(%si),%dx
+outsw %es:(%si),%dx
+outsw %cs:(%si),%dx
+outsw %ss:(%si),%dx
+outsw (%si),%dx
+outsw %fs:(%si),%dx
+outsw %gs:(%si),%dx
+outsl %es:(%si),%dx
+outsl %cs:(%si),%dx
+outsl %ss:(%si),%dx
+outsl (%si),%dx
+outsl %fs:(%si),%dx
+outsl %gs:(%si),%dx
+movsb %es:(%si),%es:(%di)
+movsb %cs:(%si),%es:(%di)
+movsb %ss:(%si),%es:(%di)
+movsb (%si),(%di)
+movsb %fs:(%si),%es:(%di)
+movsb %gs:(%si),%es:(%di)
+movsw %es:(%si),%es:(%di)
+movsw %cs:(%si),%es:(%di)
+movsw %ss:(%si),%es:(%di)
+movsw (%si),(%di)
+movsw %fs:(%si),%es:(%di)
+movsw %gs:(%si),%es:(%di)
+movsl %es:(%si),%es:(%di)
+movsl %cs:(%si),%es:(%di)
+movsl %ss:(%si),%es:(%di)
+movsl (%si),(%di)
+movsl %fs:(%si),%es:(%di)
+movsl %gs:(%si),%es:(%di)
+cmpsb %es:(%di),%es:(%si)
+cmpsb %es:(%di),%cs:(%si)
+cmpsb %es:(%di),%ss:(%si)
+cmpsb (%di),(%si)
+cmpsb %es:(%di),%fs:(%si)
+cmpsb %es:(%di),%gs:(%si)
+cmpsw %es:(%di),%es:(%si)
+cmpsw %es:(%di),%cs:(%si)
+cmpsw %es:(%di),%ss:(%si)
+cmpsw (%di),(%si)
+cmpsw %es:(%di),%fs:(%si)
+cmpsw %es:(%di),%gs:(%si)
+cmpsl %es:(%di),%es:(%si)
+cmpsl %es:(%di),%cs:(%si)
+cmpsl %es:(%di),%ss:(%si)
+cmpsl (%di),(%si)
+cmpsl %es:(%di),%fs:(%si)
+cmpsl %es:(%di),%gs:(%si)
+lods %es:(%si),%al
+lods %cs:(%si),%al
+lods %ss:(%si),%al
+lods (%si),%al
+lods %fs:(%si),%al
+lods %gs:(%si),%al
+lods %es:(%si),%ax
+lods %cs:(%si),%ax
+lods %ss:(%si),%ax
+lods (%si),%ax
+lods %fs:(%si),%ax
+lods %gs:(%si),%ax
+lods %es:(%si),%eax
+lods %cs:(%si),%eax
+lods %ss:(%si),%eax
+lods (%si),%eax
+lods %fs:(%si),%eax
+lods %gs:(%si),%eax
+
+es maskmovq %mm3,%mm2
+cs maskmovq %mm3,%mm2
+ss maskmovq %mm3,%mm2
+ds maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+es maskmovdqu %xmm3,%xmm2
+cs maskmovdqu %xmm3,%xmm2
+ss maskmovdqu %xmm3,%xmm2
+ds maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+es vmaskmovdqu %xmm3,%xmm2
+cs vmaskmovdqu %xmm3,%xmm2
+ss vmaskmovdqu %xmm3,%xmm2
+ds vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+es maskmovq %mm3,%mm2
+cs maskmovq %mm3,%mm2
+ss maskmovq %mm3,%mm2
+ds maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+es maskmovdqu %xmm3,%xmm2
+cs maskmovdqu %xmm3,%xmm2
+ss maskmovdqu %xmm3,%xmm2
+ds maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+es vmaskmovdqu %xmm3,%xmm2
+cs vmaskmovdqu %xmm3,%xmm2
+ss vmaskmovdqu %xmm3,%xmm2
+ds vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+es maskmovq %mm3,%mm2
+cs maskmovq %mm3,%mm2
+ss maskmovq %mm3,%mm2
+ds maskmovq %mm3,%mm2
+fs maskmovq %mm3,%mm2
+gs maskmovq %mm3,%mm2
+es maskmovdqu %xmm3,%xmm2
+cs maskmovdqu %xmm3,%xmm2
+ss maskmovdqu %xmm3,%xmm2
+ds maskmovdqu %xmm3,%xmm2
+fs maskmovdqu %xmm3,%xmm2
+gs maskmovdqu %xmm3,%xmm2
+es vmaskmovdqu %xmm3,%xmm2
+cs vmaskmovdqu %xmm3,%xmm2
+ss vmaskmovdqu %xmm3,%xmm2
+ds vmaskmovdqu %xmm3,%xmm2
+fs vmaskmovdqu %xmm3,%xmm2
+gs vmaskmovdqu %xmm3,%xmm2
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor %rbp
+cs umonitor %rbp
+ss umonitor %rbp
+ds umonitor %rbp
+fs umonitor %rbp
+gs umonitor %rbp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor %ebp
+cs umonitor %ebp
+ss umonitor %ebp
+ds umonitor %ebp
+fs umonitor %ebp
+gs umonitor %ebp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor %bp
+cs umonitor %bp
+ss umonitor %bp
+ds umonitor %bp
+fs umonitor %bp
+gs umonitor %bp
+
+xlat %es:(%rbx)
+xlat %cs:(%rbx)
+xlat %ss:(%rbx)
+xlat %ds:(%rbx)
+xlat %fs:(%rbx)
+xlat %gs:(%rbx)
+outsb %es:(%rsi),%dx
+outsb %cs:(%rsi),%dx
+outsb %ss:(%rsi),%dx
+outsb %ds:(%rsi),%dx
+outsb %fs:(%rsi),%dx
+outsb %gs:(%rsi),%dx
+outsw %es:(%rsi),%dx
+outsw %cs:(%rsi),%dx
+outsw %ss:(%rsi),%dx
+outsw %ds:(%rsi),%dx
+outsw %fs:(%rsi),%dx
+outsw %gs:(%rsi),%dx
+outsl %es:(%rsi),%dx
+outsl %cs:(%rsi),%dx
+outsl %ss:(%rsi),%dx
+outsl %ds:(%rsi),%dx
+outsl %fs:(%rsi),%dx
+outsl %gs:(%rsi),%dx
+movsb %es:(%rsi),%es:(%rdi)
+movsb %cs:(%rsi),%es:(%rdi)
+movsb %ss:(%rsi),%es:(%rdi)
+movsb %ds:(%rsi),%es:(%rdi)
+movsb %fs:(%rsi),%es:(%rdi)
+movsb %gs:(%rsi),%es:(%rdi)
+movsw %es:(%rsi),%es:(%rdi)
+movsw %cs:(%rsi),%es:(%rdi)
+movsw %ss:(%rsi),%es:(%rdi)
+movsw %ds:(%rsi),%es:(%rdi)
+movsw %fs:(%rsi),%es:(%rdi)
+movsw %gs:(%rsi),%es:(%rdi)
+movsl %es:(%rsi),%es:(%rdi)
+movsl %cs:(%rsi),%es:(%rdi)
+movsl %ss:(%rsi),%es:(%rdi)
+movsl %ds:(%rsi),%es:(%rdi)
+movsl %fs:(%rsi),%es:(%rdi)
+movsl %gs:(%rsi),%es:(%rdi)
+movsq %es:(%rsi),%es:(%rdi)
+movsq %cs:(%rsi),%es:(%rdi)
+movsq %ss:(%rsi),%es:(%rdi)
+movsq %ds:(%rsi),%es:(%rdi)
+movsq %fs:(%rsi),%es:(%rdi)
+movsq %gs:(%rsi),%es:(%rdi)
+cmpsb %es:(%rdi),%es:(%rsi)
+cmpsb %es:(%rdi),%cs:(%rsi)
+cmpsb %es:(%rdi),%ss:(%rsi)
+cmpsb %es:(%rdi),%ds:(%rsi)
+cmpsb %es:(%rdi),%fs:(%rsi)
+cmpsb %es:(%rdi),%gs:(%rsi)
+cmpsw %es:(%rdi),%es:(%rsi)
+cmpsw %es:(%rdi),%cs:(%rsi)
+cmpsw %es:(%rdi),%ss:(%rsi)
+cmpsw %es:(%rdi),%ds:(%rsi)
+cmpsw %es:(%rdi),%fs:(%rsi)
+cmpsw %es:(%rdi),%gs:(%rsi)
+cmpsl %es:(%rdi),%es:(%rsi)
+cmpsl %es:(%rdi),%cs:(%rsi)
+cmpsl %es:(%rdi),%ss:(%rsi)
+cmpsl %es:(%rdi),%ds:(%rsi)
+cmpsl %es:(%rdi),%fs:(%rsi)
+cmpsl %es:(%rdi),%gs:(%rsi)
+cmpsq %es:(%rdi),%es:(%rsi)
+cmpsq %es:(%rdi),%cs:(%rsi)
+cmpsq %es:(%rdi),%ss:(%rsi)
+cmpsq %es:(%rdi),%ds:(%rsi)
+cmpsq %es:(%rdi),%fs:(%rsi)
+cmpsq %es:(%rdi),%gs:(%rsi)
+lods %es:(%rsi),%al
+lods %cs:(%rsi),%al
+lods %ss:(%rsi),%al
+lods %ds:(%rsi),%al
+lods %fs:(%rsi),%al
+lods %gs:(%rsi),%al
+lods %es:(%rsi),%ax
+lods %cs:(%rsi),%ax
+lods %ss:(%rsi),%ax
+lods %ds:(%rsi),%ax
+lods %fs:(%rsi),%ax
+lods %gs:(%rsi),%ax
+lods %es:(%rsi),%eax
+lods %cs:(%rsi),%eax
+lods %ss:(%rsi),%eax
+lods %ds:(%rsi),%eax
+lods %fs:(%rsi),%eax
+lods %gs:(%rsi),%eax
+lods %es:(%rsi),%rax
+lods %cs:(%rsi),%rax
+lods %ss:(%rsi),%rax
+lods %ds:(%rsi),%rax
+lods %fs:(%rsi),%rax
+lods %gs:(%rsi),%rax
+
+xlat %es:(%ebx)
+xlat %cs:(%ebx)
+xlat %ss:(%ebx)
+xlat %ds:(%ebx)
+xlat %fs:(%ebx)
+xlat %gs:(%ebx)
+outsb %es:(%esi),%dx
+outsb %cs:(%esi),%dx
+outsb %ss:(%esi),%dx
+outsb %ds:(%esi),%dx
+outsb %fs:(%esi),%dx
+outsb %gs:(%esi),%dx
+outsw %es:(%esi),%dx
+outsw %cs:(%esi),%dx
+outsw %ss:(%esi),%dx
+outsw %ds:(%esi),%dx
+outsw %fs:(%esi),%dx
+outsw %gs:(%esi),%dx
+outsl %es:(%esi),%dx
+outsl %cs:(%esi),%dx
+outsl %ss:(%esi),%dx
+outsl %ds:(%esi),%dx
+outsl %fs:(%esi),%dx
+outsl %gs:(%esi),%dx
+movsb %es:(%esi),%es:(%edi)
+movsb %cs:(%esi),%es:(%edi)
+movsb %ss:(%esi),%es:(%edi)
+movsb %ds:(%esi),%es:(%edi)
+movsb %fs:(%esi),%es:(%edi)
+movsb %gs:(%esi),%es:(%edi)
+movsw %es:(%esi),%es:(%edi)
+movsw %cs:(%esi),%es:(%edi)
+movsw %ss:(%esi),%es:(%edi)
+movsw %ds:(%esi),%es:(%edi)
+movsw %fs:(%esi),%es:(%edi)
+movsw %gs:(%esi),%es:(%edi)
+movsl %es:(%esi),%es:(%edi)
+movsl %cs:(%esi),%es:(%edi)
+movsl %ss:(%esi),%es:(%edi)
+movsl %ds:(%esi),%es:(%edi)
+movsl %fs:(%esi),%es:(%edi)
+movsl %gs:(%esi),%es:(%edi)
+cmpsb %es:(%edi),%es:(%esi)
+cmpsb %es:(%edi),%cs:(%esi)
+cmpsb %es:(%edi),%ss:(%esi)
+cmpsb %es:(%edi),%ds:(%esi)
+cmpsb %es:(%edi),%fs:(%esi)
+cmpsb %es:(%edi),%gs:(%esi)
+cmpsw %es:(%edi),%es:(%esi)
+cmpsw %es:(%edi),%cs:(%esi)
+cmpsw %es:(%edi),%ss:(%esi)
+cmpsw %es:(%edi),%ds:(%esi)
+cmpsw %es:(%edi),%fs:(%esi)
+cmpsw %es:(%edi),%gs:(%esi)
+cmpsl %es:(%edi),%es:(%esi)
+cmpsl %es:(%edi),%cs:(%esi)
+cmpsl %es:(%edi),%ss:(%esi)
+cmpsl %es:(%edi),%ds:(%esi)
+cmpsl %es:(%edi),%fs:(%esi)
+cmpsl %es:(%edi),%gs:(%esi)
+lods %es:(%esi),%al
+lods %cs:(%esi),%al
+lods %ss:(%esi),%al
+lods %ds:(%esi),%al
+lods %fs:(%esi),%al
+lods %gs:(%esi),%al
+lods %es:(%esi),%ax
+lods %cs:(%esi),%ax
+lods %ss:(%esi),%ax
+lods %ds:(%esi),%ax
+lods %fs:(%esi),%ax
+lods %gs:(%esi),%ax
+lods %es:(%esi),%eax
+lods %cs:(%esi),%eax
+lods %ss:(%esi),%eax
+lods %ds:(%esi),%eax
+lods %fs:(%esi),%eax
+lods %gs:(%esi),%eax
+
+xlat %es:(%bx)
+xlat %cs:(%bx)
+xlat %ss:(%bx)
+xlat %ds:(%bx)
+xlat %fs:(%bx)
+xlat %gs:(%bx)
+outsb %es:(%si),%dx
+outsb %cs:(%si),%dx
+outsb %ss:(%si),%dx
+outsb %ds:(%si),%dx
+outsb %fs:(%si),%dx
+outsb %gs:(%si),%dx
+outsw %es:(%si),%dx
+outsw %cs:(%si),%dx
+outsw %ss:(%si),%dx
+outsw %ds:(%si),%dx
+outsw %fs:(%si),%dx
+outsw %gs:(%si),%dx
+outsl %es:(%si),%dx
+outsl %cs:(%si),%dx
+outsl %ss:(%si),%dx
+outsl %ds:(%si),%dx
+outsl %fs:(%si),%dx
+outsl %gs:(%si),%dx
+movsb %es:(%si),%es:(%di)
+movsb %cs:(%si),%es:(%di)
+movsb %ss:(%si),%es:(%di)
+movsb %ds:(%si),%es:(%di)
+movsb %fs:(%si),%es:(%di)
+movsb %gs:(%si),%es:(%di)
+movsw %es:(%si),%es:(%di)
+movsw %cs:(%si),%es:(%di)
+movsw %ss:(%si),%es:(%di)
+movsw %ds:(%si),%es:(%di)
+movsw %fs:(%si),%es:(%di)
+movsw %gs:(%si),%es:(%di)
+movsl %es:(%si),%es:(%di)
+movsl %cs:(%si),%es:(%di)
+movsl %ss:(%si),%es:(%di)
+movsl %ds:(%si),%es:(%di)
+movsl %fs:(%si),%es:(%di)
+movsl %gs:(%si),%es:(%di)
+cmpsb %es:(%di),%es:(%si)
+cmpsb %es:(%di),%cs:(%si)
+cmpsb %es:(%di),%ss:(%si)
+cmpsb %es:(%di),%ds:(%si)
+cmpsb %es:(%di),%fs:(%si)
+cmpsb %es:(%di),%gs:(%si)
+cmpsw %es:(%di),%es:(%si)
+cmpsw %es:(%di),%cs:(%si)
+cmpsw %es:(%di),%ss:(%si)
+cmpsw %es:(%di),%ds:(%si)
+cmpsw %es:(%di),%fs:(%si)
+cmpsw %es:(%di),%gs:(%si)
+cmpsl %es:(%di),%es:(%si)
+cmpsl %es:(%di),%cs:(%si)
+cmpsl %es:(%di),%ss:(%si)
+cmpsl %es:(%di),%ds:(%si)
+cmpsl %es:(%di),%fs:(%si)
+cmpsl %es:(%di),%gs:(%si)
+lods %es:(%si),%al
+lods %cs:(%si),%al
+lods %ss:(%si),%al
+lods %ds:(%si),%al
+lods %fs:(%si),%al
+lods %gs:(%si),%al
+lods %es:(%si),%ax
+lods %cs:(%si),%ax
+lods %ss:(%si),%ax
+lods %ds:(%si),%ax
+lods %fs:(%si),%ax
+lods %gs:(%si),%ax
+lods %es:(%si),%eax
+lods %cs:(%si),%eax
+lods %ss:(%si),%eax
+lods %ds:(%si),%eax
+lods %fs:(%si),%eax
+lods %gs:(%si),%eax
+
+rep insb %dx,(%rdi)
+rep insw %dx,(%rdi)
+rep insl %dx,(%rdi)
+rep outsb (%rsi),%dx
+rep outsw (%rsi),%dx
+rep outsl (%rsi),%dx
+rep movsb (%rsi),(%rdi)
+rep movsw (%rsi),(%rdi)
+rep movsl (%rsi),(%rdi)
+rep movsq (%rsi),(%rdi)
+repe cmpsb (%rdi),(%rsi)
+repe cmpsw (%rdi),(%rsi)
+repe cmpsl (%rdi),(%rsi)
+repe cmpsq (%rdi),(%rsi)
+rep stos %al,(%rdi)
+rep stos %ax,(%rdi)
+rep stos %eax,(%rdi)
+rep stos %rax,(%rdi)
+rep lods (%rsi),%al
+rep lods (%rsi),%ax
+rep lods (%rsi),%eax
+rep lods (%rsi),%rax
+repe scas (%rdi),%al
+repe scas (%rdi),%ax
+repe scas (%rdi),%eax
+repe scas (%rdi),%rax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%rdi)
+repne insw %dx,(%rdi)
+repne insl %dx,(%rdi)
+repne outsb (%rsi),%dx
+repne outsw (%rsi),%dx
+repne outsl (%rsi),%dx
+repne movsb (%rsi),(%rdi)
+repne movsw (%rsi),(%rdi)
+repne movsl (%rsi),(%rdi)
+repne movsq (%rsi),(%rdi)
+repne cmpsb (%rdi),(%rsi)
+repne cmpsw (%rdi),(%rsi)
+repne cmpsl (%rdi),(%rsi)
+repne cmpsq (%rdi),(%rsi)
+repne stos %al,(%rdi)
+repne stos %ax,(%rdi)
+repne stos %eax,(%rdi)
+repne stos %rax,(%rdi)
+repne lods (%rsi),%al
+repne lods (%rsi),%ax
+repne lods (%rsi),%eax
+repne lods (%rsi),%rax
+repne scas (%rdi),%al
+repne scas (%rdi),%ax
+repne scas (%rdi),%eax
+repne scas (%rdi),%rax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%edi)
+rep insw %dx,(%edi)
+rep insl %dx,(%edi)
+rep outsb (%esi),%dx
+rep outsw (%esi),%dx
+rep outsl (%esi),%dx
+rep movsb (%esi),(%edi)
+rep movsw (%esi),(%edi)
+rep movsl (%esi),(%edi)
+repe cmpsb (%edi),(%esi)
+repe cmpsw (%edi),(%esi)
+repe cmpsl (%edi),(%esi)
+rep stos %al,(%edi)
+rep stos %ax,(%edi)
+rep stos %eax,(%edi)
+rep lods (%esi),%al
+rep lods (%esi),%ax
+rep lods (%esi),%eax
+repe scas (%edi),%al
+repe scas (%edi),%ax
+repe scas (%edi),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%edi)
+repne insw %dx,(%edi)
+repne insl %dx,(%edi)
+repne outsb (%esi),%dx
+repne outsw (%esi),%dx
+repne outsl (%esi),%dx
+repne movsb (%esi),(%edi)
+repne movsw (%esi),(%edi)
+repne movsl (%esi),(%edi)
+repne cmpsb (%edi),(%esi)
+repne cmpsw (%edi),(%esi)
+repne cmpsl (%edi),(%esi)
+repne stos %al,(%edi)
+repne stos %ax,(%edi)
+repne stos %eax,(%edi)
+repne lods (%esi),%al
+repne lods (%esi),%ax
+repne lods (%esi),%eax
+repne scas (%edi),%al
+repne scas (%edi),%ax
+repne scas (%edi),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%di)
+rep insw %dx,(%di)
+rep insl %dx,(%di)
+rep outsb (%si),%dx
+rep outsw (%si),%dx
+rep outsl (%si),%dx
+rep movsb (%si),(%di)
+rep movsw (%si),(%di)
+rep movsl (%si),(%di)
+repe cmpsb (%di),(%si)
+repe cmpsw (%di),(%si)
+repe cmpsl (%di),(%si)
+rep stos %al,(%di)
+rep stos %ax,(%di)
+rep stos %eax,(%di)
+rep lods (%si),%al
+rep lods (%si),%ax
+rep lods (%si),%eax
+repe scas (%di),%al
+repe scas (%di),%ax
+repe scas (%di),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%di)
+repne insw %dx,(%di)
+repne insl %dx,(%di)
+repne outsb (%si),%dx
+repne outsw (%si),%dx
+repne outsl (%si),%dx
+repne movsb (%si),(%di)
+repne movsw (%si),(%di)
+repne movsl (%si),(%di)
+repne cmpsb (%di),(%si)
+repne cmpsw (%di),(%si)
+repne cmpsl (%di),(%si)
+repne stos %al,(%di)
+repne stos %ax,(%di)
+repne stos %eax,(%di)
+repne lods (%si),%al
+repne lods (%si),%ax
+repne lods (%si),%eax
+repne scas (%di),%al
+repne scas (%di),%ax
+repne scas (%di),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%rdi)
+rep insw %dx,(%rdi)
+rep insl %dx,(%rdi)
+rep outsb (%rsi),%dx
+rep outsw (%rsi),%dx
+rep outsl (%rsi),%dx
+rep movsb (%rsi),(%rdi)
+rep movsw (%rsi),(%rdi)
+rep movsl (%rsi),(%rdi)
+rep movsq (%rsi),(%rdi)
+repe cmpsb (%rdi),(%rsi)
+repe cmpsw (%rdi),(%rsi)
+repe cmpsl (%rdi),(%rsi)
+repe cmpsq (%rdi),(%rsi)
+rep stos %al,(%rdi)
+rep stos %ax,(%rdi)
+rep stos %eax,(%rdi)
+rep stos %rax,(%rdi)
+rep lods (%rsi),%al
+rep lods (%rsi),%ax
+rep lods (%rsi),%eax
+rep lods (%rsi),%rax
+repe scas (%rdi),%al
+repe scas (%rdi),%ax
+repe scas (%rdi),%eax
+repe scas (%rdi),%rax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%rdi)
+repne insw %dx,(%rdi)
+repne insl %dx,(%rdi)
+repne outsb (%rsi),%dx
+repne outsw (%rsi),%dx
+repne outsl (%rsi),%dx
+repne movsb (%rsi),(%rdi)
+repne movsw (%rsi),(%rdi)
+repne movsl (%rsi),(%rdi)
+repne movsq (%rsi),(%rdi)
+repne cmpsb (%rdi),(%rsi)
+repne cmpsw (%rdi),(%rsi)
+repne cmpsl (%rdi),(%rsi)
+repne cmpsq (%rdi),(%rsi)
+repne stos %al,(%rdi)
+repne stos %ax,(%rdi)
+repne stos %eax,(%rdi)
+repne stos %rax,(%rdi)
+repne lods (%rsi),%al
+repne lods (%rsi),%ax
+repne lods (%rsi),%eax
+repne lods (%rsi),%rax
+repne scas (%rdi),%al
+repne scas (%rdi),%ax
+repne scas (%rdi),%eax
+repne scas (%rdi),%rax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%edi)
+rep insw %dx,(%edi)
+rep insl %dx,(%edi)
+rep outsb (%esi),%dx
+rep outsw (%esi),%dx
+rep outsl (%esi),%dx
+rep movsb (%esi),(%edi)
+rep movsw (%esi),(%edi)
+rep movsl (%esi),(%edi)
+repe cmpsb (%edi),(%esi)
+repe cmpsw (%edi),(%esi)
+repe cmpsl (%edi),(%esi)
+rep stos %al,(%edi)
+rep stos %ax,(%edi)
+rep stos %eax,(%edi)
+rep lods (%esi),%al
+rep lods (%esi),%ax
+rep lods (%esi),%eax
+repe scas (%edi),%al
+repe scas (%edi),%ax
+repe scas (%edi),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%edi)
+repne insw %dx,(%edi)
+repne insl %dx,(%edi)
+repne outsb (%esi),%dx
+repne outsw (%esi),%dx
+repne outsl (%esi),%dx
+repne movsb (%esi),(%edi)
+repne movsw (%esi),(%edi)
+repne movsl (%esi),(%edi)
+repne cmpsb (%edi),(%esi)
+repne cmpsw (%edi),(%esi)
+repne cmpsl (%edi),(%esi)
+repne stos %al,(%edi)
+repne stos %ax,(%edi)
+repne stos %eax,(%edi)
+repne lods (%esi),%al
+repne lods (%esi),%ax
+repne lods (%esi),%eax
+repne scas (%edi),%al
+repne scas (%edi),%ax
+repne scas (%edi),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%di)
+rep insw %dx,(%di)
+rep insl %dx,(%di)
+rep outsb (%si),%dx
+rep outsw (%si),%dx
+rep outsl (%si),%dx
+rep movsb (%si),(%di)
+rep movsw (%si),(%di)
+rep movsl (%si),(%di)
+repe cmpsb (%di),(%si)
+repe cmpsw (%di),(%si)
+repe cmpsl (%di),(%si)
+rep stos %al,(%di)
+rep stos %ax,(%di)
+rep stos %eax,(%di)
+rep lods (%si),%al
+rep lods (%si),%ax
+rep lods (%si),%eax
+repe scas (%di),%al
+repe scas (%di),%ax
+repe scas (%di),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%di)
+repne insw %dx,(%di)
+repne insl %dx,(%di)
+repne outsb (%si),%dx
+repne outsw (%si),%dx
+repne outsl (%si),%dx
+repne movsb (%si),(%di)
+repne movsw (%si),(%di)
+repne movsl (%si),(%di)
+repne cmpsb (%di),(%si)
+repne cmpsw (%di),(%si)
+repne cmpsl (%di),(%si)
+repne stos %al,(%di)
+repne stos %ax,(%di)
+repne stos %eax,(%di)
+repne lods (%si),%al
+repne lods (%si),%ax
+repne lods (%si),%eax
+repne scas (%di),%al
+repne scas (%di),%ax
+repne scas (%di),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb

@@ -583,6 +583,17 @@ namespace Iced.Intel {
 		public bool PreferST0 { get; set; }
 
 		/// <summary>
+		/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
+		/// <br/>
+		/// Default: <see langword="false"/>
+		/// <br/>
+		/// <see langword="true"/>: <c>es rep add eax,ecx</c>
+		/// <br/>
+		/// <see langword="false"/>: <c>add eax,ecx</c>
+		/// </summary>
+		public bool ShowUselessPrefixes { get; set; }
+
+		/// <summary>
 		/// Mnemonic condition code selector (eg. <c>JB</c> / <c>JC</c> / <c>JNAE</c>)
 		/// <br/>
 		/// Default: <c>JB</c>, <c>CMOVB</c>, <c>SETB</c>

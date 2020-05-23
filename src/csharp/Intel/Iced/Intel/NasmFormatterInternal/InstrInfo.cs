@@ -1144,6 +1144,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 				}
 				flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
 			}
+			var prefixSeg = instruction.SegmentPrefix;
+			if (prefixSeg == Register.CS)
+				flags |= InstrOpInfoFlags.JccNotTaken;
+			else if (prefixSeg == Register.DS)
+				flags |= InstrOpInfoFlags.JccTaken;
 			if (instruction.HasRepnePrefix)
 				flags |= InstrOpInfoFlags.BndPrefix;
 			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
@@ -1361,6 +1366,8 @@ namespace Iced.Intel.NasmFormatterInternal {
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			var rc = instruction.RoundingControl;
 			if (rc != RoundingControl.None) {
+				if (!FormatterUtils.CanShowRoundingControl(instruction, options))
+					return;
 				InstrOpKind rcOpKind;
 				switch (rc) {
 				case RoundingControl.RoundToNearest:	rcOpKind = InstrOpKind.RnSae; break;

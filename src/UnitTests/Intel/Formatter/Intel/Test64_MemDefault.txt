@@ -706,7 +706,6 @@ sar r8,0xa5
 sar qword ptr [rax],0xa5
 ret 0xa55a
 ret
-rep ret 0xa55a
 rep ret
 mov cl,0x5a
 mov byte ptr [rax],0x5a
@@ -8348,14 +8347,6 @@ vcvtne2ps2bf16 ymm2{k5}{z},ymm6,[rax+4]{1to8}
 vcvtne2ps2bf16 zmm2{k3}{z},zmm6,zmm3
 vcvtne2ps2bf16 zmm2,zmm6,[rax+0x40]
 vcvtne2ps2bf16 zmm2{k5}{z},zmm6,[rax+4]{1to16}
-vcvtsi2sd xmm18{rne-sae},xmm14,ebx
-vcvtsi2sd xmm10{rd-sae},xmm22,ebx
-vcvtsi2sd xmm2{ru-sae},xmm6,r11d
-vcvtsi2sd xmm2{rz-sae},xmm6,ebx
-vcvtusi2sd xmm18{rne-sae},xmm14,ebx
-vcvtusi2sd xmm10{rd-sae},xmm22,ebx
-vcvtusi2sd xmm2{ru-sae},xmm6,r11d
-vcvtusi2sd xmm2{rz-sae},xmm6,ebx
 rmpadjust
 rmpupdate
 psmash

@@ -273,6 +273,7 @@ impl OptionValue {
 			OptionsProps::CC_ge => options.set_cc_ge(self.to_cc_ge()),
 			OptionsProps::CC_le => options.set_cc_le(self.to_cc_le()),
 			OptionsProps::CC_g => options.set_cc_g(self.to_cc_g()),
+			OptionsProps::ShowUselessPrefixes => options.set_show_useless_prefixes(self.to_bool()),
 			OptionsProps::IP | OptionsProps::DecoderOptions => {}
 		}
 	}

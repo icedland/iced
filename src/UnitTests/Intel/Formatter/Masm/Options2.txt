@@ -33,3 +33,13 @@
 64, 8B 0C 25 78563412, Mov_r32_rm32, MasmAddDsPrefix32=false
 64, A1 F0DEBC9A78563412, Mov_EAX_moffs32, MasmAddDsPrefix32=true
 64, A1 F0DEBC9A78563412, Mov_EAX_moffs32, MasmAddDsPrefix32=false
+
+32, 3E A0 12345678, Mov_AL_moffs8, ShowUselessPrefixes=false MasmAddDsPrefix32=false
+16, 3E A0 DEF0, Mov_AL_moffs8, ShowUselessPrefixes=false MasmAddDsPrefix32=false
+32, 3E 8A 0D 88A9CBED, Mov_r8_rm8, ShowUselessPrefixes=false MasmAddDsPrefix32=false
+16, 3E 8A 0E CCED, Mov_r8_rm8, ShowUselessPrefixes=false MasmAddDsPrefix32=false
+
+32, 3E A0 12345678, Mov_AL_moffs8, ShowUselessPrefixes=false MasmAddDsPrefix32=true
+16, 3E A0 DEF0, Mov_AL_moffs8, ShowUselessPrefixes=false MasmAddDsPrefix32=true
+32, 3E 8A 0D 88A9CBED, Mov_r8_rm8, ShowUselessPrefixes=false MasmAddDsPrefix32=true
+16, 3E 8A 0E CCED, Mov_r8_rm8, ShowUselessPrefixes=false MasmAddDsPrefix32=true

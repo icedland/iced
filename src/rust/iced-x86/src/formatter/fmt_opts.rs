@@ -107,6 +107,7 @@ struct Flags2;
 impl Flags2 {
 	const NASM_SHOW_SIGN_EXTENDED_IMMEDIATE_SIZE: u32 = 0x0000_0001;
 	const PREFER_ST0: u32 = 0x0000_0002;
+	const SHOW_USELESS_PREFIXES: u32 = 0x0000_0004;
 }
 
 /// Formatter options
@@ -1846,6 +1847,37 @@ impl FormatterOptions {
 			self.options2 |= Flags2::PREFER_ST0;
 		} else {
 			self.options2 &= !Flags2::PREFER_ST0;
+		}
+	}
+
+	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `es rep add eax,ecx`
+	/// ✔️ | `false` | `add eax,ecx`
+	#[cfg_attr(has_must_use, must_use)]
+	#[inline]
+	pub fn show_useless_prefixes(&self) -> bool {
+		(self.options2 & Flags2::SHOW_USELESS_PREFIXES) != 0
+	}
+
+	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `es rep add eax,ecx`
+	/// ✔️ | `false` | `add eax,ecx`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[inline]
+	pub fn set_show_useless_prefixes(&mut self, value: bool) {
+		if value {
+			self.options2 |= Flags2::SHOW_USELESS_PREFIXES;
+		} else {
+			self.options2 &= !Flags2::SHOW_USELESS_PREFIXES;
 		}
 	}
 

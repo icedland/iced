@@ -67,6 +67,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.UppercasePrefixes:
 			case OptionsProps.UppercaseRegisters:
 			case OptionsProps.UsePseudoOps:
+			case OptionsProps.ShowUselessPrefixes:
 				value = NumberConverter.ToBoolean(valueStr);
 				break;
 

@@ -339,6 +339,7 @@ fn verify_default_formatter_options() {
 	assert_eq!(CC_ge::ge, options.cc_ge());
 	assert_eq!(CC_le::le, options.cc_le());
 	assert_eq!(CC_g::g, options.cc_g());
+	assert!(!options.show_useless_prefixes());
 	assert!(!options.gas_naked_registers());
 	assert!(!options.gas_show_mnemonic_size_suffix());
 	assert!(!options.gas_space_after_memory_operand_comma());

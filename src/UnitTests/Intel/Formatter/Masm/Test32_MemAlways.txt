@@ -139,8 +139,6 @@ retnw -5AA6h
 ret -5AA6h
 retnw
 ret
-rep retnw -5AA6h
-rep ret -5AA6h
 rep retnw
 rep ret
 les bx, dword ptr [eax]

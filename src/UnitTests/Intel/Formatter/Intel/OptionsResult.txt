@@ -2140,3 +2140,1365 @@ setle al
 setng al
 setg al
 setnle al
+
+mov ecx,edx
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,fs:[rdx]
+mov ecx,gs:[rdx]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,fs:[rbp]
+mov ecx,gs:[rbp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,fs:[rsp]
+mov ecx,gs:[rsp]
+mov ecx,es:[edx]
+mov ecx,cs:[edx]
+mov ecx,ss:[edx]
+mov ecx,[edx]
+mov ecx,fs:[edx]
+mov ecx,gs:[edx]
+mov ecx,es:[ebp]
+mov ecx,cs:[ebp]
+mov ecx,[ebp]
+mov ecx,ds:[ebp]
+mov ecx,fs:[ebp]
+mov ecx,gs:[ebp]
+mov ecx,es:[esp]
+mov ecx,cs:[esp]
+mov ecx,[esp]
+mov ecx,ds:[esp]
+mov ecx,fs:[esp]
+mov ecx,gs:[esp]
+mov ax,es:[bx]
+mov ax,cs:[bx]
+mov ax,ss:[bx]
+mov ax,[bx]
+mov ax,fs:[bx]
+mov ax,gs:[bx]
+mov ax,es:[bp]
+mov ax,cs:[bp]
+mov ax,[bp]
+mov ax,ds:[bp]
+mov ax,fs:[bp]
+mov ax,gs:[bp]
+mov ecx,edx
+mov ecx,edx
+
+es mov ecx,edx
+mov ecx,es:[rdx]
+mov ecx,cs:[rdx]
+mov ecx,ss:[rdx]
+mov ecx,ds:[rdx]
+mov ecx,fs:[rdx]
+mov ecx,gs:[rdx]
+mov ecx,es:[rbp]
+mov ecx,cs:[rbp]
+mov ecx,ss:[rbp]
+mov ecx,ds:[rbp]
+mov ecx,fs:[rbp]
+mov ecx,gs:[rbp]
+mov ecx,es:[rsp]
+mov ecx,cs:[rsp]
+mov ecx,ss:[rsp]
+mov ecx,ds:[rsp]
+mov ecx,fs:[rsp]
+mov ecx,gs:[rsp]
+mov ecx,es:[edx]
+mov ecx,cs:[edx]
+mov ecx,ss:[edx]
+mov ecx,ds:[edx]
+mov ecx,fs:[edx]
+mov ecx,gs:[edx]
+mov ecx,es:[ebp]
+mov ecx,cs:[ebp]
+mov ecx,ss:[ebp]
+mov ecx,ds:[ebp]
+mov ecx,fs:[ebp]
+mov ecx,gs:[ebp]
+mov ecx,es:[esp]
+mov ecx,cs:[esp]
+mov ecx,ss:[esp]
+mov ecx,ds:[esp]
+mov ecx,fs:[esp]
+mov ecx,gs:[esp]
+mov ax,es:[bx]
+mov ax,cs:[bx]
+mov ax,ss:[bx]
+mov ax,ds:[bx]
+mov ax,fs:[bx]
+mov ax,gs:[bx]
+mov ax,es:[bp]
+mov ax,cs:[bp]
+mov ax,ss:[bp]
+mov ax,ds:[bp]
+mov ax,fs:[bp]
+mov ax,gs:[bp]
+rep mov ecx,edx
+repne mov ecx,edx
+
+vcvtsi2sd xmm18,xmm14,ebx
+vcvtsi2sd xmm10,xmm22,ebx
+vcvtsi2sd xmm2,xmm6,r11d
+vcvtsi2sd xmm2,xmm6,ebx
+vcvtusi2sd xmm18,xmm14,ebx
+vcvtusi2sd xmm10,xmm22,ebx
+vcvtusi2sd xmm2,xmm6,r11d
+vcvtusi2sd xmm2,xmm6,ebx
+
+vcvtsi2sd xmm18{rne-sae},xmm14,ebx
+vcvtsi2sd xmm10{rd-sae},xmm22,ebx
+vcvtsi2sd xmm2{ru-sae},xmm6,r11d
+vcvtsi2sd xmm2{rz-sae},xmm6,ebx
+vcvtusi2sd xmm18{rne-sae},xmm14,ebx
+vcvtusi2sd xmm10{rd-sae},xmm22,ebx
+vcvtusi2sd xmm2{ru-sae},xmm6,r11d
+vcvtusi2sd xmm2{rz-sae},xmm6,ebx
+
+mov al,[0xf0debc9a78563412]
+mov al,[0xf0debc9a78563412]
+mov al,[0xf0debc9a78563412]
+mov al,[0xf0debc9a78563412]
+mov al,fs:[0xf0debc9a78563412]
+mov al,gs:[0xf0debc9a78563412]
+mov al,es:[0x78563412]
+mov al,cs:[0x78563412]
+mov al,ss:[0x78563412]
+mov al,[0x78563412]
+mov al,fs:[0x78563412]
+mov al,gs:[0x78563412]
+mov al,es:[0xf0de]
+mov al,cs:[0xf0de]
+mov al,ss:[0xf0de]
+mov al,[0xf0de]
+mov al,fs:[0xf0de]
+mov al,gs:[0xf0de]
+mov cl,[0x7fffffffedcba97f]
+mov cl,[0x7fffffffedcba97f]
+mov cl,[0x7fffffffedcba97f]
+mov cl,[0x7fffffffedcba97f]
+mov cl,fs:[0x7fffffffedcba97f]
+mov cl,gs:[0x7fffffffedcba97f]
+mov cl,es:[0xedcba988]
+mov cl,cs:[0xedcba988]
+mov cl,ss:[0xedcba988]
+mov cl,[0xedcba988]
+mov cl,fs:[0xedcba988]
+mov cl,gs:[0xedcba988]
+mov cl,es:[0xedcc]
+mov cl,cs:[0xedcc]
+mov cl,ss:[0xedcc]
+mov cl,[0xedcc]
+mov cl,fs:[0xedcc]
+mov cl,gs:[0xedcc]
+
+mov al,es:[0xf0debc9a78563412]
+mov al,cs:[0xf0debc9a78563412]
+mov al,ss:[0xf0debc9a78563412]
+mov al,ds:[0xf0debc9a78563412]
+mov al,fs:[0xf0debc9a78563412]
+mov al,gs:[0xf0debc9a78563412]
+mov al,es:[0x78563412]
+mov al,cs:[0x78563412]
+mov al,ss:[0x78563412]
+mov al,ds:[0x78563412]
+mov al,fs:[0x78563412]
+mov al,gs:[0x78563412]
+mov al,es:[0xf0de]
+mov al,cs:[0xf0de]
+mov al,ss:[0xf0de]
+mov al,ds:[0xf0de]
+mov al,fs:[0xf0de]
+mov al,gs:[0xf0de]
+mov cl,es:[0x7fffffffedcba97f]
+mov cl,cs:[0x7fffffffedcba97f]
+mov cl,ss:[0x7fffffffedcba97f]
+mov cl,ds:[0x7fffffffedcba97f]
+mov cl,fs:[0x7fffffffedcba97f]
+mov cl,gs:[0x7fffffffedcba97f]
+mov cl,es:[0xedcba988]
+mov cl,cs:[0xedcba988]
+mov cl,ss:[0xedcba988]
+mov cl,ds:[0xedcba988]
+mov cl,fs:[0xedcba988]
+mov cl,gs:[0xedcba988]
+mov cl,es:[0xedcc]
+mov cl,cs:[0xedcc]
+mov cl,ss:[0xedcc]
+mov cl,ds:[0xedcc]
+mov cl,fs:[0xedcc]
+mov cl,gs:[0xedcc]
+
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+maskmovq mm2,mm3,es
+maskmovq mm2,mm3,cs
+maskmovq mm2,mm3,ss
+maskmovq mm2,mm3
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3,es
+maskmovdqu xmm2,xmm3,cs
+maskmovdqu xmm2,xmm3,ss
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3,es
+vmaskmovdqu xmm2,xmm3,cs
+vmaskmovdqu xmm2,xmm3,ss
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+maskmovq mm2,mm3,es
+maskmovq mm2,mm3,cs
+maskmovq mm2,mm3,ss
+maskmovq mm2,mm3
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3,es
+maskmovdqu xmm2,xmm3,cs
+maskmovdqu xmm2,xmm3,ss
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3,es
+vmaskmovdqu xmm2,xmm3,cs
+vmaskmovdqu xmm2,xmm3,ss
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+monitor
+monitor
+monitor
+monitor
+fs monitor
+gs monitor
+monitorx
+monitorx
+monitorx
+monitorx
+fs monitorx
+gs monitorx
+clzero rax
+clzero rax
+clzero rax
+clzero rax
+fs clzero rax
+gs clzero rax
+umonitor rbp
+umonitor rbp
+umonitor rbp
+umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero eax
+cs clzero eax
+ss clzero eax
+clzero eax
+fs clzero eax
+gs clzero eax
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero ax
+cs clzero ax
+ss clzero ax
+clzero ax
+fs clzero ax
+gs clzero ax
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+xlat [rbx]
+xlat [rbx]
+xlat [rbx]
+xlat [rbx]
+xlat fs:[rbx]
+xlat gs:[rbx]
+outsb dx,[rsi]
+outsb dx,[rsi]
+outsb dx,[rsi]
+outsb dx,[rsi]
+outsb dx,fs:[rsi]
+outsb dx,gs:[rsi]
+outsw dx,[rsi]
+outsw dx,[rsi]
+outsw dx,[rsi]
+outsw dx,[rsi]
+outsw dx,fs:[rsi]
+outsw dx,gs:[rsi]
+outsd dx,[rsi]
+outsd dx,[rsi]
+outsd dx,[rsi]
+outsd dx,[rsi]
+outsd dx,fs:[rsi]
+outsd dx,gs:[rsi]
+movsb [rdi],[rsi]
+movsb [rdi],[rsi]
+movsb [rdi],[rsi]
+movsb [rdi],[rsi]
+movsb es:[rdi],fs:[rsi]
+movsb es:[rdi],gs:[rsi]
+movsw [rdi],[rsi]
+movsw [rdi],[rsi]
+movsw [rdi],[rsi]
+movsw [rdi],[rsi]
+movsw es:[rdi],fs:[rsi]
+movsw es:[rdi],gs:[rsi]
+movsd [rdi],[rsi]
+movsd [rdi],[rsi]
+movsd [rdi],[rsi]
+movsd [rdi],[rsi]
+movsd es:[rdi],fs:[rsi]
+movsd es:[rdi],gs:[rsi]
+movsq [rdi],[rsi]
+movsq [rdi],[rsi]
+movsq [rdi],[rsi]
+movsq [rdi],[rsi]
+movsq es:[rdi],fs:[rsi]
+movsq es:[rdi],gs:[rsi]
+cmpsb [rsi],[rdi]
+cmpsb [rsi],[rdi]
+cmpsb [rsi],[rdi]
+cmpsb [rsi],[rdi]
+cmpsb fs:[rsi],es:[rdi]
+cmpsb gs:[rsi],es:[rdi]
+cmpsw [rsi],[rdi]
+cmpsw [rsi],[rdi]
+cmpsw [rsi],[rdi]
+cmpsw [rsi],[rdi]
+cmpsw fs:[rsi],es:[rdi]
+cmpsw gs:[rsi],es:[rdi]
+cmpsd [rsi],[rdi]
+cmpsd [rsi],[rdi]
+cmpsd [rsi],[rdi]
+cmpsd [rsi],[rdi]
+cmpsd fs:[rsi],es:[rdi]
+cmpsd gs:[rsi],es:[rdi]
+cmpsq [rsi],[rdi]
+cmpsq [rsi],[rdi]
+cmpsq [rsi],[rdi]
+cmpsq [rsi],[rdi]
+cmpsq fs:[rsi],es:[rdi]
+cmpsq gs:[rsi],es:[rdi]
+lodsb [rsi]
+lodsb [rsi]
+lodsb [rsi]
+lodsb [rsi]
+lodsb fs:[rsi]
+lodsb gs:[rsi]
+lodsw [rsi]
+lodsw [rsi]
+lodsw [rsi]
+lodsw [rsi]
+lodsw fs:[rsi]
+lodsw gs:[rsi]
+lodsd [rsi]
+lodsd [rsi]
+lodsd [rsi]
+lodsd [rsi]
+lodsd fs:[rsi]
+lodsd gs:[rsi]
+lodsq [rsi]
+lodsq [rsi]
+lodsq [rsi]
+lodsq [rsi]
+lodsq fs:[rsi]
+lodsq gs:[rsi]
+
+xlat es:[ebx]
+xlat cs:[ebx]
+xlat ss:[ebx]
+xlat [ebx]
+xlat fs:[ebx]
+xlat gs:[ebx]
+outsb dx,es:[esi]
+outsb dx,cs:[esi]
+outsb dx,ss:[esi]
+outsb dx,[esi]
+outsb dx,fs:[esi]
+outsb dx,gs:[esi]
+outsw dx,es:[esi]
+outsw dx,cs:[esi]
+outsw dx,ss:[esi]
+outsw dx,[esi]
+outsw dx,fs:[esi]
+outsw dx,gs:[esi]
+outsd dx,es:[esi]
+outsd dx,cs:[esi]
+outsd dx,ss:[esi]
+outsd dx,[esi]
+outsd dx,fs:[esi]
+outsd dx,gs:[esi]
+movsb es:[edi],es:[esi]
+movsb es:[edi],cs:[esi]
+movsb es:[edi],ss:[esi]
+movsb [edi],[esi]
+movsb es:[edi],fs:[esi]
+movsb es:[edi],gs:[esi]
+movsw es:[edi],es:[esi]
+movsw es:[edi],cs:[esi]
+movsw es:[edi],ss:[esi]
+movsw [edi],[esi]
+movsw es:[edi],fs:[esi]
+movsw es:[edi],gs:[esi]
+movsd es:[edi],es:[esi]
+movsd es:[edi],cs:[esi]
+movsd es:[edi],ss:[esi]
+movsd [edi],[esi]
+movsd es:[edi],fs:[esi]
+movsd es:[edi],gs:[esi]
+cmpsb es:[esi],es:[edi]
+cmpsb cs:[esi],es:[edi]
+cmpsb ss:[esi],es:[edi]
+cmpsb [esi],[edi]
+cmpsb fs:[esi],es:[edi]
+cmpsb gs:[esi],es:[edi]
+cmpsw es:[esi],es:[edi]
+cmpsw cs:[esi],es:[edi]
+cmpsw ss:[esi],es:[edi]
+cmpsw [esi],[edi]
+cmpsw fs:[esi],es:[edi]
+cmpsw gs:[esi],es:[edi]
+cmpsd es:[esi],es:[edi]
+cmpsd cs:[esi],es:[edi]
+cmpsd ss:[esi],es:[edi]
+cmpsd [esi],[edi]
+cmpsd fs:[esi],es:[edi]
+cmpsd gs:[esi],es:[edi]
+lodsb es:[esi]
+lodsb cs:[esi]
+lodsb ss:[esi]
+lodsb [esi]
+lodsb fs:[esi]
+lodsb gs:[esi]
+lodsw es:[esi]
+lodsw cs:[esi]
+lodsw ss:[esi]
+lodsw [esi]
+lodsw fs:[esi]
+lodsw gs:[esi]
+lodsd es:[esi]
+lodsd cs:[esi]
+lodsd ss:[esi]
+lodsd [esi]
+lodsd fs:[esi]
+lodsd gs:[esi]
+
+xlat es:[bx]
+xlat cs:[bx]
+xlat ss:[bx]
+xlat [bx]
+xlat fs:[bx]
+xlat gs:[bx]
+outsb dx,es:[si]
+outsb dx,cs:[si]
+outsb dx,ss:[si]
+outsb dx,[si]
+outsb dx,fs:[si]
+outsb dx,gs:[si]
+outsw dx,es:[si]
+outsw dx,cs:[si]
+outsw dx,ss:[si]
+outsw dx,[si]
+outsw dx,fs:[si]
+outsw dx,gs:[si]
+outsd dx,es:[si]
+outsd dx,cs:[si]
+outsd dx,ss:[si]
+outsd dx,[si]
+outsd dx,fs:[si]
+outsd dx,gs:[si]
+movsb es:[di],es:[si]
+movsb es:[di],cs:[si]
+movsb es:[di],ss:[si]
+movsb [di],[si]
+movsb es:[di],fs:[si]
+movsb es:[di],gs:[si]
+movsw es:[di],es:[si]
+movsw es:[di],cs:[si]
+movsw es:[di],ss:[si]
+movsw [di],[si]
+movsw es:[di],fs:[si]
+movsw es:[di],gs:[si]
+movsd es:[di],es:[si]
+movsd es:[di],cs:[si]
+movsd es:[di],ss:[si]
+movsd [di],[si]
+movsd es:[di],fs:[si]
+movsd es:[di],gs:[si]
+cmpsb es:[si],es:[di]
+cmpsb cs:[si],es:[di]
+cmpsb ss:[si],es:[di]
+cmpsb [si],[di]
+cmpsb fs:[si],es:[di]
+cmpsb gs:[si],es:[di]
+cmpsw es:[si],es:[di]
+cmpsw cs:[si],es:[di]
+cmpsw ss:[si],es:[di]
+cmpsw [si],[di]
+cmpsw fs:[si],es:[di]
+cmpsw gs:[si],es:[di]
+cmpsd es:[si],es:[di]
+cmpsd cs:[si],es:[di]
+cmpsd ss:[si],es:[di]
+cmpsd [si],[di]
+cmpsd fs:[si],es:[di]
+cmpsd gs:[si],es:[di]
+lodsb es:[si]
+lodsb cs:[si]
+lodsb ss:[si]
+lodsb [si]
+lodsb fs:[si]
+lodsb gs:[si]
+lodsw es:[si]
+lodsw cs:[si]
+lodsw ss:[si]
+lodsw [si]
+lodsw fs:[si]
+lodsw gs:[si]
+lodsd es:[si]
+lodsd cs:[si]
+lodsd ss:[si]
+lodsd [si]
+lodsd fs:[si]
+lodsd gs:[si]
+
+maskmovq mm2,mm3,es
+maskmovq mm2,mm3,cs
+maskmovq mm2,mm3,ss
+maskmovq mm2,mm3,ds
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3,es
+maskmovdqu xmm2,xmm3,cs
+maskmovdqu xmm2,xmm3,ss
+maskmovdqu xmm2,xmm3,ds
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3,es
+vmaskmovdqu xmm2,xmm3,cs
+vmaskmovdqu xmm2,xmm3,ss
+vmaskmovdqu xmm2,xmm3,ds
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+maskmovq mm2,mm3,es
+maskmovq mm2,mm3,cs
+maskmovq mm2,mm3,ss
+maskmovq mm2,mm3,ds
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3,es
+maskmovdqu xmm2,xmm3,cs
+maskmovdqu xmm2,xmm3,ss
+maskmovdqu xmm2,xmm3,ds
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3,es
+vmaskmovdqu xmm2,xmm3,cs
+vmaskmovdqu xmm2,xmm3,ss
+vmaskmovdqu xmm2,xmm3,ds
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+maskmovq mm2,mm3,es
+maskmovq mm2,mm3,cs
+maskmovq mm2,mm3,ss
+maskmovq mm2,mm3,ds
+maskmovq mm2,mm3,fs
+maskmovq mm2,mm3,gs
+maskmovdqu xmm2,xmm3,es
+maskmovdqu xmm2,xmm3,cs
+maskmovdqu xmm2,xmm3,ss
+maskmovdqu xmm2,xmm3,ds
+maskmovdqu xmm2,xmm3,fs
+maskmovdqu xmm2,xmm3,gs
+vmaskmovdqu xmm2,xmm3,es
+vmaskmovdqu xmm2,xmm3,cs
+vmaskmovdqu xmm2,xmm3,ss
+vmaskmovdqu xmm2,xmm3,ds
+vmaskmovdqu xmm2,xmm3,fs
+vmaskmovdqu xmm2,xmm3,gs
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero rax
+cs clzero rax
+ss clzero rax
+ds clzero rax
+fs clzero rax
+gs clzero rax
+es umonitor rbp
+cs umonitor rbp
+ss umonitor rbp
+ds umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero eax
+cs clzero eax
+ss clzero eax
+ds clzero eax
+fs clzero eax
+gs clzero eax
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+ds umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero ax
+cs clzero ax
+ss clzero ax
+ds clzero ax
+fs clzero ax
+gs clzero ax
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+ds umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+xlat es:[rbx]
+xlat cs:[rbx]
+xlat ss:[rbx]
+xlat ds:[rbx]
+xlat fs:[rbx]
+xlat gs:[rbx]
+outsb dx,es:[rsi]
+outsb dx,cs:[rsi]
+outsb dx,ss:[rsi]
+outsb dx,ds:[rsi]
+outsb dx,fs:[rsi]
+outsb dx,gs:[rsi]
+outsw dx,es:[rsi]
+outsw dx,cs:[rsi]
+outsw dx,ss:[rsi]
+outsw dx,ds:[rsi]
+outsw dx,fs:[rsi]
+outsw dx,gs:[rsi]
+outsd dx,es:[rsi]
+outsd dx,cs:[rsi]
+outsd dx,ss:[rsi]
+outsd dx,ds:[rsi]
+outsd dx,fs:[rsi]
+outsd dx,gs:[rsi]
+movsb es:[rdi],es:[rsi]
+movsb es:[rdi],cs:[rsi]
+movsb es:[rdi],ss:[rsi]
+movsb es:[rdi],ds:[rsi]
+movsb es:[rdi],fs:[rsi]
+movsb es:[rdi],gs:[rsi]
+movsw es:[rdi],es:[rsi]
+movsw es:[rdi],cs:[rsi]
+movsw es:[rdi],ss:[rsi]
+movsw es:[rdi],ds:[rsi]
+movsw es:[rdi],fs:[rsi]
+movsw es:[rdi],gs:[rsi]
+movsd es:[rdi],es:[rsi]
+movsd es:[rdi],cs:[rsi]
+movsd es:[rdi],ss:[rsi]
+movsd es:[rdi],ds:[rsi]
+movsd es:[rdi],fs:[rsi]
+movsd es:[rdi],gs:[rsi]
+movsq es:[rdi],es:[rsi]
+movsq es:[rdi],cs:[rsi]
+movsq es:[rdi],ss:[rsi]
+movsq es:[rdi],ds:[rsi]
+movsq es:[rdi],fs:[rsi]
+movsq es:[rdi],gs:[rsi]
+cmpsb es:[rsi],es:[rdi]
+cmpsb cs:[rsi],es:[rdi]
+cmpsb ss:[rsi],es:[rdi]
+cmpsb ds:[rsi],es:[rdi]
+cmpsb fs:[rsi],es:[rdi]
+cmpsb gs:[rsi],es:[rdi]
+cmpsw es:[rsi],es:[rdi]
+cmpsw cs:[rsi],es:[rdi]
+cmpsw ss:[rsi],es:[rdi]
+cmpsw ds:[rsi],es:[rdi]
+cmpsw fs:[rsi],es:[rdi]
+cmpsw gs:[rsi],es:[rdi]
+cmpsd es:[rsi],es:[rdi]
+cmpsd cs:[rsi],es:[rdi]
+cmpsd ss:[rsi],es:[rdi]
+cmpsd ds:[rsi],es:[rdi]
+cmpsd fs:[rsi],es:[rdi]
+cmpsd gs:[rsi],es:[rdi]
+cmpsq es:[rsi],es:[rdi]
+cmpsq cs:[rsi],es:[rdi]
+cmpsq ss:[rsi],es:[rdi]
+cmpsq ds:[rsi],es:[rdi]
+cmpsq fs:[rsi],es:[rdi]
+cmpsq gs:[rsi],es:[rdi]
+lodsb es:[rsi]
+lodsb cs:[rsi]
+lodsb ss:[rsi]
+lodsb ds:[rsi]
+lodsb fs:[rsi]
+lodsb gs:[rsi]
+lodsw es:[rsi]
+lodsw cs:[rsi]
+lodsw ss:[rsi]
+lodsw ds:[rsi]
+lodsw fs:[rsi]
+lodsw gs:[rsi]
+lodsd es:[rsi]
+lodsd cs:[rsi]
+lodsd ss:[rsi]
+lodsd ds:[rsi]
+lodsd fs:[rsi]
+lodsd gs:[rsi]
+lodsq es:[rsi]
+lodsq cs:[rsi]
+lodsq ss:[rsi]
+lodsq ds:[rsi]
+lodsq fs:[rsi]
+lodsq gs:[rsi]
+
+xlat es:[ebx]
+xlat cs:[ebx]
+xlat ss:[ebx]
+xlat ds:[ebx]
+xlat fs:[ebx]
+xlat gs:[ebx]
+outsb dx,es:[esi]
+outsb dx,cs:[esi]
+outsb dx,ss:[esi]
+outsb dx,ds:[esi]
+outsb dx,fs:[esi]
+outsb dx,gs:[esi]
+outsw dx,es:[esi]
+outsw dx,cs:[esi]
+outsw dx,ss:[esi]
+outsw dx,ds:[esi]
+outsw dx,fs:[esi]
+outsw dx,gs:[esi]
+outsd dx,es:[esi]
+outsd dx,cs:[esi]
+outsd dx,ss:[esi]
+outsd dx,ds:[esi]
+outsd dx,fs:[esi]
+outsd dx,gs:[esi]
+movsb es:[edi],es:[esi]
+movsb es:[edi],cs:[esi]
+movsb es:[edi],ss:[esi]
+movsb es:[edi],ds:[esi]
+movsb es:[edi],fs:[esi]
+movsb es:[edi],gs:[esi]
+movsw es:[edi],es:[esi]
+movsw es:[edi],cs:[esi]
+movsw es:[edi],ss:[esi]
+movsw es:[edi],ds:[esi]
+movsw es:[edi],fs:[esi]
+movsw es:[edi],gs:[esi]
+movsd es:[edi],es:[esi]
+movsd es:[edi],cs:[esi]
+movsd es:[edi],ss:[esi]
+movsd es:[edi],ds:[esi]
+movsd es:[edi],fs:[esi]
+movsd es:[edi],gs:[esi]
+cmpsb es:[esi],es:[edi]
+cmpsb cs:[esi],es:[edi]
+cmpsb ss:[esi],es:[edi]
+cmpsb ds:[esi],es:[edi]
+cmpsb fs:[esi],es:[edi]
+cmpsb gs:[esi],es:[edi]
+cmpsw es:[esi],es:[edi]
+cmpsw cs:[esi],es:[edi]
+cmpsw ss:[esi],es:[edi]
+cmpsw ds:[esi],es:[edi]
+cmpsw fs:[esi],es:[edi]
+cmpsw gs:[esi],es:[edi]
+cmpsd es:[esi],es:[edi]
+cmpsd cs:[esi],es:[edi]
+cmpsd ss:[esi],es:[edi]
+cmpsd ds:[esi],es:[edi]
+cmpsd fs:[esi],es:[edi]
+cmpsd gs:[esi],es:[edi]
+lodsb es:[esi]
+lodsb cs:[esi]
+lodsb ss:[esi]
+lodsb ds:[esi]
+lodsb fs:[esi]
+lodsb gs:[esi]
+lodsw es:[esi]
+lodsw cs:[esi]
+lodsw ss:[esi]
+lodsw ds:[esi]
+lodsw fs:[esi]
+lodsw gs:[esi]
+lodsd es:[esi]
+lodsd cs:[esi]
+lodsd ss:[esi]
+lodsd ds:[esi]
+lodsd fs:[esi]
+lodsd gs:[esi]
+
+xlat es:[bx]
+xlat cs:[bx]
+xlat ss:[bx]
+xlat ds:[bx]
+xlat fs:[bx]
+xlat gs:[bx]
+outsb dx,es:[si]
+outsb dx,cs:[si]
+outsb dx,ss:[si]
+outsb dx,ds:[si]
+outsb dx,fs:[si]
+outsb dx,gs:[si]
+outsw dx,es:[si]
+outsw dx,cs:[si]
+outsw dx,ss:[si]
+outsw dx,ds:[si]
+outsw dx,fs:[si]
+outsw dx,gs:[si]
+outsd dx,es:[si]
+outsd dx,cs:[si]
+outsd dx,ss:[si]
+outsd dx,ds:[si]
+outsd dx,fs:[si]
+outsd dx,gs:[si]
+movsb es:[di],es:[si]
+movsb es:[di],cs:[si]
+movsb es:[di],ss:[si]
+movsb es:[di],ds:[si]
+movsb es:[di],fs:[si]
+movsb es:[di],gs:[si]
+movsw es:[di],es:[si]
+movsw es:[di],cs:[si]
+movsw es:[di],ss:[si]
+movsw es:[di],ds:[si]
+movsw es:[di],fs:[si]
+movsw es:[di],gs:[si]
+movsd es:[di],es:[si]
+movsd es:[di],cs:[si]
+movsd es:[di],ss:[si]
+movsd es:[di],ds:[si]
+movsd es:[di],fs:[si]
+movsd es:[di],gs:[si]
+cmpsb es:[si],es:[di]
+cmpsb cs:[si],es:[di]
+cmpsb ss:[si],es:[di]
+cmpsb ds:[si],es:[di]
+cmpsb fs:[si],es:[di]
+cmpsb gs:[si],es:[di]
+cmpsw es:[si],es:[di]
+cmpsw cs:[si],es:[di]
+cmpsw ss:[si],es:[di]
+cmpsw ds:[si],es:[di]
+cmpsw fs:[si],es:[di]
+cmpsw gs:[si],es:[di]
+cmpsd es:[si],es:[di]
+cmpsd cs:[si],es:[di]
+cmpsd ss:[si],es:[di]
+cmpsd ds:[si],es:[di]
+cmpsd fs:[si],es:[di]
+cmpsd gs:[si],es:[di]
+lodsb es:[si]
+lodsb cs:[si]
+lodsb ss:[si]
+lodsb ds:[si]
+lodsb fs:[si]
+lodsb gs:[si]
+lodsw es:[si]
+lodsw cs:[si]
+lodsw ss:[si]
+lodsw ds:[si]
+lodsw fs:[si]
+lodsw gs:[si]
+lodsd es:[si]
+lodsd cs:[si]
+lodsd ss:[si]
+lodsd ds:[si]
+lodsd fs:[si]
+lodsd gs:[si]
+
+rep insb [rdi],dx
+rep insw [rdi],dx
+rep insd [rdi],dx
+rep outsb dx,[rsi]
+rep outsw dx,[rsi]
+rep outsd dx,[rsi]
+rep movsb [rdi],[rsi]
+rep movsw [rdi],[rsi]
+rep movsd [rdi],[rsi]
+rep movsq [rdi],[rsi]
+repe cmpsb [rsi],[rdi]
+repe cmpsw [rsi],[rdi]
+repe cmpsd [rsi],[rdi]
+repe cmpsq [rsi],[rdi]
+rep stosb [rdi]
+rep stosw [rdi]
+rep stosd [rdi]
+rep stosq [rdi]
+rep lodsb [rsi]
+rep lodsw [rsi]
+rep lodsd [rsi]
+rep lodsq [rsi]
+repe scasb [rdi]
+repe scasw [rdi]
+repe scasd [rdi]
+repe scasq [rdi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [rdi],dx
+repne insw [rdi],dx
+repne insd [rdi],dx
+repne outsb dx,[rsi]
+repne outsw dx,[rsi]
+repne outsd dx,[rsi]
+repne movsb [rdi],[rsi]
+repne movsw [rdi],[rsi]
+repne movsd [rdi],[rsi]
+repne movsq [rdi],[rsi]
+repne cmpsb [rsi],[rdi]
+repne cmpsw [rsi],[rdi]
+repne cmpsd [rsi],[rdi]
+repne cmpsq [rsi],[rdi]
+repne stosb [rdi]
+repne stosw [rdi]
+repne stosd [rdi]
+repne stosq [rdi]
+repne lodsb [rsi]
+repne lodsw [rsi]
+repne lodsd [rsi]
+repne lodsq [rsi]
+repne scasb [rdi]
+repne scasw [rdi]
+repne scasd [rdi]
+repne scasq [rdi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [edi],dx
+rep insw [edi],dx
+rep insd [edi],dx
+rep outsb dx,[esi]
+rep outsw dx,[esi]
+rep outsd dx,[esi]
+rep movsb [edi],[esi]
+rep movsw [edi],[esi]
+rep movsd [edi],[esi]
+repe cmpsb [esi],[edi]
+repe cmpsw [esi],[edi]
+repe cmpsd [esi],[edi]
+rep stosb [edi]
+rep stosw [edi]
+rep stosd [edi]
+rep lodsb [esi]
+rep lodsw [esi]
+rep lodsd [esi]
+repe scasb [edi]
+repe scasw [edi]
+repe scasd [edi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [edi],dx
+repne insw [edi],dx
+repne insd [edi],dx
+repne outsb dx,[esi]
+repne outsw dx,[esi]
+repne outsd dx,[esi]
+repne movsb [edi],[esi]
+repne movsw [edi],[esi]
+repne movsd [edi],[esi]
+repne cmpsb [esi],[edi]
+repne cmpsw [esi],[edi]
+repne cmpsd [esi],[edi]
+repne stosb [edi]
+repne stosw [edi]
+repne stosd [edi]
+repne lodsb [esi]
+repne lodsw [esi]
+repne lodsd [esi]
+repne scasb [edi]
+repne scasw [edi]
+repne scasd [edi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [di],dx
+rep insw [di],dx
+rep insd [di],dx
+rep outsb dx,[si]
+rep outsw dx,[si]
+rep outsd dx,[si]
+rep movsb [di],[si]
+rep movsw [di],[si]
+rep movsd [di],[si]
+repe cmpsb [si],[di]
+repe cmpsw [si],[di]
+repe cmpsd [si],[di]
+rep stosb [di]
+rep stosw [di]
+rep stosd [di]
+rep lodsb [si]
+rep lodsw [si]
+rep lodsd [si]
+repe scasb [di]
+repe scasw [di]
+repe scasd [di]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [di],dx
+repne insw [di],dx
+repne insd [di],dx
+repne outsb dx,[si]
+repne outsw dx,[si]
+repne outsd dx,[si]
+repne movsb [di],[si]
+repne movsw [di],[si]
+repne movsd [di],[si]
+repne cmpsb [si],[di]
+repne cmpsw [si],[di]
+repne cmpsd [si],[di]
+repne stosb [di]
+repne stosw [di]
+repne stosd [di]
+repne lodsb [si]
+repne lodsw [si]
+repne lodsd [si]
+repne scasb [di]
+repne scasw [di]
+repne scasd [di]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [rdi],dx
+rep insw [rdi],dx
+rep insd [rdi],dx
+rep outsb dx,[rsi]
+rep outsw dx,[rsi]
+rep outsd dx,[rsi]
+rep movsb [rdi],[rsi]
+rep movsw [rdi],[rsi]
+rep movsd [rdi],[rsi]
+rep movsq [rdi],[rsi]
+repe cmpsb [rsi],[rdi]
+repe cmpsw [rsi],[rdi]
+repe cmpsd [rsi],[rdi]
+repe cmpsq [rsi],[rdi]
+rep stosb [rdi]
+rep stosw [rdi]
+rep stosd [rdi]
+rep stosq [rdi]
+rep lodsb [rsi]
+rep lodsw [rsi]
+rep lodsd [rsi]
+rep lodsq [rsi]
+repe scasb [rdi]
+repe scasw [rdi]
+repe scasd [rdi]
+repe scasq [rdi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [rdi],dx
+repne insw [rdi],dx
+repne insd [rdi],dx
+repne outsb dx,[rsi]
+repne outsw dx,[rsi]
+repne outsd dx,[rsi]
+repne movsb [rdi],[rsi]
+repne movsw [rdi],[rsi]
+repne movsd [rdi],[rsi]
+repne movsq [rdi],[rsi]
+repne cmpsb [rsi],[rdi]
+repne cmpsw [rsi],[rdi]
+repne cmpsd [rsi],[rdi]
+repne cmpsq [rsi],[rdi]
+repne stosb [rdi]
+repne stosw [rdi]
+repne stosd [rdi]
+repne stosq [rdi]
+repne lodsb [rsi]
+repne lodsw [rsi]
+repne lodsd [rsi]
+repne lodsq [rsi]
+repne scasb [rdi]
+repne scasw [rdi]
+repne scasd [rdi]
+repne scasq [rdi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [edi],dx
+rep insw [edi],dx
+rep insd [edi],dx
+rep outsb dx,[esi]
+rep outsw dx,[esi]
+rep outsd dx,[esi]
+rep movsb [edi],[esi]
+rep movsw [edi],[esi]
+rep movsd [edi],[esi]
+repe cmpsb [esi],[edi]
+repe cmpsw [esi],[edi]
+repe cmpsd [esi],[edi]
+rep stosb [edi]
+rep stosw [edi]
+rep stosd [edi]
+rep lodsb [esi]
+rep lodsw [esi]
+rep lodsd [esi]
+repe scasb [edi]
+repe scasw [edi]
+repe scasd [edi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [edi],dx
+repne insw [edi],dx
+repne insd [edi],dx
+repne outsb dx,[esi]
+repne outsw dx,[esi]
+repne outsd dx,[esi]
+repne movsb [edi],[esi]
+repne movsw [edi],[esi]
+repne movsd [edi],[esi]
+repne cmpsb [esi],[edi]
+repne cmpsw [esi],[edi]
+repne cmpsd [esi],[edi]
+repne stosb [edi]
+repne stosw [edi]
+repne stosd [edi]
+repne lodsb [esi]
+repne lodsw [esi]
+repne lodsd [esi]
+repne scasb [edi]
+repne scasw [edi]
+repne scasd [edi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [di],dx
+rep insw [di],dx
+rep insd [di],dx
+rep outsb dx,[si]
+rep outsw dx,[si]
+rep outsd dx,[si]
+rep movsb [di],[si]
+rep movsw [di],[si]
+rep movsd [di],[si]
+repe cmpsb [si],[di]
+repe cmpsw [si],[di]
+repe cmpsd [si],[di]
+rep stosb [di]
+rep stosw [di]
+rep stosd [di]
+rep lodsb [si]
+rep lodsw [si]
+rep lodsd [si]
+repe scasb [di]
+repe scasw [di]
+repe scasd [di]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [di],dx
+repne insw [di],dx
+repne insd [di],dx
+repne outsb dx,[si]
+repne outsw dx,[si]
+repne outsd dx,[si]
+repne movsb [di],[si]
+repne movsw [di],[si]
+repne movsd [di],[si]
+repne cmpsb [si],[di]
+repne cmpsw [si],[di]
+repne cmpsd [si],[di]
+repne stosb [di]
+repne stosw [di]
+repne stosd [di]
+repne lodsb [si]
+repne lodsw [si]
+repne lodsd [si]
+repne scasb [di]
+repne scasw [di]
+repne scasd [di]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb

@@ -33,3 +33,13 @@ mov ecx,[12345678h]
 mov ecx,[12345678h]
 mov eax,[123456789ABCDEF0h]
 mov eax,[123456789ABCDEF0h]
+
+mov al,[78563412h]
+mov al,[0F0DEh]
+mov cl,[0EDCBA988h]
+mov cl,[0EDCCh]
+
+mov al,ds:[78563412h]
+mov al,ds:[0F0DEh]
+mov cl,ds:[0EDCBA988h]
+mov cl,ds:[0EDCCh]

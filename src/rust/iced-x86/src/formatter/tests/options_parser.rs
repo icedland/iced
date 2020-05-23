@@ -68,7 +68,8 @@ pub(super) fn parse_option(key_value: &str) -> Result<(OptionsProps, OptionValue
 		| OptionsProps::UppercaseMnemonics
 		| OptionsProps::UppercasePrefixes
 		| OptionsProps::UppercaseRegisters
-		| OptionsProps::UsePseudoOps => OptionValue::Boolean(to_boolean(value_str)?),
+		| OptionsProps::UsePseudoOps
+		| OptionsProps::ShowUselessPrefixes => OptionValue::Boolean(to_boolean(value_str)?),
 
 		OptionsProps::BinaryDigitGroupSize
 		| OptionsProps::DecimalDigitGroupSize

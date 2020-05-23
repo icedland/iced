@@ -2140,3 +2140,1365 @@ setle al
 setng al
 setg al
 setnle al
+
+mov ecx,edx
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[fs:rdx]
+mov ecx,[gs:rdx]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[fs:rbp]
+mov ecx,[gs:rbp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[fs:rsp]
+mov ecx,[gs:rsp]
+mov ecx,[es:edx]
+mov ecx,[cs:edx]
+mov ecx,[ss:edx]
+mov ecx,[edx]
+mov ecx,[fs:edx]
+mov ecx,[gs:edx]
+mov ecx,[es:ebp]
+mov ecx,[cs:ebp]
+mov ecx,[ebp]
+mov ecx,[ds:ebp]
+mov ecx,[fs:ebp]
+mov ecx,[gs:ebp]
+mov ecx,[es:esp]
+mov ecx,[cs:esp]
+mov ecx,[esp]
+mov ecx,[ds:esp]
+mov ecx,[fs:esp]
+mov ecx,[gs:esp]
+mov ax,[es:bx]
+mov ax,[cs:bx]
+mov ax,[ss:bx]
+mov ax,[bx]
+mov ax,[fs:bx]
+mov ax,[gs:bx]
+mov ax,[es:bp]
+mov ax,[cs:bp]
+mov ax,[bp]
+mov ax,[ds:bp]
+mov ax,[fs:bp]
+mov ax,[gs:bp]
+mov ecx,edx
+mov ecx,edx
+
+es mov ecx,edx
+mov ecx,[es:rdx]
+mov ecx,[cs:rdx]
+mov ecx,[ss:rdx]
+mov ecx,[ds:rdx]
+mov ecx,[fs:rdx]
+mov ecx,[gs:rdx]
+mov ecx,[es:rbp]
+mov ecx,[cs:rbp]
+mov ecx,[ss:rbp]
+mov ecx,[ds:rbp]
+mov ecx,[fs:rbp]
+mov ecx,[gs:rbp]
+mov ecx,[es:rsp]
+mov ecx,[cs:rsp]
+mov ecx,[ss:rsp]
+mov ecx,[ds:rsp]
+mov ecx,[fs:rsp]
+mov ecx,[gs:rsp]
+mov ecx,[es:edx]
+mov ecx,[cs:edx]
+mov ecx,[ss:edx]
+mov ecx,[ds:edx]
+mov ecx,[fs:edx]
+mov ecx,[gs:edx]
+mov ecx,[es:ebp]
+mov ecx,[cs:ebp]
+mov ecx,[ss:ebp]
+mov ecx,[ds:ebp]
+mov ecx,[fs:ebp]
+mov ecx,[gs:ebp]
+mov ecx,[es:esp]
+mov ecx,[cs:esp]
+mov ecx,[ss:esp]
+mov ecx,[ds:esp]
+mov ecx,[fs:esp]
+mov ecx,[gs:esp]
+mov ax,[es:bx]
+mov ax,[cs:bx]
+mov ax,[ss:bx]
+mov ax,[ds:bx]
+mov ax,[fs:bx]
+mov ax,[gs:bx]
+mov ax,[es:bp]
+mov ax,[cs:bp]
+mov ax,[ss:bp]
+mov ax,[ds:bp]
+mov ax,[fs:bp]
+mov ax,[gs:bp]
+rep mov ecx,edx
+repne mov ecx,edx
+
+vcvtsi2sd xmm18,xmm14,ebx
+vcvtsi2sd xmm10,xmm22,ebx
+vcvtsi2sd xmm2,xmm6,r11d
+vcvtsi2sd xmm2,xmm6,ebx
+vcvtusi2sd xmm18,xmm14,ebx
+vcvtusi2sd xmm10,xmm22,ebx
+vcvtusi2sd xmm2,xmm6,r11d
+vcvtusi2sd xmm2,xmm6,ebx
+
+vcvtsi2sd xmm18,xmm14,{rn-sae},ebx
+vcvtsi2sd xmm10,xmm22,{rd-sae},ebx
+vcvtsi2sd xmm2,xmm6,{ru-sae},r11d
+vcvtsi2sd xmm2,xmm6,{rz-sae},ebx
+vcvtusi2sd xmm18,xmm14,{rn-sae},ebx
+vcvtusi2sd xmm10,xmm22,{rd-sae},ebx
+vcvtusi2sd xmm2,xmm6,{ru-sae},r11d
+vcvtusi2sd xmm2,xmm6,{rz-sae},ebx
+
+mov al,[qword 0xf0debc9a78563412]
+mov al,[qword 0xf0debc9a78563412]
+mov al,[qword 0xf0debc9a78563412]
+mov al,[qword 0xf0debc9a78563412]
+mov al,[qword fs:0xf0debc9a78563412]
+mov al,[qword gs:0xf0debc9a78563412]
+mov al,[es:0x78563412]
+mov al,[cs:0x78563412]
+mov al,[ss:0x78563412]
+mov al,[0x78563412]
+mov al,[fs:0x78563412]
+mov al,[gs:0x78563412]
+mov al,[es:0xf0de]
+mov al,[cs:0xf0de]
+mov al,[ss:0xf0de]
+mov al,[0xf0de]
+mov al,[fs:0xf0de]
+mov al,[gs:0xf0de]
+mov cl,[rel 0x7fffffffedcba97f]
+mov cl,[rel 0x7fffffffedcba97f]
+mov cl,[rel 0x7fffffffedcba97f]
+mov cl,[rel 0x7fffffffedcba97f]
+mov cl,[rel fs:0x7fffffffedcba97f]
+mov cl,[rel gs:0x7fffffffedcba97f]
+mov cl,[es:0xedcba988]
+mov cl,[cs:0xedcba988]
+mov cl,[ss:0xedcba988]
+mov cl,[0xedcba988]
+mov cl,[fs:0xedcba988]
+mov cl,[gs:0xedcba988]
+mov cl,[es:0xedcc]
+mov cl,[cs:0xedcc]
+mov cl,[ss:0xedcc]
+mov cl,[0xedcc]
+mov cl,[fs:0xedcc]
+mov cl,[gs:0xedcc]
+
+mov al,[qword es:0xf0debc9a78563412]
+mov al,[qword cs:0xf0debc9a78563412]
+mov al,[qword ss:0xf0debc9a78563412]
+mov al,[qword ds:0xf0debc9a78563412]
+mov al,[qword fs:0xf0debc9a78563412]
+mov al,[qword gs:0xf0debc9a78563412]
+mov al,[es:0x78563412]
+mov al,[cs:0x78563412]
+mov al,[ss:0x78563412]
+mov al,[ds:0x78563412]
+mov al,[fs:0x78563412]
+mov al,[gs:0x78563412]
+mov al,[es:0xf0de]
+mov al,[cs:0xf0de]
+mov al,[ss:0xf0de]
+mov al,[ds:0xf0de]
+mov al,[fs:0xf0de]
+mov al,[gs:0xf0de]
+mov cl,[rel es:0x7fffffffedcba97f]
+mov cl,[rel cs:0x7fffffffedcba97f]
+mov cl,[rel ss:0x7fffffffedcba97f]
+mov cl,[rel ds:0x7fffffffedcba97f]
+mov cl,[rel fs:0x7fffffffedcba97f]
+mov cl,[rel gs:0x7fffffffedcba97f]
+mov cl,[es:0xedcba988]
+mov cl,[cs:0xedcba988]
+mov cl,[ss:0xedcba988]
+mov cl,[ds:0xedcba988]
+mov cl,[fs:0xedcba988]
+mov cl,[gs:0xedcba988]
+mov cl,[es:0xedcc]
+mov cl,[cs:0xedcc]
+mov cl,[ss:0xedcc]
+mov cl,[ds:0xedcc]
+mov cl,[fs:0xedcc]
+mov cl,[gs:0xedcc]
+
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+es maskmovq mm2,mm3
+cs maskmovq mm2,mm3
+ss maskmovq mm2,mm3
+maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+es maskmovdqu xmm2,xmm3
+cs maskmovdqu xmm2,xmm3
+ss maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+es vmaskmovdqu xmm2,xmm3
+cs vmaskmovdqu xmm2,xmm3
+ss vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+es maskmovq mm2,mm3
+cs maskmovq mm2,mm3
+ss maskmovq mm2,mm3
+maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+es maskmovdqu xmm2,xmm3
+cs maskmovdqu xmm2,xmm3
+ss maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+es vmaskmovdqu xmm2,xmm3
+cs vmaskmovdqu xmm2,xmm3
+ss vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+monitor
+monitor
+monitor
+monitor
+fs monitor
+gs monitor
+monitorx
+monitorx
+monitorx
+monitorx
+fs monitorx
+gs monitorx
+clzero
+clzero
+clzero
+clzero
+fs clzero
+gs clzero
+umonitor rbp
+umonitor rbp
+umonitor rbp
+umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor
+cs monitor
+ss monitor
+monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+xlatb
+xlatb
+xlatb
+xlatb
+fs xlatb
+gs xlatb
+outsb
+outsb
+outsb
+outsb
+fs outsb
+gs outsb
+outsw
+outsw
+outsw
+outsw
+fs outsw
+gs outsw
+outsd
+outsd
+outsd
+outsd
+fs outsd
+gs outsd
+movsb
+movsb
+movsb
+movsb
+fs movsb
+gs movsb
+movsw
+movsw
+movsw
+movsw
+fs movsw
+gs movsw
+movsd
+movsd
+movsd
+movsd
+fs movsd
+gs movsd
+movsq
+movsq
+movsq
+movsq
+fs movsq
+gs movsq
+cmpsb
+cmpsb
+cmpsb
+cmpsb
+fs cmpsb
+gs cmpsb
+cmpsw
+cmpsw
+cmpsw
+cmpsw
+fs cmpsw
+gs cmpsw
+cmpsd
+cmpsd
+cmpsd
+cmpsd
+fs cmpsd
+gs cmpsd
+cmpsq
+cmpsq
+cmpsq
+cmpsq
+fs cmpsq
+gs cmpsq
+lodsb
+lodsb
+lodsb
+lodsb
+fs lodsb
+gs lodsb
+lodsw
+lodsw
+lodsw
+lodsw
+fs lodsw
+gs lodsw
+lodsd
+lodsd
+lodsd
+lodsd
+fs lodsd
+gs lodsd
+lodsq
+lodsq
+lodsq
+lodsq
+fs lodsq
+gs lodsq
+
+es xlatb
+cs xlatb
+ss xlatb
+xlatb
+fs xlatb
+gs xlatb
+es outsb
+cs outsb
+ss outsb
+outsb
+fs outsb
+gs outsb
+es outsw
+cs outsw
+ss outsw
+outsw
+fs outsw
+gs outsw
+es outsd
+cs outsd
+ss outsd
+outsd
+fs outsd
+gs outsd
+es movsb
+cs movsb
+ss movsb
+movsb
+fs movsb
+gs movsb
+es movsw
+cs movsw
+ss movsw
+movsw
+fs movsw
+gs movsw
+es movsd
+cs movsd
+ss movsd
+movsd
+fs movsd
+gs movsd
+es cmpsb
+cs cmpsb
+ss cmpsb
+cmpsb
+fs cmpsb
+gs cmpsb
+es cmpsw
+cs cmpsw
+ss cmpsw
+cmpsw
+fs cmpsw
+gs cmpsw
+es cmpsd
+cs cmpsd
+ss cmpsd
+cmpsd
+fs cmpsd
+gs cmpsd
+es lodsb
+cs lodsb
+ss lodsb
+lodsb
+fs lodsb
+gs lodsb
+es lodsw
+cs lodsw
+ss lodsw
+lodsw
+fs lodsw
+gs lodsw
+es lodsd
+cs lodsd
+ss lodsd
+lodsd
+fs lodsd
+gs lodsd
+
+es xlatb
+cs xlatb
+ss xlatb
+xlatb
+fs xlatb
+gs xlatb
+es outsb
+cs outsb
+ss outsb
+outsb
+fs outsb
+gs outsb
+es outsw
+cs outsw
+ss outsw
+outsw
+fs outsw
+gs outsw
+es outsd
+cs outsd
+ss outsd
+outsd
+fs outsd
+gs outsd
+es movsb
+cs movsb
+ss movsb
+movsb
+fs movsb
+gs movsb
+es movsw
+cs movsw
+ss movsw
+movsw
+fs movsw
+gs movsw
+es movsd
+cs movsd
+ss movsd
+movsd
+fs movsd
+gs movsd
+es cmpsb
+cs cmpsb
+ss cmpsb
+cmpsb
+fs cmpsb
+gs cmpsb
+es cmpsw
+cs cmpsw
+ss cmpsw
+cmpsw
+fs cmpsw
+gs cmpsw
+es cmpsd
+cs cmpsd
+ss cmpsd
+cmpsd
+fs cmpsd
+gs cmpsd
+es lodsb
+cs lodsb
+ss lodsb
+lodsb
+fs lodsb
+gs lodsb
+es lodsw
+cs lodsw
+ss lodsw
+lodsw
+fs lodsw
+gs lodsw
+es lodsd
+cs lodsd
+ss lodsd
+lodsd
+fs lodsd
+gs lodsd
+
+es maskmovq mm2,mm3
+cs maskmovq mm2,mm3
+ss maskmovq mm2,mm3
+ds maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+es maskmovdqu xmm2,xmm3
+cs maskmovdqu xmm2,xmm3
+ss maskmovdqu xmm2,xmm3
+ds maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+es vmaskmovdqu xmm2,xmm3
+cs vmaskmovdqu xmm2,xmm3
+ss vmaskmovdqu xmm2,xmm3
+ds vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+es maskmovq mm2,mm3
+cs maskmovq mm2,mm3
+ss maskmovq mm2,mm3
+ds maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+es maskmovdqu xmm2,xmm3
+cs maskmovdqu xmm2,xmm3
+ss maskmovdqu xmm2,xmm3
+ds maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+es vmaskmovdqu xmm2,xmm3
+cs vmaskmovdqu xmm2,xmm3
+ss vmaskmovdqu xmm2,xmm3
+ds vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+es maskmovq mm2,mm3
+cs maskmovq mm2,mm3
+ss maskmovq mm2,mm3
+ds maskmovq mm2,mm3
+fs maskmovq mm2,mm3
+gs maskmovq mm2,mm3
+es maskmovdqu xmm2,xmm3
+cs maskmovdqu xmm2,xmm3
+ss maskmovdqu xmm2,xmm3
+ds maskmovdqu xmm2,xmm3
+fs maskmovdqu xmm2,xmm3
+gs maskmovdqu xmm2,xmm3
+es vmaskmovdqu xmm2,xmm3
+cs vmaskmovdqu xmm2,xmm3
+ss vmaskmovdqu xmm2,xmm3
+ds vmaskmovdqu xmm2,xmm3
+fs vmaskmovdqu xmm2,xmm3
+gs vmaskmovdqu xmm2,xmm3
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor rbp
+cs umonitor rbp
+ss umonitor rbp
+ds umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+ds umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor
+cs monitor
+ss monitor
+ds monitor
+fs monitor
+gs monitor
+es monitorx
+cs monitorx
+ss monitorx
+ds monitorx
+fs monitorx
+gs monitorx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+ds umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+es xlatb
+cs xlatb
+ss xlatb
+ds xlatb
+fs xlatb
+gs xlatb
+es outsb
+cs outsb
+ss outsb
+ds outsb
+fs outsb
+gs outsb
+es outsw
+cs outsw
+ss outsw
+ds outsw
+fs outsw
+gs outsw
+es outsd
+cs outsd
+ss outsd
+ds outsd
+fs outsd
+gs outsd
+es movsb
+cs movsb
+ss movsb
+ds movsb
+fs movsb
+gs movsb
+es movsw
+cs movsw
+ss movsw
+ds movsw
+fs movsw
+gs movsw
+es movsd
+cs movsd
+ss movsd
+ds movsd
+fs movsd
+gs movsd
+es movsq
+cs movsq
+ss movsq
+ds movsq
+fs movsq
+gs movsq
+es cmpsb
+cs cmpsb
+ss cmpsb
+ds cmpsb
+fs cmpsb
+gs cmpsb
+es cmpsw
+cs cmpsw
+ss cmpsw
+ds cmpsw
+fs cmpsw
+gs cmpsw
+es cmpsd
+cs cmpsd
+ss cmpsd
+ds cmpsd
+fs cmpsd
+gs cmpsd
+es cmpsq
+cs cmpsq
+ss cmpsq
+ds cmpsq
+fs cmpsq
+gs cmpsq
+es lodsb
+cs lodsb
+ss lodsb
+ds lodsb
+fs lodsb
+gs lodsb
+es lodsw
+cs lodsw
+ss lodsw
+ds lodsw
+fs lodsw
+gs lodsw
+es lodsd
+cs lodsd
+ss lodsd
+ds lodsd
+fs lodsd
+gs lodsd
+es lodsq
+cs lodsq
+ss lodsq
+ds lodsq
+fs lodsq
+gs lodsq
+
+es xlatb
+cs xlatb
+ss xlatb
+ds xlatb
+fs xlatb
+gs xlatb
+es outsb
+cs outsb
+ss outsb
+ds outsb
+fs outsb
+gs outsb
+es outsw
+cs outsw
+ss outsw
+ds outsw
+fs outsw
+gs outsw
+es outsd
+cs outsd
+ss outsd
+ds outsd
+fs outsd
+gs outsd
+es movsb
+cs movsb
+ss movsb
+ds movsb
+fs movsb
+gs movsb
+es movsw
+cs movsw
+ss movsw
+ds movsw
+fs movsw
+gs movsw
+es movsd
+cs movsd
+ss movsd
+ds movsd
+fs movsd
+gs movsd
+es cmpsb
+cs cmpsb
+ss cmpsb
+ds cmpsb
+fs cmpsb
+gs cmpsb
+es cmpsw
+cs cmpsw
+ss cmpsw
+ds cmpsw
+fs cmpsw
+gs cmpsw
+es cmpsd
+cs cmpsd
+ss cmpsd
+ds cmpsd
+fs cmpsd
+gs cmpsd
+es lodsb
+cs lodsb
+ss lodsb
+ds lodsb
+fs lodsb
+gs lodsb
+es lodsw
+cs lodsw
+ss lodsw
+ds lodsw
+fs lodsw
+gs lodsw
+es lodsd
+cs lodsd
+ss lodsd
+ds lodsd
+fs lodsd
+gs lodsd
+
+es xlatb
+cs xlatb
+ss xlatb
+ds xlatb
+fs xlatb
+gs xlatb
+es outsb
+cs outsb
+ss outsb
+ds outsb
+fs outsb
+gs outsb
+es outsw
+cs outsw
+ss outsw
+ds outsw
+fs outsw
+gs outsw
+es outsd
+cs outsd
+ss outsd
+ds outsd
+fs outsd
+gs outsd
+es movsb
+cs movsb
+ss movsb
+ds movsb
+fs movsb
+gs movsb
+es movsw
+cs movsw
+ss movsw
+ds movsw
+fs movsw
+gs movsw
+es movsd
+cs movsd
+ss movsd
+ds movsd
+fs movsd
+gs movsd
+es cmpsb
+cs cmpsb
+ss cmpsb
+ds cmpsb
+fs cmpsb
+gs cmpsb
+es cmpsw
+cs cmpsw
+ss cmpsw
+ds cmpsw
+fs cmpsw
+gs cmpsw
+es cmpsd
+cs cmpsd
+ss cmpsd
+ds cmpsd
+fs cmpsd
+gs cmpsd
+es lodsb
+cs lodsb
+ss lodsb
+ds lodsb
+fs lodsb
+gs lodsb
+es lodsw
+cs lodsw
+ss lodsw
+ds lodsw
+fs lodsw
+gs lodsw
+es lodsd
+cs lodsd
+ss lodsd
+ds lodsd
+fs lodsd
+gs lodsd
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+rep movsq
+repe cmpsb
+repe cmpsw
+repe cmpsd
+repe cmpsq
+rep stosb
+rep stosw
+rep stosd
+rep stosq
+rep lodsb
+rep lodsw
+rep lodsd
+rep lodsq
+repe scasb
+repe scasw
+repe scasd
+repe scasq
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne movsq
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne cmpsq
+repne stosb
+repne stosw
+repne stosd
+repne stosq
+repne lodsb
+repne lodsw
+repne lodsd
+repne lodsq
+repne scasb
+repne scasw
+repne scasd
+repne scasq
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+rep movsq
+repe cmpsb
+repe cmpsw
+repe cmpsd
+repe cmpsq
+rep stosb
+rep stosw
+rep stosd
+rep stosq
+rep lodsb
+rep lodsw
+rep lodsd
+rep lodsq
+repe scasb
+repe scasw
+repe scasd
+repe scasq
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne movsq
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne cmpsq
+repne stosb
+repne stosw
+repne stosd
+repne stosq
+repne lodsb
+repne lodsw
+repne lodsd
+repne lodsq
+repne scasb
+repne scasw
+repne scasd
+repne scasq
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb

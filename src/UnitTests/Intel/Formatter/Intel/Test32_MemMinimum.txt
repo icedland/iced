@@ -139,8 +139,6 @@ data16 ret -0x5aa6
 ret -0x5aa6
 data16 ret
 ret
-data16 rep ret -0x5aa6
-rep ret -0x5aa6
 data16 rep ret
 rep ret
 les bx, [eax]

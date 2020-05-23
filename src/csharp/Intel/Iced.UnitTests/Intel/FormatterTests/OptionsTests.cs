@@ -96,6 +96,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 		CC_le,
 		CC_g,
 		DecoderOptions,
+		ShowUselessPrefixes,
 	}
 	// GENERATOR-END: OptionsProps
 
@@ -172,6 +173,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			case OptionsProps.CC_ge: options.CC_ge = (CC_ge)value; break;
 			case OptionsProps.CC_le: options.CC_le = (CC_le)value; break;
 			case OptionsProps.CC_g: options.CC_g = (CC_g)value; break;
+			case OptionsProps.ShowUselessPrefixes: options.ShowUselessPrefixes = (bool)value; break;
 			case OptionsProps.IP:
 			case OptionsProps.DecoderOptions:
 				break;

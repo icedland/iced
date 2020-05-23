@@ -706,7 +706,6 @@ C1 38 A5, Sar_rm32_imm8
 48 C1 38 A5, Sar_rm64_imm8
 C2 5AA5, Retnq_imm16
 C3, Retnq
-F3 C2 5AA5, Retnq_imm16
 F3 C3, Retnq
 C6 C1 5A, Mov_rm8_imm8
 C6 00 5A, Mov_rm8_imm8
@@ -8348,14 +8347,6 @@ F3 0FA7 E8, XcryptOfb_64
 62 F24FCB 72 D3, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
 62 F24F48 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
 62 F24FDD 72 50 01, EVEX_Vcvtne2ps2bf16_zmm_k1z_zmm_zmmm512b32
-62 E10F18 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-62 714F30 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-62 D14F58 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-62 F14F78 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
-62 E10F18 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-62 714F30 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-62 D14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
-62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 F3 0F 01 FE, Rmpadjust
 F2 0F 01 FE, Rmpupdate
 F3 0F 01 FF, Psmash

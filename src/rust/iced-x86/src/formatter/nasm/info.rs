@@ -25,6 +25,7 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::fmt_utils::can_show_rounding_control;
 use super::get_mnemonic_cc;
 use super::mem_size_tbl::MEM_SIZE_TBL;
 #[cfg(not(feature = "std"))]
@@ -1275,6 +1276,12 @@ impl InstrInfo for SimpleInstrInfo_os_jcc {
 			}
 			flags |= (branch_info as u32) << InstrOpInfoFlags::BRANCH_SIZE_INFO_SHIFT;
 		}
+		let prefix_seg = instruction.segment_prefix();
+		if prefix_seg == Register::CS {
+			flags |= InstrOpInfoFlags::JCC_NOT_TAKEN;
+		} else if prefix_seg == Register::DS {
+			flags |= InstrOpInfoFlags::JCC_TAKEN;
+		}
 		if instruction.has_repne_prefix() {
 			flags |= InstrOpInfoFlags::BND_PREFIX;
 		}
@@ -1554,10 +1561,10 @@ impl SimpleInstrInfo_er {
 }
 
 impl InstrInfo for SimpleInstrInfo_er {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
 		let rc = instruction.rounding_control();
-		if rc != RoundingControl::None {
+		if rc != RoundingControl::None && can_show_rounding_control(instruction, options) {
 			let rc_op_kind = match rc {
 				RoundingControl::RoundToNearest => InstrOpKind::RnSae,
 				RoundingControl::RoundDown => InstrOpKind::RdSae,

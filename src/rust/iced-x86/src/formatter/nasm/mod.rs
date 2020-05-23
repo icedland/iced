@@ -180,7 +180,7 @@ impl NasmFormatter {
 
 			let prefix_seg = instruction.segment_prefix();
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
-			if !has_notrack_prefix && prefix_seg != Register::None && NasmFormatter::show_segment_prefix(op_info) {
+			if !has_notrack_prefix && prefix_seg != Register::None && self.show_segment_prefix(instruction, op_info) {
 				NasmFormatter::format_prefix(
 					&self.d.options,
 					output,
@@ -219,14 +219,14 @@ impl NasmFormatter {
 			}
 
 			let has_bnd = (op_info.flags & InstrOpInfoFlags::BND_PREFIX) != 0;
-			if instruction.has_repe_prefix() {
+			if instruction.has_repe_prefix() && show_rep_or_repe_prefix(instruction.code(), &self.d.options) {
 				if is_repe_or_repne_instruction(instruction.code()) {
 					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repe, PrefixKind::Repe, &mut need_space);
 				} else {
 					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.rep, PrefixKind::Rep, &mut need_space);
 				}
 			}
-			if instruction.has_repne_prefix() && !has_bnd {
+			if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
 				NasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repne, PrefixKind::Repne, &mut need_space);
 			}
 
@@ -262,7 +262,48 @@ impl NasmFormatter {
 		}
 	}
 
-	fn show_segment_prefix(op_info: &InstrOpInfo) -> bool {
+	fn show_segment_prefix(&self, instruction: &Instruction, op_info: &InstrOpInfo) -> bool {
+		if (op_info.flags & (InstrOpInfoFlags::JCC_NOT_TAKEN | InstrOpInfoFlags::JCC_TAKEN)) != 0 {
+			return true;
+		}
+
+		match instruction.code() {
+			Code::Monitorw
+			| Code::Monitord
+			| Code::Monitorq
+			| Code::Monitorxw
+			| Code::Monitorxd
+			| Code::Monitorxq
+			| Code::Clzerow
+			| Code::Clzerod
+			| Code::Clzeroq
+			| Code::Umonitor_r16
+			| Code::Umonitor_r32
+			| Code::Umonitor_r64
+			| Code::Maskmovq_rDI_mm_mm
+			| Code::Maskmovdqu_rDI_xmm_xmm
+			| Code::Xlat_m8
+			| Code::Outsb_DX_m8
+			| Code::Outsw_DX_m16
+			| Code::Outsd_DX_m32
+			| Code::Movsb_m8_m8
+			| Code::Movsw_m16_m16
+			| Code::Movsd_m32_m32
+			| Code::Movsq_m64_m64
+			| Code::Cmpsb_m8_m8
+			| Code::Cmpsw_m16_m16
+			| Code::Cmpsd_m32_m32
+			| Code::Cmpsq_m64_m64
+			| Code::Lodsb_AL_m8
+			| Code::Lodsw_AX_m16
+			| Code::Lodsd_EAX_m32
+			| Code::Lodsq_RAX_m64 => return show_segment_prefix(Register::DS, instruction, &self.d.options),
+			#[cfg(not(feature = "no_vex"))]
+			Code::VEX_Vmaskmovdqu_rDI_xmm_xmm => return show_segment_prefix(Register::DS, instruction, &self.d.options),
+
+			_ => {}
+		}
+
 		for i in 0..op_info.op_count as u32 {
 			match op_info.op_kind(i) {
 				InstrOpKind::Register
@@ -303,7 +344,7 @@ impl NasmFormatter {
 				| InstrOpKind::Memory => return false,
 			}
 		}
-		true
+		self.d.options.show_useless_prefixes()
 	}
 
 	fn format_prefix(
@@ -1166,7 +1207,9 @@ impl NasmFormatter {
 			&& is_notrack_prefix_branch(instruction.code())
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
 				&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
-		if self.d.options.always_show_segment_register() || (seg_override != Register::None && !notrack_prefix) {
+		if self.d.options.always_show_segment_register()
+			|| (seg_override != Register::None && !notrack_prefix && show_segment_prefix(Register::None, instruction, &self.d.options))
+		{
 			NasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg as u32);
 			output.write(":", FormatterTextKind::Punctuation);
 		}

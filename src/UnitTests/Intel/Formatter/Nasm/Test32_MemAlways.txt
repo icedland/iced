@@ -139,8 +139,6 @@ retw -0x5aa6
 ret -0x5aa6
 retw
 ret
-rep retw -0x5aa6
-rep ret -0x5aa6
 rep retw
 rep ret
 les bx, [eax]

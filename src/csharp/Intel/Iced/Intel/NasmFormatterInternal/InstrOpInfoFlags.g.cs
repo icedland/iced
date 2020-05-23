@@ -56,8 +56,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 		RegisterTo = 0x00020000,
 		BndPrefix = 0x00040000,
 		MnemonicIsDirective = 0x00080000,
+		JccNotTaken = 0x00100000,
+		JccTaken = 0x00200000,
 		MemorySizeBits = 0x00000008,
-		MemorySizeShift = 0x00000014,
+		MemorySizeShift = 0x00000016,
 		MemorySizeMask = 0x000000FF,
 	}
 }

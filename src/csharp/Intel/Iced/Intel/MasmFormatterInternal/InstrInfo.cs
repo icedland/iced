@@ -389,7 +389,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemoryESRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op0Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op0Kind == shortFormOpKind;
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, instruction, flags);
 			else {
@@ -419,7 +419,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemorySegRSI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op1Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op1Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, instruction, flags);
 			else {
@@ -449,7 +450,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemoryESRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op0Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op0Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, instruction, flags);
 			else {
@@ -479,7 +481,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemoryESRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op1Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op1Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, instruction, flags);
 			else {
@@ -509,7 +512,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemoryESRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op0Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op0Kind == shortFormOpKind;
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -544,7 +547,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemorySegRSI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op1Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op1Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -580,7 +584,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemoryESRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op1Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op1Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm) {
 				info = default;
 				info.Flags = flags;
@@ -614,7 +619,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => Register.RBX,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.MemoryBase == baseReg && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.MemoryBase == baseReg &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic_args, instruction, InstrOpInfoFlags.ShowNoMemSize_ForceSize | InstrOpInfoFlags.IgnoreIndexReg);
 			else {
@@ -875,7 +881,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				CodeSize.Code64 => OpKind.MemorySegRDI,
 				_ => throw new InvalidOperationException(),
 			};
-			bool shortForm = instruction.Op0Kind == shortFormOpKind && instruction.SegmentPrefix == Register.None;
+			bool shortForm = instruction.Op0Kind == shortFormOpKind &&
+				(instruction.SegmentPrefix == Register.None || !FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options));
 			if (!shortForm)
 				info = new InstrOpInfo(mnemonic, instruction, flags);
 			else {

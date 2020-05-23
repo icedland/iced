@@ -25,6 +25,7 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::fmt_utils::show_segment_prefix;
 use super::get_mnemonic_cc;
 use super::regs::*;
 #[cfg(not(feature = "std"))]
@@ -436,7 +437,7 @@ impl InstrInfo for SimpleInstrInfo_YD {
 			CodeSize::Code32 => OpKind::MemoryESEDI,
 			CodeSize::Code64 => OpKind::MemoryESRDI,
 		};
-		let short_form = instruction.op0_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op0_kind() == short_form_op_kind;
 		let mut info;
 		if !short_form {
 			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
@@ -462,7 +463,7 @@ impl SimpleInstrInfo_DX {
 }
 
 impl InstrInfo for SimpleInstrInfo_DX {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemorySegSI,
@@ -470,7 +471,8 @@ impl InstrInfo for SimpleInstrInfo_DX {
 			CodeSize::Code64 => OpKind::MemorySegRSI,
 		};
 		let mut info;
-		let short_form = instruction.op1_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op1_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
 		} else {
@@ -495,7 +497,7 @@ impl SimpleInstrInfo_YX {
 }
 
 impl InstrInfo for SimpleInstrInfo_YX {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op0_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -503,7 +505,8 @@ impl InstrInfo for SimpleInstrInfo_YX {
 			CodeSize::Code64 => OpKind::MemoryESRDI,
 		};
 		let mut info;
-		let short_form = instruction.op0_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op0_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
 		} else {
@@ -528,7 +531,7 @@ impl SimpleInstrInfo_XY {
 }
 
 impl InstrInfo for SimpleInstrInfo_XY {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -536,7 +539,8 @@ impl InstrInfo for SimpleInstrInfo_XY {
 			CodeSize::Code64 => OpKind::MemoryESRDI,
 		};
 		let mut info;
-		let short_form = instruction.op1_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op1_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::new(&self.mnemonic_args, instruction, self.flags);
 		} else {
@@ -569,7 +573,7 @@ impl InstrInfo for SimpleInstrInfo_YA {
 			CodeSize::Code64 => OpKind::MemoryESRDI,
 		};
 		let mut info;
-		let short_form = instruction.op0_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op0_kind() == short_form_op_kind;
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
 			info.flags = self.flags as u16;
@@ -597,7 +601,7 @@ impl SimpleInstrInfo_AX {
 }
 
 impl InstrInfo for SimpleInstrInfo_AX {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemorySegSI,
@@ -605,7 +609,8 @@ impl InstrInfo for SimpleInstrInfo_AX {
 			CodeSize::Code64 => OpKind::MemorySegRSI,
 		};
 		let mut info;
-		let short_form = instruction.op1_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op1_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
 			info.flags = self.flags as u16;
@@ -634,7 +639,7 @@ impl SimpleInstrInfo_AY {
 }
 
 impl InstrInfo for SimpleInstrInfo_AY {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op1_kind(),
 			CodeSize::Code16 => OpKind::MemoryESDI,
@@ -642,7 +647,8 @@ impl InstrInfo for SimpleInstrInfo_AY {
 			CodeSize::Code64 => OpKind::MemoryESRDI,
 		};
 		let mut info;
-		let short_form = instruction.op1_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op1_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::default(&self.mnemonic_args);
 			info.flags = self.flags as u16;
@@ -670,14 +676,15 @@ impl SimpleInstrInfo_XLAT {
 }
 
 impl InstrInfo for SimpleInstrInfo_XLAT {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		let base_reg = match instruction.code_size() {
 			CodeSize::Unknown => instruction.memory_base(),
 			CodeSize::Code16 => Register::BX,
 			CodeSize::Code32 => Register::EBX,
 			CodeSize::Code64 => Register::RBX,
 		};
-		let short_form = instruction.memory_base() == base_reg && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.memory_base() == base_reg
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			InstrOpInfo::new(&self.mnemonic_args, instruction, InstrOpInfoFlags::SHOW_NO_MEM_SIZE_FORCE_SIZE | InstrOpInfoFlags::IGNORE_INDEX_REG)
 		} else {
@@ -973,7 +980,7 @@ impl SimpleInstrInfo_maskmovq {
 }
 
 impl InstrInfo for SimpleInstrInfo_maskmovq {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		debug_assert_eq!(3, instruction.op_count());
 		let short_form_op_kind = match instruction.code_size() {
 			CodeSize::Unknown => instruction.op0_kind(),
@@ -982,7 +989,8 @@ impl InstrInfo for SimpleInstrInfo_maskmovq {
 			CodeSize::Code64 => OpKind::MemorySegRDI,
 		};
 		let mut info;
-		let short_form = instruction.op0_kind() == short_form_op_kind && instruction.segment_prefix() == Register::None;
+		let short_form = instruction.op0_kind() == short_form_op_kind
+			&& (instruction.segment_prefix() == Register::None || !show_segment_prefix(Register::None, instruction, options));
 		if !short_form {
 			info = InstrOpInfo::new(&self.mnemonic, instruction, self.flags);
 		} else {

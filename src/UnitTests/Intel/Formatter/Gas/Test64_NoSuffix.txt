@@ -706,7 +706,6 @@ sar $0xa5,%r8
 sarq $0xa5,(%rax)
 ret $0xa55a
 ret
-rep ret $0xa55a
 rep ret
 mov $0x5a,%cl
 movb $0x5a,(%rax)
@@ -8348,14 +8347,6 @@ vcvtne2ps2bf16 4(%rax){1to8},%ymm6,%ymm2{%k5}{z}
 vcvtne2ps2bf16 %zmm3,%zmm6,%zmm2{%k3}{z}
 vcvtne2ps2bf16 0x40(%rax),%zmm6,%zmm2
 vcvtne2ps2bf16 4(%rax){1to16},%zmm6,%zmm2{%k5}{z}
-vcvtsi2sd %ebx,{rn-sae},%xmm14,%xmm18
-vcvtsi2sd %ebx,{rd-sae},%xmm22,%xmm10
-vcvtsi2sd %r11d,{ru-sae},%xmm6,%xmm2
-vcvtsi2sd %ebx,{rz-sae},%xmm6,%xmm2
-vcvtusi2sd %ebx,{rn-sae},%xmm14,%xmm18
-vcvtusi2sd %ebx,{rd-sae},%xmm22,%xmm10
-vcvtusi2sd %r11d,{ru-sae},%xmm6,%xmm2
-vcvtusi2sd %ebx,{rz-sae},%xmm6,%xmm2
 rmpadjust
 rmpupdate
 psmash

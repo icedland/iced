@@ -87,5 +87,6 @@ namespace Generator.Enums.Formatter {
 		CC_le,
 		CC_g,
 		DecoderOptions,
+		ShowUselessPrefixes,
 	}
 }

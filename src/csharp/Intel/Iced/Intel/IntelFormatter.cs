@@ -288,7 +288,7 @@ namespace Iced.Intel {
 
 				var prefixSeg = instruction.SegmentPrefix;
 				bool hasNotrackPrefix = prefixSeg == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code);
-				if (!hasNotrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(opInfo))
+				if (!hasNotrackPrefix && prefixSeg != Register.None && ShowSegmentPrefix(instruction, opInfo))
 					FormatPrefix(output, instruction, ref column, allRegisters[(int)prefixSeg], FormatterUtils.GetSegmentRegisterPrefixKind(prefixSeg), ref needSpace);
 
 				if (instruction.HasXacquirePrefix)
@@ -304,13 +304,13 @@ namespace Iced.Intel {
 					FormatPrefix(output, instruction, ref column, str_hint_taken, PrefixKind.HintTaken, ref needSpace);
 
 				bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
-				if (instruction.HasRepePrefix) {
+				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(instruction.Code, options)) {
 					if (FormatterUtils.IsRepeOrRepneInstruction(instruction.Code))
 						FormatPrefix(output, instruction, ref column, str_repe, PrefixKind.Repe, ref needSpace);
 					else
 						FormatPrefix(output, instruction, ref column, str_rep, PrefixKind.Rep, ref needSpace);
 				}
-				if (instruction.HasRepnePrefix && !hasBnd)
+				if (instruction.HasRepnePrefix && !hasBnd && FormatterUtils.ShowRepnePrefix(instruction.Code, options))
 					FormatPrefix(output, instruction, ref column, str_repne, PrefixKind.Repne, ref needSpace);
 
 				if (hasNotrackPrefix)
@@ -343,9 +343,29 @@ namespace Iced.Intel {
 			}
 		}
 
-		static bool ShowSegmentPrefix(in InstrOpInfo opInfo) {
+		bool ShowSegmentPrefix(in Instruction instruction, in InstrOpInfo opInfo) {
 			if ((opInfo.Flags & InstrOpInfoFlags.IgnoreSegmentPrefix) != 0)
 				return false;
+
+			switch (instruction.Code) {
+			case Code.Monitorw:
+			case Code.Monitord:
+			case Code.Monitorq:
+			case Code.Monitorxw:
+			case Code.Monitorxd:
+			case Code.Monitorxq:
+			case Code.Clzerow:
+			case Code.Clzerod:
+			case Code.Clzeroq:
+			case Code.Umonitor_r16:
+			case Code.Umonitor_r32:
+			case Code.Umonitor_r64:
+				return FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options);
+
+			default:
+				break;
+			}
+
 			for (int i = 0; i < opInfo.OpCount; i++) {
 				switch (opInfo.GetOpKind(i)) {
 				case InstrOpKind.Register:
@@ -386,7 +406,7 @@ namespace Iced.Intel {
 					throw new InvalidOperationException();
 				}
 			}
-			return true;
+			return options.ShowUselessPrefixes;
 		}
 
 		void FormatPrefix(FormatterOutput output, in Instruction instruction, ref int column, FormatterString prefix, PrefixKind prefixKind, ref bool needSpace) {
@@ -717,7 +737,7 @@ namespace Iced.Intel {
 			}
 			if (operand == 0) {
 				var rc = instruction.RoundingControl;
-				if (rc != RoundingControl.None) {
+				if (rc != RoundingControl.None && FormatterUtils.CanShowRoundingControl(instruction, options)) {
 					Static.Assert((int)RoundingControl.None == 0 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundToNearest == 1 ? 0 : -1);
 					Static.Assert((int)RoundingControl.RoundDown == 2 ? 0 : -1);
@@ -817,9 +837,9 @@ namespace Iced.Intel {
 			FormatMemorySize(output, ref symbol, memSize, flags, operandOptions, useSymbol);
 
 			var codeSize = instruction.CodeSize;
-			bool notrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
+			bool noTrackPrefix = segOverride == Register.DS && FormatterUtils.IsNotrackPrefixBranch(instruction.Code) &&
 				!((codeSize == CodeSize.Code16 || codeSize == CodeSize.Code32) && (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP));
-			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !notrackPrefix)) {
+			if (options.AlwaysShowSegmentRegister || (segOverride != Register.None && !noTrackPrefix && FormatterUtils.ShowSegmentPrefix(Register.None, instruction, options))) {
 				FormatRegister(output, instruction, operand, instructionOperand, (int)segReg);
 				output.Write(":", FormatterTextKind.Punctuation);
 			}

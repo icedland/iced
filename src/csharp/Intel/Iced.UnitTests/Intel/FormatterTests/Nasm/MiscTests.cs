@@ -95,6 +95,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Nasm {
 			Assert.Equal(CC_ge.ge, options.CC_ge);
 			Assert.Equal(CC_le.le, options.CC_le);
 			Assert.Equal(CC_g.g, options.CC_g);
+			Assert.False(options.ShowUselessPrefixes);
 			Assert.False(options.GasNakedRegisters);
 			Assert.False(options.GasShowMnemonicSizeSuffix);
 			Assert.False(options.GasSpaceAfterMemoryOperandComma);

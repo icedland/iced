@@ -139,8 +139,6 @@ retnw 0A55Ah
 ret 0A55Ah
 retnw
 ret
-rep retnw 0A55Ah
-rep ret 0A55Ah
 rep retnw
 rep ret
 les bx,[eax]

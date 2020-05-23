@@ -25,6 +25,7 @@ use super::super::super::iced_constants::IcedConstants;
 use super::super::super::*;
 use super::super::FormatterString;
 use super::enums::*;
+use super::fmt_utils::show_segment_prefix;
 use super::get_mnemonic_cc;
 use super::mem_size_tbl::MEM_SIZE_TBL;
 use super::regs::*;
@@ -522,7 +523,7 @@ impl SimpleInstrInfo_maskmovq {
 }
 
 impl InstrInfo for SimpleInstrInfo_maskmovq {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
 		debug_assert_eq!(3, instruction.op_count());
 
 		let op_kind = instruction.op0_kind();
@@ -554,7 +555,7 @@ impl InstrInfo for SimpleInstrInfo_maskmovq {
 		const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
 		info.op1_register = instruction.op2_register() as u8;
 		let seg_reg = instruction.segment_prefix();
-		if seg_reg != Register::None {
+		if seg_reg != Register::None && show_segment_prefix(Register::None, instruction, options) {
 			info.op_count = 3;
 			info.op2_kind = InstrOpKind::Register;
 			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);

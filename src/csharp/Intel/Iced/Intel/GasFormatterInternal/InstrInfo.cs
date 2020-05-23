@@ -1073,6 +1073,8 @@ namespace Iced.Intel.GasFormatterInternal {
 			info = new InstrOpInfo(GetMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
 			var rc = instruction.RoundingControl;
 			if (rc != RoundingControl.None) {
+				if (!FormatterUtils.CanShowRoundingControl(instruction, options))
+					return;
 				InstrOpKind rcOpKind;
 				switch (rc) {
 				case RoundingControl.RoundToNearest:	rcOpKind = InstrOpKind.RnSae; break;

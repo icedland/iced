@@ -139,8 +139,6 @@
 C2 5AA5, Retnd_imm16
 66 C3, Retnw
 C3, Retnd
-66 F3 C2 5AA5, Retnw_imm16
-F3 C2 5AA5, Retnd_imm16
 66 F3 C3, Retnw
 F3 C3, Retnd
 66 C4 18, Les_r16_m1616

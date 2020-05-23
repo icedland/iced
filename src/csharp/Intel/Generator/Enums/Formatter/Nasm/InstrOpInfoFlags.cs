@@ -57,8 +57,10 @@ namespace Generator.Enums.Formatter.Nasm {
 		RegisterTo					= 0x00020000,
 		BndPrefix					= 0x00040000,
 		MnemonicIsDirective			= 0x00080000,
+		JccNotTaken					= 0x00100000,
+		JccTaken					= 0x00200000,
 		MemorySizeBits				= 8,
-		MemorySizeShift				= 20,
+		MemorySizeShift				= 22,
 		MemorySizeMask				= (1 << (int)MemorySizeBits) - 1,
 	}
 

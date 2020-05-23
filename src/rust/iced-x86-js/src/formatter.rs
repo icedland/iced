@@ -1804,6 +1804,34 @@ impl Formatter {
 		self.formatter.options_mut().set_prefer_st0(value);
 	}
 
+	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `es rep add eax,ecx`
+	/// ✔️ | `false` | `add eax,ecx`
+	#[wasm_bindgen(getter)]
+	#[wasm_bindgen(js_name = "showUselessPrefixes")]
+	pub fn show_useless_prefixes(&self) -> bool {
+		self.formatter.show_useless_prefixes()
+	}
+
+	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
+	///
+	/// Default | Value | Example
+	/// --------|-------|--------
+	/// - | `true` | `es rep add eax,ecx`
+	/// ✔️ | `false` | `add eax,ecx`
+	///
+	/// # Arguments
+	///
+	/// * `value`: New value
+	#[wasm_bindgen(setter)]
+	#[wasm_bindgen(js_name = "showUselessPrefixes")]
+	pub fn set_show_useless_prefixes(&mut self, value: bool) {
+		self.formatter.set_show_useless_prefixes(value)
+	}
+
 	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
 	///
 	/// The value is a [`CC_b`] enum value.

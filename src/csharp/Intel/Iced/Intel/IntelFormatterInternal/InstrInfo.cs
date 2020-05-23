@@ -483,7 +483,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 			Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
 			info.Op1Register = (byte)instruction.Op2Register;
 			var segReg = instruction.SegmentPrefix;
-			if (segReg != Register.None) {
+			if (segReg != Register.None && FormatterUtils.ShowSegmentPrefix(Register.DS, instruction, options)) {
 				info.OpCount = 3;
 				info.Op2Kind = InstrOpKind.Register;
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);

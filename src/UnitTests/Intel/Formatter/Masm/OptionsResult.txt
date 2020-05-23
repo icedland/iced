@@ -2140,3 +2140,1365 @@ setle al
 setng al
 setg al
 setnle al
+
+mov ecx,edx
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,[rdx]
+mov ecx,fs:[rdx]
+mov ecx,gs:[rdx]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,[rbp]
+mov ecx,fs:[rbp]
+mov ecx,gs:[rbp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,[rsp]
+mov ecx,fs:[rsp]
+mov ecx,gs:[rsp]
+mov ecx,es:[edx]
+mov ecx,cs:[edx]
+mov ecx,ss:[edx]
+mov ecx,[edx]
+mov ecx,fs:[edx]
+mov ecx,gs:[edx]
+mov ecx,es:[ebp]
+mov ecx,cs:[ebp]
+mov ecx,[ebp]
+mov ecx,ds:[ebp]
+mov ecx,fs:[ebp]
+mov ecx,gs:[ebp]
+mov ecx,es:[esp]
+mov ecx,cs:[esp]
+mov ecx,[esp]
+mov ecx,ds:[esp]
+mov ecx,fs:[esp]
+mov ecx,gs:[esp]
+mov ax,es:[bx]
+mov ax,cs:[bx]
+mov ax,ss:[bx]
+mov ax,[bx]
+mov ax,fs:[bx]
+mov ax,gs:[bx]
+mov ax,es:[bp]
+mov ax,cs:[bp]
+mov ax,[bp]
+mov ax,ds:[bp]
+mov ax,fs:[bp]
+mov ax,gs:[bp]
+mov ecx,edx
+mov ecx,edx
+
+es mov ecx,edx
+mov ecx,es:[rdx]
+mov ecx,cs:[rdx]
+mov ecx,ss:[rdx]
+mov ecx,ds:[rdx]
+mov ecx,fs:[rdx]
+mov ecx,gs:[rdx]
+mov ecx,es:[rbp]
+mov ecx,cs:[rbp]
+mov ecx,ss:[rbp]
+mov ecx,ds:[rbp]
+mov ecx,fs:[rbp]
+mov ecx,gs:[rbp]
+mov ecx,es:[rsp]
+mov ecx,cs:[rsp]
+mov ecx,ss:[rsp]
+mov ecx,ds:[rsp]
+mov ecx,fs:[rsp]
+mov ecx,gs:[rsp]
+mov ecx,es:[edx]
+mov ecx,cs:[edx]
+mov ecx,ss:[edx]
+mov ecx,ds:[edx]
+mov ecx,fs:[edx]
+mov ecx,gs:[edx]
+mov ecx,es:[ebp]
+mov ecx,cs:[ebp]
+mov ecx,ss:[ebp]
+mov ecx,ds:[ebp]
+mov ecx,fs:[ebp]
+mov ecx,gs:[ebp]
+mov ecx,es:[esp]
+mov ecx,cs:[esp]
+mov ecx,ss:[esp]
+mov ecx,ds:[esp]
+mov ecx,fs:[esp]
+mov ecx,gs:[esp]
+mov ax,es:[bx]
+mov ax,cs:[bx]
+mov ax,ss:[bx]
+mov ax,ds:[bx]
+mov ax,fs:[bx]
+mov ax,gs:[bx]
+mov ax,es:[bp]
+mov ax,cs:[bp]
+mov ax,ss:[bp]
+mov ax,ds:[bp]
+mov ax,fs:[bp]
+mov ax,gs:[bp]
+rep mov ecx,edx
+repne mov ecx,edx
+
+vcvtsi2sd xmm18,xmm14,ebx
+vcvtsi2sd xmm10,xmm22,ebx
+vcvtsi2sd xmm2,xmm6,r11d
+vcvtsi2sd xmm2,xmm6,ebx
+vcvtusi2sd xmm18,xmm14,ebx
+vcvtusi2sd xmm10,xmm22,ebx
+vcvtusi2sd xmm2,xmm6,r11d
+vcvtusi2sd xmm2,xmm6,ebx
+
+vcvtsi2sd xmm18,xmm14,ebx {rn-sae}
+vcvtsi2sd xmm10,xmm22,ebx {rd-sae}
+vcvtsi2sd xmm2,xmm6,r11d {ru-sae}
+vcvtsi2sd xmm2,xmm6,ebx {rz-sae}
+vcvtusi2sd xmm18,xmm14,ebx {rn-sae}
+vcvtusi2sd xmm10,xmm22,ebx {rd-sae}
+vcvtusi2sd xmm2,xmm6,r11d {ru-sae}
+vcvtusi2sd xmm2,xmm6,ebx {rz-sae}
+
+mov al,[0F0DEBC9A78563412h]
+mov al,[0F0DEBC9A78563412h]
+mov al,[0F0DEBC9A78563412h]
+mov al,[0F0DEBC9A78563412h]
+mov al,fs:[0F0DEBC9A78563412h]
+mov al,gs:[0F0DEBC9A78563412h]
+mov al,es:[78563412h]
+mov al,cs:[78563412h]
+mov al,ss:[78563412h]
+mov al,ds:[78563412h]
+mov al,fs:[78563412h]
+mov al,gs:[78563412h]
+mov al,es:[0F0DEh]
+mov al,cs:[0F0DEh]
+mov al,ss:[0F0DEh]
+mov al,ds:[0F0DEh]
+mov al,fs:[0F0DEh]
+mov al,gs:[0F0DEh]
+mov cl,[7FFFFFFFEDCBA97Fh]
+mov cl,[7FFFFFFFEDCBA97Fh]
+mov cl,[7FFFFFFFEDCBA97Fh]
+mov cl,[7FFFFFFFEDCBA97Fh]
+mov cl,fs:[7FFFFFFFEDCBA97Fh]
+mov cl,gs:[7FFFFFFFEDCBA97Fh]
+mov cl,es:[0EDCBA988h]
+mov cl,cs:[0EDCBA988h]
+mov cl,ss:[0EDCBA988h]
+mov cl,ds:[0EDCBA988h]
+mov cl,fs:[0EDCBA988h]
+mov cl,gs:[0EDCBA988h]
+mov cl,es:[0EDCCh]
+mov cl,cs:[0EDCCh]
+mov cl,ss:[0EDCCh]
+mov cl,ds:[0EDCCh]
+mov cl,fs:[0EDCCh]
+mov cl,gs:[0EDCCh]
+
+mov al,es:[0F0DEBC9A78563412h]
+mov al,cs:[0F0DEBC9A78563412h]
+mov al,ss:[0F0DEBC9A78563412h]
+mov al,ds:[0F0DEBC9A78563412h]
+mov al,fs:[0F0DEBC9A78563412h]
+mov al,gs:[0F0DEBC9A78563412h]
+mov al,es:[78563412h]
+mov al,cs:[78563412h]
+mov al,ss:[78563412h]
+mov al,ds:[78563412h]
+mov al,fs:[78563412h]
+mov al,gs:[78563412h]
+mov al,es:[0F0DEh]
+mov al,cs:[0F0DEh]
+mov al,ss:[0F0DEh]
+mov al,ds:[0F0DEh]
+mov al,fs:[0F0DEh]
+mov al,gs:[0F0DEh]
+mov cl,es:[7FFFFFFFEDCBA97Fh]
+mov cl,cs:[7FFFFFFFEDCBA97Fh]
+mov cl,ss:[7FFFFFFFEDCBA97Fh]
+mov cl,ds:[7FFFFFFFEDCBA97Fh]
+mov cl,fs:[7FFFFFFFEDCBA97Fh]
+mov cl,gs:[7FFFFFFFEDCBA97Fh]
+mov cl,es:[0EDCBA988h]
+mov cl,cs:[0EDCBA988h]
+mov cl,ss:[0EDCBA988h]
+mov cl,ds:[0EDCBA988h]
+mov cl,fs:[0EDCBA988h]
+mov cl,gs:[0EDCBA988h]
+mov cl,es:[0EDCCh]
+mov cl,cs:[0EDCCh]
+mov cl,ss:[0EDCCh]
+mov cl,ds:[0EDCCh]
+mov cl,fs:[0EDCCh]
+mov cl,gs:[0EDCCh]
+
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq mm2,mm3
+maskmovq fs:[rdi],mm2,mm3
+maskmovq gs:[rdi],mm2,mm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu fs:[rdi],xmm2,xmm3
+maskmovdqu gs:[rdi],xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu fs:[rdi],xmm2,xmm3
+vmaskmovdqu gs:[rdi],xmm2,xmm3
+
+maskmovq es:[edi],mm2,mm3
+maskmovq cs:[edi],mm2,mm3
+maskmovq ss:[edi],mm2,mm3
+maskmovq mm2,mm3
+maskmovq fs:[edi],mm2,mm3
+maskmovq gs:[edi],mm2,mm3
+maskmovdqu es:[edi],xmm2,xmm3
+maskmovdqu cs:[edi],xmm2,xmm3
+maskmovdqu ss:[edi],xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu fs:[edi],xmm2,xmm3
+maskmovdqu gs:[edi],xmm2,xmm3
+vmaskmovdqu es:[edi],xmm2,xmm3
+vmaskmovdqu cs:[edi],xmm2,xmm3
+vmaskmovdqu ss:[edi],xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu fs:[edi],xmm2,xmm3
+vmaskmovdqu gs:[edi],xmm2,xmm3
+
+maskmovq es:[di],mm2,mm3
+maskmovq cs:[di],mm2,mm3
+maskmovq ss:[di],mm2,mm3
+maskmovq mm2,mm3
+maskmovq fs:[di],mm2,mm3
+maskmovq gs:[di],mm2,mm3
+maskmovdqu es:[di],xmm2,xmm3
+maskmovdqu cs:[di],xmm2,xmm3
+maskmovdqu ss:[di],xmm2,xmm3
+maskmovdqu xmm2,xmm3
+maskmovdqu fs:[di],xmm2,xmm3
+maskmovdqu gs:[di],xmm2,xmm3
+vmaskmovdqu es:[di],xmm2,xmm3
+vmaskmovdqu cs:[di],xmm2,xmm3
+vmaskmovdqu ss:[di],xmm2,xmm3
+vmaskmovdqu xmm2,xmm3
+vmaskmovdqu fs:[di],xmm2,xmm3
+vmaskmovdqu gs:[di],xmm2,xmm3
+
+monitor rax,rcx,rdx
+monitor rax,rcx,rdx
+monitor rax,rcx,rdx
+monitor rax,rcx,rdx
+fs monitor rax,rcx,rdx
+gs monitor rax,rcx,rdx
+monitorx rax,rcx,rdx
+monitorx rax,rcx,rdx
+monitorx rax,rcx,rdx
+monitorx rax,rcx,rdx
+fs monitorx rax,rcx,rdx
+gs monitorx rax,rcx,rdx
+clzero
+clzero
+clzero
+clzero
+fs clzero
+gs clzero
+umonitor rbp
+umonitor rbp
+umonitor rbp
+umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor eax,ecx,edx
+cs monitor eax,ecx,edx
+ss monitor eax,ecx,edx
+monitor eax,ecx,edx
+fs monitor eax,ecx,edx
+gs monitor eax,ecx,edx
+es monitorx eax,ecx,edx
+cs monitorx eax,ecx,edx
+ss monitorx eax,ecx,edx
+monitorx eax,ecx,edx
+fs monitorx eax,ecx,edx
+gs monitorx eax,ecx,edx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor ax,ecx,edx
+cs monitor ax,ecx,edx
+ss monitor ax,ecx,edx
+monitor ax,ecx,edx
+fs monitor ax,ecx,edx
+gs monitor ax,ecx,edx
+es monitorx ax,ecx,edx
+cs monitorx ax,ecx,edx
+ss monitorx ax,ecx,edx
+monitorx ax,ecx,edx
+fs monitorx ax,ecx,edx
+gs monitorx ax,ecx,edx
+es clzero
+cs clzero
+ss clzero
+clzero
+fs clzero
+gs clzero
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+xlatb
+xlatb
+xlatb
+xlatb
+xlat byte ptr fs:[rbx]
+xlat byte ptr gs:[rbx]
+outsb
+outsb
+outsb
+outsb
+outs dx,byte ptr fs:[rsi]
+outs dx,byte ptr gs:[rsi]
+outsw
+outsw
+outsw
+outsw
+outs dx,word ptr fs:[rsi]
+outs dx,word ptr gs:[rsi]
+outsd
+outsd
+outsd
+outsd
+outs dx,dword ptr fs:[rsi]
+outs dx,dword ptr gs:[rsi]
+movsb
+movsb
+movsb
+movsb
+movs byte ptr es:[rdi],byte ptr fs:[rsi]
+movs byte ptr es:[rdi],byte ptr gs:[rsi]
+movsw
+movsw
+movsw
+movsw
+movs word ptr es:[rdi],word ptr fs:[rsi]
+movs word ptr es:[rdi],word ptr gs:[rsi]
+movsd
+movsd
+movsd
+movsd
+movs dword ptr es:[rdi],dword ptr fs:[rsi]
+movs dword ptr es:[rdi],dword ptr gs:[rsi]
+movsq
+movsq
+movsq
+movsq
+movs qword ptr es:[rdi],qword ptr fs:[rsi]
+movs qword ptr es:[rdi],qword ptr gs:[rsi]
+cmpsb
+cmpsb
+cmpsb
+cmpsb
+cmps byte ptr fs:[rsi],byte ptr es:[rdi]
+cmps byte ptr gs:[rsi],byte ptr es:[rdi]
+cmpsw
+cmpsw
+cmpsw
+cmpsw
+cmps word ptr fs:[rsi],word ptr es:[rdi]
+cmps word ptr gs:[rsi],word ptr es:[rdi]
+cmpsd
+cmpsd
+cmpsd
+cmpsd
+cmps dword ptr fs:[rsi],dword ptr es:[rdi]
+cmps dword ptr gs:[rsi],dword ptr es:[rdi]
+cmpsq
+cmpsq
+cmpsq
+cmpsq
+cmps qword ptr fs:[rsi],qword ptr es:[rdi]
+cmps qword ptr gs:[rsi],qword ptr es:[rdi]
+lodsb
+lodsb
+lodsb
+lodsb
+lods byte ptr fs:[rsi]
+lods byte ptr gs:[rsi]
+lodsw
+lodsw
+lodsw
+lodsw
+lods word ptr fs:[rsi]
+lods word ptr gs:[rsi]
+lodsd
+lodsd
+lodsd
+lodsd
+lods dword ptr fs:[rsi]
+lods dword ptr gs:[rsi]
+lodsq
+lodsq
+lodsq
+lodsq
+lods qword ptr fs:[rsi]
+lods qword ptr gs:[rsi]
+
+xlat byte ptr es:[ebx]
+xlat byte ptr cs:[ebx]
+xlat byte ptr ss:[ebx]
+xlatb
+xlat byte ptr fs:[ebx]
+xlat byte ptr gs:[ebx]
+outs dx,byte ptr es:[esi]
+outs dx,byte ptr cs:[esi]
+outs dx,byte ptr ss:[esi]
+outsb
+outs dx,byte ptr fs:[esi]
+outs dx,byte ptr gs:[esi]
+outs dx,word ptr es:[esi]
+outs dx,word ptr cs:[esi]
+outs dx,word ptr ss:[esi]
+outsw
+outs dx,word ptr fs:[esi]
+outs dx,word ptr gs:[esi]
+outs dx,dword ptr es:[esi]
+outs dx,dword ptr cs:[esi]
+outs dx,dword ptr ss:[esi]
+outsd
+outs dx,dword ptr fs:[esi]
+outs dx,dword ptr gs:[esi]
+movs byte ptr es:[edi],byte ptr es:[esi]
+movs byte ptr es:[edi],byte ptr cs:[esi]
+movs byte ptr es:[edi],byte ptr ss:[esi]
+movsb
+movs byte ptr es:[edi],byte ptr fs:[esi]
+movs byte ptr es:[edi],byte ptr gs:[esi]
+movs word ptr es:[edi],word ptr es:[esi]
+movs word ptr es:[edi],word ptr cs:[esi]
+movs word ptr es:[edi],word ptr ss:[esi]
+movsw
+movs word ptr es:[edi],word ptr fs:[esi]
+movs word ptr es:[edi],word ptr gs:[esi]
+movs dword ptr es:[edi],dword ptr es:[esi]
+movs dword ptr es:[edi],dword ptr cs:[esi]
+movs dword ptr es:[edi],dword ptr ss:[esi]
+movsd
+movs dword ptr es:[edi],dword ptr fs:[esi]
+movs dword ptr es:[edi],dword ptr gs:[esi]
+cmps byte ptr es:[esi],byte ptr es:[edi]
+cmps byte ptr cs:[esi],byte ptr es:[edi]
+cmps byte ptr ss:[esi],byte ptr es:[edi]
+cmpsb
+cmps byte ptr fs:[esi],byte ptr es:[edi]
+cmps byte ptr gs:[esi],byte ptr es:[edi]
+cmps word ptr es:[esi],word ptr es:[edi]
+cmps word ptr cs:[esi],word ptr es:[edi]
+cmps word ptr ss:[esi],word ptr es:[edi]
+cmpsw
+cmps word ptr fs:[esi],word ptr es:[edi]
+cmps word ptr gs:[esi],word ptr es:[edi]
+cmps dword ptr es:[esi],dword ptr es:[edi]
+cmps dword ptr cs:[esi],dword ptr es:[edi]
+cmps dword ptr ss:[esi],dword ptr es:[edi]
+cmpsd
+cmps dword ptr fs:[esi],dword ptr es:[edi]
+cmps dword ptr gs:[esi],dword ptr es:[edi]
+lods byte ptr es:[esi]
+lods byte ptr cs:[esi]
+lods byte ptr ss:[esi]
+lodsb
+lods byte ptr fs:[esi]
+lods byte ptr gs:[esi]
+lods word ptr es:[esi]
+lods word ptr cs:[esi]
+lods word ptr ss:[esi]
+lodsw
+lods word ptr fs:[esi]
+lods word ptr gs:[esi]
+lods dword ptr es:[esi]
+lods dword ptr cs:[esi]
+lods dword ptr ss:[esi]
+lodsd
+lods dword ptr fs:[esi]
+lods dword ptr gs:[esi]
+
+xlat byte ptr es:[bx]
+xlat byte ptr cs:[bx]
+xlat byte ptr ss:[bx]
+xlatb
+xlat byte ptr fs:[bx]
+xlat byte ptr gs:[bx]
+outs dx,byte ptr es:[si]
+outs dx,byte ptr cs:[si]
+outs dx,byte ptr ss:[si]
+outsb
+outs dx,byte ptr fs:[si]
+outs dx,byte ptr gs:[si]
+outs dx,word ptr es:[si]
+outs dx,word ptr cs:[si]
+outs dx,word ptr ss:[si]
+outsw
+outs dx,word ptr fs:[si]
+outs dx,word ptr gs:[si]
+outs dx,dword ptr es:[si]
+outs dx,dword ptr cs:[si]
+outs dx,dword ptr ss:[si]
+outsd
+outs dx,dword ptr fs:[si]
+outs dx,dword ptr gs:[si]
+movs byte ptr es:[di],byte ptr es:[si]
+movs byte ptr es:[di],byte ptr cs:[si]
+movs byte ptr es:[di],byte ptr ss:[si]
+movsb
+movs byte ptr es:[di],byte ptr fs:[si]
+movs byte ptr es:[di],byte ptr gs:[si]
+movs word ptr es:[di],word ptr es:[si]
+movs word ptr es:[di],word ptr cs:[si]
+movs word ptr es:[di],word ptr ss:[si]
+movsw
+movs word ptr es:[di],word ptr fs:[si]
+movs word ptr es:[di],word ptr gs:[si]
+movs dword ptr es:[di],dword ptr es:[si]
+movs dword ptr es:[di],dword ptr cs:[si]
+movs dword ptr es:[di],dword ptr ss:[si]
+movsd
+movs dword ptr es:[di],dword ptr fs:[si]
+movs dword ptr es:[di],dword ptr gs:[si]
+cmps byte ptr es:[si],byte ptr es:[di]
+cmps byte ptr cs:[si],byte ptr es:[di]
+cmps byte ptr ss:[si],byte ptr es:[di]
+cmpsb
+cmps byte ptr fs:[si],byte ptr es:[di]
+cmps byte ptr gs:[si],byte ptr es:[di]
+cmps word ptr es:[si],word ptr es:[di]
+cmps word ptr cs:[si],word ptr es:[di]
+cmps word ptr ss:[si],word ptr es:[di]
+cmpsw
+cmps word ptr fs:[si],word ptr es:[di]
+cmps word ptr gs:[si],word ptr es:[di]
+cmps dword ptr es:[si],dword ptr es:[di]
+cmps dword ptr cs:[si],dword ptr es:[di]
+cmps dword ptr ss:[si],dword ptr es:[di]
+cmpsd
+cmps dword ptr fs:[si],dword ptr es:[di]
+cmps dword ptr gs:[si],dword ptr es:[di]
+lods byte ptr es:[si]
+lods byte ptr cs:[si]
+lods byte ptr ss:[si]
+lodsb
+lods byte ptr fs:[si]
+lods byte ptr gs:[si]
+lods word ptr es:[si]
+lods word ptr cs:[si]
+lods word ptr ss:[si]
+lodsw
+lods word ptr fs:[si]
+lods word ptr gs:[si]
+lods dword ptr es:[si]
+lods dword ptr cs:[si]
+lods dword ptr ss:[si]
+lodsd
+lods dword ptr fs:[si]
+lods dword ptr gs:[si]
+
+maskmovq es:[rdi],mm2,mm3
+maskmovq cs:[rdi],mm2,mm3
+maskmovq ss:[rdi],mm2,mm3
+maskmovq ds:[rdi],mm2,mm3
+maskmovq fs:[rdi],mm2,mm3
+maskmovq gs:[rdi],mm2,mm3
+maskmovdqu es:[rdi],xmm2,xmm3
+maskmovdqu cs:[rdi],xmm2,xmm3
+maskmovdqu ss:[rdi],xmm2,xmm3
+maskmovdqu ds:[rdi],xmm2,xmm3
+maskmovdqu fs:[rdi],xmm2,xmm3
+maskmovdqu gs:[rdi],xmm2,xmm3
+vmaskmovdqu es:[rdi],xmm2,xmm3
+vmaskmovdqu cs:[rdi],xmm2,xmm3
+vmaskmovdqu ss:[rdi],xmm2,xmm3
+vmaskmovdqu ds:[rdi],xmm2,xmm3
+vmaskmovdqu fs:[rdi],xmm2,xmm3
+vmaskmovdqu gs:[rdi],xmm2,xmm3
+
+maskmovq es:[edi],mm2,mm3
+maskmovq cs:[edi],mm2,mm3
+maskmovq ss:[edi],mm2,mm3
+maskmovq ds:[edi],mm2,mm3
+maskmovq fs:[edi],mm2,mm3
+maskmovq gs:[edi],mm2,mm3
+maskmovdqu es:[edi],xmm2,xmm3
+maskmovdqu cs:[edi],xmm2,xmm3
+maskmovdqu ss:[edi],xmm2,xmm3
+maskmovdqu ds:[edi],xmm2,xmm3
+maskmovdqu fs:[edi],xmm2,xmm3
+maskmovdqu gs:[edi],xmm2,xmm3
+vmaskmovdqu es:[edi],xmm2,xmm3
+vmaskmovdqu cs:[edi],xmm2,xmm3
+vmaskmovdqu ss:[edi],xmm2,xmm3
+vmaskmovdqu ds:[edi],xmm2,xmm3
+vmaskmovdqu fs:[edi],xmm2,xmm3
+vmaskmovdqu gs:[edi],xmm2,xmm3
+
+maskmovq es:[di],mm2,mm3
+maskmovq cs:[di],mm2,mm3
+maskmovq ss:[di],mm2,mm3
+maskmovq ds:[di],mm2,mm3
+maskmovq fs:[di],mm2,mm3
+maskmovq gs:[di],mm2,mm3
+maskmovdqu es:[di],xmm2,xmm3
+maskmovdqu cs:[di],xmm2,xmm3
+maskmovdqu ss:[di],xmm2,xmm3
+maskmovdqu ds:[di],xmm2,xmm3
+maskmovdqu fs:[di],xmm2,xmm3
+maskmovdqu gs:[di],xmm2,xmm3
+vmaskmovdqu es:[di],xmm2,xmm3
+vmaskmovdqu cs:[di],xmm2,xmm3
+vmaskmovdqu ss:[di],xmm2,xmm3
+vmaskmovdqu ds:[di],xmm2,xmm3
+vmaskmovdqu fs:[di],xmm2,xmm3
+vmaskmovdqu gs:[di],xmm2,xmm3
+
+es monitor rax,rcx,rdx
+cs monitor rax,rcx,rdx
+ss monitor rax,rcx,rdx
+ds monitor rax,rcx,rdx
+fs monitor rax,rcx,rdx
+gs monitor rax,rcx,rdx
+es monitorx rax,rcx,rdx
+cs monitorx rax,rcx,rdx
+ss monitorx rax,rcx,rdx
+ds monitorx rax,rcx,rdx
+fs monitorx rax,rcx,rdx
+gs monitorx rax,rcx,rdx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor rbp
+cs umonitor rbp
+ss umonitor rbp
+ds umonitor rbp
+fs umonitor rbp
+gs umonitor rbp
+
+es monitor eax,ecx,edx
+cs monitor eax,ecx,edx
+ss monitor eax,ecx,edx
+ds monitor eax,ecx,edx
+fs monitor eax,ecx,edx
+gs monitor eax,ecx,edx
+es monitorx eax,ecx,edx
+cs monitorx eax,ecx,edx
+ss monitorx eax,ecx,edx
+ds monitorx eax,ecx,edx
+fs monitorx eax,ecx,edx
+gs monitorx eax,ecx,edx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor ebp
+cs umonitor ebp
+ss umonitor ebp
+ds umonitor ebp
+fs umonitor ebp
+gs umonitor ebp
+
+es monitor ax,ecx,edx
+cs monitor ax,ecx,edx
+ss monitor ax,ecx,edx
+ds monitor ax,ecx,edx
+fs monitor ax,ecx,edx
+gs monitor ax,ecx,edx
+es monitorx ax,ecx,edx
+cs monitorx ax,ecx,edx
+ss monitorx ax,ecx,edx
+ds monitorx ax,ecx,edx
+fs monitorx ax,ecx,edx
+gs monitorx ax,ecx,edx
+es clzero
+cs clzero
+ss clzero
+ds clzero
+fs clzero
+gs clzero
+es umonitor bp
+cs umonitor bp
+ss umonitor bp
+ds umonitor bp
+fs umonitor bp
+gs umonitor bp
+
+xlat byte ptr es:[rbx]
+xlat byte ptr cs:[rbx]
+xlat byte ptr ss:[rbx]
+xlat byte ptr ds:[rbx]
+xlat byte ptr fs:[rbx]
+xlat byte ptr gs:[rbx]
+outs dx,byte ptr es:[rsi]
+outs dx,byte ptr cs:[rsi]
+outs dx,byte ptr ss:[rsi]
+outs dx,byte ptr ds:[rsi]
+outs dx,byte ptr fs:[rsi]
+outs dx,byte ptr gs:[rsi]
+outs dx,word ptr es:[rsi]
+outs dx,word ptr cs:[rsi]
+outs dx,word ptr ss:[rsi]
+outs dx,word ptr ds:[rsi]
+outs dx,word ptr fs:[rsi]
+outs dx,word ptr gs:[rsi]
+outs dx,dword ptr es:[rsi]
+outs dx,dword ptr cs:[rsi]
+outs dx,dword ptr ss:[rsi]
+outs dx,dword ptr ds:[rsi]
+outs dx,dword ptr fs:[rsi]
+outs dx,dword ptr gs:[rsi]
+movs byte ptr es:[rdi],byte ptr es:[rsi]
+movs byte ptr es:[rdi],byte ptr cs:[rsi]
+movs byte ptr es:[rdi],byte ptr ss:[rsi]
+movs byte ptr es:[rdi],byte ptr ds:[rsi]
+movs byte ptr es:[rdi],byte ptr fs:[rsi]
+movs byte ptr es:[rdi],byte ptr gs:[rsi]
+movs word ptr es:[rdi],word ptr es:[rsi]
+movs word ptr es:[rdi],word ptr cs:[rsi]
+movs word ptr es:[rdi],word ptr ss:[rsi]
+movs word ptr es:[rdi],word ptr ds:[rsi]
+movs word ptr es:[rdi],word ptr fs:[rsi]
+movs word ptr es:[rdi],word ptr gs:[rsi]
+movs dword ptr es:[rdi],dword ptr es:[rsi]
+movs dword ptr es:[rdi],dword ptr cs:[rsi]
+movs dword ptr es:[rdi],dword ptr ss:[rsi]
+movs dword ptr es:[rdi],dword ptr ds:[rsi]
+movs dword ptr es:[rdi],dword ptr fs:[rsi]
+movs dword ptr es:[rdi],dword ptr gs:[rsi]
+movs qword ptr es:[rdi],qword ptr es:[rsi]
+movs qword ptr es:[rdi],qword ptr cs:[rsi]
+movs qword ptr es:[rdi],qword ptr ss:[rsi]
+movs qword ptr es:[rdi],qword ptr ds:[rsi]
+movs qword ptr es:[rdi],qword ptr fs:[rsi]
+movs qword ptr es:[rdi],qword ptr gs:[rsi]
+cmps byte ptr es:[rsi],byte ptr es:[rdi]
+cmps byte ptr cs:[rsi],byte ptr es:[rdi]
+cmps byte ptr ss:[rsi],byte ptr es:[rdi]
+cmps byte ptr ds:[rsi],byte ptr es:[rdi]
+cmps byte ptr fs:[rsi],byte ptr es:[rdi]
+cmps byte ptr gs:[rsi],byte ptr es:[rdi]
+cmps word ptr es:[rsi],word ptr es:[rdi]
+cmps word ptr cs:[rsi],word ptr es:[rdi]
+cmps word ptr ss:[rsi],word ptr es:[rdi]
+cmps word ptr ds:[rsi],word ptr es:[rdi]
+cmps word ptr fs:[rsi],word ptr es:[rdi]
+cmps word ptr gs:[rsi],word ptr es:[rdi]
+cmps dword ptr es:[rsi],dword ptr es:[rdi]
+cmps dword ptr cs:[rsi],dword ptr es:[rdi]
+cmps dword ptr ss:[rsi],dword ptr es:[rdi]
+cmps dword ptr ds:[rsi],dword ptr es:[rdi]
+cmps dword ptr fs:[rsi],dword ptr es:[rdi]
+cmps dword ptr gs:[rsi],dword ptr es:[rdi]
+cmps qword ptr es:[rsi],qword ptr es:[rdi]
+cmps qword ptr cs:[rsi],qword ptr es:[rdi]
+cmps qword ptr ss:[rsi],qword ptr es:[rdi]
+cmps qword ptr ds:[rsi],qword ptr es:[rdi]
+cmps qword ptr fs:[rsi],qword ptr es:[rdi]
+cmps qword ptr gs:[rsi],qword ptr es:[rdi]
+lods byte ptr es:[rsi]
+lods byte ptr cs:[rsi]
+lods byte ptr ss:[rsi]
+lods byte ptr ds:[rsi]
+lods byte ptr fs:[rsi]
+lods byte ptr gs:[rsi]
+lods word ptr es:[rsi]
+lods word ptr cs:[rsi]
+lods word ptr ss:[rsi]
+lods word ptr ds:[rsi]
+lods word ptr fs:[rsi]
+lods word ptr gs:[rsi]
+lods dword ptr es:[rsi]
+lods dword ptr cs:[rsi]
+lods dword ptr ss:[rsi]
+lods dword ptr ds:[rsi]
+lods dword ptr fs:[rsi]
+lods dword ptr gs:[rsi]
+lods qword ptr es:[rsi]
+lods qword ptr cs:[rsi]
+lods qword ptr ss:[rsi]
+lods qword ptr ds:[rsi]
+lods qword ptr fs:[rsi]
+lods qword ptr gs:[rsi]
+
+xlat byte ptr es:[ebx]
+xlat byte ptr cs:[ebx]
+xlat byte ptr ss:[ebx]
+xlat byte ptr ds:[ebx]
+xlat byte ptr fs:[ebx]
+xlat byte ptr gs:[ebx]
+outs dx,byte ptr es:[esi]
+outs dx,byte ptr cs:[esi]
+outs dx,byte ptr ss:[esi]
+outs dx,byte ptr ds:[esi]
+outs dx,byte ptr fs:[esi]
+outs dx,byte ptr gs:[esi]
+outs dx,word ptr es:[esi]
+outs dx,word ptr cs:[esi]
+outs dx,word ptr ss:[esi]
+outs dx,word ptr ds:[esi]
+outs dx,word ptr fs:[esi]
+outs dx,word ptr gs:[esi]
+outs dx,dword ptr es:[esi]
+outs dx,dword ptr cs:[esi]
+outs dx,dword ptr ss:[esi]
+outs dx,dword ptr ds:[esi]
+outs dx,dword ptr fs:[esi]
+outs dx,dword ptr gs:[esi]
+movs byte ptr es:[edi],byte ptr es:[esi]
+movs byte ptr es:[edi],byte ptr cs:[esi]
+movs byte ptr es:[edi],byte ptr ss:[esi]
+movs byte ptr es:[edi],byte ptr ds:[esi]
+movs byte ptr es:[edi],byte ptr fs:[esi]
+movs byte ptr es:[edi],byte ptr gs:[esi]
+movs word ptr es:[edi],word ptr es:[esi]
+movs word ptr es:[edi],word ptr cs:[esi]
+movs word ptr es:[edi],word ptr ss:[esi]
+movs word ptr es:[edi],word ptr ds:[esi]
+movs word ptr es:[edi],word ptr fs:[esi]
+movs word ptr es:[edi],word ptr gs:[esi]
+movs dword ptr es:[edi],dword ptr es:[esi]
+movs dword ptr es:[edi],dword ptr cs:[esi]
+movs dword ptr es:[edi],dword ptr ss:[esi]
+movs dword ptr es:[edi],dword ptr ds:[esi]
+movs dword ptr es:[edi],dword ptr fs:[esi]
+movs dword ptr es:[edi],dword ptr gs:[esi]
+cmps byte ptr es:[esi],byte ptr es:[edi]
+cmps byte ptr cs:[esi],byte ptr es:[edi]
+cmps byte ptr ss:[esi],byte ptr es:[edi]
+cmps byte ptr ds:[esi],byte ptr es:[edi]
+cmps byte ptr fs:[esi],byte ptr es:[edi]
+cmps byte ptr gs:[esi],byte ptr es:[edi]
+cmps word ptr es:[esi],word ptr es:[edi]
+cmps word ptr cs:[esi],word ptr es:[edi]
+cmps word ptr ss:[esi],word ptr es:[edi]
+cmps word ptr ds:[esi],word ptr es:[edi]
+cmps word ptr fs:[esi],word ptr es:[edi]
+cmps word ptr gs:[esi],word ptr es:[edi]
+cmps dword ptr es:[esi],dword ptr es:[edi]
+cmps dword ptr cs:[esi],dword ptr es:[edi]
+cmps dword ptr ss:[esi],dword ptr es:[edi]
+cmps dword ptr ds:[esi],dword ptr es:[edi]
+cmps dword ptr fs:[esi],dword ptr es:[edi]
+cmps dword ptr gs:[esi],dword ptr es:[edi]
+lods byte ptr es:[esi]
+lods byte ptr cs:[esi]
+lods byte ptr ss:[esi]
+lods byte ptr ds:[esi]
+lods byte ptr fs:[esi]
+lods byte ptr gs:[esi]
+lods word ptr es:[esi]
+lods word ptr cs:[esi]
+lods word ptr ss:[esi]
+lods word ptr ds:[esi]
+lods word ptr fs:[esi]
+lods word ptr gs:[esi]
+lods dword ptr es:[esi]
+lods dword ptr cs:[esi]
+lods dword ptr ss:[esi]
+lods dword ptr ds:[esi]
+lods dword ptr fs:[esi]
+lods dword ptr gs:[esi]
+
+xlat byte ptr es:[bx]
+xlat byte ptr cs:[bx]
+xlat byte ptr ss:[bx]
+xlat byte ptr ds:[bx]
+xlat byte ptr fs:[bx]
+xlat byte ptr gs:[bx]
+outs dx,byte ptr es:[si]
+outs dx,byte ptr cs:[si]
+outs dx,byte ptr ss:[si]
+outs dx,byte ptr ds:[si]
+outs dx,byte ptr fs:[si]
+outs dx,byte ptr gs:[si]
+outs dx,word ptr es:[si]
+outs dx,word ptr cs:[si]
+outs dx,word ptr ss:[si]
+outs dx,word ptr ds:[si]
+outs dx,word ptr fs:[si]
+outs dx,word ptr gs:[si]
+outs dx,dword ptr es:[si]
+outs dx,dword ptr cs:[si]
+outs dx,dword ptr ss:[si]
+outs dx,dword ptr ds:[si]
+outs dx,dword ptr fs:[si]
+outs dx,dword ptr gs:[si]
+movs byte ptr es:[di],byte ptr es:[si]
+movs byte ptr es:[di],byte ptr cs:[si]
+movs byte ptr es:[di],byte ptr ss:[si]
+movs byte ptr es:[di],byte ptr ds:[si]
+movs byte ptr es:[di],byte ptr fs:[si]
+movs byte ptr es:[di],byte ptr gs:[si]
+movs word ptr es:[di],word ptr es:[si]
+movs word ptr es:[di],word ptr cs:[si]
+movs word ptr es:[di],word ptr ss:[si]
+movs word ptr es:[di],word ptr ds:[si]
+movs word ptr es:[di],word ptr fs:[si]
+movs word ptr es:[di],word ptr gs:[si]
+movs dword ptr es:[di],dword ptr es:[si]
+movs dword ptr es:[di],dword ptr cs:[si]
+movs dword ptr es:[di],dword ptr ss:[si]
+movs dword ptr es:[di],dword ptr ds:[si]
+movs dword ptr es:[di],dword ptr fs:[si]
+movs dword ptr es:[di],dword ptr gs:[si]
+cmps byte ptr es:[si],byte ptr es:[di]
+cmps byte ptr cs:[si],byte ptr es:[di]
+cmps byte ptr ss:[si],byte ptr es:[di]
+cmps byte ptr ds:[si],byte ptr es:[di]
+cmps byte ptr fs:[si],byte ptr es:[di]
+cmps byte ptr gs:[si],byte ptr es:[di]
+cmps word ptr es:[si],word ptr es:[di]
+cmps word ptr cs:[si],word ptr es:[di]
+cmps word ptr ss:[si],word ptr es:[di]
+cmps word ptr ds:[si],word ptr es:[di]
+cmps word ptr fs:[si],word ptr es:[di]
+cmps word ptr gs:[si],word ptr es:[di]
+cmps dword ptr es:[si],dword ptr es:[di]
+cmps dword ptr cs:[si],dword ptr es:[di]
+cmps dword ptr ss:[si],dword ptr es:[di]
+cmps dword ptr ds:[si],dword ptr es:[di]
+cmps dword ptr fs:[si],dword ptr es:[di]
+cmps dword ptr gs:[si],dword ptr es:[di]
+lods byte ptr es:[si]
+lods byte ptr cs:[si]
+lods byte ptr ss:[si]
+lods byte ptr ds:[si]
+lods byte ptr fs:[si]
+lods byte ptr gs:[si]
+lods word ptr es:[si]
+lods word ptr cs:[si]
+lods word ptr ss:[si]
+lods word ptr ds:[si]
+lods word ptr fs:[si]
+lods word ptr gs:[si]
+lods dword ptr es:[si]
+lods dword ptr cs:[si]
+lods dword ptr ss:[si]
+lods dword ptr ds:[si]
+lods dword ptr fs:[si]
+lods dword ptr gs:[si]
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+rep movsq
+repe cmpsb
+repe cmpsw
+repe cmpsd
+repe cmpsq
+rep stosb
+rep stosw
+rep stosd
+rep stosq
+rep lodsb
+rep lodsw
+rep lodsd
+rep lodsq
+repe scasb
+repe scasw
+repe scasd
+repe scasq
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne movsq
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne cmpsq
+repne stosb
+repne stosw
+repne stosd
+repne stosq
+repne lodsb
+repne lodsw
+repne lodsd
+repne lodsq
+repne scasb
+repne scasw
+repne scasd
+repne scasq
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+rep movsq
+repe cmpsb
+repe cmpsw
+repe cmpsd
+repe cmpsq
+rep stosb
+rep stosw
+rep stosd
+rep stosq
+rep lodsb
+rep lodsw
+rep lodsd
+rep lodsq
+repe scasb
+repe scasw
+repe scasd
+repe scasq
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne movsq
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne cmpsq
+repne stosb
+repne stosw
+repne stosd
+repne stosq
+repne lodsb
+repne lodsw
+repne lodsd
+repne lodsq
+repne scasb
+repne scasw
+repne scasd
+repne scasq
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb
+rep insw
+rep insd
+rep outsb
+rep outsw
+rep outsd
+rep movsb
+rep movsw
+rep movsd
+repe cmpsb
+repe cmpsw
+repe cmpsd
+rep stosb
+rep stosw
+rep stosd
+rep lodsb
+rep lodsw
+rep lodsd
+repe scasb
+repe scasw
+repe scasd
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb
+repne insw
+repne insd
+repne outsb
+repne outsw
+repne outsd
+repne movsb
+repne movsw
+repne movsd
+repne cmpsb
+repne cmpsw
+repne cmpsd
+repne stosb
+repne stosw
+repne stosd
+repne lodsb
+repne lodsw
+repne lodsd
+repne scasb
+repne scasw
+repne scasd
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb

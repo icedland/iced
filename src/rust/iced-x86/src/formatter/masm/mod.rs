@@ -167,7 +167,7 @@ impl MasmFormatter {
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE as u16) == 0 {
 			let prefix_seg = instruction.segment_prefix();
 			let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
-			if !has_notrack_prefix && prefix_seg != Register::None && MasmFormatter::show_segment_prefix(op_info) {
+			if !has_notrack_prefix && prefix_seg != Register::None && self.show_segment_prefix(instruction, op_info) {
 				MasmFormatter::format_prefix(
 					&self.d.options,
 					output,
@@ -220,14 +220,14 @@ impl MasmFormatter {
 			}
 
 			let has_bnd = (op_info.flags & InstrOpInfoFlags::BND_PREFIX as u16) != 0;
-			if instruction.has_repe_prefix() {
+			if instruction.has_repe_prefix() && show_rep_or_repe_prefix(instruction.code(), &self.d.options) {
 				if is_repe_or_repne_instruction(instruction.code()) {
 					MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repe, PrefixKind::Repe, &mut need_space);
 				} else {
 					MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.rep, PrefixKind::Rep, &mut need_space);
 				}
 			}
-			if instruction.has_repne_prefix() && !has_bnd {
+			if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
 				MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repne, PrefixKind::Repne, &mut need_space);
 			}
 
@@ -263,10 +263,28 @@ impl MasmFormatter {
 		}
 	}
 
-	fn show_segment_prefix(op_info: &InstrOpInfo) -> bool {
+	fn show_segment_prefix(&self, instruction: &Instruction, op_info: &InstrOpInfo) -> bool {
 		if (op_info.flags & (InstrOpInfoFlags::JCC_NOT_TAKEN | InstrOpInfoFlags::JCC_TAKEN) as u16) != 0 {
 			return false;
 		}
+
+		match instruction.code() {
+			Code::Monitorw
+			| Code::Monitord
+			| Code::Monitorq
+			| Code::Monitorxw
+			| Code::Monitorxd
+			| Code::Monitorxq
+			| Code::Clzerow
+			| Code::Clzerod
+			| Code::Clzeroq
+			| Code::Umonitor_r16
+			| Code::Umonitor_r32
+			| Code::Umonitor_r64 => return show_segment_prefix(Register::DS, instruction, &self.d.options),
+
+			_ => {}
+		}
+
 		for i in 0..op_info.op_count as u32 {
 			match op_info.op_kind(i) {
 				InstrOpKind::Register
@@ -303,7 +321,7 @@ impl MasmFormatter {
 				| InstrOpKind::Memory => return false,
 			}
 		}
-		true
+		self.d.options.show_useless_prefixes()
 	}
 
 	fn format_prefix(
@@ -995,7 +1013,7 @@ impl MasmFormatter {
 		}
 		if operand + 1 == op_info.op_count as u32 {
 			let rc = instruction.rounding_control();
-			if rc != RoundingControl::None {
+			if rc != RoundingControl::None && can_show_rounding_control(instruction, &self.d.options) {
 				const_assert_eq!(0, RoundingControl::None as u32);
 				const_assert_eq!(1, RoundingControl::RoundToNearest as u32);
 				const_assert_eq!(2, RoundingControl::RoundDown as u32);
@@ -1143,7 +1161,7 @@ impl MasmFormatter {
 			&& !((code_size == CodeSize::Code16 || code_size == CodeSize::Code32)
 				&& (base_reg == Register::BP || base_reg == Register::EBP || base_reg == Register::ESP));
 		if self.d.options.always_show_segment_register()
-			|| (seg_override != Register::None && !notrack_prefix)
+			|| (seg_override != Register::None && !notrack_prefix && show_segment_prefix(Register::None, instruction, &self.d.options))
 			|| (is1632 && !has_mem_reg && symbol.is_none() && self.d.options.masm_add_ds_prefix32())
 		{
 			MasmFormatter::format_register_internal(&self.d, output, instruction, operand, instruction_operand, seg_reg as u32);

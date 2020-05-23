@@ -277,6 +277,91 @@ namespace Iced.Intel {
 			}
 		}
 
+		static bool IsRepRepeRepneInstruction(Code code) {
+			switch (code) {
+			case Code.Insb_m8_DX:
+			case Code.Insw_m16_DX:
+			case Code.Insd_m32_DX:
+			case Code.Outsb_DX_m8:
+			case Code.Outsw_DX_m16:
+			case Code.Outsd_DX_m32:
+			case Code.Movsb_m8_m8:
+			case Code.Movsw_m16_m16:
+			case Code.Movsd_m32_m32:
+			case Code.Movsq_m64_m64:
+			case Code.Cmpsb_m8_m8:
+			case Code.Cmpsw_m16_m16:
+			case Code.Cmpsd_m32_m32:
+			case Code.Cmpsq_m64_m64:
+			case Code.Stosb_m8_AL:
+			case Code.Stosw_m16_AX:
+			case Code.Stosd_m32_EAX:
+			case Code.Stosq_m64_RAX:
+			case Code.Lodsb_AL_m8:
+			case Code.Lodsw_AX_m16:
+			case Code.Lodsd_EAX_m32:
+			case Code.Lodsq_RAX_m64:
+			case Code.Scasb_AL_m8:
+			case Code.Scasw_AX_m16:
+			case Code.Scasd_EAX_m32:
+			case Code.Scasq_RAX_m64:
+			case Code.Montmul_16:
+			case Code.Montmul_32:
+			case Code.Montmul_64:
+			case Code.Xsha1_16:
+			case Code.Xsha1_32:
+			case Code.Xsha1_64:
+			case Code.Xsha256_16:
+			case Code.Xsha256_32:
+			case Code.Xsha256_64:
+			case Code.Xstore_16:
+			case Code.Xstore_32:
+			case Code.Xstore_64:
+			case Code.XcryptEcb_16:
+			case Code.XcryptEcb_32:
+			case Code.XcryptEcb_64:
+			case Code.XcryptCbc_16:
+			case Code.XcryptCbc_32:
+			case Code.XcryptCbc_64:
+			case Code.XcryptCtr_16:
+			case Code.XcryptCtr_32:
+			case Code.XcryptCtr_64:
+			case Code.XcryptCfb_16:
+			case Code.XcryptCfb_32:
+			case Code.XcryptCfb_64:
+			case Code.XcryptOfb_16:
+			case Code.XcryptOfb_32:
+			case Code.XcryptOfb_64:
+				return true;
+
+			default:
+				return false;
+			}
+		}
+
+		public static bool ShowRepOrRepePrefix(Code code, FormatterOptions options) {
+			if (IsRepRepeRepneInstruction(code))
+				return true;
+
+			switch (code) {
+			// We allow 'rep ret' too since some old code use it to work around an old AMD bug
+			case Code.Retnw:
+			case Code.Retnd:
+			case Code.Retnq:
+				return true;
+
+			default:
+				return options.ShowUselessPrefixes;
+			}
+		}
+
+		public static bool ShowRepnePrefix(Code code, FormatterOptions options) {
+			// If it's a 'rep/repne' instruction, always show the prefix
+			if (IsRepRepeRepneInstruction(code))
+				return true;
+			return options.ShowUselessPrefixes;
+		}
+
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool IsNotrackPrefixBranch(Code code) {
 			Static.Assert(Code.Jmp_rm16 + 1 == Code.Jmp_rm32 ? 0 : -1);
@@ -296,6 +381,46 @@ namespace Iced.Intel {
 			Static.Assert(PrefixKind.ES + 4 == PrefixKind.FS ? 0 : -1);
 			Static.Assert(PrefixKind.ES + 5 == PrefixKind.GS ? 0 : -1);
 			return (register - Register.ES) + PrefixKind.ES;
+		}
+
+		static bool IsCode64(CodeSize codeSize) =>
+			codeSize == CodeSize.Code64 || codeSize == CodeSize.Unknown;
+
+		public static bool ShowSegmentPrefix(Register defaultSegReg, in Instruction instruction, FormatterOptions options) {
+			var prefixSeg = instruction.SegmentPrefix;
+			Debug.Assert(prefixSeg != Register.None);
+			if (IsCode64(instruction.CodeSize)) {
+				// ES,CS,SS,DS are ignored
+				if (prefixSeg == Register.FS || prefixSeg == Register.GS)
+					return true;
+				return options.ShowUselessPrefixes;
+			}
+			else {
+				if (defaultSegReg == Register.None)
+					defaultSegReg = GetDefaultSegmentRegister(instruction);
+				if (prefixSeg != defaultSegReg)
+					return true;
+				return options.ShowUselessPrefixes;
+			}
+		}
+
+		static Register GetDefaultSegmentRegister(in Instruction instruction) {
+			var baseReg = instruction.MemoryBase;
+			if (baseReg == Register.BP || baseReg == Register.EBP || baseReg == Register.ESP || baseReg == Register.RBP || baseReg == Register.RSP)
+				return Register.SS;
+			return Register.DS;
+		}
+
+		public static bool CanShowRoundingControl(in Instruction instruction, FormatterOptions options) {
+			switch (instruction.Code) {
+#if !NO_EVEX
+			case Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er:
+			case Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32_er:
+				return options.ShowUselessPrefixes;
+#endif
+			default:
+				return true;
+			}
 		}
 	}
 }
