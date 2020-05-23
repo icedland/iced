@@ -92,7 +92,7 @@ F0 66 01 CE, INVALID, INVALID, 0, code=Add_rm16_r16
 F0 66 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock
 F0 66 F3 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xrelease
 F0 66 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx lock xacquire
-F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock rep xacquire
+F0 66 67 F3 F2 01 18, Add_rm16_r16, Add, 2, op0=m;ds;eax;;1;0;0;UInt16 op1=r;bx lock xacquire enc=F06667F20118
 66 42 01 CE, Add_rm16_r16, Add, 2, op0=r;si op1=r;cx enc=6601CE
 
 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx
@@ -5392,7 +5392,7 @@ C4817D 10 CD, VEX_Vmovupd_ymm_ymmm256, Vmovupd, 2, op0=r;ymm1 op1=r;ymm13 enc=C4
 62 E1FD48 10 50 01, EVEX_Vmovupd_zmm_k1z_zmmm512, Vmovupd, 2, op0=r;zmm18 op1=m;ds;rax;;1;64;1;Packed512_Float64 co=0;0;0;0;6;1
 
 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float32
-67 F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float32 repne
+67 F2 F3 0F10 08, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float32 enc=67F30F1008
 F3 0F10 CD, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=r;xmm5
 F3 0F10 CD, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm1 op1=r;xmm5 umov
 F3 44 0F10 CD, Movss_xmm_xmmm32, Movss, 2, op0=r;xmm9 op1=r;xmm5
@@ -5435,7 +5435,7 @@ C4E1FA 10 10, VEX_Vmovss_xmm_m32, Vmovss, 2, op0=r;xmm2 op1=m;ds;rax;;1;0;0;Floa
 62 E17E08 10 50 01, EVEX_Vmovss_xmm_k1z_m32, Vmovss, 2, op0=r;xmm18 op1=m;ds;rax;;1;4;1;Float32 co=0;0;0;0;6;1
 
 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;rax;;1;0;0;Float64
-67 F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float64 rep
+67 F3 F2 0F10 08, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=m;ds;eax;;1;0;0;Float64 enc=67F20F1008
 F2 0F10 CD, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=r;xmm5
 F2 0F10 CD, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm1 op1=r;xmm5 umov
 F2 44 0F10 CD, Movsd_xmm_xmmm64, Movsd, 2, op0=r;xmm9 op1=r;xmm5

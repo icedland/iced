@@ -379,7 +379,7 @@ namespace Iced.Intel {
 			}
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void InternalSetHasRepePrefix() => codeFlags |= (uint)CodeFlags.RepePrefix;
+		internal void InternalSetHasRepePrefix() => codeFlags = (codeFlags & ~(uint)CodeFlags.RepnePrefix) | (uint)CodeFlags.RepePrefix;
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void InternalClearHasRepePrefix() => codeFlags &= ~(uint)CodeFlags.RepePrefix;
 
@@ -397,7 +397,7 @@ namespace Iced.Intel {
 			}
 		}
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		internal void InternalSetHasRepnePrefix() => codeFlags |= (uint)CodeFlags.RepnePrefix;
+		internal void InternalSetHasRepnePrefix() => codeFlags = (codeFlags & ~(uint)CodeFlags.RepePrefix) | (uint)CodeFlags.RepnePrefix;
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void InternalClearHasRepnePrefix() => codeFlags &= ~(uint)CodeFlags.RepnePrefix;
 

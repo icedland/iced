@@ -92,7 +92,7 @@ pub(crate) fn internal_set_has_xrelease_prefix(this: &mut Instruction) {
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_has_repe_prefix(this: &mut Instruction) {
-	this.code_flags |= CodeFlags::REPE_PREFIX
+	this.code_flags = (this.code_flags & !CodeFlags::REPNE_PREFIX) | CodeFlags::REPE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
@@ -104,7 +104,7 @@ pub(crate) fn internal_clear_has_repe_prefix(this: &mut Instruction) {
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 #[inline]
 pub(crate) fn internal_set_has_repne_prefix(this: &mut Instruction) {
-	this.code_flags |= CodeFlags::REPNE_PREFIX
+	this.code_flags = (this.code_flags & !CodeFlags::REPE_PREFIX) | CodeFlags::REPNE_PREFIX
 }
 
 #[cfg(feature = "decoder")]
