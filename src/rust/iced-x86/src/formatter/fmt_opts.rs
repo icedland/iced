@@ -1925,7 +1925,7 @@ impl FormatterOptions {
 
 	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
 	///
-	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn cc_e(&self) -> CC_e {
@@ -1934,7 +1934,7 @@ impl FormatterOptions {
 
 	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
 	///
-	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
 	///
 	/// # Arguments
 	///
@@ -1946,7 +1946,7 @@ impl FormatterOptions {
 
 	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
 	///
-	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]
 	pub fn cc_ne(&self) -> CC_ne {
@@ -1955,7 +1955,7 @@ impl FormatterOptions {
 
 	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
 	///
-	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
 	///
 	/// # Arguments
 	///

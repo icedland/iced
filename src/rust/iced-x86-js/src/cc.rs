@@ -62,9 +62,9 @@ pub enum CC_ae {
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 pub enum CC_e {
-	/// `JE`, `CMOVE`, `SETE`, `LOOPE`
+	/// `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
 	e = 0,
-	/// `JZ`, `CMOVZ`, `SETZ`, `LOOPZ`
+	/// `JZ`, `CMOVZ`, `SETZ`, `LOOPZ`, `REPZ`
 	z = 1,
 }
 // GENERATOR-END: CC_e
@@ -76,9 +76,9 @@ pub enum CC_e {
 #[derive(Copy, Clone)]
 #[allow(non_camel_case_types)]
 pub enum CC_ne {
-	/// `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	/// `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
 	ne = 0,
-	/// `JNZ`, `CMOVNZ`, `SETNZ`, `LOOPNZ`
+	/// `JNZ`, `CMOVNZ`, `SETNZ`, `LOOPNZ`, `REPNZ`
 	nz = 1,
 }
 // GENERATOR-END: CC_ne

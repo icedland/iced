@@ -1898,7 +1898,7 @@ impl Formatter {
 	///
 	/// [`CC_e`]: enum.CC_e.html
 	///
-	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cc_e")]
 	pub fn cc_e(&self) -> CC_e {
@@ -1911,7 +1911,7 @@ impl Formatter {
 	///
 	/// [`CC_e`]: enum.CC_e.html
 	///
-	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`
+	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
 	///
 	/// # Arguments
 	///
@@ -1928,7 +1928,7 @@ impl Formatter {
 	///
 	/// [`CC_ne`]: enum.CC_ne.html
 	///
-	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "cc_ne")]
 	pub fn cc_ne(&self) -> CC_ne {
@@ -1941,7 +1941,7 @@ impl Formatter {
 	///
 	/// [`CC_ne`]: enum.CC_ne.html
 	///
-	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`
+	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
 	///
 	/// # Arguments
 	///

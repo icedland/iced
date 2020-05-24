@@ -103,8 +103,14 @@ namespace Iced.Intel {
 		static readonly FormatterString str_rd_sae = new FormatterString("rd-sae");
 		static readonly FormatterString str_rel = new FormatterString("rel");
 		static readonly FormatterString str_rep = new FormatterString("rep");
-		static readonly FormatterString str_repe = new FormatterString("repe");
-		static readonly FormatterString str_repne = new FormatterString("repne");
+		static readonly FormatterString[] str_repe = new FormatterString[2] {
+			new FormatterString("repe"),
+			new FormatterString("repz"),
+		};
+		static readonly FormatterString[] str_repne = new FormatterString[2] {
+			new FormatterString("repne"),
+			new FormatterString("repnz"),
+		};
 		static readonly FormatterString str_rn_sae = new FormatterString("rn-sae");
 		static readonly FormatterString str_ru_sae = new FormatterString("ru-sae");
 		static readonly FormatterString str_rz_sae = new FormatterString("rz-sae");
@@ -322,12 +328,12 @@ namespace Iced.Intel {
 				bool hasBnd = (opInfo.Flags & InstrOpInfoFlags.BndPrefix) != 0;
 				if (instruction.HasRepePrefix && FormatterUtils.ShowRepOrRepePrefix(instruction.Code, options)) {
 					if (FormatterUtils.IsRepeOrRepneInstruction(instruction.Code))
-						FormatPrefix(output, instruction, ref column, str_repe, PrefixKind.Repe, ref needSpace);
+						FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 4, str_repe), PrefixKind.Repe, ref needSpace);
 					else
 						FormatPrefix(output, instruction, ref column, str_rep, PrefixKind.Rep, ref needSpace);
 				}
 				if (instruction.HasRepnePrefix && !hasBnd && FormatterUtils.ShowRepnePrefix(instruction.Code, options))
-					FormatPrefix(output, instruction, ref column, str_repne, PrefixKind.Repne, ref needSpace);
+					FormatPrefix(output, instruction, ref column, MnemonicCC.GetMnemonicCC(options, 5, str_repne), PrefixKind.Repne, ref needSpace);
 
 				if (hasNoTrackPrefix)
 					FormatPrefix(output, instruction, ref column, str_notrack, PrefixKind.Notrack, ref needSpace);

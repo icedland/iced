@@ -3502,3 +3502,395 @@ repne xcryptcbc
 repne xcryptctr
 repne xcryptcfb
 repne xcryptofb
+
+rep insb %dx,(%rdi)
+rep insw %dx,(%rdi)
+rep insl %dx,(%rdi)
+rep outsb (%rsi),%dx
+rep outsw (%rsi),%dx
+rep outsl (%rsi),%dx
+rep movsb (%rsi),(%rdi)
+rep movsw (%rsi),(%rdi)
+rep movsl (%rsi),(%rdi)
+rep movsq (%rsi),(%rdi)
+repe cmpsb (%rdi),(%rsi)
+repe cmpsw (%rdi),(%rsi)
+repe cmpsl (%rdi),(%rsi)
+repe cmpsq (%rdi),(%rsi)
+rep stos %al,(%rdi)
+rep stos %ax,(%rdi)
+rep stos %eax,(%rdi)
+rep stos %rax,(%rdi)
+rep lods (%rsi),%al
+rep lods (%rsi),%ax
+rep lods (%rsi),%eax
+rep lods (%rsi),%rax
+repe scas (%rdi),%al
+repe scas (%rdi),%ax
+repe scas (%rdi),%eax
+repe scas (%rdi),%rax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%rdi)
+repne insw %dx,(%rdi)
+repne insl %dx,(%rdi)
+repne outsb (%rsi),%dx
+repne outsw (%rsi),%dx
+repne outsl (%rsi),%dx
+repne movsb (%rsi),(%rdi)
+repne movsw (%rsi),(%rdi)
+repne movsl (%rsi),(%rdi)
+repne movsq (%rsi),(%rdi)
+repne cmpsb (%rdi),(%rsi)
+repne cmpsw (%rdi),(%rsi)
+repne cmpsl (%rdi),(%rsi)
+repne cmpsq (%rdi),(%rsi)
+repne stos %al,(%rdi)
+repne stos %ax,(%rdi)
+repne stos %eax,(%rdi)
+repne stos %rax,(%rdi)
+repne lods (%rsi),%al
+repne lods (%rsi),%ax
+repne lods (%rsi),%eax
+repne lods (%rsi),%rax
+repne scas (%rdi),%al
+repne scas (%rdi),%ax
+repne scas (%rdi),%eax
+repne scas (%rdi),%rax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%edi)
+rep insw %dx,(%edi)
+rep insl %dx,(%edi)
+rep outsb (%esi),%dx
+rep outsw (%esi),%dx
+rep outsl (%esi),%dx
+rep movsb (%esi),(%edi)
+rep movsw (%esi),(%edi)
+rep movsl (%esi),(%edi)
+repe cmpsb (%edi),(%esi)
+repe cmpsw (%edi),(%esi)
+repe cmpsl (%edi),(%esi)
+rep stos %al,(%edi)
+rep stos %ax,(%edi)
+rep stos %eax,(%edi)
+rep lods (%esi),%al
+rep lods (%esi),%ax
+rep lods (%esi),%eax
+repe scas (%edi),%al
+repe scas (%edi),%ax
+repe scas (%edi),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%edi)
+repne insw %dx,(%edi)
+repne insl %dx,(%edi)
+repne outsb (%esi),%dx
+repne outsw (%esi),%dx
+repne outsl (%esi),%dx
+repne movsb (%esi),(%edi)
+repne movsw (%esi),(%edi)
+repne movsl (%esi),(%edi)
+repne cmpsb (%edi),(%esi)
+repne cmpsw (%edi),(%esi)
+repne cmpsl (%edi),(%esi)
+repne stos %al,(%edi)
+repne stos %ax,(%edi)
+repne stos %eax,(%edi)
+repne lods (%esi),%al
+repne lods (%esi),%ax
+repne lods (%esi),%eax
+repne scas (%edi),%al
+repne scas (%edi),%ax
+repne scas (%edi),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%di)
+rep insw %dx,(%di)
+rep insl %dx,(%di)
+rep outsb (%si),%dx
+rep outsw (%si),%dx
+rep outsl (%si),%dx
+rep movsb (%si),(%di)
+rep movsw (%si),(%di)
+rep movsl (%si),(%di)
+repe cmpsb (%di),(%si)
+repe cmpsw (%di),(%si)
+repe cmpsl (%di),(%si)
+rep stos %al,(%di)
+rep stos %ax,(%di)
+rep stos %eax,(%di)
+rep lods (%si),%al
+rep lods (%si),%ax
+rep lods (%si),%eax
+repe scas (%di),%al
+repe scas (%di),%ax
+repe scas (%di),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb %dx,(%di)
+repne insw %dx,(%di)
+repne insl %dx,(%di)
+repne outsb (%si),%dx
+repne outsw (%si),%dx
+repne outsl (%si),%dx
+repne movsb (%si),(%di)
+repne movsw (%si),(%di)
+repne movsl (%si),(%di)
+repne cmpsb (%di),(%si)
+repne cmpsw (%di),(%si)
+repne cmpsl (%di),(%si)
+repne stos %al,(%di)
+repne stos %ax,(%di)
+repne stos %eax,(%di)
+repne lods (%si),%al
+repne lods (%si),%ax
+repne lods (%si),%eax
+repne scas (%di),%al
+repne scas (%di),%ax
+repne scas (%di),%eax
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb %dx,(%rdi)
+rep insw %dx,(%rdi)
+rep insl %dx,(%rdi)
+rep outsb (%rsi),%dx
+rep outsw (%rsi),%dx
+rep outsl (%rsi),%dx
+rep movsb (%rsi),(%rdi)
+rep movsw (%rsi),(%rdi)
+rep movsl (%rsi),(%rdi)
+rep movsq (%rsi),(%rdi)
+repz cmpsb (%rdi),(%rsi)
+repz cmpsw (%rdi),(%rsi)
+repz cmpsl (%rdi),(%rsi)
+repz cmpsq (%rdi),(%rsi)
+rep stos %al,(%rdi)
+rep stos %ax,(%rdi)
+rep stos %eax,(%rdi)
+rep stos %rax,(%rdi)
+rep lods (%rsi),%al
+rep lods (%rsi),%ax
+rep lods (%rsi),%eax
+rep lods (%rsi),%rax
+repz scas (%rdi),%al
+repz scas (%rdi),%ax
+repz scas (%rdi),%eax
+repz scas (%rdi),%rax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb %dx,(%rdi)
+repnz insw %dx,(%rdi)
+repnz insl %dx,(%rdi)
+repnz outsb (%rsi),%dx
+repnz outsw (%rsi),%dx
+repnz outsl (%rsi),%dx
+repnz movsb (%rsi),(%rdi)
+repnz movsw (%rsi),(%rdi)
+repnz movsl (%rsi),(%rdi)
+repnz movsq (%rsi),(%rdi)
+repnz cmpsb (%rdi),(%rsi)
+repnz cmpsw (%rdi),(%rsi)
+repnz cmpsl (%rdi),(%rsi)
+repnz cmpsq (%rdi),(%rsi)
+repnz stos %al,(%rdi)
+repnz stos %ax,(%rdi)
+repnz stos %eax,(%rdi)
+repnz stos %rax,(%rdi)
+repnz lods (%rsi),%al
+repnz lods (%rsi),%ax
+repnz lods (%rsi),%eax
+repnz lods (%rsi),%rax
+repnz scas (%rdi),%al
+repnz scas (%rdi),%ax
+repnz scas (%rdi),%eax
+repnz scas (%rdi),%rax
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb
+
+rep insb %dx,(%edi)
+rep insw %dx,(%edi)
+rep insl %dx,(%edi)
+rep outsb (%esi),%dx
+rep outsw (%esi),%dx
+rep outsl (%esi),%dx
+rep movsb (%esi),(%edi)
+rep movsw (%esi),(%edi)
+rep movsl (%esi),(%edi)
+repz cmpsb (%edi),(%esi)
+repz cmpsw (%edi),(%esi)
+repz cmpsl (%edi),(%esi)
+rep stos %al,(%edi)
+rep stos %ax,(%edi)
+rep stos %eax,(%edi)
+rep lods (%esi),%al
+rep lods (%esi),%ax
+rep lods (%esi),%eax
+repz scas (%edi),%al
+repz scas (%edi),%ax
+repz scas (%edi),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb %dx,(%edi)
+repnz insw %dx,(%edi)
+repnz insl %dx,(%edi)
+repnz outsb (%esi),%dx
+repnz outsw (%esi),%dx
+repnz outsl (%esi),%dx
+repnz movsb (%esi),(%edi)
+repnz movsw (%esi),(%edi)
+repnz movsl (%esi),(%edi)
+repnz cmpsb (%edi),(%esi)
+repnz cmpsw (%edi),(%esi)
+repnz cmpsl (%edi),(%esi)
+repnz stos %al,(%edi)
+repnz stos %ax,(%edi)
+repnz stos %eax,(%edi)
+repnz lods (%esi),%al
+repnz lods (%esi),%ax
+repnz lods (%esi),%eax
+repnz scas (%edi),%al
+repnz scas (%edi),%ax
+repnz scas (%edi),%eax
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb
+
+rep insb %dx,(%di)
+rep insw %dx,(%di)
+rep insl %dx,(%di)
+rep outsb (%si),%dx
+rep outsw (%si),%dx
+rep outsl (%si),%dx
+rep movsb (%si),(%di)
+rep movsw (%si),(%di)
+rep movsl (%si),(%di)
+repz cmpsb (%di),(%si)
+repz cmpsw (%di),(%si)
+repz cmpsl (%di),(%si)
+rep stos %al,(%di)
+rep stos %ax,(%di)
+rep stos %eax,(%di)
+rep lods (%si),%al
+rep lods (%si),%ax
+rep lods (%si),%eax
+repz scas (%di),%al
+repz scas (%di),%ax
+repz scas (%di),%eax
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb %dx,(%di)
+repnz insw %dx,(%di)
+repnz insl %dx,(%di)
+repnz outsb (%si),%dx
+repnz outsw (%si),%dx
+repnz outsl (%si),%dx
+repnz movsb (%si),(%di)
+repnz movsw (%si),(%di)
+repnz movsl (%si),(%di)
+repnz cmpsb (%di),(%si)
+repnz cmpsw (%di),(%si)
+repnz cmpsl (%di),(%si)
+repnz stos %al,(%di)
+repnz stos %ax,(%di)
+repnz stos %eax,(%di)
+repnz lods (%si),%al
+repnz lods (%si),%ax
+repnz lods (%si),%eax
+repnz scas (%di),%al
+repnz scas (%di),%ax
+repnz scas (%di),%eax
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb

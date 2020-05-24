@@ -3502,3 +3502,395 @@ repne xcryptcbc
 repne xcryptctr
 repne xcryptcfb
 repne xcryptofb
+
+rep insb [rdi],dx
+rep insw [rdi],dx
+rep insd [rdi],dx
+rep outsb dx,[rsi]
+rep outsw dx,[rsi]
+rep outsd dx,[rsi]
+rep movsb [rdi],[rsi]
+rep movsw [rdi],[rsi]
+rep movsd [rdi],[rsi]
+rep movsq [rdi],[rsi]
+repe cmpsb [rsi],[rdi]
+repe cmpsw [rsi],[rdi]
+repe cmpsd [rsi],[rdi]
+repe cmpsq [rsi],[rdi]
+rep stosb [rdi]
+rep stosw [rdi]
+rep stosd [rdi]
+rep stosq [rdi]
+rep lodsb [rsi]
+rep lodsw [rsi]
+rep lodsd [rsi]
+rep lodsq [rsi]
+repe scasb [rdi]
+repe scasw [rdi]
+repe scasd [rdi]
+repe scasq [rdi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [rdi],dx
+repne insw [rdi],dx
+repne insd [rdi],dx
+repne outsb dx,[rsi]
+repne outsw dx,[rsi]
+repne outsd dx,[rsi]
+repne movsb [rdi],[rsi]
+repne movsw [rdi],[rsi]
+repne movsd [rdi],[rsi]
+repne movsq [rdi],[rsi]
+repne cmpsb [rsi],[rdi]
+repne cmpsw [rsi],[rdi]
+repne cmpsd [rsi],[rdi]
+repne cmpsq [rsi],[rdi]
+repne stosb [rdi]
+repne stosw [rdi]
+repne stosd [rdi]
+repne stosq [rdi]
+repne lodsb [rsi]
+repne lodsw [rsi]
+repne lodsd [rsi]
+repne lodsq [rsi]
+repne scasb [rdi]
+repne scasw [rdi]
+repne scasd [rdi]
+repne scasq [rdi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [edi],dx
+rep insw [edi],dx
+rep insd [edi],dx
+rep outsb dx,[esi]
+rep outsw dx,[esi]
+rep outsd dx,[esi]
+rep movsb [edi],[esi]
+rep movsw [edi],[esi]
+rep movsd [edi],[esi]
+repe cmpsb [esi],[edi]
+repe cmpsw [esi],[edi]
+repe cmpsd [esi],[edi]
+rep stosb [edi]
+rep stosw [edi]
+rep stosd [edi]
+rep lodsb [esi]
+rep lodsw [esi]
+rep lodsd [esi]
+repe scasb [edi]
+repe scasw [edi]
+repe scasd [edi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [edi],dx
+repne insw [edi],dx
+repne insd [edi],dx
+repne outsb dx,[esi]
+repne outsw dx,[esi]
+repne outsd dx,[esi]
+repne movsb [edi],[esi]
+repne movsw [edi],[esi]
+repne movsd [edi],[esi]
+repne cmpsb [esi],[edi]
+repne cmpsw [esi],[edi]
+repne cmpsd [esi],[edi]
+repne stosb [edi]
+repne stosw [edi]
+repne stosd [edi]
+repne lodsb [esi]
+repne lodsw [esi]
+repne lodsd [esi]
+repne scasb [edi]
+repne scasw [edi]
+repne scasd [edi]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [di],dx
+rep insw [di],dx
+rep insd [di],dx
+rep outsb dx,[si]
+rep outsw dx,[si]
+rep outsd dx,[si]
+rep movsb [di],[si]
+rep movsw [di],[si]
+rep movsd [di],[si]
+repe cmpsb [si],[di]
+repe cmpsw [si],[di]
+repe cmpsd [si],[di]
+rep stosb [di]
+rep stosw [di]
+rep stosd [di]
+rep lodsb [si]
+rep lodsw [si]
+rep lodsd [si]
+repe scasb [di]
+repe scasw [di]
+repe scasd [di]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repne insb [di],dx
+repne insw [di],dx
+repne insd [di],dx
+repne outsb dx,[si]
+repne outsw dx,[si]
+repne outsd dx,[si]
+repne movsb [di],[si]
+repne movsw [di],[si]
+repne movsd [di],[si]
+repne cmpsb [si],[di]
+repne cmpsw [si],[di]
+repne cmpsd [si],[di]
+repne stosb [di]
+repne stosw [di]
+repne stosd [di]
+repne lodsb [si]
+repne lodsw [si]
+repne lodsd [si]
+repne scasb [di]
+repne scasw [di]
+repne scasd [di]
+repne montmul
+repne xsha1
+repne xsha256
+repne xstore
+repne xcryptecb
+repne xcryptcbc
+repne xcryptctr
+repne xcryptcfb
+repne xcryptofb
+
+rep insb [rdi],dx
+rep insw [rdi],dx
+rep insd [rdi],dx
+rep outsb dx,[rsi]
+rep outsw dx,[rsi]
+rep outsd dx,[rsi]
+rep movsb [rdi],[rsi]
+rep movsw [rdi],[rsi]
+rep movsd [rdi],[rsi]
+rep movsq [rdi],[rsi]
+repz cmpsb [rsi],[rdi]
+repz cmpsw [rsi],[rdi]
+repz cmpsd [rsi],[rdi]
+repz cmpsq [rsi],[rdi]
+rep stosb [rdi]
+rep stosw [rdi]
+rep stosd [rdi]
+rep stosq [rdi]
+rep lodsb [rsi]
+rep lodsw [rsi]
+rep lodsd [rsi]
+rep lodsq [rsi]
+repz scasb [rdi]
+repz scasw [rdi]
+repz scasd [rdi]
+repz scasq [rdi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb [rdi],dx
+repnz insw [rdi],dx
+repnz insd [rdi],dx
+repnz outsb dx,[rsi]
+repnz outsw dx,[rsi]
+repnz outsd dx,[rsi]
+repnz movsb [rdi],[rsi]
+repnz movsw [rdi],[rsi]
+repnz movsd [rdi],[rsi]
+repnz movsq [rdi],[rsi]
+repnz cmpsb [rsi],[rdi]
+repnz cmpsw [rsi],[rdi]
+repnz cmpsd [rsi],[rdi]
+repnz cmpsq [rsi],[rdi]
+repnz stosb [rdi]
+repnz stosw [rdi]
+repnz stosd [rdi]
+repnz stosq [rdi]
+repnz lodsb [rsi]
+repnz lodsw [rsi]
+repnz lodsd [rsi]
+repnz lodsq [rsi]
+repnz scasb [rdi]
+repnz scasw [rdi]
+repnz scasd [rdi]
+repnz scasq [rdi]
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb
+
+rep insb [edi],dx
+rep insw [edi],dx
+rep insd [edi],dx
+rep outsb dx,[esi]
+rep outsw dx,[esi]
+rep outsd dx,[esi]
+rep movsb [edi],[esi]
+rep movsw [edi],[esi]
+rep movsd [edi],[esi]
+repz cmpsb [esi],[edi]
+repz cmpsw [esi],[edi]
+repz cmpsd [esi],[edi]
+rep stosb [edi]
+rep stosw [edi]
+rep stosd [edi]
+rep lodsb [esi]
+rep lodsw [esi]
+rep lodsd [esi]
+repz scasb [edi]
+repz scasw [edi]
+repz scasd [edi]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb [edi],dx
+repnz insw [edi],dx
+repnz insd [edi],dx
+repnz outsb dx,[esi]
+repnz outsw dx,[esi]
+repnz outsd dx,[esi]
+repnz movsb [edi],[esi]
+repnz movsw [edi],[esi]
+repnz movsd [edi],[esi]
+repnz cmpsb [esi],[edi]
+repnz cmpsw [esi],[edi]
+repnz cmpsd [esi],[edi]
+repnz stosb [edi]
+repnz stosw [edi]
+repnz stosd [edi]
+repnz lodsb [esi]
+repnz lodsw [esi]
+repnz lodsd [esi]
+repnz scasb [edi]
+repnz scasw [edi]
+repnz scasd [edi]
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb
+
+rep insb [di],dx
+rep insw [di],dx
+rep insd [di],dx
+rep outsb dx,[si]
+rep outsw dx,[si]
+rep outsd dx,[si]
+rep movsb [di],[si]
+rep movsw [di],[si]
+rep movsd [di],[si]
+repz cmpsb [si],[di]
+repz cmpsw [si],[di]
+repz cmpsd [si],[di]
+rep stosb [di]
+rep stosw [di]
+rep stosd [di]
+rep lodsb [si]
+rep lodsw [si]
+rep lodsd [si]
+repz scasb [di]
+repz scasw [di]
+repz scasd [di]
+rep montmul
+rep xsha1
+rep xsha256
+rep xstore
+rep xcryptecb
+rep xcryptcbc
+rep xcryptctr
+rep xcryptcfb
+rep xcryptofb
+
+repnz insb [di],dx
+repnz insw [di],dx
+repnz insd [di],dx
+repnz outsb dx,[si]
+repnz outsw dx,[si]
+repnz outsd dx,[si]
+repnz movsb [di],[si]
+repnz movsw [di],[si]
+repnz movsd [di],[si]
+repnz cmpsb [si],[di]
+repnz cmpsw [si],[di]
+repnz cmpsd [si],[di]
+repnz stosb [di]
+repnz stosw [di]
+repnz stosd [di]
+repnz lodsb [si]
+repnz lodsw [si]
+repnz lodsd [si]
+repnz scasb [di]
+repnz scasw [di]
+repnz scasd [di]
+repnz montmul
+repnz xsha1
+repnz xsha256
+repnz xstore
+repnz xcryptecb
+repnz xcryptcbc
+repnz xcryptctr
+repnz xcryptcfb
+repnz xcryptofb

@@ -222,13 +222,29 @@ impl MasmFormatter {
 			let has_bnd = (op_info.flags & InstrOpInfoFlags::BND_PREFIX as u16) != 0;
 			if instruction.has_repe_prefix() && show_rep_or_repe_prefix(instruction.code(), &self.d.options) {
 				if is_repe_or_repne_instruction(instruction.code()) {
-					MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repe, PrefixKind::Repe, &mut need_space);
+					MasmFormatter::format_prefix(
+						&self.d.options,
+						output,
+						instruction,
+						column,
+						get_mnemonic_cc(&self.d.options, 4, &self.d.str_.repe),
+						PrefixKind::Repe,
+						&mut need_space,
+					);
 				} else {
 					MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.rep, PrefixKind::Rep, &mut need_space);
 				}
 			}
 			if instruction.has_repne_prefix() && !has_bnd && show_repne_prefix(instruction.code(), &self.d.options) {
-				MasmFormatter::format_prefix(&self.d.options, output, instruction, column, &self.d.str_.repne, PrefixKind::Repne, &mut need_space);
+				MasmFormatter::format_prefix(
+					&self.d.options,
+					output,
+					instruction,
+					column,
+					get_mnemonic_cc(&self.d.options, 5, &self.d.str_.repne),
+					PrefixKind::Repne,
+					&mut need_space,
+				);
 			}
 
 			if has_notrack_prefix {

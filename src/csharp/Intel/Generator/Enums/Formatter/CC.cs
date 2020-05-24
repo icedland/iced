@@ -44,17 +44,17 @@ namespace Generator.Enums.Formatter {
 
 	[Enum("CC_e", Documentation = "Mnemonic condition code selector (eg. #(c:JE)# / #(c:JZ)#)", Public = true)]
 	enum CC_e {
-		[Comment("#(c:JE)#, #(c:CMOVE)#, #(c:SETE)#, #(c:LOOPE)#")]
+		[Comment("#(c:JE)#, #(c:CMOVE)#, #(c:SETE)#, #(c:LOOPE)#, #(c:REPE)#")]
 		e,
-		[Comment("#(c:JZ)#, #(c:CMOVZ)#, #(c:SETZ)#, #(c:LOOPZ)#")]
+		[Comment("#(c:JZ)#, #(c:CMOVZ)#, #(c:SETZ)#, #(c:LOOPZ)#, #(c:REPZ)#")]
 		z,
 	}
 
 	[Enum("CC_ne", Documentation = "Mnemonic condition code selector (eg. #(c:JNE)# / #(c:JNZ)#)", Public = true)]
 	enum CC_ne {
-		[Comment("#(c:JNE)#, #(c:CMOVNE)#, #(c:SETNE)#, #(c:LOOPNE)#")]
+		[Comment("#(c:JNE)#, #(c:CMOVNE)#, #(c:SETNE)#, #(c:LOOPNE)#, #(c:REPNE)#")]
 		ne,
-		[Comment("#(c:JNZ)#, #(c:CMOVNZ)#, #(c:SETNZ)#, #(c:LOOPNZ)#")]
+		[Comment("#(c:JNZ)#, #(c:CMOVNZ)#, #(c:SETNZ)#, #(c:LOOPNZ)#, #(c:REPNZ)#")]
 		nz,
 	}
 
