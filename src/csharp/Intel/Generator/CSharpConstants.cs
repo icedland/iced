@@ -50,7 +50,7 @@ namespace Generator {
 		public const string DecoderVexOrXopDefine = "DECODER && (!NO_VEX || !NO_XOP)";
 		public const string DecoderEvexDefine = "DECODER && !NO_EVEX";
 		public const string EncoderDefine = "ENCODER";
-		public const string BlockEncoderDefine = "ENCODER && BLOCK_ENCODER";
+		public const string CodeAssemblerDefine = "ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER";
 		public const string OpCodeInfoDefine = "ENCODER && OPCODE_INFO";
 		public const string InstructionInfoDefine = "INSTR_INFO";
 		public const string DecoderOrEncoderDefine = "DECODER || ENCODER";

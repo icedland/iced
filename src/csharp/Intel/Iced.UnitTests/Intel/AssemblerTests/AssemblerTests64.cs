@@ -1,4 +1,4 @@
-#if ENCODER && BLOCK_ENCODER
+#if ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER
 using System;
 using Iced.Intel;
 using Iced.UnitTests.Intel.EncoderTests;
