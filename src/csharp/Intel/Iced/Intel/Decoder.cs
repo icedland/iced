@@ -23,6 +23,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if DECODER
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Iced.Intel.DecoderInternal;
@@ -60,7 +62,7 @@ namespace Iced.Intel {
 	/// <summary>
 	/// Decodes 16/32/64-bit x86 instructions
 	/// </summary>
-	public sealed class Decoder {
+	public sealed class Decoder : IEnumerable<Instruction> {
 		ulong instructionPointer;
 		readonly CodeReader reader;
 		readonly uint[] prefixes;
@@ -1197,6 +1199,51 @@ after_imm_loop:
 
 			return constantOffsets;
 		}
+
+		/// <summary>
+		/// An <see cref="Instruction"/> enumerator
+		/// </summary>
+		public struct Enumerator : IEnumerator<Instruction> {
+			readonly Decoder decoder;
+			Instruction instruction;
+
+			internal Enumerator(Decoder decoder) {
+				this.decoder = decoder;
+				instruction = default;
+			}
+
+			/// <summary>
+			/// Gets the current instruction
+			/// </summary>
+			public Instruction Current => this.instruction; // Can't use `readonly ref`
+			Instruction IEnumerator<Instruction>.Current => Current;
+			object IEnumerator.Current => Current;
+
+			/// <summary>
+			/// Decodes the next instruction
+			/// </summary>
+			/// <returns></returns>
+			public bool MoveNext() {
+				decoder.Decode(out instruction);
+				// If it has length 0, there was no more data
+				return instruction.HasNonZeroLength;
+			}
+
+			void IEnumerator.Reset() => throw new InvalidOperationException();
+
+			/// <summary>
+			/// Disposes of this instance
+			/// </summary>
+			public void Dispose() { }
+		}
+
+		/// <summary>
+		/// Gets the <see cref="Instruction"/> enumerator
+		/// </summary>
+		/// <returns></returns>
+		public Enumerator GetEnumerator() => new Enumerator(this);
+		IEnumerator<Instruction> IEnumerable<Instruction>.GetEnumerator() => GetEnumerator();
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
 }
 #endif

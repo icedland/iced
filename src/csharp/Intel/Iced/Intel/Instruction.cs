@@ -305,6 +305,7 @@ namespace Iced.Intel {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			set => codeFlags |= (value << (int)CodeFlags.InstrLengthShift);
 		}
+		internal readonly bool HasNonZeroLength => (codeFlags & ((uint)CodeFlags.InstrLengthMask << (int)CodeFlags.InstrLengthShift)) != 0;
 
 		internal readonly bool Internal_HasRepePrefix_HasXreleasePrefix {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

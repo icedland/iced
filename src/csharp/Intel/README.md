@@ -321,8 +321,7 @@ static class HowTo_ColorizedText {
 
         var formatter = new MasmFormatter();
         var output = new FormatterOutputImpl();
-        while (codeReader.CanReadByte) {
-            decoder.Decode(out var instr);
+        foreach (var instr in decoder) {
             output.List.Clear();
             formatter.Format(instr, output);
             foreach (var (text, kind) in output.List) {

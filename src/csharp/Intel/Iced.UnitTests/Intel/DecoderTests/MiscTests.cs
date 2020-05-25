@@ -23,6 +23,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Iced.Intel;
 using Xunit;
 
@@ -256,6 +257,79 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 			Assert.Equal(64, decoder.Bitness);
 			decoder.Decode(out instr);
 			Assert.Equal(Code.Add_rm64_r64, instr.Code);
+		}
+
+		InstructionList EnumeratorDecode(Decoder decoder) {
+			var list = new InstructionList();
+			foreach (var instr in decoder)
+				list.Add(instr);
+			return list;
+		}
+
+		[Fact]
+		void Decode_enumerator_empty() {
+			var data = Array.Empty<byte>();
+			var decoder = Decoder.Create(64, data);
+			var list = EnumeratorDecode(decoder);
+			Assert.Equal(0, list.Count);
+
+			decoder = Decoder.Create(64, data);
+			var array = decoder.ToArray();
+			Assert.Equal(list, array);
+		}
+
+		[Fact]
+		void Decode_enumerator_one() {
+			var data = new byte[] { 0x00, 0xCE };
+			var decoder = Decoder.Create(64, data);
+			var list = EnumeratorDecode(decoder);
+			Assert.Equal(1, list.Count);
+			Assert.Equal(Code.Add_rm8_r8, list[0].Code);
+
+			decoder = Decoder.Create(64, data);
+			var array = decoder.ToArray();
+			Assert.Equal(list, array);
+		}
+
+		[Fact]
+		void Decode_enumerator_two() {
+			var data = new byte[] { 0x00, 0xCE, 0x66, 0x09, 0xCE };
+			var decoder = Decoder.Create(64, data);
+			var list = EnumeratorDecode(decoder);
+			Assert.Equal(2, list.Count);
+			Assert.Equal(Code.Add_rm8_r8, list[0].Code);
+			Assert.Equal(Code.Or_rm16_r16, list[1].Code);
+
+			decoder = Decoder.Create(64, data);
+			var array = decoder.ToArray();
+			Assert.Equal(list, array);
+		}
+
+		[Fact]
+		void Decode_enumerator_incomplete_instruction_one() {
+			var data = new byte[] { 0x66 };
+			var decoder = Decoder.Create(64, data);
+			var list = EnumeratorDecode(decoder);
+			Assert.Equal(1, list.Count);
+			Assert.Equal(Code.INVALID, list[0].Code);
+
+			decoder = Decoder.Create(64, data);
+			var array = decoder.ToArray();
+			Assert.Equal(list, array);
+		}
+
+		[Fact]
+		void Decode_enumerator_incomplete_instruction_two() {
+			var data = new byte[] { 0x00, 0xCE, 0x66, 0x09 };
+			var decoder = Decoder.Create(64, data);
+			var list = EnumeratorDecode(decoder);
+			Assert.Equal(2, list.Count);
+			Assert.Equal(Code.Add_rm8_r8, list[0].Code);
+			Assert.Equal(Code.INVALID, list[1].Code);
+
+			decoder = Decoder.Create(64, data);
+			var array = decoder.ToArray();
+			Assert.Equal(list, array);
 		}
 	}
 }
