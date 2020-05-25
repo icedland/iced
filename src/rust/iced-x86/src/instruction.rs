@@ -7251,41 +7251,22 @@ impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
 	}
 }
 
-#[cfg(feature = "masm")]
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+		#[cfg(feature = "masm")]
 		let mut formatter = MasmFormatter::new();
-		let mut output = FmtFormatterOutput::new(f);
-		formatter.format(self, &mut output);
-		output.result
-	}
-}
-#[cfg(all(not(feature = "masm"), feature = "nasm"))]
-impl fmt::Display for Instruction {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+
+		#[cfg(all(not(feature = "masm"), feature = "nasm"))]
 		let mut formatter = NasmFormatter::new();
-		let mut output = FmtFormatterOutput::new(f);
-		formatter.format(self, &mut output);
-		output.result
-	}
-}
-#[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
-impl fmt::Display for Instruction {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+
+		#[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
 		let mut formatter = IntelFormatter::new();
-		let mut output = FmtFormatterOutput::new(f);
-		formatter.format(self, &mut output);
-		output.result
-	}
-}
-#[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
-impl fmt::Display for Instruction {
-	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
-	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
+
+		#[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
 		let mut formatter = GasFormatter::new();
+
 		let mut output = FmtFormatterOutput::new(f);
 		formatter.format(self, &mut output);
 		output.result
