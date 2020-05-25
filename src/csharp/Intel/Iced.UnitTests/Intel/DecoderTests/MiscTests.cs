@@ -201,11 +201,15 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 		[Fact]
 		void Test_Decoder_Create_throws() {
-			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues())
+			foreach (var bitness in BitnessUtils.GetInvalidBitnessValues()) {
 				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new ByteArrayCodeReader("90"), DecoderOptions.None));
+				Assert.Throws<ArgumentOutOfRangeException>(() => Decoder.Create(bitness, new byte[] { 0x90 }, DecoderOptions.None));
+			}
 
-			foreach (var bitness in new[] { 16, 32, 64 })
-				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, null, DecoderOptions.None));
+			foreach (var bitness in new[] { 16, 32, 64 }) {
+				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (CodeReader)null, DecoderOptions.None));
+				Assert.Throws<ArgumentNullException>(() => Decoder.Create(bitness, (byte[])null, DecoderOptions.None));
+			}
 		}
 
 #if ENCODER
@@ -234,6 +238,24 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					Assert.True(decoder.InvalidNoMoreBytes);
 				}
 			}
+		}
+
+		[Fact]
+		void Decode_ctor_with_byte_array_arg() {
+			var decoder = Decoder.Create(16, new byte[] { 0x01, 0xCE }, DecoderOptions.None);
+			Assert.Equal(16, decoder.Bitness);
+			decoder.Decode(out var instr);
+			Assert.Equal(Code.Add_rm16_r16, instr.Code);
+
+			decoder = Decoder.Create(32, new byte[] { 0x01, 0xCE }, DecoderOptions.None);
+			Assert.Equal(32, decoder.Bitness);
+			decoder.Decode(out instr);
+			Assert.Equal(Code.Add_rm32_r32, instr.Code);
+
+			decoder = Decoder.Create(64, new byte[] { 0x48, 0x01, 0xCE }, DecoderOptions.None);
+			Assert.Equal(64, decoder.Bitness);
+			decoder.Decode(out instr);
+			Assert.Equal(Code.Add_rm64_r64, instr.Code);
 		}
 	}
 }

@@ -226,6 +226,16 @@ namespace Iced.Intel {
 			}
 		}
 
+		/// <summary>
+		/// Creates a decoder
+		/// </summary>
+		/// <param name="bitness">16, 32 or 64</param>
+		/// <param name="data">Data to decode</param>
+		/// <param name="options">Decoder options</param>
+		/// <returns></returns>
+		public static Decoder Create(int bitness, byte[] data, DecoderOptions options = DecoderOptions.None) =>
+			Decoder.Create(bitness, new ByteArrayCodeReader(data), options);
+
 		internal uint ReadByte() {
 			uint instrLen = state.instructionLength;
 			if (instrLen < IcedConstants.MaxInstructionLength) {
