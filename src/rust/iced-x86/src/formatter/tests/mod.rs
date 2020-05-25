@@ -54,6 +54,7 @@ use alloc::vec::Vec;
 use hashbrown::HashSet;
 #[cfg(feature = "std")]
 use std::collections::HashSet;
+use std::fmt::Write;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -195,6 +196,9 @@ fn display_trait() {
 	let actual = format!("{}", instr);
 	assert_eq!(expected, actual);
 	let actual = instr.to_string();
+	assert_eq!(expected, actual);
+	let mut actual = String::new();
+	write!(&mut actual, "{}", instr).unwrap();
 	assert_eq!(expected, actual);
 }
 

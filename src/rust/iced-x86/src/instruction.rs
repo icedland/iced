@@ -7234,47 +7234,60 @@ impl Hash for Instruction {
 	}
 }
 
+struct FmtFormatterOutput<'a, 'b: 'a> {
+	f: &'a mut fmt::Formatter<'b>,
+	result: fmt::Result,
+}
+impl<'a, 'b: 'a> FmtFormatterOutput<'a, 'b> {
+	fn new(f: &'a mut fmt::Formatter<'b>) -> Self {
+		Self { f, result: Ok(()) }
+	}
+}
+impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
+	fn write(&mut self, text: &str, _kind: FormatterTextKind) {
+		if self.result.is_ok() {
+			self.result = self.f.write_str(text);
+		}
+	}
+}
+
 #[cfg(feature = "masm")]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		let mut output = String::new();
 		let mut formatter = MasmFormatter::new();
+		let mut output = FmtFormatterOutput::new(f);
 		formatter.format(self, &mut output);
-		f.write_str(&output)?;
-		Ok(())
+		output.result
 	}
 }
 #[cfg(all(not(feature = "masm"), feature = "nasm"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		let mut output = String::new();
 		let mut formatter = NasmFormatter::new();
+		let mut output = FmtFormatterOutput::new(f);
 		formatter.format(self, &mut output);
-		f.write_str(&output)?;
-		Ok(())
+		output.result
 	}
 }
 #[cfg(all(not(feature = "masm"), not(feature = "nasm"), feature = "intel"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		let mut output = String::new();
 		let mut formatter = IntelFormatter::new();
+		let mut output = FmtFormatterOutput::new(f);
 		formatter.format(self, &mut output);
-		f.write_str(&output)?;
-		Ok(())
+		output.result
 	}
 }
 #[cfg(all(not(feature = "masm"), not(feature = "nasm"), not(feature = "intel"), feature = "gas"))]
 impl fmt::Display for Instruction {
 	#[cfg_attr(feature = "cargo-clippy", allow(clippy::missing_inline_in_public_items))]
 	fn fmt<'a>(&self, f: &mut fmt::Formatter<'a>) -> fmt::Result {
-		let mut output = String::new();
 		let mut formatter = GasFormatter::new();
+		let mut output = FmtFormatterOutput::new(f);
 		formatter.format(self, &mut output);
-		f.write_str(&output)?;
-		Ok(())
+		output.result
 	}
 }
