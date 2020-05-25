@@ -925,28 +925,28 @@ impl<'a> Decoder<'a> {
 
 			match b {
 				0x26 => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
+					if !self.is64_mode || default_ds_segment < Register::FS {
 						instruction.set_segment_prefix(Register::ES);
 						default_ds_segment = Register::ES;
 					}
 					rex_prefix = 0;
 				}
 				0x2E => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
+					if !self.is64_mode || default_ds_segment < Register::FS {
 						instruction.set_segment_prefix(Register::CS);
 						default_ds_segment = Register::CS;
 					}
 					rex_prefix = 0;
 				}
 				0x36 => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
+					if !self.is64_mode || default_ds_segment < Register::FS {
 						instruction.set_segment_prefix(Register::SS);
 						default_ds_segment = Register::SS;
 					}
 					rex_prefix = 0;
 				}
 				0x3E => {
-					if !self.is64_mode || (default_ds_segment != Register::FS && default_ds_segment != Register::GS) {
+					if !self.is64_mode || default_ds_segment < Register::FS {
 						instruction.set_segment_prefix(Register::DS);
 						default_ds_segment = Register::DS;
 					}
@@ -996,10 +996,11 @@ impl<'a> Decoder<'a> {
 			}
 		}
 		if rex_prefix != 0 {
-			self.state.flags |= StateFlags::HAS_REX;
 			if (rex_prefix & 8) != 0 {
 				self.state.operand_size = OpSize::Size64;
-				self.state.flags |= StateFlags::W;
+				self.state.flags |= StateFlags::HAS_REX | StateFlags::W;
+			} else {
+				self.state.flags |= StateFlags::HAS_REX;
 			}
 			self.state.extra_register_base = (rex_prefix as u32 & 4) << 1;
 			self.state.extra_index_register_base = (rex_prefix as u32 & 2) << 2;

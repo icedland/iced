@@ -297,7 +297,7 @@ namespace Iced.Intel {
 				// with JIT32, and about the same speed with 64-bit RyuJIT.
 				switch (b) {
 				case 0x26:
-					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || defaultDsSegment < (byte)Register.FS) {
 						instruction.SegmentPrefix = Register.ES;
 						defaultDsSegment = (byte)Register.ES;
 					}
@@ -305,7 +305,7 @@ namespace Iced.Intel {
 					break;
 
 				case 0x2E:
-					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || defaultDsSegment < (byte)Register.FS) {
 						instruction.SegmentPrefix = Register.CS;
 						defaultDsSegment = (byte)Register.CS;
 					}
@@ -313,7 +313,7 @@ namespace Iced.Intel {
 					break;
 
 				case 0x36:
-					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || defaultDsSegment < (byte)Register.FS) {
 						instruction.SegmentPrefix = Register.SS;
 						defaultDsSegment = (byte)Register.SS;
 					}
@@ -321,7 +321,7 @@ namespace Iced.Intel {
 					break;
 
 				case 0x3E:
-					if (!is64Mode || (defaultDsSegment != (byte)Register.FS && defaultDsSegment != (byte)Register.GS)) {
+					if (!is64Mode || defaultDsSegment < (byte)Register.FS) {
 						instruction.SegmentPrefix = Register.DS;
 						defaultDsSegment = (byte)Register.DS;
 					}
@@ -378,11 +378,12 @@ namespace Iced.Intel {
 				}
 			}
 			if (rexPrefix != 0) {
-				state.flags |= StateFlags.HasRex;
 				if ((rexPrefix & 8) != 0) {
 					state.operandSize = OpSize.Size64;
-					state.flags |= StateFlags.W;
+					state.flags |= StateFlags.HasRex | StateFlags.W;
 				}
+				else
+					state.flags |= StateFlags.HasRex;
 				state.extraRegisterBase = (rexPrefix & 4) << 1;
 				state.extraIndexRegisterBase = (rexPrefix & 2) << 2;
 				state.extraBaseRegisterBase = (rexPrefix & 1) << 3;
