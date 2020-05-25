@@ -25,9 +25,6 @@ use super::iced_constants::IcedConstants;
 #[cfg(feature = "instr_info")]
 use super::info::enums::*;
 use super::*;
-#[cfg(not(feature = "std"))]
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-use alloc::string::String;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use core::fmt;
 use core::hash::{Hash, Hasher};
@@ -7234,15 +7231,18 @@ impl Hash for Instruction {
 	}
 }
 
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 struct FmtFormatterOutput<'a, 'b: 'a> {
 	f: &'a mut fmt::Formatter<'b>,
 	result: fmt::Result,
 }
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl<'a, 'b: 'a> FmtFormatterOutput<'a, 'b> {
 	fn new(f: &'a mut fmt::Formatter<'b>) -> Self {
 		Self { f, result: Ok(()) }
 	}
 }
+#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 impl<'a, 'b: 'a> FormatterOutput for FmtFormatterOutput<'a, 'b> {
 	fn write(&mut self, text: &str, _kind: FormatterTextKind) {
 		if self.result.is_ok() {
