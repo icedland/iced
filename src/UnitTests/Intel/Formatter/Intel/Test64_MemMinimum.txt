@@ -7871,30 +7871,30 @@ pswapd mm1, mm5
 pswapd mm1, [rax-0x5aa5edcc]
 pavgusb mm1, mm5
 pavgusb mm1, [rax-0x5aa5edcc]
-sal bh, 0x5a
-sal byte ptr [rax], 0x5a
-sal di, 0x5a
-sal word ptr [rax], 0x5a
-sal edi, 0x5a
-sal dword ptr [rax], 0x5a
-sal rdi, 0x5a
-sal qword ptr [rax], 0x5a
-sal bh, 1
-sal byte ptr [rax], 1
-sal di, 1
-sal word ptr [rax], 1
-sal edi, 1
-sal dword ptr [rax], 1
-sal rdi, 1
-sal qword ptr [rax], 1
-sal bh, cl
-sal byte ptr [rax], cl
-sal di, cl
-sal word ptr [rax], cl
-sal edi, cl
-sal dword ptr [rax], cl
-sal rdi, cl
-sal qword ptr [rax], cl
+shl bh, 0x5a
+shl byte ptr [rax], 0x5a
+shl di, 0x5a
+shl word ptr [rax], 0x5a
+shl edi, 0x5a
+shl dword ptr [rax], 0x5a
+shl rdi, 0x5a
+shl qword ptr [rax], 0x5a
+shl bh, 1
+shl byte ptr [rax], 1
+shl di, 1
+shl word ptr [rax], 1
+shl edi, 1
+shl dword ptr [rax], 1
+shl rdi, 1
+shl qword ptr [rax], 1
+shl bh, cl
+shl byte ptr [rax], cl
+shl di, cl
+shl word ptr [rax], cl
+shl edi, cl
+shl dword ptr [rax], cl
+shl rdi, cl
+shl qword ptr [rax], cl
 fstpnce st(3), st
 fneni
 fndisi
