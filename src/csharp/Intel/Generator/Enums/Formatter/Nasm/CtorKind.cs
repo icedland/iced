@@ -88,7 +88,6 @@ namespace Generator.Enums.Formatter.Nasm {
 		STIG1_2,
 		STIG2_2a,
 		STIG2_2b,
-		xbegin,
 		XLAT,
 		XY,
 		YA,

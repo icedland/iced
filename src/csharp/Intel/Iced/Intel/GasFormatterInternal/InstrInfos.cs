@@ -363,11 +363,6 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_STIG1(s, v != 0);
 					break;
 
-				case CtorKind.xbegin:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_xbegin((int)v, s);
-					break;
-
 				default:
 					throw new InvalidOperationException();
 				}

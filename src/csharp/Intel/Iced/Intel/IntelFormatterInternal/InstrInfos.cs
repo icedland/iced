@@ -287,11 +287,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_STi_ST(s);
 					break;
 
-				case CtorKind.xbegin:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_xbegin((int)v, s);
-					break;
-
 				case CtorKind.YA:
 					instrInfo = new SimpleInstrInfo_YA(s);
 					break;

@@ -1496,19 +1496,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Stosb_m8_AL
-	0x2C,// YA
+	0x2B,// YA
 	0xCF, 0x01,// 207 = "stosb"
 
 	// Stosw_m16_AX
-	0x2C,// YA
+	0x2B,// YA
 	0xD0, 0x01,// 208 = "stosw"
 
 	// Stosd_m32_EAX
-	0x2C,// YA
+	0x2B,// YA
 	0xD1, 0x01,// 209 = "stosd"
 
 	// Stosq_m64_RAX
-	0x2C,// YA
+	0x2B,// YA
 	0xD2, 0x01,// 210 = "stosq"
 
 	// Lodsb_AL_m8
@@ -1747,14 +1747,11 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Xbegin_rel16
-	0x2B,// xbegin
+	0x01,// Normal_1
 	0xE5, 0x01,// 229 = "xbegin"
-	0x10,// 0x10
 
 	// Xbegin_rel32
-	0x2B,// xbegin
-	0xE5, 0x01,// 229 = "xbegin"
-	0x60,// 0x60
+	0x00,// Previous
 
 	// Enterw_imm16_imm8
 	0x13,// os2
@@ -3659,17 +3656,17 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x25,// EAX
 
 	// Invlpgaw
-	0x2D,// invlpga
+	0x2C,// invlpga
 	0xA1, 0x03,// 417 = "invlpga"
 	0x10,// 0x10
 
 	// Invlpgad
-	0x2D,// invlpga
+	0x2C,// invlpga
 	0xA1, 0x03,// 417 = "invlpga"
 	0x20,// 0x20
 
 	// Invlpgaq
-	0x2D,// invlpga
+	0x2C,// invlpga
 	0xA1, 0x03,// 417 = "invlpga"
 	0x40,// 0x40
 

@@ -716,7 +716,7 @@ mov ecx,0x3412a55a
 mov dword ptr [rax],0x3412a55a
 mov rcx,0xffffffff8412a55a
 mov qword ptr [rax],0xffffffff8412a55a
-data16 xbegin 0x7fffffffffffa54f
+xbegin 0x7fffffffffffa54f
 xbegin 0x800000003412a550
 xbegin 0x800000003412a551
 data16 enter 0xa55a,0xa6

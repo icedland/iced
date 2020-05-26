@@ -2296,14 +2296,11 @@ namespace Iced.Intel.GasFormatterInternal {
 				0x01,// 0x1 = MnemonicSuffixIfMem
 
 				// Xbegin_rel16
-				0x31,// xbegin
+				0x01,// Normal_1
 				0xE5, 0x01,// 229 = "xbegin"
-				0x10,// 0x10
 
 				// Xbegin_rel32
-				0x31,// xbegin
-				0xE5, 0x01,// 229 = "xbegin"
-				0x60,// 0x60
+				0x00,// Previous
 
 				// Enterw_imm16_imm8
 				0x24,// os2_4

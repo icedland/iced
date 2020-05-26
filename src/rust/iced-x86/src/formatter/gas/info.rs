@@ -1119,39 +1119,6 @@ impl InstrInfo for SimpleInstrInfo_os_jcc {
 }
 
 #[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_xbegin {
-	mnemonic: FormatterString,
-	bitness_flags: u32,
-}
-
-impl SimpleInstrInfo_xbegin {
-	pub(super) fn new(bitness_flags: u32, mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), bitness_flags }
-	}
-}
-
-impl InstrInfo for SimpleInstrInfo_xbegin {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		let mut flags = InstrOpInfoFlags::NONE;
-		let instr_bitness = get_bitness(instruction.code_size());
-		if instr_bitness == 0 {
-			// Nothing
-		} else if instr_bitness == 64 {
-			if (self.bitness_flags & 16) != 0 {
-				flags |= InstrOpInfoFlags::OP_SIZE16;
-			}
-		} else if (instr_bitness & self.bitness_flags) == 0 {
-			if (self.bitness_flags & 16) != 0 {
-				flags |= InstrOpInfoFlags::OP_SIZE16;
-			} else if (self.bitness_flags & 32) != 0 {
-				flags |= InstrOpInfoFlags::OP_SIZE32;
-			}
-		}
-		InstrOpInfo::new(&self.mnemonic, instruction, flags)
-	}
-}
-
-#[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_movabs {
 	mnemonic: FormatterString,
 	mnemonic_suffix: FormatterString,

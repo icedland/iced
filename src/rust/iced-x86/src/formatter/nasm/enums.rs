@@ -93,7 +93,6 @@ pub(crate) enum CtorKind {
 	STIG1_2,
 	STIG2_2a,
 	STIG2_2b,
-	xbegin,
 	XLAT,
 	XY,
 	YA,
@@ -101,7 +100,7 @@ pub(crate) enum CtorKind {
 	YX,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CTOR_KIND: [&str; 70] = [
+static GEN_DEBUG_CTOR_KIND: [&str; 69] = [
 	"Previous",
 	"Normal_1",
 	"Normal_2",
@@ -166,7 +165,6 @@ static GEN_DEBUG_CTOR_KIND: [&str; 70] = [
 	"STIG1_2",
 	"STIG2_2a",
 	"STIG2_2b",
-	"xbegin",
 	"XLAT",
 	"XY",
 	"YA",

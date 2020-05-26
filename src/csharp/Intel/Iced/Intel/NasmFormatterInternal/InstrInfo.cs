@@ -1277,37 +1277,6 @@ namespace Iced.Intel.NasmFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_xbegin : InstrInfo {
-		readonly int bitnessFlags;
-		readonly FormatterString mnemonic;
-
-		public SimpleInstrInfo_xbegin(int bitnessFlags, string mnemonic) {
-			this.bitnessFlags = bitnessFlags;
-			this.mnemonic = new FormatterString(mnemonic);
-		}
-
-		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
-			var flags = InstrOpInfoFlags.None;
-			var branchInfo = BranchSizeInfo.None;
-			int instrBitness = GetBitness(instruction.CodeSize);
-			if (instrBitness == 0) {
-				// Nothing
-			}
-			else if (instrBitness == 64) {
-				if ((bitnessFlags & 16) != 0)
-					flags |= InstrOpInfoFlags.OpSize16;
-			}
-			else if ((instrBitness & bitnessFlags) == 0) {
-				if ((bitnessFlags & 16) != 0)
-					branchInfo = BranchSizeInfo.Word;
-				else if ((bitnessFlags & 32) != 0)
-					branchInfo = BranchSizeInfo.Dword;
-			}
-			flags |= (InstrOpInfoFlags)((int)branchInfo << (int)InstrOpInfoFlags.BranchSizeInfoShift);
-			info = new InstrOpInfo(mnemonic, instruction, flags);
-		}
-	}
-
 	sealed class SimpleInstrInfo_movabs : InstrInfo {
 		readonly int memOpNumber;
 		readonly FormatterString mnemonic;

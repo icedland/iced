@@ -362,11 +362,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				}
 				Box::new(SimpleInstrInfo_STIG1::new(s, v != 0))
 			}
-
-			CtorKind::xbegin => {
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_xbegin::new(v, s))
-			}
 		};
 
 		infos.push(info);

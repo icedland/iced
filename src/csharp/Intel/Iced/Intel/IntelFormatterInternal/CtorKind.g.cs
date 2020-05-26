@@ -71,7 +71,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 		ST1_3,
 		ST2,
 		STi_ST,
-		xbegin,
 		YA,
 		invlpga,
 	}

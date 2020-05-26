@@ -67,7 +67,6 @@ namespace Generator.Enums.Formatter.Intel {
 		ST1_3,
 		ST2,
 		STi_ST,
-		xbegin,
 		YA,
 		invlpga,
 	}

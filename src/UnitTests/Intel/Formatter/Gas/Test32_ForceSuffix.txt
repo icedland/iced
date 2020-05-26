@@ -310,7 +310,7 @@ scasw (di), ax
 scasw (edi), ax
 scasl (di), eax
 scasl (edi), eax
-data16 xbegin 0x7fffa54f
+xbegin 0x7fffa54f
 xbegin 0xb412a550
 enterw $-0x5aa6, $-0x5a
 leavew

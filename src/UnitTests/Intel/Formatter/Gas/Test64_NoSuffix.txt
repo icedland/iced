@@ -716,7 +716,7 @@ mov $0x3412a55a,%ecx
 movl $0x3412a55a,(%rax)
 mov $0xffffffff8412a55a,%rcx
 movq $0xffffffff8412a55a,(%rax)
-data16 xbegin 0x7fffffffffffa54f
+xbegin 0x7fffffffffffa54f
 xbegin 0x800000003412a550
 xbegin 0x800000003412a551
 enterw $0xa55a,$0xa6

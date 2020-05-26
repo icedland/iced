@@ -77,7 +77,6 @@ namespace Iced.Intel.GasFormatterInternal {
 		STi_ST2,
 		STIG_1a,
 		STIG_1b,
-		xbegin,
 	}
 }
 #endif

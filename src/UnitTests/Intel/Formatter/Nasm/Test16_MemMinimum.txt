@@ -244,7 +244,7 @@ scasw
 a32 scasd
 scasd
 xbegin 0x0000254e
-xbegin dword 0x34132551
+xbegin 0x34132551
 enter -0x5aa6, -0x5a
 leave
 retf -0x5aa6

@@ -603,15 +603,15 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x03,// Sex1to8
 
 				// Insb_m8_DX
-				0x44,// YD
+				0x43,// YD
 				0x96, 0x01,// 150 = "insb"
 
 				// Insw_m16_DX
-				0x44,// YD
+				0x43,// YD
 				0x97, 0x01,// 151 = "insw"
 
 				// Insd_m32_DX
-				0x44,// YD
+				0x43,// YD
 				0x98, 0x01,// 152 = "insd"
 
 				// Outsb_DX_m8
@@ -1579,35 +1579,35 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// Previous
 
 				// Movsb_m8_m8
-				0x45,// YX
+				0x44,// YX
 				0xC7, 0x01,// 199 = "movsb"
 
 				// Movsw_m16_m16
-				0x45,// YX
+				0x44,// YX
 				0xC8, 0x01,// 200 = "movsw"
 
 				// Movsd_m32_m32
-				0x45,// YX
+				0x44,// YX
 				0x25,// 37 = "movsd"
 
 				// Movsq_m64_m64
-				0x45,// YX
+				0x44,// YX
 				0xC9, 0x01,// 201 = "movsq"
 
 				// Cmpsb_m8_m8
-				0x42,// XY
+				0x41,// XY
 				0xCB, 0x01,// 203 = "cmpsb"
 
 				// Cmpsw_m16_m16
-				0x42,// XY
+				0x41,// XY
 				0xCC, 0x01,// 204 = "cmpsw"
 
 				// Cmpsd_m32_m32
-				0x42,// XY
+				0x41,// XY
 				0x94, 0x06,// 788 = "cmpsd"
 
 				// Cmpsq_m64_m64
-				0x42,// XY
+				0x41,// XY
 				0xCD, 0x01,// 205 = "cmpsq"
 
 				// Test_AL_imm8
@@ -1626,19 +1626,19 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x00,// None
 
 				// Stosb_m8_AL
-				0x43,// YA
+				0x42,// YA
 				0xCF, 0x01,// 207 = "stosb"
 
 				// Stosw_m16_AX
-				0x43,// YA
+				0x42,// YA
 				0xD0, 0x01,// 208 = "stosw"
 
 				// Stosd_m32_EAX
-				0x43,// YA
+				0x42,// YA
 				0xD1, 0x01,// 209 = "stosd"
 
 				// Stosq_m64_RAX
-				0x43,// YA
+				0x42,// YA
 				0xD2, 0x01,// 210 = "stosq"
 
 				// Lodsb_AL_m8
@@ -1891,14 +1891,11 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
 
 				// Xbegin_rel16
-				0x40,// xbegin
+				0x01,// Normal_1
 				0xE5, 0x01,// 229 = "xbegin"
-				0x10,// 0x10
 
 				// Xbegin_rel32
-				0x40,// xbegin
-				0xE5, 0x01,// 229 = "xbegin"
-				0x60,// 0x60
+				0x00,// Previous
 
 				// Enterw_imm16_imm8
 				0x1B,// os_2
@@ -2265,7 +2262,7 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0xF5, 0x01,// 245 = "salc"
 
 				// Xlat_m8
-				0x41,// XLAT
+				0x40,// XLAT
 				0xF7, 0x01,// 247 = "xlatb"
 
 				// Fadd_m32fp

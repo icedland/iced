@@ -244,7 +244,7 @@ scasw [di]
 scasd [edi]
 scasd [di]
 xbegin 0x0000254e
-data32 xbegin 0x34132551
+xbegin 0x34132551
 enter 0xa55a,0xa6
 leave
 ret far 0xa55a

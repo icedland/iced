@@ -310,7 +310,7 @@ scasw [di]
 scasw [edi]
 scasd [di]
 scasd [edi]
-data16 xbegin 0x7fffa54f
+xbegin 0x7fffa54f
 xbegin 0xb412a550
 data16 enter 0xa55a,0xa6
 data16 leave

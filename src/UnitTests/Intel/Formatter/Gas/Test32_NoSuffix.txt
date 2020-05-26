@@ -310,7 +310,7 @@ scas (%di),%ax
 scas (%edi),%ax
 scas (%di),%eax
 scas (%edi),%eax
-data16 xbegin 0x7fffa54f
+xbegin 0x7fffa54f
 xbegin 0xb412a550
 enterw $0xa55a,$0xa6
 leavew

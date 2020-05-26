@@ -712,41 +712,11 @@ namespace Iced.Intel.IntelFormatterInternal {
 		}
 	}
 
-	sealed class SimpleInstrInfo_xbegin : InstrInfo {
-		readonly int bitnessFlags;
-		readonly FormatterString mnemonic;
-
-		public SimpleInstrInfo_xbegin(int bitnessFlags, string mnemonic) {
-			this.bitnessFlags = bitnessFlags;
-			this.mnemonic = new FormatterString(mnemonic);
-		}
-
-		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
-			var flags = InstrOpInfoFlags.None;
-			int instrBitness = GetBitness(instruction.CodeSize);
-			if (instrBitness == 0) {
-				// Nothing
-			}
-			else if (instrBitness == 64) {
-				if ((bitnessFlags & 16) != 0)
-					flags |= InstrOpInfoFlags.OpSize16;
-			}
-			else if ((instrBitness & bitnessFlags) == 0) {
-				if ((bitnessFlags & 16) != 0)
-					flags |= InstrOpInfoFlags.OpSize16;
-				else if ((bitnessFlags & 32) != 0)
-					flags |= InstrOpInfoFlags.OpSize32;
-			}
-			info = new InstrOpInfo(mnemonic, instruction, flags);
-		}
-	}
-
 	sealed class SimpleInstrInfo_k1 : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_k1(string mnemonic) {
+		public SimpleInstrInfo_k1(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);

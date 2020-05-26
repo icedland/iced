@@ -716,7 +716,7 @@ mov ecx, 0x3412a55a
 mov dword [rax], 0x3412a55a
 mov rcx, dword -0x7bed5aa6
 mov qword [rax], qword -0x7bed5aa6
-o16 xbegin 0x7fffffffffffa54f
+xbegin 0x7fffffffffffa54f
 xbegin 0x800000003412a550
 xbegin 0x800000003412a551
 o16 enter -0x5aa6, -0x5a
