@@ -1407,14 +1407,14 @@ prefetcht1 [rax]
 prefetcht2 [rax]
 bndldx bnd1,[rax]
 bndmov bnd1,bnd2
-bndmov bnd1,[rax]
+bndmov bnd1,xmmword ptr [rax]
 bndcl bnd1,rdx
 bndcl bnd1,[rax]
 bndcu bnd1,rdx
 bndcu bnd1,[rax]
 bndstx [rax],bnd1
 bndmov bnd2,bnd1
-bndmov [rax],bnd1
+bndmov xmmword ptr [rax],bnd1
 bndmk bnd1,[rax]
 bndcn bnd1,rdx
 bndcn bnd1,[rax]

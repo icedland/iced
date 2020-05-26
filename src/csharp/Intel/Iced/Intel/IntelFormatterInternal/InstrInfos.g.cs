@@ -4355,7 +4355,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// Bndmov_bnd_bndm64
 				0x02,// Normal_2
 				0xD3, 0x03,// 467 = "bndmov"
-				0x01,// 0x1 = MemSize_Nothing
+				0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 				// Bndmov_bnd_bndm128
 				0x00,// Previous
@@ -4384,7 +4384,7 @@ namespace Iced.Intel.IntelFormatterInternal {
 				// Bndmov_bndm64_bnd
 				0x02,// Normal_2
 				0xD3, 0x03,// 467 = "bndmov"
-				0x01,// 0x1 = MemSize_Nothing
+				0x02,// 0x2 = ShowNoMemSize_ForceSize
 
 				// Bndmov_bndm128_bnd
 				0x00,// Previous

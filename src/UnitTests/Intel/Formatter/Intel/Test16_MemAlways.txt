@@ -124,13 +124,13 @@ jmp dword ptr [bx+si]
 push esi
 push dword ptr [bx+si]
 bndmov bnd1, bnd2
-bndmov bnd1, [eax]
+bndmov bnd1, qword ptr [eax]
 bndcl bnd1, edx
 bndcl bnd1, [eax]
 bndcu bnd1, edx
 bndcu bnd1, [eax]
 bndmov bnd2, bnd1
-bndmov [eax], bnd1
+bndmov qword ptr [eax], bnd1
 bndmk bnd1, [eax]
 bndcn bnd1, edx
 bndcn bnd1, [eax]
