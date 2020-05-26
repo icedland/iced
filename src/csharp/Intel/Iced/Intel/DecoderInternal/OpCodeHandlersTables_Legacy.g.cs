@@ -2563,12 +2563,9 @@ namespace Iced.Intel.DecoderInternal {
 				0x09,// RM
 					0x07,// HandlerReference
 						0x31,// 0x31 = reservedNop_0F0D
-					0x09,// RM
-						0x07,// HandlerReference
-							0x31,// 0x31 = reservedNop_0F0D
-						0x0E,// Group
-							0x08,// ArrayReference
-								0x3A,// 0x3A = handlers_Grp_0F0D_mem
+					0x0E,// Group
+						0x08,// ArrayReference
+							0x3A,// 0x3A = handlers_Grp_0F0D_mem
 
 				// handlers_Grp_0F18_mem
 				0x01,// ArrayReference
@@ -2603,12 +2600,9 @@ namespace Iced.Intel.DecoderInternal {
 					0x09,// RM
 						0x07,// HandlerReference
 							0x32,// 0x32 = reservedNop_0F18
-						0x09,// RM
-							0x07,// HandlerReference
-								0x32,// 0x32 = reservedNop_0F18
-							0x0E,// Group
-								0x08,// ArrayReference
-									0x3C,// 0x3C = handlers_Grp_0F18_mem
+						0x0E,// Group
+							0x08,// ArrayReference
+								0x3C,// 0x3C = handlers_Grp_0F18_mem
 
 				// handlers_Grp_0F1C_mem
 				0x01,// ArrayReference
@@ -2635,12 +2629,9 @@ namespace Iced.Intel.DecoderInternal {
 					0x09,// RM
 						0x07,// HandlerReference
 							0x36,// 0x36 = reservedNop_0F1C
-						0x09,// RM
-							0x07,// HandlerReference
-								0x36,// 0x36 = reservedNop_0F1C
-							0x0E,// Group
-								0x08,// ArrayReference
-									0x3E,// 0x3E = handlers_Grp_0F1C_mem
+						0x0E,// Group
+							0x08,// ArrayReference
+								0x3E,// 0x3E = handlers_Grp_0F1C_mem
 
 				// handlers_Grp_0F1E_reg_lo
 				0x01,// ArrayReference

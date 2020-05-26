@@ -1872,7 +1872,7 @@ namespace Generator.Decoder {
 				}),
 				("grp0F0D", new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 					"reservedNop_0F0D",
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)], "reservedNop_0F0D", new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F0D_mem" } }
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F0D_mem" }
 				}),
 
 				("handlers_Grp_0F18_mem",
@@ -1890,7 +1890,7 @@ namespace Generator.Decoder {
 					"reservedNop_0F18",
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 						"reservedNop_0F18",
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)], "reservedNop_0F18", new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F18_mem" } }
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F18_mem" }
 					}
 				}),
 
@@ -1914,7 +1914,7 @@ namespace Generator.Decoder {
 					"reservedNop_0F1C",
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)],
 						"reservedNop_0F1C",
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.RM)], "reservedNop_0F1C", new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F1C_mem" } }
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Group)], "handlers_Grp_0F1C_mem" }
 					}
 				}),
 
