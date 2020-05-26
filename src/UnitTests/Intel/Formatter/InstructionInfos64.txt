@@ -8358,3 +8358,8 @@ F2 0F 01 E9, Xresldtrk
 67 0F 01 FE, Invlpgbd
 0F 01 FE, Invlpgbq
 0F 01 FF, Tlbsync
+0F0D 18, PrefetchReserved3_m8
+0F0D 20, PrefetchReserved4_m8
+0F0D 28, PrefetchReserved5_m8
+0F0D 30, PrefetchReserved6_m8
+0F0D 38, PrefetchReserved7_m8

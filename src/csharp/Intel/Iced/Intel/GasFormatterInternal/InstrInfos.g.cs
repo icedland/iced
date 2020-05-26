@@ -17521,6 +17521,23 @@ namespace Iced.Intel.GasFormatterInternal {
 				// Tlbsync
 				0x01,// Normal_1
 				0x80, 0x0B,// 1408 = "tlbsync"
+
+				// PrefetchReserved3_m8
+				0x01,// Normal_1
+				0xBD, 0x03,// 445 = "prefetchw"
+
+				// PrefetchReserved4_m8
+				0x01,// Normal_1
+				0xBB, 0x03,// 443 = "prefetch"
+
+				// PrefetchReserved5_m8
+				0x00,// Previous
+
+				// PrefetchReserved6_m8
+				0x00,// Previous
+
+				// PrefetchReserved7_m8
+				0x00,// Previous
 			};
 	}
 }

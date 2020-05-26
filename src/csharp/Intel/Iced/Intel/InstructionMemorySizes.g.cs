@@ -4250,6 +4250,11 @@ namespace Iced.Intel {
 			0,// Invlpgbd
 			0,// Invlpgbq
 			0,// Tlbsync
+			(byte)MemorySize.UInt8,// PrefetchReserved3_m8
+			(byte)MemorySize.UInt8,// PrefetchReserved4_m8
+			(byte)MemorySize.UInt8,// PrefetchReserved5_m8
+			(byte)MemorySize.UInt8,// PrefetchReserved6_m8
+			(byte)MemorySize.UInt8,// PrefetchReserved7_m8
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8466,6 +8471,11 @@ namespace Iced.Intel {
 			0,// Invlpgbd
 			0,// Invlpgbq
 			0,// Tlbsync
+			0,// PrefetchReserved3_m8
+			0,// PrefetchReserved4_m8
+			0,// PrefetchReserved5_m8
+			0,// PrefetchReserved6_m8
+			0,// PrefetchReserved7_m8
 		};
 	}
 }

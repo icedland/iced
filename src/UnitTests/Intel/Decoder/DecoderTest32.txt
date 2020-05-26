@@ -2741,17 +2741,27 @@ F3 0F09, Wbnoinvd, Wbnoinvd, 0,
 
 0F0D CE, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
 0F0D 18, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx resnop
-0F0D 18, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx
-0F0D 20, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;esp
-0F0D 28, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebp
-0F0D 30, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;esi
-0F0D 38, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;edi
+0F0D 18, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebx resnop
+0F0D 20, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;esp resnop
+0F0D 28, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;ebp resnop
+0F0D 30, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;esi resnop
+0F0D 38, ReservedNop_rm32_r32_0F0D, ReservedNop, 2, op0=m;ds;eax;;1;0;0;UInt32 op1=r;edi resnop
 
 0F0D 00, Prefetch_m8, Prefetch, 1, op0=m;ds;eax;;1;0;0;UInt8
 
 0F0D 08, Prefetchw_m8, Prefetchw, 1, op0=m;ds;eax;;1;0;0;UInt8
 
 0F0D 10, Prefetchwt1_m8, Prefetchwt1, 1, op0=m;ds;eax;;1;0;0;UInt8
+
+0F0D 18, PrefetchReserved3_m8, Prefetchw, 1, op0=m;ds;eax;;1;0;0;UInt8
+
+0F0D 20, PrefetchReserved4_m8, Prefetch, 1, op0=m;ds;eax;;1;0;0;UInt8
+
+0F0D 28, PrefetchReserved5_m8, Prefetch, 1, op0=m;ds;eax;;1;0;0;UInt8
+
+0F0D 30, PrefetchReserved6_m8, Prefetch, 1, op0=m;ds;eax;;1;0;0;UInt8
+
+0F0D 38, PrefetchReserved7_m8, Prefetch, 1, op0=m;ds;eax;;1;0;0;UInt8
 
 0F0E, Femms, Femms, 0,
 

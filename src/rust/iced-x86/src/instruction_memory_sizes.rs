@@ -4246,6 +4246,11 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Invlpgbd
 	MemorySize::Unknown,// Invlpgbq
 	MemorySize::Unknown,// Tlbsync
+	MemorySize::UInt8,// PrefetchReserved3_m8
+	MemorySize::UInt8,// PrefetchReserved4_m8
+	MemorySize::UInt8,// PrefetchReserved5_m8
+	MemorySize::UInt8,// PrefetchReserved6_m8
+	MemorySize::UInt8,// PrefetchReserved7_m8
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8462,4 +8467,9 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Invlpgbd
 	MemorySize::Unknown,// Invlpgbq
 	MemorySize::Unknown,// Tlbsync
+	MemorySize::Unknown,// PrefetchReserved3_m8
+	MemorySize::Unknown,// PrefetchReserved4_m8
+	MemorySize::Unknown,// PrefetchReserved5_m8
+	MemorySize::Unknown,// PrefetchReserved6_m8
+	MemorySize::Unknown,// PrefetchReserved7_m8
 ];

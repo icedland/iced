@@ -2945,10 +2945,22 @@ FF 30, Push_rm64, Legacy, X64, op0=r rw=xsp r=rax rm=ds:rax;UInt64 wm=ss:xsp+0xF
 0F09, Wbinvd, Legacy, INTEL486, priv
 # ud2
 0F0B, Ud2, Legacy, INTEL286, flow=Exception
+# prefetch [rax]
+0F0D 00, Prefetch_m8, Legacy, PREFETCHW, op0=nma r=rax
 # prefetchw [rax]
 0F0D 08, Prefetchw_m8, Legacy, PREFETCHW, op0=nma r=rax
 # prefetchwt1 [rax]
 0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHWT1, op0=nma r=rax
+# prefetchw [rax]
+0F0D 18, PrefetchReserved3_m8, Legacy, PREFETCHW, op0=nma r=rax
+# prefetch [rax]
+0F0D 20, PrefetchReserved4_m8, Legacy, PREFETCHW, op0=nma r=rax
+# prefetch [rax]
+0F0D 28, PrefetchReserved5_m8, Legacy, PREFETCHW, op0=nma r=rax
+# prefetch [rax]
+0F0D 30, PrefetchReserved6_m8, Legacy, PREFETCHW, op0=nma r=rax
+# prefetch [rax]
+0F0D 38, PrefetchReserved7_m8, Legacy, PREFETCHW, op0=nma r=rax
 # movups xmm1,xmm5
 0F10 CD, Movups_xmm_xmmm128, Legacy, SSE, op0=w op1=r w=xmm1 r=xmm5
 # movups xmm1,[rax]
@@ -16485,8 +16497,6 @@ F3 0F01 FA, Mcommit, Legacy, MCOMMIT, fw=c fc=aopsz
 0F01 FC, Clzeroq, Legacy, CLZERO, r=rax
 # rdpru
 0F01 FD, Rdpru, Legacy, RDPRU, fw=c fc=aopsz r=ecx w=rax;rdx
-# prefetch [rax]
-0F0D 00, Prefetch_m8, Legacy, PREFETCHW, op0=nma r=rax
 # femms
 0F0E, Femms, Legacy, D3NOW,
 # movntss dword ptr [rax],xmm1

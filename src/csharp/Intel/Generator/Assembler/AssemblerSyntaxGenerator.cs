@@ -151,6 +151,12 @@ namespace Generator.Assembler {
 
 				Code.Popw_CS,
 
+				Code.PrefetchReserved3_m8,
+				Code.PrefetchReserved4_m8,
+				Code.PrefetchReserved5_m8,
+				Code.PrefetchReserved6_m8,
+				Code.PrefetchReserved7_m8,
+
 				// The following are implemented manually
 				Code.Call_ptr1616,
 				Code.Call_ptr1632,

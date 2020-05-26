@@ -8358,3 +8358,8 @@ xresldtrk
 invlpgb eax
 invlpgb rax
 tlbsync
+prefetchw [rax]
+prefetch_reserved [rax]
+prefetch_reserved [rax]
+prefetch_reserved [rax]
+prefetch_reserved [rax]

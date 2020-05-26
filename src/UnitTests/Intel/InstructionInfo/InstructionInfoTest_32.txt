@@ -1555,6 +1555,16 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, pm op0=w op1=n op2=n w=vmm1
 0F0D 08, Prefetchw_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
 # prefetchwt1 [eax]
 0F0D 10, Prefetchwt1_m8, Legacy, PREFETCHWT1, op0=nma r=eax;ds
+# prefetchw [eax]
+0F0D 18, PrefetchReserved3_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch [eax]
+0F0D 20, PrefetchReserved4_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch [eax]
+0F0D 28, PrefetchReserved5_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch [eax]
+0F0D 30, PrefetchReserved6_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
+# prefetch [eax]
+0F0D 38, PrefetchReserved7_m8, Legacy, PREFETCHW, op0=nma r=eax;ds
 # prefetchnta [eax]
 0F18 00, Prefetchnta_m8, Legacy, SSE, op0=nma r=eax;ds
 # prefetcht0 [eax]

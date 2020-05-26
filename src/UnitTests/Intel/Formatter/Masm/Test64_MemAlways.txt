@@ -8358,3 +8358,8 @@ xresldtrk
 invlpgb
 invlpgb
 tlbsync
+prefetchw byte ptr [rax]
+prefetch byte ptr [rax]
+prefetch byte ptr [rax]
+prefetch byte ptr [rax]
+prefetch byte ptr [rax]

@@ -907,6 +907,11 @@ ReservedNop_rm64_r64_0F0D, legacy, , 0F, 0D, REX.W 0F 0D /r, RESERVEDNOP r/m64| 
 Prefetch_m8, legacy, , 0F, 0D, 0F 0D /0, PREFETCH m8, g=0 16b 32b 64b op=mem
 Prefetchw_m8, legacy, , 0F, 0D, 0F 0D /1, PREFETCHW m8, g=1 16b 32b 64b op=mem
 Prefetchwt1_m8, legacy, , 0F, 0D, 0F 0D /2, PREFETCHWT1 m8, g=2 16b 32b 64b op=mem
+PrefetchReserved3_m8, legacy, , 0F, 0D, 0F 0D /3, PREFETCHW m8, g=3 16b 32b 64b op=mem
+PrefetchReserved4_m8, legacy, , 0F, 0D, 0F 0D /4, PREFETCH m8, g=4 16b 32b 64b op=mem
+PrefetchReserved5_m8, legacy, , 0F, 0D, 0F 0D /5, PREFETCH m8, g=5 16b 32b 64b op=mem
+PrefetchReserved6_m8, legacy, , 0F, 0D, 0F 0D /6, PREFETCH m8, g=6 16b 32b 64b op=mem
+PrefetchReserved7_m8, legacy, , 0F, 0D, 0F 0D /7, PREFETCH m8, g=7 16b 32b 64b op=mem
 Femms, legacy, , 0F, 0E, 0F 0E, FEMMS, 16b 32b 64b
 Umov_rm8_r8, legacy, , 0F, 10, 0F 10 /r, UMOV r/m8| r8, 16b 32b op=r8_or_mem;r8_reg
 Umov_rm16_r16, legacy, , 0F, 11, o16 0F 11 /r, UMOV r/m16| r16, 16b 32b o16 op=r16_or_mem;r16_reg

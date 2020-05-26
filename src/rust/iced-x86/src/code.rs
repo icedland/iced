@@ -33734,9 +33734,49 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Tlbsync = 4215,
+	/// `PREFETCHW m8`
+	///
+	/// `0F 0D /3`
+	///
+	/// `PREFETCHW`
+	///
+	/// `16/32/64-bit`
+	PrefetchReserved3_m8 = 4216,
+	/// `PREFETCH m8`
+	///
+	/// `0F 0D /4`
+	///
+	/// `PREFETCHW`
+	///
+	/// `16/32/64-bit`
+	PrefetchReserved4_m8 = 4217,
+	/// `PREFETCH m8`
+	///
+	/// `0F 0D /5`
+	///
+	/// `PREFETCHW`
+	///
+	/// `16/32/64-bit`
+	PrefetchReserved5_m8 = 4218,
+	/// `PREFETCH m8`
+	///
+	/// `0F 0D /6`
+	///
+	/// `PREFETCHW`
+	///
+	/// `16/32/64-bit`
+	PrefetchReserved6_m8 = 4219,
+	/// `PREFETCH m8`
+	///
+	/// `0F 0D /7`
+	///
+	/// `PREFETCHW`
+	///
+	/// `16/32/64-bit`
+	PrefetchReserved7_m8 = 4220,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4216] = [
+static GEN_DEBUG_CODE: [&str; 4221] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37953,6 +37993,11 @@ static GEN_DEBUG_CODE: [&str; 4216] = [
 	"Invlpgbd",
 	"Invlpgbq",
 	"Tlbsync",
+	"PrefetchReserved3_m8",
+	"PrefetchReserved4_m8",
+	"PrefetchReserved5_m8",
+	"PrefetchReserved6_m8",
+	"PrefetchReserved7_m8",
 ];
 impl fmt::Debug for Code {
 	#[inline]

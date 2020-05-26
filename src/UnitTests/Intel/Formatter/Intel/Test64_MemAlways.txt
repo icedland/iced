@@ -8358,3 +8358,8 @@ xresldtrk
 invlpgb eax
 invlpgb rax
 tlbsync
+prefetchw byte ptr [rax]
+prefetch_reserved byte ptr [rax]
+prefetch_reserved byte ptr [rax]
+prefetch_reserved byte ptr [rax]
+prefetch_reserved byte ptr [rax]

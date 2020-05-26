@@ -30,7 +30,7 @@ namespace Iced.Intel {
 		internal const int MaxOpCount = 5;
 		internal const int MaxInstructionLength = 15;
 		internal const int RegisterBits = 8;
-		internal const int NumberOfCodeValues = 4216;
+		internal const int NumberOfCodeValues = 4221;
 		internal const int NumberOfRegisters = 241;
 		internal const int NumberOfMemorySizes = 136;
 		internal const int NumberOfEncodingKinds = 5;

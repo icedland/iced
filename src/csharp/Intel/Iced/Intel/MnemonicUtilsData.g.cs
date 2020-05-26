@@ -4244,6 +4244,11 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Invlpgb,// Invlpgbd
 			(ushort)Mnemonic.Invlpgb,// Invlpgbq
 			(ushort)Mnemonic.Tlbsync,// Tlbsync
+			(ushort)Mnemonic.Prefetchw,// PrefetchReserved3_m8
+			(ushort)Mnemonic.Prefetch,// PrefetchReserved4_m8
+			(ushort)Mnemonic.Prefetch,// PrefetchReserved5_m8
+			(ushort)Mnemonic.Prefetch,// PrefetchReserved6_m8
+			(ushort)Mnemonic.Prefetch,// PrefetchReserved7_m8
 		};
 	}
 }

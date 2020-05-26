@@ -4248,6 +4248,11 @@ namespace Iced.Intel {
 			0,// Invlpgbd
 			0,// Invlpgbq
 			0,// Tlbsync
+			1,// PrefetchReserved3_m8
+			1,// PrefetchReserved4_m8
+			1,// PrefetchReserved5_m8
+			1,// PrefetchReserved6_m8
+			1,// PrefetchReserved7_m8
 		};
 	}
 }

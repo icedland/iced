@@ -33726,5 +33726,45 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Tlbsync = 4215,
+		/// <summary><c>PREFETCHW m8</c><br/>
+		/// <br/>
+		/// <c>0F 0D /3</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		PrefetchReserved3_m8 = 4216,
+		/// <summary><c>PREFETCH m8</c><br/>
+		/// <br/>
+		/// <c>0F 0D /4</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		PrefetchReserved4_m8 = 4217,
+		/// <summary><c>PREFETCH m8</c><br/>
+		/// <br/>
+		/// <c>0F 0D /5</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		PrefetchReserved5_m8 = 4218,
+		/// <summary><c>PREFETCH m8</c><br/>
+		/// <br/>
+		/// <c>0F 0D /6</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		PrefetchReserved6_m8 = 4219,
+		/// <summary><c>PREFETCH m8</c><br/>
+		/// <br/>
+		/// <c>0F 0D /7</c><br/>
+		/// <br/>
+		/// <c>PREFETCHW</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		PrefetchReserved7_m8 = 4220,
 	}
 }

@@ -4252,6 +4252,11 @@ namespace Generator.Formatters.Masm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Invlpgbd)], "invlpgb" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Invlpgbq)], "invlpgb" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Tlbsync)], "tlbsync" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved3_m8)], "prefetchw" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved4_m8)], "prefetch" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved5_m8)], "prefetch" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved6_m8)], "prefetch" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved7_m8)], "prefetch" },
 			});
 		}
 	}

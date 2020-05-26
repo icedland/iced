@@ -4247,6 +4247,11 @@ pub enum Code {
 	Invlpgbd = 4213,
 	Invlpgbq = 4214,
 	Tlbsync = 4215,
+	PrefetchReserved3_m8 = 4216,
+	PrefetchReserved4_m8 = 4217,
+	PrefetchReserved5_m8 = 4218,
+	PrefetchReserved6_m8 = 4219,
+	PrefetchReserved7_m8 = 4220,
 }
 // GENERATOR-END: Enum
 

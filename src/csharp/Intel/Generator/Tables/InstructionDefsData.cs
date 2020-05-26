@@ -12687,6 +12687,21 @@ namespace Generator.Tables {
 				(0, mnemonic[nameof(Mnemonic.Tlbsync)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Tlbsync)], MandatoryPrefix.PNP, OpCodeTableKind.T0F, 0x01FF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Tlbsync)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.INVLPGB)] }, Array.Empty<OpInfo>(), InstrInfoFlags.ProtectedMode | InstrInfoFlags.Privileged)),
+				(1, mnemonic[nameof(Mnemonic.Prefetchw)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved3_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 3, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
+				new InstrInfo(code[nameof(Code.PrefetchReserved3_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
+				(1, mnemonic[nameof(Mnemonic.Prefetch)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved4_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 4, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
+				new InstrInfo(code[nameof(Code.PrefetchReserved4_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
+				(1, mnemonic[nameof(Mnemonic.Prefetch)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved5_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 5, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
+				new InstrInfo(code[nameof(Code.PrefetchReserved5_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
+				(1, mnemonic[nameof(Mnemonic.Prefetch)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved6_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 6, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
+				new InstrInfo(code[nameof(Code.PrefetchReserved6_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
+				(1, mnemonic[nameof(Mnemonic.Prefetch)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved7_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 7, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
+				new InstrInfo(code[nameof(Code.PrefetchReserved7_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
 			};
 
 			if (result.Length != code.Values.Length)

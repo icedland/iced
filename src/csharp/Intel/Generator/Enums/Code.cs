@@ -4247,6 +4247,11 @@ namespace Generator.Enums {
 		Invlpgbd,
 		Invlpgbq,
 		Tlbsync,
+		PrefetchReserved3_m8,
+		PrefetchReserved4_m8,
+		PrefetchReserved5_m8,
+		PrefetchReserved6_m8,
+		PrefetchReserved7_m8,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]
