@@ -575,6 +575,27 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				yield return new object[] { 64, Instruction.Create(Code.Enqcmd_r64_m512, Register.RCX, new MemoryOperand(Register.EBX)) };
 			}
 		}
+
+		[Fact]
+		void Verify_encoding_is_part_of_Code_name() {
+			var codeNames = ToEnumConverter.GetCodeNames();
+			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
+				var codeName = codeNames[i];
+				if (CodeUtils.IsIgnored(codeName))
+					continue;
+				var code = (Code)i;
+				var prefix = code.Encoding() switch {
+					EncodingKind.Legacy => string.Empty,
+					EncodingKind.VEX => "VEX_",
+					EncodingKind.EVEX => "EVEX_",
+					EncodingKind.XOP => "XOP_",
+					EncodingKind.D3NOW => "D3NOW_",
+					_ => throw new InvalidOperationException(),
+				};
+				if (prefix != string.Empty)
+					Assert.StartsWith(prefix, codeName, StringComparison.Ordinal);
+			}
+		}
 	}
 }
 #endif

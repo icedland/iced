@@ -39,7 +39,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 			var sb = new StringBuilder();
 			int missing = 0;
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
+			var codeNames = ToEnumConverter.GetCodeNames();
 			Assert.Equal(tested.Length, codeNames.Length);
 			for (int i = 0; i < tested.Length; i++) {
 				if (!tested[i] && !CodeUtils.IsIgnored(codeNames[i])) {

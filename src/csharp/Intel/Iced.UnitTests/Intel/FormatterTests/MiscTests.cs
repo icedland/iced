@@ -59,7 +59,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 			var sb = new StringBuilder();
 			int missing = 0;
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
+			var codeNames = ToEnumConverter.GetCodeNames();
 			for (int i = 0; i < tested.Length; i++) {
 				if (tested[i] != 1 && !CodeUtils.IsIgnored(codeNames[i])) {
 					sb.Append(codeNames[i] + " ");

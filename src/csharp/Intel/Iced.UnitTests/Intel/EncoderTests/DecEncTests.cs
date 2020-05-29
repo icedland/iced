@@ -723,7 +723,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Verify_only_Full_ddd_and_Half_ddd_support_bcst() {
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
+			var codeNames = ToEnumConverter.GetCodeNames();
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				if (CodeUtils.IsIgnored(codeNames[i]))
 					continue;
@@ -1753,7 +1753,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				}
 			}
 
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
+			var codeNames = ToEnumConverter.GetCodeNames();
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if (CodeUtils.IsIgnored(codeNames[(int)info.Code]))
 					continue;
@@ -2750,7 +2750,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			var hash64 = new HashSet<Code>(DecoderTestUtils.Code64Only);
 			foreach (var code in DecoderTestUtils.NotDecoded64Only)
 				hash64.Add(code);
-			var codeNames = ToEnumConverter.GetCodeNames().ToArray();
+			var codeNames = ToEnumConverter.GetCodeNames();
 			for (int i = 0; i < IcedConstants.NumberOfCodeValues; i++) {
 				if (CodeUtils.IsIgnored(codeNames[i]))
 					continue;
