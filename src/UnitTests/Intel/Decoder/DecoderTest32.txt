@@ -21323,7 +21323,9 @@ C4C37B F0 10 5A, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=m;ds;eax;;1;0;0;
 
 # Invalid 3DNow instruction, must be filtered out if 3DNow instructions were disabled so just add a random 3DNow code value
 0F0F 88 34125AA5 FF, INVALID, INVALID, 0, code=D3NOW_Pavgusb_mm_mmm64
+64 0F0F 88 34125AA5 FF, INVALID, INVALID, 0, code=D3NOW_Pavgusb_mm_mmm64
 0F0F CD FF, INVALID, INVALID, 0, code=D3NOW_Pavgusb_mm_mmm64
+65 0F0F CD FF, INVALID, INVALID, 0, code=D3NOW_Pavgusb_mm_mmm64
 
 67 F2 0F 01 FF, Pvalidatew, Pvalidate, 0,
 
