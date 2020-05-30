@@ -21,7 +21,9 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-use super::super::test_utils::from_str_conv::{code_names, is_ignored_code, to_vec_u8};
+use super::super::test_utils::from_str_conv::to_vec_u8;
+#[cfg(feature = "op_code_info")]
+use super::super::test_utils::from_str_conv::{code_names, is_ignored_code};
 use super::super::test_utils::*;
 use super::super::*;
 #[cfg(not(feature = "std"))]
@@ -1327,6 +1329,7 @@ fn create_panics_if_invalid_bitness_core(tests: Vec<fn(u32) -> Instruction>) {
 }
 
 #[test]
+#[cfg(feature = "op_code_info")]
 #[cfg_attr(feature = "cargo-clippy", allow(clippy::needless_range_loop))]
 fn verify_encoding_is_part_of_code_name() {
 	let code_names = code_names();
@@ -1336,7 +1339,7 @@ fn verify_encoding_is_part_of_code_name() {
 			continue;
 		}
 		let code: Code = unsafe { mem::transmute(i as u16) };
-		let prefix = match code.encoding() {
+		let prefix = match code.op_code().encoding() {
 			EncodingKind::Legacy => "",
 			EncodingKind::VEX => "VEX_",
 			EncodingKind::EVEX => "EVEX_",

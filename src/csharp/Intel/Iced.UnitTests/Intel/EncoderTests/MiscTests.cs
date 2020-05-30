@@ -576,6 +576,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
+#if OPCODE_INFO
 		[Fact]
 		void Verify_encoding_is_part_of_Code_name() {
 			var codeNames = ToEnumConverter.GetCodeNames();
@@ -584,7 +585,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				if (CodeUtils.IsIgnored(codeName))
 					continue;
 				var code = (Code)i;
-				var prefix = code.Encoding() switch {
+				var prefix = code.ToOpCode().Encoding switch {
 					EncodingKind.Legacy => string.Empty,
 					EncodingKind.VEX => "VEX_",
 					EncodingKind.EVEX => "EVEX_",
@@ -596,6 +597,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					Assert.StartsWith(prefix, codeName, StringComparison.Ordinal);
 			}
 		}
+#endif
 	}
 }
 #endif
