@@ -6,6 +6,6 @@
 		"iced-x86": "file:../../pkg"
 	},
 	"devDependencies": {
-		"jest": "^26.0.0"
+		"jest": "^25.5.4"
 	}
 }
