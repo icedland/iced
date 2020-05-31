@@ -17,6 +17,7 @@ Prerequisites:
 
 - `Rust`: https://www.rust-lang.org/tools/install
 - `wasm-pack`: https://rustwasm.github.io/wasm-pack/installer/
+- Add wasm32 target: `rustup target add wasm32-unknown-unknown`
 
 You can override which features to build to reduce the size of the wasm/ts/js files, see [Feature flags](#feature-flags).
 
