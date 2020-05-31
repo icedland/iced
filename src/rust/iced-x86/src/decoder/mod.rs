@@ -1391,7 +1391,7 @@ impl<'a> Decoder<'a> {
 		if reg < 6 {
 			Register::ES as u32 + reg
 		} else {
-			self.state.flags |= StateFlags::IS_INVALID;
+			self.set_invalid_instruction();
 			Register::None as u32
 		}
 	}

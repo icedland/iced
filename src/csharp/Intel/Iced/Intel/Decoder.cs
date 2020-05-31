@@ -742,7 +742,7 @@ namespace Iced.Intel {
 			uint reg = state.reg;
 			if (reg < 6)
 				return Register.ES + (int)reg;
-			state.flags |= StateFlags.IsInvalid;
+			SetInvalidInstruction();
 			return Register.None;
 		}
 
