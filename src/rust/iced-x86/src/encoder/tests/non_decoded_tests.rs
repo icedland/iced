@@ -26,7 +26,7 @@ use super::super::*;
 use alloc::vec::Vec;
 
 pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
-	let mut v = Vec::with_capacity(INFOS16_LEN + INFOS32_LEN + INFOS64_LEN);
+	let mut v = Vec::with_capacity(INFOS16.len() + INFOS32.len() + INFOS64.len());
 	for &(hex_bytes, instr) in &*INFOS16 {
 		v.push((16, hex_bytes, instr));
 	}
@@ -49,10 +49,6 @@ pub(crate) fn get_infos(bitness: u32) -> &'static Vec<(&'static str, Instruction
 	}
 }
 
-const INFOS16_LEN: usize = 49;
-const INFOS32_LEN: usize = 49;
-const INFOS64_LEN: usize = 48;
-
 fn c16(mut instruction: Instruction) -> Instruction {
 	instruction.set_code_size(CodeSize::Code16);
 	instruction
@@ -71,7 +67,7 @@ fn c64(mut instruction: Instruction) -> Instruction {
 lazy_static! {
 	static ref INFOS16: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-		let array: [_; INFOS16_LEN] = [
+		let array = [
 			("0F", c16(Instruction::with_reg(Code::Popw_CS, Register::CS))),
 			("9B D9 30", c16(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::BX, Register::SI, 1, 0, 0, false, Register::None)))),
 			("9B 64 D9 30", c16(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::BX, Register::SI, 1, 0, 0, false, Register::FS)))),
@@ -91,6 +87,12 @@ lazy_static! {
 			("9B DD 38", c16(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::BX, Register::SI, 1, 0, 0, false, Register::None)))),
 			("9B 64 DD 38", c16(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::BX, Register::SI, 1, 0, 0, false, Register::FS)))),
 			("9B DF E0", c16(Instruction::with_reg(Code::Fstsw_AX, Register::AX))),
+		];
+		#[cfg(not(feature = "db"))]
+		let array_db: [(&'static str, Instruction); 0] = [];
+		#[cfg(feature = "db")]
+		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		let array_db = [
 			("77", c16(Instruction::with_declare_byte_1(0x77))),
 			("77 A9", c16(Instruction::with_declare_byte_2(0x77, 0xA9))),
 			("77 A9 CE", c16(Instruction::with_declare_byte_3(0x77, 0xA9, 0xCE))),
@@ -122,14 +124,14 @@ lazy_static! {
 			("6C4205559DCEA977", c16(Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C))),
 			("6C4205559DCEA977 08AA27344FFE3286", c16(Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08))),
 		];
-		array.iter().cloned().collect()
+		array.iter().cloned().chain(array_db.iter().cloned()).collect()
 	};
 }
 
 lazy_static! {
 	static ref INFOS32: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-		let array: [_; INFOS32_LEN] = [
+		let array = [
 			("66 0F", c32(Instruction::with_reg(Code::Popw_CS, Register::CS))),
 			("9B 66 D9 30", c32(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::EAX, Register::None, 1, 0, 0, false, Register::None)))),
 			("9B 64 66 D9 30", c32(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::EAX, Register::None, 1, 0, 0, false, Register::FS)))),
@@ -149,6 +151,12 @@ lazy_static! {
 			("9B DD 38", c32(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::EAX, Register::None, 1, 0, 0, false, Register::None)))),
 			("9B 64 DD 38", c32(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::EAX, Register::None, 1, 0, 0, false, Register::FS)))),
 			("9B DF E0", c32(Instruction::with_reg(Code::Fstsw_AX, Register::AX))),
+		];
+		#[cfg(not(feature = "db"))]
+		let array_db: [(&'static str, Instruction); 0] = [];
+		#[cfg(feature = "db")]
+		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		let array_db = [
 			("77", c32(Instruction::with_declare_byte_1(0x77))),
 			("77 A9", c32(Instruction::with_declare_byte_2(0x77, 0xA9))),
 			("77 A9 CE", c32(Instruction::with_declare_byte_3(0x77, 0xA9, 0xCE))),
@@ -180,14 +188,14 @@ lazy_static! {
 			("6C4205559DCEA977", c32(Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C))),
 			("6C4205559DCEA977 08AA27344FFE3286", c32(Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08))),
 		];
-		array.iter().cloned().collect()
+		array.iter().cloned().chain(array_db.iter().cloned()).collect()
 	};
 }
 
 lazy_static! {
 	static ref INFOS64: Vec<(&'static str, Instruction)> = {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-		let array: [_; INFOS64_LEN] = [
+		let array = [
 			("9B 66 D9 30", c64(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)))),
 			("9B 64 66 D9 30", c64(Instruction::with_mem(Code::Fstenv_m14byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::FS)))),
 			("9B D9 30", c64(Instruction::with_mem(Code::Fstenv_m28byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)))),
@@ -206,6 +214,12 @@ lazy_static! {
 			("9B DD 38", c64(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::None)))),
 			("9B 64 DD 38", c64(Instruction::with_mem(Code::Fstsw_m2byte, MemoryOperand::new(Register::RAX, Register::None, 1, 0, 0, false, Register::FS)))),
 			("9B DF E0", c64(Instruction::with_reg(Code::Fstsw_AX, Register::AX))),
+		];
+		#[cfg(not(feature = "db"))]
+		let array_db: [(&'static str, Instruction); 0] = [];
+		#[cfg(feature = "db")]
+		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+		let array_db = [
 			("77", c64(Instruction::with_declare_byte_1(0x77))),
 			("77 A9", c64(Instruction::with_declare_byte_2(0x77, 0xA9))),
 			("77 A9 CE", c64(Instruction::with_declare_byte_3(0x77, 0xA9, 0xCE))),
@@ -237,6 +251,6 @@ lazy_static! {
 			("6C4205559DCEA977", c64(Instruction::with_declare_qword_1(0x77A9_CE9D_5505_426C))),
 			("6C4205559DCEA977 08AA27344FFE3286", c64(Instruction::with_declare_qword_2(0x77A9_CE9D_5505_426C, 0x8632_FE4F_3427_AA08))),
 		];
-		array.iter().cloned().collect()
+		array.iter().cloned().chain(array_db.iter().cloned()).collect()
 	};
 }
