@@ -66,6 +66,7 @@ namespace Generator.Enums.Formatter.Gas {
 		pclmulqdq,
 		pops,
 		Reg16,
+		Reg32,
 		sae,
 		sae_pops,
 		ST_STi,

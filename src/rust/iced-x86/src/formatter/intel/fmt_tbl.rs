@@ -224,11 +224,6 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_os_loop::new(v, u32::MAX, unsafe { mem::transmute(v2 as u8) }, vec![s]))
 			}
 
-			CtorKind::os_mem => {
-				v = reader.read_compressed_u32();
-				Box::new(SimpleInstrInfo_os_mem::new(v, s))
-			}
-
 			CtorKind::pclmulqdq => {
 				v = reader.read_u8() as u32;
 				Box::new(SimpleInstrInfo_pclmulqdq::new(s, get_pseudo_ops(unsafe { mem::transmute(v as u8) })))
@@ -245,6 +240,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::Reg16 => Box::new(SimpleInstrInfo_Reg16::new(s)),
+			CtorKind::Reg32 => Box::new(SimpleInstrInfo_Reg32::new(s)),
 			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
 
 			CtorKind::ST1_2 => {

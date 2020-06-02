@@ -75,6 +75,7 @@ namespace Generator.Enums.Formatter.Nasm {
 		pops_2,
 		pops_3,
 		Reg16,
+		Reg32,
 		reverse2,
 		sae,
 		sae_pops,

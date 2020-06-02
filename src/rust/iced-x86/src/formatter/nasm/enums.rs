@@ -80,6 +80,7 @@ pub(crate) enum CtorKind {
 	pops_2,
 	pops_3,
 	Reg16,
+	Reg32,
 	reverse2,
 	sae,
 	sae_pops,
@@ -100,7 +101,7 @@ pub(crate) enum CtorKind {
 	YX,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CTOR_KIND: [&str; 69] = [
+static GEN_DEBUG_CTOR_KIND: [&str; 70] = [
 	"Previous",
 	"Normal_1",
 	"Normal_2",
@@ -152,6 +153,7 @@ static GEN_DEBUG_CTOR_KIND: [&str; 69] = [
 	"pops_2",
 	"pops_3",
 	"Reg16",
+	"Reg32",
 	"reverse2",
 	"sae",
 	"sae_pops",

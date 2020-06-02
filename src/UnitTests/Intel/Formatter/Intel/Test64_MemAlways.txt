@@ -440,20 +440,20 @@ mov ebx, dword ptr [rax]
 mov rcx, rsi
 mov rbx, qword ptr [rax]
 mov si, cs
-data16 mov word ptr [rax], ds
+mov word ptr [rax], ds
 mov esi, cs
 mov word ptr [rax], ds
 mov rsi, cs
-data64 mov word ptr [rax], ds
+mov word ptr [rax], ds
 lea bx, [rax]
 lea ebx, [rax]
 lea rbx, [rax]
 mov fs, si
-data16 mov ds, word ptr [rax]
-mov fs, esi
 mov ds, word ptr [rax]
-mov fs, rsi
-data64 mov ds, word ptr [rax]
+mov fs, si
+mov ds, word ptr [rax]
+mov fs, si
+mov ds, word ptr [rax]
 pop si
 pop word ptr [rax]
 pop rsi
@@ -1123,27 +1123,27 @@ str rdx
 str word ptr [rax]
 lldt bx
 lldt word ptr [rax]
-lldt ebx
+lldt bx
 lldt word ptr [rax]
-lldt rbx
+lldt bx
 lldt word ptr [rax]
 ltr sp
 ltr word ptr [rax]
-ltr esp
+ltr sp
 ltr word ptr [rax]
-ltr rsp
+ltr sp
 ltr word ptr [rax]
 verr bp
 verr word ptr [rax]
-verr ebp
+verr bp
 verr word ptr [rax]
-verr rbp
+verr bp
 verr word ptr [rax]
 verw si
 verw word ptr [rax]
-verw esi
+verw si
 verw word ptr [rax]
-verw rsi
+verw si
 verw word ptr [rax]
 sgdt fword ptr [rax]
 sidt fword ptr [rax]
@@ -1157,9 +1157,9 @@ smsw rbp
 smsw word ptr [rax]
 lmsw si
 lmsw word ptr [rax]
-lmsw esi
+lmsw si
 lmsw word ptr [rax]
-lmsw rsi
+lmsw si
 lmsw word ptr [rax]
 invlpg [rax]
 enclv
@@ -1732,17 +1732,17 @@ kunpckwd k2, k6, k3
 kunpckdq k2, k6, k3
 kunpckbw k2, k6, k3
 movmskps ecx, xmm5
-movmskps rcx, xmm5
+movmskps ecx, xmm5
 vmovmskps edx, xmm3
-vmovmskps rdx, xmm3
+vmovmskps edx, xmm3
 vmovmskps edx, ymm3
-vmovmskps rdx, ymm3
+vmovmskps edx, ymm3
 movmskpd ecx, xmm5
-movmskpd rcx, xmm5
+movmskpd ecx, xmm5
 vmovmskpd edx, xmm3
-vmovmskpd rdx, xmm3
+vmovmskpd edx, xmm3
 vmovmskpd edx, ymm3
-vmovmskpd rdx, ymm3
+vmovmskpd edx, ymm3
 sqrtps xmm1, xmm5
 sqrtps xmm1, xmmword ptr [rax]
 vsqrtps xmm2, xmm3
@@ -3412,28 +3412,28 @@ movnti dword ptr [rax], ebx
 movnti qword ptr [rax], rbx
 pinsrw mm1, ebp, -0x5b
 pinsrw mm1, word ptr [rax], -0x5b
-pinsrw mm1, rbp, -0x5b
+pinsrw mm1, ebp, -0x5b
 pinsrw mm1, word ptr [rax], -0x5b
 pinsrw xmm1, ebp, -0x5b
 pinsrw xmm1, word ptr [rax], -0x5b
-pinsrw xmm1, rbp, -0x5b
+pinsrw xmm1, ebp, -0x5b
 pinsrw xmm1, word ptr [rax], -0x5b
 vpinsrw xmm2, xmm6, ebx, -0x5b
 vpinsrw xmm2, xmm6, word ptr [rax], -0x5b
-vpinsrw xmm2, xmm6, rbx, -0x5b
+vpinsrw xmm2, xmm6, ebx, -0x5b
 vpinsrw xmm2, xmm6, word ptr [rax], -0x5b
 vpinsrw xmm2, xmm6, ebx, -0x5b
 vpinsrw xmm2, xmm6, word ptr [rax+2], -0x5b
-vpinsrw xmm2, xmm6, rbx, -0x5b
+vpinsrw xmm2, xmm6, ebx, -0x5b
 vpinsrw xmm2, xmm6, word ptr [rax+2], -0x5b
 pextrw ecx, mm5, -0x5b
-pextrw rcx, mm5, -0x5b
+pextrw ecx, mm5, -0x5b
 pextrw ecx, xmm5, -0x5b
-pextrw rcx, xmm5, -0x5b
+pextrw ecx, xmm5, -0x5b
 vpextrw edx, xmm3, -0x5b
-vpextrw rdx, xmm3, -0x5b
 vpextrw edx, xmm3, -0x5b
-vpextrw rdx, xmm3, -0x5b
+vpextrw edx, xmm3, -0x5b
+vpextrw edx, xmm3, -0x5b
 shufps xmm1, xmm5, -0x5b
 shufps xmm1, xmmword ptr [rax], -0x5b
 vshufps xmm2, xmm6, xmm3, -0x5b
@@ -3625,13 +3625,13 @@ vmovq qword ptr [rax+8], xmm2
 movq2dq xmm1, mm5
 movdq2q mm1, xmm5
 pmovmskb ecx, mm5
-pmovmskb rcx, mm5
+pmovmskb ecx, mm5
 pmovmskb ecx, xmm5
-pmovmskb rcx, xmm5
+pmovmskb ecx, xmm5
 vpmovmskb ecx, xmm5
-vpmovmskb rcx, xmm5
+vpmovmskb ecx, xmm5
 vpmovmskb ecx, ymm5
-vpmovmskb rcx, ymm5
+vpmovmskb ecx, ymm5
 psubusb mm1, mm5
 psubusb mm1, qword ptr [rax]
 psubusb xmm1, xmm5
@@ -6630,27 +6630,27 @@ vpalignr zmm2{k3}, zmm6, zmm3, -0x5b
 vpalignr zmm2{k3}, zmm6, zmmword ptr [rax+0x40], -0x5b
 pextrb ebp, xmm1, -0x5b
 pextrb byte ptr [rax+1], xmm1, -0x5b
-pextrb rbp, xmm1, -0x5b
+pextrb ebp, xmm1, -0x5b
 pextrb byte ptr [rax+1], xmm1, -0x5b
 vpextrb ebx, xmm2, -0x5b
 vpextrb byte ptr [rax+1], xmm2, -0x5b
-vpextrb rbx, xmm2, -0x5b
+vpextrb ebx, xmm2, -0x5b
 vpextrb byte ptr [rax+1], xmm2, -0x5b
 vpextrb ebx, xmm2, -0x5b
 vpextrb byte ptr [rax+1], xmm2, -0x5b
-vpextrb rbx, xmm2, -0x5b
+vpextrb ebx, xmm2, -0x5b
 vpextrb byte ptr [rax+1], xmm2, -0x5b
 pextrw ebp, xmm1, -0x5b
 pextrw word ptr [rax+1], xmm1, -0x5b
-pextrw rbp, xmm1, -0x5b
+pextrw ebp, xmm1, -0x5b
 pextrw word ptr [rax+1], xmm1, -0x5b
 vpextrw ebx, xmm2, -0x5b
 vpextrw word ptr [rax+1], xmm2, -0x5b
-vpextrw rbx, xmm2, -0x5b
+vpextrw ebx, xmm2, -0x5b
 vpextrw word ptr [rax+1], xmm2, -0x5b
 vpextrw ebx, xmm2, -0x5b
 vpextrw word ptr [rax+2], xmm2, -0x5b
-vpextrw rbx, xmm2, -0x5b
+vpextrw ebx, xmm2, -0x5b
 vpextrw word ptr [rax+2], xmm2, -0x5b
 pextrd ebp, xmm1, -0x5b
 pextrd dword ptr [rax+1], xmm1, -0x5b
@@ -6666,15 +6666,15 @@ vpextrq rbx, xmm2, -0x5b
 vpextrq qword ptr [rax+8], xmm2, -0x5b
 extractps ebp, xmm1, -0x5b
 extractps dword ptr [rax+1], xmm1, -0x5b
-extractps rbp, xmm1, -0x5b
+extractps ebp, xmm1, -0x5b
 extractps dword ptr [rax+1], xmm1, -0x5b
 vextractps ebx, xmm2, -0x5b
 vextractps dword ptr [rax+1], xmm2, -0x5b
-vextractps rbx, xmm2, -0x5b
+vextractps ebx, xmm2, -0x5b
 vextractps dword ptr [rax+1], xmm2, -0x5b
 vextractps ebx, xmm2, -0x5b
 vextractps dword ptr [rax+4], xmm2, -0x5b
-vextractps rbx, xmm2, -0x5b
+vextractps ebx, xmm2, -0x5b
 vextractps dword ptr [rax+4], xmm2, -0x5b
 vinsertf128 ymm2, ymm6, xmm3, -0x5b
 vinsertf128 ymm2, ymm6, xmmword ptr [rax], -0x5b
@@ -6752,15 +6752,15 @@ vpcmpq k2{k3}, zmm6, zmmword ptr [rax+0x40], -0x5b
 vpcmpq k2{k5}, zmm6, qword ptr [rax+8]{1to8}, -0x5b
 pinsrb xmm1, ebp, -0x5b
 pinsrb xmm1, byte ptr [rax], -0x5b
-pinsrb xmm1, rbp, -0x5b
+pinsrb xmm1, ebp, -0x5b
 pinsrb xmm1, byte ptr [rax], -0x5b
 vpinsrb xmm2, xmm6, ebx, -0x5b
 vpinsrb xmm2, xmm6, byte ptr [rax], -0x5b
-vpinsrb xmm2, xmm6, rbx, -0x5b
+vpinsrb xmm2, xmm6, ebx, -0x5b
 vpinsrb xmm2, xmm6, byte ptr [rax], -0x5b
 vpinsrb xmm2, xmm6, ebx, -0x5b
 vpinsrb xmm2, xmm6, byte ptr [rax+1], -0x5b
-vpinsrb xmm2, xmm6, rbx, -0x5b
+vpinsrb xmm2, xmm6, ebx, -0x5b
 vpinsrb xmm2, xmm6, byte ptr [rax+1], -0x5b
 insertps xmm1, xmm5, -0x5b
 insertps xmm1, dword ptr [rax], -0x5b
@@ -7921,60 +7921,60 @@ setssbsy
 saveprevssp
 wbnoinvd
 cl1invmb
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
-reserved-nop si, cx
-reserved-nop word ptr [rax], bx
-reserved-nop esi, ecx
-reserved-nop dword ptr [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
+nop si, cx
+nop word ptr [rax], bx
+nop esi, ecx
+nop dword ptr [rax], ebx
+nop rsi, rcx
+nop qword ptr [rax], rbx
 cldemote [rax]
 rdsspd ecx
 rdsspq rcx

@@ -329,6 +329,10 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_Reg16(s);
 					break;
 
+				case CtorKind.Reg32:
+					instrInfo = new SimpleInstrInfo_Reg32(s);
+					break;
+
 				case CtorKind.sae:
 					v = reader.ReadCompressedUInt32();
 					instrInfo = new SimpleInstrInfo_sae((int)v, s);

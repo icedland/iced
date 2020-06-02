@@ -338,6 +338,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::Reg16 => Box::new(SimpleInstrInfo_Reg16::new(s)),
+			CtorKind::Reg32 => Box::new(SimpleInstrInfo_Reg32::new(s)),
 
 			CtorKind::sae => {
 				v = reader.read_compressed_u32();

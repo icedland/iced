@@ -70,6 +70,7 @@ namespace Iced.Intel.GasFormatterInternal {
 		pclmulqdq,
 		pops,
 		Reg16,
+		Reg32,
 		sae,
 		sae_pops,
 		ST_STi,

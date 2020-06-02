@@ -193,8 +193,8 @@ outsd dx, dword ptr [esi]
 outsd dx, dword ptr [si]
 mov fs, si
 mov ds, word ptr [bx+si]
-mov fs, esi
-data32 mov ds, word ptr [bx+si]
+mov fs, si
+mov ds, word ptr [bx+si]
 pop si
 pop word ptr [bx+si]
 nop

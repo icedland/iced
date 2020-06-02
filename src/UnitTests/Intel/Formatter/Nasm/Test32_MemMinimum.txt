@@ -610,7 +610,7 @@ jmpe edx
 jmpe dword [eax]
 loadallreset286
 loadall286
-loadall386
+loadall
 umov dh, cl
 umov [eax], bl
 umov si, cx

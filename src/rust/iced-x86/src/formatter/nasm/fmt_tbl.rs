@@ -341,6 +341,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 			}
 
 			CtorKind::Reg16 => Box::new(SimpleInstrInfo_Reg16::new(s)),
+			CtorKind::Reg32 => Box::new(SimpleInstrInfo_Reg32::new(s)),
 			CtorKind::reverse2 => Box::new(SimpleInstrInfo_reverse2::new(s)),
 
 			CtorKind::sae => {

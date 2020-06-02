@@ -259,8 +259,8 @@ outsw dx, word ptr [esi]
 outsd dx, dword ptr [si]
 outsd dx, dword ptr [esi]
 mov fs, si
-data16 mov ds, word ptr [eax]
-mov fs, esi
+mov ds, word ptr [eax]
+mov fs, si
 mov ds, word ptr [eax]
 pop si
 pop word ptr [eax]

@@ -245,10 +245,10 @@ pop %di
 pop %r15w
 pop %rdi
 pop %r15
-movslq %si,%cx
-movslq (%rax),%bx
-movslq %esi,%ecx
-movslq (%rax),%ebx
+movsxd %si,%cx
+movsxd (%rax),%bx
+movsxd %esi,%ecx
+movsxd (%rax),%ebx
 movslq %esi,%rcx
 movslq (%rax),%rbx
 pushw $0xa55a
@@ -724,15 +724,15 @@ enter $0xa55a,$0xa6
 leavew
 leave
 lretw $0xa55a
-lret $0xa55a
+lretl $0xa55a
 lretq $0xa55a
 lretw
-lret
+lretl
 lretq
 int3
 int $0x5a
 iretw
-iret
+iretl
 iretq
 rol $1,%cl
 rolb $1,(%rax)
@@ -1196,7 +1196,7 @@ lsl %rsi,%rcx
 lsl (%rax),%rbx
 syscall
 clts
-sysret
+sysretl
 sysretq
 invd
 wbinvd
@@ -3274,8 +3274,8 @@ movzbl %dh,%ecx
 movzbl (%rax),%ebx
 movzbq %sil,%rcx
 movzbq (%rax),%rbx
-movzww %si,%cx
-movzww (%rax),%bx
+movzxw %si,%cx
+movzxw (%rax),%bx
 movzwl %si,%ecx
 movzwl (%rax),%ebx
 movzwq %si,%rcx
@@ -3340,8 +3340,8 @@ movsbl %dh,%ecx
 movsbl (%rax),%ebx
 movsbq %sil,%rcx
 movsbq (%rax),%rbx
-movsww %si,%cx
-movsww (%rax),%bx
+movsxw %si,%cx
+movsxw (%rax),%bx
 movswl %si,%ecx
 movswl (%rax),%ebx
 movswq %si,%rcx
@@ -7012,20 +7012,20 @@ vreducesd $0xa5,%xmm3,%xmm6,%xmm2{%k3}{z}
 vreducesd $0xa5,8(%rax),%xmm6,%xmm2{%k3}
 pcmpestrm $0xa5,%xmm5,%xmm1
 pcmpestrm $0xa5,(%rax),%xmm1
-pcmpestrm64 $0xa5,%xmm5,%xmm1
-pcmpestrm64 $0xa5,(%rax),%xmm1
+pcmpestrmq $0xa5,%xmm5,%xmm1
+pcmpestrmq $0xa5,(%rax),%xmm1
 vpcmpestrm $0xa5,%xmm3,%xmm2
 vpcmpestrm $0xa5,(%rax),%xmm2
-vpcmpestrm64 $0xa5,%xmm3,%xmm2
-vpcmpestrm64 $0xa5,(%rax),%xmm2
+vpcmpestrmq $0xa5,%xmm3,%xmm2
+vpcmpestrmq $0xa5,(%rax),%xmm2
 pcmpestri $0xa5,%xmm5,%xmm1
 pcmpestri $0xa5,(%rax),%xmm1
-pcmpestri64 $0xa5,%xmm5,%xmm1
-pcmpestri64 $0xa5,(%rax),%xmm1
+pcmpestriq $0xa5,%xmm5,%xmm1
+pcmpestriq $0xa5,(%rax),%xmm1
 vpcmpestri $0xa5,%xmm3,%xmm2
 vpcmpestri $0xa5,(%rax),%xmm2
-vpcmpestri64 $0xa5,%xmm3,%xmm2
-vpcmpestri64 $0xa5,(%rax),%xmm2
+vpcmpestriq $0xa5,%xmm3,%xmm2
+vpcmpestriq $0xa5,(%rax),%xmm2
 pcmpistrm $0xa5,%xmm5,%xmm1
 pcmpistrm $0xa5,(%rax),%xmm1
 vpcmpistrm $0xa5,%xmm3,%xmm2
@@ -7921,60 +7921,60 @@ setssbsy
 saveprevssp
 wbnoinvd
 cl1invmb
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
-reserved-nop %cx,%si
-reserved-nop %bx,(%rax)
-reserved-nop %ecx,%esi
-reserved-nop %ebx,(%rax)
-reserved-nop %rcx,%rsi
-reserved-nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
+nop %cx,%si
+nop %bx,(%rax)
+nop %ecx,%esi
+nop %ebx,(%rax)
+nop %rcx,%rsi
+nop %rbx,(%rax)
 cldemote (%rax)
 rdsspd %ecx
 rdsspq %rcx
@@ -7983,12 +7983,12 @@ endbr32
 incsspd %ebp
 incsspq %rbp
 tpause %ebp
-tpause %rbp
+tpause %ebp
 clrssbsy (%rax)
 umonitor %ebp
 umonitor %rbp
 umwait %ebp
-umwait %rbp
+umwait %ebp
 pcommit
 vpdpbusd %xmm3,%xmm14,%xmm18{%k3}
 vpdpbusd 0x10(%rax),%xmm6,%xmm2
@@ -8353,7 +8353,7 @@ psmash
 addr32 pvalidate
 pvalidate
 serialize
-xsusldtrk
+xsuspldtrk
 xresldtrk
 addr32 invlpgb
 invlpgb

@@ -1533,6 +1533,29 @@ impl InstrInfo for SimpleInstrInfo_Reg16 {
 }
 
 #[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_Reg32 {
+	mnemonic: FormatterString,
+}
+
+impl SimpleInstrInfo_Reg32 {
+	pub(super) fn new(mnemonic: String) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic) }
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_Reg32 {
+	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::NONE;
+		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
+		if Register::RAX as u8 <= info.op0_register && info.op0_register <= Register::R15 as u8 {
+			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+			info.op0_register = info.op0_register.wrapping_sub(Register::RAX as u8).wrapping_add(Register::EAX as u8);
+		}
+		info
+	}
+}
+
+#[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_DeclareData {
 	mnemonic: FormatterString,
 	op_kind: InstrOpKind,

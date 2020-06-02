@@ -68,6 +68,7 @@ namespace Generator.Enums.Formatter.Masm {
 		pushm,
 		reg,
 		Reg16,
+		Reg32,
 		reverse2,
 		ST_STi,
 		STi_ST,

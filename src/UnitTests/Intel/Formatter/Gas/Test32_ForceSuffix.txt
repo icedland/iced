@@ -434,16 +434,16 @@ movzbw dh, cx
 movzbw (eax), bx
 movzbl dh, ecx
 movzbl (eax), ebx
-movzww si, cx
-movzww (eax), bx
+movzxw si, cx
+movzxw (eax), bx
 movzwl si, ecx
 movzwl (eax), ebx
 movsbw dh, cx
 movsbw (eax), bx
 movsbl dh, ecx
 movsbl (eax), ebx
-movsww si, cx
-movsww (eax), bx
+movsxw si, cx
+movsxw (eax), bx
 movswl si, ecx
 movswl (eax), ebx
 cmpxchg8b (eax)
@@ -658,7 +658,7 @@ movl tr5, eax
 movl tr6, eax
 movl tr7, eax
 syscall
-sysret
+sysretl
 addr16 fs monitor
 addr16 fs monitorx
 addr16 fs clzero
@@ -702,7 +702,7 @@ addr16 xcryptofb
 addr16 pvalidate
 pvalidate
 serialize
-xsusldtrk
+xsuspldtrk
 xresldtrk
 addr16 invlpgb
 invlpgb

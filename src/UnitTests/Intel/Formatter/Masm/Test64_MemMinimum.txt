@@ -1123,27 +1123,27 @@ str rdx
 str [rax]
 lldt bx
 lldt [rax]
-lldt ebx
+lldt bx
 lldt [rax]
-lldt rbx
+lldt bx
 lldt [rax]
 ltr sp
 ltr [rax]
-ltr esp
+ltr sp
 ltr [rax]
-ltr rsp
+ltr sp
 ltr [rax]
 verr bp
 verr [rax]
-verr ebp
+verr bp
 verr [rax]
-verr rbp
+verr bp
 verr [rax]
 verw si
 verw [rax]
-verw esi
+verw si
 verw [rax]
-verw rsi
+verw si
 verw [rax]
 sgdt [rax]
 sidt [rax]
@@ -1157,9 +1157,9 @@ smsw rbp
 smsw [rax]
 lmsw si
 lmsw [rax]
-lmsw esi
+lmsw si
 lmsw [rax]
-lmsw rsi
+lmsw si
 lmsw [rax]
 invlpg [rax]
 enclv
@@ -3420,11 +3420,11 @@ pinsrw xmm1, rbp, -5Bh
 pinsrw xmm1, [rax], -5Bh
 vpinsrw xmm2, xmm6, ebx, -5Bh
 vpinsrw xmm2, xmm6, [rax], -5Bh
-vpinsrw xmm2, xmm6, rbx, -5Bh
+vpinsrw xmm2, xmm6, ebx, -5Bh
 vpinsrw xmm2, xmm6, [rax], -5Bh
 vpinsrw xmm2, xmm6, ebx, -5Bh
 vpinsrw xmm2, xmm6, [rax+2], -5Bh
-vpinsrw xmm2, xmm6, rbx, -5Bh
+vpinsrw xmm2, xmm6, ebx, -5Bh
 vpinsrw xmm2, xmm6, [rax+2], -5Bh
 pextrw ecx, mm5, -5Bh
 pextrw rcx, mm5, -5Bh
@@ -6666,15 +6666,15 @@ vpextrq rbx, xmm2, -5Bh
 vpextrq [rax+8], xmm2, -5Bh
 extractps ebp, xmm1, -5Bh
 extractps dword ptr [rax+1], xmm1, -5Bh
-extractps rbp, xmm1, -5Bh
+extractps ebp, xmm1, -5Bh
 extractps dword ptr [rax+1], xmm1, -5Bh
 vextractps ebx, xmm2, -5Bh
 vextractps dword ptr [rax+1], xmm2, -5Bh
-vextractps rbx, xmm2, -5Bh
+vextractps ebx, xmm2, -5Bh
 vextractps dword ptr [rax+1], xmm2, -5Bh
 vextractps ebx, xmm2, -5Bh
 vextractps dword ptr [rax+4], xmm2, -5Bh
-vextractps rbx, xmm2, -5Bh
+vextractps ebx, xmm2, -5Bh
 vextractps dword ptr [rax+4], xmm2, -5Bh
 vinsertf128 ymm2, ymm6, xmm3, -5Bh
 vinsertf128 ymm2, ymm6, [rax], -5Bh
@@ -6756,11 +6756,11 @@ pinsrb xmm1, rbp, -5Bh
 pinsrb xmm1, [rax], -5Bh
 vpinsrb xmm2, xmm6, ebx, -5Bh
 vpinsrb xmm2, xmm6, [rax], -5Bh
-vpinsrb xmm2, xmm6, rbx, -5Bh
+vpinsrb xmm2, xmm6, ebx, -5Bh
 vpinsrb xmm2, xmm6, [rax], -5Bh
 vpinsrb xmm2, xmm6, ebx, -5Bh
 vpinsrb xmm2, xmm6, [rax+1], -5Bh
-vpinsrb xmm2, xmm6, rbx, -5Bh
+vpinsrb xmm2, xmm6, ebx, -5Bh
 vpinsrb xmm2, xmm6, [rax+1], -5Bh
 insertps xmm1, xmm5, -5Bh
 insertps xmm1, [rax], -5Bh
@@ -7921,60 +7921,60 @@ setssbsy
 saveprevssp
 wbnoinvd
 cl1invmb
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
-reserved-nop si, cx
-reserved-nop [rax], bx
-reserved-nop esi, ecx
-reserved-nop [rax], ebx
-reserved-nop rsi, rcx
-reserved-nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
+nop si, cx
+nop [rax], bx
+nop esi, ecx
+nop [rax], ebx
+nop rsi, rcx
+nop [rax], rbx
 cldemote [rax]
 rdsspd ecx
 rdsspq rcx
@@ -7983,12 +7983,12 @@ endbr32
 incsspd ebp
 incsspq rbp
 tpause ebp
-tpause rbp
+tpause ebp
 clrssbsy [rax]
 umonitor ebp
 umonitor rbp
 umwait ebp
-umwait rbp
+umwait ebp
 pcommit
 vpdpbusd xmm18{k3}, xmm14, xmm3
 vpdpbusd xmm2, xmm6, [rax+10h]

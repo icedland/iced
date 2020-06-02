@@ -135,11 +135,11 @@ call 7856h:3412h
 call 0BC9Ah:78563412h
 pushfd
 popfd
-retnw 0A55Ah
+retw 0A55Ah
 ret 0A55Ah
-retnw
+retw
 ret
-rep retnw
+rep retw
 rep ret
 les bx,[eax]
 les ebx,[eax]

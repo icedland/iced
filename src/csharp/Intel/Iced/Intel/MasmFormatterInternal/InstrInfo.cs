@@ -1206,20 +1206,44 @@ namespace Iced.Intel.MasmFormatterInternal {
 
 	sealed class SimpleInstrInfo_Reg16 : InstrInfo {
 		readonly FormatterString mnemonic;
+		readonly InstrOpInfoFlags flags;
 
-		public SimpleInstrInfo_Reg16(string mnemonic) =>
+		public SimpleInstrInfo_Reg16(string mnemonic, InstrOpInfoFlags flags) {
 			this.mnemonic = new FormatterString(mnemonic);
+			this.flags = flags;
+		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
-			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
 			info = new InstrOpInfo(mnemonic, instruction, flags);
-			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15D) {
+			if (Register.EAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15) {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-				info.Op0Register = (byte)((Register)info.Op0Register - Register.EAX + Register.AX);
+				info.Op0Register = (byte)((((Register)info.Op0Register - Register.EAX) & 0xF) + Register.AX);
 			}
-			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15D) {
+			if (Register.EAX <= (Register)info.Op1Register && (Register)info.Op1Register <= Register.R15) {
 				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
-				info.Op1Register = (byte)((Register)info.Op1Register - Register.EAX + Register.AX);
+				info.Op1Register = (byte)((((Register)info.Op1Register - Register.EAX) & 0xF) + Register.AX);
+			}
+		}
+	}
+
+	sealed class SimpleInstrInfo_Reg32 : InstrInfo {
+		readonly FormatterString mnemonic;
+		readonly InstrOpInfoFlags flags;
+
+		public SimpleInstrInfo_Reg32(string mnemonic, InstrOpInfoFlags flags) {
+			this.mnemonic = new FormatterString(mnemonic);
+			this.flags = flags;
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+			if (Register.RAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op0Register = (byte)((Register)info.Op0Register - Register.RAX + Register.EAX);
+			}
+			if (Register.RAX <= (Register)info.Op2Register && (Register)info.Op2Register <= Register.R15) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op2Register = (byte)((Register)info.Op2Register - Register.RAX + Register.EAX);
 			}
 		}
 	}

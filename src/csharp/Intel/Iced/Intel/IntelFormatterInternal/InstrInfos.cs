@@ -237,11 +237,6 @@ namespace Iced.Intel.IntelFormatterInternal {
 					instrInfo = new SimpleInstrInfo_os_loop((int)v, -1, (Register)v2, new[] { s });
 					break;
 
-				case CtorKind.os_mem:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_mem((int)v, s);
-					break;
-
 				case CtorKind.pclmulqdq:
 					v = reader.ReadByte();
 					instrInfo = new SimpleInstrInfo_pclmulqdq(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
@@ -259,6 +254,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				case CtorKind.Reg16:
 					instrInfo = new SimpleInstrInfo_Reg16(s);
+					break;
+
+				case CtorKind.Reg32:
+					instrInfo = new SimpleInstrInfo_Reg32(s);
 					break;
 
 				case CtorKind.ST_STi:

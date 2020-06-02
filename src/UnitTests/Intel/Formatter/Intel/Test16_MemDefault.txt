@@ -193,8 +193,8 @@ outsd dx,[esi]
 outsd dx,[si]
 mov fs,si
 mov ds,[bx+si]
-mov fs,esi
-data32 mov ds,[bx+si]
+mov fs,si
+mov ds,[bx+si]
 pop si
 pop word ptr [bx+si]
 nop

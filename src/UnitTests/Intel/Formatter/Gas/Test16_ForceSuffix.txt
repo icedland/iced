@@ -367,16 +367,16 @@ movzbw dh, cx
 movzbw (bx,si), bx
 movzbl dh, ecx
 movzbl (bx,si), ebx
-movzww si, cx
-movzww (bx,si), bx
+movzxw si, cx
+movzxw (bx,si), bx
 movzwl si, ecx
 movzwl (bx,si), ebx
 movsbw dh, cx
 movsbw (bx,si), bx
 movsbl dh, ecx
 movsbl (bx,si), ebx
-movsww si, cx
-movsww (bx,si), bx
+movsxw si, cx
+movsxw (bx,si), bx
 movswl si, ecx
 movswl (bx,si), ebx
 cmpxchg8b (bx,si)
@@ -536,5 +536,5 @@ addr32 clzero
 pvalidate
 addr32 pvalidate
 serialize
-xsusldtrk
+xsuspldtrk
 xresldtrk

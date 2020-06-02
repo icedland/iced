@@ -348,6 +348,10 @@ namespace Iced.Intel.NasmFormatterInternal {
 					instrInfo = new SimpleInstrInfo_Reg16(s);
 					break;
 
+				case CtorKind.Reg32:
+					instrInfo = new SimpleInstrInfo_Reg32(s);
+					break;
+
 				case CtorKind.reverse2:
 					instrInfo = new SimpleInstrInfo_reverse2(s);
 					break;

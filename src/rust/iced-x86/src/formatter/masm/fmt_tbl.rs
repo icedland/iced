@@ -306,7 +306,16 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				Box::new(SimpleInstrInfo_reg::new(s, unsafe { mem::transmute(v as u8) }))
 			}
 
-			CtorKind::Reg16 => Box::new(SimpleInstrInfo_Reg16::new(s)),
+			CtorKind::Reg16 => {
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_Reg16::new(s, v))
+			}
+
+			CtorKind::Reg32 => {
+				v = reader.read_compressed_u32();
+				Box::new(SimpleInstrInfo_Reg32::new(s, v))
+			}
+
 			CtorKind::reverse2 => Box::new(SimpleInstrInfo_reverse2::new(s)),
 			CtorKind::ST_STi => Box::new(SimpleInstrInfo_ST_STi::new(s)),
 			CtorKind::STi_ST => Box::new(SimpleInstrInfo_STi_ST::new(s)),

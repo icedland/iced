@@ -1346,6 +1346,23 @@ namespace Iced.Intel.GasFormatterInternal {
 		}
 	}
 
+	sealed class SimpleInstrInfo_Reg32 : InstrInfo {
+		readonly FormatterString mnemonic;
+
+		public SimpleInstrInfo_Reg32(string mnemonic) {
+			this.mnemonic = new FormatterString(mnemonic);
+		}
+
+		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
+			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;
+			info = new InstrOpInfo(mnemonic, instruction, flags);
+			if (Register.RAX <= (Register)info.Op0Register && (Register)info.Op0Register <= Register.R15) {
+				Static.Assert(InstrOpInfo.TEST_RegisterBits == 8 ? 0 : -1);
+				info.Op0Register = (byte)((Register)info.Op0Register - Register.RAX + Register.EAX);
+			}
+		}
+	}
+
 	sealed class SimpleInstrInfo_DeclareData : InstrInfo {
 		readonly FormatterString mnemonic;
 		readonly InstrOpKind opKind;

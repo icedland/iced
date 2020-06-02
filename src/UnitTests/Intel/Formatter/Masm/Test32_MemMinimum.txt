@@ -135,11 +135,11 @@ call far ptr 7856h:3412h
 call far ptr 0BC9Ah:78563412h
 pushfd
 popfd
-retnw -5AA6h
+retw -5AA6h
 ret -5AA6h
-retnw
+retw
 ret
-rep retnw
+rep retw
 rep ret
 les bx, [eax]
 les ebx, [eax]

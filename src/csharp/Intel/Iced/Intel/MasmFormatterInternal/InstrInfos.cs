@@ -311,7 +311,13 @@ namespace Iced.Intel.MasmFormatterInternal {
 					break;
 
 				case CtorKind.Reg16:
-					instrInfo = new SimpleInstrInfo_Reg16(s);
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_Reg16(s, (InstrOpInfoFlags)v);
+					break;
+
+				case CtorKind.Reg32:
+					v = reader.ReadCompressedUInt32();
+					instrInfo = new SimpleInstrInfo_Reg32(s, (InstrOpInfoFlags)v);
 					break;
 
 				case CtorKind.reverse2:
