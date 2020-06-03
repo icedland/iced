@@ -36,7 +36,7 @@ pub enum DecoderOptions {
 	///
 	/// [`Code.INVALID`]: enum.Code.html#variant.INVALID
 	NoInvalidCheck = 0x0000_0001,
-	/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
+	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`
 	AMD = 0x0000_0002,
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code.ReservedNop_rm32_r32_0F1D`])
 	///
