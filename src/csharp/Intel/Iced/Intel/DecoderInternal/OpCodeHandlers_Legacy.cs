@@ -805,14 +805,14 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32)
+				if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32)
 					instruction.InternalCode = code64;
 				else
 					instruction.InternalCode = code16;
 				if (state.mod == 3) {
 					Static.Assert(OpKind.Register == 0 ? 0 : -1);
 					//instruction.InternalOp0Kind = OpKind.Register;
-					if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32)
+					if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32)
 						instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.RAX;
 					else
 						instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.AX;
@@ -857,12 +857,12 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.operandSize == OpSize.Size32)
-				instruction.InternalCode = code32;
-			else if (state.operandSize == OpSize.Size64)
+			if (state.operandSize == OpSize.Size64 && (decoder.options & DecoderOptions.AMD) == 0)
 				instruction.InternalCode = code64;
-			else
+			else if (state.operandSize == OpSize.Size16)
 				instruction.InternalCode = code16;
+			else
+				instruction.InternalCode = code32;
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
 			else {
@@ -1341,7 +1341,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			state.flags |= StateFlags.BranchImm8;
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32) {
+				if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code64;
 					instruction.InternalOp0Kind = OpKind.NearBranch64;
 					instruction.NearBranch64 = (ulong)(sbyte)decoder.ReadByte() + decoder.GetCurrentInstructionPointer64();
@@ -1431,7 +1431,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32) {
+				if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32) {
 					instruction.InternalCode = code64;
 					instruction.InternalOp0Kind = OpKind.NearBranch64;
 					instruction.NearBranch64 = (ulong)(int)decoder.ReadUInt32() + decoder.GetCurrentInstructionPointer64();
@@ -1481,7 +1481,7 @@ namespace Iced.Intel.DecoderInternal {
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			state.flags |= StateFlags.BranchImm8;
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32) {
+				if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32) {
 					if (state.addressSize == OpSize.Size64)
 						instruction.InternalCode = code64_64;
 					else
@@ -1847,23 +1847,23 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
-			if (state.operandSize == OpSize.Size32) {
-				instruction.InternalCode = code32;
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
-			}
-			else if (state.operandSize == OpSize.Size64) {
+			if (state.operandSize == OpSize.Size64 && (decoder.options & DecoderOptions.AMD) == 0) {
 				instruction.InternalCode = code64;
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.RAX;
 			}
-			else {
+			else if (state.operandSize == OpSize.Size16) {
 				instruction.InternalCode = code16;
 				Static.Assert(OpKind.Register == 0 ? 0 : -1);
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.AX;
+			}
+			else {
+				instruction.InternalCode = code32;
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
+				//instruction.InternalOp0Kind = OpKind.Register;
+				instruction.InternalOp0Register = (int)(state.reg + state.extraRegisterBase) + Register.EAX;
 			}
 			if (state.mod == 3)
 				decoder.SetInvalidInstruction();
@@ -3531,7 +3531,7 @@ namespace Iced.Intel.DecoderInternal {
 			ref var state = ref decoder.state;
 			Debug.Assert(state.Encoding == EncodingKind.Legacy);
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || state.operandSize == OpSize.Size32)
+				if ((decoder.options & DecoderOptions.AMD) == 0 || state.operandSize == OpSize.Size32)
 					instruction.InternalCode = code64;
 				else
 					instruction.InternalCode = code16;
@@ -3561,7 +3561,7 @@ namespace Iced.Intel.DecoderInternal {
 		public override void Decode(Decoder decoder, ref Instruction instruction) {
 			Debug.Assert(decoder.state.Encoding == EncodingKind.Legacy);
 			if (decoder.is64Mode) {
-				if ((decoder.options & DecoderOptions.AmdBranches) == 0 || decoder.state.operandSize == OpSize.Size32)
+				if ((decoder.options & DecoderOptions.AMD) == 0 || decoder.state.operandSize == OpSize.Size32)
 					instruction.InternalCode = code64;
 				else
 					instruction.InternalCode = code16;

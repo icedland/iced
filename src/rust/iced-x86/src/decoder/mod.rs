@@ -104,7 +104,7 @@ impl DecoderOptions {
 	/// [`Code::INVALID`]: enum.Code.html#variant.INVALID
 	pub const NO_INVALID_CHECK: u32 = 0x0000_0001;
 	/// AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode
-	pub const AMD_BRANCHES: u32 = 0x0000_0002;
+	pub const AMD: u32 = 0x0000_0002;
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::ReservedNop_rm32_r32_0F1D`])
 	///
 	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
@@ -326,7 +326,7 @@ impl<'a> Decoder<'a> {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
-	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD_BRANCHES`
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
 	///
 	/// # Examples
 	///

@@ -37,7 +37,7 @@ namespace Iced.UnitTests.Intel {
 			new Dictionary<string, DecoderOptions>(20, StringComparer.Ordinal) {
 				{ "None", DecoderOptions.None },
 				{ "NoInvalidCheck", DecoderOptions.NoInvalidCheck },
-				{ "AmdBranches", DecoderOptions.AmdBranches },
+				{ "AMD", DecoderOptions.AMD },
 				{ "ForceReservedNop", DecoderOptions.ForceReservedNop },
 				{ "Umov", DecoderOptions.Umov },
 				{ "Xbts", DecoderOptions.Xbts },

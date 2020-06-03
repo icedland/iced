@@ -50,7 +50,7 @@ impl Decoder {
 	///
 	/// * `bitness`: 16, 32 or 64
 	/// * `data`: Data to decode
-	/// * `options`: Decoder options (a [`DecoderOptions`] flags value), `0` or eg. `DecoderOptions.NoInvalidCheck | DecoderOptions.AmdBranches`
+	/// * `options`: Decoder options (a [`DecoderOptions`] flags value), `0` or eg. `DecoderOptions.NoInvalidCheck | DecoderOptions.AMD`
 	///
 	/// [`DecoderOptions`]: enum.DecoderOptions.html
 	///

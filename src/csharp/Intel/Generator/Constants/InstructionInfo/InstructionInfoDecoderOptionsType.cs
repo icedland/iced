@@ -31,7 +31,7 @@ namespace Generator.Constants.InstructionInfo {
 
 		static Constant[] GetConstants() =>
 			new Constant[] {
-				new Constant(ConstantKind.String, "AmdBranches", "amdbr"),
+				new Constant(ConstantKind.String, "AMD", "amd"),
 				new Constant(ConstantKind.String, "ForceReservedNop", "forcereservednop"),
 				new Constant(ConstantKind.String, "Umov", "umov"),
 				new Constant(ConstantKind.String, "Xbts", "xbts"),

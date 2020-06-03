@@ -2496,21 +2496,21 @@ E2 5A, Loop_rel8_64_RCX, Legacy, X64, flow=ConditionalBranch op0=r rw=rcx
 # jrcxz 800000000000004Ch
 E3 5A, Jrcxz_rel8_64, Legacy, X64, flow=ConditionalBranch op0=r r=rcx
 # loopned 004Dh
-66 67 E0 5A, Loopne_rel8_16_ECX, Legacy, INTEL386, decopt=amdbr flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
+66 67 E0 5A, Loopne_rel8_16_ECX, Legacy, INTEL386, decopt=amd flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
 # loopne 004Ch
-66 E0 5A, Loopne_rel8_16_RCX, Legacy, X64, decopt=amdbr flow=ConditionalBranch fr=z op0=r rw=rcx
+66 E0 5A, Loopne_rel8_16_RCX, Legacy, X64, decopt=amd flow=ConditionalBranch fr=z op0=r rw=rcx
 # looped 004Dh
-66 67 E1 5A, Loope_rel8_16_ECX, Legacy, INTEL386, decopt=amdbr flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
+66 67 E1 5A, Loope_rel8_16_ECX, Legacy, INTEL386, decopt=amd flow=ConditionalBranch fr=z op0=r r=ecx w=rcx
 # loope 004Ch
-66 E1 5A, Loope_rel8_16_RCX, Legacy, X64, decopt=amdbr flow=ConditionalBranch fr=z op0=r rw=rcx
+66 E1 5A, Loope_rel8_16_RCX, Legacy, X64, decopt=amd flow=ConditionalBranch fr=z op0=r rw=rcx
 # loopd 004Dh
-66 67 E2 5A, Loop_rel8_16_ECX, Legacy, INTEL386, decopt=amdbr flow=ConditionalBranch op0=r r=ecx w=rcx
+66 67 E2 5A, Loop_rel8_16_ECX, Legacy, INTEL386, decopt=amd flow=ConditionalBranch op0=r r=ecx w=rcx
 # loop 004Ch
-66 E2 5A, Loop_rel8_16_RCX, Legacy, X64, decopt=amdbr flow=ConditionalBranch op0=r rw=rcx
+66 E2 5A, Loop_rel8_16_RCX, Legacy, X64, decopt=amd flow=ConditionalBranch op0=r rw=rcx
 # jecxz 004Dh
-66 67 E3 5A, Jecxz_rel8_16, Legacy, INTEL386, decopt=amdbr flow=ConditionalBranch op0=r r=ecx
+66 67 E3 5A, Jecxz_rel8_16, Legacy, INTEL386, decopt=amd flow=ConditionalBranch op0=r r=ecx
 # jrcxz 004Ch
-66 E3 5A, Jrcxz_rel8_16, Legacy, X64, decopt=amdbr flow=ConditionalBranch op0=r r=rcx
+66 E3 5A, Jrcxz_rel8_16, Legacy, X64, decopt=amd flow=ConditionalBranch op0=r r=rcx
 # in al,5Ah
 E4 5A, In_AL_imm8, Legacy, INTEL8086, priv op0=w op1=r w=al
 # in ax,5Ah

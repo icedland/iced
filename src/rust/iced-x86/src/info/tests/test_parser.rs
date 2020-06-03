@@ -190,7 +190,7 @@ impl InstructionInfoKeys {
 lazy_static! {
 	pub(super) static ref TO_INSTRUCTION_INFO_DECODER_OPTIONS: HashMap<&'static str, u32> = {
 		let mut h = HashMap::with_capacity(12);
-		h.insert("amdbr", InstructionInfoDecoderOptions::AMD_BRANCHES);
+		h.insert("amd", InstructionInfoDecoderOptions::AMD);
 		h.insert("forcereservednop", InstructionInfoDecoderOptions::FORCE_RESERVED_NOP);
 		h.insert("umov", InstructionInfoDecoderOptions::UMOV);
 		h.insert("xbts", InstructionInfoDecoderOptions::XBTS);
@@ -209,7 +209,7 @@ lazy_static! {
 pub(crate) struct InstructionInfoDecoderOptions;
 #[allow(dead_code)]
 impl InstructionInfoDecoderOptions {
-	pub(crate) const AMD_BRANCHES: u32 = 0;
+	pub(crate) const AMD: u32 = 0;
 	pub(crate) const FORCE_RESERVED_NOP: u32 = 1;
 	pub(crate) const UMOV: u32 = 2;
 	pub(crate) const XBTS: u32 = 3;
@@ -537,7 +537,7 @@ impl IntoIter {
 		let mut decoder_options = 0;
 		for option_str in value.split(';') {
 			match *(*TO_INSTRUCTION_INFO_DECODER_OPTIONS).get(option_str).unwrap_or(&u32::MAX) {
-				InstructionInfoDecoderOptions::AMD_BRANCHES => decoder_options |= DecoderOptions::AMD_BRANCHES,
+				InstructionInfoDecoderOptions::AMD => decoder_options |= DecoderOptions::AMD,
 				InstructionInfoDecoderOptions::FORCE_RESERVED_NOP => decoder_options |= DecoderOptions::FORCE_RESERVED_NOP,
 				InstructionInfoDecoderOptions::UMOV => decoder_options |= DecoderOptions::UMOV,
 				InstructionInfoDecoderOptions::XBTS => decoder_options |= DecoderOptions::XBTS,

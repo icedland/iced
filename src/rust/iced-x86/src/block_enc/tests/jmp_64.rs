@@ -151,7 +151,7 @@ fn jmp_other_short_os() {
 		ORIG_RIP - 1,
 		&new_data,
 		OPTIONS,
-		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		DECODER_OPTIONS | DecoderOptions::AMD,
 		&expected_instruction_offsets,
 		&expected_reloc_infos,
 	);
@@ -192,7 +192,7 @@ fn jmp_other_near_os() {
 		ORIG_RIP + 0x1000,
 		&new_data,
 		OPTIONS,
-		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		DECODER_OPTIONS | DecoderOptions::AMD,
 		&expected_instruction_offsets,
 		&expected_reloc_infos,
 	);

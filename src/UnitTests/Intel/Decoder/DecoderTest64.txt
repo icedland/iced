@@ -1161,12 +1161,12 @@ F3 F2 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segrsi;ds;UInt32 repne enc=F26F
 67 4F 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segesi;ds;UInt32 enc=676F
 66 67 4F 6F, Outsd_DX_m32, Outsd, 2, op0=r;dx op1=segesi;ds;UInt32 enc=676F
 
-66 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66705B
+66 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 70 A5, Jo_rel8_16, Jo, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 70 5A, Jo_rel8_16, Jo, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66705B
 
 70 5A, Jo_rel8_64, Jo, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 70 A5, Jo_rel8_64, Jo, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1180,12 +1180,12 @@ F2 70 A5, Jo_rel8_64, Jo, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 70 5A, Jo_rel8_64, Jo, 1, op0=nb64;0x800000000000004E enc=705C co=3;1;0;0;0;0
 66 4F 70 A5, Jo_rel8_64, Jo, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=70A7 co=3;1;0;0;0;0
 
-66 71 5A, Jno_rel8_16, Jno, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 71 5A, Jno_rel8_16, Jno, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66715B
+66 71 5A, Jno_rel8_16, Jno, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 71 A5, Jno_rel8_16, Jno, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 71 5A, Jno_rel8_16, Jno, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66715B
 
 71 5A, Jno_rel8_64, Jno, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 71 A5, Jno_rel8_64, Jno, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1199,12 +1199,12 @@ F2 71 A5, Jno_rel8_64, Jno, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 71 5A, Jno_rel8_64, Jno, 1, op0=nb64;0x800000000000004E enc=715C co=3;1;0;0;0;0
 66 4F 71 A5, Jno_rel8_64, Jno, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=71A7 co=3;1;0;0;0;0
 
-66 72 5A, Jb_rel8_16, Jb, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 72 5A, Jb_rel8_16, Jb, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66725B
+66 72 5A, Jb_rel8_16, Jb, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 72 A5, Jb_rel8_16, Jb, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 72 5A, Jb_rel8_16, Jb, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66725B
 
 72 5A, Jb_rel8_64, Jb, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 72 A5, Jb_rel8_64, Jb, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1218,12 +1218,12 @@ F2 72 A5, Jb_rel8_64, Jb, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 72 5A, Jb_rel8_64, Jb, 1, op0=nb64;0x800000000000004E enc=725C co=3;1;0;0;0;0
 66 4F 72 A5, Jb_rel8_64, Jb, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=72A7 co=3;1;0;0;0;0
 
-66 73 5A, Jae_rel8_16, Jae, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 73 5A, Jae_rel8_16, Jae, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66735B
+66 73 5A, Jae_rel8_16, Jae, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 73 A5, Jae_rel8_16, Jae, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 73 5A, Jae_rel8_16, Jae, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66735B
 
 73 5A, Jae_rel8_64, Jae, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 73 A5, Jae_rel8_64, Jae, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1237,12 +1237,12 @@ F2 73 A5, Jae_rel8_64, Jae, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 73 5A, Jae_rel8_64, Jae, 1, op0=nb64;0x800000000000004E enc=735C co=3;1;0;0;0;0
 66 4F 73 A5, Jae_rel8_64, Jae, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=73A7 co=3;1;0;0;0;0
 
-66 74 5A, Je_rel8_16, Je, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 74 5A, Je_rel8_16, Je, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66745B
+66 74 5A, Je_rel8_16, Je, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 74 A5, Je_rel8_16, Je, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 74 5A, Je_rel8_16, Je, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66745B
 
 74 5A, Je_rel8_64, Je, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 74 A5, Je_rel8_64, Je, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1256,12 +1256,12 @@ F2 74 A5, Je_rel8_64, Je, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 74 5A, Je_rel8_64, Je, 1, op0=nb64;0x800000000000004E enc=745C co=3;1;0;0;0;0
 66 4F 74 A5, Je_rel8_64, Je, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=74A7 co=3;1;0;0;0;0
 
-66 75 5A, Jne_rel8_16, Jne, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 75 5A, Jne_rel8_16, Jne, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66755B
+66 75 5A, Jne_rel8_16, Jne, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 75 A5, Jne_rel8_16, Jne, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 75 5A, Jne_rel8_16, Jne, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66755B
 
 75 5A, Jne_rel8_64, Jne, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 75 A5, Jne_rel8_64, Jne, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1275,12 +1275,12 @@ F2 75 A5, Jne_rel8_64, Jne, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 75 5A, Jne_rel8_64, Jne, 1, op0=nb64;0x800000000000004E enc=755C co=3;1;0;0;0;0
 66 4F 75 A5, Jne_rel8_64, Jne, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=75A7 co=3;1;0;0;0;0
 
-66 76 5A, Jbe_rel8_16, Jbe, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 76 5A, Jbe_rel8_16, Jbe, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66765B
+66 76 5A, Jbe_rel8_16, Jbe, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 76 A5, Jbe_rel8_16, Jbe, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 76 5A, Jbe_rel8_16, Jbe, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66765B
 
 76 5A, Jbe_rel8_64, Jbe, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 76 A5, Jbe_rel8_64, Jbe, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1294,12 +1294,12 @@ F2 76 A5, Jbe_rel8_64, Jbe, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 76 5A, Jbe_rel8_64, Jbe, 1, op0=nb64;0x800000000000004E enc=765C co=3;1;0;0;0;0
 66 4F 76 A5, Jbe_rel8_64, Jbe, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=76A7 co=3;1;0;0;0;0
 
-66 77 5A, Ja_rel8_16, Ja, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 77 5A, Ja_rel8_16, Ja, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66775B
+66 77 5A, Ja_rel8_16, Ja, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 77 A5, Ja_rel8_16, Ja, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 77 5A, Ja_rel8_16, Ja, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66775B
 
 77 5A, Ja_rel8_64, Ja, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 77 A5, Ja_rel8_64, Ja, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1313,12 +1313,12 @@ F2 77 A5, Ja_rel8_64, Ja, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 77 5A, Ja_rel8_64, Ja, 1, op0=nb64;0x800000000000004E enc=775C co=3;1;0;0;0;0
 66 4F 77 A5, Ja_rel8_64, Ja, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=77A7 co=3;1;0;0;0;0
 
-66 78 5A, Js_rel8_16, Js, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 78 5A, Js_rel8_16, Js, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66785B
+66 78 5A, Js_rel8_16, Js, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 78 A5, Js_rel8_16, Js, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 78 5A, Js_rel8_16, Js, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66785B
 
 78 5A, Js_rel8_64, Js, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 78 A5, Js_rel8_64, Js, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1330,12 +1330,12 @@ F2 78 A5, Js_rel8_64, Js, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 78 5A, Js_rel8_64, Js, 1, op0=nb64;0x800000000000004E enc=785C co=3;1;0;0;0;0
 66 4F 78 A5, Js_rel8_64, Js, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=78A7 co=3;1;0;0;0;0
 
-66 79 5A, Jns_rel8_16, Jns, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 79 5A, Jns_rel8_16, Jns, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66795B
+66 79 5A, Jns_rel8_16, Jns, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 79 A5, Jns_rel8_16, Jns, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 79 5A, Jns_rel8_16, Jns, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66795B
 
 79 5A, Jns_rel8_64, Jns, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 79 A5, Jns_rel8_64, Jns, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1347,12 +1347,12 @@ F2 79 A5, Jns_rel8_64, Jns, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 79 5A, Jns_rel8_64, Jns, 1, op0=nb64;0x800000000000004E enc=795C co=3;1;0;0;0;0
 66 4F 79 A5, Jns_rel8_64, Jns, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=79A7 co=3;1;0;0;0;0
 
-66 7A 5A, Jp_rel8_16, Jp, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7A 5A, Jp_rel8_16, Jp, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667A5B
+66 7A 5A, Jp_rel8_16, Jp, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7A A5, Jp_rel8_16, Jp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7A 5A, Jp_rel8_16, Jp, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667A5B
 
 7A 5A, Jp_rel8_64, Jp, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7A A5, Jp_rel8_64, Jp, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1364,12 +1364,12 @@ F2 7A A5, Jp_rel8_64, Jp, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 7A 5A, Jp_rel8_64, Jp, 1, op0=nb64;0x800000000000004E enc=7A5C co=3;1;0;0;0;0
 66 4F 7A A5, Jp_rel8_64, Jp, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=7AA7 co=3;1;0;0;0;0
 
-66 7B 5A, Jnp_rel8_16, Jnp, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7B 5A, Jnp_rel8_16, Jnp, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667B5B
+66 7B 5A, Jnp_rel8_16, Jnp, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7B A5, Jnp_rel8_16, Jnp, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7B 5A, Jnp_rel8_16, Jnp, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667B5B
 
 7B 5A, Jnp_rel8_64, Jnp, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7B A5, Jnp_rel8_64, Jnp, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1381,12 +1381,12 @@ F2 7B A5, Jnp_rel8_64, Jnp, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 7B 5A, Jnp_rel8_64, Jnp, 1, op0=nb64;0x800000000000004E enc=7B5C co=3;1;0;0;0;0
 66 4F 7B A5, Jnp_rel8_64, Jnp, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=7BA7 co=3;1;0;0;0;0
 
-66 7C 5A, Jl_rel8_16, Jl, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7C 5A, Jl_rel8_16, Jl, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667C5B
+66 7C 5A, Jl_rel8_16, Jl, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7C A5, Jl_rel8_16, Jl, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7C 5A, Jl_rel8_16, Jl, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667C5B
 
 7C 5A, Jl_rel8_64, Jl, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7C A5, Jl_rel8_64, Jl, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1398,12 +1398,12 @@ F2 7C A5, Jl_rel8_64, Jl, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 7C 5A, Jl_rel8_64, Jl, 1, op0=nb64;0x800000000000004E enc=7C5C co=3;1;0;0;0;0
 66 4F 7C A5, Jl_rel8_64, Jl, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=7CA7 co=3;1;0;0;0;0
 
-66 7D 5A, Jge_rel8_16, Jge, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7D 5A, Jge_rel8_16, Jge, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667D5B
+66 7D 5A, Jge_rel8_16, Jge, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7D A5, Jge_rel8_16, Jge, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7D 5A, Jge_rel8_16, Jge, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667D5B
 
 7D 5A, Jge_rel8_64, Jge, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7D A5, Jge_rel8_64, Jge, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1415,12 +1415,12 @@ F2 7D A5, Jge_rel8_64, Jge, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 7D 5A, Jge_rel8_64, Jge, 1, op0=nb64;0x800000000000004E enc=7D5C co=3;1;0;0;0;0
 66 4F 7D A5, Jge_rel8_64, Jge, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=7DA7 co=3;1;0;0;0;0
 
-66 7E 5A, Jle_rel8_16, Jle, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7E 5A, Jle_rel8_16, Jle, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667E5B
+66 7E 5A, Jle_rel8_16, Jle, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7E A5, Jle_rel8_16, Jle, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7E 5A, Jle_rel8_16, Jle, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667E5B
 
 7E 5A, Jle_rel8_64, Jle, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7E A5, Jle_rel8_64, Jle, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -1432,12 +1432,12 @@ F2 7E A5, Jle_rel8_64, Jle, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 repne
 66 4F 7E 5A, Jle_rel8_64, Jle, 1, op0=nb64;0x800000000000004E enc=7E5C co=3;1;0;0;0;0
 66 4F 7E A5, Jle_rel8_64, Jle, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=7EA7 co=3;1;0;0;0;0
 
-66 7F 5A, Jg_rel8_16, Jg, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-2E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 cs:
-3E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 ds:
-66 F2 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0 repne
-66 47 7F 5A, Jg_rel8_16, Jg, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=667F5B
+66 7F 5A, Jg_rel8_16, Jg, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+2E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 cs:
+3E 66 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 ds:
+66 F2 7F A5, Jg_rel8_16, Jg, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0 repne
+66 47 7F 5A, Jg_rel8_16, Jg, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=667F5B
 
 7F 5A, Jg_rel8_64, Jg, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 7F A5, Jg_rel8_64, Jg, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -3203,11 +3203,11 @@ C1 F8 A5, Sar_rm32_imm8, Sar, 2, op0=r;eax op1=i8;0xA5 co=2;1;0;0;0;0
 48 C1 F8 A5, Sar_rm64_imm8, Sar, 2, op0=r;rax op1=i8;0xA5 co=3;1;0;0;0;0
 4F C1 F8 A5, Sar_rm64_imm8, Sar, 2, op0=r;r8 op1=i8;0xA5 co=3;1;0;0;0;0 enc=49C1F8A5
 
-66 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A amdbr co=2;2;0;0;0;0
-66 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amdbr co=2;2;0;0;0;0
-66 F2 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amdbr co=3;2;0;0;0;0 repne
-66 F3 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amdbr co=3;2;0;0;0;0 rep
-66 47 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A amdbr co=3;2;0;0;0;0 enc=66C25AA5
+66 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A amd co=2;2;0;0;0;0
+66 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=2;2;0;0;0;0
+66 F2 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=3;2;0;0;0;0 repne
+66 F3 C2 A55A, Retnw_imm16, Ret, 1, op0=i16;0x5AA5 amd co=3;2;0;0;0;0 rep
+66 47 C2 5AA5, Retnw_imm16, Ret, 1, op0=i16;0xA55A amd co=3;2;0;0;0;0 enc=66C25AA5
 
 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=1;2;0;0;0;0
 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=1;2;0;0;0;0
@@ -3216,13 +3216,13 @@ F3 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 rep
 66 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0 enc=C25AA5
 48 C2 A55A, Retnq_imm16, Ret, 1, op0=i16;0x5AA5 co=2;2;0;0;0;0 enc=C2A55A
 66 48 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=3;2;0;0;0;0 enc=C25AA5
-C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A amdbr co=1;2;0;0;0;0
+C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A amd co=1;2;0;0;0;0
 47 C2 5AA5, Retnq_imm16, Ret, 1, op0=i16;0xA55A co=2;2;0;0;0;0 enc=C25AA5
 
-66 C3, Retnw, Ret, 0, amdbr
-66 F2 C3, Retnw, Ret, 0, amdbr repne
-66 F3 C3, Retnw, Ret, 0, amdbr rep
-66 47 C3, Retnw, Ret, 0, amdbr enc=66C3
+66 C3, Retnw, Ret, 0, amd
+66 F2 C3, Retnw, Ret, 0, amd repne
+66 F3 C3, Retnw, Ret, 0, amd rep
+66 47 C3, Retnw, Ret, 0, amd enc=66C3
 
 C3, Retnq, Ret, 0,
 F2 C3, Retnq, Ret, 0, repne
@@ -3230,7 +3230,7 @@ F3 C3, Retnq, Ret, 0, rep
 66 C3, Retnq, Ret, 0, enc=C3
 48 C3, Retnq, Ret, 0, enc=C3
 66 48 C3, Retnq, Ret, 0, enc=C3
-C3, Retnq, Ret, 0, amdbr
+C3, Retnq, Ret, 0, amd
 47 C3, Retnq, Ret, 0, enc=C3
 
 C6 00 5A, Mov_rm8_imm8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=i8;0x5A co=2;1;0;0;0;0
@@ -4376,92 +4376,92 @@ DF F3, Fcomip_st0_sti, Fcomip, 2, op0=r;st0 op1=r;st3
 4F DF F3, Fcomip_st0_sti, Fcomip, 2, op0=r;st0 op1=r;st3 enc=DFF3
 66 4F DF F6, Fcomip_st0_sti, Fcomip, 2, op0=r;st0 op1=r;st6 enc=DFF6
 
-66 67 E0 5A, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0
-66 67 E0 A5, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0
-66 67 47 E0 5A, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0x4F amdbr co=4;1;0;0;0;0 enc=6667E05B
+66 67 E0 5A, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0
+66 67 E0 A5, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0
+66 67 47 E0 5A, Loopne_rel8_16_ECX, Loopne, 1, op0=nb16;0x4F amd co=4;1;0;0;0;0 enc=6667E05B
 
 67 E0 5A, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0
 67 E0 A5, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0
 66 67 E0 5A, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x800000000000004E enc=67E05B co=3;1;0;0;0;0
 66 67 E0 A5, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=67E0A6 co=3;1;0;0;0;0
-67 E0 5A, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x800000000000004D amdbr co=2;1;0;0;0;0
+67 E0 5A, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x800000000000004D amd co=2;1;0;0;0;0
 67 47 E0 5A, Loopne_rel8_64_ECX, Loopne, 1, op0=nb64;0x800000000000004E co=3;1;0;0;0;0 enc=67E05B
 
-66 E0 5A, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 E0 A5, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-66 47 E0 5A, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66E05B
+66 E0 5A, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 E0 A5, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+66 47 E0 5A, Loopne_rel8_16_RCX, Loopne, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66E05B
 
 E0 5A, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 E0 A5, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
 66 E0 5A, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x800000000000004D enc=E05B co=2;1;0;0;0;0
 66 E0 A5, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x7FFFFFFFFFFFFF98 enc=E0A6 co=2;1;0;0;0;0
-E0 5A, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x800000000000004C amdbr co=1;1;0;0;0;0
+E0 5A, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x800000000000004C amd co=1;1;0;0;0;0
 47 E0 5A, Loopne_rel8_64_RCX, Loopne, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0 enc=E05B
 
-66 67 E1 5A, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0
-66 67 E1 A5, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0
-66 67 47 E1 5A, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0x4F amdbr co=4;1;0;0;0;0 enc=6667E15B
+66 67 E1 5A, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0
+66 67 E1 A5, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0
+66 67 47 E1 5A, Loope_rel8_16_ECX, Loope, 1, op0=nb16;0x4F amd co=4;1;0;0;0;0 enc=6667E15B
 
 67 E1 5A, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0
 67 E1 A5, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0
 66 67 E1 5A, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x800000000000004E enc=67E15B co=3;1;0;0;0;0
 66 67 E1 A5, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=67E1A6 co=3;1;0;0;0;0
-67 E1 5A, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x800000000000004D amdbr co=2;1;0;0;0;0
+67 E1 5A, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x800000000000004D amd co=2;1;0;0;0;0
 67 47 E1 5A, Loope_rel8_64_ECX, Loope, 1, op0=nb64;0x800000000000004E co=3;1;0;0;0;0 enc=67E15B
 
-66 E1 5A, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 E1 A5, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-66 47 E1 5A, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66E15B
+66 E1 5A, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 E1 A5, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+66 47 E1 5A, Loope_rel8_16_RCX, Loope, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66E15B
 
 E1 5A, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 E1 A5, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
 66 E1 5A, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x800000000000004D enc=E15B co=2;1;0;0;0;0
 66 E1 A5, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x7FFFFFFFFFFFFF98 enc=E1A6 co=2;1;0;0;0;0
-E1 5A, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x800000000000004C amdbr co=1;1;0;0;0;0
+E1 5A, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x800000000000004C amd co=1;1;0;0;0;0
 47 E1 5A, Loope_rel8_64_RCX, Loope, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0 enc=E15B
 
-66 67 E2 5A, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0
-66 67 E2 A5, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0
-66 67 47 E2 5A, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0x4F amdbr co=4;1;0;0;0;0 enc=6667E25B
+66 67 E2 5A, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0
+66 67 E2 A5, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0
+66 67 47 E2 5A, Loop_rel8_16_ECX, Loop, 1, op0=nb16;0x4F amd co=4;1;0;0;0;0 enc=6667E25B
 
 67 E2 5A, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0
 67 E2 A5, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0
 66 67 E2 5A, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x800000000000004E enc=67E25B co=3;1;0;0;0;0
 66 67 E2 A5, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=67E2A6 co=3;1;0;0;0;0
-67 E2 5A, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x800000000000004D amdbr co=2;1;0;0;0;0
+67 E2 5A, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x800000000000004D amd co=2;1;0;0;0;0
 67 47 E2 5A, Loop_rel8_64_ECX, Loop, 1, op0=nb64;0x800000000000004E co=3;1;0;0;0;0 enc=67E25B
 
-66 E2 5A, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 E2 A5, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-66 47 E2 5A, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66E25B
+66 E2 5A, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 E2 A5, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+66 47 E2 5A, Loop_rel8_16_RCX, Loop, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66E25B
 
 E2 5A, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 E2 A5, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
 66 E2 5A, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x800000000000004D enc=E25B co=2;1;0;0;0;0
 66 E2 A5, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x7FFFFFFFFFFFFF98 enc=E2A6 co=2;1;0;0;0;0
-E2 5A, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x800000000000004C amdbr co=1;1;0;0;0;0
+E2 5A, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x800000000000004C amd co=1;1;0;0;0;0
 47 E2 5A, Loop_rel8_64_RCX, Loop, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0 enc=E25B
 
-66 67 E3 5A, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0
-66 67 E3 A5, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0xFF99 amdbr co=3;1;0;0;0;0
-66 67 47 E3 5A, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0x4F amdbr co=4;1;0;0;0;0 enc=6667E35B
+66 67 E3 5A, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0
+66 67 E3 A5, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0xFF99 amd co=3;1;0;0;0;0
+66 67 47 E3 5A, Jecxz_rel8_16, Jecxz, 1, op0=nb16;0x4F amd co=4;1;0;0;0;0 enc=6667E35B
 
 67 E3 5A, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0
 67 E3 A5, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0
 66 67 E3 5A, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x800000000000004E enc=67E35B co=3;1;0;0;0;0
 66 67 E3 A5, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x7FFFFFFFFFFFFF99 enc=67E3A6 co=3;1;0;0;0;0
-67 E3 5A, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x800000000000004D amdbr co=2;1;0;0;0;0
+67 E3 5A, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x800000000000004D amd co=2;1;0;0;0;0
 67 47 E3 5A, Jecxz_rel8_64, Jecxz, 1, op0=nb64;0x800000000000004E co=3;1;0;0;0;0 enc=67E35B
 
-66 E3 5A, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 E3 A5, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-66 47 E3 5A, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66E35B
+66 E3 5A, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 E3 A5, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+66 47 E3 5A, Jrcxz_rel8_16, Jrcxz, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66E35B
 
 E3 5A, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 E3 A5, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
 66 E3 5A, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x800000000000004D enc=E35B co=2;1;0;0;0;0
 66 E3 A5, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x7FFFFFFFFFFFFF98 enc=E3A6 co=2;1;0;0;0;0
-E3 5A, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x800000000000004C amdbr co=1;1;0;0;0;0
+E3 5A, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x800000000000004C amd co=1;1;0;0;0;0
 47 E3 5A, Jrcxz_rel8_64, Jrcxz, 1, op0=nb64;0x800000000000004D co=2;1;0;0;0;0 enc=E35B
 
 E4 5A, In_AL_imm8, In, 2, op0=r;al op1=i8;0x5A co=1;1;0;0;0;0
@@ -4492,10 +4492,10 @@ E7 A5, Out_imm8_EAX, Out, 2, op0=i8;0xA5 op1=r;eax co=1;1;0;0;0;0
 4F E7 5A, Out_imm8_EAX, Out, 2, op0=i8;0x5A op1=r;eax co=2;1;0;0;0;0 enc=E75A
 66 4F E7 A5, Out_imm8_EAX, Out, 2, op0=i8;0xA5 op1=r;eax co=3;1;0;0;0;0 enc=E7A5
 
-66 E8 5AA5, Call_rel16, Call, 1, op0=nb16;0xA54E amdbr co=2;2;0;0;0;0
-66 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A99 amdbr co=2;2;0;0;0;0
-66 F2 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0 repne
-66 47 E8 5AA5, Call_rel16, Call, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0 enc=66E85BA5
+66 E8 5AA5, Call_rel16, Call, 1, op0=nb16;0xA54E amd co=2;2;0;0;0;0
+66 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A99 amd co=2;2;0;0;0;0
+66 F2 E8 A55A, Call_rel16, Call, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0 repne
+66 47 E8 5AA5, Call_rel16, Call, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0 enc=66E85BA5
 
 E8 12345AA5, Call_rel32_64, Call, 1, op0=nb64;0x7FFFFFFFA55A3407 co=1;4;0;0;0;0
 E8 5678A55A, Call_rel32_64, Call, 1, op0=nb64;0x800000005AA5784B co=1;4;0;0;0;0
@@ -4503,12 +4503,12 @@ F2 E8 5678A55A, Call_rel32_64, Call, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0
 66 E8 5678A55A, Call_rel32_64, Call, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0;0 enc=E85778A55A
 4F E8 5678A55A, Call_rel32_64, Call, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0;0 enc=E85778A55A
 66 4F E8 5678A55A, Call_rel32_64, Call, 1, op0=nb64;0x800000005AA5784D co=3;4;0;0;0;0 enc=E85878A55A
-E8 12345AA5, Call_rel32_64, Call, 1, op0=nb64;0x7FFFFFFFA55A3407 amdbr co=1;4;0;0;0;0
+E8 12345AA5, Call_rel32_64, Call, 1, op0=nb64;0x7FFFFFFFA55A3407 amd co=1;4;0;0;0;0
 
-66 E9 5AA5, Jmp_rel16, Jmp, 1, op0=nb16;0xA54E amdbr co=2;2;0;0;0;0
-66 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A99 amdbr co=2;2;0;0;0;0
-66 F2 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0 repne
-66 47 E9 5AA5, Jmp_rel16, Jmp, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0 enc=66E95BA5
+66 E9 5AA5, Jmp_rel16, Jmp, 1, op0=nb16;0xA54E amd co=2;2;0;0;0;0
+66 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A99 amd co=2;2;0;0;0;0
+66 F2 E9 A55A, Jmp_rel16, Jmp, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0 repne
+66 47 E9 5AA5, Jmp_rel16, Jmp, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0 enc=66E95BA5
 
 E9 12345AA5, Jmp_rel32_64, Jmp, 1, op0=nb64;0x7FFFFFFFA55A3407 co=1;4;0;0;0;0
 E9 5678A55A, Jmp_rel32_64, Jmp, 1, op0=nb64;0x800000005AA5784B co=1;4;0;0;0;0
@@ -4516,11 +4516,11 @@ F2 E9 5678A55A, Jmp_rel32_64, Jmp, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0;0
 66 E9 5678A55A, Jmp_rel32_64, Jmp, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0;0 enc=E95778A55A
 4F E9 5678A55A, Jmp_rel32_64, Jmp, 1, op0=nb64;0x800000005AA5784C co=2;4;0;0;0;0 enc=E95778A55A
 66 4F E9 5678A55A, Jmp_rel32_64, Jmp, 1, op0=nb64;0x800000005AA5784D co=3;4;0;0;0;0 enc=E95878A55A
-E9 12345AA5, Jmp_rel32_64, Jmp, 1, op0=nb64;0x7FFFFFFFA55A3407 amdbr co=1;4;0;0;0;0
+E9 12345AA5, Jmp_rel32_64, Jmp, 1, op0=nb64;0x7FFFFFFFA55A3407 amd co=1;4;0;0;0;0
 
-66 EB 5A, Jmp_rel8_16, Jmp, 1, op0=nb16;0x4D amdbr co=2;1;0;0;0;0
-66 EB A5, Jmp_rel8_16, Jmp, 1, op0=nb16;0xFF98 amdbr co=2;1;0;0;0;0
-66 47 EB 5A, Jmp_rel8_16, Jmp, 1, op0=nb16;0x4E amdbr co=3;1;0;0;0;0 enc=66EB5B
+66 EB 5A, Jmp_rel8_16, Jmp, 1, op0=nb16;0x4D amd co=2;1;0;0;0;0
+66 EB A5, Jmp_rel8_16, Jmp, 1, op0=nb16;0xFF98 amd co=2;1;0;0;0;0
+66 47 EB 5A, Jmp_rel8_16, Jmp, 1, op0=nb16;0x4E amd co=3;1;0;0;0;0 enc=66EB5B
 
 EB 5A, Jmp_rel8_64, Jmp, 1, op0=nb64;0x800000000000004C co=1;1;0;0;0;0
 EB A5, Jmp_rel8_64, Jmp, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
@@ -4530,7 +4530,7 @@ EB A5, Jmp_rel8_64, Jmp, 1, op0=nb64;0x7FFFFFFFFFFFFF97 co=1;1;0;0;0;0
 4F EB A5, Jmp_rel8_64, Jmp, 1, op0=nb64;0x7FFFFFFFFFFFFF98 co=2;1;0;0;0;0 enc=EBA6
 66 4F EB 5A, Jmp_rel8_64, Jmp, 1, op0=nb64;0x800000000000004E co=3;1;0;0;0;0 enc=EB5C
 66 4F EB A5, Jmp_rel8_64, Jmp, 1, op0=nb64;0x7FFFFFFFFFFFFF99 co=3;1;0;0;0;0 enc=EBA7
-EB 5A, Jmp_rel8_64, Jmp, 1, op0=nb64;0x800000000000004C amdbr co=1;1;0;0;0;0
+EB 5A, Jmp_rel8_64, Jmp, 1, op0=nb64;0x800000000000004C amd co=1;1;0;0;0;0
 
 EC, In_AL_DX, In, 2, op0=r;al op1=r;dx
 4F EC, In_AL_DX, In, 2, op0=r;al op1=r;dx enc=EC
@@ -4865,15 +4865,15 @@ F0 48 FF CE, INVALID, INVALID, 0, code=Dec_rm64
 49 FF CE, Dec_rm64, Dec, 1, op0=r;r14
 4E FF CE, Dec_rm64, Dec, 1, op0=r;rsi enc=48FFCE
 
-66 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr
-3E 66 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr ds:
-66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr repne
-3E 66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr ds: repne
-66 FF D1, Call_rm16, Call, 1, op0=r;cx amdbr
-3E 66 FF D1, Call_rm16, Call, 1, op0=r;cx amdbr ds:
-66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx amdbr repne
-3E 66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx amdbr ds: repne
-66 47 FF D1, Call_rm16, Call, 1, op0=r;r9w amdbr enc=6641FFD1
+66 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amd
+3E 66 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amd ds:
+66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amd repne
+3E 66 F2 FF 10, Call_rm16, Call, 1, op0=m;ds;rax;;1;0;0;WordOffset amd ds: repne
+66 FF D1, Call_rm16, Call, 1, op0=r;cx amd
+3E 66 FF D1, Call_rm16, Call, 1, op0=r;cx amd ds:
+66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx amd repne
+3E 66 F2 FF D1, Call_rm16, Call, 1, op0=r;cx amd ds: repne
+66 47 FF D1, Call_rm16, Call, 1, op0=r;r9w amd enc=6641FFD1
 
 FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset
 3E FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset ds:
@@ -4881,7 +4881,7 @@ F2 FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset repne
 3E F2 FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset ds: repne
 66 FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset enc=FF10
 48 FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset enc=FF10
-FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset amdbr
+FF 10, Call_rm64, Call, 1, op0=m;ds;rax;;1;0;0;QwordOffset amd
 FF D1, Call_rm64, Call, 1, op0=r;rcx
 3E FF D1, Call_rm64, Call, 1, op0=r;rcx ds:
 F2 FF D1, Call_rm64, Call, 1, op0=r;rcx repne
@@ -4891,27 +4891,28 @@ F2 FF D1, Call_rm64, Call, 1, op0=r;rcx repne
 66 41 FF D1, Call_rm64, Call, 1, op0=r;r9 enc=41FFD1
 48 FF D1, Call_rm64, Call, 1, op0=r;rcx enc=FFD1
 49 FF D1, Call_rm64, Call, 1, op0=r;r9 enc=41FFD1
-FF D1, Call_rm64, Call, 1, op0=r;rcx amdbr
+FF D1, Call_rm64, Call, 1, op0=r;rcx amd
 46 FF D1, Call_rm64, Call, 1, op0=r;rcx enc=FFD1
 
 66 FF 18, Call_m1616, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr16
 66 44 FF 18, Call_m1616, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr16 enc=66FF18
 
 FF 18, Call_m1632, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr32
+48 FF 18, Call_m1632, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr32 amd enc=FF18
 44 FF 18, Call_m1632, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr32 enc=FF18
 
 48 FF 18, Call_m1664, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr64
 4C FF 18, Call_m1664, Call, 1, op0=m;ds;rax;;1;0;0;SegPtr64 enc=48FF18
 
-66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr
-3E 66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr ds:
-66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr repne
-3E 66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amdbr ds: repne
-66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amdbr
-3E 66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amdbr ds:
-66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amdbr repne
-3E 66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amdbr ds: repne
-66 47 FF E2, Jmp_rm16, Jmp, 1, op0=r;r10w amdbr enc=6641FFE2
+66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amd
+3E 66 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amd ds:
+66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amd repne
+3E 66 F2 FF 20, Jmp_rm16, Jmp, 1, op0=m;ds;rax;;1;0;0;WordOffset amd ds: repne
+66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amd
+3E 66 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amd ds:
+66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amd repne
+3E 66 F2 FF E2, Jmp_rm16, Jmp, 1, op0=r;dx amd ds: repne
+66 47 FF E2, Jmp_rm16, Jmp, 1, op0=r;r10w amd enc=6641FFE2
 
 FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset
 3E FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset ds:
@@ -4919,7 +4920,7 @@ F2 FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset repne
 3E F2 FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset ds: repne
 66 FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset enc=FF20
 48 FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset enc=FF20
-FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset amdbr
+FF 20, Jmp_rm64, Jmp, 1, op0=m;ds;rax;;1;0;0;QwordOffset amd
 FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi
 3E FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi ds:
 F2 FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi repne
@@ -4929,13 +4930,14 @@ F2 FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi repne
 66 41 FF E6, Jmp_rm64, Jmp, 1, op0=r;r14 enc=41FFE6
 48 FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi enc=FFE6
 49 FF E6, Jmp_rm64, Jmp, 1, op0=r;r14 enc=41FFE6
-FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi amdbr
+FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi amd
 46 FF E6, Jmp_rm64, Jmp, 1, op0=r;rsi enc=FFE6
 
 66 FF 28, Jmp_m1616, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr16
 66 44 FF 28, Jmp_m1616, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr16 enc=66FF28
 
 FF 28, Jmp_m1632, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr32
+48 FF 28, Jmp_m1632, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr32 amd enc=FF28
 44 FF 28, Jmp_m1632, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr32 enc=FF28
 
 48 FF 28, Jmp_m1664, Jmp, 1, op0=m;ds;rax;;1;0;0;SegPtr64
@@ -13280,12 +13282,12 @@ C4817E 7F CD, VEX_Vmovdqu_ymmm256_ymm, Vmovdqu, 2, op0=r;ymm13 op1=r;ymm1 enc=C4
 62 C1FFCB 7F D3, EVEX_Vmovdqu16_zmmm512_k1z_zmm, Vmovdqu16, 2, op0=r;zmm11 op1=r;zmm18 k3 zmsk
 62 E1FF48 7F 50 01, EVEX_Vmovdqu16_zmmm512_k1z_zmm, Vmovdqu16, 2, op0=m;ds;rax;;1;64;1;Packed512_Int16 op1=r;zmm18 co=0;0;0;0;6;1
 
-66 0F80 5AA5, Jo_rel16, Jo, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F80 5AA5, Jo_rel16, Jo, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F805BA5
+66 0F80 5AA5, Jo_rel16, Jo, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F80 A55A, Jo_rel16, Jo, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F80 5AA5, Jo_rel16, Jo, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F805BA5
 
 0F80 5AA51234, Jo_rel32_64, Jo, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F80 A56789AB, Jo_rel32_64, Jo, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13298,14 +13300,14 @@ F2 0F80 A56789AB, Jo_rel32_64, Jo, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F80 A56789AB, Jo_rel32_64, Jo, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F80A66789AB co=3;4;0;0;0;0
 66 4F 0F80 5AA51234, Jo_rel32_64, Jo, 1, op0=nb64;0x800000003412A552 enc=0F805CA51234 co=4;4;0;0;0;0
 66 4F 0F80 A56789AB, Jo_rel32_64, Jo, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F80A76789AB co=4;4;0;0;0;0
-0F80 5AA51234, Jo_rel32_64, Jo, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F80 5AA51234, Jo_rel32_64, Jo, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F81 5AA5, Jno_rel16, Jno, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F81 5AA5, Jno_rel16, Jno, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F815BA5
+66 0F81 5AA5, Jno_rel16, Jno, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F81 A55A, Jno_rel16, Jno, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F81 5AA5, Jno_rel16, Jno, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F815BA5
 
 0F81 5AA51234, Jno_rel32_64, Jno, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F81 A56789AB, Jno_rel32_64, Jno, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13318,14 +13320,14 @@ F2 0F81 A56789AB, Jno_rel32_64, Jno, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F81 A56789AB, Jno_rel32_64, Jno, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F81A66789AB co=3;4;0;0;0;0
 66 4F 0F81 5AA51234, Jno_rel32_64, Jno, 1, op0=nb64;0x800000003412A552 enc=0F815CA51234 co=4;4;0;0;0;0
 66 4F 0F81 A56789AB, Jno_rel32_64, Jno, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F81A76789AB co=4;4;0;0;0;0
-0F81 5AA51234, Jno_rel32_64, Jno, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F81 5AA51234, Jno_rel32_64, Jno, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F82 5AA5, Jb_rel16, Jb, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F82 5AA5, Jb_rel16, Jb, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F825BA5
+66 0F82 5AA5, Jb_rel16, Jb, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F82 A55A, Jb_rel16, Jb, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F82 5AA5, Jb_rel16, Jb, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F825BA5
 
 0F82 5AA51234, Jb_rel32_64, Jb, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F82 A56789AB, Jb_rel32_64, Jb, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13338,14 +13340,14 @@ F2 0F82 A56789AB, Jb_rel32_64, Jb, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F82 A56789AB, Jb_rel32_64, Jb, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F82A66789AB co=3;4;0;0;0;0
 66 4F 0F82 5AA51234, Jb_rel32_64, Jb, 1, op0=nb64;0x800000003412A552 enc=0F825CA51234 co=4;4;0;0;0;0
 66 4F 0F82 A56789AB, Jb_rel32_64, Jb, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F82A76789AB co=4;4;0;0;0;0
-0F82 5AA51234, Jb_rel32_64, Jb, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F82 5AA51234, Jb_rel32_64, Jb, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F83 5AA5, Jae_rel16, Jae, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F83 5AA5, Jae_rel16, Jae, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F835BA5
+66 0F83 5AA5, Jae_rel16, Jae, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F83 A55A, Jae_rel16, Jae, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F83 5AA5, Jae_rel16, Jae, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F835BA5
 
 0F83 5AA51234, Jae_rel32_64, Jae, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F83 A56789AB, Jae_rel32_64, Jae, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13358,14 +13360,14 @@ F2 0F83 A56789AB, Jae_rel32_64, Jae, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F83 A56789AB, Jae_rel32_64, Jae, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F83A66789AB co=3;4;0;0;0;0
 66 4F 0F83 5AA51234, Jae_rel32_64, Jae, 1, op0=nb64;0x800000003412A552 enc=0F835CA51234 co=4;4;0;0;0;0
 66 4F 0F83 A56789AB, Jae_rel32_64, Jae, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F83A76789AB co=4;4;0;0;0;0
-0F83 5AA51234, Jae_rel32_64, Jae, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F83 5AA51234, Jae_rel32_64, Jae, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F84 5AA5, Je_rel16, Je, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F84 5AA5, Je_rel16, Je, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F845BA5
+66 0F84 5AA5, Je_rel16, Je, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F84 A55A, Je_rel16, Je, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F84 5AA5, Je_rel16, Je, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F845BA5
 
 0F84 5AA51234, Je_rel32_64, Je, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F84 A56789AB, Je_rel32_64, Je, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13378,14 +13380,14 @@ F2 0F84 A56789AB, Je_rel32_64, Je, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F84 A56789AB, Je_rel32_64, Je, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F84A66789AB co=3;4;0;0;0;0
 66 4F 0F84 5AA51234, Je_rel32_64, Je, 1, op0=nb64;0x800000003412A552 enc=0F845CA51234 co=4;4;0;0;0;0
 66 4F 0F84 A56789AB, Je_rel32_64, Je, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F84A76789AB co=4;4;0;0;0;0
-0F84 5AA51234, Je_rel32_64, Je, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F84 5AA51234, Je_rel32_64, Je, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F85 5AA5, Jne_rel16, Jne, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F85 5AA5, Jne_rel16, Jne, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F855BA5
+66 0F85 5AA5, Jne_rel16, Jne, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F85 A55A, Jne_rel16, Jne, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F85 5AA5, Jne_rel16, Jne, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F855BA5
 
 0F85 5AA51234, Jne_rel32_64, Jne, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F85 A56789AB, Jne_rel32_64, Jne, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13398,14 +13400,14 @@ F2 0F85 A56789AB, Jne_rel32_64, Jne, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F85 A56789AB, Jne_rel32_64, Jne, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F85A66789AB co=3;4;0;0;0;0
 66 4F 0F85 5AA51234, Jne_rel32_64, Jne, 1, op0=nb64;0x800000003412A552 enc=0F855CA51234 co=4;4;0;0;0;0
 66 4F 0F85 A56789AB, Jne_rel32_64, Jne, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F85A76789AB co=4;4;0;0;0;0
-0F85 5AA51234, Jne_rel32_64, Jne, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F85 5AA51234, Jne_rel32_64, Jne, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F86 5AA5, Jbe_rel16, Jbe, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F86 5AA5, Jbe_rel16, Jbe, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F865BA5
+66 0F86 5AA5, Jbe_rel16, Jbe, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F86 A55A, Jbe_rel16, Jbe, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F86 5AA5, Jbe_rel16, Jbe, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F865BA5
 
 0F86 5AA51234, Jbe_rel32_64, Jbe, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F86 A56789AB, Jbe_rel32_64, Jbe, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13418,14 +13420,14 @@ F2 0F86 A56789AB, Jbe_rel32_64, Jbe, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F86 A56789AB, Jbe_rel32_64, Jbe, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F86A66789AB co=3;4;0;0;0;0
 66 4F 0F86 5AA51234, Jbe_rel32_64, Jbe, 1, op0=nb64;0x800000003412A552 enc=0F865CA51234 co=4;4;0;0;0;0
 66 4F 0F86 A56789AB, Jbe_rel32_64, Jbe, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F86A76789AB co=4;4;0;0;0;0
-0F86 5AA51234, Jbe_rel32_64, Jbe, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F86 5AA51234, Jbe_rel32_64, Jbe, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F87 5AA5, Ja_rel16, Ja, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F87 5AA5, Ja_rel16, Ja, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F875BA5
+66 0F87 5AA5, Ja_rel16, Ja, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F87 A55A, Ja_rel16, Ja, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F87 5AA5, Ja_rel16, Ja, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F875BA5
 
 0F87 5AA51234, Ja_rel32_64, Ja, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F87 A56789AB, Ja_rel32_64, Ja, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13438,14 +13440,14 @@ F2 0F87 A56789AB, Ja_rel32_64, Ja, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F87 A56789AB, Ja_rel32_64, Ja, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F87A66789AB co=3;4;0;0;0;0
 66 4F 0F87 5AA51234, Ja_rel32_64, Ja, 1, op0=nb64;0x800000003412A552 enc=0F875CA51234 co=4;4;0;0;0;0
 66 4F 0F87 A56789AB, Ja_rel32_64, Ja, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F87A76789AB co=4;4;0;0;0;0
-0F87 5AA51234, Ja_rel32_64, Ja, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F87 5AA51234, Ja_rel32_64, Ja, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F88 5AA5, Js_rel16, Js, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F88 5AA5, Js_rel16, Js, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F885BA5
+66 0F88 5AA5, Js_rel16, Js, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F88 A55A, Js_rel16, Js, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F88 5AA5, Js_rel16, Js, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F885BA5
 
 0F88 5AA51234, Js_rel32_64, Js, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F88 A56789AB, Js_rel32_64, Js, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13458,14 +13460,14 @@ F2 0F88 A56789AB, Js_rel32_64, Js, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F88 A56789AB, Js_rel32_64, Js, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F88A66789AB co=3;4;0;0;0;0
 66 4F 0F88 5AA51234, Js_rel32_64, Js, 1, op0=nb64;0x800000003412A552 enc=0F885CA51234 co=4;4;0;0;0;0
 66 4F 0F88 A56789AB, Js_rel32_64, Js, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F88A76789AB co=4;4;0;0;0;0
-0F88 5AA51234, Js_rel32_64, Js, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F88 5AA51234, Js_rel32_64, Js, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F89 5AA5, Jns_rel16, Jns, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F89 5AA5, Jns_rel16, Jns, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F895BA5
+66 0F89 5AA5, Jns_rel16, Jns, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F89 A55A, Jns_rel16, Jns, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F89 5AA5, Jns_rel16, Jns, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F895BA5
 
 0F89 5AA51234, Jns_rel32_64, Jns, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F89 A56789AB, Jns_rel32_64, Jns, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13478,14 +13480,14 @@ F2 0F89 A56789AB, Jns_rel32_64, Jns, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F89 A56789AB, Jns_rel32_64, Jns, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F89A66789AB co=3;4;0;0;0;0
 66 4F 0F89 5AA51234, Jns_rel32_64, Jns, 1, op0=nb64;0x800000003412A552 enc=0F895CA51234 co=4;4;0;0;0;0
 66 4F 0F89 A56789AB, Jns_rel32_64, Jns, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F89A76789AB co=4;4;0;0;0;0
-0F89 5AA51234, Jns_rel32_64, Jns, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F89 5AA51234, Jns_rel32_64, Jns, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8A 5AA5, Jp_rel16, Jp, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8A 5AA5, Jp_rel16, Jp, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8A5BA5
+66 0F8A 5AA5, Jp_rel16, Jp, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8A A55A, Jp_rel16, Jp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8A 5AA5, Jp_rel16, Jp, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8A5BA5
 
 0F8A 5AA51234, Jp_rel32_64, Jp, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8A A56789AB, Jp_rel32_64, Jp, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13498,14 +13500,14 @@ F2 0F8A A56789AB, Jp_rel32_64, Jp, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F8A A56789AB, Jp_rel32_64, Jp, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8AA66789AB co=3;4;0;0;0;0
 66 4F 0F8A 5AA51234, Jp_rel32_64, Jp, 1, op0=nb64;0x800000003412A552 enc=0F8A5CA51234 co=4;4;0;0;0;0
 66 4F 0F8A A56789AB, Jp_rel32_64, Jp, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8AA76789AB co=4;4;0;0;0;0
-0F8A 5AA51234, Jp_rel32_64, Jp, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8A 5AA51234, Jp_rel32_64, Jp, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8B 5AA5, Jnp_rel16, Jnp, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8B 5AA5, Jnp_rel16, Jnp, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8B5BA5
+66 0F8B 5AA5, Jnp_rel16, Jnp, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8B A55A, Jnp_rel16, Jnp, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8B 5AA5, Jnp_rel16, Jnp, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8B5BA5
 
 0F8B 5AA51234, Jnp_rel32_64, Jnp, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8B A56789AB, Jnp_rel32_64, Jnp, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13518,14 +13520,14 @@ F2 0F8B A56789AB, Jnp_rel32_64, Jnp, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F8B A56789AB, Jnp_rel32_64, Jnp, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8BA66789AB co=3;4;0;0;0;0
 66 4F 0F8B 5AA51234, Jnp_rel32_64, Jnp, 1, op0=nb64;0x800000003412A552 enc=0F8B5CA51234 co=4;4;0;0;0;0
 66 4F 0F8B A56789AB, Jnp_rel32_64, Jnp, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8BA76789AB co=4;4;0;0;0;0
-0F8B 5AA51234, Jnp_rel32_64, Jnp, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8B 5AA51234, Jnp_rel32_64, Jnp, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8C 5AA5, Jl_rel16, Jl, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8C 5AA5, Jl_rel16, Jl, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8C5BA5
+66 0F8C 5AA5, Jl_rel16, Jl, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8C A55A, Jl_rel16, Jl, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8C 5AA5, Jl_rel16, Jl, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8C5BA5
 
 0F8C 5AA51234, Jl_rel32_64, Jl, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8C A56789AB, Jl_rel32_64, Jl, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13538,14 +13540,14 @@ F2 0F8C A56789AB, Jl_rel32_64, Jl, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F8C A56789AB, Jl_rel32_64, Jl, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8CA66789AB co=3;4;0;0;0;0
 66 4F 0F8C 5AA51234, Jl_rel32_64, Jl, 1, op0=nb64;0x800000003412A552 enc=0F8C5CA51234 co=4;4;0;0;0;0
 66 4F 0F8C A56789AB, Jl_rel32_64, Jl, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8CA76789AB co=4;4;0;0;0;0
-0F8C 5AA51234, Jl_rel32_64, Jl, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8C 5AA51234, Jl_rel32_64, Jl, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8D 5AA5, Jge_rel16, Jge, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8D 5AA5, Jge_rel16, Jge, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8D5BA5
+66 0F8D 5AA5, Jge_rel16, Jge, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8D A55A, Jge_rel16, Jge, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8D 5AA5, Jge_rel16, Jge, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8D5BA5
 
 0F8D 5AA51234, Jge_rel32_64, Jge, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8D A56789AB, Jge_rel32_64, Jge, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13558,14 +13560,14 @@ F2 0F8D A56789AB, Jge_rel32_64, Jge, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F8D A56789AB, Jge_rel32_64, Jge, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8DA66789AB co=3;4;0;0;0;0
 66 4F 0F8D 5AA51234, Jge_rel32_64, Jge, 1, op0=nb64;0x800000003412A552 enc=0F8D5CA51234 co=4;4;0;0;0;0
 66 4F 0F8D A56789AB, Jge_rel32_64, Jge, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8DA76789AB co=4;4;0;0;0;0
-0F8D 5AA51234, Jge_rel32_64, Jge, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8D 5AA51234, Jge_rel32_64, Jge, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8E 5AA5, Jle_rel16, Jle, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8E 5AA5, Jle_rel16, Jle, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8E5BA5
+66 0F8E 5AA5, Jle_rel16, Jle, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8E A55A, Jle_rel16, Jle, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8E 5AA5, Jle_rel16, Jle, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8E5BA5
 
 0F8E 5AA51234, Jle_rel32_64, Jle, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8E A56789AB, Jle_rel32_64, Jle, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13578,14 +13580,14 @@ F2 0F8E A56789AB, Jle_rel32_64, Jle, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0
 4F 0F8E A56789AB, Jle_rel32_64, Jle, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8EA66789AB co=3;4;0;0;0;0
 66 4F 0F8E 5AA51234, Jle_rel32_64, Jle, 1, op0=nb64;0x800000003412A552 enc=0F8E5CA51234 co=4;4;0;0;0;0
 66 4F 0F8E A56789AB, Jle_rel32_64, Jle, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8EA76789AB co=4;4;0;0;0;0
-0F8E 5AA51234, Jle_rel32_64, Jle, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8E 5AA51234, Jle_rel32_64, Jle, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
-66 0F8F 5AA5, Jg_rel16, Jg, 1, op0=nb16;0xA54F amdbr co=3;2;0;0;0;0
-66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9A amdbr co=3;2;0;0;0;0
-2E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 cs:
-3E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 ds:
-66 F2 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amdbr co=4;2;0;0;0;0 repne
-66 47 0F8F 5AA5, Jg_rel16, Jg, 1, op0=nb16;0xA550 amdbr co=4;2;0;0;0;0 enc=660F8F5BA5
+66 0F8F 5AA5, Jg_rel16, Jg, 1, op0=nb16;0xA54F amd co=3;2;0;0;0;0
+66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9A amd co=3;2;0;0;0;0
+2E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 cs:
+3E 66 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 ds:
+66 F2 0F8F A55A, Jg_rel16, Jg, 1, op0=nb16;0x5A9B amd co=4;2;0;0;0;0 repne
+66 47 0F8F 5AA5, Jg_rel16, Jg, 1, op0=nb16;0xA550 amd co=4;2;0;0;0;0 enc=660F8F5BA5
 
 0F8F 5AA51234, Jg_rel32_64, Jg, 1, op0=nb64;0x800000003412A550 co=2;4;0;0;0;0
 0F8F A56789AB, Jg_rel32_64, Jg, 1, op0=nb64;0x7FFFFFFFAB89679B co=2;4;0;0;0;0
@@ -13598,7 +13600,7 @@ F2 0F8F A56789AB, Jg_rel32_64, Jg, 1, op0=nb64;0x7FFFFFFFAB89679C co=3;4;0;0;0;0
 4F 0F8F A56789AB, Jg_rel32_64, Jg, 1, op0=nb64;0x7FFFFFFFAB89679C enc=0F8FA66789AB co=3;4;0;0;0;0
 66 4F 0F8F 5AA51234, Jg_rel32_64, Jg, 1, op0=nb64;0x800000003412A552 enc=0F8F5CA51234 co=4;4;0;0;0;0
 66 4F 0F8F A56789AB, Jg_rel32_64, Jg, 1, op0=nb64;0x7FFFFFFFAB89679D enc=0F8FA76789AB co=4;4;0;0;0;0
-0F8F 5AA51234, Jg_rel32_64, Jg, 1, op0=nb64;0x800000003412A550 amdbr co=2;4;0;0;0;0
+0F8F 5AA51234, Jg_rel32_64, Jg, 1, op0=nb64;0x800000003412A550 amd co=2;4;0;0;0;0
 
 0F90 C0, Seto_rm8, Seto, 1, op0=r;al
 0F90 C1, Seto_rm8, Seto, 1, op0=r;cl
@@ -14764,6 +14766,7 @@ F0 F2 48 0FB1 18, Cmpxchg_rm64_r64, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r
 66 44 0FB2 18, Lss_r16_m1616, Lss, 2, op0=r;r11w op1=m;ds;rax;;1;0;0;SegPtr16
 
 0FB2 18, Lss_r32_m1632, Lss, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32
+48 0FB2 18, Lss_r32_m1632, Lss, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32 amd enc=0FB218
 44 0FB2 18, Lss_r32_m1632, Lss, 2, op0=r;r11d op1=m;ds;rax;;1;0;0;SegPtr32
 
 48 0FB2 18, Lss_r64_m1664, Lss, 2, op0=r;rbx op1=m;ds;rax;;1;0;0;SegPtr64
@@ -14812,6 +14815,7 @@ F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx loc
 66 44 0FB4 18, Lfs_r16_m1616, Lfs, 2, op0=r;r11w op1=m;ds;rax;;1;0;0;SegPtr16
 
 0FB4 18, Lfs_r32_m1632, Lfs, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32
+48 0FB4 18, Lfs_r32_m1632, Lfs, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32 amd enc=0FB418
 44 0FB4 18, Lfs_r32_m1632, Lfs, 2, op0=r;r11d op1=m;ds;rax;;1;0;0;SegPtr32
 
 48 0FB4 18, Lfs_r64_m1664, Lfs, 2, op0=r;rbx op1=m;ds;rax;;1;0;0;SegPtr64
@@ -14821,6 +14825,7 @@ F0 F2 48 0FB3 18, Btr_rm64_r64, Btr, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx loc
 66 44 0FB5 18, Lgs_r16_m1616, Lgs, 2, op0=r;r11w op1=m;ds;rax;;1;0;0;SegPtr16
 
 0FB5 18, Lgs_r32_m1632, Lgs, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32
+48 0FB5 18, Lgs_r32_m1632, Lgs, 2, op0=r;ebx op1=m;ds;rax;;1;0;0;SegPtr32 amd enc=0FB518
 44 0FB5 18, Lgs_r32_m1632, Lgs, 2, op0=r;r11d op1=m;ds;rax;;1;0;0;SegPtr32
 
 48 0FB5 18, Lgs_r64_m1664, Lgs, 2, op0=r;rbx op1=m;ds;rax;;1;0;0;SegPtr64

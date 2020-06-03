@@ -983,21 +983,21 @@ DF 38, Fistp_m64int
 DF E0, Fnstsw_AX
 DF EB, Fucomip_st0_sti
 DF F3, Fcomip_st0_sti
-66 67 E0 5A, Loopne_rel8_16_ECX, AmdBranches
+66 67 E0 5A, Loopne_rel8_16_ECX, AMD
 67 E0 5A, Loopne_rel8_64_ECX
-66 E0 5A, Loopne_rel8_16_RCX, AmdBranches
+66 E0 5A, Loopne_rel8_16_RCX, AMD
 E0 5A, Loopne_rel8_64_RCX
-66 67 E1 5A, Loope_rel8_16_ECX, AmdBranches
+66 67 E1 5A, Loope_rel8_16_ECX, AMD
 67 E1 5A, Loope_rel8_64_ECX
-66 E1 5A, Loope_rel8_16_RCX, AmdBranches
+66 E1 5A, Loope_rel8_16_RCX, AMD
 E1 5A, Loope_rel8_64_RCX
-66 67 E2 5A, Loop_rel8_16_ECX, AmdBranches
+66 67 E2 5A, Loop_rel8_16_ECX, AMD
 67 E2 5A, Loop_rel8_64_ECX
-66 E2 5A, Loop_rel8_16_RCX, AmdBranches
+66 E2 5A, Loop_rel8_16_RCX, AMD
 E2 5A, Loop_rel8_64_RCX
-66 67 E3 5A, Jecxz_rel8_16, AmdBranches
+66 67 E3 5A, Jecxz_rel8_16, AMD
 67 E3 5A, Jecxz_rel8_64
-66 E3 5A, Jrcxz_rel8_16, AmdBranches
+66 E3 5A, Jrcxz_rel8_16, AMD
 E3 5A, Jrcxz_rel8_64
 E4 5A, In_AL_imm8
 66 E5 5A, In_AX_imm8

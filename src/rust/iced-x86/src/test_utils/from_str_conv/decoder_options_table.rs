@@ -36,7 +36,7 @@ lazy_static! {
 		let mut h = HashMap::with_capacity(20);
 		h.insert("None", DecoderOptions::NONE);
 		h.insert("NoInvalidCheck", DecoderOptions::NO_INVALID_CHECK);
-		h.insert("AmdBranches", DecoderOptions::AMD_BRANCHES);
+		h.insert("AMD", DecoderOptions::AMD);
 		h.insert("ForceReservedNop", DecoderOptions::FORCE_RESERVED_NOP);
 		h.insert("Umov", DecoderOptions::UMOV);
 		h.insert("Xbts", DecoderOptions::XBTS);

@@ -37,7 +37,7 @@ namespace Iced.Intel {
 		/// <summary>Disable some checks for invalid encodings of instructions, eg. most instructions can&apos;t use a <c>LOCK</c> prefix so if one is found, they&apos;re decoded as <see cref="Code.INVALID"/> unless this option is enabled.</summary>
 		NoInvalidCheck = 0x00000001,
 		/// <summary>AMD branch decoder: allow 16-bit branch/ret instructions in 64-bit mode</summary>
-		AmdBranches = 0x00000002,
+		AMD = 0x00000002,
 		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)</summary>
 		ForceReservedNop = 0x00000004,
 		/// <summary>Decode <c>UMOV</c> instructions (eg. <see cref="Code.Umov_r32_rm32"/>)</summary>

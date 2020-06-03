@@ -284,8 +284,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
 			foreach (var opt in stringOptions) {
 				switch (opt.Trim().ToLowerInvariant()) {
-				case InstructionInfoDecoderOptions.AmdBranches:
-					options |= DecoderOptions.AmdBranches;
+				case InstructionInfoDecoderOptions.AMD:
+					options |= DecoderOptions.AMD;
 					break;
 				case InstructionInfoDecoderOptions.ForceReservedNop:
 					options |= DecoderOptions.ForceReservedNop;

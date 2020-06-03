@@ -54,7 +54,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string Op4Kind = "op4";
 		internal const string EncodedHexBytes = "enc";
 		internal const string Code = "code";
-		internal const string DecoderOptions_AmdBranches = "amdbr";
+		internal const string DecoderOptions_AMD = "amd";
 		internal const string DecoderOptions_ForceReservedNop = "resnop";
 		internal const string DecoderOptions_Umov = "umov";
 		internal const string DecoderOptions_Xbts = "xbts";
@@ -278,8 +278,8 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					foundCode = true;
 					break;
 
-				case DecoderTestParserConstants.DecoderOptions_AmdBranches:
-					tc.DecoderOptions |= DecoderOptions.AmdBranches;
+				case DecoderTestParserConstants.DecoderOptions_AMD:
+					tc.DecoderOptions |= DecoderOptions.AMD;
 					break;
 
 				case DecoderTestParserConstants.DecoderOptions_ForceReservedNop:

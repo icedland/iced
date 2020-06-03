@@ -119,7 +119,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, decoderOptions | DecoderOptions.AmdBranches, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, origRip - 1, newData, options, decoderOptions | DecoderOptions.AMD, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]
@@ -147,7 +147,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			};
 			var expectedRelocInfos = Array.Empty<RelocInfo>();
 			const BlockEncoderOptions options = BlockEncoderOptions.None;
-			EncodeBase(bitness, origRip, originalData, origRip + 0x1000, newData, options, decoderOptions | DecoderOptions.AmdBranches, expectedInstructionOffsets, expectedRelocInfos);
+			EncodeBase(bitness, origRip, originalData, origRip + 0x1000, newData, options, decoderOptions | DecoderOptions.AMD, expectedInstructionOffsets, expectedRelocInfos);
 		}
 
 		[Fact]

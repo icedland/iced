@@ -262,7 +262,7 @@ fn br8_fwd_os() {
 		ORIG_RIP - 1,
 		&new_data,
 		OPTIONS,
-		DECODER_OPTIONS | DecoderOptions::AMD_BRANCHES,
+		DECODER_OPTIONS | DecoderOptions::AMD,
 		&expected_instruction_offsets,
 		&expected_reloc_infos,
 	);

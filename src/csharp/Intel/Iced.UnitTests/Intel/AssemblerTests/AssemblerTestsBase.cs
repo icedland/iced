@@ -29,30 +29,25 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
 	public abstract class AssemblerTestsBase {
-		int _bitness;
+		readonly int bitness;
 
-		protected AssemblerTestsBase(int bitness) {
-			_bitness = bitness;
-		}
+		protected AssemblerTestsBase(int bitness) =>
+			this.bitness = bitness;
 
-		public int Bitness => _bitness;
+		public int Bitness => bitness;
 
 		protected void TestAssembler(Action<Assembler> fAsm, Instruction expectedInst, LocalOpCodeFlags flags = LocalOpCodeFlags.None) {
-			var assembler = new Assembler(_bitness);
+			var assembler = new Assembler(bitness);
 
 			// Encode the instruction
-			if ((flags & LocalOpCodeFlags.PreferVex) != 0) {
+			if ((flags & LocalOpCodeFlags.PreferVex) != 0)
 				assembler.PreferVex = true;
-			}
-			else if ((flags & LocalOpCodeFlags.PreferEvex) != 0) {
+			else if ((flags & LocalOpCodeFlags.PreferEvex) != 0)
 				assembler.PreferVex = false;
-			}
-			if ((flags & LocalOpCodeFlags.PreferBranchShort) != 0) {
+			if ((flags & LocalOpCodeFlags.PreferBranchShort) != 0)
 				assembler.PreferBranchShort = true;
-			}
-			else if ((flags & LocalOpCodeFlags.PreferBranchNear) != 0) {
+			else if ((flags & LocalOpCodeFlags.PreferBranchNear) != 0)
 				assembler.PreferBranchShort = false;
-			}
 			fAsm(assembler);
 
 			// Expecting only one instruction
@@ -63,16 +58,19 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			assembler.Assemble(writer, 0, (flags & LocalOpCodeFlags.BranchUlong) != 0 ? BlockEncoderOptions.None : BlockEncoderOptions.DontFixBranches);
 
 			// Check that the instruction is the one expected
-			if ((flags & LocalOpCodeFlags.Broadcast) != 0) {
+			if ((flags & LocalOpCodeFlags.Broadcast) != 0)
 				expectedInst.IsBroadcast = true;
-			}
 			var inst = assembler.Instructions[0];
 			Assert.Equal(expectedInst, inst);
 
 			// Special for decoding options
-			DecoderOptions decoderOptions = DecoderOptions.None;
+			var decoderOptions = DecoderOptions.None;
 			switch (inst.Code) {
-
+			case Code.Call_rm16:
+			case Code.Jmp_rm16:
+				if (bitness == 64)
+					decoderOptions = DecoderOptions.AMD;
+				break;
 			case Code.Umov_rm8_r8:
 			case Code.Umov_rm16_r16:
 			case Code.Umov_rm32_r32:
@@ -142,17 +140,12 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				break;
 			}
 
-			if ((flags & LocalOpCodeFlags.BranchUlong) == 0) {
-				decoderOptions |= DecoderOptions.AmdBranches;
-			}
-
 			// Check decoding back against the original instruction
 			var instructionAsBytes = new System.Text.StringBuilder();
-			foreach (var b in writer.ToArray()) {
-				instructionAsBytes.Append($"{b:x2} ");
-			}
+			foreach (var b in writer.ToArray())
+				instructionAsBytes.Append($"{b:X2} ");
 
-			var decoder = Decoder.Create(_bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
+			var decoder = Decoder.Create(bitness, new ByteArrayCodeReader(writer.ToArray()), decoderOptions);
 			var decodedInst = decoder.Decode();
 			if ((flags & LocalOpCodeFlags.Fwait) != 0) {
 				Assert.Equal(decodedInst, Instruction.Create(Code.Wait));
@@ -225,13 +218,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 					Assert.True(nextDecodedInst.Code == expectedCode, $"Branch ulong next decoding failed!\nExpected: {expectedCode} \nActual Decoded: {nextDecodedInst}\n");
 				}
-				else {
+				else
 					Assert.True(inst.NearBranch64 == decodedInst.NearBranch64, $"Branch decoding offset failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
-				}
 			}
-			else {
+			else
 				Assert.True(inst == decodedInst, $"Decoding failed!\nExpected: {inst} ({instructionAsBytes})\nActual Decoded: {decodedInst}\n");
-			}
 		}
 
 		protected unsafe void TestAssemblerDeclareData<T>(Action<Assembler> fAsm, T[] data) where T : unmanaged {
@@ -258,36 +249,29 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			return label;
 		}
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) {
-			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister8 src) =>
+			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) {
-			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister16 src) =>
+			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) {
-			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister32 src) =>
+			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) {
-			return Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerMemoryOperand dst, AssemblerRegister64 src) =>
+			Instruction.CreateMemory64(code, (ulong)dst.Displacement, src, dst.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) {
-			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerRegister8 dst, AssemblerMemoryOperand src) =>
+			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) {
-			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-		}
-		protected Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) {
-			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerRegister16 dst, AssemblerMemoryOperand src) =>
+			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
-		protected Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) {
-			return Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
-		}
+		protected Instruction CreateMemory64(Code code, AssemblerRegister32 dst, AssemblerMemoryOperand src) =>
+			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
+
+		protected Instruction CreateMemory64(Code code, AssemblerRegister64 dst, AssemblerMemoryOperand src) =>
+			Instruction.CreateMemory64(code, dst, (ulong)src.Displacement, src.Prefix);
 
 		protected Instruction AssignLabel(Instruction instruction, ulong value) {
 			instruction.IP = value;

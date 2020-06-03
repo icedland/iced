@@ -195,10 +195,10 @@ test("Decode with DecoderOptions.NoInvalidCheck", () => {
 	instrb.free();
 });
 
-test("Decode with DecoderOptions.AmdBranches", () => {
+test("Decode with DecoderOptions.AMD", () => {
 	const bytes = new Uint8Array([0x66, 0x70, 0x5A]);
 	const decodera = new Decoder(64, bytes, DecoderOptions.None);
-	const decoderb = new Decoder(64, bytes, DecoderOptions.AmdBranches);
+	const decoderb = new Decoder(64, bytes, DecoderOptions.AMD);
 
 	const instra = decodera.decode();
 	const instrb = decoderb.decode();
@@ -217,7 +217,7 @@ test("Creating a Decoder with an invalid bitness throws", () => {
 
 // Make sure it's not an enum arg in the Rust code since it's a flags enum. It must be a u32 in the method sig.
 test("Create a Decoder with multiple options", () => {
-	const decoder = new Decoder(64, new Uint8Array([0xF3, 0x90]), DecoderOptions.AmdBranches | DecoderOptions.NoPause);
+	const decoder = new Decoder(64, new Uint8Array([0xF3, 0x90]), DecoderOptions.AMD | DecoderOptions.NoPause);
 	const instr = decoder.decode();
 	expect(instr.code).toBe(Code.Nopd);
 	decoder.free();

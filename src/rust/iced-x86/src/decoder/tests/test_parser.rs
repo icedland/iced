@@ -101,7 +101,7 @@ lazy_static! {
 		h.insert("op4", DecoderTestParserConstants::OP4_KIND);
 		h.insert("enc", DecoderTestParserConstants::ENCODED_HEX_BYTES);
 		h.insert("code", DecoderTestParserConstants::CODE);
-		h.insert("amdbr", DecoderTestParserConstants::DECODER_OPTIONS_AMD_BRANCHES);
+		h.insert("amd", DecoderTestParserConstants::DECODER_OPTIONS_AMD);
 		h.insert("resnop", DecoderTestParserConstants::DECODER_OPTIONS_FORCE_RESERVED_NOP);
 		h.insert("umov", DecoderTestParserConstants::DECODER_OPTIONS_UMOV);
 		h.insert("xbts", DecoderTestParserConstants::DECODER_OPTIONS_XBTS);
@@ -191,7 +191,7 @@ impl DecoderTestParserConstants {
 	pub(crate) const OP4_KIND: u32 = 21;
 	pub(crate) const ENCODED_HEX_BYTES: u32 = 22;
 	pub(crate) const CODE: u32 = 23;
-	pub(crate) const DECODER_OPTIONS_AMD_BRANCHES: u32 = 24;
+	pub(crate) const DECODER_OPTIONS_AMD: u32 = 24;
 	pub(crate) const DECODER_OPTIONS_FORCE_RESERVED_NOP: u32 = 25;
 	pub(crate) const DECODER_OPTIONS_UMOV: u32 = 26;
 	pub(crate) const DECODER_OPTIONS_XBTS: u32 = 27;
@@ -393,7 +393,7 @@ impl IntoIter {
 					found_code = true;
 				}
 
-				DecoderTestParserConstants::DECODER_OPTIONS_AMD_BRANCHES => tc.decoder_options |= DecoderOptions::AMD_BRANCHES,
+				DecoderTestParserConstants::DECODER_OPTIONS_AMD => tc.decoder_options |= DecoderOptions::AMD,
 				DecoderTestParserConstants::DECODER_OPTIONS_FORCE_RESERVED_NOP => tc.decoder_options |= DecoderOptions::FORCE_RESERVED_NOP,
 				DecoderTestParserConstants::DECODER_OPTIONS_UMOV => tc.decoder_options |= DecoderOptions::UMOV,
 				DecoderTestParserConstants::DECODER_OPTIONS_XBTS => tc.decoder_options |= DecoderOptions::XBTS,

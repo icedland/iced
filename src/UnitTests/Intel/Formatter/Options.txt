@@ -2159,14 +2159,14 @@
 
 64, 67 E0 00, Loopne_rel8_64_ECX, CC_ne=ne
 64, 67 E0 00, Loopne_rel8_64_ECX, CC_ne=nz
-64, 66 E0 00, Loopne_rel8_16_RCX, CC_ne=ne DecoderOptions=AmdBranches
-64, 66 E0 00, Loopne_rel8_16_RCX, CC_ne=nz DecoderOptions=AmdBranches
+64, 66 E0 00, Loopne_rel8_16_RCX, CC_ne=ne DecoderOptions=AMD
+64, 66 E0 00, Loopne_rel8_16_RCX, CC_ne=nz DecoderOptions=AMD
 64, E0 00, Loopne_rel8_64_RCX, CC_ne=ne
 64, E0 00, Loopne_rel8_64_RCX, CC_ne=nz
 64, 67 E1 00, Loope_rel8_64_ECX, CC_e=e
 64, 67 E1 00, Loope_rel8_64_ECX, CC_e=z
-64, 66 E1 00, Loope_rel8_16_RCX, CC_e=e DecoderOptions=AmdBranches
-64, 66 E1 00, Loope_rel8_16_RCX, CC_e=z DecoderOptions=AmdBranches
+64, 66 E1 00, Loope_rel8_16_RCX, CC_e=e DecoderOptions=AMD
+64, 66 E1 00, Loope_rel8_16_RCX, CC_e=z DecoderOptions=AMD
 64, E1 00, Loope_rel8_64_RCX, CC_e=e
 64, E1 00, Loope_rel8_64_RCX, CC_e=z
 
