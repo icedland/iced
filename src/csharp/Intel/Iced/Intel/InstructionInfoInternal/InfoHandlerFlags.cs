@@ -221,12 +221,12 @@ namespace Iced.Intel.InstructionInfoInternal {
 		R_ST0_RW_ST1,
 		R_ST0_ST1,
 		R_XMM0,
-		Read_Reg8_Op0,
-		Read_Reg8_Op1,
-		Read_Reg8_Op2,
-		Read_Reg16_Op0,
-		Read_Reg16_Op1,
-		Read_Reg16_Op2,
+		Read_Reg8_OpM1,
+		Read_Reg8_OpM1_imm,
+		Read_Reg16_OpM1,
+		Read_Reg16_OpM1_imm,
+		R_EAX_EDX_Op0_GPR32,
+		Invlpgb,
 		RW_AL,
 		RW_AX,
 		RW_CR0,
@@ -258,7 +258,6 @@ namespace Iced.Intel.InstructionInfoInternal {
 		Rmpupdate,
 		Psmash,
 		Pvalidate,
-		Invlpgb,
 	}
 	// GENERATOR-END: CodeInfo
 

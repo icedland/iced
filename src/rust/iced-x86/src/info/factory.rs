@@ -1997,6 +1997,24 @@ impl InstructionInfoFactory {
 				}
 			}
 
+			CodeInfo::R_EAX_EDX_Op0_GPR32 => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
+
+					debug_assert_eq!(OpKind::Register, instruction.op0_kind());
+					debug_assert!(info.used_registers.len() >= 1);
+					debug_assert_eq!(instruction.op0_register(), info.used_registers[0].register);
+					index = Self::try_get_gpr_16_32_64_index(instruction.op0_register());
+					if index >= 0 {
+						info.used_registers[0] = UsedRegister {
+							register: unsafe { mem::transmute((Register::EAX as u32).wrapping_add(index as u32) as u8) },
+							access: OpAccess::Read,
+						};
+					}
+				}
+			}
+
 			CodeInfo::R_ECX_W_EAX_EDX => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_register(flags, info, Register::EAX, OpAccess::Write);
@@ -2867,17 +2885,21 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::Read_Reg8_Op0 => {
+			CodeInfo::Read_Reg8_OpM1 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op0_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 1);
-						debug_assert_eq!(instruction.op0_register(), info.used_registers[0].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op0_register());
+					const N: usize = 1;
+					let op_index = instruction.op_count() - N as u32;
+					if instruction.op_kind(op_index) == OpKind::Register {
+						debug_assert!(info.used_registers.len() >= N);
+						debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register);
+						debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access);
+						index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
 						if index >= 4 {
 							index += 4; // Skip AH, CH, DH, BH
 						}
 						if index >= 0 {
-							info.used_registers[0] = UsedRegister {
+							let regs_index = info.used_registers.len() - N;
+							info.used_registers[regs_index] = UsedRegister {
 								register: unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as u8) },
 								access: OpAccess::Read,
 							};
@@ -2886,17 +2908,21 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::Read_Reg8_Op1 => {
+			CodeInfo::Read_Reg8_OpM1_imm => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op1_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 2);
-						debug_assert_eq!(instruction.op1_register(), info.used_registers[1].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op1_register());
+					const N: usize = 1;
+					let op_index = instruction.op_count() - N as u32 - 1;
+					if instruction.op_kind(op_index) == OpKind::Register {
+						debug_assert!(info.used_registers.len() >= N);
+						debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register);
+						debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access);
+						index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
 						if index >= 4 {
 							index += 4; // Skip AH, CH, DH, BH
 						}
 						if index >= 0 {
-							info.used_registers[1] = UsedRegister {
+							let regs_index = info.used_registers.len() - N;
+							info.used_registers[regs_index] = UsedRegister {
 								register: unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as u8) },
 								access: OpAccess::Read,
 							};
@@ -2905,33 +2931,18 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::Read_Reg8_Op2 => {
+			CodeInfo::Read_Reg16_OpM1 => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op2_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 3);
-						debug_assert_eq!(instruction.op2_register(), info.used_registers[2].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op2_register());
-						if index >= 4 {
-							index += 4; // Skip AH, CH, DH, BH
-						}
+					const N: usize = 1;
+					let op_index = instruction.op_count() - N as u32;
+					if instruction.op_kind(op_index) == OpKind::Register {
+						debug_assert!(info.used_registers.len() >= N);
+						debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register);
+						debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access);
+						index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
 						if index >= 0 {
-							info.used_registers[2] = UsedRegister {
-								register: unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as u8) },
-								access: OpAccess::Read,
-							};
-						}
-					}
-				}
-			}
-
-			CodeInfo::Read_Reg16_Op0 => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op0_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 1);
-						debug_assert_eq!(instruction.op0_register(), info.used_registers[0].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op0_register());
-						if index >= 0 {
-							info.used_registers[0] = UsedRegister {
+							let regs_index = info.used_registers.len() - N;
+							info.used_registers[regs_index] = UsedRegister {
 								register: unsafe { mem::transmute((Register::AX as u32).wrapping_add(index as u32) as u8) },
 								access: OpAccess::Read,
 							};
@@ -2940,30 +2951,18 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::Read_Reg16_Op1 => {
+			CodeInfo::Read_Reg16_OpM1_imm => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op1_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 2);
-						debug_assert_eq!(instruction.op1_register(), info.used_registers[1].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op1_register());
+					const N: usize = 1;
+					let op_index = instruction.op_count() - N as u32 - 1;
+					if instruction.op_kind(op_index) == OpKind::Register {
+						debug_assert!(info.used_registers.len() >= N);
+						debug_assert_eq!(instruction.op_register(op_index), info.used_registers[info.used_registers.len() - N].register);
+						debug_assert_eq!(OpAccess::Read, info.used_registers[info.used_registers.len() - N].access);
+						index = Self::try_get_gpr_16_32_64_index(instruction.op_register(op_index));
 						if index >= 0 {
-							info.used_registers[1] = UsedRegister {
-								register: unsafe { mem::transmute((Register::AX as u32).wrapping_add(index as u32) as u8) },
-								access: OpAccess::Read,
-							};
-						}
-					}
-				}
-			}
-
-			CodeInfo::Read_Reg16_Op2 => {
-				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if instruction.op2_kind() == OpKind::Register {
-						debug_assert!(info.used_registers.len() >= 3);
-						debug_assert_eq!(instruction.op2_register(), info.used_registers[2].register);
-						index = Self::try_get_gpr_16_32_64_index(instruction.op2_register());
-						if index >= 0 {
-							info.used_registers[2] = UsedRegister {
+							let regs_index = info.used_registers.len() - N;
+							info.used_registers[regs_index] = UsedRegister {
 								register: unsafe { mem::transmute((Register::AX as u32).wrapping_add(index as u32) as u8) },
 								access: OpAccess::Read,
 							};

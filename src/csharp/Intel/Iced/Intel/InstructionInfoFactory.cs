@@ -1405,6 +1405,20 @@ namespace Iced.Intel {
 				}
 				break;
 
+			case CodeInfo.R_EAX_EDX_Op0_GPR32:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.EAX, OpAccess.Read);
+					AddRegister(flags, Register.EDX, OpAccess.Read);
+
+					Debug.Assert(instruction.Op0Kind == OpKind.Register);
+					Debug.Assert(info.usedRegisters.ValidLength >= 1);
+					Debug.Assert(info.usedRegisters.Array[0].Register == instruction.Op0Register);
+					index = TryGetGpr163264Index(instruction.Op0Register);
+					if (index >= 0)
+						info.usedRegisters.Array[0] = new UsedRegister(Register.EAX + index, OpAccess.Read);
+				}
+				break;
+
 			case CodeInfo.R_ECX_W_EAX_EDX:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.EAX, OpAccess.Write);
@@ -1907,80 +1921,66 @@ namespace Iced.Intel {
 				}
 				break;
 
-			case CodeInfo.Read_Reg8_Op0:
+			case CodeInfo.Read_Reg8_OpM1:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op0Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 1);
-						Debug.Assert(info.usedRegisters.Array[0].Register == instruction.Op0Register);
-						index = TryGetGpr163264Index(instruction.Op0Register);
+					const int N = 1;
+					int opIndex = instruction.OpCount - N;
+					if (instruction.GetOpKind(opIndex) == OpKind.Register) {
+						Debug.Assert(info.usedRegisters.ValidLength >= N);
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Register == instruction.GetOpRegister(opIndex));
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Access == OpAccess.Read);
+						index = TryGetGpr163264Index(instruction.GetOpRegister(opIndex));
 						if (index >= 4)
 							index += 4;// Skip AH, CH, DH, BH
 						if (index >= 0)
-							info.usedRegisters.Array[0] = new UsedRegister(Register.AL + index, OpAccess.Read);
+							info.usedRegisters.Array[info.usedRegisters.ValidLength - N] = new UsedRegister(Register.AL + index, OpAccess.Read);
 					}
 				}
 				break;
 
-			case CodeInfo.Read_Reg8_Op1:
+			case CodeInfo.Read_Reg8_OpM1_imm:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op1Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 2);
-						Debug.Assert(info.usedRegisters.Array[1].Register == instruction.Op1Register);
-						index = TryGetGpr163264Index(instruction.Op1Register);
+					const int N = 1;
+					int opIndex = instruction.OpCount - N - 1;
+					if (instruction.GetOpKind(opIndex) == OpKind.Register) {
+						Debug.Assert(info.usedRegisters.ValidLength >= N);
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Register == instruction.GetOpRegister(opIndex));
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Access == OpAccess.Read);
+						index = TryGetGpr163264Index(instruction.GetOpRegister(opIndex));
 						if (index >= 4)
 							index += 4;// Skip AH, CH, DH, BH
 						if (index >= 0)
-							info.usedRegisters.Array[1] = new UsedRegister(Register.AL + index, OpAccess.Read);
+							info.usedRegisters.Array[info.usedRegisters.ValidLength - N] = new UsedRegister(Register.AL + index, OpAccess.Read);
 					}
 				}
 				break;
 
-			case CodeInfo.Read_Reg8_Op2:
+			case CodeInfo.Read_Reg16_OpM1:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op2Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 3);
-						Debug.Assert(info.usedRegisters.Array[2].Register == instruction.Op2Register);
-						index = TryGetGpr163264Index(instruction.Op2Register);
-						if (index >= 4)
-							index += 4;// Skip AH, CH, DH, BH
+					const int N = 1;
+					int opIndex = instruction.OpCount - N;
+					if (instruction.GetOpKind(opIndex) == OpKind.Register) {
+						Debug.Assert(info.usedRegisters.ValidLength >= N);
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Register == instruction.GetOpRegister(opIndex));
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Access == OpAccess.Read);
+						index = TryGetGpr163264Index(instruction.GetOpRegister(opIndex));
 						if (index >= 0)
-							info.usedRegisters.Array[2] = new UsedRegister(Register.AL + index, OpAccess.Read);
+							info.usedRegisters.Array[info.usedRegisters.ValidLength - N] = new UsedRegister(Register.AX + index, OpAccess.Read);
 					}
 				}
 				break;
 
-			case CodeInfo.Read_Reg16_Op0:
+			case CodeInfo.Read_Reg16_OpM1_imm:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op0Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 1);
-						Debug.Assert(info.usedRegisters.Array[0].Register == instruction.Op0Register);
-						index = TryGetGpr163264Index(instruction.Op0Register);
+					const int N = 1;
+					int opIndex = instruction.OpCount - N - 1;
+					if (instruction.GetOpKind(opIndex) == OpKind.Register) {
+						Debug.Assert(info.usedRegisters.ValidLength >= N);
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Register == instruction.GetOpRegister(opIndex));
+						Debug.Assert(info.usedRegisters.Array[info.usedRegisters.ValidLength - N].Access == OpAccess.Read);
+						index = TryGetGpr163264Index(instruction.GetOpRegister(opIndex));
 						if (index >= 0)
-							info.usedRegisters.Array[0] = new UsedRegister(Register.AX + index, OpAccess.Read);
-					}
-				}
-				break;
-
-			case CodeInfo.Read_Reg16_Op1:
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op1Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 2);
-						Debug.Assert(info.usedRegisters.Array[1].Register == instruction.Op1Register);
-						index = TryGetGpr163264Index(instruction.Op1Register);
-						if (index >= 0)
-							info.usedRegisters.Array[1] = new UsedRegister(Register.AX + index, OpAccess.Read);
-					}
-				}
-				break;
-
-			case CodeInfo.Read_Reg16_Op2:
-				if ((flags & Flags.NoRegisterUsage) == 0) {
-					if (instruction.Op2Kind == OpKind.Register) {
-						Debug.Assert(info.usedRegisters.ValidLength >= 3);
-						Debug.Assert(info.usedRegisters.Array[2].Register == instruction.Op2Register);
-						index = TryGetGpr163264Index(instruction.Op2Register);
-						if (index >= 0)
-							info.usedRegisters.Array[2] = new UsedRegister(Register.AX + index, OpAccess.Read);
+							info.usedRegisters.Array[info.usedRegisters.ValidLength - N] = new UsedRegister(Register.AX + index, OpAccess.Read);
 					}
 				}
 				break;

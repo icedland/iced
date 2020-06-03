@@ -319,8 +319,8 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x8000_0027, 0x0500_0000,// Lea_r32_m
 	0x8000_0027, 0x0C00_0000,// Lea_r64_m
 	0x0000_0037, 0x0000_0000,// Mov_Sreg_rm16
-	0x0440_0037, 0x0500_0000,// Mov_Sreg_r32m16
-	0x0440_0037, 0x0C00_0000,// Mov_Sreg_r64m16
+	0x0420_0037, 0x0500_0000,// Mov_Sreg_r32m16
+	0x0420_0037, 0x0C00_0000,// Mov_Sreg_r64m16
 	0x12C0_0007, 0x0000_0000,// Pop_rm16
 	0x12C0_0007, 0x0500_0000,// Pop_rm32
 	0x12C0_0007, 0x0C00_0000,// Pop_rm64
@@ -804,17 +804,17 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_0007, 0x0500_0000,// Str_r32m16
 	0x2000_0007, 0x0C00_0000,// Str_r64m16
 	0x6000_0004, 0x0300_0000,// Lldt_rm16
-	0x6430_0004, 0x0500_0000,// Lldt_r32m16
-	0x6430_0004, 0x0C00_0000,// Lldt_r64m16
+	0x6420_0004, 0x0500_0000,// Lldt_r32m16
+	0x6420_0004, 0x0C00_0000,// Lldt_r64m16
 	0x6000_0004, 0x0300_0000,// Ltr_rm16
-	0x6430_0004, 0x0500_0000,// Ltr_r32m16
-	0x6430_0004, 0x0C00_0000,// Ltr_r64m16
+	0x6420_0004, 0x0500_0000,// Ltr_r32m16
+	0x6420_0004, 0x0C00_0000,// Ltr_r64m16
 	0x200C_8004, 0x0300_0000,// Verr_rm16
-	0x243C_8004, 0x0500_0000,// Verr_r32m16
-	0x243C_8004, 0x0C00_0000,// Verr_r64m16
+	0x242C_8004, 0x0500_0000,// Verr_r32m16
+	0x242C_8004, 0x0C00_0000,// Verr_r64m16
 	0x200C_8004, 0x0300_0000,// Verw_rm16
-	0x243C_8004, 0x0500_0000,// Verw_r32m16
-	0x243C_8004, 0x0C00_0000,// Verw_r64m16
+	0x242C_8004, 0x0500_0000,// Verw_r32m16
+	0x242C_8004, 0x0C00_0000,// Verw_r64m16
 	0x0000_0004, 0x0B20_0000,// Jmpe_rm16
 	0x0000_0004, 0x0B20_0000,// Jmpe_rm32
 	0x0000_0007, 0x0300_0000,// Sgdt_m1632_16
@@ -888,11 +888,11 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x0030_0000, 0x3700_0000,// Clzeroq
 	0x03A9_0000, 0x7000_0000,// Rdpru
 	0x200C_8031, 0x0300_0000,// Lar_r16_rm16
-	0x244C_8031, 0x0500_0000,// Lar_r32_r32m16
-	0x244C_8031, 0x0C00_0000,// Lar_r64_r64m16
+	0x242C_8031, 0x0500_0000,// Lar_r32_r32m16
+	0x242C_8031, 0x0C00_0000,// Lar_r64_r64m16
 	0x200C_8031, 0x0300_0000,// Lsl_r16_rm16
-	0x244C_8031, 0x0500_0000,// Lsl_r32_r32m16
-	0x244C_8031, 0x0C00_0000,// Lsl_r64_r64m16
+	0x242C_8031, 0x0500_0000,// Lsl_r32_r32m16
+	0x242C_8031, 0x0C00_0000,// Lsl_r64_r64m16
 	0x4800_0000, 0x0400_0000,// Loadallreset286
 	0x4800_0000, 0x0400_0000,// Loadall286
 	0x0552_4000, 0x8450_0000,// Syscall
@@ -2060,14 +2060,14 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x0B90_0004, 0x9300_0000,// Xsaveopt_mem
 	0x0B90_0004, 0x9300_0000,// Xsaveopt64_mem
 	0x0000_0003, 0x3600_0000,// Clwb_m8
-	0x0399_0004, 0x8E00_0000,// Tpause_r32
-	0x0399_0004, 0x8E00_0000,// Tpause_r64
+	0x0449_0004, 0x8E00_0000,// Tpause_r32
+	0x0449_0004, 0x8E00_0000,// Tpause_r64
 	0x6009_0006, 0x3100_0000,// Clrssbsy_m64
 	0x0560_0004, 0x8E00_0000,// Umonitor_r16
 	0x0560_0004, 0x8E00_0000,// Umonitor_r32
 	0x0560_0004, 0x8E00_0000,// Umonitor_r64
-	0x0399_0004, 0x8E00_0000,// Umwait_r32
-	0x0399_0004, 0x8E00_0000,// Umwait_r64
+	0x0449_0004, 0x8E00_0000,// Umwait_r32
+	0x0449_0004, 0x8E00_0000,// Umwait_r64
 	0x0000_0003, 0x3500_0000,// Clflush_m8
 	0x0000_0003, 0x3400_0000,// Clflushopt_m8
 	0x0000_0000, 0x7C00_0000,// Lfence
@@ -2185,14 +2185,14 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_02B8, 0x1E00_0002,// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
 	0x0000_0037, 0x7C00_0000,// Movnti_m32_r32
 	0x0000_0037, 0x7C00_0000,// Movnti_m64_r64
-	0x0440_00B6, 0x7B00_0000,// Pinsrw_mm_r32m16_imm8
-	0x0440_00B6, 0x7B00_0000,// Pinsrw_mm_r64m16_imm8
-	0x0440_00B6, 0x7C00_0000,// Pinsrw_xmm_r32m16_imm8
-	0x0440_00B6, 0x7C00_0000,// Pinsrw_xmm_r64m16_imm8
-	0x2450_02B7, 0x0F00_0001,// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
-	0x2450_02B7, 0x0F00_0001,// VEX_Vpinsrw_xmm_xmm_r64m16_imm8
-	0x2450_02B7, 0x1A00_0002,// EVEX_Vpinsrw_xmm_xmm_r32m16_imm8
-	0x2450_02B7, 0x1A00_0002,// EVEX_Vpinsrw_xmm_xmm_r64m16_imm8
+	0x0430_00B6, 0x7B00_0000,// Pinsrw_mm_r32m16_imm8
+	0x0430_00B6, 0x7B00_0000,// Pinsrw_mm_r64m16_imm8
+	0x0430_00B6, 0x7C00_0000,// Pinsrw_xmm_r32m16_imm8
+	0x0430_00B6, 0x7C00_0000,// Pinsrw_xmm_r64m16_imm8
+	0x2430_02B7, 0x0F00_0001,// VEX_Vpinsrw_xmm_xmm_r32m16_imm8
+	0x2430_02B7, 0x0F00_0001,// VEX_Vpinsrw_xmm_xmm_r64m16_imm8
+	0x2430_02B7, 0x1A00_0002,// EVEX_Vpinsrw_xmm_xmm_r32m16_imm8
+	0x2430_02B7, 0x1A00_0002,// EVEX_Vpinsrw_xmm_xmm_r64m16_imm8
 	0x0000_00B7, 0x7B00_0000,// Pextrw_r32_mm_imm8
 	0x0000_00B7, 0x7B00_0000,// Pextrw_r64_mm_imm8
 	0x0000_00B7, 0x7C00_0000,// Pextrw_r32_xmm_imm8
@@ -3233,12 +3233,12 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_xmm_k1z_xmmm16
 	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_ymm_k1z_xmmm16
 	0x2000_0037, 0x1A00_0002,// EVEX_Vpbroadcastw_zmm_k1z_xmmm16
-	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastb_xmm_k1z_r32
-	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastb_ymm_k1z_r32
-	0x2000_0037, 0x1A00_0002,// EVEX_Vpbroadcastb_zmm_k1z_r32
-	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_xmm_k1z_r32
-	0x2000_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_ymm_k1z_r32
-	0x2000_0037, 0x1A00_0002,// EVEX_Vpbroadcastw_zmm_k1z_r32
+	0x2400_0037, 0x2A00_0002,// EVEX_Vpbroadcastb_xmm_k1z_r32
+	0x2400_0037, 0x2A00_0002,// EVEX_Vpbroadcastb_ymm_k1z_r32
+	0x2400_0037, 0x1A00_0002,// EVEX_Vpbroadcastb_zmm_k1z_r32
+	0x2420_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_xmm_k1z_r32
+	0x2420_0037, 0x2A00_0002,// EVEX_Vpbroadcastw_ymm_k1z_r32
+	0x2420_0037, 0x1A00_0002,// EVEX_Vpbroadcastw_zmm_k1z_r32
 	0x2000_0037, 0x2D00_0002,// EVEX_Vpbroadcastd_xmm_k1z_r32
 	0x2000_0037, 0x2D00_0002,// EVEX_Vpbroadcastd_ymm_k1z_r32
 	0x2000_0037, 0x1E00_0002,// EVEX_Vpbroadcastd_zmm_k1z_r32
@@ -3855,10 +3855,10 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_02B8, 0x1E00_0002,// EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8
 	0x0410_00B6, 0x7F00_0000,// Pinsrb_xmm_r32m8_imm8
 	0x0410_00B6, 0x7F00_0000,// Pinsrb_xmm_r64m8_imm8
-	0x2420_02B7, 0x0F00_0001,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
-	0x2420_02B7, 0x0F00_0001,// VEX_Vpinsrb_xmm_xmm_r64m8_imm8
-	0x2420_02B7, 0x1A00_0002,// EVEX_Vpinsrb_xmm_xmm_r32m8_imm8
-	0x2420_02B7, 0x1A00_0002,// EVEX_Vpinsrb_xmm_xmm_r64m8_imm8
+	0x2410_02B7, 0x0F00_0001,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
+	0x2410_02B7, 0x0F00_0001,// VEX_Vpinsrb_xmm_xmm_r64m8_imm8
+	0x2410_02B7, 0x1A00_0002,// EVEX_Vpinsrb_xmm_xmm_r32m8_imm8
+	0x2410_02B7, 0x1A00_0002,// EVEX_Vpinsrb_xmm_xmm_r64m8_imm8
 	0x0000_00B6, 0x7F00_0000,// Insertps_xmm_xmmm32_imm8
 	0x2000_02B7, 0x0F00_0001,// VEX_Vinsertps_xmm_xmm_xmmm32_imm8
 	0x2000_02B7, 0x1E00_0002,// EVEX_Vinsertps_xmm_xmm_xmmm32_imm8
@@ -4237,9 +4237,9 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x0000_0000, 0x9600_0000,// Serialize
 	0x0000_0000, 0x9780_0000,// Xsusldtrk
 	0x0000_0000, 0x9780_0000,// Xresldtrk
-	0x6650_0000, 0x9800_0000,// Invlpgbw
-	0x6650_0000, 0x9800_0000,// Invlpgbd
-	0x6650_0000, 0x9800_0000,// Invlpgbq
+	0x6450_0000, 0x9800_0000,// Invlpgbw
+	0x6450_0000, 0x9800_0000,// Invlpgbd
+	0x6450_0000, 0x9800_0000,// Invlpgbq
 	0x6000_0000, 0x9800_0000,// Tlbsync
 	0x0000_0003, 0x6B00_0000,// PrefetchReserved3_m8
 	0x0000_0003, 0x6B00_0000,// PrefetchReserved4_m8

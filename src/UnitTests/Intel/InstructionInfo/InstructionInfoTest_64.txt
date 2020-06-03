@@ -12864,41 +12864,41 @@ C4E27D 79 10, VEX_Vpbroadcastw_ymm_xmmm16, VEX, AVX2, pm op0=w op1=r w=vmm2 r=ra
 # vpbroadcastw zmm10{k3}{z},xmm19
 62 327DCB 79 D3, EVEX_Vpbroadcastw_zmm_k1z_xmmm16, EVEX, AVX512BW, pm op0=w op1=r w=vmm10 r=k3 r=xmm19
 # vpbroadcastb xmm2,ebx
-62 F27D08 7A D3, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
-# vpbroadcastb xmm2{k3},ebx
-62 F27D0B 7A D3, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=ebx
+62 F27D08 7A D3, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=bl
+# vpbroadcastb xmm2{k3},esp
+62 F27D0B 7A D4, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=spl
 # vpbroadcastb xmm18{k3}{z},r11d
-62 C27D8B 7A D3, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27D8B 7A D3, EVEX_Vpbroadcastb_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11l
 # vpbroadcastb ymm2,ebx
-62 F27D28 7A D3, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
-# vpbroadcastb ymm2{k3},ebx
-62 F27D2B 7A D3, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=ebx
+62 F27D28 7A D3, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=bl
+# vpbroadcastb ymm2{k3},esp
+62 F27D2B 7A D4, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=spl
 # vpbroadcastb ymm18{k3}{z},r11d
-62 C27DAB 7A D3, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27DAB 7A D3, EVEX_Vpbroadcastb_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11l
 # vpbroadcastb zmm2,ebx
-62 F27D48 7A D3, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
-# vpbroadcastb zmm2{k3},ebx
-62 F27D4B 7A D3, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=rw op1=r w=vmm2 r=zmm2 r=k3 r=ebx
+62 F27D48 7A D3, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm2 r=bl
+# vpbroadcastb zmm2{k3},esp
+62 F27D4B 7A D4, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=rw op1=r w=vmm2 r=zmm2 r=k3 r=spl
 # vpbroadcastb zmm18{k3}{z},r11d
-62 C27DCB 7A D3, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27DCB 7A D3, EVEX_Vpbroadcastb_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11l
 # vpbroadcastw xmm2,ebx
-62 F27D08 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
+62 F27D08 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=bx
 # vpbroadcastw xmm2{k3},ebx
-62 F27D0B 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=ebx
+62 F27D0B 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=xmm2 r=k3 r=bx
 # vpbroadcastw xmm18{k3}{z},r11d
-62 C27D8B 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27D8B 7B D3, EVEX_Vpbroadcastw_xmm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11w
 # vpbroadcastw ymm2,ebx
-62 F27D28 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
+62 F27D28 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm2 r=bx
 # vpbroadcastw ymm2{k3},ebx
-62 F27D2B 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=ebx
+62 F27D2B 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=rw op1=r w=vmm2 r=ymm2 r=k3 r=bx
 # vpbroadcastw ymm18{k3}{z},r11d
-62 C27DAB 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27DAB 7B D3, EVEX_Vpbroadcastw_ymm_k1z_r32, EVEX, AVX512VL;AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11w
 # vpbroadcastw zmm2,ebx
-62 F27D48 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm2 r=ebx
+62 F27D48 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm2 r=bx
 # vpbroadcastw zmm2{k3},ebx
-62 F27D4B 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=rw op1=r w=vmm2 r=zmm2 r=k3 r=ebx
+62 F27D4B 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=rw op1=r w=vmm2 r=zmm2 r=k3 r=bx
 # vpbroadcastw zmm18{k3}{z},r11d
-62 C27DCB 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11d
+62 C27DCB 7B D3, EVEX_Vpbroadcastw_zmm_k1z_r32, EVEX, AVX512BW, pm op0=w op1=r w=vmm18 r=k3 r=r11w
 # vpbroadcastd xmm2,ebx
 62 F27D08 7C D3, EVEX_Vpbroadcastd_xmm_k1z_r32, EVEX, AVX512VL;AVX512F, pm op0=w op1=r w=vmm2 r=ebx
 # vpbroadcastd xmm2{k3},ebx
@@ -17528,7 +17528,7 @@ F3 49 0FAE EF, Incsspq_r64, Legacy, CET_SS, pm op0=r r=r15l
 # tpause ebp
 66 0FAE F5, Tpause_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # tpause rbp
-66 48 0FAE F5, Tpause_r64, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=rbp r=eax;edx
+66 48 0FAE F5, Tpause_r64, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # clrssbsy qword ptr [rax]
 F3 0FAE 30, Clrssbsy_m64, Legacy, CET_SS, priv pm fw=c fc=aopsz op0=rw r=rax rwm=ds:rax;UInt64
 # umonitor ebp
@@ -17542,7 +17542,7 @@ F3 0FAE F5, Umonitor_r64, Legacy, WAITPKG, op0=r r=rbp rm=ds:rbp;UInt8
 # umwait ebp
 F2 0FAE F5, Umwait_r32, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # umwait rbp
-F2 48 0FAE F5, Umwait_r64, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=rbp r=eax;edx
+F2 48 0FAE F5, Umwait_r64, Legacy, WAITPKG, fw=c fc=aopsz op0=r r=ebp r=eax;edx
 # pcommit
 66 0FAE F8, Pcommit, Legacy, PCOMMIT, decopt=pcommit
 # vpdpbusd xmm2,xmm6,[rax+10h]
