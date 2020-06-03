@@ -135,12 +135,8 @@ namespace Generator.Decoder {
 			if (handler[0] == handlerKind_d3now) {
 				var origCode = genTypes.GetObject<EnumValue[]>(TypeIds.OrigCodeValues);
 				foreach (var code in origCode) {
-					if (code.RawName.StartsWith("D3NOW_")) {
-						if (filteredCodeValues.Contains(code))
-							keep++;
-						else
-							remove++;
-					}
+					if (code.RawName.StartsWith("D3NOW_"))
+						CountValue(code);
 				}
 			}
 			else if (handler[0] == handlerKind_wbinvd) {
@@ -149,21 +145,13 @@ namespace Generator.Decoder {
 					origCode[(int)Code.Wbinvd],
 					origCode[(int)Code.Wbnoinvd],
 				};
-				foreach (var code in values) {
-					if (filteredCodeValues.Contains(code))
-						keep++;
-					else
-						remove++;
-				}
+				foreach (var code in values)
+					CountValue(code);
 			}
 
 			foreach (var obj in handler) {
-				if (obj is EnumValue enumValue && enumValue.DeclaringType.TypeId == TypeIds.Code) {
-					if (filteredCodeValues.Contains(enumValue))
-						keep++;
-					else
-						remove++;
-				}
+				if (obj is EnumValue enumValue && enumValue.DeclaringType.TypeId == TypeIds.Code)
+					CountValue(enumValue);
 			}
 			// All must be removed or all must be kept
 			if (keep != 0 && remove != 0)
@@ -171,6 +159,15 @@ namespace Generator.Decoder {
 			if (keep != 0)
 				return keep;
 			return -remove;
+
+			void CountValue(EnumValue code) {
+				if (code.RawName == "INVALID")
+					return;
+				if (filteredCodeValues.Contains(code))
+					keep++;
+				else
+					remove++;
+			}
 		}
 
 		object GetInvalidHandler(bool useInvalidModrm) => useInvalidModrm ? invalidHandler : invalidNoModrmHandler;

@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Generator {
@@ -48,8 +49,10 @@ namespace Generator {
 		public bool IncludeEVEX { get; }
 		public bool IncludeXOP { get; }
 		public bool Include3DNow { get; }
+		public HashSet<string> IncludeCpuid { get; }
+		public HashSet<string> ExcludeCpuid { get; }
 
-		public GeneratorOptions(GeneratorFlags flags) {
+		public GeneratorOptions(GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) {
 			HasGasFormatter = (flags & GeneratorFlags.NoGasFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasIntelFormatter = (flags & GeneratorFlags.NoIntelFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
 			HasMasmFormatter = (flags & GeneratorFlags.NoMasmFormatter) == 0 && (flags & GeneratorFlags.NoFormatter) == 0;
@@ -58,6 +61,8 @@ namespace Generator {
 			IncludeEVEX = (flags & GeneratorFlags.NoEVEX) == 0;
 			IncludeXOP = (flags & GeneratorFlags.NoXOP) == 0;
 			Include3DNow = (flags & GeneratorFlags.No3DNow) == 0;
+			IncludeCpuid = includeCpuid;
+			ExcludeCpuid = excludeCpuid;
 		}
 	}
 
@@ -70,8 +75,8 @@ namespace Generator {
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
 		readonly string[] langDirs;
 
-		public GeneratorContext(string baseDir, GeneratorFlags flags) {
-			Types = new GenTypes(new GeneratorOptions(flags));
+		public GeneratorContext(string baseDir, GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) {
+			Types = new GenTypes(new GeneratorOptions(flags, includeCpuid, excludeCpuid));
 
 			UnitTestsDir = GetAndVerifyPath(baseDir, "UnitTests", "Intel");
 			langDirs = new string[Enum.GetValues(typeof(TargetLanguage)).Length];

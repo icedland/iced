@@ -221,6 +221,20 @@ namespace Generator {
 				throw new InvalidOperationException();
 			}
 
+			if (Options.IncludeCpuid.Count != 0) {
+				foreach (var cpuid in def.InstrInfo.Cpuid) {
+					if (Options.IncludeCpuid.Contains(cpuid.RawName))
+						return true;
+				}
+				return false;
+			}
+			if (Options.ExcludeCpuid.Count != 0) {
+				foreach (var cpuid in def.InstrInfo.Cpuid) {
+					if (Options.ExcludeCpuid.Contains(cpuid.RawName))
+						return false;
+				}
+			}
+
 			return true;
 		}
 

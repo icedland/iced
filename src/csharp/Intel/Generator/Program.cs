@@ -74,6 +74,8 @@ namespace Generator {
 	sealed class CommandLineOptions {
 		public readonly HashSet<TargetLanguage> Languages = new HashSet<TargetLanguage>();
 		public GeneratorFlags GeneratorFlags = GeneratorFlags.None;
+		public readonly HashSet<string> IncludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		public readonly HashSet<string> ExcludeCpuid = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 	}
 
 	static class Program {
@@ -88,7 +90,7 @@ namespace Generator {
 					return 1;
 				}
 
-				var generatorContext = CreateGeneratorContext(options.GeneratorFlags);
+				var generatorContext = CreateGeneratorContext(options.GeneratorFlags, options.IncludeCpuid, options.ExcludeCpuid);
 				CodeComments.AddComments(generatorContext.Types, generatorContext.UnitTestsDir);
 
 				// It's not much of an improvement in speed at the moment.
@@ -158,6 +160,11 @@ Options:
     Don't include XOP instructions
 --no-3dnow
     Don't include 3DNow! instructions
+--include-cpuid <name>
+    Include only instructions with these CPUID features, ;-separated. See CpuidFeature enum
+    eg. --include-cpuid intel8086;intel186;intel286;intel386;intel486;x64;wbnoinvd
+--exclude-cpuid <name>
+    Don't include instructions with CPUID feature <name>, ;-separated. See CpuidFeature enum
 ");
 		}
 
@@ -233,6 +240,26 @@ Options:
 					options.GeneratorFlags |= GeneratorFlags.No3DNow;
 					break;
 
+				case "--include-cpuid":
+					if (value is null) {
+						error = "Missing cpuid feature name";
+						return false;
+					}
+					i++;
+					foreach (var v in value.Split(seps, StringSplitOptions.RemoveEmptyEntries))
+						options.IncludeCpuid.Add(v);
+					break;
+
+				case "--exclude-cpuid":
+					if (value is null) {
+						error = "Missing cpuid feature name";
+						return false;
+					}
+					i++;
+					foreach (var v in value.Split(seps, StringSplitOptions.RemoveEmptyEntries))
+						options.ExcludeCpuid.Add(v);
+					break;
+
 				default:
 					error = $"Unknown option: {value}";
 					return false;
@@ -241,12 +268,13 @@ Options:
 			error = null;
 			return true;
 		}
+		static readonly char[] seps = new char[] { ',', ';' };
 
-		static GeneratorContext CreateGeneratorContext(GeneratorFlags flags) {
+		static GeneratorContext CreateGeneratorContext(GeneratorFlags flags, HashSet<string> includeCpuid, HashSet<string> excludeCpuid) {
 			var dir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(typeof(Program).Assembly.Location)))))));
 			if (dir is null || !File.Exists(Path.Combine(dir, "csharp", "Iced.sln")))
 				throw new InvalidOperationException();
-			return new GeneratorContext(dir, flags);
+			return new GeneratorContext(dir, flags, includeCpuid, excludeCpuid);
 		}
 
 		static List<GeneratorInfo> GetGenerators() {
