@@ -1009,7 +1009,10 @@ impl OpCodeHandler_VEX_VHWIs4 {
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register_u32(instruction, ((decoder.read_u8() as u32) >> 4) + this.base_reg as u32);
+		super::instruction_internal::internal_set_op3_register_u32(
+			instruction,
+			(((decoder.read_u8() as u32) >> 4) & decoder.reg15_mask) + this.base_reg as u32,
+		);
 	}
 }
 
@@ -1053,7 +1056,10 @@ impl OpCodeHandler_VEX_VHIs4W {
 		}
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register_u32(instruction, ((decoder.read_u8() as u32) >> 4) + this.base_reg as u32);
+		super::instruction_internal::internal_set_op2_register_u32(
+			instruction,
+			(((decoder.read_u8() as u32) >> 4) & decoder.reg15_mask) + this.base_reg as u32,
+		);
 	}
 }
 
@@ -1098,7 +1104,7 @@ impl OpCodeHandler_VEX_VHWIs5 {
 		let ib = decoder.read_u8() as u32;
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op3_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op3_register_u32(instruction, (ib >> 4) + this.base_reg as u32);
+		super::instruction_internal::internal_set_op3_register_u32(instruction, ((ib >> 4) & decoder.reg15_mask) + this.base_reg as u32);
 		debug_assert_eq!(OpKind::Immediate8, instruction.op4_kind()); // It's hard coded
 		super::instruction_internal::internal_set_immediate8(instruction, ib & 3);
 	}
@@ -1145,7 +1151,7 @@ impl OpCodeHandler_VEX_VHIs5W {
 		let ib = decoder.read_u8() as u32;
 		const_assert_eq!(0, OpKind::Register as u32);
 		//super::instruction_internal::internal_set_op2_kind(instruction, OpKind::Register);
-		super::instruction_internal::internal_set_op2_register_u32(instruction, (ib >> 4) + this.base_reg as u32);
+		super::instruction_internal::internal_set_op2_register_u32(instruction, ((ib >> 4) & decoder.reg15_mask) + this.base_reg as u32);
 		debug_assert_eq!(OpKind::Immediate8, instruction.op4_kind()); // It's hard coded
 		super::instruction_internal::internal_set_immediate8(instruction, ib & 3);
 	}

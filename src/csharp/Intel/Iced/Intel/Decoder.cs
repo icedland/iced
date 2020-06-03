@@ -88,6 +88,7 @@ namespace Iced.Intel {
 		internal readonly DecoderOptions options;
 		internal readonly uint invalidCheckMask;// All 1s if we should check for invalid instructions, else 0
 		internal readonly uint is64Mode_and_W;// StateFlags.W if 64-bit, 0 if 16/32-bit
+		internal readonly uint reg15Mask;// 7 in 16/32-bit mode, 15 in 64-bit mode
 		internal readonly CodeSize defaultCodeSize;
 		readonly OpSize defaultOperandSize;
 		readonly OpSize defaultAddressSize;
@@ -194,6 +195,7 @@ namespace Iced.Intel {
 				prefixes = prefixes1632;
 			}
 			is64Mode_and_W = is64Mode ? (uint)StateFlags.W : 0;
+			reg15Mask = is64Mode ? 0xFU : 0x7;
 			handlers_XX = OpCodeHandlersTables_Legacy.OneByteHandlers;
 #if !NO_VEX
 			handlers_VEX_0FXX = OpCodeHandlersTables_VEX.TwoByteHandlers_0FXX;

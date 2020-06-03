@@ -847,7 +847,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
-			instruction.InternalOp3Register = (int)(decoder.ReadByte() >> 4) + baseReg;
+			instruction.InternalOp3Register = (int)((decoder.ReadByte() >> 4) & decoder.reg15Mask) + baseReg;
 		}
 	}
 
@@ -881,7 +881,7 @@ namespace Iced.Intel.DecoderInternal {
 			}
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
-			instruction.InternalOp2Register = (int)(decoder.ReadByte() >> 4) + baseReg;
+			instruction.InternalOp2Register = (int)((decoder.ReadByte() >> 4) & decoder.reg15Mask) + baseReg;
 		}
 	}
 
@@ -916,7 +916,7 @@ namespace Iced.Intel.DecoderInternal {
 			uint ib = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp3Kind = OpKind.Register;
-			instruction.InternalOp3Register = (int)(ib >> 4) + baseReg;
+			instruction.InternalOp3Register = (int)((ib >> 4) & decoder.reg15Mask) + baseReg;
 			Debug.Assert(instruction.Op4Kind == OpKind.Immediate8);// It's hard coded
 			instruction.InternalImmediate8 = ib & 3;
 		}
@@ -953,7 +953,7 @@ namespace Iced.Intel.DecoderInternal {
 			uint ib = decoder.ReadByte();
 			Static.Assert(OpKind.Register == 0 ? 0 : -1);
 			//instruction.InternalOp2Kind = OpKind.Register;
-			instruction.InternalOp2Register = (int)(ib >> 4) + baseReg;
+			instruction.InternalOp2Register = (int)((ib >> 4) & decoder.reg15Mask) + baseReg;
 			Debug.Assert(instruction.Op4Kind == OpKind.Immediate8);// It's hard coded
 			instruction.InternalImmediate8 = ib & 3;
 		}

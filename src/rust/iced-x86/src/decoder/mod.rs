@@ -304,6 +304,8 @@ pub struct Decoder<'a> {
 	invalid_check_mask: u32,
 	// StateFlags::W if 64-bit, 0 if 16/32-bit
 	is64_mode_and_w: u32,
+	// 7 in 16/32-bit mode, 15 in 64-bit mode
+	reg15_mask: u32,
 	default_code_size: CodeSize,
 	default_operand_size: OpSize,
 	default_address_size: OpSize,
@@ -493,6 +495,7 @@ impl<'a> Decoder<'a> {
 			options,
 			invalid_check_mask: if (options & DecoderOptions::NO_INVALID_CHECK) == 0 { u32::MAX } else { 0 },
 			is64_mode_and_w: if is64_mode { StateFlags::W } else { 0 },
+			reg15_mask: if is64_mode { 0xF } else { 0x7 },
 			default_code_size,
 			default_operand_size,
 			default_inverted_operand_size,
