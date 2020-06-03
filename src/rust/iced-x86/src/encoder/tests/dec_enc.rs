@@ -526,6 +526,41 @@ fn test_lig_instructions_ignore_l() {
 	}
 }
 
+fn has_is4_or_is5_operands(op_code: &OpCodeInfo) -> bool {
+	for i in 0..op_code.op_count() {
+		match op_code.op_kind(i) {
+			OpCodeOperandKind::xmm_is4 | OpCodeOperandKind::xmm_is5 | OpCodeOperandKind::ymm_is4 | OpCodeOperandKind::ymm_is5 => return true,
+			_ => {}
+		}
+	}
+	false
+}
+
+#[test]
+fn test_is4_is5_instructions_ignore_bit7_in_1632mode() {
+	for info in decoder_tests(false, false) {
+		if info.bitness() != 16 && info.bitness() != 32 {
+			continue;
+		}
+		let op_code = info.code().op_code();
+		if !has_is4_or_is5_operands(op_code) {
+			continue;
+		}
+		let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
+		let instruction1 = {
+			let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
+			decoder.decode()
+		};
+		*bytes.last_mut().unwrap() ^= 0x80;
+		let instruction2 = {
+			let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
+			decoder.decode()
+		};
+		assert_eq!(info.code(), instruction1.code());
+		assert!(instruction1.eq_all_bits(&instruction2));
+	}
+}
+
 #[test]
 fn test_evex_k1_z_bits() {
 	let p2_values_k1z: Vec<(bool, u8)> = vec![(true, 0x00), (true, 0x01), (false, 0x80), (true, 0x86)];

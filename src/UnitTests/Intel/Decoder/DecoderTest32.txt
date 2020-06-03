@@ -19986,58 +19986,72 @@ C4E34D 46 D3 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 
 C4C34D 46 10 A5, VEX_Vperm2i128_ymm_ymm_ymmm256_imm8, Vperm2i128, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int128 op3=i8;0xA5 co=5;1;0;0;0;0 enc=C4E34D4610A5
 
 C4E349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 48 10 C1, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
 C4E349 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
 C4C349 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmmm128_xmm_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349481041
 
 C4E34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 48 10 D2, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
 C4E34D 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
 C4C34D 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymmm256_ymm_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D481052
 
 C4E3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 48 10 C1, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
 C4E3C9 48 D3 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
 C4C3C9 48 10 41, VEX_Vpermil2ps_xmm_xmm_xmm_xmmm128_imm2, Vpermil2ps, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9481041
 
 C4E3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 48 10 D2, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
 C4E3CD 48 D3 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
 C4C3CD 48 10 52, VEX_Vpermil2ps_ymm_ymm_ymm_ymmm256_imm2, Vpermil2ps, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD481052
 
 C4E349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
+C4E349 49 10 C1, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
 C4E349 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0
 C4C349 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmmm128_xmm_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 op4=i8;1 co=5;1;0;0;0;0 enc=C4E349491041
 
 C4E34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
+C4E34D 49 10 D2, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
 C4E34D 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0
 C4C34D 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymmm256_ymm_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 op4=i8;2 co=5;1;0;0;0;0 enc=C4E34D491052
 
 C4E3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0
+C4E3C9 49 10 C1, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
 C4E3C9 49 D3 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 op4=i8;1 co=5;1;0;0;0;0
 C4C3C9 49 10 41, VEX_Vpermil2pd_xmm_xmm_xmm_xmmm128_imm2, Vpermil2pd, 5, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 op4=i8;1 co=5;1;0;0;0;0 enc=C4E3C9491041
 
 C4E3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0
+C4E3CD 49 10 D2, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
 C4E3CD 49 D3 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3 op4=i8;2 co=5;1;0;0;0;0
 C4C3CD 49 10 52, VEX_Vpermil2pd_ymm_ymm_ymm_ymmm256_imm2, Vpermil2pd, 5, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 op4=i8;2 co=5;1;0;0;0;0 enc=C4E3CD491052
 
 C4E349 4A 10 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 4A 10 C0, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3494A1040
 C4E349 4A D3 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 4A 10 40, VEX_Vblendvps_xmm_xmm_xmmm128_xmm, Vblendvps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3494A1040
 
 C4E34D 4A 10 50, VEX_Vblendvps_ymm_ymm_ymmm256_ymm, Vblendvps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 4A 10 D0, VEX_Vblendvps_ymm_ymm_ymmm256_ymm, Vblendvps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D4A1050
 C4E34D 4A D3 50, VEX_Vblendvps_ymm_ymm_ymmm256_ymm, Vblendvps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 4A 10 50, VEX_Vblendvps_ymm_ymm_ymmm256_ymm, Vblendvps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D4A1050
 
 C4E349 4B 10 40, VEX_Vblendvpd_xmm_xmm_xmmm128_xmm, Vblendvpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 4B 10 C0, VEX_Vblendvpd_xmm_xmm_xmmm128_xmm, Vblendvpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3494B1040
 C4E349 4B D3 40, VEX_Vblendvpd_xmm_xmm_xmmm128_xmm, Vblendvpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 4B 10 40, VEX_Vblendvpd_xmm_xmm_xmmm128_xmm, Vblendvpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3494B1040
 
 C4E34D 4B 10 50, VEX_Vblendvpd_ymm_ymm_ymmm256_ymm, Vblendvpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 4B 10 D0, VEX_Vblendvpd_ymm_ymm_ymmm256_ymm, Vblendvpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D4B1050
 C4E34D 4B D3 50, VEX_Vblendvpd_ymm_ymm_ymmm256_ymm, Vblendvpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 4B 10 50, VEX_Vblendvpd_ymm_ymm_ymmm256_ymm, Vblendvpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D4B1050
 
 C4E349 4C 10 40, VEX_Vpblendvb_xmm_xmm_xmmm128_xmm, Vpblendvb, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int8 op3=r;xmm4
+C4E349 4C 10 C0, VEX_Vpblendvb_xmm_xmm_xmmm128_xmm, Vpblendvb, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int8 op3=r;xmm4 enc=C4E3494C1040
 C4E349 4C D3 40, VEX_Vpblendvb_xmm_xmm_xmmm128_xmm, Vpblendvb, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 4C 10 40, VEX_Vpblendvb_xmm_xmm_xmmm128_xmm, Vpblendvb, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int8 op3=r;xmm4 enc=C4E3494C1040
 
 C4E34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, Vpblendvb, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int8 op3=r;ymm5
+C4E34D 4C 10 D0, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, Vpblendvb, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int8 op3=r;ymm5 enc=C4E34D4C1050
 C4E34D 4C D3 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, Vpblendvb, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, Vpblendvb, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Int8 op3=r;ymm5 enc=C4E34D4C1050
 
@@ -20258,66 +20272,82 @@ C4C34D 4C 10 50, VEX_Vpblendvb_ymm_ymm_ymmm256_ymm, Vpblendvb, 4, op0=r;ymm2 op1
 62 E3CD0B 57 50 01 A5, EVEX_Vreducesd_xmm_k1z_xmm_xmmm64_imm8_sae, Vreducesd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;8;1;Float64 op3=i8;0xA5 k3 co=7;1;0;0;6;1 enc=62F3CD0B575001A5
 
 C4E349 5C 10 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 5C 10 C0, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3495C1040
 C4E349 5C D3 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 5C 10 40, VEX_Vfmaddsubps_xmm_xmm_xmmm128_xmm, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3495C1040
 
 C4E34D 5C 10 50, VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 5C 10 D0, VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D5C1050
 C4E34D 5C D3 50, VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 5C 10 50, VEX_Vfmaddsubps_ymm_ymm_ymmm256_ymm, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D5C1050
 
 C4E3C9 5C 10 40, VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 5C 10 C0, VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C95C1040
 C4E3C9 5C D3 40, VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 5C 10 40, VEX_Vfmaddsubps_xmm_xmm_xmm_xmmm128, Vfmaddsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C95C1040
 
 C4E3CD 5C 10 50, VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 5C 10 D0, VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD5C1050
 C4E3CD 5C D3 50, VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 5C 10 50, VEX_Vfmaddsubps_ymm_ymm_ymm_ymmm256, Vfmaddsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD5C1050
 
 C4E349 5D 10 40, VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 5D 10 C0, VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3495D1040
 C4E349 5D D3 40, VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 5D 10 40, VEX_Vfmaddsubpd_xmm_xmm_xmmm128_xmm, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3495D1040
 
 C4E34D 5D 10 50, VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 5D 10 D0, VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D5D1050
 C4E34D 5D D3 50, VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 5D 10 50, VEX_Vfmaddsubpd_ymm_ymm_ymmm256_ymm, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D5D1050
 
 C4E3C9 5D 10 40, VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 5D 10 C0, VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C95D1040
 C4E3C9 5D D3 40, VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 5D 10 40, VEX_Vfmaddsubpd_xmm_xmm_xmm_xmmm128, Vfmaddsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C95D1040
 
 C4E3CD 5D 10 50, VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 5D 10 D0, VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD5D1050
 C4E3CD 5D D3 50, VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 5D 10 50, VEX_Vfmaddsubpd_ymm_ymm_ymm_ymmm256, Vfmaddsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD5D1050
 
 C4E349 5E 10 40, VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 5E 10 C0, VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3495E1040
 C4E349 5E D3 40, VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 5E 10 40, VEX_Vfmsubaddps_xmm_xmm_xmmm128_xmm, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3495E1040
 
 C4E34D 5E 10 50, VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 5E 10 D0, VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D5E1050
 C4E34D 5E D3 50, VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 5E 10 50, VEX_Vfmsubaddps_ymm_ymm_ymmm256_ymm, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D5E1050
 
 C4E3C9 5E 10 40, VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 5E 10 C0, VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C95E1040
 C4E3C9 5E D3 40, VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 5E 10 40, VEX_Vfmsubaddps_xmm_xmm_xmm_xmmm128, Vfmsubaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C95E1040
 
 C4E3CD 5E 10 50, VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 5E 10 D0, VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD5E1050
 C4E3CD 5E D3 50, VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 5E 10 50, VEX_Vfmsubaddps_ymm_ymm_ymm_ymmm256, Vfmsubaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD5E1050
 
 C4E349 5F 10 40, VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 5F 10 C0, VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3495F1040
 C4E349 5F D3 40, VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 5F 10 40, VEX_Vfmsubaddpd_xmm_xmm_xmmm128_xmm, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3495F1040
 
 C4E34D 5F 10 50, VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 5F 10 D0, VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D5F1050
 C4E34D 5F D3 50, VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 5F 10 50, VEX_Vfmsubaddpd_ymm_ymm_ymmm256_ymm, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D5F1050
 
 C4E3C9 5F 10 40, VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 5F 10 C0, VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C95F1040
 C4E3C9 5F D3 40, VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 5F 10 40, VEX_Vfmsubaddpd_xmm_xmm_xmm_xmmm128, Vfmsubaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C95F1040
 
 C4E3CD 5F 10 50, VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 5F 10 D0, VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD5F1050
 C4E3CD 5F D3 50, VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 5F 10 50, VEX_Vfmsubaddpd_ymm_ymm_ymm_ymmm256, Vfmsubaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD5F1050
 
@@ -20408,112 +20438,136 @@ C4C379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, Vpcmpistri, 3, op0=r;xmm2 op1=
 62 D3FD0B 67 50 01 A5, EVEX_Vfpclasssd_k_k1_xmmm64_imm8, Vfpclasssd, 3, op0=r;k2 op1=m;ds;eax;;1;8;1;Float64 op2=i8;0xA5 k3 co=7;1;0;0;6;1 enc=62F3FD0B675001A5
 
 C4E349 68 10 40, VEX_Vfmaddps_xmm_xmm_xmmm128_xmm, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 68 10 C0, VEX_Vfmaddps_xmm_xmm_xmmm128_xmm, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E349681040
 C4E349 68 D3 40, VEX_Vfmaddps_xmm_xmm_xmmm128_xmm, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 68 10 40, VEX_Vfmaddps_xmm_xmm_xmmm128_xmm, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E349681040
 
 C4E34D 68 10 50, VEX_Vfmaddps_ymm_ymm_ymmm256_ymm, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 68 10 D0, VEX_Vfmaddps_ymm_ymm_ymmm256_ymm, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D681050
 C4E34D 68 D3 50, VEX_Vfmaddps_ymm_ymm_ymmm256_ymm, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 68 10 50, VEX_Vfmaddps_ymm_ymm_ymmm256_ymm, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D681050
 
 C4E3C9 68 10 40, VEX_Vfmaddps_xmm_xmm_xmm_xmmm128, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 68 10 C0, VEX_Vfmaddps_xmm_xmm_xmm_xmmm128, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C9681040
 C4E3C9 68 D3 40, VEX_Vfmaddps_xmm_xmm_xmm_xmmm128, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 68 10 40, VEX_Vfmaddps_xmm_xmm_xmm_xmmm128, Vfmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C9681040
 
 C4E3CD 68 10 50, VEX_Vfmaddps_ymm_ymm_ymm_ymmm256, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 68 10 D0, VEX_Vfmaddps_ymm_ymm_ymm_ymmm256, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD681050
 C4E3CD 68 D3 50, VEX_Vfmaddps_ymm_ymm_ymm_ymmm256, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 68 10 50, VEX_Vfmaddps_ymm_ymm_ymm_ymmm256, Vfmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD681050
 
 C4E349 69 10 40, VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 69 10 C0, VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E349691040
 C4E349 69 D3 40, VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 69 10 40, VEX_Vfmaddpd_xmm_xmm_xmmm128_xmm, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E349691040
 
 C4E34D 69 10 50, VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 69 10 D0, VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D691050
 C4E34D 69 D3 50, VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 69 10 50, VEX_Vfmaddpd_ymm_ymm_ymmm256_ymm, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D691050
 
 C4E3C9 69 10 40, VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 69 10 C0, VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C9691040
 C4E3C9 69 D3 40, VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 69 10 40, VEX_Vfmaddpd_xmm_xmm_xmm_xmmm128, Vfmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C9691040
 
 C4E3CD 69 10 50, VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 69 10 D0, VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD691050
 C4E3CD 69 D3 50, VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 69 10 50, VEX_Vfmaddpd_ymm_ymm_ymm_ymmm256, Vfmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD691050
 
 C4E349 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4
+C4E349 6A 10 C0, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496A1040
 C4E34D 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496A1040
 C4E349 6A D3 40, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 6A D3 40, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3496AD340
 C4C349 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmmm32_xmm, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496A1040
 
 C4E3C9 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32
+C4E3C9 6A 10 C0, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96A1040
 C4E3CD 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96A1040
 C4E3C9 6A D3 40, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 6A D3 40, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C96AD340
 C4C3C9 6A 10 40, VEX_Vfmaddss_xmm_xmm_xmm_xmmm32, Vfmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96A1040
 
 C4E349 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4
+C4E349 6B 10 C0, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496B1040
 C4E34D 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496B1040
 C4E349 6B D3 40, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 6B D3 40, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3496BD340
 C4C349 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmmm64_xmm, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496B1040
 
 C4E3C9 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64
+C4E3C9 6B 10 C0, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C96B1040
 C4E3CD 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C96B1040
 C4E3C9 6B D3 40, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 6B D3 40, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C96BD340
 C4C3C9 6B 10 40, VEX_Vfmaddsd_xmm_xmm_xmm_xmmm64, Vfmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C96B1040
 
 C4E349 6C 10 40, VEX_Vfmsubps_xmm_xmm_xmmm128_xmm, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 6C 10 C0, VEX_Vfmsubps_xmm_xmm_xmmm128_xmm, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3496C1040
 C4E349 6C D3 40, VEX_Vfmsubps_xmm_xmm_xmmm128_xmm, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 6C 10 40, VEX_Vfmsubps_xmm_xmm_xmmm128_xmm, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3496C1040
 
 C4E34D 6C 10 50, VEX_Vfmsubps_ymm_ymm_ymmm256_ymm, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 6C 10 D0, VEX_Vfmsubps_ymm_ymm_ymmm256_ymm, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D6C1050
 C4E34D 6C D3 50, VEX_Vfmsubps_ymm_ymm_ymmm256_ymm, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 6C 10 50, VEX_Vfmsubps_ymm_ymm_ymmm256_ymm, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D6C1050
 
 C4E3C9 6C 10 40, VEX_Vfmsubps_xmm_xmm_xmm_xmmm128, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 6C 10 C0, VEX_Vfmsubps_xmm_xmm_xmm_xmmm128, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C96C1040
 C4E3C9 6C D3 40, VEX_Vfmsubps_xmm_xmm_xmm_xmmm128, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 6C 10 40, VEX_Vfmsubps_xmm_xmm_xmm_xmmm128, Vfmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C96C1040
 
 C4E3CD 6C 10 50, VEX_Vfmsubps_ymm_ymm_ymm_ymmm256, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 6C 10 D0, VEX_Vfmsubps_ymm_ymm_ymm_ymmm256, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD6C1050
 C4E3CD 6C D3 50, VEX_Vfmsubps_ymm_ymm_ymm_ymmm256, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 6C 10 50, VEX_Vfmsubps_ymm_ymm_ymm_ymmm256, Vfmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD6C1050
 
 C4E349 6D 10 40, VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 6D 10 C0, VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3496D1040
 C4E349 6D D3 40, VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 6D 10 40, VEX_Vfmsubpd_xmm_xmm_xmmm128_xmm, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3496D1040
 
 C4E34D 6D 10 50, VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 6D 10 D0, VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D6D1050
 C4E34D 6D D3 50, VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 6D 10 50, VEX_Vfmsubpd_ymm_ymm_ymmm256_ymm, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D6D1050
 
 C4E3C9 6D 10 40, VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 6D 10 C0, VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C96D1040
 C4E3C9 6D D3 40, VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 6D 10 40, VEX_Vfmsubpd_xmm_xmm_xmm_xmmm128, Vfmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C96D1040
 
 C4E3CD 6D 10 50, VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 6D 10 D0, VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD6D1050
 C4E3CD 6D D3 50, VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 6D 10 50, VEX_Vfmsubpd_ymm_ymm_ymm_ymmm256, Vfmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD6D1050
 
 C4E349 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4
+C4E349 6E 10 C0, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496E1040
 C4E34D 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496E1040
 C4E349 6E D3 40, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 6E D3 40, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3496ED340
 C4C349 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmmm32_xmm, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3496E1040
 
 C4E3C9 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32
+C4E3C9 6E 10 C0, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96E1040
 C4E3CD 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96E1040
 C4E3C9 6E D3 40, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 6E D3 40, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C96ED340
 C4C3C9 6E 10 40, VEX_Vfmsubss_xmm_xmm_xmm_xmmm32, Vfmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C96E1040
 
 C4E349 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4
+C4E349 6F 10 C0, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496F1040
 C4E34D 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496F1040
 C4E349 6F D3 40, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 6F D3 40, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3496FD340
 C4C349 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmmm64_xmm, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3496F1040
 
 C4E3C9 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64
+C4E3C9 6F 10 C0, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C96F1040
 C4E3CD 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C96F1040
 C4E3C9 6F D3 40, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 6F D3 40, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C96FD340
@@ -20664,112 +20718,136 @@ C4C3C9 6F 10 40, VEX_Vfmsubsd_xmm_xmm_xmm_xmmm64, Vfmsubsd, 4, op0=r;xmm2 op1=r;
 62 E3CD4B 73 50 01 A5, EVEX_Vpshrdq_zmm_k1z_zmm_zmmm512b64_imm8, Vpshrdq, 4, op0=r;zmm2 op1=r;zmm6 op2=m;ds;eax;;1;64;1;Packed512_UInt64 op3=i8;0xA5 k3 co=7;1;0;0;6;1 enc=62F3CD4B735001A5
 
 C4E349 78 10 40, VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 78 10 C0, VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E349781040
 C4E349 78 D3 40, VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 78 10 40, VEX_Vfnmaddps_xmm_xmm_xmmm128_xmm, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E349781040
 
 C4E34D 78 10 50, VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 78 10 D0, VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D781050
 C4E34D 78 D3 50, VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 78 10 50, VEX_Vfnmaddps_ymm_ymm_ymmm256_ymm, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D781050
 
 C4E3C9 78 10 40, VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 78 10 C0, VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C9781040
 C4E3C9 78 D3 40, VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 78 10 40, VEX_Vfnmaddps_xmm_xmm_xmm_xmmm128, Vfnmaddps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C9781040
 
 C4E3CD 78 10 50, VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 78 10 D0, VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD781050
 C4E3CD 78 D3 50, VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 78 10 50, VEX_Vfnmaddps_ymm_ymm_ymm_ymmm256, Vfnmaddps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD781050
 
 C4E349 79 10 40, VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 79 10 C0, VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E349791040
 C4E349 79 D3 40, VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 79 10 40, VEX_Vfnmaddpd_xmm_xmm_xmmm128_xmm, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E349791040
 
 C4E34D 79 10 50, VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 79 10 D0, VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D791050
 C4E34D 79 D3 50, VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 79 10 50, VEX_Vfnmaddpd_ymm_ymm_ymmm256_ymm, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D791050
 
 C4E3C9 79 10 40, VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 79 10 C0, VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C9791040
 C4E3C9 79 D3 40, VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 79 10 40, VEX_Vfnmaddpd_xmm_xmm_xmm_xmmm128, Vfnmaddpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C9791040
 
 C4E3CD 79 10 50, VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 79 10 D0, VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD791050
 C4E3CD 79 D3 50, VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 79 10 50, VEX_Vfnmaddpd_ymm_ymm_ymm_ymmm256, Vfnmaddpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD791050
 
 C4E349 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4
+C4E349 7A 10 C0, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497A1040
 C4E34D 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497A1040
 C4E349 7A D3 40, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 7A D3 40, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3497AD340
 C4C349 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmmm32_xmm, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497A1040
 
 C4E3C9 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32
+C4E3C9 7A 10 C0, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97A1040
 C4E3CD 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97A1040
 C4E3C9 7A D3 40, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 7A D3 40, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C97AD340
 C4C3C9 7A 10 40, VEX_Vfnmaddss_xmm_xmm_xmm_xmmm32, Vfnmaddss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97A1040
 
 C4E349 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4
+C4E349 7B 10 C0, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497B1040
 C4E34D 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497B1040
 C4E349 7B D3 40, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 7B D3 40, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3497BD340
 C4C349 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmmm64_xmm, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497B1040
 
 C4E3C9 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64
+C4E3C9 7B 10 C0, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C97B1040
 C4E3CD 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C97B1040
 C4E3C9 7B D3 40, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 7B D3 40, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C97BD340
 C4C3C9 7B 10 40, VEX_Vfnmaddsd_xmm_xmm_xmm_xmmm64, Vfnmaddsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C97B1040
 
 C4E349 7C 10 40, VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4
+C4E349 7C 10 C0, VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3497C1040
 C4E349 7C D3 40, VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 7C 10 40, VEX_Vfnmsubps_xmm_xmm_xmmm128_xmm, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float32 op3=r;xmm4 enc=C4E3497C1040
 
 C4E34D 7C 10 50, VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5
+C4E34D 7C 10 D0, VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D7C1050
 C4E34D 7C D3 50, VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 7C 10 50, VEX_Vfnmsubps_ymm_ymm_ymmm256_ymm, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float32 op3=r;ymm5 enc=C4E34D7C1050
 
 C4E3C9 7C 10 40, VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32
+C4E3C9 7C 10 C0, VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C97C1040
 C4E3C9 7C D3 40, VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 7C 10 40, VEX_Vfnmsubps_xmm_xmm_xmm_xmmm128, Vfnmsubps, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float32 enc=C4E3C97C1040
 
 C4E3CD 7C 10 50, VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32
+C4E3CD 7C 10 D0, VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD7C1050
 C4E3CD 7C D3 50, VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 7C 10 50, VEX_Vfnmsubps_ymm_ymm_ymm_ymmm256, Vfnmsubps, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float32 enc=C4E3CD7C1050
 
 C4E349 7D 10 40, VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4
+C4E349 7D 10 C0, VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3497D1040
 C4E349 7D D3 40, VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4C349 7D 10 40, VEX_Vfnmsubpd_xmm_xmm_xmmm128_xmm, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Float64 op3=r;xmm4 enc=C4E3497D1040
 
 C4E34D 7D 10 50, VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5
+C4E34D 7D 10 D0, VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D7D1050
 C4E34D 7D D3 50, VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 C4C34D 7D 10 50, VEX_Vfnmsubpd_ymm_ymm_ymmm256_ymm, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;Packed256_Float64 op3=r;ymm5 enc=C4E34D7D1050
 
 C4E3C9 7D 10 40, VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64
+C4E3C9 7D 10 C0, VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C97D1040
 C4E3C9 7D D3 40, VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4C3C9 7D 10 40, VEX_Vfnmsubpd_xmm_xmm_xmm_xmmm128, Vfnmsubpd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_Float64 enc=C4E3C97D1040
 
 C4E3CD 7D 10 50, VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64
+C4E3CD 7D 10 D0, VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD7D1050
 C4E3CD 7D D3 50, VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 C4C3CD 7D 10 50, VEX_Vfnmsubpd_ymm_ymm_ymm_ymmm256, Vfnmsubpd, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;Packed256_Float64 enc=C4E3CD7D1050
 
 C4E349 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4
+C4E349 7E 10 C0, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497E1040
 C4E34D 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497E1040
 C4E349 7E D3 40, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 7E D3 40, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3497ED340
 C4C349 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmmm32_xmm, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float32 op3=r;xmm4 enc=C4E3497E1040
 
 C4E3C9 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32
+C4E3C9 7E 10 C0, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97E1040
 C4E3CD 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97E1040
 C4E3C9 7E D3 40, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 7E D3 40, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C97ED340
 C4C3C9 7E 10 40, VEX_Vfnmsubss_xmm_xmm_xmm_xmmm32, Vfnmsubss, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float32 enc=C4E3C97E1040
 
 C4E349 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4
+C4E349 7F 10 C0, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497F1040
 C4E34D 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497F1040
 C4E349 7F D3 40, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 C4E34D 7F D3 40, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4 enc=C4E3497FD340
 C4C349 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmmm64_xmm, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Float64 op3=r;xmm4 enc=C4E3497F1040
 
 C4E3C9 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64
+C4E3C9 7F 10 C0, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C97F1040
 C4E3CD 7F 10 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Float64 enc=C4E3C97F1040
 C4E3C9 7F D3 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 C4E3CD 7F D3 40, VEX_Vfnmsubsd_xmm_xmm_xmm_xmmm64, Vfnmsubsd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3 enc=C4E3C97FD340
@@ -20863,74 +20941,92 @@ C4E3FB F0 D3 A5, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=r;ebx op2=i8;0xA
 C4C37B F0 10 5A, VEX_Rorx_r32_rm32_imm8, Rorx, 3, op0=r;edx op1=m;ds;eax;;1;0;0;UInt32 op2=i8;0x5A co=5;1;0;0;0;0 enc=C4E37BF0105A
 
 8FE848 85 10 40, XOP_Vpmacssww_xmm_xmm_xmmm128_xmm, Vpmacssww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 85 10 C0, XOP_Vpmacssww_xmm_xmm_xmmm128_xmm, Vpmacssww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848851040
 8FE848 85 D3 40, XOP_Vpmacssww_xmm_xmm_xmmm128_xmm, Vpmacssww, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 85 10 40, XOP_Vpmacssww_xmm_xmm_xmmm128_xmm, Vpmacssww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848851040
 
 8FE848 86 10 40, XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm, Vpmacsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 86 10 C0, XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm, Vpmacsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848861040
 8FE848 86 D3 40, XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm, Vpmacsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 86 10 40, XOP_Vpmacsswd_xmm_xmm_xmmm128_xmm, Vpmacsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848861040
 
 8FE848 87 10 40, XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm, Vpmacssdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 87 10 C0, XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm, Vpmacssdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE848871040
 8FE848 87 D3 40, XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm, Vpmacssdql, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 87 10 40, XOP_Vpmacssdql_xmm_xmm_xmmm128_xmm, Vpmacssdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE848871040
 
 8FE848 8E 10 40, XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm, Vpmacssdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 8E 10 C0, XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm, Vpmacssdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8488E1040
 8FE848 8E D3 40, XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm, Vpmacssdd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 8E 10 40, XOP_Vpmacssdd_xmm_xmm_xmmm128_xmm, Vpmacssdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8488E1040
 
 8FE848 8F 10 40, XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm, Vpmacssdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 8F 10 C0, XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm, Vpmacssdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8488F1040
 8FE848 8F D3 40, XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm, Vpmacssdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 8F 10 40, XOP_Vpmacssdqh_xmm_xmm_xmmm128_xmm, Vpmacssdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8488F1040
 
 8FE848 95 10 40, XOP_Vpmacsww_xmm_xmm_xmmm128_xmm, Vpmacsww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 95 10 C0, XOP_Vpmacsww_xmm_xmm_xmmm128_xmm, Vpmacsww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848951040
 8FE848 95 D3 40, XOP_Vpmacsww_xmm_xmm_xmmm128_xmm, Vpmacsww, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 95 10 40, XOP_Vpmacsww_xmm_xmm_xmmm128_xmm, Vpmacsww, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848951040
 
 8FE848 96 10 40, XOP_Vpmacswd_xmm_xmm_xmmm128_xmm, Vpmacswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 96 10 C0, XOP_Vpmacswd_xmm_xmm_xmmm128_xmm, Vpmacswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848961040
 8FE848 96 D3 40, XOP_Vpmacswd_xmm_xmm_xmmm128_xmm, Vpmacswd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 96 10 40, XOP_Vpmacswd_xmm_xmm_xmmm128_xmm, Vpmacswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848961040
 
 8FE848 97 10 40, XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm, Vpmacsdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 97 10 C0, XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm, Vpmacsdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE848971040
 8FE848 97 D3 40, XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm, Vpmacsdql, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 97 10 40, XOP_Vpmacsdql_xmm_xmm_xmmm128_xmm, Vpmacsdql, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE848971040
 
 8FE848 9E 10 40, XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm, Vpmacsdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 9E 10 C0, XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm, Vpmacsdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8489E1040
 8FE848 9E D3 40, XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm, Vpmacsdd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 9E 10 40, XOP_Vpmacsdd_xmm_xmm_xmmm128_xmm, Vpmacsdd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8489E1040
 
 8FE848 9F 10 40, XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm, Vpmacsdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4
+8FE848 9F 10 C0, XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm, Vpmacsdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8489F1040
 8FE848 9F D3 40, XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm, Vpmacsdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 9F 10 40, XOP_Vpmacsdqh_xmm_xmm_xmmm128_xmm, Vpmacsdqh, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int32 op3=r;xmm4 enc=8FE8489F1040
 
 8FE848 A2 10 40, XOP_Vpcmov_xmm_xmm_xmmm128_xmm, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;UInt128 op3=r;xmm4
+8FE848 A2 10 C0, XOP_Vpcmov_xmm_xmm_xmmm128_xmm, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;UInt128 op3=r;xmm4 enc=8FE848A21040
 8FE848 A2 D3 40, XOP_Vpcmov_xmm_xmm_xmmm128_xmm, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 A2 10 40, XOP_Vpcmov_xmm_xmm_xmmm128_xmm, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;UInt128 op3=r;xmm4 enc=8FE848A21040
 
 8FE84C A2 10 50, XOP_Vpcmov_ymm_ymm_ymmm256_ymm, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;UInt256 op3=r;ymm5
+8FE84C A2 10 D0, XOP_Vpcmov_ymm_ymm_ymmm256_ymm, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;UInt256 op3=r;ymm5 enc=8FE84CA21050
 8FE84C A2 D3 50, XOP_Vpcmov_ymm_ymm_ymmm256_ymm, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3 op3=r;ymm5
 8FC84C A2 10 50, XOP_Vpcmov_ymm_ymm_ymmm256_ymm, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=m;ds;eax;;1;0;0;UInt256 op3=r;ymm5 enc=8FE84CA21050
 
 8FE8C8 A2 10 40, XOP_Vpcmov_xmm_xmm_xmm_xmmm128, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;UInt128
+8FE8C8 A2 10 C0, XOP_Vpcmov_xmm_xmm_xmm_xmmm128, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;UInt128 enc=8FE8C8A21040
 8FE8C8 A2 D3 40, XOP_Vpcmov_xmm_xmm_xmm_xmmm128, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 8FC8C8 A2 10 40, XOP_Vpcmov_xmm_xmm_xmm_xmmm128, Vpcmov, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;UInt128 enc=8FE8C8A21040
 
 8FE8CC A2 10 50, XOP_Vpcmov_ymm_ymm_ymm_ymmm256, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;UInt256
+8FE8CC A2 10 D0, XOP_Vpcmov_ymm_ymm_ymm_ymmm256, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;UInt256 enc=8FE8CCA21050
 8FE8CC A2 D3 50, XOP_Vpcmov_ymm_ymm_ymm_ymmm256, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=r;ymm3
 8FC8CC A2 10 50, XOP_Vpcmov_ymm_ymm_ymm_ymmm256, Vpcmov, 4, op0=r;ymm2 op1=r;ymm6 op2=r;ymm5 op3=m;ds;eax;;1;0;0;UInt256 enc=8FE8CCA21050
 
 8FE848 A3 10 40, XOP_Vpperm_xmm_xmm_xmmm128_xmm, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_UInt8 op3=r;xmm4
+8FE848 A3 10 C0, XOP_Vpperm_xmm_xmm_xmmm128_xmm, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_UInt8 op3=r;xmm4 enc=8FE848A31040
 8FE848 A3 D3 40, XOP_Vpperm_xmm_xmm_xmmm128_xmm, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 A3 10 40, XOP_Vpperm_xmm_xmm_xmmm128_xmm, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_UInt8 op3=r;xmm4 enc=8FE848A31040
 
 8FE8C8 A3 10 40, XOP_Vpperm_xmm_xmm_xmm_xmmm128, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_UInt8
+8FE8C8 A3 10 C0, XOP_Vpperm_xmm_xmm_xmm_xmmm128, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_UInt8 enc=8FE8C8A31040
 8FE8C8 A3 D3 40, XOP_Vpperm_xmm_xmm_xmm_xmmm128, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=r;xmm3
 8FC8C8 A3 10 40, XOP_Vpperm_xmm_xmm_xmm_xmmm128, Vpperm, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm4 op3=m;ds;eax;;1;0;0;Packed128_UInt8 enc=8FE8C8A31040
 
 8FE848 A6 10 40, XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm, Vpmadcsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 A6 10 C0, XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm, Vpmadcsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848A61040
 8FE848 A6 D3 40, XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm, Vpmadcsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 A6 10 40, XOP_Vpmadcsswd_xmm_xmm_xmmm128_xmm, Vpmadcsswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848A61040
 
 8FE848 B6 10 40, XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm, Vpmadcswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4
+8FE848 B6 10 C0, XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm, Vpmadcswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848B61040
 8FE848 B6 D3 40, XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm, Vpmadcswd, 4, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3 op3=r;xmm4
 8FC848 B6 10 40, XOP_Vpmadcswd_xmm_xmm_xmmm128_xmm, Vpmadcswd, 4, op0=r;xmm2 op1=r;xmm6 op2=m;ds;eax;;1;0;0;Packed128_Int16 op3=r;xmm4 enc=8FE848B61040
 

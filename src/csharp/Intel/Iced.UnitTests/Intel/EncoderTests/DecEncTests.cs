@@ -571,6 +571,45 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 			}
 		}
 
+		static bool HasIs4OrIs5Operands(OpCodeInfo opCode) {
+			for (int i = 0; i < opCode.OpCount; i++) {
+				switch (opCode.GetOpKind(i)) {
+				case OpCodeOperandKind.xmm_is4:
+				case OpCodeOperandKind.xmm_is5:
+				case OpCodeOperandKind.ymm_is4:
+				case OpCodeOperandKind.ymm_is5:
+					return true;
+				default:
+					break;
+				}
+			}
+			return false;
+		}
+
+		[Fact]
+		void Test_is4_is5_instructions_ignore_bit7_in_1632mode() {
+			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
+				if (info.Bitness != 16 && info.Bitness != 32)
+					continue;
+				var opCode = info.Code.ToOpCode();
+				if (!HasIs4OrIs5Operands(opCode))
+					continue;
+				var bytes = HexUtils.ToByteArray(info.HexBytes);
+				Instruction instruction1, instruction2;
+				{
+					var decoder = Decoder.Create(info.Bitness, bytes, info.Options);
+					decoder.Decode(out instruction1);
+				}
+				bytes[bytes.Length - 1] ^= 0x80;
+				{
+					var decoder = Decoder.Create(info.Bitness, bytes, info.Options);
+					decoder.Decode(out instruction2);
+				}
+				Assert.Equal(info.Code, instruction1.Code);
+				Assert.True(Instruction.EqualsAllBits(instruction1, instruction2));
+			}
+		}
+
 		[Fact]
 		void Test_EVEX_k1_z_bits() {
 			var p2Values_k1z = new (bool valid, byte bits)[] { (true, 0x00), (true, 0x01), (false, 0x80), (true, 0x86) };
