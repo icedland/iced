@@ -21,7 +21,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-using System.Linq;
+using System;
 using System.Text;
 using Iced.Intel;
 using Xunit;
@@ -63,7 +63,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					16 => T16,
 					32 => T32,
 					64 => T64,
-					_ => throw new System.InvalidOperationException(),
+					_ => throw new InvalidOperationException(),
 				};
 			}
 
@@ -73,7 +73,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 					16 => T16,
 					32 => T32,
 					64 => T64,
-					_ => throw new System.InvalidOperationException(),
+					_ => throw new InvalidOperationException(),
 				};
 			}
 #else

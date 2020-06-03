@@ -24,7 +24,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if GAS || INTEL || MASM || NASM
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Iced.Intel;
 using Iced.UnitTests.Intel.DecoderTests;
