@@ -1812,7 +1812,7 @@ EVEX_Vcvttpd2qq_ymm_k1z_ymmm256b64, EVEX, 66, 0F, 7A, EVEX.256.66.0F.W1 7A /r, V
 EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae, EVEX, 66, 0F, 7A, EVEX.512.66.0F.W1 7A /r, VCVTTPD2QQ zmm1 {k1}{z}| zmm2/m512/m64bcst{sae}, 16b 32b 64b L512 W1 op=zmm_reg;zmm_or_mem tt=Full_512 b sae k z
 EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32, EVEX, F3, 0F, 7A, EVEX.128.F3.0F.W0 7A /r, VCVTUDQ2PD xmm1 {k1}{z}| xmm2/m64/m32bcst, 16b 32b 64b L128 W0 op=xmm_reg;xmm_or_mem tt=Half_128 b k z
 EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32, EVEX, F3, 0F, 7A, EVEX.256.F3.0F.W0 7A /r, VCVTUDQ2PD ymm1 {k1}{z}| xmm2/m128/m32bcst, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem tt=Half_256 b k z
-EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32, EVEX, F3, 0F, 7A, EVEX.512.F3.0F.W0 7A /r, VCVTUDQ2PD zmm1 {k1}{z}| ymm2/m256/m32bcst, 16b 32b 64b L512 W0 op=zmm_reg;ymm_or_mem tt=Half_512 b k z
+EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, EVEX, F3, 0F, 7A, EVEX.512.F3.0F.W0 7A /r, VCVTUDQ2PD zmm1 {k1}{z}| ymm2/m256/m32bcst, 16b 32b 64b L512 W0 op=zmm_reg;ymm_or_mem tt=Half_512 b er k z
 EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64, EVEX, F3, 0F, 7A, EVEX.128.F3.0F.W1 7A /r, VCVTUQQ2PD xmm1 {k1}{z}| xmm2/m128/m64bcst, 16b 32b 64b L128 W1 op=xmm_reg;xmm_or_mem tt=Full_128 b k z
 EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64, EVEX, F3, 0F, 7A, EVEX.256.F3.0F.W1 7A /r, VCVTUQQ2PD ymm1 {k1}{z}| ymm2/m256/m64bcst, 16b 32b 64b L256 W1 op=ymm_reg;ymm_or_mem tt=Full_256 b k z
 EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er, EVEX, F3, 0F, 7A, EVEX.512.F3.0F.W1 7A /r, VCVTUQQ2PD zmm1 {k1}{z}| zmm2/m512/m64bcst{er}, 16b 32b 64b L512 W1 op=zmm_reg;zmm_or_mem tt=Full_512 b er k z
@@ -2409,7 +2409,7 @@ VEX_Vcvtdq2pd_xmm_xmmm64, VEX, F3, 0F, E6, VEX.128.F3.0F.WIG E6 /r, VCVTDQ2PD xm
 VEX_Vcvtdq2pd_ymm_xmmm128, VEX, F3, 0F, E6, VEX.256.F3.0F.WIG E6 /r, VCVTDQ2PD ymm1| xmm2/m128, 16b 32b 64b L256 WIG op=ymm_reg;xmm_or_mem
 EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32, EVEX, F3, 0F, E6, EVEX.128.F3.0F.W0 E6 /r, VCVTDQ2PD xmm1 {k1}{z}| xmm2/m64/m32bcst, 16b 32b 64b L128 W0 op=xmm_reg;xmm_or_mem tt=Half_128 b k z
 EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32, EVEX, F3, 0F, E6, EVEX.256.F3.0F.W0 E6 /r, VCVTDQ2PD ymm1 {k1}{z}| xmm2/m128/m32bcst, 16b 32b 64b L256 W0 op=ymm_reg;xmm_or_mem tt=Half_256 b k z
-EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32, EVEX, F3, 0F, E6, EVEX.512.F3.0F.W0 E6 /r, VCVTDQ2PD zmm1 {k1}{z}| ymm2/m256/m32bcst, 16b 32b 64b L512 W0 op=zmm_reg;ymm_or_mem tt=Half_512 b k z
+EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, EVEX, F3, 0F, E6, EVEX.512.F3.0F.W0 E6 /r, VCVTDQ2PD zmm1 {k1}{z}| ymm2/m256/m32bcst, 16b 32b 64b L512 W0 op=zmm_reg;ymm_or_mem tt=Half_512 b er k z
 EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64, EVEX, F3, 0F, E6, EVEX.128.F3.0F.W1 E6 /r, VCVTQQ2PD xmm1 {k1}{z}| xmm2/m128/m64bcst, 16b 32b 64b L128 W1 op=xmm_reg;xmm_or_mem tt=Full_128 b k z
 EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64, EVEX, F3, 0F, E6, EVEX.256.F3.0F.W1 E6 /r, VCVTQQ2PD ymm1 {k1}{z}| ymm2/m256/m64bcst, 16b 32b 64b L256 W1 op=ymm_reg;ymm_or_mem tt=Full_256 b k z
 EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er, EVEX, F3, 0F, E6, EVEX.512.F3.0F.W1 E6 /r, VCVTQQ2PD zmm1 {k1}{z}| zmm2/m512/m64bcst{er}, 16b 32b 64b L512 W1 op=zmm_reg;zmm_or_mem tt=Full_512 b er k z

@@ -1818,7 +1818,7 @@ namespace Iced.Intel {
 			2,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 			2,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 			2,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-			2,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+			2,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 			2,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 			2,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 			2,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2415,7 +2415,7 @@ namespace Iced.Intel {
 			2,// VEX_Vcvtdq2pd_ymm_xmmm128
 			2,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 			2,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-			2,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+			2,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 			2,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 			2,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 			2,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

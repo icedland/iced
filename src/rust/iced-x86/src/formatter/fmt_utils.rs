@@ -414,7 +414,11 @@ pub(super) fn can_show_rounding_control(instruction: &Instruction, options: &For
 	#[cfg(not(feature = "no_evex"))]
 	{
 		let code = instruction.code();
-		if code == Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er || code == Code::EVEX_Vcvtusi2sd_xmm_xmm_rm32_er {
+		if code == Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+			|| code == Code::EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
+			|| code == Code::EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
+			|| code == Code::EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
+		{
 			return options.show_useless_prefixes();
 		}
 	}

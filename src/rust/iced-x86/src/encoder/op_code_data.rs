@@ -1811,7 +1811,7 @@ pub(super) static OP_CODE_DATA: [u32; 4221 * 3] = [
 	0x007A_0002, 0x03A0_D805, 0x0000_08E0,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 	0x007A_0002, 0x0321_0006, 0x0000_085E,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	0x007A_0002, 0x0321_4406, 0x0000_085F,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	0x007A_0002, 0x0321_8806, 0x0000_08A0,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	0x007A_0002, 0x0361_8806, 0x0000_08A0,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	0x007A_0002, 0x0320_5006, 0x0000_085E,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	0x007A_0002, 0x0320_9406, 0x0000_089F,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	0x007A_0002, 0x0360_D806, 0x0000_08E0,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2408,7 +2408,7 @@ pub(super) static OP_CODE_DATA: [u32; 4221 * 3] = [
 	0x00E6_0001, 0x0000_5006, 0x0000_0963,// VEX_Vcvtdq2pd_ymm_xmmm128
 	0x00E6_0002, 0x0321_0006, 0x0000_085E,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 	0x00E6_0002, 0x0321_4406, 0x0000_085F,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-	0x00E6_0002, 0x0321_8806, 0x0000_08A0,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	0x00E6_0002, 0x0361_8806, 0x0000_08A0,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	0x00E6_0002, 0x0320_5006, 0x0000_085E,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	0x00E6_0002, 0x0320_9406, 0x0000_089F,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	0x00E6_0002, 0x0360_D806, 0x0000_08E0,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

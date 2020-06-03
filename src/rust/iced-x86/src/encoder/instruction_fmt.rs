@@ -744,6 +744,8 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 						{
 							if self.op_code.code() != Code::EVEX_Vcvtusi2sd_xmm_xmm_rm32_er
 								&& self.op_code.code() != Code::EVEX_Vcvtsi2sd_xmm_xmm_rm32_er
+								&& self.op_code.code() != Code::EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
+								&& self.op_code.code() != Code::EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 							{
 								self.write_decorator("er");
 							}

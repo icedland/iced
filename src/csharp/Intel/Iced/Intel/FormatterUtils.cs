@@ -416,6 +416,8 @@ namespace Iced.Intel {
 #if !NO_EVEX
 			case Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er:
 			case Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32_er:
+			case Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er:
+			case Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er:
 				return options.ShowUselessPrefixes;
 #endif
 			default:

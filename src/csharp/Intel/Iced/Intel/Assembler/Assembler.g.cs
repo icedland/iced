@@ -48219,8 +48219,8 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtdq2pd(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			op = Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er;
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtdq2pd instruction.<br/>
 		/// <br/>
@@ -48281,7 +48281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtdq2pd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32;
+			op = Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtdq2ps instruction.<br/>
@@ -51893,8 +51893,8 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtudq2pd(AssemblerRegisterZMM dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32;
-			AddInstruction(Instruction.Create(op, dst, src), dst.Flags);
+			op = Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er;
+			AddInstruction(Instruction.Create(op, dst, src), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtudq2pd instruction.<br/>
 		/// <br/>
@@ -51935,7 +51935,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcvtudq2pd(AssemblerRegisterZMM dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32;
+			op = Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)), dst.Flags | src.Flags);
 		}
 		/// <summary>vcvtudq2ps instruction.<br/>

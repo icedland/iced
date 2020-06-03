@@ -845,7 +845,8 @@ namespace Iced.Intel.EncoderInternal {
 							WriteDecorator("sae");
 						if (opCode.CanUseRoundingControl) {
 #if !NO_EVEX
-							if (opCode.Code != Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32_er && opCode.Code != Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er)
+							if (opCode.Code != Code.EVEX_Vcvtusi2sd_xmm_xmm_rm32_er && opCode.Code != Code.EVEX_Vcvtsi2sd_xmm_xmm_rm32_er &&
+								opCode.Code != Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er && opCode.Code != Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er)
 #endif
 								WriteDecorator("er");
 						}

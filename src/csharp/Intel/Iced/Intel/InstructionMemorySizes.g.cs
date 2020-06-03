@@ -1820,7 +1820,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed512_Float64,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 			(byte)MemorySize.Packed64_UInt32,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 			(byte)MemorySize.Packed128_UInt32,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-			(byte)MemorySize.Packed256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+			(byte)MemorySize.Packed256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 			(byte)MemorySize.Packed128_UInt64,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 			(byte)MemorySize.Packed256_UInt64,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 			(byte)MemorySize.Packed512_UInt64,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2417,7 +2417,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.Packed128_Int32,// VEX_Vcvtdq2pd_ymm_xmmm128
 			(byte)MemorySize.Packed64_Int32,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 			(byte)MemorySize.Packed128_Int32,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-			(byte)MemorySize.Packed256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+			(byte)MemorySize.Packed256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 			(byte)MemorySize.Packed128_Int64,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 			(byte)MemorySize.Packed256_Int64,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 			(byte)MemorySize.Packed512_Int64,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
@@ -6041,7 +6041,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.Broadcast512_Float64,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 			(byte)MemorySize.Broadcast64_UInt32,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 			(byte)MemorySize.Broadcast128_UInt32,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+			(byte)MemorySize.Broadcast256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 			(byte)MemorySize.Broadcast128_UInt64,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 			(byte)MemorySize.Broadcast256_UInt64,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 			(byte)MemorySize.Broadcast512_UInt64,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -6638,7 +6638,7 @@ namespace Iced.Intel {
 			0,// VEX_Vcvtdq2pd_ymm_xmmm128
 			(byte)MemorySize.Broadcast64_Int32,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 			(byte)MemorySize.Broadcast128_Int32,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-			(byte)MemorySize.Broadcast256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+			(byte)MemorySize.Broadcast256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 			(byte)MemorySize.Broadcast128_Int64,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 			(byte)MemorySize.Broadcast256_Int64,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 			(byte)MemorySize.Broadcast512_Int64,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

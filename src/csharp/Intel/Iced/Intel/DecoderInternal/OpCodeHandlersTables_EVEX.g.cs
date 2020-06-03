@@ -8432,22 +8432,25 @@ namespace Iced.Intel.DecoderInternal {
 								0x03,// Full_512
 								0x01,// true
 					0x07,// W
-						0x09,// VectorLength
-							0x37,// VkW_4b
+						0x0A,// VectorLength_er
+							0x39,// VkW_er_5
 								0x4D,// XMM0
 								0x4D,// XMM0
 								0xF8, 0x0D,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 								0x04,// Half_128
-							0x37,// VkW_4b
+								0x00,// false
+							0x39,// VkW_er_5
 								0x6D,// YMM0
 								0x4D,// XMM0
 								0xF9, 0x0D,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 								0x05,// Half_256
-							0x37,// VkW_4b
+								0x00,// false
+							0x39,// VkW_er_5
 								0x8D,// ZMM0
 								0x6D,// YMM0
-								0xFA, 0x0D,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+								0xFA, 0x0D,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 								0x06,// Half_512
+								0x00,// false
 						0x0A,// VectorLength_er
 							0x39,// VkW_er_5
 								0x4D,// XMM0
@@ -9296,22 +9299,25 @@ namespace Iced.Intel.DecoderInternal {
 								0x03,// Full_512
 								0x01,// true
 					0x07,// W
-						0x09,// VectorLength
-							0x37,// VkW_4b
+						0x0A,// VectorLength_er
+							0x39,// VkW_er_5
 								0x4D,// XMM0
 								0x4D,// XMM0
 								0xCD, 0x12,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 								0x04,// Half_128
-							0x37,// VkW_4b
+								0x00,// false
+							0x39,// VkW_er_5
 								0x6D,// YMM0
 								0x4D,// XMM0
 								0xCE, 0x12,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
 								0x05,// Half_256
-							0x37,// VkW_4b
+								0x00,// false
+							0x39,// VkW_er_5
 								0x8D,// ZMM0
 								0x6D,// YMM0
-								0xCF, 0x12,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+								0xCF, 0x12,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 								0x06,// Half_512
+								0x00,// false
 						0x0A,// VectorLength_er
 							0x39,// VkW_er_5
 								0x4D,// XMM0

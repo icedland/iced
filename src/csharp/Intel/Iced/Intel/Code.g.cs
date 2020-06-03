@@ -14293,7 +14293,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32 = 1786,
+		EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er = 1786,
 		/// <summary><c>VCVTUQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F.W1 7A /r</c><br/>
@@ -19069,7 +19069,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32 = 2383,
+		EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er = 2383,
 		/// <summary><c>VCVTQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F.W1 E6 /r</c><br/>

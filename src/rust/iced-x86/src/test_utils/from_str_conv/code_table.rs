@@ -1820,7 +1820,7 @@ lazy_static! {
 		h.insert("EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae", Code::EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae);
 		h.insert("EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32", Code::EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32);
 		h.insert("EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32", Code::EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32);
-		h.insert("EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32", Code::EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32);
+		h.insert("EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er", Code::EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er);
 		h.insert("EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64", Code::EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64);
 		h.insert("EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64", Code::EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64);
 		h.insert("EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er", Code::EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er);
@@ -2417,7 +2417,7 @@ lazy_static! {
 		h.insert("VEX_Vcvtdq2pd_ymm_xmmm128", Code::VEX_Vcvtdq2pd_ymm_xmmm128);
 		h.insert("EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32", Code::EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32);
 		h.insert("EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32", Code::EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32);
-		h.insert("EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32", Code::EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32);
+		h.insert("EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er", Code::EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er);
 		h.insert("EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64", Code::EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64);
 		h.insert("EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64", Code::EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64);
 		h.insert("EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er", Code::EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er);

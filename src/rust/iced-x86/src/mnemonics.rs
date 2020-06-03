@@ -1814,7 +1814,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Vcvttpd2qq,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 	Mnemonic::Vcvtudq2pd,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	Mnemonic::Vcvtudq2pd,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	Mnemonic::Vcvtudq2pd,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	Mnemonic::Vcvtudq2pd,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	Mnemonic::Vcvtuqq2pd,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	Mnemonic::Vcvtuqq2pd,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	Mnemonic::Vcvtuqq2pd,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2411,7 +2411,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Vcvtdq2pd,// VEX_Vcvtdq2pd_ymm_xmmm128
 	Mnemonic::Vcvtdq2pd,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 	Mnemonic::Vcvtdq2pd,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-	Mnemonic::Vcvtdq2pd,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	Mnemonic::Vcvtdq2pd,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	Mnemonic::Vcvtqq2pd,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	Mnemonic::Vcvtqq2pd,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	Mnemonic::Vcvtqq2pd,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

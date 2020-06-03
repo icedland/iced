@@ -21041,7 +21041,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #if !NO_EVEX
 		[Fact]
 		public void vcvtdq2pd_regZMM_regYMM() {
-			TestAssembler(c => c.vcvtdq2pd(zmm0.k1, ymm1), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32, zmm0.k1, ymm1)));
+			TestAssembler(c => c.vcvtdq2pd(zmm0.k1, ymm1), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, zmm0.k1, ymm1)));
 		}
 #endif
 
@@ -21070,7 +21070,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #if !NO_EVEX
 		[Fact]
 		public void vcvtdq2pd_regZMM_m() {
-			TestAssembler(c => c.vcvtdq2pd(zmm0.k1, __ymmword_ptr[si]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32, zmm0.k1, __ymmword_ptr[si].ToMemoryOperand(Bitness))));
+			TestAssembler(c => c.vcvtdq2pd(zmm0.k1, __ymmword_ptr[si]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, zmm0.k1, __ymmword_ptr[si].ToMemoryOperand(Bitness))));
 		}
 #endif
 
@@ -22645,7 +22645,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #if !NO_EVEX
 		[Fact]
 		public void vcvtudq2pd_regZMM_regYMM() {
-			TestAssembler(c => c.vcvtudq2pd(zmm0.k1, ymm1), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32, zmm0.k1, ymm1)));
+			TestAssembler(c => c.vcvtudq2pd(zmm0.k1, ymm1), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, zmm0.k1, ymm1)));
 		}
 #endif
 
@@ -22666,7 +22666,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 #if !NO_EVEX
 		[Fact]
 		public void vcvtudq2pd_regZMM_m() {
-			TestAssembler(c => c.vcvtudq2pd(zmm0.k1, __ymmword_ptr[si]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32, zmm0.k1, __ymmword_ptr[si].ToMemoryOperand(Bitness))));
+			TestAssembler(c => c.vcvtudq2pd(zmm0.k1, __ymmword_ptr[si]), ApplyK1(Instruction.Create(Code.EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, zmm0.k1, __ymmword_ptr[si].ToMemoryOperand(Bitness))));
 		}
 #endif
 

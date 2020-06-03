@@ -1816,7 +1816,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x007A0002, 0x03A0D805, 0x000008E0,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 				0x007A0002, 0x03210006, 0x0000085E,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 				0x007A0002, 0x03214406, 0x0000085F,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-				0x007A0002, 0x03218806, 0x000008A0,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+				0x007A0002, 0x03618806, 0x000008A0,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 				0x007A0002, 0x03205006, 0x0000085E,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 				0x007A0002, 0x03209406, 0x0000089F,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 				0x007A0002, 0x0360D806, 0x000008E0,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2413,7 +2413,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x00E60001, 0x00005006, 0x00000963,// VEX_Vcvtdq2pd_ymm_xmmm128
 				0x00E60002, 0x03210006, 0x0000085E,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 				0x00E60002, 0x03214406, 0x0000085F,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-				0x00E60002, 0x03218806, 0x000008A0,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+				0x00E60002, 0x03618806, 0x000008A0,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 				0x00E60002, 0x03205006, 0x0000085E,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 				0x00E60002, 0x03209406, 0x0000089F,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 				0x00E60002, 0x0360D806, 0x000008E0,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

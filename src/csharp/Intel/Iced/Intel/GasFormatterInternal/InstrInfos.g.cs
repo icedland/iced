@@ -8303,8 +8303,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
-				0x80,// 'v', Previous
+				// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
+				0x8B,// 'v', er_2
+				0x92, 0x05,// 658 = "vcvtudq2pd"
+				0x00,// 0x0
 
 				// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 				0x81,// 'v', Normal_1
@@ -10895,8 +10897,10 @@ namespace Iced.Intel.GasFormatterInternal {
 				// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
 				0x80,// 'v', Previous
 
-				// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
-				0x80,// 'v', Previous
+				// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
+				0x8B,// 'v', er_2
+				0xB2, 0x06,// 818 = "vcvtdq2pd"
+				0x00,// 0x0
 
 				// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 				0x81,// 'v', Normal_1

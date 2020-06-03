@@ -2390,6 +2390,14 @@ vcvtusi2sd %ebx,%xmm14,%xmm18
 vcvtusi2sd %ebx,%xmm22,%xmm10
 vcvtusi2sd %r11d,%xmm6,%xmm2
 vcvtusi2sd %ebx,%xmm6,%xmm2
+vcvtdq2pd %ymm3,%zmm2{%k3}{z}
+vcvtdq2pd %ymm19,%zmm10{%k3}
+vcvtdq2pd %ymm11,%zmm18{%k3}{z}
+vcvtdq2pd %ymm3,%zmm2{%k3}
+vcvtudq2pd %ymm3,%zmm2{%k3}{z}
+vcvtudq2pd %ymm19,%zmm10{%k3}
+vcvtudq2pd %ymm11,%zmm18{%k3}{z}
+vcvtudq2pd %ymm3,%zmm2{%k3}
 
 vcvtsi2sd %ebx,{rn-sae},%xmm14,%xmm18
 vcvtsi2sd %ebx,{rd-sae},%xmm22,%xmm10
@@ -2399,6 +2407,14 @@ vcvtusi2sd %ebx,{rn-sae},%xmm14,%xmm18
 vcvtusi2sd %ebx,{rd-sae},%xmm22,%xmm10
 vcvtusi2sd %r11d,{ru-sae},%xmm6,%xmm2
 vcvtusi2sd %ebx,{rz-sae},%xmm6,%xmm2
+vcvtdq2pd {rn-sae},%ymm3,%zmm2{%k3}{z}
+vcvtdq2pd {rd-sae},%ymm19,%zmm10{%k3}
+vcvtdq2pd {ru-sae},%ymm11,%zmm18{%k3}{z}
+vcvtdq2pd {rz-sae},%ymm3,%zmm2{%k3}
+vcvtudq2pd {rn-sae},%ymm3,%zmm2{%k3}{z}
+vcvtudq2pd {rd-sae},%ymm19,%zmm10{%k3}
+vcvtudq2pd {ru-sae},%ymm11,%zmm18{%k3}{z}
+vcvtudq2pd {rz-sae},%ymm3,%zmm2{%k3}
 
 movabs 0xf0debc9a78563412,%al
 movabs 0xf0debc9a78563412,%al

@@ -2390,6 +2390,14 @@ vcvtusi2sd xmm18,xmm14,ebx
 vcvtusi2sd xmm10,xmm22,ebx
 vcvtusi2sd xmm2,xmm6,r11d
 vcvtusi2sd xmm2,xmm6,ebx
+vcvtdq2pd zmm2{k3}{z},ymm3
+vcvtdq2pd zmm10{k3},ymm19
+vcvtdq2pd zmm18{k3}{z},ymm11
+vcvtdq2pd zmm2{k3},ymm3
+vcvtudq2pd zmm2{k3}{z},ymm3
+vcvtudq2pd zmm10{k3},ymm19
+vcvtudq2pd zmm18{k3}{z},ymm11
+vcvtudq2pd zmm2{k3},ymm3
 
 vcvtsi2sd xmm18{rne-sae},xmm14,ebx
 vcvtsi2sd xmm10{rd-sae},xmm22,ebx
@@ -2399,6 +2407,14 @@ vcvtusi2sd xmm18{rne-sae},xmm14,ebx
 vcvtusi2sd xmm10{rd-sae},xmm22,ebx
 vcvtusi2sd xmm2{ru-sae},xmm6,r11d
 vcvtusi2sd xmm2{rz-sae},xmm6,ebx
+vcvtdq2pd zmm2{k3}{z}{rne-sae},ymm3
+vcvtdq2pd zmm10{k3}{rd-sae},ymm19
+vcvtdq2pd zmm18{k3}{z}{ru-sae},ymm11
+vcvtdq2pd zmm2{k3}{rz-sae},ymm3
+vcvtudq2pd zmm2{k3}{z}{rne-sae},ymm3
+vcvtudq2pd zmm10{k3}{rd-sae},ymm19
+vcvtudq2pd zmm18{k3}{z}{ru-sae},ymm11
+vcvtudq2pd zmm2{k3}{rz-sae},ymm3
 
 mov al,[0xf0debc9a78563412]
 mov al,[0xf0debc9a78563412]

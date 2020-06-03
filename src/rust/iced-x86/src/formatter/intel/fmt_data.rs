@@ -6966,7 +6966,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
-	// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
@@ -9322,7 +9322,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
 	0x80,// 'v', Previous
 
-	// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	0x80,// 'v', Previous
 
 	// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64

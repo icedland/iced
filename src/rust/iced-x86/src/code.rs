@@ -14301,7 +14301,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32 = 1786,
+	EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er = 1786,
 	/// `VCVTUQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F.W1 7A /r`
@@ -19077,7 +19077,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32 = 2383,
+	EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er = 2383,
 	/// `VCVTQQ2PD xmm1 {k1}{z}, xmm2/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F.W1 E6 /r`
@@ -35563,7 +35563,7 @@ static GEN_DEBUG_CODE: [&str; 4221] = [
 	"EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae",
 	"EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32",
 	"EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32",
-	"EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32",
+	"EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er",
 	"EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64",
 	"EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64",
 	"EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er",
@@ -36160,7 +36160,7 @@ static GEN_DEBUG_CODE: [&str; 4221] = [
 	"VEX_Vcvtdq2pd_ymm_xmmm128",
 	"EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32",
 	"EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32",
-	"EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32",
+	"EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er",
 	"EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64",
 	"EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64",
 	"EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er",

@@ -2912,9 +2912,9 @@ C5FC 77, VEX_Vzeroall
 62 F17E2B 7A D3, EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 62 F17E28 7A 50 01, EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
 62 F17EBB 7A 50 01, EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-62 F17E4B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
-62 F17E48 7A 50 01, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
-62 F17EDB 7A 50 01, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+62 F17E4B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
+62 F17E48 7A 50 01, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
+62 F17EDB 7A 50 01, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 62 F1FE0B 7A D3, EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 62 F1FE08 7A 50 01, EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 62 F1FE9B 7A 50 01, EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
@@ -3885,9 +3885,9 @@ C5FE E6 10, VEX_Vcvtdq2pd_ymm_xmmm128
 62 F17E2B E6 D3, EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
 62 F17E28 E6 50 01, EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
 62 F17EBB E6 50 01, EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-62 F17E4B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
-62 F17E48 E6 50 01, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
-62 F17EDB E6 50 01, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+62 F17E4B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
+62 F17E48 E6 50 01, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
+62 F17EDB E6 50 01, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 62 F1FE0B E6 D3, EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 62 F1FE08 E6 50 01, EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 62 F1FE9B E6 50 01, EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64

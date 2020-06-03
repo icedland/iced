@@ -2390,6 +2390,14 @@
 64, 62 714F30 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=false
 64, 62 D14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=false
 64, 62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=false
+64, 62 F17E9B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 317E3B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 C17EDB E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 F17E7B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 F17E9B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 317E3B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 C17EDB 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
+64, 62 F17E7B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=false
 
 64, 62 E10F18 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=true
 64, 62 714F30 2A D3, EVEX_Vcvtsi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=true
@@ -2399,6 +2407,14 @@
 64, 62 714F30 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=true
 64, 62 D14F58 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=true
 64, 62 F14F78 7B D3, EVEX_Vcvtusi2sd_xmm_xmm_rm32_er, ShowUselessPrefixes=true
+64, 62 F17E9B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 317E3B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 C17EDB E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 F17E7B E6 D3, EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 F17E9B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 317E3B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 C17EDB 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
+64, 62 F17E7B 7A D3, EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er, ShowUselessPrefixes=true
 
 64, 26 A0 123456789ABCDEF0, Mov_AL_moffs8, ShowUselessPrefixes=false
 64, 2E A0 123456789ABCDEF0, Mov_AL_moffs8, ShowUselessPrefixes=false

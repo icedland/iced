@@ -1816,7 +1816,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Packed512_Float64,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 	MemorySize::Packed64_UInt32,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	MemorySize::Packed128_UInt32,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	MemorySize::Packed256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	MemorySize::Packed256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	MemorySize::Packed128_UInt64,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	MemorySize::Packed256_UInt64,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	MemorySize::Packed512_UInt64,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2413,7 +2413,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Packed128_Int32,// VEX_Vcvtdq2pd_ymm_xmmm128
 	MemorySize::Packed64_Int32,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 	MemorySize::Packed128_Int32,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-	MemorySize::Packed256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	MemorySize::Packed256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	MemorySize::Packed128_Int64,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	MemorySize::Packed256_Int64,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	MemorySize::Packed512_Int64,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
@@ -6037,7 +6037,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Broadcast512_Float64,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 	MemorySize::Broadcast64_UInt32,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	MemorySize::Broadcast128_UInt32,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	MemorySize::Broadcast256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	MemorySize::Broadcast256_UInt32,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	MemorySize::Broadcast128_UInt64,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	MemorySize::Broadcast256_UInt64,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	MemorySize::Broadcast512_UInt64,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -6634,7 +6634,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// VEX_Vcvtdq2pd_ymm_xmmm128
 	MemorySize::Broadcast64_Int32,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 	MemorySize::Broadcast128_Int32,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-	MemorySize::Broadcast256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	MemorySize::Broadcast256_Int32,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	MemorySize::Broadcast128_Int64,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	MemorySize::Broadcast256_Int64,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	MemorySize::Broadcast512_Int64,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er

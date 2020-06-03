@@ -1811,7 +1811,7 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_0037, 0x1C00_0002,// EVEX_Vcvttpd2qq_zmm_k1z_zmmm512b64_sae
 	0x2000_0037, 0x2D00_0002,// EVEX_Vcvtudq2pd_xmm_k1z_xmmm64b32
 	0x2000_0037, 0x2D00_0002,// EVEX_Vcvtudq2pd_ymm_k1z_xmmm128b32
-	0x2000_0037, 0x1E00_0002,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32
+	0x2000_0037, 0x1E00_0002,// EVEX_Vcvtudq2pd_zmm_k1z_ymmm256b32_er
 	0x2000_0037, 0x2C00_0002,// EVEX_Vcvtuqq2pd_xmm_k1z_xmmm128b64
 	0x2000_0037, 0x2C00_0002,// EVEX_Vcvtuqq2pd_ymm_k1z_ymmm256b64
 	0x2000_0037, 0x1C00_0002,// EVEX_Vcvtuqq2pd_zmm_k1z_zmmm512b64_er
@@ -2408,7 +2408,7 @@ pub(crate) static TABLE: [u32; 8442] = [
 	0x2000_0037, 0x0F00_0001,// VEX_Vcvtdq2pd_ymm_xmmm128
 	0x2000_0037, 0x2D00_0002,// EVEX_Vcvtdq2pd_xmm_k1z_xmmm64b32
 	0x2000_0037, 0x2D00_0002,// EVEX_Vcvtdq2pd_ymm_k1z_xmmm128b32
-	0x2000_0037, 0x1E00_0002,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32
+	0x2000_0037, 0x1E00_0002,// EVEX_Vcvtdq2pd_zmm_k1z_ymmm256b32_er
 	0x2000_0037, 0x2C00_0002,// EVEX_Vcvtqq2pd_xmm_k1z_xmmm128b64
 	0x2000_0037, 0x2C00_0002,// EVEX_Vcvtqq2pd_ymm_k1z_ymmm256b64
 	0x2000_0037, 0x1C00_0002,// EVEX_Vcvtqq2pd_zmm_k1z_zmmm512b64_er
