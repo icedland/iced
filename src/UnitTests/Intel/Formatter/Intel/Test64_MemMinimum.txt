@@ -724,10 +724,10 @@ enter -0x5aa6, -0x5a
 data16 leave
 leave
 data16 ret far -0x5aa6
-data32 ret far -0x5aa6
+ret far -0x5aa6
 data64 ret far -0x5aa6
 data16 ret far
-data32 ret far
+ret far
 data64 ret far
 int3
 int 0x5a

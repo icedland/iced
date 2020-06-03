@@ -590,7 +590,9 @@ impl InstrInfo for SimpleInstrInfo_os {
 			if self.bitness == 16 {
 				flags |= InstrOpInfoFlags::OP_SIZE16;
 			} else if self.bitness == 32 {
-				flags |= InstrOpInfoFlags::OP_SIZE32;
+				if instr_bitness != 64 {
+					flags |= InstrOpInfoFlags::OP_SIZE32;
+				}
 			} else {
 				flags |= InstrOpInfoFlags::OP_SIZE64;
 			}

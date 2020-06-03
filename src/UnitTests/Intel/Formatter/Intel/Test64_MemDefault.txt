@@ -724,10 +724,10 @@ enter 0xa55a,0xa6
 data16 leave
 leave
 data16 ret far 0xa55a
-data32 ret far 0xa55a
+ret far 0xa55a
 data64 ret far 0xa55a
 data16 ret far
-data32 ret far
+ret far
 data64 ret far
 int3
 int 0x5a

@@ -512,8 +512,10 @@ namespace Iced.Intel.IntelFormatterInternal {
 			if (instrBitness != 0 && instrBitness != bitness) {
 				if (bitness == 16)
 					flags |= InstrOpInfoFlags.OpSize16;
-				else if (bitness == 32)
-					flags |= InstrOpInfoFlags.OpSize32;
+				else if (bitness == 32) {
+					if (instrBitness != 64)
+						flags |= InstrOpInfoFlags.OpSize32;
+				}
 				else
 					flags |= InstrOpInfoFlags.OpSize64;
 			}
