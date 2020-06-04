@@ -24,10 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 namespace Generator {
 	static class RustConstants {
 		// "cargo-fmt" can be anything, rustfmt always sees the attribute
-		const string attrNoRustFmt = "[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
-
-		public const string AttributeNoRustFmt = "#" + attrNoRustFmt;
-		public const string AttributeNoRustFmtInner = "#!" + attrNoRustFmt;
+		public const string AttributeNoRustFmt = "#[cfg_attr(feature = \"cargo-fmt\", rustfmt::skip)]";
 		public const string AttributeCopyClone = "#[derive(Copy, Clone)]";
 		public const string AttributeCopyEq = "#[derive(Copy, Clone, Eq, PartialEq)]";
 		public const string AttributeCopyEqOrdHash = "#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]";

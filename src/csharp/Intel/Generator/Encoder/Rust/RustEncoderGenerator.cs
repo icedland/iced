@@ -141,8 +141,6 @@ namespace Generator.Encoder.Rust {
 			var filename = Path.Combine(generatorContext.RustDir, "encoder", "ops_tables.rs");
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine(RustConstants.AttributeNoRustFmtInner);
-				writer.WriteLine();
 				writer.WriteLine("use super::super::*;");
 				writer.WriteLine("use super::ops::*;");
 				writer.WriteLine();
@@ -153,7 +151,7 @@ namespace Generator.Encoder.Rust {
 					var features = GetFeatures(info);
 					if (features is object)
 						writer.WriteLine(features);
-					writer.WriteLine(RustConstants.AttributeNoRustFmt);// rust 1.44.0 rustfmt workaround
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);
 					writer.Write($"static {info.Name}: {structName} = {structName}");
 					switch (info.OpHandlerKind) {
 					case OpHandlerKind.OpA:
@@ -305,7 +303,7 @@ namespace Generator.Encoder.Rust {
 				var all = values.ToArray();
 				if (feature is object)
 					writer.WriteLine(feature);
-				writer.WriteLine(RustConstants.AttributeNoRustFmt);// rust 1.44.0 rustfmt workaround
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in all) {
