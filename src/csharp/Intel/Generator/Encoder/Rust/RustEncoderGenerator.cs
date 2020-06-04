@@ -153,6 +153,7 @@ namespace Generator.Encoder.Rust {
 					var features = GetFeatures(info);
 					if (features is object)
 						writer.WriteLine(features);
+					writer.WriteLine(RustConstants.AttributeNoRustFmt);// rust 1.44.0 rustfmt workaround
 					writer.Write($"static {info.Name}: {structName} = {structName}");
 					switch (info.OpHandlerKind) {
 					case OpHandlerKind.OpA:
@@ -304,6 +305,7 @@ namespace Generator.Encoder.Rust {
 				var all = values.ToArray();
 				if (feature is object)
 					writer.WriteLine(feature);
+				writer.WriteLine(RustConstants.AttributeNoRustFmt);// rust 1.44.0 rustfmt workaround
 				writer.WriteLine($"pub(super) static {name}: [&(Op + Sync); {all.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in all) {
