@@ -33774,9 +33774,25 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	PrefetchReserved7_m8 = 4220,
+	/// `UD0`
+	///
+	/// `0F FF`
+	///
+	/// `286+`
+	///
+	/// `16/32/64-bit`
+	Ud0 = 4221,
+	/// `VMGEXIT`
+	///
+	/// `F3 0F 01 D9`
+	///
+	/// `SVM`
+	///
+	/// `16/32/64-bit`
+	Vmgexit = 4222,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4221] = [
+static GEN_DEBUG_CODE: [&str; 4223] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -37998,6 +38014,8 @@ static GEN_DEBUG_CODE: [&str; 4221] = [
 	"PrefetchReserved5_m8",
 	"PrefetchReserved6_m8",
 	"PrefetchReserved7_m8",
+	"Ud0",
+	"Vmgexit",
 ];
 impl fmt::Debug for Code {
 	#[inline]

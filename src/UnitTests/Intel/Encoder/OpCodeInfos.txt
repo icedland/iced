@@ -4242,3 +4242,5 @@ Invlpgbw, legacy, NP, 0F, 01FE, a16 NP 0F 01 FE, INVLPGB, 16b 32b a16
 Invlpgbd, legacy, NP, 0F, 01FE, a32 NP 0F 01 FE, INVLPGB, 16b 32b 64b a32
 Invlpgbq, legacy, NP, 0F, 01FE, NP 0F 01 FE, INVLPGB, 64b
 Tlbsync, legacy, NP, 0F, 01FF, NP 0F 01 FF, TLBSYNC, 16b 32b 64b
+Ud0, legacy, , 0F, FF, 0F FF, UD0, 16b 32b 64b
+Vmgexit, legacy, F3, 0F, 01D9, F3 0F 01 D9, VMGEXIT, 16b 32b 64b

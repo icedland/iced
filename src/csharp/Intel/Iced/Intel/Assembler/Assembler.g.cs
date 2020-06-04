@@ -40164,6 +40164,20 @@ namespace Iced.Intel {
 		}
 		/// <summary>ud0 instruction.<br/>
 		/// <br/>
+		/// <c>UD0</c><br/>
+		/// <br/>
+		/// <c>0F FF</c><br/>
+		/// <br/>
+		/// <c>286+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void ud0() {
+			Code op;
+			op = Code.Ud0;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>ud0 instruction.<br/>
+		/// <br/>
 		/// <c>UD0 r16, r/m16</c><br/>
 		/// <br/>
 		/// <c>o16 0F FF /r</c><br/>
@@ -65582,6 +65596,20 @@ namespace Iced.Intel {
 		public void vmfunc() {
 			Code op;
 			op = Code.Vmfunc;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>vmgexit instruction.<br/>
+		/// <br/>
+		/// <c>VMGEXIT</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 D9</c><br/>
+		/// <br/>
+		/// <c>SVM</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		public void vmgexit() {
+			Code op;
+			op = Code.Vmgexit;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>vminpd instruction.<br/>

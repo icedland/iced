@@ -12702,6 +12702,12 @@ namespace Generator.Tables {
 				(1, mnemonic[nameof(Mnemonic.Prefetch)], memSize[nameof(MemorySize.UInt8)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.PrefetchReserved7_m8)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x0D, 7, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Mb }),
 				new InstrInfo(code[nameof(Code.PrefetchReserved7_m8)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.PREFETCHW)] }, new[] { OpInfo.NoMemAccess }, InstrInfoFlags.None)),
+				(0, mnemonic[nameof(Mnemonic.Ud0)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Ud0)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0xFF, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Ud0)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Exception)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.INTEL286)] }, Array.Empty<OpInfo>(), InstrInfoFlags.None)),
+				(0, mnemonic[nameof(Mnemonic.Vmgexit)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Vmgexit)], MandatoryPrefix.PF3, OpCodeTableKind.T0F, 0x01D9, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Vmgexit)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Call)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SVM)] }, Array.Empty<OpInfo>(), InstrInfoFlags.None)),
 			};
 
 			if (result.Length != code.Values.Length)

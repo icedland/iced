@@ -4251,6 +4251,8 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::UInt8,// PrefetchReserved5_m8
 	MemorySize::UInt8,// PrefetchReserved6_m8
 	MemorySize::UInt8,// PrefetchReserved7_m8
+	MemorySize::Unknown,// Ud0
+	MemorySize::Unknown,// Vmgexit
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -8472,4 +8474,6 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// PrefetchReserved5_m8
 	MemorySize::Unknown,// PrefetchReserved6_m8
 	MemorySize::Unknown,// PrefetchReserved7_m8
+	MemorySize::Unknown,// Ud0
+	MemorySize::Unknown,// Vmgexit
 ];

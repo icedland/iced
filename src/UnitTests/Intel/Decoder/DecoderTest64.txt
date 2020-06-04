@@ -5166,6 +5166,7 @@ F3 44 0F01 28, Rstorssp_m64, Rstorssp, 1, op0=m;ds;rax;;1;0;0;UInt64 enc=F30F012
 4F 0F01 D8, Vmrunq, Vmrun, 0, enc=0F01D8
 
 0F01 D9, Vmmcall, Vmmcall, 0,
+66 0F01 D9, Vmmcall, Vmmcall, 0, enc=0F01D9
 4F 0F01 D9, Vmmcall, Vmmcall, 0, enc=0F01D9
 
 67 0F01 DA, Vmloadd, Vmload, 0,
@@ -32111,3 +32112,11 @@ F2 4F 0F 01 E9, Xresldtrk, Xresldtrk, 0, enc=F20F01E9
 
 0F 01 FF, Tlbsync, Tlbsync, 0,
 4F 0F 01 FF, Tlbsync, Tlbsync, 0, enc=0F01FF
+
+0FFF, Ud0, Ud0, 0, amd
+4F 0FFF, Ud0, Ud0, 0, amd enc=0FFF
+
+F3 0F01 D9, Vmgexit, Vmgexit, 0,
+F2 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
+F3 4F 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9
+F2 4F 0F01 D9, Vmgexit, Vmgexit, 0, enc=F30F01D9

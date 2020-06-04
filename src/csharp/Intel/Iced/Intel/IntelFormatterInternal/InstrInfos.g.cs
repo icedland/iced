@@ -15724,6 +15724,14 @@ namespace Iced.Intel.IntelFormatterInternal {
 
 				// PrefetchReserved7_m8
 				0x00,// Previous
+
+				// Ud0
+				0x01,// Normal_1
+				0xC0, 0x06,// 832 = "ud0"
+
+				// Vmgexit
+				0x81,// 'v', Normal_1
+				0x82, 0x0B,// 1410 = "vmgexit"
 			};
 	}
 }

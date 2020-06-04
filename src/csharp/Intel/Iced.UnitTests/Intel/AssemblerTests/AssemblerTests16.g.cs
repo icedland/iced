@@ -12736,6 +12736,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void ud0() {
+			TestAssembler(c => c.ud0(), Instruction.Create(Code.Ud0));
+		}
+
+		[Fact]
 		public void ud0_reg16_reg16() {
 			TestAssembler(c => c.ud0(cx, bx), Instruction.Create(Code.Ud0_r16_rm16, cx, bx));
 		}
@@ -29029,6 +29034,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vmfunc() {
 			TestAssembler(c => c.vmfunc(), Instruction.Create(Code.Vmfunc));
+		}
+
+		[Fact]
+		public void vmgexit() {
+			TestAssembler(c => c.vmgexit(), Instruction.Create(Code.Vmgexit));
 		}
 
 #if !NO_VEX && !NO_EVEX

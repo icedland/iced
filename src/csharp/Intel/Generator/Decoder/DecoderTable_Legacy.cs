@@ -938,7 +938,11 @@ namespace Generator.Decoder {
 
 					// D8
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Vmrunw)], codeEnum[nameof(Code.Vmrund)], codeEnum[nameof(Code.Vmrunq)] },
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Vmmcall)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix_F3_F2)],
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Vmmcall)] },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Vmgexit)] },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Vmgexit)] },
+					},
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Vmloadw)], codeEnum[nameof(Code.Vmloadd)], codeEnum[nameof(Code.Vmloadq)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple5)], codeEnum[nameof(Code.Vmsavew)], codeEnum[nameof(Code.Vmsaved)], codeEnum[nameof(Code.Vmsaveq)] },
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Stgi)] },
@@ -4239,7 +4243,10 @@ namespace Generator.Decoder {
 						invalid,
 						invalid,
 					},
-					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.Ud0_r16_rm16)], codeEnum[nameof(Code.Ud0_r32_rm32)], codeEnum[nameof(Code.Ud0_r64_rm64)] },
+					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Options3)],
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Gv_Ev_3a)], codeEnum[nameof(Code.Ud0_r16_rm16)], codeEnum[nameof(Code.Ud0_r32_rm32)], codeEnum[nameof(Code.Ud0_r64_rm64)] },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Ud0)] }, decoderOptionsEnum[nameof(DecoderOptions.AMD)]
+					},
 				}),
 
 				(OneByteHandlers,

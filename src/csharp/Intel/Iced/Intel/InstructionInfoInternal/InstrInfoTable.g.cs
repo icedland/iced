@@ -28,7 +28,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #if INSTR_INFO
 namespace Iced.Intel.InstructionInfoInternal {
 	static class InstrInfoTable {
-		internal static readonly uint[] Data = new uint[8442] {
+		internal static readonly uint[] Data = new uint[8446] {
 			0x00000000, 0x00900000,// INVALID
 			0x00000000, 0x00900000,// DeclareByte
 			0x00000000, 0x00900000,// DeclareWord
@@ -4250,6 +4250,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 			0x00000003, 0x6B000000,// PrefetchReserved5_m8
 			0x00000003, 0x6B000000,// PrefetchReserved6_m8
 			0x00000003, 0x6B000000,// PrefetchReserved7_m8
+			0x00000000, 0x03900000,// Ud0
+			0x00000000, 0x83500000,// Vmgexit
 		};
 	}
 }

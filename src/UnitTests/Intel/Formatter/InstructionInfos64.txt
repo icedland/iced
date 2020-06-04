@@ -8363,3 +8363,5 @@ F2 0F 01 E9, Xresldtrk
 0F0D 28, PrefetchReserved5_m8
 0F0D 30, PrefetchReserved6_m8
 0F0D 38, PrefetchReserved7_m8
+0FFF, Ud0, AMD
+F3 0F01 D9, Vmgexit

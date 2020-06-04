@@ -4252,6 +4252,8 @@ namespace Generator.Enums {
 		PrefetchReserved5_m8,
 		PrefetchReserved6_m8,
 		PrefetchReserved7_m8,
+		Ud0,
+		Vmgexit,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

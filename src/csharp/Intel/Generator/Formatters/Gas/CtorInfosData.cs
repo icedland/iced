@@ -4257,6 +4257,8 @@ namespace Generator.Formatters.Gas {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved5_m8)], "prefetch" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved6_m8)], "prefetch" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved7_m8)], "prefetch" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Ud0)], "ud0" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Vmgexit)], "vmgexit" },
 			});
 		}
 	}

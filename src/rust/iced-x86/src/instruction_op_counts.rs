@@ -4248,4 +4248,6 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	1,// PrefetchReserved5_m8
 	1,// PrefetchReserved6_m8
 	1,// PrefetchReserved7_m8
+	0,// Ud0
+	0,// Vmgexit
 ];

@@ -1577,6 +1577,7 @@ pub enum Mnemonic {
 	Xresldtrk = 1544,
 	Invlpgb = 1545,
 	Tlbsync = 1546,
+	Vmgexit = 1547,
 }
 // GENERATOR-END: Enum
 

@@ -33766,5 +33766,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		PrefetchReserved7_m8 = 4220,
+		/// <summary><c>UD0</c><br/>
+		/// <br/>
+		/// <c>0F FF</c><br/>
+		/// <br/>
+		/// <c>286+</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Ud0 = 4221,
+		/// <summary><c>VMGEXIT</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 D9</c><br/>
+		/// <br/>
+		/// <c>SVM</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Vmgexit = 4222,
 	}
 }

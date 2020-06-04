@@ -1571,5 +1571,6 @@ namespace Generator.Enums {
 		Xresldtrk,
 		Invlpgb,
 		Tlbsync,
+		Vmgexit,
 	}
 }

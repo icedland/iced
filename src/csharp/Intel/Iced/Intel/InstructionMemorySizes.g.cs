@@ -4255,6 +4255,8 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt8,// PrefetchReserved5_m8
 			(byte)MemorySize.UInt8,// PrefetchReserved6_m8
 			(byte)MemorySize.UInt8,// PrefetchReserved7_m8
+			0,// Ud0
+			0,// Vmgexit
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -8476,6 +8478,8 @@ namespace Iced.Intel {
 			0,// PrefetchReserved5_m8
 			0,// PrefetchReserved6_m8
 			0,// PrefetchReserved7_m8
+			0,// Ud0
+			0,// Vmgexit
 		};
 	}
 }

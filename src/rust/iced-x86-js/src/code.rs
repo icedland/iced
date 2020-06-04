@@ -4252,6 +4252,8 @@ pub enum Code {
 	PrefetchReserved5_m8 = 4218,
 	PrefetchReserved6_m8 = 4219,
 	PrefetchReserved7_m8 = 4220,
+	Ud0 = 4221,
+	Vmgexit = 4222,
 }
 // GENERATOR-END: Enum
 

@@ -1562,8 +1562,13 @@ namespace Iced.Intel.DecoderInternal {
 					0xBF, 0x06,// Vmrunw
 
 				// 25 = 0x19
-				0xA4,// Simple
-					0xC2, 0x06,// Vmmcall
+				0x12,// MandatoryPrefix_F3_F2
+					0xA4,// Simple
+						0xC2, 0x06,// Vmmcall
+					0xA4,// Simple
+						0xFE, 0x20,// Vmgexit
+					0xA4,// Simple
+						0xFE, 0x20,// Vmgexit
 
 				// 26 = 0x1A
 				0xAB,// Simple5
@@ -5805,8 +5810,12 @@ namespace Iced.Intel.DecoderInternal {
 					0x02,// Invalid
 
 				// 255 = 0xFF
-				0x50,// Gv_Ev_3a
-					0xFF, 0x13,// Ud0_r16_rm16
+				0x0A,// Options3
+					0x50,// Gv_Ev_3a
+						0xFF, 0x13,// Ud0_r16_rm16
+					0xA4,// Simple
+						0xFD, 0x20,// Ud0
+					0x02,// AMD
 
 				// OneByteHandlers
 				0x01,// ArrayReference

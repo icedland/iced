@@ -154,6 +154,9 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			case Code.Bndcn_bnd_rm64:
 				decoderOptions = DecoderOptions.MPX;
 				break;
+			case Code.Ud0:
+				decoderOptions = DecoderOptions.AMD;
+				break;
 			}
 
 			// Check decoding back against the original instruction

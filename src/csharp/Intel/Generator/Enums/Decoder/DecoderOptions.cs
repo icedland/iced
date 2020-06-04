@@ -28,7 +28,7 @@ namespace Generator.Enums.Decoder {
 		None					= 0x00000000,
 		[Comment("Disable some checks for invalid encodings of instructions, eg. most instructions can't use a #(c:LOCK)# prefix so if one is found, they're decoded as #(e:Code.INVALID)# unless this option is enabled.")]
 		NoInvalidCheck			= 0x00000001,
-		[Comment("AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no #(c:o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS)#")]
+		[Comment("AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no #(c:o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS)#, #(c:UD0)# has no modr/m byte")]
 		AMD						= 0x00000002,
 		[Deprecated("1.8.0", nameof(AMD))]
 		AmdBranches,

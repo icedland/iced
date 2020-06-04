@@ -4249,4 +4249,6 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Prefetch,// PrefetchReserved5_m8
 	Mnemonic::Prefetch,// PrefetchReserved6_m8
 	Mnemonic::Prefetch,// PrefetchReserved7_m8
+	Mnemonic::Ud0,// Ud0
+	Mnemonic::Vmgexit,// Vmgexit
 ];

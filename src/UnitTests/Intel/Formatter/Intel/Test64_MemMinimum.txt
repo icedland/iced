@@ -8363,3 +8363,5 @@ prefetch_reserved [rax]
 prefetch_reserved [rax]
 prefetch_reserved [rax]
 prefetch_reserved [rax]
+ud0
+vmgexit

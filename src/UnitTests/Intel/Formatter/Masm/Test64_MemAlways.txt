@@ -8363,3 +8363,5 @@ prefetch byte ptr [rax]
 prefetch byte ptr [rax]
 prefetch byte ptr [rax]
 prefetch byte ptr [rax]
+ud0
+vmgexit

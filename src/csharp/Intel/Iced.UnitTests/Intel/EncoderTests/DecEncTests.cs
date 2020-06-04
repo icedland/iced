@@ -3089,6 +3089,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Loope_rel8_16_RCX:
 					case Code.Loopne_rel8_16_ECX:
 					case Code.Loopne_rel8_16_RCX:
+					case Code.Ud0:
 						break;
 					case Code.Call_m1632:
 					case Code.Call_rel16:

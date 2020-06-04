@@ -3104,7 +3104,8 @@ fn disable_decoder_option_disables_instruction() {
 				| Code::Loope_rel8_16_ECX
 				| Code::Loope_rel8_16_RCX
 				| Code::Loopne_rel8_16_ECX
-				| Code::Loopne_rel8_16_RCX => break,
+				| Code::Loopne_rel8_16_RCX
+				| Code::Ud0 => break,
 				Code::Call_m1632
 				| Code::Call_rel16
 				| Code::Call_rel32_64

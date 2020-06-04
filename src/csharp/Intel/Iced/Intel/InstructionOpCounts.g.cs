@@ -4253,6 +4253,8 @@ namespace Iced.Intel {
 			1,// PrefetchReserved5_m8
 			1,// PrefetchReserved6_m8
 			1,// PrefetchReserved7_m8
+			0,// Ud0
+			0,// Vmgexit
 		};
 	}
 }
