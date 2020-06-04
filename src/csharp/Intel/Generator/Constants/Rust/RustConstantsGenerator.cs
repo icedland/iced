@@ -59,7 +59,6 @@ namespace Generator.Constants.Rust {
 			toPartialFileInfo.Add(TypeIds.InstrInfoConstants, new PartialConstantsFileInfo("InstrInfoConstants", Path.Combine(dir, "info", "enums.rs")));
 			toPartialFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, new PartialConstantsFileInfo("MiscConstants", Path.Combine(dir, "info", "tests", "constants.rs")));
 			toPartialFileInfo.Add(TypeIds.InstructionInfoKeys, new PartialConstantsFileInfo("KeysConstants", Path.Combine(dir, "info", "tests", "test_parser.rs"), true));
-			toPartialFileInfo.Add(TypeIds.InstructionInfoDecoderOptions, new PartialConstantsFileInfo("DecoderOptionsConstants", Path.Combine(dir, "info", "tests", "test_parser.rs"), true));
 			toPartialFileInfo.Add(TypeIds.RflagsBitsConstants, new PartialConstantsFileInfo("RflagsBitsConstants", Path.Combine(dir, "info", "tests", "test_parser.rs")));
 			toPartialFileInfo.Add(TypeIds.MiscSectionNames, new PartialConstantsFileInfo("MiscSectionNames", Path.Combine(dir, "info", "tests", "misc_test_data.rs")));
 			toPartialFileInfo.Add(TypeIds.OpCodeInfoKeys, new PartialConstantsFileInfo("OpCodeInfoKeys", Path.Combine(dir, "encoder", "tests", "op_code_test_case_parser.rs"), true));

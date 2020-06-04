@@ -283,49 +283,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 
 		static bool TryParseDecoderOptions(string[] stringOptions, ref DecoderOptions options) {
 			foreach (var opt in stringOptions) {
-				switch (opt.Trim().ToLowerInvariant()) {
-				case InstructionInfoDecoderOptions.AMD:
-					options |= DecoderOptions.AMD;
-					break;
-				case InstructionInfoDecoderOptions.ForceReservedNop:
-					options |= DecoderOptions.ForceReservedNop;
-					break;
-				case InstructionInfoDecoderOptions.Umov:
-					options |= DecoderOptions.Umov;
-					break;
-				case InstructionInfoDecoderOptions.Xbts:
-					options |= DecoderOptions.Xbts;
-					break;
-				case InstructionInfoDecoderOptions.Cmpxchg486A:
-					options |= DecoderOptions.Cmpxchg486A;
-					break;
-				case InstructionInfoDecoderOptions.OldFpu:
-					options |= DecoderOptions.OldFpu;
-					break;
-				case InstructionInfoDecoderOptions.Pcommit:
-					options |= DecoderOptions.Pcommit;
-					break;
-				case InstructionInfoDecoderOptions.Loadall286:
-					options |= DecoderOptions.Loadall286;
-					break;
-				case InstructionInfoDecoderOptions.Loadall386:
-					options |= DecoderOptions.Loadall386;
-					break;
-				case InstructionInfoDecoderOptions.Cl1invmb:
-					options |= DecoderOptions.Cl1invmb;
-					break;
-				case InstructionInfoDecoderOptions.MovTr:
-					options |= DecoderOptions.MovTr;
-					break;
-				case InstructionInfoDecoderOptions.Jmpe:
-					options |= DecoderOptions.Jmpe;
-					break;
-				case InstructionInfoDecoderOptions.MPX:
-					options |= DecoderOptions.MPX;
-					break;
-				default:
+				if (!ToEnumConverter.TryDecoderOptions(opt.Trim(), out var decOpts))
 					return false;
-				}
+				options |= decOpts;
 			}
 			return true;
 		}

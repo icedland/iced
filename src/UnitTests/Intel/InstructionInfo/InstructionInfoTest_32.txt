@@ -448,27 +448,27 @@ FF 30, Push_rm32, Legacy, INTEL386, op0=r r=ss rw=xsp r=ds r=eax rm=ds:eax;UInt3
 # mwait eax,ecx
 0F01 C9, Mwait, Legacy, MONITOR, priv r=eax;ecx
 # bndmov bnd1,bnd2
-66 0F1A CA, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2 decopt=mpx
+66 0F1A CA, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2 decopt=MPX
 # bndmov bnd1,qword ptr [eax]
-66 0F1A 08, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=ds r=eax rm=ds:eax;Bnd32 decopt=mpx
+66 0F1A 08, Bndmov_bnd_bndm64, Legacy, MPX, op0=w op1=r w=bnd1 r=ds r=eax rm=ds:eax;Bnd32 decopt=MPX
 # bndcl bnd1,edx
-F3 0F1A CA, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=mpx
+F3 0F1A CA, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
 # bndcl bnd1,[eax]
-F3 0F1A 08, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=mpx
+F3 0F1A 08, Bndcl_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
 # bndcu bnd1,edx
-F2 0F1A CA, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=mpx
+F2 0F1A CA, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
 # bndcu bnd1,[eax]
-F2 0F1A 08, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=mpx
+F2 0F1A 08, Bndcu_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
 # bndmov bnd2,bnd1
-66 0F1B CA, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r w=bnd2 r=bnd1 decopt=mpx
+66 0F1B CA, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r w=bnd2 r=bnd1 decopt=MPX
 # bndmov qword ptr [eax],bnd1
-66 0F1B 08, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r r=ds r=eax r=bnd1 wm=ds:eax;Bnd32 decopt=mpx
+66 0F1B 08, Bndmov_bndm64_bnd, Legacy, MPX, op0=w op1=r r=ds r=eax r=bnd1 wm=ds:eax;Bnd32 decopt=MPX
 # bndmk bnd1,dword ptr [eax]
-F3 0F1B 08, Bndmk_bnd_m32, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax decopt=mpx
+F3 0F1B 08, Bndmk_bnd_m32, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax decopt=MPX
 # bndcn bnd1,edx
-F2 0F1B CA, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=mpx
+F2 0F1B CA, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=r r=bnd1 r=edx decopt=MPX
 # bndcn bnd1,[eax]
-F2 0F1B 08, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=mpx
+F2 0F1B 08, Bndcn_bnd_rm32, Legacy, MPX, op0=r op1=nma r=bnd1 r=eax decopt=MPX
 # mov esi,cr3
 0F20 DE, Mov_r32_cr, Legacy, INTEL386, priv fu=oszacp op0=w op1=r w=esi r=cr3
 # mov esi,dr3
@@ -1062,85 +1062,85 @@ C4E379 63 10 A5, VEX_Vpcmpistri_xmm_xmmm128_imm8, VEX, AVX, pm fw=cosz fc=ap op0
 # fstenv [eax]
 9B D9 30, Fstenv_m28byte, Legacy, FPU, op0=w r=ds r=eax wm=ds:eax;FpuEnv28 special
 # frstpm
-DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=oldfpu
+DB E5, Frstpm, Legacy, FPU287XL_ONLY, decopt=OldFpu
 # fsave [eax]
 9B 66 DD 30, Fsave_m94byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState94 special
 # fsave [eax]
 9B DD 30, Fsave_m108byte, Legacy, FPU, saverestore op0=w r=ds r=eax wm=ds:eax;FpuState108 special
 # fstdw ax
-DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
+DF E1, Fstdw_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # fstsg ax
-DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=oldfpu op0=w w=ax
+DF E2, Fstsg_AX, Legacy, FPU387SL_ONLY, decopt=OldFpu op0=w w=ax
 # jmpe cx
-66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx decopt=jmpe
+66 0F00 F1, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=cx decopt=Jmpe
 # jmpe word ptr [eax]
-66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;WordOffset decopt=jmpe
+66 0F00 30, Jmpe_rm16, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;WordOffset decopt=Jmpe
 # jmpe edx
-0F00 F2, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=edx decopt=jmpe
+0F00 F2, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=edx decopt=Jmpe
 # jmpe dword ptr [eax]
-0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset decopt=jmpe
+0F00 30, Jmpe_rm32, Legacy, IA64, flow=IndirectBranch op0=r r=ds r=eax rm=ds:eax;DwordOffset decopt=Jmpe
 # loadallreset286
-0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=loadall286 priv saverestore
+0F04, Loadallreset286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv saverestore
 # loadall286
-0F05, Loadall286, Legacy, INTEL286_ONLY, decopt=loadall286 priv saverestore
+0F05, Loadall286, Legacy, INTEL286_ONLY, decopt=Loadall286 priv saverestore
 # loadall386
-0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=loadall386 priv saverestore r=es;edi
+0F07, Loadall386, Legacy, INTEL386_ONLY, decopt=Loadall386 priv saverestore r=es;edi
 # umov dh,cl
-0F10 CE, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=dh r=cl
+0F10 CE, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=dh r=cl
 # umov [eax],bl
-0F10 18, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt8 r=bl
+0F10 18, Umov_rm8_r8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt8 r=bl
 # umov si,cx
-66 0F11 CE, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=si r=cx
+66 0F11 CE, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=si r=cx
 # umov [eax],bx
-66 0F11 18, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt16 r=bx
+66 0F11 18, Umov_rm16_r16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt16 r=bx
 # umov esi,ecx
-0F11 CE, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=esi r=ecx
+0F11 CE, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=esi r=ecx
 # umov [eax],ebx
-0F11 18, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt32 r=ebx
+0F11 18, Umov_rm32_r32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r r=ds r=eax wm=ds:eax;UInt32 r=ebx
 # umov cl,dh
-0F12 CE, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=cl r=dh
+0F12 CE, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=cl r=dh
 # umov bl,[eax]
-0F12 18, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=bl r=ds r=eax rm=ds:eax;UInt8
+0F12 18, Umov_r8_rm8, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=bl r=ds r=eax rm=ds:eax;UInt8
 # umov cx,si
-66 0F13 CE, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=cx r=si
+66 0F13 CE, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=cx r=si
 # umov bx,[eax]
-66 0F13 18, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=bx r=ds r=eax rm=ds:eax;UInt16
+66 0F13 18, Umov_r16_rm16, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=bx r=ds r=eax rm=ds:eax;UInt16
 # umov ecx,esi
-0F13 CE, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=ecx r=esi
+0F13 CE, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=ecx r=esi
 # umov ebx,[eax]
-0F13 18, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=umov op0=w op1=r w=ebx r=ds r=eax rm=ds:eax;UInt32
+0F13 18, Umov_r32_rm32, Legacy, INTEL386_486_ONLY, decopt=Umov op0=w op1=r w=ebx r=ds r=eax rm=ds:eax;UInt32
 # mov esi,tr3
-0F24 DE, Mov_r32_tr, Legacy, INTEL386_486_ONLY, decopt=movtr priv fu=oszacp op0=w op1=r w=esi r=tr3
+0F24 DE, Mov_r32_tr, Legacy, INTEL386_486_ONLY, decopt=MovTr priv fu=oszacp op0=w op1=r w=esi r=tr3
 # mov tr3,esi
-0F26 DE, Mov_tr_r32, Legacy, INTEL386_486_ONLY, decopt=movtr priv fu=oszacp op0=w op1=r w=tr3 r=esi
+0F26 DE, Mov_tr_r32, Legacy, INTEL386_486_ONLY, decopt=MovTr priv fu=oszacp op0=w op1=r w=tr3 r=esi
 # xbts cx,si
-66 0FA6 CE, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=cx r=si r=ax;cl
+66 0FA6 CE, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=cx r=si r=ax;cl
 # xbts bx,[eax]
-66 0FA6 18, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=bx r=ax;cl r=ds r=eax rm=ds:eax;UInt16
+66 0FA6 18, Xbts_r16_rm16, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=bx r=ax;cl r=ds r=eax rm=ds:eax;UInt16
 # xbts ecx,esi
-0FA6 CE, Xbts_r32_rm32, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=ecx r=esi r=eax;cl
+0FA6 CE, Xbts_r32_rm32, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=ecx r=esi r=eax;cl
 # xbts ebx,[eax]
-0FA6 18, Xbts_r32_rm32, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=ebx r=eax;cl r=ds r=eax rm=ds:eax;UInt32
+0FA6 18, Xbts_r32_rm32, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=ebx r=eax;cl r=ds r=eax rm=ds:eax;UInt32
 # ibts si,cx
-66 0FA7 CE, Ibts_rm16_r16, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=si r=cx r=ax;cl
+66 0FA7 CE, Ibts_rm16_r16, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=si r=cx r=ax;cl
 # ibts [eax],bx
-66 0FA7 18, Ibts_rm16_r16, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r r=ax;cl r=ds r=eax rwm=ds:eax;UInt16 r=bx
+66 0FA7 18, Ibts_rm16_r16, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r r=ax;cl r=ds r=eax rwm=ds:eax;UInt16 r=bx
 # ibts esi,ecx
-0FA7 CE, Ibts_rm32_r32, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r rw=esi r=ecx r=eax;cl
+0FA7 CE, Ibts_rm32_r32, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r rw=esi r=ecx r=eax;cl
 # ibts [eax],ebx
-0FA7 18, Ibts_rm32_r32, Legacy, INTEL386_A0_ONLY, decopt=xbts op0=rw op1=r r=eax;cl r=ds r=eax rwm=ds:eax;UInt32 r=ebx
+0FA7 18, Ibts_rm32_r32, Legacy, INTEL386_A0_ONLY, decopt=Xbts op0=rw op1=r r=eax;cl r=ds r=eax rwm=ds:eax;UInt32 r=ebx
 # cmpxchg486 dh,cl
-0FA6 CE, Cmpxchg486_rm8_r8, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r rw=dh r=cl rcw=al
+0FA6 CE, Cmpxchg486_rm8_r8, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r rw=dh r=cl rcw=al
 # cmpxchg486 [eax],bl
-0FA6 18, Cmpxchg486_rm8_r8, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt8 r=bl rcw=al
+0FA6 18, Cmpxchg486_rm8_r8, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt8 r=bl rcw=al
 # cmpxchg486 si,cx
-66 0FA7 CE, Cmpxchg486_rm16_r16, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r rw=si r=cx rcw=ax
+66 0FA7 CE, Cmpxchg486_rm16_r16, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r rw=si r=cx rcw=ax
 # cmpxchg486 [eax],bx
-66 0FA7 18, Cmpxchg486_rm16_r16, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt16 r=bx rcw=ax
+66 0FA7 18, Cmpxchg486_rm16_r16, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt16 r=bx rcw=ax
 # cmpxchg486 esi,ecx
-0FA7 CE, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r rw=esi r=ecx rcw=eax
+0FA7 CE, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r rw=esi r=ecx rcw=eax
 # cmpxchg486 [eax],ebx
-0FA7 18, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=cmpxchg486a fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt32 r=ebx rcw=eax
+0FA7 18, Cmpxchg486_rm32_r32, Legacy, INTEL486_A_ONLY, decopt=Cmpxchg486A fw=acopsz op0=rw op1=r r=ds r=eax rwm=ds:eax;UInt32 r=ebx rcw=eax
 # umonitor bp
 67 F3 0FAE F5, Umonitor_r16, Legacy, WAITPKG, op0=r r=ds;bp rm=ds:bp;UInt8
 # umonitor ebp
@@ -1150,9 +1150,9 @@ F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=ds;ebp rm=ds:ebp;UInt8
 # umonitor ebp
 64 F3 0FAE F5, Umonitor_r32, Legacy, WAITPKG, op0=r r=fs;ebp rm=fs:ebp;UInt8
 # jmpe near ptr 0A55Ah
-66 0FB8 5AA5, Jmpe_disp16, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=jmpe
+66 0FB8 5AA5, Jmpe_disp16, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=Jmpe
 # jmpe near ptr 0A55A3412h
-0FB8 12345AA5, Jmpe_disp32, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=jmpe
+0FB8 12345AA5, Jmpe_disp32, Legacy, IA64, flow=UnconditionalBranch op0=r decopt=Jmpe
 # movdir64b bx,[bx+si]
 67 66 0F38F8 18, Movdir64b_r16_m512, Legacy, MOVDIR64B, op0=r op1=r r=bx r=ds r=es;bx r=si rm=ds:bx+si;UInt512 wm=es:bx;UInt512
 # movdir64b ebx,[eax]
@@ -1574,9 +1574,9 @@ C5ED FB CA, VEX_Vpsubq_ymm_ymm_ymmm256, VEX, AVX2, pm op0=w op1=n op2=n w=vmm1
 # prefetcht2 [eax]
 0F18 18, Prefetcht2_m8, Legacy, SSE, op0=nma r=eax;ds
 # bndldx bnd1,qword ptr [eax]
-0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax;ds decopt=mpx
+0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=eax;ds decopt=MPX
 # bndstx qword ptr [eax],bnd1
-0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=eax;ds r=bnd1 decopt=mpx
+0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=eax;ds r=bnd1 decopt=MPX
 # cldemote byte ptr [eax]
 0F1C 00, Cldemote_m8, Legacy, CLDEMOTE, op0=nma r=eax;ds
 # clwb [eax]

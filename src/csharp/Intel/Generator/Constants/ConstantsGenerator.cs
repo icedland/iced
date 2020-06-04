@@ -34,7 +34,6 @@ namespace Generator.Constants {
 				genTypes.GetConstantsType(TypeIds.IcedConstants),
 				genTypes.GetConstantsType(TypeIds.DecoderTestParserConstants),
 				genTypes.GetConstantsType(TypeIds.DecoderConstants),
-				genTypes.GetConstantsType(TypeIds.InstructionInfoDecoderOptions),
 				genTypes.GetConstantsType(TypeIds.InstructionInfoKeys),
 				genTypes.GetConstantsType(TypeIds.MiscInstrInfoTestConstants),
 				genTypes.GetConstantsType(TypeIds.RflagsBitsConstants),

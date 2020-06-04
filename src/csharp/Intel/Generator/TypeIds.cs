@@ -98,7 +98,6 @@ namespace Generator {
 		public static readonly TypeId ConditionCode = new TypeId(nameof(ConditionCode));
 		public static readonly TypeId MiscInstrInfoTestConstants = new TypeId(nameof(MiscInstrInfoTestConstants));
 		public static readonly TypeId InstructionInfoKeys = new TypeId(nameof(InstructionInfoKeys));
-		public static readonly TypeId InstructionInfoDecoderOptions = new TypeId(nameof(InstructionInfoDecoderOptions));
 		public static readonly TypeId RflagsBitsConstants = new TypeId(nameof(RflagsBitsConstants));
 		public static readonly TypeId MemorySizeFlags = new TypeId(nameof(MemorySizeFlags));
 		public static readonly TypeId RegisterFlags = new TypeId(nameof(RegisterFlags));

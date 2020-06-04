@@ -299,7 +299,7 @@ pub(crate) fn to_memory_size(value: &str) -> Result<MemorySize, String> {
 	}
 }
 
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn to_decoder_options(value: &str) -> Result<u32, String> {
 	let value = value.trim();
 	match TO_DECODER_OPTIONS_HASH.get(value) {
