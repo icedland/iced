@@ -161,7 +161,7 @@ Options:
 --no-3dnow
     Don't include 3DNow! instructions
 --include-cpuid <name>
-    Include only instructions with these CPUID features, ;-separated. See CpuidFeature enum
+    Include instructions with these CPUID features, remove everything else
     eg. --include-cpuid intel8086;intel186;intel286;intel386;intel486;x64;wbnoinvd
 --exclude-cpuid <name>
     Don't include instructions with CPUID feature <name>, ;-separated. See CpuidFeature enum
