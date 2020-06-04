@@ -25,6 +25,32 @@ using System;
 using System.Reflection;
 
 namespace Generator {
+	[AttributeUsage(AttributeTargets.Field)]
+	sealed class DeprecatedAttribute : Attribute {
+		public string Version { get; }
+		public string NewName { get; }
+		public DeprecatedAttribute(string version, string newName) {
+			Version = version;
+			NewName = newName;
+		}
+
+		public static DeprecatedInfo GetDeprecatedInfo(MemberInfo member) {
+			if (member.GetCustomAttribute(typeof(DeprecatedAttribute)) is DeprecatedAttribute ca)
+				return new DeprecatedInfo(ca.Version, ca.NewName);
+			return default;
+		}
+	}
+
+	readonly struct DeprecatedInfo {
+		public bool IsDeprecated => NewName is object;
+		public readonly string Version;
+		public readonly string NewName;
+		public DeprecatedInfo(string version, string newName) {
+			Version = version;
+			NewName = newName;
+		}
+	}
+
 	[AttributeUsage(AttributeTargets.All)]
 	sealed class CommentAttribute : Attribute {
 		public string Comment { get; }

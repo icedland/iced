@@ -25,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Generator.Documentation;
 using Generator.Documentation.CSharp;
 using Generator.IO;
 
@@ -35,6 +36,7 @@ namespace Generator.Constants.CSharp {
 		readonly Dictionary<TypeId, FullConstantsFileInfo> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialConstantsFileInfo?> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
+		readonly DeprecatedWriter deprecatedWriter;
 
 		sealed class FullConstantsFileInfo {
 			public readonly string Filename;
@@ -62,6 +64,7 @@ namespace Generator.Constants.CSharp {
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
+			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 
 			var baseDir = CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace);
 			toFullFileInfo = new Dictionary<TypeId, FullConstantsFileInfo>();
@@ -118,6 +121,7 @@ namespace Generator.Constants.CSharp {
 			using (writer.Indent()) {
 				foreach (var constant in constantsType.Constants) {
 					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
+					deprecatedWriter.WriteDeprecated(writer, constant);
 					writer.Write(constant.IsPublic ? "public " : "internal ");
 					writer.Write("const ");
 					writer.Write(GetType(constant.Kind));

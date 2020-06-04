@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Generator.Documentation;
 using Generator.Documentation.CSharp;
 using Generator.IO;
 
@@ -34,6 +35,7 @@ namespace Generator.Enums.CSharp {
 		readonly Dictionary<TypeId, FullEnumFileInfo> toFullFileInfo;
 		readonly Dictionary<TypeId, PartialEnumFileInfo> toPartialFileInfo;
 		readonly CSharpDocCommentWriter docWriter;
+		readonly DeprecatedWriter deprecatedWriter;
 
 		sealed class FullEnumFileInfo {
 			public readonly string Filename;
@@ -65,6 +67,7 @@ namespace Generator.Enums.CSharp {
 			: base(generatorContext.Types) {
 			idConverter = CSharpIdentifierConverter.Create();
 			docWriter = new CSharpDocCommentWriter(idConverter);
+			deprecatedWriter = new CSharpDeprecatedWriter(idConverter);
 
 			toFullFileInfo = new Dictionary<TypeId, FullEnumFileInfo>();
 			toFullFileInfo.Add(TypeIds.Code, new FullEnumFileInfo(Path.Combine(CSharpConstants.GetDirectory(generatorContext, CSharpConstants.IcedNamespace), nameof(TypeIds.Code) + ".g.cs"), CSharpConstants.IcedNamespace));
@@ -221,6 +224,7 @@ namespace Generator.Enums.CSharp {
 				uint expectedValue = 0;
 				foreach (var value in enumType.Values) {
 					docWriter.WriteSummary(writer, value.Documentation, enumType.RawName);
+					deprecatedWriter.WriteDeprecated(writer, value);
 					if (enumType.IsFlags)
 						writer.WriteLine($"{value.Name(idConverter)} = 0x{value.Value:X8},");
 					else if (expectedValue != value.Value || enumType.IsPublic)

@@ -24,6 +24,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 using System;
 using System.Linq;
 using System.Text;
+using Generator.Documentation;
 using Generator.Documentation.Rust;
 using Generator.IO;
 
@@ -32,11 +33,13 @@ namespace Generator.Constants.Rust {
 		readonly GenTypes genTypes;
 		readonly IdentifierConverter idConverter;
 		readonly RustDocCommentWriter docWriter;
+		readonly DeprecatedWriter deprecatedWriter;
 
-		public RustConstantsWriter(GenTypes genTypes, IdentifierConverter idConverter, RustDocCommentWriter docWriter) {
+		public RustConstantsWriter(GenTypes genTypes, IdentifierConverter idConverter, RustDocCommentWriter docWriter, DeprecatedWriter deprecatedWriter) {
 			this.genTypes = genTypes;
 			this.idConverter = idConverter;
 			this.docWriter = docWriter;
+			this.deprecatedWriter = deprecatedWriter;
 		}
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes) {
@@ -59,6 +62,7 @@ namespace Generator.Constants.Rust {
 					if (ShouldIgnore(constant))
 						continue;
 					docWriter.WriteSummary(writer, constant.Documentation, constantsType.RawName);
+					deprecatedWriter.WriteDeprecated(writer, constant);
 					sb.Clear();
 					sb.Append(constant.IsPublic ? "pub " : "pub(crate) ");
 					sb.Append("const ");

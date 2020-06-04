@@ -49,7 +49,7 @@ namespace Generator.Constants.Rust {
 		public RustConstantsGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = RustIdentifierConverter.Create();
-			constantsWriter = new RustConstantsWriter(genTypes, idConverter, new RustDocCommentWriter(idConverter));
+			constantsWriter = new RustConstantsWriter(genTypes, idConverter, new RustDocCommentWriter(idConverter), new RustDeprecatedWriter(idConverter));
 
 			var dir = generatorContext.RustDir;
 			toPartialFileInfo = new Dictionary<TypeId, PartialConstantsFileInfo?>();

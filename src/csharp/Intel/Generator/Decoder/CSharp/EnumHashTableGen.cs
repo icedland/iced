@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
+using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -74,9 +75,12 @@ namespace Generator.Decoder.CSharp {
 
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
 			var enumStr = enumType.Name(idConverter);
-			writer.WriteLine($"new Dictionary<string, {enumStr}>({enumType.Values.Length}, StringComparer.Ordinal) {{");
+			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecated).ToArray();
+			writer.WriteLine($"new Dictionary<string, {enumStr}>({enumValues.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
-				foreach (var value in enumType.Values) {
+				foreach (var value in enumValues) {
+					if (value.DeprecatedInfo.IsDeprecated)
+						continue;
 					var name = value.Name(idConverter);
 					var key = value.RawName;
 					if (lowerCase)

@@ -93,7 +93,7 @@ namespace Generator.InstructionInfo {
 		}
 
 		void GenerateCodeInfo() {
-			var values = typeof(CodeInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CodeInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+			var values = typeof(CodeInfo).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(CodeInfo)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a), DeprecatedAttribute.GetDeprecatedInfo(a))).ToArray();
 			EnumCodeInfo = new EnumType(TypeIds.CodeInfo, null, values, EnumTypeFlags.NoInitialize);
 		}
 
@@ -341,8 +341,8 @@ namespace Generator.InstructionInfo {
 
 		void GenerateInfoFlags() {
 			var enumOpInfos = EnumOpInfos ?? throw new InvalidOperationException();
-			var values1 = typeof(InfoFlags1).GetFields().Where(a => a.IsLiteral && a.Name != nameof(InfoFlags1.FirstUsedBit)).Select(a => new EnumValue((uint)(InfoFlags1)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToList();
-			var values2 = typeof(InfoFlags2).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(InfoFlags2)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+			var values1 = typeof(InfoFlags1).GetFields().Where(a => a.IsLiteral && a.Name != nameof(InfoFlags1.FirstUsedBit)).Select(a => new EnumValue((uint)(InfoFlags1)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a), DeprecatedAttribute.GetDeprecatedInfo(a))).ToList();
+			var values2 = typeof(InfoFlags2).GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue((uint)(InfoFlags2)a.GetValue(null)!, a.Name, CommentAttribute.GetDocumentation(a), DeprecatedAttribute.GetDeprecatedInfo(a))).ToArray();
 
 			uint shift = 0;
 			for (int i = 0; i < enumOpInfos.Length; i++) {

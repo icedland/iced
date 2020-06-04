@@ -95,30 +95,41 @@ namespace Generator.Constants {
 		public string RawName { get; }
 		public string Name(IdentifierConverter idConverter) => idConverter.Constant(RawName);
 		public string? Documentation { get; }
+		public DeprecatedInfo DeprecatedInfo { get; }
 		public ulong ValueUInt64 { get; }
 		public object? RefValue { get; }
 		public bool IsPublic { get; }
 		public bool UseHex { get; }
 		public ConstantsType DeclaringType { get; set; }
 
-		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags = ConstantsTypeFlags.None, string? documentation = null) {
+		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags = ConstantsTypeFlags.None)
+			: this(kind, name, value, flags, null, default) {
+		}
+
+		public Constant(ConstantKind kind, string name, object value, ConstantsTypeFlags flags, string? documentation, DeprecatedInfo deprecatedInfo) {
 			if (!(value is null) && value.GetType().IsValueType)
 				throw new ArgumentException();
 			DeclaringType = null!;
 			Kind = kind;
 			RawName = name;
 			Documentation = documentation;
+			DeprecatedInfo = deprecatedInfo;
 			ValueUInt64 = 0;
 			RefValue = value;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;
 			UseHex = (flags & ConstantsTypeFlags.Hex) != 0;
 		}
 
-		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags = ConstantsTypeFlags.None, string? documentation = null) {
+		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags = ConstantsTypeFlags.None)
+			: this(kind, name, value, flags, null, default) {
+		}
+
+		public Constant(ConstantKind kind, string name, ulong value, ConstantsTypeFlags flags, string? documentation, DeprecatedInfo deprecatedInfo) {
 			DeclaringType = null!;
 			Kind = kind;
 			RawName = name;
 			Documentation = documentation;
+			DeprecatedInfo = deprecatedInfo;
 			ValueUInt64 = value;
 			RefValue = null;
 			IsPublic = (flags & ConstantsTypeFlags.Public) != 0;

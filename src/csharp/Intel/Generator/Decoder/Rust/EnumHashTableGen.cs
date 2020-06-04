@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 using System.IO;
+using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -73,12 +74,15 @@ namespace Generator.Decoder.Rust {
 		}
 
 		void WriteHash(FileWriter writer, bool lowerCase, EnumType enumType) {
-			if (enumType.Values.Length == 0)
+			var enumValues = enumType.Values.Where(a => !a.DeprecatedInfo.IsDeprecated).ToArray();
+			if (enumValues.Length == 0)
 				writer.WriteLine($"let h = HashMap::new();");
 			else
-				writer.WriteLine($"let mut h = HashMap::with_capacity({enumType.Values.Length});");
+				writer.WriteLine($"let mut h = HashMap::with_capacity({enumValues.Length});");
 			var enumStr = enumType.Name(idConverter);
-			foreach (var value in enumType.Values) {
+			foreach (var value in enumValues) {
+				if (value.DeprecatedInfo.IsDeprecated)
+					continue;
 				string name;
 				if (enumType.IsFlags)
 					name = idConverter.Constant(value.RawName);

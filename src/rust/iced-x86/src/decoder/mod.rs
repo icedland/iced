@@ -105,6 +105,9 @@ impl DecoderOptions {
 	pub const NO_INVALID_CHECK: u32 = 0x0000_0001;
 	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`
 	pub const AMD: u32 = 0x0000_0002;
+	/// AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no `o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS`
+	#[deprecated(since = "1.8.0", note = "Use AMD instead")]
+	pub const AMD_BRANCHES: u32 = 0x0000_0002;
 	/// Decode opcodes `0F0D` and `0F18-0F1F` as reserved-nop instructions (eg. [`Code::ReservedNop_rm32_r32_0F1D`])
 	///
 	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D

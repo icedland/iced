@@ -38,6 +38,10 @@ namespace Iced.Intel {
 		NoInvalidCheck = 0x00000001,
 		/// <summary>AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no <c>o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS</c></summary>
 		AMD = 0x00000002,
+		/// <summary>AMD decoder: allow 16-bit branch/ret instructions in 64-bit mode, no <c>o64 CALL/JMP FAR [mem], o64 LSS/LFS/LGS</c></summary>
+		[System.Obsolete("Use " + nameof(AMD) + " instead", true)]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		AmdBranches = 0x00000002,
 		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)</summary>
 		ForceReservedNop = 0x00000004,
 		/// <summary>Decode <c>UMOV</c> instructions (eg. <see cref="Code.Umov_r32_rm32"/>)</summary>

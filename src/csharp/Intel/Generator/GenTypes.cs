@@ -82,7 +82,7 @@ namespace Generator {
 					flags |= EnumTypeFlags.NoInitialize;
 				if (ca.Flags)
 					flags |= EnumTypeFlags.Flags;
-				var values = type.GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue(GetValue(a.GetValue(null)), a.Name, CommentAttribute.GetDocumentation(a))).ToArray();
+				var values = type.GetFields().Where(a => a.IsLiteral).Select(a => new EnumValue(GetValue(a.GetValue(null)), a.Name, CommentAttribute.GetDocumentation(a), DeprecatedAttribute.GetDeprecatedInfo(a))).ToArray();
 				var enumType = new EnumType(ca.Name, ca.TypeId, ca.Documentation, values, flags);
 				enums.Add(ca.TypeId, enumType);
 			}
