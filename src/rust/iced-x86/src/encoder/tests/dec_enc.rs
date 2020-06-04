@@ -1684,11 +1684,7 @@ fn verify_that_test_cases_test_enough_bits() {
 		}
 	}
 
-	let code_names = code_names();
 	for info in decoder_tests(false, false) {
-		if is_ignored_code(code_names[info.code() as usize]) {
-			continue;
-		}
 		if (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) != 0 {
 			continue;
 		}
@@ -2018,6 +2014,7 @@ fn verify_that_test_cases_test_enough_bits() {
 	let mut pfx_no_bnd_32: Vec<Code> = Vec::new();
 	let mut pfx_no_bnd_64: Vec<Code> = Vec::new();
 
+	let code_names = code_names();
 	for &bitness in &[16u32, 32, 64] {
 		let tested_infos: &[TestedInfo] = match bitness {
 			16 => &tested_infos_16,
@@ -3067,5 +3064,231 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 			}
 		}
 		false
+	}
+}
+
+#[test]
+fn disable_decoder_option_disables_instruction() {
+	for info in decoder_tests(false, false) {
+		if info.decoder_options() == DecoderOptions::NONE {
+			continue;
+		}
+		const NO_OPTIONS: u32 = DecoderOptions::NO_INVALID_CHECK
+			| DecoderOptions::NO_PAUSE
+			| DecoderOptions::NO_WBNOINVD
+			| DecoderOptions::NO_LOCK_MOV_CR0
+			| DecoderOptions::NO_MPFX_0FBC
+			| DecoderOptions::NO_MPFX_0FBD
+			| DecoderOptions::NO_LAHF_SAHF_64;
+		if (info.decoder_options() & NO_OPTIONS) != 0 {
+			continue;
+		}
+		if !is_power_of_two(info.decoder_options()) {
+			continue;
+		}
+
+		// Some 'normal' instructions are tested with some decoder option enabled (eg. retnq + amd)
+		// but 'amd' option is a nop when decoding retnq. If it's one of those instructions, just
+		// ignore it (continue). We specifically check for these ignored instructions instead of
+		// continuing by default (in '_' case) because if a new instruction uses an existing
+		// flag (eg. AMD), we need to test it. This test will panic if that ever happens so the code
+		// will get updated (a new case is added to the 'break' code path).
+		match info.decoder_options() {
+			DecoderOptions::FORCE_RESERVED_NOP => continue,
+
+			DecoderOptions::AMD => match info.code() {
+				Code::Jecxz_rel8_16
+				| Code::Jrcxz_rel8_16
+				| Code::Loop_rel8_16_ECX
+				| Code::Loop_rel8_16_RCX
+				| Code::Loope_rel8_16_ECX
+				| Code::Loope_rel8_16_RCX
+				| Code::Loopne_rel8_16_ECX
+				| Code::Loopne_rel8_16_RCX => break,
+				Code::Call_m1632
+				| Code::Call_rel16
+				| Code::Call_rel32_64
+				| Code::Call_rm16
+				| Code::Call_rm64
+				| Code::Ja_rel16
+				| Code::Ja_rel32_64
+				| Code::Ja_rel8_16
+				| Code::Jae_rel16
+				| Code::Jae_rel32_64
+				| Code::Jae_rel8_16
+				| Code::Jb_rel16
+				| Code::Jb_rel32_64
+				| Code::Jb_rel8_16
+				| Code::Jbe_rel16
+				| Code::Jbe_rel32_64
+				| Code::Jbe_rel8_16
+				| Code::Je_rel16
+				| Code::Je_rel32_64
+				| Code::Je_rel8_16
+				| Code::Jecxz_rel8_64
+				| Code::Jg_rel16
+				| Code::Jg_rel32_64
+				| Code::Jg_rel8_16
+				| Code::Jge_rel16
+				| Code::Jge_rel32_64
+				| Code::Jge_rel8_16
+				| Code::Jl_rel16
+				| Code::Jl_rel32_64
+				| Code::Jl_rel8_16
+				| Code::Jle_rel16
+				| Code::Jle_rel32_64
+				| Code::Jle_rel8_16
+				| Code::Jmp_m1632
+				| Code::Jmp_rel16
+				| Code::Jmp_rel32_64
+				| Code::Jmp_rel8_16
+				| Code::Jmp_rel8_64
+				| Code::Jmp_rm16
+				| Code::Jmp_rm64
+				| Code::Jne_rel16
+				| Code::Jne_rel32_64
+				| Code::Jne_rel8_16
+				| Code::Jno_rel16
+				| Code::Jno_rel32_64
+				| Code::Jno_rel8_16
+				| Code::Jnp_rel16
+				| Code::Jnp_rel32_64
+				| Code::Jnp_rel8_16
+				| Code::Jns_rel16
+				| Code::Jns_rel32_64
+				| Code::Jns_rel8_16
+				| Code::Jo_rel16
+				| Code::Jo_rel32_64
+				| Code::Jo_rel8_16
+				| Code::Jp_rel16
+				| Code::Jp_rel32_64
+				| Code::Jp_rel8_16
+				| Code::Jrcxz_rel8_64
+				| Code::Js_rel16
+				| Code::Js_rel32_64
+				| Code::Js_rel8_16
+				| Code::Lfs_r32_m1632
+				| Code::Lgs_r32_m1632
+				| Code::Loop_rel8_64_ECX
+				| Code::Loop_rel8_64_RCX
+				| Code::Loope_rel8_64_ECX
+				| Code::Loope_rel8_64_RCX
+				| Code::Loopne_rel8_64_ECX
+				| Code::Loopne_rel8_64_RCX
+				| Code::Lss_r32_m1632
+				| Code::Retnq
+				| Code::Retnq_imm16
+				| Code::Retnw
+				| Code::Retnw_imm16 => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::CL1INVMB => match info.code() {
+				Code::Cl1invmb => {}
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::CMPXCHG486A => match info.code() {
+				Code::Cmpxchg486_rm16_r16 | Code::Cmpxchg486_rm32_r32 | Code::Cmpxchg486_rm8_r8 => {}
+				Code::Montmul_32 | Code::Montmul_64 | Code::Xsha1_32 | Code::Xsha1_64 | Code::Xsha256_32 | Code::Xsha256_64 => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::JMPE => match info.code() {
+				Code::Jmpe_disp16 | Code::Jmpe_disp32 | Code::Jmpe_rm16 | Code::Jmpe_rm32 => {}
+				Code::Popcnt_r16_rm16 | Code::Popcnt_r32_rm32 | Code::Popcnt_r64_rm64 => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::LOADALL286 => match info.code() {
+				Code::Loadall286 | Code::Loadallreset286 => {}
+				Code::Syscall => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::LOADALL386 => match info.code() {
+				Code::Loadall386 => {}
+				Code::Sysretd | Code::Sysretq => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::MOV_TR => match info.code() {
+				Code::Mov_r32_tr | Code::Mov_tr_r32 => {}
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::MPX => match info.code() {
+				Code::Bndcl_bnd_rm32
+				| Code::Bndcl_bnd_rm64
+				| Code::Bndcn_bnd_rm32
+				| Code::Bndcn_bnd_rm64
+				| Code::Bndcu_bnd_rm32
+				| Code::Bndcu_bnd_rm64
+				| Code::Bndldx_bnd_mib
+				| Code::Bndmk_bnd_m32
+				| Code::Bndmk_bnd_m64
+				| Code::Bndmov_bnd_bndm128
+				| Code::Bndmov_bnd_bndm64
+				| Code::Bndmov_bndm128_bnd
+				| Code::Bndmov_bndm64_bnd
+				| Code::Bndstx_mib_bnd => {}
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::OLD_FPU => match info.code() {
+				Code::Frstpm | Code::Fstdw_AX | Code::Fstsg_AX => {}
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::PCOMMIT => match info.code() {
+				Code::Pcommit => {}
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::UMOV => match info.code() {
+				Code::Umov_r16_rm16 | Code::Umov_r32_rm32 | Code::Umov_r8_rm8 | Code::Umov_rm16_r16 | Code::Umov_rm32_r32 | Code::Umov_rm8_r8 => {}
+				Code::Movups_xmm_xmmm128
+				| Code::Movupd_xmm_xmmm128
+				| Code::Movss_xmm_xmmm32
+				| Code::Movsd_xmm_xmmm64
+				| Code::Movups_xmmm128_xmm
+				| Code::Movupd_xmmm128_xmm
+				| Code::Movss_xmmm32_xmm
+				| Code::Movsd_xmmm64_xmm
+				| Code::Movhlps_xmm_xmm
+				| Code::Movlps_xmm_m64
+				| Code::Movlpd_xmm_m64
+				| Code::Movsldup_xmm_xmmm128
+				| Code::Movddup_xmm_xmmm64
+				| Code::Movlps_m64_xmm
+				| Code::Movlpd_m64_xmm => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			DecoderOptions::XBTS => match info.code() {
+				Code::Ibts_rm16_r16 | Code::Ibts_rm32_r32 | Code::Xbts_r16_rm16 | Code::Xbts_r32_rm32 => {}
+				Code::Montmul_32 | Code::Montmul_64 | Code::Xsha1_32 | Code::Xsha1_64 | Code::Xsha256_32 | Code::Xsha256_64 => continue,
+				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
+			},
+
+			_ => unreachable!("Update this code"),
+		}
+
+		{
+			let bytes = to_vec_u8(info.hex_bytes()).unwrap();
+			let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
+			let instruction = decoder.decode();
+			assert_eq!(info.code(), instruction.code());
+		}
+		{
+			let bytes = to_vec_u8(info.hex_bytes()).unwrap();
+			let mut decoder = Decoder::new(info.bitness(), &bytes, DecoderOptions::NONE);
+			let instruction = decoder.decode();
+			assert_ne!(info.code(), instruction.code());
+		}
+	}
+
+	fn is_power_of_two(v: u32) -> bool {
+		v != 0 && (v & (v - 1)) == 0
 	}
 }
