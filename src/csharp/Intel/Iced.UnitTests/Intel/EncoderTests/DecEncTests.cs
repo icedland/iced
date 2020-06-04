@@ -51,30 +51,9 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					switch (info.Code) {
 					case Code.Mov_r32_cr:
 					case Code.Mov_r64_cr:
-						switch (info.HexBytes) {
-						case "F0 0F20 C1":
-						case "0F20 C1":
-						case "0F20 81":
-						case "0F20 41":
-						case "0F20 01":
-						case "66 0F20 C1":
-						case "41 0F20 C1":
-							continue;
-						}
-						break;
 					case Code.Mov_cr_r32:
 					case Code.Mov_cr_r64:
-						switch (info.HexBytes) {
-						case "F0 0F22 C1":
-						case "0F22 C1":
-						case "0F22 81":
-						case "0F22 41":
-						case "0F22 01":
-						case "66 0F22 C1":
-						case "41 0F22 C1":
-							continue;
-						}
-						break;
+						continue;
 					}
 				}
 

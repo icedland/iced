@@ -125,11 +125,13 @@ impl Op for OpModRM_regF0 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
 		if encoder.bitness() != 64
 			&& instruction.op_kind(operand) == OpKind::Register
-			&& instruction.op_register(operand) as u32 == self.reg_lo as u32 + 8
+			&& instruction.op_register(operand) as u32 >= self.reg_lo as u32 + 8
+			&& instruction.op_register(operand) as u32 <= self.reg_lo as u32 + 15
 		{
 			encoder.encoder_flags |= EncoderFlags::PF0;
-			let reg = unsafe { mem::transmute(self.reg_lo as u8 + 8) };
-			encoder.add_mod_rm_register(instruction, operand, reg, reg);
+			let reg_lo = unsafe { mem::transmute(self.reg_lo as u8 + 8) };
+			let reg_hi = unsafe { mem::transmute(self.reg_lo as u8 + 15) };
+			encoder.add_mod_rm_register(instruction, operand, reg_lo, reg_hi);
 		} else {
 			encoder.add_mod_rm_register(instruction, operand, self.reg_lo, self.reg_hi);
 		}

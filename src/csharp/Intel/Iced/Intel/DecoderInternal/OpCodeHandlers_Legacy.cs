@@ -1239,33 +1239,29 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.InternalOp0Kind = OpKind.Register;
 				instruction.InternalOp0Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
 			}
+			var extraRegisterBase = state.extraRegisterBase;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && state.reg == 0 && state.extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp1Kind = OpKind.Register;
-				instruction.InternalOp1Register = Register.CR8;
+			if (baseReg == Register.CR0 && extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
+				extraRegisterBase = 8;
 				instruction.InternalClearHasLockPrefix();
 				state.flags &= ~StateFlags.Lock;
 			}
-			else {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp1Kind = OpKind.Register;
-				var reg = (int)(state.reg + state.extraRegisterBase);
-				if (decoder.invalidCheckMask != 0) {
-					if (baseReg == Register.CR0) {
-						if (reg == 1 || (reg != 8 && reg >= 5))
-							decoder.SetInvalidInstruction();
-					}
-					else if (baseReg == Register.DR0) {
-						if (reg > 7)
-							decoder.SetInvalidInstruction();
-					}
-					else {
-						Debug.Assert(baseReg == Register.TR0);
-					}
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.InternalOp1Kind = OpKind.Register;
+			var reg = (int)(state.reg + extraRegisterBase);
+			if (decoder.invalidCheckMask != 0) {
+				if (baseReg == Register.CR0) {
+					if (reg == 1 || (reg != 8 && reg >= 5))
+						decoder.SetInvalidInstruction();
 				}
-				instruction.InternalOp1Register = reg + baseReg;
+				else if (baseReg == Register.DR0) {
+					if (reg > 7)
+						decoder.SetInvalidInstruction();
+				}
+				else
+					Debug.Assert(baseReg == Register.TR0);
 			}
+			instruction.InternalOp1Register = reg + baseReg;
 		}
 	}
 
@@ -1295,33 +1291,29 @@ namespace Iced.Intel.DecoderInternal {
 				//instruction.InternalOp1Kind = OpKind.Register;
 				instruction.InternalOp1Register = (int)(state.rm + state.extraBaseRegisterBase) + Register.EAX;
 			}
+			var extraRegisterBase = state.extraRegisterBase;
 			// LOCK MOV CR0 is supported by some AMD CPUs
-			if (baseReg == Register.CR0 && state.reg == 0 && state.extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp0Kind = OpKind.Register;
-				instruction.InternalOp0Register = Register.CR8;
+			if (baseReg == Register.CR0 && extraRegisterBase == 0 && instruction.HasLockPrefix && (decoder.options & DecoderOptions.NoLockMovCR0) == 0) {
+				extraRegisterBase = 8;
 				instruction.InternalClearHasLockPrefix();
 				state.flags &= ~StateFlags.Lock;
 			}
-			else {
-				Static.Assert(OpKind.Register == 0 ? 0 : -1);
-				//instruction.InternalOp0Kind = OpKind.Register;
-				var reg = (int)(state.reg + state.extraRegisterBase);
-				if (decoder.invalidCheckMask != 0) {
-					if (baseReg == Register.CR0) {
-						if (reg == 1 || (reg != 8 && reg >= 5))
-							decoder.SetInvalidInstruction();
-					}
-					else if (baseReg == Register.DR0) {
-						if (reg > 7)
-							decoder.SetInvalidInstruction();
-					}
-					else {
-						Debug.Assert(baseReg == Register.TR0);
-					}
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.InternalOp0Kind = OpKind.Register;
+			var reg = (int)(state.reg + extraRegisterBase);
+			if (decoder.invalidCheckMask != 0) {
+				if (baseReg == Register.CR0) {
+					if (reg == 1 || (reg != 8 && reg >= 5))
+						decoder.SetInvalidInstruction();
 				}
-				instruction.InternalOp0Register = reg + baseReg;
+				else if (baseReg == Register.DR0) {
+					if (reg > 7)
+						decoder.SetInvalidInstruction();
+				}
+				else
+					Debug.Assert(baseReg == Register.TR0);
 			}
+			instruction.InternalOp0Register = reg + baseReg;
 		}
 	}
 

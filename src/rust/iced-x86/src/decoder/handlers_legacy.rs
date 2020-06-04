@@ -1510,37 +1510,34 @@ impl OpCodeHandler_R_C {
 				decoder.state.rm + decoder.state.extra_base_register_base + Register::EAX as u32,
 			);
 		}
+		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
 		if this.base_reg == Register::CR0
-			&& decoder.state.reg == 0
-			&& decoder.state.extra_register_base == 0
+			&& extra_register_base == 0
 			&& instruction.has_lock_prefix()
 			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR0) == 0
 		{
-			const_assert_eq!(0, OpKind::Register as u32);
-			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op1_register_u32(instruction, Register::CR8 as u32);
+			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);
 			decoder.state.flags &= !StateFlags::LOCK;
-		} else {
-			const_assert_eq!(0, OpKind::Register as u32);
-			//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
-			let reg = decoder.state.reg + decoder.state.extra_register_base;
-			if decoder.invalid_check_mask != 0 {
-				if this.base_reg == Register::CR0 {
-					if reg == 1 || (reg != 8 && reg >= 5) {
-						decoder.set_invalid_instruction();
-					}
-				} else if this.base_reg == Register::DR0 {
-					if reg > 7 {
-						decoder.set_invalid_instruction();
-					}
-				} else {
-					debug_assert_eq!(Register::TR0, this.base_reg);
-				}
-			}
-			super::instruction_internal::internal_set_op1_register_u32(instruction, reg + this.base_reg as u32);
 		}
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op1_kind(instruction, OpKind::Register);
+		let reg = decoder.state.reg + extra_register_base;
+		if decoder.invalid_check_mask != 0 {
+			if this.base_reg == Register::CR0 {
+				if reg == 1 || (reg != 8 && reg >= 5) {
+					decoder.set_invalid_instruction();
+				}
+			} else if this.base_reg == Register::DR0 {
+				if reg > 7 {
+					decoder.set_invalid_instruction();
+				}
+			} else {
+				debug_assert_eq!(Register::TR0, this.base_reg);
+			}
+		}
+		super::instruction_internal::internal_set_op1_register_u32(instruction, reg + this.base_reg as u32);
 	}
 }
 
@@ -1579,37 +1576,34 @@ impl OpCodeHandler_C_R {
 				decoder.state.rm + decoder.state.extra_base_register_base + Register::EAX as u32,
 			);
 		}
+		let mut extra_register_base = decoder.state.extra_register_base;
 		// LOCK MOV CR0 is supported by some AMD CPUs
 		if this.base_reg == Register::CR0
-			&& decoder.state.reg == 0
-			&& decoder.state.extra_register_base == 0
+			&& extra_register_base == 0
 			&& instruction.has_lock_prefix()
 			&& (decoder.options & DecoderOptions::NO_LOCK_MOV_CR0) == 0
 		{
-			const_assert_eq!(0, OpKind::Register as u32);
-			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-			super::instruction_internal::internal_set_op0_register(instruction, Register::CR8);
+			extra_register_base = 8;
 			super::instruction_internal::internal_clear_has_lock_prefix(instruction);
 			decoder.state.flags &= !StateFlags::LOCK;
-		} else {
-			const_assert_eq!(0, OpKind::Register as u32);
-			//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
-			let reg = decoder.state.reg + decoder.state.extra_register_base;
-			if decoder.invalid_check_mask != 0 {
-				if this.base_reg == Register::CR0 {
-					if reg == 1 || (reg != 8 && reg >= 5) {
-						decoder.set_invalid_instruction();
-					}
-				} else if this.base_reg == Register::DR0 {
-					if reg > 7 {
-						decoder.set_invalid_instruction();
-					}
-				} else {
-					debug_assert_eq!(Register::TR0, this.base_reg);
-				}
-			}
-			super::instruction_internal::internal_set_op0_register_u32(instruction, reg + this.base_reg as u32);
 		}
+		const_assert_eq!(0, OpKind::Register as u32);
+		//super::instruction_internal::internal_set_op0_kind(instruction, OpKind::Register);
+		let reg = decoder.state.reg + extra_register_base;
+		if decoder.invalid_check_mask != 0 {
+			if this.base_reg == Register::CR0 {
+				if reg == 1 || (reg != 8 && reg >= 5) {
+					decoder.set_invalid_instruction();
+				}
+			} else if this.base_reg == Register::DR0 {
+				if reg > 7 {
+					decoder.set_invalid_instruction();
+				}
+			} else {
+				debug_assert_eq!(Register::TR0, this.base_reg);
+			}
+		}
+		super::instruction_internal::internal_set_op0_register_u32(instruction, reg + this.base_reg as u32);
 	}
 }
 

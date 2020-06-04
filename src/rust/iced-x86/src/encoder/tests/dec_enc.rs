@@ -56,14 +56,7 @@ fn verify_invalid_and_valid_lock_prefix() {
 			can_use_lock = op_code.can_use_lock_prefix() && has_modrm_memory_operand(&instruction);
 
 			match info.code() {
-				Code::Mov_r32_cr | Code::Mov_r64_cr => match info.hex_bytes() {
-					"F0 0F20 C1" | "0F20 C1" | "0F20 81" | "0F20 41" | "0F20 01" | "66 0F20 C1" | "41 0F20 C1" => continue,
-					_ => {}
-				},
-				Code::Mov_cr_r32 | Code::Mov_cr_r64 => match info.hex_bytes() {
-					"F0 0F22 C1" | "0F22 C1" | "0F22 81" | "0F22 41" | "0F22 01" | "66 0F22 C1" | "41 0F22 C1" => continue,
-					_ => {}
-				},
+				Code::Mov_r32_cr | Code::Mov_r64_cr | Code::Mov_cr_r32 | Code::Mov_cr_r64 => continue,
 				_ => {}
 			}
 		}
