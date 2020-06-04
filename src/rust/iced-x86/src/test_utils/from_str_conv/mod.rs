@@ -28,7 +28,7 @@ mod code_table;
 mod condition_code_table;
 #[cfg(feature = "instr_info")]
 mod cpuid_feature_table;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 mod decoder_options_table;
 #[cfg(feature = "instr_info")]
 mod encoding_kind_table;
@@ -56,7 +56,7 @@ use self::code_table::*;
 use self::condition_code_table::*;
 #[cfg(feature = "instr_info")]
 use self::cpuid_feature_table::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
+#[cfg(any(feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 use self::decoder_options_table::*;
 #[cfg(feature = "instr_info")]
 use self::encoding_kind_table::*;
