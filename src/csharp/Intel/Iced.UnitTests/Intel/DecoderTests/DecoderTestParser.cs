@@ -73,6 +73,7 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 		internal const string DecoderOptions_NoMPFX_0FBD = "nompfx_0fbd";
 		internal const string DecoderOptions_NoLahfSahf64 = "nolahfsahf64";
 		internal const string DecoderOptions_NoInvalidCheck = "noinvalidcheck";
+		internal const string DecoderOptions_MPX = "mpx";
 		internal const string SegmentPrefix_ES = "es:";
 		internal const string SegmentPrefix_CS = "cs:";
 		internal const string SegmentPrefix_SS = "ss:";
@@ -352,6 +353,10 @@ namespace Iced.UnitTests.Intel.DecoderTests {
 
 				case DecoderTestParserConstants.DecoderOptions_NoInvalidCheck:
 					tc.DecoderOptions |= DecoderOptions.NoInvalidCheck;
+					break;
+
+				case DecoderTestParserConstants.DecoderOptions_MPX:
+					tc.DecoderOptions |= DecoderOptions.MPX;
 					break;
 
 				case DecoderTestParserConstants.SegmentPrefix_ES:

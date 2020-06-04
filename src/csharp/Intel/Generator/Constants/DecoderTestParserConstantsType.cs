@@ -74,6 +74,7 @@ namespace Generator.Constants {
 				new Constant(ConstantKind.String, "DecoderOptions_NoMPFX_0FBD", "nompfx_0fbd", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderOptions_NoLahfSahf64", "nolahfsahf64", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "DecoderOptions_NoInvalidCheck", "noinvalidcheck", ConstantsTypeFlags.None),
+				new Constant(ConstantKind.String, "DecoderOptions_MPX", "mpx", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "SegmentPrefix_ES", "es:", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "SegmentPrefix_CS", "cs:", ConstantsTypeFlags.None),
 				new Constant(ConstantKind.String, "SegmentPrefix_SS", "ss:", ConstantsTypeFlags.None),

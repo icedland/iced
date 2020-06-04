@@ -3474,31 +3474,31 @@ C5F9 17 10, VEX_Vmovhpd_m64_xmm, VEX, AVX, pm op0=w op1=r r=rax r=xmm2 wm=ds:rax
 # prefetcht2 [rax]
 0F18 18, Prefetcht2_m8, Legacy, SSE, op0=nma r=rax
 # bndldx bnd1,qword ptr [rax]
-0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=rax
+0F1A 08, Bndldx_bnd_mib, Legacy, MPX, op0=w op1=nma w=bnd1 r=rax decopt=mpx
 # bndmov bnd1,bnd2
-66 0F1A CA, Bndmov_bnd_bndm128, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2
+66 0F1A CA, Bndmov_bnd_bndm128, Legacy, MPX, op0=w op1=r w=bnd1 r=bnd2 decopt=mpx
 # bndmov bnd1,oword ptr [rax]
-66 0F1A 08, Bndmov_bnd_bndm128, Legacy, MPX, op0=w op1=r w=bnd1 r=rax rm=ds:rax;Bnd64
+66 0F1A 08, Bndmov_bnd_bndm128, Legacy, MPX, op0=w op1=r w=bnd1 r=rax rm=ds:rax;Bnd64 decopt=mpx
 # bndcl bnd1,rdx
-F3 0F1A CA, Bndcl_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx
+F3 0F1A CA, Bndcl_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx decopt=mpx
 # bndcl bnd1,[rax]
-F3 0F1A 08, Bndcl_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax
+F3 0F1A 08, Bndcl_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax decopt=mpx
 # bndcu bnd1,rdx
-F2 0F1A CA, Bndcu_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx
+F2 0F1A CA, Bndcu_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx decopt=mpx
 # bndcu bnd1,[rax]
-F2 0F1A 08, Bndcu_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax
+F2 0F1A 08, Bndcu_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax decopt=mpx
 # bndstx qword ptr [rax],bnd1
-0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=rax r=bnd1
+0F1B 08, Bndstx_mib_bnd, Legacy, MPX, op0=nma op1=r r=rax r=bnd1 decopt=mpx
 # bndmov bnd2,bnd1
-66 0F1B CA, Bndmov_bndm128_bnd, Legacy, MPX, op0=w op1=r w=bnd2 r=bnd1
+66 0F1B CA, Bndmov_bndm128_bnd, Legacy, MPX, op0=w op1=r w=bnd2 r=bnd1 decopt=mpx
 # bndmov oword ptr [rax],bnd1
-66 0F1B 08, Bndmov_bndm128_bnd, Legacy, MPX, op0=w op1=r r=rax r=bnd1 wm=ds:rax;Bnd64
+66 0F1B 08, Bndmov_bndm128_bnd, Legacy, MPX, op0=w op1=r r=rax r=bnd1 wm=ds:rax;Bnd64 decopt=mpx
 # bndmk bnd1,qword ptr [rax]
-F3 0F1B 08, Bndmk_bnd_m64, Legacy, MPX, op0=w op1=nma w=bnd1 r=rax
+F3 0F1B 08, Bndmk_bnd_m64, Legacy, MPX, op0=w op1=nma w=bnd1 r=rax decopt=mpx
 # bndcn bnd1,rdx
-F2 0F1B CA, Bndcn_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx
+F2 0F1B CA, Bndcn_bnd_rm64, Legacy, MPX, op0=r op1=r r=bnd1 r=rdx decopt=mpx
 # bndcn bnd1,[rax]
-F2 0F1B 08, Bndcn_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax
+F2 0F1B 08, Bndcn_bnd_rm64, Legacy, MPX, op0=r op1=nma r=bnd1 r=rax decopt=mpx
 # nop cx
 66 0F1F C1, Nop_rm16, Legacy, MULTIBYTENOP, op0=n
 # nop word ptr [rax]

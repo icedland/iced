@@ -320,6 +320,9 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				case InstructionInfoDecoderOptions.Jmpe:
 					options |= DecoderOptions.Jmpe;
 					break;
+				case InstructionInfoDecoderOptions.MPX:
+					options |= DecoderOptions.MPX;
+					break;
 				default:
 					return false;
 				}

@@ -66,5 +66,7 @@ namespace Generator.Enums.Decoder {
 		NoMPFX_0FBD				= 0x00020000,
 		[Comment("Don't decode #(e:Code.Lahf)# and #(e:Code.Sahf)# in 64-bit mode")]
 		NoLahfSahf64			= 0x00040000,
+		[Comment("Decode #(c:MPX)# instructions")]
+		MPX						= 0x00080000,
 	}
 }

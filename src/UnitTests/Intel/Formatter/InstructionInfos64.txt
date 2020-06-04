@@ -1405,19 +1405,19 @@ C5F9 17 10, VEX_Vmovhpd_m64_xmm
 0F18 08, Prefetcht0_m8
 0F18 10, Prefetcht1_m8
 0F18 18, Prefetcht2_m8
-0F1A 08, Bndldx_bnd_mib
-66 0F1A CA, Bndmov_bnd_bndm128
-66 0F1A 08, Bndmov_bnd_bndm128
-F3 0F1A CA, Bndcl_bnd_rm64
-F3 0F1A 08, Bndcl_bnd_rm64
-F2 0F1A CA, Bndcu_bnd_rm64
-F2 0F1A 08, Bndcu_bnd_rm64
-0F1B 08, Bndstx_mib_bnd
-66 0F1B CA, Bndmov_bndm128_bnd
-66 0F1B 08, Bndmov_bndm128_bnd
-F3 0F1B 08, Bndmk_bnd_m64
-F2 0F1B CA, Bndcn_bnd_rm64
-F2 0F1B 08, Bndcn_bnd_rm64
+0F1A 08, Bndldx_bnd_mib, MPX
+66 0F1A CA, Bndmov_bnd_bndm128, MPX
+66 0F1A 08, Bndmov_bnd_bndm128, MPX
+F3 0F1A CA, Bndcl_bnd_rm64, MPX
+F3 0F1A 08, Bndcl_bnd_rm64, MPX
+F2 0F1A CA, Bndcu_bnd_rm64, MPX
+F2 0F1A 08, Bndcu_bnd_rm64, MPX
+0F1B 08, Bndstx_mib_bnd, MPX
+66 0F1B CA, Bndmov_bndm128_bnd, MPX
+66 0F1B 08, Bndmov_bndm128_bnd, MPX
+F3 0F1B 08, Bndmk_bnd_m64, MPX
+F2 0F1B CA, Bndcn_bnd_rm64, MPX
+F2 0F1B 08, Bndcn_bnd_rm64, MPX
 66 0F1F C1, Nop_rm16
 66 0F1F 00, Nop_rm16
 0F1F C1, Nop_rm32
@@ -7364,10 +7364,10 @@ C5F8 44 C1, VEX_Knotw_k_k
 C5F8 44 D3, VEX_Knotw_k_k
 C5F8 44 E5, VEX_Knotw_k_k
 C5F8 44 F7, VEX_Knotw_k_k
-F2 0F1B C0, Bndcn_bnd_rm64
-F2 0F1B C8, Bndcn_bnd_rm64
-F2 0F1B D0, Bndcn_bnd_rm64
-F2 0F1B D8, Bndcn_bnd_rm64
+F2 0F1B C0, Bndcn_bnd_rm64, MPX
+F2 0F1B C8, Bndcn_bnd_rm64, MPX
+F2 0F1B D0, Bndcn_bnd_rm64, MPX
+F2 0F1B D8, Bndcn_bnd_rm64, MPX
 8A 08, Mov_r8_rm8
 8A 48 EE, Mov_r8_rm8
 8A 88 88A9CBED, Mov_r8_rm8

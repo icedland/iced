@@ -130,6 +130,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string Cl1invmb = "cl1invmb";
 		internal const string MovTr = "movtr";
 		internal const string Jmpe = "jmpe";
+		internal const string MPX = "mpx";
 	}
 	// GENERATOR-END: DecoderOptionsConstants
 

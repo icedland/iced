@@ -43,6 +43,7 @@ namespace Generator.Constants.InstructionInfo {
 				new Constant(ConstantKind.String, "Cl1invmb", "cl1invmb"),
 				new Constant(ConstantKind.String, "MovTr", "movtr"),
 				new Constant(ConstantKind.String, "Jmpe", "jmpe"),
+				new Constant(ConstantKind.String, "MPX", "mpx"),
 			};
 	}
 }

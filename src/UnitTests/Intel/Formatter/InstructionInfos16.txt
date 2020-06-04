@@ -123,17 +123,17 @@ FF 20, Jmp_rm16
 66 FF 20, Jmp_rm32
 66 FF F6, Push_rm32
 66 FF 30, Push_rm32
-67 66 0F1A CA, Bndmov_bnd_bndm64
-67 66 0F1A 08, Bndmov_bnd_bndm64
-67 F3 0F1A CA, Bndcl_bnd_rm32
-67 F3 0F1A 08, Bndcl_bnd_rm32
-67 F2 0F1A CA, Bndcu_bnd_rm32
-67 F2 0F1A 08, Bndcu_bnd_rm32
-67 66 0F1B CA, Bndmov_bndm64_bnd
-67 66 0F1B 08, Bndmov_bndm64_bnd
-67 F3 0F1B 08, Bndmk_bnd_m32
-67 F2 0F1B CA, Bndcn_bnd_rm32
-67 F2 0F1B 08, Bndcn_bnd_rm32
+67 66 0F1A CA, Bndmov_bnd_bndm64, MPX
+67 66 0F1A 08, Bndmov_bnd_bndm64, MPX
+67 F3 0F1A CA, Bndcl_bnd_rm32, MPX
+67 F3 0F1A 08, Bndcl_bnd_rm32, MPX
+67 F2 0F1A CA, Bndcu_bnd_rm32, MPX
+67 F2 0F1A 08, Bndcu_bnd_rm32, MPX
+67 66 0F1B CA, Bndmov_bndm64_bnd, MPX
+67 66 0F1B 08, Bndmov_bndm64_bnd, MPX
+67 F3 0F1B 08, Bndmk_bnd_m32, MPX
+67 F2 0F1B CA, Bndcn_bnd_rm32, MPX
+67 F2 0F1B 08, Bndcn_bnd_rm32, MPX
 0F78 CE, Vmread_rm32_r32
 0F78 18, Vmread_rm32_r32
 0F79 CE, Vmwrite_r32_rm32
@@ -320,8 +320,8 @@ FF 30, Push_rm16
 0F03 18, Lsl_r16_rm16
 66 0F03 CE, Lsl_r32_r32m16
 66 0F03 18, Lsl_r32_r32m16
-67 0F1A 08, Bndldx_bnd_mib
-67 0F1B 08, Bndstx_mib_bnd
+67 0F1A 08, Bndldx_bnd_mib, MPX
+67 0F1B 08, Bndstx_mib_bnd, MPX
 C5F8 90 D3, VEX_Kmovw_k_km16
 C5F8 90 08, VEX_Kmovw_k_km16
 C5F9 90 D3, VEX_Kmovb_k_km8

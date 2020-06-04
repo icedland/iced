@@ -76,6 +76,8 @@ namespace Iced.Intel {
 		NoMPFX_0FBD = 0x00020000,
 		/// <summary>Don&apos;t decode <see cref="Code.Lahf"/> and <see cref="Code.Sahf"/> in 64-bit mode</summary>
 		NoLahfSahf64 = 0x00040000,
+		/// <summary>Decode <c>MPX</c> instructions</summary>
+		MPX = 0x00080000,
 	}
 }
 #endif

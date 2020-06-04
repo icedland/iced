@@ -4045,38 +4045,46 @@ namespace Iced.Intel.DecoderInternal {
 				0x9E,// ReservedNop
 					0x07,// HandlerReference
 						0x34,// 0x34 = reservedNop_0F1A
-					0x11,// MandatoryPrefix
-						0x09,// RM
-							0x07,// HandlerReference
-								0x34,// 0x34 = reservedNop_0F1A
-							0x1F,// B_MIB
-								0x8D, 0x08,// Bndldx_bnd_mib
-						0x1D,// B_BM
-							0x8E, 0x08,// Bndmov_bnd_bndm64
-						0x1E,// B_Ev
-							0x90, 0x08,// Bndcl_bnd_rm32
-						0x1E,// B_Ev
-							0x92, 0x08,// Bndcu_bnd_rm32
+					0x0C,// Options_DontReadModRM
+						0x07,// HandlerReference
+							0x34,// 0x34 = reservedNop_0F1A
+						0x11,// MandatoryPrefix
+							0x09,// RM
+								0x07,// HandlerReference
+									0x34,// 0x34 = reservedNop_0F1A
+								0x1F,// B_MIB
+									0x8D, 0x08,// Bndldx_bnd_mib
+							0x1D,// B_BM
+								0x8E, 0x08,// Bndmov_bnd_bndm64
+							0x1E,// B_Ev
+								0x90, 0x08,// Bndcl_bnd_rm32
+							0x1E,// B_Ev
+								0x92, 0x08,// Bndcu_bnd_rm32
+						0x80, 0x80, 0x20,// MPX
 
 				// 27 = 0x1B
 				0x9E,// ReservedNop
 					0x07,// HandlerReference
 						0x35,// 0x35 = reservedNop_0F1B
-					0x11,// MandatoryPrefix
-						0x09,// RM
-							0x07,// HandlerReference
-								0x35,// 0x35 = reservedNop_0F1B
-							0x76,// MIB_B
-								0x94, 0x08,// Bndstx_mib_bnd
-						0x20,// BM_B
-							0x95, 0x08,// Bndmov_bndm64_bnd
-						0x09,// RM
-							0x07,// HandlerReference
-								0x35,// 0x35 = reservedNop_0F1B
+					0x0C,// Options_DontReadModRM
+						0x07,// HandlerReference
+							0x35,// 0x35 = reservedNop_0F1B
+						0x11,// MandatoryPrefix
+							0x09,// RM
+								0x07,// HandlerReference
+									0x35,// 0x35 = reservedNop_0F1B
+								0x76,// MIB_B
+									0x94, 0x08,// Bndstx_mib_bnd
+							0x20,// BM_B
+								0x95, 0x08,// Bndmov_bndm64_bnd
+							0x09,// RM
+								0x07,// HandlerReference
+									0x35,// 0x35 = reservedNop_0F1B
+								0x1E,// B_Ev
+									0x97, 0x08,// Bndmk_bnd_m32
 							0x1E,// B_Ev
-								0x97, 0x08,// Bndmk_bnd_m32
-						0x1E,// B_Ev
-							0x99, 0x08,// Bndcn_bnd_rm32
+								0x99, 0x08,// Bndcn_bnd_rm32
+						0x80, 0x80, 0x20,// MPX
 
 				// 28 = 0x1C
 				0x07,// HandlerReference

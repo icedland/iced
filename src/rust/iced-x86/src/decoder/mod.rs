@@ -170,6 +170,8 @@ impl DecoderOptions {
 	/// [`Code::Lahf`]: enum.Code.html#variant.Lahf
 	/// [`Code::Sahf`]: enum.Code.html#variant.Sahf
 	pub const NO_LAHF_SAHF_64: u32 = 0x0004_0000;
+	/// Decode `MPX` instructions
+	pub const MPX: u32 = 0x0008_0000;
 }
 // GENERATOR-END: DecoderOptions
 

@@ -6322,59 +6322,59 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;rax;;1;0;0;Float64 op1=r
 48 0F19 18, ReservedNop_rm64_r64_0F19, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx resnop
 4A 0F19 CE, ReservedNop_rm64_r64_0F19, ReservedNop, 2, op0=r;rsi op1=r;rcx resnop enc=480F19CE
 
-66 0F1A CE, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;si op1=r;cx resnop
-66 44 0F1A C5, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;bp op1=r;r8w resnop
-66 41 0F1A D6, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r14w op1=r;dx resnop
-66 45 0F1A D0, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r8w op1=r;r10w resnop
-66 41 0F1A D9, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r9w op1=r;bx resnop
-66 44 0F1A EC, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;sp op1=r;r13w resnop
-66 0F1A 18, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx resnop
-66 42 0F1A CE, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;si op1=r;cx resnop enc=660F1ACE
+66 0F1A CE, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;si op1=r;cx
+66 44 0F1A C5, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;bp op1=r;r8w
+66 41 0F1A D6, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r14w op1=r;dx
+66 45 0F1A D0, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r8w op1=r;r10w
+66 41 0F1A D9, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;r9w op1=r;bx
+66 44 0F1A EC, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;sp op1=r;r13w
+66 0F1A 18, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
+66 42 0F1A CE, ReservedNop_rm16_r16_0F1A, ReservedNop, 2, op0=r;si op1=r;cx enc=660F1ACE
 
-0F1A CE, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
-44 0F1A C5, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;ebp op1=r;r8d resnop
-41 0F1A D6, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r14d op1=r;edx resnop
-45 0F1A D0, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r8d op1=r;r10d resnop
-41 0F1A D9, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r9d op1=r;ebx resnop
-44 0F1A EC, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esp op1=r;r13d resnop
-0F1A 18, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx resnop
-42 0F1A CE, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esi op1=r;ecx resnop enc=0F1ACE
+0F1A CE, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esi op1=r;ecx
+44 0F1A C5, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;ebp op1=r;r8d
+41 0F1A D6, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r14d op1=r;edx
+45 0F1A D0, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r8d op1=r;r10d
+41 0F1A D9, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;r9d op1=r;ebx
+44 0F1A EC, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esp op1=r;r13d
+0F1A 18, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
+42 0F1A CE, ReservedNop_rm32_r32_0F1A, ReservedNop, 2, op0=r;esi op1=r;ecx enc=0F1ACE
 
-48 0F1A CE, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsi op1=r;rcx resnop
-4C 0F1A C5, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rbp op1=r;r8 resnop
-49 0F1A D6, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r14 op1=r;rdx resnop
-4D 0F1A D0, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r8 op1=r;r10 resnop
-49 0F1A D9, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r9 op1=r;rbx resnop
-4C 0F1A EC, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsp op1=r;r13 resnop
-48 0F1A 18, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx resnop
-4A 0F1A CE, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsi op1=r;rcx resnop enc=480F1ACE
+48 0F1A CE, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsi op1=r;rcx
+4C 0F1A C5, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rbp op1=r;r8
+49 0F1A D6, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r14 op1=r;rdx
+4D 0F1A D0, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r8 op1=r;r10
+49 0F1A D9, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;r9 op1=r;rbx
+4C 0F1A EC, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsp op1=r;r13
+48 0F1A 18, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
+4A 0F1A CE, ReservedNop_rm64_r64_0F1A, ReservedNop, 2, op0=r;rsi op1=r;rcx enc=480F1ACE
 
-66 0F1B CE, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;si op1=r;cx resnop
-66 44 0F1B C5, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;bp op1=r;r8w resnop
-66 41 0F1B D6, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r14w op1=r;dx resnop
-66 45 0F1B D0, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r8w op1=r;r10w resnop
-66 41 0F1B D9, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r9w op1=r;bx resnop
-66 44 0F1B EC, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;sp op1=r;r13w resnop
-66 0F1B 18, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx resnop
-66 42 0F1B CE, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;si op1=r;cx resnop enc=660F1BCE
+66 0F1B CE, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;si op1=r;cx
+66 44 0F1B C5, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;bp op1=r;r8w
+66 41 0F1B D6, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r14w op1=r;dx
+66 45 0F1B D0, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r8w op1=r;r10w
+66 41 0F1B D9, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;r9w op1=r;bx
+66 44 0F1B EC, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;sp op1=r;r13w
+66 0F1B 18, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt16 op1=r;bx
+66 42 0F1B CE, ReservedNop_rm16_r16_0F1B, ReservedNop, 2, op0=r;si op1=r;cx enc=660F1BCE
 
-0F1B CE, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esi op1=r;ecx resnop
-44 0F1B C5, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;ebp op1=r;r8d resnop
-41 0F1B D6, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r14d op1=r;edx resnop
-45 0F1B D0, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r8d op1=r;r10d resnop
-41 0F1B D9, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r9d op1=r;ebx resnop
-44 0F1B EC, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esp op1=r;r13d resnop
-0F1B 18, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx resnop
-42 0F1B CE, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esi op1=r;ecx resnop enc=0F1BCE
+0F1B CE, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esi op1=r;ecx
+44 0F1B C5, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;ebp op1=r;r8d
+41 0F1B D6, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r14d op1=r;edx
+45 0F1B D0, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r8d op1=r;r10d
+41 0F1B D9, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;r9d op1=r;ebx
+44 0F1B EC, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esp op1=r;r13d
+0F1B 18, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt32 op1=r;ebx
+42 0F1B CE, ReservedNop_rm32_r32_0F1B, ReservedNop, 2, op0=r;esi op1=r;ecx enc=0F1BCE
 
-48 0F1B CE, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsi op1=r;rcx resnop
-4C 0F1B C5, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rbp op1=r;r8 resnop
-49 0F1B D6, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r14 op1=r;rdx resnop
-4D 0F1B D0, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r8 op1=r;r10 resnop
-49 0F1B D9, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r9 op1=r;rbx resnop
-4C 0F1B EC, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsp op1=r;r13 resnop
-48 0F1B 18, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx resnop
-4A 0F1B CE, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsi op1=r;rcx resnop enc=480F1BCE
+48 0F1B CE, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsi op1=r;rcx
+4C 0F1B C5, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rbp op1=r;r8
+49 0F1B D6, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r14 op1=r;rdx
+4D 0F1B D0, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r8 op1=r;r10
+49 0F1B D9, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;r9 op1=r;rbx
+4C 0F1B EC, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsp op1=r;r13
+48 0F1B 18, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx
+4A 0F1B CE, ReservedNop_rm64_r64_0F1B, ReservedNop, 2, op0=r;rsi op1=r;rcx enc=480F1BCE
 
 66 0F1C CE, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=r;si op1=r;cx resnop
 66 44 0F1C C5, ReservedNop_rm16_r16_0F1C, ReservedNop, 2, op0=r;bp op1=r;r8w resnop
@@ -6496,145 +6496,145 @@ C4E1F9 17 10, VEX_Vmovhpd_m64_xmm, Vmovhpd, 2, op0=m;ds;rax;;1;0;0;Float64 op1=r
 0F18 18, Prefetcht2_m8, Prefetcht2, 1, op0=m;ds;rax;;1;0;0;UInt8
 44 0F18 18, Prefetcht2_m8, Prefetcht2, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F1818
 
-0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown
-48 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown enc=0F1A08
-67 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown enc=0F1A08
-67 48 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown enc=0F1A08
-44 0F1A 08, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-44 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown enc=0F1A08 noinvalidcheck
-0F1A 20, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-0F1A 28, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-0F1A 30, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-0F1A 38, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-0F1A 20, INVALID, INVALID, 0, code=Bndldx_bnd_mib noinvalidcheck
-0F1A 0D 34125AA5, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-67 0F1A 0D 34125AA5, INVALID, INVALID, 0, code=Bndldx_bnd_mib
-0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;3;4 noinvalidcheck
-67 0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;4;4 noinvalidcheck enc=0F1A0D35125AA5
+0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown mpx
+48 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown mpx enc=0F1A08
+67 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown mpx enc=0F1A08
+67 48 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown mpx enc=0F1A08
+44 0F1A 08, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+44 0F1A 08, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Unknown mpx enc=0F1A08 noinvalidcheck
+0F1A 20, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+0F1A 28, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+0F1A 30, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+0F1A 38, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+0F1A 20, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx noinvalidcheck
+0F1A 0D 34125AA5, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+67 0F1A 0D 34125AA5, INVALID, INVALID, 0, code=Bndldx_bnd_mib mpx
+0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;3;4 mpx noinvalidcheck
+67 0F1A 0D 34125AA5, Bndldx_bnd_mib, Bndldx, 2, op0=r;bnd1 op1=m;ds;rip;;1;0xA55A1234;8;Unknown co=0;0;0;0;4;4 mpx noinvalidcheck enc=0F1A0D35125AA5
 
-66 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64
-66 48 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 enc=660F1A08
-67 66 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 enc=660F1A08
-67 66 48 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 enc=660F1A08
-66 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2
-66 48 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 enc=660F1ACA
-66 42 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 enc=660F1ACA
-66 41 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 44 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 45 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 41 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 enc=660F1ACA noinvalidcheck
-66 44 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 enc=660F1ACA noinvalidcheck
-66 45 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 enc=660F1ACA noinvalidcheck
-66 0F1A C4, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A C5, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A C6, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A C7, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A E0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A E8, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A F0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A F8, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128
-66 0F1A C4, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 noinvalidcheck
-66 0F1A E0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 noinvalidcheck
+66 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 mpx
+66 48 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 mpx enc=660F1A08
+67 66 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 mpx enc=660F1A08
+67 66 48 0F1A 08, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;Bnd64 mpx enc=660F1A08
+66 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx
+66 48 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx enc=660F1ACA
+66 42 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx enc=660F1ACA
+66 41 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 44 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 45 0F1A CA, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 41 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx enc=660F1ACA noinvalidcheck
+66 44 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx enc=660F1ACA noinvalidcheck
+66 45 0F1A CA, Bndmov_bnd_bndm128, Bndmov, 2, op0=r;bnd1 op1=r;bnd2 mpx enc=660F1ACA noinvalidcheck
+66 0F1A C4, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A C5, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A C6, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A C7, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A E0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A E8, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A F0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A F8, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx
+66 0F1A C4, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx noinvalidcheck
+66 0F1A E0, INVALID, INVALID, 0, code=Bndmov_bnd_bndm128 mpx noinvalidcheck
 
-F3 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64
-F3 48 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1A08
-67 F3 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1A08
-67 F3 48 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1A08
-F3 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx
-F3 41 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;r10
-F3 48 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx enc=F30F1ACA
-F3 42 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx enc=F30F1ACA
-F3 44 0F1A CA, INVALID, INVALID, 0, code=Bndcl_bnd_rm64
-F3 44 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx enc=F30F1ACA noinvalidcheck
-F3 0F1A 20, INVALID, INVALID, 0, code=Bndcl_bnd_rm64
-F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64
-F3 0F1A 30, INVALID, INVALID, 0, code=Bndcl_bnd_rm64
-F3 0F1A 38, INVALID, INVALID, 0, code=Bndcl_bnd_rm64
-F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 noinvalidcheck
+F3 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
+F3 48 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1A08
+67 F3 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1A08
+67 F3 48 0F1A 08, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1A08
+F3 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx mpx
+F3 41 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;r10 mpx
+F3 48 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx mpx enc=F30F1ACA
+F3 42 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx mpx enc=F30F1ACA
+F3 44 0F1A CA, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
+F3 44 0F1A CA, Bndcl_bnd_rm64, Bndcl, 2, op0=r;bnd1 op1=r;rdx mpx enc=F30F1ACA noinvalidcheck
+F3 0F1A 20, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
+F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
+F3 0F1A 30, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
+F3 0F1A 38, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx
+F3 0F1A 28, INVALID, INVALID, 0, code=Bndcl_bnd_rm64 mpx noinvalidcheck
 
-F2 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64
-F2 48 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1A08
-67 F2 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1A08
-67 F2 48 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1A08
-F2 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx
-F2 41 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;r10
-F2 48 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx enc=F20F1ACA
-F2 42 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx enc=F20F1ACA
-F2 44 0F1A CA, INVALID, INVALID, 0, code=Bndcu_bnd_rm64
-F2 44 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx enc=F20F1ACA noinvalidcheck
-F2 0F1A 20, INVALID, INVALID, 0, code=Bndcu_bnd_rm64
-F2 0F1A 28, INVALID, INVALID, 0, code=Bndcu_bnd_rm64
-F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64
-F2 0F1A 38, INVALID, INVALID, 0, code=Bndcu_bnd_rm64
-F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 noinvalidcheck
+F2 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
+F2 48 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1A08
+67 F2 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1A08
+67 F2 48 0F1A 08, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1A08
+F2 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx mpx
+F2 41 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;r10 mpx
+F2 48 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1ACA
+F2 42 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1ACA
+F2 44 0F1A CA, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
+F2 44 0F1A CA, Bndcu_bnd_rm64, Bndcu, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1ACA noinvalidcheck
+F2 0F1A 20, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
+F2 0F1A 28, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
+F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
+F2 0F1A 38, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx
+F2 0F1A 30, INVALID, INVALID, 0, code=Bndcu_bnd_rm64 mpx noinvalidcheck
 
-0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1
-48 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 enc=0F1B08
-67 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 enc=0F1B08
-67 48 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 enc=0F1B08
-44 0F1B 08, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-44 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 enc=0F1B08 noinvalidcheck
-0F1B 20, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-0F1B 28, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-0F1B 30, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-0F1B 38, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-0F1B 38, INVALID, INVALID, 0, code=Bndstx_mib_bnd noinvalidcheck
-0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-67 0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndstx_mib_bnd
-0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;3;4 noinvalidcheck
-67 0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;4;4 noinvalidcheck enc=0F1B0D35125AA5
+0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx
+48 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx enc=0F1B08
+67 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx enc=0F1B08
+67 48 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx enc=0F1B08
+44 0F1B 08, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+44 0F1B 08, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rax;;1;0;0;Unknown op1=r;bnd1 mpx enc=0F1B08 noinvalidcheck
+0F1B 20, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+0F1B 28, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+0F1B 30, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+0F1B 38, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+0F1B 38, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx noinvalidcheck
+0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+67 0F1B 0D 34125AA5, INVALID, INVALID, 0, code=Bndstx_mib_bnd mpx
+0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;3;4 mpx noinvalidcheck
+67 0F1B 0D 34125AA5, Bndstx_mib_bnd, Bndstx, 2, op0=m;ds;rip;;1;0xA55A1234;8;Unknown op1=r;bnd1 co=0;0;0;0;4;4 mpx noinvalidcheck enc=0F1B0D35125AA5
 
-66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1
-66 48 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 enc=660F1B08
-67 66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 enc=660F1B08
-67 66 48 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 enc=660F1B08
-66 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1
-66 48 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 enc=660F1BCA
-66 42 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 enc=660F1BCA
-66 41 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 44 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 45 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 41 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 enc=660F1BCA noinvalidcheck
-66 44 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 enc=660F1BCA noinvalidcheck
-66 45 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 enc=660F1BCA noinvalidcheck
-66 0F1B C4, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B C5, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B C6, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B C7, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B E0, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B E8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B F0, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd
-66 0F1B C5, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd noinvalidcheck
-66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd noinvalidcheck
+66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 mpx
+66 48 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 mpx enc=660F1B08
+67 66 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 mpx enc=660F1B08
+67 66 48 0F1B 08, Bndmov_bndm128_bnd, Bndmov, 2, op0=m;ds;rax;;1;0;0;Bnd64 op1=r;bnd1 mpx enc=660F1B08
+66 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx
+66 48 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx enc=660F1BCA
+66 42 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx enc=660F1BCA
+66 41 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 44 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 45 0F1B CA, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 41 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx enc=660F1BCA noinvalidcheck
+66 44 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx enc=660F1BCA noinvalidcheck
+66 45 0F1B CA, Bndmov_bndm128_bnd, Bndmov, 2, op0=r;bnd2 op1=r;bnd1 mpx enc=660F1BCA noinvalidcheck
+66 0F1B C4, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B C5, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B C6, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B C7, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B E0, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B E8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B F0, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx
+66 0F1B C5, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx noinvalidcheck
+66 0F1B F8, INVALID, INVALID, 0, code=Bndmov_bndm128_bnd mpx noinvalidcheck
 
-F3 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64
-F3 48 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1B08
-67 F3 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1B08
-67 F3 48 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1B08
-F3 44 0F1B 08, INVALID, INVALID, 0, code=Bndmk_bnd_m64
-F3 44 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F30F1B08 noinvalidcheck
-F3 0F1B 20, INVALID, INVALID, 0, code=Bndmk_bnd_m64
-F3 0F1B 28, INVALID, INVALID, 0, code=Bndmk_bnd_m64
-F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64
-F3 0F1B 38, INVALID, INVALID, 0, code=Bndmk_bnd_m64
-F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64 noinvalidcheck
+F3 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
+F3 48 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1B08
+67 F3 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1B08
+67 F3 48 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1B08
+F3 44 0F1B 08, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 44 0F1B 08, Bndmk_bnd_m64, Bndmk, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F30F1B08 noinvalidcheck
+F3 0F1B 20, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 0F1B 28, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 0F1B 38, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx
+F3 0F1B 30, INVALID, INVALID, 0, code=Bndmk_bnd_m64 mpx noinvalidcheck
 
-F2 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64
-F2 48 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1B08
-67 F2 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1B08
-67 F2 48 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 enc=F20F1B08
-F2 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx
-F2 41 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;r10
-F2 48 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx enc=F20F1BCA
-F2 42 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx enc=F20F1BCA
-F2 44 0F1B CA, INVALID, INVALID, 0, code=Bndcn_bnd_rm64
-F2 44 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx enc=F20F1BCA noinvalidcheck
-F2 0F1B 20, INVALID, INVALID, 0, code=Bndcn_bnd_rm64
-F2 0F1B 28, INVALID, INVALID, 0, code=Bndcn_bnd_rm64
-F2 0F1B 30, INVALID, INVALID, 0, code=Bndcn_bnd_rm64
-F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64
-F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 noinvalidcheck
+F2 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx
+F2 48 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1B08
+67 F2 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1B08
+67 F2 48 0F1B 08, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=m;ds;rax;;1;0;0;UInt64 mpx enc=F20F1B08
+F2 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx mpx
+F2 41 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;r10 mpx
+F2 48 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1BCA
+F2 42 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1BCA
+F2 44 0F1B CA, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
+F2 44 0F1B CA, Bndcn_bnd_rm64, Bndcn, 2, op0=r;bnd1 op1=r;rdx mpx enc=F20F1BCA noinvalidcheck
+F2 0F1B 20, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
+F2 0F1B 28, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
+F2 0F1B 30, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
+F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx
+F2 0F1B 38, INVALID, INVALID, 0, code=Bndcn_bnd_rm64 mpx noinvalidcheck
 
 0F1C 00, Cldemote_m8, Cldemote, 1, op0=m;ds;rax;;1;0;0;UInt8
 44 0F1C 00, Cldemote_m8, Cldemote, 1, op0=m;ds;rax;;1;0;0;UInt8 enc=0F1C00

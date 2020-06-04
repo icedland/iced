@@ -100,5 +100,7 @@ pub enum DecoderOptions {
 	/// [`Code.Lahf`]: enum.Code.html#variant.Lahf
 	/// [`Code.Sahf`]: enum.Code.html#variant.Sahf
 	NoLahfSahf64 = 0x0004_0000,
+	/// Decode `MPX` instructions
+	MPX = 0x0008_0000,
 }
 // GENERATOR-END: Enum

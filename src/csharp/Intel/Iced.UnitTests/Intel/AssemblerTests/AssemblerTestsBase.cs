@@ -138,6 +138,22 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			case Code.ReservedNop_rm64_r64_0F1F:
 				decoderOptions = DecoderOptions.ForceReservedNop;
 				break;
+			case Code.Bndldx_bnd_mib:
+			case Code.Bndmov_bnd_bndm64:
+			case Code.Bndmov_bnd_bndm128:
+			case Code.Bndcl_bnd_rm32:
+			case Code.Bndcl_bnd_rm64:
+			case Code.Bndcu_bnd_rm32:
+			case Code.Bndcu_bnd_rm64:
+			case Code.Bndstx_mib_bnd:
+			case Code.Bndmov_bndm64_bnd:
+			case Code.Bndmov_bndm128_bnd:
+			case Code.Bndmk_bnd_m32:
+			case Code.Bndmk_bnd_m64:
+			case Code.Bndcn_bnd_rm32:
+			case Code.Bndcn_bnd_rm64:
+				decoderOptions = DecoderOptions.MPX;
+				break;
 			}
 
 			// Check decoding back against the original instruction
