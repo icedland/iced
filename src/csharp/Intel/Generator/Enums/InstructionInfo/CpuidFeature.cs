@@ -62,7 +62,7 @@ namespace Generator.Enums.InstructionInfo {
 		AVX512_4FMAPS,
 		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AVX512_4VNNIW[bit 2]")]
 		AVX512_4VNNIW,
-		[Comment("CPUID.(EAX=07H, ECX=1H):EAX[bit 5]")]
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.AVX512_BF16[bit 5]")]
 		AVX512_BF16,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.AVX512_BITALG[bit 12]")]
 		AVX512_BITALG,
@@ -74,7 +74,7 @@ namespace Generator.Enums.InstructionInfo {
 		AVX512_VBMI2,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VNNI[bit 11]")]
 		AVX512_VNNI,
-		[Comment("CPUID.(EAX=07H, ECX=0H):EDX[bit 08]")]
+		[Comment("CPUID.(EAX=07H, ECX=0H):EDX.AVX512_VP2INTERSECT[bit 08]")]
 		AVX512_VP2INTERSECT,
 		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VPOPCNTDQ[bit 14]")]
 		AVX512_VPOPCNTDQ,
@@ -126,7 +126,7 @@ namespace Generator.Enums.InstructionInfo {
 		D3NOWEXT,
 		[Comment("CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]")]
 		ENCLV,
-		[Comment("CPUID.(EAX=07H, ECX=0H):ECX[bit 29]")]
+		[Comment("CPUID.(EAX=07H, ECX=0H):ECX.ENQCMD[bit 29]")]
 		ENQCMD,
 		[Comment("CPUID.01H:ECX.F16C[bit 29]")]
 		F16C,

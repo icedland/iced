@@ -67,7 +67,7 @@ namespace Iced.Intel {
 		AVX512_4FMAPS = 17,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AVX512_4VNNIW[bit 2]</summary>
 		AVX512_4VNNIW = 18,
-		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX[bit 5]</summary>
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX.AVX512_BF16[bit 5]</summary>
 		AVX512_BF16 = 19,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.AVX512_BITALG[bit 12]</summary>
 		AVX512_BITALG = 20,
@@ -79,7 +79,7 @@ namespace Iced.Intel {
 		AVX512_VBMI2 = 23,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VNNI[bit 11]</summary>
 		AVX512_VNNI = 24,
-		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX[bit 08]</summary>
+		/// <summary>CPUID.(EAX=07H, ECX=0H):EDX.AVX512_VP2INTERSECT[bit 08]</summary>
 		AVX512_VP2INTERSECT = 25,
 		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.AVX512_VPOPCNTDQ[bit 14]</summary>
 		AVX512_VPOPCNTDQ = 26,
@@ -131,7 +131,7 @@ namespace Iced.Intel {
 		D3NOWEXT = 49,
 		/// <summary>CPUID.(EAX=12H, ECX=0H):EAX.OSS[bit 5]</summary>
 		ENCLV = 50,
-		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX[bit 29]</summary>
+		/// <summary>CPUID.(EAX=07H, ECX=0H):ECX.ENQCMD[bit 29]</summary>
 		ENQCMD = 51,
 		/// <summary>CPUID.01H:ECX.F16C[bit 29]</summary>
 		F16C = 52,
