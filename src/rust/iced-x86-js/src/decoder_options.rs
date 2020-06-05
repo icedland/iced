@@ -42,9 +42,7 @@ pub enum DecoderOptions {
 	///
 	/// [`Code.ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
 	ForceReservedNop = 0x0000_0004,
-	/// Decode `UMOV` instructions (eg. [`Code.Umov_r32_rm32`])
-	///
-	/// [`Code.Umov_r32_rm32`]: enum.Code.html#variant.Umov_r32_rm32
+	/// Decode `UMOV` instructions
 	Umov = 0x0000_0008,
 	/// Decode `XBTS`/`IBTS`
 	Xbts = 0x0000_0010,
@@ -52,53 +50,29 @@ pub enum DecoderOptions {
 	Cmpxchg486A = 0x0000_0020,
 	/// Decode some old removed FPU instructions (eg. `FRSTPM`)
 	OldFpu = 0x0000_0040,
-	/// Decode [`Code.Pcommit`]
-	///
-	/// [`Code.Pcommit`]: enum.Code.html#variant.Pcommit
+	/// Decode `PCOMMIT`
 	Pcommit = 0x0000_0080,
 	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
 	Loadall286 = 0x0000_0100,
-	/// Decode [`Code.Loadall386`]
-	///
-	/// [`Code.Loadall386`]: enum.Code.html#variant.Loadall386
+	/// Decode `LOADALL386`
 	Loadall386 = 0x0000_0200,
-	/// Decode [`Code.Cl1invmb`]
-	///
-	/// [`Code.Cl1invmb`]: enum.Code.html#variant.Cl1invmb
+	/// Decode `CL1INVMB`
 	Cl1invmb = 0x0000_0400,
-	/// Decode [`Code.Mov_r32_tr`] and [`Code.Mov_tr_r32`]
-	///
-	/// [`Code.Mov_r32_tr`]: enum.Code.html#variant.Mov_r32_tr
-	/// [`Code.Mov_tr_r32`]: enum.Code.html#variant.Mov_tr_r32
+	/// Decode `MOV r32,tr` and `Mov tr,r32`
 	MovTr = 0x0000_0800,
 	/// Decode `JMPE` instructions
 	Jmpe = 0x0000_1000,
-	/// Don't decode [`Code.Pause`], decode [`Code.Nopd`]/etc instead
-	///
-	/// [`Code.Pause`]: enum.Code.html#variant.Pause
-	/// [`Code.Nopd`]: enum.Code.html#variant.Nopd
+	/// Don't decode `PAUSE`, decode `NOP` instead
 	NoPause = 0x0000_2000,
-	/// Don't decode [`Code.Wbnoinvd`], decode [`Code.Wbinvd`] instead
-	///
-	/// [`Code.Wbnoinvd`]: enum.Code.html#variant.Wbnoinvd
-	/// [`Code.Wbinvd`]: enum.Code.html#variant.Wbinvd
+	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	NoWbnoinvd = 0x0000_4000,
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
 	NoLockMovCR0 = 0x0000_8000,
-	/// Don't decode [`Code.Tzcnt_r32_rm32`]/etc, decode [`Code.Bsf_r32_rm32`]/etc instead
-	///
-	/// [`Code.Tzcnt_r32_rm32`]: enum.Code.html#variant.Tzcnt_r32_rm32
-	/// [`Code.Bsf_r32_rm32`]: enum.Code.html#variant.Bsf_r32_rm32
+	/// Don't decode `TZCNT`, decode `BSF` instead
 	NoMPFX_0FBC = 0x0001_0000,
-	/// Don't decode [`Code.Lzcnt_r32_rm32`]/etc, decode [`Code.Bsr_r32_rm32`]/etc instead
-	///
-	/// [`Code.Lzcnt_r32_rm32`]: enum.Code.html#variant.Lzcnt_r32_rm32
-	/// [`Code.Bsr_r32_rm32`]: enum.Code.html#variant.Bsr_r32_rm32
+	/// Don't decode `LZCNT`, decode `BSR` instead
 	NoMPFX_0FBD = 0x0002_0000,
-	/// Don't decode [`Code.Lahf`] and [`Code.Sahf`] in 64-bit mode
-	///
-	/// [`Code.Lahf`]: enum.Code.html#variant.Lahf
-	/// [`Code.Sahf`]: enum.Code.html#variant.Sahf
+	/// Don't decode `LAHF` and `SAHF` in 64-bit mode
 	NoLahfSahf64 = 0x0004_0000,
 	/// Decode `MPX` instructions
 	MPX = 0x0008_0000,

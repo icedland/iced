@@ -44,7 +44,7 @@ namespace Iced.Intel {
 		AmdBranches = 0x00000002,
 		/// <summary>Decode opcodes <c>0F0D</c> and <c>0F18-0F1F</c> as reserved-nop instructions (eg. <see cref="Code.ReservedNop_rm32_r32_0F1D"/>)</summary>
 		ForceReservedNop = 0x00000004,
-		/// <summary>Decode <c>UMOV</c> instructions (eg. <see cref="Code.Umov_r32_rm32"/>)</summary>
+		/// <summary>Decode <c>UMOV</c> instructions</summary>
 		Umov = 0x00000008,
 		/// <summary>Decode <c>XBTS</c>/<c>IBTS</c></summary>
 		Xbts = 0x00000010,
@@ -52,29 +52,29 @@ namespace Iced.Intel {
 		Cmpxchg486A = 0x00000020,
 		/// <summary>Decode some old removed FPU instructions (eg. <c>FRSTPM</c>)</summary>
 		OldFpu = 0x00000040,
-		/// <summary>Decode <see cref="Code.Pcommit"/></summary>
+		/// <summary>Decode <c>PCOMMIT</c></summary>
 		Pcommit = 0x00000080,
 		/// <summary>Decode 286 <c>LOADALL</c> (<c>0F04</c> and <c>0F05</c>)</summary>
 		Loadall286 = 0x00000100,
-		/// <summary>Decode <see cref="Code.Loadall386"/></summary>
+		/// <summary>Decode <c>LOADALL386</c></summary>
 		Loadall386 = 0x00000200,
-		/// <summary>Decode <see cref="Code.Cl1invmb"/></summary>
+		/// <summary>Decode <c>CL1INVMB</c></summary>
 		Cl1invmb = 0x00000400,
-		/// <summary>Decode <see cref="Code.Mov_r32_tr"/> and <see cref="Code.Mov_tr_r32"/></summary>
+		/// <summary>Decode <c>MOV r32,tr</c> and <c>Mov tr,r32</c></summary>
 		MovTr = 0x00000800,
 		/// <summary>Decode <c>JMPE</c> instructions</summary>
 		Jmpe = 0x00001000,
-		/// <summary>Don&apos;t decode <see cref="Code.Pause"/>, decode <see cref="Code.Nopd"/>/etc instead</summary>
+		/// <summary>Don&apos;t decode <c>PAUSE</c>, decode <c>NOP</c> instead</summary>
 		NoPause = 0x00002000,
-		/// <summary>Don&apos;t decode <see cref="Code.Wbnoinvd"/>, decode <see cref="Code.Wbinvd"/> instead</summary>
+		/// <summary>Don&apos;t decode <c>WBNOINVD</c>, decode <c>WBINVD</c> instead</summary>
 		NoWbnoinvd = 0x00004000,
 		/// <summary>Don&apos;t decode <c>LOCK MOV CR0</c> as <c>MOV CR8</c> (AMD)</summary>
 		NoLockMovCR0 = 0x00008000,
-		/// <summary>Don&apos;t decode <see cref="Code.Tzcnt_r32_rm32"/>/etc, decode <see cref="Code.Bsf_r32_rm32"/>/etc instead</summary>
+		/// <summary>Don&apos;t decode <c>TZCNT</c>, decode <c>BSF</c> instead</summary>
 		NoMPFX_0FBC = 0x00010000,
-		/// <summary>Don&apos;t decode <see cref="Code.Lzcnt_r32_rm32"/>/etc, decode <see cref="Code.Bsr_r32_rm32"/>/etc instead</summary>
+		/// <summary>Don&apos;t decode <c>LZCNT</c>, decode <c>BSR</c> instead</summary>
 		NoMPFX_0FBD = 0x00020000,
-		/// <summary>Don&apos;t decode <see cref="Code.Lahf"/> and <see cref="Code.Sahf"/> in 64-bit mode</summary>
+		/// <summary>Don&apos;t decode <c>LAHF</c> and <c>SAHF</c> in 64-bit mode</summary>
 		NoLahfSahf64 = 0x00040000,
 		/// <summary>Decode <c>MPX</c> instructions</summary>
 		MPX = 0x00080000,

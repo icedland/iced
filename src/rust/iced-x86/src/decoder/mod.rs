@@ -112,9 +112,7 @@ impl DecoderOptions {
 	///
 	/// [`Code::ReservedNop_rm32_r32_0F1D`]: enum.Code.html#variant.ReservedNop_rm32_r32_0F1D
 	pub const FORCE_RESERVED_NOP: u32 = 0x0000_0004;
-	/// Decode `UMOV` instructions (eg. [`Code::Umov_r32_rm32`])
-	///
-	/// [`Code::Umov_r32_rm32`]: enum.Code.html#variant.Umov_r32_rm32
+	/// Decode `UMOV` instructions
 	pub const UMOV: u32 = 0x0000_0008;
 	/// Decode `XBTS`/`IBTS`
 	pub const XBTS: u32 = 0x0000_0010;
@@ -122,53 +120,29 @@ impl DecoderOptions {
 	pub const CMPXCHG486A: u32 = 0x0000_0020;
 	/// Decode some old removed FPU instructions (eg. `FRSTPM`)
 	pub const OLD_FPU: u32 = 0x0000_0040;
-	/// Decode [`Code::Pcommit`]
-	///
-	/// [`Code::Pcommit`]: enum.Code.html#variant.Pcommit
+	/// Decode `PCOMMIT`
 	pub const PCOMMIT: u32 = 0x0000_0080;
 	/// Decode 286 `LOADALL` (`0F04` and `0F05`)
 	pub const LOADALL286: u32 = 0x0000_0100;
-	/// Decode [`Code::Loadall386`]
-	///
-	/// [`Code::Loadall386`]: enum.Code.html#variant.Loadall386
+	/// Decode `LOADALL386`
 	pub const LOADALL386: u32 = 0x0000_0200;
-	/// Decode [`Code::Cl1invmb`]
-	///
-	/// [`Code::Cl1invmb`]: enum.Code.html#variant.Cl1invmb
+	/// Decode `CL1INVMB`
 	pub const CL1INVMB: u32 = 0x0000_0400;
-	/// Decode [`Code::Mov_r32_tr`] and [`Code::Mov_tr_r32`]
-	///
-	/// [`Code::Mov_r32_tr`]: enum.Code.html#variant.Mov_r32_tr
-	/// [`Code::Mov_tr_r32`]: enum.Code.html#variant.Mov_tr_r32
+	/// Decode `MOV r32,tr` and `Mov tr,r32`
 	pub const MOV_TR: u32 = 0x0000_0800;
 	/// Decode `JMPE` instructions
 	pub const JMPE: u32 = 0x0000_1000;
-	/// Don't decode [`Code::Pause`], decode [`Code::Nopd`]/etc instead
-	///
-	/// [`Code::Pause`]: enum.Code.html#variant.Pause
-	/// [`Code::Nopd`]: enum.Code.html#variant.Nopd
+	/// Don't decode `PAUSE`, decode `NOP` instead
 	pub const NO_PAUSE: u32 = 0x0000_2000;
-	/// Don't decode [`Code::Wbnoinvd`], decode [`Code::Wbinvd`] instead
-	///
-	/// [`Code::Wbnoinvd`]: enum.Code.html#variant.Wbnoinvd
-	/// [`Code::Wbinvd`]: enum.Code.html#variant.Wbinvd
+	/// Don't decode `WBNOINVD`, decode `WBINVD` instead
 	pub const NO_WBNOINVD: u32 = 0x0000_4000;
 	/// Don't decode `LOCK MOV CR0` as `MOV CR8` (AMD)
 	pub const NO_LOCK_MOV_CR0: u32 = 0x0000_8000;
-	/// Don't decode [`Code::Tzcnt_r32_rm32`]/etc, decode [`Code::Bsf_r32_rm32`]/etc instead
-	///
-	/// [`Code::Tzcnt_r32_rm32`]: enum.Code.html#variant.Tzcnt_r32_rm32
-	/// [`Code::Bsf_r32_rm32`]: enum.Code.html#variant.Bsf_r32_rm32
+	/// Don't decode `TZCNT`, decode `BSF` instead
 	pub const NO_MPFX_0FBC: u32 = 0x0001_0000;
-	/// Don't decode [`Code::Lzcnt_r32_rm32`]/etc, decode [`Code::Bsr_r32_rm32`]/etc instead
-	///
-	/// [`Code::Lzcnt_r32_rm32`]: enum.Code.html#variant.Lzcnt_r32_rm32
-	/// [`Code::Bsr_r32_rm32`]: enum.Code.html#variant.Bsr_r32_rm32
+	/// Don't decode `LZCNT`, decode `BSR` instead
 	pub const NO_MPFX_0FBD: u32 = 0x0002_0000;
-	/// Don't decode [`Code::Lahf`] and [`Code::Sahf`] in 64-bit mode
-	///
-	/// [`Code::Lahf`]: enum.Code.html#variant.Lahf
-	/// [`Code::Sahf`]: enum.Code.html#variant.Sahf
+	/// Don't decode `LAHF` and `SAHF` in 64-bit mode
 	pub const NO_LAHF_SAHF_64: u32 = 0x0004_0000;
 	/// Decode `MPX` instructions
 	pub const MPX: u32 = 0x0008_0000;

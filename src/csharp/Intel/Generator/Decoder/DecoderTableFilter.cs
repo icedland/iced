@@ -161,7 +161,7 @@ namespace Generator.Decoder {
 			return -remove;
 
 			void CountValue(EnumValue code) {
-				if (code.RawName == "INVALID")
+				if (code.RawName == nameof(Code.INVALID))
 					return;
 				if (filteredCodeValues.Contains(code))
 					keep++;

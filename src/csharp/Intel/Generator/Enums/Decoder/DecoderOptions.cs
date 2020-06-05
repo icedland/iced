@@ -34,7 +34,7 @@ namespace Generator.Enums.Decoder {
 		AmdBranches,
 		[Comment("Decode opcodes #(c:0F0D)# and #(c:0F18-0F1F)# as reserved-nop instructions (eg. #(e:Code.ReservedNop_rm32_r32_0F1D)#)")]
 		ForceReservedNop		= 0x00000004,
-		[Comment("Decode #(c:UMOV)# instructions (eg. #(e:Code.Umov_r32_rm32)#)")]
+		[Comment("Decode #(c:UMOV)# instructions")]
 		Umov					= 0x00000008,
 		[Comment("Decode #(c:XBTS)#/#(c:IBTS)#")]
 		Xbts					= 0x00000010,
@@ -42,29 +42,29 @@ namespace Generator.Enums.Decoder {
 		Cmpxchg486A				= 0x00000020,
 		[Comment("Decode some old removed FPU instructions (eg. #(c:FRSTPM)#)")]
 		OldFpu					= 0x00000040,
-		[Comment("Decode #(e:Code.Pcommit)#")]
+		[Comment("Decode #(c:PCOMMIT)#")]
 		Pcommit					= 0x00000080,
 		[Comment("Decode 286 #(c:LOADALL)# (#(c:0F04)# and #(c:0F05)#)")]
 		Loadall286				= 0x00000100,
-		[Comment("Decode #(e:Code.Loadall386)#")]
+		[Comment("Decode #(c:LOADALL386)#")]
 		Loadall386				= 0x00000200,
-		[Comment("Decode #(e:Code.Cl1invmb)#")]
+		[Comment("Decode #(c:CL1INVMB)#")]
 		Cl1invmb				= 0x00000400,
-		[Comment("Decode #(e:Code.Mov_r32_tr)# and #(e:Code.Mov_tr_r32)#")]
+		[Comment("Decode #(c:MOV r32,tr)# and #(c:Mov tr,r32)#")]
 		MovTr					= 0x00000800,
 		[Comment("Decode #(c:JMPE)# instructions")]
 		Jmpe					= 0x00001000,
-		[Comment("Don't decode #(e:Code.Pause)#, decode #(e:Code.Nopd)#/etc instead")]
+		[Comment("Don't decode #(c:PAUSE)#, decode #(c:NOP)# instead")]
 		NoPause					= 0x00002000,
-		[Comment("Don't decode #(e:Code.Wbnoinvd)#, decode #(e:Code.Wbinvd)# instead")]
+		[Comment("Don't decode #(c:WBNOINVD)#, decode #(c:WBINVD)# instead")]
 		NoWbnoinvd				= 0x00004000,
 		[Comment("Don't decode #(c:LOCK MOV CR0)# as #(c:MOV CR8)# (AMD)")]
 		NoLockMovCR0			= 0x00008000,
-		[Comment("Don't decode #(e:Code.Tzcnt_r32_rm32)#/etc, decode #(e:Code.Bsf_r32_rm32)#/etc instead")]
+		[Comment("Don't decode #(c:TZCNT)#, decode #(c:BSF)# instead")]
 		NoMPFX_0FBC				= 0x00010000,
-		[Comment("Don't decode #(e:Code.Lzcnt_r32_rm32)#/etc, decode #(e:Code.Bsr_r32_rm32)#/etc instead")]
+		[Comment("Don't decode #(c:LZCNT)#, decode #(c:BSR)# instead")]
 		NoMPFX_0FBD				= 0x00020000,
-		[Comment("Don't decode #(e:Code.Lahf)# and #(e:Code.Sahf)# in 64-bit mode")]
+		[Comment("Don't decode #(c:LAHF)# and #(c:SAHF)# in 64-bit mode")]
 		NoLahfSahf64			= 0x00040000,
 		[Comment("Decode #(c:MPX)# instructions")]
 		MPX						= 0x00080000,
