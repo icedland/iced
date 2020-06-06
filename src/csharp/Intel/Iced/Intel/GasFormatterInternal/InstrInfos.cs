@@ -278,8 +278,9 @@ namespace Iced.Intel.GasFormatterInternal {
 					break;
 
 				case CtorKind.os_mem_reg16:
-					v = reader.ReadCompressedUInt32();
-					instrInfo = new SimpleInstrInfo_os_mem_reg16((int)v, s);
+					ca[0] = 'w';
+					s2 = AddSuffix(s, ca);
+					instrInfo = new SimpleInstrInfo_os_mem_reg16(s, s2);
 					break;
 
 				case CtorKind.os_mem2:
@@ -325,8 +326,12 @@ namespace Iced.Intel.GasFormatterInternal {
 					instrInfo = new SimpleInstrInfo_pops(s, FormatterConstants.GetPseudoOps((PseudoOpsKind)v));
 					break;
 
-				case CtorKind.Reg16:
-					instrInfo = new SimpleInstrInfo_Reg16(s);
+				case CtorKind.os_mem16:
+					ca[0] = (char)reader.ReadByte();
+					s2 = AddSuffix(s, ca);
+					ca[0] = 'w';
+					s3 = AddSuffix(s, ca);
+					instrInfo = new SimpleInstrInfo_os_mem16(s, s2, s3);
 					break;
 
 				case CtorKind.Reg32:

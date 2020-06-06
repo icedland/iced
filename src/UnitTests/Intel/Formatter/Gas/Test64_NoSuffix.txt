@@ -440,20 +440,20 @@ mov (%rax),%ebx
 mov %rsi,%rcx
 mov (%rax),%rbx
 mov %cs,%si
-data16 mov %ds,(%rax)
+mov %ds,(%rax)
 mov %cs,%esi
 mov %ds,(%rax)
 mov %cs,%rsi
-rex.w mov %ds,(%rax)
+mov %ds,(%rax)
 lea (%rax),%bx
 lea (%rax),%ebx
 lea (%rax),%rbx
 mov %si,%fs
-data16 mov (%rax),%ds
+mov (%rax),%ds
 mov %esi,%fs
 mov (%rax),%ds
 mov %rsi,%fs
-rex.w mov (%rax),%ds
+mov (%rax),%ds
 pop %si
 popw (%rax)
 pop %rsi
@@ -1110,57 +1110,57 @@ pushw (%rax)
 push %rsi
 pushq (%rax)
 sldt %cx
-data16 sldt (%rax)
+sldt (%rax)
 sldt %ecx
 sldt (%rax)
 sldt %rcx
-rex.w sldt (%rax)
+sldt (%rax)
 str %dx
-data16 str (%rax)
+str (%rax)
 str %edx
 str (%rax)
 str %rdx
-rex.w str (%rax)
-data16 lldt %bx
-data16 lldt (%rax)
+str (%rax)
 lldt %bx
 lldt (%rax)
-rex.w lldt %bx
-rex.w lldt (%rax)
-data16 ltr %sp
-data16 ltr (%rax)
+lldt %bx
+lldt (%rax)
+lldt %bx
+lldt (%rax)
 ltr %sp
 ltr (%rax)
-rex.w ltr %sp
-rex.w ltr (%rax)
-data16 verr %bp
-data16 verr (%rax)
+ltr %sp
+ltr (%rax)
+ltr %sp
+ltr (%rax)
 verr %bp
 verr (%rax)
-rex.w verr %bp
-rex.w verr (%rax)
-data16 verw %si
-data16 verw (%rax)
+verr %bp
+verr (%rax)
+verr %bp
+verr (%rax)
 verw %si
 verw (%rax)
-rex.w verw %si
-rex.w verw (%rax)
+verw %si
+verw (%rax)
+verw %si
+verw (%rax)
 sgdt (%rax)
 sidt (%rax)
 lgdt (%rax)
 lidt (%rax)
 smsw %bp
-data16 smsw (%rax)
+smsw (%rax)
 smsw %ebp
 smsw (%rax)
 smsw %rbp
-rex.w smsw (%rax)
-data16 lmsw %si
-data16 lmsw (%rax)
+smsw (%rax)
 lmsw %si
 lmsw (%rax)
-rex.w lmsw %si
-rex.w lmsw (%rax)
+lmsw %si
+lmsw (%rax)
+lmsw %si
+lmsw (%rax)
 invlpg (%rax)
 enclv
 vmcall

@@ -713,7 +713,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x80, 0x01,// 0x80 = KeepOperandOrder
 
 	// Arpl_rm16_r16
-	0x29,// Reg16
+	0x21,// os_mem_reg16
 	0x92, 0x01,// 146 = "arpl"
 
 	// Arpl_r32m16_r32
@@ -1623,22 +1623,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Mov_rm16_Sreg
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x77,// 'w'
-	0x10,// 0x10
 
 	// Mov_r32m16_Sreg
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x6C,// 'l'
-	0x20,// 0x20
 
 	// Mov_r64m16_Sreg
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x71,// 'q'
-	0x40,// 0x40
 
 	// Lea_r16_m
 	0x02,// Normal_2a
@@ -1656,22 +1653,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x71,// 'q'
 
 	// Mov_Sreg_rm16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x77,// 'w'
-	0x10,// 0x10
 
 	// Mov_Sreg_r32m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x6C,// 'l'
-	0x20,// 0x20
 
 	// Mov_Sreg_r64m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x00,// 0 = "mov"
 	0x71,// 'q'
-	0x40,// 0x40
 
 	// Pop_rm16
 	0x05,// Normal_3
@@ -2900,12 +2894,13 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Fldenv_m28byte
 	0x22,// os_mem2
 	0x80, 0x02,// 256 = "fldenv"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fldcw_m2byte
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0x81, 0x02,// 257 = "fldcw"
+	0x77,// 'w'
 
 	// Fnstenv_m14byte
 	0x22,// os_mem2
@@ -2922,22 +2917,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Fnstenv_m28byte
 	0x22,// os_mem2
 	0x82, 0x02,// 258 = "fnstenv"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fstenv_m28byte
 	0x22,// os_mem2
 	0x83, 0x02,// 259 = "fstenv"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fnstcw_m2byte
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0x84, 0x02,// 260 = "fnstcw"
+	0x77,// 'w'
 
 	// Fstcw_m2byte
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0x85, 0x02,// 261 = "fstcw"
+	0x77,// 'w'
 
 	// Fld_st0_sti
 	0x30,// STIG_1a
@@ -3325,7 +3322,7 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Frstor_m108byte
 	0x22,// os_mem2
 	0xC8, 0x02,// 328 = "frstor"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fnsave_m94byte
@@ -3343,22 +3340,24 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Fnsave_m108byte
 	0x22,// os_mem2
 	0xC9, 0x02,// 329 = "fnsave"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fsave_m108byte
 	0x22,// os_mem2
 	0xCA, 0x02,// 330 = "fsave"
-	0x73,// 's'
+	0x6C,// 'l'
 	0x60,// 0x60
 
 	// Fnstsw_m2byte
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0xCB, 0x02,// 331 = "fnstsw"
+	0x77,// 'w'
 
 	// Fstsw_m2byte
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0xCC, 0x02,// 332 = "fstsw"
+	0x77,// 'w'
 
 	// Ffree_sti
 	0x01,// Normal_1
@@ -4235,100 +4234,74 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x01,// 0x1 = MnemonicSuffixIfMem
 
 	// Sldt_rm16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF8, 0x02,// 376 = "sldt"
 	0x77,// 'w'
-	0x10,// 0x10
 
 	// Sldt_r32m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF8, 0x02,// 376 = "sldt"
 	0x6C,// 'l'
-	0x20,// 0x20
 
 	// Sldt_r64m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF8, 0x02,// 376 = "sldt"
 	0x71,// 'q'
-	0x40,// 0x40
 
 	// Str_rm16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF9, 0x02,// 377 = "str"
 	0x77,// 'w'
-	0x10,// 0x10
 
 	// Str_r32m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF9, 0x02,// 377 = "str"
 	0x6C,// 'l'
-	0x20,// 0x20
 
 	// Str_r64m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0xF9, 0x02,// 377 = "str"
 	0x71,// 'q'
-	0x40,// 0x40
 
 	// Lldt_rm16
 	0x21,// os_mem_reg16
 	0xFA, 0x02,// 378 = "lldt"
-	0x10,// 0x10
 
 	// Lldt_r32m16
-	0x21,// os_mem_reg16
-	0xFA, 0x02,// 378 = "lldt"
-	0x20,// 0x20
+	0x00,// Previous
 
 	// Lldt_r64m16
-	0x21,// os_mem_reg16
-	0xFA, 0x02,// 378 = "lldt"
-	0x40,// 0x40
+	0x00,// Previous
 
 	// Ltr_rm16
 	0x21,// os_mem_reg16
 	0xFB, 0x02,// 379 = "ltr"
-	0x10,// 0x10
 
 	// Ltr_r32m16
-	0x21,// os_mem_reg16
-	0xFB, 0x02,// 379 = "ltr"
-	0x20,// 0x20
+	0x00,// Previous
 
 	// Ltr_r64m16
-	0x21,// os_mem_reg16
-	0xFB, 0x02,// 379 = "ltr"
-	0x40,// 0x40
+	0x00,// Previous
 
 	// Verr_rm16
 	0xA1,// 'v', os_mem_reg16
 	0xFC, 0x02,// 380 = "verr"
-	0x10,// 0x10
 
 	// Verr_r32m16
-	0xA1,// 'v', os_mem_reg16
-	0xFC, 0x02,// 380 = "verr"
-	0x20,// 0x20
+	0x80,// 'v', Previous
 
 	// Verr_r64m16
-	0xA1,// 'v', os_mem_reg16
-	0xFC, 0x02,// 380 = "verr"
-	0x40,// 0x40
+	0x80,// 'v', Previous
 
 	// Verw_rm16
 	0xA1,// 'v', os_mem_reg16
 	0xFD, 0x02,// 381 = "verw"
-	0x10,// 0x10
 
 	// Verw_r32m16
-	0xA1,// 'v', os_mem_reg16
-	0xFD, 0x02,// 381 = "verw"
-	0x20,// 0x20
+	0x80,// 'v', Previous
 
 	// Verw_r64m16
-	0xA1,// 'v', os_mem_reg16
-	0xFD, 0x02,// 381 = "verw"
-	0x40,// 0x40
+	0x80,// 'v', Previous
 
 	// Jmpe_rm16
 	0x05,// Normal_3
@@ -4415,22 +4388,19 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x40,// 0x40
 
 	// Smsw_rm16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x83, 0x03,// 387 = "smsw"
 	0x77,// 'w'
-	0x10,// 0x10
 
 	// Smsw_r32m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x83, 0x03,// 387 = "smsw"
 	0x6C,// 'l'
-	0x20,// 0x20
 
 	// Smsw_r64m16
-	0x20,// os_mem
+	0x29,// os_mem16
 	0x83, 0x03,// 387 = "smsw"
 	0x71,// 'q'
-	0x40,// 0x40
 
 	// Rstorssp_m64
 	0x01,// Normal_1
@@ -4439,17 +4409,12 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Lmsw_rm16
 	0x21,// os_mem_reg16
 	0x85, 0x03,// 389 = "lmsw"
-	0x10,// 0x10
 
 	// Lmsw_r32m16
-	0x21,// os_mem_reg16
-	0x85, 0x03,// 389 = "lmsw"
-	0x20,// 0x20
+	0x00,// Previous
 
 	// Lmsw_r64m16
-	0x21,// os_mem_reg16
-	0x85, 0x03,// 389 = "lmsw"
-	0x40,// 0x40
+	0x00,// Previous
 
 	// Invlpg_m
 	0x01,// Normal_1
@@ -15630,11 +15595,14 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	0x00,// Previous
 
 	// Movdiri_m32_r32
-	0x01,// Normal_1
+	0x02,// Normal_2a
 	0x96, 0x09,// 1174 = "movdiri"
+	0x6C,// 'l'
 
 	// Movdiri_m64_r64
-	0x00,// Previous
+	0x02,// Normal_2a
+	0x96, 0x09,// 1174 = "movdiri"
+	0x71,// 'q'
 
 	// VEX_Vpermq_ymm_ymmm256_imm8
 	0x81,// 'v', Normal_1

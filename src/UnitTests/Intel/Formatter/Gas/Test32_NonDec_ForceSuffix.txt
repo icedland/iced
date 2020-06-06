@@ -24,10 +24,10 @@
 popw cs
 fstenvs (eax)
 fstenvs fs:(eax)
-fstenv (eax)
-fstenv fs:(eax)
-fstcw (eax)
-fstcw fs:(eax)
+fstenvl (eax)
+fstenvl fs:(eax)
+fstcww (eax)
+fstcww fs:(eax)
 feni
 fdisi
 fclex
@@ -35,10 +35,10 @@ finit
 fsetpm
 fsaves (eax)
 fsaves fs:(eax)
-fsave (eax)
-fsave fs:(eax)
-fstsw (eax)
-fstsw fs:(eax)
+fsavel (eax)
+fsavel fs:(eax)
+fstsww (eax)
+fstsww fs:(eax)
 fstsw ax
 .byte 0x77
 .byte 0x77, -0x57

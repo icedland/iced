@@ -259,7 +259,7 @@ outsw (%esi),%dx
 outsl (%si),%dx
 outsl (%esi),%dx
 mov %si,%fs
-data16 mov (%eax),%ds
+mov (%eax),%ds
 mov %esi,%fs
 mov (%eax),%ds
 pop %si

@@ -440,20 +440,20 @@ movl (rax), ebx
 movq rsi, rcx
 movq (rax), rbx
 movw cs, si
-data16 mov ds, (rax)
+movw ds, (rax)
 movl cs, esi
-mov ds, (rax)
+movw ds, (rax)
 movq cs, rsi
-rex.w mov ds, (rax)
+movw ds, (rax)
 leaw (rax), bx
 leal (rax), ebx
 leaq (rax), rbx
 movw si, fs
-data16 mov (rax), ds
+movw (rax), ds
 movl esi, fs
-mov (rax), ds
+movw (rax), ds
 movq rsi, fs
-rex.w mov (rax), ds
+movw (rax), ds
 popw si
 popw (rax)
 popq rsi
@@ -867,11 +867,11 @@ flds (rax)
 fsts (rax)
 fstps (rax)
 fldenvs (rax)
-fldenv (rax)
-fldcw (rax)
+fldenvl (rax)
+fldcww (rax)
 fnstenvs (rax)
-fnstenv (rax)
-fnstcw (rax)
+fnstenvl (rax)
+fnstcww (rax)
 fld st(3)
 fxch st(3)
 fnop
@@ -948,10 +948,10 @@ fisttpll (rax)
 fstl (rax)
 fstpl (rax)
 frstors (rax)
-frstor (rax)
+frstorl (rax)
 fnsaves (rax)
-fnsave (rax)
-fnstsw (rax)
+fnsavel (rax)
+fnstsww (rax)
 ffree st(3)
 fst st(3)
 fstp st(3)
@@ -1110,57 +1110,57 @@ pushw (rax)
 pushq rsi
 pushq (rax)
 sldtw cx
-data16 sldt (rax)
+sldtw (rax)
 sldtl ecx
-sldt (rax)
+sldtw (rax)
 sldtq rcx
-rex.w sldt (rax)
+sldtw (rax)
 strw dx
-data16 str (rax)
+strw (rax)
 strl edx
-str (rax)
+strw (rax)
 strq rdx
-rex.w str (rax)
-data16 lldt bx
-data16 lldt (rax)
-lldt bx
-lldt (rax)
-rex.w lldt bx
-rex.w lldt (rax)
-data16 ltr sp
-data16 ltr (rax)
-ltr sp
-ltr (rax)
-rex.w ltr sp
-rex.w ltr (rax)
-data16 verr bp
-data16 verr (rax)
-verr bp
-verr (rax)
-rex.w verr bp
-rex.w verr (rax)
-data16 verw si
-data16 verw (rax)
-verw si
-verw (rax)
-rex.w verw si
-rex.w verw (rax)
+strw (rax)
+lldtw bx
+lldtw (rax)
+lldtw bx
+lldtw (rax)
+lldtw bx
+lldtw (rax)
+ltrw sp
+ltrw (rax)
+ltrw sp
+ltrw (rax)
+ltrw sp
+ltrw (rax)
+verrw bp
+verrw (rax)
+verrw bp
+verrw (rax)
+verrw bp
+verrw (rax)
+verww si
+verww (rax)
+verww si
+verww (rax)
+verww si
+verww (rax)
 sgdtq (rax)
 sidtq (rax)
 lgdtq (rax)
 lidtq (rax)
 smsww bp
-data16 smsw (rax)
+smsww (rax)
 smswl ebp
-smsw (rax)
+smsww (rax)
 smswq rbp
-rex.w smsw (rax)
-data16 lmsw si
-data16 lmsw (rax)
-lmsw si
-lmsw (rax)
-rex.w lmsw si
-rex.w lmsw (rax)
+smsww (rax)
+lmsww si
+lmsww (rax)
+lmsww si
+lmsww (rax)
+lmsww si
+lmsww (rax)
 invlpg (rax)
 enclv
 vmcall
@@ -8188,8 +8188,8 @@ enqcmds (eax), ebx
 enqcmds (rax), rbx
 enqcmd (eax), ebx
 enqcmd (rax), rbx
-movdiri ebx, (rax)
-movdiri rbx, (rax)
+movdiril ebx, (rax)
+movdiriq rbx, (rax)
 vpclmulqdq $-0x5b, ymm3, ymm6, ymm2
 vpclmulqdq $-0x5b, (rax), ymm6, ymm2
 vpclmulqdq $-0x5b, xmm3, xmm6, xmm2

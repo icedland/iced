@@ -22,23 +22,23 @@
 #
 
 popw cs
-fstenv (bx,si)
-fstenv fs:(bx,si)
 fstenvs (bx,si)
 fstenvs fs:(bx,si)
-fstcw (bx,si)
-fstcw fs:(bx,si)
+fstenvl (bx,si)
+fstenvl fs:(bx,si)
+fstcww (bx,si)
+fstcww fs:(bx,si)
 feni
 fdisi
 fclex
 finit
 fsetpm
-fsave (bx,si)
-fsave fs:(bx,si)
 fsaves (bx,si)
 fsaves fs:(bx,si)
-fstsw (bx,si)
-fstsw fs:(bx,si)
+fsavel (bx,si)
+fsavel fs:(bx,si)
+fstsww (bx,si)
+fstsww fs:(bx,si)
 fstsw ax
 .byte 0x77
 .byte 0x77, -0x57

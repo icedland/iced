@@ -966,9 +966,14 @@ impl SimpleInstrInfo_os_mem2 {
 }
 
 impl InstrInfo for SimpleInstrInfo_os_mem2 {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::NONE;
 		let instr_bitness = get_bitness(instruction.code_size());
-		let mnemonic = if instr_bitness != 0 && (instr_bitness & self.bitness) == 0 { &self.mnemonic_suffix } else { &self.mnemonic };
+		let mnemonic = if instr_bitness != 0 && (instr_bitness & self.bitness) == 0 {
+			&self.mnemonic_suffix
+		} else {
+			get_mnemonic(options, instruction, &self.mnemonic, &self.mnemonic_suffix, FLAGS)
+		};
 		InstrOpInfo::new(mnemonic, instruction, InstrOpInfoFlags::NONE)
 	}
 }
@@ -976,61 +981,57 @@ impl InstrInfo for SimpleInstrInfo_os_mem2 {
 #[allow(non_camel_case_types)]
 pub(super) struct SimpleInstrInfo_os_mem_reg16 {
 	mnemonic: FormatterString,
-	bitness: u32,
+	mnemonic_suffix: FormatterString,
 }
 
 impl SimpleInstrInfo_os_mem_reg16 {
-	pub(super) fn new(bitness: u32, mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic), bitness }
+	pub(super) fn new(mnemonic: String, mnemonic_suffix: String) -> Self {
+		Self { mnemonic: FormatterString::new(mnemonic), mnemonic_suffix: FormatterString::new(mnemonic_suffix) }
 	}
 }
 
 impl InstrInfo for SimpleInstrInfo_os_mem_reg16 {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		let mut flags = InstrOpInfoFlags::NONE;
-		let instr_bitness = get_bitness(instruction.code_size());
-		debug_assert_eq!(1, instruction.op_count());
-		if instruction.op0_kind() == OpKind::Memory {
-			if !(instr_bitness == 0 || (instr_bitness != 64 && instr_bitness == self.bitness) || (instr_bitness == 64 && self.bitness == 32)) {
-				if self.bitness == 16 {
-					flags |= InstrOpInfoFlags::OP_SIZE16;
-				} else if self.bitness == 32 {
-					flags |= InstrOpInfoFlags::OP_SIZE32;
-				} else {
-					flags |= InstrOpInfoFlags::OP_SIZE64;
-				}
-			}
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		let flags = InstrOpInfoFlags::NONE;
+		let mut info = InstrOpInfo::new(get_mnemonic(options, instruction, &self.mnemonic, &self.mnemonic_suffix, flags), instruction, flags);
+		if Register::EAX as u8 <= info.op0_register && info.op0_register <= Register::R15 as u8 {
+			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+			info.op0_register = (info.op0_register.wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
 		}
-		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, flags);
-		if instruction.op0_kind() == OpKind::Register {
-			let mut reg = info.op0_register;
-			let reg_size = if Register::AX as u8 <= reg && reg <= Register::R15W as u8 {
-				16
-			} else if Register::EAX as u8 <= reg && reg <= Register::R15D as u8 {
-				reg = reg.wrapping_sub(Register::EAX as u8).wrapping_add(Register::AX as u8);
-				32
-			} else if Register::RAX as u8 <= reg && reg <= Register::R15 as u8 {
-				reg = reg.wrapping_sub(Register::RAX as u8).wrapping_add(Register::AX as u8);
-				64
-			} else {
-				0
-			};
-			debug_assert_ne!(0, reg_size);
-			if reg_size != 0 {
-				const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
-				info.op0_register = reg;
-				if !((instr_bitness != 64 && instr_bitness == reg_size) || (instr_bitness == 64 && reg_size == 32)) {
-					if self.bitness == 16 {
-						info.flags |= InstrOpInfoFlags::OP_SIZE16 as u16;
-					} else if self.bitness == 32 {
-						info.flags |= InstrOpInfoFlags::OP_SIZE32 as u16;
-					} else {
-						info.flags |= InstrOpInfoFlags::OP_SIZE64 as u16;
-					}
-				}
-			}
+		if Register::EAX as u8 <= info.op1_register && info.op1_register <= Register::R15 as u8 {
+			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
+			info.op1_register = (info.op1_register.wrapping_sub(Register::EAX as u8) & 0xF).wrapping_add(Register::AX as u8);
 		}
 		info
+	}
+}
+
+#[allow(non_camel_case_types)]
+pub(super) struct SimpleInstrInfo_os_mem16 {
+	mnemonic: FormatterString,
+	mnemonic_reg_suffix: FormatterString,
+	mnemonic_mem_suffix: FormatterString,
+}
+
+impl SimpleInstrInfo_os_mem16 {
+	pub(super) fn new(mnemonic: String, mnemonic_reg_suffix: String, mnemonic_mem_suffix: String) -> Self {
+		Self {
+			mnemonic: FormatterString::new(mnemonic),
+			mnemonic_reg_suffix: FormatterString::new(mnemonic_reg_suffix),
+			mnemonic_mem_suffix: FormatterString::new(mnemonic_mem_suffix),
+		}
+	}
+}
+
+impl InstrInfo for SimpleInstrInfo_os_mem16 {
+	fn op_info<'a>(&'a self, options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
+		const FLAGS: u32 = InstrOpInfoFlags::NONE;
+		let mnemonic_suffix = if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory {
+			&self.mnemonic_mem_suffix
+		} else {
+			&self.mnemonic_reg_suffix
+		};
+		InstrOpInfo::new(get_mnemonic(options, instruction, &self.mnemonic, mnemonic_suffix, FLAGS), instruction, FLAGS)
 	}
 }
 
@@ -1500,33 +1501,6 @@ impl InstrInfo for SimpleInstrInfo_imul {
 			info.op_count -= 1;
 			info.op1_index = InstrInfoConstants::OP_ACCESS_READ_WRITE;
 			info.op2_index = OP_ACCESS_INVALID;
-		}
-		info
-	}
-}
-
-#[allow(non_camel_case_types)]
-pub(super) struct SimpleInstrInfo_Reg16 {
-	mnemonic: FormatterString,
-}
-
-impl SimpleInstrInfo_Reg16 {
-	pub(super) fn new(mnemonic: String) -> Self {
-		Self { mnemonic: FormatterString::new(mnemonic) }
-	}
-}
-
-impl InstrInfo for SimpleInstrInfo_Reg16 {
-	fn op_info<'a>(&'a self, _options: &FormatterOptions, instruction: &Instruction) -> InstrOpInfo<'a> {
-		const FLAGS: u32 = InstrOpInfoFlags::NONE;
-		let mut info = InstrOpInfo::new(&self.mnemonic, instruction, FLAGS);
-		if Register::EAX as u8 <= info.op0_register && info.op0_register <= Register::R15D as u8 {
-			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
-			info.op0_register = info.op0_register.wrapping_sub(Register::EAX as u8).wrapping_add(Register::AX as u8);
-		}
-		if Register::EAX as u8 <= info.op1_register && info.op1_register <= Register::R15D as u8 {
-			const_assert_eq!(8, InstrOpInfo::TEST_REGISTER_BITS);
-			info.op1_register = info.op1_register.wrapping_sub(Register::EAX as u8).wrapping_add(Register::AX as u8);
 		}
 		info
 	}

@@ -23,10 +23,10 @@
 
 fstenvs (rax)
 fstenvs fs:(rax)
-fstenv (rax)
-fstenv fs:(rax)
-fstcw (rax)
-fstcw fs:(rax)
+fstenvl (rax)
+fstenvl fs:(rax)
+fstcww (rax)
+fstcww fs:(rax)
 feni
 fdisi
 fclex
@@ -34,10 +34,10 @@ finit
 fsetpm
 fsaves (rax)
 fsaves fs:(rax)
-fsave (rax)
-fsave fs:(rax)
-fstsw (rax)
-fstsw fs:(rax)
+fsavel (rax)
+fsavel fs:(rax)
+fstsww (rax)
+fstsww fs:(rax)
 fstsw ax
 .byte 0x77
 .byte 0x77, -0x57

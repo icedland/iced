@@ -194,7 +194,7 @@ outsl (%si),%dx
 mov %si,%fs
 mov (%bx, %si),%ds
 mov %esi,%fs
-data32 mov (%bx, %si),%ds
+mov (%bx, %si),%ds
 pop %si
 popw (%bx, %si)
 nop
@@ -415,13 +415,13 @@ aad
 aam $0xfa
 aad $0xfa
 fldenv (%bx, %si)
-fldenvs (%bx, %si)
+fldenvl (%bx, %si)
 fnstenv (%bx, %si)
-fnstenvs (%bx, %si)
+fnstenvl (%bx, %si)
 frstor (%bx, %si)
-frstors (%bx, %si)
+frstorl (%bx, %si)
 fnsave (%bx, %si)
-fnsaves (%bx, %si)
+fnsavel (%bx, %si)
 monitor
 addr32 monitor
 mwait

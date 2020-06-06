@@ -24,8 +24,8 @@
 pop %cs
 fstenv (%bx, %si)
 fstenv %fs:(%bx, %si)
-fstenvs (%bx, %si)
-fstenvs %fs:(%bx, %si)
+fstenvl (%bx, %si)
+fstenvl %fs:(%bx, %si)
 fstcw (%bx, %si)
 fstcw %fs:(%bx, %si)
 feni
@@ -35,8 +35,8 @@ finit
 fsetpm
 fsave (%bx, %si)
 fsave %fs:(%bx, %si)
-fsaves (%bx, %si)
-fsaves %fs:(%bx, %si)
+fsavel (%bx, %si)
+fsavel %fs:(%bx, %si)
 fstsw (%bx, %si)
 fstsw %fs:(%bx, %si)
 fstsw %ax

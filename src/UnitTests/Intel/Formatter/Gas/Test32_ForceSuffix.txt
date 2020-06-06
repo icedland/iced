@@ -93,8 +93,8 @@ popaw
 popal
 boundw bx, (eax)
 boundl ebx, (eax)
-arpl si, dx
-arpl bx, (eax)
+arplw si, dx
+arplw bx, (eax)
 pushl $0x3412a55a
 pushl $-0x5b
 data16 jo 0x004d
@@ -259,9 +259,9 @@ outsw (esi), dx
 outsl (si), dx
 outsl (esi), dx
 movw si, fs
-data16 mov (eax), ds
+movw (eax), ds
 movl esi, fs
-mov (eax), ds
+movw (eax), ds
 popw si
 popw (eax)
 xchgw ax, ax
@@ -362,9 +362,9 @@ sarw cl, ax
 sarw cl, (eax)
 sarl cl, eax
 sarl cl, (eax)
-fldcw (eax)
-fnstcw (eax)
-fnstsw (eax)
+fldcww (eax)
+fnstcww (eax)
+fnstsww (eax)
 lcallw *(eax)
 lcalll *(eax)
 ljmpw *(eax)
@@ -480,13 +480,13 @@ xlatb (ebx)
 aam $-6
 aad $-6
 fldenvs (eax)
-fldenv (eax)
+fldenvl (eax)
 fnstenvs (eax)
-fnstenv (eax)
+fnstenvl (eax)
 frstors (eax)
-frstor (eax)
+frstorl (eax)
 fnsaves (eax)
-fnsave (eax)
+fnsavel (eax)
 addr16 monitor
 monitor
 mwait
