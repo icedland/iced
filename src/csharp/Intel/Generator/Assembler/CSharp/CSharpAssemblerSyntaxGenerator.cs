@@ -1114,7 +1114,7 @@ namespace Generator.Assembler.CSharp {
 			case OpCodeOperandKind.k_rm:
 			case OpCodeOperandKind.kp1_reg:
 			case OpCodeOperandKind.k_vvvv:
-				return "k1";
+				return "k" + (index + 2).ToString();
 			case OpCodeOperandKind.mm_reg:
 			case OpCodeOperandKind.mm_rm:
 				return "mm1";
@@ -1763,7 +1763,7 @@ namespace Generator.Assembler.CSharp {
 				break;
 			case OpCodeSelectorKind.RegisterK:
 				if (!isElseBranch) {
-					yield return $"k1";
+					yield return $"k{index + 2}";
 				}
 				else {
 					yield return null;
