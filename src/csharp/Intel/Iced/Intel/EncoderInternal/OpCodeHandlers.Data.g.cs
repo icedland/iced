@@ -1247,37 +1247,37 @@ namespace Iced.Intel.EncoderInternal {
 				0x004F0000, 0x00010004, 0x00000DAA,// Cmovg_r16_rm16
 				0x004F0000, 0x00020004, 0x00000E2B,// Cmovg_r32_rm32
 				0x004F0000, 0x00030024, 0x0000102C,// Cmovg_r64_rm64
-				0x00410001, 0x00000804, 0x0001A35D,// VEX_Kandw_k_k_k
-				0x00410001, 0x00002804, 0x0001A35D,// VEX_Kandq_k_k_k
-				0x00410001, 0x00000805, 0x0001A35D,// VEX_Kandb_k_k_k
-				0x00410001, 0x00002805, 0x0001A35D,// VEX_Kandd_k_k_k
-				0x00420001, 0x00000804, 0x0001A35D,// VEX_Kandnw_k_k_k
-				0x00420001, 0x00002804, 0x0001A35D,// VEX_Kandnq_k_k_k
-				0x00420001, 0x00000805, 0x0001A35D,// VEX_Kandnb_k_k_k
-				0x00420001, 0x00002805, 0x0001A35D,// VEX_Kandnd_k_k_k
-				0x00440001, 0x00000404, 0x0000069D,// VEX_Knotw_k_k
-				0x00440001, 0x00002404, 0x0000069D,// VEX_Knotq_k_k
-				0x00440001, 0x00000405, 0x0000069D,// VEX_Knotb_k_k
-				0x00440001, 0x00002405, 0x0000069D,// VEX_Knotd_k_k
-				0x00450001, 0x00000804, 0x0001A35D,// VEX_Korw_k_k_k
-				0x00450001, 0x00002804, 0x0001A35D,// VEX_Korq_k_k_k
-				0x00450001, 0x00000805, 0x0001A35D,// VEX_Korb_k_k_k
-				0x00450001, 0x00002805, 0x0001A35D,// VEX_Kord_k_k_k
-				0x00460001, 0x00000804, 0x0001A35D,// VEX_Kxnorw_k_k_k
-				0x00460001, 0x00002804, 0x0001A35D,// VEX_Kxnorq_k_k_k
-				0x00460001, 0x00000805, 0x0001A35D,// VEX_Kxnorb_k_k_k
-				0x00460001, 0x00002805, 0x0001A35D,// VEX_Kxnord_k_k_k
-				0x00470001, 0x00000804, 0x0001A35D,// VEX_Kxorw_k_k_k
-				0x00470001, 0x00002804, 0x0001A35D,// VEX_Kxorq_k_k_k
-				0x00470001, 0x00000805, 0x0001A35D,// VEX_Kxorb_k_k_k
-				0x00470001, 0x00002805, 0x0001A35D,// VEX_Kxord_k_k_k
-				0x004A0001, 0x00000804, 0x0001A35D,// VEX_Kaddw_k_k_k
-				0x004A0001, 0x00002804, 0x0001A35D,// VEX_Kaddq_k_k_k
-				0x004A0001, 0x00000805, 0x0001A35D,// VEX_Kaddb_k_k_k
-				0x004A0001, 0x00002805, 0x0001A35D,// VEX_Kaddd_k_k_k
-				0x004B0001, 0x00000804, 0x0001A35D,// VEX_Kunpckwd_k_k_k
-				0x004B0001, 0x00002804, 0x0001A35D,// VEX_Kunpckdq_k_k_k
-				0x004B0001, 0x00000805, 0x0001A35D,// VEX_Kunpckbw_k_k_k
+				0x00410001, 0x00000804, 0x0001A35D,// VEX_Kandw_kr_kr_kr
+				0x00410001, 0x00002804, 0x0001A35D,// VEX_Kandq_kr_kr_kr
+				0x00410001, 0x00000805, 0x0001A35D,// VEX_Kandb_kr_kr_kr
+				0x00410001, 0x00002805, 0x0001A35D,// VEX_Kandd_kr_kr_kr
+				0x00420001, 0x00000804, 0x0001A35D,// VEX_Kandnw_kr_kr_kr
+				0x00420001, 0x00002804, 0x0001A35D,// VEX_Kandnq_kr_kr_kr
+				0x00420001, 0x00000805, 0x0001A35D,// VEX_Kandnb_kr_kr_kr
+				0x00420001, 0x00002805, 0x0001A35D,// VEX_Kandnd_kr_kr_kr
+				0x00440001, 0x00000404, 0x0000069D,// VEX_Knotw_kr_kr
+				0x00440001, 0x00002404, 0x0000069D,// VEX_Knotq_kr_kr
+				0x00440001, 0x00000405, 0x0000069D,// VEX_Knotb_kr_kr
+				0x00440001, 0x00002405, 0x0000069D,// VEX_Knotd_kr_kr
+				0x00450001, 0x00000804, 0x0001A35D,// VEX_Korw_kr_kr_kr
+				0x00450001, 0x00002804, 0x0001A35D,// VEX_Korq_kr_kr_kr
+				0x00450001, 0x00000805, 0x0001A35D,// VEX_Korb_kr_kr_kr
+				0x00450001, 0x00002805, 0x0001A35D,// VEX_Kord_kr_kr_kr
+				0x00460001, 0x00000804, 0x0001A35D,// VEX_Kxnorw_kr_kr_kr
+				0x00460001, 0x00002804, 0x0001A35D,// VEX_Kxnorq_kr_kr_kr
+				0x00460001, 0x00000805, 0x0001A35D,// VEX_Kxnorb_kr_kr_kr
+				0x00460001, 0x00002805, 0x0001A35D,// VEX_Kxnord_kr_kr_kr
+				0x00470001, 0x00000804, 0x0001A35D,// VEX_Kxorw_kr_kr_kr
+				0x00470001, 0x00002804, 0x0001A35D,// VEX_Kxorq_kr_kr_kr
+				0x00470001, 0x00000805, 0x0001A35D,// VEX_Kxorb_kr_kr_kr
+				0x00470001, 0x00002805, 0x0001A35D,// VEX_Kxord_kr_kr_kr
+				0x004A0001, 0x00000804, 0x0001A35D,// VEX_Kaddw_kr_kr_kr
+				0x004A0001, 0x00002804, 0x0001A35D,// VEX_Kaddq_kr_kr_kr
+				0x004A0001, 0x00000805, 0x0001A35D,// VEX_Kaddb_kr_kr_kr
+				0x004A0001, 0x00002805, 0x0001A35D,// VEX_Kaddd_kr_kr_kr
+				0x004B0001, 0x00000804, 0x0001A35D,// VEX_Kunpckwd_kr_kr_kr
+				0x004B0001, 0x00002804, 0x0001A35D,// VEX_Kunpckdq_kr_kr_kr
+				0x004B0001, 0x00000805, 0x0001A35D,// VEX_Kunpckbw_kr_kr_kr
 				0x00500000, 0x00008004, 0x0000312B,// Movmskps_r32_xmm
 				0x00500000, 0x00038024, 0x0000312C,// Movmskps_r64_xmm
 				0x00500001, 0x00006C04, 0x000006C3,// VEX_Vmovmskps_r32_xmm
@@ -1545,23 +1545,23 @@ namespace Iced.Intel.EncoderInternal {
 				0x00640000, 0x00008005, 0x00003263,// Pcmpgtb_xmm_xmmm128
 				0x00640001, 0x00004C05, 0x000253A2,// VEX_Vpcmpgtb_xmm_xmm_xmmm128
 				0x00640001, 0x00005005, 0x000263E3,// VEX_Vpcmpgtb_ymm_ymm_ymmm256
-				0x00640002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpgtb_k_k1_xmm_xmmm128
-				0x00640002, 0x01022405, 0x0002229C,// EVEX_Vpcmpgtb_k_k1_ymm_ymmm256
-				0x00640002, 0x01026805, 0x000232DC,// EVEX_Vpcmpgtb_k_k1_zmm_zmmm512
+				0x00640002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
+				0x00640002, 0x01022405, 0x0002229C,// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
+				0x00640002, 0x01026805, 0x000232DC,// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 				0x00650000, 0x00008004, 0x000030E0,// Pcmpgtw_mm_mmm64
 				0x00650000, 0x00008005, 0x00003263,// Pcmpgtw_xmm_xmmm128
 				0x00650001, 0x00004C05, 0x000253A2,// VEX_Vpcmpgtw_xmm_xmm_xmmm128
 				0x00650001, 0x00005005, 0x000263E3,// VEX_Vpcmpgtw_ymm_ymm_ymmm256
-				0x00650002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpgtw_k_k1_xmm_xmmm128
-				0x00650002, 0x01022405, 0x0002229C,// EVEX_Vpcmpgtw_k_k1_ymm_ymmm256
-				0x00650002, 0x01026805, 0x000232DC,// EVEX_Vpcmpgtw_k_k1_zmm_zmmm512
+				0x00650002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
+				0x00650002, 0x01022405, 0x0002229C,// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
+				0x00650002, 0x01026805, 0x000232DC,// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 				0x00660000, 0x00008004, 0x000030E0,// Pcmpgtd_mm_mmm64
 				0x00660000, 0x00008005, 0x00003263,// Pcmpgtd_xmm_xmmm128
 				0x00660001, 0x00004C05, 0x000253A2,// VEX_Vpcmpgtd_xmm_xmm_xmmm128
 				0x00660001, 0x00005005, 0x000263E3,// VEX_Vpcmpgtd_ymm_ymm_ymmm256
-				0x00660002, 0x01204005, 0x0002125C,// EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32
-				0x00660002, 0x01208405, 0x0002229C,// EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32
-				0x00660002, 0x0120C805, 0x000232DC,// EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32
+				0x00660002, 0x01204005, 0x0002125C,// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
+				0x00660002, 0x01208405, 0x0002229C,// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
+				0x00660002, 0x0120C805, 0x000232DC,// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 				0x00670000, 0x00008004, 0x000030E0,// Packuswb_mm_mmm64
 				0x00670000, 0x00008005, 0x00003263,// Packuswb_xmm_xmmm128
 				0x00670001, 0x00004C05, 0x000253A2,// VEX_Vpackuswb_xmm_xmm_xmmm128
@@ -1748,23 +1748,23 @@ namespace Iced.Intel.EncoderInternal {
 				0x00740000, 0x00008005, 0x00003263,// Pcmpeqb_xmm_xmmm128
 				0x00740001, 0x00004C05, 0x000253A2,// VEX_Vpcmpeqb_xmm_xmm_xmmm128
 				0x00740001, 0x00005005, 0x000263E3,// VEX_Vpcmpeqb_ymm_ymm_ymmm256
-				0x00740002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpeqb_k_k1_xmm_xmmm128
-				0x00740002, 0x01022405, 0x0002229C,// EVEX_Vpcmpeqb_k_k1_ymm_ymmm256
-				0x00740002, 0x01026805, 0x000232DC,// EVEX_Vpcmpeqb_k_k1_zmm_zmmm512
+				0x00740002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
+				0x00740002, 0x01022405, 0x0002229C,// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
+				0x00740002, 0x01026805, 0x000232DC,// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 				0x00750000, 0x00008004, 0x000030E0,// Pcmpeqw_mm_mmm64
 				0x00750000, 0x00008005, 0x00003263,// Pcmpeqw_xmm_xmmm128
 				0x00750001, 0x00004C05, 0x000253A2,// VEX_Vpcmpeqw_xmm_xmm_xmmm128
 				0x00750001, 0x00005005, 0x000263E3,// VEX_Vpcmpeqw_ymm_ymm_ymmm256
-				0x00750002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpeqw_k_k1_xmm_xmmm128
-				0x00750002, 0x01022405, 0x0002229C,// EVEX_Vpcmpeqw_k_k1_ymm_ymmm256
-				0x00750002, 0x01026805, 0x000232DC,// EVEX_Vpcmpeqw_k_k1_zmm_zmmm512
+				0x00750002, 0x0101E005, 0x0002125C,// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
+				0x00750002, 0x01022405, 0x0002229C,// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
+				0x00750002, 0x01026805, 0x000232DC,// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 				0x00760000, 0x00008004, 0x000030E0,// Pcmpeqd_mm_mmm64
 				0x00760000, 0x00008005, 0x00003263,// Pcmpeqd_xmm_xmmm128
 				0x00760001, 0x00004C05, 0x000253A2,// VEX_Vpcmpeqd_xmm_xmm_xmmm128
 				0x00760001, 0x00005005, 0x000263E3,// VEX_Vpcmpeqd_ymm_ymm_ymmm256
-				0x00760002, 0x01204005, 0x0002125C,// EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32
-				0x00760002, 0x01208405, 0x0002229C,// EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32
-				0x00760002, 0x0120C805, 0x000232DC,// EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32
+				0x00760002, 0x01204005, 0x0002125C,// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
+				0x00760002, 0x01208405, 0x0002229C,// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
+				0x00760002, 0x0120C805, 0x000232DC,// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 				0x00770000, 0x00008004, 0x00000000,// Emms
 				0x00770001, 0x00004C04, 0x00000000,// VEX_Vzeroupper
 				0x00770001, 0x00005004, 0x00000000,// VEX_Vzeroall
@@ -1948,30 +1948,30 @@ namespace Iced.Intel.EncoderInternal {
 				0x009D0000, 0x00000004, 0x0000001A,// Setge_rm8
 				0x009E0000, 0x00000004, 0x0000001A,// Setle_rm8
 				0x009F0000, 0x00000004, 0x0000001A,// Setg_rm8
-				0x00900001, 0x00000404, 0x0000091D,// VEX_Kmovw_k_km16
-				0x00900001, 0x00002404, 0x0000091D,// VEX_Kmovq_k_km64
-				0x00900001, 0x00000405, 0x0000091D,// VEX_Kmovb_k_km8
-				0x00900001, 0x00002405, 0x0000091D,// VEX_Kmovd_k_km32
-				0x00910001, 0x00000404, 0x00000758,// VEX_Kmovw_m16_k
-				0x00910001, 0x00002404, 0x00000758,// VEX_Kmovq_m64_k
-				0x00910001, 0x00000405, 0x00000758,// VEX_Kmovb_m8_k
-				0x00910001, 0x00002405, 0x00000758,// VEX_Kmovd_m32_k
-				0x00920001, 0x00000404, 0x0000025D,// VEX_Kmovw_k_r32
-				0x00920001, 0x00000405, 0x0000025D,// VEX_Kmovb_k_r32
-				0x00920001, 0x00000407, 0x0000025D,// VEX_Kmovd_k_r32
-				0x00920001, 0x00002427, 0x0000029D,// VEX_Kmovq_k_r64
-				0x00930001, 0x00000404, 0x00000683,// VEX_Kmovw_r32_k
-				0x00930001, 0x00000405, 0x00000683,// VEX_Kmovb_r32_k
-				0x00930001, 0x00000407, 0x00000683,// VEX_Kmovd_r32_k
-				0x00930001, 0x00002427, 0x00000684,// VEX_Kmovq_r64_k
-				0x00980001, 0x00000404, 0x0000069D,// VEX_Kortestw_k_k
-				0x00980001, 0x00002404, 0x0000069D,// VEX_Kortestq_k_k
-				0x00980001, 0x00000405, 0x0000069D,// VEX_Kortestb_k_k
-				0x00980001, 0x00002405, 0x0000069D,// VEX_Kortestd_k_k
-				0x00990001, 0x00000404, 0x0000069D,// VEX_Ktestw_k_k
-				0x00990001, 0x00002404, 0x0000069D,// VEX_Ktestq_k_k
-				0x00990001, 0x00000405, 0x0000069D,// VEX_Ktestb_k_k
-				0x00990001, 0x00002405, 0x0000069D,// VEX_Ktestd_k_k
+				0x00900001, 0x00000404, 0x0000091D,// VEX_Kmovw_kr_km16
+				0x00900001, 0x00002404, 0x0000091D,// VEX_Kmovq_kr_km64
+				0x00900001, 0x00000405, 0x0000091D,// VEX_Kmovb_kr_km8
+				0x00900001, 0x00002405, 0x0000091D,// VEX_Kmovd_kr_km32
+				0x00910001, 0x00000404, 0x00000758,// VEX_Kmovw_m16_kr
+				0x00910001, 0x00002404, 0x00000758,// VEX_Kmovq_m64_kr
+				0x00910001, 0x00000405, 0x00000758,// VEX_Kmovb_m8_kr
+				0x00910001, 0x00002405, 0x00000758,// VEX_Kmovd_m32_kr
+				0x00920001, 0x00000404, 0x0000025D,// VEX_Kmovw_kr_r32
+				0x00920001, 0x00000405, 0x0000025D,// VEX_Kmovb_kr_r32
+				0x00920001, 0x00000407, 0x0000025D,// VEX_Kmovd_kr_r32
+				0x00920001, 0x00002427, 0x0000029D,// VEX_Kmovq_kr_r64
+				0x00930001, 0x00000404, 0x00000683,// VEX_Kmovw_r32_kr
+				0x00930001, 0x00000405, 0x00000683,// VEX_Kmovb_r32_kr
+				0x00930001, 0x00000407, 0x00000683,// VEX_Kmovd_r32_kr
+				0x00930001, 0x00002427, 0x00000684,// VEX_Kmovq_r64_kr
+				0x00980001, 0x00000404, 0x0000069D,// VEX_Kortestw_kr_kr
+				0x00980001, 0x00002404, 0x0000069D,// VEX_Kortestq_kr_kr
+				0x00980001, 0x00000405, 0x0000069D,// VEX_Kortestb_kr_kr
+				0x00980001, 0x00002405, 0x0000069D,// VEX_Kortestd_kr_kr
+				0x00990001, 0x00000404, 0x0000069D,// VEX_Ktestw_kr_kr
+				0x00990001, 0x00002404, 0x0000069D,// VEX_Ktestq_kr_kr
+				0x00990001, 0x00000405, 0x0000069D,// VEX_Ktestb_kr_kr
+				0x00990001, 0x00002405, 0x0000069D,// VEX_Ktestd_kr_kr
 				0x00A00000, 0x00010004, 0x0000006B,// Pushw_FS
 				0x00A00000, 0x00020014, 0x0000006B,// Pushd_FS
 				0x00A00000, 0x00000024, 0x0000006B,// Pushq_FS
@@ -2173,21 +2173,21 @@ namespace Iced.Intel.EncoderInternal {
 				0x00C20000, 0x00008004, 0x000E7263,// Cmpps_xmm_xmmm128_imm8
 				0x00C20001, 0x00004C04, 0x004253A2,// VEX_Vcmpps_xmm_xmm_xmmm128_imm8
 				0x00C20001, 0x00005004, 0x004263E3,// VEX_Vcmpps_ymm_ymm_ymmm256_imm8
-				0x00C20002, 0x01204004, 0x003A125C,// EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8
-				0x00C20002, 0x01208404, 0x003A229C,// EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8
-				0x00C20002, 0x01A0C804, 0x003A32DC,// EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae
+				0x00C20002, 0x01204004, 0x003A125C,// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
+				0x00C20002, 0x01208404, 0x003A229C,// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
+				0x00C20002, 0x01A0C804, 0x003A32DC,// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 				0x00C20000, 0x00008005, 0x000E7263,// Cmppd_xmm_xmmm128_imm8
 				0x00C20001, 0x00004C05, 0x004253A2,// VEX_Vcmppd_xmm_xmm_xmmm128_imm8
 				0x00C20001, 0x00005005, 0x004263E3,// VEX_Vcmppd_ymm_ymm_ymmm256_imm8
-				0x00C20002, 0x01205005, 0x003A125C,// EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8
-				0x00C20002, 0x01209405, 0x003A229C,// EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8
-				0x00C20002, 0x01A0D805, 0x003A32DC,// EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae
+				0x00C20002, 0x01205005, 0x003A125C,// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
+				0x00C20002, 0x01209405, 0x003A229C,// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
+				0x00C20002, 0x01A0D805, 0x003A32DC,// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 				0x00C20000, 0x00008006, 0x000E7263,// Cmpss_xmm_xmmm32_imm8
 				0x00C20001, 0x00005406, 0x004253A2,// VEX_Vcmpss_xmm_xmm_xmmm32_imm8
-				0x00C20002, 0x01928006, 0x003A125C,// EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae
+				0x00C20002, 0x01928006, 0x003A125C,// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 				0x00C20000, 0x00008007, 0x000E7263,// Cmpsd_xmm_xmmm64_imm8
 				0x00C20001, 0x00005407, 0x004253A2,// VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
-				0x00C20002, 0x01929007, 0x003A125C,// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
+				0x00C20002, 0x01929007, 0x003A125C,// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 				0x00C30000, 0x00008004, 0x00001594,// Movnti_m32_r32
 				0x00C30000, 0x00038024, 0x00001616,// Movnti_m64_r64
 				0x00C40000, 0x00008004, 0x000E53E0,// Pinsrw_mm_r32m16_imm8
@@ -2813,63 +2813,63 @@ namespace Iced.Intel.EncoderInternal {
 				0x00250002, 0x0305400A, 0x000007A1,// EVEX_Vpmovsqd_xmmm64_k1z_xmm
 				0x00250002, 0x0305840A, 0x000007E1,// EVEX_Vpmovsqd_xmmm128_k1z_ymm
 				0x00250002, 0x0305C80A, 0x00000822,// EVEX_Vpmovsqd_ymmm256_k1z_zmm
-				0x00260002, 0x0101C009, 0x0002125C,// EVEX_Vptestmb_k_k1_xmm_xmmm128
-				0x00260002, 0x01020409, 0x0002229C,// EVEX_Vptestmb_k_k1_ymm_ymmm256
-				0x00260002, 0x01024809, 0x000232DC,// EVEX_Vptestmb_k_k1_zmm_zmmm512
-				0x00260002, 0x0101D009, 0x0002125C,// EVEX_Vptestmw_k_k1_xmm_xmmm128
-				0x00260002, 0x01021409, 0x0002229C,// EVEX_Vptestmw_k_k1_ymm_ymmm256
-				0x00260002, 0x01025809, 0x000232DC,// EVEX_Vptestmw_k_k1_zmm_zmmm512
-				0x00260002, 0x0101C00A, 0x0002125C,// EVEX_Vptestnmb_k_k1_xmm_xmmm128
-				0x00260002, 0x0102040A, 0x0002229C,// EVEX_Vptestnmb_k_k1_ymm_ymmm256
-				0x00260002, 0x0102480A, 0x000232DC,// EVEX_Vptestnmb_k_k1_zmm_zmmm512
-				0x00260002, 0x0101D00A, 0x0002125C,// EVEX_Vptestnmw_k_k1_xmm_xmmm128
-				0x00260002, 0x0102140A, 0x0002229C,// EVEX_Vptestnmw_k_k1_ymm_ymmm256
-				0x00260002, 0x0102580A, 0x000232DC,// EVEX_Vptestnmw_k_k1_zmm_zmmm512
-				0x00270002, 0x01204009, 0x0002125C,// EVEX_Vptestmd_k_k1_xmm_xmmm128b32
-				0x00270002, 0x01208409, 0x0002229C,// EVEX_Vptestmd_k_k1_ymm_ymmm256b32
-				0x00270002, 0x0120C809, 0x000232DC,// EVEX_Vptestmd_k_k1_zmm_zmmm512b32
-				0x00270002, 0x01205009, 0x0002125C,// EVEX_Vptestmq_k_k1_xmm_xmmm128b64
-				0x00270002, 0x01209409, 0x0002229C,// EVEX_Vptestmq_k_k1_ymm_ymmm256b64
-				0x00270002, 0x0120D809, 0x000232DC,// EVEX_Vptestmq_k_k1_zmm_zmmm512b64
-				0x00270002, 0x0120400A, 0x0002125C,// EVEX_Vptestnmd_k_k1_xmm_xmmm128b32
-				0x00270002, 0x0120840A, 0x0002229C,// EVEX_Vptestnmd_k_k1_ymm_ymmm256b32
-				0x00270002, 0x0120C80A, 0x000232DC,// EVEX_Vptestnmd_k_k1_zmm_zmmm512b32
-				0x00270002, 0x0120500A, 0x0002125C,// EVEX_Vptestnmq_k_k1_xmm_xmmm128b64
-				0x00270002, 0x0120940A, 0x0002229C,// EVEX_Vptestnmq_k_k1_ymm_ymmm256b64
-				0x00270002, 0x0120D80A, 0x000232DC,// EVEX_Vptestnmq_k_k1_zmm_zmmm512b64
+				0x00260002, 0x0101C009, 0x0002125C,// EVEX_Vptestmb_kr_k1_xmm_xmmm128
+				0x00260002, 0x01020409, 0x0002229C,// EVEX_Vptestmb_kr_k1_ymm_ymmm256
+				0x00260002, 0x01024809, 0x000232DC,// EVEX_Vptestmb_kr_k1_zmm_zmmm512
+				0x00260002, 0x0101D009, 0x0002125C,// EVEX_Vptestmw_kr_k1_xmm_xmmm128
+				0x00260002, 0x01021409, 0x0002229C,// EVEX_Vptestmw_kr_k1_ymm_ymmm256
+				0x00260002, 0x01025809, 0x000232DC,// EVEX_Vptestmw_kr_k1_zmm_zmmm512
+				0x00260002, 0x0101C00A, 0x0002125C,// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
+				0x00260002, 0x0102040A, 0x0002229C,// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
+				0x00260002, 0x0102480A, 0x000232DC,// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
+				0x00260002, 0x0101D00A, 0x0002125C,// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
+				0x00260002, 0x0102140A, 0x0002229C,// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
+				0x00260002, 0x0102580A, 0x000232DC,// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
+				0x00270002, 0x01204009, 0x0002125C,// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
+				0x00270002, 0x01208409, 0x0002229C,// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
+				0x00270002, 0x0120C809, 0x000232DC,// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
+				0x00270002, 0x01205009, 0x0002125C,// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
+				0x00270002, 0x01209409, 0x0002229C,// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
+				0x00270002, 0x0120D809, 0x000232DC,// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
+				0x00270002, 0x0120400A, 0x0002125C,// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
+				0x00270002, 0x0120840A, 0x0002229C,// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
+				0x00270002, 0x0120C80A, 0x000232DC,// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
+				0x00270002, 0x0120500A, 0x0002125C,// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
+				0x00270002, 0x0120940A, 0x0002229C,// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
+				0x00270002, 0x0120D80A, 0x000232DC,// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 				0x00280000, 0x00008009, 0x00003263,// Pmuldq_xmm_xmmm128
 				0x00280001, 0x00004C09, 0x000253A2,// VEX_Vpmuldq_xmm_xmm_xmmm128
 				0x00280001, 0x00005009, 0x000263E3,// VEX_Vpmuldq_ymm_ymm_ymmm256
 				0x00280002, 0x03205009, 0x0002125E,// EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64
 				0x00280002, 0x03209409, 0x0002229F,// EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64
 				0x00280002, 0x0320D809, 0x000232E0,// EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64
-				0x00280002, 0x0000000A, 0x0000055E,// EVEX_Vpmovm2b_xmm_k
-				0x00280002, 0x0000040A, 0x0000055F,// EVEX_Vpmovm2b_ymm_k
-				0x00280002, 0x0000080A, 0x00000560,// EVEX_Vpmovm2b_zmm_k
-				0x00280002, 0x0000100A, 0x0000055E,// EVEX_Vpmovm2w_xmm_k
-				0x00280002, 0x0000140A, 0x0000055F,// EVEX_Vpmovm2w_ymm_k
-				0x00280002, 0x0000180A, 0x00000560,// EVEX_Vpmovm2w_zmm_k
+				0x00280002, 0x0000000A, 0x0000055E,// EVEX_Vpmovm2b_xmm_kr
+				0x00280002, 0x0000040A, 0x0000055F,// EVEX_Vpmovm2b_ymm_kr
+				0x00280002, 0x0000080A, 0x00000560,// EVEX_Vpmovm2b_zmm_kr
+				0x00280002, 0x0000100A, 0x0000055E,// EVEX_Vpmovm2w_xmm_kr
+				0x00280002, 0x0000140A, 0x0000055F,// EVEX_Vpmovm2w_ymm_kr
+				0x00280002, 0x0000180A, 0x00000560,// EVEX_Vpmovm2w_zmm_kr
 				0x00290000, 0x00008009, 0x00003263,// Pcmpeqq_xmm_xmmm128
 				0x00290001, 0x00004C09, 0x000253A2,// VEX_Vpcmpeqq_xmm_xmm_xmmm128
 				0x00290001, 0x00005009, 0x000263E3,// VEX_Vpcmpeqq_ymm_ymm_ymmm256
-				0x00290002, 0x01205009, 0x0002125C,// EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64
-				0x00290002, 0x01209409, 0x0002229C,// EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64
-				0x00290002, 0x0120D809, 0x000232DC,// EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64
-				0x00290002, 0x0000000A, 0x0000049C,// EVEX_Vpmovb2m_k_xmm
-				0x00290002, 0x0000040A, 0x000004DC,// EVEX_Vpmovb2m_k_ymm
-				0x00290002, 0x0000080A, 0x0000051C,// EVEX_Vpmovb2m_k_zmm
-				0x00290002, 0x0000100A, 0x0000049C,// EVEX_Vpmovw2m_k_xmm
-				0x00290002, 0x0000140A, 0x000004DC,// EVEX_Vpmovw2m_k_ymm
-				0x00290002, 0x0000180A, 0x0000051C,// EVEX_Vpmovw2m_k_zmm
+				0x00290002, 0x01205009, 0x0002125C,// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
+				0x00290002, 0x01209409, 0x0002229C,// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
+				0x00290002, 0x0120D809, 0x000232DC,// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
+				0x00290002, 0x0000000A, 0x0000049C,// EVEX_Vpmovb2m_kr_xmm
+				0x00290002, 0x0000040A, 0x000004DC,// EVEX_Vpmovb2m_kr_ymm
+				0x00290002, 0x0000080A, 0x0000051C,// EVEX_Vpmovb2m_kr_zmm
+				0x00290002, 0x0000100A, 0x0000049C,// EVEX_Vpmovw2m_kr_xmm
+				0x00290002, 0x0000140A, 0x000004DC,// EVEX_Vpmovw2m_kr_ymm
+				0x00290002, 0x0000180A, 0x0000051C,// EVEX_Vpmovw2m_kr_zmm
 				0x002A0000, 0x00008009, 0x000001E3,// Movntdqa_xmm_m128
 				0x002A0001, 0x00004C09, 0x000005A2,// VEX_Vmovntdqa_xmm_m128
 				0x002A0001, 0x00005009, 0x000005A3,// VEX_Vmovntdqa_ymm_m256
 				0x002A0002, 0x0001C009, 0x000003DE,// EVEX_Vmovntdqa_xmm_m128
 				0x002A0002, 0x00020409, 0x000003DF,// EVEX_Vmovntdqa_ymm_m256
 				0x002A0002, 0x00024809, 0x000003E0,// EVEX_Vmovntdqa_zmm_m512
-				0x002A0002, 0x0000100A, 0x0000055E,// EVEX_Vpbroadcastmb2q_xmm_k
-				0x002A0002, 0x0000140A, 0x0000055F,// EVEX_Vpbroadcastmb2q_ymm_k
-				0x002A0002, 0x0000180A, 0x00000560,// EVEX_Vpbroadcastmb2q_zmm_k
+				0x002A0002, 0x0000100A, 0x0000055E,// EVEX_Vpbroadcastmb2q_xmm_kr
+				0x002A0002, 0x0000140A, 0x0000055F,// EVEX_Vpbroadcastmb2q_ymm_kr
+				0x002A0002, 0x0000180A, 0x00000560,// EVEX_Vpbroadcastmb2q_zmm_kr
 				0x002B0000, 0x00008009, 0x00003263,// Packusdw_xmm_xmmm128
 				0x002B0001, 0x00004C09, 0x000253A2,// VEX_Vpackusdw_xmm_xmm_xmmm128
 				0x002B0001, 0x00005009, 0x000263E3,// VEX_Vpackusdw_ymm_ymm_ymmm256
@@ -2954,21 +2954,21 @@ namespace Iced.Intel.EncoderInternal {
 				0x00370000, 0x00008009, 0x00003263,// Pcmpgtq_xmm_xmmm128
 				0x00370001, 0x00004C09, 0x000253A2,// VEX_Vpcmpgtq_xmm_xmm_xmmm128
 				0x00370001, 0x00005009, 0x000263E3,// VEX_Vpcmpgtq_ymm_ymm_ymmm256
-				0x00370002, 0x01205009, 0x0002125C,// EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64
-				0x00370002, 0x01209409, 0x0002229C,// EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64
-				0x00370002, 0x0120D809, 0x000232DC,// EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64
+				0x00370002, 0x01205009, 0x0002125C,// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
+				0x00370002, 0x01209409, 0x0002229C,// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
+				0x00370002, 0x0120D809, 0x000232DC,// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 				0x00380000, 0x00008009, 0x00003263,// Pminsb_xmm_xmmm128
 				0x00380001, 0x00004C09, 0x000253A2,// VEX_Vpminsb_xmm_xmm_xmmm128
 				0x00380001, 0x00005009, 0x000263E3,// VEX_Vpminsb_ymm_ymm_ymmm256
 				0x00380002, 0x0301E009, 0x0002125E,// EVEX_Vpminsb_xmm_k1z_xmm_xmmm128
 				0x00380002, 0x03022409, 0x0002229F,// EVEX_Vpminsb_ymm_k1z_ymm_ymmm256
 				0x00380002, 0x03026809, 0x000232E0,// EVEX_Vpminsb_zmm_k1z_zmm_zmmm512
-				0x00380002, 0x0000000A, 0x0000055E,// EVEX_Vpmovm2d_xmm_k
-				0x00380002, 0x0000040A, 0x0000055F,// EVEX_Vpmovm2d_ymm_k
-				0x00380002, 0x0000080A, 0x00000560,// EVEX_Vpmovm2d_zmm_k
-				0x00380002, 0x0000100A, 0x0000055E,// EVEX_Vpmovm2q_xmm_k
-				0x00380002, 0x0000140A, 0x0000055F,// EVEX_Vpmovm2q_ymm_k
-				0x00380002, 0x0000180A, 0x00000560,// EVEX_Vpmovm2q_zmm_k
+				0x00380002, 0x0000000A, 0x0000055E,// EVEX_Vpmovm2d_xmm_kr
+				0x00380002, 0x0000040A, 0x0000055F,// EVEX_Vpmovm2d_ymm_kr
+				0x00380002, 0x0000080A, 0x00000560,// EVEX_Vpmovm2d_zmm_kr
+				0x00380002, 0x0000100A, 0x0000055E,// EVEX_Vpmovm2q_xmm_kr
+				0x00380002, 0x0000140A, 0x0000055F,// EVEX_Vpmovm2q_ymm_kr
+				0x00380002, 0x0000180A, 0x00000560,// EVEX_Vpmovm2q_zmm_kr
 				0x00390000, 0x00008009, 0x00003263,// Pminsd_xmm_xmmm128
 				0x00390001, 0x00004C09, 0x000253A2,// VEX_Vpminsd_xmm_xmm_xmmm128
 				0x00390001, 0x00005009, 0x000263E3,// VEX_Vpminsd_ymm_ymm_ymmm256
@@ -2978,21 +2978,21 @@ namespace Iced.Intel.EncoderInternal {
 				0x00390002, 0x03205009, 0x0002125E,// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
 				0x00390002, 0x03209409, 0x0002229F,// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
 				0x00390002, 0x0320D809, 0x000232E0,// EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64
-				0x00390002, 0x0000000A, 0x0000049C,// EVEX_Vpmovd2m_k_xmm
-				0x00390002, 0x0000040A, 0x000004DC,// EVEX_Vpmovd2m_k_ymm
-				0x00390002, 0x0000080A, 0x0000051C,// EVEX_Vpmovd2m_k_zmm
-				0x00390002, 0x0000100A, 0x0000049C,// EVEX_Vpmovq2m_k_xmm
-				0x00390002, 0x0000140A, 0x000004DC,// EVEX_Vpmovq2m_k_ymm
-				0x00390002, 0x0000180A, 0x0000051C,// EVEX_Vpmovq2m_k_zmm
+				0x00390002, 0x0000000A, 0x0000049C,// EVEX_Vpmovd2m_kr_xmm
+				0x00390002, 0x0000040A, 0x000004DC,// EVEX_Vpmovd2m_kr_ymm
+				0x00390002, 0x0000080A, 0x0000051C,// EVEX_Vpmovd2m_kr_zmm
+				0x00390002, 0x0000100A, 0x0000049C,// EVEX_Vpmovq2m_kr_xmm
+				0x00390002, 0x0000140A, 0x000004DC,// EVEX_Vpmovq2m_kr_ymm
+				0x00390002, 0x0000180A, 0x0000051C,// EVEX_Vpmovq2m_kr_zmm
 				0x003A0000, 0x00008009, 0x00003263,// Pminuw_xmm_xmmm128
 				0x003A0001, 0x00004C09, 0x000253A2,// VEX_Vpminuw_xmm_xmm_xmmm128
 				0x003A0001, 0x00005009, 0x000263E3,// VEX_Vpminuw_ymm_ymm_ymmm256
 				0x003A0002, 0x0301E009, 0x0002125E,// EVEX_Vpminuw_xmm_k1z_xmm_xmmm128
 				0x003A0002, 0x03022409, 0x0002229F,// EVEX_Vpminuw_ymm_k1z_ymm_ymmm256
 				0x003A0002, 0x03026809, 0x000232E0,// EVEX_Vpminuw_zmm_k1z_zmm_zmmm512
-				0x003A0002, 0x0000000A, 0x0000055E,// EVEX_Vpbroadcastmw2d_xmm_k
-				0x003A0002, 0x0000040A, 0x0000055F,// EVEX_Vpbroadcastmw2d_ymm_k
-				0x003A0002, 0x0000080A, 0x00000560,// EVEX_Vpbroadcastmw2d_zmm_k
+				0x003A0002, 0x0000000A, 0x0000055E,// EVEX_Vpbroadcastmw2d_xmm_kr
+				0x003A0002, 0x0000040A, 0x0000055F,// EVEX_Vpbroadcastmw2d_ymm_kr
+				0x003A0002, 0x0000080A, 0x00000560,// EVEX_Vpbroadcastmw2d_zmm_kr
 				0x003B0000, 0x00008009, 0x00003263,// Pminud_xmm_xmmm128
 				0x003B0001, 0x00004C09, 0x000253A2,// VEX_Vpminud_xmm_xmm_xmmm128
 				0x003B0001, 0x00005009, 0x000263E3,// VEX_Vpminud_ymm_ymm_ymmm256
@@ -3315,9 +3315,9 @@ namespace Iced.Intel.EncoderInternal {
 				0x008E0001, 0x00001009, 0x000233D6,// VEX_Vpmaskmovd_m256_ymm_ymm
 				0x008E0001, 0x00002C09, 0x00022396,// VEX_Vpmaskmovq_m128_xmm_xmm
 				0x008E0001, 0x00003009, 0x000233D6,// VEX_Vpmaskmovq_m256_ymm_ymm
-				0x008F0002, 0x0101C009, 0x0002125C,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
-				0x008F0002, 0x01020409, 0x0002229C,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
-				0x008F0002, 0x01024809, 0x000232DC,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
+				0x008F0002, 0x0101C009, 0x0002125C,// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
+				0x008F0002, 0x01020409, 0x0002229C,// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
+				0x008F0002, 0x01024809, 0x000232DC,// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 				0x00900001, 0x00000C09, 0x0000E7A2,// VEX_Vpgatherdd_xmm_vm32x_xmm
 				0x00900001, 0x00001009, 0x0000F7E3,// VEX_Vpgatherdd_ymm_vm32y_ymm
 				0x00900001, 0x00002C09, 0x0000E7A2,// VEX_Vpgatherdq_xmm_vm32x_xmm
@@ -3846,18 +3846,18 @@ namespace Iced.Intel.EncoderInternal {
 				0x001D0002, 0x0305400D, 0x0000E7A1,// EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8
 				0x001D0002, 0x0305840D, 0x0000E7E1,// EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8
 				0x001D0002, 0x0385C80D, 0x0000E822,// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-				0x001E0002, 0x0120400D, 0x003A125C,// EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8
-				0x001E0002, 0x0120840D, 0x003A229C,// EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8
-				0x001E0002, 0x0120C80D, 0x003A32DC,// EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8
-				0x001E0002, 0x0120500D, 0x003A125C,// EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8
-				0x001E0002, 0x0120940D, 0x003A229C,// EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8
-				0x001E0002, 0x0120D80D, 0x003A32DC,// EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8
-				0x001F0002, 0x0120400D, 0x003A125C,// EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8
-				0x001F0002, 0x0120840D, 0x003A229C,// EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8
-				0x001F0002, 0x0120C80D, 0x003A32DC,// EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8
-				0x001F0002, 0x0120500D, 0x003A125C,// EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8
-				0x001F0002, 0x0120940D, 0x003A229C,// EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8
-				0x001F0002, 0x0120D80D, 0x003A32DC,// EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8
+				0x001E0002, 0x0120400D, 0x003A125C,// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
+				0x001E0002, 0x0120840D, 0x003A229C,// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
+				0x001E0002, 0x0120C80D, 0x003A32DC,// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
+				0x001E0002, 0x0120500D, 0x003A125C,// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
+				0x001E0002, 0x0120940D, 0x003A229C,// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
+				0x001E0002, 0x0120D80D, 0x003A32DC,// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
+				0x001F0002, 0x0120400D, 0x003A125C,// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
+				0x001F0002, 0x0120840D, 0x003A229C,// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
+				0x001F0002, 0x0120C80D, 0x003A32DC,// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
+				0x001F0002, 0x0120500D, 0x003A125C,// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
+				0x001F0002, 0x0120940D, 0x003A229C,// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
+				0x001F0002, 0x0120D80D, 0x003A32DC,// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 				0x00200000, 0x0000800D, 0x000E52E3,// Pinsrb_xmm_r32m8_imm8
 				0x00200000, 0x0003802D, 0x000E5363,// Pinsrb_xmm_r64m8_imm8
 				0x00200001, 0x00006C0D, 0x004053A2,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
@@ -3891,14 +3891,14 @@ namespace Iced.Intel.EncoderInternal {
 				0x00260002, 0x03A0D80D, 0x0000E8E0,// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
 				0x00270002, 0x0392800D, 0x003A125E,// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
 				0x00270002, 0x0392900D, 0x003A125E,// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-				0x00300001, 0x0000040D, 0x0001069D,// VEX_Kshiftrb_k_k_imm8
-				0x00300001, 0x0000240D, 0x0001069D,// VEX_Kshiftrw_k_k_imm8
-				0x00310001, 0x0000040D, 0x0001069D,// VEX_Kshiftrd_k_k_imm8
-				0x00310001, 0x0000240D, 0x0001069D,// VEX_Kshiftrq_k_k_imm8
-				0x00320001, 0x0000040D, 0x0001069D,// VEX_Kshiftlb_k_k_imm8
-				0x00320001, 0x0000240D, 0x0001069D,// VEX_Kshiftlw_k_k_imm8
-				0x00330001, 0x0000040D, 0x0001069D,// VEX_Kshiftld_k_k_imm8
-				0x00330001, 0x0000240D, 0x0001069D,// VEX_Kshiftlq_k_k_imm8
+				0x00300001, 0x0000040D, 0x0001069D,// VEX_Kshiftrb_kr_kr_imm8
+				0x00300001, 0x0000240D, 0x0001069D,// VEX_Kshiftrw_kr_kr_imm8
+				0x00310001, 0x0000040D, 0x0001069D,// VEX_Kshiftrd_kr_kr_imm8
+				0x00310001, 0x0000240D, 0x0001069D,// VEX_Kshiftrq_kr_kr_imm8
+				0x00320001, 0x0000040D, 0x0001069D,// VEX_Kshiftlb_kr_kr_imm8
+				0x00320001, 0x0000240D, 0x0001069D,// VEX_Kshiftlw_kr_kr_imm8
+				0x00330001, 0x0000040D, 0x0001069D,// VEX_Kshiftld_kr_kr_imm8
+				0x00330001, 0x0000240D, 0x0001069D,// VEX_Kshiftlq_kr_kr_imm8
 				0x00380001, 0x0000100D, 0x004253E3,// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 				0x00380002, 0x0304840D, 0x003A129F,// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
 				0x00380002, 0x0304880D, 0x003A12E0,// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
@@ -3913,18 +3913,18 @@ namespace Iced.Intel.EncoderInternal {
 				0x003A0002, 0x0304980D, 0x003A22E0,// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
 				0x003B0002, 0x0304C80D, 0x0000E822,// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
 				0x003B0002, 0x0304980D, 0x0000E822,// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
-				0x003E0002, 0x0101C00D, 0x003A125C,// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
-				0x003E0002, 0x0102040D, 0x003A229C,// EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8
-				0x003E0002, 0x0102480D, 0x003A32DC,// EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8
-				0x003E0002, 0x0101D00D, 0x003A125C,// EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8
-				0x003E0002, 0x0102140D, 0x003A229C,// EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8
-				0x003E0002, 0x0102580D, 0x003A32DC,// EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8
-				0x003F0002, 0x0101C00D, 0x003A125C,// EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8
-				0x003F0002, 0x0102040D, 0x003A229C,// EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8
-				0x003F0002, 0x0102480D, 0x003A32DC,// EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8
-				0x003F0002, 0x0101D00D, 0x003A125C,// EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8
-				0x003F0002, 0x0102140D, 0x003A229C,// EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8
-				0x003F0002, 0x0102580D, 0x003A32DC,// EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8
+				0x003E0002, 0x0101C00D, 0x003A125C,// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
+				0x003E0002, 0x0102040D, 0x003A229C,// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
+				0x003E0002, 0x0102480D, 0x003A32DC,// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
+				0x003E0002, 0x0101D00D, 0x003A125C,// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
+				0x003E0002, 0x0102140D, 0x003A229C,// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
+				0x003E0002, 0x0102580D, 0x003A32DC,// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
+				0x003F0002, 0x0101C00D, 0x003A125C,// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
+				0x003F0002, 0x0102040D, 0x003A229C,// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
+				0x003F0002, 0x0102480D, 0x003A32DC,// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
+				0x003F0002, 0x0101D00D, 0x003A125C,// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
+				0x003F0002, 0x0102140D, 0x003A229C,// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
+				0x003F0002, 0x0102580D, 0x003A32DC,// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 				0x00400000, 0x0000800D, 0x000E7263,// Dpps_xmm_xmmm128_imm8
 				0x00400001, 0x00004C0D, 0x004253A2,// VEX_Vdpps_xmm_xmm_xmmm128_imm8
 				0x00400001, 0x0000500D, 0x004263E3,// VEX_Vdpps_ymm_ymm_ymmm256_imm8
@@ -4013,14 +4013,14 @@ namespace Iced.Intel.EncoderInternal {
 				0x00620001, 0x00004C0D, 0x00010962,// VEX_Vpcmpistrm_xmm_xmmm128_imm8
 				0x00630000, 0x0000800D, 0x000E7263,// Pcmpistri_xmm_xmmm128_imm8
 				0x00630001, 0x00004C0D, 0x00010962,// VEX_Vpcmpistri_xmm_xmmm128_imm8
-				0x00660002, 0x0120400D, 0x0000E85C,// EVEX_Vfpclassps_k_k1_xmmm128b32_imm8
-				0x00660002, 0x0120840D, 0x0000E89C,// EVEX_Vfpclassps_k_k1_ymmm256b32_imm8
-				0x00660002, 0x0120C80D, 0x0000E8DC,// EVEX_Vfpclassps_k_k1_zmmm512b32_imm8
-				0x00660002, 0x0120500D, 0x0000E85C,// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
-				0x00660002, 0x0120940D, 0x0000E89C,// EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8
-				0x00660002, 0x0120D80D, 0x0000E8DC,// EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8
-				0x00670002, 0x0112800D, 0x0000E85C,// EVEX_Vfpclassss_k_k1_xmmm32_imm8
-				0x00670002, 0x0112900D, 0x0000E85C,// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
+				0x00660002, 0x0120400D, 0x0000E85C,// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+				0x00660002, 0x0120840D, 0x0000E89C,// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
+				0x00660002, 0x0120C80D, 0x0000E8DC,// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
+				0x00660002, 0x0120500D, 0x0000E85C,// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+				0x00660002, 0x0120940D, 0x0000E89C,// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
+				0x00660002, 0x0120D80D, 0x0000E8DC,// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
+				0x00670002, 0x0112800D, 0x0000E85C,// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
+				0x00670002, 0x0112900D, 0x0000E85C,// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 				0x00680001, 0x00000C0D, 0x004A53A2,// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
 				0x00680001, 0x0000100D, 0x004E63E3,// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
 				0x00680001, 0x00002C0D, 0x009523A2,// VEX_Vfmaddps_xmm_xmm_xmm_xmmm128

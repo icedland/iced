@@ -1244,37 +1244,37 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// Cmovg_r16_rm16
 	2,// Cmovg_r32_rm32
 	2,// Cmovg_r64_rm64
-	3,// VEX_Kandw_k_k_k
-	3,// VEX_Kandq_k_k_k
-	3,// VEX_Kandb_k_k_k
-	3,// VEX_Kandd_k_k_k
-	3,// VEX_Kandnw_k_k_k
-	3,// VEX_Kandnq_k_k_k
-	3,// VEX_Kandnb_k_k_k
-	3,// VEX_Kandnd_k_k_k
-	2,// VEX_Knotw_k_k
-	2,// VEX_Knotq_k_k
-	2,// VEX_Knotb_k_k
-	2,// VEX_Knotd_k_k
-	3,// VEX_Korw_k_k_k
-	3,// VEX_Korq_k_k_k
-	3,// VEX_Korb_k_k_k
-	3,// VEX_Kord_k_k_k
-	3,// VEX_Kxnorw_k_k_k
-	3,// VEX_Kxnorq_k_k_k
-	3,// VEX_Kxnorb_k_k_k
-	3,// VEX_Kxnord_k_k_k
-	3,// VEX_Kxorw_k_k_k
-	3,// VEX_Kxorq_k_k_k
-	3,// VEX_Kxorb_k_k_k
-	3,// VEX_Kxord_k_k_k
-	3,// VEX_Kaddw_k_k_k
-	3,// VEX_Kaddq_k_k_k
-	3,// VEX_Kaddb_k_k_k
-	3,// VEX_Kaddd_k_k_k
-	3,// VEX_Kunpckwd_k_k_k
-	3,// VEX_Kunpckdq_k_k_k
-	3,// VEX_Kunpckbw_k_k_k
+	3,// VEX_Kandw_kr_kr_kr
+	3,// VEX_Kandq_kr_kr_kr
+	3,// VEX_Kandb_kr_kr_kr
+	3,// VEX_Kandd_kr_kr_kr
+	3,// VEX_Kandnw_kr_kr_kr
+	3,// VEX_Kandnq_kr_kr_kr
+	3,// VEX_Kandnb_kr_kr_kr
+	3,// VEX_Kandnd_kr_kr_kr
+	2,// VEX_Knotw_kr_kr
+	2,// VEX_Knotq_kr_kr
+	2,// VEX_Knotb_kr_kr
+	2,// VEX_Knotd_kr_kr
+	3,// VEX_Korw_kr_kr_kr
+	3,// VEX_Korq_kr_kr_kr
+	3,// VEX_Korb_kr_kr_kr
+	3,// VEX_Kord_kr_kr_kr
+	3,// VEX_Kxnorw_kr_kr_kr
+	3,// VEX_Kxnorq_kr_kr_kr
+	3,// VEX_Kxnorb_kr_kr_kr
+	3,// VEX_Kxnord_kr_kr_kr
+	3,// VEX_Kxorw_kr_kr_kr
+	3,// VEX_Kxorq_kr_kr_kr
+	3,// VEX_Kxorb_kr_kr_kr
+	3,// VEX_Kxord_kr_kr_kr
+	3,// VEX_Kaddw_kr_kr_kr
+	3,// VEX_Kaddq_kr_kr_kr
+	3,// VEX_Kaddb_kr_kr_kr
+	3,// VEX_Kaddd_kr_kr_kr
+	3,// VEX_Kunpckwd_kr_kr_kr
+	3,// VEX_Kunpckdq_kr_kr_kr
+	3,// VEX_Kunpckbw_kr_kr_kr
 	2,// Movmskps_r32_xmm
 	2,// Movmskps_r64_xmm
 	2,// VEX_Vmovmskps_r32_xmm
@@ -1542,23 +1542,23 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// Pcmpgtb_xmm_xmmm128
 	3,// VEX_Vpcmpgtb_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpgtb_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpgtb_k_k1_xmm_xmmm128
-	3,// EVEX_Vpcmpgtb_k_k1_ymm_ymmm256
-	3,// EVEX_Vpcmpgtb_k_k1_zmm_zmmm512
+	3,// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
+	3,// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
+	3,// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 	2,// Pcmpgtw_mm_mmm64
 	2,// Pcmpgtw_xmm_xmmm128
 	3,// VEX_Vpcmpgtw_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpgtw_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpgtw_k_k1_xmm_xmmm128
-	3,// EVEX_Vpcmpgtw_k_k1_ymm_ymmm256
-	3,// EVEX_Vpcmpgtw_k_k1_zmm_zmmm512
+	3,// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
+	3,// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
+	3,// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 	2,// Pcmpgtd_mm_mmm64
 	2,// Pcmpgtd_xmm_xmmm128
 	3,// VEX_Vpcmpgtd_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpgtd_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32
-	3,// EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32
-	3,// EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32
+	3,// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
+	3,// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
+	3,// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 	2,// Packuswb_mm_mmm64
 	2,// Packuswb_xmm_xmmm128
 	3,// VEX_Vpackuswb_xmm_xmm_xmmm128
@@ -1745,23 +1745,23 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// Pcmpeqb_xmm_xmmm128
 	3,// VEX_Vpcmpeqb_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpeqb_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpeqb_k_k1_xmm_xmmm128
-	3,// EVEX_Vpcmpeqb_k_k1_ymm_ymmm256
-	3,// EVEX_Vpcmpeqb_k_k1_zmm_zmmm512
+	3,// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
+	3,// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
+	3,// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 	2,// Pcmpeqw_mm_mmm64
 	2,// Pcmpeqw_xmm_xmmm128
 	3,// VEX_Vpcmpeqw_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpeqw_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpeqw_k_k1_xmm_xmmm128
-	3,// EVEX_Vpcmpeqw_k_k1_ymm_ymmm256
-	3,// EVEX_Vpcmpeqw_k_k1_zmm_zmmm512
+	3,// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
+	3,// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
+	3,// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 	2,// Pcmpeqd_mm_mmm64
 	2,// Pcmpeqd_xmm_xmmm128
 	3,// VEX_Vpcmpeqd_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpeqd_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32
-	3,// EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32
-	3,// EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32
+	3,// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
+	3,// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
+	3,// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 	0,// Emms
 	0,// VEX_Vzeroupper
 	0,// VEX_Vzeroall
@@ -1945,30 +1945,30 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	1,// Setge_rm8
 	1,// Setle_rm8
 	1,// Setg_rm8
-	2,// VEX_Kmovw_k_km16
-	2,// VEX_Kmovq_k_km64
-	2,// VEX_Kmovb_k_km8
-	2,// VEX_Kmovd_k_km32
-	2,// VEX_Kmovw_m16_k
-	2,// VEX_Kmovq_m64_k
-	2,// VEX_Kmovb_m8_k
-	2,// VEX_Kmovd_m32_k
-	2,// VEX_Kmovw_k_r32
-	2,// VEX_Kmovb_k_r32
-	2,// VEX_Kmovd_k_r32
-	2,// VEX_Kmovq_k_r64
-	2,// VEX_Kmovw_r32_k
-	2,// VEX_Kmovb_r32_k
-	2,// VEX_Kmovd_r32_k
-	2,// VEX_Kmovq_r64_k
-	2,// VEX_Kortestw_k_k
-	2,// VEX_Kortestq_k_k
-	2,// VEX_Kortestb_k_k
-	2,// VEX_Kortestd_k_k
-	2,// VEX_Ktestw_k_k
-	2,// VEX_Ktestq_k_k
-	2,// VEX_Ktestb_k_k
-	2,// VEX_Ktestd_k_k
+	2,// VEX_Kmovw_kr_km16
+	2,// VEX_Kmovq_kr_km64
+	2,// VEX_Kmovb_kr_km8
+	2,// VEX_Kmovd_kr_km32
+	2,// VEX_Kmovw_m16_kr
+	2,// VEX_Kmovq_m64_kr
+	2,// VEX_Kmovb_m8_kr
+	2,// VEX_Kmovd_m32_kr
+	2,// VEX_Kmovw_kr_r32
+	2,// VEX_Kmovb_kr_r32
+	2,// VEX_Kmovd_kr_r32
+	2,// VEX_Kmovq_kr_r64
+	2,// VEX_Kmovw_r32_kr
+	2,// VEX_Kmovb_r32_kr
+	2,// VEX_Kmovd_r32_kr
+	2,// VEX_Kmovq_r64_kr
+	2,// VEX_Kortestw_kr_kr
+	2,// VEX_Kortestq_kr_kr
+	2,// VEX_Kortestb_kr_kr
+	2,// VEX_Kortestd_kr_kr
+	2,// VEX_Ktestw_kr_kr
+	2,// VEX_Ktestq_kr_kr
+	2,// VEX_Ktestb_kr_kr
+	2,// VEX_Ktestd_kr_kr
 	1,// Pushw_FS
 	1,// Pushd_FS
 	1,// Pushq_FS
@@ -2170,21 +2170,21 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// Cmpps_xmm_xmmm128_imm8
 	4,// VEX_Vcmpps_xmm_xmm_xmmm128_imm8
 	4,// VEX_Vcmpps_ymm_ymm_ymmm256_imm8
-	4,// EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8
-	4,// EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8
-	4,// EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae
+	4,// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
+	4,// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
+	4,// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 	3,// Cmppd_xmm_xmmm128_imm8
 	4,// VEX_Vcmppd_xmm_xmm_xmmm128_imm8
 	4,// VEX_Vcmppd_ymm_ymm_ymmm256_imm8
-	4,// EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8
-	4,// EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8
-	4,// EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae
+	4,// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
+	4,// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
+	4,// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 	3,// Cmpss_xmm_xmmm32_imm8
 	4,// VEX_Vcmpss_xmm_xmm_xmmm32_imm8
-	4,// EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae
+	4,// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 	3,// Cmpsd_xmm_xmmm64_imm8
 	4,// VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
-	4,// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
+	4,// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 	2,// Movnti_m32_r32
 	2,// Movnti_m64_r64
 	3,// Pinsrw_mm_r32m16_imm8
@@ -2810,63 +2810,63 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// EVEX_Vpmovsqd_xmmm64_k1z_xmm
 	2,// EVEX_Vpmovsqd_xmmm128_k1z_ymm
 	2,// EVEX_Vpmovsqd_ymmm256_k1z_zmm
-	3,// EVEX_Vptestmb_k_k1_xmm_xmmm128
-	3,// EVEX_Vptestmb_k_k1_ymm_ymmm256
-	3,// EVEX_Vptestmb_k_k1_zmm_zmmm512
-	3,// EVEX_Vptestmw_k_k1_xmm_xmmm128
-	3,// EVEX_Vptestmw_k_k1_ymm_ymmm256
-	3,// EVEX_Vptestmw_k_k1_zmm_zmmm512
-	3,// EVEX_Vptestnmb_k_k1_xmm_xmmm128
-	3,// EVEX_Vptestnmb_k_k1_ymm_ymmm256
-	3,// EVEX_Vptestnmb_k_k1_zmm_zmmm512
-	3,// EVEX_Vptestnmw_k_k1_xmm_xmmm128
-	3,// EVEX_Vptestnmw_k_k1_ymm_ymmm256
-	3,// EVEX_Vptestnmw_k_k1_zmm_zmmm512
-	3,// EVEX_Vptestmd_k_k1_xmm_xmmm128b32
-	3,// EVEX_Vptestmd_k_k1_ymm_ymmm256b32
-	3,// EVEX_Vptestmd_k_k1_zmm_zmmm512b32
-	3,// EVEX_Vptestmq_k_k1_xmm_xmmm128b64
-	3,// EVEX_Vptestmq_k_k1_ymm_ymmm256b64
-	3,// EVEX_Vptestmq_k_k1_zmm_zmmm512b64
-	3,// EVEX_Vptestnmd_k_k1_xmm_xmmm128b32
-	3,// EVEX_Vptestnmd_k_k1_ymm_ymmm256b32
-	3,// EVEX_Vptestnmd_k_k1_zmm_zmmm512b32
-	3,// EVEX_Vptestnmq_k_k1_xmm_xmmm128b64
-	3,// EVEX_Vptestnmq_k_k1_ymm_ymmm256b64
-	3,// EVEX_Vptestnmq_k_k1_zmm_zmmm512b64
+	3,// EVEX_Vptestmb_kr_k1_xmm_xmmm128
+	3,// EVEX_Vptestmb_kr_k1_ymm_ymmm256
+	3,// EVEX_Vptestmb_kr_k1_zmm_zmmm512
+	3,// EVEX_Vptestmw_kr_k1_xmm_xmmm128
+	3,// EVEX_Vptestmw_kr_k1_ymm_ymmm256
+	3,// EVEX_Vptestmw_kr_k1_zmm_zmmm512
+	3,// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
+	3,// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
+	3,// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
+	3,// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
+	3,// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
+	3,// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
+	3,// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
+	3,// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
+	3,// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
+	3,// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
+	3,// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
+	3,// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
+	3,// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
+	3,// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
+	3,// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
+	3,// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
+	3,// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
+	3,// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 	2,// Pmuldq_xmm_xmmm128
 	3,// VEX_Vpmuldq_xmm_xmm_xmmm128
 	3,// VEX_Vpmuldq_ymm_ymm_ymmm256
 	3,// EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64
 	3,// EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64
 	3,// EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64
-	2,// EVEX_Vpmovm2b_xmm_k
-	2,// EVEX_Vpmovm2b_ymm_k
-	2,// EVEX_Vpmovm2b_zmm_k
-	2,// EVEX_Vpmovm2w_xmm_k
-	2,// EVEX_Vpmovm2w_ymm_k
-	2,// EVEX_Vpmovm2w_zmm_k
+	2,// EVEX_Vpmovm2b_xmm_kr
+	2,// EVEX_Vpmovm2b_ymm_kr
+	2,// EVEX_Vpmovm2b_zmm_kr
+	2,// EVEX_Vpmovm2w_xmm_kr
+	2,// EVEX_Vpmovm2w_ymm_kr
+	2,// EVEX_Vpmovm2w_zmm_kr
 	2,// Pcmpeqq_xmm_xmmm128
 	3,// VEX_Vpcmpeqq_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpeqq_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64
-	3,// EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64
-	3,// EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64
-	2,// EVEX_Vpmovb2m_k_xmm
-	2,// EVEX_Vpmovb2m_k_ymm
-	2,// EVEX_Vpmovb2m_k_zmm
-	2,// EVEX_Vpmovw2m_k_xmm
-	2,// EVEX_Vpmovw2m_k_ymm
-	2,// EVEX_Vpmovw2m_k_zmm
+	3,// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
+	3,// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
+	3,// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
+	2,// EVEX_Vpmovb2m_kr_xmm
+	2,// EVEX_Vpmovb2m_kr_ymm
+	2,// EVEX_Vpmovb2m_kr_zmm
+	2,// EVEX_Vpmovw2m_kr_xmm
+	2,// EVEX_Vpmovw2m_kr_ymm
+	2,// EVEX_Vpmovw2m_kr_zmm
 	2,// Movntdqa_xmm_m128
 	2,// VEX_Vmovntdqa_xmm_m128
 	2,// VEX_Vmovntdqa_ymm_m256
 	2,// EVEX_Vmovntdqa_xmm_m128
 	2,// EVEX_Vmovntdqa_ymm_m256
 	2,// EVEX_Vmovntdqa_zmm_m512
-	2,// EVEX_Vpbroadcastmb2q_xmm_k
-	2,// EVEX_Vpbroadcastmb2q_ymm_k
-	2,// EVEX_Vpbroadcastmb2q_zmm_k
+	2,// EVEX_Vpbroadcastmb2q_xmm_kr
+	2,// EVEX_Vpbroadcastmb2q_ymm_kr
+	2,// EVEX_Vpbroadcastmb2q_zmm_kr
 	2,// Packusdw_xmm_xmmm128
 	3,// VEX_Vpackusdw_xmm_xmm_xmmm128
 	3,// VEX_Vpackusdw_ymm_ymm_ymmm256
@@ -2951,21 +2951,21 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	2,// Pcmpgtq_xmm_xmmm128
 	3,// VEX_Vpcmpgtq_xmm_xmm_xmmm128
 	3,// VEX_Vpcmpgtq_ymm_ymm_ymmm256
-	3,// EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64
-	3,// EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64
-	3,// EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64
+	3,// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
+	3,// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
+	3,// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 	2,// Pminsb_xmm_xmmm128
 	3,// VEX_Vpminsb_xmm_xmm_xmmm128
 	3,// VEX_Vpminsb_ymm_ymm_ymmm256
 	3,// EVEX_Vpminsb_xmm_k1z_xmm_xmmm128
 	3,// EVEX_Vpminsb_ymm_k1z_ymm_ymmm256
 	3,// EVEX_Vpminsb_zmm_k1z_zmm_zmmm512
-	2,// EVEX_Vpmovm2d_xmm_k
-	2,// EVEX_Vpmovm2d_ymm_k
-	2,// EVEX_Vpmovm2d_zmm_k
-	2,// EVEX_Vpmovm2q_xmm_k
-	2,// EVEX_Vpmovm2q_ymm_k
-	2,// EVEX_Vpmovm2q_zmm_k
+	2,// EVEX_Vpmovm2d_xmm_kr
+	2,// EVEX_Vpmovm2d_ymm_kr
+	2,// EVEX_Vpmovm2d_zmm_kr
+	2,// EVEX_Vpmovm2q_xmm_kr
+	2,// EVEX_Vpmovm2q_ymm_kr
+	2,// EVEX_Vpmovm2q_zmm_kr
 	2,// Pminsd_xmm_xmmm128
 	3,// VEX_Vpminsd_xmm_xmm_xmmm128
 	3,// VEX_Vpminsd_ymm_ymm_ymmm256
@@ -2975,21 +2975,21 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
 	3,// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
 	3,// EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64
-	2,// EVEX_Vpmovd2m_k_xmm
-	2,// EVEX_Vpmovd2m_k_ymm
-	2,// EVEX_Vpmovd2m_k_zmm
-	2,// EVEX_Vpmovq2m_k_xmm
-	2,// EVEX_Vpmovq2m_k_ymm
-	2,// EVEX_Vpmovq2m_k_zmm
+	2,// EVEX_Vpmovd2m_kr_xmm
+	2,// EVEX_Vpmovd2m_kr_ymm
+	2,// EVEX_Vpmovd2m_kr_zmm
+	2,// EVEX_Vpmovq2m_kr_xmm
+	2,// EVEX_Vpmovq2m_kr_ymm
+	2,// EVEX_Vpmovq2m_kr_zmm
 	2,// Pminuw_xmm_xmmm128
 	3,// VEX_Vpminuw_xmm_xmm_xmmm128
 	3,// VEX_Vpminuw_ymm_ymm_ymmm256
 	3,// EVEX_Vpminuw_xmm_k1z_xmm_xmmm128
 	3,// EVEX_Vpminuw_ymm_k1z_ymm_ymmm256
 	3,// EVEX_Vpminuw_zmm_k1z_zmm_zmmm512
-	2,// EVEX_Vpbroadcastmw2d_xmm_k
-	2,// EVEX_Vpbroadcastmw2d_ymm_k
-	2,// EVEX_Vpbroadcastmw2d_zmm_k
+	2,// EVEX_Vpbroadcastmw2d_xmm_kr
+	2,// EVEX_Vpbroadcastmw2d_ymm_kr
+	2,// EVEX_Vpbroadcastmw2d_zmm_kr
 	2,// Pminud_xmm_xmmm128
 	3,// VEX_Vpminud_xmm_xmm_xmmm128
 	3,// VEX_Vpminud_ymm_ymm_ymmm256
@@ -3312,9 +3312,9 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// VEX_Vpmaskmovd_m256_ymm_ymm
 	3,// VEX_Vpmaskmovq_m128_xmm_xmm
 	3,// VEX_Vpmaskmovq_m256_ymm_ymm
-	3,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
-	3,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
-	3,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
+	3,// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
+	3,// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
+	3,// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 	3,// VEX_Vpgatherdd_xmm_vm32x_xmm
 	3,// VEX_Vpgatherdd_ymm_vm32y_ymm
 	3,// VEX_Vpgatherdq_xmm_vm32x_xmm
@@ -3843,18 +3843,18 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8
 	3,// EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8
 	3,// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-	4,// EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8
-	4,// EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8
-	4,// EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8
-	4,// EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8
-	4,// EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8
-	4,// EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8
-	4,// EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8
-	4,// EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8
-	4,// EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8
-	4,// EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8
-	4,// EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8
-	4,// EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8
+	4,// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
+	4,// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
+	4,// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
+	4,// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
+	4,// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
+	4,// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
+	4,// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
+	4,// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
+	4,// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
+	4,// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
+	4,// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
+	4,// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 	3,// Pinsrb_xmm_r32m8_imm8
 	3,// Pinsrb_xmm_r64m8_imm8
 	4,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
@@ -3888,14 +3888,14 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
 	4,// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
 	4,// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-	3,// VEX_Kshiftrb_k_k_imm8
-	3,// VEX_Kshiftrw_k_k_imm8
-	3,// VEX_Kshiftrd_k_k_imm8
-	3,// VEX_Kshiftrq_k_k_imm8
-	3,// VEX_Kshiftlb_k_k_imm8
-	3,// VEX_Kshiftlw_k_k_imm8
-	3,// VEX_Kshiftld_k_k_imm8
-	3,// VEX_Kshiftlq_k_k_imm8
+	3,// VEX_Kshiftrb_kr_kr_imm8
+	3,// VEX_Kshiftrw_kr_kr_imm8
+	3,// VEX_Kshiftrd_kr_kr_imm8
+	3,// VEX_Kshiftrq_kr_kr_imm8
+	3,// VEX_Kshiftlb_kr_kr_imm8
+	3,// VEX_Kshiftlw_kr_kr_imm8
+	3,// VEX_Kshiftld_kr_kr_imm8
+	3,// VEX_Kshiftlq_kr_kr_imm8
 	4,// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 	4,// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
 	4,// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
@@ -3910,18 +3910,18 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	4,// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
 	3,// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
 	3,// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
-	4,// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
-	4,// EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8
-	4,// EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8
-	4,// EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8
-	4,// EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8
-	4,// EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8
-	4,// EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8
-	4,// EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8
-	4,// EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8
-	4,// EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8
-	4,// EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8
-	4,// EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8
+	4,// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
+	4,// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
+	4,// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
+	4,// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
+	4,// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
+	4,// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
+	4,// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
+	4,// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
+	4,// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
+	4,// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
+	4,// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
+	4,// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 	3,// Dpps_xmm_xmmm128_imm8
 	4,// VEX_Vdpps_xmm_xmm_xmmm128_imm8
 	4,// VEX_Vdpps_ymm_ymm_ymmm256_imm8
@@ -4010,14 +4010,14 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	3,// VEX_Vpcmpistrm_xmm_xmmm128_imm8
 	3,// Pcmpistri_xmm_xmmm128_imm8
 	3,// VEX_Vpcmpistri_xmm_xmmm128_imm8
-	3,// EVEX_Vfpclassps_k_k1_xmmm128b32_imm8
-	3,// EVEX_Vfpclassps_k_k1_ymmm256b32_imm8
-	3,// EVEX_Vfpclassps_k_k1_zmmm512b32_imm8
-	3,// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
-	3,// EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8
-	3,// EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8
-	3,// EVEX_Vfpclassss_k_k1_xmmm32_imm8
-	3,// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
+	3,// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+	3,// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
+	3,// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
+	3,// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+	3,// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
+	3,// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
+	3,// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
+	3,// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 	4,// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
 	4,// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
 	4,// VEX_Vfmaddps_xmm_xmm_xmm_xmmm128

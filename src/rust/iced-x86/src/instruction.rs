@@ -2678,40 +2678,51 @@ impl Instruction {
 		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 2 == CodeInfo::Shift_Ib_MASK1F as u32);
 		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 3 == CodeInfo::Shift_Ib_MASK3F as u32);
 		const_assert!(CodeInfo::Shift_Ib_MASK1FMOD9 as u32 + 4 == CodeInfo::Clear_rflags as u32);
-		match code_info.wrapping_sub(CodeInfo::Shift_Ib_MASK1FMOD9 as u32) {
-			0 => {
+		let result = ((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize;
+		let e = code_info.wrapping_sub(CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
+		match e {
+			0 | 1 => {
 				const_assert_eq!(0, CodeInfo::Shift_Ib_MASK1FMOD9 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				if (self.immediate8() & 0x1F) % 9 == 0 {
-					return RflagsInfo::None as usize;
-				}
-			}
-			1 => {
 				const_assert_eq!(1, CodeInfo::Shift_Ib_MASK1FMOD11 as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				if (self.immediate8() & 0x1F) % 17 == 0 {
-					return RflagsInfo::None as usize;
+				let m = if e == 0 { 9 } else { 17 };
+				match (self.immediate8() & 0x1F) % m {
+					0 => return RflagsInfo::None as usize,
+					1 => return RflagsInfo::R_c_W_co as usize,
+					_ => {}
 				}
 			}
-			2 => {
+			2 | 3 => {
 				const_assert_eq!(2, CodeInfo::Shift_Ib_MASK1F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				if (self.immediate8() & 0x1F) == 0 {
-					return RflagsInfo::None as usize;
-				}
-			}
-			3 => {
 				const_assert_eq!(3, CodeInfo::Shift_Ib_MASK3F as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
-				if (self.immediate8() & 0x3F) == 0 {
-					return RflagsInfo::None as usize;
+				let mask = if e == 2 { 0x1F } else { 0x3F };
+				match self.immediate8() & mask {
+					0 => return RflagsInfo::None as usize,
+					1 => {
+						if result == RflagsInfo::W_c_U_o as usize {
+							return RflagsInfo::W_co as usize;
+						} else if result == RflagsInfo::R_c_W_c_U_o as usize {
+							return RflagsInfo::R_c_W_co as usize;
+						} else {
+							debug_assert_eq!(RflagsInfo::W_cpsz_U_ao as usize, result);
+							return RflagsInfo::W_copsz_U_a as usize;
+						}
+					}
+					_ => {}
 				}
 			}
 			4 => {
 				const_assert_eq!(4, CodeInfo::Clear_rflags as u32 - CodeInfo::Shift_Ib_MASK1FMOD9 as u32);
 				if self.op0_register() == self.op1_register() && self.op0_kind() == OpKind::Register && self.op1_kind() == OpKind::Register {
-					return RflagsInfo::C_cos_S_pz_U_a as usize;
+					if self.code().mnemonic() == Mnemonic::Xor {
+						return RflagsInfo::C_cos_S_pz_U_a as usize;
+					} else {
+						return RflagsInfo::C_acos_S_pz as usize;
+					}
 				}
 			}
 			_ => {}
 		}
-		((flags1 >> InfoFlags1::RFLAGS_INFO_SHIFT) & InfoFlags1::RFLAGS_INFO_MASK) as usize
+		result
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.

@@ -175,8 +175,10 @@ namespace Generator.InstructionInfo {
 			var rflagsHashSet = new HashSet<(RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set)> {
 				// None must always be present
 				default,
-				// Needed by CodeInfo.Clear_rflags
+				// Needed by CodeInfo.Clear_rflags (xor)
 				(RflagsBits.None, RflagsBits.AF, RflagsBits.None, RflagsBits.CF | RflagsBits.OF | RflagsBits.SF, RflagsBits.PF | RflagsBits.ZF),
+				// Needed by CodeInfo.Clear_rflags (sub)
+				(RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.AF | RflagsBits.CF | RflagsBits.OF | RflagsBits.SF, RflagsBits.PF | RflagsBits.ZF),
 			};
 			foreach (var def in defs) {
 				var info = def.InstrInfo;
@@ -289,16 +291,17 @@ namespace Generator.InstructionInfo {
 
 			// Referenced by code in InstructionInfoFactory
 			opInfoHashes[0].Add(OpInfo.None);
-			opInfoHashes[0].Add(OpInfo.Read);
-			opInfoHashes[0].Add(OpInfo.Write);
-			opInfoHashes[0].Add(OpInfo.WriteForce);
 			opInfoHashes[0].Add(OpInfo.CondWrite);
 			opInfoHashes[0].Add(OpInfo.CondWrite32_ReadWrite64);
-			opInfoHashes[0].Add(OpInfo.ReadWrite);
-			opInfoHashes[0].Add(OpInfo.ReadCondWrite);
 			opInfoHashes[0].Add(OpInfo.NoMemAccess);
+			opInfoHashes[0].Add(OpInfo.Read);
+			opInfoHashes[0].Add(OpInfo.ReadCondWrite);
+			opInfoHashes[0].Add(OpInfo.ReadWrite);
+			opInfoHashes[0].Add(OpInfo.Write);
+			opInfoHashes[0].Add(OpInfo.WriteVmm);
+			opInfoHashes[0].Add(OpInfo.ReadWriteVmm);
+			opInfoHashes[0].Add(OpInfo.WriteForce);
 			opInfoHashes[0].Add(OpInfo.WriteMem_ReadWriteReg);
-			opInfoHashes[1].Add(OpInfo.ReadP3);
 
 			// InstructionInfoFactory assumes these have exactly two values: None, Read.
 			// It can be less than that if some instructions were filtered out.

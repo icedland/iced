@@ -2539,12 +2539,12 @@ namespace Generator.Assembler {
 			case Code.EVEX_Vcvtpd2dq_xmm_k1z_ymmm256b64:
 			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32:
 			case Code.EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32:
-			case Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8:
-			case Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8:
-			case Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8:
-			case Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8:
-			case Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8:
-			case Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8:
+			case Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8:
+			case Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8:
+			case Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8:
+			case Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8:
+			case Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8:
+			case Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8:
 				return true;
 			}
 			return false;

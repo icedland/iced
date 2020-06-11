@@ -302,7 +302,7 @@ fn read() -> Vec<Box<InstrInfo + Sync + Send>> {
 				v = reader.read_compressed_u32();
 				Box::new(SimpleInstrInfo_os_mem2::new(v, s, s2))
 			}
-			
+
 			CtorKind::os2_3 => {
 				c = reader.read_u8() as u8 as char;
 				let s2 = add_suffix(&s, c);

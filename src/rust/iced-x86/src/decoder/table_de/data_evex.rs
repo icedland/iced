@@ -1363,55 +1363,55 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x13,// KkHW_3
 					0x4D,// XMM0
-					0xDF, 0x15,// EVEX_Vptestmb_k_k1_xmm_xmmm128
+					0xDF, 0x15,// EVEX_Vptestmb_kr_k1_xmm_xmmm128
 					0x07,// Full_Mem_128
 				0x13,// KkHW_3
 					0x6D,// YMM0
-					0xE0, 0x15,// EVEX_Vptestmb_k_k1_ymm_ymmm256
+					0xE0, 0x15,// EVEX_Vptestmb_kr_k1_ymm_ymmm256
 					0x08,// Full_Mem_256
 				0x13,// KkHW_3
 					0x8D,// ZMM0
-					0xE1, 0x15,// EVEX_Vptestmb_k_k1_zmm_zmmm512
+					0xE1, 0x15,// EVEX_Vptestmb_kr_k1_zmm_zmmm512
 					0x09,// Full_Mem_512
 			0x09,// VectorLength
 				0x13,// KkHW_3
 					0x4D,// XMM0
-					0xE2, 0x15,// EVEX_Vptestmw_k_k1_xmm_xmmm128
+					0xE2, 0x15,// EVEX_Vptestmw_kr_k1_xmm_xmmm128
 					0x07,// Full_Mem_128
 				0x13,// KkHW_3
 					0x6D,// YMM0
-					0xE3, 0x15,// EVEX_Vptestmw_k_k1_ymm_ymmm256
+					0xE3, 0x15,// EVEX_Vptestmw_kr_k1_ymm_ymmm256
 					0x08,// Full_Mem_256
 				0x13,// KkHW_3
 					0x8D,// ZMM0
-					0xE4, 0x15,// EVEX_Vptestmw_k_k1_zmm_zmmm512
+					0xE4, 0x15,// EVEX_Vptestmw_kr_k1_zmm_zmmm512
 					0x09,// Full_Mem_512
 		0x07,// W
 			0x09,// VectorLength
 				0x13,// KkHW_3
 					0x4D,// XMM0
-					0xE5, 0x15,// EVEX_Vptestnmb_k_k1_xmm_xmmm128
+					0xE5, 0x15,// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
 					0x07,// Full_Mem_128
 				0x13,// KkHW_3
 					0x6D,// YMM0
-					0xE6, 0x15,// EVEX_Vptestnmb_k_k1_ymm_ymmm256
+					0xE6, 0x15,// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
 					0x08,// Full_Mem_256
 				0x13,// KkHW_3
 					0x8D,// ZMM0
-					0xE7, 0x15,// EVEX_Vptestnmb_k_k1_zmm_zmmm512
+					0xE7, 0x15,// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
 					0x09,// Full_Mem_512
 			0x09,// VectorLength
 				0x13,// KkHW_3
 					0x4D,// XMM0
-					0xE8, 0x15,// EVEX_Vptestnmw_k_k1_xmm_xmmm128
+					0xE8, 0x15,// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
 					0x07,// Full_Mem_128
 				0x13,// KkHW_3
 					0x6D,// YMM0
-					0xE9, 0x15,// EVEX_Vptestnmw_k_k1_ymm_ymmm256
+					0xE9, 0x15,// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
 					0x08,// Full_Mem_256
 				0x13,// KkHW_3
 					0x8D,// ZMM0
-					0xEA, 0x15,// EVEX_Vptestnmw_k_k1_zmm_zmmm512
+					0xEA, 0x15,// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
 					0x09,// Full_Mem_512
 		0x00,// Invalid
 
@@ -1422,55 +1422,55 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xEB, 0x15,// EVEX_Vptestmd_k_k1_xmm_xmmm128b32
+					0xEB, 0x15,// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xEC, 0x15,// EVEX_Vptestmd_k_k1_ymm_ymmm256b32
+					0xEC, 0x15,// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xED, 0x15,// EVEX_Vptestmd_k_k1_zmm_zmmm512b32
+					0xED, 0x15,// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
 					0x03,// Full_512
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xEE, 0x15,// EVEX_Vptestmq_k_k1_xmm_xmmm128b64
+					0xEE, 0x15,// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xEF, 0x15,// EVEX_Vptestmq_k_k1_ymm_ymmm256b64
+					0xEF, 0x15,// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xF0, 0x15,// EVEX_Vptestmq_k_k1_zmm_zmmm512b64
+					0xF0, 0x15,// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
 					0x03,// Full_512
 		0x07,// W
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xF1, 0x15,// EVEX_Vptestnmd_k_k1_xmm_xmmm128b32
+					0xF1, 0x15,// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xF2, 0x15,// EVEX_Vptestnmd_k_k1_ymm_ymmm256b32
+					0xF2, 0x15,// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xF3, 0x15,// EVEX_Vptestnmd_k_k1_zmm_zmmm512b32
+					0xF3, 0x15,// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
 					0x03,// Full_512
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xF4, 0x15,// EVEX_Vptestnmq_k_k1_xmm_xmmm128b64
+					0xF4, 0x15,// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xF5, 0x15,// EVEX_Vptestnmq_k_k1_ymm_ymmm256b64
+					0xF5, 0x15,// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xF6, 0x15,// EVEX_Vptestnmq_k_k1_zmm_zmmm512b64
+					0xF6, 0x15,// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 					0x03,// Full_512
 		0x00,// Invalid
 
@@ -1496,23 +1496,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0xFD, 0x15,// EVEX_Vpmovm2b_xmm_k
+					0xFD, 0x15,// EVEX_Vpmovm2b_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0xFE, 0x15,// EVEX_Vpmovm2b_ymm_k
+					0xFE, 0x15,// EVEX_Vpmovm2b_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0xFF, 0x15,// EVEX_Vpmovm2b_zmm_k
+					0xFF, 0x15,// EVEX_Vpmovm2b_zmm_kr
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0x80, 0x16,// EVEX_Vpmovm2w_xmm_k
+					0x80, 0x16,// EVEX_Vpmovm2w_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0x81, 0x16,// EVEX_Vpmovm2w_ymm_k
+					0x81, 0x16,// EVEX_Vpmovm2w_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0x82, 0x16,// EVEX_Vpmovm2w_zmm_k
+					0x82, 0x16,// EVEX_Vpmovm2w_zmm_kr
 		0x00,// Invalid
 
 	// 41 = 0x29
@@ -1523,37 +1523,37 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0x86, 0x16,// EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64
+					0x86, 0x16,// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0x87, 0x16,// EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64
+					0x87, 0x16,// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0x88, 0x16,// EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64
+					0x88, 0x16,// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
 					0x03,// Full_512
 		0x07,// W
 			0x09,// VectorLength
 				0x1C,// KR
 					0x4D,// XMM0
-					0x89, 0x16,// EVEX_Vpmovb2m_k_xmm
+					0x89, 0x16,// EVEX_Vpmovb2m_kr_xmm
 				0x1C,// KR
 					0x6D,// YMM0
-					0x8A, 0x16,// EVEX_Vpmovb2m_k_ymm
+					0x8A, 0x16,// EVEX_Vpmovb2m_kr_ymm
 				0x1C,// KR
 					0x8D,// ZMM0
-					0x8B, 0x16,// EVEX_Vpmovb2m_k_zmm
+					0x8B, 0x16,// EVEX_Vpmovb2m_kr_zmm
 			0x09,// VectorLength
 				0x1C,// KR
 					0x4D,// XMM0
-					0x8C, 0x16,// EVEX_Vpmovw2m_k_xmm
+					0x8C, 0x16,// EVEX_Vpmovw2m_kr_xmm
 				0x1C,// KR
 					0x6D,// YMM0
-					0x8D, 0x16,// EVEX_Vpmovw2m_k_ymm
+					0x8D, 0x16,// EVEX_Vpmovw2m_kr_ymm
 				0x1C,// KR
 					0x8D,// ZMM0
-					0x8E, 0x16,// EVEX_Vpmovw2m_k_zmm
+					0x8E, 0x16,// EVEX_Vpmovw2m_kr_zmm
 		0x00,// Invalid
 
 	// 42 = 0x2A
@@ -1579,13 +1579,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0x95, 0x16,// EVEX_Vpbroadcastmb2q_xmm_k
+					0x95, 0x16,// EVEX_Vpbroadcastmb2q_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0x96, 0x16,// EVEX_Vpbroadcastmb2q_ymm_k
+					0x96, 0x16,// EVEX_Vpbroadcastmb2q_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0x97, 0x16,// EVEX_Vpbroadcastmb2q_zmm_k
+					0x97, 0x16,// EVEX_Vpbroadcastmb2q_zmm_kr
 		0x00,// Invalid
 
 	// 43 = 0x2B
@@ -1939,15 +1939,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xEC, 0x16,// EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64
+					0xEC, 0x16,// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xED, 0x16,// EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64
+					0xED, 0x16,// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xEE, 0x16,// EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64
+					0xEE, 0x16,// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 					0x03,// Full_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -1972,23 +1972,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0xF5, 0x16,// EVEX_Vpmovm2d_xmm_k
+					0xF5, 0x16,// EVEX_Vpmovm2d_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0xF6, 0x16,// EVEX_Vpmovm2d_ymm_k
+					0xF6, 0x16,// EVEX_Vpmovm2d_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0xF7, 0x16,// EVEX_Vpmovm2d_zmm_k
+					0xF7, 0x16,// EVEX_Vpmovm2d_zmm_kr
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0xF8, 0x16,// EVEX_Vpmovm2q_xmm_k
+					0xF8, 0x16,// EVEX_Vpmovm2q_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0xF9, 0x16,// EVEX_Vpmovm2q_ymm_k
+					0xF9, 0x16,// EVEX_Vpmovm2q_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0xFA, 0x16,// EVEX_Vpmovm2q_zmm_k
+					0xFA, 0x16,// EVEX_Vpmovm2q_zmm_kr
 		0x00,// Invalid
 
 	// 57 = 0x39
@@ -2025,23 +2025,23 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x1C,// KR
 					0x4D,// XMM0
-					0x84, 0x17,// EVEX_Vpmovd2m_k_xmm
+					0x84, 0x17,// EVEX_Vpmovd2m_kr_xmm
 				0x1C,// KR
 					0x6D,// YMM0
-					0x85, 0x17,// EVEX_Vpmovd2m_k_ymm
+					0x85, 0x17,// EVEX_Vpmovd2m_kr_ymm
 				0x1C,// KR
 					0x8D,// ZMM0
-					0x86, 0x17,// EVEX_Vpmovd2m_k_zmm
+					0x86, 0x17,// EVEX_Vpmovd2m_kr_zmm
 			0x09,// VectorLength
 				0x1C,// KR
 					0x4D,// XMM0
-					0x87, 0x17,// EVEX_Vpmovq2m_k_xmm
+					0x87, 0x17,// EVEX_Vpmovq2m_kr_xmm
 				0x1C,// KR
 					0x6D,// YMM0
-					0x88, 0x17,// EVEX_Vpmovq2m_k_ymm
+					0x88, 0x17,// EVEX_Vpmovq2m_kr_ymm
 				0x1C,// KR
 					0x8D,// ZMM0
-					0x89, 0x17,// EVEX_Vpmovq2m_k_zmm
+					0x89, 0x17,// EVEX_Vpmovq2m_kr_zmm
 		0x00,// Invalid
 
 	// 58 = 0x3A
@@ -2064,13 +2064,13 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x24,// VK
 					0x4D,// XMM0
-					0x90, 0x17,// EVEX_Vpbroadcastmw2d_xmm_k
+					0x90, 0x17,// EVEX_Vpbroadcastmw2d_xmm_kr
 				0x24,// VK
 					0x6D,// YMM0
-					0x91, 0x17,// EVEX_Vpbroadcastmw2d_ymm_k
+					0x91, 0x17,// EVEX_Vpbroadcastmw2d_ymm_kr
 				0x24,// VK
 					0x8D,// ZMM0
-					0x92, 0x17,// EVEX_Vpbroadcastmw2d_zmm_k
+					0x92, 0x17,// EVEX_Vpbroadcastmw2d_zmm_kr
 			0x00,// Invalid
 		0x00,// Invalid
 
@@ -3693,15 +3693,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x13,// KkHW_3
 					0x4D,// XMM0
-					0xD5, 0x19,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
+					0xD5, 0x19,// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
 					0x07,// Full_Mem_128
 				0x13,// KkHW_3
 					0x6D,// YMM0
-					0xD6, 0x19,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
+					0xD6, 0x19,// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
 					0x08,// Full_Mem_256
 				0x13,// KkHW_3
 					0x8D,// ZMM0
-					0xD7, 0x19,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
+					0xD7, 0x19,// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 					0x09,// Full_Mem_512
 			0x00,// Invalid
 		0x00,// Invalid
@@ -5690,28 +5690,28 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x18,// KkHWIb_3b
 					0x4D,// XMM0
-					0xE8, 0x1D,// EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8
+					0xE8, 0x1D,// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
 					0x01,// Full_128
 				0x18,// KkHWIb_3b
 					0x6D,// YMM0
-					0xE9, 0x1D,// EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8
+					0xE9, 0x1D,// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
 					0x02,// Full_256
 				0x18,// KkHWIb_3b
 					0x8D,// ZMM0
-					0xEA, 0x1D,// EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8
+					0xEA, 0x1D,// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
 					0x03,// Full_512
 			0x09,// VectorLength
 				0x18,// KkHWIb_3b
 					0x4D,// XMM0
-					0xEB, 0x1D,// EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8
+					0xEB, 0x1D,// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
 					0x01,// Full_128
 				0x18,// KkHWIb_3b
 					0x6D,// YMM0
-					0xEC, 0x1D,// EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8
+					0xEC, 0x1D,// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
 					0x02,// Full_256
 				0x18,// KkHWIb_3b
 					0x8D,// ZMM0
-					0xED, 0x1D,// EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8
+					0xED, 0x1D,// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
 					0x03,// Full_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -5723,28 +5723,28 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x18,// KkHWIb_3b
 					0x4D,// XMM0
-					0xEE, 0x1D,// EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8
+					0xEE, 0x1D,// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
 					0x01,// Full_128
 				0x18,// KkHWIb_3b
 					0x6D,// YMM0
-					0xEF, 0x1D,// EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8
+					0xEF, 0x1D,// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
 					0x02,// Full_256
 				0x18,// KkHWIb_3b
 					0x8D,// ZMM0
-					0xF0, 0x1D,// EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8
+					0xF0, 0x1D,// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
 					0x03,// Full_512
 			0x09,// VectorLength
 				0x18,// KkHWIb_3b
 					0x4D,// XMM0
-					0xF1, 0x1D,// EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8
+					0xF1, 0x1D,// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
 					0x01,// Full_128
 				0x18,// KkHWIb_3b
 					0x6D,// YMM0
-					0xF2, 0x1D,// EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8
+					0xF2, 0x1D,// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
 					0x02,// Full_256
 				0x18,// KkHWIb_3b
 					0x8D,// ZMM0
-					0xF3, 0x1D,// EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8
+					0xF3, 0x1D,// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 					0x03,// Full_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -6032,28 +6032,28 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x17,// KkHWIb_3
 					0x4D,// XMM0
-					0xAB, 0x1E,// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
+					0xAB, 0x1E,// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
 					0x07,// Full_Mem_128
 				0x17,// KkHWIb_3
 					0x6D,// YMM0
-					0xAC, 0x1E,// EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8
+					0xAC, 0x1E,// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
 					0x08,// Full_Mem_256
 				0x17,// KkHWIb_3
 					0x8D,// ZMM0
-					0xAD, 0x1E,// EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8
+					0xAD, 0x1E,// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
 					0x09,// Full_Mem_512
 			0x09,// VectorLength
 				0x17,// KkHWIb_3
 					0x4D,// XMM0
-					0xAE, 0x1E,// EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8
+					0xAE, 0x1E,// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
 					0x07,// Full_Mem_128
 				0x17,// KkHWIb_3
 					0x6D,// YMM0
-					0xAF, 0x1E,// EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8
+					0xAF, 0x1E,// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
 					0x08,// Full_Mem_256
 				0x17,// KkHWIb_3
 					0x8D,// ZMM0
-					0xB0, 0x1E,// EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8
+					0xB0, 0x1E,// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
 					0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -6065,28 +6065,28 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x17,// KkHWIb_3
 					0x4D,// XMM0
-					0xB1, 0x1E,// EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8
+					0xB1, 0x1E,// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
 					0x07,// Full_Mem_128
 				0x17,// KkHWIb_3
 					0x6D,// YMM0
-					0xB2, 0x1E,// EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8
+					0xB2, 0x1E,// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
 					0x08,// Full_Mem_256
 				0x17,// KkHWIb_3
 					0x8D,// ZMM0
-					0xB3, 0x1E,// EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8
+					0xB3, 0x1E,// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
 					0x09,// Full_Mem_512
 			0x09,// VectorLength
 				0x17,// KkHWIb_3
 					0x4D,// XMM0
-					0xB4, 0x1E,// EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8
+					0xB4, 0x1E,// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
 					0x07,// Full_Mem_128
 				0x17,// KkHWIb_3
 					0x6D,// YMM0
-					0xB5, 0x1E,// EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8
+					0xB5, 0x1E,// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
 					0x08,// Full_Mem_256
 				0x17,// KkHWIb_3
 					0x8D,// ZMM0
-					0xB6, 0x1E,// EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8
+					0xB6, 0x1E,// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 					0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -6325,28 +6325,28 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x1A,// KkWIb_3b
 					0x4D,// XMM0
-					0x8F, 0x1F,// EVEX_Vfpclassps_k_k1_xmmm128b32_imm8
+					0x8F, 0x1F,// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
 					0x01,// Full_128
 				0x1A,// KkWIb_3b
 					0x6D,// YMM0
-					0x90, 0x1F,// EVEX_Vfpclassps_k_k1_ymmm256b32_imm8
+					0x90, 0x1F,// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
 					0x02,// Full_256
 				0x1A,// KkWIb_3b
 					0x8D,// ZMM0
-					0x91, 0x1F,// EVEX_Vfpclassps_k_k1_zmmm512b32_imm8
+					0x91, 0x1F,// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
 					0x03,// Full_512
 			0x09,// VectorLength
 				0x1A,// KkWIb_3b
 					0x4D,// XMM0
-					0x92, 0x1F,// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
+					0x92, 0x1F,// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
 					0x01,// Full_128
 				0x1A,// KkWIb_3b
 					0x6D,// YMM0
-					0x93, 0x1F,// EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8
+					0x93, 0x1F,// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
 					0x02,// Full_256
 				0x1A,// KkWIb_3b
 					0x8D,// ZMM0
-					0x94, 0x1F,// EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8
+					0x94, 0x1F,// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
 					0x03,// Full_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -6357,11 +6357,11 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x07,// W
 			0x19,// KkWIb_3
 				0x4D,// XMM0
-				0x95, 0x1F,// EVEX_Vfpclassss_k_k1_xmmm32_imm8
+				0x95, 0x1F,// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
 				0x0A,// Tuple1_Scalar
 			0x19,// KkWIb_3
 				0x4D,// XMM0
-				0x96, 0x1F,// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
+				0x96, 0x1F,// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 				0x0A,// Tuple1_Scalar
 		0x00,// Invalid
 		0x00,// Invalid
@@ -7784,15 +7784,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// VectorLength
 			0x13,// KkHW_3
 				0x4D,// XMM0
-				0xEB, 0x0B,// EVEX_Vpcmpgtb_k_k1_xmm_xmmm128
+				0xEB, 0x0B,// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
 				0x07,// Full_Mem_128
 			0x13,// KkHW_3
 				0x6D,// YMM0
-				0xEC, 0x0B,// EVEX_Vpcmpgtb_k_k1_ymm_ymmm256
+				0xEC, 0x0B,// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
 				0x08,// Full_Mem_256
 			0x13,// KkHW_3
 				0x8D,// ZMM0
-				0xED, 0x0B,// EVEX_Vpcmpgtb_k_k1_zmm_zmmm512
+				0xED, 0x0B,// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 				0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -7803,15 +7803,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// VectorLength
 			0x13,// KkHW_3
 				0x4D,// XMM0
-				0xF2, 0x0B,// EVEX_Vpcmpgtw_k_k1_xmm_xmmm128
+				0xF2, 0x0B,// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
 				0x07,// Full_Mem_128
 			0x13,// KkHW_3
 				0x6D,// YMM0
-				0xF3, 0x0B,// EVEX_Vpcmpgtw_k_k1_ymm_ymmm256
+				0xF3, 0x0B,// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
 				0x08,// Full_Mem_256
 			0x13,// KkHW_3
 				0x8D,// ZMM0
-				0xF4, 0x0B,// EVEX_Vpcmpgtw_k_k1_zmm_zmmm512
+				0xF4, 0x0B,// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 				0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -7823,15 +7823,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xF9, 0x0B,// EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32
+					0xF9, 0x0B,// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xFA, 0x0B,// EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32
+					0xFA, 0x0B,// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xFB, 0x0B,// EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32
+					0xFB, 0x0B,// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 					0x03,// Full_512
 			0x00,// Invalid
 		0x00,// Invalid
@@ -8142,15 +8142,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// VectorLength
 			0x13,// KkHW_3
 				0x4D,// XMM0
-				0xB6, 0x0D,// EVEX_Vpcmpeqb_k_k1_xmm_xmmm128
+				0xB6, 0x0D,// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
 				0x07,// Full_Mem_128
 			0x13,// KkHW_3
 				0x6D,// YMM0
-				0xB7, 0x0D,// EVEX_Vpcmpeqb_k_k1_ymm_ymmm256
+				0xB7, 0x0D,// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
 				0x08,// Full_Mem_256
 			0x13,// KkHW_3
 				0x8D,// ZMM0
-				0xB8, 0x0D,// EVEX_Vpcmpeqb_k_k1_zmm_zmmm512
+				0xB8, 0x0D,// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 				0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -8161,15 +8161,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x09,// VectorLength
 			0x13,// KkHW_3
 				0x4D,// XMM0
-				0xBD, 0x0D,// EVEX_Vpcmpeqw_k_k1_xmm_xmmm128
+				0xBD, 0x0D,// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
 				0x07,// Full_Mem_128
 			0x13,// KkHW_3
 				0x6D,// YMM0
-				0xBE, 0x0D,// EVEX_Vpcmpeqw_k_k1_ymm_ymmm256
+				0xBE, 0x0D,// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
 				0x08,// Full_Mem_256
 			0x13,// KkHW_3
 				0x8D,// ZMM0
-				0xBF, 0x0D,// EVEX_Vpcmpeqw_k_k1_zmm_zmmm512
+				0xBF, 0x0D,// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 				0x09,// Full_Mem_512
 		0x00,// Invalid
 		0x00,// Invalid
@@ -8181,15 +8181,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x09,// VectorLength
 				0x14,// KkHW_3b
 					0x4D,// XMM0
-					0xC4, 0x0D,// EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32
+					0xC4, 0x0D,// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
 					0x01,// Full_128
 				0x14,// KkHW_3b
 					0x6D,// YMM0
-					0xC5, 0x0D,// EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32
+					0xC5, 0x0D,// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
 					0x02,// Full_256
 				0x14,// KkHW_3b
 					0x8D,// ZMM0
-					0xC6, 0x0D,// EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32
+					0xC6, 0x0D,// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 					0x03,// Full_512
 			0x00,// Invalid
 		0x00,// Invalid
@@ -8674,15 +8674,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0A,// VectorLength_er
 				0x16,// KkHWIb_sae_3b
 					0x4D,// XMM0
-					0xDF, 0x10,// EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8
+					0xDF, 0x10,// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
 					0x01,// Full_128
 				0x16,// KkHWIb_sae_3b
 					0x6D,// YMM0
-					0xE0, 0x10,// EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8
+					0xE0, 0x10,// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
 					0x02,// Full_256
 				0x16,// KkHWIb_sae_3b
 					0x8D,// ZMM0
-					0xE1, 0x10,// EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae
+					0xE1, 0x10,// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 					0x03,// Full_512
 			0x00,// Invalid
 		0x07,// W
@@ -8690,27 +8690,27 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x0A,// VectorLength_er
 				0x16,// KkHWIb_sae_3b
 					0x4D,// XMM0
-					0xE5, 0x10,// EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8
+					0xE5, 0x10,// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
 					0x01,// Full_128
 				0x16,// KkHWIb_sae_3b
 					0x6D,// YMM0
-					0xE6, 0x10,// EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8
+					0xE6, 0x10,// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
 					0x02,// Full_256
 				0x16,// KkHWIb_sae_3b
 					0x8D,// ZMM0
-					0xE7, 0x10,// EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae
+					0xE7, 0x10,// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 					0x03,// Full_512
 		0x07,// W
 			0x15,// KkHWIb_sae_3
 				0x4D,// XMM0
-				0xEA, 0x10,// EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae
+				0xEA, 0x10,// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 				0x0A,// Tuple1_Scalar
 			0x00,// Invalid
 		0x07,// W
 			0x00,// Invalid
 			0x15,// KkHWIb_sae_3
 				0x4D,// XMM0
-				0xED, 0x10,// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
+				0xED, 0x10,// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 				0x0A,// Tuple1_Scalar
 
 	// 195 = 0xC3

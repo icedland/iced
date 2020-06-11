@@ -9749,7 +9749,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandw_k_k_k = 1217,
+	VEX_Kandw_kr_kr_kr = 1217,
 	/// `KANDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 41 /r`
@@ -9757,7 +9757,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandq_k_k_k = 1218,
+	VEX_Kandq_kr_kr_kr = 1218,
 	/// `KANDB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 41 /r`
@@ -9765,7 +9765,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandb_k_k_k = 1219,
+	VEX_Kandb_kr_kr_kr = 1219,
 	/// `KANDD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 41 /r`
@@ -9773,7 +9773,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandd_k_k_k = 1220,
+	VEX_Kandd_kr_kr_kr = 1220,
 	/// `KANDNW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 42 /r`
@@ -9781,7 +9781,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnw_k_k_k = 1221,
+	VEX_Kandnw_kr_kr_kr = 1221,
 	/// `KANDNQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 42 /r`
@@ -9789,7 +9789,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnq_k_k_k = 1222,
+	VEX_Kandnq_kr_kr_kr = 1222,
 	/// `KANDNB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 42 /r`
@@ -9797,7 +9797,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnb_k_k_k = 1223,
+	VEX_Kandnb_kr_kr_kr = 1223,
 	/// `KANDND k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 42 /r`
@@ -9805,7 +9805,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kandnd_k_k_k = 1224,
+	VEX_Kandnd_kr_kr_kr = 1224,
 	/// `KNOTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 44 /r`
@@ -9813,7 +9813,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotw_k_k = 1225,
+	VEX_Knotw_kr_kr = 1225,
 	/// `KNOTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 44 /r`
@@ -9821,7 +9821,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotq_k_k = 1226,
+	VEX_Knotq_kr_kr = 1226,
 	/// `KNOTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 44 /r`
@@ -9829,7 +9829,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotb_k_k = 1227,
+	VEX_Knotb_kr_kr = 1227,
 	/// `KNOTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 44 /r`
@@ -9837,7 +9837,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Knotd_k_k = 1228,
+	VEX_Knotd_kr_kr = 1228,
 	/// `KORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 45 /r`
@@ -9845,7 +9845,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Korw_k_k_k = 1229,
+	VEX_Korw_kr_kr_kr = 1229,
 	/// `KORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 45 /r`
@@ -9853,7 +9853,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Korq_k_k_k = 1230,
+	VEX_Korq_kr_kr_kr = 1230,
 	/// `KORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 45 /r`
@@ -9861,7 +9861,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Korb_k_k_k = 1231,
+	VEX_Korb_kr_kr_kr = 1231,
 	/// `KORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 45 /r`
@@ -9869,7 +9869,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kord_k_k_k = 1232,
+	VEX_Kord_kr_kr_kr = 1232,
 	/// `KXNORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 46 /r`
@@ -9877,7 +9877,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorw_k_k_k = 1233,
+	VEX_Kxnorw_kr_kr_kr = 1233,
 	/// `KXNORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 46 /r`
@@ -9885,7 +9885,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorq_k_k_k = 1234,
+	VEX_Kxnorq_kr_kr_kr = 1234,
 	/// `KXNORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 46 /r`
@@ -9893,7 +9893,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnorb_k_k_k = 1235,
+	VEX_Kxnorb_kr_kr_kr = 1235,
 	/// `KXNORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 46 /r`
@@ -9901,7 +9901,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxnord_k_k_k = 1236,
+	VEX_Kxnord_kr_kr_kr = 1236,
 	/// `KXORW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 47 /r`
@@ -9909,7 +9909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorw_k_k_k = 1237,
+	VEX_Kxorw_kr_kr_kr = 1237,
 	/// `KXORQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 47 /r`
@@ -9917,7 +9917,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorq_k_k_k = 1238,
+	VEX_Kxorq_kr_kr_kr = 1238,
 	/// `KXORB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 47 /r`
@@ -9925,7 +9925,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxorb_k_k_k = 1239,
+	VEX_Kxorb_kr_kr_kr = 1239,
 	/// `KXORD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 47 /r`
@@ -9933,7 +9933,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kxord_k_k_k = 1240,
+	VEX_Kxord_kr_kr_kr = 1240,
 	/// `KADDW k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 4A /r`
@@ -9941,7 +9941,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddw_k_k_k = 1241,
+	VEX_Kaddw_kr_kr_kr = 1241,
 	/// `KADDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 4A /r`
@@ -9949,7 +9949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddq_k_k_k = 1242,
+	VEX_Kaddq_kr_kr_kr = 1242,
 	/// `KADDB k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 4A /r`
@@ -9957,7 +9957,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddb_k_k_k = 1243,
+	VEX_Kaddb_kr_kr_kr = 1243,
 	/// `KADDD k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W1 4A /r`
@@ -9965,7 +9965,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kaddd_k_k_k = 1244,
+	VEX_Kaddd_kr_kr_kr = 1244,
 	/// `KUNPCKWD k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W0 4B /r`
@@ -9973,7 +9973,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckwd_k_k_k = 1245,
+	VEX_Kunpckwd_kr_kr_kr = 1245,
 	/// `KUNPCKDQ k1, k2, k3`
 	///
 	/// `VEX.L1.0F.W1 4B /r`
@@ -9981,7 +9981,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckdq_k_k_k = 1246,
+	VEX_Kunpckdq_kr_kr_kr = 1246,
 	/// `KUNPCKBW k1, k2, k3`
 	///
 	/// `VEX.L1.66.0F.W0 4B /r`
@@ -9989,7 +9989,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kunpckbw_k_k_k = 1247,
+	VEX_Kunpckbw_kr_kr_kr = 1247,
 	/// `MOVMSKPS r32, xmm`
 	///
 	/// `NP 0F 50 /r`
@@ -12133,7 +12133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_xmm_xmmm128 = 1515,
+	EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128 = 1515,
 	/// `VPCMPGTB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 64 /r`
@@ -12141,7 +12141,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_ymm_ymmm256 = 1516,
+	EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256 = 1516,
 	/// `VPCMPGTB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 64 /r`
@@ -12149,7 +12149,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtb_k_k1_zmm_zmmm512 = 1517,
+	EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512 = 1517,
 	/// `PCMPGTW mm, mm/m64`
 	///
 	/// `NP 0F 65 /r`
@@ -12189,7 +12189,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_xmm_xmmm128 = 1522,
+	EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128 = 1522,
 	/// `VPCMPGTW k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 65 /r`
@@ -12197,7 +12197,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_ymm_ymmm256 = 1523,
+	EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256 = 1523,
 	/// `VPCMPGTW k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 65 /r`
@@ -12205,7 +12205,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtw_k_k1_zmm_zmmm512 = 1524,
+	EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512 = 1524,
 	/// `PCMPGTD mm, mm/m64`
 	///
 	/// `NP 0F 66 /r`
@@ -12245,7 +12245,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32 = 1529,
+	EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32 = 1529,
 	/// `VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 66 /r`
@@ -12253,7 +12253,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32 = 1530,
+	EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32 = 1530,
 	/// `VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 66 /r`
@@ -12261,7 +12261,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32 = 1531,
+	EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32 = 1531,
 	/// `PACKUSWB mm, mm/m64`
 	///
 	/// `NP 0F 67 /r`
@@ -13757,7 +13757,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_xmm_xmmm128 = 1718,
+	EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128 = 1718,
 	/// `VPCMPEQB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 74 /r`
@@ -13765,7 +13765,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_ymm_ymmm256 = 1719,
+	EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256 = 1719,
 	/// `VPCMPEQB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 74 /r`
@@ -13773,7 +13773,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqb_k_k1_zmm_zmmm512 = 1720,
+	EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512 = 1720,
 	/// `PCMPEQW mm, mm/m64`
 	///
 	/// `NP 0F 75 /r`
@@ -13813,7 +13813,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_xmm_xmmm128 = 1725,
+	EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128 = 1725,
 	/// `VPCMPEQW k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F.WIG 75 /r`
@@ -13821,7 +13821,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_ymm_ymmm256 = 1726,
+	EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256 = 1726,
 	/// `VPCMPEQW k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F.WIG 75 /r`
@@ -13829,7 +13829,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqw_k_k1_zmm_zmmm512 = 1727,
+	EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512 = 1727,
 	/// `PCMPEQD mm, mm/m64`
 	///
 	/// `NP 0F 76 /r`
@@ -13869,7 +13869,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32 = 1732,
+	EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32 = 1732,
 	/// `VPCMPEQD k1 {k2}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F.W0 76 /r`
@@ -13877,7 +13877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32 = 1733,
+	EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32 = 1733,
 	/// `VPCMPEQD k1 {k2}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F.W0 76 /r`
@@ -13885,7 +13885,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32 = 1734,
+	EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32 = 1734,
 	/// `EMMS`
 	///
 	/// `NP 0F 77`
@@ -15357,7 +15357,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_k_km16 = 1918,
+	VEX_Kmovw_kr_km16 = 1918,
 	/// `KMOVQ k1, k2/m64`
 	///
 	/// `VEX.L0.0F.W1 90 /r`
@@ -15365,7 +15365,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovq_k_km64 = 1919,
+	VEX_Kmovq_kr_km64 = 1919,
 	/// `KMOVB k1, k2/m8`
 	///
 	/// `VEX.L0.66.0F.W0 90 /r`
@@ -15373,7 +15373,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_k_km8 = 1920,
+	VEX_Kmovb_kr_km8 = 1920,
 	/// `KMOVD k1, k2/m32`
 	///
 	/// `VEX.L0.66.0F.W1 90 /r`
@@ -15381,7 +15381,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_k_km32 = 1921,
+	VEX_Kmovd_kr_km32 = 1921,
 	/// `KMOVW m16, k1`
 	///
 	/// `VEX.L0.0F.W0 91 /r`
@@ -15389,7 +15389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_m16_k = 1922,
+	VEX_Kmovw_m16_kr = 1922,
 	/// `KMOVQ m64, k1`
 	///
 	/// `VEX.L0.0F.W1 91 /r`
@@ -15397,7 +15397,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovq_m64_k = 1923,
+	VEX_Kmovq_m64_kr = 1923,
 	/// `KMOVB m8, k1`
 	///
 	/// `VEX.L0.66.0F.W0 91 /r`
@@ -15405,7 +15405,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_m8_k = 1924,
+	VEX_Kmovb_m8_kr = 1924,
 	/// `KMOVD m32, k1`
 	///
 	/// `VEX.L0.66.0F.W1 91 /r`
@@ -15413,7 +15413,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_m32_k = 1925,
+	VEX_Kmovd_m32_kr = 1925,
 	/// `KMOVW k1, r32`
 	///
 	/// `VEX.L0.0F.W0 92 /r`
@@ -15421,7 +15421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_k_r32 = 1926,
+	VEX_Kmovw_kr_r32 = 1926,
 	/// `KMOVB k1, r32`
 	///
 	/// `VEX.L0.66.0F.W0 92 /r`
@@ -15429,7 +15429,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_k_r32 = 1927,
+	VEX_Kmovb_kr_r32 = 1927,
 	/// `KMOVD k1, r32`
 	///
 	/// `VEX.L0.F2.0F.W0 92 /r`
@@ -15437,7 +15437,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_k_r32 = 1928,
+	VEX_Kmovd_kr_r32 = 1928,
 	/// `KMOVQ k1, r64`
 	///
 	/// `VEX.L0.F2.0F.W1 92 /r`
@@ -15445,7 +15445,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	VEX_Kmovq_k_r64 = 1929,
+	VEX_Kmovq_kr_r64 = 1929,
 	/// `KMOVW r32, k1`
 	///
 	/// `VEX.L0.0F.W0 93 /r`
@@ -15453,7 +15453,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovw_r32_k = 1930,
+	VEX_Kmovw_r32_kr = 1930,
 	/// `KMOVB r32, k1`
 	///
 	/// `VEX.L0.66.0F.W0 93 /r`
@@ -15461,7 +15461,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovb_r32_k = 1931,
+	VEX_Kmovb_r32_kr = 1931,
 	/// `KMOVD r32, k1`
 	///
 	/// `VEX.L0.F2.0F.W0 93 /r`
@@ -15469,7 +15469,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kmovd_r32_k = 1932,
+	VEX_Kmovd_r32_kr = 1932,
 	/// `KMOVQ r64, k1`
 	///
 	/// `VEX.L0.F2.0F.W1 93 /r`
@@ -15477,7 +15477,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `64-bit`
-	VEX_Kmovq_r64_k = 1933,
+	VEX_Kmovq_r64_kr = 1933,
 	/// `KORTESTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 98 /r`
@@ -15485,7 +15485,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestw_k_k = 1934,
+	VEX_Kortestw_kr_kr = 1934,
 	/// `KORTESTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 98 /r`
@@ -15493,7 +15493,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestq_k_k = 1935,
+	VEX_Kortestq_kr_kr = 1935,
 	/// `KORTESTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 98 /r`
@@ -15501,7 +15501,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestb_k_k = 1936,
+	VEX_Kortestb_kr_kr = 1936,
 	/// `KORTESTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 98 /r`
@@ -15509,7 +15509,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kortestd_k_k = 1937,
+	VEX_Kortestd_kr_kr = 1937,
 	/// `KTESTW k1, k2`
 	///
 	/// `VEX.L0.0F.W0 99 /r`
@@ -15517,7 +15517,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestw_k_k = 1938,
+	VEX_Ktestw_kr_kr = 1938,
 	/// `KTESTQ k1, k2`
 	///
 	/// `VEX.L0.0F.W1 99 /r`
@@ -15525,7 +15525,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestq_k_k = 1939,
+	VEX_Ktestq_kr_kr = 1939,
 	/// `KTESTB k1, k2`
 	///
 	/// `VEX.L0.66.0F.W0 99 /r`
@@ -15533,7 +15533,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestb_k_k = 1940,
+	VEX_Ktestb_kr_kr = 1940,
 	/// `KTESTD k1, k2`
 	///
 	/// `VEX.L0.66.0F.W1 99 /r`
@@ -15541,7 +15541,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Ktestd_k_k = 1941,
+	VEX_Ktestd_kr_kr = 1941,
 	/// `PUSH FS`
 	///
 	/// `o16 0F A0`
@@ -17157,7 +17157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8 = 2143,
+	EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8 = 2143,
 	/// `VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.0F.W0 C2 /r ib`
@@ -17165,7 +17165,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8 = 2144,
+	EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8 = 2144,
 	/// `VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8`
 	///
 	/// `EVEX.512.0F.W0 C2 /r ib`
@@ -17173,7 +17173,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae = 2145,
+	EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae = 2145,
 	/// `CMPPD xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F C2 /r ib`
@@ -17205,7 +17205,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8 = 2149,
+	EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8 = 2149,
 	/// `VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F.W1 C2 /r ib`
@@ -17213,7 +17213,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8 = 2150,
+	EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8 = 2150,
 	/// `VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8`
 	///
 	/// `EVEX.512.66.0F.W1 C2 /r ib`
@@ -17221,7 +17221,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae = 2151,
+	EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae = 2151,
 	/// `CMPSS xmm1, xmm2/m32, imm8`
 	///
 	/// `F3 0F C2 /r ib`
@@ -17245,7 +17245,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae = 2154,
+	EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae = 2154,
 	/// `CMPSD xmm1, xmm2/m64, imm8`
 	///
 	/// `F2 0F C2 /r ib`
@@ -17269,7 +17269,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae = 2157,
+	EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae = 2157,
 	/// `MOVNTI m32, r32`
 	///
 	/// `NP 0F C3 /r`
@@ -22277,7 +22277,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_xmm_xmmm128 = 2783,
+	EVEX_Vptestmb_kr_k1_xmm_xmmm128 = 2783,
 	/// `VPTESTMB k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 26 /r`
@@ -22285,7 +22285,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_ymm_ymmm256 = 2784,
+	EVEX_Vptestmb_kr_k1_ymm_ymmm256 = 2784,
 	/// `VPTESTMB k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 26 /r`
@@ -22293,7 +22293,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmb_k_k1_zmm_zmmm512 = 2785,
+	EVEX_Vptestmb_kr_k1_zmm_zmmm512 = 2785,
 	/// `VPTESTMW k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.66.0F38.W1 26 /r`
@@ -22301,7 +22301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_xmm_xmmm128 = 2786,
+	EVEX_Vptestmw_kr_k1_xmm_xmmm128 = 2786,
 	/// `VPTESTMW k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W1 26 /r`
@@ -22309,7 +22309,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_ymm_ymmm256 = 2787,
+	EVEX_Vptestmw_kr_k1_ymm_ymmm256 = 2787,
 	/// `VPTESTMW k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W1 26 /r`
@@ -22317,7 +22317,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmw_k_k1_zmm_zmmm512 = 2788,
+	EVEX_Vptestmw_kr_k1_zmm_zmmm512 = 2788,
 	/// `VPTESTNMB k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.F3.0F38.W0 26 /r`
@@ -22325,7 +22325,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_xmm_xmmm128 = 2789,
+	EVEX_Vptestnmb_kr_k1_xmm_xmmm128 = 2789,
 	/// `VPTESTNMB k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.F3.0F38.W0 26 /r`
@@ -22333,7 +22333,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_ymm_ymmm256 = 2790,
+	EVEX_Vptestnmb_kr_k1_ymm_ymmm256 = 2790,
 	/// `VPTESTNMB k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.F3.0F38.W0 26 /r`
@@ -22341,7 +22341,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmb_k_k1_zmm_zmmm512 = 2791,
+	EVEX_Vptestnmb_kr_k1_zmm_zmmm512 = 2791,
 	/// `VPTESTNMW k2 {k1}, xmm2, xmm3/m128`
 	///
 	/// `EVEX.128.F3.0F38.W1 26 /r`
@@ -22349,7 +22349,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_xmm_xmmm128 = 2792,
+	EVEX_Vptestnmw_kr_k1_xmm_xmmm128 = 2792,
 	/// `VPTESTNMW k2 {k1}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.F3.0F38.W1 26 /r`
@@ -22357,7 +22357,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_ymm_ymmm256 = 2793,
+	EVEX_Vptestnmw_kr_k1_ymm_ymmm256 = 2793,
 	/// `VPTESTNMW k2 {k1}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.F3.0F38.W1 26 /r`
@@ -22365,7 +22365,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmw_k_k1_zmm_zmmm512 = 2794,
+	EVEX_Vptestnmw_kr_k1_zmm_zmmm512 = 2794,
 	/// `VPTESTMD k2 {k1}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.66.0F38.W0 27 /r`
@@ -22373,7 +22373,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_xmm_xmmm128b32 = 2795,
+	EVEX_Vptestmd_kr_k1_xmm_xmmm128b32 = 2795,
 	/// `VPTESTMD k2 {k1}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.66.0F38.W0 27 /r`
@@ -22381,7 +22381,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_ymm_ymmm256b32 = 2796,
+	EVEX_Vptestmd_kr_k1_ymm_ymmm256b32 = 2796,
 	/// `VPTESTMD k2 {k1}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.66.0F38.W0 27 /r`
@@ -22389,7 +22389,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmd_k_k1_zmm_zmmm512b32 = 2797,
+	EVEX_Vptestmd_kr_k1_zmm_zmmm512b32 = 2797,
 	/// `VPTESTMQ k2 {k1}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.66.0F38.W1 27 /r`
@@ -22397,7 +22397,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_xmm_xmmm128b64 = 2798,
+	EVEX_Vptestmq_kr_k1_xmm_xmmm128b64 = 2798,
 	/// `VPTESTMQ k2 {k1}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 27 /r`
@@ -22405,7 +22405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_ymm_ymmm256b64 = 2799,
+	EVEX_Vptestmq_kr_k1_ymm_ymmm256b64 = 2799,
 	/// `VPTESTMQ k2 {k1}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 27 /r`
@@ -22413,7 +22413,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestmq_k_k1_zmm_zmmm512b64 = 2800,
+	EVEX_Vptestmq_kr_k1_zmm_zmmm512b64 = 2800,
 	/// `VPTESTNMD k2 {k1}, xmm2, xmm3/m128/m32bcst`
 	///
 	/// `EVEX.128.F3.0F38.W0 27 /r`
@@ -22421,7 +22421,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_xmm_xmmm128b32 = 2801,
+	EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32 = 2801,
 	/// `VPTESTNMD k2 {k1}, ymm2, ymm3/m256/m32bcst`
 	///
 	/// `EVEX.256.F3.0F38.W0 27 /r`
@@ -22429,7 +22429,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_ymm_ymmm256b32 = 2802,
+	EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32 = 2802,
 	/// `VPTESTNMD k2 {k1}, zmm2, zmm3/m512/m32bcst`
 	///
 	/// `EVEX.512.F3.0F38.W0 27 /r`
@@ -22437,7 +22437,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmd_k_k1_zmm_zmmm512b32 = 2803,
+	EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32 = 2803,
 	/// `VPTESTNMQ k2 {k1}, xmm2, xmm3/m128/m64bcst`
 	///
 	/// `EVEX.128.F3.0F38.W1 27 /r`
@@ -22445,7 +22445,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_xmm_xmmm128b64 = 2804,
+	EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64 = 2804,
 	/// `VPTESTNMQ k2 {k1}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.F3.0F38.W1 27 /r`
@@ -22453,7 +22453,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_ymm_ymmm256b64 = 2805,
+	EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64 = 2805,
 	/// `VPTESTNMQ k2 {k1}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.F3.0F38.W1 27 /r`
@@ -22461,7 +22461,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vptestnmq_k_k1_zmm_zmmm512b64 = 2806,
+	EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64 = 2806,
 	/// `PMULDQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 28 /r`
@@ -22517,7 +22517,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_xmm_k = 2813,
+	EVEX_Vpmovm2b_xmm_kr = 2813,
 	/// `VPMOVM2B ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 28 /r`
@@ -22525,7 +22525,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_ymm_k = 2814,
+	EVEX_Vpmovm2b_ymm_kr = 2814,
 	/// `VPMOVM2B zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 28 /r`
@@ -22533,7 +22533,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2b_zmm_k = 2815,
+	EVEX_Vpmovm2b_zmm_kr = 2815,
 	/// `VPMOVM2W xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W1 28 /r`
@@ -22541,7 +22541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_xmm_k = 2816,
+	EVEX_Vpmovm2w_xmm_kr = 2816,
 	/// `VPMOVM2W ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 28 /r`
@@ -22549,7 +22549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_ymm_k = 2817,
+	EVEX_Vpmovm2w_ymm_kr = 2817,
 	/// `VPMOVM2W zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 28 /r`
@@ -22557,7 +22557,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2w_zmm_k = 2818,
+	EVEX_Vpmovm2w_zmm_kr = 2818,
 	/// `PCMPEQQ xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 29 /r`
@@ -22589,7 +22589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64 = 2822,
+	EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64 = 2822,
 	/// `VPCMPEQQ k1 {k2}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 29 /r`
@@ -22597,7 +22597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64 = 2823,
+	EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64 = 2823,
 	/// `VPCMPEQQ k1 {k2}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 29 /r`
@@ -22605,7 +22605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64 = 2824,
+	EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64 = 2824,
 	/// `VPMOVB2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W0 29 /r`
@@ -22613,7 +22613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_xmm = 2825,
+	EVEX_Vpmovb2m_kr_xmm = 2825,
 	/// `VPMOVB2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W0 29 /r`
@@ -22621,7 +22621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_ymm = 2826,
+	EVEX_Vpmovb2m_kr_ymm = 2826,
 	/// `VPMOVB2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W0 29 /r`
@@ -22629,7 +22629,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovb2m_k_zmm = 2827,
+	EVEX_Vpmovb2m_kr_zmm = 2827,
 	/// `VPMOVW2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W1 29 /r`
@@ -22637,7 +22637,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_xmm = 2828,
+	EVEX_Vpmovw2m_kr_xmm = 2828,
 	/// `VPMOVW2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W1 29 /r`
@@ -22645,7 +22645,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_ymm = 2829,
+	EVEX_Vpmovw2m_kr_ymm = 2829,
 	/// `VPMOVW2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W1 29 /r`
@@ -22653,7 +22653,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovw2m_k_zmm = 2830,
+	EVEX_Vpmovw2m_kr_zmm = 2830,
 	/// `MOVNTDQA xmm1, m128`
 	///
 	/// `66 0F 38 2A /r`
@@ -22709,7 +22709,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_xmm_k = 2837,
+	EVEX_Vpbroadcastmb2q_xmm_kr = 2837,
 	/// `VPBROADCASTMB2Q ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 2A /r`
@@ -22717,7 +22717,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_ymm_k = 2838,
+	EVEX_Vpbroadcastmb2q_ymm_kr = 2838,
 	/// `VPBROADCASTMB2Q zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 2A /r`
@@ -22725,7 +22725,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmb2q_zmm_k = 2839,
+	EVEX_Vpbroadcastmb2q_zmm_kr = 2839,
 	/// `PACKUSDW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 2B /r`
@@ -23405,7 +23405,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64 = 2924,
+	EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64 = 2924,
 	/// `VPCMPGTQ k1 {k2}, ymm2, ymm3/m256/m64bcst`
 	///
 	/// `EVEX.256.66.0F38.W1 37 /r`
@@ -23413,7 +23413,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64 = 2925,
+	EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64 = 2925,
 	/// `VPCMPGTQ k1 {k2}, zmm2, zmm3/m512/m64bcst`
 	///
 	/// `EVEX.512.66.0F38.W1 37 /r`
@@ -23421,7 +23421,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64 = 2926,
+	EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64 = 2926,
 	/// `PMINSB xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 38 /r`
@@ -23477,7 +23477,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_xmm_k = 2933,
+	EVEX_Vpmovm2d_xmm_kr = 2933,
 	/// `VPMOVM2D ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 38 /r`
@@ -23485,7 +23485,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_ymm_k = 2934,
+	EVEX_Vpmovm2d_ymm_kr = 2934,
 	/// `VPMOVM2D zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 38 /r`
@@ -23493,7 +23493,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2d_zmm_k = 2935,
+	EVEX_Vpmovm2d_zmm_kr = 2935,
 	/// `VPMOVM2Q xmm1, k1`
 	///
 	/// `EVEX.128.F3.0F38.W1 38 /r`
@@ -23501,7 +23501,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_xmm_k = 2936,
+	EVEX_Vpmovm2q_xmm_kr = 2936,
 	/// `VPMOVM2Q ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W1 38 /r`
@@ -23509,7 +23509,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_ymm_k = 2937,
+	EVEX_Vpmovm2q_ymm_kr = 2937,
 	/// `VPMOVM2Q zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W1 38 /r`
@@ -23517,7 +23517,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovm2q_zmm_k = 2938,
+	EVEX_Vpmovm2q_zmm_kr = 2938,
 	/// `PMINSD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 39 /r`
@@ -23594,50 +23594,50 @@ pub enum Code {
 	///
 	/// `EVEX.128.F3.0F38.W0 39 /r`
 	///
-	/// `AVX512VL and AVX512BW`
+	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_xmm = 2948,
+	EVEX_Vpmovd2m_kr_xmm = 2948,
 	/// `VPMOVD2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W0 39 /r`
 	///
-	/// `AVX512VL and AVX512BW`
+	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_ymm = 2949,
+	EVEX_Vpmovd2m_kr_ymm = 2949,
 	/// `VPMOVD2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W0 39 /r`
 	///
-	/// `AVX512BW`
+	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovd2m_k_zmm = 2950,
+	EVEX_Vpmovd2m_kr_zmm = 2950,
 	/// `VPMOVQ2M k1, xmm1`
 	///
 	/// `EVEX.128.F3.0F38.W1 39 /r`
 	///
-	/// `AVX512VL and AVX512BW`
+	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_xmm = 2951,
+	EVEX_Vpmovq2m_kr_xmm = 2951,
 	/// `VPMOVQ2M k1, ymm1`
 	///
 	/// `EVEX.256.F3.0F38.W1 39 /r`
 	///
-	/// `AVX512VL and AVX512BW`
+	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_ymm = 2952,
+	EVEX_Vpmovq2m_kr_ymm = 2952,
 	/// `VPMOVQ2M k1, zmm1`
 	///
 	/// `EVEX.512.F3.0F38.W1 39 /r`
 	///
-	/// `AVX512BW`
+	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpmovq2m_k_zmm = 2953,
+	EVEX_Vpmovq2m_kr_zmm = 2953,
 	/// `PMINUW xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3A /r`
@@ -23693,7 +23693,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_xmm_k = 2960,
+	EVEX_Vpbroadcastmw2d_xmm_kr = 2960,
 	/// `VPBROADCASTMW2D ymm1, k1`
 	///
 	/// `EVEX.256.F3.0F38.W0 3A /r`
@@ -23701,7 +23701,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_ymm_k = 2961,
+	EVEX_Vpbroadcastmw2d_ymm_kr = 2961,
 	/// `VPBROADCASTMW2D zmm1, k1`
 	///
 	/// `EVEX.512.F3.0F38.W0 3A /r`
@@ -23709,7 +23709,7 @@ pub enum Code {
 	/// `AVX512CD`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpbroadcastmw2d_zmm_k = 2962,
+	EVEX_Vpbroadcastmw2d_zmm_kr = 2962,
 	/// `PMINUD xmm1, xmm2/m128`
 	///
 	/// `66 0F 38 3B /r`
@@ -26293,7 +26293,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128 = 3285,
+	EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128 = 3285,
 	/// `VPSHUFBITQMB k1 {k2}, ymm2, ymm3/m256`
 	///
 	/// `EVEX.256.66.0F38.W0 8F /r`
@@ -26301,7 +26301,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256 = 3286,
+	EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256 = 3286,
 	/// `VPSHUFBITQMB k1 {k2}, zmm2, zmm3/m512`
 	///
 	/// `EVEX.512.66.0F38.W0 8F /r`
@@ -26309,7 +26309,7 @@ pub enum Code {
 	/// `AVX512_BITALG`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512 = 3287,
+	EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512 = 3287,
 	/// `VPGATHERDD xmm1, vm32x, xmm2`
 	///
 	/// `VEX.128.66.0F38.W0 90 /r`
@@ -30541,7 +30541,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8 = 3816,
+	EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8 = 3816,
 	/// `VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 1E /r ib`
@@ -30549,7 +30549,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8 = 3817,
+	EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8 = 3817,
 	/// `VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1E /r ib`
@@ -30557,7 +30557,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8 = 3818,
+	EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8 = 3818,
 	/// `VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 1E /r ib`
@@ -30565,7 +30565,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8 = 3819,
+	EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8 = 3819,
 	/// `VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 1E /r ib`
@@ -30573,7 +30573,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8 = 3820,
+	EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8 = 3820,
 	/// `VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1E /r ib`
@@ -30581,7 +30581,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8 = 3821,
+	EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8 = 3821,
 	/// `VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 1F /r ib`
@@ -30589,7 +30589,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8 = 3822,
+	EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8 = 3822,
 	/// `VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 1F /r ib`
@@ -30597,7 +30597,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8 = 3823,
+	EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8 = 3823,
 	/// `VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 1F /r ib`
@@ -30605,7 +30605,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8 = 3824,
+	EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8 = 3824,
 	/// `VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 1F /r ib`
@@ -30613,7 +30613,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8 = 3825,
+	EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8 = 3825,
 	/// `VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 1F /r ib`
@@ -30621,7 +30621,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8 = 3826,
+	EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8 = 3826,
 	/// `VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 1F /r ib`
@@ -30629,7 +30629,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8 = 3827,
+	EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8 = 3827,
 	/// `PINSRB xmm1, r32/m8, imm8`
 	///
 	/// `66 0F 3A 20 /r ib`
@@ -30901,7 +30901,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrb_k_k_imm8 = 3861,
+	VEX_Kshiftrb_kr_kr_imm8 = 3861,
 	/// `KSHIFTRW k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 30 /r ib`
@@ -30909,7 +30909,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrw_k_k_imm8 = 3862,
+	VEX_Kshiftrw_kr_kr_imm8 = 3862,
 	/// `KSHIFTRD k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 31 /r ib`
@@ -30917,7 +30917,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrd_k_k_imm8 = 3863,
+	VEX_Kshiftrd_kr_kr_imm8 = 3863,
 	/// `KSHIFTRQ k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 31 /r ib`
@@ -30925,7 +30925,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftrq_k_k_imm8 = 3864,
+	VEX_Kshiftrq_kr_kr_imm8 = 3864,
 	/// `KSHIFTLB k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 32 /r ib`
@@ -30933,7 +30933,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlb_k_k_imm8 = 3865,
+	VEX_Kshiftlb_kr_kr_imm8 = 3865,
 	/// `KSHIFTLW k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 32 /r ib`
@@ -30941,7 +30941,7 @@ pub enum Code {
 	/// `AVX512F`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlw_k_k_imm8 = 3866,
+	VEX_Kshiftlw_kr_kr_imm8 = 3866,
 	/// `KSHIFTLD k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W0 33 /r ib`
@@ -30949,7 +30949,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftld_k_k_imm8 = 3867,
+	VEX_Kshiftld_kr_kr_imm8 = 3867,
 	/// `KSHIFTLQ k1, k2, imm8`
 	///
 	/// `VEX.L0.66.0F3A.W1 33 /r ib`
@@ -30957,12 +30957,12 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	VEX_Kshiftlq_k_k_imm8 = 3868,
+	VEX_Kshiftlq_kr_kr_imm8 = 3868,
 	/// `VINSERTI128 ymm1, ymm2, xmm3/m128, imm8`
 	///
 	/// `VEX.256.66.0F3A.W0 38 /r ib`
 	///
-	/// `AVX`
+	/// `AVX2`
 	///
 	/// `16/32/64-bit`
 	VEX_Vinserti128_ymm_ymm_xmmm128_imm8 = 3869,
@@ -31077,7 +31077,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8 = 3883,
+	EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8 = 3883,
 	/// `VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 3E /r ib`
@@ -31085,7 +31085,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8 = 3884,
+	EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8 = 3884,
 	/// `VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3E /r ib`
@@ -31093,7 +31093,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8 = 3885,
+	EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8 = 3885,
 	/// `VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 3E /r ib`
@@ -31101,7 +31101,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8 = 3886,
+	EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8 = 3886,
 	/// `VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 3E /r ib`
@@ -31109,7 +31109,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8 = 3887,
+	EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8 = 3887,
 	/// `VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3E /r ib`
@@ -31117,7 +31117,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8 = 3888,
+	EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8 = 3888,
 	/// `VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W0 3F /r ib`
@@ -31125,7 +31125,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8 = 3889,
+	EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8 = 3889,
 	/// `VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 3F /r ib`
@@ -31133,7 +31133,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8 = 3890,
+	EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8 = 3890,
 	/// `VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 3F /r ib`
@@ -31141,7 +31141,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8 = 3891,
+	EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8 = 3891,
 	/// `VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 3F /r ib`
@@ -31149,7 +31149,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8 = 3892,
+	EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8 = 3892,
 	/// `VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 3F /r ib`
@@ -31157,7 +31157,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8 = 3893,
+	EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8 = 3893,
 	/// `VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 3F /r ib`
@@ -31165,7 +31165,7 @@ pub enum Code {
 	/// `AVX512BW`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8 = 3894,
+	EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8 = 3894,
 	/// `DPPS xmm1, xmm2/m128, imm8`
 	///
 	/// `66 0F 3A 40 /r ib`
@@ -31877,7 +31877,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_xmmm128b32_imm8 = 3983,
+	EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8 = 3983,
 	/// `VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W0 66 /r ib`
@@ -31885,7 +31885,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_ymmm256b32_imm8 = 3984,
+	EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8 = 3984,
 	/// `VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W0 66 /r ib`
@@ -31893,7 +31893,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassps_k_k1_zmmm512b32_imm8 = 3985,
+	EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8 = 3985,
 	/// `VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8`
 	///
 	/// `EVEX.128.66.0F3A.W1 66 /r ib`
@@ -31901,7 +31901,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8 = 3986,
+	EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8 = 3986,
 	/// `VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8`
 	///
 	/// `EVEX.256.66.0F3A.W1 66 /r ib`
@@ -31909,7 +31909,7 @@ pub enum Code {
 	/// `AVX512VL and AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8 = 3987,
+	EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8 = 3987,
 	/// `VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8`
 	///
 	/// `EVEX.512.66.0F3A.W1 66 /r ib`
@@ -31917,7 +31917,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8 = 3988,
+	EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8 = 3988,
 	/// `VFPCLASSSS k2 {k1}, xmm2/m32, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W0 67 /r ib`
@@ -31925,7 +31925,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclassss_k_k1_xmmm32_imm8 = 3989,
+	EVEX_Vfpclassss_kr_k1_xmmm32_imm8 = 3989,
 	/// `VFPCLASSSD k2 {k1}, xmm2/m64, imm8`
 	///
 	/// `EVEX.LIG.66.0F3A.W1 67 /r ib`
@@ -31933,7 +31933,7 @@ pub enum Code {
 	/// `AVX512DQ`
 	///
 	/// `16/32/64-bit`
-	EVEX_Vfpclasssd_k_k1_xmmm64_imm8 = 3990,
+	EVEX_Vfpclasssd_kr_k1_xmmm64_imm8 = 3990,
 	/// `VFMADDPS xmm1, xmm2, xmm3/m128, xmm4`
 	///
 	/// `VEX.128.66.0F3A.W0 68 /r /is4`
@@ -35010,37 +35010,37 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Cmovg_r16_rm16",
 	"Cmovg_r32_rm32",
 	"Cmovg_r64_rm64",
-	"VEX_Kandw_k_k_k",
-	"VEX_Kandq_k_k_k",
-	"VEX_Kandb_k_k_k",
-	"VEX_Kandd_k_k_k",
-	"VEX_Kandnw_k_k_k",
-	"VEX_Kandnq_k_k_k",
-	"VEX_Kandnb_k_k_k",
-	"VEX_Kandnd_k_k_k",
-	"VEX_Knotw_k_k",
-	"VEX_Knotq_k_k",
-	"VEX_Knotb_k_k",
-	"VEX_Knotd_k_k",
-	"VEX_Korw_k_k_k",
-	"VEX_Korq_k_k_k",
-	"VEX_Korb_k_k_k",
-	"VEX_Kord_k_k_k",
-	"VEX_Kxnorw_k_k_k",
-	"VEX_Kxnorq_k_k_k",
-	"VEX_Kxnorb_k_k_k",
-	"VEX_Kxnord_k_k_k",
-	"VEX_Kxorw_k_k_k",
-	"VEX_Kxorq_k_k_k",
-	"VEX_Kxorb_k_k_k",
-	"VEX_Kxord_k_k_k",
-	"VEX_Kaddw_k_k_k",
-	"VEX_Kaddq_k_k_k",
-	"VEX_Kaddb_k_k_k",
-	"VEX_Kaddd_k_k_k",
-	"VEX_Kunpckwd_k_k_k",
-	"VEX_Kunpckdq_k_k_k",
-	"VEX_Kunpckbw_k_k_k",
+	"VEX_Kandw_kr_kr_kr",
+	"VEX_Kandq_kr_kr_kr",
+	"VEX_Kandb_kr_kr_kr",
+	"VEX_Kandd_kr_kr_kr",
+	"VEX_Kandnw_kr_kr_kr",
+	"VEX_Kandnq_kr_kr_kr",
+	"VEX_Kandnb_kr_kr_kr",
+	"VEX_Kandnd_kr_kr_kr",
+	"VEX_Knotw_kr_kr",
+	"VEX_Knotq_kr_kr",
+	"VEX_Knotb_kr_kr",
+	"VEX_Knotd_kr_kr",
+	"VEX_Korw_kr_kr_kr",
+	"VEX_Korq_kr_kr_kr",
+	"VEX_Korb_kr_kr_kr",
+	"VEX_Kord_kr_kr_kr",
+	"VEX_Kxnorw_kr_kr_kr",
+	"VEX_Kxnorq_kr_kr_kr",
+	"VEX_Kxnorb_kr_kr_kr",
+	"VEX_Kxnord_kr_kr_kr",
+	"VEX_Kxorw_kr_kr_kr",
+	"VEX_Kxorq_kr_kr_kr",
+	"VEX_Kxorb_kr_kr_kr",
+	"VEX_Kxord_kr_kr_kr",
+	"VEX_Kaddw_kr_kr_kr",
+	"VEX_Kaddq_kr_kr_kr",
+	"VEX_Kaddb_kr_kr_kr",
+	"VEX_Kaddd_kr_kr_kr",
+	"VEX_Kunpckwd_kr_kr_kr",
+	"VEX_Kunpckdq_kr_kr_kr",
+	"VEX_Kunpckbw_kr_kr_kr",
 	"Movmskps_r32_xmm",
 	"Movmskps_r64_xmm",
 	"VEX_Vmovmskps_r32_xmm",
@@ -35308,23 +35308,23 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Pcmpgtb_xmm_xmmm128",
 	"VEX_Vpcmpgtb_xmm_xmm_xmmm128",
 	"VEX_Vpcmpgtb_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpgtb_k_k1_xmm_xmmm128",
-	"EVEX_Vpcmpgtb_k_k1_ymm_ymmm256",
-	"EVEX_Vpcmpgtb_k_k1_zmm_zmmm512",
+	"EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128",
+	"EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256",
+	"EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512",
 	"Pcmpgtw_mm_mmm64",
 	"Pcmpgtw_xmm_xmmm128",
 	"VEX_Vpcmpgtw_xmm_xmm_xmmm128",
 	"VEX_Vpcmpgtw_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpgtw_k_k1_xmm_xmmm128",
-	"EVEX_Vpcmpgtw_k_k1_ymm_ymmm256",
-	"EVEX_Vpcmpgtw_k_k1_zmm_zmmm512",
+	"EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128",
+	"EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256",
+	"EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512",
 	"Pcmpgtd_mm_mmm64",
 	"Pcmpgtd_xmm_xmmm128",
 	"VEX_Vpcmpgtd_xmm_xmm_xmmm128",
 	"VEX_Vpcmpgtd_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32",
-	"EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32",
-	"EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32",
+	"EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32",
+	"EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32",
+	"EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32",
 	"Packuswb_mm_mmm64",
 	"Packuswb_xmm_xmmm128",
 	"VEX_Vpackuswb_xmm_xmm_xmmm128",
@@ -35511,23 +35511,23 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Pcmpeqb_xmm_xmmm128",
 	"VEX_Vpcmpeqb_xmm_xmm_xmmm128",
 	"VEX_Vpcmpeqb_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpeqb_k_k1_xmm_xmmm128",
-	"EVEX_Vpcmpeqb_k_k1_ymm_ymmm256",
-	"EVEX_Vpcmpeqb_k_k1_zmm_zmmm512",
+	"EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128",
+	"EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256",
+	"EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512",
 	"Pcmpeqw_mm_mmm64",
 	"Pcmpeqw_xmm_xmmm128",
 	"VEX_Vpcmpeqw_xmm_xmm_xmmm128",
 	"VEX_Vpcmpeqw_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpeqw_k_k1_xmm_xmmm128",
-	"EVEX_Vpcmpeqw_k_k1_ymm_ymmm256",
-	"EVEX_Vpcmpeqw_k_k1_zmm_zmmm512",
+	"EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128",
+	"EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256",
+	"EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512",
 	"Pcmpeqd_mm_mmm64",
 	"Pcmpeqd_xmm_xmmm128",
 	"VEX_Vpcmpeqd_xmm_xmm_xmmm128",
 	"VEX_Vpcmpeqd_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32",
-	"EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32",
-	"EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32",
+	"EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32",
+	"EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32",
+	"EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32",
 	"Emms",
 	"VEX_Vzeroupper",
 	"VEX_Vzeroall",
@@ -35711,30 +35711,30 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Setge_rm8",
 	"Setle_rm8",
 	"Setg_rm8",
-	"VEX_Kmovw_k_km16",
-	"VEX_Kmovq_k_km64",
-	"VEX_Kmovb_k_km8",
-	"VEX_Kmovd_k_km32",
-	"VEX_Kmovw_m16_k",
-	"VEX_Kmovq_m64_k",
-	"VEX_Kmovb_m8_k",
-	"VEX_Kmovd_m32_k",
-	"VEX_Kmovw_k_r32",
-	"VEX_Kmovb_k_r32",
-	"VEX_Kmovd_k_r32",
-	"VEX_Kmovq_k_r64",
-	"VEX_Kmovw_r32_k",
-	"VEX_Kmovb_r32_k",
-	"VEX_Kmovd_r32_k",
-	"VEX_Kmovq_r64_k",
-	"VEX_Kortestw_k_k",
-	"VEX_Kortestq_k_k",
-	"VEX_Kortestb_k_k",
-	"VEX_Kortestd_k_k",
-	"VEX_Ktestw_k_k",
-	"VEX_Ktestq_k_k",
-	"VEX_Ktestb_k_k",
-	"VEX_Ktestd_k_k",
+	"VEX_Kmovw_kr_km16",
+	"VEX_Kmovq_kr_km64",
+	"VEX_Kmovb_kr_km8",
+	"VEX_Kmovd_kr_km32",
+	"VEX_Kmovw_m16_kr",
+	"VEX_Kmovq_m64_kr",
+	"VEX_Kmovb_m8_kr",
+	"VEX_Kmovd_m32_kr",
+	"VEX_Kmovw_kr_r32",
+	"VEX_Kmovb_kr_r32",
+	"VEX_Kmovd_kr_r32",
+	"VEX_Kmovq_kr_r64",
+	"VEX_Kmovw_r32_kr",
+	"VEX_Kmovb_r32_kr",
+	"VEX_Kmovd_r32_kr",
+	"VEX_Kmovq_r64_kr",
+	"VEX_Kortestw_kr_kr",
+	"VEX_Kortestq_kr_kr",
+	"VEX_Kortestb_kr_kr",
+	"VEX_Kortestd_kr_kr",
+	"VEX_Ktestw_kr_kr",
+	"VEX_Ktestq_kr_kr",
+	"VEX_Ktestb_kr_kr",
+	"VEX_Ktestd_kr_kr",
 	"Pushw_FS",
 	"Pushd_FS",
 	"Pushq_FS",
@@ -35936,21 +35936,21 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Cmpps_xmm_xmmm128_imm8",
 	"VEX_Vcmpps_xmm_xmm_xmmm128_imm8",
 	"VEX_Vcmpps_ymm_ymm_ymmm256_imm8",
-	"EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8",
-	"EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8",
-	"EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae",
+	"EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8",
+	"EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8",
+	"EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae",
 	"Cmppd_xmm_xmmm128_imm8",
 	"VEX_Vcmppd_xmm_xmm_xmmm128_imm8",
 	"VEX_Vcmppd_ymm_ymm_ymmm256_imm8",
-	"EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8",
-	"EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8",
-	"EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae",
+	"EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8",
+	"EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8",
+	"EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae",
 	"Cmpss_xmm_xmmm32_imm8",
 	"VEX_Vcmpss_xmm_xmm_xmmm32_imm8",
-	"EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae",
+	"EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae",
 	"Cmpsd_xmm_xmmm64_imm8",
 	"VEX_Vcmpsd_xmm_xmm_xmmm64_imm8",
-	"EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae",
+	"EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae",
 	"Movnti_m32_r32",
 	"Movnti_m64_r64",
 	"Pinsrw_mm_r32m16_imm8",
@@ -36576,63 +36576,63 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"EVEX_Vpmovsqd_xmmm64_k1z_xmm",
 	"EVEX_Vpmovsqd_xmmm128_k1z_ymm",
 	"EVEX_Vpmovsqd_ymmm256_k1z_zmm",
-	"EVEX_Vptestmb_k_k1_xmm_xmmm128",
-	"EVEX_Vptestmb_k_k1_ymm_ymmm256",
-	"EVEX_Vptestmb_k_k1_zmm_zmmm512",
-	"EVEX_Vptestmw_k_k1_xmm_xmmm128",
-	"EVEX_Vptestmw_k_k1_ymm_ymmm256",
-	"EVEX_Vptestmw_k_k1_zmm_zmmm512",
-	"EVEX_Vptestnmb_k_k1_xmm_xmmm128",
-	"EVEX_Vptestnmb_k_k1_ymm_ymmm256",
-	"EVEX_Vptestnmb_k_k1_zmm_zmmm512",
-	"EVEX_Vptestnmw_k_k1_xmm_xmmm128",
-	"EVEX_Vptestnmw_k_k1_ymm_ymmm256",
-	"EVEX_Vptestnmw_k_k1_zmm_zmmm512",
-	"EVEX_Vptestmd_k_k1_xmm_xmmm128b32",
-	"EVEX_Vptestmd_k_k1_ymm_ymmm256b32",
-	"EVEX_Vptestmd_k_k1_zmm_zmmm512b32",
-	"EVEX_Vptestmq_k_k1_xmm_xmmm128b64",
-	"EVEX_Vptestmq_k_k1_ymm_ymmm256b64",
-	"EVEX_Vptestmq_k_k1_zmm_zmmm512b64",
-	"EVEX_Vptestnmd_k_k1_xmm_xmmm128b32",
-	"EVEX_Vptestnmd_k_k1_ymm_ymmm256b32",
-	"EVEX_Vptestnmd_k_k1_zmm_zmmm512b32",
-	"EVEX_Vptestnmq_k_k1_xmm_xmmm128b64",
-	"EVEX_Vptestnmq_k_k1_ymm_ymmm256b64",
-	"EVEX_Vptestnmq_k_k1_zmm_zmmm512b64",
+	"EVEX_Vptestmb_kr_k1_xmm_xmmm128",
+	"EVEX_Vptestmb_kr_k1_ymm_ymmm256",
+	"EVEX_Vptestmb_kr_k1_zmm_zmmm512",
+	"EVEX_Vptestmw_kr_k1_xmm_xmmm128",
+	"EVEX_Vptestmw_kr_k1_ymm_ymmm256",
+	"EVEX_Vptestmw_kr_k1_zmm_zmmm512",
+	"EVEX_Vptestnmb_kr_k1_xmm_xmmm128",
+	"EVEX_Vptestnmb_kr_k1_ymm_ymmm256",
+	"EVEX_Vptestnmb_kr_k1_zmm_zmmm512",
+	"EVEX_Vptestnmw_kr_k1_xmm_xmmm128",
+	"EVEX_Vptestnmw_kr_k1_ymm_ymmm256",
+	"EVEX_Vptestnmw_kr_k1_zmm_zmmm512",
+	"EVEX_Vptestmd_kr_k1_xmm_xmmm128b32",
+	"EVEX_Vptestmd_kr_k1_ymm_ymmm256b32",
+	"EVEX_Vptestmd_kr_k1_zmm_zmmm512b32",
+	"EVEX_Vptestmq_kr_k1_xmm_xmmm128b64",
+	"EVEX_Vptestmq_kr_k1_ymm_ymmm256b64",
+	"EVEX_Vptestmq_kr_k1_zmm_zmmm512b64",
+	"EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32",
+	"EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32",
+	"EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32",
+	"EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64",
+	"EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64",
+	"EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64",
 	"Pmuldq_xmm_xmmm128",
 	"VEX_Vpmuldq_xmm_xmm_xmmm128",
 	"VEX_Vpmuldq_ymm_ymm_ymmm256",
 	"EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64",
 	"EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64",
 	"EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64",
-	"EVEX_Vpmovm2b_xmm_k",
-	"EVEX_Vpmovm2b_ymm_k",
-	"EVEX_Vpmovm2b_zmm_k",
-	"EVEX_Vpmovm2w_xmm_k",
-	"EVEX_Vpmovm2w_ymm_k",
-	"EVEX_Vpmovm2w_zmm_k",
+	"EVEX_Vpmovm2b_xmm_kr",
+	"EVEX_Vpmovm2b_ymm_kr",
+	"EVEX_Vpmovm2b_zmm_kr",
+	"EVEX_Vpmovm2w_xmm_kr",
+	"EVEX_Vpmovm2w_ymm_kr",
+	"EVEX_Vpmovm2w_zmm_kr",
 	"Pcmpeqq_xmm_xmmm128",
 	"VEX_Vpcmpeqq_xmm_xmm_xmmm128",
 	"VEX_Vpcmpeqq_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64",
-	"EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64",
-	"EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64",
-	"EVEX_Vpmovb2m_k_xmm",
-	"EVEX_Vpmovb2m_k_ymm",
-	"EVEX_Vpmovb2m_k_zmm",
-	"EVEX_Vpmovw2m_k_xmm",
-	"EVEX_Vpmovw2m_k_ymm",
-	"EVEX_Vpmovw2m_k_zmm",
+	"EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64",
+	"EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64",
+	"EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64",
+	"EVEX_Vpmovb2m_kr_xmm",
+	"EVEX_Vpmovb2m_kr_ymm",
+	"EVEX_Vpmovb2m_kr_zmm",
+	"EVEX_Vpmovw2m_kr_xmm",
+	"EVEX_Vpmovw2m_kr_ymm",
+	"EVEX_Vpmovw2m_kr_zmm",
 	"Movntdqa_xmm_m128",
 	"VEX_Vmovntdqa_xmm_m128",
 	"VEX_Vmovntdqa_ymm_m256",
 	"EVEX_Vmovntdqa_xmm_m128",
 	"EVEX_Vmovntdqa_ymm_m256",
 	"EVEX_Vmovntdqa_zmm_m512",
-	"EVEX_Vpbroadcastmb2q_xmm_k",
-	"EVEX_Vpbroadcastmb2q_ymm_k",
-	"EVEX_Vpbroadcastmb2q_zmm_k",
+	"EVEX_Vpbroadcastmb2q_xmm_kr",
+	"EVEX_Vpbroadcastmb2q_ymm_kr",
+	"EVEX_Vpbroadcastmb2q_zmm_kr",
 	"Packusdw_xmm_xmmm128",
 	"VEX_Vpackusdw_xmm_xmm_xmmm128",
 	"VEX_Vpackusdw_ymm_ymm_ymmm256",
@@ -36717,21 +36717,21 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Pcmpgtq_xmm_xmmm128",
 	"VEX_Vpcmpgtq_xmm_xmm_xmmm128",
 	"VEX_Vpcmpgtq_ymm_ymm_ymmm256",
-	"EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64",
-	"EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64",
-	"EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64",
+	"EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64",
+	"EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64",
+	"EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64",
 	"Pminsb_xmm_xmmm128",
 	"VEX_Vpminsb_xmm_xmm_xmmm128",
 	"VEX_Vpminsb_ymm_ymm_ymmm256",
 	"EVEX_Vpminsb_xmm_k1z_xmm_xmmm128",
 	"EVEX_Vpminsb_ymm_k1z_ymm_ymmm256",
 	"EVEX_Vpminsb_zmm_k1z_zmm_zmmm512",
-	"EVEX_Vpmovm2d_xmm_k",
-	"EVEX_Vpmovm2d_ymm_k",
-	"EVEX_Vpmovm2d_zmm_k",
-	"EVEX_Vpmovm2q_xmm_k",
-	"EVEX_Vpmovm2q_ymm_k",
-	"EVEX_Vpmovm2q_zmm_k",
+	"EVEX_Vpmovm2d_xmm_kr",
+	"EVEX_Vpmovm2d_ymm_kr",
+	"EVEX_Vpmovm2d_zmm_kr",
+	"EVEX_Vpmovm2q_xmm_kr",
+	"EVEX_Vpmovm2q_ymm_kr",
+	"EVEX_Vpmovm2q_zmm_kr",
 	"Pminsd_xmm_xmmm128",
 	"VEX_Vpminsd_xmm_xmm_xmmm128",
 	"VEX_Vpminsd_ymm_ymm_ymmm256",
@@ -36741,21 +36741,21 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64",
 	"EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64",
 	"EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64",
-	"EVEX_Vpmovd2m_k_xmm",
-	"EVEX_Vpmovd2m_k_ymm",
-	"EVEX_Vpmovd2m_k_zmm",
-	"EVEX_Vpmovq2m_k_xmm",
-	"EVEX_Vpmovq2m_k_ymm",
-	"EVEX_Vpmovq2m_k_zmm",
+	"EVEX_Vpmovd2m_kr_xmm",
+	"EVEX_Vpmovd2m_kr_ymm",
+	"EVEX_Vpmovd2m_kr_zmm",
+	"EVEX_Vpmovq2m_kr_xmm",
+	"EVEX_Vpmovq2m_kr_ymm",
+	"EVEX_Vpmovq2m_kr_zmm",
 	"Pminuw_xmm_xmmm128",
 	"VEX_Vpminuw_xmm_xmm_xmmm128",
 	"VEX_Vpminuw_ymm_ymm_ymmm256",
 	"EVEX_Vpminuw_xmm_k1z_xmm_xmmm128",
 	"EVEX_Vpminuw_ymm_k1z_ymm_ymmm256",
 	"EVEX_Vpminuw_zmm_k1z_zmm_zmmm512",
-	"EVEX_Vpbroadcastmw2d_xmm_k",
-	"EVEX_Vpbroadcastmw2d_ymm_k",
-	"EVEX_Vpbroadcastmw2d_zmm_k",
+	"EVEX_Vpbroadcastmw2d_xmm_kr",
+	"EVEX_Vpbroadcastmw2d_ymm_kr",
+	"EVEX_Vpbroadcastmw2d_zmm_kr",
 	"Pminud_xmm_xmmm128",
 	"VEX_Vpminud_xmm_xmm_xmmm128",
 	"VEX_Vpminud_ymm_ymm_ymmm256",
@@ -37078,9 +37078,9 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"VEX_Vpmaskmovd_m256_ymm_ymm",
 	"VEX_Vpmaskmovq_m128_xmm_xmm",
 	"VEX_Vpmaskmovq_m256_ymm_ymm",
-	"EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128",
-	"EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256",
-	"EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512",
+	"EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128",
+	"EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256",
+	"EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512",
 	"VEX_Vpgatherdd_xmm_vm32x_xmm",
 	"VEX_Vpgatherdd_ymm_vm32y_ymm",
 	"VEX_Vpgatherdq_xmm_vm32x_xmm",
@@ -37609,18 +37609,18 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8",
 	"EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8",
 	"EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae",
-	"EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8",
-	"EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8",
-	"EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8",
-	"EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8",
-	"EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8",
-	"EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8",
-	"EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8",
-	"EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8",
-	"EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8",
-	"EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8",
-	"EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8",
-	"EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8",
+	"EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8",
+	"EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8",
+	"EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8",
+	"EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8",
+	"EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8",
+	"EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8",
+	"EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8",
+	"EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8",
+	"EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8",
+	"EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8",
+	"EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8",
+	"EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8",
 	"Pinsrb_xmm_r32m8_imm8",
 	"Pinsrb_xmm_r64m8_imm8",
 	"VEX_Vpinsrb_xmm_xmm_r32m8_imm8",
@@ -37654,14 +37654,14 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae",
 	"EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae",
 	"EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae",
-	"VEX_Kshiftrb_k_k_imm8",
-	"VEX_Kshiftrw_k_k_imm8",
-	"VEX_Kshiftrd_k_k_imm8",
-	"VEX_Kshiftrq_k_k_imm8",
-	"VEX_Kshiftlb_k_k_imm8",
-	"VEX_Kshiftlw_k_k_imm8",
-	"VEX_Kshiftld_k_k_imm8",
-	"VEX_Kshiftlq_k_k_imm8",
+	"VEX_Kshiftrb_kr_kr_imm8",
+	"VEX_Kshiftrw_kr_kr_imm8",
+	"VEX_Kshiftrd_kr_kr_imm8",
+	"VEX_Kshiftrq_kr_kr_imm8",
+	"VEX_Kshiftlb_kr_kr_imm8",
+	"VEX_Kshiftlw_kr_kr_imm8",
+	"VEX_Kshiftld_kr_kr_imm8",
+	"VEX_Kshiftlq_kr_kr_imm8",
 	"VEX_Vinserti128_ymm_ymm_xmmm128_imm8",
 	"EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8",
 	"EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8",
@@ -37676,18 +37676,18 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8",
 	"EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8",
 	"EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8",
-	"EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8",
-	"EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8",
-	"EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8",
-	"EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8",
-	"EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8",
-	"EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8",
-	"EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8",
-	"EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8",
-	"EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8",
-	"EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8",
-	"EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8",
-	"EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8",
+	"EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8",
+	"EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8",
+	"EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8",
+	"EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8",
+	"EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8",
+	"EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8",
+	"EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8",
+	"EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8",
+	"EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8",
+	"EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8",
+	"EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8",
+	"EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8",
 	"Dpps_xmm_xmmm128_imm8",
 	"VEX_Vdpps_xmm_xmm_xmmm128_imm8",
 	"VEX_Vdpps_ymm_ymm_ymmm256_imm8",
@@ -37776,14 +37776,14 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"VEX_Vpcmpistrm_xmm_xmmm128_imm8",
 	"Pcmpistri_xmm_xmmm128_imm8",
 	"VEX_Vpcmpistri_xmm_xmmm128_imm8",
-	"EVEX_Vfpclassps_k_k1_xmmm128b32_imm8",
-	"EVEX_Vfpclassps_k_k1_ymmm256b32_imm8",
-	"EVEX_Vfpclassps_k_k1_zmmm512b32_imm8",
-	"EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8",
-	"EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8",
-	"EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8",
-	"EVEX_Vfpclassss_k_k1_xmmm32_imm8",
-	"EVEX_Vfpclasssd_k_k1_xmmm64_imm8",
+	"EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8",
+	"EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8",
+	"EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8",
+	"EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8",
+	"EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8",
+	"EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8",
+	"EVEX_Vfpclassss_kr_k1_xmmm32_imm8",
+	"EVEX_Vfpclasssd_kr_k1_xmmm64_imm8",
 	"VEX_Vfmaddps_xmm_xmm_xmmm128_xmm",
 	"VEX_Vfmaddps_ymm_ymm_ymmm256_ymm",
 	"VEX_Vfmaddps_xmm_xmm_xmm_xmmm128",

@@ -251,6 +251,11 @@ impl InstructionInfo {
 
 	/// Gets all accessed registers. This method doesn't return all accessed registers if [`is_save_restore_instruction()`] is `true`.
 	///
+	/// Some instructions have a `r16`/`r32` operand but only use the low 8 bits of the register. In that case
+	/// this method returns the 8-bit register even if it's `SPL`, `BPL`, `SIL`, `DIL` and the
+	/// instruction was decoded in 16 or 32-bit mode. This is more accurate than returning the `r16`/`r32`
+	/// register. Example instructions that do this: `PINSRB`, `ARPL`
+	///
 	/// [`is_save_restore_instruction()`]: #method.is_save_restore_instruction
 	#[cfg_attr(has_must_use, must_use)]
 	#[inline]

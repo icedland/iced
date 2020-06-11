@@ -15609,7 +15609,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kaddb_k_k_k;
+			op = Code.VEX_Kaddb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kaddd instruction.<br/>
@@ -15623,7 +15623,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddd(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kaddd_k_k_k;
+			op = Code.VEX_Kaddd_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kaddq instruction.<br/>
@@ -15637,7 +15637,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kaddq_k_k_k;
+			op = Code.VEX_Kaddq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kaddw instruction.<br/>
@@ -15651,7 +15651,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kaddw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kaddw_k_k_k;
+			op = Code.VEX_Kaddw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandb instruction.<br/>
@@ -15665,7 +15665,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandb_k_k_k;
+			op = Code.VEX_Kandb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandd instruction.<br/>
@@ -15679,7 +15679,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandd(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandd_k_k_k;
+			op = Code.VEX_Kandd_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandnb instruction.<br/>
@@ -15693,7 +15693,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandnb_k_k_k;
+			op = Code.VEX_Kandnb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandnd instruction.<br/>
@@ -15707,7 +15707,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnd(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandnd_k_k_k;
+			op = Code.VEX_Kandnd_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandnq instruction.<br/>
@@ -15721,7 +15721,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandnq_k_k_k;
+			op = Code.VEX_Kandnq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandnw instruction.<br/>
@@ -15735,7 +15735,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandnw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandnw_k_k_k;
+			op = Code.VEX_Kandnw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandq instruction.<br/>
@@ -15749,7 +15749,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandq_k_k_k;
+			op = Code.VEX_Kandq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kandw instruction.<br/>
@@ -15763,7 +15763,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kandw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kandw_k_k_k;
+			op = Code.VEX_Kandw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -15777,7 +15777,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerRegisterK dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.VEX_Kmovb_k_r32;
+			op = Code.VEX_Kmovb_kr_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -15791,7 +15791,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerRegister32 dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovb_r32_k;
+			op = Code.VEX_Kmovb_r32_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -15805,7 +15805,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovb_k_km8;
+			op = Code.VEX_Kmovb_kr_km8;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -15819,7 +15819,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerMemoryOperand dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovb_m8_k;
+			op = Code.VEX_Kmovb_m8_kr;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>kmovb instruction.<br/>
@@ -15833,7 +15833,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovb(AssemblerRegisterK dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.VEX_Kmovb_k_km8;
+			op = Code.VEX_Kmovb_kr_km8;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -15847,7 +15847,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerRegisterK dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.VEX_Kmovd_k_r32;
+			op = Code.VEX_Kmovd_kr_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -15861,7 +15861,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerRegister32 dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovd_r32_k;
+			op = Code.VEX_Kmovd_r32_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -15875,7 +15875,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovd_k_km32;
+			op = Code.VEX_Kmovd_kr_km32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -15889,7 +15889,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerMemoryOperand dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovd_m32_k;
+			op = Code.VEX_Kmovd_m32_kr;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>kmovd instruction.<br/>
@@ -15903,7 +15903,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovd(AssemblerRegisterK dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.VEX_Kmovd_k_km32;
+			op = Code.VEX_Kmovd_kr_km32;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -15917,7 +15917,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void kmovq(AssemblerRegisterK dst, AssemblerRegister64 src) {
 			Code op;
-			op = Code.VEX_Kmovq_k_r64;
+			op = Code.VEX_Kmovq_kr_r64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -15931,7 +15931,7 @@ namespace Iced.Intel {
 		/// <c>64-bit</c></summary>
 		public void kmovq(AssemblerRegister64 dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovq_r64_k;
+			op = Code.VEX_Kmovq_r64_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -15945,7 +15945,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovq(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovq_k_km64;
+			op = Code.VEX_Kmovq_kr_km64;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -15959,7 +15959,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovq(AssemblerMemoryOperand dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovq_m64_k;
+			op = Code.VEX_Kmovq_m64_kr;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>kmovq instruction.<br/>
@@ -15973,7 +15973,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovq(AssemblerRegisterK dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.VEX_Kmovq_k_km64;
+			op = Code.VEX_Kmovq_kr_km64;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -15987,7 +15987,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerRegisterK dst, AssemblerRegister32 src) {
 			Code op;
-			op = Code.VEX_Kmovw_k_r32;
+			op = Code.VEX_Kmovw_kr_r32;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -16001,7 +16001,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerRegister32 dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovw_r32_k;
+			op = Code.VEX_Kmovw_r32_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -16015,7 +16015,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovw_k_km16;
+			op = Code.VEX_Kmovw_kr_km16;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -16029,7 +16029,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerMemoryOperand dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kmovw_m16_k;
+			op = Code.VEX_Kmovw_m16_kr;
 			AddInstruction(Instruction.Create(op, dst.ToMemoryOperand(Bitness), src));
 		}
 		/// <summary>kmovw instruction.<br/>
@@ -16043,7 +16043,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kmovw(AssemblerRegisterK dst, AssemblerMemoryOperand src) {
 			Code op;
-			op = Code.VEX_Kmovw_k_km16;
+			op = Code.VEX_Kmovw_kr_km16;
 			AddInstruction(Instruction.Create(op, dst, src.ToMemoryOperand(Bitness)));
 		}
 		/// <summary>knotb instruction.<br/>
@@ -16057,7 +16057,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotb(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Knotb_k_k;
+			op = Code.VEX_Knotb_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotd instruction.<br/>
@@ -16071,7 +16071,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotd(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Knotd_k_k;
+			op = Code.VEX_Knotd_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotq instruction.<br/>
@@ -16085,7 +16085,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotq(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Knotq_k_k;
+			op = Code.VEX_Knotq_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>knotw instruction.<br/>
@@ -16099,7 +16099,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void knotw(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Knotw_k_k;
+			op = Code.VEX_Knotw_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>korb instruction.<br/>
@@ -16113,7 +16113,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Korb_k_k_k;
+			op = Code.VEX_Korb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kord instruction.<br/>
@@ -16127,7 +16127,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kord(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kord_k_k_k;
+			op = Code.VEX_Kord_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>korq instruction.<br/>
@@ -16141,7 +16141,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Korq_k_k_k;
+			op = Code.VEX_Korq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kortestb instruction.<br/>
@@ -16155,7 +16155,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestb(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kortestb_k_k;
+			op = Code.VEX_Kortestb_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestd instruction.<br/>
@@ -16169,7 +16169,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestd(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kortestd_k_k;
+			op = Code.VEX_Kortestd_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestq instruction.<br/>
@@ -16183,7 +16183,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestq(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kortestq_k_k;
+			op = Code.VEX_Kortestq_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kortestw instruction.<br/>
@@ -16197,7 +16197,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kortestw(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Kortestw_k_k;
+			op = Code.VEX_Kortestw_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>korw instruction.<br/>
@@ -16211,7 +16211,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void korw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Korw_k_k_k;
+			op = Code.VEX_Korw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kshiftlb instruction.<br/>
@@ -16225,7 +16225,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlb(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlb_k_k_imm8;
+			op = Code.VEX_Kshiftlb_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftlb instruction.<br/>
@@ -16239,7 +16239,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlb(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlb_k_k_imm8;
+			op = Code.VEX_Kshiftlb_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftld instruction.<br/>
@@ -16253,7 +16253,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftld(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftld_k_k_imm8;
+			op = Code.VEX_Kshiftld_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftld instruction.<br/>
@@ -16267,7 +16267,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftld(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftld_k_k_imm8;
+			op = Code.VEX_Kshiftld_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftlq instruction.<br/>
@@ -16281,7 +16281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlq(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlq_k_k_imm8;
+			op = Code.VEX_Kshiftlq_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftlq instruction.<br/>
@@ -16295,7 +16295,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlq(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlq_k_k_imm8;
+			op = Code.VEX_Kshiftlq_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftlw instruction.<br/>
@@ -16309,7 +16309,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlw(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlw_k_k_imm8;
+			op = Code.VEX_Kshiftlw_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftlw instruction.<br/>
@@ -16323,7 +16323,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftlw(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftlw_k_k_imm8;
+			op = Code.VEX_Kshiftlw_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftrb instruction.<br/>
@@ -16337,7 +16337,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrb(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrb_k_k_imm8;
+			op = Code.VEX_Kshiftrb_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftrb instruction.<br/>
@@ -16351,7 +16351,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrb(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrb_k_k_imm8;
+			op = Code.VEX_Kshiftrb_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftrd instruction.<br/>
@@ -16365,7 +16365,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrd(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrd_k_k_imm8;
+			op = Code.VEX_Kshiftrd_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftrd instruction.<br/>
@@ -16379,7 +16379,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrd(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrd_k_k_imm8;
+			op = Code.VEX_Kshiftrd_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftrq instruction.<br/>
@@ -16393,7 +16393,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrq(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrq_k_k_imm8;
+			op = Code.VEX_Kshiftrq_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftrq instruction.<br/>
@@ -16407,7 +16407,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrq(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrq_k_k_imm8;
+			op = Code.VEX_Kshiftrq_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>kshiftrw instruction.<br/>
@@ -16421,7 +16421,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrw(AssemblerRegisterK dst, AssemblerRegisterK src1, sbyte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrw_k_k_imm8;
+			op = Code.VEX_Kshiftrw_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm));
 		}
 		/// <summary>kshiftrw instruction.<br/>
@@ -16435,7 +16435,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kshiftrw(AssemblerRegisterK dst, AssemblerRegisterK src1, byte imm) {
 			Code op;
-			op = Code.VEX_Kshiftrw_k_k_imm8;
+			op = Code.VEX_Kshiftrw_kr_kr_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm));
 		}
 		/// <summary>ktestb instruction.<br/>
@@ -16449,7 +16449,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestb(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Ktestb_k_k;
+			op = Code.VEX_Ktestb_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestd instruction.<br/>
@@ -16463,7 +16463,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestd(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Ktestd_k_k;
+			op = Code.VEX_Ktestd_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestq instruction.<br/>
@@ -16477,7 +16477,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestq(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Ktestq_k_k;
+			op = Code.VEX_Ktestq_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>ktestw instruction.<br/>
@@ -16491,7 +16491,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void ktestw(AssemblerRegisterK dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.VEX_Ktestw_k_k;
+			op = Code.VEX_Ktestw_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>kunpckbw instruction.<br/>
@@ -16505,7 +16505,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckbw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kunpckbw_k_k_k;
+			op = Code.VEX_Kunpckbw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kunpckdq instruction.<br/>
@@ -16519,7 +16519,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckdq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kunpckdq_k_k_k;
+			op = Code.VEX_Kunpckdq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kunpckwd instruction.<br/>
@@ -16533,7 +16533,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kunpckwd(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kunpckwd_k_k_k;
+			op = Code.VEX_Kunpckwd_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxnorb instruction.<br/>
@@ -16547,7 +16547,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxnorb_k_k_k;
+			op = Code.VEX_Kxnorb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxnord instruction.<br/>
@@ -16561,7 +16561,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnord(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxnord_k_k_k;
+			op = Code.VEX_Kxnord_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxnorq instruction.<br/>
@@ -16575,7 +16575,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxnorq_k_k_k;
+			op = Code.VEX_Kxnorq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxnorw instruction.<br/>
@@ -16589,7 +16589,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxnorw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxnorw_k_k_k;
+			op = Code.VEX_Kxnorw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxorb instruction.<br/>
@@ -16603,7 +16603,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorb(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxorb_k_k_k;
+			op = Code.VEX_Kxorb_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxord instruction.<br/>
@@ -16617,7 +16617,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxord(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxord_k_k_k;
+			op = Code.VEX_Kxord_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxorq instruction.<br/>
@@ -16631,7 +16631,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorq(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxorq_k_k_k;
+			op = Code.VEX_Kxorq_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>kxorw instruction.<br/>
@@ -16645,7 +16645,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void kxorw(AssemblerRegisterK dst, AssemblerRegisterK src1, AssemblerRegisterK src2) {
 			Code op;
-			op = Code.VEX_Kxorw_k_k_k;
+			op = Code.VEX_Kxorw_kr_kr_kr;
 			AddInstruction(Instruction.Create(op, dst, src1, src2));
 		}
 		/// <summary>lahf instruction.<br/>
@@ -46701,7 +46701,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46729,7 +46729,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46757,7 +46757,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
+			op = Code.EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46771,7 +46771,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46799,7 +46799,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46827,7 +46827,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
+			op = Code.EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46841,7 +46841,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46869,7 +46869,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46897,7 +46897,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
+			op = Code.EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46911,7 +46911,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46939,7 +46939,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmppd instruction.<br/>
@@ -46967,7 +46967,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmppd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae;
+			op = Code.EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -46981,7 +46981,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47009,7 +47009,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47037,7 +47037,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
+			op = Code.EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47051,7 +47051,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47079,7 +47079,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47107,7 +47107,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
+			op = Code.EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47121,7 +47121,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47149,7 +47149,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47177,7 +47177,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
+			op = Code.EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47191,7 +47191,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47219,7 +47219,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpps instruction.<br/>
@@ -47247,7 +47247,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae;
+			op = Code.EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
@@ -47261,7 +47261,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
+			op = Code.EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
@@ -47289,7 +47289,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
+			op = Code.EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
@@ -47317,7 +47317,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
+			op = Code.EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
@@ -47345,7 +47345,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpsd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae;
+			op = Code.EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpsd instruction.<br/>
@@ -47373,7 +47373,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
+			op = Code.EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
@@ -47401,7 +47401,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
+			op = Code.EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
@@ -47429,7 +47429,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
+			op = Code.EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
@@ -47457,7 +47457,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vcmpss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae;
+			op = Code.EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vcmpss instruction.<br/>
@@ -61541,7 +61541,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61555,7 +61555,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61569,7 +61569,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61600,13 +61600,13 @@ namespace Iced.Intel {
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			if (src1.IsBroadcast) {
-				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclasspd, dst, src1, imm);
 			}
@@ -61623,7 +61623,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61637,7 +61637,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61651,7 +61651,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclasspd instruction.<br/>
@@ -61682,13 +61682,13 @@ namespace Iced.Intel {
 		public void vfpclasspd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
 			if (src1.IsBroadcast) {
-				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+				op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclasspd, dst, src1, imm);
 			}
@@ -61705,7 +61705,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdx(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspdx instruction.<br/>
@@ -61719,7 +61719,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdx(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspdy instruction.<br/>
@@ -61733,7 +61733,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdy(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspdy instruction.<br/>
@@ -61747,7 +61747,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdy(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspdz instruction.<br/>
@@ -61761,7 +61761,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdz(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspdz instruction.<br/>
@@ -61775,7 +61775,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspdz(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8;
+			op = Code.EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61789,7 +61789,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61803,7 +61803,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61817,7 +61817,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61848,13 +61848,13 @@ namespace Iced.Intel {
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
 			if (src1.IsBroadcast) {
-				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclassps, dst, src1, imm);
 			}
@@ -61871,7 +61871,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61885,7 +61885,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterYMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61899,7 +61899,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerRegisterZMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclassps instruction.<br/>
@@ -61930,13 +61930,13 @@ namespace Iced.Intel {
 		public void vfpclassps(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
 			if (src1.IsBroadcast) {
-				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.ZwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.YwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			} else if (src1.Size == MemoryOperandSize.OwordPtr) {
-				op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+				op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			} else {
 				throw NoOpCodeFoundFor(Mnemonic.Vfpclassps, dst, src1, imm);
 			}
@@ -61953,7 +61953,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsx(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspsx instruction.<br/>
@@ -61967,7 +61967,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsx(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_xmmm128b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspsy instruction.<br/>
@@ -61981,7 +61981,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsy(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspsy instruction.<br/>
@@ -61995,7 +61995,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsy(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_ymmm256b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspsz instruction.<br/>
@@ -62009,7 +62009,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsz(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasspsz instruction.<br/>
@@ -62023,7 +62023,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasspsz(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassps_k_k1_zmmm512b32_imm8;
+			op = Code.EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src1.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
@@ -62037,7 +62037,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasssd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
+			op = Code.EVEX_Vfpclasssd_kr_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
@@ -62051,7 +62051,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasssd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
+			op = Code.EVEX_Vfpclasssd_kr_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
@@ -62065,7 +62065,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasssd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
+			op = Code.EVEX_Vfpclasssd_kr_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclasssd instruction.<br/>
@@ -62079,7 +62079,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclasssd(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclasssd_k_k1_xmmm64_imm8;
+			op = Code.EVEX_Vfpclasssd_kr_k1_xmmm64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -62093,7 +62093,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
+			op = Code.EVEX_Vfpclassss_kr_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -62107,7 +62107,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassss(AssemblerRegisterK dst, AssemblerMemoryOperand src1, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
+			op = Code.EVEX_Vfpclassss_kr_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -62121,7 +62121,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassss(AssemblerRegisterK dst, AssemblerRegisterXMM src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
+			op = Code.EVEX_Vfpclassss_kr_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, (uint)imm), dst.Flags);
 		}
 		/// <summary>vfpclassss instruction.<br/>
@@ -62135,7 +62135,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vfpclassss(AssemblerRegisterK dst, AssemblerMemoryOperand src1, byte imm) {
 			Code op;
-			op = Code.EVEX_Vfpclassss_k_k1_xmmm32_imm8;
+			op = Code.EVEX_Vfpclassss_kr_k1_xmmm32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vfrczpd instruction.<br/>
@@ -64588,7 +64588,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
 		/// <br/>
-		/// <c>AVX</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterXMM src2, sbyte imm) {
@@ -64602,7 +64602,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
 		/// <br/>
-		/// <c>AVX</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
@@ -64616,7 +64616,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
 		/// <br/>
-		/// <c>AVX</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerRegisterXMM src2, byte imm) {
@@ -64630,7 +64630,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
 		/// <br/>
-		/// <c>AVX</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vinserti128(AssemblerRegisterYMM dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
@@ -73683,7 +73683,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmb2q(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmb2q_xmm_k;
+			op = Code.EVEX_Vpbroadcastmb2q_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastmb2q instruction.<br/>
@@ -73697,7 +73697,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmb2q(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmb2q_ymm_k;
+			op = Code.EVEX_Vpbroadcastmb2q_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastmb2q instruction.<br/>
@@ -73711,7 +73711,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmb2q(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmb2q_zmm_k;
+			op = Code.EVEX_Vpbroadcastmb2q_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastmw2d instruction.<br/>
@@ -73725,7 +73725,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmw2d(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmw2d_xmm_k;
+			op = Code.EVEX_Vpbroadcastmw2d_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastmw2d instruction.<br/>
@@ -73739,7 +73739,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmw2d(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmw2d_ymm_k;
+			op = Code.EVEX_Vpbroadcastmw2d_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastmw2d instruction.<br/>
@@ -73753,7 +73753,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpbroadcastmw2d(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpbroadcastmw2d_zmm_k;
+			op = Code.EVEX_Vpbroadcastmw2d_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpbroadcastq instruction.<br/>
@@ -74495,7 +74495,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74509,7 +74509,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74523,7 +74523,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74537,7 +74537,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74551,7 +74551,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74565,7 +74565,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74579,7 +74579,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74593,7 +74593,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74607,7 +74607,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74621,7 +74621,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74635,7 +74635,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpb instruction.<br/>
@@ -74649,7 +74649,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74663,7 +74663,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74677,7 +74677,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74691,7 +74691,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74705,7 +74705,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74719,7 +74719,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74733,7 +74733,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74747,7 +74747,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74761,7 +74761,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74775,7 +74775,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74789,7 +74789,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74803,7 +74803,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpd instruction.<br/>
@@ -74817,7 +74817,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74831,7 +74831,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74859,7 +74859,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74887,7 +74887,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74901,7 +74901,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74929,7 +74929,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpeqb instruction.<br/>
@@ -74957,7 +74957,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -74971,7 +74971,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -74999,7 +74999,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -75027,7 +75027,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -75041,7 +75041,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -75069,7 +75069,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqd instruction.<br/>
@@ -75097,7 +75097,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75111,7 +75111,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75139,7 +75139,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75167,7 +75167,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75181,7 +75181,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75209,7 +75209,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqq instruction.<br/>
@@ -75237,7 +75237,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75251,7 +75251,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75279,7 +75279,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75307,7 +75307,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75321,7 +75321,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75349,7 +75349,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpeqw instruction.<br/>
@@ -75377,7 +75377,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpeqw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpeqw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpestri instruction.<br/>
@@ -75615,7 +75615,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -75643,7 +75643,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -75671,7 +75671,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -75685,7 +75685,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -75713,7 +75713,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpgtb instruction.<br/>
@@ -75741,7 +75741,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75755,7 +75755,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75783,7 +75783,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75811,7 +75811,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75825,7 +75825,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75853,7 +75853,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtd instruction.<br/>
@@ -75881,7 +75881,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -75895,7 +75895,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -75923,7 +75923,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -75951,7 +75951,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -75965,7 +75965,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -75993,7 +75993,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtq instruction.<br/>
@@ -76021,7 +76021,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76035,7 +76035,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76063,7 +76063,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76091,7 +76091,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76105,7 +76105,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76133,7 +76133,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpgtw instruction.<br/>
@@ -76161,7 +76161,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpgtw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpcmpgtw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpcmpistri instruction.<br/>
@@ -76287,7 +76287,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76301,7 +76301,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76315,7 +76315,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76329,7 +76329,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76343,7 +76343,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76357,7 +76357,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76371,7 +76371,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76385,7 +76385,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76399,7 +76399,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76413,7 +76413,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76427,7 +76427,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpq instruction.<br/>
@@ -76441,7 +76441,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76455,7 +76455,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76469,7 +76469,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76483,7 +76483,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76497,7 +76497,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76511,7 +76511,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76525,7 +76525,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76539,7 +76539,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76553,7 +76553,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76567,7 +76567,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76581,7 +76581,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76595,7 +76595,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpub instruction.<br/>
@@ -76609,7 +76609,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpub(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76623,7 +76623,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76637,7 +76637,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76651,7 +76651,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76665,7 +76665,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76679,7 +76679,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76693,7 +76693,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76707,7 +76707,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76721,7 +76721,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76735,7 +76735,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76749,7 +76749,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76763,7 +76763,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpud instruction.<br/>
@@ -76777,7 +76777,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpud(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8;
+			op = Code.EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76791,7 +76791,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76805,7 +76805,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76819,7 +76819,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76833,7 +76833,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76847,7 +76847,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76861,7 +76861,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76875,7 +76875,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76889,7 +76889,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76903,7 +76903,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76917,7 +76917,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76931,7 +76931,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuq instruction.<br/>
@@ -76945,7 +76945,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8;
+			op = Code.EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags | src2.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -76959,7 +76959,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -76973,7 +76973,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -76987,7 +76987,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77001,7 +77001,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77015,7 +77015,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77029,7 +77029,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77043,7 +77043,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77057,7 +77057,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77071,7 +77071,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77085,7 +77085,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77099,7 +77099,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpuw instruction.<br/>
@@ -77113,7 +77113,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpuw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77127,7 +77127,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77141,7 +77141,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77155,7 +77155,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77169,7 +77169,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77183,7 +77183,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77197,7 +77197,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, sbyte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77211,7 +77211,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77225,7 +77225,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77239,7 +77239,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2, (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77253,7 +77253,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77267,7 +77267,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcmpw instruction.<br/>
@@ -77281,7 +77281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpcmpw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2, byte imm) {
 			Code op;
-			op = Code.EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8;
+			op = Code.EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness), (uint)imm), dst.Flags);
 		}
 		/// <summary>vpcomb instruction.<br/>
@@ -87035,7 +87035,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovb2m(AssemblerRegisterK dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovb2m_k_xmm;
+			op = Code.EVEX_Vpmovb2m_kr_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovb2m instruction.<br/>
@@ -87049,7 +87049,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovb2m(AssemblerRegisterK dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovb2m_k_ymm;
+			op = Code.EVEX_Vpmovb2m_kr_ymm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovb2m instruction.<br/>
@@ -87063,7 +87063,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovb2m(AssemblerRegisterK dst, AssemblerRegisterZMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovb2m_k_zmm;
+			op = Code.EVEX_Vpmovb2m_kr_zmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovd2m instruction.<br/>
@@ -87072,12 +87072,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovd2m(AssemblerRegisterK dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovd2m_k_xmm;
+			op = Code.EVEX_Vpmovd2m_kr_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovd2m instruction.<br/>
@@ -87086,12 +87086,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovd2m(AssemblerRegisterK dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovd2m_k_ymm;
+			op = Code.EVEX_Vpmovd2m_kr_ymm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovd2m instruction.<br/>
@@ -87100,12 +87100,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512BW</c><br/>
+		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovd2m(AssemblerRegisterK dst, AssemblerRegisterZMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovd2m_k_zmm;
+			op = Code.EVEX_Vpmovd2m_kr_zmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovdb instruction.<br/>
@@ -87287,7 +87287,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2b(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2b_xmm_k;
+			op = Code.EVEX_Vpmovm2b_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2b instruction.<br/>
@@ -87301,7 +87301,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2b(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2b_ymm_k;
+			op = Code.EVEX_Vpmovm2b_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2b instruction.<br/>
@@ -87315,7 +87315,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2b(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2b_zmm_k;
+			op = Code.EVEX_Vpmovm2b_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2d instruction.<br/>
@@ -87329,7 +87329,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2d(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2d_xmm_k;
+			op = Code.EVEX_Vpmovm2d_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2d instruction.<br/>
@@ -87343,7 +87343,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2d(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2d_ymm_k;
+			op = Code.EVEX_Vpmovm2d_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2d instruction.<br/>
@@ -87357,7 +87357,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2d(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2d_zmm_k;
+			op = Code.EVEX_Vpmovm2d_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2q instruction.<br/>
@@ -87371,7 +87371,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2q(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2q_xmm_k;
+			op = Code.EVEX_Vpmovm2q_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2q instruction.<br/>
@@ -87385,7 +87385,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2q(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2q_ymm_k;
+			op = Code.EVEX_Vpmovm2q_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2q instruction.<br/>
@@ -87399,7 +87399,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2q(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2q_zmm_k;
+			op = Code.EVEX_Vpmovm2q_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2w instruction.<br/>
@@ -87413,7 +87413,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2w(AssemblerRegisterXMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2w_xmm_k;
+			op = Code.EVEX_Vpmovm2w_xmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2w instruction.<br/>
@@ -87427,7 +87427,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2w(AssemblerRegisterYMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2w_ymm_k;
+			op = Code.EVEX_Vpmovm2w_ymm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovm2w instruction.<br/>
@@ -87441,7 +87441,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovm2w(AssemblerRegisterZMM dst, AssemblerRegisterK src) {
 			Code op;
-			op = Code.EVEX_Vpmovm2w_zmm_k;
+			op = Code.EVEX_Vpmovm2w_zmm_kr;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovmskb instruction.<br/>
@@ -87506,12 +87506,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovq2m(AssemblerRegisterK dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovq2m_k_xmm;
+			op = Code.EVEX_Vpmovq2m_kr_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovq2m instruction.<br/>
@@ -87520,12 +87520,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovq2m(AssemblerRegisterK dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovq2m_k_ymm;
+			op = Code.EVEX_Vpmovq2m_kr_ymm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovq2m instruction.<br/>
@@ -87534,12 +87534,12 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512BW</c><br/>
+		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovq2m(AssemblerRegisterK dst, AssemblerRegisterZMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovq2m_k_zmm;
+			op = Code.EVEX_Vpmovq2m_kr_zmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovqb instruction.<br/>
@@ -89509,7 +89509,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovw2m(AssemblerRegisterK dst, AssemblerRegisterXMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovw2m_k_xmm;
+			op = Code.EVEX_Vpmovw2m_kr_xmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovw2m instruction.<br/>
@@ -89523,7 +89523,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovw2m(AssemblerRegisterK dst, AssemblerRegisterYMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovw2m_k_ymm;
+			op = Code.EVEX_Vpmovw2m_kr_ymm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovw2m instruction.<br/>
@@ -89537,7 +89537,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpmovw2m(AssemblerRegisterK dst, AssemblerRegisterZMM src) {
 			Code op;
-			op = Code.EVEX_Vpmovw2m_k_zmm;
+			op = Code.EVEX_Vpmovw2m_kr_zmm;
 			AddInstruction(Instruction.Create(op, dst, src));
 		}
 		/// <summary>vpmovwb instruction.<br/>
@@ -95573,7 +95573,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
@@ -95587,7 +95587,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
@@ -95601,7 +95601,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
@@ -95615,7 +95615,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
@@ -95629,7 +95629,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpshufbitqmb instruction.<br/>
@@ -95643,7 +95643,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vpshufbitqmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpshufd instruction.<br/>
@@ -101973,7 +101973,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
@@ -101987,7 +101987,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
@@ -102001,7 +102001,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
@@ -102015,7 +102015,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
@@ -102029,7 +102029,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestmb instruction.<br/>
@@ -102043,7 +102043,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102057,7 +102057,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vptestmd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102071,7 +102071,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vptestmd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102085,7 +102085,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vptestmd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102099,7 +102099,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vptestmd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102113,7 +102113,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vptestmd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmd instruction.<br/>
@@ -102127,7 +102127,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vptestmd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102141,7 +102141,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vptestmq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102155,7 +102155,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vptestmq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102169,7 +102169,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vptestmq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102183,7 +102183,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vptestmq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102197,7 +102197,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vptestmq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmq instruction.<br/>
@@ -102211,7 +102211,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vptestmq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102225,7 +102225,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestmw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102239,7 +102239,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestmw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102253,7 +102253,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestmw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102267,7 +102267,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestmw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102281,7 +102281,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestmw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestmw instruction.<br/>
@@ -102295,7 +102295,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestmw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestmw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestmw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102309,7 +102309,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestnmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102323,7 +102323,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestnmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102337,7 +102337,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestnmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102351,7 +102351,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestnmb_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102365,7 +102365,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestnmb_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmb instruction.<br/>
@@ -102379,7 +102379,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmb(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmb_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestnmb_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102393,7 +102393,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102407,7 +102407,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102421,7 +102421,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102435,7 +102435,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_xmm_xmmm128b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102449,7 +102449,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_ymm_ymmm256b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmd instruction.<br/>
@@ -102463,7 +102463,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmd(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmd_k_k1_zmm_zmmm512b32;
+			op = Code.EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102477,7 +102477,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102491,7 +102491,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102505,7 +102505,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102519,7 +102519,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_xmm_xmmm128b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102533,7 +102533,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_ymm_ymmm256b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmq instruction.<br/>
@@ -102547,7 +102547,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmq(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmq_k_k1_zmm_zmmm512b64;
+			op = Code.EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags | src2.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102561,7 +102561,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerRegisterXMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestnmw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102575,7 +102575,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerRegisterYMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestnmw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102589,7 +102589,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerRegisterZMM src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestnmw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102603,7 +102603,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterXMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_xmm_xmmm128;
+			op = Code.EVEX_Vptestnmw_kr_k1_xmm_xmmm128;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102617,7 +102617,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterYMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_ymm_ymmm256;
+			op = Code.EVEX_Vptestnmw_kr_k1_ymm_ymmm256;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vptestnmw instruction.<br/>
@@ -102631,7 +102631,7 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void vptestnmw(AssemblerRegisterK dst, AssemblerRegisterZMM src1, AssemblerMemoryOperand src2) {
 			Code op;
-			op = Code.EVEX_Vptestnmw_k_k1_zmm_zmmm512;
+			op = Code.EVEX_Vptestnmw_kr_k1_zmm_zmmm512;
 			AddInstruction(Instruction.Create(op, dst, src1, src2.ToMemoryOperand(Bitness)), dst.Flags);
 		}
 		/// <summary>vpunpckhbw instruction.<br/>

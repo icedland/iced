@@ -147,6 +147,11 @@ impl InstructionInfo {
 	/// Gets all accessed registers (an array of [`UsedRegister`] classes).
 	/// This method doesn't return all accessed registers if [`isSaveRestoreInstruction`] is `true`.
 	///
+	/// Some instructions have a `r16`/`r32` operand but only use the low 8 bits of the register. In that case
+	/// this method returns the 8-bit register even if it's `SPL`, `BPL`, `SIL`, `DIL` and the
+	/// instruction was decoded in 16 or 32-bit mode. This is more accurate than returning the `r16`/`r32`
+	/// register. Example instructions that do this: `PINSRB`, `ARPL`
+	///
 	/// [`UsedRegister`]: struct.UsedRegister.html
 	/// [`isSaveRestoreInstruction`]: #method.is_save_restore_instruction
 	#[wasm_bindgen(js_name = "usedRegisters")]

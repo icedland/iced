@@ -500,9 +500,8 @@ namespace Iced.Intel.GasFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST2 : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_STi_ST2(string mnemonic) {
+		public SimpleInstrInfo_STi_ST2(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
@@ -1320,9 +1319,8 @@ namespace Iced.Intel.GasFormatterInternal {
 	sealed class SimpleInstrInfo_Reg32 : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_Reg32(string mnemonic) {
+		public SimpleInstrInfo_Reg32(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = InstrOpInfoFlags.None;

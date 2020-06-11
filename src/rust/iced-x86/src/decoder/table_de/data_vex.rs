@@ -2440,9 +2440,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x33,// VK_RK_Ib
-					0x95, 0x1E,// VEX_Kshiftrb_k_k_imm8
+					0x95, 0x1E,// VEX_Kshiftrb_kr_kr_imm8
 				0x33,// VK_RK_Ib
-					0x96, 0x1E,// VEX_Kshiftrw_k_k_imm8
+					0x96, 0x1E,// VEX_Kshiftrw_kr_kr_imm8
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -2453,9 +2453,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x33,// VK_RK_Ib
-					0x97, 0x1E,// VEX_Kshiftrd_k_k_imm8
+					0x97, 0x1E,// VEX_Kshiftrd_kr_kr_imm8
 				0x33,// VK_RK_Ib
-					0x98, 0x1E,// VEX_Kshiftrq_k_k_imm8
+					0x98, 0x1E,// VEX_Kshiftrq_kr_kr_imm8
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -2466,9 +2466,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x33,// VK_RK_Ib
-					0x99, 0x1E,// VEX_Kshiftlb_k_k_imm8
+					0x99, 0x1E,// VEX_Kshiftlb_kr_kr_imm8
 				0x33,// VK_RK_Ib
-					0x9A, 0x1E,// VEX_Kshiftlw_k_k_imm8
+					0x9A, 0x1E,// VEX_Kshiftlw_kr_kr_imm8
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -2479,9 +2479,9 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x33,// VK_RK_Ib
-					0x9B, 0x1E,// VEX_Kshiftld_k_k_imm8
+					0x9B, 0x1E,// VEX_Kshiftld_kr_kr_imm8
 				0x33,// VK_RK_Ib
-					0x9C, 0x1E,// VEX_Kshiftlq_k_k_imm8
+					0x9C, 0x1E,// VEX_Kshiftlq_kr_kr_imm8
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -3486,16 +3486,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xC1, 0x09,// VEX_Kandw_k_k_k
+					0xC1, 0x09,// VEX_Kandw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xC2, 0x09,// VEX_Kandq_k_k_k
+					0xC2, 0x09,// VEX_Kandq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xC3, 0x09,// VEX_Kandb_k_k_k
+					0xC3, 0x09,// VEX_Kandb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xC4, 0x09,// VEX_Kandd_k_k_k
+					0xC4, 0x09,// VEX_Kandd_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3505,16 +3505,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xC5, 0x09,// VEX_Kandnw_k_k_k
+					0xC5, 0x09,// VEX_Kandnw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xC6, 0x09,// VEX_Kandnq_k_k_k
+					0xC6, 0x09,// VEX_Kandnq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xC7, 0x09,// VEX_Kandnb_k_k_k
+					0xC7, 0x09,// VEX_Kandnb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xC8, 0x09,// VEX_Kandnd_k_k_k
+					0xC8, 0x09,// VEX_Kandnd_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3526,16 +3526,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0xC9, 0x09,// VEX_Knotw_k_k
+					0xC9, 0x09,// VEX_Knotw_kr_kr
 				0x32,// VK_RK
-					0xCA, 0x09,// VEX_Knotq_k_k
+					0xCA, 0x09,// VEX_Knotq_kr_kr
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0xCB, 0x09,// VEX_Knotb_k_k
+					0xCB, 0x09,// VEX_Knotb_kr_kr
 				0x32,// VK_RK
-					0xCC, 0x09,// VEX_Knotd_k_k
+					0xCC, 0x09,// VEX_Knotd_kr_kr
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -3546,16 +3546,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xCD, 0x09,// VEX_Korw_k_k_k
+					0xCD, 0x09,// VEX_Korw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xCE, 0x09,// VEX_Korq_k_k_k
+					0xCE, 0x09,// VEX_Korq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xCF, 0x09,// VEX_Korb_k_k_k
+					0xCF, 0x09,// VEX_Korb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xD0, 0x09,// VEX_Kord_k_k_k
+					0xD0, 0x09,// VEX_Kord_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3565,16 +3565,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xD1, 0x09,// VEX_Kxnorw_k_k_k
+					0xD1, 0x09,// VEX_Kxnorw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xD2, 0x09,// VEX_Kxnorq_k_k_k
+					0xD2, 0x09,// VEX_Kxnorq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xD3, 0x09,// VEX_Kxnorb_k_k_k
+					0xD3, 0x09,// VEX_Kxnorb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xD4, 0x09,// VEX_Kxnord_k_k_k
+					0xD4, 0x09,// VEX_Kxnord_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3584,16 +3584,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xD5, 0x09,// VEX_Kxorw_k_k_k
+					0xD5, 0x09,// VEX_Kxorw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xD6, 0x09,// VEX_Kxorq_k_k_k
+					0xD6, 0x09,// VEX_Kxorq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xD7, 0x09,// VEX_Kxorb_k_k_k
+					0xD7, 0x09,// VEX_Kxorb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xD8, 0x09,// VEX_Kxord_k_k_k
+					0xD8, 0x09,// VEX_Kxord_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3606,16 +3606,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xD9, 0x09,// VEX_Kaddw_k_k_k
+					0xD9, 0x09,// VEX_Kaddw_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xDA, 0x09,// VEX_Kaddq_k_k_k
+					0xDA, 0x09,// VEX_Kaddq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xDB, 0x09,// VEX_Kaddb_k_k_k
+					0xDB, 0x09,// VEX_Kaddb_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xDC, 0x09,// VEX_Kaddd_k_k_k
+					0xDC, 0x09,// VEX_Kaddd_kr_kr_kr
 		0x00,// Invalid
 		0x00,// Invalid
 
@@ -3625,14 +3625,14 @@ pub(super) static TBL_DATA: &[u8] = &[
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xDD, 0x09,// VEX_Kunpckwd_k_k_k
+					0xDD, 0x09,// VEX_Kunpckwd_kr_kr_kr
 				0x30,// VK_HK_RK
-					0xDE, 0x09,// VEX_Kunpckdq_k_k_k
+					0xDE, 0x09,// VEX_Kunpckdq_kr_kr_kr
 		0x0E,// VectorLength
 			0x00,// Invalid
 			0x09,// W
 				0x30,// VK_HK_RK
-					0xDF, 0x09,// VEX_Kunpckbw_k_k_k
+					0xDF, 0x09,// VEX_Kunpckbw_kr_kr_kr
 				0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -4365,16 +4365,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x34,// VK_WK
-					0xFE, 0x0E,// VEX_Kmovw_k_km16
+					0xFE, 0x0E,// VEX_Kmovw_kr_km16
 				0x34,// VK_WK
-					0xFF, 0x0E,// VEX_Kmovq_k_km64
+					0xFF, 0x0E,// VEX_Kmovq_kr_km64
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x34,// VK_WK
-					0x80, 0x0F,// VEX_Kmovb_k_km8
+					0x80, 0x0F,// VEX_Kmovb_kr_km8
 				0x34,// VK_WK
-					0x81, 0x0F,// VEX_Kmovd_k_km32
+					0x81, 0x0F,// VEX_Kmovd_kr_km32
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -4384,16 +4384,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x1F,// M_VK
-					0x82, 0x0F,// VEX_Kmovw_m16_k
+					0x82, 0x0F,// VEX_Kmovw_m16_kr
 				0x1F,// M_VK
-					0x83, 0x0F,// VEX_Kmovq_m64_k
+					0x83, 0x0F,// VEX_Kmovq_m64_kr
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x1F,// M_VK
-					0x84, 0x0F,// VEX_Kmovb_m8_k
+					0x84, 0x0F,// VEX_Kmovb_m8_kr
 				0x1F,// M_VK
-					0x85, 0x0F,// VEX_Kmovd_m32_k
+					0x85, 0x0F,// VEX_Kmovd_m32_kr
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -4403,14 +4403,14 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x31,// VK_R
-					0x86, 0x0F,// VEX_Kmovw_k_r32
+					0x86, 0x0F,// VEX_Kmovw_kr_r32
 					0x25,// EAX
 				0x00,// Invalid
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x31,// VK_R
-					0x87, 0x0F,// VEX_Kmovb_k_r32
+					0x87, 0x0F,// VEX_Kmovb_kr_r32
 					0x25,// EAX
 				0x00,// Invalid
 			0x00,// Invalid
@@ -4418,12 +4418,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x31,// VK_R
-					0x88, 0x0F,// VEX_Kmovd_k_r32
+					0x88, 0x0F,// VEX_Kmovd_kr_r32
 					0x25,// EAX
 				0x04,// Bitness_DontReadModRM
 					0x00,// Invalid
 					0x31,// VK_R
-						0x89, 0x0F,// VEX_Kmovq_k_r64
+						0x89, 0x0F,// VEX_Kmovq_kr_r64
 						0x35,// RAX
 			0x00,// Invalid
 
@@ -4432,14 +4432,14 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x11,// G_VK
-					0x8A, 0x0F,// VEX_Kmovw_r32_k
+					0x8A, 0x0F,// VEX_Kmovw_r32_kr
 					0x25,// EAX
 				0x00,// Invalid
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x11,// G_VK
-					0x8B, 0x0F,// VEX_Kmovb_r32_k
+					0x8B, 0x0F,// VEX_Kmovb_r32_kr
 					0x25,// EAX
 				0x00,// Invalid
 			0x00,// Invalid
@@ -4447,12 +4447,12 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x11,// G_VK
-					0x8C, 0x0F,// VEX_Kmovd_r32_k
+					0x8C, 0x0F,// VEX_Kmovd_r32_kr
 					0x25,// EAX
 				0x04,// Bitness_DontReadModRM
 					0x00,// Invalid
 					0x11,// G_VK
-						0x8D, 0x0F,// VEX_Kmovq_r64_k
+						0x8D, 0x0F,// VEX_Kmovq_r64_kr
 						0x35,// RAX
 			0x00,// Invalid
 
@@ -4466,16 +4466,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0x8E, 0x0F,// VEX_Kortestw_k_k
+					0x8E, 0x0F,// VEX_Kortestw_kr_kr
 				0x32,// VK_RK
-					0x8F, 0x0F,// VEX_Kortestq_k_k
+					0x8F, 0x0F,// VEX_Kortestq_kr_kr
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0x90, 0x0F,// VEX_Kortestb_k_k
+					0x90, 0x0F,// VEX_Kortestb_kr_kr
 				0x32,// VK_RK
-					0x91, 0x0F,// VEX_Kortestd_k_k
+					0x91, 0x0F,// VEX_Kortestd_kr_kr
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid
@@ -4485,16 +4485,16 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0x92, 0x0F,// VEX_Ktestw_k_k
+					0x92, 0x0F,// VEX_Ktestw_kr_kr
 				0x32,// VK_RK
-					0x93, 0x0F,// VEX_Ktestq_k_k
+					0x93, 0x0F,// VEX_Ktestq_kr_kr
 			0x00,// Invalid
 		0x0E,// VectorLength
 			0x09,// W
 				0x32,// VK_RK
-					0x94, 0x0F,// VEX_Ktestb_k_k
+					0x94, 0x0F,// VEX_Ktestb_kr_kr
 				0x32,// VK_RK
-					0x95, 0x0F,// VEX_Ktestd_k_k
+					0x95, 0x0F,// VEX_Ktestd_kr_kr
 			0x00,// Invalid
 		0x00,// Invalid
 		0x00,// Invalid

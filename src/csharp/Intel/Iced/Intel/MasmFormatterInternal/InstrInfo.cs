@@ -694,9 +694,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST2 : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_STi_ST2(string mnemonic) {
+		public SimpleInstrInfo_STi_ST2(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
@@ -716,9 +715,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_ST_STi : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_ST_STi(string mnemonic) {
+		public SimpleInstrInfo_ST_STi(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -731,9 +729,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_STi_ST(string mnemonic) {
+		public SimpleInstrInfo_STi_ST(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -987,7 +984,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 			if (instruction.CodeSize == codeSize)
 				mnemonics = this.mnemonics;
 			else
-				mnemonics = this.mnemonics_other;
+				mnemonics = mnemonics_other;
 			var mnemonic = MnemonicCC.GetMnemonicCC(options, ccIndex, mnemonics);
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
 		}
@@ -1187,9 +1184,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 	sealed class SimpleInstrInfo_imul : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_imul(string mnemonic) {
+		public SimpleInstrInfo_imul(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);

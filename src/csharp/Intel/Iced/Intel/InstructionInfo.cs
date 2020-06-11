@@ -69,6 +69,12 @@ namespace Iced.Intel {
 
 		/// <summary>
 		/// Gets a struct iterator that returns all accessed registers. This method doesn't return all accessed registers if <see cref="IsSaveRestoreInstruction"/> is <see langword="true"/>.
+		/// <br/>
+		/// <br/>
+		/// Some instructions have a <c>r16</c>/<c>r32</c> operand but only use the low 8 bits of the register. In that case
+		/// this method returns the 8-bit register even if it's <c>SPL</c>, <c>BPL</c>, <c>SIL</c>, <c>DIL</c> and the
+		/// instruction was decoded in 16 or 32-bit mode. This is more accurate than returning the <c>r16</c>/<c>r32</c>
+		/// register. Example instructions that do this: <c>PINSRB</c>, <c>ARPL</c>
 		/// </summary>
 		/// <returns></returns>
 		public readonly UsedRegisterIterator GetUsedRegisters() => new UsedRegisterIterator(usedRegisters.Array, (uint)usedRegisters.ValidLength);

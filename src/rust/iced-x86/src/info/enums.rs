@@ -49,12 +49,12 @@ pub(super) static OP_ACCESS_2: [OpAccess; 3] = [
 pub(crate) struct InstrInfoConstants;
 #[allow(dead_code)]
 impl InstrInfoConstants {
-	pub(crate) const OP_INFO0_COUNT: usize = 10;
+	pub(crate) const OP_INFO0_COUNT: usize = 12;
 	pub(crate) const OP_INFO1_COUNT: usize = 7;
 	pub(crate) const OP_INFO2_COUNT: usize = 3;
 	pub(crate) const OP_INFO3_COUNT: usize = 2;
 	pub(crate) const OP_INFO4_COUNT: usize = 2;
-	pub(crate) const RFLAGS_INFO_COUNT: usize = 54;
+	pub(crate) const RFLAGS_INFO_COUNT: usize = 59;
 	pub(crate) const DEFAULT_USED_REGISTER_COLL_CAPACITY: usize = 10;
 	pub(crate) const DEFAULT_USED_MEMORY_COLL_CAPACITY: usize = 8;
 }
@@ -122,12 +122,14 @@ pub(crate) enum OpInfo0 {
 	ReadCondWrite,
 	ReadWrite,
 	Write,
+	WriteVmm,
+	ReadWriteVmm,
 	WriteForce,
 	WriteMem_ReadWriteReg,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_OP_INFO0: [&str; 10] = [
+static GEN_DEBUG_OP_INFO0: [&str; 12] = [
 	"None",
 	"CondWrite",
 	"CondWrite32_ReadWrite64",
@@ -136,6 +138,8 @@ static GEN_DEBUG_OP_INFO0: [&str; 10] = [
 	"ReadCondWrite",
 	"ReadWrite",
 	"Write",
+	"WriteVmm",
+	"ReadWriteVmm",
 	"WriteForce",
 	"WriteMem_ReadWriteReg",
 ];
@@ -413,10 +417,12 @@ pub(crate) enum CodeInfo {
 	Rmpupdate,
 	Psmash,
 	Pvalidate,
+	CW_EAX,
+	Arpl,
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE_INFO: [&str; 101] = [
+static GEN_DEBUG_CODE_INFO: [&str; 103] = [
 	"None",
 	"Cdq",
 	"Cdqe",
@@ -518,6 +524,8 @@ static GEN_DEBUG_CODE_INFO: [&str; 101] = [
 	"Rmpupdate",
 	"Psmash",
 	"Pvalidate",
+	"CW_EAX",
+	"Arpl",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CodeInfo {
@@ -546,6 +554,7 @@ impl Default for CodeInfo {
 pub(crate) enum RflagsInfo {
 	None,
 	C_AC,
+	C_acos_S_pz,
 	C_c,
 	C_cos_S_pz_U_a,
 	C_d,
@@ -554,10 +563,12 @@ pub(crate) enum RflagsInfo {
 	R_ac_W_acpsz_U_o,
 	R_acopszid,
 	R_acopszidAC,
+	R_acopszidAC_W_acopszidAC,
 	R_acpsz,
 	R_c,
 	R_c_W_acopsz,
 	R_c_W_c,
+	R_c_W_c_U_o,
 	R_c_W_co,
 	R_cz,
 	R_d,
@@ -582,10 +593,12 @@ pub(crate) enum RflagsInfo {
 	W_c,
 	W_c_C_aopsz,
 	W_c_U_aops,
+	W_c_U_o,
 	W_co,
 	W_co_U_apsz,
 	W_copsz_U_a,
 	W_cosz_C_ap,
+	W_cpsz_U_ao,
 	W_cpz_C_aos,
 	W_cs_C_oz_U_ap,
 	W_csz_C_o_U_ap,
@@ -601,9 +614,10 @@ pub(crate) enum RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_RFLAGS_INFO: [&str; 54] = [
+static GEN_DEBUG_RFLAGS_INFO: [&str; 59] = [
 	"None",
 	"C_AC",
+	"C_acos_S_pz",
 	"C_c",
 	"C_cos_S_pz_U_a",
 	"C_d",
@@ -612,10 +626,12 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 54] = [
 	"R_ac_W_acpsz_U_o",
 	"R_acopszid",
 	"R_acopszidAC",
+	"R_acopszidAC_W_acopszidAC",
 	"R_acpsz",
 	"R_c",
 	"R_c_W_acopsz",
 	"R_c_W_c",
+	"R_c_W_c_U_o",
 	"R_c_W_co",
 	"R_cz",
 	"R_d",
@@ -640,10 +656,12 @@ static GEN_DEBUG_RFLAGS_INFO: [&str; 54] = [
 	"W_c",
 	"W_c_C_aopsz",
 	"W_c_U_aops",
+	"W_c_U_o",
 	"W_co",
 	"W_co_U_apsz",
 	"W_copsz_U_a",
 	"W_cosz_C_ap",
+	"W_cpsz_U_ao",
 	"W_cpz_C_aos",
 	"W_cs_C_oz_U_ap",
 	"W_csz_C_o_U_ap",

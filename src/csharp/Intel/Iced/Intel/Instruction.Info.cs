@@ -22,6 +22,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #if INSTR_INFO
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Iced.Intel {
@@ -271,25 +272,36 @@ namespace Iced.Intel {
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 2 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F ? 0 : -1);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 3 == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F ? 0 : -1);
 			Static.Assert(InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 + 4 == InstructionInfoInternal.CodeInfo.Clear_rflags ? 0 : -1);
-			switch ((uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9)) {
+			var result = (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);
+			var e = (uint)(codeInfo - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9);
+			switch (e) {
 			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				if ((Immediate8 & 0x1F) % 9 == 0)
-					return InstructionInfoInternal.RflagsInfo.None;
-				break;
-
 			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD11 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				if ((Immediate8 & 0x1F) % 17 == 0)
+				var m = e == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 ? 9 : 17;
+				switch ((Immediate8 & 0x1F) % m) {
+				case 0:
 					return InstructionInfoInternal.RflagsInfo.None;
+				case 1:
+					return InstructionInfoInternal.RflagsInfo.R_c_W_co;
+				}
 				break;
 
 			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				if ((Immediate8 & 0x1F) == 0)
-					return InstructionInfoInternal.RflagsInfo.None;
-				break;
-
 			case InstructionInfoInternal.CodeInfo.Shift_Ib_MASK3F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
-				if ((Immediate8 & 0x3F) == 0)
+				var mask = e == InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1F - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9 ? 0x1F : 0x3F;
+				switch (Immediate8 & mask) {
+				case 0:
 					return InstructionInfoInternal.RflagsInfo.None;
+				case 1:
+					if (result == InstructionInfoInternal.RflagsInfo.W_c_U_o)
+						return InstructionInfoInternal.RflagsInfo.W_co;
+					else if (result == InstructionInfoInternal.RflagsInfo.R_c_W_c_U_o)
+						return InstructionInfoInternal.RflagsInfo.R_c_W_co;
+					else {
+						Debug.Assert(result == InstructionInfoInternal.RflagsInfo.W_cpsz_U_ao);
+						return InstructionInfoInternal.RflagsInfo.W_copsz_U_a;
+					}
+				}
 				break;
 
 			case InstructionInfoInternal.CodeInfo.Clear_rflags - InstructionInfoInternal.CodeInfo.Shift_Ib_MASK1FMOD9:
@@ -297,9 +309,12 @@ namespace Iced.Intel {
 					break;
 				if (Op0Kind != OpKind.Register || Op1Kind != OpKind.Register)
 					break;
-				return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
+				if (Code.Mnemonic() == Mnemonic.Xor)
+					return InstructionInfoInternal.RflagsInfo.C_cos_S_pz_U_a;
+				else
+					return InstructionInfoInternal.RflagsInfo.C_acos_S_pz;
 			}
-			return (InstructionInfoInternal.RflagsInfo)((flags1 >> (int)InstructionInfoInternal.InfoFlags1.RflagsInfoShift) & (uint)InstructionInfoInternal.InfoFlags1.RflagsInfoMask);
+			return result;
 		}
 
 		/// <summary>

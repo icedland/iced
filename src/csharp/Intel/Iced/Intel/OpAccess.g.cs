@@ -43,7 +43,7 @@ namespace Iced.Intel {
 		ReadWrite = 5,
 		/// <summary>The value is read and sometimes written</summary>
 		ReadCondWrite = 6,
-		/// <summary>The memory operand doesn&apos;t refer to memory (eg. <c>LEA</c> instruction) or it&apos;s an instruction that doesn&apos;t read the data to a register or doesn&apos;t write to the memory location, it just prefetches/invalidates it, eg. <c>INVLPG</c>, <c>PREFETCHNTA</c>, <c>VGATHERPF0DPS</c>, etc.</summary>
+		/// <summary>The memory operand doesn&apos;t refer to memory (eg. <c>LEA</c> instruction) or it&apos;s an instruction that doesn&apos;t read the data to a register or doesn&apos;t write to the memory location, it just prefetches/invalidates it, eg. <c>INVLPG</c>, <c>PREFETCHNTA</c>, <c>VGATHERPF0DPS</c>, etc. Some of those instructions still check if the code can access the memory location.</summary>
 		NoMemAccess = 7,
 	}
 }

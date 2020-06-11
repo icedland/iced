@@ -43,7 +43,7 @@ pub enum OpAccess {
 	ReadWrite = 5,
 	/// The value is read and sometimes written
 	ReadCondWrite = 6,
-	/// The memory operand doesn't refer to memory (eg. `LEA` instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. `INVLPG`, `PREFETCHNTA`, `VGATHERPF0DPS`, etc.
+	/// The memory operand doesn't refer to memory (eg. `LEA` instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. `INVLPG`, `PREFETCHNTA`, `VGATHERPF0DPS`, etc. Some of those instructions still check if the code can access the memory location.
 	NoMemAccess = 7,
 }
 // GENERATOR-END: Enum

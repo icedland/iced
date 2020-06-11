@@ -38,7 +38,7 @@ namespace Generator.Enums.InstructionInfo {
 		ReadWrite,
 		[Comment("The value is read and sometimes written")]
 		ReadCondWrite,
-		[Comment("The memory operand doesn't refer to memory (eg. #(c:LEA)# instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. #(c:INVLPG)#, #(c:PREFETCHNTA)#, #(c:VGATHERPF0DPS)#, etc.")]
+		[Comment("The memory operand doesn't refer to memory (eg. #(c:LEA)# instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg. #(c:INVLPG)#, #(c:PREFETCHNTA)#, #(c:VGATHERPF0DPS)#, etc. Some of those instructions still check if the code can access the memory location.")]
 		NoMemAccess,
 	}
 }

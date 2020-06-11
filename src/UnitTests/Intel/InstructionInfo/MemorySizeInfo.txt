@@ -43,8 +43,8 @@ SegPtr64, 10, 10, SegPtr64, 1,
 WordOffset, 2, 2, WordOffset, 1,
 DwordOffset, 4, 4, DwordOffset, 1,
 QwordOffset, 8, 8, QwordOffset, 1,
-Bound16_WordWord, 4, 4, Bound16_WordWord, 1,
-Bound32_DwordDword, 8, 8, Bound32_DwordDword, 1,
+Bound16_WordWord, 4, 2, UInt16, 2, packed
+Bound32_DwordDword, 8, 4, UInt32, 2, packed
 Bnd32, 8, 8, Bnd32, 1,
 Bnd64, 16, 16, Bnd64, 1,
 Fword6, 6, 6, Fword6, 1,

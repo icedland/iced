@@ -713,9 +713,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_k2 : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_k2(string mnemonic) {
+		public SimpleInstrInfo_k2(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -757,9 +756,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_fpu_ST_STi : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_fpu_ST_STi(string mnemonic) {
+		public SimpleInstrInfo_fpu_ST_STi(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
@@ -779,9 +777,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_fpu_STi_ST : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_fpu_STi_ST(string mnemonic) {
+		public SimpleInstrInfo_fpu_STi_ST(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			const InstrOpInfoFlags flags = 0;
@@ -801,9 +798,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_ST_STi : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_ST_STi(string mnemonic) {
+		public SimpleInstrInfo_ST_STi(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -816,9 +812,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_STi_ST : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_STi_ST(string mnemonic) {
+		public SimpleInstrInfo_STi_ST(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);
@@ -896,9 +891,8 @@ namespace Iced.Intel.IntelFormatterInternal {
 	sealed class SimpleInstrInfo_imul : InstrInfo {
 		readonly FormatterString mnemonic;
 
-		public SimpleInstrInfo_imul(string mnemonic) {
+		public SimpleInstrInfo_imul(string mnemonic) =>
 			this.mnemonic = new FormatterString(mnemonic);
-		}
 
 		public override void GetOpInfo(FormatterOptions options, in Instruction instruction, out InstrOpInfo info) {
 			info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.None);

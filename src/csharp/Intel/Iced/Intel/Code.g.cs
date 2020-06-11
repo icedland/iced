@@ -9741,7 +9741,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandw_k_k_k = 1217,
+		VEX_Kandw_kr_kr_kr = 1217,
 		/// <summary><c>KANDQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 41 /r</c><br/>
@@ -9749,7 +9749,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandq_k_k_k = 1218,
+		VEX_Kandq_kr_kr_kr = 1218,
 		/// <summary><c>KANDB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 41 /r</c><br/>
@@ -9757,7 +9757,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandb_k_k_k = 1219,
+		VEX_Kandb_kr_kr_kr = 1219,
 		/// <summary><c>KANDD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 41 /r</c><br/>
@@ -9765,7 +9765,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandd_k_k_k = 1220,
+		VEX_Kandd_kr_kr_kr = 1220,
 		/// <summary><c>KANDNW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 42 /r</c><br/>
@@ -9773,7 +9773,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandnw_k_k_k = 1221,
+		VEX_Kandnw_kr_kr_kr = 1221,
 		/// <summary><c>KANDNQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 42 /r</c><br/>
@@ -9781,7 +9781,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandnq_k_k_k = 1222,
+		VEX_Kandnq_kr_kr_kr = 1222,
 		/// <summary><c>KANDNB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 42 /r</c><br/>
@@ -9789,7 +9789,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandnb_k_k_k = 1223,
+		VEX_Kandnb_kr_kr_kr = 1223,
 		/// <summary><c>KANDND k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 42 /r</c><br/>
@@ -9797,7 +9797,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kandnd_k_k_k = 1224,
+		VEX_Kandnd_kr_kr_kr = 1224,
 		/// <summary><c>KNOTW k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 44 /r</c><br/>
@@ -9805,7 +9805,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Knotw_k_k = 1225,
+		VEX_Knotw_kr_kr = 1225,
 		/// <summary><c>KNOTQ k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 44 /r</c><br/>
@@ -9813,7 +9813,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Knotq_k_k = 1226,
+		VEX_Knotq_kr_kr = 1226,
 		/// <summary><c>KNOTB k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 44 /r</c><br/>
@@ -9821,7 +9821,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Knotb_k_k = 1227,
+		VEX_Knotb_kr_kr = 1227,
 		/// <summary><c>KNOTD k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W1 44 /r</c><br/>
@@ -9829,7 +9829,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Knotd_k_k = 1228,
+		VEX_Knotd_kr_kr = 1228,
 		/// <summary><c>KORW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 45 /r</c><br/>
@@ -9837,7 +9837,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Korw_k_k_k = 1229,
+		VEX_Korw_kr_kr_kr = 1229,
 		/// <summary><c>KORQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 45 /r</c><br/>
@@ -9845,7 +9845,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Korq_k_k_k = 1230,
+		VEX_Korq_kr_kr_kr = 1230,
 		/// <summary><c>KORB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 45 /r</c><br/>
@@ -9853,7 +9853,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Korb_k_k_k = 1231,
+		VEX_Korb_kr_kr_kr = 1231,
 		/// <summary><c>KORD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 45 /r</c><br/>
@@ -9861,7 +9861,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kord_k_k_k = 1232,
+		VEX_Kord_kr_kr_kr = 1232,
 		/// <summary><c>KXNORW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 46 /r</c><br/>
@@ -9869,7 +9869,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxnorw_k_k_k = 1233,
+		VEX_Kxnorw_kr_kr_kr = 1233,
 		/// <summary><c>KXNORQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 46 /r</c><br/>
@@ -9877,7 +9877,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxnorq_k_k_k = 1234,
+		VEX_Kxnorq_kr_kr_kr = 1234,
 		/// <summary><c>KXNORB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 46 /r</c><br/>
@@ -9885,7 +9885,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxnorb_k_k_k = 1235,
+		VEX_Kxnorb_kr_kr_kr = 1235,
 		/// <summary><c>KXNORD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 46 /r</c><br/>
@@ -9893,7 +9893,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxnord_k_k_k = 1236,
+		VEX_Kxnord_kr_kr_kr = 1236,
 		/// <summary><c>KXORW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 47 /r</c><br/>
@@ -9901,7 +9901,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxorw_k_k_k = 1237,
+		VEX_Kxorw_kr_kr_kr = 1237,
 		/// <summary><c>KXORQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 47 /r</c><br/>
@@ -9909,7 +9909,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxorq_k_k_k = 1238,
+		VEX_Kxorq_kr_kr_kr = 1238,
 		/// <summary><c>KXORB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 47 /r</c><br/>
@@ -9917,7 +9917,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxorb_k_k_k = 1239,
+		VEX_Kxorb_kr_kr_kr = 1239,
 		/// <summary><c>KXORD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 47 /r</c><br/>
@@ -9925,7 +9925,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kxord_k_k_k = 1240,
+		VEX_Kxord_kr_kr_kr = 1240,
 		/// <summary><c>KADDW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 4A /r</c><br/>
@@ -9933,7 +9933,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kaddw_k_k_k = 1241,
+		VEX_Kaddw_kr_kr_kr = 1241,
 		/// <summary><c>KADDQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 4A /r</c><br/>
@@ -9941,7 +9941,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kaddq_k_k_k = 1242,
+		VEX_Kaddq_kr_kr_kr = 1242,
 		/// <summary><c>KADDB k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 4A /r</c><br/>
@@ -9949,7 +9949,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kaddb_k_k_k = 1243,
+		VEX_Kaddb_kr_kr_kr = 1243,
 		/// <summary><c>KADDD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W1 4A /r</c><br/>
@@ -9957,7 +9957,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kaddd_k_k_k = 1244,
+		VEX_Kaddd_kr_kr_kr = 1244,
 		/// <summary><c>KUNPCKWD k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W0 4B /r</c><br/>
@@ -9965,7 +9965,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kunpckwd_k_k_k = 1245,
+		VEX_Kunpckwd_kr_kr_kr = 1245,
 		/// <summary><c>KUNPCKDQ k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.0F.W1 4B /r</c><br/>
@@ -9973,7 +9973,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kunpckdq_k_k_k = 1246,
+		VEX_Kunpckdq_kr_kr_kr = 1246,
 		/// <summary><c>KUNPCKBW k1, k2, k3</c><br/>
 		/// <br/>
 		/// <c>VEX.L1.66.0F.W0 4B /r</c><br/>
@@ -9981,7 +9981,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kunpckbw_k_k_k = 1247,
+		VEX_Kunpckbw_kr_kr_kr = 1247,
 		/// <summary><c>MOVMSKPS r32, xmm</c><br/>
 		/// <br/>
 		/// <c>NP 0F 50 /r</c><br/>
@@ -12125,7 +12125,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtb_k_k1_xmm_xmmm128 = 1515,
+		EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128 = 1515,
 		/// <summary><c>VPCMPGTB k1 {k2}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 64 /r</c><br/>
@@ -12133,7 +12133,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtb_k_k1_ymm_ymmm256 = 1516,
+		EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256 = 1516,
 		/// <summary><c>VPCMPGTB k1 {k2}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 64 /r</c><br/>
@@ -12141,7 +12141,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtb_k_k1_zmm_zmmm512 = 1517,
+		EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512 = 1517,
 		/// <summary><c>PCMPGTW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 65 /r</c><br/>
@@ -12181,7 +12181,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtw_k_k1_xmm_xmmm128 = 1522,
+		EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128 = 1522,
 		/// <summary><c>VPCMPGTW k1 {k2}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 65 /r</c><br/>
@@ -12189,7 +12189,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtw_k_k1_ymm_ymmm256 = 1523,
+		EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256 = 1523,
 		/// <summary><c>VPCMPGTW k1 {k2}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 65 /r</c><br/>
@@ -12197,7 +12197,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtw_k_k1_zmm_zmmm512 = 1524,
+		EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512 = 1524,
 		/// <summary><c>PCMPGTD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 66 /r</c><br/>
@@ -12237,7 +12237,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32 = 1529,
+		EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32 = 1529,
 		/// <summary><c>VPCMPGTD k1 {k2}, ymm2, ymm3/m256/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 66 /r</c><br/>
@@ -12245,7 +12245,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32 = 1530,
+		EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32 = 1530,
 		/// <summary><c>VPCMPGTD k1 {k2}, zmm2, zmm3/m512/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 66 /r</c><br/>
@@ -12253,7 +12253,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32 = 1531,
+		EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32 = 1531,
 		/// <summary><c>PACKUSWB mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 67 /r</c><br/>
@@ -13749,7 +13749,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqb_k_k1_xmm_xmmm128 = 1718,
+		EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128 = 1718,
 		/// <summary><c>VPCMPEQB k1 {k2}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 74 /r</c><br/>
@@ -13757,7 +13757,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqb_k_k1_ymm_ymmm256 = 1719,
+		EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256 = 1719,
 		/// <summary><c>VPCMPEQB k1 {k2}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 74 /r</c><br/>
@@ -13765,7 +13765,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqb_k_k1_zmm_zmmm512 = 1720,
+		EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512 = 1720,
 		/// <summary><c>PCMPEQW mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 75 /r</c><br/>
@@ -13805,7 +13805,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqw_k_k1_xmm_xmmm128 = 1725,
+		EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128 = 1725,
 		/// <summary><c>VPCMPEQW k1 {k2}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.WIG 75 /r</c><br/>
@@ -13813,7 +13813,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqw_k_k1_ymm_ymmm256 = 1726,
+		EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256 = 1726,
 		/// <summary><c>VPCMPEQW k1 {k2}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.WIG 75 /r</c><br/>
@@ -13821,7 +13821,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqw_k_k1_zmm_zmmm512 = 1727,
+		EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512 = 1727,
 		/// <summary><c>PCMPEQD mm, mm/m64</c><br/>
 		/// <br/>
 		/// <c>NP 0F 76 /r</c><br/>
@@ -13861,7 +13861,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32 = 1732,
+		EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32 = 1732,
 		/// <summary><c>VPCMPEQD k1 {k2}, ymm2, ymm3/m256/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W0 76 /r</c><br/>
@@ -13869,7 +13869,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32 = 1733,
+		EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32 = 1733,
 		/// <summary><c>VPCMPEQD k1 {k2}, zmm2, zmm3/m512/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W0 76 /r</c><br/>
@@ -13877,7 +13877,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32 = 1734,
+		EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32 = 1734,
 		/// <summary><c>EMMS</c><br/>
 		/// <br/>
 		/// <c>NP 0F 77</c><br/>
@@ -15349,7 +15349,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovw_k_km16 = 1918,
+		VEX_Kmovw_kr_km16 = 1918,
 		/// <summary><c>KMOVQ k1, k2/m64</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 90 /r</c><br/>
@@ -15357,7 +15357,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovq_k_km64 = 1919,
+		VEX_Kmovq_kr_km64 = 1919,
 		/// <summary><c>KMOVB k1, k2/m8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 90 /r</c><br/>
@@ -15365,7 +15365,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovb_k_km8 = 1920,
+		VEX_Kmovb_kr_km8 = 1920,
 		/// <summary><c>KMOVD k1, k2/m32</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W1 90 /r</c><br/>
@@ -15373,7 +15373,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovd_k_km32 = 1921,
+		VEX_Kmovd_kr_km32 = 1921,
 		/// <summary><c>KMOVW m16, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 91 /r</c><br/>
@@ -15381,7 +15381,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovw_m16_k = 1922,
+		VEX_Kmovw_m16_kr = 1922,
 		/// <summary><c>KMOVQ m64, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 91 /r</c><br/>
@@ -15389,7 +15389,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovq_m64_k = 1923,
+		VEX_Kmovq_m64_kr = 1923,
 		/// <summary><c>KMOVB m8, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 91 /r</c><br/>
@@ -15397,7 +15397,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovb_m8_k = 1924,
+		VEX_Kmovb_m8_kr = 1924,
 		/// <summary><c>KMOVD m32, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W1 91 /r</c><br/>
@@ -15405,7 +15405,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovd_m32_k = 1925,
+		VEX_Kmovd_m32_kr = 1925,
 		/// <summary><c>KMOVW k1, r32</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 92 /r</c><br/>
@@ -15413,7 +15413,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovw_k_r32 = 1926,
+		VEX_Kmovw_kr_r32 = 1926,
 		/// <summary><c>KMOVB k1, r32</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 92 /r</c><br/>
@@ -15421,7 +15421,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovb_k_r32 = 1927,
+		VEX_Kmovb_kr_r32 = 1927,
 		/// <summary><c>KMOVD k1, r32</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.F2.0F.W0 92 /r</c><br/>
@@ -15429,7 +15429,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovd_k_r32 = 1928,
+		VEX_Kmovd_kr_r32 = 1928,
 		/// <summary><c>KMOVQ k1, r64</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.F2.0F.W1 92 /r</c><br/>
@@ -15437,7 +15437,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		VEX_Kmovq_k_r64 = 1929,
+		VEX_Kmovq_kr_r64 = 1929,
 		/// <summary><c>KMOVW r32, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 93 /r</c><br/>
@@ -15445,7 +15445,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovw_r32_k = 1930,
+		VEX_Kmovw_r32_kr = 1930,
 		/// <summary><c>KMOVB r32, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 93 /r</c><br/>
@@ -15453,7 +15453,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovb_r32_k = 1931,
+		VEX_Kmovb_r32_kr = 1931,
 		/// <summary><c>KMOVD r32, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.F2.0F.W0 93 /r</c><br/>
@@ -15461,7 +15461,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kmovd_r32_k = 1932,
+		VEX_Kmovd_r32_kr = 1932,
 		/// <summary><c>KMOVQ r64, k1</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.F2.0F.W1 93 /r</c><br/>
@@ -15469,7 +15469,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>64-bit</c></summary>
-		VEX_Kmovq_r64_k = 1933,
+		VEX_Kmovq_r64_kr = 1933,
 		/// <summary><c>KORTESTW k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 98 /r</c><br/>
@@ -15477,7 +15477,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kortestw_k_k = 1934,
+		VEX_Kortestw_kr_kr = 1934,
 		/// <summary><c>KORTESTQ k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 98 /r</c><br/>
@@ -15485,7 +15485,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kortestq_k_k = 1935,
+		VEX_Kortestq_kr_kr = 1935,
 		/// <summary><c>KORTESTB k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 98 /r</c><br/>
@@ -15493,7 +15493,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kortestb_k_k = 1936,
+		VEX_Kortestb_kr_kr = 1936,
 		/// <summary><c>KORTESTD k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W1 98 /r</c><br/>
@@ -15501,7 +15501,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kortestd_k_k = 1937,
+		VEX_Kortestd_kr_kr = 1937,
 		/// <summary><c>KTESTW k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W0 99 /r</c><br/>
@@ -15509,7 +15509,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Ktestw_k_k = 1938,
+		VEX_Ktestw_kr_kr = 1938,
 		/// <summary><c>KTESTQ k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.0F.W1 99 /r</c><br/>
@@ -15517,7 +15517,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Ktestq_k_k = 1939,
+		VEX_Ktestq_kr_kr = 1939,
 		/// <summary><c>KTESTB k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W0 99 /r</c><br/>
@@ -15525,7 +15525,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Ktestb_k_k = 1940,
+		VEX_Ktestb_kr_kr = 1940,
 		/// <summary><c>KTESTD k1, k2</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F.W1 99 /r</c><br/>
@@ -15533,7 +15533,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Ktestd_k_k = 1941,
+		VEX_Ktestd_kr_kr = 1941,
 		/// <summary><c>PUSH FS</c><br/>
 		/// <br/>
 		/// <c>o16 0F A0</c><br/>
@@ -17149,7 +17149,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8 = 2143,
+		EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8 = 2143,
 		/// <summary><c>VCMPPS k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.0F.W0 C2 /r ib</c><br/>
@@ -17157,7 +17157,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8 = 2144,
+		EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8 = 2144,
 		/// <summary><c>VCMPPS k1 {k2}, zmm2, zmm3/m512/m32bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.0F.W0 C2 /r ib</c><br/>
@@ -17165,7 +17165,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae = 2145,
+		EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae = 2145,
 		/// <summary><c>CMPPD xmm1, xmm2/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F C2 /r ib</c><br/>
@@ -17197,7 +17197,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8 = 2149,
+		EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8 = 2149,
 		/// <summary><c>VCMPPD k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F.W1 C2 /r ib</c><br/>
@@ -17205,7 +17205,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8 = 2150,
+		EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8 = 2150,
 		/// <summary><c>VCMPPD k1 {k2}, zmm2, zmm3/m512/m64bcst{sae}, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F.W1 C2 /r ib</c><br/>
@@ -17213,7 +17213,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae = 2151,
+		EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae = 2151,
 		/// <summary><c>CMPSS xmm1, xmm2/m32, imm8</c><br/>
 		/// <br/>
 		/// <c>F3 0F C2 /r ib</c><br/>
@@ -17237,7 +17237,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae = 2154,
+		EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae = 2154,
 		/// <summary><c>CMPSD xmm1, xmm2/m64, imm8</c><br/>
 		/// <br/>
 		/// <c>F2 0F C2 /r ib</c><br/>
@@ -17261,7 +17261,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae = 2157,
+		EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae = 2157,
 		/// <summary><c>MOVNTI m32, r32</c><br/>
 		/// <br/>
 		/// <c>NP 0F C3 /r</c><br/>
@@ -22269,7 +22269,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmb_k_k1_xmm_xmmm128 = 2783,
+		EVEX_Vptestmb_kr_k1_xmm_xmmm128 = 2783,
 		/// <summary><c>VPTESTMB k2 {k1}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W0 26 /r</c><br/>
@@ -22277,7 +22277,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmb_k_k1_ymm_ymmm256 = 2784,
+		EVEX_Vptestmb_kr_k1_ymm_ymmm256 = 2784,
 		/// <summary><c>VPTESTMB k2 {k1}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W0 26 /r</c><br/>
@@ -22285,7 +22285,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmb_k_k1_zmm_zmmm512 = 2785,
+		EVEX_Vptestmb_kr_k1_zmm_zmmm512 = 2785,
 		/// <summary><c>VPTESTMW k2 {k1}, xmm2, xmm3/m128</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F38.W1 26 /r</c><br/>
@@ -22293,7 +22293,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmw_k_k1_xmm_xmmm128 = 2786,
+		EVEX_Vptestmw_kr_k1_xmm_xmmm128 = 2786,
 		/// <summary><c>VPTESTMW k2 {k1}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W1 26 /r</c><br/>
@@ -22301,7 +22301,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmw_k_k1_ymm_ymmm256 = 2787,
+		EVEX_Vptestmw_kr_k1_ymm_ymmm256 = 2787,
 		/// <summary><c>VPTESTMW k2 {k1}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W1 26 /r</c><br/>
@@ -22309,7 +22309,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmw_k_k1_zmm_zmmm512 = 2788,
+		EVEX_Vptestmw_kr_k1_zmm_zmmm512 = 2788,
 		/// <summary><c>VPTESTNMB k2 {k1}, xmm2, xmm3/m128</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W0 26 /r</c><br/>
@@ -22317,7 +22317,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmb_k_k1_xmm_xmmm128 = 2789,
+		EVEX_Vptestnmb_kr_k1_xmm_xmmm128 = 2789,
 		/// <summary><c>VPTESTNMB k2 {k1}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 26 /r</c><br/>
@@ -22325,7 +22325,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmb_k_k1_ymm_ymmm256 = 2790,
+		EVEX_Vptestnmb_kr_k1_ymm_ymmm256 = 2790,
 		/// <summary><c>VPTESTNMB k2 {k1}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 26 /r</c><br/>
@@ -22333,7 +22333,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmb_k_k1_zmm_zmmm512 = 2791,
+		EVEX_Vptestnmb_kr_k1_zmm_zmmm512 = 2791,
 		/// <summary><c>VPTESTNMW k2 {k1}, xmm2, xmm3/m128</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 26 /r</c><br/>
@@ -22341,7 +22341,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmw_k_k1_xmm_xmmm128 = 2792,
+		EVEX_Vptestnmw_kr_k1_xmm_xmmm128 = 2792,
 		/// <summary><c>VPTESTNMW k2 {k1}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 26 /r</c><br/>
@@ -22349,7 +22349,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmw_k_k1_ymm_ymmm256 = 2793,
+		EVEX_Vptestnmw_kr_k1_ymm_ymmm256 = 2793,
 		/// <summary><c>VPTESTNMW k2 {k1}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 26 /r</c><br/>
@@ -22357,7 +22357,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmw_k_k1_zmm_zmmm512 = 2794,
+		EVEX_Vptestnmw_kr_k1_zmm_zmmm512 = 2794,
 		/// <summary><c>VPTESTMD k2 {k1}, xmm2, xmm3/m128/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F38.W0 27 /r</c><br/>
@@ -22365,7 +22365,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmd_k_k1_xmm_xmmm128b32 = 2795,
+		EVEX_Vptestmd_kr_k1_xmm_xmmm128b32 = 2795,
 		/// <summary><c>VPTESTMD k2 {k1}, ymm2, ymm3/m256/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W0 27 /r</c><br/>
@@ -22373,7 +22373,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmd_k_k1_ymm_ymmm256b32 = 2796,
+		EVEX_Vptestmd_kr_k1_ymm_ymmm256b32 = 2796,
 		/// <summary><c>VPTESTMD k2 {k1}, zmm2, zmm3/m512/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W0 27 /r</c><br/>
@@ -22381,7 +22381,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmd_k_k1_zmm_zmmm512b32 = 2797,
+		EVEX_Vptestmd_kr_k1_zmm_zmmm512b32 = 2797,
 		/// <summary><c>VPTESTMQ k2 {k1}, xmm2, xmm3/m128/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F38.W1 27 /r</c><br/>
@@ -22389,7 +22389,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmq_k_k1_xmm_xmmm128b64 = 2798,
+		EVEX_Vptestmq_kr_k1_xmm_xmmm128b64 = 2798,
 		/// <summary><c>VPTESTMQ k2 {k1}, ymm2, ymm3/m256/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W1 27 /r</c><br/>
@@ -22397,7 +22397,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmq_k_k1_ymm_ymmm256b64 = 2799,
+		EVEX_Vptestmq_kr_k1_ymm_ymmm256b64 = 2799,
 		/// <summary><c>VPTESTMQ k2 {k1}, zmm2, zmm3/m512/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W1 27 /r</c><br/>
@@ -22405,7 +22405,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestmq_k_k1_zmm_zmmm512b64 = 2800,
+		EVEX_Vptestmq_kr_k1_zmm_zmmm512b64 = 2800,
 		/// <summary><c>VPTESTNMD k2 {k1}, xmm2, xmm3/m128/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W0 27 /r</c><br/>
@@ -22413,7 +22413,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmd_k_k1_xmm_xmmm128b32 = 2801,
+		EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32 = 2801,
 		/// <summary><c>VPTESTNMD k2 {k1}, ymm2, ymm3/m256/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 27 /r</c><br/>
@@ -22421,7 +22421,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmd_k_k1_ymm_ymmm256b32 = 2802,
+		EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32 = 2802,
 		/// <summary><c>VPTESTNMD k2 {k1}, zmm2, zmm3/m512/m32bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 27 /r</c><br/>
@@ -22429,7 +22429,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmd_k_k1_zmm_zmmm512b32 = 2803,
+		EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32 = 2803,
 		/// <summary><c>VPTESTNMQ k2 {k1}, xmm2, xmm3/m128/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 27 /r</c><br/>
@@ -22437,7 +22437,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmq_k_k1_xmm_xmmm128b64 = 2804,
+		EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64 = 2804,
 		/// <summary><c>VPTESTNMQ k2 {k1}, ymm2, ymm3/m256/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 27 /r</c><br/>
@@ -22445,7 +22445,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmq_k_k1_ymm_ymmm256b64 = 2805,
+		EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64 = 2805,
 		/// <summary><c>VPTESTNMQ k2 {k1}, zmm2, zmm3/m512/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 27 /r</c><br/>
@@ -22453,7 +22453,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vptestnmq_k_k1_zmm_zmmm512b64 = 2806,
+		EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64 = 2806,
 		/// <summary><c>PMULDQ xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 28 /r</c><br/>
@@ -22509,7 +22509,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2b_xmm_k = 2813,
+		EVEX_Vpmovm2b_xmm_kr = 2813,
 		/// <summary><c>VPMOVM2B ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 28 /r</c><br/>
@@ -22517,7 +22517,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2b_ymm_k = 2814,
+		EVEX_Vpmovm2b_ymm_kr = 2814,
 		/// <summary><c>VPMOVM2B zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 28 /r</c><br/>
@@ -22525,7 +22525,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2b_zmm_k = 2815,
+		EVEX_Vpmovm2b_zmm_kr = 2815,
 		/// <summary><c>VPMOVM2W xmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 28 /r</c><br/>
@@ -22533,7 +22533,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2w_xmm_k = 2816,
+		EVEX_Vpmovm2w_xmm_kr = 2816,
 		/// <summary><c>VPMOVM2W ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 28 /r</c><br/>
@@ -22541,7 +22541,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2w_ymm_k = 2817,
+		EVEX_Vpmovm2w_ymm_kr = 2817,
 		/// <summary><c>VPMOVM2W zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 28 /r</c><br/>
@@ -22549,7 +22549,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2w_zmm_k = 2818,
+		EVEX_Vpmovm2w_zmm_kr = 2818,
 		/// <summary><c>PCMPEQQ xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 29 /r</c><br/>
@@ -22581,7 +22581,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64 = 2822,
+		EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64 = 2822,
 		/// <summary><c>VPCMPEQQ k1 {k2}, ymm2, ymm3/m256/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W1 29 /r</c><br/>
@@ -22589,7 +22589,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64 = 2823,
+		EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64 = 2823,
 		/// <summary><c>VPCMPEQQ k1 {k2}, zmm2, zmm3/m512/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W1 29 /r</c><br/>
@@ -22597,7 +22597,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64 = 2824,
+		EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64 = 2824,
 		/// <summary><c>VPMOVB2M k1, xmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W0 29 /r</c><br/>
@@ -22605,7 +22605,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovb2m_k_xmm = 2825,
+		EVEX_Vpmovb2m_kr_xmm = 2825,
 		/// <summary><c>VPMOVB2M k1, ymm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 29 /r</c><br/>
@@ -22613,7 +22613,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovb2m_k_ymm = 2826,
+		EVEX_Vpmovb2m_kr_ymm = 2826,
 		/// <summary><c>VPMOVB2M k1, zmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 29 /r</c><br/>
@@ -22621,7 +22621,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovb2m_k_zmm = 2827,
+		EVEX_Vpmovb2m_kr_zmm = 2827,
 		/// <summary><c>VPMOVW2M k1, xmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 29 /r</c><br/>
@@ -22629,7 +22629,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovw2m_k_xmm = 2828,
+		EVEX_Vpmovw2m_kr_xmm = 2828,
 		/// <summary><c>VPMOVW2M k1, ymm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 29 /r</c><br/>
@@ -22637,7 +22637,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovw2m_k_ymm = 2829,
+		EVEX_Vpmovw2m_kr_ymm = 2829,
 		/// <summary><c>VPMOVW2M k1, zmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 29 /r</c><br/>
@@ -22645,7 +22645,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovw2m_k_zmm = 2830,
+		EVEX_Vpmovw2m_kr_zmm = 2830,
 		/// <summary><c>MOVNTDQA xmm1, m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 2A /r</c><br/>
@@ -22701,7 +22701,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmb2q_xmm_k = 2837,
+		EVEX_Vpbroadcastmb2q_xmm_kr = 2837,
 		/// <summary><c>VPBROADCASTMB2Q ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 2A /r</c><br/>
@@ -22709,7 +22709,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmb2q_ymm_k = 2838,
+		EVEX_Vpbroadcastmb2q_ymm_kr = 2838,
 		/// <summary><c>VPBROADCASTMB2Q zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 2A /r</c><br/>
@@ -22717,7 +22717,7 @@ namespace Iced.Intel {
 		/// <c>AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmb2q_zmm_k = 2839,
+		EVEX_Vpbroadcastmb2q_zmm_kr = 2839,
 		/// <summary><c>PACKUSDW xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 2B /r</c><br/>
@@ -23397,7 +23397,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64 = 2924,
+		EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64 = 2924,
 		/// <summary><c>VPCMPGTQ k1 {k2}, ymm2, ymm3/m256/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W1 37 /r</c><br/>
@@ -23405,7 +23405,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64 = 2925,
+		EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64 = 2925,
 		/// <summary><c>VPCMPGTQ k1 {k2}, zmm2, zmm3/m512/m64bcst</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W1 37 /r</c><br/>
@@ -23413,7 +23413,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64 = 2926,
+		EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64 = 2926,
 		/// <summary><c>PMINSB xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 38 /r</c><br/>
@@ -23469,7 +23469,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2d_xmm_k = 2933,
+		EVEX_Vpmovm2d_xmm_kr = 2933,
 		/// <summary><c>VPMOVM2D ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 38 /r</c><br/>
@@ -23477,7 +23477,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2d_ymm_k = 2934,
+		EVEX_Vpmovm2d_ymm_kr = 2934,
 		/// <summary><c>VPMOVM2D zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 38 /r</c><br/>
@@ -23485,7 +23485,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2d_zmm_k = 2935,
+		EVEX_Vpmovm2d_zmm_kr = 2935,
 		/// <summary><c>VPMOVM2Q xmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 38 /r</c><br/>
@@ -23493,7 +23493,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2q_xmm_k = 2936,
+		EVEX_Vpmovm2q_xmm_kr = 2936,
 		/// <summary><c>VPMOVM2Q ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 38 /r</c><br/>
@@ -23501,7 +23501,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2q_ymm_k = 2937,
+		EVEX_Vpmovm2q_ymm_kr = 2937,
 		/// <summary><c>VPMOVM2Q zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 38 /r</c><br/>
@@ -23509,7 +23509,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovm2q_zmm_k = 2938,
+		EVEX_Vpmovm2q_zmm_kr = 2938,
 		/// <summary><c>PMINSD xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 39 /r</c><br/>
@@ -23586,50 +23586,50 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovd2m_k_xmm = 2948,
+		EVEX_Vpmovd2m_kr_xmm = 2948,
 		/// <summary><c>VPMOVD2M k1, ymm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovd2m_k_ymm = 2949,
+		EVEX_Vpmovd2m_kr_ymm = 2949,
 		/// <summary><c>VPMOVD2M k1, zmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512BW</c><br/>
+		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovd2m_k_zmm = 2950,
+		EVEX_Vpmovd2m_kr_zmm = 2950,
 		/// <summary><c>VPMOVQ2M k1, xmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovq2m_k_xmm = 2951,
+		EVEX_Vpmovq2m_kr_xmm = 2951,
 		/// <summary><c>VPMOVQ2M k1, ymm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512VL and AVX512BW</c><br/>
+		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovq2m_k_ymm = 2952,
+		EVEX_Vpmovq2m_kr_ymm = 2952,
 		/// <summary><c>VPMOVQ2M k1, zmm1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W1 39 /r</c><br/>
 		/// <br/>
-		/// <c>AVX512BW</c><br/>
+		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpmovq2m_k_zmm = 2953,
+		EVEX_Vpmovq2m_kr_zmm = 2953,
 		/// <summary><c>PMINUW xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 3A /r</c><br/>
@@ -23685,7 +23685,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmw2d_xmm_k = 2960,
+		EVEX_Vpbroadcastmw2d_xmm_kr = 2960,
 		/// <summary><c>VPBROADCASTMW2D ymm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.F3.0F38.W0 3A /r</c><br/>
@@ -23693,7 +23693,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmw2d_ymm_k = 2961,
+		EVEX_Vpbroadcastmw2d_ymm_kr = 2961,
 		/// <summary><c>VPBROADCASTMW2D zmm1, k1</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.F3.0F38.W0 3A /r</c><br/>
@@ -23701,7 +23701,7 @@ namespace Iced.Intel {
 		/// <c>AVX512CD</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpbroadcastmw2d_zmm_k = 2962,
+		EVEX_Vpbroadcastmw2d_zmm_kr = 2962,
 		/// <summary><c>PMINUD xmm1, xmm2/m128</c><br/>
 		/// <br/>
 		/// <c>66 0F 38 3B /r</c><br/>
@@ -26285,7 +26285,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512_BITALG</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128 = 3285,
+		EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128 = 3285,
 		/// <summary><c>VPSHUFBITQMB k1 {k2}, ymm2, ymm3/m256</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F38.W0 8F /r</c><br/>
@@ -26293,7 +26293,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512_BITALG</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256 = 3286,
+		EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256 = 3286,
 		/// <summary><c>VPSHUFBITQMB k1 {k2}, zmm2, zmm3/m512</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F38.W0 8F /r</c><br/>
@@ -26301,7 +26301,7 @@ namespace Iced.Intel {
 		/// <c>AVX512_BITALG</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512 = 3287,
+		EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512 = 3287,
 		/// <summary><c>VPGATHERDD xmm1, vm32x, xmm2</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F38.W0 90 /r</c><br/>
@@ -30533,7 +30533,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8 = 3816,
+		EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8 = 3816,
 		/// <summary><c>VPCMPUD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 1E /r ib</c><br/>
@@ -30541,7 +30541,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8 = 3817,
+		EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8 = 3817,
 		/// <summary><c>VPCMPUD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 1E /r ib</c><br/>
@@ -30549,7 +30549,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8 = 3818,
+		EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8 = 3818,
 		/// <summary><c>VPCMPUQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W1 1E /r ib</c><br/>
@@ -30557,7 +30557,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8 = 3819,
+		EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8 = 3819,
 		/// <summary><c>VPCMPUQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 1E /r ib</c><br/>
@@ -30565,7 +30565,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8 = 3820,
+		EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8 = 3820,
 		/// <summary><c>VPCMPUQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 1E /r ib</c><br/>
@@ -30573,7 +30573,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8 = 3821,
+		EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8 = 3821,
 		/// <summary><c>VPCMPD k1 {k2}, xmm2, xmm3/m128/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W0 1F /r ib</c><br/>
@@ -30581,7 +30581,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8 = 3822,
+		EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8 = 3822,
 		/// <summary><c>VPCMPD k1 {k2}, ymm2, ymm3/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 1F /r ib</c><br/>
@@ -30589,7 +30589,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8 = 3823,
+		EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8 = 3823,
 		/// <summary><c>VPCMPD k1 {k2}, zmm2, zmm3/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 1F /r ib</c><br/>
@@ -30597,7 +30597,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8 = 3824,
+		EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8 = 3824,
 		/// <summary><c>VPCMPQ k1 {k2}, xmm2, xmm3/m128/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W1 1F /r ib</c><br/>
@@ -30605,7 +30605,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8 = 3825,
+		EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8 = 3825,
 		/// <summary><c>VPCMPQ k1 {k2}, ymm2, ymm3/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 1F /r ib</c><br/>
@@ -30613,7 +30613,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8 = 3826,
+		EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8 = 3826,
 		/// <summary><c>VPCMPQ k1 {k2}, zmm2, zmm3/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 1F /r ib</c><br/>
@@ -30621,7 +30621,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8 = 3827,
+		EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8 = 3827,
 		/// <summary><c>PINSRB xmm1, r32/m8, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F 3A 20 /r ib</c><br/>
@@ -30893,7 +30893,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftrb_k_k_imm8 = 3861,
+		VEX_Kshiftrb_kr_kr_imm8 = 3861,
 		/// <summary><c>KSHIFTRW k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W1 30 /r ib</c><br/>
@@ -30901,7 +30901,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftrw_k_k_imm8 = 3862,
+		VEX_Kshiftrw_kr_kr_imm8 = 3862,
 		/// <summary><c>KSHIFTRD k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W0 31 /r ib</c><br/>
@@ -30909,7 +30909,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftrd_k_k_imm8 = 3863,
+		VEX_Kshiftrd_kr_kr_imm8 = 3863,
 		/// <summary><c>KSHIFTRQ k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W1 31 /r ib</c><br/>
@@ -30917,7 +30917,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftrq_k_k_imm8 = 3864,
+		VEX_Kshiftrq_kr_kr_imm8 = 3864,
 		/// <summary><c>KSHIFTLB k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W0 32 /r ib</c><br/>
@@ -30925,7 +30925,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftlb_k_k_imm8 = 3865,
+		VEX_Kshiftlb_kr_kr_imm8 = 3865,
 		/// <summary><c>KSHIFTLW k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W1 32 /r ib</c><br/>
@@ -30933,7 +30933,7 @@ namespace Iced.Intel {
 		/// <c>AVX512F</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftlw_k_k_imm8 = 3866,
+		VEX_Kshiftlw_kr_kr_imm8 = 3866,
 		/// <summary><c>KSHIFTLD k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W0 33 /r ib</c><br/>
@@ -30941,7 +30941,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftld_k_k_imm8 = 3867,
+		VEX_Kshiftld_kr_kr_imm8 = 3867,
 		/// <summary><c>KSHIFTLQ k1, k2, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.L0.66.0F3A.W1 33 /r ib</c><br/>
@@ -30949,12 +30949,12 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		VEX_Kshiftlq_k_k_imm8 = 3868,
+		VEX_Kshiftlq_kr_kr_imm8 = 3868,
 		/// <summary><c>VINSERTI128 ymm1, ymm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>VEX.256.66.0F3A.W0 38 /r ib</c><br/>
 		/// <br/>
-		/// <c>AVX</c><br/>
+		/// <c>AVX2</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		VEX_Vinserti128_ymm_ymm_xmmm128_imm8 = 3869,
@@ -31069,7 +31069,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8 = 3883,
+		EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8 = 3883,
 		/// <summary><c>VPCMPUB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 3E /r ib</c><br/>
@@ -31077,7 +31077,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8 = 3884,
+		EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8 = 3884,
 		/// <summary><c>VPCMPUB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 3E /r ib</c><br/>
@@ -31085,7 +31085,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8 = 3885,
+		EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8 = 3885,
 		/// <summary><c>VPCMPUW k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W1 3E /r ib</c><br/>
@@ -31093,7 +31093,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8 = 3886,
+		EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8 = 3886,
 		/// <summary><c>VPCMPUW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 3E /r ib</c><br/>
@@ -31101,7 +31101,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8 = 3887,
+		EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8 = 3887,
 		/// <summary><c>VPCMPUW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 3E /r ib</c><br/>
@@ -31109,7 +31109,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8 = 3888,
+		EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8 = 3888,
 		/// <summary><c>VPCMPB k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W0 3F /r ib</c><br/>
@@ -31117,7 +31117,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8 = 3889,
+		EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8 = 3889,
 		/// <summary><c>VPCMPB k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 3F /r ib</c><br/>
@@ -31125,7 +31125,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8 = 3890,
+		EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8 = 3890,
 		/// <summary><c>VPCMPB k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 3F /r ib</c><br/>
@@ -31133,7 +31133,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8 = 3891,
+		EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8 = 3891,
 		/// <summary><c>VPCMPW k1 {k2}, xmm2, xmm3/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W1 3F /r ib</c><br/>
@@ -31141,7 +31141,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8 = 3892,
+		EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8 = 3892,
 		/// <summary><c>VPCMPW k1 {k2}, ymm2, ymm3/m256, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 3F /r ib</c><br/>
@@ -31149,7 +31149,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8 = 3893,
+		EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8 = 3893,
 		/// <summary><c>VPCMPW k1 {k2}, zmm2, zmm3/m512, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 3F /r ib</c><br/>
@@ -31157,7 +31157,7 @@ namespace Iced.Intel {
 		/// <c>AVX512BW</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8 = 3894,
+		EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8 = 3894,
 		/// <summary><c>DPPS xmm1, xmm2/m128, imm8</c><br/>
 		/// <br/>
 		/// <c>66 0F 3A 40 /r ib</c><br/>
@@ -31869,7 +31869,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclassps_k_k1_xmmm128b32_imm8 = 3983,
+		EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8 = 3983,
 		/// <summary><c>VFPCLASSPS k2 {k1}, ymm2/m256/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W0 66 /r ib</c><br/>
@@ -31877,7 +31877,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclassps_k_k1_ymmm256b32_imm8 = 3984,
+		EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8 = 3984,
 		/// <summary><c>VFPCLASSPS k2 {k1}, zmm2/m512/m32bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W0 66 /r ib</c><br/>
@@ -31885,7 +31885,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclassps_k_k1_zmmm512b32_imm8 = 3985,
+		EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8 = 3985,
 		/// <summary><c>VFPCLASSPD k2 {k1}, xmm2/m128/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.128.66.0F3A.W1 66 /r ib</c><br/>
@@ -31893,7 +31893,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8 = 3986,
+		EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8 = 3986,
 		/// <summary><c>VFPCLASSPD k2 {k1}, ymm2/m256/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.256.66.0F3A.W1 66 /r ib</c><br/>
@@ -31901,7 +31901,7 @@ namespace Iced.Intel {
 		/// <c>AVX512VL and AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8 = 3987,
+		EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8 = 3987,
 		/// <summary><c>VFPCLASSPD k2 {k1}, zmm2/m512/m64bcst, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.512.66.0F3A.W1 66 /r ib</c><br/>
@@ -31909,7 +31909,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8 = 3988,
+		EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8 = 3988,
 		/// <summary><c>VFPCLASSSS k2 {k1}, xmm2/m32, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.66.0F3A.W0 67 /r ib</c><br/>
@@ -31917,7 +31917,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclassss_k_k1_xmmm32_imm8 = 3989,
+		EVEX_Vfpclassss_kr_k1_xmmm32_imm8 = 3989,
 		/// <summary><c>VFPCLASSSD k2 {k1}, xmm2/m64, imm8</c><br/>
 		/// <br/>
 		/// <c>EVEX.LIG.66.0F3A.W1 67 /r ib</c><br/>
@@ -31925,7 +31925,7 @@ namespace Iced.Intel {
 		/// <c>AVX512DQ</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		EVEX_Vfpclasssd_k_k1_xmmm64_imm8 = 3990,
+		EVEX_Vfpclasssd_kr_k1_xmmm64_imm8 = 3990,
 		/// <summary><c>VFMADDPS xmm1, xmm2, xmm3/m128, xmm4</c><br/>
 		/// <br/>
 		/// <c>VEX.128.66.0F3A.W0 68 /r /is4</c><br/>

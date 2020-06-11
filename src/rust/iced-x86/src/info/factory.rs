@@ -230,9 +230,34 @@ impl InstructionInfoFactory {
 		let op0_access = match unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO0_SHIFT) & InfoFlags1::OP_INFO0_MASK) as u8) } {
 			OpInfo0::None => OpAccess::None,
 			OpInfo0::Read => OpAccess::Read,
+
 			OpInfo0::Write => {
 				if instruction.has_op_mask() && instruction.merging_masking() {
-					OpAccess::ReadWrite
+					if instruction.op0_kind() != OpKind::Register {
+						OpAccess::CondWrite
+					} else {
+						OpAccess::ReadWrite
+					}
+				} else {
+					OpAccess::Write
+				}
+			}
+
+			OpInfo0::WriteVmm => {
+				// If it's opmask+merging ({k1}) and dest is xmm/ymm/zmm, then access is one of:
+				//	k1			mem			xmm/ymm		zmm
+				//	----------------------------------------
+				//	all 1s		write		write		write		all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
+				//	all 0s		no access	read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
+				//													treat it as R lower bits + clear upper bits + W full reg
+				//	else		cond-write	read/write	read/write	some elems are unchanged, the others are overwritten
+				// If it's xmm/ymm, use RW, else use RCW. If it's mem, use CW
+				if instruction.has_op_mask() && instruction.merging_masking() {
+					if instruction.op0_kind() != OpKind::Register {
+						OpAccess::CondWrite
+					} else {
+						OpAccess::ReadCondWrite
+					}
 				} else {
 					OpAccess::Write
 				}
@@ -250,6 +275,23 @@ impl InstructionInfoFactory {
 			}
 
 			OpInfo0::ReadWrite => OpAccess::ReadWrite,
+
+			OpInfo0::ReadWriteVmm => {
+				// If it's opmask+merging ({k1}) and dest is xmm/ymm/zmm, then access is one of:
+				//	k1			xmm/ymm		zmm
+				//	-------------------------------
+				//	all 1s		read/write	read/write	all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
+				//	all 0s		read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
+				//										treat it as R lower bits + clear upper bits + W full reg
+				//	else		read/write	read/write	some elems are unchanged, the others are overwritten
+				// If it's xmm/ymm, use RW, else use RCW
+				if instruction.has_op_mask() && instruction.merging_masking() {
+					OpAccess::ReadCondWrite
+				} else {
+					OpAccess::ReadWrite
+				}
+			}
+
 			OpInfo0::ReadCondWrite => OpAccess::ReadCondWrite,
 			OpInfo0::NoMemAccess => OpAccess::NoMemAccess,
 
@@ -1830,39 +1872,23 @@ impl InstructionInfoFactory {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					Self::add_memory_segment_register(flags, info, seg, OpAccess::Read);
 					Self::add_register(flags, info, base_register, OpAccess::Read);
-					if (flags & Flags::IS_64BIT) != 0 {
-						Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-						Self::add_register(flags, info, Register::RDX, OpAccess::Read);
-					} else {
-						Self::add_register(flags, info, Register::ECX, OpAccess::Read);
-						Self::add_register(flags, info, Register::EDX, OpAccess::Read);
-					}
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EDX, OpAccess::Read);
 				}
 			}
 
 			CodeInfo::Mwait => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if (flags & Flags::IS_64BIT) != 0 {
-						Self::add_register(flags, info, Register::RAX, OpAccess::Read);
-						Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-					} else {
-						Self::add_register(flags, info, Register::EAX, OpAccess::Read);
-						Self::add_register(flags, info, Register::ECX, OpAccess::Read);
-					}
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
 				}
 			}
 
 			CodeInfo::Mwaitx => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					if (flags & Flags::IS_64BIT) != 0 {
-						Self::add_register(flags, info, Register::RAX, OpAccess::Read);
-						Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-						Self::add_register(flags, info, Register::RBX, OpAccess::CondRead);
-					} else {
-						Self::add_register(flags, info, Register::EAX, OpAccess::Read);
-						Self::add_register(flags, info, Register::ECX, OpAccess::Read);
-						Self::add_register(flags, info, Register::EBX, OpAccess::CondRead);
-					}
+					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::ECX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EBX, OpAccess::CondRead);
 				}
 			}
 
@@ -1966,27 +1992,30 @@ impl InstructionInfoFactory {
 				}
 			}
 
-			CodeInfo::Shift_Ib_MASK1FMOD9 => {
-				if (instruction.immediate8() & 0x1F) % 9 == 0 {
-					info.rflags_info = RflagsInfo::None as usize;
+			CodeInfo::Shift_Ib_MASK1FMOD9 | CodeInfo::Shift_Ib_MASK1FMOD11 => {
+				let m = if code_info == CodeInfo::Shift_Ib_MASK1FMOD9 { 9 } else { 17 };
+				match (instruction.immediate8() & 0x1F) % m {
+					0 => info.rflags_info = RflagsInfo::None as usize,
+					1 => info.rflags_info = RflagsInfo::R_c_W_co as usize,
+					_ => {}
 				}
 			}
 
-			CodeInfo::Shift_Ib_MASK1FMOD11 => {
-				if (instruction.immediate8() & 0x1F) % 17 == 0 {
-					info.rflags_info = RflagsInfo::None as usize;
-				}
-			}
-
-			CodeInfo::Shift_Ib_MASK1F => {
-				if (instruction.immediate8() & 0x1F) == 0 {
-					info.rflags_info = RflagsInfo::None as usize;
-				}
-			}
-
-			CodeInfo::Shift_Ib_MASK3F => {
-				if (instruction.immediate8() & 0x3F) == 0 {
-					info.rflags_info = RflagsInfo::None as usize;
+			CodeInfo::Shift_Ib_MASK1F | CodeInfo::Shift_Ib_MASK3F => {
+				let mask = if code_info == CodeInfo::Shift_Ib_MASK1F { 0x1F } else { 0x3F };
+				match instruction.immediate8() & mask {
+					0 => info.rflags_info = RflagsInfo::None as usize,
+					1 => {
+						if info.rflags_info == RflagsInfo::W_c_U_o as usize {
+							info.rflags_info = RflagsInfo::W_co as usize;
+						} else if info.rflags_info == RflagsInfo::R_c_W_c_U_o as usize {
+							info.rflags_info = RflagsInfo::R_c_W_co as usize;
+						} else {
+							debug_assert_eq!(RflagsInfo::W_cpsz_U_ao as usize, info.rflags_info);
+							info.rflags_info = RflagsInfo::W_copsz_U_a as usize;
+						}
+					}
+					_ => {}
 				}
 			}
 
@@ -2048,11 +2077,21 @@ impl InstructionInfoFactory {
 
 			CodeInfo::Pconfig => {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
-					Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
 					base_register = if (flags & Flags::IS_64BIT) != 0 { Register::RAX } else { Register::EAX };
+					Self::add_register(flags, info, Register::EAX, OpAccess::ReadWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondRead);
+					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(2) as u8) }, OpAccess::CondRead);
+					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(2) as u8) }, OpAccess::CondWrite);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondRead);
+					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondWrite);
+					Self::add_memory_segment_register(flags, info, Register::DS, OpAccess::CondRead);
+				}
+			}
+
+			CodeInfo::CW_EAX => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::EAX, OpAccess::CondWrite);
 				}
 			}
 
@@ -2068,21 +2107,29 @@ impl InstructionInfoFactory {
 						Self::add_register(flags, info, if (flags & Flags::IS_64BIT) != 0 { Register::RSP } else { Register::ESP }, OpAccess::Write);
 					} else if code == Code::Sysretq {
 						Self::add_register(flags, info, Register::RCX, OpAccess::Read);
-						Self::add_register(flags, info, Register::R11, OpAccess::Read);
+						Self::add_register(flags, info, Register::R11D, OpAccess::Read);
+						Self::add_register(flags, info, Register::CS, OpAccess::Write);
+						Self::add_register(flags, info, Register::SS, OpAccess::Write);
 					} else if code == Code::Sysexitq {
 						Self::add_register(flags, info, Register::RCX, OpAccess::Read);
 						Self::add_register(flags, info, Register::RDX, OpAccess::Read);
 						Self::add_register(flags, info, Register::RSP, OpAccess::Write);
+						Self::add_register(flags, info, Register::CS, OpAccess::Write);
+						Self::add_register(flags, info, Register::SS, OpAccess::Write);
 					} else if code == Code::Sysretd {
 						Self::add_register(flags, info, Register::ECX, OpAccess::Read);
 						if (flags & Flags::IS_64BIT) != 0 {
-							Self::add_register(flags, info, Register::R11, OpAccess::Read);
+							Self::add_register(flags, info, Register::R11D, OpAccess::Read);
 						}
+						Self::add_register(flags, info, Register::CS, OpAccess::Write);
+						Self::add_register(flags, info, Register::SS, OpAccess::Write);
 					} else {
 						debug_assert_eq!(Code::Sysexitd, code);
 						Self::add_register(flags, info, Register::ECX, OpAccess::Read);
 						Self::add_register(flags, info, Register::EDX, OpAccess::Read);
 						Self::add_register(flags, info, if (flags & Flags::IS_64BIT) != 0 { Register::RSP } else { Register::ESP }, OpAccess::Write);
+						Self::add_register(flags, info, Register::CS, OpAccess::Write);
+						Self::add_register(flags, info, Register::SS, OpAccess::Write);
 					}
 				}
 			}
@@ -2091,6 +2138,7 @@ impl InstructionInfoFactory {
 				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 					base_register = if (flags & Flags::IS_64BIT) != 0 { Register::RAX } else { Register::EAX };
 					Self::add_register(flags, info, Register::EAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EAX, OpAccess::CondWrite);
 					// rcx/ecx
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondRead);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(1) as u8) }, OpAccess::CondWrite);
@@ -2100,6 +2148,7 @@ impl InstructionInfoFactory {
 					// rbx/ebx
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondRead);
 					Self::add_register(flags, info, unsafe { mem::transmute((base_register as u32).wrapping_add(3) as u8) }, OpAccess::CondWrite);
+					Self::add_memory_segment_register(flags, info, Register::DS, OpAccess::CondRead);
 				}
 			}
 
@@ -2290,7 +2339,11 @@ impl InstructionInfoFactory {
 				{
 					info.op_accesses[0] = OpAccess::Write;
 					info.op_accesses[1] = OpAccess::None;
-					info.rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
+					if instruction.code().mnemonic() == Mnemonic::Xor {
+						info.rflags_info = RflagsInfo::C_cos_S_pz_U_a as usize;
+					} else {
+						info.rflags_info = RflagsInfo::C_acos_S_pz as usize;
+					}
 					if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 						debug_assert!(info.used_registers.len() == 2 || info.used_registers.len() == 3);
 						info.used_registers.clear();
@@ -2881,6 +2934,23 @@ impl InstructionInfoFactory {
 							unsafe { mem::transmute((instruction.op0_register() as u32).wrapping_sub(1) as u8) },
 							OpAccess::Write,
 						);
+					}
+				}
+			}
+
+			CodeInfo::Arpl => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					debug_assert!(!info.used_registers.is_empty());
+					// Skip memory operand, if any
+					let start_index = if instruction.op0_kind() == OpKind::Register { 0 } else { info.used_registers.len() - 1 };
+					for mut info in &mut info.used_registers[start_index..] {
+						index = Self::try_get_gpr_16_32_64_index(info.register);
+						if index >= 4 {
+							index += 4; // Skip AH, CH, DH, BH
+						}
+						if index >= 0 {
+							info.register = unsafe { mem::transmute((Register::AL as u32).wrapping_add(index as u32) as u8) };
+						}
 					}
 				}
 			}

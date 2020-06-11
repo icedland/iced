@@ -1245,37 +1245,37 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cmovg,// Cmovg_r16_rm16
 			(ushort)Mnemonic.Cmovg,// Cmovg_r32_rm32
 			(ushort)Mnemonic.Cmovg,// Cmovg_r64_rm64
-			(ushort)Mnemonic.Kandw,// VEX_Kandw_k_k_k
-			(ushort)Mnemonic.Kandq,// VEX_Kandq_k_k_k
-			(ushort)Mnemonic.Kandb,// VEX_Kandb_k_k_k
-			(ushort)Mnemonic.Kandd,// VEX_Kandd_k_k_k
-			(ushort)Mnemonic.Kandnw,// VEX_Kandnw_k_k_k
-			(ushort)Mnemonic.Kandnq,// VEX_Kandnq_k_k_k
-			(ushort)Mnemonic.Kandnb,// VEX_Kandnb_k_k_k
-			(ushort)Mnemonic.Kandnd,// VEX_Kandnd_k_k_k
-			(ushort)Mnemonic.Knotw,// VEX_Knotw_k_k
-			(ushort)Mnemonic.Knotq,// VEX_Knotq_k_k
-			(ushort)Mnemonic.Knotb,// VEX_Knotb_k_k
-			(ushort)Mnemonic.Knotd,// VEX_Knotd_k_k
-			(ushort)Mnemonic.Korw,// VEX_Korw_k_k_k
-			(ushort)Mnemonic.Korq,// VEX_Korq_k_k_k
-			(ushort)Mnemonic.Korb,// VEX_Korb_k_k_k
-			(ushort)Mnemonic.Kord,// VEX_Kord_k_k_k
-			(ushort)Mnemonic.Kxnorw,// VEX_Kxnorw_k_k_k
-			(ushort)Mnemonic.Kxnorq,// VEX_Kxnorq_k_k_k
-			(ushort)Mnemonic.Kxnorb,// VEX_Kxnorb_k_k_k
-			(ushort)Mnemonic.Kxnord,// VEX_Kxnord_k_k_k
-			(ushort)Mnemonic.Kxorw,// VEX_Kxorw_k_k_k
-			(ushort)Mnemonic.Kxorq,// VEX_Kxorq_k_k_k
-			(ushort)Mnemonic.Kxorb,// VEX_Kxorb_k_k_k
-			(ushort)Mnemonic.Kxord,// VEX_Kxord_k_k_k
-			(ushort)Mnemonic.Kaddw,// VEX_Kaddw_k_k_k
-			(ushort)Mnemonic.Kaddq,// VEX_Kaddq_k_k_k
-			(ushort)Mnemonic.Kaddb,// VEX_Kaddb_k_k_k
-			(ushort)Mnemonic.Kaddd,// VEX_Kaddd_k_k_k
-			(ushort)Mnemonic.Kunpckwd,// VEX_Kunpckwd_k_k_k
-			(ushort)Mnemonic.Kunpckdq,// VEX_Kunpckdq_k_k_k
-			(ushort)Mnemonic.Kunpckbw,// VEX_Kunpckbw_k_k_k
+			(ushort)Mnemonic.Kandw,// VEX_Kandw_kr_kr_kr
+			(ushort)Mnemonic.Kandq,// VEX_Kandq_kr_kr_kr
+			(ushort)Mnemonic.Kandb,// VEX_Kandb_kr_kr_kr
+			(ushort)Mnemonic.Kandd,// VEX_Kandd_kr_kr_kr
+			(ushort)Mnemonic.Kandnw,// VEX_Kandnw_kr_kr_kr
+			(ushort)Mnemonic.Kandnq,// VEX_Kandnq_kr_kr_kr
+			(ushort)Mnemonic.Kandnb,// VEX_Kandnb_kr_kr_kr
+			(ushort)Mnemonic.Kandnd,// VEX_Kandnd_kr_kr_kr
+			(ushort)Mnemonic.Knotw,// VEX_Knotw_kr_kr
+			(ushort)Mnemonic.Knotq,// VEX_Knotq_kr_kr
+			(ushort)Mnemonic.Knotb,// VEX_Knotb_kr_kr
+			(ushort)Mnemonic.Knotd,// VEX_Knotd_kr_kr
+			(ushort)Mnemonic.Korw,// VEX_Korw_kr_kr_kr
+			(ushort)Mnemonic.Korq,// VEX_Korq_kr_kr_kr
+			(ushort)Mnemonic.Korb,// VEX_Korb_kr_kr_kr
+			(ushort)Mnemonic.Kord,// VEX_Kord_kr_kr_kr
+			(ushort)Mnemonic.Kxnorw,// VEX_Kxnorw_kr_kr_kr
+			(ushort)Mnemonic.Kxnorq,// VEX_Kxnorq_kr_kr_kr
+			(ushort)Mnemonic.Kxnorb,// VEX_Kxnorb_kr_kr_kr
+			(ushort)Mnemonic.Kxnord,// VEX_Kxnord_kr_kr_kr
+			(ushort)Mnemonic.Kxorw,// VEX_Kxorw_kr_kr_kr
+			(ushort)Mnemonic.Kxorq,// VEX_Kxorq_kr_kr_kr
+			(ushort)Mnemonic.Kxorb,// VEX_Kxorb_kr_kr_kr
+			(ushort)Mnemonic.Kxord,// VEX_Kxord_kr_kr_kr
+			(ushort)Mnemonic.Kaddw,// VEX_Kaddw_kr_kr_kr
+			(ushort)Mnemonic.Kaddq,// VEX_Kaddq_kr_kr_kr
+			(ushort)Mnemonic.Kaddb,// VEX_Kaddb_kr_kr_kr
+			(ushort)Mnemonic.Kaddd,// VEX_Kaddd_kr_kr_kr
+			(ushort)Mnemonic.Kunpckwd,// VEX_Kunpckwd_kr_kr_kr
+			(ushort)Mnemonic.Kunpckdq,// VEX_Kunpckdq_kr_kr_kr
+			(ushort)Mnemonic.Kunpckbw,// VEX_Kunpckbw_kr_kr_kr
 			(ushort)Mnemonic.Movmskps,// Movmskps_r32_xmm
 			(ushort)Mnemonic.Movmskps,// Movmskps_r64_xmm
 			(ushort)Mnemonic.Vmovmskps,// VEX_Vmovmskps_r32_xmm
@@ -1543,23 +1543,23 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pcmpgtb,// Pcmpgtb_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtb,// VEX_Vpcmpgtb_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtb,// VEX_Vpcmpgtb_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_k_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vpcmpgtb,// EVEX_Vpcmpgtb_kr_k1_zmm_zmmm512
 			(ushort)Mnemonic.Pcmpgtw,// Pcmpgtw_mm_mmm64
 			(ushort)Mnemonic.Pcmpgtw,// Pcmpgtw_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtw,// VEX_Vpcmpgtw_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtw,// VEX_Vpcmpgtw_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_k_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vpcmpgtw,// EVEX_Vpcmpgtw_kr_k1_zmm_zmmm512
 			(ushort)Mnemonic.Pcmpgtd,// Pcmpgtd_mm_mmm64
 			(ushort)Mnemonic.Pcmpgtd,// Pcmpgtd_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtd,// VEX_Vpcmpgtd_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtd,// VEX_Vpcmpgtd_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_k_k1_xmm_xmmm128b32
-			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_k_k1_ymm_ymmm256b32
-			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_k_k1_zmm_zmmm512b32
+			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_kr_k1_xmm_xmmm128b32
+			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_kr_k1_ymm_ymmm256b32
+			(ushort)Mnemonic.Vpcmpgtd,// EVEX_Vpcmpgtd_kr_k1_zmm_zmmm512b32
 			(ushort)Mnemonic.Packuswb,// Packuswb_mm_mmm64
 			(ushort)Mnemonic.Packuswb,// Packuswb_xmm_xmmm128
 			(ushort)Mnemonic.Vpackuswb,// VEX_Vpackuswb_xmm_xmm_xmmm128
@@ -1746,23 +1746,23 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pcmpeqb,// Pcmpeqb_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqb,// VEX_Vpcmpeqb_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqb,// VEX_Vpcmpeqb_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_k_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vpcmpeqb,// EVEX_Vpcmpeqb_kr_k1_zmm_zmmm512
 			(ushort)Mnemonic.Pcmpeqw,// Pcmpeqw_mm_mmm64
 			(ushort)Mnemonic.Pcmpeqw,// Pcmpeqw_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqw,// VEX_Vpcmpeqw_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqw,// VEX_Vpcmpeqw_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_k_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vpcmpeqw,// EVEX_Vpcmpeqw_kr_k1_zmm_zmmm512
 			(ushort)Mnemonic.Pcmpeqd,// Pcmpeqd_mm_mmm64
 			(ushort)Mnemonic.Pcmpeqd,// Pcmpeqd_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqd,// VEX_Vpcmpeqd_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqd,// VEX_Vpcmpeqd_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_k_k1_xmm_xmmm128b32
-			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_k_k1_ymm_ymmm256b32
-			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_k_k1_zmm_zmmm512b32
+			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_kr_k1_xmm_xmmm128b32
+			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_kr_k1_ymm_ymmm256b32
+			(ushort)Mnemonic.Vpcmpeqd,// EVEX_Vpcmpeqd_kr_k1_zmm_zmmm512b32
 			(ushort)Mnemonic.Emms,// Emms
 			(ushort)Mnemonic.Vzeroupper,// VEX_Vzeroupper
 			(ushort)Mnemonic.Vzeroall,// VEX_Vzeroall
@@ -1946,30 +1946,30 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Setge,// Setge_rm8
 			(ushort)Mnemonic.Setle,// Setle_rm8
 			(ushort)Mnemonic.Setg,// Setg_rm8
-			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_k_km16
-			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_k_km64
-			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_k_km8
-			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_k_km32
-			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_m16_k
-			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_m64_k
-			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_m8_k
-			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_m32_k
-			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_k_r32
-			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_k_r32
-			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_k_r32
-			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_k_r64
-			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_r32_k
-			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_r32_k
-			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_r32_k
-			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_r64_k
-			(ushort)Mnemonic.Kortestw,// VEX_Kortestw_k_k
-			(ushort)Mnemonic.Kortestq,// VEX_Kortestq_k_k
-			(ushort)Mnemonic.Kortestb,// VEX_Kortestb_k_k
-			(ushort)Mnemonic.Kortestd,// VEX_Kortestd_k_k
-			(ushort)Mnemonic.Ktestw,// VEX_Ktestw_k_k
-			(ushort)Mnemonic.Ktestq,// VEX_Ktestq_k_k
-			(ushort)Mnemonic.Ktestb,// VEX_Ktestb_k_k
-			(ushort)Mnemonic.Ktestd,// VEX_Ktestd_k_k
+			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_kr_km16
+			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_kr_km64
+			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_kr_km8
+			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_kr_km32
+			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_m16_kr
+			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_m64_kr
+			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_m8_kr
+			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_m32_kr
+			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_kr_r32
+			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_kr_r32
+			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_kr_r32
+			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_kr_r64
+			(ushort)Mnemonic.Kmovw,// VEX_Kmovw_r32_kr
+			(ushort)Mnemonic.Kmovb,// VEX_Kmovb_r32_kr
+			(ushort)Mnemonic.Kmovd,// VEX_Kmovd_r32_kr
+			(ushort)Mnemonic.Kmovq,// VEX_Kmovq_r64_kr
+			(ushort)Mnemonic.Kortestw,// VEX_Kortestw_kr_kr
+			(ushort)Mnemonic.Kortestq,// VEX_Kortestq_kr_kr
+			(ushort)Mnemonic.Kortestb,// VEX_Kortestb_kr_kr
+			(ushort)Mnemonic.Kortestd,// VEX_Kortestd_kr_kr
+			(ushort)Mnemonic.Ktestw,// VEX_Ktestw_kr_kr
+			(ushort)Mnemonic.Ktestq,// VEX_Ktestq_kr_kr
+			(ushort)Mnemonic.Ktestb,// VEX_Ktestb_kr_kr
+			(ushort)Mnemonic.Ktestd,// VEX_Ktestd_kr_kr
 			(ushort)Mnemonic.Push,// Pushw_FS
 			(ushort)Mnemonic.Push,// Pushd_FS
 			(ushort)Mnemonic.Push,// Pushq_FS
@@ -2171,21 +2171,21 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cmpps,// Cmpps_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vcmpps,// VEX_Vcmpps_xmm_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vcmpps,// VEX_Vcmpps_ymm_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_k_k1_xmm_xmmm128b32_imm8
-			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_k_k1_ymm_ymmm256b32_imm8
-			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_k_k1_zmm_zmmm512b32_imm8_sae
+			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_kr_k1_xmm_xmmm128b32_imm8
+			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_kr_k1_ymm_ymmm256b32_imm8
+			(ushort)Mnemonic.Vcmpps,// EVEX_Vcmpps_kr_k1_zmm_zmmm512b32_imm8_sae
 			(ushort)Mnemonic.Cmppd,// Cmppd_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vcmppd,// VEX_Vcmppd_xmm_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vcmppd,// VEX_Vcmppd_ymm_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_k_k1_xmm_xmmm128b64_imm8
-			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_k_k1_ymm_ymmm256b64_imm8
-			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_k_k1_zmm_zmmm512b64_imm8_sae
+			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_kr_k1_xmm_xmmm128b64_imm8
+			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_kr_k1_ymm_ymmm256b64_imm8
+			(ushort)Mnemonic.Vcmppd,// EVEX_Vcmppd_kr_k1_zmm_zmmm512b64_imm8_sae
 			(ushort)Mnemonic.Cmpss,// Cmpss_xmm_xmmm32_imm8
 			(ushort)Mnemonic.Vcmpss,// VEX_Vcmpss_xmm_xmm_xmmm32_imm8
-			(ushort)Mnemonic.Vcmpss,// EVEX_Vcmpss_k_k1_xmm_xmmm32_imm8_sae
+			(ushort)Mnemonic.Vcmpss,// EVEX_Vcmpss_kr_k1_xmm_xmmm32_imm8_sae
 			(ushort)Mnemonic.Cmpsd,// Cmpsd_xmm_xmmm64_imm8
 			(ushort)Mnemonic.Vcmpsd,// VEX_Vcmpsd_xmm_xmm_xmmm64_imm8
-			(ushort)Mnemonic.Vcmpsd,// EVEX_Vcmpsd_k_k1_xmm_xmmm64_imm8_sae
+			(ushort)Mnemonic.Vcmpsd,// EVEX_Vcmpsd_kr_k1_xmm_xmmm64_imm8_sae
 			(ushort)Mnemonic.Movnti,// Movnti_m32_r32
 			(ushort)Mnemonic.Movnti,// Movnti_m64_r64
 			(ushort)Mnemonic.Pinsrw,// Pinsrw_mm_r32m16_imm8
@@ -2811,63 +2811,63 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpmovsqd,// EVEX_Vpmovsqd_xmmm64_k1z_xmm
 			(ushort)Mnemonic.Vpmovsqd,// EVEX_Vpmovsqd_xmmm128_k1z_ymm
 			(ushort)Mnemonic.Vpmovsqd,// EVEX_Vpmovsqd_ymmm256_k1z_zmm
-			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_k_k1_zmm_zmmm512
-			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_k_k1_zmm_zmmm512
-			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_k_k1_zmm_zmmm512
-			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_k_k1_zmm_zmmm512
-			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_k_k1_xmm_xmmm128b32
-			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_k_k1_ymm_ymmm256b32
-			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_k_k1_zmm_zmmm512b32
-			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_k_k1_xmm_xmmm128b64
-			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_k_k1_ymm_ymmm256b64
-			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_k_k1_zmm_zmmm512b64
-			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_k_k1_xmm_xmmm128b32
-			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_k_k1_ymm_ymmm256b32
-			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_k_k1_zmm_zmmm512b32
-			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_k_k1_xmm_xmmm128b64
-			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_k_k1_ymm_ymmm256b64
-			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_k_k1_zmm_zmmm512b64
+			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vptestmb,// EVEX_Vptestmb_kr_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vptestmw,// EVEX_Vptestmw_kr_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vptestnmb,// EVEX_Vptestnmb_kr_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vptestnmw,// EVEX_Vptestnmw_kr_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_kr_k1_xmm_xmmm128b32
+			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_kr_k1_ymm_ymmm256b32
+			(ushort)Mnemonic.Vptestmd,// EVEX_Vptestmd_kr_k1_zmm_zmmm512b32
+			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_kr_k1_xmm_xmmm128b64
+			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_kr_k1_ymm_ymmm256b64
+			(ushort)Mnemonic.Vptestmq,// EVEX_Vptestmq_kr_k1_zmm_zmmm512b64
+			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_kr_k1_xmm_xmmm128b32
+			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_kr_k1_ymm_ymmm256b32
+			(ushort)Mnemonic.Vptestnmd,// EVEX_Vptestnmd_kr_k1_zmm_zmmm512b32
+			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_kr_k1_xmm_xmmm128b64
+			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_kr_k1_ymm_ymmm256b64
+			(ushort)Mnemonic.Vptestnmq,// EVEX_Vptestnmq_kr_k1_zmm_zmmm512b64
 			(ushort)Mnemonic.Pmuldq,// Pmuldq_xmm_xmmm128
 			(ushort)Mnemonic.Vpmuldq,// VEX_Vpmuldq_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpmuldq,// VEX_Vpmuldq_ymm_ymm_ymmm256
 			(ushort)Mnemonic.Vpmuldq,// EVEX_Vpmuldq_xmm_k1z_xmm_xmmm128b64
 			(ushort)Mnemonic.Vpmuldq,// EVEX_Vpmuldq_ymm_k1z_ymm_ymmm256b64
 			(ushort)Mnemonic.Vpmuldq,// EVEX_Vpmuldq_zmm_k1z_zmm_zmmm512b64
-			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_xmm_k
-			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_ymm_k
-			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_zmm_k
-			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_xmm_k
-			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_ymm_k
-			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_zmm_k
+			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_xmm_kr
+			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_ymm_kr
+			(ushort)Mnemonic.Vpmovm2b,// EVEX_Vpmovm2b_zmm_kr
+			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_xmm_kr
+			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_ymm_kr
+			(ushort)Mnemonic.Vpmovm2w,// EVEX_Vpmovm2w_zmm_kr
 			(ushort)Mnemonic.Pcmpeqq,// Pcmpeqq_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqq,// VEX_Vpcmpeqq_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpeqq,// VEX_Vpcmpeqq_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_k_k1_xmm_xmmm128b64
-			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_k_k1_ymm_ymmm256b64
-			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_k_k1_zmm_zmmm512b64
-			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_k_xmm
-			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_k_ymm
-			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_k_zmm
-			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_k_xmm
-			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_k_ymm
-			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_k_zmm
+			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_kr_k1_xmm_xmmm128b64
+			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_kr_k1_ymm_ymmm256b64
+			(ushort)Mnemonic.Vpcmpeqq,// EVEX_Vpcmpeqq_kr_k1_zmm_zmmm512b64
+			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_kr_xmm
+			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_kr_ymm
+			(ushort)Mnemonic.Vpmovb2m,// EVEX_Vpmovb2m_kr_zmm
+			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_kr_xmm
+			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_kr_ymm
+			(ushort)Mnemonic.Vpmovw2m,// EVEX_Vpmovw2m_kr_zmm
 			(ushort)Mnemonic.Movntdqa,// Movntdqa_xmm_m128
 			(ushort)Mnemonic.Vmovntdqa,// VEX_Vmovntdqa_xmm_m128
 			(ushort)Mnemonic.Vmovntdqa,// VEX_Vmovntdqa_ymm_m256
 			(ushort)Mnemonic.Vmovntdqa,// EVEX_Vmovntdqa_xmm_m128
 			(ushort)Mnemonic.Vmovntdqa,// EVEX_Vmovntdqa_ymm_m256
 			(ushort)Mnemonic.Vmovntdqa,// EVEX_Vmovntdqa_zmm_m512
-			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_xmm_k
-			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_ymm_k
-			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_zmm_k
+			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_xmm_kr
+			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_ymm_kr
+			(ushort)Mnemonic.Vpbroadcastmb2q,// EVEX_Vpbroadcastmb2q_zmm_kr
 			(ushort)Mnemonic.Packusdw,// Packusdw_xmm_xmmm128
 			(ushort)Mnemonic.Vpackusdw,// VEX_Vpackusdw_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpackusdw,// VEX_Vpackusdw_ymm_ymm_ymmm256
@@ -2952,21 +2952,21 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Pcmpgtq,// Pcmpgtq_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtq,// VEX_Vpcmpgtq_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpcmpgtq,// VEX_Vpcmpgtq_ymm_ymm_ymmm256
-			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_k_k1_xmm_xmmm128b64
-			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_k_k1_ymm_ymmm256b64
-			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_k_k1_zmm_zmmm512b64
+			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_kr_k1_xmm_xmmm128b64
+			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_kr_k1_ymm_ymmm256b64
+			(ushort)Mnemonic.Vpcmpgtq,// EVEX_Vpcmpgtq_kr_k1_zmm_zmmm512b64
 			(ushort)Mnemonic.Pminsb,// Pminsb_xmm_xmmm128
 			(ushort)Mnemonic.Vpminsb,// VEX_Vpminsb_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpminsb,// VEX_Vpminsb_ymm_ymm_ymmm256
 			(ushort)Mnemonic.Vpminsb,// EVEX_Vpminsb_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpminsb,// EVEX_Vpminsb_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpminsb,// EVEX_Vpminsb_zmm_k1z_zmm_zmmm512
-			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_xmm_k
-			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_ymm_k
-			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_zmm_k
-			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_xmm_k
-			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_ymm_k
-			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_zmm_k
+			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_xmm_kr
+			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_ymm_kr
+			(ushort)Mnemonic.Vpmovm2d,// EVEX_Vpmovm2d_zmm_kr
+			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_xmm_kr
+			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_ymm_kr
+			(ushort)Mnemonic.Vpmovm2q,// EVEX_Vpmovm2q_zmm_kr
 			(ushort)Mnemonic.Pminsd,// Pminsd_xmm_xmmm128
 			(ushort)Mnemonic.Vpminsd,// VEX_Vpminsd_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpminsd,// VEX_Vpminsd_ymm_ymm_ymmm256
@@ -2976,21 +2976,21 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpminsq,// EVEX_Vpminsq_xmm_k1z_xmm_xmmm128b64
 			(ushort)Mnemonic.Vpminsq,// EVEX_Vpminsq_ymm_k1z_ymm_ymmm256b64
 			(ushort)Mnemonic.Vpminsq,// EVEX_Vpminsq_zmm_k1z_zmm_zmmm512b64
-			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_k_xmm
-			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_k_ymm
-			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_k_zmm
-			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_k_xmm
-			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_k_ymm
-			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_k_zmm
+			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_kr_xmm
+			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_kr_ymm
+			(ushort)Mnemonic.Vpmovd2m,// EVEX_Vpmovd2m_kr_zmm
+			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_kr_xmm
+			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_kr_ymm
+			(ushort)Mnemonic.Vpmovq2m,// EVEX_Vpmovq2m_kr_zmm
 			(ushort)Mnemonic.Pminuw,// Pminuw_xmm_xmmm128
 			(ushort)Mnemonic.Vpminuw,// VEX_Vpminuw_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpminuw,// VEX_Vpminuw_ymm_ymm_ymmm256
 			(ushort)Mnemonic.Vpminuw,// EVEX_Vpminuw_xmm_k1z_xmm_xmmm128
 			(ushort)Mnemonic.Vpminuw,// EVEX_Vpminuw_ymm_k1z_ymm_ymmm256
 			(ushort)Mnemonic.Vpminuw,// EVEX_Vpminuw_zmm_k1z_zmm_zmmm512
-			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_xmm_k
-			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_ymm_k
-			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_zmm_k
+			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_xmm_kr
+			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_ymm_kr
+			(ushort)Mnemonic.Vpbroadcastmw2d,// EVEX_Vpbroadcastmw2d_zmm_kr
 			(ushort)Mnemonic.Pminud,// Pminud_xmm_xmmm128
 			(ushort)Mnemonic.Vpminud,// VEX_Vpminud_xmm_xmm_xmmm128
 			(ushort)Mnemonic.Vpminud,// VEX_Vpminud_ymm_ymm_ymmm256
@@ -3313,9 +3313,9 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpmaskmovd,// VEX_Vpmaskmovd_m256_ymm_ymm
 			(ushort)Mnemonic.Vpmaskmovq,// VEX_Vpmaskmovq_m128_xmm_xmm
 			(ushort)Mnemonic.Vpmaskmovq,// VEX_Vpmaskmovq_m256_ymm_ymm
-			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_k_k1_xmm_xmmm128
-			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_k_k1_ymm_ymmm256
-			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_k_k1_zmm_zmmm512
+			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_kr_k1_xmm_xmmm128
+			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_kr_k1_ymm_ymmm256
+			(ushort)Mnemonic.Vpshufbitqmb,// EVEX_Vpshufbitqmb_kr_k1_zmm_zmmm512
 			(ushort)Mnemonic.Vpgatherdd,// VEX_Vpgatherdd_xmm_vm32x_xmm
 			(ushort)Mnemonic.Vpgatherdd,// VEX_Vpgatherdd_ymm_vm32y_ymm
 			(ushort)Mnemonic.Vpgatherdq,// VEX_Vpgatherdq_xmm_vm32x_xmm
@@ -3844,18 +3844,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vcvtps2ph,// EVEX_Vcvtps2ph_xmmm64_k1z_xmm_imm8
 			(ushort)Mnemonic.Vcvtps2ph,// EVEX_Vcvtps2ph_xmmm128_k1z_ymm_imm8
 			(ushort)Mnemonic.Vcvtps2ph,// EVEX_Vcvtps2ph_ymmm256_k1z_zmm_imm8_sae
-			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_k_k1_xmm_xmmm128b32_imm8
-			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_k_k1_ymm_ymmm256b32_imm8
-			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_k_k1_zmm_zmmm512b32_imm8
-			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_k_k1_xmm_xmmm128b64_imm8
-			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_k_k1_ymm_ymmm256b64_imm8
-			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_k_k1_zmm_zmmm512b64_imm8
-			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_k_k1_xmm_xmmm128b32_imm8
-			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_k_k1_ymm_ymmm256b32_imm8
-			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_k_k1_zmm_zmmm512b32_imm8
-			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_k_k1_xmm_xmmm128b64_imm8
-			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_k_k1_ymm_ymmm256b64_imm8
-			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_k_k1_zmm_zmmm512b64_imm8
+			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_kr_k1_xmm_xmmm128b32_imm8
+			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_kr_k1_ymm_ymmm256b32_imm8
+			(ushort)Mnemonic.Vpcmpud,// EVEX_Vpcmpud_kr_k1_zmm_zmmm512b32_imm8
+			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_kr_k1_xmm_xmmm128b64_imm8
+			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_kr_k1_ymm_ymmm256b64_imm8
+			(ushort)Mnemonic.Vpcmpuq,// EVEX_Vpcmpuq_kr_k1_zmm_zmmm512b64_imm8
+			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_kr_k1_xmm_xmmm128b32_imm8
+			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_kr_k1_ymm_ymmm256b32_imm8
+			(ushort)Mnemonic.Vpcmpd,// EVEX_Vpcmpd_kr_k1_zmm_zmmm512b32_imm8
+			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_kr_k1_xmm_xmmm128b64_imm8
+			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_kr_k1_ymm_ymmm256b64_imm8
+			(ushort)Mnemonic.Vpcmpq,// EVEX_Vpcmpq_kr_k1_zmm_zmmm512b64_imm8
 			(ushort)Mnemonic.Pinsrb,// Pinsrb_xmm_r32m8_imm8
 			(ushort)Mnemonic.Pinsrb,// Pinsrb_xmm_r64m8_imm8
 			(ushort)Mnemonic.Vpinsrb,// VEX_Vpinsrb_xmm_xmm_r32m8_imm8
@@ -3889,14 +3889,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vgetmantpd,// EVEX_Vgetmantpd_zmm_k1z_zmmm512b64_imm8_sae
 			(ushort)Mnemonic.Vgetmantss,// EVEX_Vgetmantss_xmm_k1z_xmm_xmmm32_imm8_sae
 			(ushort)Mnemonic.Vgetmantsd,// EVEX_Vgetmantsd_xmm_k1z_xmm_xmmm64_imm8_sae
-			(ushort)Mnemonic.Kshiftrb,// VEX_Kshiftrb_k_k_imm8
-			(ushort)Mnemonic.Kshiftrw,// VEX_Kshiftrw_k_k_imm8
-			(ushort)Mnemonic.Kshiftrd,// VEX_Kshiftrd_k_k_imm8
-			(ushort)Mnemonic.Kshiftrq,// VEX_Kshiftrq_k_k_imm8
-			(ushort)Mnemonic.Kshiftlb,// VEX_Kshiftlb_k_k_imm8
-			(ushort)Mnemonic.Kshiftlw,// VEX_Kshiftlw_k_k_imm8
-			(ushort)Mnemonic.Kshiftld,// VEX_Kshiftld_k_k_imm8
-			(ushort)Mnemonic.Kshiftlq,// VEX_Kshiftlq_k_k_imm8
+			(ushort)Mnemonic.Kshiftrb,// VEX_Kshiftrb_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftrw,// VEX_Kshiftrw_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftrd,// VEX_Kshiftrd_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftrq,// VEX_Kshiftrq_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftlb,// VEX_Kshiftlb_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftlw,// VEX_Kshiftlw_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftld,// VEX_Kshiftld_kr_kr_imm8
+			(ushort)Mnemonic.Kshiftlq,// VEX_Kshiftlq_kr_kr_imm8
 			(ushort)Mnemonic.Vinserti128,// VEX_Vinserti128_ymm_ymm_xmmm128_imm8
 			(ushort)Mnemonic.Vinserti32x4,// EVEX_Vinserti32x4_ymm_k1z_ymm_xmmm128_imm8
 			(ushort)Mnemonic.Vinserti32x4,// EVEX_Vinserti32x4_zmm_k1z_zmm_xmmm128_imm8
@@ -3911,18 +3911,18 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vinserti64x4,// EVEX_Vinserti64x4_zmm_k1z_zmm_ymmm256_imm8
 			(ushort)Mnemonic.Vextracti32x8,// EVEX_Vextracti32x8_ymmm256_k1z_zmm_imm8
 			(ushort)Mnemonic.Vextracti64x4,// EVEX_Vextracti64x4_ymmm256_k1z_zmm_imm8
-			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_k_k1_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_k_k1_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_k_k1_zmm_zmmm512_imm8
-			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_k_k1_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_k_k1_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_k_k1_zmm_zmmm512_imm8
-			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_k_k1_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_k_k1_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_k_k1_zmm_zmmm512_imm8
-			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_k_k1_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_k_k1_ymm_ymmm256_imm8
-			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_k_k1_zmm_zmmm512_imm8
+			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_kr_k1_xmm_xmmm128_imm8
+			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_kr_k1_ymm_ymmm256_imm8
+			(ushort)Mnemonic.Vpcmpub,// EVEX_Vpcmpub_kr_k1_zmm_zmmm512_imm8
+			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_kr_k1_xmm_xmmm128_imm8
+			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_kr_k1_ymm_ymmm256_imm8
+			(ushort)Mnemonic.Vpcmpuw,// EVEX_Vpcmpuw_kr_k1_zmm_zmmm512_imm8
+			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_kr_k1_xmm_xmmm128_imm8
+			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_kr_k1_ymm_ymmm256_imm8
+			(ushort)Mnemonic.Vpcmpb,// EVEX_Vpcmpb_kr_k1_zmm_zmmm512_imm8
+			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_kr_k1_xmm_xmmm128_imm8
+			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_kr_k1_ymm_ymmm256_imm8
+			(ushort)Mnemonic.Vpcmpw,// EVEX_Vpcmpw_kr_k1_zmm_zmmm512_imm8
 			(ushort)Mnemonic.Dpps,// Dpps_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vdpps,// VEX_Vdpps_xmm_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vdpps,// VEX_Vdpps_ymm_ymm_ymmm256_imm8
@@ -4011,14 +4011,14 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Vpcmpistrm,// VEX_Vpcmpistrm_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Pcmpistri,// Pcmpistri_xmm_xmmm128_imm8
 			(ushort)Mnemonic.Vpcmpistri,// VEX_Vpcmpistri_xmm_xmmm128_imm8
-			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_k_k1_xmmm128b32_imm8
-			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_k_k1_ymmm256b32_imm8
-			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_k_k1_zmmm512b32_imm8
-			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_k_k1_xmmm128b64_imm8
-			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_k_k1_ymmm256b64_imm8
-			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_k_k1_zmmm512b64_imm8
-			(ushort)Mnemonic.Vfpclassss,// EVEX_Vfpclassss_k_k1_xmmm32_imm8
-			(ushort)Mnemonic.Vfpclasssd,// EVEX_Vfpclasssd_k_k1_xmmm64_imm8
+			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_kr_k1_xmmm128b32_imm8
+			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_kr_k1_ymmm256b32_imm8
+			(ushort)Mnemonic.Vfpclassps,// EVEX_Vfpclassps_kr_k1_zmmm512b32_imm8
+			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_kr_k1_xmmm128b64_imm8
+			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_kr_k1_ymmm256b64_imm8
+			(ushort)Mnemonic.Vfpclasspd,// EVEX_Vfpclasspd_kr_k1_zmmm512b64_imm8
+			(ushort)Mnemonic.Vfpclassss,// EVEX_Vfpclassss_kr_k1_xmmm32_imm8
+			(ushort)Mnemonic.Vfpclasssd,// EVEX_Vfpclasssd_kr_k1_xmmm64_imm8
 			(ushort)Mnemonic.Vfmaddps,// VEX_Vfmaddps_xmm_xmm_xmmm128_xmm
 			(ushort)Mnemonic.Vfmaddps,// VEX_Vfmaddps_ymm_ymm_ymmm256_ymm
 			(ushort)Mnemonic.Vfmaddps,// VEX_Vfmaddps_xmm_xmm_xmm_xmmm128

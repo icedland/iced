@@ -358,8 +358,8 @@ VEX_Blsi_r64_rm64
 VEX_Blsmsk_r64_rm64
 VEX_Blsr_r64_rm64
 VEX_Bzhi_r64_rm64_r64
-VEX_Kmovq_k_r64
-VEX_Kmovq_r64_k
+VEX_Kmovq_kr_r64
+VEX_Kmovq_r64_kr
 VEX_Mulx_r64_r64_rm64
 VEX_Pdep_r64_r64_rm64
 VEX_Pext_r64_r64_rm64
