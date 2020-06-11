@@ -1198,7 +1198,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Sysenter
 	MemorySize::Unknown,// Sysexitd
 	MemorySize::Unknown,// Sysexitq
-	MemorySize::Unknown,// Getsec
+	MemorySize::Unknown,// Getsecd
 	MemorySize::UInt16,// Cmovo_r16_rm16
 	MemorySize::UInt32,// Cmovo_r32_rm32
 	MemorySize::UInt64,// Cmovo_r64_rm64
@@ -4253,6 +4253,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::UInt8,// PrefetchReserved7_m8
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
+	MemorySize::Unknown,// Getsecq
 	MemorySize::Unknown,// INVALID
 	MemorySize::Unknown,// DeclareByte
 	MemorySize::Unknown,// DeclareWord
@@ -5421,7 +5422,7 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// Sysenter
 	MemorySize::Unknown,// Sysexitd
 	MemorySize::Unknown,// Sysexitq
-	MemorySize::Unknown,// Getsec
+	MemorySize::Unknown,// Getsecd
 	MemorySize::Unknown,// Cmovo_r16_rm16
 	MemorySize::Unknown,// Cmovo_r32_rm32
 	MemorySize::Unknown,// Cmovo_r64_rm64
@@ -8476,4 +8477,5 @@ pub(super) static SIZES: [MemorySize; IcedConstants::NUMBER_OF_CODE_VALUES * 2] 
 	MemorySize::Unknown,// PrefetchReserved7_m8
 	MemorySize::Unknown,// Ud0
 	MemorySize::Unknown,// Vmgexit
+	MemorySize::Unknown,// Getsecq
 ];

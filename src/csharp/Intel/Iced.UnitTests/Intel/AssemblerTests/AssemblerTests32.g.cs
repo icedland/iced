@@ -3928,7 +3928,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 
 		[Fact]
 		public void getsec() {
-			TestAssembler(c => c.getsec(), Instruction.Create(Code.Getsec));
+			TestAssembler(c => c.getsec(), Instruction.Create(Code.Getsecd));
 		}
 
 		[Fact]

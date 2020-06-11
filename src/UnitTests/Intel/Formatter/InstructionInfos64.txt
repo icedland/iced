@@ -1603,7 +1603,8 @@ C5F9 2F 10, VEX_Vcomisd_xmm_xmmm64
 0F34, Sysenter
 0F35, Sysexitd
 48 0F35, Sysexitq
-0F37, Getsec
+0F37, Getsecd
+48 0F37, Getsecq
 66 0F40 CE, Cmovo_r16_rm16
 66 0F40 18, Cmovo_r16_rm16
 0F40 CE, Cmovo_r32_rm32

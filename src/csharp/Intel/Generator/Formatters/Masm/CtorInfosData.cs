@@ -1204,7 +1204,7 @@ namespace Generator.Formatters.Masm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Sysenter)], "sysenter" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Sysexitd)], "sysexit" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Sysexitq)], "sysexitq" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Getsec)], "getsec" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Getsecd)], "getsec" },
 				new object[] { ctorKind[nameof(CtorKind.CCa_1)], code[nameof(Code.Cmovo_r16_rm16)], "cmovo", 0 },
 				new object[] { ctorKind[nameof(CtorKind.CCa_1)], code[nameof(Code.Cmovo_r32_rm32)], "cmovo", 0 },
 				new object[] { ctorKind[nameof(CtorKind.CCa_1)], code[nameof(Code.Cmovo_r64_rm64)], "cmovo", 0 },
@@ -4259,6 +4259,7 @@ namespace Generator.Formatters.Masm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.PrefetchReserved7_m8)], "prefetch" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Ud0)], "ud0" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Vmgexit)], "vmgexit" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Getsecq)], "getsecq" },
 			});
 		}
 	}

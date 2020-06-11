@@ -4728,7 +4728,7 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x01,// Normal_1
 				0xF7, 0x03,// 503 = "sysexitq"
 
-				// Getsec
+				// Getsecd
 				0x01,// Normal_1
 				0xF8, 0x03,// 504 = "getsec"
 
@@ -15777,6 +15777,10 @@ namespace Iced.Intel.MasmFormatterInternal {
 				// Vmgexit
 				0x81,// 'v', Normal_1
 				0x82, 0x0B,// 1410 = "vmgexit"
+
+				// Getsecq
+				0x01,// Normal_1
+				0x83, 0x0B,// 1411 = "getsecq"
 			};
 	}
 }

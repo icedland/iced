@@ -1193,8 +1193,9 @@ Rdmsr, legacy, , 0F, 32, 0F 32, RDMSR, 16b 32b 64b
 Rdpmc, legacy, , 0F, 33, 0F 33, RDPMC, 16b 32b 64b
 Sysenter, legacy, , 0F, 34, 0F 34, SYSENTER, 16b 32b 64b
 Sysexitd, legacy, , 0F, 35, 0F 35, SYSEXIT, 16b 32b 64b
-Sysexitq, legacy, , 0F, 35, REX.W 0F 35, SYSEXIT, 64b o64
-Getsec, legacy, NP, 0F, 37, NP 0F 37, GETSEC, 16b 32b 64b
+Sysexitq, legacy, , 0F, 35, REX.W 0F 35, SYSEXITQ, 64b o64
+Getsecd, legacy, NP, 0F, 37, NP 0F 37, GETSEC, 16b 32b 64b
+Getsecq, legacy, NP, 0F, 37, NP REX.W 0F 37, GETSECQ, 64b o64
 Cmovo_r16_rm16, legacy, , 0F, 40, o16 0F 40 /r, CMOVO r16| r/m16, 16b 32b 64b o16 op=r16_reg;r16_or_mem
 Cmovo_r32_rm32, legacy, , 0F, 40, o32 0F 40 /r, CMOVO r32| r/m32, 16b 32b 64b o32 op=r32_reg;r32_or_mem
 Cmovo_r64_rm64, legacy, , 0F, 40, REX.W 0F 40 /r, CMOVO r64| r/m64, 64b o64 op=r64_reg;r64_or_mem

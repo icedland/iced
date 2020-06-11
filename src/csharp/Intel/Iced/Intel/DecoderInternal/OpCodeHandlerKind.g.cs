@@ -227,6 +227,7 @@ namespace Iced.Intel.DecoderInternal {
 		Yv_Reg,
 		Yv_Reg2,
 		Yv_Xv,
+		Simple4b,
 	}
 }
 #endif

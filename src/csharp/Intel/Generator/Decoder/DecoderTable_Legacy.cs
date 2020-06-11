@@ -3469,7 +3469,7 @@ namespace Generator.Decoder {
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple4)], codeEnum[nameof(Code.Sysexitd)], codeEnum[nameof(Code.Sysexitq)] },
 					invalid,
 					new object[] { legacyEnum[nameof(OpCodeHandlerKind.MandatoryPrefix_NoModRM)],
-						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple)], codeEnum[nameof(Code.Getsec)] },
+						new object[] { legacyEnum[nameof(OpCodeHandlerKind.Simple4b)], codeEnum[nameof(Code.Getsecd)], codeEnum[nameof(Code.Getsecq)] },
 						invalid_NoModRM,
 						invalid_NoModRM,
 						invalid_NoModRM,

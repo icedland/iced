@@ -1199,7 +1199,7 @@ namespace Generator.Enums {
 		Sysenter,
 		Sysexitd,
 		Sysexitq,
-		Getsec,
+		Getsecd,
 		Cmovo_r16_rm16,
 		Cmovo_r32_rm32,
 		Cmovo_r64_rm64,
@@ -4254,6 +4254,7 @@ namespace Generator.Enums {
 		PrefetchReserved7_m8,
 		Ud0,
 		Vmgexit,
+		Getsecq,
 	}
 
 	[TypeGen(TypeGenOrders.CreatedInstructions)]

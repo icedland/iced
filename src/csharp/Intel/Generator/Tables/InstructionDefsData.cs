@@ -3544,8 +3544,8 @@ namespace Generator.Tables {
 				new LegacyOpCodeInfo(code[nameof(Code.Sysexitq)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x35, -1, OperandSize.Size64, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Sysexitq)], CodeInfo.Syscall, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Return)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SEP)] }, Array.Empty<OpInfo>(), InstrInfoFlags.ProtectedMode | InstrInfoFlags.Privileged)),
 				(0, mnemonic[nameof(Mnemonic.Getsec)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
-				new LegacyOpCodeInfo(code[nameof(Code.Getsec)], MandatoryPrefix.PNP, OpCodeTableKind.T0F, 0x37, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
-				new InstrInfo(code[nameof(Code.Getsec)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SMX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.SaveRestore)),
+				new LegacyOpCodeInfo(code[nameof(Code.Getsecd)], MandatoryPrefix.PNP, OpCodeTableKind.T0F, 0x37, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Getsecd)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SMX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.SaveRestore)),
 				(2, mnemonic[nameof(Mnemonic.Cmovo)], memSize[nameof(MemorySize.UInt16)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Cmovo_r16_rm16)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x40, -1, OperandSize.Size16, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, new[] { LegacyOpKind.Gw, LegacyOpKind.Ew }),
 				new InstrInfo(code[nameof(Code.Cmovo_r16_rm16)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.OF, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.CMOV)] }, new[] { OpInfo.CondWrite, OpInfo.Read }, InstrInfoFlags.None)),
@@ -12708,6 +12708,9 @@ namespace Generator.Tables {
 				(0, mnemonic[nameof(Mnemonic.Vmgexit)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Vmgexit)], MandatoryPrefix.PF3, OpCodeTableKind.T0F, 0x01D9, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Vmgexit)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Call)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SVM)] }, Array.Empty<OpInfo>(), InstrInfoFlags.None)),
+				(0, mnemonic[nameof(Mnemonic.Getsecq)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				new LegacyOpCodeInfo(code[nameof(Code.Getsecq)], MandatoryPrefix.PNP, OpCodeTableKind.T0F, 0x37, -1, OperandSize.Size64, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
+				new InstrInfo(code[nameof(Code.Getsecq)], CodeInfo.None, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Next)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SMX)] }, Array.Empty<OpInfo>(), InstrInfoFlags.SaveRestore)),
 			};
 
 			if (result.Length != code.Values.Length)

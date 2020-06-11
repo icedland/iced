@@ -938,6 +938,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 			Code::Popfd => "popfd",
 			Code::Popfq => "popfq",
 			Code::Int3 => "int3",
+			Code::Sysexitq => "sysexitq",
 			_ => TO_MNEMONIC_STR[code.mnemonic() as usize],
 		}
 	}

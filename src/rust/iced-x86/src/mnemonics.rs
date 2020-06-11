@@ -1196,7 +1196,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Sysenter,// Sysenter
 	Mnemonic::Sysexit,// Sysexitd
 	Mnemonic::Sysexit,// Sysexitq
-	Mnemonic::Getsec,// Getsec
+	Mnemonic::Getsec,// Getsecd
 	Mnemonic::Cmovo,// Cmovo_r16_rm16
 	Mnemonic::Cmovo,// Cmovo_r32_rm32
 	Mnemonic::Cmovo,// Cmovo_r64_rm64
@@ -4251,4 +4251,5 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Prefetch,// PrefetchReserved7_m8
 	Mnemonic::Ud0,// Ud0
 	Mnemonic::Vmgexit,// Vmgexit
+	Mnemonic::Getsecq,// Getsecq
 ];

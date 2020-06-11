@@ -223,5 +223,6 @@ namespace Generator.Enums.Decoder {
 		Yv_Reg,
 		Yv_Reg2,
 		Yv_Xv,
+		Simple4b,
 	}
 }

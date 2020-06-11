@@ -9334,7 +9334,7 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Sysexitd = 1166,
-		/// <summary><c>SYSEXIT</c><br/>
+		/// <summary><c>SYSEXITQ</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 35</c><br/>
 		/// <br/>
@@ -9349,7 +9349,7 @@ namespace Iced.Intel {
 		/// <c>SMX</c><br/>
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
-		Getsec = 1168,
+		Getsecd = 1168,
 		/// <summary><c>CMOVO r16, r/m16</c><br/>
 		/// <br/>
 		/// <c>o16 0F 40 /r</c><br/>
@@ -33782,5 +33782,13 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>16/32/64-bit</c></summary>
 		Vmgexit = 4222,
+		/// <summary><c>GETSECQ</c><br/>
+		/// <br/>
+		/// <c>NP REX.W 0F 37</c><br/>
+		/// <br/>
+		/// <c>SMX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Getsecq = 4223,
 	}
 }

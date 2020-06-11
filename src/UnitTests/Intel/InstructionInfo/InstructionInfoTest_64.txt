@@ -3948,7 +3948,9 @@ C5F9 2F 10, VEX_Vcomisd_xmm_xmmm64, VEX, AVX, pm fw=zpc fc=oas op0=r op1=r r=xmm
 # sysexitq
 48 0F35, Sysexitq, Legacy, SEP, priv pm flow=Return r=rcx;rdx w=rsp w=cs;ss
 # getsec
-0F37, Getsec, Legacy, SMX, saverestore
+0F37, Getsecd, Legacy, SMX, saverestore
+# getsecq
+48 0F37, Getsecq, Legacy, SMX, saverestore
 # cmovo cx,si
 66 0F40 CE, Cmovo_r16_rm16, Legacy, CMOV, fr=o op0=cw op1=r cw=cx r=si
 # cmovo bx,[rax]

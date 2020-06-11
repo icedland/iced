@@ -1577,6 +1577,7 @@ namespace Iced.Intel {
 		Invlpgb = 1545,
 		Tlbsync = 1546,
 		Vmgexit = 1547,
+		Getsecq = 1548,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

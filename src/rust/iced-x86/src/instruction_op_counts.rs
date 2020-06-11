@@ -1195,7 +1195,7 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	0,// Sysenter
 	0,// Sysexitd
 	0,// Sysexitq
-	0,// Getsec
+	0,// Getsecd
 	2,// Cmovo_r16_rm16
 	2,// Cmovo_r32_rm32
 	2,// Cmovo_r64_rm64
@@ -4250,4 +4250,5 @@ pub(super) static OP_COUNT: [u8; IcedConstants::NUMBER_OF_CODE_VALUES] = [
 	1,// PrefetchReserved7_m8
 	0,// Ud0
 	0,// Vmgexit
+	0,// Getsecq
 ];

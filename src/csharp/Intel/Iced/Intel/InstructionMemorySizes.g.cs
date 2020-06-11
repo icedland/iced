@@ -1202,7 +1202,7 @@ namespace Iced.Intel {
 			0,// Sysenter
 			0,// Sysexitd
 			0,// Sysexitq
-			0,// Getsec
+			0,// Getsecd
 			(byte)MemorySize.UInt16,// Cmovo_r16_rm16
 			(byte)MemorySize.UInt32,// Cmovo_r32_rm32
 			(byte)MemorySize.UInt64,// Cmovo_r64_rm64
@@ -4257,6 +4257,7 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt8,// PrefetchReserved7_m8
 			0,// Ud0
 			0,// Vmgexit
+			0,// Getsecq
 			0,// INVALID
 			0,// DeclareByte
 			0,// DeclareWord
@@ -5425,7 +5426,7 @@ namespace Iced.Intel {
 			0,// Sysenter
 			0,// Sysexitd
 			0,// Sysexitq
-			0,// Getsec
+			0,// Getsecd
 			0,// Cmovo_r16_rm16
 			0,// Cmovo_r32_rm32
 			0,// Cmovo_r64_rm64
@@ -8480,6 +8481,7 @@ namespace Iced.Intel {
 			0,// PrefetchReserved7_m8
 			0,// Ud0
 			0,// Vmgexit
+			0,// Getsecq
 		};
 	}
 }

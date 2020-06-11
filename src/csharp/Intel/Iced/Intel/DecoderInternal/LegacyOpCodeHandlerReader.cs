@@ -808,6 +808,12 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_Simple4(code, code + 1);
 				return 1;
 
+			case OpCodeHandlerKind.Simple4b:
+				code = deserializer.ReadCode();
+				var code2 = deserializer.ReadCode();
+				elem = new OpCodeHandler_Simple4(code, code2);
+				return 1;
+
 			case OpCodeHandlerKind.Simple5:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_Simple5(code, code + 1, code + 2);

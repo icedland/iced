@@ -4286,8 +4286,9 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 55 = 0x37
 				0x14,// MandatoryPrefix_NoModRM
-					0xA4,// Simple
-						0x90, 0x09,// Getsec
+					0xC7,// Simple4b
+						0x90, 0x09,// Getsecd
+						0xFF, 0x20,// Getsecq
 					0x03,// Invalid_NoModRM
 					0x03,// Invalid_NoModRM
 					0x03,// Invalid_NoModRM

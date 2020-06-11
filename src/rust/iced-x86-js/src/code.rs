@@ -1199,7 +1199,7 @@ pub enum Code {
 	Sysenter = 1165,
 	Sysexitd = 1166,
 	Sysexitq = 1167,
-	Getsec = 1168,
+	Getsecd = 1168,
 	Cmovo_r16_rm16 = 1169,
 	Cmovo_r32_rm32 = 1170,
 	Cmovo_r64_rm64 = 1171,
@@ -4254,6 +4254,7 @@ pub enum Code {
 	PrefetchReserved7_m8 = 4220,
 	Ud0 = 4221,
 	Vmgexit = 4222,
+	Getsecq = 4223,
 }
 // GENERATOR-END: Enum
 

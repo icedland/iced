@@ -1196,7 +1196,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Sysenter,// Sysenter
 			(ushort)Mnemonic.Sysexit,// Sysexitd
 			(ushort)Mnemonic.Sysexit,// Sysexitq
-			(ushort)Mnemonic.Getsec,// Getsec
+			(ushort)Mnemonic.Getsec,// Getsecd
 			(ushort)Mnemonic.Cmovo,// Cmovo_r16_rm16
 			(ushort)Mnemonic.Cmovo,// Cmovo_r32_rm32
 			(ushort)Mnemonic.Cmovo,// Cmovo_r64_rm64
@@ -4251,6 +4251,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Prefetch,// PrefetchReserved7_m8
 			(ushort)Mnemonic.Ud0,// Ud0
 			(ushort)Mnemonic.Vmgexit,// Vmgexit
+			(ushort)Mnemonic.Getsecq,// Getsecq
 		};
 	}
 }

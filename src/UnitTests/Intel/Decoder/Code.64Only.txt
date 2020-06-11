@@ -443,3 +443,4 @@ Rmpupdate
 Psmash
 Pvalidateq
 Invlpgbq
+Getsecq

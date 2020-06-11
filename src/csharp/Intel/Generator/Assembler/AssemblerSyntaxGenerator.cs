@@ -183,6 +183,7 @@ namespace Generator.Assembler {
 				(Code.Sysexitq, "sysexitq"),
 				(Code.Sysretd, "sysret"),
 				(Code.Sysretq, "sysretq"),
+				(Code.Getsecq, "getsecq"),
 				(Code.ReservedNop_rm16_r16_0F0D, "reserved_nop_0f0d"),
 				(Code.ReservedNop_rm32_r32_0F0D, "reserved_nop_0f0d"),
 				(Code.ReservedNop_rm64_r64_0F0D, "reserved_nop_0f0d"),

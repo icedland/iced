@@ -9342,7 +9342,7 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Sysexitd = 1166,
-	/// `SYSEXIT`
+	/// `SYSEXITQ`
 	///
 	/// `REX.W 0F 35`
 	///
@@ -9357,7 +9357,7 @@ pub enum Code {
 	/// `SMX`
 	///
 	/// `16/32/64-bit`
-	Getsec = 1168,
+	Getsecd = 1168,
 	/// `CMOVO r16, r/m16`
 	///
 	/// `o16 0F 40 /r`
@@ -33790,9 +33790,17 @@ pub enum Code {
 	///
 	/// `16/32/64-bit`
 	Vmgexit = 4222,
+	/// `GETSECQ`
+	///
+	/// `NP REX.W 0F 37`
+	///
+	/// `SMX`
+	///
+	/// `64-bit`
+	Getsecq = 4223,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_CODE: [&str; 4223] = [
+static GEN_DEBUG_CODE: [&str; 4224] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -34961,7 +34969,7 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"Sysenter",
 	"Sysexitd",
 	"Sysexitq",
-	"Getsec",
+	"Getsecd",
 	"Cmovo_r16_rm16",
 	"Cmovo_r32_rm32",
 	"Cmovo_r64_rm64",
@@ -38016,6 +38024,7 @@ static GEN_DEBUG_CODE: [&str; 4223] = [
 	"PrefetchReserved7_m8",
 	"Ud0",
 	"Vmgexit",
+	"Getsecq",
 ];
 impl fmt::Debug for Code {
 	#[inline]

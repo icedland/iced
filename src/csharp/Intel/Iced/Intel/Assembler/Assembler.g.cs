@@ -11739,7 +11739,21 @@ namespace Iced.Intel {
 		/// <c>16/32/64-bit</c></summary>
 		public void getsec() {
 			Code op;
-			op = Code.Getsec;
+			op = Code.Getsecd;
+			AddInstruction(Instruction.Create(op));
+		}
+		/// <summary>getsecq instruction.<br/>
+		/// <br/>
+		/// <c>GETSECQ</c><br/>
+		/// <br/>
+		/// <c>NP REX.W 0F 37</c><br/>
+		/// <br/>
+		/// <c>SMX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		public void getsecq() {
+			Code op;
+			op = Code.Getsecq;
 			AddInstruction(Instruction.Create(op));
 		}
 		/// <summary>gf2p8affineinvqb instruction.<br/>
@@ -39476,7 +39490,7 @@ namespace Iced.Intel {
 		}
 		/// <summary>sysexitq instruction.<br/>
 		/// <br/>
-		/// <c>SYSEXIT</c><br/>
+		/// <c>SYSEXITQ</c><br/>
 		/// <br/>
 		/// <c>REX.W 0F 35</c><br/>
 		/// <br/>

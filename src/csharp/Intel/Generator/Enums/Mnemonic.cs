@@ -1572,5 +1572,6 @@ namespace Generator.Enums {
 		Invlpgb,
 		Tlbsync,
 		Vmgexit,
+		Getsecq,
 	}
 }

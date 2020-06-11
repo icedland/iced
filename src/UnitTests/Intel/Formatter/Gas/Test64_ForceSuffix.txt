@@ -1604,6 +1604,7 @@ sysenter
 sysexit
 rex.w sysexit
 getsec
+getsecq
 cmovow si, cx
 cmovow (rax), bx
 cmovol esi, ecx

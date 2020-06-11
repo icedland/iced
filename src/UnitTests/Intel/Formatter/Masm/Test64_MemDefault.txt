@@ -1604,6 +1604,7 @@ sysenter
 sysexit
 sysexitq
 getsec
+getsecq
 cmovo cx,si
 cmovo bx,[rax]
 cmovo ecx,esi

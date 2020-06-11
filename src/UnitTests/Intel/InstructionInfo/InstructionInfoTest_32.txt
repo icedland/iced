@@ -828,7 +828,7 @@ F7 28, Imul_rm32, Legacy, INTEL386, fw=oc fu=apsz op0=r r=ds r=eax rm=ds:eax;Int
 # sysexit
 0F35, Sysexitd, Legacy, SEP, priv pm flow=Return r=ecx;edx w=esp w=cs;ss
 # getsec
-0F37, Getsec, Legacy, SMX, saverestore
+0F37, Getsecd, Legacy, SMX, saverestore
 # enclv
 0F01 C0, Enclv, Legacy, ENCLV, fw=acopsz priv pm rcw=eax cr=ecx;edx;ebx;ds cw=ecx;edx;ebx
 # enclv

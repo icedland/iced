@@ -4205,7 +4205,7 @@ C4C179 2F 10, VEX_Vcomisd_xmm_xmmm64, Vcomisd, 2, op0=r;xmm2 op1=m;ds;eax;;1;0;0
 
 0F35, Sysexitd, Sysexit, 0,
 
-0F37, Getsec, Getsec, 0,
+0F37, Getsecd, Getsec, 0,
 
 66 0F40 18, Cmovo_r16_rm16, Cmovo, 2, op0=r;bx op1=m;ds;eax;;1;0;0;UInt16
 66 0F40 CE, Cmovo_r16_rm16, Cmovo, 2, op0=r;cx op1=r;si
