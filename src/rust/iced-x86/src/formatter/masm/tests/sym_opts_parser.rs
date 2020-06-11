@@ -101,7 +101,13 @@ impl Iterator for IntoIter {
 						Err(err) => Err(err.to_string()),
 					};
 					match result {
-						Ok(tc) => return Some(tc),
+						Ok(tc) => {
+							if let Some(tc) = tc {
+								return Some(tc);
+							} else {
+								continue;
+							}
+						}
 						Err(err) => panic!("Error parsing symbol options test case file '{}', line {}: {}", self.filename, self.line_number, err),
 					}
 				}
@@ -111,18 +117,21 @@ impl Iterator for IntoIter {
 }
 
 impl IntoIter {
-	fn read_next_test_case(&self, line: String) -> Result<SymbolOptionsTestCase, String> {
+	fn read_next_test_case(&self, line: String) -> Result<Option<SymbolOptionsTestCase>, String> {
 		let elems: Vec<_> = line.split(',').collect();
-		if elems.len() != 4 {
+		if elems.len() != 5 {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));
 		}
 
 		let hex_bytes = String::from(elems[0].trim());
 		let _ = to_vec_u8(&hex_bytes)?;
-		let bitness = to_u32(elems[1])?;
-		let formatted_string = elems[2].trim().replace('|', ",");
+		if is_ignored_code(elems[1]) {
+			return Ok(None);
+		}
+		let bitness = to_u32(elems[2])?;
+		let formatted_string = elems[3].trim().replace('|', ",");
 		let mut flags = SymbolTestFlags::NONE;
-		for value in elems[3].split_whitespace() {
+		for value in elems[4].split_whitespace() {
 			if value.is_empty() {
 				continue;
 			}
@@ -132,6 +141,6 @@ impl IntoIter {
 			}
 		}
 
-		Ok(SymbolOptionsTestCase { hex_bytes, bitness, formatted_string, flags })
+		Ok(Some(SymbolOptionsTestCase { hex_bytes, bitness, formatted_string, flags }))
 	}
 }

@@ -90,30 +90,33 @@ namespace Iced.UnitTests.Intel.FormatterTests.Masm {
 				if (line.Length == 0 || line.StartsWith("#"))
 					continue;
 
-				SymbolOptionsTestCase tc;
+				SymbolOptionsTestCase? tc;
 				try {
 					tc = ParseLine(line);
 				}
 				catch (Exception ex) {
 					throw new Exception($"Invalid line {lineNo} ({filename}): {ex.Message}");
 				}
-				yield return tc;
+				if (tc.HasValue)
+					yield return tc.GetValueOrDefault();
 			}
 
 		}
 
 		static readonly char[] commaSeparator = new char[] { ',' };
 		static readonly char[] spaceSeparator = new char[] { ' ' };
-		static SymbolOptionsTestCase ParseLine(string line) {
+		static SymbolOptionsTestCase? ParseLine(string line) {
 			var elems = line.Split(commaSeparator);
-			if (elems.Length != 4)
+			if (elems.Length != 5)
 				throw new Exception($"Invalid number of commas: {elems.Length - 1}");
 
 			var hexBytes = elems[0].Trim();
-			var bitness = NumberConverter.ToInt32(elems[1].Trim());
-			var formattedString = elems[2].Trim().Replace('|', ',');
+			if (CodeUtils.IsIgnored(elems[1].Trim()))
+				return null;
+			var bitness = NumberConverter.ToInt32(elems[2].Trim());
+			var formattedString = elems[3].Trim().Replace('|', ',');
 			var flags = SymbolTestFlags.None;
-			foreach (var value in elems[3].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
+			foreach (var value in elems[4].Split(spaceSeparator, StringSplitOptions.RemoveEmptyEntries)) {
 				if (!Dicts.ToSymbolTestFlags.TryGetValue(value, out var f))
 					throw new InvalidOperationException($"Invalid flags value: {value}");
 				flags |= f;
