@@ -249,8 +249,9 @@ namespace Iced.Intel {
 					state.instructionLength = instrLen + 1;
 					return b;
 				}
+				state.flags |= StateFlags.NoMoreBytes;
 			}
-			state.flags |= StateFlags.IsInvalid | StateFlags.NoMoreBytes;
+			state.flags |= StateFlags.IsInvalid;
 			return 0;
 		}
 

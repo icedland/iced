@@ -22,7 +22,7 @@
 #
 
 # one byte too long
-26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0, code=Add_rm32_r32 nobytes
+26 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, INVALID, INVALID, 0, code=Add_rm32_r32
 
 # max length
 26 26 26 26 26 26 26 26 26 26 26 26 26 01 CE, Add_rm32_r32, Add, 2, op0=r;esi op1=r;ecx es: enc=2601CE

@@ -674,7 +674,10 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(1);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+				if data_ptr == self.data_ptr_end {
+					self.state.flags |= StateFlags::NO_MORE_BYTES;
+				}
+				self.state.flags |= StateFlags::IS_INVALID;
 				0
 			}
 		}
@@ -690,7 +693,10 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(2);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+				if data_ptr.offset(1) >= self.data_ptr_end {
+					self.state.flags |= StateFlags::NO_MORE_BYTES;
+				}
+				self.state.flags |= StateFlags::IS_INVALID;
 				0
 			}
 		}
@@ -717,7 +723,10 @@ impl<'a> Decoder<'a> {
 				self.data_ptr = data_ptr.offset(4);
 				result
 			} else {
-				self.state.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+				if data_ptr.offset(3) >= self.data_ptr_end {
+					self.state.flags |= StateFlags::NO_MORE_BYTES;
+				}
+				self.state.flags |= StateFlags::IS_INVALID;
 				0
 			}
 		}
