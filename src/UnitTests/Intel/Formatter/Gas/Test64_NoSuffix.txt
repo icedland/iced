@@ -1604,7 +1604,7 @@ sysenter
 sysexit
 rex.w sysexit
 getsec
-getsecq
+rex.w getsec
 cmovo %si,%cx
 cmovo (%rax),%bx
 cmovo %esi,%ecx

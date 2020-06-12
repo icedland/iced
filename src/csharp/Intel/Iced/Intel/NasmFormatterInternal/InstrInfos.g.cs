@@ -16416,8 +16416,9 @@ namespace Iced.Intel.NasmFormatterInternal {
 				0x82, 0x0B,// 1410 = "vmgexit"
 
 				// Getsecq
-				0x01,// Normal_1
-				0x83, 0x0B,// 1411 = "getsecq"
+				0x02,// Normal_2
+				0xF8, 0x03,// 504 = "getsec"
+				0x18,// 0x18 = OpSize64
 			};
 	}
 }

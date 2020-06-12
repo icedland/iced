@@ -1604,7 +1604,7 @@ sysenter
 sysexit
 o64 sysexit
 getsec
-getsecq
+o64 getsec
 cmovo cx, si
 cmovo bx, word [rax]
 cmovo ecx, esi

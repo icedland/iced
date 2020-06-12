@@ -4261,7 +4261,7 @@ namespace Generator.Formatters.Nasm {
 				new object[] { ctorKind[nameof(CtorKind.Normal_2)], code[nameof(Code.PrefetchReserved7_m8)], "prefetch", instrOpInfoFlags[nameof(InstrOpInfoFlags.MemSize_Nothing)] },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Ud0)], "ud0" },
 				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Vmgexit)], "vmgexit" },
-				new object[] { ctorKind[nameof(CtorKind.Normal_1)], code[nameof(Code.Getsecq)], "getsecq" },
+				new object[] { ctorKind[nameof(CtorKind.Normal_2)], code[nameof(Code.Getsecq)], "getsec", instrOpInfoFlags[nameof(InstrOpInfoFlags.OpSize64)] },
 			});
 		}
 	}
