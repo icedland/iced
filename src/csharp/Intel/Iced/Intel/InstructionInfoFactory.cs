@@ -147,7 +147,7 @@ namespace Iced.Intel {
 				//	all 1s		write		write		write		all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
 				//	all 0s		no access	read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
 				//													treat it as R lower bits + clear upper bits + W full reg
-				//	else		cond-write	read/write	read/write	some elems are unchanged, the others are overwritten
+				//	else		cond-write	read/write	r-c-w		some elems are unchanged, the others are overwritten
 				// If it's xmm/ymm, use RW, else use RCW. If it's mem, use CW
 				if (instruction.HasOpMask && instruction.MergingMasking) {
 					if (instruction.Op0Kind != OpKind.Register)
@@ -185,7 +185,7 @@ namespace Iced.Intel {
 				//	all 1s		read/write	read/write	all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
 				//	all 0s		read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
 				//										treat it as R lower bits + clear upper bits + W full reg
-				//	else		read/write	read/write	some elems are unchanged, the others are overwritten
+				//	else		read/write	r-c-w		some elems are unchanged, the others are overwritten
 				// If it's xmm/ymm, use RW, else use RCW
 				if (instruction.HasOpMask && instruction.MergingMasking)
 					op0Access = OpAccess.ReadCondWrite;

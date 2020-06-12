@@ -250,7 +250,7 @@ impl InstructionInfoFactory {
 				//	all 1s		write		write		write		all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
 				//	all 0s		no access	read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
 				//													treat it as R lower bits + clear upper bits + W full reg
-				//	else		cond-write	read/write	read/write	some elems are unchanged, the others are overwritten
+				//	else		cond-write	read/write	r-c-w		some elems are unchanged, the others are overwritten
 				// If it's xmm/ymm, use RW, else use RCW. If it's mem, use CW
 				if instruction.has_op_mask() && instruction.merging_masking() {
 					if instruction.op0_kind() != OpKind::Register {
@@ -283,7 +283,7 @@ impl InstructionInfoFactory {
 				//	all 1s		read/write	read/write	all bits are overwritten, upper bits in zmm (if xmm/ymm) are cleared
 				//	all 0s		read/write	no access	no elem is written, but xmm/ymm's upper bits (in zmm) are cleared so
 				//										treat it as R lower bits + clear upper bits + W full reg
-				//	else		read/write	read/write	some elems are unchanged, the others are overwritten
+				//	else		read/write	r-c-w		some elems are unchanged, the others are overwritten
 				// If it's xmm/ymm, use RW, else use RCW
 				if instruction.has_op_mask() && instruction.merging_masking() {
 					OpAccess::ReadCondWrite
@@ -2943,7 +2943,7 @@ impl InstructionInfoFactory {
 					debug_assert!(!info.used_registers.is_empty());
 					// Skip memory operand, if any
 					let start_index = if instruction.op0_kind() == OpKind::Register { 0 } else { info.used_registers.len() - 1 };
-					for mut info in &mut info.used_registers[start_index..] {
+					for info in &mut info.used_registers[start_index..] {
 						index = Self::try_get_gpr_16_32_64_index(info.register);
 						if index >= 4 {
 							index += 4; // Skip AH, CH, DH, BH
