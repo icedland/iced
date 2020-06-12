@@ -7641,8 +7641,8 @@ C48179 2F D3, VEX_Vcomisd_xmm_xmmm64, Vcomisd, 2, op0=r;xmm2 op1=r;xmm11 enc=C4C
 0F35, Sysexitd, Sysexit, 0,
 47 0F35, Sysexitd, Sysexit, 0, enc=0F35
 
-48 0F35, Sysexitq, Sysexit, 0,
-4F 0F35, Sysexitq, Sysexit, 0, enc=480F35
+48 0F35, Sysexitq, Sysexitq, 0,
+4F 0F35, Sysexitq, Sysexitq, 0, enc=480F35
 
 0F37, Getsecd, Getsec, 0,
 47 0F37, Getsecd, Getsec, 0, enc=0F37

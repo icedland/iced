@@ -1579,6 +1579,7 @@ pub enum Mnemonic {
 	Tlbsync = 1546,
 	Vmgexit = 1547,
 	Getsecq = 1548,
+	Sysexitq = 1549,
 }
 // GENERATOR-END: Enum
 

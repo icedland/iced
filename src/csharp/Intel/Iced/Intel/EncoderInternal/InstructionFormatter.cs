@@ -1079,9 +1079,6 @@ namespace Iced.Intel.EncoderInternal {
 			case Code.Int3:
 				return code.ToString();
 
-			case Code.Sysexitq:
-				return "sysexitq";
-
 			default:
 				return mnemonic.ToString();
 			}

@@ -1579,9 +1579,10 @@ pub enum Mnemonic {
 	Tlbsync = 1546,
 	Vmgexit = 1547,
 	Getsecq = 1548,
+	Sysexitq = 1549,
 }
 #[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
-static GEN_DEBUG_MNEMONIC: [&str; 1549] = [
+static GEN_DEBUG_MNEMONIC: [&str; 1550] = [
 	"INVALID",
 	"Aaa",
 	"Aad",
@@ -3131,6 +3132,7 @@ static GEN_DEBUG_MNEMONIC: [&str; 1549] = [
 	"Tlbsync",
 	"Vmgexit",
 	"Getsecq",
+	"Sysexitq",
 ];
 impl fmt::Debug for Mnemonic {
 	#[inline]

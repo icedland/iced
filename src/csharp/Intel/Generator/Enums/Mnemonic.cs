@@ -1573,5 +1573,6 @@ namespace Generator.Enums {
 		Tlbsync,
 		Vmgexit,
 		Getsecq,
+		Sysexitq,
 	}
 }

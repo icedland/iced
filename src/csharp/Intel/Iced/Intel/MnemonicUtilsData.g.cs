@@ -1195,7 +1195,7 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Rdpmc,// Rdpmc
 			(ushort)Mnemonic.Sysenter,// Sysenter
 			(ushort)Mnemonic.Sysexit,// Sysexitd
-			(ushort)Mnemonic.Sysexit,// Sysexitq
+			(ushort)Mnemonic.Sysexitq,// Sysexitq
 			(ushort)Mnemonic.Getsec,// Getsecd
 			(ushort)Mnemonic.Cmovo,// Cmovo_r16_rm16
 			(ushort)Mnemonic.Cmovo,// Cmovo_r32_rm32

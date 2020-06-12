@@ -3540,7 +3540,7 @@ namespace Generator.Tables {
 				(0, mnemonic[nameof(Mnemonic.Sysexit)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Sysexitd)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x35, -1, OperandSize.None, AddressSize.None, OpCodeFlags.Mode16 | OpCodeFlags.Mode32 | OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Sysexitd)], CodeInfo.Syscall, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Return)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SEP)] }, Array.Empty<OpInfo>(), InstrInfoFlags.ProtectedMode | InstrInfoFlags.Privileged)),
-				(0, mnemonic[nameof(Mnemonic.Sysexit)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
+				(0, mnemonic[nameof(Mnemonic.Sysexitq)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],
 				new LegacyOpCodeInfo(code[nameof(Code.Sysexitq)], MandatoryPrefix.None, OpCodeTableKind.T0F, 0x35, -1, OperandSize.Size64, AddressSize.None, OpCodeFlags.Mode64, Array.Empty<LegacyOpKind>()),
 				new InstrInfo(code[nameof(Code.Sysexitq)], CodeInfo.Syscall, encoding[nameof(EncodingKind.Legacy)], flowControl[nameof(FlowControl.Return)], RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, RflagsBits.None, new[] { cpuid[nameof(CpuidFeature.SEP)] }, Array.Empty<OpInfo>(), InstrInfoFlags.ProtectedMode | InstrInfoFlags.Privileged)),
 				(0, mnemonic[nameof(Mnemonic.Getsec)], memSize[nameof(MemorySize.Unknown)], memSize[nameof(MemorySize.Unknown)],

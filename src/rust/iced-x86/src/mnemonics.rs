@@ -1195,7 +1195,7 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::NUMBER_OF_CODE_VALUES] 
 	Mnemonic::Rdpmc,// Rdpmc
 	Mnemonic::Sysenter,// Sysenter
 	Mnemonic::Sysexit,// Sysexitd
-	Mnemonic::Sysexit,// Sysexitq
+	Mnemonic::Sysexitq,// Sysexitq
 	Mnemonic::Getsec,// Getsecd
 	Mnemonic::Cmovo,// Cmovo_r16_rm16
 	Mnemonic::Cmovo,// Cmovo_r32_rm32
