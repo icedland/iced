@@ -3053,6 +3053,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 
 		[Fact]
 		void Disable_decoder_option_disables_instruction() {
+			var extraBytes = new string('0', (IcedConstants.MaxInstructionLength - 1) * 2);
 			foreach (var info in DecoderTestUtils.GetDecoderTests(includeOtherTests: false, includeInvalid: false)) {
 				if (info.Options == DecoderOptions.None)
 					continue;
@@ -3090,82 +3091,82 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					case Code.Loopne_rel8_16_ECX:
 					case Code.Loopne_rel8_16_RCX:
 					case Code.Ud0:
-						break;
-					case Code.Call_m1632:
 					case Code.Call_rel16:
-					case Code.Call_rel32_64:
 					case Code.Call_rm16:
-					case Code.Call_rm64:
 					case Code.Ja_rel16:
-					case Code.Ja_rel32_64:
 					case Code.Ja_rel8_16:
 					case Code.Jae_rel16:
-					case Code.Jae_rel32_64:
 					case Code.Jae_rel8_16:
 					case Code.Jb_rel16:
-					case Code.Jb_rel32_64:
 					case Code.Jb_rel8_16:
 					case Code.Jbe_rel16:
-					case Code.Jbe_rel32_64:
 					case Code.Jbe_rel8_16:
 					case Code.Je_rel16:
-					case Code.Je_rel32_64:
 					case Code.Je_rel8_16:
-					case Code.Jecxz_rel8_64:
 					case Code.Jg_rel16:
-					case Code.Jg_rel32_64:
 					case Code.Jg_rel8_16:
 					case Code.Jge_rel16:
-					case Code.Jge_rel32_64:
 					case Code.Jge_rel8_16:
 					case Code.Jl_rel16:
-					case Code.Jl_rel32_64:
 					case Code.Jl_rel8_16:
 					case Code.Jle_rel16:
-					case Code.Jle_rel32_64:
 					case Code.Jle_rel8_16:
-					case Code.Jmp_m1632:
 					case Code.Jmp_rel16:
-					case Code.Jmp_rel32_64:
 					case Code.Jmp_rel8_16:
-					case Code.Jmp_rel8_64:
 					case Code.Jmp_rm16:
-					case Code.Jmp_rm64:
 					case Code.Jne_rel16:
-					case Code.Jne_rel32_64:
 					case Code.Jne_rel8_16:
 					case Code.Jno_rel16:
-					case Code.Jno_rel32_64:
 					case Code.Jno_rel8_16:
 					case Code.Jnp_rel16:
-					case Code.Jnp_rel32_64:
 					case Code.Jnp_rel8_16:
 					case Code.Jns_rel16:
-					case Code.Jns_rel32_64:
 					case Code.Jns_rel8_16:
 					case Code.Jo_rel16:
-					case Code.Jo_rel32_64:
 					case Code.Jo_rel8_16:
 					case Code.Jp_rel16:
-					case Code.Jp_rel32_64:
 					case Code.Jp_rel8_16:
-					case Code.Jrcxz_rel8_64:
 					case Code.Js_rel16:
-					case Code.Js_rel32_64:
 					case Code.Js_rel8_16:
+					case Code.Retnw:
+					case Code.Retnw_imm16:
+					case Code.Lss_r32_m1632:
 					case Code.Lfs_r32_m1632:
 					case Code.Lgs_r32_m1632:
+					case Code.Call_m1632:
+					case Code.Jmp_m1632:
+						break;
+					case Code.Call_rel32_64:
+					case Code.Call_rm64:
+					case Code.Ja_rel32_64:
+					case Code.Jae_rel32_64:
+					case Code.Jb_rel32_64:
+					case Code.Jbe_rel32_64:
+					case Code.Je_rel32_64:
+					case Code.Jecxz_rel8_64:
+					case Code.Jg_rel32_64:
+					case Code.Jge_rel32_64:
+					case Code.Jl_rel32_64:
+					case Code.Jle_rel32_64:
+					case Code.Jmp_rel32_64:
+					case Code.Jmp_rel8_64:
+					case Code.Jmp_rm64:
+					case Code.Jne_rel32_64:
+					case Code.Jno_rel32_64:
+					case Code.Jnp_rel32_64:
+					case Code.Jns_rel32_64:
+					case Code.Jo_rel32_64:
+					case Code.Jp_rel32_64:
+					case Code.Jrcxz_rel8_64:
+					case Code.Js_rel32_64:
 					case Code.Loop_rel8_64_ECX:
 					case Code.Loop_rel8_64_RCX:
 					case Code.Loope_rel8_64_ECX:
 					case Code.Loope_rel8_64_RCX:
 					case Code.Loopne_rel8_64_ECX:
 					case Code.Loopne_rel8_64_RCX:
-					case Code.Lss_r32_m1632:
 					case Code.Retnq:
 					case Code.Retnq_imm16:
-					case Code.Retnw:
-					case Code.Retnw_imm16:
 						continue;
 					default:
 						throw new InvalidOperationException("Update this code: continue or break");
@@ -3350,7 +3351,7 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 					Assert.Equal(info.Code, instr.Code);
 				}
 				{
-					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), DecoderOptions.None);
+					var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes + extraBytes), DecoderOptions.None);
 					decoder.Decode(out var instr);
 					Assert.NotEqual(info.Code, instr.Code);
 				}

@@ -3069,6 +3069,7 @@ fn verify_regonly_or_regmemonly_mod_bits() {
 
 #[test]
 fn disable_decoder_option_disables_instruction() {
+	let extra_bytes: String = iter::repeat('0').take((IcedConstants::MAX_INSTRUCTION_LENGTH - 1) * 2).collect();
 	for info in decoder_tests(false, false) {
 		if info.decoder_options() == DecoderOptions::NONE {
 			continue;
@@ -3105,82 +3106,82 @@ fn disable_decoder_option_disables_instruction() {
 				| Code::Loope_rel8_16_RCX
 				| Code::Loopne_rel8_16_ECX
 				| Code::Loopne_rel8_16_RCX
-				| Code::Ud0 => break,
-				Code::Call_m1632
+				| Code::Ud0
 				| Code::Call_rel16
-				| Code::Call_rel32_64
 				| Code::Call_rm16
-				| Code::Call_rm64
 				| Code::Ja_rel16
-				| Code::Ja_rel32_64
 				| Code::Ja_rel8_16
 				| Code::Jae_rel16
-				| Code::Jae_rel32_64
 				| Code::Jae_rel8_16
 				| Code::Jb_rel16
-				| Code::Jb_rel32_64
 				| Code::Jb_rel8_16
 				| Code::Jbe_rel16
-				| Code::Jbe_rel32_64
 				| Code::Jbe_rel8_16
 				| Code::Je_rel16
-				| Code::Je_rel32_64
 				| Code::Je_rel8_16
-				| Code::Jecxz_rel8_64
 				| Code::Jg_rel16
-				| Code::Jg_rel32_64
 				| Code::Jg_rel8_16
 				| Code::Jge_rel16
-				| Code::Jge_rel32_64
 				| Code::Jge_rel8_16
 				| Code::Jl_rel16
-				| Code::Jl_rel32_64
 				| Code::Jl_rel8_16
 				| Code::Jle_rel16
-				| Code::Jle_rel32_64
 				| Code::Jle_rel8_16
-				| Code::Jmp_m1632
 				| Code::Jmp_rel16
-				| Code::Jmp_rel32_64
 				| Code::Jmp_rel8_16
-				| Code::Jmp_rel8_64
 				| Code::Jmp_rm16
-				| Code::Jmp_rm64
 				| Code::Jne_rel16
-				| Code::Jne_rel32_64
 				| Code::Jne_rel8_16
 				| Code::Jno_rel16
-				| Code::Jno_rel32_64
 				| Code::Jno_rel8_16
 				| Code::Jnp_rel16
-				| Code::Jnp_rel32_64
 				| Code::Jnp_rel8_16
 				| Code::Jns_rel16
-				| Code::Jns_rel32_64
 				| Code::Jns_rel8_16
 				| Code::Jo_rel16
-				| Code::Jo_rel32_64
 				| Code::Jo_rel8_16
 				| Code::Jp_rel16
-				| Code::Jp_rel32_64
 				| Code::Jp_rel8_16
-				| Code::Jrcxz_rel8_64
 				| Code::Js_rel16
-				| Code::Js_rel32_64
 				| Code::Js_rel8_16
+				| Code::Retnw
+				| Code::Retnw_imm16
+				| Code::Lss_r32_m1632
 				| Code::Lfs_r32_m1632
 				| Code::Lgs_r32_m1632
+				| Code::Call_m1632
+				| Code::Jmp_m1632 => break,
+				Code::Call_rel32_64
+				| Code::Call_rm64
+				| Code::Ja_rel32_64
+				| Code::Jae_rel32_64
+				| Code::Jb_rel32_64
+				| Code::Jbe_rel32_64
+				| Code::Je_rel32_64
+				| Code::Jecxz_rel8_64
+				| Code::Jg_rel32_64
+				| Code::Jge_rel32_64
+				| Code::Jl_rel32_64
+				| Code::Jle_rel32_64
+				| Code::Jmp_rel32_64
+				| Code::Jmp_rel8_64
+				| Code::Jmp_rm64
+				| Code::Jne_rel32_64
+				| Code::Jno_rel32_64
+				| Code::Jnp_rel32_64
+				| Code::Jns_rel32_64
+				| Code::Jo_rel32_64
+				| Code::Jp_rel32_64
+				| Code::Jrcxz_rel8_64
+				| Code::Js_rel32_64
 				| Code::Loop_rel8_64_ECX
 				| Code::Loop_rel8_64_RCX
 				| Code::Loope_rel8_64_ECX
 				| Code::Loope_rel8_64_RCX
 				| Code::Loopne_rel8_64_ECX
 				| Code::Loopne_rel8_64_RCX
-				| Code::Lss_r32_m1632
 				| Code::Retnq
-				| Code::Retnq_imm16
-				| Code::Retnw
-				| Code::Retnw_imm16 => continue,
+				| Code::Retnq_imm16 => continue,
 				_ => unreachable!("Update this code: `=> continue` or `=> {}`"),
 			},
 
@@ -3282,7 +3283,7 @@ fn disable_decoder_option_disables_instruction() {
 			assert_eq!(info.code(), instruction.code());
 		}
 		{
-			let bytes = to_vec_u8(info.hex_bytes()).unwrap();
+			let bytes = to_vec_u8(&format!("{}{}", info.hex_bytes(), extra_bytes)).unwrap();
 			let mut decoder = Decoder::new(info.bitness(), &bytes, DecoderOptions::NONE);
 			let instruction = decoder.decode();
 			assert_ne!(info.code(), instruction.code());
