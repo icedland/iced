@@ -99,27 +99,27 @@
 # no symbols
 
 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|ds:[1234h], displbr
-66 8B 06 3412, Mov_r32_rm32, 16, mov eax|ds:1234h, 
+66 8B 06 3412, Mov_r32_rm32, 16, mov eax|ds:1234h,
 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|ds:[0], displbr
-66 8B 06 0000, Mov_r32_rm32, 16, mov eax|ds:0, 
+66 8B 06 0000, Mov_r32_rm32, 16, mov eax|ds:0,
 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|[1234h], displbr nods32
 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|[1234h], nods32
 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|[0], displbr nods32
 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|[0], nods32
 
 8B 05 78563412, Mov_r32_rm32, 32, mov eax|ds:[12345678h], displbr
-8B 05 78563412, Mov_r32_rm32, 32, mov eax|ds:12345678h, 
+8B 05 78563412, Mov_r32_rm32, 32, mov eax|ds:12345678h,
 8B 05 00000000, Mov_r32_rm32, 32, mov eax|ds:[0], displbr
-8B 05 00000000, Mov_r32_rm32, 32, mov eax|ds:0, 
+8B 05 00000000, Mov_r32_rm32, 32, mov eax|ds:0,
 8B 05 78563412, Mov_r32_rm32, 32, mov eax|[12345678h], displbr nods32
 8B 05 78563412, Mov_r32_rm32, 32, mov eax|[12345678h], nods32
 8B 05 00000000, Mov_r32_rm32, 32, mov eax|[0], displbr nods32
 8B 05 00000000, Mov_r32_rm32, 32, mov eax|[0], nods32
 
 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|[12345678h], displbr
-8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|[12345678h], 
+8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|[12345678h],
 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|[0], displbr
-8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|[0], 
+8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|[0],
 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|[12345678h], displbr nods32
 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|[12345678h], nods32
 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|[0], displbr nods32
@@ -128,57 +128,57 @@
 8B 05 78563412, Mov_r32_rm32, 64, mov eax|[rip+12345678h], displbr rip
 8B 05 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rip], rip
 8B 05 78563412, Mov_r32_rm32, 64, mov eax|[800000001234566Eh], displbr
-8B 05 78563412, Mov_r32_rm32, 64, mov eax|[800000001234566Eh], 
+8B 05 78563412, Mov_r32_rm32, 64, mov eax|[800000001234566Eh],
 8B 05 00000000, Mov_r32_rm32, 64, mov eax|[rip+0], displbr rip disp0
 8B 05 00000000, Mov_r32_rm32, 64, mov eax|0[rip], rip disp0
 8B 05 00000000, Mov_r32_rm32, 64, mov eax|[rip], displbr rip
 8B 05 00000000, Mov_r32_rm32, 64, mov eax|[rip], rip
 
 8B 80 78563412, Mov_r32_rm32, 64, mov eax|[rax+12345678h], displbr
-8B 80 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rax], 
+8B 80 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rax],
 8B 80 00000000, Mov_r32_rm32, 64, mov eax|[rax+0], displbr disp0
 8B 80 00000000, Mov_r32_rm32, 64, mov eax|0[rax], disp0
 8B 80 00000000, Mov_r32_rm32, 64, mov eax|[rax], displbr
-8B 80 00000000, Mov_r32_rm32, 64, mov eax|[rax], 
+8B 80 00000000, Mov_r32_rm32, 64, mov eax|[rax],
 
 8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|[rcx*2+12345678h], displbr
-8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rcx*2], 
+8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rcx*2],
 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|[rcx*2+0], displbr disp0
 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|0[rcx*2], disp0
 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|[rcx*2], displbr
-8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|[rcx*2], 
+8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|[rcx*2],
 
 8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|[rax+rcx*2+12345678h], displbr
-8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rax+rcx*2], 
+8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|12345678h[rax+rcx*2],
 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|[rax+rcx*2+0], displbr disp0
 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|0[rax+rcx*2], disp0
 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|[rax+rcx*2], displbr
-8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|[rax+rcx*2], 
+8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|[rax+rcx*2],
 
 # no symbols + seg override
 
 64 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|fs:[1234h], displbr
-64 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|fs:1234h, 
+64 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|fs:1234h,
 64 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|fs:[0], displbr
-64 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|fs:0, 
+64 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|fs:0,
 64 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|fs:[1234h], displbr nods32
 64 66 8B 06 3412, Mov_r32_rm32, 16, mov eax|fs:1234h, nods32
 64 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|fs:[0], displbr nods32
 64 66 8B 06 0000, Mov_r32_rm32, 16, mov eax|fs:0, nods32
 
 64 8B 05 78563412, Mov_r32_rm32, 32, mov eax|fs:[12345678h], displbr
-64 8B 05 78563412, Mov_r32_rm32, 32, mov eax|fs:12345678h, 
+64 8B 05 78563412, Mov_r32_rm32, 32, mov eax|fs:12345678h,
 64 8B 05 00000000, Mov_r32_rm32, 32, mov eax|fs:[0], displbr
-64 8B 05 00000000, Mov_r32_rm32, 32, mov eax|fs:0, 
+64 8B 05 00000000, Mov_r32_rm32, 32, mov eax|fs:0,
 64 8B 05 78563412, Mov_r32_rm32, 32, mov eax|fs:[12345678h], displbr nods32
 64 8B 05 78563412, Mov_r32_rm32, 32, mov eax|fs:12345678h, nods32
 64 8B 05 00000000, Mov_r32_rm32, 32, mov eax|fs:[0], displbr nods32
 64 8B 05 00000000, Mov_r32_rm32, 32, mov eax|fs:0, nods32
 
 64 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|fs:[12345678h], displbr
-64 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|fs:[12345678h], 
+64 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|fs:[12345678h],
 64 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|fs:[0], displbr
-64 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|fs:[0], 
+64 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|fs:[0],
 64 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|fs:[12345678h], displbr nods32
 64 8B 04 25 78563412, Mov_r32_rm32, 64, mov eax|fs:[12345678h], nods32
 64 8B 04 25 00000000, Mov_r32_rm32, 64, mov eax|fs:[0], displbr nods32
@@ -187,29 +187,29 @@
 64 8B 05 78563412, Mov_r32_rm32, 64, mov eax|fs:[rip+12345678h], displbr rip
 64 8B 05 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rip], rip
 64 8B 05 78563412, Mov_r32_rm32, 64, mov eax|fs:[800000001234566Fh], displbr
-64 8B 05 78563412, Mov_r32_rm32, 64, mov eax|fs:[800000001234566Fh], 
+64 8B 05 78563412, Mov_r32_rm32, 64, mov eax|fs:[800000001234566Fh],
 64 8B 05 00000000, Mov_r32_rm32, 64, mov eax|fs:[rip+0], displbr rip disp0
 64 8B 05 00000000, Mov_r32_rm32, 64, mov eax|fs:0[rip], rip disp0
 64 8B 05 00000000, Mov_r32_rm32, 64, mov eax|fs:[rip], displbr rip
 64 8B 05 00000000, Mov_r32_rm32, 64, mov eax|fs:[rip], rip
 
 64 8B 80 78563412, Mov_r32_rm32, 64, mov eax|fs:[rax+12345678h], displbr
-64 8B 80 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rax], 
+64 8B 80 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rax],
 64 8B 80 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax+0], displbr disp0
 64 8B 80 00000000, Mov_r32_rm32, 64, mov eax|fs:0[rax], disp0
 64 8B 80 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax], displbr
-64 8B 80 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax], 
+64 8B 80 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax],
 
 64 8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|fs:[rcx*2+12345678h], displbr
-64 8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rcx*2], 
+64 8B 04 4D 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rcx*2],
 64 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|fs:[rcx*2+0], displbr disp0
 64 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|fs:0[rcx*2], disp0
 64 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|fs:[rcx*2], displbr
-64 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|fs:[rcx*2], 
+64 8B 04 4D 00000000, Mov_r32_rm32, 64, mov eax|fs:[rcx*2],
 
 64 8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|fs:[rax+rcx*2+12345678h], displbr
-64 8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rax+rcx*2], 
+64 8B 84 48 78563412, Mov_r32_rm32, 64, mov eax|fs:12345678h[rax+rcx*2],
 64 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax+rcx*2+0], displbr disp0
 64 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|fs:0[rax+rcx*2], disp0
 64 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax+rcx*2], displbr
-64 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax+rcx*2], 
+64 8B 84 48 00000000, Mov_r32_rm32, 64, mov eax|fs:[rax+rcx*2],
