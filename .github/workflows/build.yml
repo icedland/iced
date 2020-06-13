@@ -347,10 +347,6 @@ jobs:
           echo ==== DOC ====
           # Use nightly since that's what docs.rs uses
           cargo +nightly doc --color always
-          echo ==== BUILD DEBUG ====
-          cargo build --color always --features "db"
-          echo ==== TEST DEBUG ====
-          cargo test --color always --features "db"
           echo ==== BUILD RELEASE ====
           cargo build --color always --features "db" --release
           echo ==== TEST RELEASE ====
@@ -373,10 +369,6 @@ jobs:
           echo ==== UPDATE Cargo.lock ====
           cargo +1.20.0 generate-lockfile
           cargo +1.20.0 update --package lazy_static --precise 1.1.1
-          echo ==== BUILD DEBUG ====
-          cargo +1.20.0 build --color always --features "db"
-          echo ==== TEST DEBUG ====
-          cargo +1.20.0 test --color always --features "db" -- --skip "lib.rs"
           echo ==== BUILD RELEASE ====
           cargo +1.20.0 build --color always --features "db" --release
           echo ==== TEST RELEASE ====
